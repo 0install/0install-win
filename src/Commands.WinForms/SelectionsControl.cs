@@ -39,6 +39,9 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>The current selections state as set by <see cref="SetSelections"/> or updated during <see cref="BeginAudit"/>.</summary>
         private Selections _selections;
 
+        /// <summary>The feed cache used to retreive feeds for additional information about imlementations.</summary>
+        private IFeedCache _feedCache;
+
         /// <summary>>A wait handle to be signaled once the user is done with <see cref="BeginAudit"/>.</summary>
         private EventWaitHandle _waitHandle;
 
@@ -66,11 +69,12 @@ namespace ZeroInstall.Commands.WinForms
         /// Shows the user the <see cref="Selections"/> made by the <see cref="ISolver"/>.
         /// </summary>
         /// <param name="selections">The <see cref="Selections"/> as provided by the <see cref="ISolver"/>.</param>
+        /// <param name="feedCache">The feed cache used to retreive feeds for additional information about imlementations.</param>
         /// <remarks>
         ///   <para>This method must not be called from a background thread.</para>
         ///   <para>This method must not be called before <see cref="Control.Handle"/> has been created.</para>
         /// </remarks>
-        public void SetSelections(Selections selections)
+        public void SetSelections(Selections selections, IFeedCache feedCache)
         {
             #region Sanity checks
             if (selections == null) throw new ArgumentNullException("selections");
@@ -79,6 +83,7 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             _selections = selections;
+            _feedCache = feedCache;
 
             // Build TableLayout rows
             tableLayout.Controls.Clear();
@@ -92,7 +97,7 @@ namespace ZeroInstall.Commands.WinForms
                 // Get feed for each selected implementation
                 var implementation = _selections.Implementations[i];
                 if (implementation.FromFeed != null && implementation.FromFeed.StartsWith(ImplementationSelection.DistributionFeedPrefix)) continue;
-                Feed feed = FeedCacheProvider.CreateDefault().GetFeed(implementation.FromFeed ?? implementation.InterfaceID);
+                Feed feed = _feedCache.GetFeed(implementation.FromFeed ?? implementation.InterfaceID);
 
                 // Display application name and implementation version
                 tableLayout.Controls.Add(new Label {Text = feed.Name, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft}, 0, i);
@@ -153,7 +158,7 @@ namespace ZeroInstall.Commands.WinForms
             solveWorker.RunWorkerCompleted += delegate
             {
                 // Update the UI
-                SetSelections(_selections);
+                SetSelections(_selections, _feedCache);
                 _auditLinks.Clear();
                 BeginAudit(solveCallback, waitHandle);
 

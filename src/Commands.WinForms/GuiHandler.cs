@@ -27,6 +27,7 @@ using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Commands.WinForms
 {
@@ -169,17 +170,18 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Selections UI
         /// <inheritdoc/>
-        public void ShowSelections(Selections selections)
+        public void ShowSelections(Selections selections, IFeedCache feedCache)
         {
             #region Sanity checks
             if (selections == null) throw new ArgumentNullException("selections");
+            if (feedCache == null) throw new ArgumentNullException("feedCache");
             #endregion
 
             // If GUI doesn't even exist cancel, otherwise wait until it's ready
             if (_form == null) return;
             _guiReady.WaitOne();
 
-            _form.Invoke(new SimpleEventHandler(() => _form.ShowSelections(selections)));
+            _form.Invoke(new SimpleEventHandler(() => _form.ShowSelections(selections, feedCache)));
         }
 
         /// <inheritdoc/>

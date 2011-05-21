@@ -25,6 +25,7 @@ using Common.Utils;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Commands.WinForms
 {
@@ -73,9 +74,10 @@ namespace ZeroInstall.Commands.WinForms
         /// Returns immediately.
         /// </summary>
         /// <param name="selections">The <see cref="Selections"/> as provided by the <see cref="ISolver"/>.</param>
+        /// <param name="feedCache">The feed cache used to retreive feeds for additional information about imlementations.</param>
         /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
-        public void ShowSelections(Selections selections)
+        public void ShowSelections(Selections selections, IFeedCache feedCache)
         {
             #region Sanity checks
             if (selections == null) throw new ArgumentNullException("selections");
@@ -86,8 +88,8 @@ namespace ZeroInstall.Commands.WinForms
             selectionsControl.Visible = true;
 
             // Defer execution while in tray-icon mode
-            if (selectionsControl.IsHandleCreated) selectionsControl.SetSelections(selections);
-            else Shown += delegate { selectionsControl.SetSelections(selections); };
+            if (selectionsControl.IsHandleCreated) selectionsControl.SetSelections(selections, feedCache);
+            else Shown += delegate { selectionsControl.SetSelections(selections, feedCache); };
         }
 
         /// <summary>

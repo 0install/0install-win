@@ -18,6 +18,7 @@
 using Common;
 using Common.Tasks;
 using ZeroInstall.Injector.Solver;
+using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Injector
 {
@@ -56,7 +57,7 @@ namespace ZeroInstall.Injector
         }
 
         /// <inheritdoc/>
-        public virtual void ShowSelections(Selections selections)
+        public virtual void ShowSelections(Selections selections, IFeedCache feedCache)
         {
             // No UI, so nothing to do
         }

@@ -54,7 +54,7 @@ namespace ZeroInstall.Commands
             }
 
             /// <inheritdoc/>
-            public override void ShowSelections(Selections selections)
+            public override void ShowSelections(Selections selections, IFeedCache feedCache)
             {
                 _showSelectionsCallback(selections);
             }

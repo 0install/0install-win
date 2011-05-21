@@ -31,20 +31,11 @@ namespace Common.Tasks
     public class GuiTaskHandler : MarshalByRefObject, ITaskHandler
     {
         /// <inheritdoc />
-        public bool Batch { get; set; }
-
-        /// <inheritdoc />
         public void RunTask(ITask task, object tag)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
             #endregion
-
-            if (Batch)
-            {
-                task.RunSync();
-                return;
-            }
 
             TrackingDialog.Run(null, task, null);
         }

@@ -176,7 +176,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         protected void SelectionsUI()
         {
-            Policy.Handler.ShowSelections(Selections);
+            Policy.Handler.ShowSelections(Selections, Policy.FeedManager.Cache);
 
             // Allow the user to trigger a Solver rerun after modifying preferences
             if (ShowSelectionsUI && !SelectionsDocument)

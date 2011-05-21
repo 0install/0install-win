@@ -21,6 +21,7 @@ using Common.Cli;
 using Common.Tasks;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
+using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Commands
 {
@@ -29,6 +30,9 @@ namespace ZeroInstall.Commands
     /// </summary>
     public class CliHandler : CliTaskHandler, IHandler
     {
+        /// <inheritdoc />
+        public bool Batch { get; set; }
+
         /// <inheritdoc/>
         public void ShowProgressUI(SimpleEventHandler cancelCallback)
         {
@@ -70,7 +74,7 @@ namespace ZeroInstall.Commands
         }
 
         /// <inheritdoc/>
-        public void ShowSelections(Selections selections)
+        public void ShowSelections(Selections selections, IFeedCache feedCache)
         {
             // Console UI only, so nothing to do
         }

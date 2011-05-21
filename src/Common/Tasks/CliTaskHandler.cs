@@ -30,9 +30,6 @@ namespace Common.Tasks
     /// </summary>
     public class CliTaskHandler : MarshalByRefObject, ITaskHandler
     {
-        /// <inheritdoc />
-        public bool Batch { get; set; }
-
         /// <summary>Synchronization object used to prevent multiple concurrent <see cref="ITask"/>s.</summary>
         private readonly object _taskLock = new object();
 
@@ -42,12 +39,6 @@ namespace Common.Tasks
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
             #endregion
-
-            if (Batch)
-            {
-                task.RunSync();
-                return;
-            }
 
             lock (_taskLock) // Prevent multiple concurrent tasks
             {

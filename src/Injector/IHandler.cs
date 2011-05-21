@@ -19,6 +19,7 @@ using Common;
 using Common.Tasks;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
+using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Injector
 {
@@ -75,11 +76,12 @@ namespace ZeroInstall.Injector
         /// Returns immediately. Will be ignored by non-GUI intefaces.
         /// </summary>
         /// <param name="selections">The <see cref="Selections"/> as provided by the <see cref="ISolver"/>.</param>
+        /// <param name="feedCache">The feed cache used to retreive feeds for additional information about imlementations.</param>
         /// <remarks>
         ///   <para>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</para>
         ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
         /// </remarks>
-        void ShowSelections(Selections selections);
+        void ShowSelections(Selections selections, IFeedCache feedCache);
 
         /// <summary>
         /// Allows the user to modify the <see cref="InterfacePreferences"/> and rerun the <see cref="ISolver"/> if desired.

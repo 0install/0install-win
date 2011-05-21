@@ -113,7 +113,7 @@ namespace ZeroInstall.Injector.Feeds
             throw new IOException(string.Format("The feed '{0}' is not cached. Please run '0install select {0}' first.", feedID));
         }
         #endregion
-        
+
         //--------------------//
 
         #region Clone
