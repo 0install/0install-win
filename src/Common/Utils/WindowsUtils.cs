@@ -117,7 +117,7 @@ namespace Common.Utils
         Paused = 0x8
     }
     #endregion
-    
+
     /// <summary>
     /// Easily access non-Framework Windows DLLs.
     /// </summary>
@@ -358,7 +358,7 @@ namespace Common.Utils
         /// <summary>
         /// Closes an existing mutex handle. The mutex is destroyed if this is the last handle.
         /// </summary>
-        /// <param name="handle">The handle for the mutex.</param>
+        /// <param name="handle">The mutex handle to be closed.</param>
         public static void CloseMutex(IntPtr handle)
         {
             SafeNativeMethods.CloseHandle(handle);
