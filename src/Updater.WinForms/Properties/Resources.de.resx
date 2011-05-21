@@ -123,6 +123,9 @@
   <data name="DeleteFiles" xml:space="preserve">
     <value>Lösche nicht mehr benötigte Dateien...</value>
   </data>
+  <data name="Done" xml:space="preserve">
+    <value>Fertig.</value>
+  </data>
   <data name="MutexWait" xml:space="preserve">
     <value>Warte auf das Beenden aller Zero Install Instanzen...</value>
   </data>

@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
@@ -93,23 +94,22 @@ namespace ZeroInstall.Updater.WinForms
                 SetStatus(Resources.RerunElevated);
                 RerunElevated();
             }
+
+            SetStatus(Resources.Done);
+            _updateProcess.Done();
         }
 
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (e.Error == null)
+            if (e.Error != null)
             {
-                if (!_rerun) RestoreGui(true);
-            }
-            else
-            {
-                if (e.Error is IOException)
-                {
+                if (e.Error is IOException || e.Error is UnauthorizedAccessException)
                     Msg.Inform(this, e.Error.Message, MsgSeverity.Error);
-                    RestoreGui(false);
-                }
                 else ErrorReportForm.Report(e.Error, new Uri("http://0install.de/error-report/"));
             }
+
+            if (!_rerun) RestoreGui();
+            Thread.Sleep(2000);
             Close();
         }
 
@@ -141,15 +141,14 @@ namespace ZeroInstall.Updater.WinForms
         /// <summary>
         /// Restores Zero Install's main GUI.
         /// </summary>
-        /// <param name="updated">Indicates whether an update was actually successfully installed.</param>
-        private void RestoreGui(bool updated)
+        private void RestoreGui()
         {
-            var startInfo = new ProcessStartInfo(Path.Combine(_updateProcess.Target, "ZeroInstall.exe"), updated ? "--updated" : "")
+            var startInfo = new ProcessStartInfo(Path.Combine(_updateProcess.Target, "ZeroInstall.exe"))
             {
                 ErrorDialog = true,
                 ErrorDialogParentHandle = Handle
             };
-            Process.Start(startInfo).WaitForExit();
+            Process.Start(startInfo);
         }
         #endregion
     }

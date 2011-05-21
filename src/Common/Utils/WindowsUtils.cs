@@ -282,16 +282,17 @@ namespace Common.Utils
         /// Creates or opens a mutex.
         /// </summary>
         /// <param name="name">The name to be used as a mutex identifier.</param>
+        /// <param name="handle">The handle created for the mutex. Can be used to close it before the process ends.</param>
         /// <returns><see langword="true"/> if an existing mutex was opened; <see langword="false"/> if a new one was created.</returns>
         /// <exception cref="Win32Exception">Thrown if the native subsystem reported a problem.</exception>
         /// <remarks>The mutex will automatically be released once the process terminates.</remarks>
-        public static bool CreateMutex(string name)
+        public static bool CreateMutex(string name, out IntPtr handle)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
             #endregion
 
-            SafeNativeMethods.CreateMutex(IntPtr.Zero, false, name);
+            handle = SafeNativeMethods.CreateMutex(IntPtr.Zero, false, name);
 
             int error = Marshal.GetLastWin32Error();
             switch (error)
@@ -352,6 +353,15 @@ namespace Common.Utils
 
             SafeNativeMethods.CloseHandle(handle);
             return result;
+        }
+
+        /// <summary>
+        /// Closes an existing mutex handle. The mutex is destroyed if this is the last handle.
+        /// </summary>
+        /// <param name="handle">The handle for the mutex.</param>
+        public static void CloseMutex(IntPtr handle)
+        {
+            SafeNativeMethods.CloseHandle(handle);
         }
         #endregion
 

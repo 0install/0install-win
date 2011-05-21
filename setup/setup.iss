@@ -80,17 +80,10 @@ Name: {commondesktop}\Zero Install.url; Type: files
 Name: {commonprograms}\Zero Install\Zero Install.url; Type: files
 
 ;Remove obsolete files from previous versions
-Name: {app}\ZeroInstall.Launcher.*; Type: files
-Name: {app}\ZeroInstall.DownloadBroker.*; Type: files
-Name: {app}\0launch-win.*; Type: files
-Name: {app}\0launchw.*; Type: files
-Name: {app}\0storew.*; Type: files
-Name: {app}\de\*.resources.dll; Type: files
-Name: {app}\*.Wpf.*; Type: files
-Name: {app}\*-wpf.*; Type: files
-Name: {app}\Interop.IWshRuntimeLibrary.dll; Type: files
-Name: {app}\*.xml; Type: files
 Name: {app}\Python; Type: filesandordirs
+Name: {app}\*.xml; Type: files
+Name: {app}\ZeroInstall.MyApps.dll; Type: files
+Name: {app}\de\ZeroInstall.MyApps.resources.dll; Type: files
 
 [Files]
 Source: ..\lgpl.txt; DestDir: {app}; Flags: ignoreversion

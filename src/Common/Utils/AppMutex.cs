@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Security.Cryptography;
 using System.Text;
@@ -31,8 +32,28 @@ namespace Common.Utils
     /// <summary>
     /// Allows control over the number of instances of an application running.
     /// </summary>
-    public static class AppMutex
+    public sealed class AppMutex
     {
+        #region Handles
+        private readonly List<IntPtr> _handles;
+
+        private AppMutex(IEnumerable<IntPtr> handles)
+        {
+            _handles = new List<IntPtr>(handles);
+        }
+
+        /// <summary>
+        /// Closes all contained handles, allowing the mutex to be released.
+        /// </summary>
+        public void Close()
+        {
+            foreach (var handle in _handles)
+            {
+                if (handle != IntPtr.Zero) WindowsUtils.CloseMutex(handle);
+            }
+        }
+        #endregion
+
         /// <summary>
         /// Creates or opens a mutex (local and global) to signal that an application is running.
         /// </summary>
@@ -49,10 +70,43 @@ namespace Common.Utils
 
             // Always create the mutex both in the local session and globally and report if any instance already existed
             bool result = false;
-            try { result |= WindowsUtils.CreateMutex(name); }
-            catch(Win32Exception ex) { Log.Warn(ex.Message); }
-            try { result |= WindowsUtils.CreateMutex("Global\\" + name); }
+            IntPtr handle;
+            try { result |= WindowsUtils.CreateMutex(name, out handle); }
             catch (Win32Exception ex) { Log.Warn(ex.Message); }
+            try { result |= WindowsUtils.CreateMutex("Global\\" + name, out handle); }
+            catch (Win32Exception ex) { Log.Warn(ex.Message); }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creates or opens a mutex (local and global) to signal that an application is running.
+        /// </summary>
+        /// <param name="name">The name to be used as a mutex identifier.</param>
+        /// <param name="mutex">A pointer to the mutex.</param>
+        /// <returns><see langword="true"/> if an existing mutex was opened; <see langword="false"/> if a new one was created.</returns>
+        /// <remarks>The mutex will automatically be released once the process terminates or you call <see cref="Close"/> on <paramref name="mutex"/>.</remarks>
+        public static bool Create(string name, out AppMutex mutex)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            #endregion
+
+            if (!WindowsUtils.IsWindows)
+            {
+                mutex = null;
+                return false;
+            }
+
+            // Always create the mutex both in the local session and globally and report if any instance already existed
+            bool result = false;
+            IntPtr handle1 = IntPtr.Zero, handle2 = IntPtr.Zero;
+            try { result |= WindowsUtils.CreateMutex(name, out handle1); }
+            catch(Win32Exception ex) { Log.Warn(ex.Message); }
+            try { result |= WindowsUtils.CreateMutex("Global\\" + name, out handle2); }
+            catch (Win32Exception ex) { Log.Warn(ex.Message); }
+
+            mutex = new AppMutex(new[] {handle1, handle2});
             return result;
         }
 

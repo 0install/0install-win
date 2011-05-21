@@ -29,6 +29,14 @@ namespace ZeroInstall.Updater
     /// </summary>
     public class UpdateProcess
     {
+        #region Variables
+        /// <summary>The version number of the new/updated version.</summary>
+        private readonly string _newVersion;
+
+        /// <summary>A mutex that prevents Zero Install instances from being launched while an update is in progress.</summary>
+        private AppMutex _blockingMutex;
+        #endregion
+
         #region Properties
         /// <summary>
         /// The full path to the directory containing the new/updated version.
@@ -47,9 +55,10 @@ namespace ZeroInstall.Updater
         /// </summary>
         /// <param name="source">The directory containing the new/updated version.</param>
         /// <param name="target">The directory containing the old version to be updated.</param>
+        /// <param name="newVersion">The version number of the new/updated version.</param>
         /// <exception cref="IOException">Thrown if there was a problem accessing one of the directories.</exception>
         /// <exception cref="NotSupportedException">Thrown if one of the directory paths is invalid.</exception>
-        public UpdateProcess(string source, string target)
+        public UpdateProcess(string source, string target, string newVersion)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
@@ -58,6 +67,7 @@ namespace ZeroInstall.Updater
 
             Source = Path.GetFullPath(source);
             Target = Path.GetFullPath(target);
+            _newVersion = newVersion;
 
             if (!Directory.Exists(Source)) throw new DirectoryNotFoundException(Resources.SourceMissing);
         }
@@ -74,21 +84,27 @@ namespace ZeroInstall.Updater
             string targetMutex = AppMutex.GenerateName(Target);
             while (AppMutex.Probe(targetMutex))
                 Thread.Sleep(1000);
-            AppMutex.Create(targetMutex + "-update");
+            AppMutex.Create(targetMutex + "-update", out _blockingMutex);
             while (AppMutex.Probe(targetMutex))
                 Thread.Sleep(1000);
         }
         #endregion
 
         #region Delete files
-        private static readonly string[] _obsoleteFiles = new[] {"ZeroInstall.MyApps.dll", Path.Combine("de", "ZeroInstall.MyApps.resources.dll")};
-
         /// <summary>
         /// Deletes obsolete files from <see cref="Target"/>.
         /// </summary>
         public void DeleteFiles()
         {
-            foreach(string file in _obsoleteFiles) File.Delete(file);
+            if (string.IsNullOrEmpty(_newVersion)) return;
+
+            switch (_newVersion)
+            {
+                case "0.54.4":
+                    foreach (string file in new[] {"ZeroInstall.MyApps.dll", Path.Combine("de", "ZeroInstall.MyApps.resources.dll")})
+                        File.Delete(file);
+                    break;
+            }
         }
         #endregion
 
@@ -126,11 +142,22 @@ namespace ZeroInstall.Updater
         /// </summary>
         public void UpdateRegistry()
         {
-            string newVersion = Environment.GetEnvironmentVariable("ZEROINSTALL_VERSION");
-            if (string.IsNullOrEmpty(newVersion)) return;
+            if (string.IsNullOrEmpty(_newVersion)) return;
 
-            var innoSetupKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Zero Install_is1");
-            if (innoSetupKey != null) innoSetupKey.SetValue("DisplayVerion", newVersion);
+            using (var innoSetupKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Zero Install_is1", true))
+            {
+                if (innoSetupKey != null) innoSetupKey.SetValue("DisplayVersion", _newVersion);
+            }
+        }
+        #endregion
+
+        #region Done
+        /// <summary>
+        /// Finishes the update process. Counterpart to <see cref="MutexWait"/>.
+        /// </summary>
+        public void Done()
+        {
+            _blockingMutex.Close();
         }
         #endregion
     }

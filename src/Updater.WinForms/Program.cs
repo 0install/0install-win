@@ -55,7 +55,7 @@ namespace ZeroInstall.Updater.WinForms
             }
 
             UpdateProcess updateProcess;
-            try { updateProcess = new UpdateProcess(args[0], args[1]); }
+            try { updateProcess = new UpdateProcess(args[0], args[1], "0.54.3.1" /*Environment.GetEnvironmentVariable("ZEROINSTALL_VERSION")*/); }
             #region Error handling
             catch (IOException ex)
             {

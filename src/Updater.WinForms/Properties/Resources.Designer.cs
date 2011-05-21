@@ -79,6 +79,15 @@ namespace ZeroInstall.Updater.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Done..
+        /// </summary>
+        internal static string Done {
+            get {
+                return ResourceManager.GetString("Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Waiting for all Zero Install instances to end....
         /// </summary>
         internal static string MutexWait {
