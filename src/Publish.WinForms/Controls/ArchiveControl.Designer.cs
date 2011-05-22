@@ -62,14 +62,14 @@ namespace ZeroInstall.Publish.WinForms.Controls
             // 
             // comboBoxArchiveFormat
             // 
-            this.comboBoxArchiveFormat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxArchiveFormat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxArchiveFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxArchiveFormat.FormattingEnabled = true;
             this.comboBoxArchiveFormat.Location = new System.Drawing.Point(3, 16);
             this.comboBoxArchiveFormat.Name = "comboBoxArchiveFormat";
             this.comboBoxArchiveFormat.Size = new System.Drawing.Size(254, 21);
-            this.comboBoxArchiveFormat.TabIndex = 10;
+            this.comboBoxArchiveFormat.TabIndex = 1;
             // 
             // labelStartOffset
             // 
@@ -77,7 +77,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.labelStartOffset.Location = new System.Drawing.Point(0, 40);
             this.labelStartOffset.Name = "labelStartOffset";
             this.labelStartOffset.Size = new System.Drawing.Size(58, 13);
-            this.labelStartOffset.TabIndex = 20;
+            this.labelStartOffset.TabIndex = 2;
             this.labelStartOffset.Text = "Start offset";
             // 
             // labelStartOffsetBytes
@@ -87,7 +87,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.labelStartOffsetBytes.Location = new System.Drawing.Point(224, 59);
             this.labelStartOffsetBytes.Name = "labelStartOffsetBytes";
             this.labelStartOffsetBytes.Size = new System.Drawing.Size(33, 13);
-            this.labelStartOffsetBytes.TabIndex = 40;
+            this.labelStartOffsetBytes.TabIndex = 4;
             this.labelStartOffsetBytes.Text = "Bytes";
             // 
             // labelArchiveUrl
@@ -96,7 +96,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.labelArchiveUrl.Location = new System.Drawing.Point(0, 79);
             this.labelArchiveUrl.Name = "labelArchiveUrl";
             this.labelArchiveUrl.Size = new System.Drawing.Size(59, 13);
-            this.labelArchiveUrl.TabIndex = 50;
+            this.labelArchiveUrl.TabIndex = 5;
             this.labelArchiveUrl.Text = "Archive Url";
             // 
             // buttonDownload
@@ -105,7 +105,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.buttonDownload.Location = new System.Drawing.Point(189, 121);
             this.buttonDownload.Name = "buttonDownload";
             this.buttonDownload.Size = new System.Drawing.Size(68, 23);
-            this.buttonDownload.TabIndex = 80;
+            this.buttonDownload.TabIndex = 7;
             this.buttonDownload.Text = "Download";
             this.buttonDownload.UseVisualStyleBackColor = true;
             this.buttonDownload.Click += new System.EventHandler(this.ButtonDownloadClick);
@@ -116,7 +116,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.labelLocalArchive.Location = new System.Drawing.Point(0, 147);
             this.labelLocalArchive.Name = "labelLocalArchive";
             this.labelLocalArchive.Size = new System.Drawing.Size(71, 13);
-            this.labelLocalArchive.TabIndex = 100;
+            this.labelLocalArchive.TabIndex = 8;
             this.labelLocalArchive.Text = "Local archive";
             // 
             // buttonLocalArchive
@@ -125,7 +125,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.buttonLocalArchive.Location = new System.Drawing.Point(162, 189);
             this.buttonLocalArchive.Name = "buttonLocalArchive";
             this.buttonLocalArchive.Size = new System.Drawing.Size(95, 23);
-            this.buttonLocalArchive.TabIndex = 120;
+            this.buttonLocalArchive.TabIndex = 10;
             this.buttonLocalArchive.Text = "Choose archive";
             this.buttonLocalArchive.UseVisualStyleBackColor = true;
             this.buttonLocalArchive.Click += new System.EventHandler(this.ButtonLocalArchiveClick);
@@ -136,14 +136,14 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.labelSubDirectory.Location = new System.Drawing.Point(0, 246);
             this.labelSubDirectory.Name = "labelSubDirectory";
             this.labelSubDirectory.Size = new System.Drawing.Size(66, 13);
-            this.labelSubDirectory.TabIndex = 130;
+            this.labelSubDirectory.TabIndex = 12;
             this.labelSubDirectory.Text = "Subdirectory";
             // 
             // treeViewSubDirectory
             // 
-            this.treeViewSubDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.treeViewSubDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.treeViewSubDirectory.Location = new System.Drawing.Point(3, 262);
             this.treeViewSubDirectory.Name = "treeViewSubDirectory";
             treeNode1.Name = "rootNode";
@@ -154,7 +154,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.treeViewSubDirectory.ShowLines = false;
             this.treeViewSubDirectory.ShowRootLines = false;
             this.treeViewSubDirectory.Size = new System.Drawing.Size(254, 133);
-            this.treeViewSubDirectory.TabIndex = 140;
+            this.treeViewSubDirectory.TabIndex = 13;
             this.treeViewSubDirectory.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewSubDirectoryAfterSelect);
             // 
             // buttonExtractArchive
@@ -164,7 +164,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.buttonExtractArchive.Location = new System.Drawing.Point(162, 233);
             this.buttonExtractArchive.Name = "buttonExtractArchive";
             this.buttonExtractArchive.Size = new System.Drawing.Size(95, 23);
-            this.buttonExtractArchive.TabIndex = 150;
+            this.buttonExtractArchive.TabIndex = 11;
             this.buttonExtractArchive.Text = "Extract archive";
             this.buttonExtractArchive.UseVisualStyleBackColor = true;
             this.buttonExtractArchive.Click += new System.EventHandler(this.ButtonExtractArchiveClick);
@@ -175,24 +175,24 @@ namespace ZeroInstall.Publish.WinForms.Controls
             // 
             // hintTextBoxLocalArchive
             // 
-            this.hintTextBoxLocalArchive.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxLocalArchive.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxLocalArchive.HintText = "";
             this.hintTextBoxLocalArchive.Location = new System.Drawing.Point(3, 163);
             this.hintTextBoxLocalArchive.Name = "hintTextBoxLocalArchive";
             this.hintTextBoxLocalArchive.ReadOnly = true;
             this.hintTextBoxLocalArchive.Size = new System.Drawing.Size(254, 20);
-            this.hintTextBoxLocalArchive.TabIndex = 110;
+            this.hintTextBoxLocalArchive.TabIndex = 9;
             // 
             // hintTextBoxStartOffset
             // 
-            this.hintTextBoxStartOffset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxStartOffset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxStartOffset.HintText = "";
             this.hintTextBoxStartOffset.Location = new System.Drawing.Point(3, 56);
             this.hintTextBoxStartOffset.Name = "hintTextBoxStartOffset";
             this.hintTextBoxStartOffset.Size = new System.Drawing.Size(215, 20);
-            this.hintTextBoxStartOffset.TabIndex = 30;
+            this.hintTextBoxStartOffset.TabIndex = 3;
             this.hintTextBoxStartOffset.TextChanged += new System.EventHandler(this.HintTextBoxStartOffsetTextChanged);
             // 
             // uriTextBoxArchiveUrl
@@ -204,7 +204,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.uriTextBoxArchiveUrl.Location = new System.Drawing.Point(3, 96);
             this.uriTextBoxArchiveUrl.Name = "uriTextBoxArchiveUrl";
             this.uriTextBoxArchiveUrl.Size = new System.Drawing.Size(251, 20);
-            this.uriTextBoxArchiveUrl.TabIndex = 151;
+            this.uriTextBoxArchiveUrl.TabIndex = 6;
             this.uriTextBoxArchiveUrl.Validated += new System.EventHandler(this.UriTextBoxArchiveUrlValidated);
             // 
             // ArchiveControl

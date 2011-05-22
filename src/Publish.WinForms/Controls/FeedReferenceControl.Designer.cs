@@ -30,7 +30,7 @@
         {
             this.lblExtFeedURL = new System.Windows.Forms.Label();
             this.textBoxExtFeedURL = new Common.Controls.HintTextBox();
-            this.targetBaseControl = new TargetBaseControl();
+            this.targetBaseControl = new ZeroInstall.Publish.WinForms.Controls.TargetBaseControl();
             this.SuspendLayout();
             // 
             // lblExtFeedURL
@@ -44,12 +44,12 @@
             // 
             // textBoxExtFeedURL
             // 
-            this.textBoxExtFeedURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxExtFeedURL.ShowClearButton = true;
+            this.textBoxExtFeedURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxExtFeedURL.HintText = "URL to an external feed";
             this.textBoxExtFeedURL.Location = new System.Drawing.Point(0, 16);
             this.textBoxExtFeedURL.Name = "textBoxExtFeedURL";
+            this.textBoxExtFeedURL.ShowClearButton = true;
             this.textBoxExtFeedURL.Size = new System.Drawing.Size(502, 20);
             this.textBoxExtFeedURL.TabIndex = 1;
             this.textBoxExtFeedURL.TextChanged += new System.EventHandler(this.textBoxExtFeedURL_TextChanged);
@@ -59,8 +59,7 @@
             this.targetBaseControl.Location = new System.Drawing.Point(0, 40);
             this.targetBaseControl.Name = "targetBaseControl";
             this.targetBaseControl.Size = new System.Drawing.Size(502, 128);
-            this.targetBaseControl.TabIndex = 3;
-            this.targetBaseControl.TargetBase = null;
+            this.targetBaseControl.TabIndex = 2;
             // 
             // FeedReferenceControl
             // 

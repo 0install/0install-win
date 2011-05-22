@@ -47,7 +47,7 @@
             this.labelSource.Location = new System.Drawing.Point(12, 9);
             this.labelSource.Name = "labelSource";
             this.labelSource.Size = new System.Drawing.Size(41, 13);
-            this.labelSource.TabIndex = 1002;
+            this.labelSource.TabIndex = 0;
             this.labelSource.Text = "Source";
             // 
             // hintTextBoxSource
@@ -56,7 +56,7 @@
             this.hintTextBoxSource.Location = new System.Drawing.Point(12, 25);
             this.hintTextBoxSource.Name = "hintTextBoxSource";
             this.hintTextBoxSource.Size = new System.Drawing.Size(260, 20);
-            this.hintTextBoxSource.TabIndex = 1003;
+            this.hintTextBoxSource.TabIndex = 1;
             // 
             // WorkingDirForm
             // 

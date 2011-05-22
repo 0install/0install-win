@@ -42,19 +42,19 @@
             this.labelArgument.Location = new System.Drawing.Point(-3, 0);
             this.labelArgument.Name = "labelArgument";
             this.labelArgument.Size = new System.Drawing.Size(52, 13);
-            this.labelArgument.TabIndex = 1009;
+            this.labelArgument.TabIndex = 0;
             this.labelArgument.Text = "Argument";
             // 
             // listBoxArguments
             // 
-            this.listBoxArguments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxArguments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxArguments.FormattingEnabled = true;
             this.listBoxArguments.Location = new System.Drawing.Point(0, 42);
             this.listBoxArguments.Name = "listBoxArguments";
             this.listBoxArguments.Size = new System.Drawing.Size(260, 82);
-            this.listBoxArguments.TabIndex = 1008;
+            this.listBoxArguments.TabIndex = 2;
             // 
             // buttonAddArgument
             // 
@@ -62,18 +62,18 @@
             this.buttonAddArgument.Location = new System.Drawing.Point(269, 42);
             this.buttonAddArgument.Name = "buttonAddArgument";
             this.buttonAddArgument.Size = new System.Drawing.Size(78, 23);
-            this.buttonAddArgument.TabIndex = 1010;
+            this.buttonAddArgument.TabIndex = 3;
             this.buttonAddArgument.Text = "Add";
             this.buttonAddArgument.UseVisualStyleBackColor = true;
             // 
             // textBoxArgument
             // 
-            this.textBoxArgument.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxArgument.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxArgument.Location = new System.Drawing.Point(0, 16);
             this.textBoxArgument.Name = "textBoxArgument";
             this.textBoxArgument.Size = new System.Drawing.Size(260, 20);
-            this.textBoxArgument.TabIndex = 1011;
+            this.textBoxArgument.TabIndex = 1;
             // 
             // buttonRemoveArgument
             // 
@@ -81,7 +81,7 @@
             this.buttonRemoveArgument.Location = new System.Drawing.Point(269, 71);
             this.buttonRemoveArgument.Name = "buttonRemoveArgument";
             this.buttonRemoveArgument.Size = new System.Drawing.Size(78, 23);
-            this.buttonRemoveArgument.TabIndex = 1012;
+            this.buttonRemoveArgument.TabIndex = 4;
             this.buttonRemoveArgument.Text = "Remove";
             this.buttonRemoveArgument.UseVisualStyleBackColor = true;
             // 
@@ -91,7 +91,7 @@
             this.buttonClearArguments.Location = new System.Drawing.Point(269, 100);
             this.buttonClearArguments.Name = "buttonClearArguments";
             this.buttonClearArguments.Size = new System.Drawing.Size(78, 23);
-            this.buttonClearArguments.TabIndex = 1013;
+            this.buttonClearArguments.TabIndex = 5;
             this.buttonClearArguments.Text = "Clear";
             this.buttonClearArguments.UseVisualStyleBackColor = true;
             // 

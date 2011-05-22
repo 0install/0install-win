@@ -58,7 +58,7 @@
             this.textBoxName.Location = new System.Drawing.Point(15, 25);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(382, 20);
-            this.textBoxName.TabIndex = 1002;
+            this.textBoxName.TabIndex = 1;
             // 
             // labelName
             // 
@@ -66,7 +66,7 @@
             this.labelName.Location = new System.Drawing.Point(12, 9);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(35, 13);
-            this.labelName.TabIndex = 1003;
+            this.labelName.TabIndex = 0;
             this.labelName.Text = "Name";
             // 
             // labelPath
@@ -75,7 +75,7 @@
             this.labelPath.Location = new System.Drawing.Point(12, 48);
             this.labelPath.Name = "labelPath";
             this.labelPath.Size = new System.Drawing.Size(29, 13);
-            this.labelPath.TabIndex = 1004;
+            this.labelPath.TabIndex = 2;
             this.labelPath.Text = "Path";
             // 
             // textBoxPath
@@ -85,7 +85,7 @@
             this.textBoxPath.Location = new System.Drawing.Point(15, 64);
             this.textBoxPath.Name = "textBoxPath";
             this.textBoxPath.Size = new System.Drawing.Size(382, 20);
-            this.textBoxPath.TabIndex = 1005;
+            this.textBoxPath.TabIndex = 3;
             // 
             // argumentsControl
             // 
@@ -95,7 +95,7 @@
             this.argumentsControl.Location = new System.Drawing.Point(6, 19);
             this.argumentsControl.Name = "argumentsControl";
             this.argumentsControl.Size = new System.Drawing.Size(370, 133);
-            this.argumentsControl.TabIndex = 1006;
+            this.argumentsControl.TabIndex = 0;
             // 
             // groupBoxArguments
             // 
@@ -106,7 +106,7 @@
             this.groupBoxArguments.Location = new System.Drawing.Point(15, 90);
             this.groupBoxArguments.Name = "groupBoxArguments";
             this.groupBoxArguments.Size = new System.Drawing.Size(382, 154);
-            this.groupBoxArguments.TabIndex = 1009;
+            this.groupBoxArguments.TabIndex = 4;
             this.groupBoxArguments.TabStop = false;
             this.groupBoxArguments.Text = "Arguments";
             // 
@@ -120,7 +120,7 @@
             this.groupBoxWorkingDir.Location = new System.Drawing.Point(15, 248);
             this.groupBoxWorkingDir.Name = "groupBoxWorkingDir";
             this.groupBoxWorkingDir.Size = new System.Drawing.Size(382, 59);
-            this.groupBoxWorkingDir.TabIndex = 1010;
+            this.groupBoxWorkingDir.TabIndex = 5;
             this.groupBoxWorkingDir.TabStop = false;
             this.groupBoxWorkingDir.Text = "Working Directory";
             // 
@@ -130,7 +130,7 @@
             this.checkBoxWorkingDir.Location = new System.Drawing.Point(9, 35);
             this.checkBoxWorkingDir.Name = "checkBoxWorkingDir";
             this.checkBoxWorkingDir.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxWorkingDir.TabIndex = 1011;
+            this.checkBoxWorkingDir.TabIndex = 1;
             this.checkBoxWorkingDir.UseVisualStyleBackColor = true;
             this.checkBoxWorkingDir.CheckedChanged += new System.EventHandler(this.CheckBoxWorkingDirCheckedChanged);
             // 
@@ -140,7 +140,7 @@
             this.labelSource.Location = new System.Drawing.Point(6, 16);
             this.labelSource.Name = "labelSource";
             this.labelSource.Size = new System.Drawing.Size(41, 13);
-            this.labelSource.TabIndex = 1009;
+            this.labelSource.TabIndex = 0;
             this.labelSource.Text = "Source";
             // 
             // hintTextBoxSource
@@ -149,7 +149,7 @@
             this.hintTextBoxSource.Location = new System.Drawing.Point(30, 32);
             this.hintTextBoxSource.Name = "hintTextBoxSource";
             this.hintTextBoxSource.Size = new System.Drawing.Size(346, 20);
-            this.hintTextBoxSource.TabIndex = 1010;
+            this.hintTextBoxSource.TabIndex = 2;
             // 
             // CommandForm
             // 

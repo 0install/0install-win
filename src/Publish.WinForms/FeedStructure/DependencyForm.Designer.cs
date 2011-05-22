@@ -44,17 +44,17 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(156, 241);
+            this.buttonOK.Location = new System.Drawing.Point(156, 208);
             this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(237, 241);
+            this.buttonCancel.Location = new System.Drawing.Point(237, 208);
             // 
             // hintTextBoxInterface
             // 
-            this.hintTextBoxInterface.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxInterface.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxInterface.HintText = "";
             this.hintTextBoxInterface.Location = new System.Drawing.Point(15, 25);
             this.hintTextBoxInterface.Name = "hintTextBoxInterface";
@@ -82,8 +82,8 @@
             // 
             // hintTextBoxUse
             // 
-            this.hintTextBoxUse.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxUse.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxUse.HintText = "";
             this.hintTextBoxUse.Location = new System.Drawing.Point(15, 64);
             this.hintTextBoxUse.Name = "hintTextBoxUse";
@@ -92,9 +92,8 @@
             // 
             // listBoxConstraints
             // 
-            this.listBoxConstraints.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxConstraints.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxConstraints.FormattingEnabled = true;
             this.listBoxConstraints.Location = new System.Drawing.Point(15, 129);
             this.listBoxConstraints.Name = "listBoxConstraints";
@@ -142,7 +141,7 @@
             // 
             // buttonConstraintAdd
             // 
-            this.buttonConstraintAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonConstraintAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonConstraintAdd.Location = new System.Drawing.Point(237, 133);
             this.buttonConstraintAdd.Name = "buttonConstraintAdd";
             this.buttonConstraintAdd.Size = new System.Drawing.Size(75, 23);
@@ -153,7 +152,7 @@
             // 
             // buttonConstraintRemove
             // 
-            this.buttonConstraintRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonConstraintRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonConstraintRemove.Location = new System.Drawing.Point(237, 162);
             this.buttonConstraintRemove.Name = "buttonConstraintRemove";
             this.buttonConstraintRemove.Size = new System.Drawing.Size(75, 23);
@@ -177,7 +176,7 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(324, 276);
+            this.ClientSize = new System.Drawing.Size(324, 243);
             this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.buttonConstraintRemove);
             this.Controls.Add(this.buttonConstraintAdd);
@@ -190,7 +189,6 @@
             this.Controls.Add(this.labelUse);
             this.Controls.Add(this.labelInterface);
             this.Controls.Add(this.hintTextBoxInterface);
-            this.MinimumSize = new System.Drawing.Size(330, 304);
             this.Name = "DependencyForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit dependency";
