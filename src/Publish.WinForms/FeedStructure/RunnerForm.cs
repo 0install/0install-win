@@ -21,13 +21,31 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
     public partial class RunnerForm : DependencyForm
     {
-        // ToDo: Handle additional properties of Runners (Command name, Arguments)
+        public Runner Runner
+        {
+            get { return Dependency as Runner; }
+            set
+            {
+                Dependency = value;
 
-        public Runner Runner { get { return Dependency as Runner; } set { Dependency = value; } }
+                textCommand.Text = value.Command;
+
+                argumentsControl.Arguments.Clear();
+                argumentsControl.Arguments.AddAll(value.Arguments);
+            }
+        }
 
         public RunnerForm()
         {
             InitializeComponent();
+        }
+
+        private void buttonOK_Click(object sender, System.EventArgs e)
+        {
+            Runner.Command = textCommand.Text;
+
+            Runner.Arguments.Clear();
+            Runner.Arguments.AddAll(argumentsControl.Arguments);
         }
     }
 }
