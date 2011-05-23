@@ -47,10 +47,8 @@ namespace ZeroInstall.Store.Implementation.Archive
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
-            try
-            {
-                _tar = new TarInputStream(stream);
-            }
+            // Create a TAR-reading stream that doesn't dispose the underlying file stream
+            try { _tar = new TarInputStream(stream) {IsStreamOwner = false}; }
             catch (SharpZipBaseException ex)
             {
                 // Make sure only standard exception types are thrown to the outside
@@ -144,6 +142,17 @@ namespace ZeroInstall.Store.Implementation.Archive
         protected override void StreamToFile(Stream stream, FileStream fileStream)
         {
             ((TarInputStream)stream).CopyEntryContents(fileStream);
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Dispose
+        /// <inheritdoc/>
+        protected override void Dispose(bool disposing)
+        {
+            try { _tar.Close(); }
+            finally { base.Dispose(disposing); }
         }
         #endregion
     }

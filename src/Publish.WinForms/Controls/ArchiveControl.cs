@@ -391,7 +391,11 @@ namespace ZeroInstall.Publish.WinForms.Controls
             }
             #endregion
            
-            try { TrackingDialog.Run(this, Extractor.CreateExtractor(comboBoxArchiveFormat.Text, archive, startOffset, extractedArchivePath), null); }
+            try
+            {
+                using (var extractor = Extractor.CreateExtractor(comboBoxArchiveFormat.Text, archive, startOffset, extractedArchivePath))
+                    TrackingDialog.Run(this, extractor, null);
+            }
             #region Error handling
             catch (UserCancelException)
             {

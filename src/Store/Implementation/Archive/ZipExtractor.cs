@@ -47,15 +47,15 @@ namespace ZeroInstall.Store.Implementation.Archive
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
-            try
-            {
-                _zip = new ZipFile(stream) {IsStreamOwner = false};
-            }
+            // Create a ZIP-reading stream that doesn't dispose the underlying file stream
+            try { _zip = new ZipFile(stream) { IsStreamOwner = false }; }
+            #region Error handling
             catch (ZipException ex)
             {
                 // Make sure only standard exception types are thrown to the outside
                 throw new IOException(Resources.ArchiveInvalid, ex);
             }
+            #endregion
         }
         #endregion
 
@@ -173,6 +173,17 @@ namespace ZeroInstall.Store.Implementation.Archive
 
             const int executeFlags = (1 + 8 + 64) << 16; // Octal: 111
             return (entry.ExternalFileAttributes & executeFlags) > 0; // Check if anybody is allowed to execute
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Dispose
+        /// <inheritdoc/>
+        protected override void Dispose(bool disposing)
+        {
+            try { _zip.Close(); }
+            finally { base.Dispose(disposing); }
         }
         #endregion
     }
