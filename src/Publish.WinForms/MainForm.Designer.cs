@@ -37,7 +37,7 @@ namespace ZeroInstall.Publish.WinForms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Interface");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Interface");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
@@ -85,13 +85,13 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonAddArchive = new System.Windows.Forms.Button();
             this.buttonAddRecipe = new System.Windows.Forms.Button();
             this.btnRunner = new System.Windows.Forms.Button();
+            this.keyCombinationShortcut = new Common.Controls.KeyCombinationShortcut(this.components);
             this.feedEditorToolStrip = new ZeroInstall.Publish.WinForms.Controls.FeedEditorToolStrip();
             this.descriptionControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
             this.summariesControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
             this.iconManagementControl = new ZeroInstall.Publish.WinForms.Controls.IconManagementControl();
             this.feedReferenceControl = new ZeroInstall.Publish.WinForms.Controls.FeedReferenceControl();
             this.feedManager = new ZeroInstall.Publish.WinForms.FeedManager(this.components);
-            this.keyCombinationShortcut = new Common.Controls.KeyCombinationShortcut(this.components);
             this.tabControlMain.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.groupBoxIcon.SuspendLayout();
@@ -244,9 +244,9 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxIcon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxIcon.Controls.Add(this.iconManagementControl);
-            this.groupBoxIcon.Location = new System.Drawing.Point(9, 225);
+            this.groupBoxIcon.Location = new System.Drawing.Point(9, 230);
             this.groupBoxIcon.Name = "groupBoxIcon";
-            this.groupBoxIcon.Size = new System.Drawing.Size(536, 171);
+            this.groupBoxIcon.Size = new System.Drawing.Size(536, 153);
             this.groupBoxIcon.TabIndex = 10;
             this.groupBoxIcon.TabStop = false;
             this.groupBoxIcon.Text = "Icon";
@@ -369,11 +369,11 @@ namespace ZeroInstall.Publish.WinForms
             this.treeViewFeedStructure.HideSelection = false;
             this.treeViewFeedStructure.Location = new System.Drawing.Point(6, 19);
             this.treeViewFeedStructure.Name = "treeViewFeedStructure";
-            treeNode2.Name = "interface";
-            treeNode2.Tag = "";
-            treeNode2.Text = "Interface";
+            treeNode1.Name = "interface";
+            treeNode1.Tag = "";
+            treeNode1.Text = "Interface";
             this.treeViewFeedStructure.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode1});
             this.treeViewFeedStructure.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.treeViewFeedStructure.ShowRootLines = false;
             this.treeViewFeedStructure.Size = new System.Drawing.Size(389, 446);
@@ -699,9 +699,12 @@ namespace ZeroInstall.Publish.WinForms
             // 
             // iconManagementControl
             // 
-            this.iconManagementControl.Location = new System.Drawing.Point(7, 20);
+            this.iconManagementControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.iconManagementControl.Location = new System.Drawing.Point(6, 19);
             this.iconManagementControl.Name = "iconManagementControl";
-            this.iconManagementControl.Size = new System.Drawing.Size(521, 143);
+            this.iconManagementControl.Size = new System.Drawing.Size(524, 128);
             this.iconManagementControl.TabIndex = 0;
             // 
             // feedReferenceControl

@@ -381,6 +381,9 @@
   <data name="&gt;&gt;pictureBoxPreview.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
+  <data name="uriTextBoxIconUrl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="uriTextBoxIconUrl.HintText" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
