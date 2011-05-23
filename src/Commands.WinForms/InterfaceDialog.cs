@@ -53,15 +53,13 @@ namespace ZeroInstall.Commands.WinForms
             _interfaceID = interfaceID;
 
             InitializeComponent();
-            comboBoxStability.Items.AddRange(new object[] { "", Stability.Stable, Stability.Testing, Stability.Developer });
+            comboBoxStability.Items.AddRange(new object[] {"", Stability.Stable, Stability.Testing, Stability.Developer});
 
             _interfacePreferences = InterfacePreferences.LoadFor(interfaceID);
             comboBoxStability.SelectedItem = _interfacePreferences.StabilityPolicy;
             listBoxFeeds.Items.Add(interfaceID);
             foreach (var feedReference in _interfacePreferences.Feeds)
-            {
                 listBoxFeeds.Items.Add(feedReference);
-            }
         }
         #endregion
 

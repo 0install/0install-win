@@ -96,8 +96,7 @@ namespace ZeroInstall.Commands.WinForms
 
                 // Get feed for each selected implementation
                 var implementation = _selections.Implementations[i];
-                if (implementation.FromFeed != null && implementation.FromFeed.StartsWith(ImplementationSelection.DistributionFeedPrefix)) continue;
-                Feed feed = _feedCache.GetFeed(implementation.FromFeed ?? implementation.InterfaceID);
+                Feed feed = _feedCache.GetFeed(implementation.InterfaceID);
 
                 // Display application name and implementation version
                 tableLayout.Controls.Add(new Label {Text = feed.Name, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft}, 0, i);
