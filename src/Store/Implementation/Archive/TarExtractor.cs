@@ -151,7 +151,13 @@ namespace ZeroInstall.Store.Implementation.Archive
         /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
-            try { _tar.Close(); }
+            try
+            {
+                if (disposing)
+                {
+                    if (_tar != null) _tar.Close();
+                }
+            }
             finally { base.Dispose(disposing); }
         }
         #endregion

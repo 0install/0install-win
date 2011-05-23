@@ -182,7 +182,13 @@ namespace ZeroInstall.Store.Implementation.Archive
         /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
-            try { _zip.Close(); }
+            try
+            {
+                if (disposing)
+                {
+                    if (_zip != null) _zip.Close();
+                }
+            }
             finally { base.Dispose(disposing); }
         }
         #endregion
