@@ -95,6 +95,7 @@
             this.Controls.Add(this.textCommand);
             this.Controls.Add(this.groupBoxArguments);
             this.Name = "RunnerForm";
+            this.ShowInTaskbar = false;
             this.Text = "Edit runner";
             this.Controls.SetChildIndex(this.groupBoxArguments, 0);
             this.Controls.SetChildIndex(this.textCommand, 0);

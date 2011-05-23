@@ -339,6 +339,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             this.Controls.Add(this.labelReleased);
             this.Controls.Add(this.labelVersion);
             this.Name = "ImplementationForm";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit implementation";
             this.Controls.SetChildIndex(this.labelVersion, 0);

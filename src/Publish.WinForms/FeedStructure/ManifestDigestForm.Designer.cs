@@ -50,8 +50,8 @@
             // 
             // hintTextBoxSha1Old
             // 
-            this.hintTextBoxSha1Old.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxSha1Old.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxSha1Old.HintText = "";
             this.hintTextBoxSha1Old.Location = new System.Drawing.Point(15, 25);
             this.hintTextBoxSha1Old.Name = "hintTextBoxSha1Old";
@@ -79,8 +79,8 @@
             // 
             // hintTextBoxSha1New
             // 
-            this.hintTextBoxSha1New.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxSha1New.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxSha1New.HintText = "";
             this.hintTextBoxSha1New.Location = new System.Drawing.Point(15, 64);
             this.hintTextBoxSha1New.Name = "hintTextBoxSha1New";
@@ -99,8 +99,8 @@
             // 
             // hintTextBoxSha256
             // 
-            this.hintTextBoxSha256.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxSha256.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxSha256.HintText = "";
             this.hintTextBoxSha256.Location = new System.Drawing.Point(15, 103);
             this.hintTextBoxSha256.Name = "hintTextBoxSha256";
@@ -123,10 +123,13 @@
             this.Controls.Add(this.hintTextBoxSha1Old);
             this.Controls.Add(this.buttonOK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ManifestDigestForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Show Manifest Digest";
+            this.Text = "Manifest Digests";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -44,8 +44,8 @@
             // 
             // tabControlRecipe
             // 
-            this.tabControlRecipe.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlRecipe.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlRecipe.Controls.Add(this.tabPageAddNew);
             this.tabControlRecipe.Location = new System.Drawing.Point(12, 12);
             this.tabControlRecipe.Name = "tabControlRecipe";
@@ -84,6 +84,7 @@
             this.Controls.Add(this.buttonCreateRecipe);
             this.Controls.Add(this.tabControlRecipe);
             this.Name = "RecipeForm";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit recipe archives";
             this.Controls.SetChildIndex(this.tabControlRecipe, 0);

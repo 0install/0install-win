@@ -45,8 +45,8 @@
             // 
             // hintTextBoxSrc
             // 
-            this.hintTextBoxSrc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxSrc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxSrc.HintText = "Relative path of the directory in the implementation";
             this.hintTextBoxSrc.Location = new System.Drawing.Point(15, 25);
             this.hintTextBoxSrc.Name = "hintTextBoxSrc";
@@ -74,8 +74,8 @@
             // 
             // hintTextBoxMountPoint
             // 
-            this.hintTextBoxMountPoint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxMountPoint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxMountPoint.HintText = "Mount point on which source is to appear in the filesystem";
             this.hintTextBoxMountPoint.Location = new System.Drawing.Point(15, 64);
             this.hintTextBoxMountPoint.Name = "hintTextBoxMountPoint";
@@ -93,6 +93,7 @@
             this.Controls.Add(this.labelSrc);
             this.Controls.Add(this.hintTextBoxSrc);
             this.Name = "OverlayBindingForm";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit overlay binding";
             this.Controls.SetChildIndex(this.hintTextBoxSrc, 0);

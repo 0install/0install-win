@@ -58,8 +58,8 @@
             // 
             // hintTextBoxInsert
             // 
-            this.hintTextBoxInsert.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxInsert.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxInsert.HintText = "";
             this.hintTextBoxInsert.Location = new System.Drawing.Point(15, 64);
             this.hintTextBoxInsert.Name = "hintTextBoxInsert";
@@ -77,8 +77,8 @@
             // 
             // comboBoxName
             // 
-            this.comboBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxName.FormattingEnabled = true;
             this.comboBoxName.Items.AddRange(new object[] {
             "LD_LIBRARY_PATH",
@@ -104,8 +104,8 @@
             // 
             // comboBoxMode
             // 
-            this.comboBoxMode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxMode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxMode.FormattingEnabled = true;
             this.comboBoxMode.Location = new System.Drawing.Point(15, 104);
@@ -124,8 +124,8 @@
             // 
             // hintTextBoxDefault
             // 
-            this.hintTextBoxDefault.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxDefault.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxDefault.HintText = "";
             this.hintTextBoxDefault.Location = new System.Drawing.Point(15, 144);
             this.hintTextBoxDefault.Name = "hintTextBoxDefault";
@@ -146,6 +146,7 @@
             this.Controls.Add(this.hintTextBoxInsert);
             this.Controls.Add(this.labelName);
             this.Name = "EnvironmentBindingForm";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit environment binding";
             this.Controls.SetChildIndex(this.labelName, 0);

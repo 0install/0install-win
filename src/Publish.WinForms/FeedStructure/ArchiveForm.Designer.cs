@@ -57,6 +57,7 @@
             this.ClientSize = new System.Drawing.Size(282, 481);
             this.Controls.Add(this.archiveControl);
             this.Name = "ArchiveForm";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit archive";
             this.Controls.SetChildIndex(this.buttonCancel, 0);

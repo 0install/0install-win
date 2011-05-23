@@ -288,6 +288,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             this.Controls.Add(this.labelReleased);
             this.Controls.Add(this.labelVersion);
             this.Name = "GroupForm";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit group";
             this.Controls.SetChildIndex(this.labelVersion, 0);
