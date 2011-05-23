@@ -22,6 +22,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Common.Properties;
 using Common.Tasks;
@@ -31,6 +32,7 @@ namespace Common.Cli
     /// <summary>
     /// A progress bar rendered on the <see cref="Console"/>.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "IDisposable is only implemented here to support using() blocks.")]
     public class ProgressBar: IDisposable
     {
         #region Properties
@@ -165,30 +167,20 @@ namespace Common.Cli
 
         #region Dispose
         /// <summary>
-        /// Writes a line break to the <see cref="Console"/>.
+        /// Stops the progress bar by writing a line break to the <see cref="Console"/>.
         /// </summary>
-        public void Dispose()
+        public virtual void Done()
         {
-            Dispose(true);
-        }
-
-        /// <inheritdoc/>
-        ~ProgressBar()
-        {
-            Dispose(false);
+            if (!CliUtils.StandardOutputRedirected && !CliUtils.StandardErrorRedirected)
+                Console.Error.WriteLine();
         }
 
         /// <summary>
-        /// To be called by <see cref="IDisposable.Dispose"/> and the object destructor.
+        /// Stops the progress bar by writing a line break to the <see cref="Console"/>.
         /// </summary>
-        /// <param name="disposing"><see langword="true"/> if called manually and not by the garbage collector.</param>
-        protected virtual void Dispose(bool disposing)
+        void IDisposable.Dispose()
         {
-            if (disposing)
-            {
-                if (!CliUtils.StandardOutputRedirected && !CliUtils.StandardErrorRedirected)
-                    Console.Error.WriteLine();
-            }
+            Done();
         }
         #endregion
     }

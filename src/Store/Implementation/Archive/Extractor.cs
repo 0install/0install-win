@@ -390,6 +390,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         /// <inheritdoc/>

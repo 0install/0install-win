@@ -84,15 +84,13 @@ namespace Common.Cli
 
         #region Dipose
         /// <inheritdoc/>
-        protected override void Dispose(bool disposing)
+        public override void Done()
         {
-            try
-            {
-                // Stop tracking
-                _task.StateChanged -= StateChanged;
-                _task.ProgressChanged -= ProgressChanged;
-            }
-            finally { base.Dispose(disposing); }
+            // Stop tracking
+            _task.StateChanged -= StateChanged;
+            _task.ProgressChanged -= ProgressChanged;
+
+            base.Done();
         }
         #endregion
     }
