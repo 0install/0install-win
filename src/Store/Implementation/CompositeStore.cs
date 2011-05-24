@@ -138,13 +138,13 @@ namespace ZeroInstall.Store.Implementation
                 #region Error handling
                 catch (IOException ex)
                 {
-                    // Remember the last error
-                    innerException = ex;
+                    Log.Error(ex.ToString());
+                    innerException = ex; // Remember the last error
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    // Remember the last error
-                    innerException = ex;
+                    Log.Error(ex.ToString());
+                    innerException = ex; // Remember the last error
                 }
                 #endregion
             }
@@ -176,13 +176,13 @@ namespace ZeroInstall.Store.Implementation
                 #region Error handling
                 catch (IOException ex)
                 {
-                    // Remember the last error
-                    innerException = ex;
+                    Log.Error(ex.ToString());
+                    innerException = ex; // Remember the last error
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    // Remember the last error
-                    innerException = ex;
+                    Log.Error(ex.ToString());
+                    innerException = ex; // Remember the last error
                 }
                 #endregion
             }
@@ -212,13 +212,13 @@ namespace ZeroInstall.Store.Implementation
                 #region Error handling
                 catch (IOException ex)
                 {
-                    // Remember the last error
-                    innerException = ex;
+                    Log.Error(ex.ToString());
+                    innerException = ex; // Remember the last error
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    // Remember the last error
-                    innerException = ex;
+                    Log.Error(ex.ToString());
+                    innerException = ex; // Remember the last error
                 }
                 #endregion
             }
