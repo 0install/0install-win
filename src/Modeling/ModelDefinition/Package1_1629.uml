@@ -5393,6 +5393,9 @@
                 tag="ViewCode" />
             </referencesInternal>
           </enumerationLiteral>
+          <enumerationLiteral
+            Id="a35e600a-e2c0-4719-9299-9eba78e4afc3"
+            name="Packaged" />
         </ownedLiterals>
       </enumeration>
     </packageHasNamedElement>

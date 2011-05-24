@@ -33,9 +33,13 @@ namespace ZeroInstall.Model
         [XmlIgnore]
         Unset,
 
-        /// <summary>Set by user as a personal preference</summary>
+        /// <summary>Set by user as a personal preference overriding other stability criteria</summary>
         [XmlEnum("preferred")]
         Preferred,
+
+        /// <summary>Indicates that an implementation is provided as a <see cref="PackageImplementation"/></summary>
+        [XmlEnum("packaged")]
+        Packaged,
 
         /// <summary>No serious problems</summary>
         [XmlEnum("stable")]
