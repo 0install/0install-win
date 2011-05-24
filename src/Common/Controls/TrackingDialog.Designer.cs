@@ -61,7 +61,7 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // TrackingProgressDialog
+            // TrackingDialog
             // 
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(294, 82);
@@ -72,7 +72,7 @@
             this.MaximumSize = new System.Drawing.Size(2048, 120);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(120, 120);
-            this.Name = "TrackingProgressDialog";
+            this.Name = "TrackingDialog";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.ResumeLayout(false);

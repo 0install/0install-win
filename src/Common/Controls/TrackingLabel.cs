@@ -107,7 +107,7 @@ namespace Common.Controls
             // Copy value so it can be safely accessed from another thread
             TaskState state = sender.State;
 
-            // Handle events coming from a non-UI thread, don't block caller
+            // Handle events coming from a non-UI thread, block caller
             Invoke(new SimpleEventHandler(delegate
             {
                 CurrentState = state;
@@ -159,8 +159,8 @@ namespace Common.Controls
             long bytesProcessed  = sender.BytesProcessed;
             long bytesTotal = sender.BytesTotal;
 
-            // Handle events coming from a non-UI thread, don't block caller
-            BeginInvoke(new SimpleEventHandler(delegate
+            // Handle events coming from a non-UI thread, block caller
+            Invoke(new SimpleEventHandler(delegate
             {
                 Text = StringUtils.FormatBytes(bytesProcessed);
                 if (bytesTotal != -1) Text += @" / " + StringUtils.FormatBytes(bytesTotal);

@@ -60,7 +60,6 @@ namespace Common.Controls
                 // Hook up event tracking
                 trackingProgressBar.Task = task;
                 labelProgress.Task = task;
-
                 task.StateChanged += delegate
                 {
                     if (task.State >= TaskState.Complete) Invoke(new SimpleEventHandler(Close));
