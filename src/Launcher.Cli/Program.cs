@@ -30,7 +30,6 @@ using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 #if !DEBUG
 using Common.Storage;
-using Common.Utils;
 #endif
 
 namespace ZeroInstall.Launcher.Cli
