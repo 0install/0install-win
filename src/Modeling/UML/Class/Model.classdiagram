@@ -3261,7 +3261,7 @@
                   <elementDefinition Id="67daf60b-a0cf-45d5-8417-3a3d9d7da3c7" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="5b1bb968-48b4-4bef-9837-a39203f38d8e" direction="Return">
+                      <parameter Id="5b1bb968-48b4-4bef-9837-a39203f38d8e" direction="Return" isUnique="false">
                         <elementDefinition Id="a9cb252b-1417-41a7-bd58-094702bcdf4e" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="6887abe7-4fbd-458f-ab9b-e9757582459c" LastKnownName="Boolean" />
@@ -3269,28 +3269,10 @@
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="8204a580-de2c-449c-937f-6c0c60bbab54" name="os" direction="In">
-                        <referencesInternal>
-                          <reference Id="ef115720-d863-4161-9074-b17922a7eca0" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Architecture Member=(Name=Supports OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=OS),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Cpu)]) ParameterIdentifier=os" tag="ViewCode">
-                            <elementDefinition Id="eae8d08e-3824-4a14-94dc-f8e190ec2cde" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="fbf91915-e144-46c6-8479-a966ceb45c1d" />
+                      <parameter Id="de72de89-a47d-4ab3-95fa-f6f80266940b" name="system" direction="In" isUnique="false">
+                        <elementDefinition Id="575291a8-99a6-48f9-a66f-4bb5b134c426" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="2c7c602e-a6b0-4350-b189-e84125aa0169" LastKnownName="OS" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="0699a3a5-dc27-4d33-922e-cffc573fd751" name="cpu" direction="In">
-                        <referencesInternal>
-                          <reference Id="389d3392-7d4e-450a-b626-9b83e0fe9568" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Architecture Member=(Name=Supports OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=OS),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Cpu)]) ParameterIdentifier=cpu" tag="ViewCode">
-                            <elementDefinition Id="ac6a0867-499a-487c-8586-886e8303b1b2" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="61ba846a-35ab-49b0-b078-a9b55f5cf5cb" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="9b29ba9e-250c-4d65-8e05-cf06442586ad" LastKnownName="Cpu" />
+                          <referencedTypeMoniker Id="7b813812-ffe4-4061-8b02-b63e47021f0f" LastKnownName="Architecture" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -6302,6 +6284,9 @@
                   </referencesInternal>
                   <elementDefinition Id="ddb77ab7-336e-4b44-abef-1a238b83b520" />
                 </enumerationLiteral>
+                <enumerationLiteral Id="c6d443bb-d778-433c-8856-fc7f09ecb756" name="Packaged">
+                  <elementDefinition Id="a35e600a-e2c0-4719-9299-9eba78e4afc3" />
+                </enumerationLiteral>
               </ownedLiterals>
             </enumeration>
           </packageHasNamedElement>
@@ -7438,6 +7423,11 @@
     <packageHasNamedElement>
       <referencedType Id="09621d0f-ec15-45cf-98e6-e044cc7d0f11" name="IFeedCache" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Feeds::IFeedCache">
         <elementDefinition Id="7a5a79d0-a7d2-48ce-bf1b-54f405b19141" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="7b813812-ffe4-4061-8b02-b63e47021f0f" name="Architecture" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Model::Architecture">
+        <elementDefinition Id="2ae4e40a-5dd1-43f7-8aa6-4e15a50f69b0" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

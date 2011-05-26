@@ -45,25 +45,51 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Ensures <see cref="Architecture.Supports"/> correctly determines which kinds of packages can run on which machines (e.g. handling x86-series backwards-compatibility)
+        /// Ensures <see cref="Architecture.IsCompatible"/> correctly determines which kinds of packages can run on which machines.
         /// </summary>
         [Test]
-        public void TestSupports()
+        public void TestIsCompatible()
         {
-            Assert.IsTrue(new Architecture(OS.All, Cpu.All).Supports(OS.Linux, Cpu.I686));
-            Assert.IsTrue(new Architecture(OS.All, Cpu.I686).Supports(OS.Linux, Cpu.I686));
-            Assert.IsTrue(new Architecture(OS.Linux, Cpu.All).Supports(OS.Linux, Cpu.I686));
+            // Exact matches
+            Assert.IsTrue(new Architecture(OS.Windows, Cpu.I486).IsCompatible(new Architecture(OS.Windows, Cpu.I486)));
+            Assert.IsTrue(new Architecture(OS.Linux, Cpu.I586).IsCompatible(new Architecture(OS.Linux, Cpu.I586)));
+            Assert.IsTrue(new Architecture(OS.MacOsX, Cpu.I686).IsCompatible(new Architecture(OS.MacOsX, Cpu.I686)));
+
+            // OS wildcards
+            Assert.IsTrue(new Architecture(OS.All, Cpu.I486).IsCompatible(new Architecture(OS.Windows, Cpu.I486)));
+            Assert.IsTrue(new Architecture(OS.All, Cpu.I586).IsCompatible(new Architecture(OS.Linux, Cpu.I586)));
+            Assert.IsTrue(new Architecture(OS.All, Cpu.I686).IsCompatible(new Architecture(OS.MacOsX, Cpu.I686)));
+
+            // OS mismatches
+            Assert.IsFalse(new Architecture(OS.Windows, Cpu.I486).IsCompatible(new Architecture(OS.Linux, Cpu.I486)));
+            Assert.IsFalse(new Architecture(OS.Linux, Cpu.I486).IsCompatible(new Architecture(OS.Windows, Cpu.I486)));
+            Assert.IsFalse(new Architecture(OS.MacOsX, Cpu.I686).IsCompatible(new Architecture(OS.Linux, Cpu.I686)));
+            Assert.IsFalse(new Architecture(OS.Linux, Cpu.I686).IsCompatible(new Architecture(OS.MacOsX, Cpu.I686)));
+
+            // OS supersets
+            Assert.IsTrue(new Architecture(OS.Windows, Cpu.I486).IsCompatible(new Architecture(OS.Cygwin, Cpu.I486)));
+            Assert.IsFalse(new Architecture(OS.Cygwin, Cpu.I486).IsCompatible(new Architecture(OS.Windows, Cpu.I486)));
+            Assert.IsTrue(new Architecture(OS.Darwin, Cpu.I686).IsCompatible(new Architecture(OS.MacOsX, Cpu.I686)));
+            Assert.IsFalse(new Architecture(OS.MacOsX, Cpu.I686).IsCompatible(new Architecture(OS.Darwin, Cpu.I686)));
+
+            // CPU wildcards
+            Assert.IsTrue(new Architecture(OS.Windows, Cpu.All).IsCompatible(new Architecture(OS.Windows, Cpu.I486)));
+            Assert.IsTrue(new Architecture(OS.Linux, Cpu.All).IsCompatible(new Architecture(OS.Linux, Cpu.I586)));
+            Assert.IsTrue(new Architecture(OS.MacOsX, Cpu.All).IsCompatible(new Architecture(OS.MacOsX, Cpu.I686)));
+
+            // CPU mismatches
+            Assert.IsFalse(new Architecture(OS.MacOsX, Cpu.I686).IsCompatible(new Architecture(OS.MacOsX, Cpu.Ppc)));
+            Assert.IsFalse(new Architecture(OS.Linux, Cpu.Ppc).IsCompatible(new Architecture(OS.Linux, Cpu.I586)));
 
             // x86-series backwards-compatibility
-            Assert.IsTrue(new Architecture(OS.Linux, Cpu.I386).Supports(OS.Linux, Cpu.I686));
-            Assert.IsTrue(new Architecture(OS.Linux, Cpu.I386).Supports(OS.Linux, Cpu.X64));
+            Assert.IsTrue(new Architecture(OS.Linux, Cpu.I386).IsCompatible(new Architecture(OS.Linux, Cpu.I686)));
+            Assert.IsTrue(new Architecture(OS.Linux, Cpu.I386).IsCompatible(new Architecture(OS.Linux, Cpu.X64)));
+            Assert.IsFalse(new Architecture(OS.Linux, Cpu.I686).IsCompatible(new Architecture(OS.Linux, Cpu.I386)));
+            Assert.IsFalse(new Architecture(OS.Linux, Cpu.X64).IsCompatible(new Architecture(OS.Linux, Cpu.I686)));
 
-            Assert.IsFalse(new Architecture(OS.Linux, Cpu.I686).Supports(OS.Windows, Cpu.I686));
-            Assert.IsFalse(new Architecture(OS.All, Cpu.I686).Supports(OS.Linux, Cpu.Ppc));
-
-            // No x86-series upwards-compatibility
-            Assert.IsFalse(new Architecture(OS.Linux, Cpu.I686).Supports(OS.Linux, Cpu.I386));
-            Assert.IsFalse(new Architecture(OS.Linux, Cpu.X64).Supports(OS.Linux, Cpu.I686));
+            // PowerPC backwards-compatibility
+            Assert.IsTrue(new Architecture(OS.MacOsX, Cpu.Ppc).IsCompatible(new Architecture(OS.MacOsX, Cpu.Ppc64)));
+            Assert.IsFalse(new Architecture(OS.MacOsX, Cpu.Ppc64).IsCompatible(new Architecture(OS.MacOsX, Cpu.Ppc)));
         }
     }
 }

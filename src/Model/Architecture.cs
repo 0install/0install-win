@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Reflection;
 using System.Xml.Serialization;
+using Common.Utils;
 using ZeroInstall.Model.Design;
 using ZeroInstall.Model.Properties;
 
@@ -136,6 +137,25 @@ namespace ZeroInstall.Model
             // Return the first if there was a match
             return (attribs.Length > 0 ? attribs[0].Name : "");
         }
+
+        /// <summary>
+        /// Returns an architecture representing the currently running system.
+        /// </summary>
+        public static Architecture CurrentSystem
+        {
+            get
+            {
+                if (WindowsUtils.IsWindows) return new Architecture(OS.Windows, WindowsUtils.Is64BitOperatingSystem ? Cpu.X64 : Cpu.I486);
+
+                // ToDo: Improve detection of other operating systems and CPUs
+                switch (Environment.OSVersion.Platform)
+                {
+                    case PlatformID.Unix: return new Architecture(OS.Linux, Cpu.I586);
+                    case PlatformID.MacOSX: return new Architecture(OS.MacOsX, Cpu.I686);
+                    default: return new Architecture(OS.Unknown, Cpu.Unknown);
+                }
+            }
+        }
         #endregion
 
         #region Parsers
@@ -236,30 +256,49 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
-        #region Support
+        #region Compatibility
         /// <summary>
-        /// Checks whether an <see cref="Implementation"/> that specifies this <see cref="Architecture"/> will be able to run on a specific system.
+        /// Determines whether this implementation architecture (the current instance) can run on a <paramref name="system"/> architecture.
         /// </summary>
-        /// <param name="os">The operating system of the system to test. Must be a specific operating system and not a wildcard.</param>
-        /// <param name="cpu">The CPU of the system to test. Must be a specific CPU and not a wildcard.</param>
-        /// <returns><see langword="true"/> if the system is supported; <see langword="false"/> otherwise.</returns>
-        public bool Supports(OS os, Cpu cpu)
+        /// <seealso cref="CurrentSystem"/>
+        public bool IsCompatible(Architecture system)
         {
-            #region Sanity checks
-            if (os == OS.All || os == OS.Unknown) throw new ArgumentException(Resources.MustBeSpecificOS, "os");
-            if (cpu == Cpu.All || cpu == Cpu.Unknown) throw new ArgumentException(Resources.MustBeSpecificCPU, "cpu");
-            #endregion
+            return AreCompatible(OS, system.OS) && AreCompatible(Cpu, system.Cpu);
+        }
 
-            // Fail if OS is neither a wildcard nor identical
-            if (OS != OS.All && OS != os) return false;
+        /// <summary>
+        /// Determines whether an <paramref name="implementation"/> OS is compatible with a <paramref name="system"/> OS.
+        /// </summary>
+        private static bool AreCompatible(OS implementation, OS system)
+        {
+            if (implementation == OS.Unknown || system == OS.Unknown) return false;
 
-            // Pass if CPU is either a wildcard or identical
-            if (Cpu == Cpu.All || Cpu == cpu) return true;
+            // Exact OS match or platform-neutral implementation
+            if (implementation == system || implementation == OS.All) return true;
 
-            // Handle x86-series backwards-compatibility
-            if ((Cpu >= Cpu.I386 && Cpu <= Cpu.X64) && (cpu >= Cpu.I386 && cpu <= Cpu.X64) && Cpu <= cpu) return true;
+            // Compatible supersets
+            if (implementation == OS.Windows && system == OS.Cygwin) return true;
+            if (implementation == OS.Darwin && system == OS.MacOsX) return true;
 
-            // Fail if nothing fits
+            // No match
+            return false;
+        }
+
+        /// <summary>
+        /// Determines whether an <paramref name="implementation"/> CPU is compatible with a <paramref name="system"/> CPU.
+        /// </summary>
+        private static bool AreCompatible(Cpu implementation, Cpu system)
+        {
+            if (implementation == Cpu.Unknown || system == Cpu.Unknown) return false;
+
+            // Exact CPU match or platform-neutral implementation
+            if (implementation == system || implementation == Cpu.All) return true;
+
+            // Compatible supersets
+            if (implementation == Cpu.Ppc && system == Cpu.Ppc64) return true;
+            if (implementation >= Cpu.I386 && implementation <= Cpu.X64 && system >= implementation && system <= Cpu.X64) return true;
+
+            // No match
             return false;
         }
         #endregion

@@ -438,7 +438,8 @@
               <operationHasOwnedParameters>
                 <parameter
                   Id="a9cb252b-1417-41a7-bd58-094702bcdf4e"
-                  direction="Return">
+                  direction="Return"
+                  isUnique="false">
                   <type_NamedElement>
                     <primitiveTypeMoniker
                       Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
@@ -449,38 +450,14 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="fbf91915-e144-46c6-8479-a966ceb45c1d"
-                  name="os"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="eae8d08e-3824-4a14-94dc-f8e190ec2cde"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Architecture Member=(Name=Supports OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=OS),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Cpu)]) ParameterIdentifier=os"
-                      tag="ViewCode" />
-                  </referencesInternal>
+                  Id="575291a8-99a6-48f9-a66f-4bb5b134c426"
+                  name="system"
+                  direction="In"
+                  isUnique="false">
                   <type_NamedElement>
-                    <enumerationMoniker
-                      Id="cfd427e9-cbbd-4b64-9bc3-42c969928f83"
-                      LastKnownName="OS"
-                      LastKnownLocation="Package1_1629.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="61ba846a-35ab-49b0-b078-a9b55f5cf5cb"
-                  name="cpu"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="ac6a0867-499a-487c-8586-886e8303b1b2"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Architecture Member=(Name=Supports OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=OS),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Cpu)]) ParameterIdentifier=cpu"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                  <type_NamedElement>
-                    <enumerationMoniker
-                      Id="169012b8-48c1-4586-b029-05bca9b1836e"
-                      LastKnownName="Cpu"
+                    <classMoniker
+                      Id="2ae4e40a-5dd1-43f7-8aa6-4e15a50f69b0"
+                      LastKnownName="Architecture"
                       LastKnownLocation="Package1_1629.uml" />
                   </type_NamedElement>
                 </parameter>
