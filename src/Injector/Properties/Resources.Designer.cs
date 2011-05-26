@@ -151,6 +151,24 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not compatible with current system.
+        /// </summary>
+        internal static string SelectionCandidateNoteIncompatibleSystem {
+            get {
+                return ResourceManager.GetString("SelectionCandidateNoteIncompatibleSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Non-executable source implementation.
+        /// </summary>
+        internal static string SelectionCandidateNoteSource {
+            get {
+                return ResourceManager.GetString("SelectionCandidateNoteSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The solver encountered an unexpected problem..
         /// </summary>
         internal static string SolverProblem {

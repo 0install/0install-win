@@ -117,29 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NoImplementationsPassed" xml:space="preserve">
-    <value>At least one implementation must be passed.</value>
-  </data>
-  <data name="NotInterfaceID" xml:space="preserve">
-    <value>The interface '{0}' doesn't start with 'http:' and doesn't exist as a file '{1}' either.</value>
-  </data>
-  <data name="FeedNotCachedOffline" xml:space="preserve">
-    <value>The feed '{0}' is not cached and Zero Install is currently in off-line mode.</value>
-  </data>
   <data name="ExternalSolverOutputErrror" xml:space="preserve">
     <value>The output of the external solver could not be processed.</value>
   </data>
-  <data name="SolverProblem" xml:space="preserve">
-    <value>The solver encountered an unexpected problem.</value>
-  </data>
-  <data name="WorkingDirInvalidPath" xml:space="preserve">
-    <value>The working directory contains an invalid paths (potentially a security risk).</value>
-  </data>
-  <data name="WokringDirDuplicate" xml:space="preserve">
-    <value>The working directory has already been changed by a previous command.</value>
-  </data>
-  <data name="NotValidDomain" xml:space="preserve">
-    <value>The value is not a valid domain name.</value>
+  <data name="FeedNotCachedOffline" xml:space="preserve">
+    <value>The feed '{0}' is not cached and Zero Install is currently in off-line mode.</value>
   </data>
   <data name="MissingInterfaceID" xml:space="preserve">
     <value>No interface was specified.</value>
@@ -147,13 +129,37 @@
   <data name="NoCommands" xml:space="preserve">
     <value>No commands in the selection.</value>
   </data>
-  <data name="NotCached" xml:space="preserve">
-    <value>(not cached)</value>
+  <data name="NoImplementationsPassed" xml:space="preserve">
+    <value>At least one implementation must be passed.</value>
   </data>
   <data name="NoSelectedVersion" xml:space="preserve">
     <value>No selected version</value>
   </data>
+  <data name="NotCached" xml:space="preserve">
+    <value>(not cached)</value>
+  </data>
+  <data name="NotInterfaceID" xml:space="preserve">
+    <value>The interface '{0}' doesn't start with 'http:' and doesn't exist as a file '{1}' either.</value>
+  </data>
+  <data name="NotValidDomain" xml:space="preserve">
+    <value>The value is not a valid domain name.</value>
+  </data>
   <data name="ProblemLoadingConfig" xml:space="preserve">
     <value>There was a problem loading configuration values from '{0}'.</value>
+  </data>
+  <data name="SelectionCandidateNoteIncompatibleSystem" xml:space="preserve">
+    <value>Not compatible with current system</value>
+  </data>
+  <data name="SelectionCandidateNoteSource" xml:space="preserve">
+    <value>Non-executable source implementation</value>
+  </data>
+  <data name="SolverProblem" xml:space="preserve">
+    <value>The solver encountered an unexpected problem.</value>
+  </data>
+  <data name="WokringDirDuplicate" xml:space="preserve">
+    <value>The working directory has already been changed by a previous command.</value>
+  </data>
+  <data name="WorkingDirInvalidPath" xml:space="preserve">
+    <value>The working directory contains an invalid paths (potentially a security risk).</value>
   </data>
 </root>
