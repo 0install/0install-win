@@ -320,10 +320,15 @@ namespace Common.Utils
                     break;
 
                 case PlatformID.Win32NT:
-                    // Recursive ACL may start in any sub direcory
-                    WalkDirectory(directory, subDir => ToggleWriteProtectionWinNT(subDir, false), null);
-
-                    ToggleWriteProtectionWin32(directory, false);
+                    ToggleWriteProtectionWinNT(directory, false);
+                    try { ToggleWriteProtectionWin32(directory, false); }
+                    #region Error handling
+                    catch (ArgumentException ex)
+                    {
+                        // Wrap exception since only certain exception types are allowed in tasks
+                        throw new IOException(ex.Message, ex);
+                    }
+                    #endregion
                     break;
             }
         }

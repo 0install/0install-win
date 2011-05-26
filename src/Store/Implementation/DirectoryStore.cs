@@ -371,20 +371,21 @@ namespace ZeroInstall.Store.Implementation
 
             string path = GetPath(manifestDigest);
 
-            // Remove write protection
-            FileUtils.DisableWriteProtection(path);
-
-            var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
-
-            // Move the directory to be deleted to a temporary directory to ensure the removal operation is atomic
-            Directory.Move(path, tempDir);
-
             // Defer deleting to handler
             handler.RunTask(
                 new SimpleTask(string.Format(Resources.DeletingImplementation, manifestDigest.BestDigest),
                     delegate
                     {
-                        try { Directory.Delete(tempDir, true); }
+                        try
+                        {
+                            FileUtils.DisableWriteProtection(path);
+
+                            // Move the directory to be deleted to a temporary directory to ensure the removal operation is atomic
+                            var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
+                            Directory.Move(path, tempDir);
+
+                            Directory.Delete(tempDir, true);
+                        }
                         #region Error handling
                         catch (UnauthorizedAccessException ex)
                         {

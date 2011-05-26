@@ -151,6 +151,8 @@ namespace ZeroInstall.Store.Management.WinForms
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }
             #endregion
+
+            OnCheckedEntriesChanged(null, EventArgs.Empty);
         }
 
         /// <summary>
