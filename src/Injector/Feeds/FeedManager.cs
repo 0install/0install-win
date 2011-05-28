@@ -85,25 +85,7 @@ namespace ZeroInstall.Injector.Feeds
             if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
-            FeedPreferences preferences;
-            try { preferences = FeedPreferences.LoadFor(feedID); }
-            #region Error handling
-            catch (IOException ex)
-            {
-                Log.Error("Error loading feed preferences for '" + feedID + "':\n" + ex.Message);
-                preferences = new FeedPreferences();
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Log.Error("Error loading feed preferences for '" + feedID + "':\n" + ex.Message);
-                preferences = new FeedPreferences();
-            }
-            catch (InvalidOperationException ex)
-            {
-                Log.Error("Error loading feed preferences for '" + feedID + "':\n" + ex.Message);
-                preferences = new FeedPreferences();
-            }
-            #endregion
+            var preferences = FeedPreferences.LoadForSafe(feedID);
 
             if (Refresh)
             {
@@ -118,11 +100,13 @@ namespace ZeroInstall.Injector.Feeds
                 stale = (feedAge > policy.Config.Freshness);
 
                 try { return Cache.GetFeed(feedID); }
-                catch(InvalidOperationException ex)
+                #region Error handling
+                catch (InvalidOperationException ex)
                 {
-                    // ToDo: Try mirror server
+                    // Wrap exception since only certain exception types are allowed in tasks
                     throw new IOException(ex.Message, ex);
                 }
+                #endregion
             }
 
             if (policy.Config.NetworkUse == NetworkLevel.Offline)

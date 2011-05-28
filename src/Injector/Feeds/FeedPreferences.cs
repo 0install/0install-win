@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
+using Common;
 using Common.Collections;
 using Common.Storage;
 using Common.Utils;
@@ -108,7 +109,7 @@ namespace ZeroInstall.Injector.Feeds
         }
 
         /// <summary>
-        /// Loads <see cref="FeedPreferences"/> for a specific feed. Automatically falls back to defaults on errors.
+        /// Loads <see cref="FeedPreferences"/> for a specific feed.
         /// </summary>
         /// <param name="feedID">The feed to load the preferences for.</param>
         /// <returns>The loaded <see cref="FeedPreferences"/>.</returns>
@@ -125,6 +126,42 @@ namespace ZeroInstall.Injector.Feeds
             if (string.IsNullOrEmpty(path)) return new FeedPreferences();
 
             return XmlStorage.Load<FeedPreferences>(path);
+        }
+
+        /// <summary>
+        /// Tries to load <see cref="FeedPreferences"/> for a specific feed. Automatically falls back to defaults on errors.
+        /// </summary>
+        /// <param name="feedID">The feed to load the preferences for.</param>
+        /// <returns>The loaded <see cref="FeedPreferences"/> or default value if there was a problem.</returns>
+        public static FeedPreferences LoadForSafe(string feedID)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            #endregion
+
+            try { return LoadFor(feedID); }
+            #region Error handling
+            catch(FileNotFoundException)
+            {
+                Log.Info("Creating new feed preferences file for '" + feedID + "'.");
+                return new FeedPreferences();
+            }
+            catch (IOException ex)
+            {
+                Log.Error("Error loading feed preferences for '" + feedID + "'. Reverting to default values.\n" + ex.Message);
+                return new FeedPreferences();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Error("Error loading feed preferences for '" + feedID + "'. Reverting to default values.\n" + ex.Message);
+                return new FeedPreferences();
+            }
+            catch (InvalidOperationException ex)
+            {
+                Log.Error("Error loading feed preferences for '" + feedID + "'. Reverting to default values.\n" + ex.Message);
+                return new FeedPreferences();
+            }
+            #endregion
         }
 
         /// <summary>

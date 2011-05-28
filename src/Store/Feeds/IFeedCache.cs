@@ -22,7 +22,6 @@ namespace ZeroInstall.Store.Feeds
         ///   <see langword="true"/> if the specified feed is available in this cache;
         ///   <see langword="false"/> if the specified feed is not available in this cache.
         /// </returns>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
         bool Contains(string feedID);
 
         /// <summary>

@@ -90,7 +90,7 @@ namespace ZeroInstall.Injector.Feeds
         }
 
         /// <summary>
-        /// Loads <see cref="InterfacePreferences"/> for a specific interface. Automatically falls back to defaults on errors.
+        /// Loads <see cref="InterfacePreferences"/> for a specific interface.
         /// </summary>
         /// <param name="interfaceID">The interface to load the preferences for.</param>
         /// <returns>The loaded <see cref="InterfacePreferences"/>.</returns>
@@ -107,6 +107,42 @@ namespace ZeroInstall.Injector.Feeds
             if (string.IsNullOrEmpty(path)) return new InterfacePreferences();
 
             return XmlStorage.Load<InterfacePreferences>(path);
+        }
+
+        /// <summary>
+        /// Tries to load <see cref="InterfacePreferences"/> for a specific interface. Automatically falls back to defaults on errors.
+        /// </summary>
+        /// <param name="interfaceID">The interface to load the preferences for.</param>
+        /// <returns>The loaded <see cref="InterfacePreferences"/> or default value if there was a problem.</returns>
+        public static InterfacePreferences LoadForSafe(string interfaceID)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            #endregion
+
+            try { return LoadFor(interfaceID); }
+            #region Error handling
+            catch (FileNotFoundException)
+            {
+                Log.Info("Creating new interface preferences file for '" + interfaceID + "'.");
+                return new InterfacePreferences();
+            }
+            catch (IOException ex)
+            {
+                Log.Error("Error loading interface preferences for '" + interfaceID + "'. Reverting to default values.\n" + ex.Message);
+                return new InterfacePreferences();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Error("Error loading interface preferences for '" + interfaceID + "'. Reverting to default values.\n" + ex.Message);
+                return new InterfacePreferences();
+            }
+            catch (InvalidOperationException ex)
+            {
+                Log.Error("Error loading interface preferences for '" + interfaceID + "'. Reverting to default values.\n" + ex.Message);
+                return new InterfacePreferences();
+            }
+            #endregion
         }
 
         /// <summary>

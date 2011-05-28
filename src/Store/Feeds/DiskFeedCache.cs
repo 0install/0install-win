@@ -65,8 +65,13 @@ namespace ZeroInstall.Store.Feeds
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            ModelUtils.ValidateInterfaceID(feedID);
             #endregion
+
+            try { ModelUtils.ValidateInterfaceID(feedID); }
+            catch(InvalidInterfaceIDException)
+            {
+                return false;
+            }
 
             // Local files are passed through directly
             return File.Exists(feedID) || File.Exists(Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)));
