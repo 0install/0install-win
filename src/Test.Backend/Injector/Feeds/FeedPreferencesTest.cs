@@ -37,7 +37,7 @@ namespace ZeroInstall.Injector.Feeds
             return new FeedPreferences
             {
                 LastChecked = new DateTime(2000, 1, 1),
-                Implementations = { new ImplementationPreferences { UserStability = Stability.Testing } }
+                Implementations = { new ImplementationPreferences { ID = "test_id", UserStability = Stability.Testing } }
             };
         }
         #endregion
@@ -69,6 +69,34 @@ namespace ZeroInstall.Injector.Feeds
             Assert.AreEqual(preferences1, preferences2, "Cloned objects should be equal.");
             Assert.AreEqual(preferences1.GetHashCode(), preferences2.GetHashCode(), "Cloned objects' hashes should be equal.");
             Assert.IsFalse(ReferenceEquals(preferences1, preferences2), "Cloning should not return the same reference.");
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="FeedPreferences.Simplify"/> correctly superflous entries in <see cref="FeedPreferences.Implementations"/>.
+        /// </summary>
+        [Test]
+        public void TestSimplify()
+        {
+            var keep = new ImplementationPreferences {ID = "id1", UserStability = Stability.Testing};
+            var superflous = new ImplementationPreferences {ID = "id2"};
+            var preferences = new FeedPreferences {Implementations = {keep, superflous}};
+
+            preferences.Simplify();
+            CollectionAssert.AreEquivalent(new[] {keep}, preferences.Implementations);
+        }
+
+        [Test]
+        public void TestGetImplementationPreferences()
+        {
+            var preferences = new FeedPreferences();
+            var prefs1 = preferences.GetImplementationPreferences("id1");
+            Assert.AreSame(prefs1, preferences.GetImplementationPreferences("id1"), "Second call with same ID should return same reference");
+
+            var prefs2 = new ImplementationPreferences {ID = "id2"};
+            preferences.Implementations.Add(prefs2);
+            Assert.AreSame(prefs2, preferences.GetImplementationPreferences("id2"), "Call with pre-existing ID should return existing reference");
+
+            CollectionAssert.AreEquivalent(new[] {prefs1, prefs2}, preferences.Implementations);
         }
     }
 }

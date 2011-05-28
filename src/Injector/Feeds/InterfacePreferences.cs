@@ -94,20 +94,19 @@ namespace ZeroInstall.Injector.Feeds
         /// </summary>
         /// <param name="interfaceID">The interface to load the preferences for.</param>
         /// <returns>The loaded <see cref="InterfacePreferences"/>.</returns>
+        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static InterfacePreferences LoadFor(string interfaceID)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            #endregion
+
             var path = EnumerableUtils.GetFirst(Locations.GetLoadConfigPaths("0install.net", FileUtils.PathCombine("injector", "interfaces", ModelUtils.PrettyEscape(interfaceID)), false));
             if (string.IsNullOrEmpty(path)) return new InterfacePreferences();
 
-            try { return XmlStorage.Load<InterfacePreferences>(path); }
-            #region Error handling
-            catch(Exception ex)
-            {
-                Log.Warn("Failed to load preferences for interface '" + interfaceID + "'\n" + ex.Message);
-                Log.Warn("Reverting to default values");
-                return new InterfacePreferences();
-            }
-            #endregion
+            return XmlStorage.Load<InterfacePreferences>(path);
         }
 
         /// <summary>

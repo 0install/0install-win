@@ -28,6 +28,13 @@ namespace ZeroInstall.Injector.Feeds
     public sealed class ImplementationPreferences : XmlUnknown
     {
         #region Properties
+        /// <summary>
+        /// A unique identifier for the implementation. Coressponds to <see cref="ImplementationBase.ID"/>.
+        /// </summary>
+        [Description("A unique identifier for the implementation.")]
+        [XmlAttribute("id")]
+        public string ID { get; set; }
+
         private Stability _userStability = Stability.Unset;
         /// <summary>
         /// A user-specified override for <see cref="Element.Stability"/> specified in the feed.
@@ -35,6 +42,16 @@ namespace ZeroInstall.Injector.Feeds
         [Description("A user-specified override for the implementation stability specified in the feed.")]
         [XmlAttribute("user-stability"), DefaultValue(typeof(Stability), "Unset")]
         public Stability UserStability { get { return _userStability; } set { _userStability = value; } }
+
+        /// <summary>
+        /// Indicates whether this configuration object stores no information other than the <see cref="ID"/> and is thus superflous.
+        /// </summary>
+        [Browsable(false)]
+        [XmlIgnore]
+        public bool IsSuperflous
+        {
+            get { return UserStability == Stability.Unset; }
+        }
         #endregion
 
         //--------------------//
@@ -46,7 +63,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <returns>The new copy of the <see cref="ImplementationPreferences"/>.</returns>
         public ImplementationPreferences CloneImplementationPreferences()
         {
-            var feedPreferences = new ImplementationPreferences {UserStability = UserStability};
+            var feedPreferences = new ImplementationPreferences {ID = ID, UserStability = UserStability};
 
             return feedPreferences;
         }
@@ -63,11 +80,11 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Conversion
         /// <summary>
-        /// Returns the preferences in the form "ImplementationPreferences: UserStability". Not safe for parsing!
+        /// Returns the preferences in the form "ImplementationPreferences: ID". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("ImplementationPreferences: {0}", UserStability);
+            return string.Format("ImplementationPreferences: {0}", ID);
         }
         #endregion
 
@@ -77,7 +94,7 @@ namespace ZeroInstall.Injector.Feeds
         {
             if (other == null) return false;
 
-            return UserStability == other.UserStability;
+            return ID == other.ID && UserStability == other.UserStability;
         }
 
         /// <inheritdoc/>
@@ -93,7 +110,9 @@ namespace ZeroInstall.Injector.Feeds
         {
             unchecked
             {
-                return UserStability.GetHashCode();
+                int result = (ID ?? "").GetHashCode();
+                result = (result * 397) ^ UserStability.GetHashCode();
+                return result;
             }
         }
         #endregion

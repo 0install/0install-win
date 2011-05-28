@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using System.Net;
+using Common;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Store.Feeds;
 
@@ -84,7 +85,25 @@ namespace ZeroInstall.Injector.Feeds
             if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
-            var preferences = FeedPreferences.LoadFor(feedID);
+            FeedPreferences preferences;
+            try { preferences = FeedPreferences.LoadFor(feedID); }
+            #region Error handling
+            catch (IOException ex)
+            {
+                Log.Error("Error loading feed preferences for '" + feedID + "':\n" + ex.Message);
+                preferences = new FeedPreferences();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Error("Error loading feed preferences for '" + feedID + "':\n" + ex.Message);
+                preferences = new FeedPreferences();
+            }
+            catch (InvalidOperationException ex)
+            {
+                Log.Error("Error loading feed preferences for '" + feedID + "':\n" + ex.Message);
+                preferences = new FeedPreferences();
+            }
+            #endregion
 
             if (Refresh)
             {

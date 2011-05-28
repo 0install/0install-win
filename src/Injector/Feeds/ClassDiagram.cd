@@ -24,7 +24,7 @@
       <Method Name="FeedManager" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAgAABAAAAAgAAAAAAAAAAEAIAAAEAAAAAAABA=</HashCode>
+      <HashCode>AAAAAAAgAABAAAAAgAAAAAAAAAIEAIgAAAAAAAAAABA=</HashCode>
       <FileName>Feeds\FeedManager.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -33,7 +33,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Injector.Feeds.FeedPreferences">
-    <Position X="6.25" Y="1.5" Width="1.75" />
+    <Position X="6.25" Y="0.5" Width="1.75" />
     <Members>
       <Field Name="_implementations" Hidden="true" />
       <Method Name="Clone" Hidden="true" />
@@ -49,15 +49,16 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AQQAgIAAAAAAAAAEgQAAAQAAAAAAAIAAAAAAAAAAADA=</HashCode>
+      <HashCode>AQwAgIAAAAAAAAAEgQAAASAAAAAAAIAAAAAAAAAAADA=</HashCode>
       <FileName>Feeds\FeedPreferences.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Implementations" />
     </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Injector.Feeds.ImplementationPreferences">
-    <Position X="6" Y="4.25" Width="2.25" />
+    <Position X="6" Y="3.5" Width="2.25" />
     <Members>
       <Field Name="_userStability" Hidden="true" />
       <Method Name="Clone" Hidden="true" />
@@ -67,12 +68,12 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAABAAAAAAAABEgAAAAAAAAAAAAIAAEAAAAAAAABA=</HashCode>
+      <HashCode>AAAAABAAAAAAgABEgAAAAAAAAAAAAIAAEAAAAAAAABA=</HashCode>
       <FileName>Feeds\ImplementationPreferences.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Injector.Feeds.InterfacePreferences">
-    <Position X="4.25" Y="1.5" Width="1.75" />
+    <Position X="4.25" Y="0.5" Width="1.75" />
     <Members>
       <Field Name="_feeds" Hidden="true" />
       <Field Name="_stabilityPolicy" Hidden="true" />
@@ -89,12 +90,13 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAgIAAAAAQgAAEhAAAAQAAAAAAAIAASAgAAAAAABA=</HashCode>
+      <HashCode>AAgAgIAAAAAQgAAEhAAAASAAAAAAAIAASAgAAAAAABA=</HashCode>
       <FileName>Feeds\InterfacePreferences.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Feeds" />
     </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Injector.Feeds.Key" BaseTypeListCollapsed="true">
     <Position X="0.5" Y="2.75" Width="1.5" />
@@ -116,20 +118,12 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Model.FeedReference">
-    <Position X="4.25" Y="4.25" Width="1.5" />
+    <Position X="4.25" Y="3.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier />
     <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="ZeroInstall.Injector.Feeds.Preferences" Collapsed="true">
-    <Position X="5.25" Y="0.5" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAABA=</HashCode>
-      <FileName>Feeds\Preferences.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Struct Name="ZeroInstall.Injector.Feeds.Domain" BaseTypeListCollapsed="true">
     <Position X="0.5" Y="4.25" Width="1.5" />

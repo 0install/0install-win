@@ -81,6 +81,12 @@ namespace ZeroInstall.Injector.Solver
         /// </summary>
         [Description("Human-readable notes about the implementation, e.g. \"not suitable for this architecture\".")]
         public string Notes { get; private set; }
+
+        /// <summary>
+        /// Indicates wether this implementation can be executed on the current system.
+        /// </summary>
+        [Browsable(false)]
+        public bool IsCompatible { get; private set; }
         #endregion
 
         #region Constructor
@@ -92,9 +98,16 @@ namespace ZeroInstall.Injector.Solver
         /// <param name="implementationPreferences">The preferences controlling how the <see cref="ISolver"/> evaluates this candidate.</param>
         public SelectionCandidate(string feedID, Implementation implementation, ImplementationPreferences implementationPreferences)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            if (implementation == null) throw new ArgumentNullException("implementation");
+            if (implementationPreferences == null) throw new ArgumentNullException("implementationPreferences");
+            #endregion
+
             FeedID = feedID;
             _implementation = implementation;
             _implementationPreferences = implementationPreferences;
+            IsCompatible = implementation.Architecture.IsCompatible(Model.Architecture.CurrentSystem);
             Notes = GetNotes();
         }
 

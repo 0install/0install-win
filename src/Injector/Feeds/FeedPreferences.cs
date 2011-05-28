@@ -20,7 +20,6 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
-using Common;
 using Common.Collections;
 using Common.Storage;
 using Common.Utils;
@@ -34,7 +33,7 @@ namespace ZeroInstall.Injector.Feeds
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("feed-preferences", Namespace = Feed.XmlNamespace)]
     [XmlType("feed-preferences", Namespace = Feed.XmlNamespace)]
-    public sealed class FeedPreferences : XmlUnknown, ICloneable
+    public sealed class FeedPreferences : XmlUnknown, ISimplifyable, ICloneable
     {
         #region Properties
         /// <summary>
@@ -66,6 +65,34 @@ namespace ZeroInstall.Injector.Feeds
 
         //--------------------//
 
+        #region Access
+        /// <summary>
+        /// Retreives an existing entry from <see cref="Implementations"/> by ID or creates a new one if no appropriate one exists.
+        /// </summary>
+        /// <param name="id">The <see cref="ImplementationPreferences.ID"/> to search for.</param>
+        /// <returns>The found or newly created <see cref="ImplementationPreferences"/>.</returns>
+        public ImplementationPreferences GetImplementationPreferences(string id)
+        {
+            ImplementationPreferences result;
+            if (!Implementations.Find(implementation => implementation.ID == id, out result))
+            {
+                result = new ImplementationPreferences {ID = id};
+                Implementations.Add(result);
+            }
+            return result;
+        }
+        #endregion
+
+        #region Simplify
+        /// <summary>
+        /// Removes superflous entries from <see cref="Implementations"/>.
+        /// </summary>
+        public void Simplify()
+        {
+            _implementations.RemoveAll(_implementations.FindAll(implementation => implementation.IsSuperflous));
+        }
+        #endregion
+
         #region Storage
         /// <summary>
         /// Loads <see cref="FeedPreferences"/> from an XML file.
@@ -85,20 +112,19 @@ namespace ZeroInstall.Injector.Feeds
         /// </summary>
         /// <param name="feedID">The feed to load the preferences for.</param>
         /// <returns>The loaded <see cref="FeedPreferences"/>.</returns>
+        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static FeedPreferences LoadFor(string feedID)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            #endregion
+
             var path = EnumerableUtils.GetFirst(Locations.GetLoadConfigPaths("0install.net", FileUtils.PathCombine("injector", "feeds", ModelUtils.PrettyEscape(feedID)), false));
             if (string.IsNullOrEmpty(path)) return new FeedPreferences();
 
-            try { return XmlStorage.Load<FeedPreferences>(path); }
-            #region Error handling
-            catch (Exception ex)
-            {
-                Log.Warn("Failed to load preferences for feed '" + feedID + "'\n" + ex.Message);
-                Log.Warn("Reverting to default values");
-                return new FeedPreferences();
-            }
-            #endregion
+            return XmlStorage.Load<FeedPreferences>(path);
         }
 
         /// <summary>

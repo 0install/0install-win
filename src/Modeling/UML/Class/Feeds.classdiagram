@@ -3313,6 +3313,12 @@
                     <referencedTypeMoniker Id="b90208d0-684d-49c7-99a9-00750e5fd4db" LastKnownName="Stability" />
                   </type_NamedElement>
                 </property>
+                <property Id="7c259048-4e03-4c5c-8703-51dc873fdbe3" name="ID" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="1dfd6a54-a638-4d7a-b5b2-cfe77f824d65" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                  </type_NamedElement>
+                </property>
               </ownedAttributesInternal>
             </class>
           </packageHasNamedElement>
