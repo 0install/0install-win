@@ -96,7 +96,9 @@ namespace ZeroInstall.Commands.WinForms
 
                 // Get feed for each selected implementation
                 var implementation = _selections.Implementations[i];
-                Feed feed = _feedCache.GetFeed(implementation.InterfaceID);
+                Feed feed = (!string.IsNullOrEmpty(implementation.FromFeed) && _feedCache.Contains(implementation.FromFeed))
+                    ? _feedCache.GetFeed(implementation.FromFeed)
+                    : _feedCache.GetFeed(implementation.InterfaceID);
 
                 // Display application name and implementation version
                 tableLayout.Controls.Add(new Label {Text = feed.Name, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft}, 0, i);
@@ -129,10 +131,10 @@ namespace ZeroInstall.Commands.WinForms
                 string interfaceID = _selections.Implementations[i].InterfaceID;
 
                 // Setup link label for modifying interface preferences
-                var linkLabel = new LinkLabel { Text = "Change", Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft };
+                var linkLabel = new LinkLabel {Text = "Properties", Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft};
                 linkLabel.LinkClicked += delegate
                 {
-                    if (InterfaceDialog.Show(this, interfaceID)) ReSolve(solveCallback, waitHandle);
+                    if (InterfaceDialog.Show(this, interfaceID, _feedCache)) ReSolve(solveCallback, waitHandle);
                 };
                 _auditLinks.AddLast(linkLabel);
                 tableLayout.Controls.Add(linkLabel, 2, i);
@@ -150,7 +152,7 @@ namespace ZeroInstall.Commands.WinForms
         private void ReSolve(SimpleResult<Selections> solveCallback, EventWaitHandle waitHandle)
         {
             // Prevent user interaction while solving
-            Enabled = false;
+            Visible = false;
 
             var solveWorker = new BackgroundWorker();
             solveWorker.DoWork += delegate { _selections = solveCallback(); };
@@ -162,7 +164,7 @@ namespace ZeroInstall.Commands.WinForms
                 BeginAudit(solveCallback, waitHandle);
 
                 // Restore user interaction
-                Enabled = true;
+                Visible = true;
             };
             solveWorker.RunWorkerAsync();
         }

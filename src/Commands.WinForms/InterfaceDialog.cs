@@ -16,13 +16,16 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
-using C5;
 using Common;
 using Common.Controls;
 using ZeroInstall.Injector.Feeds;
+using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Commands.WinForms
 {
@@ -35,31 +38,47 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>The interface to modify the preferences for.</summary>
         private readonly string _interfaceID;
 
+        /// <summary>The feed cache used to retreive <see cref="Feed"/>s for additional information about imlementations.</summary>
+        private readonly IFeedCache _feedCache;
+
         /// <summary>The interface preferences being modified.</summary>
         private readonly InterfacePreferences _interfacePreferences;
+
+        /// <summary>A list of all feed IDs contributing to the selection process associated with their respective preferences.</summary>
+        private readonly IDictionary<string, FeedPreferences> _feeds = new Dictionary<string, FeedPreferences>();
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Creates anew interface dialog.
+        /// Creates a new interface dialog.
         /// </summary>
         /// <param name="interfaceID">The interface to modify the preferences for.</param>
-        private InterfaceDialog(string interfaceID)
+        /// <param name="feedCache">The feed cache used to retreive feeds for additional information about imlementations.</param>
+        private InterfaceDialog(string interfaceID, IFeedCache feedCache)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (feedCache == null) throw new ArgumentNullException("feedCache");
             #endregion
 
-            _interfaceID = interfaceID;
-
             InitializeComponent();
-            comboBoxStability.Items.AddRange(new object[] {"", Stability.Stable, Stability.Testing, Stability.Developer});
+            comboBoxStability.Items.AddRange(new object[] {"Use default setting", Stability.Stable, Stability.Testing, Stability.Developer});
+            dataColumnUserStability.Items.AddRange(new object[] {Stability.Unset, Stability.Preferred, Stability.Packaged, Stability.Stable, Stability.Testing, Stability.Developer});
 
-            _interfacePreferences = InterfacePreferences.LoadFor(interfaceID);
-            comboBoxStability.SelectedItem = _interfacePreferences.StabilityPolicy;
-            listBoxFeeds.Items.Add(interfaceID);
-            foreach (var feedReference in _interfacePreferences.Feeds)
-                listBoxFeeds.Items.Add(feedReference);
+            _interfaceID = interfaceID;
+            _feedCache = feedCache;
+
+            _interfacePreferences = InterfacePreferences.LoadForSafe(interfaceID);
+        }
+
+        private void InterfaceDialog_Load(object sender, EventArgs e)
+        {
+            Text = string.Format("Properties for {0}", _feedCache.GetFeed(_interfaceID).Name);
+
+            if (_interfacePreferences.StabilityPolicy == Stability.Unset) comboBoxStability.SelectedItem = "Use default setting";
+            else comboBoxStability.SelectedItem = _interfacePreferences.StabilityPolicy;
+
+            LoadFeeds();
         }
         #endregion
 
@@ -69,15 +88,16 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
         /// <param name="interfaceID">The interface to modify the preferences for.</param>
+        /// <param name="feedCache">The feed cache used to retreive feeds for additional information about imlementations.</param>
         /// <returns><see langword="true"/> if the preferences where modified; <see langword="false"/> if everything remained unchanged.</returns>
-        public static bool Show(IWin32Window owner, string interfaceID)
+        public static bool Show(IWin32Window owner, string interfaceID, IFeedCache feedCache)
         {
             #region Sanity checks
             if (owner == null) throw new ArgumentNullException("owner");
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (feedCache == null) throw new ArgumentNullException("feedCache");
             #endregion
 
-            using (var dialog = new InterfaceDialog(interfaceID))
+            using (var dialog = new InterfaceDialog(interfaceID, feedCache))
             {
                 return (dialog.ShowDialog() == DialogResult.OK);
             }
@@ -86,15 +106,57 @@ namespace ZeroInstall.Commands.WinForms
 
         //--------------------//
 
-        #region Helpers
+        #region Feed helpers
+        /// <summary>
+        /// Builds the initial list of feeds.
+        /// </summary>
+        private void LoadFeeds()
+        {
+            // Add main feed
+            _feeds.Add(_interfaceID, FeedPreferences.LoadForSafe(_interfaceID));
+            listBoxFeeds.Items.Add(_interfaceID); // Add string => not removable in GUI
+
+            // Add feeds references from main feed
+            foreach (var reference in _feedCache.GetFeed(_interfaceID).Feeds)
+            {
+                _feeds.Add(reference.Source, FeedPreferences.LoadForSafe(reference.Source));
+                listBoxFeeds.Items.Add(reference.Source); // Add string => not removable in GUI
+            }
+
+            // Add manually registered feeds
+            foreach (var reference in _interfacePreferences.Feeds)
+            {
+                _feeds.Add(reference.Source, FeedPreferences.LoadForSafe(reference.Source));
+                listBoxFeeds.Items.Add(reference); // Add complex object => removable in GUI
+            }
+
+            UpdateDataGridVersions();
+        }
+
         /// <summary>
         /// Adds a feed to the list of registered additional feeds.
         /// </summary>
         private void AddFeed(string feedID)
         {
-            var feed = new FeedReference { Source = feedID };
-            _interfacePreferences.Feeds.Add(feed);
-            listBoxFeeds.Items.Add(feed);
+            try { ModelUtils.ValidateInterfaceID(feedID); }
+            #region Error handling
+            catch (InvalidInterfaceIDException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            #endregion
+
+            // ToDo: Load feed into cache if missing
+            // ToDo: Ensure <feed-for> is set
+
+            _feeds.Add(feedID, FeedPreferences.LoadForSafe(feedID));
+
+            var reference = new FeedReference {Source = feedID};
+            _interfacePreferences.Feeds.Add(reference);
+            listBoxFeeds.Items.Add(reference);
+
+            UpdateDataGridVersions();
         }
 
         /// <summary>
@@ -102,26 +164,103 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private void RemoveFeed(FeedReference feed)
         {
-            _interfacePreferences.Feeds.Remove(feed);
             listBoxFeeds.Items.Remove(feed);
+            _interfacePreferences.Feeds.Remove(feed);
+
+            _feeds.Remove(feed.Source);
+
+            UpdateDataGridVersions();
+        }
+
+        /// <summary>
+        /// Generates a list of <see cref="SelectionCandidate"/>s to populate <see cref="dataGridVersions"/>.
+        /// </summary>
+        private void UpdateDataGridVersions()
+        {
+            var candidates = new BindingList<SelectionCandidate> {AllowEdit = true, AllowNew = false};
+            foreach (var feedEntry in _feeds)
+            {
+                string feedID = feedEntry.Key;
+                Feed feed;
+                try { feed = _feedCache.GetFeed(feedID); }
+                #region Error handling
+                catch (InvalidInterfaceIDException ex)
+                {
+                    Log.Error("Unable to load feed '" + feedID + "'; skipping.\n" + ex.Message);
+                    continue;
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    Log.Error("Unable to load feed '" + feedID + "'; skipping.\n" + ex.Message);
+                    continue;
+                }
+                catch (IOException ex)
+                {
+                    Log.Error("Unable to load feed '" + feedID + "'; skipping.\n" + ex.Message);
+                    continue;
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Log.Error("Unable to load feed '" + feedID + "'; skipping.\n" + ex.Message);
+                    continue;
+                }
+                catch (InvalidOperationException ex)
+                {
+                    Log.Error("Unable to load feed '" + feedID + "'; skipping.\n" + ex.Message);
+                    continue;
+                }
+                #endregion
+                var feedPreferences = feedEntry.Value;
+
+                foreach (var element in feed.Elements)
+                {
+                    var implementation = element as Implementation;
+                    if (implementation == null) continue;
+
+                    // ToDo: Respect architecture overrides in requirements
+                    if (checkBoxShowAllVersions.Checked || implementation.Architecture.IsCompatible(Architecture.CurrentSystem))
+                        candidates.Add(new SelectionCandidate(feedID, implementation, feedPreferences.GetImplementationPreferences(implementation.ID)));
+                }
+            }
+            dataGridVersions.DataSource = candidates;
         }
         #endregion
 
         #region Buttons
+        private void checkBoxShowAllVersions_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDataGridVersions();
+        }
+
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            _interfacePreferences.StabilityPolicy = (comboBoxStability.SelectedItem is Stability) ? (Stability)comboBoxStability.SelectedItem : Stability.Unset;
-            try { _interfacePreferences.SaveFor(_interfaceID); }
+            // Read interface stability policy from ComboBox
+            if (comboBoxStability.SelectedItem is Stability) _interfacePreferences.StabilityPolicy = (Stability)comboBoxStability.SelectedItem;
+            else _interfacePreferences.StabilityPolicy = Stability.Unset;
+
+            try
+            {
+                // Save interface preferences
+                _interfacePreferences.SaveFor(_interfaceID);
+
+                // Save all feed preferences
+                foreach (var feedEntry in _feeds)
+                {
+                    var preferences = feedEntry.Value;
+                    preferences.Simplify();
+                    preferences.SaveFor(feedEntry.Key);
+                }
+            }
             #region Error handling
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                // ToDo: Cancel closing dialog
+                // ToDo: Cancel closing the dialog
             }
             catch (UnauthorizedAccessException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                // ToDo: Cancel closing dialog
+                // ToDo: Cancel closing the dialog
             }
             #endregion
         }
@@ -132,7 +271,7 @@ namespace ZeroInstall.Commands.WinForms
             buttonRemoveFeed.Enabled = false;
             foreach (var item in listBoxFeeds.SelectedItems)
             {
-                if (item is FeedReference)
+                if (item is FeedReference /*&& _interfacePreferences.Feeds.Contains((FeedReference)item)*/)
                 {
                     buttonRemoveFeed.Enabled = true;
                     return;
@@ -142,7 +281,7 @@ namespace ZeroInstall.Commands.WinForms
 
         private void buttonAddFeed_Click(object sender, EventArgs e)
         {
-            string feedID = InputBox.Show(this, "Feed", "Feed ID:");
+            string feedID = InputBox.Show(this, "Feed", "Please enter the URL of the new source of implementations for this interface:");
             if (string.IsNullOrEmpty(feedID)) return;
 
             AddFeed(feedID);
@@ -154,7 +293,7 @@ namespace ZeroInstall.Commands.WinForms
             foreach (var item in listBoxFeeds.SelectedItems)
             {
                 var feed = item as FeedReference;
-                if (feed != null) toRemove.Add(feed);
+                if (feed != null) toRemove.AddLast(feed);
             }
             foreach (var feed in toRemove) RemoveFeed(feed);
         }
