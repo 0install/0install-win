@@ -70,7 +70,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         public virtual string ActionTitle { get { return Resources.ActionSelection; } }
 
-        private readonly Requirements _requirements = new Requirements();
+        private readonly Requirements _requirements = new Requirements() /*{Architecture = Architecture.CurrentSystem}*/;
         /// <summary>
         /// A set of requirements/restrictions imposed by the user on the implementation selection process as parsed from the command-line arguments.
         /// </summary>

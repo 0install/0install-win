@@ -52,7 +52,7 @@ namespace ZeroInstall.Publish.WinForms
 
         private void MassSignDialog_Load(object sender, EventArgs e)
         {
-            comboBoxSecretKey.Items.Add("(please select)");
+            comboBoxSecretKey.Items.Add("");
             foreach (var secretKey in OpenPgpProvider.Default.ListSecretKeys())
                 comboBoxSecretKey.Items.Add(secretKey);
         }
