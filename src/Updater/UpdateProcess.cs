@@ -18,8 +18,8 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Security;
 using System.Threading;
-using Common;
 using Common.Utils;
 using ZeroInstall.Updater.Properties;
 
@@ -144,10 +144,29 @@ namespace ZeroInstall.Updater
         /// </summary>
         public void UpdateRegistry()
         {
-            using (var innoSetupKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Zero Install_is1", true))
+            try
             {
-                if (innoSetupKey != null) innoSetupKey.SetValue("DisplayVersion", NewVersion);
+                // Check if the target path is a Inno Setup installation
+                using (var innoSetupKeyRead = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Zero Install_is1", false))
+                {
+                    if (innoSetupKeyRead == null) return; // Don't continue if there is no Inno Setup installation
+                    string appPath = (innoSetupKeyRead.GetValue("Inno Setup: App Path") ?? "").ToString();
+                    if (Path.GetFullPath(appPath) != Target) return; // Don't continue if this is an archive extracted in parallel to the Inno Setup installation
+                }
+
+                // Update the Uninstall version entry
+                using (var innoSetupKeyWrite = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Zero Install_is1", true))
+                {
+                    if (innoSetupKeyWrite != null) innoSetupKeyWrite.SetValue("DisplayVersion", NewVersion);
+                }
             }
+            #region Error handling
+            catch (SecurityException ex)
+            {
+                // Wrap exception since only certain exception types are allowed in tasks
+                throw new UnauthorizedAccessException(ex.Message, ex);
+            }
+            #endregion
         }
         #endregion
 
