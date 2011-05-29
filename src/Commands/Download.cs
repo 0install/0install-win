@@ -105,15 +105,17 @@ namespace ZeroInstall.Commands
 
         #region Helpers
         /// <inheritdoc/>
-        protected override void Solve()
+        protected override Selections Solve()
         {
-            base.Solve();
+            var result = base.Solve();
 
             try { UncachedImplementations = Selections.ListUncachedImplementations(Policy.Fetcher.Store, Policy.FeedManager.Cache); }
             catch(InvalidOperationException ex)
             {
                 throw new SolverException(ex.Message, ex);
             }
+
+            return result;
         }
 
         /// <summary>

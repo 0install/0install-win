@@ -158,17 +158,19 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Runs <see cref="ISolver.Solve"/> (unless <see cref="SelectionsDocument"/> is <see langword="true"/>) and stores the result in <see cref="Selections"/>.
         /// </summary>
+        /// <returns>The same result as stored in <see cref="Selections"/>.</returns>
         /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
         /// <exception cref="IOException">Thrown if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
-        protected virtual void Solve()
+        protected virtual Selections Solve()
         {
             // Don't run the solver if the user provided an external selections document
-            if (SelectionsDocument) return;
+            if (SelectionsDocument) return Selections;
 
             Selections = Policy.Solver.Solve(Requirements, Policy, out StaleFeeds);
 
             if (Canceled) throw new UserCancelException();
+            return Selections;
         }
 
         /// <summary>
@@ -180,7 +182,7 @@ namespace ZeroInstall.Commands
 
             // Allow the user to trigger a Solver rerun after modifying preferences
             if (ShowSelectionsUI && !SelectionsDocument)
-                Policy.Handler.AuditSelections(() => Selections = Policy.Solver.Solve(Requirements, Policy, out StaleFeeds));
+                Policy.Handler.AuditSelections(Solve);
 
             if (Canceled) throw new UserCancelException();
         }
