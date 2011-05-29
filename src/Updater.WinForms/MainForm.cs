@@ -131,7 +131,8 @@ namespace ZeroInstall.Updater.WinForms
         {
             try
             {
-                var startInfo = new ProcessStartInfo(Application.ExecutablePath, StringUtils.ConcatenateEscape(new[] {_updateProcess.Source, _updateProcess.Target, "--rerun"})) {Verb = "runas"};
+                var startInfo = new ProcessStartInfo(Application.ExecutablePath, StringUtils.ConcatenateEscape(new[] {_updateProcess.Source, _updateProcess.Target, "--rerun"})) {Verb = "runas", UseShellExecute = false};
+                startInfo.EnvironmentVariables["ZEROINSTALL_VERSION"] = _updateProcess.NewVersion;
                 Process.Start(startInfo).WaitForExit();
             }
             catch (Win32Exception)

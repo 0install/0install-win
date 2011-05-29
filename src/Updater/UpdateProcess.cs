@@ -19,6 +19,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using Common;
 using Common.Utils;
 using ZeroInstall.Updater.Properties;
 
@@ -30,9 +31,6 @@ namespace ZeroInstall.Updater
     public class UpdateProcess
     {
         #region Variables
-        /// <summary>The version number of the new/updated version.</summary>
-        private readonly string _newVersion;
-
         /// <summary>A mutex that prevents Zero Install instances from being launched while an update is in progress.</summary>
         private AppMutex _blockingMutex;
         #endregion
@@ -47,6 +45,11 @@ namespace ZeroInstall.Updater
         /// The full path to the directory containing the old version to be updated.
         /// </summary>
         public string Target { get; private set; }
+
+        /// <summary>
+        /// The version number of the new/updated version.
+        /// </summary>
+        public string NewVersion { get; private set; }
         #endregion
 
         #region Constructor
@@ -67,7 +70,7 @@ namespace ZeroInstall.Updater
 
             Source = Path.GetFullPath(source);
             Target = Path.GetFullPath(target);
-            _newVersion = newVersion;
+            NewVersion = newVersion;
 
             if (!Directory.Exists(Source)) throw new DirectoryNotFoundException(Resources.SourceMissing);
         }
@@ -96,9 +99,9 @@ namespace ZeroInstall.Updater
         /// </summary>
         public void DeleteFiles()
         {
-            if (string.IsNullOrEmpty(_newVersion)) return;
+            if (string.IsNullOrEmpty(NewVersion)) return;
 
-            switch (_newVersion)
+            switch (NewVersion)
             {
                 case "0.54.4":
                     foreach (string file in new[] {"ZeroInstall.MyApps.dll", Path.Combine("de", "ZeroInstall.MyApps.resources.dll")})
@@ -142,11 +145,11 @@ namespace ZeroInstall.Updater
         /// </summary>
         public void UpdateRegistry()
         {
-            if (string.IsNullOrEmpty(_newVersion)) return;
+            if (string.IsNullOrEmpty(NewVersion)) return;
 
             using (var innoSetupKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Zero Install_is1", true))
             {
-                if (innoSetupKey != null) innoSetupKey.SetValue("DisplayVersion", _newVersion);
+                if (innoSetupKey != null) innoSetupKey.SetValue("DisplayVersion", NewVersion);
             }
         }
         #endregion
