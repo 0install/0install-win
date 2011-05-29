@@ -321,14 +321,14 @@ namespace Common.Utils
 
                 case PlatformID.Win32NT:
                     ToggleWriteProtectionWinNT(directory, false);
-                    try { ToggleWriteProtectionWin32(directory, false); }
-                    #region Error handling
-                    catch (ArgumentException ex)
-                    {
-                        // Wrap exception since only certain exception types are allowed in tasks
-                        throw new IOException(ex.Message, ex);
-                    }
-                    #endregion
+                    //try { ToggleWriteProtectionWin32(directory, false); }
+                    //#region Error handling
+                    //catch (ArgumentException ex)
+                    //{
+                    //    // Wrap exception since only certain exception types are allowed in tasks
+                    //    throw new IOException(ex.Message, ex);
+                    //}
+                    //#endregion
                     break;
             }
         }
