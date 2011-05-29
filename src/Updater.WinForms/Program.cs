@@ -43,10 +43,10 @@ namespace ZeroInstall.Updater.WinForms
             bool rerun;
             switch (args.Length)
             {
-                case 2:
+                case 3:
                     rerun = false;
                     break;
-                case 3:
+                case 4:
                     rerun = (args[2] == "--rerun");
                     break;
                 default:
@@ -55,7 +55,7 @@ namespace ZeroInstall.Updater.WinForms
             }
 
             UpdateProcess updateProcess;
-            try { updateProcess = new UpdateProcess(args[0], args[1], Environment.GetEnvironmentVariable("ZEROINSTALL_VERSION")); }
+            try { updateProcess = new UpdateProcess(args[0], args[1], args[2]); }
             #region Error handling
             catch (IOException ex)
             {

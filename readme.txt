@@ -54,5 +54,3 @@ Note: You must perform a Debug build first (using MonoDevelop or src/build.sh) b
 Environment variables:
 
 $ZEROINSTALL_PORTABLE_BASE: Used by the C# to to inform the Python code of Portable mode.
-$ZEROINSTALL_VERSION: Used to inform the Zero Install Updater of the version number of the new version being installed.
-$ZEROINSTALL_UPDATER_SOURCE: Used internally by the Zero Install Updater feed to pass the source directory containing the new version to be installed as a command-line argument.

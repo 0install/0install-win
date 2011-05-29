@@ -57,20 +57,21 @@ namespace ZeroInstall.Updater
         /// Creates a new update process.
         /// </summary>
         /// <param name="source">The directory containing the new/updated version.</param>
-        /// <param name="target">The directory containing the old version to be updated.</param>
         /// <param name="newVersion">The version number of the new/updated version.</param>
+        /// <param name="target">The directory containing the old version to be updated.</param>
         /// <exception cref="IOException">Thrown if there was a problem accessing one of the directories.</exception>
         /// <exception cref="NotSupportedException">Thrown if one of the directory paths is invalid.</exception>
-        public UpdateProcess(string source, string target, string newVersion)
+        public UpdateProcess(string source, string newVersion, string target)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
+            if (string.IsNullOrEmpty(newVersion)) throw new ArgumentNullException("newVersion");
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
             Source = Path.GetFullPath(source);
-            Target = Path.GetFullPath(target);
             NewVersion = newVersion;
+            Target = Path.GetFullPath(target);
 
             if (!Directory.Exists(Source)) throw new DirectoryNotFoundException(Resources.SourceMissing);
         }
@@ -99,8 +100,6 @@ namespace ZeroInstall.Updater
         /// </summary>
         public void DeleteFiles()
         {
-            if (string.IsNullOrEmpty(NewVersion)) return;
-
             switch (NewVersion)
             {
                 case "0.54.4":
@@ -145,8 +144,6 @@ namespace ZeroInstall.Updater
         /// </summary>
         public void UpdateRegistry()
         {
-            if (string.IsNullOrEmpty(NewVersion)) return;
-
             using (var innoSetupKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Zero Install_is1", true))
             {
                 if (innoSetupKey != null) innoSetupKey.SetValue("DisplayVersion", NewVersion);
