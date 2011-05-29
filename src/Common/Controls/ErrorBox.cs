@@ -66,6 +66,7 @@ namespace Common.Controls
                 textDetails = { Rtf = detailsRtf }
             })
             {
+                errorBox.toolTip.SetToolTip(errorBox.labelMessage, errorBox.labelMessage.Text);
                 errorBox.Shown += delegate { WindowsUtils.SetForegroundWindow(errorBox); };
                 errorBox.ShowDialog();
             }

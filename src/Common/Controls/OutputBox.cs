@@ -59,6 +59,7 @@ namespace Common.Controls
                 textMessage = { Text = message.Replace("\n", Environment.NewLine) }
             })
             {
+                outputBox.toolTip.SetToolTip(outputBox.labelTitle, outputBox.labelTitle.Text);
                 outputBox.Shown += delegate { WindowsUtils.SetForegroundWindow(outputBox); };
                 outputBox.ShowDialog();
             }
