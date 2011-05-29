@@ -50,6 +50,7 @@ namespace ZeroInstall.Commands.WinForms
                 #endregion
 
                 labelOperation.Text = (value == null ? "" : value.Name);
+                toolTip.SetToolTip(labelOperation, labelOperation.Text); // Show as tooltip in case text is cut off
                 progressBar.Task = value;
                 progressLabel.Task = value;
             }

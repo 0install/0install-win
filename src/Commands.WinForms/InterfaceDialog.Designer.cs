@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageVersions = new System.Windows.Forms.TabPage();
             this.checkBoxShowAllVersions = new System.Windows.Forms.CheckBox();
@@ -45,6 +46,7 @@
             this.buttonRemoveFeed = new System.Windows.Forms.Button();
             this.buttonAddFeed = new System.Windows.Forms.Button();
             this.listBoxFeeds = new System.Windows.Forms.ListBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl.SuspendLayout();
             this.tabPageVersions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVersions)).BeginInit();
@@ -96,6 +98,7 @@
             this.checkBoxShowAllVersions.Size = new System.Drawing.Size(108, 17);
             this.checkBoxShowAllVersions.TabIndex = 4;
             this.checkBoxShowAllVersions.Text = "Show all &versions";
+            this.toolTip.SetToolTip(this.checkBoxShowAllVersions, "Show versions that are not supported on this system");
             this.checkBoxShowAllVersions.UseVisualStyleBackColor = true;
             this.checkBoxShowAllVersions.CheckedChanged += new System.EventHandler(this.checkBoxShowAllVersions_CheckedChanged);
             // 
@@ -116,6 +119,8 @@
             this.comboBoxStability.Name = "comboBoxStability";
             this.comboBoxStability.Size = new System.Drawing.Size(120, 21);
             this.comboBoxStability.TabIndex = 3;
+            this.toolTip.SetToolTip(this.comboBoxStability, "Determines which kind of stability rating on versions will be considered the \"bes" +
+        "t\" and thus chosen first");
             // 
             // dataGridVersions
             // 
@@ -225,6 +230,7 @@
             this.buttonRemoveFeed.Size = new System.Drawing.Size(75, 23);
             this.buttonRemoveFeed.TabIndex = 2;
             this.buttonRemoveFeed.Text = "&Remove";
+            this.toolTip.SetToolTip(this.buttonRemoveFeed, "Removes a source of implementations for this interface");
             this.buttonRemoveFeed.UseVisualStyleBackColor = true;
             this.buttonRemoveFeed.Click += new System.EventHandler(this.buttonRemoveFeed_Click);
             // 
@@ -236,6 +242,7 @@
             this.buttonAddFeed.Size = new System.Drawing.Size(75, 23);
             this.buttonAddFeed.TabIndex = 1;
             this.buttonAddFeed.Text = "&Add";
+            this.toolTip.SetToolTip(this.buttonAddFeed, "Adds  a new source of implementations for this interface");
             this.buttonAddFeed.UseVisualStyleBackColor = true;
             this.buttonAddFeed.Click += new System.EventHandler(this.buttonAddFeed_Click);
             // 
@@ -303,5 +310,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataColumnNotes;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataColumnSource;
         private System.Windows.Forms.CheckBox checkBoxShowAllVersions;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

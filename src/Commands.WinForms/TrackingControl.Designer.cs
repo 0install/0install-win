@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.progressLabel = new Common.Controls.TrackingLabel();
             this.labelOperation = new System.Windows.Forms.Label();
             this.progressBar = new Common.Controls.TrackingProgressBar();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // progressLabel
@@ -80,6 +82,7 @@
         private Common.Controls.TrackingLabel progressLabel;
         private System.Windows.Forms.Label labelOperation;
         private Common.Controls.TrackingProgressBar progressBar;
+        private System.Windows.Forms.ToolTip toolTip;
 
     }
 }
