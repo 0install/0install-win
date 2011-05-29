@@ -44,9 +44,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayout.AutoSize = true;
             this.tableLayout.ColumnCount = 3;
-            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayout.Controls.Add(this.labelName, 0, 0);
             this.tableLayout.Controls.Add(this.labelVersion, 1, 0);
             this.tableLayout.Controls.Add(this.labelTask, 2, 0);
@@ -69,7 +69,7 @@
             // labelVersion
             // 
             this.labelVersion.AutoSize = true;
-            this.labelVersion.Location = new System.Drawing.Point(63, 0);
+            this.labelVersion.Location = new System.Drawing.Point(90, 0);
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(42, 13);
             this.labelVersion.TabIndex = 1;
@@ -78,7 +78,7 @@
             // labelTask
             // 
             this.labelTask.AutoSize = true;
-            this.labelTask.Location = new System.Drawing.Point(113, 0);
+            this.labelTask.Location = new System.Drawing.Point(150, 0);
             this.labelTask.Name = "labelTask";
             this.labelTask.Size = new System.Drawing.Size(31, 13);
             this.labelTask.TabIndex = 2;

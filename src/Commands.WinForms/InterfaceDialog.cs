@@ -218,8 +218,9 @@ namespace ZeroInstall.Commands.WinForms
                     if (implementation == null) continue;
 
                     // ToDo: Respect architecture overrides in requirements
-                    if (checkBoxShowAllVersions.Checked || implementation.Architecture.IsCompatible(Architecture.CurrentSystem))
-                        candidates.Add(new SelectionCandidate(feedID, implementation, feedPreferences.GetImplementationPreferences(implementation.ID)));
+                    var candidate = new SelectionCandidate(feedID, implementation, feedPreferences.GetImplementationPreferences(implementation.ID));
+                    if (checkBoxShowAllVersions.Checked || candidate.IsCompatible)
+                        candidates.Add(candidate);
                 }
             }
             dataGridVersions.DataSource = candidates;

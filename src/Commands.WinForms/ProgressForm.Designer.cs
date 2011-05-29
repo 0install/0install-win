@@ -42,7 +42,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(477, 147);
+            this.buttonCancel.Location = new System.Drawing.Point(372, 127);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 3;
@@ -59,7 +59,7 @@
             // buttonHide
             // 
             this.buttonHide.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHide.Location = new System.Drawing.Point(396, 147);
+            this.buttonHide.Location = new System.Drawing.Point(291, 127);
             this.buttonHide.Name = "buttonHide";
             this.buttonHide.Size = new System.Drawing.Size(75, 23);
             this.buttonHide.TabIndex = 2;
@@ -84,7 +84,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBarSolving.Location = new System.Drawing.Point(12, 41);
             this.progressBarSolving.Name = "progressBarSolving";
-            this.progressBarSolving.Size = new System.Drawing.Size(540, 23);
+            this.progressBarSolving.Size = new System.Drawing.Size(435, 23);
             this.progressBarSolving.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBarSolving.TabIndex = 4;
             // 
@@ -95,7 +95,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.selectionsControl.Location = new System.Drawing.Point(12, 12);
             this.selectionsControl.Name = "selectionsControl";
-            this.selectionsControl.Size = new System.Drawing.Size(540, 158);
+            this.selectionsControl.Size = new System.Drawing.Size(435, 138);
             this.selectionsControl.TabIndex = 1;
             this.selectionsControl.Visible = false;
             // 
@@ -103,7 +103,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(564, 182);
+            this.ClientSize = new System.Drawing.Size(459, 162);
             this.Controls.Add(this.buttonHide);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.selectionsControl);
