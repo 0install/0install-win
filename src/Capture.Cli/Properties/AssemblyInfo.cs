@@ -4,7 +4,7 @@ using System.Resources;
 using System.Runtime.InteropServices;
 
 // Assembly info
-[assembly: AssemblyTitle("Zero Install Feed Editor")]
+[assembly: AssemblyTitle("Zero Install Capture CLI")]
 [assembly: AssemblyDescription("Command-line tool for system state capturing (build feeds from installation snapshots).")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.de")]
