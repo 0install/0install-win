@@ -132,82 +132,73 @@ namespace ZeroInstall.Commands.WinForms
                 try { command.Execute(); }
                 #region Error handling
                 catch (UserCancelException)
-                {
-                    handler.CloseProgressUI();
-                }
+                {}
                 catch (OptionException ex)
                 {
                     handler.DisableProgressUI();
                     Msg.Inform(null, ex.Message + "\n" + Resources.TryHelp, MsgSeverity.Error);
-                    handler.CloseProgressUI();
                 }
                 catch (WebException ex)
                 {
                     handler.DisableProgressUI();
                     ErrorBox.Show(ex.Message, errorLog.ToString());
-                    handler.CloseProgressUI();
                 }
                 catch (NotSupportedException ex)
                 {
                     handler.DisableProgressUI();
                     ErrorBox.Show(ex.Message, errorLog.ToString());
-                    handler.CloseProgressUI();
                 }
                 catch (IOException ex)
                 {
                     handler.DisableProgressUI();
                     ErrorBox.Show(ex.Message, errorLog.ToString());
-                    handler.CloseProgressUI();
                 }
                 catch (UnauthorizedAccessException ex)
                 {
                     handler.DisableProgressUI();
                     ErrorBox.Show(ex.Message, errorLog.ToString());
-                    handler.CloseProgressUI();
                 }
                 catch (InvalidInterfaceIDException ex)
                 {
                     handler.DisableProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                    handler.CloseProgressUI();
                 }
                 catch (DigestMismatchException ex)
                 {
                     handler.DisableProgressUI();
                     ErrorBox.Show(ex.Message, errorLog + "\n\nManifest:" + ex.ActualManifest);
-                    handler.CloseProgressUI();
                 }
                 catch (SolverException ex)
                 {
                     handler.DisableProgressUI();
                     ErrorBox.Show(ex.Message, errorLog.ToString());
-                    handler.CloseProgressUI();
                 }
                 catch (ImplementationNotFoundException ex)
                 {
                     handler.DisableProgressUI();
                     ErrorBox.Show(ex.Message, errorLog.ToString());
-                    handler.CloseProgressUI();
                 }
                 catch (CommandException ex)
                 {
                     handler.DisableProgressUI();
                     ErrorBox.Show(ex.Message, errorLog.ToString());
-                    handler.CloseProgressUI();
                 }
                 catch (Win32Exception ex)
                 {
                     handler.DisableProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    handler.CloseProgressUI();
                 }
                 catch (BadImageFormatException ex)
                 {
                     handler.DisableProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    handler.CloseProgressUI();
                 }
                 #endregion
+                finally
+                {
+                    // Always close GUI in the end
+                    handler.CloseProgressUI();
+                }
             }
 #if !DEBUG
             , new Uri("http://0install.de/error-report/"));

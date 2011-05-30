@@ -108,83 +108,75 @@ namespace ZeroInstall.Launcher.Cli
             #region Error handling
             catch (UserCancelException)
             {
-                handler.CloseProgressUI();
                 return 1;
             }
             catch (OptionException ex)
             {
-                handler.CloseProgressUI();
                 Log.Error(ex.Message + "\n" + Resources.TryHelp);
                 return 1;
             }
             catch (WebException ex)
             {
-                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             catch (NotSupportedException ex)
             {
-                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             catch (IOException ex)
             {
-                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             catch (UnauthorizedAccessException ex)
             {
-                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             catch (DigestMismatchException ex)
             {
-                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 //if (command.Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
                 return 1;
             }
             catch (InvalidInterfaceIDException ex)
             {
-                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             catch (SolverException ex)
             {
-                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             catch (ImplementationNotFoundException ex)
             {
-                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             catch (CommandException ex)
             {
-                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             catch (Win32Exception ex)
             {
-                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             catch (BadImageFormatException ex)
             {
-                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             #endregion
+            finally
+            {
+                // Always close GUI in the end
+                handler.CloseProgressUI();
+            }
         }
     }
 }

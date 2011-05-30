@@ -208,7 +208,6 @@ namespace ZeroInstall.Commands.WinForms
             DisableProgressUI();
             if (Batch) ShowBalloonMessage(title, information);
             else OutputBox.Show(title, information);
-            CloseProgressUI();
         }
 
         /// <summary>
