@@ -94,7 +94,7 @@ namespace ZeroInstall.Commands
             Options.Add("os=", Resources.OptionOS, os => _requirements.Architecture = new Architecture(Architecture.ParseOS(os), _requirements.Architecture.Cpu));
             Options.Add("cpu=", Resources.OptionCpu, cpu => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Architecture.ParseCpu(cpu)));
 
-            Options.Add("g|gui", Resources.OptionGui, unused => ShowSelectionsUI = true);
+            Options.Add("g|gui", Resources.OptionGui, unused => Policy.FeedManager.Refresh = ShowSelectionsUI = true);
             Options.Add("xml", Resources.OptionXml, unused => ShowXml = true);
         }
         #endregion

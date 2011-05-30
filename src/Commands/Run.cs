@@ -91,8 +91,8 @@ namespace ZeroInstall.Commands
             
             Solve();
             
-            // If any implementations need to be downloaded rerun solver in refresh mode
-            if (!EnumerableUtils.IsEmpty(UncachedImplementations) && Policy.Config.NetworkUse != NetworkLevel.Offline)
+            // If any implementations need to be downloaded rerun solver in refresh mode (unless it was already in that mode to begin with)
+            if (!EnumerableUtils.IsEmpty(UncachedImplementations) && !Policy.FeedManager.Refresh && Policy.Config.NetworkUse != NetworkLevel.Offline)
             {
                 Policy.FeedManager.Refresh = true;
                 Solve();
