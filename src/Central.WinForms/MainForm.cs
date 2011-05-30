@@ -238,7 +238,7 @@ namespace ZeroInstall.Central.WinForms
             string interfaceID = InputBox.Show(null, "Zero Install", "Please enter the URI of a Zero Install interface here:");
             if (string.IsNullOrEmpty(interfaceID)) return;
 
-            LaunchHelperAssembly("0install-win", "run " + StringUtils.EscapeWhitespace(interfaceID));
+            LaunchHelperAssembly("0install-win", "run --gui " + StringUtils.EscapeWhitespace(interfaceID));
         }
 
         private void buttonCacheManagement_Click(object sender, EventArgs e)
