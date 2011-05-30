@@ -42,10 +42,9 @@ cd "%~dp0..\build\Bundled"
 zip -9 -r "%TargetDir%\bundled.zip" . > NUL
 if errorlevel 1 pause
 
-rem Bundled content also needs to be copied into the other archive
+rem Bundled content also needs to be copied into some other archives
 copy "%TargetDir%\bundled.zip" "%TargetDir%\zero-install-backend.zip" > NUL
 copy "%TargetDir%\bundled.zip" "%TargetDir%\zero-install.zip" > NUL
-copy "%TargetDir%\bundled.zip" "%TargetDir%\zero-install-tools.zip" > NUL
 
 echo Building Backend archive...
 cd "%~dp0..\build\Backend\Release"
@@ -66,6 +65,8 @@ zip -9 -j "%TargetDir%\zero-install.zip" "%~dp0..\3rd party code.txt" > NUL
 if errorlevel 1 pause
 
 echo Building Tools archive...
+cd "%~dp0..\build\Bundled"
+zip -9 -r "%TargetDir%\zero-install-tools.zip" GnuPG > NUL
 cd "%~dp0..\build\Tools\Release"
 zip -9 -r "%TargetDir%\zero-install-tools.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* *.xml > NUL
 if errorlevel 1 pause
