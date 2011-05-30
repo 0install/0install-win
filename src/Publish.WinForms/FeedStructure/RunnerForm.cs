@@ -42,7 +42,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 
         private void buttonOK_Click(object sender, System.EventArgs e)
         {
-            Runner.Command = textCommand.Text;
+            Runner.Command = string.IsNullOrEmpty(textCommand.Text) ? null : textCommand.Text;
 
             Runner.Arguments.Clear();
             Runner.Arguments.AddAll(argumentsControl.Arguments);
