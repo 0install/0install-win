@@ -24,7 +24,7 @@ using ZeroInstall.Store.Feeds;
 namespace ZeroInstall.Publish
 {
     /// <summary>
-    /// A wrapper around a <see cref="Feed"/> adding a digital signature.
+    /// A wrapper around a <see cref="Feed"/> adding and XSL stylesheet and a digital signature.
     /// </summary>
     [Serializable]
     public class SignedFeed

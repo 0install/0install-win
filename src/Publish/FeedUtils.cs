@@ -19,12 +19,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using Common;
 using Common.Cli;
 using Common.Compression;
 using Common.Net;
 using Common.Storage;
+using Common.Streams;
 using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.Properties;
@@ -55,7 +57,22 @@ namespace ZeroInstall.Publish
 
             XmlStorage.AddStylesheet(path, "interface.xsl");
 
-            // ToDo: Write default "interface.xsl" file
+            string directory = Path.GetDirectoryName(path);
+            if (directory == null) return;
+
+            // Write the default XSL with its accompanying CSS file unless there is already an XSL in place
+            if (!File.Exists(Path.Combine(directory, "interface.xsl")))
+            {
+                File.WriteAllText(Path.Combine(directory, "interface.xsl"), GetEmbeddedResource("interface.xsl"));
+                File.WriteAllText(Path.Combine(directory, "interface.css"), GetEmbeddedResource("interface.css"));
+            }
+        }
+
+        private static string GetEmbeddedResource(string name)
+        {
+            var assembly = Assembly.GetAssembly(typeof(FeedUtils));
+            using (var stream = assembly.GetManifestResourceStream(typeof(FeedUtils), name))
+                return StreamUtils.ReadToString(stream);
         }
         #endregion
 

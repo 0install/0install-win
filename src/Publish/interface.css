@@ -1,0 +1,268 @@
+/*
+Based on Tim Cuthbertson's stylesheet.
+Modified by Thomas Leonard.
+License: Creative Commons Attribution-ShareAlike 2.5 license
+http://creativecommons.org/licenses/by-sa/2.5/
+*/
+
+body {
+	margin:0;
+	background: #222;
+	color:#ddd;
+	font-family: sans-serif;
+	font-size:0.9em;
+	line-height: 1.5em;
+}
+
+.title a {
+	color: #d77;
+}
+.title a:visited {
+	color: #d77;
+}
+.title a:hover {
+	color:#d9a;
+}
+
+.title a {
+	margin-left:5px;
+}
+
+.site {
+	padding-bottom:1em;
+}
+
+img {
+	border:0;
+}
+
+.post img {
+}
+
+.post img.alpha {
+	background:none;
+	border:none;
+	padding:10px;
+}
+
+.post-content h1, .post-content h2, .post-content h3 {
+	margin-top: 2.5em;
+}
+
+.inner {
+	margin:0px auto;
+	padding-left: 7em;
+	position:relative;
+	right:7em;
+	max-width:700px;
+}
+
+.main .content .inner{
+	z-index: 80;
+}
+
+h1 {
+	font-size: 1.5em;
+	margin-bottom:0.2em;
+	line-height:1em;
+}
+
+a {
+	color: #c33;
+	text-decoration: none;
+	font-weight:bold;
+}
+
+a:visited { color:#611; }
+a.fresh:visited { color:black; }
+a.fresh { color:black; }
+a:hover {
+	color:#721;
+	text-decoration:underline;
+}
+.chrome a{
+	color: #d77;
+}
+.chrome a:hover {
+	color:#d9a;
+}
+
+.content, .chrome {
+	padding:20px;
+}
+
+.footer {
+	padding: 0em 0 1em 0;
+	color:#444;
+	text-align:center;
+}
+
+.content {
+	background:#eee;
+	color:black;
+}
+
+.chrome {
+	background:#222;
+	/* background: url("../img/footer_tile.gif") repeat-x; */
+	border-top: 3px solid white;
+}
+
+.chrome h2 {
+	margin-bottom:0;
+}
+
+.clear {
+	clear:both;
+}
+
+ul {
+	padding:0;
+	margin-left:1.5em;
+}
+li {
+	margin:0;
+	padding:0;
+}
+
+.post h1 {
+	font-size:3em;
+	margin-top:0.2em;
+}
+.post > h2 {
+	margin-top:-0.4em;
+	padding-left:0.5em;
+	color:#999;
+	font-size:1.4em;
+	margin-bottom: 1.1em;
+}
+dl {
+	margin-top: 1em;
+}
+dt {
+	font-size:1.35em;
+	border-bottom: 1px solid #ccc;
+	margin-top:1.4em;
+	margin-left:1em;
+	margin-bottom:0.2em;
+}
+
+code {
+	font-weight:bold;
+	color:#666;
+}
+
+.chrome code, .chrome pre {
+	color: #888;
+	line-height: 1.2em;
+	font-size:1.2em;
+}
+
+pre {
+	font-size:1.1em;
+}
+
+.website {
+	padding-left: 2em;
+	font-size: 0.7em;
+	opacity: 0.6;
+	float:right;
+	position:relative;
+	top:0.3em;
+}
+.website a {
+	font-weight:normal;
+}
+
+img.icon {
+	float:left;
+	max-width:86px;
+	max-height:86px;
+	position:relative;
+	bottom:20px;
+	margin-bottom:-20px;
+}
+
+.version {
+	font-size: 0.8em;
+	padding-left:0.5em;
+	opacity:0.5;
+}
+.yourinfo {
+	color: #888;
+	font-size:0.9em;
+	margin-bottom: 0.2em;
+}
+
+tr, td, th {
+	margin:0;
+	padding:2px 10px;
+	border: 1px solid #d6d6d6;
+	border-left: none;
+	border-bottom: none;
+	text-align:center;
+}
+table {
+	border: 1px solid #d6d6d6;
+	border-top: none;
+	border-right: none;
+	margin-top: 1em;
+	width:100%;
+}
+th {
+	background-color: #e6e6e6;
+	color: #888;
+}
+td {
+	background-color: #f3f3f3;
+	margin:0;
+}
+pre {
+	margin: 10px;
+	border: none;
+	background:none;
+}
+code {
+	font-weight:normal;
+}
+
+.chrome p.index {
+	text-align:center;
+	margin-top:3em;
+}
+.chrome .explanation {
+	font-size: 1.2em;
+	line-height: 1.2em;
+	text-align:left;
+	color:#bbb;
+}
+.chrome pre {
+	margin:0;
+	margin-left:1em;
+}
+
+div.what-is-this {
+	clear:both;
+	margin-left:1em;
+	font-size:1.2em;
+
+	background: #e8f5fc url('http://0install.net/logo/zeroinstall-icon.png') no-repeat 20px 100%;
+	border: 1px solid #bbc3d0;
+
+	padding: 10px;
+	padding-left: 140px;
+	min-height:60px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	color:#555;
+}
+.what-is-this a{
+	color: #333;
+	text-decoration: underline;
+	font-weight: normal;
+}
+
+a.zi-logo {
+	float: left;
+	padding: .4em;
+}
