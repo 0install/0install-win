@@ -72,12 +72,12 @@ namespace ZeroInstall.Injector
         [DefaultValue(false), DisplayName("Help with testing"), Description("Always prefer the newest versions, even if they havent been marked as stable yet.")]
         public bool HelpWithTesting { get; set; }
 
-        private static readonly TimeSpan _defaultFreshness = new TimeSpan(30, 0, 0, 0, 0); // 1 month
+        private static readonly TimeSpan _defaultFreshness = new TimeSpan(7, 0, 0, 0, 0); // 7 days
         private TimeSpan _freshness = _defaultFreshness;
         /// <summary>
         /// The maximum age a cached <see cref="Model.Feed"/> may have until it is considered stale (needs to be updated).
         /// </summary>
-        [DefaultValue(typeof(TimeSpan), "30.00:00:00"), DisplayName("Freshness"), Description("The maximum age a cached feed may have until it is considered stale (needs to be updated).")]
+        [DefaultValue(typeof(TimeSpan), "7.00:00:00"), DisplayName("Freshness"), Description("The maximum age a cached feed may have until it is considered stale (needs to be updated).")]
         [EditorAttribute(typeof(TimeSpanEditor), typeof(UITypeEditor))]
         public TimeSpan Freshness { get { return _freshness; } set { _freshness = value; } }
 
