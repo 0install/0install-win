@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ZeroInstall.DesktopIntegration.Model.AccessPoint">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="CloneAccessPoint" Hidden="true" />
+      <Field Name="XmlNamespace" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAAAAAAAQBAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Model\AccessPoint.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.DesktopIntegration.Model.AppPath">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <Members>
+      <Method Name="CloneAccessPoint" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAQAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\AppPath.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.DesktopIntegration.Model.AutoPlay">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <Members>
+      <Method Name="CloneAccessPoint" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAQAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\AutoPlay.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.DesktopIntegration.Model.ContextMenu">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <Members>
+      <Method Name="CloneAccessPoint" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAQAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\ContextMenu.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.DesktopIntegration.Model.DefaultProgram">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <Members>
+      <Method Name="CloneAccessPoint" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAQAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\DefaultProgram.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.DesktopIntegration.Model.DesktopShortcut">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <Members>
+      <Method Name="CloneAccessPoint" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAQAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\DesktopShortcut.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.DesktopIntegration.Model.FileType">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <Members>
+      <Method Name="CloneAccessPoint" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAQAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\FileType.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.DesktopIntegration.Model.MenuEntry">
+    <Position X="11" Y="3.5" Width="1.5" />
+    <Members>
+      <Method Name="CloneAccessPoint" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAQAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\MenuEntry.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.DesktopIntegration.Model.AppEntry">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <Members>
+      <Field Name="_accessPoints" Hidden="true" />
+      <Field Name="_capabilityLists" Hidden="true" />
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="CloneEntry" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAABBEgAjAAARABAAAAIAAAAAAAAAAABA=</HashCode>
+      <FileName>Model\AppEntry.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="AccessPoints" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.DesktopIntegration.Model.AppList">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Members>
+      <Field Name="_entries" Hidden="true" />
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="CloneAppList" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Field Name="XmlNamespace" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAgIAQABAAACEAgAAAAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
+      <FileName>Model\AppList.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Entries" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

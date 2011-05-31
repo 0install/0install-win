@@ -18,7 +18,7 @@
 using Common.Storage;
 using NUnit.Framework;
 
-namespace ZeroInstall.DesktopIntegration
+namespace ZeroInstall.DesktopIntegration.Model
 {
     /// <summary>
     /// Contains test methods for <see cref="AppList"/>.

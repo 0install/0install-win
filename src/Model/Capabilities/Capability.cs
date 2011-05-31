@@ -42,7 +42,7 @@ namespace ZeroInstall.Model.Capabilities
         [XmlAttribute("command")]
         public string Command { get; set; }
         #endregion
-        
+
         //--------------------//
 
         #region Clone

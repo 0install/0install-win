@@ -19,12 +19,11 @@ using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using ZeroInstall.Model;
-using ZeroInstall.Model.Capabilities;
 
-namespace ZeroInstall.DesktopIntegration
+namespace ZeroInstall.DesktopIntegration.Model
 {
     /// <summary>
-    /// Access points build upon <see cref="Capability"/>s and represent more invasive changes to the desktop environment's UI.
+    /// An access points builds upon a <see cref="ZeroInstall.Model.Capabilities.Capability"/> and represents changes to the desktop environment's UI which the user explicitly requested.
     /// </summary>
     [XmlType("access-point", Namespace = XmlNamespace)]
     public abstract class AccessPoint : XmlUnknown, ICloneable

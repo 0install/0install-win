@@ -53,6 +53,12 @@
     <Compile Include="Architecture.cs" />
     <Compile Include="Capabilities\Capability.cs" />
     <Compile Include="Capabilities\CapabilityList.cs" />
+    <Compile Include="Capabilities\ComServer.cs" />
+    <Compile Include="Capabilities\ContextMenu.cs" />
+    <Compile Include="Capabilities\DefaultProgram.cs" />
+    <Compile Include="Capabilities\FileType.cs" />
+    <Compile Include="Capabilities\AutoPlay.cs" />
+    <Compile Include="Capabilities\GamesExplorer.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Design\ArchitectureConverter.cs" />
     <Compile Include="Archive.cs" />
@@ -110,6 +116,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Capabilities\ClassDiagram.cd" />
     <None Include="Dependency.cd" />
     <None Include="Element.cd" />
     <None Include="Feed.xsd">

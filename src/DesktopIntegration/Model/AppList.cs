@@ -22,7 +22,7 @@ using System.IO;
 using System.Xml.Serialization;
 using Common.Storage;
 
-namespace ZeroInstall.DesktopIntegration
+namespace ZeroInstall.DesktopIntegration.Model
 {
     /// <summary>
     /// Stores a list of applications the user prefers to use.
