@@ -79,7 +79,7 @@ namespace ZeroInstall.DesktopIntegration
         /// A list of <see cref="AccessPoint"/>s to be created in the desktop environment.
         /// </summary>
         [Description("A list of access points to be created in the desktop environment.")]
-        [XmlElement(typeof(MenuEntry)), XmlElement(typeof(DesktopShortcut))]
+        //[XmlElement(typeof(...))]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<AccessPoint> AccessPoints { get { return _accessPoints; } }
         #endregion

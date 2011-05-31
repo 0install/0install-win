@@ -15,10 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using Common.Storage;
 using NUnit.Framework;
-using ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -34,14 +32,7 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         private static AppList CreateTestAppList()
         {
-            return new AppList
-            {
-                Entries =
-                {
-                    new AppEntry {Interface = new Uri("http://0install.de/feeds/test/test1.xml"), Name = "Test App 1", AutoUpdate = true, CapabilityLists = {CapabilityListTest.CreateTestCapabilityList()}, AccessPoints = {new MenuEntry()}},
-                    new AppEntry {Interface = new Uri("http://0install.de/feeds/test/test2.xml"), Name = "Test App 2", AutoUpdate = false, CapabilityLists = {CapabilityListTest.CreateTestCapabilityList()}, AccessPoints = {new DesktopShortcut {Command = "desktop"}}},
-                }
-            };
+            return new AppList();
         }
         #endregion
 

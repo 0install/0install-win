@@ -59,7 +59,7 @@ namespace ZeroInstall.Model.Capabilities
         /// A list of <see cref="Capability"/>s.
         /// </summary>
         [Description("A list of capabilities.")]
-        [XmlElement(typeof(FileType)), XmlElement(typeof(AutoPlay))]
+        //[XmlElement(typeof(...))]
         // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.ArrayList<Capability> Entries { get { return _entries; } }
         #endregion

@@ -32,11 +32,7 @@ namespace ZeroInstall.Model.Capabilities
         /// </summary>
         public static CapabilityList CreateTestCapabilityList()
         {
-            return new CapabilityList
-            {
-                Architecture = new Architecture(OS.Windows, Cpu.All),
-                Entries = {new FileType(), new AutoPlay {Command = "autoplay"}}
-            };
+            return new CapabilityList();
         }
         #endregion
 

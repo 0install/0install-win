@@ -52,8 +52,6 @@
     <Compile Include="AccessPoint.cs" />
     <Compile Include="AppEntry.cs" />
     <Compile Include="AppList.cs" />
-    <Compile Include="MenuEntry.cs" />
-    <Compile Include="DesktopShortcut.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
