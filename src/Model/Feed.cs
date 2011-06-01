@@ -36,7 +36,7 @@ namespace ZeroInstall.Model
     [Serializable]
     [XmlRoot("interface", Namespace = XmlNamespace)]
     [XmlType("interface", Namespace = XmlNamespace)]
-    public sealed class Feed : XmlUnknown, IElementContainer, ISimplifyable, ICloneable, IEquatable<Feed>
+    public sealed class Feed : XmlUnknown, IElementContainer, ICloneable, IEquatable<Feed>
     {
         #region Constants
         /// <summary>
@@ -358,8 +358,8 @@ namespace ZeroInstall.Model
             foreach (var interfaceReference in FeedFor) feed.FeedFor.Add(interfaceReference.CloneReference());
             foreach (var summary in Summaries) feed.Summaries.Add(summary.CloneString());
             foreach (var description in Descriptions) feed.Descriptions.Add(description.CloneString());
-            foreach (var category in Categories) feed.Categories.Add(category);
-            foreach (var icon in Icons) feed.Icons.Add(icon);
+            feed.Categories.AddAll(Categories);
+            feed.Icons.AddAll(Icons);
             foreach (var element in Elements) feed.Elements.Add(element.CloneElement());
             foreach (var capabilityList in CapabilityLists) feed.CapabilityLists.Add(capabilityList.CloneCapabilityList());
 

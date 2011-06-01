@@ -31,7 +31,7 @@ namespace ZeroInstall.Model
     [Serializable]
     [XmlRoot("catalog", Namespace = XmlNamespace)]
     [XmlType("catalog", Namespace = XmlNamespace)]
-    public class Catalog : XmlUnknown, ISimplifyable, ICloneable, IEquatable<Catalog>
+    public class Catalog : XmlUnknown, ICloneable, IEquatable<Catalog>
     {
         #region Constants
         /// <summary>

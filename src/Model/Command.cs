@@ -33,17 +33,17 @@ namespace ZeroInstall.Model
     {
         #region Constants
         /// <summary>
-        /// Well-known <see cref="Name"/> coressponding to <see cref="Element.Main"/>.
+        /// Canonical <see cref="Name"/> coressponding to <see cref="Element.Main"/>.
         /// </summary>
         public const string NameRun = "run";
 
         /// <summary>
-        /// Well-known <see cref="Name"/> coressponding to <see cref="Element.SelfTest"/>.
+        /// Canonical <see cref="Name"/> coressponding to <see cref="Element.SelfTest"/>.
         /// </summary>
         public const string NameTest = "test";
 
         /// <summary>
-        /// Well-known <see cref="Name"/> used by 0compile.
+        /// Canonical <see cref="Name"/> used by 0compile.
         /// </summary>
         public const string NameCompile = "compile";
         #endregion
