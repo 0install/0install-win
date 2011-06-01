@@ -34,7 +34,7 @@ namespace ZeroInstall.Injector.Feeds
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("feed-preferences", Namespace = Feed.XmlNamespace)]
     [XmlType("feed-preferences", Namespace = Feed.XmlNamespace)]
-    public sealed class FeedPreferences : XmlUnknown, ISimplifyable, ICloneable
+    public sealed class FeedPreferences : XmlUnknown, ICloneable
     {
         #region Properties
         /// <summary>

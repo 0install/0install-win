@@ -69,7 +69,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlType("element", Namespace = Feed.XmlNamespace)]
-    public abstract class Element : TargetBase, IBindingContainer, IDependencyContainer, ISimplifyable, ICloneable
+    public abstract class Element : TargetBase, IBindingContainer, IDependencyContainer, ICloneable
     {
         #region Constants
         /// <summary>
@@ -300,7 +300,7 @@ namespace ZeroInstall.Model
             if (other == null) return false;
 
             return base.Equals(other) &&
-                Equals(other.Version, Version) && other.VersionModifier == VersionModifier && other.Released == Released && other.License == License && other.Main == Main && other.SelfTest == SelfTest && other.DocDir == DocDir &&
+                other.Version == Version && other.VersionModifier == VersionModifier && other.Released == Released && other.License == License && other.Main == Main && other.SelfTest == SelfTest && other.DocDir == DocDir &&
                 Commands.SequencedEquals(other.Commands) && Dependencies.SequencedEquals(other.Dependencies) && Bindings.SequencedEquals(other.Bindings);
         }
 

@@ -53,7 +53,7 @@ namespace ZeroInstall.Model
 
         #region Simplify
         /// <summary>
-        /// Call <see cref="ISimplifyable.Simplify"/> on all contained <see cref="RecipeStep"/>s.
+        /// Call <see cref="RecipeStep.Simplify"/> on all contained <see cref="RecipeStep"/>s.
         /// </summary>
         /// <remarks>This should be called to prepare an interface for launch.
         /// It should not be called if you plan on serializing the <see cref="Feed"/> again since it will may some of its structure.</remarks>
