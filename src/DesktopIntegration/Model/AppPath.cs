@@ -24,7 +24,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// Makes an application discoverable via the system's search PATH.
     /// </summary>
     [XmlType("app-path", Namespace = XmlNamespace)]
-    public class AppPath : AccessPoint, IEquatable<AppPath>
+    public class AppPath : CommandAccessPoint, IEquatable<AppPath>
     {
         #region Properties
         // ToDo
@@ -46,7 +46,7 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new AppPath();
+            return new AppPath {Command = Command};
         }
         #endregion
 
@@ -56,7 +56,7 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             if (other == null) return false;
 
-            return true;
+            return base.Equals(other);
         }
 
         /// <inheritdoc/>
@@ -72,7 +72,8 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             unchecked
             {
-                return 0;
+                int result = base.GetHashCode();
+                return result;
             }
         }
         #endregion

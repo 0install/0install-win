@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.DesktopIntegration.Model
@@ -24,10 +25,15 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// Creates a shorcut to an application on the user's desktop.
     /// </summary>
     [XmlType("desktop-shortcut", Namespace = XmlNamespace)]
-    public class DesktopShortcut : AccessPoint, IEquatable<DesktopShortcut>
+    public class DesktopShortcut : CommandAccessPoint, IEquatable<DesktopShortcut>
     {
         #region Properties
-        // ToDo
+        /// <summary>
+        /// The user-defined override for name of the shortcut.
+        /// </summary>
+        [Description("The user-defined override for name of the shortcut.")]
+        [XmlAttribute("name")]
+        public string Name { get; set; }
         #endregion
 
         //--------------------//
@@ -46,7 +52,7 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new DesktopShortcut();
+            return new DesktopShortcut {Command = Command, Name = Name};
         }
         #endregion
 
@@ -56,7 +62,8 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             if (other == null) return false;
 
-            return true;
+            return base.Equals(other) &&
+                other.Name == Name;
         }
 
         /// <inheritdoc/>
@@ -72,7 +79,9 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             unchecked
             {
-                return 0;
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (Name ?? "").GetHashCode();
+                return result;
             }
         }
         #endregion

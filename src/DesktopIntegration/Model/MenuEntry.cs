@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.DesktopIntegration.Model
@@ -24,10 +25,15 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// Creates an entry for an application in the user's application menu (i.e. Windows start menu, GNOME application menu, etc.).
     /// </summary>
     [XmlType("menu-entry", Namespace = XmlNamespace)]
-    public class MenuEntry : AccessPoint, IEquatable<MenuEntry>
+    public class MenuEntry : CommandAccessPoint, IEquatable<MenuEntry>
     {
         #region Properties
-        // ToDo
+        /// <summary>
+        /// The user-defined override for name of the menu entry.
+        /// </summary>
+        [Description("The user-defined override for name of the menu entry.")]
+        [XmlAttribute("name")]
+        public string Name { get; set; }
         #endregion
 
         //--------------------//
@@ -46,7 +52,7 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new MenuEntry();
+            return new MenuEntry {Command = Command, Name = Name};
         }
         #endregion
 
@@ -56,7 +62,8 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             if (other == null) return false;
 
-            return true;
+            return base.Equals(other) &&
+                other.Name == Name;
         }
 
         /// <inheritdoc/>
@@ -72,7 +79,9 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             unchecked
             {
-                return 0;
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (Name ?? "").GetHashCode();
+                return result;
             }
         }
         #endregion

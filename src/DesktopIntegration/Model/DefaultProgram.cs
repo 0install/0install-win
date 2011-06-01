@@ -25,7 +25,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// </summary>
     /// <seealso cref="ZeroInstall.Model.Capabilities.DefaultProgram"/>
     [XmlType("default-program", Namespace = XmlNamespace)]
-    public class DefaultProgram : AccessPoint, IEquatable<DefaultProgram>
+    public class DefaultProgram : CapabilityAccessPoint, IEquatable<DefaultProgram>
     {
         #region Properties
         // ToDo
@@ -47,7 +47,7 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new DefaultProgram();
+            return new DefaultProgram {Capability = Capability};
         }
         #endregion
 
@@ -57,7 +57,7 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             if (other == null) return false;
 
-            return true;
+            return base.Equals(other);
         }
 
         /// <inheritdoc/>
@@ -73,7 +73,8 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             unchecked
             {
-                return 0;
+                int result = base.GetHashCode();
+                return result;
             }
         }
         #endregion

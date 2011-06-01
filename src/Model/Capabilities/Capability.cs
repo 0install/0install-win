@@ -36,11 +36,12 @@ namespace ZeroInstall.Model.Capabilities
 
         #region Properties
         /// <summary>
-        /// The name of the command in the <see cref="Feed"/> to use when launching via this capability.
+        /// An ID that uniquely identifies this capability within an interface.
         /// </summary>
-        [Description("The name of the command in the feed to use when launching via this capability.")]
-        [XmlAttribute("command")]
-        public string Command { get; set; }
+        /// <remarks>In case of conflicts the first capability listed with a specific ID will take precedence.</remarks>
+        [Description("...")]
+        [XmlAttribute("id")]
+        public string ID { get; set; }
         #endregion
 
         //--------------------//
@@ -59,6 +60,22 @@ namespace ZeroInstall.Model.Capabilities
         public object Clone()
         {
             return CloneCapability();
+        }
+        #endregion
+
+        #region Equality
+        /// <inheritdoc/>
+        protected bool Equals(Capability other)
+        {
+            if (other == null) return false;
+
+            return other.ID == ID;
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return (ID ?? "").GetHashCode();
         }
         #endregion
     }

@@ -25,7 +25,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// </summary>
     /// <seealso cref="ZeroInstall.Model.Capabilities.ContextMenu"/>
     [XmlType("context-menu", Namespace = XmlNamespace)]
-    public class ContextMenu : AccessPoint, IEquatable<ContextMenu>
+    public class ContextMenu : CapabilityAccessPoint, IEquatable<ContextMenu>
     {
         #region Properties
         // ToDo
@@ -47,7 +47,7 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new ContextMenu();
+            return new ContextMenu {Capability = Capability};
         }
         #endregion
 
@@ -57,7 +57,7 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             if (other == null) return false;
 
-            return true;
+            return base.Equals(other);
         }
 
         /// <inheritdoc/>
@@ -73,7 +73,8 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             unchecked
             {
-                return 0;
+                int result = base.GetHashCode();
+                return result;
             }
         }
         #endregion

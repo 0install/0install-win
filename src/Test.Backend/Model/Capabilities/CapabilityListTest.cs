@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using Common.Storage;
 using NUnit.Framework;
 
@@ -32,7 +33,20 @@ namespace ZeroInstall.Model.Capabilities
         /// </summary>
         public static CapabilityList CreateTestCapabilityList()
         {
-            return new CapabilityList();
+            var testIcon = new Icon(new Uri("http://0install.de/feeds/icons/test.ico"), "image/vnd.microsoft.icon");
+            return new CapabilityList
+            {
+                Architecture = new Architecture(OS.Windows, Cpu.I486),
+                Entries =
+                {
+                    new AutoPlay {ID = "autoplay"},
+                    new ComServer {ID = "com-server"},
+                    new ContextMenu {ID = "context-menu"},
+                    new DefaultProgram {ID = "default-program"},
+                    new FileType {ID = "file_handle", ProgID = "my_ext", Icon = testIcon, Description = "Text file", Extensions = {new FileTypeExtension {Value = "txt", MimeType = "text/plain"}}, Verbs = {new FileTypeVerb {Name = FileTypeVerb.NameOpen, Command= Command.NameRun, Arguments = "--open"}}},
+                    new GamesExplorer {ID = "games-explorer"}
+                }
+            };
         }
         #endregion
 
@@ -57,13 +71,13 @@ namespace ZeroInstall.Model.Capabilities
         [Test(Description = "Ensures that the class can be correctly cloned.")]
         public void TestClone()
         {
-            var archive1 = CreateTestCapabilityList();
-            var archive2 = archive1.CloneCapabilityList();
+            var capabilityList1 = CreateTestCapabilityList();
+            var capabilityList2 = capabilityList1.CloneCapabilityList();
 
             // Ensure data stayed the same
-            Assert.AreEqual(archive1, archive2, "Cloned objects should be equal.");
-            Assert.AreEqual(archive1.GetHashCode(), archive2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(archive1, archive2), "Cloning should not return the same reference.");
+            Assert.AreEqual(capabilityList1, capabilityList2, "Cloned objects should be equal.");
+            Assert.AreEqual(capabilityList1.GetHashCode(), capabilityList2.GetHashCode(), "Cloned objects' hashes should be equal.");
+            Assert.IsFalse(ReferenceEquals(capabilityList1, capabilityList2), "Cloning should not return the same reference.");
         }
     }
 }

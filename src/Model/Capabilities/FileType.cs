@@ -16,6 +16,8 @@
  */
 
 using System;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model.Capabilities
@@ -23,11 +25,50 @@ namespace ZeroInstall.Model.Capabilities
     /// <summary>
     /// Represents an application's ability to handle a certain file type.
     /// </summary>
-    [XmlType("file-type", Namespace = XmlNamespace)]
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     public class FileType : Capability, IEquatable<FileType>
     {
         #region Properties
-        // ToDo
+        /// <summary>
+        /// A human-readable description such as "PNG image file".
+        /// </summary>
+        [Description("A human-readable description such as \"PNG image file\".")]
+        [XmlAttribute("description")]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// The programmatic identifier used by Windows to identify this file type.
+        /// </summary>
+        [Description("The programmatic identifier used by Windows to identify this file type.")]
+        [XmlAttribute("prog-id")]
+        public string ProgID { get; set; }
+
+        /// <summary>
+        /// The icon to use in file managers when displaying files of this type.
+        /// </summary>
+        [Description("The icon to use in file managers when displaying files of this type.")]
+        [XmlElement("icon", Namespace = Feed.XmlNamespace)]
+        public Icon Icon { get; set; }
+
+        // Preserve order, duplicate string entries are not allowed
+        private readonly C5.HashedArrayList<FileTypeExtension> _extensions = new C5.HashedArrayList<FileTypeExtension>();
+        /// <summary>
+        /// A list of all file extensions associated with this file type.
+        /// </summary>
+        [Description("A list of all file extensions associated with this file type.")]
+        [XmlElement("extension")]
+        // Note: Can not use ICollection<T> interface because of XML Serialization
+        public C5.HashedArrayList<FileTypeExtension> Extensions { get { return _extensions; } }
+
+        // Preserve order, duplicate string entries are not allowed
+        private readonly C5.HashedArrayList<FileTypeVerb> _verbs = new C5.HashedArrayList<FileTypeVerb>();
+        /// <summary>
+        /// A list of all operations available for this file type.
+        /// </summary>
+        [Description("A list of all operations available for this file type.")]
+        [XmlElement("verb")]
+        // Note: Can not use ICollection<T> interface because of XML Serialization
+        public C5.HashedArrayList<FileTypeVerb> Verbs { get { return _verbs; } }
         #endregion
 
         //--------------------//
@@ -46,7 +87,10 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability CloneCapability()
         {
-            return new FileType();
+            var capability = new FileType {ID = ID, Description = Description, ProgID = ProgID, Icon = Icon};
+            capability.Extensions.AddAll(Extensions);
+            capability.Verbs.AddAll(Verbs);
+            return capability;
         }
         #endregion
 
@@ -56,7 +100,9 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (other == null) return false;
 
-            return true;
+            return base.Equals(other) &&
+                other.Description == Description && other.ProgID == ProgID && other.Icon == Icon &&
+                Extensions.SequencedEquals(other.Extensions) && Verbs.SequencedEquals(other.Verbs);
         }
 
         /// <inheritdoc/>
@@ -72,7 +118,13 @@ namespace ZeroInstall.Model.Capabilities
         {
             unchecked
             {
-                return 0;
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (Description ?? "").GetHashCode();
+                result = (result * 397) ^ Icon.GetHashCode();
+                result = (result * 397) ^ (ProgID ?? "").GetHashCode();
+                result = (result * 397) ^ Extensions.GetSequencedHashCode();
+                result = (result * 397) ^ Verbs.GetSequencedHashCode();
+                return result;
             }
         }
         #endregion

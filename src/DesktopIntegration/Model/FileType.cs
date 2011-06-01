@@ -25,7 +25,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// </summary>
     /// <seealso cref="ZeroInstall.Model.Capabilities.FileType"/>
     [XmlType("file-type", Namespace = XmlNamespace)]
-    public class FileType : AccessPoint, IEquatable<FileType>
+    public class FileType : CapabilityAccessPoint, IEquatable<FileType>
     {
         #region Properties
         // ToDo
@@ -47,7 +47,7 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new FileType();
+            return new FileType {Capability = Capability};
         }
         #endregion
 
@@ -57,7 +57,7 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             if (other == null) return false;
 
-            return true;
+            return base.Equals(other);
         }
 
         /// <inheritdoc/>
@@ -73,7 +73,8 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             unchecked
             {
-                return 0;
+                int result = base.GetHashCode();
+                return result;
             }
         }
         #endregion

@@ -32,7 +32,23 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// </summary>
         private static AppList CreateTestAppList()
         {
-            return new AppList();
+            return new AppList { Entries =
+            {
+                new AppEntry
+                {
+                    AutoUpdate = true,
+                    AccessPoints =
+                    {
+                        new AppPath {Command = "main"},
+                        new AutoPlay {Capability = "autoplay"},
+                        new ContextMenu {Capability = "context"},
+                        new DefaultProgram {Capability = "default"},
+                        new DesktopShortcut {Command = "main", Name = "Desktop shortcut"},
+                        new FileType {Capability = "file_type"},
+                        new MenuEntry {Command = "main", Name = "Menu entry"}
+                    }
+                }
+            } };
         }
         #endregion
 

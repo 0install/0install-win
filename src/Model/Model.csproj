@@ -58,6 +58,8 @@
     <Compile Include="Capabilities\DefaultProgram.cs" />
     <Compile Include="Capabilities\FileType.cs" />
     <Compile Include="Capabilities\AutoPlay.cs" />
+    <Compile Include="Capabilities\FileTypeExtension.cs" />
+    <Compile Include="Capabilities\FileTypeVerb.cs" />
     <Compile Include="Capabilities\GamesExplorer.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Design\ArchitectureConverter.cs" />

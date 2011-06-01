@@ -16,14 +16,13 @@
  */
 
 using System;
-using System.ComponentModel;
 using System.Xml.Serialization;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.DesktopIntegration.Model
 {
     /// <summary>
-    /// An access points builds upon a <see cref="ZeroInstall.Model.Capabilities.Capability"/> and represents changes to the desktop environment's UI which the user explicitly requested.
+    /// An represents changes to the desktop environment's UI which the user explicitly requested.
     /// </summary>
     [XmlType("access-point", Namespace = XmlNamespace)]
     public abstract class AccessPoint : XmlUnknown, ICloneable
@@ -33,15 +32,6 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// The XML namespace used for storing desktop integration data.
         /// </summary>
         public const string XmlNamespace = "http://0install.de/schema/injector/desktop-integration";
-        #endregion
-
-        #region Properties
-        /// <summary>
-        /// The name of the command in the <see cref="Feed"/> to use when launching via this access point.
-        /// </summary>
-        [Description("The name of the command in the feed to use when launching via this access point.")]
-        [XmlAttribute("command")]
-        public string Command { get; set; }
         #endregion
 
         //--------------------//

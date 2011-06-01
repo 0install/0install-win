@@ -46,7 +46,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability CloneCapability()
         {
-            return new ComServer();
+            return new ComServer {ID = ID};
         }
         #endregion
 
@@ -56,7 +56,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (other == null) return false;
 
-            return true;
+            return base.Equals(other);
         }
 
         /// <inheritdoc/>
@@ -72,7 +72,8 @@ namespace ZeroInstall.Model.Capabilities
         {
             unchecked
             {
-                return 0;
+                int result = base.GetHashCode();
+                return result;
             }
         }
         #endregion
