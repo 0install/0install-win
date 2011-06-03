@@ -1,8 +1,8 @@
 ﻿/*
- * Copyright 2011 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser Public License as Captureed by
+ * it under the terms of the GNU Lesser Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
@@ -15,9 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace ZeroInstall.Capture
+namespace ZeroInstall.Capture.Cli
 {
-    public static class CaptureUtils
+    /// <summary>
+    /// Structure for storing user-selected arguments for a feed editor operation.
+    /// </summary>
+    public struct ParseResults
     {
+        // ToDo
     }
 }

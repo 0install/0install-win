@@ -120,47 +120,20 @@
   <data name="MissingArguments" xml:space="preserve">
     <value>Missing arguments. Try {0} --help</value>
   </data>
-  <data name="NoFeedFilesFound" xml:space="preserve">
-    <value>Unable to find any matching feed files.</value>
-  </data>
-  <data name="OptionBatch" xml:space="preserve">
-    <value>Run in batch mode: don't display any messages to the user and silently answer all questions with "No".</value>
-  </data>
-  <data name="OptionCatalog" xml:space="preserve">
-    <value>Combine all specified feeds into a single catalog {FILE}.</value>
-  </data>
-  <data name="OptionGnuPGPassphrase" xml:space="preserve">
-    <value>Uses {PASS} to unlock the GnuPG private key.</value>
-  </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Show the built-in help text.</value>
   </data>
-  <data name="OptionKey" xml:space="preserve">
-    <value>Key to use for signing (if you have more than one, or if you want to resign with a different key).</value>
-  </data>
-  <data name="OptionUnsign" xml:space="preserve">
-    <value>Remove existing signature.</value>
+  <data name="Options" xml:space="preserve">
+    <value>Options:</value>
   </data>
   <data name="OptionVersion" xml:space="preserve">
     <value>Display version information.</value>
   </data>
-  <data name="OptionXmlSign" xml:space="preserve">
-    <value>Add an XML signature block. All remote feeds must be signed.</value>
-  </data>
-  <data name="PleaseEnterGnuPGPassphrase" xml:space="preserve">
-    <value>Please enter your GnuPG passphrase:</value>
-  </data>
   <data name="UnknownMode" xml:space="preserve">
     <value>Unknown operation mode.
-Try 0publish --help</value>
+Try {0} --help</value>
   </data>
-  <data name="Usage">
+  <data name="Usage" xml:space="preserve">
     <value>Usage:</value>
-  </data>
-  <data name="UsageFeed">
-    <value>0publish [OPTIONS] feed.xml</value>
-  </data>
-  <data name="Options">
-    <value>Options:</value>
   </data>
 </root>

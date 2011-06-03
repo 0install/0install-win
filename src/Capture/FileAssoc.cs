@@ -2,7 +2,7 @@
  * Copyright 2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser Public License as published by
+ * it under the terms of the GNU Lesser Public License as Captureed by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
@@ -16,32 +16,34 @@
  */
 
 using System;
-using System.Windows.Forms;
-#if !DEBUG
-using Common.Controls;
-#endif
 
-namespace ZeroInstall.Capture.WinForms
+namespace ZeroInstall.Capture
 {
     /// <summary>
-    /// Launches a WinForms-based tool for capturing application installations to feeds.
+    /// Represents the association of a file ending wiht a programatic identifier.
     /// </summary>
-    public static class Program
+    [Serializable]
+    public struct FileAssoc
     {
         /// <summary>
-        /// The main entry point for the application.
+        /// The file ending.
         /// </summary>
-        [STAThread]
-        static void Main(string[] args)
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+        public string Ending;
 
-#if DEBUG
-            Application.Run(new MainForm());
-#else
-            ErrorReportForm.RunAppMonitored(() => Application.Run(new MainForm()), new Uri("http://0install.de/error-report/"));
-#endif
+        /// <summary>
+        /// The programatic identifier.
+        /// </summary>
+        public string ProgID;
+
+        /// <summary>
+        /// Creates a new file association.
+        /// </summary>
+        /// <param name="ending">The file ending.</param>
+        /// <param name="progID">The programatic identifier.</param>
+        public FileAssoc(string ending, string progID)
+        {
+            Ending = ending;
+            ProgID = progID;
         }
     }
 }
