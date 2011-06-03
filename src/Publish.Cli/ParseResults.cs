@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -17,14 +17,28 @@
 
 using System.Collections.Generic;
 using System.IO;
+using ZeroInstall.Model;
 
-namespace ZeroInstall.Publish.Cli.Arguments
+namespace ZeroInstall.Publish.Cli
 {
+    /// <summary>
+    /// List of operational modes for the feed editor that can be selected via command-line arguments.
+    /// </summary>
+    public enum OperationMode
+    {
+        /// <summary>Modify an existing <see cref="Feed"/> or create a new one.</summary>
+        Normal,
+        /// <summary>Combine all specified <see cref="Feed"/>s into a single <see cref="Catalog"/> file.</summary>
+        Catalog
+    }
+
     /// <summary>
     /// Structure for storing user-selected arguments for a feed editor operation.
     /// </summary>
     public struct ParseResults
     {
+        public OperationMode Mode;
+
         public ICollection<FileInfo> Feeds;
 
         public string CatalogFile;
