@@ -40,7 +40,7 @@ namespace Common.Storage
     /// <summary>
     /// Provides easy serialization to XML files (optionally wrapped in ZIP archives).
     /// </summary>
-    /// <remarks>This calls only serializes public properties.</remarks>
+    /// <remarks>This class only serializes public properties.</remarks>
     public static class XmlStorage
     {
         #region Serializer generation

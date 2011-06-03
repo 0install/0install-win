@@ -22,6 +22,7 @@ using System.IO;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
+using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
@@ -73,7 +74,7 @@ namespace ZeroInstall.Commands.WinForms
 
         private void InterfaceDialog_Load(object sender, EventArgs e)
         {
-            Text = string.Format("Properties for {0}", _feedCache.GetFeed(_interfaceID).Name);
+            Text = string.Format(Resources.PropertiesFor, _feedCache.GetFeed(_interfaceID).Name);
 
             if (_interfacePreferences.StabilityPolicy == Stability.Unset) comboBoxStability.SelectedItem = "Use default setting";
             else comboBoxStability.SelectedItem = _interfacePreferences.StabilityPolicy;
@@ -282,7 +283,7 @@ namespace ZeroInstall.Commands.WinForms
 
         private void buttonAddFeed_Click(object sender, EventArgs e)
         {
-            string feedID = InputBox.Show(this, "Feed", "Please enter the URL of the new source of implementations for this interface:");
+            string feedID = InputBox.Show(this, "Feed", Resources.EnterFeedUrl);
             if (string.IsNullOrEmpty(feedID)) return;
 
             AddFeed(feedID);

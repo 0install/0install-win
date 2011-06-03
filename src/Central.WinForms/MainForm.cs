@@ -235,7 +235,7 @@ namespace ZeroInstall.Central.WinForms
         #region Tools
         private void buttonLaunchInterface_Click(object sender, EventArgs e)
         {
-            string interfaceID = InputBox.Show(null, "Zero Install", "Please enter the URI of a Zero Install interface here:");
+            string interfaceID = InputBox.Show(null, "Zero Install", Resources.EnterInterfaceUrl);
             if (string.IsNullOrEmpty(interfaceID)) return;
 
             LaunchHelperAssembly("0install-win", "run --gui " + StringUtils.EscapeWhitespace(interfaceID));

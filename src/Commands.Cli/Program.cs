@@ -74,7 +74,7 @@ namespace ZeroInstall.Commands.Cli
             }
             catch (OptionException ex)
             {
-                Log.Error(ex.Message + "\n" + Resources.TryHelp);
+                Log.Error(ex.Message + "\n" + string.Format(Resources.TryHelp, "0install"));
                 return 1;
             }
             catch (IOException ex)
@@ -107,7 +107,7 @@ namespace ZeroInstall.Commands.Cli
             }
             catch (OptionException ex)
             {
-                Log.Error(ex.Message + "\n" + Resources.TryHelp);
+                Log.Error(ex.Message + "\n" + string.Format(Resources.TryHelp, "0install"));
                 return 1;
             }
             catch (WebException ex)

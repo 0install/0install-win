@@ -58,8 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Arguments\OperationMode.cs" />
-    <Compile Include="Arguments\ParseResults.cs" />
+    <Compile Include="ParseResults.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

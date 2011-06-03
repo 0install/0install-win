@@ -118,42 +118,42 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ActionSelection" xml:space="preserve">
-		<value>Wähle Implementierungen aus</value>
-	</data>
+    <value>Wähle Implementierungen aus</value>
+  </data>
   <data name="ActionDownload" xml:space="preserve">
-		<value>Lade Anwendung runter</value>
-	</data>
+    <value>Lade Anwendung runter</value>
+  </data>
   <data name="ActionUpdate" xml:space="preserve">
-		<value>Suche nach Updates</value>
-	</data>
-  <data name="ActionRun">
+    <value>Suche nach Updates</value>
+  </data>
+  <data name="ActionRun" xml:space="preserve">
     <value>Bereite Anwendungsstart vor</value>
   </data>
   <data name="NotParsed" xml:space="preserve">
     <value>Parse wurde noch nicht aufgerufen.</value>
   </data>
-	<data name="NoInterfaceSpecified" xml:space="preserve">
-		<value>Es wurde keine Interface ID (Feed URI oder Dateipfad) angegeben.</value>
-	</data>
-	<data name="CommandLineArguments" xml:space="preserve">
-		<value>Befehlszeilenargumente</value>
-	</data>
+  <data name="NoInterfaceSpecified" xml:space="preserve">
+    <value>Es wurde keine Interface ID (Feed URI oder Dateipfad) angegeben.</value>
+  </data>
+  <data name="CommandLineArguments" xml:space="preserve">
+    <value>Befehlszeilenargumente</value>
+  </data>
   <data name="VersionInformation" xml:space="preserve">
     <value>Versionsinformationen:</value>
   </data>
-	<data name="FoundFeeds" xml:space="preserve">
-		<value>Gefundene Feeds:</value>
-	</data>
-  <data name="SelectedImplementations"  xml:space="preserve">
+  <data name="FoundFeeds" xml:space="preserve">
+    <value>Gefundene Feeds:</value>
+  </data>
+  <data name="SelectedImplementations" xml:space="preserve">
     <value>Ausgewählte Implementierungen:</value>
   </data>
-	<data name="DownloadComplete" xml:space="preserve">
-		<value>Download abgeschlossen</value>
-	</data>
-	<data name="AllComponentsDownloaded" xml:space="preserve">
-		<value>Alle benötigten Komponenten wurden runtergeladen.</value>
-	</data>
-	<data name="ChangesFound" xml:space="preserve">
+  <data name="DownloadComplete" xml:space="preserve">
+    <value>Download abgeschlossen</value>
+  </data>
+  <data name="AllComponentsDownloaded" xml:space="preserve">
+    <value>Alle benötigten Komponenten wurden runtergeladen.</value>
+  </data>
+  <data name="ChangesFound" xml:space="preserve">
     <value>Gefundene Änderungen:</value>
   </data>
   <data name="NoLongerUsed" xml:space="preserve">
@@ -166,26 +166,29 @@
     <value>Kann nur mit Feed IDs aktualisieren, nicht mit Selections Dokumenten.</value>
   </data>
   <data name="UpdateProblem" xml:space="preserve">
-		<value>Konnte nicht nach Updates suchen</value>
-	</data>
-  <data name="FeedManagement">
-    <value xml:space="preserve">Feed Verwaltung</value>
+    <value>Konnte nicht nach Updates suchen</value>
   </data>
-  <data name="FeedRegistered">
-    <value xml:space="preserve">Der Feed wurde erfolgreich für die folgenden Interfaces registriert:
+  <data name="FeedManagement" xml:space="preserve">
+    <value>Feed Verwaltung</value>
+  </data>
+  <data name="FeedRegistered" xml:space="preserve">
+    <value>Der Feed wurde erfolgreich für die folgenden Interfaces registriert:
 {0}</value>
   </data>
-  <data name="FeedAlreadyRegistered">
-    <value xml:space="preserve">Der Feed war bereits für alle passenden Interfaces registriert.</value>
+  <data name="FeedAlreadyRegistered" xml:space="preserve">
+    <value>Der Feed war bereits für alle passenden Interfaces registriert.</value>
   </data>
-  <data name="FeedUnregistered">
-    <value xml:space="preserve">Der Feed wurde erfolgreich für die folgenden Interfaces deregistriert:
+  <data name="FeedUnregistered" xml:space="preserve">
+    <value>Der Feed wurde erfolgreich für die folgenden Interfaces deregistriert:
 {0}</value>
   </data>
-  <data name="FeedNotRegistered">
-    <value xml:space="preserve">Der Feed war für kein Interface registriert.</value>
+  <data name="FeedNotRegistered" xml:space="preserve">
+    <value>Der Feed war für kein Interface registriert.</value>
   </data>
-  <data name="FeedsRegistered">
-    <value xml:space="preserve">Feeds registriert für '{0}':</value>
+  <data name="FeedsRegistered" xml:space="preserve">
+    <value>Feeds registriert für '{0}':</value>
+  </data>
+  <data name="TryHelpWith" xml:space="preserve">
+    <value>Probieren Sie --help mit einem der folgenden:</value>
   </data>
 </root>

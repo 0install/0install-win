@@ -138,6 +138,9 @@
   <data name="OptionKey" xml:space="preserve">
     <value>Key to use for signing (if you have more than one, or if you want to resign with a different key).</value>
   </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options:</value>
+  </data>
   <data name="OptionUnsign" xml:space="preserve">
     <value>Remove existing signature.</value>
   </data>
@@ -152,15 +155,12 @@
   </data>
   <data name="UnknownMode" xml:space="preserve">
     <value>Unknown operation mode.
-Try 0publish --help</value>
+Try {0} --help</value>
   </data>
-  <data name="Usage">
+  <data name="Usage" xml:space="preserve">
     <value>Usage:</value>
   </data>
-  <data name="UsageFeed">
+  <data name="UsageFeed" xml:space="preserve">
     <value>0publish [OPTIONS] feed.xml</value>
-  </data>
-  <data name="Options">
-    <value>Options:</value>
   </data>
 </root>

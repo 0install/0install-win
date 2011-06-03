@@ -82,7 +82,7 @@ namespace ZeroInstall.Commands.WinForms
                 }
                 catch (OptionException ex)
                 {
-                    Msg.Inform(null, ex.Message + "\n" + Resources.TryHelp, MsgSeverity.Warn);
+                    Msg.Inform(null, ex.Message + "\n" + string.Format(Resources.TryHelp, "0install-win"), MsgSeverity.Warn);
                     return;
                 }
                 catch (IOException ex)
@@ -136,7 +136,7 @@ namespace ZeroInstall.Commands.WinForms
                 catch (OptionException ex)
                 {
                     handler.DisableProgressUI();
-                    Msg.Inform(null, ex.Message + "\n" + Resources.TryHelp, MsgSeverity.Error);
+                    Msg.Inform(null, ex.Message + "\n" + string.Format(Resources.TryHelp, "0install-win"), MsgSeverity.Error);
                 }
                 catch (WebException ex)
                 {

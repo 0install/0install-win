@@ -23,6 +23,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Common;
 using Common.Tasks;
+using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
@@ -131,7 +132,7 @@ namespace ZeroInstall.Commands.WinForms
                 string interfaceID = _selections.Implementations[i].InterfaceID;
 
                 // Setup link label for modifying interface preferences
-                var linkLabel = new LinkLabel {Text = "Properties", Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft};
+                var linkLabel = new LinkLabel {Text = Resources.Properties, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft};
                 linkLabel.LinkClicked += delegate
                 {
                     if (InterfaceDialog.Show(this, interfaceID, _feedCache)) ReSolve(solveCallback, waitHandle);

@@ -35,7 +35,7 @@ namespace ZeroInstall.Commands
         {
             get
             {
-                var builder = new StringBuilder("Try --help with one of these:\n\n");
+                var builder = new StringBuilder(Resources.TryHelpWith);
                 foreach (var possibleCommand in CommandFactory.ValidCommandNames)
                     builder.AppendLine("0install " + possibleCommand);
                 return builder.ToString();

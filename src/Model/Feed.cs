@@ -268,7 +268,7 @@ namespace ZeroInstall.Model
         #endregion
 
         //--------------------//
-        
+
         #region Storage
         /// <summary>
         /// Loads a <see cref="Feed"/> from an XML file.

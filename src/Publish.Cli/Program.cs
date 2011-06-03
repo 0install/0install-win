@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -24,7 +24,6 @@ using Common.Cli;
 using Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Model;
-using ZeroInstall.Publish.Cli.Arguments;
 using ZeroInstall.Publish.Cli.Properties;
 using ZeroInstall.Store.Feeds;
 
@@ -77,10 +76,13 @@ namespace ZeroInstall.Publish.Cli
             if (args.Length == 0) args = new[] { "--help" };
 
             ParseResults results;
-            OperationMode mode;
-
-            try { mode = ParseArgs(args, out results); }
+            try { results = ParseArgs(args); }
             #region Error handling
+            catch (UserCancelException)
+            {
+                // This is reached if --help, --version or similar was used
+                return 0;
+            }
             catch (ArgumentException ex)
             {
                 Log.Error(ex.Message);
@@ -88,7 +90,7 @@ namespace ZeroInstall.Publish.Cli
             }
             #endregion
 
-            try { return Execute(mode, results); }
+            try { return Execute(results); }
             #region Error hanlding
             catch (ArgumentException ex)
             {
@@ -134,25 +136,30 @@ namespace ZeroInstall.Publish.Cli
         /// Parses command-line arguments.
         /// </summary>
         /// <param name="args">The command-line arguments to be parsed.</param>
-        /// <param name="results">The options detected by the parsing process.</param>
-        /// <returns>The operation mode selected by the parsing process.</returns>
+        /// <returns>The options detected by the parsing process.</returns>
+        /// <exception cref="UserCancelException">Thrown if the user asked to see help information, version information, etc..</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="args"/> contains unknown options.</exception>
-        public static OperationMode ParseArgs(IEnumerable<string> args, out ParseResults results)
+        public static ParseResults ParseArgs(IEnumerable<string> args)
         {
             #region Sanity checks
             if (args == null) throw new ArgumentNullException("args");
             #endregion
 
             // Prepare a structure for storing settings found in the arguments
-            var mode = OperationMode.Normal;
             var parseResults = new ParseResults();
 
             #region Define options
             var options = new OptionSet
             {
+                // Version information
+                {"V|version", Resources.OptionVersion, unused => {
+                    var assembly = Assembly.GetEntryAssembly().GetName();
+                    Console.WriteLine(@"Zero Install Publish CLI v{0}", assembly.Version);
+                    throw new UserCancelException();
+                }},
+
                 // Mode selection
-                {"V|version", Resources.OptionVersion, unused => mode = OperationMode.Version},
-                {"catalog=", Resources.OptionCatalog, catalogFile => { mode = OperationMode.Catalog; parseResults.CatalogFile = catalogFile; } },
+                {"catalog=", Resources.OptionCatalog, catalogFile => { parseResults.Mode = OperationMode.Catalog; parseResults.CatalogFile = catalogFile; } },
 
                 // Signatures
                 {"x|xmlsign", Resources.OptionXmlSign, unused => parseResults.XmlSign = true},
@@ -165,11 +172,11 @@ namespace ZeroInstall.Publish.Cli
             #region Help text
             options.Add("h|help|?", Resources.OptionHelp, unused =>
             {
-                mode = OperationMode.Help;
-
                 PrintUsage();
                 Console.WriteLine(Resources.Options);
                 options.WriteOptionDescriptions(Console.Out);
+
+                throw new UserCancelException();
             });
             #endregion
 
@@ -185,8 +192,7 @@ namespace ZeroInstall.Publish.Cli
             #endregion
 
             // Return the now filled results structure
-            results = parseResults;
-            return mode;
+            return parseResults;
         }
         #endregion
 
@@ -202,7 +208,6 @@ namespace ZeroInstall.Publish.Cli
         /// <summary>
         /// Executes the commands specified by the command-line arguments.
         /// </summary>
-        /// <param name="mode">The operation mode selected by the parsing process.</param>
         /// <param name="results">The parser results to be executed.</param>
         /// <returns>The error code to end the process with.</returns>
         /// <exception cref="ArgumentException">Thrown if the specified feed file paths were invalid.</exception>
@@ -212,9 +217,9 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file or the catalog file is not permitted.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        private static int Execute(OperationMode mode, ParseResults results)
+        private static int Execute(ParseResults results)
         {
-            switch (mode)
+            switch (results.Mode)
             {
                 case OperationMode.Normal:
                     if (results.Feeds.Count == 0)
@@ -232,18 +237,10 @@ namespace ZeroInstall.Publish.Cli
                         results.Feeds = ArgumentUtils.GetFiles(new[] { Environment.CurrentDirectory }, "*.xml");
 
                     CreateCatalog(results);
-
-                    return (int)ErrorLevel.OK;
-
-                case OperationMode.Version:
-                    Console.WriteLine(@"Zero Install Publish CLI v{0}", Assembly.GetEntryAssembly().GetName().Version);
-                    return (int)ErrorLevel.OK;
-
-                case OperationMode.Help:
                     return (int)ErrorLevel.OK;
 
                 default:
-                    Log.Error(Resources.UnknownMode);
+                    Log.Error(string.Format(Resources.UnknownMode, "0publish"));
                     return (int)ErrorLevel.NotSupported;
             }
         }
