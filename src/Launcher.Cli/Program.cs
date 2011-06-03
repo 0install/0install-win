@@ -79,7 +79,7 @@ namespace ZeroInstall.Launcher.Cli
             }
             catch (OptionException ex)
             {
-                Log.Error(ex.Message + "\n" + Resources.TryHelp);
+                Log.Error(ex.Message + "\n" + string.Format(Resources.TryHelp, "0launch"));
                 return 1;
             }
             catch (IOException ex)
@@ -112,7 +112,7 @@ namespace ZeroInstall.Launcher.Cli
             }
             catch (OptionException ex)
             {
-                Log.Error(ex.Message + "\n" + Resources.TryHelp);
+                Log.Error(ex.Message + "\n" + string.Format(Resources.TryHelp, "0launch"));
                 return 1;
             }
             catch (WebException ex)

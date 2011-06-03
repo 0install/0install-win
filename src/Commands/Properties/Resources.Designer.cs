@@ -553,6 +553,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Try --help with one of these:.
+        /// </summary>
+        internal static string TryHelpWith {
+            get {
+                return ResourceManager.GetString("TryHelpWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown command &apos;{0}&apos;..
         /// </summary>
         internal static string UnknownCommand {

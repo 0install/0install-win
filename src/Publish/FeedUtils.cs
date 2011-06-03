@@ -93,7 +93,7 @@ namespace ZeroInstall.Publish
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (!File.Exists(path)) throw new FileNotFoundException(Resources.FileToSignNotFound, path);
+            if (!File.Exists(path)) throw new FileNotFoundException(string.Format(Resources.FileNotFound, path), path);
             #endregion
 
             var pgp = OpenPgpProvider.Default;
@@ -174,7 +174,7 @@ namespace ZeroInstall.Publish
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (!File.Exists(path)) throw new FileNotFoundException(Resources.FileToVerifyNotFound, path);
+            if (!File.Exists(path)) throw new FileNotFoundException(string.Format(Resources.FileNotFound, path), path);
             #endregion
 
             // ToDo: Implement
