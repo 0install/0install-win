@@ -18,14 +18,17 @@
 namespace ZeroInstall.Capture.Cli
 {
     /// <summary>
-    /// Structure for storing user-selected arguments for a feed editor operation.
+    /// Structure for storing user-selected arguments for a capture operation.
     /// </summary>
     public struct ParseResults
     {
+        /// <summary>The command to execute.</summary>
         public string Command;
 
-        public string CaptureDirectory;
+        /// <summary>The directory to execute the command on.</summary>
+        public string DirectoryPath;
 
+        /// <summary>Ignore warnings and perform the operation anyway.</summary>
         public bool Force;
     }
 }

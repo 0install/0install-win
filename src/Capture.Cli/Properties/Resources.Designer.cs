@@ -88,7 +88,7 @@ namespace ZeroInstall.Capture.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ignore warnings and perform operation anyway..
+        ///   Looks up a localized string similar to Ignore warnings and perform the operation anyway..
         /// </summary>
         internal static string OptionForce {
             get {

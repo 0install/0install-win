@@ -127,7 +127,7 @@
     <value>Missing arguments. Try {0} --help</value>
   </data>
   <data name="OptionForce" xml:space="preserve">
-    <value>Ignore warnings and perform operation anyway.</value>
+    <value>Ignore warnings and perform the operation anyway.</value>
   </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Show the built-in help text.</value>

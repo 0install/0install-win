@@ -166,7 +166,7 @@ namespace ZeroInstall.Capture.Cli
             parseResults.Command = additionalArgs[0];
 
             // Determine the capture directory to use
-            parseResults.CaptureDirectory = (additionalArgs.Count >= 2) ? additionalArgs[1] : Environment.CurrentDirectory;
+            parseResults.DirectoryPath = (additionalArgs.Count >= 2) ? additionalArgs[1] : Environment.CurrentDirectory;
 
             // Return the now filled results structure
             return parseResults;
@@ -196,14 +196,14 @@ namespace ZeroInstall.Capture.Cli
             {
                 case "init":
                 {
-                    CaptureDir.Create(results.CaptureDirectory);
+                    CaptureDir.Create(results.DirectoryPath);
                     Console.WriteLine(Resources.CaptureDirInitialized);
                     return ErrorLevel.OK;
                 }
 
                 case "snapshot-pre":
                 {
-                    var captureDir = CaptureDir.Open(results.CaptureDirectory);
+                    var captureDir = CaptureDir.Open(results.DirectoryPath);
 
                     #region Safety warnings
                     if (captureDir.SnaphshotPre != null && !results.Force)
@@ -225,7 +225,7 @@ namespace ZeroInstall.Capture.Cli
 
                 case "snapshot-post":
                 {
-                    var captureDir = CaptureDir.Open(results.CaptureDirectory);
+                    var captureDir = CaptureDir.Open(results.DirectoryPath);
 
                     #region Safety warnings
                     if (captureDir.SnaphshotPost != null && !results.Force)
@@ -247,7 +247,7 @@ namespace ZeroInstall.Capture.Cli
 
                 case "collect":
                 {
-                    var captureDir = CaptureDir.Open(results.CaptureDirectory);
+                    var captureDir = CaptureDir.Open(results.DirectoryPath);
 
                     captureDir.Collect();
                     Console.WriteLine(Resources.InstallDataCollected);
