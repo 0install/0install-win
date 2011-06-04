@@ -70,11 +70,29 @@ namespace ZeroInstall.Capture.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The directory &apos;{0}&apos; is not a capture directory. Please use &apos;0capture ini&apos;..
+        ///   Looks up a localized string similar to No 32-bit %ProgramFiles% directory found..
+        /// </summary>
+        internal static string MissingProgramFiles32Bit {
+            get {
+                return ResourceManager.GetString("MissingProgramFiles32Bit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The directory &apos;{0}&apos; is not a capture directory. Please use &apos;0capture init&apos;..
         /// </summary>
         internal static string NotCaptureDirectory {
             get {
                 return ResourceManager.GetString("NotCaptureDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This method is currently only available on Windows..
+        /// </summary>
+        internal static string OnlyAvailableOnWindows {
+            get {
+                return ResourceManager.GetString("OnlyAvailableOnWindows", resourceCulture);
             }
         }
     }

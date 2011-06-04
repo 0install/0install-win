@@ -84,7 +84,7 @@ namespace ZeroInstall.Capture
         public void TakeSnapshotPost()
         {
             SnaphshotPost = Snapshot.Take();
-            SnaphshotPre.Save(Path.Combine(DirectoryPath, SnapshotPostFileName));
+            SnaphshotPost.Save(Path.Combine(DirectoryPath, SnapshotPostFileName));
         }
         #endregion
 
@@ -162,6 +162,8 @@ namespace ZeroInstall.Capture
             try
             {
                 path = Path.GetFullPath(path);
+
+                // Make sure directory is already a capture directory
                 if (!File.Exists(Path.Combine(path, "_capture")))
                     throw new IOException(string.Format(Resources.NotCaptureDirectory, path));
             }

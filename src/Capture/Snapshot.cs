@@ -18,8 +18,11 @@
 using System;
 using System.IO;
 using System.Security;
+using Common;
 using Common.Storage;
+using Common.Utils;
 using Microsoft.Win32;
+using ZeroInstall.Capture.Properties;
 
 namespace ZeroInstall.Capture
 {
@@ -30,24 +33,50 @@ namespace ZeroInstall.Capture
     public class Snapshot
     {
         #region Variables
-        private C5.ICollection<FileAssoc> _fileAssocs;
+        private FileAssoc[] _fileAssocs;
 
-        private C5.ICollection<string> _progIDs;
+        private string[] _progIDs;
+
+        private string[] _programs32bit;
+
+        private string[] _programs64bit;
         #endregion
 
-        #region Static access
+        //--------------------//
+
+        #region Take snapshot
         /// <summary>
         /// Takes a snapshot of the current system state.
         /// </summary>
-        /// <returns></returns>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
+        /// <returns>The newly created snapshot.</returns>
+        /// <exception cref="IOException">Thrown if there was an error accessing the registry or file system.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry or file system was not permitted.</exception>
+        /// <exception cref="PlatformNotSupportedException">Thrown if this method is called while running on a platform for which capturing is not supported.</exception>
         public static Snapshot Take()
         {
+            if (!WindowsUtils.IsWindows) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
+
+            var snapshot = new Snapshot();
+            TakeRegistry(snapshot);
+            TakeFileSystem(snapshot);
+            return snapshot;
+        }
+        #endregion
+
+        #region Registry
+        /// <summary>
+        /// Stores information about the current state of the registry in a snapshot.
+        /// </summary>
+        /// <param name="snapshot">The snapshot to store the data in.</param>
+        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
+        private static void TakeRegistry(Snapshot snapshot)
+        {
+            var fileAssocs = new C5.LinkedList<FileAssoc>();
+            var progIDs = new C5.LinkedList<string>();
+
             try
             {
-                var fileAssocs = new C5.HashSet<FileAssoc>();
-                var progIDs = new C5.HashSet<string>();
                 foreach (var keyName in Registry.ClassesRoot.GetSubKeyNames())
                 {
                     if (keyName.StartsWith("."))
@@ -61,12 +90,6 @@ namespace ZeroInstall.Capture
                     }
                     else progIDs.Add(keyName);
                 }
-
-                return new Snapshot
-                {
-                    _fileAssocs = fileAssocs,
-                    _progIDs = progIDs
-                };
             }
             #region Error handling
             catch (SecurityException ex)
@@ -75,6 +98,32 @@ namespace ZeroInstall.Capture
                 throw new UnauthorizedAccessException(ex.Message, ex);
             }
             #endregion
+
+            snapshot._fileAssocs = fileAssocs.ToArray();
+            snapshot._progIDs = progIDs.ToArray();
+        }
+        #endregion
+
+        #region File system
+        /// <summary>
+        /// Stores information about the current state of the file system in a snapshot.
+        /// </summary>
+        /// <param name="snapshot">The snapshot to store the data in.</param>
+        /// <exception cref="IOException">Thrown if there was an error accessing the file system.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file system was not permitted.</exception>
+        private static void TakeFileSystem(Snapshot snapshot)
+        {
+            string programFiles32Bit = WindowsUtils.Is64BitProcess
+                ? Environment.GetEnvironmentVariable("ProgramFiles(x86)")
+                : Environment.GetEnvironmentVariable("ProgramFiles");
+            string programFiles64Bit = WindowsUtils.Is64BitProcess
+                ? Environment.GetEnvironmentVariable("ProgramFiles")
+                : null;
+
+            if (string.IsNullOrEmpty(programFiles32Bit)) Log.Warn(Resources.MissingProgramFiles32Bit);
+            else snapshot._programs32bit = Directory.GetDirectories(programFiles32Bit);
+            if (!string.IsNullOrEmpty(programFiles64Bit))
+                snapshot._programs64bit = Directory.GetDirectories(programFiles64Bit);
         }
         #endregion
 
