@@ -28,7 +28,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Register an additional source of implementations (versions) of a program. 
+    /// Register an additional source of implementations (versions) of a program.
     /// </summary>
     [CLSCompliant(false)]
     public sealed class AddFeed : CommandBase

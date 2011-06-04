@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Commands.AddFeed">
-    <Position X="7.75" Y="4.5" Width="1.5" />
+    <Position X="9.5" Y="4.5" Width="1.5" />
     <Members>
       <Method Name="AddFeed" Hidden="true" />
     </Members>
@@ -21,7 +21,10 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Configure">
-    <Position X="13" Y="4.5" Width="1.5" />
+    <Position X="7.75" Y="4.5" Width="1.5" />
+    <Members>
+      <Method Name="Configure" Hidden="true" />
+    </Members>
     <TypeIdentifier>
       <HashCode>AgAAAAAAAAAgAAQAAAgAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Configure.cs</FileName>
@@ -58,7 +61,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.RemoveFeed">
-    <Position X="9.5" Y="4.5" Width="1.5" />
+    <Position X="11.25" Y="4.5" Width="1.5" />
     <Members>
       <Method Name="RemoveFeed" Hidden="true" />
     </Members>
@@ -89,7 +92,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.CommandBase">
-    <Position X="6.5" Y="0.5" Width="1.75" />
+    <Position X="6.75" Y="0.5" Width="1.75" />
     <Members>
       <Method Name="CommandBase" Hidden="true" />
     </Members>
@@ -99,7 +102,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.ListFeeds">
-    <Position X="11.25" Y="4.5" Width="1.5" />
+    <Position X="13" Y="4.5" Width="1.5" />
     <Members>
       <Method Name="ListFeeds" Hidden="true" />
     </Members>
