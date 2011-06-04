@@ -58,10 +58,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cli\ArgumentUtilsTest.cs" />
-    <Compile Include="Compression\ArchiveUtils.cs" />
+    <Compile Include="Collections\EnumerableUtilsTest.cs" />
     <Compile Include="Collections\LanguageCollectionTest.cs" />
-    <Compile Include="Collections\XmlDictionaryTest.cs" />
     <Compile Include="Collections\LocalizableStringCollectionTest.cs" />
+    <Compile Include="Compression\ArchiveUtils.cs" />
     <Compile Include="Controls\TrackingLabelTest.cs" />
     <Compile Include="Controls\TrackingProgressBarTest.cs" />
     <Compile Include="Net\DownloadFileTest.cs" />

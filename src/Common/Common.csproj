@@ -98,9 +98,6 @@
     <Compile Include="Collections\INamedCollection.cs" />
     <Compile Include="Collections\LanguageCollection.cs" />
     <Compile Include="Collections\NamedCollection.cs" />
-    <Compile Include="Collections\MonitoredCollection.cs" />
-    <Compile Include="Collections\XmlDictionary.cs" />
-    <Compile Include="Collections\XmlDictionaryEntry.cs" />
     <Compile Include="Collections\LocalizableStringCollection.cs" />
     <Compile Include="Collections\LocalizableString.cs" />
     <Compile Include="Streams\StreamUtils.cs" />
