@@ -31,19 +31,34 @@ namespace ZeroInstall.Capture
         public string Ending;
 
         /// <summary>
-        /// The programatic identifier.
+        /// The main programatic identifier associated with this file ending.
         /// </summary>
-        public string ProgID;
+        public string MainProgID;
+
+        /// <summary>
+        /// Additional programatic identifiers associated with this file ending.
+        /// </summary>
+        public string[] OpenWithProgIDs;
 
         /// <summary>
         /// Creates a new file association.
         /// </summary>
         /// <param name="ending">The file ending.</param>
-        /// <param name="progID">The programatic identifier.</param>
-        public FileAssoc(string ending, string progID)
+        /// <param name="mainProgID">The main programatic identifier associated with this file ending.</param>
+        /// <param name="openWithProgIDs">Additional programatic identifiers associated with this file ending.</param>
+        public FileAssoc(string ending, string mainProgID, string[] openWithProgIDs)
         {
             Ending = ending;
-            ProgID = progID;
+            MainProgID = mainProgID;
+            OpenWithProgIDs = openWithProgIDs;
+        }
+
+        /// <summary>
+        /// Returns the association in the form "Ending = MainProgID". Not safe for parsing!
+        /// </summary>
+        public override string ToString()
+        {
+            return Ending + " = " + MainProgID;
         }
     }
 }

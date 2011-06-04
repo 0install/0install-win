@@ -23,6 +23,7 @@ using Common.Storage;
 using Common.Utils;
 using Microsoft.Win32;
 using ZeroInstall.Capture.Properties;
+using ZeroInstall.DesktopIntegration.Windows;
 
 namespace ZeroInstall.Capture
 {
@@ -33,13 +34,53 @@ namespace ZeroInstall.Capture
     public class Snapshot
     {
         #region Variables
+        /// <summary>A per-user list of EXE files that have lookup paths defined.</summary>
+        private string[] _appPathsUser;
+
+        /// <summary>A machine-wide list of EXE files that have lookup paths defined.</summary>
+        private string[] _appPathsMachine;
+
+        /// <summary>A list of applications defining additional launching behavior.</summary>
+        private string[] _applications;
+
+        /// <summary>A list of appliactions registered as candidates for default programs.</summary>
+        private string[] _registeredApplications;
+
+        /// <summary>A list of applications registered as clients for specific services.</summary>
+        private ClientList[] _clients;
+
+        /// <summary>A list of file assocations.</summary>
         private FileAssoc[] _fileAssocs;
 
+        /// <summary>A list of simple context menu entries for all file types.</summary>
+        private string[] _filesContextMenuSimple;
+
+        /// <summary>A list of extended (COM-based) context menu entries for all file types.</summary>
+        private string[] _filesContextMenuExtended;
+
+        /// <summary>A list of (COM-based) property sheets for all file types.</summary>
+        private string[] _filesPropertySheets;
+
+        /// <summary>A list of simple context menu entries for all filesystem objects (files and directories).</summary>
+        private string[] _allContextMenuSimple;
+
+        /// <summary>A list of extended (COM-based) context menu entries for all filesystem objects (files and directories).</summary>
+        private string[] _allContextMenuExtended;
+
+        /// <summary>A list of (COM-based) property sheets for all file-system entries.</summary>
+        private string[] _allPropertySheets;
+
+        /// <summary>A list of programatic indentifiers.</summary>
         private string[] _progIDs;
 
-        private string[] _programs32bit;
+        /// <summary>A list of program installation directories.</summary>
+        private string[] _programsDirs;
 
-        private string[] _programs64bit;
+        /// <summary>A list of applications registered as AutoPlay handlers.</summary>
+        private string[] _autoPlayHandlers;
+
+        /// <summary>A list of applications registered in the Windows Games Explorer.</summary>
+        private string[] _games;
         #endregion
 
         //--------------------//
@@ -57,8 +98,18 @@ namespace ZeroInstall.Capture
             if (!WindowsUtils.IsWindows) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
 
             var snapshot = new Snapshot();
-            TakeRegistry(snapshot);
+
+            try { TakeRegistry(snapshot); }
+            #region Error handling
+            catch (SecurityException ex)
+            {
+                // Wrap exception since only certain exception types are allowed in tasks
+                throw new UnauthorizedAccessException(ex.Message, ex);
+            }
+            #endregion
+
             TakeFileSystem(snapshot);
+
             return snapshot;
         }
         #endregion
@@ -70,37 +121,87 @@ namespace ZeroInstall.Capture
         /// <param name="snapshot">The snapshot to store the data in.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
         private static void TakeRegistry(Snapshot snapshot)
         {
-            var fileAssocs = new C5.LinkedList<FileAssoc>();
-            var progIDs = new C5.LinkedList<string>();
+            snapshot._appPathsUser = GetSubKeyNames(Registry.CurrentUser, AppPath.RegKeyAppPath);
+            snapshot._appPathsMachine = GetSubKeyNames(Registry.LocalMachine, AppPath.RegKeyAppPath);
+            snapshot._applications = GetSubKeyNames(Registry.ClassesRoot, AppPath.RegKeyClassesApplications);
+            snapshot._registeredApplications = GetValueNames(Registry.LocalMachine, DefaultProgram.RegKeyMachineRegisteredApplications);
+            snapshot._clients = GetClientLists();
+            GetFileAssocData(out snapshot._fileAssocs, out snapshot._progIDs);
 
-            try
+            snapshot._filesContextMenuSimple = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyContextMenuSimplePostfix);
+            snapshot._filesContextMenuExtended = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyContextMenuExtendedPostfix);
+            snapshot._filesPropertySheets = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyPropertySheetsPostfix);
+
+            snapshot._allContextMenuSimple = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + ContextMenu.RegKeyContextMenuSimplePostfix);
+            snapshot._allContextMenuExtended = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + ContextMenu.RegKeyContextMenuExtendedPostfix);
+            snapshot._allPropertySheets = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + ContextMenu.RegKeyPropertySheetsPostfix);
+
+            snapshot._autoPlayHandlers = GetSubKeyNames(Registry.LocalMachine, AutoPlay.RegKeyMachineHandlers);
+            snapshot._games = GetSubKeyNames(Registry.LocalMachine, GamesExplorer.RegKeyMachineGames);
+        }
+
+        /// <summary>
+        /// Retreives a list of <see cref="ClientList"/>s from the registry.
+        /// </summary>
+        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        private static ClientList[] GetClientLists()
+        {
+            using (var clientsKey = Registry.LocalMachine.OpenSubKey(DefaultProgram.RegKeyMachineClients))
             {
-                foreach (var keyName in Registry.ClassesRoot.GetSubKeyNames())
+                if (clientsKey != null)
                 {
-                    if (keyName.StartsWith("."))
-                    {
-                        using (var subKey = Registry.ClassesRoot.OpenSubKey(keyName))
-                        {
-                            if (subKey == null) continue;
-                            string progID = (subKey.GetValue("") ?? "").ToString();
-                            fileAssocs.Add(new FileAssoc(keyName, progID));
-                        }
-                    }
-                    else progIDs.Add(keyName);
+                    string[] serviceNames = clientsKey.GetSubKeyNames();
+                    var clients = new ClientList[serviceNames.Length];
+                    for (int i = 0; i < serviceNames.Length; i++)
+                        clients[i] = new ClientList(serviceNames[i], clientsKey.OpenSubKey(serviceNames[i]).GetSubKeyNames());
+                    return clients;
                 }
             }
-            #region Error handling
-            catch (SecurityException ex)
-            {
-                // Wrap exception since only certain exception types are allowed in tasks
-                throw new UnauthorizedAccessException(ex.Message, ex);
-            }
-            #endregion
+            return null;
+        }
 
-            snapshot._fileAssocs = fileAssocs.ToArray();
-            snapshot._progIDs = progIDs.ToArray();
+        /// <summary>
+        /// Retreives a list of <see cref="FileAssoc"/>s and programatic indentifiers the registry.
+        /// </summary>
+        private static void GetFileAssocData(out FileAssoc[] fileAssocs, out string[] progIDs)
+        {
+            var fileAssocsList = new C5.LinkedList<FileAssoc>();
+            var progIDsList = new C5.LinkedList<string>();
+
+            foreach (string keyName in Registry.ClassesRoot.GetSubKeyNames())
+            {
+                if (keyName.StartsWith("."))
+                {
+                    using (var assocKey = Registry.ClassesRoot.OpenSubKey(keyName))
+                    {
+                        if (assocKey == null) continue;
+                        string mainProgID = (assocKey.GetValue("") ?? "").ToString();
+                        string[] openWithProgIDs = GetSubKeyNames(assocKey, "OpenWithProgIDs");
+                        fileAssocsList.Add(new FileAssoc(keyName, mainProgID, openWithProgIDs));
+                    }
+                }
+                else progIDsList.Add(keyName);
+            }
+
+            fileAssocs = fileAssocsList.ToArray();
+            progIDs = progIDsList.ToArray();
+        }
+
+        private static string[] GetValueNames(RegistryKey root, string key)
+        {
+            using (var contextMenuExtendedKey = root.OpenSubKey(key))
+                return contextMenuExtendedKey == null ? null : contextMenuExtendedKey.GetValueNames();
+        }
+
+        private static string[] GetSubKeyNames(RegistryKey root, string key)
+        {
+            using (var contextMenuExtendedKey = root.OpenSubKey(key))
+                return contextMenuExtendedKey == null ? null : contextMenuExtendedKey.GetSubKeyNames();
         }
         #endregion
 
@@ -113,6 +214,7 @@ namespace ZeroInstall.Capture
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file system was not permitted.</exception>
         private static void TakeFileSystem(Snapshot snapshot)
         {
+            // Locate installation directories
             string programFiles32Bit = WindowsUtils.Is64BitProcess
                 ? Environment.GetEnvironmentVariable("ProgramFiles(x86)")
                 : Environment.GetEnvironmentVariable("ProgramFiles");
@@ -120,16 +222,15 @@ namespace ZeroInstall.Capture
                 ? Environment.GetEnvironmentVariable("ProgramFiles")
                 : null;
 
+            // Build a list of all installation directorie
+            var programDirs = new C5.ArrayList<string>();
             if (string.IsNullOrEmpty(programFiles32Bit)) Log.Warn(Resources.MissingProgramFiles32Bit);
-            else snapshot._programs32bit = Directory.GetDirectories(programFiles32Bit);
+            else programDirs.AddAll(Directory.GetDirectories(programFiles32Bit));
             if (!string.IsNullOrEmpty(programFiles64Bit))
-                snapshot._programs64bit = Directory.GetDirectories(programFiles64Bit);
+                programDirs.AddAll(Directory.GetDirectories(programFiles64Bit));
+            snapshot._programsDirs = programDirs.ToArray();
         }
         #endregion
-
-        //--------------------//
-
-        // ToDo: Comparison method
 
         //--------------------//
 
