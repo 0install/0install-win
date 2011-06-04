@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Commands.AddFeed">
-    <Position X="7.75" Y="6.25" Width="1.5" />
+    <Position X="7.75" Y="4.5" Width="1.5" />
     <Members>
       <Method Name="AddFeed" Hidden="true" />
     </Members>
@@ -57,15 +57,8 @@
       <FileName>List.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.ManageFeeds">
-    <Position X="9.5" Y="4.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ManageFeeds.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="ZeroInstall.Commands.RemoveFeed">
-    <Position X="9.5" Y="6.25" Width="1.5" />
+    <Position X="9.5" Y="4.5" Width="1.5" />
     <Members>
       <Method Name="RemoveFeed" Hidden="true" />
     </Members>
@@ -101,12 +94,12 @@
       <Method Name="CommandBase" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAAkgAAQAAAIAAAAEAAAAAAAAAgAAAABEBAA=</HashCode>
+      <HashCode>AAAgAAAAAAkgAAQAAAIACAAEAAAAAAAAAAAAAABEBAA=</HashCode>
       <FileName>CommandBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.ListFeeds">
-    <Position X="11.25" Y="6.25" Width="1.5" />
+    <Position X="11.25" Y="4.5" Width="1.5" />
     <Members>
       <Method Name="ListFeeds" Hidden="true" />
     </Members>
@@ -126,7 +119,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.CommandFactory">
-    <Position X="0.5" Y="0.5" Width="1.75" />
+    <Position X="0.5" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAA=</HashCode>
       <FileName>CommandFactory.cs</FileName>
