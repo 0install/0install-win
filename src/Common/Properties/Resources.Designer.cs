@@ -244,6 +244,15 @@ namespace Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This method is only available on Windows..
+        /// </summary>
+        internal static string OnlyAvailableOnWindows {
+            get {
+                return ResourceManager.GetString("OnlyAvailableOnWindows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This command cannot be performed again until the undo command has been performed..
         /// </summary>
         internal static string RedoNotAvailable {

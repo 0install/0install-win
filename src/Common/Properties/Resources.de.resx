@@ -171,6 +171,9 @@
   <data name="NoXmlDataInFile" xml:space="preserve">
     <value>Es wurden keine XML Daten in der Datei gefunden.</value>
   </data>
+  <data name="OnlyAvailableOnWindows" xml:space="preserve">
+    <value>Diese Methode steht nur unter Windows zur Verfügung.</value>
+  </data>
   <data name="RedoNotAvailable" xml:space="preserve">
     <value>Dieser Befehl kann nicht erneut ausgeführt werden, bis der Rückgängig-Befehl ausgeführt wurde.</value>
   </data>
