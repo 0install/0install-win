@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CaptureDirInitialized" xml:space="preserve">
+    <value>Capture Verzeichnis initialisiert.</value>
+  </data>
+  <data name="InstallDataCollected" xml:space="preserve">
+    <value>Installationsdaten erfasst.</value>
+  </data>
   <data name="MissingArguments" xml:space="preserve">
     <value>Fehlende Argumente. Probieren Sie {0} --help</value>
+  </data>
+  <data name="OptionForce" xml:space="preserve">
+    <value>Warnungen ignorieren und Vorgang trotzdem ausführen.</value>
   </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Zeigt den eingebauten Hilfe-Text an.</value>
@@ -129,11 +138,29 @@
   <data name="OptionVersion" xml:space="preserve">
     <value>Zeigt die Versionsinformationen an.</value>
   </data>
+  <data name="PostInstallSnapshotCreated" xml:space="preserve">
+    <value>Post-Installations Schnappschuss erstellt.</value>
+  </data>
+  <data name="PreInstallSnapshotCreated" xml:space="preserve">
+    <value>Prä-Installations Schnappschuss erstellt.</value>
+  </data>
   <data name="UnknownMode" xml:space="preserve">
     <value>Unbekannter Betriebsmodus
 Probieren Sie {0} --help</value>
   </data>
   <data name="Usage" xml:space="preserve">
     <value>Verwendung:</value>
+  </data>
+  <data name="WarnExistingPostInstallSnapshot" xml:space="preserve">
+    <value>Post-Installations Schnappschuss exisitiert bereits. Mit --force erneut ausführen zum Ignorieren.</value>
+  </data>
+  <data name="WarnMissingPreInstallSnapshot" xml:space="preserve">
+    <value>Prä-Installations Schnappschuss existiert noch nicht. Mit --force erneut ausführen zum Ignorieren.</value>
+  </data>
+  <data name="WarnOverwritePostInstallSnapshot" xml:space="preserve">
+    <value>Post-Installations Schnappschuss exisitiert bereits. Mit --force erneut ausführen zum Überschreiben.</value>
+  </data>
+  <data name="WarnOverwritePreInstallSnapshot" xml:space="preserve">
+    <value>Prä-Installations Schnappschuss exisitiert bereits. Mit --force erneut ausführen zum Überschreiben.</value>
   </data>
 </root>

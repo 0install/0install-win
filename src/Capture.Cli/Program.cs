@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using Common;
 using NDesk.Options;
 using ZeroInstall.Capture.Cli.Properties;
@@ -43,11 +44,11 @@ namespace ZeroInstall.Capture.Cli
         /// <summary>An unknown or not supported feature was requested.</summary>
         NotSupported = 3,
 
+        /// <summary>A warning regarding potentially unintended usage caused the operation to be canceled.</summary>
+        Warning = 9,
+
         /// <summary>An IO error occurred.</summary>
         IOError = 10,
-
-        /// <summary>An network error occurred.</summary>
-        WebError = 11
     }
     #endregion
 
@@ -71,21 +72,25 @@ namespace ZeroInstall.Capture.Cli
             catch (UserCancelException)
             {
                 // This is reached if --help, --version or similar was used
-                return 0;
+                return (int)ErrorLevel.OK;
             }
-            catch (ArgumentException ex)
+            catch (OptionException ex)
             {
                 Log.Error(ex.Message);
                 return (int)ErrorLevel.InvalidArguments;
             }
             #endregion
 
-            try { return Execute(results); }
+            try { return (int)Execute(results); }
             #region Error hanlding
-            catch (ArgumentException ex)
+            catch (UserCancelException)
+            {
+                return (int)ErrorLevel.UserCanceled;
+            }
+            catch (OptionException ex)
             {
                 Log.Error(ex.Message);
-                return (int)ErrorLevel.IOError;
+                return (int)ErrorLevel.InvalidArguments;
             }
             catch (InvalidOperationException ex)
             {
@@ -118,7 +123,7 @@ namespace ZeroInstall.Capture.Cli
         /// <param name="args">The command-line arguments to be parsed.</param>
         /// <returns>The options detected by the parsing process.</returns>
         /// <exception cref="UserCancelException">Thrown if the user asked to see help information, version information, etc..</exception>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="args"/> contains unknown options.</exception>
+        /// <exception cref="OptionException">Thrown if <paramref name="args"/> contains unknown options.</exception>
         public static ParseResults ParseArgs(IEnumerable<string> args)
         {
             #region Sanity checks
@@ -138,7 +143,7 @@ namespace ZeroInstall.Capture.Cli
                     throw new UserCancelException();
                 }},
 
-                // ToDo
+                {"f|force", Resources.OptionForce, unused => parseResults.Force = true}
             };
             #endregion
 
@@ -155,7 +160,13 @@ namespace ZeroInstall.Capture.Cli
 
             // Parse the arguments and call the hooked handlers
             var additionalArgs = options.Parse(args);
-            // ToDo: Determine capture directory
+
+            // Determine the specific cature command to be executed
+            if (additionalArgs.Count == 0) throw new OptionException(string.Format(Resources.MissingArguments, "0capture"), "");
+            parseResults.Command = additionalArgs[0];
+
+            // Determine the capture directory to use
+            parseResults.CaptureDirectory = (additionalArgs.Count >= 2) ? additionalArgs[1] : Environment.CurrentDirectory;
 
             // Return the now filled results structure
             return parseResults;
@@ -165,8 +176,10 @@ namespace ZeroInstall.Capture.Cli
         #region Help
         private static void PrintUsage()
         {
-            const string usage = "{0}\t{1}\n\t{2}\n\t{3}\n\t{4}\n";
-            //Console.WriteLine(usage, Resources.Usage, Resources.UsageInit, Resources.UsageCapturePre, Resources.UsageCapturePost, Resources.UsageCollect);
+            var usage = new StringBuilder(Resources.Usage);
+            foreach (string command in new [] {"init", "capture-pre", "capture-post", "collect"})
+                usage.AppendLine("\t0capture " + command + " [DIRECTORY] [OPTIONS]");
+            Console.WriteLine(usage);
         }
         #endregion
 
@@ -176,15 +189,78 @@ namespace ZeroInstall.Capture.Cli
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
         /// <returns>The error code to end the process with.</returns>
-        private static int Execute(ParseResults results)
+        /// <exception cref="UserCancelException">Thrown if the user cancelled the operation.</exception>
+        private static ErrorLevel Execute(ParseResults results)
         {
-            // ToDo
-            return 0;
+            switch (results.Command)
+            {
+                case "init":
+                {
+                    CaptureDir.Create(results.CaptureDirectory);
+                    Console.WriteLine(Resources.CaptureDirInitialized);
+                    return ErrorLevel.OK;
+                }
+
+                case "snapshot-pre":
+                {
+                    var captureDir = CaptureDir.Open(results.CaptureDirectory);
+
+                    #region Safety warnings
+                    if (captureDir.SnaphshotPre != null && !results.Force)
+                    {
+                        Log.Error(Resources.WarnOverwritePreInstallSnapshot);
+                        return ErrorLevel.Warning;
+                    }
+                    if (captureDir.SnaphshotPost != null && !results.Force)
+                    {
+                        Log.Error(Resources.WarnExistingPostInstallSnapshot);
+                        return ErrorLevel.Warning;
+                    }
+                    #endregion
+
+                    captureDir.TakeSnapshotPre();
+                    Console.WriteLine(Resources.PreInstallSnapshotCreated);
+                    return ErrorLevel.OK;
+                }
+
+                case "snapshot-post":
+                {
+                    var captureDir = CaptureDir.Open(results.CaptureDirectory);
+
+                    #region Safety warnings
+                    if (captureDir.SnaphshotPost != null && !results.Force)
+                    {
+                        Log.Error(Resources.WarnOverwritePostInstallSnapshot);
+                        return ErrorLevel.Warning;
+                    }
+                    if (captureDir.SnaphshotPre == null && !results.Force)
+                    {
+                        Log.Error(Resources.WarnMissingPreInstallSnapshot);
+                        return ErrorLevel.Warning;
+                    }
+                    #endregion
+
+                    captureDir.TakeSnapshotPost();
+                    Console.WriteLine(Resources.PostInstallSnapshotCreated);
+                    return ErrorLevel.OK;
+                }
+
+                case "collect":
+                {
+                    var captureDir = CaptureDir.Open(results.CaptureDirectory);
+
+                    captureDir.Collect();
+                    Console.WriteLine(Resources.InstallDataCollected);
+                    return ErrorLevel.OK;
+                }
+
+                default:
+                {
+                    Log.Error(string.Format(Resources.UnknownMode, "0publish"));
+                    return ErrorLevel.NotSupported;
+                }
+            }
         }
         #endregion
-
-        //--------------------//
-
-        // ToDo
     }
 }

@@ -22,6 +22,10 @@ namespace ZeroInstall.Capture.Cli
     /// </summary>
     public struct ParseResults
     {
-        // ToDo
+        public string Command;
+
+        public string CaptureDirectory;
+
+        public bool Force;
     }
 }

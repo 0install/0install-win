@@ -61,11 +61,38 @@ namespace ZeroInstall.Capture.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Capture directory initialized..
+        /// </summary>
+        internal static string CaptureDirInitialized {
+            get {
+                return ResourceManager.GetString("CaptureDirInitialized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installation data collected..
+        /// </summary>
+        internal static string InstallDataCollected {
+            get {
+                return ResourceManager.GetString("InstallDataCollected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Missing arguments. Try {0} --help.
         /// </summary>
         internal static string MissingArguments {
             get {
                 return ResourceManager.GetString("MissingArguments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ignore warnings and perform operation anyway..
+        /// </summary>
+        internal static string OptionForce {
+            get {
+                return ResourceManager.GetString("OptionForce", resourceCulture);
             }
         }
         
@@ -97,6 +124,24 @@ namespace ZeroInstall.Capture.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Post-installation snapshot created..
+        /// </summary>
+        internal static string PostInstallSnapshotCreated {
+            get {
+                return ResourceManager.GetString("PostInstallSnapshotCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pre-installation snapshot created..
+        /// </summary>
+        internal static string PreInstallSnapshotCreated {
+            get {
+                return ResourceManager.GetString("PreInstallSnapshotCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown operation mode.
         ///Try {0} --help.
         /// </summary>
@@ -112,6 +157,42 @@ namespace ZeroInstall.Capture.Cli.Properties {
         internal static string Usage {
             get {
                 return ResourceManager.GetString("Usage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post-installation snapshot already exists. Rerun with --force to ignore..
+        /// </summary>
+        internal static string WarnExistingPostInstallSnapshot {
+            get {
+                return ResourceManager.GetString("WarnExistingPostInstallSnapshot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pre-installation snapshot does not exists yet. Rerun with --force to ignore..
+        /// </summary>
+        internal static string WarnMissingPreInstallSnapshot {
+            get {
+                return ResourceManager.GetString("WarnMissingPreInstallSnapshot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post-installation snapshot already exists. Rerun with --force to overwrite..
+        /// </summary>
+        internal static string WarnOverwritePostInstallSnapshot {
+            get {
+                return ResourceManager.GetString("WarnOverwritePostInstallSnapshot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pre-installation snapshot already exists. Rerun with --force to overwrite..
+        /// </summary>
+        internal static string WarnOverwritePreInstallSnapshot {
+            get {
+                return ResourceManager.GetString("WarnOverwritePreInstallSnapshot", resourceCulture);
             }
         }
     }

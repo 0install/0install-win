@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CaptureDirInitialized" xml:space="preserve">
+    <value>Capture directory initialized.</value>
+  </data>
+  <data name="InstallDataCollected" xml:space="preserve">
+    <value>Installation data collected.</value>
+  </data>
   <data name="MissingArguments" xml:space="preserve">
     <value>Missing arguments. Try {0} --help</value>
+  </data>
+  <data name="OptionForce" xml:space="preserve">
+    <value>Ignore warnings and perform operation anyway.</value>
   </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Show the built-in help text.</value>
@@ -129,11 +138,29 @@
   <data name="OptionVersion" xml:space="preserve">
     <value>Display version information.</value>
   </data>
+  <data name="PostInstallSnapshotCreated" xml:space="preserve">
+    <value>Post-installation snapshot created.</value>
+  </data>
+  <data name="PreInstallSnapshotCreated" xml:space="preserve">
+    <value>Pre-installation snapshot created.</value>
+  </data>
   <data name="UnknownMode" xml:space="preserve">
     <value>Unknown operation mode.
 Try {0} --help</value>
   </data>
   <data name="Usage" xml:space="preserve">
     <value>Usage:</value>
+  </data>
+  <data name="WarnExistingPostInstallSnapshot" xml:space="preserve">
+    <value>Post-installation snapshot already exists. Rerun with --force to ignore.</value>
+  </data>
+  <data name="WarnMissingPreInstallSnapshot" xml:space="preserve">
+    <value>Pre-installation snapshot does not exists yet. Rerun with --force to ignore.</value>
+  </data>
+  <data name="WarnOverwritePostInstallSnapshot" xml:space="preserve">
+    <value>Post-installation snapshot already exists. Rerun with --force to overwrite.</value>
+  </data>
+  <data name="WarnOverwritePreInstallSnapshot" xml:space="preserve">
+    <value>Pre-installation snapshot already exists. Rerun with --force to overwrite.</value>
   </data>
 </root>
