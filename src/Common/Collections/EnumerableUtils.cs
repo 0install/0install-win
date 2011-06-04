@@ -19,6 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+using System;
 using System.Collections.Generic;
 
 namespace Common.Collections
@@ -52,6 +53,45 @@ namespace Common.Collections
 
             using (var enumerator = collection.GetEnumerator())
                 return !enumerator.MoveNext();
+        }
+
+        /// <summary>
+        /// Assumes two ordered fast-indexable lists (e.g. sorted arrays).
+        /// Determines which elements are present in <paramref name="newList"/> but not in <paramref name="oldList"/>.
+        /// </summary>
+        /// <param name="oldList">The original list of elements.</param>
+        /// <param name="newList">The new list of elements.</param>
+        /// <returns>A list of elements that were added.</returns>
+        /// <remarks>Elements that are present in <paramref name="oldList"/> but not in <paramref name="newList"/> are ignored.</remarks>
+        public static IEnumerable<T> GetAddedEntries<T>(IList<T> oldList, IList<T> newList)
+            where T : IComparable<T>
+        {
+            var added = new C5.LinkedList<T>();
+
+            int oldCounter = 0;
+            int newCounter = 0;
+            while (newCounter < newList.Count)
+            {
+                T newElement = newList[newCounter];
+                int comparison = (oldCounter < oldList.Count) ? oldList[oldCounter].CompareTo(newElement) : 1;
+
+                if (comparison == 0)
+                { // old == new
+                    oldCounter++;
+                    newCounter++;
+                }
+                else if (comparison < 0)
+                { // old < new
+                    oldCounter++;
+                }
+                else if (comparison > 0)
+                { // old > new
+                    added.Add(newElement);
+                    newCounter++;
+                }
+            }
+
+            return added;
         }
     }
 }
