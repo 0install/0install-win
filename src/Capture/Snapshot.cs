@@ -35,52 +35,52 @@ namespace ZeroInstall.Capture
     {
         #region Variables
         /// <summary>A per-user list of EXE files that have lookup paths defined.</summary>
-        private string[] _appPathsUser;
+        public string[] AppPathsUser;
 
         /// <summary>A machine-wide list of EXE files that have lookup paths defined.</summary>
-        private string[] _appPathsMachine;
+        public string[] AppPathsMachine;
 
         /// <summary>A list of applications defining additional launching behavior.</summary>
-        private string[] _applications;
+        public string[] Applications;
 
         /// <summary>A list of appliactions registered as candidates for default programs.</summary>
-        private string[] _registeredApplications;
+        public string[] RegisteredApplications;
 
         /// <summary>A list of applications registered as clients for specific services.</summary>
-        private ClientList[] _clients;
+        public ClientList[] Clients;
 
         /// <summary>A list of file assocations.</summary>
-        private FileAssoc[] _fileAssocs;
+        public FileAssoc[] FileAssocs;
 
         /// <summary>A list of simple context menu entries for all file types.</summary>
-        private string[] _filesContextMenuSimple;
+        public string[] FilesContextMenuSimple;
 
         /// <summary>A list of extended (COM-based) context menu entries for all file types.</summary>
-        private string[] _filesContextMenuExtended;
+        public string[] FilesContextMenuExtended;
 
         /// <summary>A list of (COM-based) property sheets for all file types.</summary>
-        private string[] _filesPropertySheets;
+        public string[] FilesPropertySheets;
 
         /// <summary>A list of simple context menu entries for all filesystem objects (files and directories).</summary>
-        private string[] _allContextMenuSimple;
+        public string[] AllContextMenuSimple;
 
         /// <summary>A list of extended (COM-based) context menu entries for all filesystem objects (files and directories).</summary>
-        private string[] _allContextMenuExtended;
+        public string[] AllContextMenuExtended;
 
         /// <summary>A list of (COM-based) property sheets for all file-system entries.</summary>
-        private string[] _allPropertySheets;
+        public string[] AllPropertySheets;
 
         /// <summary>A list of programatic indentifiers.</summary>
-        private string[] _progIDs;
+        public string[] ProgIDs;
 
         /// <summary>A list of program installation directories.</summary>
-        private string[] _programsDirs;
+        public string[] ProgramsDirs;
 
         /// <summary>A list of applications registered as AutoPlay handlers.</summary>
-        private string[] _autoPlayHandlers;
+        public string[] AutoPlayHandlers;
 
         /// <summary>A list of applications registered in the Windows Games Explorer.</summary>
-        private string[] _games;
+        public string[] Games;
         #endregion
 
         //--------------------//
@@ -124,23 +124,23 @@ namespace ZeroInstall.Capture
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
         private static void TakeRegistry(Snapshot snapshot)
         {
-            snapshot._appPathsUser = GetSubKeyNames(Registry.CurrentUser, AppPath.RegKeyAppPath);
-            snapshot._appPathsMachine = GetSubKeyNames(Registry.LocalMachine, AppPath.RegKeyAppPath);
-            snapshot._applications = GetSubKeyNames(Registry.ClassesRoot, AppPath.RegKeyClassesApplications);
-            snapshot._registeredApplications = GetValueNames(Registry.LocalMachine, DefaultProgram.RegKeyMachineRegisteredApplications);
-            snapshot._clients = GetClientLists();
-            GetFileAssocData(out snapshot._fileAssocs, out snapshot._progIDs);
+            snapshot.AppPathsUser = GetSubKeyNames(Registry.CurrentUser, AppPath.RegKeyAppPath);
+            snapshot.AppPathsMachine = GetSubKeyNames(Registry.LocalMachine, AppPath.RegKeyAppPath);
+            snapshot.Applications = GetSubKeyNames(Registry.ClassesRoot, AppPath.RegKeyClassesApplications);
+            snapshot.RegisteredApplications = GetValueNames(Registry.LocalMachine, DefaultProgram.RegKeyMachineRegisteredApplications);
+            snapshot.Clients = GetClientLists();
+            GetFileAssocData(out snapshot.FileAssocs, out snapshot.ProgIDs);
 
-            snapshot._filesContextMenuSimple = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyContextMenuSimplePostfix);
-            snapshot._filesContextMenuExtended = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyContextMenuExtendedPostfix);
-            snapshot._filesPropertySheets = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyPropertySheetsPostfix);
+            snapshot.FilesContextMenuSimple = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyContextMenuSimplePostfix);
+            snapshot.FilesContextMenuExtended = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyContextMenuExtendedPostfix);
+            snapshot.FilesPropertySheets = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyPropertySheetsPostfix);
 
-            snapshot._allContextMenuSimple = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + ContextMenu.RegKeyContextMenuSimplePostfix);
-            snapshot._allContextMenuExtended = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + ContextMenu.RegKeyContextMenuExtendedPostfix);
-            snapshot._allPropertySheets = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + ContextMenu.RegKeyPropertySheetsPostfix);
+            snapshot.AllContextMenuSimple = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + ContextMenu.RegKeyContextMenuSimplePostfix);
+            snapshot.AllContextMenuExtended = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + ContextMenu.RegKeyContextMenuExtendedPostfix);
+            snapshot.AllPropertySheets = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + ContextMenu.RegKeyPropertySheetsPostfix);
 
-            snapshot._autoPlayHandlers = GetSubKeyNames(Registry.LocalMachine, AutoPlay.RegKeyMachineHandlers);
-            snapshot._games = GetSubKeyNames(Registry.LocalMachine, GamesExplorer.RegKeyMachineGames);
+            snapshot.AutoPlayHandlers = GetSubKeyNames(Registry.LocalMachine, AutoPlay.RegKeyMachineHandlers);
+            snapshot.Games = GetSubKeyNames(Registry.LocalMachine, GamesExplorer.RegKeyMachineGames);
         }
 
         /// <summary>
@@ -228,7 +228,7 @@ namespace ZeroInstall.Capture
             else programDirs.AddAll(Directory.GetDirectories(programFiles32Bit));
             if (!string.IsNullOrEmpty(programFiles64Bit))
                 programDirs.AddAll(Directory.GetDirectories(programFiles64Bit));
-            snapshot._programsDirs = programDirs.ToArray();
+            snapshot.ProgramsDirs = programDirs.ToArray();
         }
         #endregion
 
