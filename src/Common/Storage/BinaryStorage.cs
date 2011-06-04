@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using Common.Streams;
 using ICSharpCode.SharpZipLib.Zip;
@@ -55,7 +56,19 @@ namespace Common.Storage
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            return (T)_serializer.Deserialize(stream);
+            try { return (T)_serializer.Deserialize(stream); }
+            #region Error handling
+            catch (ArgumentException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new InvalidOperationException(ex.Message, ex);
+            }
+            catch (SerializationException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new InvalidOperationException(ex.Message, ex);
+            }
+            #endregion
         }
 
         /// <summary>

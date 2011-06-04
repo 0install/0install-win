@@ -184,6 +184,9 @@
   <data name="NoXmlDataInFile" xml:space="preserve">
     <value>There was no XML data found in the file.</value>
   </data>
+  <data name="OnlyAvailableOnWindows" xml:space="preserve">
+    <value>This method is only available on Windows.</value>
+  </data>
   <data name="RedoNotAvailable" xml:space="preserve">
     <value>This command cannot be performed again until the undo command has been performed.</value>
   </data>

@@ -48,16 +48,7 @@ namespace ZeroInstall.Publish.Cli
         NotSupported = 3,
 
         /// <summary>An IO error occurred.</summary>
-        IOError = 10,
-
-        /// <summary>An network error occurred.</summary>
-        WebError = 11,
-
-        /// <summary>A manifest digest for an implementation did not match the expected value.</summary>
-        DigestMismatch = 20,
-
-        /// <summary>A solver error occurred.</summary>
-        SolverError = 21
+        IOError = 10
     }
     #endregion
 
@@ -83,19 +74,23 @@ namespace ZeroInstall.Publish.Cli
                 // This is reached if --help, --version or similar was used
                 return 0;
             }
-            catch (ArgumentException ex)
+            catch (OptionException ex)
             {
                 Log.Error(ex.Message);
                 return (int)ErrorLevel.InvalidArguments;
             }
             #endregion
 
-            try { return Execute(results); }
+            try { return (int)Execute(results); }
             #region Error hanlding
-            catch (ArgumentException ex)
+            catch (UserCancelException)
+            {
+                return (int)ErrorLevel.UserCanceled;
+            }
+            catch (OptionException ex)
             {
                 Log.Error(ex.Message);
-                return (int)ErrorLevel.IOError;
+                return (int)ErrorLevel.InvalidArguments;
             }
             catch (InvalidOperationException ex)
             {
@@ -120,7 +115,7 @@ namespace ZeroInstall.Publish.Cli
             catch (WrongPassphraseException ex)
             {
                 Log.Error(ex.Message);
-                return (int)ErrorLevel.IOError;
+                return (int)ErrorLevel.InvalidArguments;
             }
             catch (UnhandledErrorsException ex)
             {
@@ -138,7 +133,7 @@ namespace ZeroInstall.Publish.Cli
         /// <param name="args">The command-line arguments to be parsed.</param>
         /// <returns>The options detected by the parsing process.</returns>
         /// <exception cref="UserCancelException">Thrown if the user asked to see help information, version information, etc..</exception>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="args"/> contains unknown options.</exception>
+        /// <exception cref="OptionException">Thrown if <paramref name="args"/> contains unknown options.</exception>
         public static ParseResults ParseArgs(IEnumerable<string> args)
         {
             #region Sanity checks
@@ -187,7 +182,7 @@ namespace ZeroInstall.Publish.Cli
             catch (FileNotFoundException ex)
             {
                 // Report as an invalid command-line argument
-                throw new ArgumentException(ex.Message, ex);
+                throw new OptionException(ex.Message, "", ex);
             }
             #endregion
 
@@ -210,14 +205,15 @@ namespace ZeroInstall.Publish.Cli
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
         /// <returns>The error code to end the process with.</returns>
-        /// <exception cref="ArgumentException">Thrown if the specified feed file paths were invalid.</exception>
+        /// <exception cref="UserCancelException">Thrown if the user cancelled the operation.</exception>
+        /// <exception cref="OptionException">Thrown if the specified feed file paths were invalid.</exception>
         /// <exception cref="InvalidOperationException">Thrown if a feed file is damaged.</exception>
         /// <exception cref="FileNotFoundException">Thrown if a feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file or the catalog file is not permitted.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        private static int Execute(ParseResults results)
+        private static ErrorLevel Execute(ParseResults results)
         {
             switch (results.Mode)
             {
@@ -225,11 +221,11 @@ namespace ZeroInstall.Publish.Cli
                     if (results.Feeds.Count == 0)
                     {
                         Log.Error(string.Format(Resources.MissingArguments, "0publish"));
-                        return (int)ErrorLevel.InvalidArguments;
+                        return ErrorLevel.InvalidArguments;
                     }
 
                     ModifyFeeds(results);
-                    return (int)ErrorLevel.OK;
+                    return ErrorLevel.OK;
 
                 case OperationMode.Catalog:
                     // Default to using all XML files in the current directory
@@ -237,11 +233,11 @@ namespace ZeroInstall.Publish.Cli
                         results.Feeds = ArgumentUtils.GetFiles(new[] { Environment.CurrentDirectory }, "*.xml");
 
                     CreateCatalog(results);
-                    return (int)ErrorLevel.OK;
+                    return ErrorLevel.OK;
 
                 default:
                     Log.Error(string.Format(Resources.UnknownMode, "0publish"));
-                    return (int)ErrorLevel.NotSupported;
+                    return ErrorLevel.NotSupported;
             }
         }
         #endregion
@@ -291,7 +287,7 @@ namespace ZeroInstall.Publish.Cli
         /// Creates a <see cref="Catalog"/> from the <see cref="Feed"/>s specified in the command-line arguments.
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
-        /// <exception cref="ArgumentException">Thrown if the specified feed file paths were invalid.</exception>
+        /// <exception cref="OptionException">Thrown if the specified feed file paths were invalid.</exception>
         /// <exception cref="InvalidOperationException">Thrown if a feed file is damaged.</exception>
         /// <exception cref="FileNotFoundException">Thrown if the a files could not be found.</exception>
         /// <exception cref="IOException">Thrown if a file could not be read or written.</exception>

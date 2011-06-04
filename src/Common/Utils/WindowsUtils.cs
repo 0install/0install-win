@@ -29,6 +29,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Principal;
 using System.Windows.Forms;
+using Common.Properties;
 
 namespace Common.Utils
 {
@@ -285,12 +286,15 @@ namespace Common.Utils
         /// <param name="handle">The handle created for the mutex. Can be used to close it before the process ends.</param>
         /// <returns><see langword="true"/> if an existing mutex was opened; <see langword="false"/> if a new one was created.</returns>
         /// <exception cref="Win32Exception">Thrown if the native subsystem reported a problem.</exception>
+        /// <exception cref="PlatformNotSupportedException">Thrown when this method is called on a platform other than Windows.</exception>
         /// <remarks>The mutex will automatically be released once the process terminates.</remarks>
         public static bool CreateMutex(string name, out IntPtr handle)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
             #endregion
+
+            if (!IsWindows) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
 
             handle = SafeNativeMethods.CreateMutex(IntPtr.Zero, false, name);
 
@@ -310,12 +314,15 @@ namespace Common.Utils
         /// <param name="name">The name to be used as a mutex identifier.</param>
         /// <returns><see langword="true"/> if an existing mutex was opened; <see langword="false"/> if none existed.</returns>
         /// <exception cref="Win32Exception">Thrown if the native subsystem reported a problem.</exception>
+        /// <exception cref="PlatformNotSupportedException">Thrown when this method is called on a platform other than Windows.</exception>
         /// <remarks>Opening a mutex creates an additional handle to it, keeping it alive until the process terminates.</remarks>
         public static bool OpenMutex(string name)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
             #endregion
+
+            if (!IsWindows) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
 
             SafeNativeMethods.OpenMutex(Synchronize, false, name);
 
@@ -334,11 +341,14 @@ namespace Common.Utils
         /// <param name="name">The name to be used as a mutex identifier.</param>
         /// <returns><see langword="true"/> if an existing mutex was found; <see langword="false"/> if none existed.</returns>
         /// <exception cref="Win32Exception">Thrown if the native subsystem reported a problem.</exception>
+        /// <exception cref="PlatformNotSupportedException">Thrown when this method is called on a platform other than Windows.</exception>
         public static bool ProbeMutex(string name)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
             #endregion
+
+            if (!IsWindows) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
 
             var handle = SafeNativeMethods.OpenMutex(Synchronize, false, name);
 
@@ -359,8 +369,11 @@ namespace Common.Utils
         /// Closes an existing mutex handle. The mutex is destroyed if this is the last handle.
         /// </summary>
         /// <param name="handle">The mutex handle to be closed.</param>
+        /// <exception cref="PlatformNotSupportedException">Thrown when this method is called on a platform other than Windows.</exception>
         public static void CloseMutex(IntPtr handle)
         {
+            if (!IsWindows) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
+
             SafeNativeMethods.CloseHandle(handle);
         }
         #endregion
