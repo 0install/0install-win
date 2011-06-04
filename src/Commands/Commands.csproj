@@ -52,11 +52,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddApp.cs" />
     <Compile Include="AddFeed.cs" />
     <Compile Include="CliHandler.cs" />
     <Compile Include="CommandBase.cs" />
     <Compile Include="CommandFactory.cs" />
     <Compile Include="Configure.cs" />
+    <Compile Include="ConfigureApp.cs" />
     <Compile Include="DefaultCommand.cs" />
     <Compile Include="Download.cs" />
     <Compile Include="GlobalSuppressions.cs" />
@@ -69,6 +71,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="RemoveApp.cs" />
     <Compile Include="RemoveFeed.cs" />
     <Compile Include="Run.cs" />
     <Compile Include="Selection.cs" />

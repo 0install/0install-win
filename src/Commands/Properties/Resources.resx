@@ -117,17 +117,38 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DescriptionSelect" xml:space="preserve">
-    <value>Select a version of the program identified by URI, and compatible versions of all of its dependencies. Returns an exit status of zero if it selected a set of versions, and a status of 1 if it could not find a consistent set.</value>
+  <data name="ActionDownload" xml:space="preserve">
+    <value>Downloading application</value>
   </data>
-  <data name="DescriptionUpdate" xml:space="preserve">
-    <value>Check for updates to the program and download them if found. This is similar to '0install download --refresh', except that it prints information about whether any changes were found.</value>
+  <data name="ActionRun" xml:space="preserve">
+    <value>Preparing to launch application</value>
+  </data>
+  <data name="ActionSelection" xml:space="preserve">
+    <value>Selecting implementations</value>
+  </data>
+  <data name="ActionUpdate" xml:space="preserve">
+    <value>Checking for updates</value>
+  </data>
+  <data name="AllComponentsDownloaded" xml:space="preserve">
+    <value>All required components have been downloaded.</value>
+  </data>
+  <data name="ChangesFound" xml:space="preserve">
+    <value>Changes found:</value>
+  </data>
+  <data name="CommandLineArguments" xml:space="preserve">
+    <value>Command-line arguments:</value>
+  </data>
+  <data name="DescriptionAddApp" xml:space="preserve">
+    <value>Add an application to the application list and integrate it into the desktop environment.</value>
+  </data>
+  <data name="DescriptionAddFeed" xml:space="preserve">
+    <value>Register an additional source of implementations (versions) of a program.</value>
+  </data>
+  <data name="DescriptionConfig" xml:space="preserve">
+    <value>View or change configuration settings. With no arguments, '0install config' displays all configuration settings. With one argument, it displays the current value of the named setting. With two arguments, it sets the setting to the given value.</value>
   </data>
   <data name="DescriptionDownload" xml:space="preserve">
     <value>This behaves similarly to '0install select', except that it also downloads the selected versions if they are not already cached. Unlike 'select', it does not print the selected versions by default. Returns an exit status of zero if it selected a suitable set of versions and they are now all downloaded and in the cache; returns a status of 1 otherwise.</value>
-  </data>
-  <data name="DescriptionRun" xml:space="preserve">
-    <value>This behaves similarly to '0install download', except that it also runs the program after ensuring it is in the cache. Returns an exit status of 1 if the download step failed. Otherwise, the exit status will be the exit status of the program being run.</value>
   </data>
   <data name="DescriptionImport" xml:space="preserve">
     <value>Import a feed from a local file, as if it had been downloaded from the network. This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again. The file must have a trusted digital signature, as when fetching from the network.</value>
@@ -135,29 +156,74 @@
   <data name="DescriptionList" xml:space="preserve">
     <value>List all known interface (program) URIs. If a search term is given, only URIs containing that string are shown (case insensitive).</value>
   </data>
-  <data name="DescriptionAddFeed" xml:space="preserve">
-    <value>Register an additional source of implementations (versions) of a program.</value>
+  <data name="DescriptionListFeeds" xml:space="preserve">
+    <value>List all extra feeds added to URI using '0install add-feed'.</value>
+  </data>
+  <data name="DescriptionRemoveApp" xml:space="preserve">
+    <value>Remove an application from the application list and the desktop environment.</value>
   </data>
   <data name="DescriptionRemoveFeed" xml:space="preserve">
     <value>Un-register a feed, reversing the effect of 'add-feed'. </value>
   </data>
-  <data name="DescriptionListFeeds" xml:space="preserve">
-    <value>List all extra feeds added to URI using '0install add-feed'.</value>
+  <data name="DescriptionRun" xml:space="preserve">
+    <value>This behaves similarly to '0install download', except that it also runs the program after ensuring it is in the cache. Returns an exit status of 1 if the download step failed. Otherwise, the exit status will be the exit status of the program being run.</value>
   </data>
-  <data name="DescriptionConfig" xml:space="preserve">
-    <value>View or change configuration settings. With no arguments, '0install config' displays all configuration settings. With one argument, it displays the current value of the named setting. With two arguments, it sets the setting to the given value.</value>
+  <data name="DescriptionSelect" xml:space="preserve">
+    <value>Select a version of the program identified by URI, and compatible versions of all of its dependencies. Returns an exit status of zero if it selected a set of versions, and a status of 1 if it could not find a consistent set.</value>
   </data>
-  <data name="ActionSelection" xml:space="preserve">
-    <value>Selecting implementations</value>
+  <data name="DescriptionUpdate" xml:space="preserve">
+    <value>Check for updates to the program and download them if found. This is similar to '0install download --refresh', except that it prints information about whether any changes were found.</value>
   </data>
-  <data name="ActionDownload" xml:space="preserve">
-    <value>Downloading application</value>
+  <data name="DownloadComplete" xml:space="preserve">
+    <value>Download complete</value>
   </data>
-  <data name="ActionUpdate" xml:space="preserve">
-    <value>Checking for updates</value>
+  <data name="FeedAlreadyRegistered" xml:space="preserve">
+    <value>The feed was already registered for all appropriate interfaces.</value>
   </data>
-  <data name="ActionRun" xml:space="preserve">
-    <value>Preparing to launch application</value>
+  <data name="FeedManagement" xml:space="preserve">
+    <value>Feed management</value>
+  </data>
+  <data name="FeedNotRegistered" xml:space="preserve">
+    <value>The feed was not registered for any interfaces.</value>
+  </data>
+  <data name="FeedRegistered" xml:space="preserve">
+    <value>The feed was successfully registered for the following interfaces:
+ {0}</value>
+  </data>
+  <data name="FeedsRegistered" xml:space="preserve">
+    <value>Feeds registered for '{0}':</value>
+  </data>
+  <data name="FeedUnregistered" xml:space="preserve">
+    <value>The feed was successfully unregistered for the following interfaces:
+ {0}</value>
+  </data>
+  <data name="FoundFeeds" xml:space="preserve">
+    <value>Found feeds:</value>
+  </data>
+  <data name="LicenseInfo" xml:space="preserve">
+    <value>This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
+You may redistribute copies of this program under the terms of the GNU Lesser General Public License.</value>
+  </data>
+  <data name="MissingArguments" xml:space="preserve">
+    <value>Missing arguments.</value>
+  </data>
+  <data name="NoInterfaceSpecified" xml:space="preserve">
+    <value>No interface ID (feed URI or file path) was specified.</value>
+  </data>
+  <data name="NoLongerUsed" xml:space="preserve">
+    <value>No longer used: </value>
+  </data>
+  <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
+    <value>Can only update with Feed IDs, not with selections documents.</value>
+  </data>
+  <data name="NotParsed" xml:space="preserve">
+    <value>Parse hasn't been called yet.</value>
+  </data>
+  <data name="NoUpdatesFound" xml:space="preserve">
+    <value>No updates found</value>
+  </data>
+  <data name="OptionBatch" xml:space="preserve">
+    <value>Run in batch mode: don't display progress reports to the user and silently answer all questions with "No". Use a tray icon when in GUI mode.</value>
   </data>
   <data name="OptionBefore" xml:space="preserve">
     <value>Chosen implementation's version number must be earlier than {VERSION}. i.e., force the use of an old version the program.</value>
@@ -172,8 +238,8 @@ Supported values: i386, i486, i586, i686, x86_64, ppc, ppc64</value>
   <data name="OptionGui" xml:space="preserve">
     <value>Show the graphical policy editor. This allows you to select which version of a program or library to use.</value>
   </data>
-  <data name="OptionXml" xml:space="preserve">
-    <value>Write selected versions to console as machine-readable XML.</value>
+  <data name="OptionHelp" xml:space="preserve">
+    <value>Show the built-in help text.</value>
   </data>
   <data name="OptionMain" xml:space="preserve">
     <value>Run the specified executable {MAIN} instead of the default. If it starts with '/' or '\' then the path is relative to the implementation's top-level directory, whereas otherwise it is relative to the directory containing the default main program.</value>
@@ -194,8 +260,20 @@ Supported values: Linux, Solaris, MacOSX, Windows</value>
   <data name="OptionRefresh" xml:space="preserve">
     <value>Fetch a fresh copy of all used interfaces.</value>
   </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options:</value>
+  </data>
+  <data name="OptionShow" xml:space="preserve">
+    <value>Show were the selected components are stored on the disk.</value>
+  </data>
   <data name="OptionSource" xml:space="preserve">
     <value>Select source code rather than a binary. This is used internally by '0compile'.</value>
+  </data>
+  <data name="OptionVerbose" xml:space="preserve">
+    <value>More verbose output. Use twice for even more verbose output.</value>
+  </data>
+  <data name="OptionVersion" xml:space="preserve">
+    <value>Display version information.</value>
   </data>
   <data name="OptionWithStore" xml:space="preserve">
     <value>Add {DIR} to the list of implementation caches to search.
@@ -204,103 +282,34 @@ However, new downloads will not be written to this directory.</value>
   <data name="OptionWrapper" xml:space="preserve">
     <value>Instead of executing the chosen program directly, run {COMMAND} PROGRAM ARGS. This is useful for running debuggers and tracing tools on the program (rather than on Zero Install!). Note that the wrapper is executed in the environment selected by the program; hence, this mechanism cannot be used for sandboxing.</value>
   </data>
-  <data name="OptionBatch" xml:space="preserve">
-    <value>Run in batch mode: don't display progress reports to the user and silently answer all questions with "No". Use a tray icon when in GUI mode.</value>
-  </data>
-  <data name="OptionVerbose" xml:space="preserve">
-    <value>More verbose output. Use twice for even more verbose output.</value>
-  </data>
-  <data name="OptionHelp" xml:space="preserve">
-    <value>Show the built-in help text.</value>
-  </data>
-  <data name="OptionVersion" xml:space="preserve">
-    <value>Display version information.</value>
-  </data>
-  <data name="OptionShow" xml:space="preserve">
-    <value>Show were the selected components are stored on the disk.</value>
-  </data>
-  <data name="Options" xml:space="preserve">
-    <value>Options:</value>
-  </data>
-  <data name="UnknownOption" xml:space="preserve">
-    <value>Unknown option.</value>
-  </data>
-  <data name="UnknownCommand" xml:space="preserve">
-    <value>Unknown command '{0}'.</value>
-  </data>
-  <data name="MissingArguments" xml:space="preserve">
-    <value>Missing arguments.</value>
-  </data>
-  <data name="TooManyArguments" xml:space="preserve">
-    <value>Too many arguments or unknown options.</value>
-  </data>
-  <data name="Usage" xml:space="preserve">
-    <value>Usage:</value>
-  </data>
-  <data name="NotParsed" xml:space="preserve">
-    <value>Parse hasn't been called yet.</value>
-  </data>
-  <data name="NoInterfaceSpecified" xml:space="preserve">
-    <value>No interface ID (feed URI or file path) was specified.</value>
-  </data>
-  <data name="CommandLineArguments" xml:space="preserve">
-    <value>Command-line arguments:</value>
-  </data>
-  <data name="VersionInformation" xml:space="preserve">
-    <value>Version information:</value>
+  <data name="OptionXml" xml:space="preserve">
+    <value>Write selected versions to console as machine-readable XML.</value>
   </data>
   <data name="SelectedImplementations" xml:space="preserve">
     <value>Selected implementations:</value>
   </data>
-  <data name="FoundFeeds" xml:space="preserve">
-    <value>Found feeds:</value>
+  <data name="TooManyArguments" xml:space="preserve">
+    <value>Too many arguments or unknown options.</value>
   </data>
-  <data name="DownloadComplete" xml:space="preserve">
-    <value>Download complete</value>
+  <data name="TryHelpWith" xml:space="preserve">
+    <value>Try --help with one of these:</value>
   </data>
-  <data name="AllComponentsDownloaded" xml:space="preserve">
-    <value>All required components have been downloaded.</value>
+  <data name="UnknownCommand" xml:space="preserve">
+    <value>Unknown command '{0}'.</value>
   </data>
-  <data name="ChangesFound" xml:space="preserve">
-    <value>Changes found:</value>
-  </data>
-  <data name="NoLongerUsed" xml:space="preserve">
-    <value>No longer used: </value>
-  </data>
-  <data name="NoUpdatesFound" xml:space="preserve">
-    <value>No updates found</value>
-  </data>
-  <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
-    <value>Can only update with Feed IDs, not with selections documents.</value>
+  <data name="UnknownOption" xml:space="preserve">
+    <value>Unknown option.</value>
   </data>
   <data name="UpdateProblem" xml:space="preserve">
     <value>Unable to check for updates</value>
   </data>
-  <data name="FeedManagement" xml:space="preserve">
-    <value>Feed management</value>
+  <data name="Usage" xml:space="preserve">
+    <value>Usage:</value>
   </data>
-  <data name="FeedRegistered" xml:space="preserve">
-    <value>The feed was successfully registered for the following interfaces:
- {0}</value>
+  <data name="VersionInformation" xml:space="preserve">
+    <value>Version information:</value>
   </data>
-  <data name="FeedAlreadyRegistered" xml:space="preserve">
-    <value>The feed was already registered for all appropriate interfaces.</value>
-  </data>
-  <data name="FeedUnregistered" xml:space="preserve">
-    <value>The feed was successfully unregistered for the following interfaces:
- {0}</value>
-  </data>
-  <data name="FeedNotRegistered" xml:space="preserve">
-    <value>The feed was not registered for any interfaces.</value>
-  </data>
-  <data name="FeedsRegistered" xml:space="preserve">
-    <value>Feeds registered for '{0}':</value>
-  </data>
-  <data name="LicenseInfo" xml:space="preserve">
-    <value>This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
-You may redistribute copies of this program under the terms of the GNU Lesser General Public License.</value>
-  </data>
-  <data name="TryHelpWith" xml:space="preserve">
-    <value>Try --help with one of these:</value>
+  <data name="DescriptionConfigApp" xml:space="preserve">
+    <value>Configure how an application is integrated into the desktop environment.</value>
   </data>
 </root>

@@ -124,6 +124,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add an application to the application list and integrate it into the desktop environment..
+        /// </summary>
+        internal static string DescriptionAddApp {
+            get {
+                return ResourceManager.GetString("DescriptionAddApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register an additional source of implementations (versions) of a program..
         /// </summary>
         internal static string DescriptionAddFeed {
@@ -138,6 +147,15 @@ namespace ZeroInstall.Commands.Properties {
         internal static string DescriptionConfig {
             get {
                 return ResourceManager.GetString("DescriptionConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure how an application is integrated into the desktop environment..
+        /// </summary>
+        internal static string DescriptionConfigApp {
+            get {
+                return ResourceManager.GetString("DescriptionConfigApp", resourceCulture);
             }
         }
         
@@ -174,6 +192,15 @@ namespace ZeroInstall.Commands.Properties {
         internal static string DescriptionListFeeds {
             get {
                 return ResourceManager.GetString("DescriptionListFeeds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove an application from the application list and the desktop environment..
+        /// </summary>
+        internal static string DescriptionRemoveApp {
+            get {
+                return ResourceManager.GetString("DescriptionRemoveApp", resourceCulture);
             }
         }
         
