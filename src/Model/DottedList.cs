@@ -72,6 +72,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(DottedList other)
         {
             if (other == null) return false;
@@ -91,6 +92,7 @@ namespace ZeroInstall.Model
             return true;
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -98,6 +100,7 @@ namespace ZeroInstall.Model
             return obj.GetType() == typeof(DottedList) && Equals((DottedList)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked
@@ -111,6 +114,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Comparison
+        /// <inheritdoc/>
         public int CompareTo(DottedList other)
         {
             #region Sanity checks
