@@ -93,6 +93,7 @@
     <Compile Include="Cli\CliAppControl.cs" />
     <Compile Include="Cli\BundledCliAppControl.cs" />
     <Compile Include="Cli\UnhandledErrorsException.cs" />
+    <Compile Include="Collections\ComparableTuple.cs" />
     <Compile Include="Collections\EnumerableUtils.cs" />
     <Compile Include="Collections\CultureComparer.cs" />
     <Compile Include="Collections\INamedCollection.cs" />

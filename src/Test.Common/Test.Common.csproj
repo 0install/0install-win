@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cli\ArgumentUtilsTest.cs" />
+    <Compile Include="Collections\ComparableTupleTest.cs" />
     <Compile Include="Collections\EnumerableUtilsTest.cs" />
     <Compile Include="Collections\LanguageCollectionTest.cs" />
     <Compile Include="Collections\LocalizableStringCollectionTest.cs" />

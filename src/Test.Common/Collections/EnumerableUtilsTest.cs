@@ -33,6 +33,7 @@ namespace Common.Collections
         /// <summary>
         /// Ensures that <see cref="EnumerableUtils.GetFirst{T}"/> correctly returns the first element of a collection or <see langword="null"/> if it is empty.
         /// </summary>
+        [Test]
         public void TestGetFirst()
         {
             Assert.AreEqual("first", EnumerableUtils.GetFirst(new[] {"first", "second"}));

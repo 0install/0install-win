@@ -91,7 +91,7 @@ namespace ZeroInstall.Model
             // If the MIME type is already set or the location is missing, we have nothing to do here
             if (!string.IsNullOrEmpty(MimeType) || string.IsNullOrEmpty(LocationString)) return;
 
-            // Guess the MIME type based on the file ending
+            // Guess the MIME type based on the file extension
             MimeType = ArchiveUtils.GuessMimeType(LocationString);
         }
         #endregion

@@ -48,7 +48,7 @@ namespace Common.Cli
     {
         #region Properties
         /// <summary>
-        /// The name of the application's binary (without a file ending).
+        /// The name of the application's binary (without a file extension).
         /// </summary>
         protected abstract string AppBinary { get; }
         #endregion
