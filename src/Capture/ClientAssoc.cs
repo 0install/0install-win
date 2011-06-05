@@ -20,38 +20,46 @@ using System;
 namespace ZeroInstall.Capture
 {
     /// <summary>
-    /// Represents a list of clients for a specific type of service (e.g. web browsers).
+    /// Represents the association of a client with a certain service (e.g. web browsers).
     /// </summary>
     [Serializable]
-    public struct ClientList
+    public struct ClientAssoc : IComparable<ClientAssoc>
     {
         /// <summary>
         /// The name of the service (Mail, Media, etc.).
         /// </summary>
-        public string ServiceName;
+        public string Service;
 
         /// <summary>
-        /// The clients for the service.
+        /// The name of the client.
         /// </summary>
-        public string[] Clients;
+        public string Client;
 
         /// <summary>
-        /// Creates a new client list
+        /// Creates a new client association.
         /// </summary>
-        /// <param name="serviceName">The name of the service (Mail, Media, etc.).</param>
-        /// <param name="clients">The clients for the service.</param>
-        public ClientList(string serviceName, string[] clients)
+        /// <param name="service">The name of the service (Mail, Media, etc.).</param>
+        /// <param name="client">The name of the client.</param>
+        public ClientAssoc(string service, string client)
         {
-            ServiceName = serviceName;
-            Clients = clients;
+            Service = service;
+            Client = client;
+        }
+
+        /// <inheritdoc/>
+        public int CompareTo(ClientAssoc other)
+        {
+            // Compare by Service first, then by Client if that was equal
+            int serviceCompare = string.Compare(Service, other.Service);
+            return (serviceCompare == 0) ? string.Compare(Client, other.Client) : serviceCompare;
         }
 
         /// <summary>
-        /// Returns the client list in the form "ServiceName". Not safe for parsing!
+        /// Returns the client association in the form "Service = Client". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return ServiceName;
+            return Service + " = " + Client;
         }
     }
 }

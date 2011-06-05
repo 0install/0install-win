@@ -94,7 +94,7 @@ namespace ZeroInstall.Capture
         /// </summary>
         public void Collect()
         {
-            // ToDo: Implement
+            var snapshotDiff = Snapshot.Diff(SnaphshotPre, SnaphshotPost);
         }
         #endregion
 

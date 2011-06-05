@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Security;
 using Common;
+using Common.Collections;
 using Common.Storage;
 using Common.Utils;
 using Microsoft.Win32;
@@ -47,7 +48,7 @@ namespace ZeroInstall.Capture
         public string[] RegisteredApplications;
 
         /// <summary>A list of applications registered as clients for specific services.</summary>
-        public ClientList[] Clients;
+        public ClientAssoc[] Clients;
 
         /// <summary>A list of file assocations.</summary>
         public FileAssoc[] FileAssocs;
@@ -73,14 +74,14 @@ namespace ZeroInstall.Capture
         /// <summary>A list of programatic indentifiers.</summary>
         public string[] ProgIDs;
 
-        /// <summary>A list of program installation directories.</summary>
-        public string[] ProgramsDirs;
-
         /// <summary>A list of applications registered as AutoPlay handlers.</summary>
         public string[] AutoPlayHandlers;
 
         /// <summary>A list of applications registered in the Windows Games Explorer.</summary>
         public string[] Games;
+
+        /// <summary>A list of program installation directories.</summary>
+        public string[] ProgramsDirs;
         #endregion
 
         //--------------------//
@@ -127,7 +128,7 @@ namespace ZeroInstall.Capture
             snapshot.AppPathsUser = GetSubKeyNames(Registry.CurrentUser, AppPath.RegKeyAppPath);
             snapshot.AppPathsMachine = GetSubKeyNames(Registry.LocalMachine, AppPath.RegKeyAppPath);
             snapshot.Applications = GetSubKeyNames(Registry.ClassesRoot, AppPath.RegKeyClassesApplications);
-            snapshot.RegisteredApplications = GetValueNames(Registry.LocalMachine, DefaultProgram.RegKeyMachineRegisteredApplications);
+            snapshot.RegisteredApplications = GetValueNames(Registry.LocalMachine, AppRegistration.RegKeyMachineRegisteredApplications);
             snapshot.Clients = GetClientLists();
             GetFileAssocData(out snapshot.FileAssocs, out snapshot.ProgIDs);
 
@@ -144,25 +145,25 @@ namespace ZeroInstall.Capture
         }
 
         /// <summary>
-        /// Retreives a list of <see cref="ClientList"/>s from the registry.
+        /// Retreives a list of <see cref="ClientAssoc"/>s from the registry.
         /// </summary>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static ClientList[] GetClientLists()
+        private static ClientAssoc[] GetClientLists()
         {
+            var clientAssocsList = new C5.LinkedList<ClientAssoc>();
+
             using (var clientsKey = Registry.LocalMachine.OpenSubKey(DefaultProgram.RegKeyMachineClients))
             {
                 if (clientsKey != null)
                 {
-                    string[] serviceNames = clientsKey.GetSubKeyNames();
-                    var clients = new ClientList[serviceNames.Length];
-                    for (int i = 0; i < serviceNames.Length; i++)
-                        clients[i] = new ClientList(serviceNames[i], clientsKey.OpenSubKey(serviceNames[i]).GetSubKeyNames());
-                    return clients;
+                    foreach(string service in clientsKey.GetSubKeyNames())
+                        foreach (string client in GetSubKeyNames(clientsKey, service))
+                            clientAssocsList.Add(new ClientAssoc(service, client));
                 }
             }
-            return null;
+            return clientAssocsList.ToArray();
         }
 
         /// <summary>
@@ -179,10 +180,12 @@ namespace ZeroInstall.Capture
                 {
                     using (var assocKey = Registry.ClassesRoot.OpenSubKey(keyName))
                     {
-                        if (assocKey == null) continue;
-                        string mainProgID = (assocKey.GetValue("") ?? "").ToString();
-                        string[] openWithProgIDs = GetSubKeyNames(assocKey, "OpenWithProgIDs");
-                        fileAssocsList.Add(new FileAssoc(keyName, mainProgID, openWithProgIDs));
+                        // Get the main ProgID
+                        fileAssocsList.Add(new FileAssoc(keyName, (assocKey.GetValue("") ?? "").ToString()));
+
+                        // Get additional ProgIDs
+                        foreach (string progID in GetValueNames(assocKey, "OpenWithProgIDs"))
+                            fileAssocsList.Add(new FileAssoc(keyName, progID));
                     }
                 }
                 else progIDsList.Add(keyName);
@@ -192,16 +195,28 @@ namespace ZeroInstall.Capture
             progIDs = progIDsList.ToArray();
         }
 
+        /// <summary>
+        /// Retreives the names of all values within a specific subkey of a registry root.
+        /// </summary>
+        /// <param name="root">The root key to look within.</param>
+        /// <param name="key">The path of the subkey below <paramref name="root"/>.</param>
+        /// <returns>A list of value names; an empty array if the key does not exist.</returns>
         private static string[] GetValueNames(RegistryKey root, string key)
         {
             using (var contextMenuExtendedKey = root.OpenSubKey(key))
-                return contextMenuExtendedKey == null ? null : contextMenuExtendedKey.GetValueNames();
+                return contextMenuExtendedKey == null ? new string[0] : contextMenuExtendedKey.GetValueNames();
         }
 
+        /// <summary>
+        /// Retreives the names of all subkeys within a specific subkey of a registry root.
+        /// </summary>
+        /// <param name="root">The root key to look within.</param>
+        /// <param name="key">The path of the subkey below <paramref name="root"/>.</param>
+        /// <returns>A list of key names; an empty array if the key does not exist.</returns>
         private static string[] GetSubKeyNames(RegistryKey root, string key)
         {
             using (var contextMenuExtendedKey = root.OpenSubKey(key))
-                return contextMenuExtendedKey == null ? null : contextMenuExtendedKey.GetSubKeyNames();
+                return contextMenuExtendedKey == null ? new string[0] : contextMenuExtendedKey.GetSubKeyNames();
         }
         #endregion
 
@@ -229,6 +244,38 @@ namespace ZeroInstall.Capture
             if (!string.IsNullOrEmpty(programFiles64Bit))
                 programDirs.AddAll(Directory.GetDirectories(programFiles64Bit));
             snapshot.ProgramsDirs = programDirs.ToArray();
+        }
+        #endregion
+        
+        #region Diff
+        /// <summary>
+        /// Determines which elements have been added to the system between two snapshots.
+        /// </summary>
+        /// <param name="oldSnapshot">The first snapshot taken.</param>
+        /// <param name="newSnapshot">The second snapshot taken.</param>
+        /// <returns>A snapshot containing all elements that are present in <paramref name="newSnapshot"/> but not in <paramref name="oldSnapshot"/>.</returns>
+        /// <remarks>Assumes that all internal arrays are sorted alphabetically.</remarks>
+        public static Snapshot Diff(Snapshot oldSnapshot, Snapshot newSnapshot)
+        {
+            return new Snapshot
+            {
+                AppPathsUser = EnumerableUtils.GetAddedElements(oldSnapshot.AppPathsUser, newSnapshot.AppPathsUser),
+                AppPathsMachine = EnumerableUtils.GetAddedElements(oldSnapshot.AppPathsMachine, newSnapshot.AppPathsMachine),
+                Applications = EnumerableUtils.GetAddedElements(oldSnapshot.Applications, newSnapshot.Applications),
+                RegisteredApplications = EnumerableUtils.GetAddedElements(oldSnapshot.RegisteredApplications, newSnapshot.RegisteredApplications),
+                Clients = EnumerableUtils.GetAddedElements(oldSnapshot.Clients, newSnapshot.Clients),
+                FileAssocs = EnumerableUtils.GetAddedElements(oldSnapshot.FileAssocs, newSnapshot.FileAssocs),
+                FilesContextMenuSimple = EnumerableUtils.GetAddedElements(oldSnapshot.FilesContextMenuSimple, newSnapshot.FilesContextMenuSimple),
+                FilesContextMenuExtended = EnumerableUtils.GetAddedElements(oldSnapshot.FilesContextMenuExtended, newSnapshot.FilesContextMenuExtended),
+                FilesPropertySheets = EnumerableUtils.GetAddedElements(oldSnapshot.FilesPropertySheets, newSnapshot.FilesPropertySheets),
+                AllContextMenuSimple = EnumerableUtils.GetAddedElements(oldSnapshot.AllContextMenuSimple, newSnapshot.AllContextMenuSimple),
+                AllContextMenuExtended = EnumerableUtils.GetAddedElements(oldSnapshot.AllContextMenuExtended, newSnapshot.AllContextMenuExtended),
+                AllPropertySheets = EnumerableUtils.GetAddedElements(oldSnapshot.AllPropertySheets, newSnapshot.AllPropertySheets),
+                ProgIDs = EnumerableUtils.GetAddedElements(oldSnapshot.ProgIDs, newSnapshot.ProgIDs),
+                AutoPlayHandlers = EnumerableUtils.GetAddedElements(oldSnapshot.AutoPlayHandlers, newSnapshot.AutoPlayHandlers),
+                Games = EnumerableUtils.GetAddedElements(oldSnapshot.Games, newSnapshot.Games),
+                ProgramsDirs = EnumerableUtils.GetAddedElements(oldSnapshot.ProgramsDirs, newSnapshot.ProgramsDirs)
+            };
         }
         #endregion
 

@@ -177,7 +177,7 @@ namespace ZeroInstall.Capture.Cli
         private static void PrintUsage()
         {
             var usage = new StringBuilder(Resources.Usage);
-            foreach (string command in new [] {"init", "capture-pre", "capture-post", "collect"})
+            foreach (string command in new [] {"init", "snap-pre", "snap-post", "collect"})
                 usage.AppendLine("\t0capture " + command + " [DIRECTORY] [OPTIONS]");
             Console.WriteLine(usage);
         }
@@ -201,7 +201,7 @@ namespace ZeroInstall.Capture.Cli
                     return ErrorLevel.OK;
                 }
 
-                case "snapshot-pre":
+                case "snap-pre":
                 {
                     var captureDir = CaptureDir.Open(results.DirectoryPath);
 
@@ -223,7 +223,7 @@ namespace ZeroInstall.Capture.Cli
                     return ErrorLevel.OK;
                 }
 
-                case "snapshot-post":
+                case "snap-post":
                 {
                     var captureDir = CaptureDir.Open(results.DirectoryPath);
 

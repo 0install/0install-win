@@ -23,7 +23,7 @@ namespace ZeroInstall.Capture
     /// Represents the association of a file ending wiht a programatic identifier.
     /// </summary>
     [Serializable]
-    public struct FileAssoc
+    public struct FileAssoc : IComparable<FileAssoc>
     {
         /// <summary>
         /// The file ending.
@@ -31,34 +31,35 @@ namespace ZeroInstall.Capture
         public string Ending;
 
         /// <summary>
-        /// The main programatic identifier associated with this file ending.
+        /// The programatic identifier associated with this file ending.
         /// </summary>
-        public string MainProgID;
-
-        /// <summary>
-        /// Additional programatic identifiers associated with this file ending.
-        /// </summary>
-        public string[] OpenWithProgIDs;
+        public string ProgID;
 
         /// <summary>
         /// Creates a new file association.
         /// </summary>
         /// <param name="ending">The file ending.</param>
-        /// <param name="mainProgID">The main programatic identifier associated with this file ending.</param>
-        /// <param name="openWithProgIDs">Additional programatic identifiers associated with this file ending.</param>
-        public FileAssoc(string ending, string mainProgID, string[] openWithProgIDs)
+        /// <param name="progID">The programatic identifier associated with this file ending.</param>
+        public FileAssoc(string ending, string progID)
         {
             Ending = ending;
-            MainProgID = mainProgID;
-            OpenWithProgIDs = openWithProgIDs;
+            ProgID = progID;
+        }
+
+        /// <inheritdoc/>
+        public int CompareTo(FileAssoc other)
+        {
+            // Compare by Ending first, then by ProgID if that was equal
+            int endingCompare = string.Compare(Ending, other.Ending);
+            return (endingCompare == 0) ? string.Compare(ProgID, other.ProgID) : endingCompare;
         }
 
         /// <summary>
-        /// Returns the association in the form "Ending = MainProgID". Not safe for parsing!
+        /// Returns the file association in the form "Ending = ProgID". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return Ending + " = " + MainProgID;
+            return Ending + " = " + ProgID;
         }
     }
 }

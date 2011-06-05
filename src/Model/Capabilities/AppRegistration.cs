@@ -21,10 +21,10 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Represents an application's ability to act as default program of some kind (e.g. default web-browser, default e-mail client, ...).
+    /// Represents an application's ability to be registered in the Windows Registry.
     /// </summary>
-    [XmlType("default-program", Namespace = XmlNamespace)]
-    public class DefaultProgram : Capability, IEquatable<DefaultProgram>
+    [XmlType("app-registration", Namespace = XmlNamespace)]
+    public class AppRegistration : Capability, IEquatable<AppRegistration>
     {
         #region Properties
         // ToDo
@@ -34,11 +34,11 @@ namespace ZeroInstall.Model.Capabilities
 
         #region Conversion
         /// <summary>
-        /// Returns the capability in the form "DefaultProgram". Not safe for parsing!
+        /// Returns the capability in the form "ApplicationRegistration". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("DefaultProgam");
+            return string.Format("ApplicationRegistration");
         }
         #endregion
 
@@ -46,13 +46,13 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability CloneCapability()
         {
-            return new DefaultProgram {ID = ID};
+            return new AppRegistration { ID = ID };
         }
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(DefaultProgram other)
+        public bool Equals(AppRegistration other)
         {
             if (other == null) return false;
 
@@ -64,7 +64,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(DefaultProgram) && Equals((DefaultProgram)obj);
+            return obj.GetType() == typeof(AppRegistration) && Equals((AppRegistration)obj);
         }
 
         /// <inheritdoc/>

@@ -18,13 +18,13 @@
 namespace ZeroInstall.DesktopIntegration.Windows
 {
     /// <summary>
-    /// Contains control logic for applying <see cref="ZeroInstall.Model.Capabilities.DefaultProgram"/> and <see cref="ZeroInstall.DesktopIntegration.Model.DefaultProgram"/> on Windows systems.
+    /// Contains control logic for applying <see cref="ZeroInstall.Model.Capabilities.AppRegistration"/> on Windows systems.
     /// </summary>
-    public static class DefaultProgram
+    public static class AppRegistration
     {
         #region Constants
-        /// <summary>The HKLM registry key for registering applications as clients for specific services.</summary>
-        public const string RegKeyMachineClients = @"SOFTWARE\Clients";
+        /// <summary>The HKLM registry key for registering applications as candidates for default programs.</summary>
+        public const string RegKeyMachineRegisteredApplications = @"SOFTWARE\RegisteredApplications";
         #endregion
     }
 }
