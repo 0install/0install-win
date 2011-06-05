@@ -56,24 +56,26 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Assumes two ordered fast-indexable lists (e.g. sorted arrays).
-        /// Determines which elements are present in <paramref name="newList"/> but not in <paramref name="oldList"/>.
+        /// Assumes two sorted arrays. Determines which elements are present in <paramref name="newArray"/> but not in <paramref name="oldArray"/>.
         /// </summary>
-        /// <param name="oldList">The original list of elements.</param>
-        /// <param name="newList">The new list of elements.</param>
-        /// <returns>A list of elements that were added.</returns>
-        /// <remarks>Elements that are present in <paramref name="oldList"/> but not in <paramref name="newList"/> are ignored.</remarks>
-        public static IEnumerable<T> GetAddedEntries<T>(IList<T> oldList, IList<T> newList)
+        /// <param name="oldArray">The original list of elements; may be <see langword="null"/> (will be treated as an empty array).</param>
+        /// <param name="newArray">The new list of elements; may be <see langword="null"/> (will be treated as an empty array).</param>
+        /// <returns>An array of elements that were added.</returns>
+        /// <remarks>Elements that are present in <paramref name="oldArray"/> but not in <paramref name="newArray"/> are ignored.</remarks>
+        public static T[] GetAddedElements<T>(T[] oldArray, T[] newArray)
             where T : IComparable<T>
         {
+            if (newArray == null) return new T[0];
+            if (oldArray == null) return newArray;
+
             var added = new C5.LinkedList<T>();
 
             int oldCounter = 0;
             int newCounter = 0;
-            while (newCounter < newList.Count)
+            while (newCounter < newArray.Length)
             {
-                T newElement = newList[newCounter];
-                int comparison = (oldCounter < oldList.Count) ? oldList[oldCounter].CompareTo(newElement) : 1;
+                T newElement = newArray[newCounter];
+                int comparison = (oldCounter < oldArray.Length) ? oldArray[oldCounter].CompareTo(newElement) : 1;
 
                 if (comparison == 0)
                 { // old == new
@@ -91,7 +93,7 @@ namespace Common.Collections
                 }
             }
 
-            return added;
+            return added.ToArray();
         }
     }
 }
