@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Architecture.cs" />
     <Compile Include="Capabilities\AppRegistration.cs" />
+    <Compile Include="Capabilities\AutoPlayEvent.cs" />
     <Compile Include="Capabilities\Capability.cs" />
     <Compile Include="Capabilities\CapabilityList.cs" />
     <Compile Include="Capabilities\ComServer.cs" />

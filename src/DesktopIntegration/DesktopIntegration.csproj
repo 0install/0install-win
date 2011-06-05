@@ -72,6 +72,7 @@
     <Compile Include="Windows\AppPath.cs" />
     <Compile Include="Windows\AppRegistration.cs" />
     <Compile Include="Windows\AutoPlay.cs" />
+    <Compile Include="Windows\ComServer.cs" />
     <Compile Include="Windows\ContextMenu.cs" />
     <Compile Include="Windows\DefaultProgram.cs" />
     <Compile Include="Windows\GamesExplorer.cs" />

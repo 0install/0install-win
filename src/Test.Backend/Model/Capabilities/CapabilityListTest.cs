@@ -36,14 +36,14 @@ namespace ZeroInstall.Model.Capabilities
             var testIcon = new Icon(new Uri("http://0install.de/feeds/icons/test.ico"), "image/vnd.microsoft.icon");
             return new CapabilityList
             {
-                Architecture = new Architecture(OS.Windows, Cpu.I486),
+                Architecture = new Architecture(OS.Windows, Cpu.All),
                 Entries =
                 {
-                    new AutoPlay {ID = "autoplay"},
+                    new AutoPlay {ID = "autoplay", Provider = "MyApp", Description = "Do somthing",  Icons = {testIcon}, FileTypeID = "my_ext", FileTypeIDVerb = "open", Events = {new AutoPlayEvent {Name = AutoPlayEvent.NameBurnCD}}},
                     new ComServer {ID = "com-server"},
                     new ContextMenu {ID = "context-menu"},
                     new DefaultProgram {ID = "default-program"},
-                    new FileType {ID = "file_handle", ProgID = "my_ext", Icon = testIcon, Description = "Text file", Extensions = {new FileTypeExtension {Value = "txt", MimeType = "text/plain"}}, Verbs = {new FileTypeVerb {Name = FileTypeVerb.NameOpen, Command= Command.NameRun, Arguments = "--open"}}},
+                    new FileType {ID = "my_ext", Description = "Text file", Icons = {testIcon}, Extensions = {new FileTypeExtension {Value = "txt", MimeType = "text/plain"}}, Verbs = {new FileTypeVerb {Name = FileTypeVerb.NameOpen, Command = Command.NameRun, Arguments = "--open"}}},
                     new GamesExplorer {ID = "games-explorer"}
                 }
             };

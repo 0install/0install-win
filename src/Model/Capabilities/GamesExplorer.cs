@@ -27,6 +27,9 @@ namespace ZeroInstall.Model.Capabilities
     public class GamesExplorer : Capability, IEquatable<GamesExplorer>
     {
         #region Properties
+        /// <inheritdoc/>
+        public override bool MachineWideOnly { get { return true; } }
+
         // ToDo
         #endregion
 

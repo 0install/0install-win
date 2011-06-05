@@ -36,6 +36,11 @@ namespace ZeroInstall.Model.Capabilities
 
         #region Properties
         /// <summary>
+        /// Indicates whether this capability can be registered only machine-wide and not per-user.
+        /// </summary>
+        public abstract bool MachineWideOnly { get; }
+
+        /// <summary>
         /// An ID that uniquely identifies this capability within an interface.
         /// </summary>
         /// <remarks>In case of conflicts the first capability listed with a specific ID will take precedence.</remarks>

@@ -27,6 +27,9 @@ namespace ZeroInstall.Model.Capabilities
     public class AppRegistration : Capability, IEquatable<AppRegistration>
     {
         #region Properties
+        /// <inheritdoc/>
+        public override bool MachineWideOnly { get { return true; } }
+
         // ToDo
         #endregion
 

@@ -27,6 +27,9 @@ namespace ZeroInstall.Model.Capabilities
     public class ContextMenu : Capability, IEquatable<ContextMenu>
     {
         #region Properties
+        /// <inheritdoc/>
+        public override bool MachineWideOnly { get { return false; } }
+
         // ToDo
         #endregion
 

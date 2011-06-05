@@ -27,6 +27,9 @@ namespace ZeroInstall.Model.Capabilities
     public class DefaultProgram : Capability, IEquatable<DefaultProgram>
     {
         #region Properties
+        /// <inheritdoc/>
+        public override bool MachineWideOnly { get { return true; } }
+
         // ToDo
         #endregion
 

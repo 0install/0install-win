@@ -27,6 +27,9 @@ namespace ZeroInstall.Model.Capabilities
     public class ComServer : Capability, IEquatable<ComServer>
     {
         #region Properties
+        /// <inheritdoc/>
+        public override bool MachineWideOnly { get { return false; } }
+
         // ToDo
         #endregion
 

@@ -18,16 +18,13 @@
 namespace ZeroInstall.DesktopIntegration.Windows
 {
     /// <summary>
-    /// Contains control logic for applying <see cref="ZeroInstall.Model.Capabilities.AutoPlay"/> and <see cref="ZeroInstall.DesktopIntegration.Model.AutoPlay"/> on Windows systems.
+    /// Contains control logic for applying <see cref="ZeroInstall.Model.Capabilities.ComServer"/> on Windows systems.
     /// </summary>
-    public static class AutoPlay
+    public static class ComServer
     {
         #region Constants
-        /// <summary>The HKLM registry key for storing AutoPlay handlers.</summary>
-        public const string RegKeyMachineHandlers = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\Handlers";
-
-        /// <summary>The HKLM registry key for storing AutoPlay handler associations.</summary>
-        public const string RegKeyMachineAssocs = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\EventHandlers";
+        /// <summary>The HKCR registry key for storing COM class IDs.</summary>
+        public const string RegKeyClassesIDs = @"CLSID";
         #endregion
     }
 }

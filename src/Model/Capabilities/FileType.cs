@@ -26,9 +26,13 @@ namespace ZeroInstall.Model.Capabilities
     /// Represents an application's ability to handle a certain file type.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
+    [XmlType("file-type", Namespace = XmlNamespace)]
     public class FileType : Capability, IEquatable<FileType>
     {
         #region Properties
+        /// <inheritdoc/>
+        public override bool MachineWideOnly { get { return false; } }
+
         /// <summary>
         /// A human-readable description such as "PNG image file".
         /// </summary>
@@ -36,19 +40,24 @@ namespace ZeroInstall.Model.Capabilities
         [XmlAttribute("description")]
         public string Description { get; set; }
 
+        // Preserve order
+        private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
         /// <summary>
-        /// The programmatic identifier used by Windows to identify this file type.
+        /// Zero or more icons to use for the file type.
         /// </summary>
-        [Description("The programmatic identifier used by Windows to identify this file type.")]
-        [XmlAttribute("prog-id")]
-        public string ProgID { get; set; }
+        /// <remarks>The first compatible one is selected. If empty the application icon is used.</remarks>
+        [Description("Zero or more icons to use for the file type. (The first compatible one is selected. If empty the application icon is used.)")]
+        [XmlElement("icon", Namespace = Feed.XmlNamespace)]
+        // Note: Can not use ICollection<T> interface because of XML Serialization
+        public C5.ArrayList<Icon> Icons { get { return _icons; } }
 
         /// <summary>
-        /// The icon to use in file managers when displaying files of this type.
+        /// A list of all operations available for this file type.
         /// </summary>
-        [Description("The icon to use in file managers when displaying files of this type.")]
-        [XmlElement("icon", Namespace = Feed.XmlNamespace)]
-        public Icon Icon { get; set; }
+        [Description("A list of all operations available for this file type.")]
+        [XmlElement("verb")]
+        // Note: Can not use ICollection<T> interface because of XML Serialization
+        public C5.HashedArrayList<FileTypeVerb> Verbs { get { return _verbs; } }
 
         // Preserve order, duplicate string entries are not allowed
         private readonly C5.HashedArrayList<FileTypeExtension> _extensions = new C5.HashedArrayList<FileTypeExtension>();
@@ -62,24 +71,17 @@ namespace ZeroInstall.Model.Capabilities
 
         // Preserve order, duplicate string entries are not allowed
         private readonly C5.HashedArrayList<FileTypeVerb> _verbs = new C5.HashedArrayList<FileTypeVerb>();
-        /// <summary>
-        /// A list of all operations available for this file type.
-        /// </summary>
-        [Description("A list of all operations available for this file type.")]
-        [XmlElement("verb")]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.HashedArrayList<FileTypeVerb> Verbs { get { return _verbs; } }
         #endregion
 
         //--------------------//
 
         #region Conversion
         /// <summary>
-        /// Returns the capability in the form "FileType". Not safe for parsing!
+        /// Returns the capability in the form "FileType: Description (ID)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("FileType");
+            return string.Format("FileType : {0} ({1})", Description, ID);
         }
         #endregion
 
@@ -87,9 +89,10 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability CloneCapability()
         {
-            var capability = new FileType {ID = ID, Description = Description, ProgID = ProgID, Icon = Icon};
-            capability.Extensions.AddAll(Extensions);
+            var capability = new FileType {ID = ID, Description = Description};
+            capability.Icons.AddAll(Icons);
             capability.Verbs.AddAll(Verbs);
+            capability.Extensions.AddAll(Extensions);
             return capability;
         }
         #endregion
@@ -101,8 +104,8 @@ namespace ZeroInstall.Model.Capabilities
             if (other == null) return false;
 
             return base.Equals(other) &&
-                other.Description == Description && other.ProgID == ProgID && other.Icon == Icon &&
-                Extensions.SequencedEquals(other.Extensions) && Verbs.SequencedEquals(other.Verbs);
+                other.Description == Description &&
+                Icons.SequencedEquals(other.Icons) && Verbs.SequencedEquals(other.Verbs) && Extensions.SequencedEquals(other.Extensions);
         }
 
         /// <inheritdoc/>
@@ -120,10 +123,9 @@ namespace ZeroInstall.Model.Capabilities
             {
                 int result = base.GetHashCode();
                 result = (result * 397) ^ (Description ?? "").GetHashCode();
-                result = (result * 397) ^ Icon.GetHashCode();
-                result = (result * 397) ^ (ProgID ?? "").GetHashCode();
-                result = (result * 397) ^ Extensions.GetSequencedHashCode();
+                result = (result * 397) ^ Icons.GetSequencedHashCode();
                 result = (result * 397) ^ Verbs.GetSequencedHashCode();
+                result = (result * 397) ^ Extensions.GetSequencedHashCode();
                 return result;
             }
         }

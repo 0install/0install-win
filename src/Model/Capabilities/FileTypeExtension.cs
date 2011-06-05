@@ -36,9 +36,9 @@ namespace ZeroInstall.Model.Capabilities
 
         #region Properties
         /// <summary>
-        /// The file extensions without a leading dot (e.g. "txt").
+        /// The file extension including the leading dot (e.g. ".png").
         /// </summary>
-        [Description("The file extensions without a leading dot (e.g. \"txt\").")]
+        [Description("The file extension including the leading dot (e.g. \".png\").")]
         [XmlAttribute("value")]
         public string Value { get; set; }
 
@@ -46,14 +46,14 @@ namespace ZeroInstall.Model.Capabilities
         /// The MIME type associated with the file extension.
         /// </summary>
         [Description("The MIME type associated with the file extension.")]
-        [XmlAttribute("mime-type")]
+        [XmlAttribute("mime-type"), DefaultValue("")]
         public string MimeType { get; set; }
 
         /// <summary>
         /// Defines the broad category of file types this extension falls into. Should always be a canonical type.
         /// </summary>
         [Description("Defines the broad category of file types this extension falls into. Should always be a canonical type.")]
-        [XmlAttribute("perceived-type")]
+        [XmlAttribute("perceived-type"), DefaultValue("")]
         public string PerceivedType { get; set; }
         #endregion
 
