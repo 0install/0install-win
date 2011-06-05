@@ -8,7 +8,7 @@ namespace Common.Compression
     public static class ArchiveUtils
     {
         /// <summary>
-        /// Tries to guess the MIME type of an archive file by looking at its file ending.
+        /// Tries to guess the MIME type of an archive file by looking at its file extension.
         /// </summary>
         /// <param name="fileName">The file name to analyze.</param>
         /// <returns>The MIME type if it could be guessed; <see langword="null"/> otherwise.</returns>
