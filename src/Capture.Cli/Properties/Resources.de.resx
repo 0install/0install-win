@@ -157,6 +157,9 @@ Probieren Sie {0} --help</value>
   <data name="WarnMissingPreInstallSnapshot" xml:space="preserve">
     <value>Prä-Installations Schnappschuss existiert noch nicht. Mit --force erneut ausführen zum Ignorieren.</value>
   </data>
+  <data name="WarnOverwriteCollect" xml:space="preserve">
+    <value>Erfasster Feed exisitiert bereits. Mit --force erneut ausführen zum Überschreiben.</value>
+  </data>
   <data name="WarnOverwritePostInstallSnapshot" xml:space="preserve">
     <value>Post-Installations Schnappschuss exisitiert bereits. Mit --force erneut ausführen zum Überschreiben.</value>
   </data>

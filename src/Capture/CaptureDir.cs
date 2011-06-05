@@ -17,7 +17,11 @@
 
 using System;
 using System.IO;
+using System.Security;
+using Microsoft.Win32;
 using ZeroInstall.Capture.Properties;
+using ZeroInstall.Model;
+using ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.Capture
 {
@@ -39,12 +43,12 @@ namespace ZeroInstall.Capture
         /// <summary>
         /// A snapshot of the system state taken before the target application was installed.
         /// </summary>
-        public Snapshot SnaphshotPre { get; private set; }
+        public Snapshot SnapshotPre { get; private set; }
 
         /// <summary>
         /// A snapshot of the system state taken after the target application was installed.
         /// </summary>
-        public Snapshot SnaphshotPost { get; private set; }
+        public Snapshot SnapshotPost { get; private set; }
         #endregion
 
         #region Constructor
@@ -72,8 +76,8 @@ namespace ZeroInstall.Capture
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the registry or the file system was not permitted.</exception>
         public void TakeSnapshotPre()
         {
-            SnaphshotPre = Snapshot.Take();
-            SnaphshotPre.Save(Path.Combine(DirectoryPath, SnapshotPreFileName));
+            SnapshotPre = Snapshot.Take();
+            SnapshotPre.Save(Path.Combine(DirectoryPath, SnapshotPreFileName));
         }
 
         /// <summary>
@@ -83,18 +87,164 @@ namespace ZeroInstall.Capture
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the registry or the file system was not permitted.</exception>
         public void TakeSnapshotPost()
         {
-            SnaphshotPost = Snapshot.Take();
-            SnaphshotPost.Save(Path.Combine(DirectoryPath, SnapshotPostFileName));
+            SnapshotPost = Snapshot.Take();
+            SnapshotPost.Save(Path.Combine(DirectoryPath, SnapshotPostFileName));
         }
         #endregion
 
         #region Collect
         /// <summary>
-        /// Collects data from the locations indicated by the differences between <see cref="SnaphshotPre"/> and <see cref="SnaphshotPost"/>.
+        /// Collects data from the locations indicated by the differences between <see cref="SnapshotPre"/> and <see cref="SnapshotPost"/>.
         /// </summary>
+        /// <exception cref="IOException">Thrown if there was an error accessing the registry or file system.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if access to the registry or file system was not permitted.</exception>
         public void Collect()
         {
-            var snapshotDiff = Snapshot.Diff(SnaphshotPre, SnaphshotPost);
+            #region Sanity checks
+            if (SnapshotPre == null) throw new InvalidOperationException("Pre-installation snapshot missing.");
+            if (SnapshotPost == null) throw new InvalidOperationException("Post-installation snapshot missing.");
+            #endregion
+
+            var snapshotDiff = Snapshot.Diff(SnapshotPre, SnapshotPost);
+            var capabilities = new CapabilityList {Architecture = new Architecture(OS.Windows, Cpu.All)};
+
+            try
+            {
+                CollectFileTypes(snapshotDiff, capabilities);
+                CollectAutoPlays(snapshotDiff, capabilities);
+            }
+            #region Error handling
+            catch (SecurityException ex)
+            {
+                // Wrap exception since only certain exception types are allowed in tasks
+                throw new UnauthorizedAccessException(ex.Message, ex);
+            }
+            #endregion
+
+            // ToDo: Collect more Feed information
+            var feed = new Feed {CapabilityLists = {capabilities}};
+            feed.Save(Path.Combine(DirectoryPath, "feed.xml"));
+        }
+        #endregion
+
+        #region Collect file types
+        /// <summary>
+        /// Collects data about file types indicated by a snapshot diff.
+        /// </summary>
+        /// <param name="snapshotDiff">The elements added between two snapshots.</param>
+        /// <param name="capabilities">The capability list to add the collected data to.</param>
+        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        private static void CollectFileTypes(Snapshot snapshotDiff, CapabilityList capabilities)
+        {
+            foreach (string progID in snapshotDiff.ProgIDs)
+            {
+                if (string.IsNullOrEmpty(progID)) continue;
+                var fileType = GetFileType(progID, snapshotDiff);
+                if (fileType != null)  capabilities.Entries.Add(fileType);
+            }
+        }
+
+        /// <summary>
+        /// Retreives data about a specific file type from a snapshot diff.
+        /// </summary>
+        /// <param name="progID">The programatic identifier of the file type.</param>
+        /// <param name="snapshotDiff">The elements added between two snapshots.</param>
+        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        private static FileType GetFileType(string progID, Snapshot snapshotDiff)
+        {
+            FileType fileType;
+            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(progID))
+            {
+                if (progIDKey == null) return null;
+
+                fileType = new FileType
+                {
+                    ID = progID,
+                    Description = progIDKey.GetValue("", "").ToString()
+                };
+
+                foreach (string verb in progIDKey.GetSubKeyNames())
+                {
+                    fileType.Verbs.Add(new FileTypeVerb
+                    {
+                        Name = verb,
+                        // ToDo: Extract Command and Arguments
+                    });
+                }
+            }
+
+            foreach (var fileAssoc in snapshotDiff.FileAssocs)
+            {
+                if (fileAssoc.Value != progID || string.IsNullOrEmpty(fileAssoc.Key)) continue;
+
+                using (var assocKey = Registry.ClassesRoot.OpenSubKey(fileAssoc.Key))
+                {
+                    if (assocKey == null) continue;
+
+                    fileType.Extensions.Add(new FileTypeExtension
+                    {
+                        Value = fileAssoc.Key,
+                        MimeType = assocKey.GetValue("Content Type", "").ToString(),
+                        PerceivedType = assocKey.GetValue("PerceivedType", "").ToString()
+                    });
+                }
+            }
+
+            return fileType;
+        }
+        #endregion
+
+        #region Collect AutoPlay
+        /// <summary>
+        /// Collects data about AutoPlay handlers indicated by a snapshot diff.
+        /// </summary>
+        /// <param name="snapshotDiff">The elements added between two snapshots.</param>
+        /// <param name="capabilities">The capability list to add the collected data to.</param>
+        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        private static void CollectAutoPlays(Snapshot snapshotDiff, CapabilityList capabilities)
+        {
+            foreach (string handler in snapshotDiff.AutoPlayHandlers)
+            {
+                if (string.IsNullOrEmpty(handler)) continue;
+                var autoPlay = GetAutoPlay(handler, snapshotDiff);
+                if (autoPlay != null) capabilities.Entries.Add(autoPlay);
+            }
+        }
+
+        /// <summary>
+        /// Retreives data about a AutoPlay handler type from a snapshot diff.
+        /// </summary>
+        /// <param name="handler">The internal name of the AutoPlay handler.</param>
+        /// <param name="snapshotDiff">The elements added between two snapshots.</param>
+        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        private static AutoPlay GetAutoPlay(string handler, Snapshot snapshotDiff)
+        {
+            using (var handlerKey = Registry.LocalMachine.OpenSubKey(DesktopIntegration.Windows.AutoPlay.RegKeyMachineHandlers + @"\" + handler))
+            {
+                if (handlerKey == null) return null;
+
+                var autoPlay = new AutoPlay
+                {
+                    ID = handler,
+                    Provider = handlerKey.GetValue("Provider", "").ToString(),
+                    Description = handlerKey.GetValue("Description", "").ToString(),
+                    FileTypeID = handlerKey.GetValue("InvokeProgID", "").ToString(),
+                    FileTypeIDVerb = handlerKey.GetValue("InvokeVerb", "").ToString()
+                };
+
+                foreach (var autoPlayAssoc in snapshotDiff.AutoPlayAssocs)
+                    if (autoPlayAssoc.Value == handler) autoPlay.Events.Add(new AutoPlayEvent {Name = autoPlayAssoc.Key});
+
+                return autoPlay;
+            }
         }
         #endregion
 
@@ -185,11 +335,11 @@ namespace ZeroInstall.Capture
             // Load existing snapshot data
             string snapshotPrePath = Path.Combine(path, SnapshotPreFileName);
             if (File.Exists(snapshotPrePath))
-                captureDir.SnaphshotPre = Snapshot.Load(Path.Combine(path, SnapshotPreFileName));
+                captureDir.SnapshotPre = Snapshot.Load(Path.Combine(path, SnapshotPreFileName));
 
             string snapshotPostPath = Path.Combine(path, SnapshotPostFileName);
             if (File.Exists(snapshotPostPath))
-                captureDir.SnaphshotPost = Snapshot.Load(Path.Combine(path, SnapshotPostFileName));
+                captureDir.SnapshotPost = Snapshot.Load(Path.Combine(path, SnapshotPostFileName));
 
             return captureDir;
         }

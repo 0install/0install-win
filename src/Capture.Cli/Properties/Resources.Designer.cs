@@ -179,6 +179,15 @@ namespace ZeroInstall.Capture.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Collected feed already exists. Rerun with --force to overwrite..
+        /// </summary>
+        internal static string WarnOverwriteCollect {
+            get {
+                return ResourceManager.GetString("WarnOverwriteCollect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Post-installation snapshot already exists. Rerun with --force to overwrite..
         /// </summary>
         internal static string WarnOverwritePostInstallSnapshot {

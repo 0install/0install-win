@@ -157,6 +157,9 @@ Try {0} --help</value>
   <data name="WarnMissingPreInstallSnapshot" xml:space="preserve">
     <value>Pre-installation snapshot does not exists yet. Rerun with --force to ignore.</value>
   </data>
+  <data name="WarnOverwriteCollect" xml:space="preserve">
+    <value>Collected feed already exists. Rerun with --force to overwrite.</value>
+  </data>
   <data name="WarnOverwritePostInstallSnapshot" xml:space="preserve">
     <value>Post-installation snapshot already exists. Rerun with --force to overwrite.</value>
   </data>

@@ -206,12 +206,12 @@ namespace ZeroInstall.Capture.Cli
                     var captureDir = CaptureDir.Open(results.DirectoryPath);
 
                     #region Safety warnings
-                    if (captureDir.SnaphshotPre != null && !results.Force)
+                    if (captureDir.SnapshotPre != null && !results.Force)
                     {
                         Log.Error(Resources.WarnOverwritePreInstallSnapshot);
                         return ErrorLevel.Warning;
                     }
-                    if (captureDir.SnaphshotPost != null && !results.Force)
+                    if (captureDir.SnapshotPost != null && !results.Force)
                     {
                         Log.Error(Resources.WarnExistingPostInstallSnapshot);
                         return ErrorLevel.Warning;
@@ -228,12 +228,12 @@ namespace ZeroInstall.Capture.Cli
                     var captureDir = CaptureDir.Open(results.DirectoryPath);
 
                     #region Safety warnings
-                    if (captureDir.SnaphshotPost != null && !results.Force)
+                    if (captureDir.SnapshotPost != null && !results.Force)
                     {
                         Log.Error(Resources.WarnOverwritePostInstallSnapshot);
                         return ErrorLevel.Warning;
                     }
-                    if (captureDir.SnaphshotPre == null && !results.Force)
+                    if (captureDir.SnapshotPre == null && !results.Force)
                     {
                         Log.Error(Resources.WarnMissingPreInstallSnapshot);
                         return ErrorLevel.Warning;
@@ -248,6 +248,14 @@ namespace ZeroInstall.Capture.Cli
                 case "collect":
                 {
                     var captureDir = CaptureDir.Open(results.DirectoryPath);
+
+                    #region Safety warnings
+                    if (File.Exists(Path.Combine(captureDir.DirectoryPath, "feed.xml")) && !results.Force)
+                    {
+                        Log.Error(Resources.WarnOverwriteCollect);
+                        return ErrorLevel.Warning;
+                    }
+                    #endregion
 
                     captureDir.Collect();
                     Console.WriteLine(Resources.InstallDataCollected);
