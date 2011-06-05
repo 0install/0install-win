@@ -50,13 +50,13 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.GetAddedEntries{T}"/> correctly detects elements added to an ordered collection.
+        /// Ensures that <see cref="EnumerableUtils.GetAddedElements{T}"/> correctly detects elements added to an ordered collection.
         /// </summary>
         [Test]
-        public void TestGetAddedEntries()
+        public void TestGetAddedElements()
         {
-            CollectionAssert.AreEqual(new[] {"B", "H"}, EnumerableUtils.GetAddedEntries(new[] {"A", "C", "E", "G"}, new[] {"A", "B", "C", "E", "G", "H"}));
-            CollectionAssert.AreEqual(new[] {"C"}, EnumerableUtils.GetAddedEntries(new[] {"A", "D"}, new[] {"C", "D"}));
+            CollectionAssert.AreEqual(new[] {"B", "H"}, EnumerableUtils.GetAddedElements(new[] {"A", "C", "E", "G"}, new[] {"A", "B", "C", "E", "G", "H"}));
+            CollectionAssert.AreEqual(new[] {"C"}, EnumerableUtils.GetAddedElements(new[] {"A", "D"}, new[] {"C", "D"}));
         }
     }
 }
