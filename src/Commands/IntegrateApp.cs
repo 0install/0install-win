@@ -19,20 +19,21 @@ using System;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.DesktopIntegration.Model;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Configure how an application is integrated into the desktop environment.
+    /// Configure how an application is integrated into the desktop environment using <see cref="AccessPoint"/>s.
     /// </summary>
     [CLSCompliant(false)]
-    public sealed class ConfigureApp : CommandBase
+    public sealed class IntegrateApp : CommandBase
     {
         #region Variables
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
-        public const string Name = "config-app";
+        public const string Name = "integrate-app";
         #endregion
 
         #region Properties
@@ -40,12 +41,12 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[OPTIONS] INTERFACE"; } }
 
         /// <inheritdoc/>
-        protected override string Description { get { return Resources.DescriptionConfigApp; } }
+        protected override string Description { get { return Resources.DescriptionIntegrateApp; } }
         #endregion
 
         #region Constructor
         /// <inheritdoc/>
-        public ConfigureApp(Policy policy) : base(policy)
+        public IntegrateApp(Policy policy) : base(policy)
         {
             // ToDo: Options
         }
@@ -62,6 +63,8 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count == 0) throw new OptionException(Resources.MissingArguments, "");
             if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
             #endregion
+
+            // ToDo: Display warning in portable mode
 
             string interfaceID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
 

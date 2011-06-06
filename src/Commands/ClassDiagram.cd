@@ -135,14 +135,14 @@
       <FileName>AddApp.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.ConfigureApp">
+  <Class Name="ZeroInstall.Commands.IntegrateApp">
     <Position X="18.25" Y="4.5" Width="1.5" />
     <Members>
-      <Method Name="ConfigureApp" Hidden="true" />
+      <Method Name="IntegrateApp" Hidden="true" />
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ConfigureApp.cs</FileName>
+      <FileName>IntegrateApp.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.RemoveApp">

@@ -153,6 +153,9 @@
   <data name="DescriptionImport" xml:space="preserve">
     <value>Import a feed from a local file, as if it had been downloaded from the network. This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again. The file must have a trusted digital signature, as when fetching from the network.</value>
   </data>
+  <data name="DescriptionIntegrateApp" xml:space="preserve">
+    <value>Configure how an application is integrated into the desktop environment.</value>
+  </data>
   <data name="DescriptionList" xml:space="preserve">
     <value>List all known interface (program) URIs. If a search term is given, only URIs containing that string are shown (case insensitive).</value>
   </data>
@@ -308,8 +311,5 @@ However, new downloads will not be written to this directory.</value>
   </data>
   <data name="VersionInformation" xml:space="preserve">
     <value>Version information:</value>
-  </data>
-  <data name="DescriptionConfigApp" xml:space="preserve">
-    <value>Configure how an application is integrated into the desktop environment.</value>
   </data>
 </root>

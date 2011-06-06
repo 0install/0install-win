@@ -61,6 +61,8 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
             #endregion
 
+            // ToDo: Display warning in portable mode
+
             string interfaceID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
 
             // ToDo

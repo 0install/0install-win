@@ -151,15 +151,6 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configure how an application is integrated into the desktop environment..
-        /// </summary>
-        internal static string DescriptionConfigApp {
-            get {
-                return ResourceManager.GetString("DescriptionConfigApp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to This behaves similarly to &apos;0install select&apos;, except that it also downloads the selected versions if they are not already cached. Unlike &apos;select&apos;, it does not print the selected versions by default. Returns an exit status of zero if it selected a suitable set of versions and they are now all downloaded and in the cache; returns a status of 1 otherwise..
         /// </summary>
         internal static string DescriptionDownload {
@@ -174,6 +165,15 @@ namespace ZeroInstall.Commands.Properties {
         internal static string DescriptionImport {
             get {
                 return ResourceManager.GetString("DescriptionImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure how an application is integrated into the desktop environment..
+        /// </summary>
+        internal static string DescriptionIntegrateApp {
+            get {
+                return ResourceManager.GetString("DescriptionIntegrateApp", resourceCulture);
             }
         }
         
