@@ -121,10 +121,14 @@
     <value>Capture Verzeichnis initialisiert.</value>
   </data>
   <data name="InstallDataCollected" xml:space="preserve">
-    <value>Installationsdaten erfasst.</value>
+    <value>Installationsdaten erfasst.
+Bitte bearbeiten Sie die neu angelegte 'feed.xml' Ihren Anforderungen entsprechend.</value>
   </data>
   <data name="MissingArguments" xml:space="preserve">
     <value>Fehlende Argumente. Probieren Sie {0} --help</value>
+  </data>
+  <data name="OptionFiles" xml:space="preserve">
+    <value>Zusätzlich zu den Registrierungsdaten auch Installationsdateien einsammeln und daraus eine erste Implementierung erzeugen. Nur beim "collect" Befehl anwendbar.</value>
   </data>
   <data name="OptionForce" xml:space="preserve">
     <value>Warnungen ignorieren und den Vorgang trotzdem ausführen.</value>

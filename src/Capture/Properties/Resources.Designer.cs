@@ -79,6 +79,24 @@ namespace ZeroInstall.Capture.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Multiple installation directories were detected. Choosing first by default..
+        /// </summary>
+        internal static string MultipleInstallationDirsDetected {
+            get {
+                return ResourceManager.GetString("MultipleInstallationDirsDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No installation directory was detected..
+        /// </summary>
+        internal static string NoInstallationDirDetected {
+            get {
+                return ResourceManager.GetString("NoInstallationDirDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The directory &apos;{0}&apos; is not a capture directory. Please use &apos;0capture init&apos;..
         /// </summary>
         internal static string NotCaptureDirectory {
@@ -93,6 +111,15 @@ namespace ZeroInstall.Capture.Properties {
         internal static string OnlyAvailableOnWindows {
             get {
                 return ResourceManager.GetString("OnlyAvailableOnWindows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Using &apos;{0}&apos; as installation directory..
+        /// </summary>
+        internal static string UsingInstallationDir {
+            get {
+                return ResourceManager.GetString("UsingInstallationDir", resourceCulture);
             }
         }
     }

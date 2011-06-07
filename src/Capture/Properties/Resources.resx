@@ -123,10 +123,19 @@
   <data name="MissingProgramFiles32Bit" xml:space="preserve">
     <value>No 32-bit %ProgramFiles% directory found.</value>
   </data>
+  <data name="MultipleInstallationDirsDetected" xml:space="preserve">
+    <value>Multiple installation directories were detected. Choosing first by default.</value>
+  </data>
+  <data name="NoInstallationDirDetected" xml:space="preserve">
+    <value>No installation directory was detected.</value>
+  </data>
   <data name="NotCaptureDirectory" xml:space="preserve">
     <value>The directory '{0}' is not a capture directory. Please use '0capture init'.</value>
   </data>
   <data name="OnlyAvailableOnWindows" xml:space="preserve">
     <value>This method is currently only available on Windows.</value>
+  </data>
+  <data name="UsingInstallationDir" xml:space="preserve">
+    <value>Using '{0}' as installation directory.</value>
   </data>
 </root>

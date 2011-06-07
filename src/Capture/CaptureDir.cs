@@ -16,8 +16,12 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Security;
+using Common;
+using Common.Collections;
+using Common.Utils;
 using Microsoft.Win32;
 using ZeroInstall.Capture.Properties;
 using ZeroInstall.Model;
@@ -96,9 +100,10 @@ namespace ZeroInstall.Capture
         /// <summary>
         /// Collects data from the locations indicated by the differences between <see cref="SnapshotPre"/> and <see cref="SnapshotPost"/>.
         /// </summary>
+        /// <param name="files">Indicates whether to collect installation files in addition to registry data.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry or file system.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the registry or file system was not permitted.</exception>
-        public void Collect()
+        public void Collect(bool files)
         {
             #region Sanity checks
             if (SnapshotPre == null) throw new InvalidOperationException("Pre-installation snapshot missing.");
@@ -106,11 +111,15 @@ namespace ZeroInstall.Capture
             #endregion
 
             var snapshotDiff = Snapshot.Diff(SnapshotPre, SnapshotPost);
-            var capabilities = new CapabilityList {Architecture = new Architecture(OS.Windows, Cpu.All)};
 
+            // ToDo: Allow manual override
+            string installationDir = GetInstallationDir(snapshotDiff);
+            var commands = GetCommands(installationDir);
+
+            var capabilities = new CapabilityList {Architecture = new Architecture(OS.Windows, Cpu.All)};
             try
             {
-                CollectFileTypes(snapshotDiff, capabilities);
+                CollectFileTypes(snapshotDiff, capabilities, commands);
                 CollectAutoPlays(snapshotDiff, capabilities);
             }
             #region Error handling
@@ -121,9 +130,60 @@ namespace ZeroInstall.Capture
             }
             #endregion
 
-            // ToDo: Collect more Feed information
-            var feed = new Feed {CapabilityLists = {capabilities}};
-            feed.Save(Path.Combine(DirectoryPath, "feed.xml"));
+            Implementation implementation = files ? GetImplementation(installationDir) : null;
+            BuildFeed(capabilities, commands, implementation).Save(Path.Combine(DirectoryPath, "feed.xml"));
+        }
+        #endregion
+
+        #region Installation directory
+        /// <summary>
+        /// Locates the directory into which the new application was installed.
+        /// </summary>
+        /// <param name="snapshotDiff">The elements added between two snapshots.</param>
+        private string GetInstallationDir(Snapshot snapshotDiff)
+        {
+            string installationDir;
+            if (snapshotDiff.ProgramsDirs.Length == 0)
+            {
+                Log.Warn(Resources.NoInstallationDirDetected);
+                installationDir = null;
+            }
+            else
+            {
+                if (snapshotDiff.ProgramsDirs.Length > 1)
+                    Log.Warn(Resources.MultipleInstallationDirsDetected);
+
+                installationDir = snapshotDiff.ProgramsDirs[0];
+                Log.Info(string.Format(Resources.UsingInstallationDir, installationDir));
+            }
+            return installationDir;
+        }
+
+        /// <summary>
+        /// Detects all EXE files within the installation directory and returns them as <see cref="Command"/>s.
+        /// </summary>
+        /// <param name="installationDir">The fully qualified path to the installation directory; may be <see langword="null"/>.</param>
+        private IEnumerable<Command> GetCommands(string installationDir)
+        {
+            if (installationDir == null) return new Command[0];
+
+            string[] exeFiles = Directory.GetFiles(installationDir, "*.exe", SearchOption.AllDirectories);
+
+            var commands = new C5.LinkedList<Command>();
+            for (int i = 0; i < exeFiles.Length; i++)
+            {
+                // Ignore unisnstaller
+                // ToDo: Better heuristic
+                if (exeFiles[i].Contains("uninstall")) continue;
+
+                // ToDo: Better filter
+                string relativePath = exeFiles[i].Replace(installationDir + Path.DirectorySeparatorChar, "");
+
+                // Assume first detected EXE is the main entry point
+                // ToDo: Better heuristic
+                commands.Add(new Command {Name = (i == 0) ? "run" : relativePath.Replace(".exe", ""), Path = relativePath});
+            }
+            return commands;
         }
         #endregion
 
@@ -133,15 +193,22 @@ namespace ZeroInstall.Capture
         /// </summary>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
+        /// <param name="commands">A list of commands that can be uses to start the application.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static void CollectFileTypes(Snapshot snapshotDiff, CapabilityList capabilities)
+        private static void CollectFileTypes(Snapshot snapshotDiff, CapabilityList capabilities, IEnumerable<Command> commands)
         {
+            #region Sanity checks
+            if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
+            if (capabilities == null) throw new ArgumentNullException("capabilities");
+            if (commands == null) throw new ArgumentNullException("commands");
+            #endregion
+
             foreach (string progID in snapshotDiff.ProgIDs)
             {
                 if (string.IsNullOrEmpty(progID)) continue;
-                var fileType = GetFileType(progID, snapshotDiff);
+                var fileType = GetFileType(progID, snapshotDiff, commands);
                 if (fileType != null)  capabilities.Entries.Add(fileType);
             }
         }
@@ -151,12 +218,14 @@ namespace ZeroInstall.Capture
         /// </summary>
         /// <param name="progID">The programatic identifier of the file type.</param>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
+        /// <param name="commands">A list of commands that can be uses to start the application.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static FileType GetFileType(string progID, Snapshot snapshotDiff)
+        private static FileType GetFileType(string progID, Snapshot snapshotDiff, IEnumerable<Command> commands)
         {
             FileType fileType;
+
             using (var progIDKey = Registry.ClassesRoot.OpenSubKey(progID))
             {
                 if (progIDKey == null) return null;
@@ -167,13 +236,32 @@ namespace ZeroInstall.Capture
                     Description = progIDKey.GetValue("", "").ToString()
                 };
 
-                foreach (string verb in progIDKey.GetSubKeyNames())
+                using (var shellKey = progIDKey.OpenSubKey("shell"))
                 {
-                    fileType.Verbs.Add(new FileTypeVerb
+                    if (shellKey == null) return null;
+
+                    foreach (string verb in shellKey.GetSubKeyNames())
                     {
-                        Name = verb,
-                        // ToDo: Extract Command and Arguments
-                    });
+                        using (var verbCommandKey = shellKey.OpenSubKey(verb + @"\command"))
+                        {
+                            if (verbCommandKey == null) continue;
+
+                            string verbCommand = verbCommandKey.GetValue("", "").ToString();
+                            foreach (var command in commands)
+                            {
+                                // ToDo: Make more elegant
+                                if (verbCommand.Contains(command.Path))
+                                {
+                                    fileType.Verbs.Add(new FileTypeVerb
+                                    {
+                                        Name = verb,
+                                        Command = command.Name
+                                    });
+                                    break;
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
@@ -209,6 +297,11 @@ namespace ZeroInstall.Capture
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
         private static void CollectAutoPlays(Snapshot snapshotDiff, CapabilityList capabilities)
         {
+            #region Sanity checks
+            if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
+            if (capabilities == null) throw new ArgumentNullException("capabilities");
+            #endregion
+
             foreach (string handler in snapshotDiff.AutoPlayHandlers)
             {
                 if (string.IsNullOrEmpty(handler)) continue;
@@ -227,6 +320,11 @@ namespace ZeroInstall.Capture
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
         private static AutoPlay GetAutoPlay(string handler, Snapshot snapshotDiff)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
+            #endregion
+
             using (var handlerKey = Registry.LocalMachine.OpenSubKey(DesktopIntegration.Windows.AutoPlay.RegKeyMachineHandlers + @"\" + handler))
             {
                 if (handlerKey == null) return null;
@@ -245,6 +343,59 @@ namespace ZeroInstall.Capture
 
                 return autoPlay;
             }
+        }
+        #endregion
+
+        #region Build Feed
+        /// <summary>
+        /// Creates a local path <see cref="Implementation"/> from the installation directory.
+        /// </summary>
+        /// <param name="installationDir">The fully qualified path to the installation directory; may be <see langword="null"/>.</param>
+        private Implementation GetImplementation(string installationDir)
+        {
+            string implementationDir = Path.Combine(DirectoryPath, "implementation");
+            if (Directory.Exists(implementationDir)) Directory.Delete(implementationDir, true);
+
+            // ToDo: Use callback logic to report progress
+            Log.Info("Copying installation files...");
+            FileUtils.CopyDirectory(installationDir, implementationDir, true, false);
+            Log.Info("Done.");
+
+            return new Implementation
+            {
+                LocalPath = "implementation",
+                ID = "local",
+                Architecture = new Architecture(OS.Windows, Cpu.All),
+                Version = new ImplementationVersion("1.0")
+            };
+        }
+
+        /// <summary>
+        /// Creates a barebone feed representing the application's capabilities.
+        /// </summary>
+        /// <param name="capabilities">A list of capabilities that were detected.</param>
+        /// <param name="commands">A list of commands that can be uses to start the application.</param>
+        /// <param name="implementation">An implementation to add to the main group; may be <see langword="null"/>.</param>
+        private Feed BuildFeed(CapabilityList capabilities, IEnumerable<Command> commands, Implementation implementation)
+        {
+            #region Sanity checks
+            if (capabilities == null) throw new ArgumentNullException("capabilities");
+            if (commands == null) throw new ArgumentNullException("commands");
+            #endregion
+
+            var group = new Group();
+            group.Commands.AddAll(commands);
+            if (implementation != null) group.Elements.Add(implementation);
+
+            return new Feed
+            {
+                // ToDo: Auto-detect values from Default Program registration
+                Name = "Application name",
+                Summaries = {new LocalizableString("Application summary")},
+                Descriptions = {new LocalizableString("Application description")},
+                Elements = {group},
+                CapabilityLists = {capabilities}
+            };
         }
         #endregion
 

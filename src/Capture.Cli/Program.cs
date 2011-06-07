@@ -142,8 +142,8 @@ namespace ZeroInstall.Capture.Cli
                     Console.WriteLine(@"Zero Install Capture CLI v{0}", assembly.Version);
                     throw new UserCancelException();
                 }},
-
-                {"f|force", Resources.OptionForce, unused => parseResults.Force = true}
+                {"f|force", Resources.OptionForce, unused => parseResults.Force = true},
+                {"F|files", Resources.OptionFiles, unused => parseResults.Files = true}
             };
             #endregion
 
@@ -257,7 +257,7 @@ namespace ZeroInstall.Capture.Cli
                     }
                     #endregion
 
-                    captureDir.Collect();
+                    captureDir.Collect(results.Files);
                     Console.WriteLine(Resources.InstallDataCollected);
                     return ErrorLevel.OK;
                 }

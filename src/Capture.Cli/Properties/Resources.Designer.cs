@@ -70,7 +70,8 @@ namespace ZeroInstall.Capture.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Installation data collected..
+        ///   Looks up a localized string similar to Installation data collected.
+        ///Please edit the newly created &apos;feed.xml&apos; to fit your needs..
         /// </summary>
         internal static string InstallDataCollected {
             get {
@@ -84,6 +85,15 @@ namespace ZeroInstall.Capture.Cli.Properties {
         internal static string MissingArguments {
             get {
                 return ResourceManager.GetString("MissingArguments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Collect installation files in addition to registry data and use it to create a first implemention. Only applicable to the &quot;collect&quot; operation..
+        /// </summary>
+        internal static string OptionFiles {
+            get {
+                return ResourceManager.GetString("OptionFiles", resourceCulture);
             }
         }
         
