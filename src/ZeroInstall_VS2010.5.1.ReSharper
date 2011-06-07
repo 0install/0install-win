@@ -101,14 +101,15 @@
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="EnumMember" />
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="Other" />
       <Abbreviation Text="AA" />
+      <Abbreviation Text="CD" />
       <Abbreviation Text="ID" />
       <Abbreviation Text="IO" />
       <Abbreviation Text="OK" />
       <Abbreviation Text="OS" />
       <Abbreviation Text="PG" />
       <Abbreviation Text="RC" />
-      <Abbreviation Text="UI" />
       <Abbreviation Text="NT" />
+      <Abbreviation Text="UI" />
     </Naming2>
   </CodeStyleSettings>
   <SharedSolutionTemplateManager>
