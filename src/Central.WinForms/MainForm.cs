@@ -153,7 +153,7 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Attempts to launch a .NET helper assembly in the application's base directory. Displays friendly error messages if something goes wrong.
         /// </summary>
-        /// <param name="assembly">The name of the assembly to launch (without the file ending).</param>
+        /// <param name="assembly">The name of the assembly to launch (without the file extension).</param>
         /// <param name="arguments">The command-line arguments to pass to the assembly.</param>
         private void LaunchHelperAssembly(string assembly, string arguments)
         {

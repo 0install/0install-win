@@ -30,6 +30,7 @@ using System.Security;
 using System.Security.Principal;
 using System.Windows.Forms;
 using Common.Properties;
+using Microsoft.Win32;
 
 namespace Common.Utils
 {
@@ -518,6 +519,42 @@ namespace Common.Utils
         {
             if (IsWindows7)
                 TaskbarList.SetProgressValue(handle, Convert.ToUInt32(currentValue), Convert.ToUInt32(maximumValue));
+        }
+        #endregion
+
+        #region Registry
+        /// <summary>
+        /// Retreives the names of all values within a specific subkey of a registry root.
+        /// </summary>
+        /// <param name="root">The root key to look within.</param>
+        /// <param name="key">The path of the subkey below <paramref name="root"/>.</param>
+        /// <returns>A list of value names; an empty array if the key does not exist.</returns>
+        public static string[] GetValueNames(RegistryKey root, string key)
+        {
+            #region Sanity checks
+            if (root == null) throw new ArgumentNullException("root");
+            if (string.IsNullOrEmpty(key)) throw new ArgumentNullException("key");
+            #endregion
+
+            using (var contextMenuExtendedKey = root.OpenSubKey(key))
+                return contextMenuExtendedKey == null ? new string[0] : contextMenuExtendedKey.GetValueNames();
+        }
+
+        /// <summary>
+        /// Retreives the names of all subkeys within a specific subkey of a registry root.
+        /// </summary>
+        /// <param name="root">The root key to look within.</param>
+        /// <param name="key">The path of the subkey below <paramref name="root"/>.</param>
+        /// <returns>A list of key names; an empty array if the key does not exist.</returns>
+        public static string[] GetSubKeyNames(RegistryKey root, string key)
+        {
+            #region Sanity checks
+            if (root == null) throw new ArgumentNullException("root");
+            if (string.IsNullOrEmpty(key)) throw new ArgumentNullException("key");
+            #endregion
+
+            using (var contextMenuExtendedKey = root.OpenSubKey(key))
+                return contextMenuExtendedKey == null ? new string[0] : contextMenuExtendedKey.GetSubKeyNames();
         }
         #endregion
     }

@@ -131,26 +131,26 @@ namespace ZeroInstall.Capture
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
         private static void TakeRegistry(Snapshot snapshot)
         {
-            snapshot.AppPathsUser = GetSubKeyNames(Registry.CurrentUser, AppPath.RegKeyAppPath);
-            snapshot.AppPathsMachine = GetSubKeyNames(Registry.LocalMachine, AppPath.RegKeyAppPath);
-            snapshot.Applications = GetSubKeyNames(Registry.ClassesRoot, AppPath.RegKeyClassesApplications);
-            snapshot.RegisteredApplications = GetValueNames(Registry.LocalMachine, AppRegistration.RegKeyMachineRegisteredApplications);
+            snapshot.AppPathsUser = WindowsUtils.GetSubKeyNames(Registry.CurrentUser, AppPath.RegKeyAppPath);
+            snapshot.AppPathsMachine = WindowsUtils.GetSubKeyNames(Registry.LocalMachine, AppPath.RegKeyAppPath);
+            snapshot.Applications = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, AppPath.RegKeyClassesApplications);
+            snapshot.RegisteredApplications = WindowsUtils.GetValueNames(Registry.LocalMachine, AppRegistration.RegKeyMachineRegisteredApplications);
 
             snapshot.ServiceAssocs = GetServiceAssocs();
-            snapshot.AutoPlayHandlers = GetSubKeyNames(Registry.LocalMachine, AutoPlay.RegKeyMachineHandlers);
+            snapshot.AutoPlayHandlers = WindowsUtils.GetSubKeyNames(Registry.LocalMachine, AutoPlay.RegKeyMachineHandlers);
             snapshot.AutoPlayAssocs = GetAutoPlayAssocs();
             GetFileAssocData(out snapshot.FileAssocs, out snapshot.ProgIDs);
-            snapshot.ClassIDs = GetSubKeyNames(Registry.ClassesRoot, ComServer.RegKeyClassesIDs);
+            snapshot.ClassIDs = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ComServer.RegKeyClassesIDs);
 
-            snapshot.FilesContextMenuSimple = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyContextMenuSimplePostfix);
-            snapshot.FilesContextMenuExtended = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyContextMenuExtendedPostfix);
-            snapshot.FilesPropertySheets = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyPropertySheetsPostfix);
+            snapshot.FilesContextMenuSimple = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyContextMenuSimplePostfix);
+            snapshot.FilesContextMenuExtended = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyContextMenuExtendedPostfix);
+            snapshot.FilesPropertySheets = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyPropertySheetsPostfix);
 
-            snapshot.AllContextMenuSimple = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + ContextMenu.RegKeyContextMenuSimplePostfix);
-            snapshot.AllContextMenuExtended = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + ContextMenu.RegKeyContextMenuExtendedPostfix);
-            snapshot.AllPropertySheets = GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + ContextMenu.RegKeyPropertySheetsPostfix);
+            snapshot.AllContextMenuSimple = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + ContextMenu.RegKeyContextMenuSimplePostfix);
+            snapshot.AllContextMenuExtended = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + ContextMenu.RegKeyContextMenuExtendedPostfix);
+            snapshot.AllPropertySheets = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + ContextMenu.RegKeyPropertySheetsPostfix);
 
-            snapshot.Games = GetSubKeyNames(Registry.LocalMachine, GamesExplorer.RegKeyMachineGames);
+            snapshot.Games = WindowsUtils.GetSubKeyNames(Registry.LocalMachine, GamesExplorer.RegKeyMachineGames);
         }
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace ZeroInstall.Capture
 
                 var serviceAssocsList = new C5.LinkedList<ComparableTuple<string>>();
                 foreach (string serviceName in clientsKey.GetSubKeyNames())
-                    foreach (string clientName in GetSubKeyNames(clientsKey, serviceName))
+                    foreach (string clientName in WindowsUtils.GetSubKeyNames(clientsKey, serviceName))
                         serviceAssocsList.Add(new ComparableTuple<string>(serviceName, clientName));
                 return serviceAssocsList.ToArray();
             }
@@ -191,7 +191,7 @@ namespace ZeroInstall.Capture
                         fileAssocsList.Add(new ComparableTuple<string>(keyName, (assocKey.GetValue("") ?? "").ToString()));
 
                         // Get additional ProgIDs
-                        foreach (string progID in GetValueNames(assocKey, "OpenWithProgIDs"))
+                        foreach (string progID in WindowsUtils.GetValueNames(assocKey, "OpenWithProgIDs"))
                             fileAssocsList.Add(new ComparableTuple<string>(keyName, progID));
                     }
                 }
@@ -216,34 +216,10 @@ namespace ZeroInstall.Capture
 
                 var autoPlayAssocsList = new C5.LinkedList<ComparableTuple<string>>();
                 foreach (string eventName in eventsKey.GetSubKeyNames())
-                    foreach (var handlerName in GetValueNames(eventsKey, eventName))
+                    foreach (var handlerName in WindowsUtils.GetValueNames(eventsKey, eventName))
                         autoPlayAssocsList.Add(new ComparableTuple<string>(eventName, handlerName));
                 return autoPlayAssocsList.ToArray();
             }
-        }
-
-        /// <summary>
-        /// Retreives the names of all values within a specific subkey of a registry root.
-        /// </summary>
-        /// <param name="root">The root key to look within.</param>
-        /// <param name="key">The path of the subkey below <paramref name="root"/>.</param>
-        /// <returns>A list of value names; an empty array if the key does not exist.</returns>
-        private static string[] GetValueNames(RegistryKey root, string key)
-        {
-            using (var contextMenuExtendedKey = root.OpenSubKey(key))
-                return contextMenuExtendedKey == null ? new string[0] : contextMenuExtendedKey.GetValueNames();
-        }
-
-        /// <summary>
-        /// Retreives the names of all subkeys within a specific subkey of a registry root.
-        /// </summary>
-        /// <param name="root">The root key to look within.</param>
-        /// <param name="key">The path of the subkey below <paramref name="root"/>.</param>
-        /// <returns>A list of key names; an empty array if the key does not exist.</returns>
-        private static string[] GetSubKeyNames(RegistryKey root, string key)
-        {
-            using (var contextMenuExtendedKey = root.OpenSubKey(key))
-                return contextMenuExtendedKey == null ? new string[0] : contextMenuExtendedKey.GetSubKeyNames();
         }
         #endregion
 
