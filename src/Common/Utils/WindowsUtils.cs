@@ -195,6 +195,11 @@ namespace Common.Utils
             [DllImport("shell32", SetLastError = true, CallingConvention = CallingConvention.Winapi)]
             public static extern void SetCurrentProcessExplicitAppUserModelID([MarshalAs(UnmanagedType.LPWStr)] string appID);
             #endregion
+
+            #region Shell
+            [DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            public static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
+            #endregion
         }
 
         #region Platform
@@ -519,6 +524,21 @@ namespace Common.Utils
         {
             if (IsWindows7)
                 TaskbarList.SetProgressValue(handle, Convert.ToUInt32(currentValue), Convert.ToUInt32(maximumValue));
+        }
+        #endregion
+
+        #region Shell
+        /// <summary>
+        /// Informs the Windows shell that changes were made to the file association data in the registry.
+        /// </summary>
+        /// <remarks>This should be called immediatley after the changes in order to trigger a refresh of the Explorer UI.</remarks>
+        public static void NotifyAssocChanged()
+        {
+            if (!IsWindows) return;
+
+            const int SHCNE_ASSOCCHANGED = 0x08000000;
+            const int SHCNF_IDLIST = 0;
+            SafeNativeMethods.SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, IntPtr.Zero, IntPtr.Zero);
         }
         #endregion
 
