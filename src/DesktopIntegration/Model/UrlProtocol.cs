@@ -18,18 +18,16 @@
 using System;
 using System.Xml.Serialization;
 
-namespace ZeroInstall.Model.Capabilities
+namespace ZeroInstall.DesktopIntegration.Model
 {
     /// <summary>
-    /// Represents an application's ability to be registered in the Windows Registry.
+    /// Makes an application the default handler for a specific URL protocol.
     /// </summary>
-    [XmlType("app-registration", Namespace = XmlNamespace)]
-    public class AppRegistration : Capability, IEquatable<AppRegistration>
+    /// <seealso cref="ZeroInstall.Model.Capabilities.UrlProtocol"/>
+    [XmlType("url-protocol", Namespace = XmlNamespace)]
+    public class UrlProtocol : CapabilityAccessPoint, IEquatable<UrlProtocol>
     {
         #region Properties
-        /// <inheritdoc/>
-        public override bool MachineWideOnly { get { return true; } }
-
         // ToDo
         #endregion
 
@@ -37,25 +35,25 @@ namespace ZeroInstall.Model.Capabilities
 
         #region Conversion
         /// <summary>
-        /// Returns the capability in the form "ApplicationRegistration". Not safe for parsing!
+        /// Returns the access point in the form "UrlProtocol: Capability". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("ApplicationRegistration");
+            return string.Format("UrlProtocol: {0}", Capability);
         }
         #endregion
 
         #region Clone
         /// <inheritdoc/>
-        public override Capability CloneCapability()
+        public override AccessPoint CloneAccessPoint()
         {
-            return new AppRegistration { ID = ID };
+            return new UrlProtocol {Capability = Capability};
         }
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(AppRegistration other)
+        public bool Equals(UrlProtocol other)
         {
             if (other == null) return false;
 
@@ -67,7 +65,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(AppRegistration) && Equals((AppRegistration)obj);
+            return obj.GetType() == typeof(UrlProtocol) && Equals((UrlProtocol)obj);
         }
 
         /// <inheritdoc/>

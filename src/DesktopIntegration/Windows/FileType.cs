@@ -15,12 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Capabilities = ZeroInstall.Model.Capabilities;
+using AccessPoints = ZeroInstall.DesktopIntegration.Model;
+
 namespace ZeroInstall.DesktopIntegration.Windows
 {
     /// <summary>
-    /// Contains control logic for applying <see cref="ZeroInstall.Model.Capabilities.AppRegistration"/> on Windows systems.
+    /// Contains control logic for applying <see cref="Capabilities.FileType"/> and <see cref="AccessPoints.FileType"/> on Windows systems.
     /// </summary>
-    public static class AppRegistration
+    public static class FileType
     {
         #region Constants
         /// <summary>The HKLM registry key for registering applications as candidates for default programs.</summary>

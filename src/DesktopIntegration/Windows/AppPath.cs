@@ -15,19 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using AccessPoints = ZeroInstall.DesktopIntegration.Model;
+
 namespace ZeroInstall.DesktopIntegration.Windows
 {
     /// <summary>
-    /// Contains control logic for applying <see cref="ZeroInstall.DesktopIntegration.Model.AppPath"/> on Windows systems.
+    /// Contains control logic for applying <see cref="AccessPoints.AppPath"/> on Windows systems.
     /// </summary>
     public static class AppPath
     {
         #region Constants
         /// <summary>The HKCU/HKLM registry key for storing application lookup paths.</summary>
         public const string RegKeyAppPath = @"Software\Microsoft\Windows\CurrentVersion\App Paths";
-
-        /// <summary>The HKCR registry key for storing additional application launching behavior.</summary>
-        public const string RegKeyClassesApplications = @"Applications";
         #endregion
     }
 }

@@ -17,80 +17,68 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Represents an application's ability to act as an AutoPlay handler for certain events.
+    /// Represents an application's ability to handle a certain URL protocol.
     /// </summary>
-    /// <remarks>A <see cref="FileType"/> is used for actually executing the application.</remarks>
-    [XmlType("auto-play", Namespace = XmlNamespace)]
-    public class AutoPlay : Capability, IEquatable<AutoPlay>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
+    [XmlType("url-protocol", Namespace = XmlNamespace)]
+    public class UrlProtocol : Capability, IEquatable<UrlProtocol>
     {
         #region Properties
         /// <inheritdoc/>
         public override bool GlobalOnly { get { return false; } }
 
         /// <summary>
-        /// The name of the application as shown in the AutoPlay selection list.
+        /// The protocol prefix such as "http".
         /// </summary>
-        [Description("The name of the application as shown in the AutoPlay selection list.")]
-        [XmlAttribute("provider")]
-        public string Provider { get; set; }
+        /// <remarks>If this has the same value as <see cref="Capability.ID"/> it will not be possible to announce this capability non-invasively.</remarks>
+        [Description("The protocol prefix such as \"http\".")]
+        [XmlAttribute("prefix")]
+        public string Prefix { get; set; }
 
         /// <summary>
-        /// A human-readable description of the action such as "Burn CD".
+        /// A human-readable description such as "HyperText Transfer Protocol".
         /// </summary>
-        [Description("A human-readable description of the action such as \"Burn CD\".")]
+        [Description("A human-readable description such as \"HyperText Transfer Protocol\".")]
         [XmlAttribute("description")]
         public string Description { get; set; }
 
         // Preserve order
         private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
         /// <summary>
-        /// Zero or more icons to use for the action.
+        /// Zero or more icons to use for the URL protocol.
         /// </summary>
         /// <remarks>The first compatible one is selected. If empty the application icon is used.</remarks>
-        [Description("Zero or more icons to use for the action. (The first compatible one is selected. If empty the application icon is used.)")]
+        [Description("Zero or more icons to use for the URL protocol. (The first compatible one is selected. If empty the application icon is used.)")]
         [XmlElement("icon", Namespace = Feed.XmlNamespace)]
         // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.ArrayList<Icon> Icons { get { return _icons; } }
 
+        // Preserve order, duplicate string entries are not allowed
+        private readonly C5.HashedArrayList<FileTypeVerb> _verbs = new C5.HashedArrayList<FileTypeVerb>();
         /// <summary>
-        /// The <see cref="FileType"/> ID used to perform the action.
+        /// A list of all operations available for this URL protocol.
         /// </summary>
-        [Description("The FileType ID used to perform the action.")]
-        [XmlAttribute("file-type-id")]
-        public string FileTypeID { get; set; }
-
-        /// <summary>
-        /// The verb from the file type used to perform the action.
-        /// </summary>
-        [Description("The verb from the file type used to perform the action.")]
-        [XmlAttribute("file-type-verb")]
-        public string FileTypeIDVerb { get; set; }
-
-        // Preserve order
-        private readonly C5.ArrayList<AutoPlayEvent> _events = new C5.ArrayList<AutoPlayEvent>();
-        /// <summary>
-        /// The IDs of the events this action can handle.
-        /// </summary>
-        [Description("The IDs of the events this action can handle.")]
-        [XmlElement("event")]
+        [Description("A list of all operations available for this URL protocol.")]
+        [XmlElement("verb")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.ArrayList<AutoPlayEvent> Events { get { return _events; } }
+        public C5.HashedArrayList<FileTypeVerb> Verbs { get { return _verbs; } }
         #endregion
 
         //--------------------//
 
         #region Conversion
         /// <summary>
-        /// Returns the capability in the form "AutoPlay: Description (ID)". Not safe for parsing!
+        /// Returns the capability in the form "UrlProtocol: Prefix (ID)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("AutoPlay: {0} ({1})", Description, ID);
+            return string.Format("UrlProtocol : {0} ({1})", Prefix, ID);
         }
         #endregion
 
@@ -98,22 +86,22 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability CloneCapability()
         {
-            var capability = new AutoPlay {ID = ID, Provider = Provider, Description = Description, FileTypeID = FileTypeID, FileTypeIDVerb = FileTypeIDVerb};
+            var capability = new UrlProtocol {ID = ID, Prefix = Prefix, Description = Description};
             capability.Icons.AddAll(Icons);
-            capability.Events.AddAll(Events);
+            capability.Verbs.AddAll(Verbs);
             return capability;
         }
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(AutoPlay other)
+        public bool Equals(UrlProtocol other)
         {
             if (other == null) return false;
 
             return base.Equals(other) &&
-                other.Provider == Provider && other.Description == Description && other.FileTypeID == FileTypeID && other.FileTypeIDVerb == FileTypeIDVerb &&
-                Icons.SequencedEquals(other.Icons) && Events.SequencedEquals(other.Events);
+                other.Description == Description && other.Prefix == Prefix &&
+                Icons.SequencedEquals(other.Icons) && Verbs.SequencedEquals(other.Verbs);
         }
 
         /// <inheritdoc/>
@@ -121,7 +109,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(AutoPlay) && Equals((AutoPlay)obj);
+            return obj.GetType() == typeof(UrlProtocol) && Equals((UrlProtocol)obj);
         }
 
         /// <inheritdoc/>
@@ -130,12 +118,10 @@ namespace ZeroInstall.Model.Capabilities
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (Provider ?? "").GetHashCode();
+                result = (result * 397) ^ (Prefix ?? "").GetHashCode();
                 result = (result * 397) ^ (Description ?? "").GetHashCode();
                 result = (result * 397) ^ Icons.GetSequencedHashCode();
-                result = (result * 397) ^ (FileTypeID ?? "").GetHashCode();
-                result = (result * 397) ^ (FileTypeIDVerb ?? "").GetHashCode();
-                result = (result * 397) ^ Events.GetSequencedHashCode();
+                result = (result * 397) ^ Verbs.GetSequencedHashCode();
                 return result;
             }
         }

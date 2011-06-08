@@ -15,10 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Capabilities = ZeroInstall.Model.Capabilities;
+using AccessPoints = ZeroInstall.DesktopIntegration.Model;
+
 namespace ZeroInstall.DesktopIntegration.Windows
 {
     /// <summary>
-    /// Contains control logic for applying <see cref="ZeroInstall.Model.Capabilities.ContextMenu"/> and <see cref="ZeroInstall.DesktopIntegration.Model.ContextMenu"/> on Windows systems.
+    /// Contains control logic for applying <see cref="Capabilities.ContextMenu"/> and <see cref="AccessPoints.ContextMenu"/> on Windows systems.
     /// </summary>
     public static class ContextMenu
     {

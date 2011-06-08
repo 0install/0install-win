@@ -35,11 +35,11 @@ namespace ZeroInstall.DesktopIntegration.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the access point in the form "FileType". Not safe for parsing!
+        /// Returns the access point in the form "FileType: Capability". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("FileType");
+            return string.Format("FileType: {0}", Capability);
         }
         #endregion
 

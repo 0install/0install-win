@@ -16,17 +16,18 @@
  */
 
 using Capabilities = ZeroInstall.Model.Capabilities;
+using AccessPoints = ZeroInstall.DesktopIntegration.Model;
 
 namespace ZeroInstall.DesktopIntegration.Windows
 {
     /// <summary>
-    /// Contains control logic for applying <see cref="Capabilities.ComServer"/> on Windows systems.
+    /// Contains control logic for applying <see cref="Capabilities.UrlProtocol"/> and <see cref="AccessPoints.UrlProtocol"/> on Windows systems.
     /// </summary>
-    public static class ComServer
+    public static class UrlProtocol
     {
         #region Constants
-        /// <summary>The HKCR registry key for storing COM class IDs.</summary>
-        public const string RegKeyClassesIDs = @"CLSID";
+        /// <summary>The HKCU registry key where Windows Vista and newer store URL protocol associations.</summary>
+        public const string RegKeyUserVistaUrlAssoc = @"Software\Microsoft\Windows\Shell\ Associations\UrlAssociations";
         #endregion
     }
 }

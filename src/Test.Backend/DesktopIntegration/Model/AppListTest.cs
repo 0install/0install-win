@@ -45,7 +45,8 @@ namespace ZeroInstall.DesktopIntegration.Model
                         new DefaultProgram {Capability = "default"},
                         new DesktopShortcut {Command = "main", Name = "Desktop shortcut"},
                         new FileType {Capability = "file_type"},
-                        new MenuEntry {Command = "main", Name = "Menu entry"}
+                        new MenuEntry {Command = "main", Name = "Menu entry"},
+                        new UrlProtocol {Capability = "protocol"},
                     }
                 }
             } };

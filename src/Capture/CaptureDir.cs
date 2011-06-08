@@ -116,6 +116,11 @@ namespace ZeroInstall.Capture
             string installationDir = GetInstallationDir(snapshotDiff);
             var commands = GetCommands(installationDir);
 
+            // ToDo: URL protocols (cross-reference with snapshotDiff.RegisteredApplications)
+            // ToDo: context menus
+            // ToDo: snapshotDiff.RegisteredApplications
+            // ToDo: snapshotDiff.Games
+
             var capabilities = new CapabilityList {Architecture = new Architecture(OS.Windows, Cpu.All)};
             try
             {
@@ -130,7 +135,7 @@ namespace ZeroInstall.Capture
             }
             #endregion
 
-            Implementation implementation = files ? GetImplementation(installationDir) : null;
+            Implementation implementation = (files && !string.IsNullOrEmpty(installationDir)) ? GetImplementation(installationDir) : null;
             BuildFeed(capabilities, commands, implementation).Save(Path.Combine(DirectoryPath, "feed.xml"));
         }
         #endregion
@@ -140,7 +145,7 @@ namespace ZeroInstall.Capture
         /// Locates the directory into which the new application was installed.
         /// </summary>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
-        private string GetInstallationDir(Snapshot snapshotDiff)
+        private static string GetInstallationDir(Snapshot snapshotDiff)
         {
             string installationDir;
             if (snapshotDiff.ProgramsDirs.Length == 0)
@@ -163,25 +168,25 @@ namespace ZeroInstall.Capture
         /// Detects all EXE files within the installation directory and returns them as <see cref="Command"/>s.
         /// </summary>
         /// <param name="installationDir">The fully qualified path to the installation directory; may be <see langword="null"/>.</param>
-        private IEnumerable<Command> GetCommands(string installationDir)
+        private static IEnumerable<Command> GetCommands(string installationDir)
         {
             if (installationDir == null) return new Command[0];
 
-            string[] exeFiles = Directory.GetFiles(installationDir, "*.exe", SearchOption.AllDirectories);
-
+            bool firstExe = true;
             var commands = new C5.LinkedList<Command>();
-            for (int i = 0; i < exeFiles.Length; i++)
+            foreach (string absolutePath in Directory.GetFiles(installationDir, "*.exe", SearchOption.AllDirectories))
             {
                 // Ignore unisnstaller
                 // ToDo: Better heuristic
-                if (exeFiles[i].Contains("uninstall")) continue;
+                if (absolutePath.Contains("uninstall")) continue;
 
                 // ToDo: Better filter
-                string relativePath = exeFiles[i].Replace(installationDir + Path.DirectorySeparatorChar, "");
+                string relativePath = absolutePath.Replace(installationDir + Path.DirectorySeparatorChar, "");
 
                 // Assume first detected EXE is the main entry point
                 // ToDo: Better heuristic
-                commands.Add(new Command {Name = (i == 0) ? "run" : relativePath.Replace(".exe", ""), Path = relativePath});
+                commands.Add(new Command {Name = firstExe ? "run" : relativePath.Replace(".exe", "").Replace(Path.DirectorySeparatorChar, '.'), Path = relativePath});
+                firstExe = false;
             }
             return commands;
         }
@@ -302,10 +307,15 @@ namespace ZeroInstall.Capture
             if (capabilities == null) throw new ArgumentNullException("capabilities");
             #endregion
 
-            foreach (string handler in snapshotDiff.AutoPlayHandlers)
+            foreach (string handler in snapshotDiff.AutoPlayHandlersUser)
             {
-                if (string.IsNullOrEmpty(handler)) continue;
-                var autoPlay = GetAutoPlay(handler, snapshotDiff);
+                var autoPlay = GetAutoPlay(handler, Registry.CurrentUser, snapshotDiff.AutoPlayAssocsUser);
+                if (autoPlay != null) capabilities.Entries.Add(autoPlay);
+            }
+
+            foreach (string handler in snapshotDiff.AutoPlayHandlersMachine)
+            {
+                var autoPlay = GetAutoPlay(handler, Registry.LocalMachine, snapshotDiff.AutoPlayAssocsMachine);
                 if (autoPlay != null) capabilities.Entries.Add(autoPlay);
             }
         }
@@ -314,18 +324,20 @@ namespace ZeroInstall.Capture
         /// Retreives data about a AutoPlay handler type from a snapshot diff.
         /// </summary>
         /// <param name="handler">The internal name of the AutoPlay handler.</param>
-        /// <param name="snapshotDiff">The elements added between two snapshots.</param>
+        /// <param name="hive">The registry hive to search in (usually HKCU or HKLM).</param>
+        /// <param name="autoPlayAssocs">A list of associations of an AutoPlay events with an AutoPlay handlers</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static AutoPlay GetAutoPlay(string handler, Snapshot snapshotDiff)
+        private static Capability GetAutoPlay(string handler, RegistryKey hive, IEnumerable<ComparableTuple<string>> autoPlayAssocs)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
-            if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
+            if (hive == null) throw new ArgumentNullException("hive");
+            if (autoPlayAssocs == null) throw new ArgumentNullException("autoPlayAssocs");
             #endregion
 
-            using (var handlerKey = Registry.LocalMachine.OpenSubKey(DesktopIntegration.Windows.AutoPlay.RegKeyMachineHandlers + @"\" + handler))
+            using (var handlerKey = hive.OpenSubKey(DesktopIntegration.Windows.AutoPlay.RegKeyHandlers + @"\" + handler))
             {
                 if (handlerKey == null) return null;
 
@@ -338,7 +350,7 @@ namespace ZeroInstall.Capture
                     FileTypeIDVerb = handlerKey.GetValue("InvokeVerb", "").ToString()
                 };
 
-                foreach (var autoPlayAssoc in snapshotDiff.AutoPlayAssocs)
+                foreach (var autoPlayAssoc in autoPlayAssocs)
                     if (autoPlayAssoc.Value == handler) autoPlay.Events.Add(new AutoPlayEvent {Name = autoPlayAssoc.Key});
 
                 return autoPlay;
@@ -376,7 +388,7 @@ namespace ZeroInstall.Capture
         /// <param name="capabilities">A list of capabilities that were detected.</param>
         /// <param name="commands">A list of commands that can be uses to start the application.</param>
         /// <param name="implementation">An implementation to add to the main group; may be <see langword="null"/>.</param>
-        private Feed BuildFeed(CapabilityList capabilities, IEnumerable<Command> commands, Implementation implementation)
+        private static Feed BuildFeed(CapabilityList capabilities, IEnumerable<Command> commands, Implementation implementation)
         {
             #region Sanity checks
             if (capabilities == null) throw new ArgumentNullException("capabilities");

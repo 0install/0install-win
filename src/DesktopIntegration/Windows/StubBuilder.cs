@@ -21,7 +21,7 @@ using System.Reflection;
 using Common.Streams;
 using Common.Utils;
 
-namespace ZeroInstall.DesktopIntegration
+namespace ZeroInstall.DesktopIntegration.Windows
 {
     /// <summary>
     /// Utility class for building stub EXEs.

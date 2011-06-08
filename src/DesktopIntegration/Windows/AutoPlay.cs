@@ -15,19 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Capabilities = ZeroInstall.Model.Capabilities;
+using AccessPoints = ZeroInstall.DesktopIntegration.Model;
+
 namespace ZeroInstall.DesktopIntegration.Windows
 {
     /// <summary>
-    /// Contains control logic for applying <see cref="ZeroInstall.Model.Capabilities.AutoPlay"/> and <see cref="ZeroInstall.DesktopIntegration.Model.AutoPlay"/> on Windows systems.
+    /// Contains control logic for applying <see cref="Capabilities.AutoPlay"/> and <see cref="AccessPoints.AutoPlay"/> on Windows systems.
     /// </summary>
     public static class AutoPlay
     {
         #region Constants
-        /// <summary>The HKLM registry key for storing AutoPlay handlers.</summary>
-        public const string RegKeyMachineHandlers = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\Handlers";
+        /// <summary>The HKCU/HKLM registry key for storing AutoPlay handlers.</summary>
+        public const string RegKeyHandlers = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\Handlers";
 
-        /// <summary>The HKLM registry key for storing AutoPlay handler associations.</summary>
-        public const string RegKeyMachineAssocs = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\EventHandlers";
+        /// <summary>The HKCU/HKLM registry key for storing AutoPlay handler associations.</summary>
+        public const string RegKeyAssocs = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\EventHandlers";
+
+        /// <summary>The HKCU registry key for storing user-selected AutoPlay handlers.</summary>
+        public const string RegKeyUserAssocs = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\UserChosenExecuteHandlers";
         #endregion
     }
 }

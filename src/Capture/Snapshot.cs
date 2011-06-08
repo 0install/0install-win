@@ -35,26 +35,14 @@ namespace ZeroInstall.Capture
     public class Snapshot
     {
         #region Variables
-        /// <summary>A per-user list of EXE files that have lookup paths defined.</summary>
-        public string[] AppPathsUser;
-
-        /// <summary>A machine-wide list of EXE files that have lookup paths defined.</summary>
-        public string[] AppPathsMachine;
-
-        /// <summary>A list of applications defining additional launching behavior.</summary>
-        public string[] Applications;
-
-        /// <summary>A list of appliactions registered as candidates for default programs.</summary>
-        public string[] RegisteredApplications;
-
         /// <summary>A list of associations of services with clients (e.g. web browsers, mail readers, ...).</summary>
         public ComparableTuple<string>[] ServiceAssocs;
 
         /// <summary>A list of applications registered as AutoPlay handlers.</summary>
-        public string[] AutoPlayHandlers;
+        public string[] AutoPlayHandlersUser, AutoPlayHandlersMachine;
 
         /// <summary>A list of associations of an AutoPlay events with an AutoPlay handlers.</summary>
-        public ComparableTuple<string>[] AutoPlayAssocs;
+        public ComparableTuple<string>[] AutoPlayAssocsUser, AutoPlayAssocsMachine;
 
         /// <summary>A list of associations of file extensions with programatic identifiers.</summary>
         public ComparableTuple<string>[] FileAssocs;
@@ -64,6 +52,9 @@ namespace ZeroInstall.Capture
 
         /// <summary>A list of COM class IDs.</summary>
         public string[] ClassIDs;
+
+        /// <summary>A list of appliactions registered as candidates for default programs.</summary>
+        public string[] RegisteredApplications;
 
         /// <summary>A list of simple context menu entries for all file types.</summary>
         public string[] FilesContextMenuSimple;
@@ -131,16 +122,15 @@ namespace ZeroInstall.Capture
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
         private static void TakeRegistry(Snapshot snapshot)
         {
-            snapshot.AppPathsUser = WindowsUtils.GetSubKeyNames(Registry.CurrentUser, AppPath.RegKeyAppPath);
-            snapshot.AppPathsMachine = WindowsUtils.GetSubKeyNames(Registry.LocalMachine, AppPath.RegKeyAppPath);
-            snapshot.Applications = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, AppPath.RegKeyClassesApplications);
-            snapshot.RegisteredApplications = WindowsUtils.GetValueNames(Registry.LocalMachine, AppRegistration.RegKeyMachineRegisteredApplications);
-
             snapshot.ServiceAssocs = GetServiceAssocs();
-            snapshot.AutoPlayHandlers = WindowsUtils.GetSubKeyNames(Registry.LocalMachine, AutoPlay.RegKeyMachineHandlers);
-            snapshot.AutoPlayAssocs = GetAutoPlayAssocs();
+            snapshot.AutoPlayHandlersUser = WindowsUtils.GetSubKeyNames(Registry.CurrentUser, AutoPlay.RegKeyHandlers);
+            snapshot.AutoPlayHandlersMachine = WindowsUtils.GetSubKeyNames(Registry.LocalMachine, AutoPlay.RegKeyHandlers);
+            snapshot.AutoPlayAssocsUser = GetAutoPlayAssocs(Registry.CurrentUser);
+            snapshot.AutoPlayAssocsMachine = GetAutoPlayAssocs(Registry.LocalMachine);
             GetFileAssocData(out snapshot.FileAssocs, out snapshot.ProgIDs);
             snapshot.ClassIDs = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ComServer.RegKeyClassesIDs);
+            snapshot.RegisteredApplications = WindowsUtils.GetValueNames(Registry.LocalMachine, FileType.RegKeyMachineRegisteredApplications);
+            // ToDo: Well-known protcols (HTTP, FTP, etc.)
 
             snapshot.FilesContextMenuSimple = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyContextMenuSimplePostfix);
             snapshot.FilesContextMenuExtended = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyContextMenuExtendedPostfix);
@@ -205,12 +195,13 @@ namespace ZeroInstall.Capture
         /// <summary>
         /// Retreives a list of AutoPlay associations from the registry.
         /// </summary>
+        /// <param name="hive">The registry hive to search in (usually HKCU or HKLM).</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static ComparableTuple<string>[] GetAutoPlayAssocs()
+        private static ComparableTuple<string>[] GetAutoPlayAssocs(RegistryKey hive)
         {
-            using (var eventsKey = Registry.LocalMachine.OpenSubKey(AutoPlay.RegKeyMachineAssocs))
+            using (var eventsKey = hive.OpenSubKey(AutoPlay.RegKeyAssocs))
             {
                 if (eventsKey == null) return new ComparableTuple<string>[0];
 
@@ -267,16 +258,15 @@ namespace ZeroInstall.Capture
 
             return new Snapshot
             {
-                AppPathsUser = EnumerableUtils.GetAddedElements(oldSnapshot.AppPathsUser, newSnapshot.AppPathsUser),
-                AppPathsMachine = EnumerableUtils.GetAddedElements(oldSnapshot.AppPathsMachine, newSnapshot.AppPathsMachine),
-                Applications = EnumerableUtils.GetAddedElements(oldSnapshot.Applications, newSnapshot.Applications),
-                RegisteredApplications = EnumerableUtils.GetAddedElements(oldSnapshot.RegisteredApplications, newSnapshot.RegisteredApplications),
                 ServiceAssocs = EnumerableUtils.GetAddedElements(oldSnapshot.ServiceAssocs, newSnapshot.ServiceAssocs),
-                AutoPlayHandlers = EnumerableUtils.GetAddedElements(oldSnapshot.AutoPlayHandlers, newSnapshot.AutoPlayHandlers),
-                AutoPlayAssocs = EnumerableUtils.GetAddedElements(oldSnapshot.AutoPlayAssocs, newSnapshot.AutoPlayAssocs),
+                AutoPlayHandlersUser = EnumerableUtils.GetAddedElements(oldSnapshot.AutoPlayHandlersUser, newSnapshot.AutoPlayHandlersUser),
+                AutoPlayHandlersMachine = EnumerableUtils.GetAddedElements(oldSnapshot.AutoPlayHandlersMachine, newSnapshot.AutoPlayHandlersMachine),
+                AutoPlayAssocsUser = EnumerableUtils.GetAddedElements(oldSnapshot.AutoPlayAssocsUser, newSnapshot.AutoPlayAssocsUser),
+                AutoPlayAssocsMachine = EnumerableUtils.GetAddedElements(oldSnapshot.AutoPlayAssocsMachine, newSnapshot.AutoPlayAssocsMachine),
                 FileAssocs = EnumerableUtils.GetAddedElements(oldSnapshot.FileAssocs, newSnapshot.FileAssocs),
                 ProgIDs = EnumerableUtils.GetAddedElements(oldSnapshot.ProgIDs, newSnapshot.ProgIDs),
                 ClassIDs = EnumerableUtils.GetAddedElements(oldSnapshot.ClassIDs, newSnapshot.ClassIDs),
+                RegisteredApplications = EnumerableUtils.GetAddedElements(oldSnapshot.RegisteredApplications, newSnapshot.RegisteredApplications),
                 FilesContextMenuSimple = EnumerableUtils.GetAddedElements(oldSnapshot.FilesContextMenuSimple, newSnapshot.FilesContextMenuSimple),
                 FilesContextMenuExtended = EnumerableUtils.GetAddedElements(oldSnapshot.FilesContextMenuExtended, newSnapshot.FilesContextMenuExtended),
                 FilesPropertySheets = EnumerableUtils.GetAddedElements(oldSnapshot.FilesPropertySheets, newSnapshot.FilesPropertySheets),

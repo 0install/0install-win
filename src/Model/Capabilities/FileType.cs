@@ -31,7 +31,7 @@ namespace ZeroInstall.Model.Capabilities
     {
         #region Properties
         /// <inheritdoc/>
-        public override bool MachineWideOnly { get { return false; } }
+        public override bool GlobalOnly { get { return false; } }
 
         /// <summary>
         /// A human-readable description such as "PNG image file".
@@ -51,6 +51,8 @@ namespace ZeroInstall.Model.Capabilities
         // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.ArrayList<Icon> Icons { get { return _icons; } }
 
+        // Preserve order, duplicate string entries are not allowed
+        private readonly C5.HashedArrayList<FileTypeVerb> _verbs = new C5.HashedArrayList<FileTypeVerb>();
         /// <summary>
         /// A list of all operations available for this file type.
         /// </summary>
@@ -68,9 +70,6 @@ namespace ZeroInstall.Model.Capabilities
         [XmlElement("extension")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.HashedArrayList<FileTypeExtension> Extensions { get { return _extensions; } }
-
-        // Preserve order, duplicate string entries are not allowed
-        private readonly C5.HashedArrayList<FileTypeVerb> _verbs = new C5.HashedArrayList<FileTypeVerb>();
         #endregion
 
         //--------------------//

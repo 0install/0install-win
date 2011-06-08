@@ -28,7 +28,7 @@ namespace ZeroInstall.Model.Capabilities
     {
         #region Properties
         /// <inheritdoc/>
-        public override bool MachineWideOnly { get { return true; } }
+        public override bool GlobalOnly { get { return true; } }
 
         // ToDo
         #endregion

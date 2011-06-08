@@ -44,7 +44,8 @@ namespace ZeroInstall.Model.Capabilities
                     new ContextMenu {ID = "context-menu"},
                     new DefaultProgram {ID = "default-program"},
                     new FileType {ID = "my_ext", Description = "Text file", Icons = {testIcon}, Extensions = {new FileTypeExtension {Value = "txt", MimeType = "text/plain"}}, Verbs = {new FileTypeVerb {Name = FileTypeVerb.NameOpen, Command = Command.NameRun, Arguments = "--open"}}},
-                    new GamesExplorer {ID = "games-explorer"}
+                    new GamesExplorer {ID = "games-explorer"},
+                    new UrlProtocol {ID = "my_protocol", Prefix = "my-protocol", Description = "My protocol", Icons = {testIcon}, Verbs = {new FileTypeVerb {Name = FileTypeVerb.NameOpen, Command = Command.NameRun, Arguments = "--open"}}}
                 }
             };
         }
