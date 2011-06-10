@@ -66,9 +66,11 @@ namespace ZeroInstall.Commands
 
             string feedID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
 
+            // Run Solver to ensure feed is cached
             Policy.FeedManager.Refresh = true;
             bool stale;
-            Policy.Solver.Solve(new Requirements {InterfaceID = feedID}, Policy, out stale); // Run solver to ensure feed is cached
+            Policy.Solver.Solve(new Requirements {InterfaceID = feedID}, Policy, out stale);
+
             var feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
 
             if (feed.FeedFor.IsEmpty)

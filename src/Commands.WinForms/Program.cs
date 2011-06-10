@@ -171,6 +171,7 @@ namespace ZeroInstall.Commands.WinForms
                 catch (SolverException ex)
                 {
                     handler.DisableProgressUI();
+                    Log.Error(ex.Message); // Solver error message are often too long for the headline, so repeat it in the log
                     ErrorBox.Show(ex.Message, errorLog.ToString());
                 }
                 catch (ImplementationNotFoundException ex)

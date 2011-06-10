@@ -110,10 +110,13 @@ namespace ZeroInstall.Commands
             var result = base.Solve();
 
             try { UncachedImplementations = Selections.ListUncachedImplementations(Policy.Fetcher.Store, Policy.FeedManager.Cache); }
-            catch(InvalidOperationException ex)
+            #region Error handling
+            catch (InvalidOperationException ex)
             {
+                // Wrap exception to add context
                 throw new SolverException(ex.Message, ex);
             }
+            #endregion
 
             return result;
         }
