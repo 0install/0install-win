@@ -15,6 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using Common.Utils;
+using Microsoft.Win32;
+using ZeroInstall.Model;
 using AccessPoints = ZeroInstall.DesktopIntegration.Model;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -26,7 +30,44 @@ namespace ZeroInstall.DesktopIntegration.Windows
     {
         #region Constants
         /// <summary>The HKCU/HKLM registry key for storing application lookup paths.</summary>
-        public const string RegKeyAppPath = @"Software\Microsoft\Windows\CurrentVersion\App Paths";
+        public const string RegKeyAppPaths = @"Software\Microsoft\Windows\CurrentVersion\App Paths";
+        #endregion
+
+        #region Apply
+        /// <summary>
+        /// Applies an <see cref="AccessPoints.AppPath"/> to the current Windows system.
+        /// </summary>
+        /// <param name="interfaceID">The interface ID of the application being integrated.</param>
+        /// <param name="needsTerminal">The <see cref="Feed.NeedsTerminal"/> flag of the application being integrated.</param>
+        /// <param name="appPath">The access point to be applied.</param>
+        /// <param name="global">Flag indicating to apply the configuration system-wide instead of just for the current user.</param>
+        public static void Apply(string interfaceID, bool needsTerminal, AccessPoints.AppPath appPath, bool global)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (appPath == null) throw new ArgumentNullException("appPath");
+            #endregion
+
+            // Only Windows 7 and newer support per-user AppPaths
+            if (!global && !WindowsUtils.IsWindows7)
+            {
+                // ToDo: Fall back to classic PATH
+                return;
+            }
+
+            var hive = global ? Registry.LocalMachine : Registry.CurrentUser;
+            using (var appPathsKey = hive.OpenSubKey(RegKeyAppPaths, true))
+            {
+                using (var exeKey = appPathsKey.CreateSubKey(appPath.Name))
+                {
+                    string stubPath = FileUtils.PathCombine(
+                        Environment.GetFolderPath(global ? Environment.SpecialFolder.CommonApplicationData : Environment.SpecialFolder.LocalApplicationData),
+                        "0install.net", "aliases", appPath.Name);
+                    StubBuilder.BuildRunStub(stubPath, null, interfaceID, appPath.Command, !needsTerminal);
+                    exeKey.SetValue("", stubPath);
+                }
+            }
+        }
         #endregion
     }
 }

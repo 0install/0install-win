@@ -27,39 +27,11 @@ namespace ZeroInstall.Model.Capabilities
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [XmlType("file-type", Namespace = XmlNamespace)]
-    public class FileType : Capability, IEquatable<FileType>
+    public class FileType : VerbCapability, IEquatable<FileType>
     {
         #region Properties
         /// <inheritdoc/>
         public override bool GlobalOnly { get { return false; } }
-
-        /// <summary>
-        /// A human-readable description such as "PNG image file".
-        /// </summary>
-        [Description("A human-readable description such as \"PNG image file\".")]
-        [XmlAttribute("description")]
-        public string Description { get; set; }
-
-        // Preserve order
-        private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
-        /// <summary>
-        /// Zero or more icons to use for the file type.
-        /// </summary>
-        /// <remarks>The first compatible one is selected. If empty the application icon is used.</remarks>
-        [Description("Zero or more icons to use for the file type. (The first compatible one is selected. If empty the application icon is used.)")]
-        [XmlElement("icon", Namespace = Feed.XmlNamespace)]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.ArrayList<Icon> Icons { get { return _icons; } }
-
-        // Preserve order, duplicate string entries are not allowed
-        private readonly C5.HashedArrayList<FileTypeVerb> _verbs = new C5.HashedArrayList<FileTypeVerb>();
-        /// <summary>
-        /// A list of all operations available for this file type.
-        /// </summary>
-        [Description("A list of all operations available for this file type.")]
-        [XmlElement("verb")]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.HashedArrayList<FileTypeVerb> Verbs { get { return _verbs; } }
 
         // Preserve order, duplicate string entries are not allowed
         private readonly C5.HashedArrayList<FileTypeExtension> _extensions = new C5.HashedArrayList<FileTypeExtension>();
@@ -102,9 +74,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (other == null) return false;
 
-            return base.Equals(other) &&
-                other.Description == Description &&
-                Icons.SequencedEquals(other.Icons) && Verbs.SequencedEquals(other.Verbs) && Extensions.SequencedEquals(other.Extensions);
+            return base.Equals(other) && Extensions.SequencedEquals(other.Extensions);
         }
 
         /// <inheritdoc/>
@@ -121,9 +91,6 @@ namespace ZeroInstall.Model.Capabilities
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (Description ?? "").GetHashCode();
-                result = (result * 397) ^ Icons.GetSequencedHashCode();
-                result = (result * 397) ^ Verbs.GetSequencedHashCode();
                 result = (result * 397) ^ Extensions.GetSequencedHashCode();
                 return result;
             }

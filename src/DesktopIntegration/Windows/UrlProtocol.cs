@@ -26,6 +26,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
     public static class UrlProtocol
     {
         #region Constants
+        /// <summary>The registry value name used to indicate that a programatic identifier is actually a ULR protocol handler.</summary>
+        public const string ProtocolFlag = "URL Protocol";
+
         /// <summary>The HKCU registry key where Windows Vista and newer store URL protocol associations.</summary>
         public const string RegKeyUserVistaUrlAssoc = @"Software\Microsoft\Windows\Shell\ Associations\UrlAssociations";
         #endregion

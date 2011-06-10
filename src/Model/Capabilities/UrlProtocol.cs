@@ -27,7 +27,7 @@ namespace ZeroInstall.Model.Capabilities
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [XmlType("url-protocol", Namespace = XmlNamespace)]
-    public class UrlProtocol : Capability, IEquatable<UrlProtocol>
+    public class UrlProtocol : VerbCapability, IEquatable<UrlProtocol>
     {
         #region Properties
         /// <inheritdoc/>
@@ -40,34 +40,6 @@ namespace ZeroInstall.Model.Capabilities
         [Description("The protocol prefix such as \"http\".")]
         [XmlAttribute("prefix")]
         public string Prefix { get; set; }
-
-        /// <summary>
-        /// A human-readable description such as "HyperText Transfer Protocol".
-        /// </summary>
-        [Description("A human-readable description such as \"HyperText Transfer Protocol\".")]
-        [XmlAttribute("description")]
-        public string Description { get; set; }
-
-        // Preserve order
-        private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
-        /// <summary>
-        /// Zero or more icons to use for the URL protocol.
-        /// </summary>
-        /// <remarks>The first compatible one is selected. If empty the application icon is used.</remarks>
-        [Description("Zero or more icons to use for the URL protocol. (The first compatible one is selected. If empty the application icon is used.)")]
-        [XmlElement("icon", Namespace = Feed.XmlNamespace)]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.ArrayList<Icon> Icons { get { return _icons; } }
-
-        // Preserve order, duplicate string entries are not allowed
-        private readonly C5.HashedArrayList<FileTypeVerb> _verbs = new C5.HashedArrayList<FileTypeVerb>();
-        /// <summary>
-        /// A list of all operations available for this URL protocol.
-        /// </summary>
-        [Description("A list of all operations available for this URL protocol.")]
-        [XmlElement("verb")]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.HashedArrayList<FileTypeVerb> Verbs { get { return _verbs; } }
         #endregion
 
         //--------------------//
@@ -86,7 +58,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability CloneCapability()
         {
-            var capability = new UrlProtocol {ID = ID, Prefix = Prefix, Description = Description};
+            var capability = new UrlProtocol {ID = ID, Description = Description, Prefix = Prefix};
             capability.Icons.AddAll(Icons);
             capability.Verbs.AddAll(Verbs);
             return capability;
@@ -99,9 +71,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (other == null) return false;
 
-            return base.Equals(other) &&
-                other.Description == Description && other.Prefix == Prefix &&
-                Icons.SequencedEquals(other.Icons) && Verbs.SequencedEquals(other.Verbs);
+            return base.Equals(other) && other.Prefix == Prefix;
         }
 
         /// <inheritdoc/>
@@ -119,9 +89,6 @@ namespace ZeroInstall.Model.Capabilities
             {
                 int result = base.GetHashCode();
                 result = (result * 397) ^ (Prefix ?? "").GetHashCode();
-                result = (result * 397) ^ (Description ?? "").GetHashCode();
-                result = (result * 397) ^ Icons.GetSequencedHashCode();
-                result = (result * 397) ^ Verbs.GetSequencedHashCode();
                 return result;
             }
         }

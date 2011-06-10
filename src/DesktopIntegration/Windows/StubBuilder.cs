@@ -32,7 +32,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Builds a stub EXE that executes the "0install run" command.
         /// </summary>
         /// <param name="path">The target path to store the generated EXE file.</param>
-        /// <param name="icon">The path to the icon to use for the generated EXE file.</param>
+        /// <param name="icon">The path to the icon to use for the generated EXE file; may be <see langword="null"/>.</param>
         /// <param name="interfaceID">The interface to be passed to the "0install run" command.</param>
         /// <param name="command">The command argument to be passed to the the "0install run" command; may be <see langword="null"/>.</param>
         /// <param name="useGui">Set to <see langword="true"/> to use "0install-win" instead of "0install".</param>
@@ -41,7 +41,6 @@ namespace ZeroInstall.DesktopIntegration.Windows
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (string.IsNullOrEmpty(icon)) throw new ArgumentNullException("icon");
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             #endregion
 
@@ -56,9 +55,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
             var compilerParameters = new CompilerParameters
             {
                 GenerateExecutable = true, OutputAssembly = path, IncludeDebugInformation = false, GenerateInMemory = false, TreatWarningsAsErrors = true,
-                CompilerOptions = "/win32icon:" + StringUtils.EscapeWhitespace(icon),
                 ReferencedAssemblies = {"System.dll"}
             };
+            if (!string.IsNullOrEmpty(icon)) compilerParameters.CompilerOptions += "/win32icon:" + StringUtils.EscapeWhitespace(icon);
             if (useGui) compilerParameters.CompilerOptions += " /target:winexe";
 
             // Runt the compilation process and check for errors

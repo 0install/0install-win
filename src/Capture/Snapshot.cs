@@ -47,6 +47,9 @@ namespace ZeroInstall.Capture
         /// <summary>A list of associations of file extensions with programatic identifiers.</summary>
         public ComparableTuple<string>[] FileAssocs;
 
+        /// <summary>A list of protocol associations for well-known protocols (e.g. HTTP, FTP, ...).</summary>
+        public ComparableTuple<string>[] ProtocolAssocs;
+
         /// <summary>A list of programatic indentifiers.</summary>
         public string[] ProgIDs;
 
@@ -128,9 +131,9 @@ namespace ZeroInstall.Capture
             snapshot.AutoPlayAssocsUser = GetAutoPlayAssocs(Registry.CurrentUser);
             snapshot.AutoPlayAssocsMachine = GetAutoPlayAssocs(Registry.LocalMachine);
             GetFileAssocData(out snapshot.FileAssocs, out snapshot.ProgIDs);
+            snapshot.ProtocolAssocs = GetProtocolAssoc();
             snapshot.ClassIDs = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ComServer.RegKeyClassesIDs);
             snapshot.RegisteredApplications = WindowsUtils.GetValueNames(Registry.LocalMachine, FileType.RegKeyMachineRegisteredApplications);
-            // ToDo: Well-known protcols (HTTP, FTP, etc.)
 
             snapshot.FilesContextMenuSimple = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyContextMenuSimplePostfix);
             snapshot.FilesContextMenuExtended = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyContextMenuExtendedPostfix);
@@ -178,7 +181,7 @@ namespace ZeroInstall.Capture
                     using (var assocKey = Registry.ClassesRoot.OpenSubKey(keyName))
                     {
                         // Get the main ProgID
-                        fileAssocsList.Add(new ComparableTuple<string>(keyName, (assocKey.GetValue("") ?? "").ToString()));
+                        fileAssocsList.Add(new ComparableTuple<string>(keyName, assocKey.GetValue("", "").ToString()));
 
                         // Get additional ProgIDs
                         foreach (string progID in WindowsUtils.GetValueNames(assocKey, "OpenWithProgIDs"))
@@ -190,6 +193,20 @@ namespace ZeroInstall.Capture
 
             fileAssocs = fileAssocsList.ToArray();
             progIDs = progIDsList.ToArray();
+        }
+
+        /// <summary>
+        /// Retreives a list of protocol associations for well-known protocols (e.g. HTTP, FTP, ...).
+        /// </summary>
+        private static ComparableTuple<string>[] GetProtocolAssoc()
+        {
+            var protocolAssocList = new C5.LinkedList<ComparableTuple<string>>();
+            foreach (string protocol in new [] {"http", "https", "ftp", "gopher"})
+            {
+                var command = Registry.GetValue(@"HKEY_CLASSES_ROOT\" + protocol + @"\shell\open\command", "", "") as string;
+                if (!string.IsNullOrEmpty(command)) protocolAssocList.Add(new ComparableTuple<string>(protocol, command));
+            }
+            return protocolAssocList.ToArray();
         }
 
         /// <summary>
@@ -264,6 +281,7 @@ namespace ZeroInstall.Capture
                 AutoPlayAssocsUser = EnumerableUtils.GetAddedElements(oldSnapshot.AutoPlayAssocsUser, newSnapshot.AutoPlayAssocsUser),
                 AutoPlayAssocsMachine = EnumerableUtils.GetAddedElements(oldSnapshot.AutoPlayAssocsMachine, newSnapshot.AutoPlayAssocsMachine),
                 FileAssocs = EnumerableUtils.GetAddedElements(oldSnapshot.FileAssocs, newSnapshot.FileAssocs),
+                ProtocolAssocs = EnumerableUtils.GetAddedElements(oldSnapshot.ProtocolAssocs, newSnapshot.ProtocolAssocs),
                 ProgIDs = EnumerableUtils.GetAddedElements(oldSnapshot.ProgIDs, newSnapshot.ProgIDs),
                 ClassIDs = EnumerableUtils.GetAddedElements(oldSnapshot.ClassIDs, newSnapshot.ClassIDs),
                 RegisteredApplications = EnumerableUtils.GetAddedElements(oldSnapshot.RegisteredApplications, newSnapshot.RegisteredApplications),

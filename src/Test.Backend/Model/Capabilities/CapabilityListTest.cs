@@ -39,13 +39,13 @@ namespace ZeroInstall.Model.Capabilities
                 Architecture = new Architecture(OS.Windows, Cpu.All),
                 Entries =
                 {
-                    new AutoPlay {ID = "autoplay", Provider = "MyApp", Description = "Do somthing",  Icons = {testIcon}, FileTypeID = "my_ext", FileTypeIDVerb = "open", Events = {new AutoPlayEvent {Name = AutoPlayEvent.NameBurnCD}}},
+                    new AutoPlay {ID = "autoplay", Description = "Do somthing", Icons = {testIcon}, Provider = "MyApp", ProgID = "MyApp.Burn", Verb = new Verb {Name = Verb.NameOpen, Command = Command.NameRun, Arguments = "--open"}, Events = {new AutoPlayEvent {Name = AutoPlayEvent.NameBurnCD}}},
                     new ComServer {ID = "com-server"},
                     new ContextMenu {ID = "context-menu"},
-                    new DefaultProgram {ID = "default-program"},
-                    new FileType {ID = "my_ext", Description = "Text file", Icons = {testIcon}, Extensions = {new FileTypeExtension {Value = "txt", MimeType = "text/plain"}}, Verbs = {new FileTypeVerb {Name = FileTypeVerb.NameOpen, Command = Command.NameRun, Arguments = "--open"}}},
+                    new DefaultProgram {ID = "default-program", Description = "My mail client", Icons = {testIcon}, Verbs = {new Verb {Name = Verb.NameOpen, Command = Command.NameRun, Arguments = "--open"}}, Service = "Mail"},
+                    new FileType {ID = "my_ext", Description = "Text file", Icons = {testIcon}, Extensions = {new FileTypeExtension {Value = "txt", MimeType = "text/plain"}}, Verbs = {new Verb {Name = Verb.NameOpen, Command = Command.NameRun, Arguments = "--open"}}},
                     new GamesExplorer {ID = "games-explorer"},
-                    new UrlProtocol {ID = "my_protocol", Prefix = "my-protocol", Description = "My protocol", Icons = {testIcon}, Verbs = {new FileTypeVerb {Name = FileTypeVerb.NameOpen, Command = Command.NameRun, Arguments = "--open"}}}
+                    new UrlProtocol {ID = "my_protocol", Description = "My protocol", Icons = {testIcon}, Verbs = {new Verb {Name = Verb.NameOpen, Command = Command.NameRun, Arguments = "--open"}}, Prefix = "my-protocol"}
                 }
             };
         }

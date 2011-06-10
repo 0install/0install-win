@@ -18,36 +18,44 @@
 using System;
 using System.Xml.Serialization;
 
-namespace ZeroInstall.DesktopIntegration.Model
+namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Makes an application a default program of some kind (e.g. default web-browser, default e-mail client, ...).
+    /// Represents an application's listing in Windows Vista/7's "Default Programs".
     /// </summary>
-    /// <seealso cref="ZeroInstall.Model.Capabilities.DefaultProgram"/>
-    [XmlType("default-program", Namespace = XmlNamespace)]
-    public class DefaultProgram : CapabilityAccessPoint, IEquatable<DefaultProgram>
+    [XmlType("app-registration", Namespace = XmlNamespace)]
+    public class AppRegistration : Capability, IEquatable<AppRegistration>
     {
+        #region Properties
+        /// <inheritdoc/>
+        public override bool GlobalOnly { get { return true; } }
+
+        // ToDo
+        #endregion
+
+        //--------------------//
+
         #region Conversion
         /// <summary>
-        /// Returns the access point in the form "DefaultProgram". Not safe for parsing!
+        /// Returns the capability in the form "AppRegistration". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("DefaultProgram");
+            return string.Format("AppRegistration");
         }
         #endregion
 
         #region Clone
         /// <inheritdoc/>
-        public override AccessPoint CloneAccessPoint()
+        public override Capability CloneCapability()
         {
-            return new DefaultProgram {Capability = Capability};
+            return new AppRegistration {ID = ID};
         }
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(DefaultProgram other)
+        public bool Equals(AppRegistration other)
         {
             if (other == null) return false;
 
@@ -59,7 +67,7 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(DefaultProgram) && Equals((DefaultProgram)obj);
+            return obj.GetType() == typeof(AppRegistration) && Equals((AppRegistration)obj);
         }
 
         /// <inheritdoc/>

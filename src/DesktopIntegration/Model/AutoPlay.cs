@@ -27,12 +27,6 @@ namespace ZeroInstall.DesktopIntegration.Model
     [XmlType("auto-play", Namespace = XmlNamespace)]
     public class AutoPlay : CapabilityAccessPoint, IEquatable<AutoPlay>
     {
-        #region Properties
-        // ToDo
-        #endregion
-
-        //--------------------//
-
         #region Conversion
         /// <summary>
         /// Returns the access point in the form "AutoPlay". Not safe for parsing!

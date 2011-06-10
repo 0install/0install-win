@@ -27,12 +27,6 @@ namespace ZeroInstall.DesktopIntegration.Model
     [XmlType("file-type", Namespace = XmlNamespace)]
     public class FileType : CapabilityAccessPoint, IEquatable<FileType>
     {
-        #region Properties
-        // ToDo
-        #endregion
-
-        //--------------------//
-
         #region Conversion
         /// <summary>
         /// Returns the access point in the form "FileType: Capability". Not safe for parsing!

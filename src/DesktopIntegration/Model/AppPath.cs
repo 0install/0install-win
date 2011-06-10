@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.DesktopIntegration.Model
@@ -27,18 +28,23 @@ namespace ZeroInstall.DesktopIntegration.Model
     public class AppPath : CommandAccessPoint, IEquatable<AppPath>
     {
         #region Properties
-        // ToDo
+        /// <summary>
+        /// The file name for the place holder EXE (including the file extension).
+        /// </summary>
+        [Description("The file name for the place holder EXE (including the file extension).")]
+        [XmlAttribute("name")]
+        public string Name { get; set; }
         #endregion
 
         //--------------------//
 
         #region Conversion
         /// <summary>
-        /// Returns the access point in the form "AppPath". Not safe for parsing!
+        /// Returns the access point in the form "AppPath: Name (Command)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("AppPath");
+            return string.Format("AppPath: {0} ({1})", Name, Command);
         }
         #endregion
 
@@ -46,7 +52,7 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new AppPath {Command = Command};
+            return new AppPath {Command = Command, Name = Name};
         }
         #endregion
 
@@ -56,7 +62,8 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             if (other == null) return false;
 
-            return base.Equals(other);
+            return base.Equals(other) &&
+                other.Name == Name;
         }
 
         /// <inheritdoc/>
@@ -73,6 +80,7 @@ namespace ZeroInstall.DesktopIntegration.Model
             unchecked
             {
                 int result = base.GetHashCode();
+                result = (result * 397) ^ (Name ?? "").GetHashCode();
                 return result;
             }
         }

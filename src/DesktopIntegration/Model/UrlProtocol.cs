@@ -27,12 +27,6 @@ namespace ZeroInstall.DesktopIntegration.Model
     [XmlType("url-protocol", Namespace = XmlNamespace)]
     public class UrlProtocol : CapabilityAccessPoint, IEquatable<UrlProtocol>
     {
-        #region Properties
-        // ToDo
-        #endregion
-
-        //--------------------//
-
         #region Conversion
         /// <summary>
         /// Returns the access point in the form "UrlProtocol: Capability". Not safe for parsing!

@@ -22,10 +22,10 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Describes an action that can be performed on a file type.
+    /// Describes the mapping of an action/verb (e.g. open, edit, ...) to a <see cref="Model.Command"/>.
     /// </summary>
     [XmlType("verb", Namespace = Capability.XmlNamespace)]
-    public struct FileTypeVerb : IEquatable<FileTypeVerb>
+    public struct Verb : IEquatable<Verb>
     {
         #region Constants
         /// <summary>
@@ -73,6 +73,13 @@ namespace ZeroInstall.Model.Capabilities
         public string Name { get; set; }
 
         /// <summary>
+        /// A human-readable description of the verb as an alternative to <see cref="Name"/>.
+        /// </summary>
+        [Description("A human-readable description of the verb as an alternative to Name.")]
+        [XmlAttribute("description"), DefaultValue("")]
+        public string Description { get; set; }
+
+        /// <summary>
         /// The name of the command in the <see cref="Feed"/> to use when launching via this capability.
         /// </summary>
         [Description("The name of the command in the feed to use when launching via this capability.")]
@@ -84,7 +91,7 @@ namespace ZeroInstall.Model.Capabilities
         /// </summary>
         /// <remarks>Leaving this empty will pass in the path of the file being opened directly.</remarks>
         [Description("A custom arguments list to be passed to the command. %1 will be replaced with the path of the file being opened.")]
-        [XmlAttribute("arguments")]
+        [XmlAttribute("args"), DefaultValue("")]
         public string Arguments { get; set; }
 
         /// <summary>
@@ -109,19 +116,19 @@ namespace ZeroInstall.Model.Capabilities
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(FileTypeVerb other)
+        public bool Equals(Verb other)
         {
-            return other.Name == Name && other.Command == Command && other.Arguments == Arguments && other.Extended == Extended;
+            return other.Name == Name && other.Description == Description && other.Command == Command && other.Arguments == Arguments && other.Extended == Extended;
         }
 
         /// <inheritdoc/>
-        public static bool operator ==(FileTypeVerb left, FileTypeVerb right)
+        public static bool operator ==(Verb left, Verb right)
         {
             return left.Equals(right);
         }
 
         /// <inheritdoc/>
-        public static bool operator !=(FileTypeVerb left, FileTypeVerb right)
+        public static bool operator !=(Verb left, Verb right)
         {
             return !left.Equals(right);
         }
@@ -130,7 +137,7 @@ namespace ZeroInstall.Model.Capabilities
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            return obj.GetType() == typeof(FileTypeVerb) && Equals((FileTypeVerb)obj);
+            return obj.GetType() == typeof(Verb) && Equals((Verb)obj);
         }
 
         /// <inheritdoc/>
@@ -139,6 +146,7 @@ namespace ZeroInstall.Model.Capabilities
             unchecked
             {
                 int result = (Name ?? "").GetHashCode();
+                result = (result * 397) ^ (Description ?? "").GetHashCode();
                 result = (result * 397) ^ (Command ?? "").GetHashCode();
                 result = (result * 397) ^ (Arguments ?? "").GetHashCode();
                 result = (result * 397) ^ Extended.GetHashCode();

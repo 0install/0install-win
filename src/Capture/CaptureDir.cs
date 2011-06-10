@@ -116,16 +116,16 @@ namespace ZeroInstall.Capture
             string installationDir = GetInstallationDir(snapshotDiff);
             var commands = GetCommands(installationDir);
 
-            // ToDo: URL protocols (cross-reference with snapshotDiff.RegisteredApplications)
-            // ToDo: context menus
-            // ToDo: snapshotDiff.RegisteredApplications
+            // ToDo: snapshotDiff.ProtocolAssocs
+            // ToDo: snapshotDiff.*ContextMenuSimple
+            // ToDo: snapshotDiff.RegisteredApplications (also pull additional URL protcols from here)
             // ToDo: snapshotDiff.Games
 
             var capabilities = new CapabilityList {Architecture = new Architecture(OS.Windows, Cpu.All)};
             try
             {
                 CollectFileTypes(snapshotDiff, capabilities, commands);
-                CollectAutoPlays(snapshotDiff, capabilities);
+                CollectAutoPlays(snapshotDiff, capabilities, commands);
             }
             #region Error handling
             catch (SecurityException ex)
@@ -194,7 +194,7 @@ namespace ZeroInstall.Capture
 
         #region Collect file types
         /// <summary>
-        /// Collects data about file types indicated by a snapshot diff.
+        /// Collects data about file types and also URL protocol handlers indicated by a snapshot diff.
         /// </summary>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
@@ -214,80 +214,122 @@ namespace ZeroInstall.Capture
             {
                 if (string.IsNullOrEmpty(progID)) continue;
                 var fileType = GetFileType(progID, snapshotDiff, commands);
-                if (fileType != null)  capabilities.Entries.Add(fileType);
+                if (fileType != null) capabilities.Entries.Add(fileType);
             }
         }
 
         /// <summary>
-        /// Retreives data about a specific file type from a snapshot diff.
+        /// Retreives data about a specific file type or URL protocol from a snapshot diff.
         /// </summary>
         /// <param name="progID">The programatic identifier of the file type.</param>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
         /// <param name="commands">A list of commands that can be uses to start the application.</param>
+        /// <returns>Data about the file type or <see paramref="null"/> if no file type for this <paramref name="progID"/> was detected.</returns>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static FileType GetFileType(string progID, Snapshot snapshotDiff, IEnumerable<Command> commands)
+        private static VerbCapability GetFileType(string progID, Snapshot snapshotDiff, IEnumerable<Command> commands)
         {
-            FileType fileType;
-
             using (var progIDKey = Registry.ClassesRoot.OpenSubKey(progID))
             {
                 if (progIDKey == null) return null;
 
-                fileType = new FileType
-                {
-                    ID = progID,
-                    Description = progIDKey.GetValue("", "").ToString()
-                };
+                VerbCapability capability;
+                if (progIDKey.GetValue(DesktopIntegration.Windows.UrlProtocol.ProtocolFlag) == null)
+                { // Normal file type
+                    var fileType = new FileType
+                    {
+                        ID = progID,
+                        Description = progIDKey.GetValue("", "").ToString()
+                    };
+
+                    foreach (var fileAssoc in snapshotDiff.FileAssocs)
+                    {
+                        if (fileAssoc.Value != progID || string.IsNullOrEmpty(fileAssoc.Key)) continue;
+
+                        using (var assocKey = Registry.ClassesRoot.OpenSubKey(fileAssoc.Key))
+                        {
+                            if (assocKey == null) continue;
+
+                            fileType.Extensions.Add(new FileTypeExtension
+                            {
+                                Value = fileAssoc.Key,
+                                MimeType = assocKey.GetValue("Content Type", "").ToString(),
+                                PerceivedType = assocKey.GetValue("PerceivedType", "").ToString()
+                            });
+                        }
+                    }
+
+                    // Only return file types that have extensions associated with them
+                    if (fileType.Extensions.IsEmpty) return null;
+
+                    capability = fileType;
+                }
+                else
+                { // URL protocol handler
+                    capability = new UrlProtocol
+                    {
+                        ID = progID,
+                        Description = progIDKey.GetValue("", "").ToString(),
+                        Prefix = progID
+                    };
+                }
 
                 using (var shellKey = progIDKey.OpenSubKey("shell"))
                 {
                     if (shellKey == null) return null;
 
-                    foreach (string verb in shellKey.GetSubKeyNames())
+                    foreach (string verbName in shellKey.GetSubKeyNames())
                     {
-                        using (var verbCommandKey = shellKey.OpenSubKey(verb + @"\command"))
-                        {
-                            if (verbCommandKey == null) continue;
-
-                            string verbCommand = verbCommandKey.GetValue("", "").ToString();
-                            foreach (var command in commands)
-                            {
-                                // ToDo: Make more elegant
-                                if (verbCommand.Contains(command.Path))
-                                {
-                                    fileType.Verbs.Add(new FileTypeVerb
-                                    {
-                                        Name = verb,
-                                        Command = command.Name
-                                    });
-                                    break;
-                                }
-                            }
-                        }
+                        var verb = GetVerb(progID, verbName, commands);
+                        if (verb != default(Verb)) capability.Verbs.Add(verb);
                     }
                 }
-            }
 
-            foreach (var fileAssoc in snapshotDiff.FileAssocs)
+                return capability;
+            }
+        }
+
+        /// <summary>
+        /// Retreives data about a verb (an executable command) from the registry.
+        /// </summary>
+        /// <param name="progID">The programatic indentifier the verb is associated with.</param>
+        /// <param name="verb">The internal name of the verb.</param>
+        /// <param name="commands">A list of commands that can be uses to start the application.</param>
+        private static Verb GetVerb(string progID, string verb, IEnumerable<Command> commands)
+        {
+            using (var verbKey = Registry.ClassesRoot.OpenSubKey(progID + @"\shell\" + verb))
             {
-                if (fileAssoc.Value != progID || string.IsNullOrEmpty(fileAssoc.Key)) continue;
+                if (verbKey == null) return default(Verb);
 
-                using (var assocKey = Registry.ClassesRoot.OpenSubKey(fileAssoc.Key))
+                string description = verbKey.GetValue("", "").ToString();
+                string commandString;
+                using (var commandKey = verbKey.OpenSubKey("command"))
                 {
-                    if (assocKey == null) continue;
-
-                    fileType.Extensions.Add(new FileTypeExtension
-                    {
-                        Value = fileAssoc.Key,
-                        MimeType = assocKey.GetValue("Content Type", "").ToString(),
-                        PerceivedType = assocKey.GetValue("PerceivedType", "").ToString()
-                    });
+                    if (commandKey == null) return default(Verb);
+                    commandString = commandKey.GetValue("", "").ToString();
                 }
-            }
 
-            return fileType;
+                foreach (var command in commands)
+                {
+                    // ToDo: Make more elegant
+                    if (commandString.Contains(command.Path))
+                    {
+                        // Isolate arguments
+                        string arguments = StringUtils.GetRightPartAtFirstOccurrence(commandString, command.Path + "\" ");
+                        if (arguments == DesktopIntegration.Windows.FileType.DefaultArguments) arguments = null;
+
+                        return new Verb
+                        {
+                            Name = verb,
+                            Description = description,
+                            Command = command.Name,
+                            Arguments = arguments
+                        };
+                    }
+                }
+                return default(Verb);
+            }
         }
         #endregion
 
@@ -297,10 +339,11 @@ namespace ZeroInstall.Capture
         /// </summary>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
+        /// <param name="commands">A list of commands that can be uses to start the application.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static void CollectAutoPlays(Snapshot snapshotDiff, CapabilityList capabilities)
+        private static void CollectAutoPlays(Snapshot snapshotDiff, CapabilityList capabilities, IEnumerable<Command> commands)
         {
             #region Sanity checks
             if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
@@ -309,13 +352,13 @@ namespace ZeroInstall.Capture
 
             foreach (string handler in snapshotDiff.AutoPlayHandlersUser)
             {
-                var autoPlay = GetAutoPlay(handler, Registry.CurrentUser, snapshotDiff.AutoPlayAssocsUser);
+                var autoPlay = GetAutoPlay(handler, Registry.CurrentUser, snapshotDiff.AutoPlayAssocsUser, commands);
                 if (autoPlay != null) capabilities.Entries.Add(autoPlay);
             }
 
             foreach (string handler in snapshotDiff.AutoPlayHandlersMachine)
             {
-                var autoPlay = GetAutoPlay(handler, Registry.LocalMachine, snapshotDiff.AutoPlayAssocsMachine);
+                var autoPlay = GetAutoPlay(handler, Registry.LocalMachine, snapshotDiff.AutoPlayAssocsMachine, commands);
                 if (autoPlay != null) capabilities.Entries.Add(autoPlay);
             }
         }
@@ -326,10 +369,11 @@ namespace ZeroInstall.Capture
         /// <param name="handler">The internal name of the AutoPlay handler.</param>
         /// <param name="hive">The registry hive to search in (usually HKCU or HKLM).</param>
         /// <param name="autoPlayAssocs">A list of associations of an AutoPlay events with an AutoPlay handlers</param>
+        /// <param name="commands">A list of commands that can be uses to start the application.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static Capability GetAutoPlay(string handler, RegistryKey hive, IEnumerable<ComparableTuple<string>> autoPlayAssocs)
+        private static Capability GetAutoPlay(string handler, RegistryKey hive, IEnumerable<ComparableTuple<string>> autoPlayAssocs, IEnumerable<Command> commands)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -341,13 +385,15 @@ namespace ZeroInstall.Capture
             {
                 if (handlerKey == null) return null;
 
+                string progID = handlerKey.GetValue("InvokeProgID", "").ToString();
+                string verbName = handlerKey.GetValue("InvokeVerb", "").ToString();
                 var autoPlay = new AutoPlay
                 {
                     ID = handler,
                     Provider = handlerKey.GetValue("Provider", "").ToString(),
                     Description = handlerKey.GetValue("Description", "").ToString(),
-                    FileTypeID = handlerKey.GetValue("InvokeProgID", "").ToString(),
-                    FileTypeIDVerb = handlerKey.GetValue("InvokeVerb", "").ToString()
+                    ProgID = progID,
+                    Verb = GetVerb(progID, verbName, commands)
                 };
 
                 foreach (var autoPlayAssoc in autoPlayAssocs)

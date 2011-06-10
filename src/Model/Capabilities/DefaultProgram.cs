@@ -16,32 +16,80 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Represents an application's ability to act as default program of some kind (e.g. default web-browser, default e-mail client, ...).
+    /// Represents an application's ability to provide some service (e.g. default web-browser, default e-mail client, ...).
     /// </summary>
     [XmlType("default-program", Namespace = XmlNamespace)]
-    public class DefaultProgram : Capability, IEquatable<DefaultProgram>
+    public class DefaultProgram : VerbCapability, IEquatable<DefaultProgram>
     {
+        #region Constants
+        /// <summary>
+        /// Canonical <see cref="Service"/> for web browsers.
+        /// </summary>
+        public const string ServiceInternet = "Internet";
+
+        /// <summary>
+        /// Canonical <see cref="Service"/> for mail clients.
+        /// </summary>
+        public const string ServiceMail = "Mail";
+
+        /// <summary>
+        /// Canonical <see cref="Service"/> for media players.
+        /// </summary>
+        public const string ServiceMedia = "Media";
+
+        /// <summary>
+        /// Canonical <see cref="Service"/> for instant messengers.
+        /// </summary>
+        public const string ServiceMessenger = "IM";
+
+        /// <summary>
+        /// Canonical <see cref="Service"/> for Java Virtual Machines.
+        /// </summary>
+        public const string ServiceJava = "JVM";
+
+        /// <summary>
+        /// Canonical <see cref="Service"/> for calender tools.
+        /// </summary>
+        public const string ServiceCalender = "Calender";
+
+        /// <summary>
+        /// Canonical <see cref="Service"/> for address books.
+        /// </summary>
+        public const string ServiceContacts = "Contacts";
+
+        /// <summary>
+        /// Canonical <see cref="Service"/> for internet call tools.
+        /// </summary>
+        public const string ServiceInternetCall = "Internet Call";
+        #endregion
+
         #region Properties
         /// <inheritdoc/>
         public override bool GlobalOnly { get { return true; } }
 
-        // ToDo
+        /// <summary>
+        /// The name of the service such as "Internet", "Mail", "Media" etc.. Always use a canonical name when possible.
+        /// </summary>
+        [Description("The name of the service such as \"Internet\", \"Mail\", \"Media\", etc..  Always use a canonical name when possible.")]
+        [XmlAttribute("service")]
+        public string Service { get; set; }
         #endregion
 
         //--------------------//
 
         #region Conversion
         /// <summary>
-        /// Returns the capability in the form "DefaultProgram". Not safe for parsing!
+        /// Returns the capability in the form "DefaultProgram: Service (ID)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("DefaultProgam");
+            return string.Format("DefaultProgram : {0} ({1})", Service, ID);
         }
         #endregion
 
@@ -49,7 +97,10 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability CloneCapability()
         {
-            return new DefaultProgram {ID = ID};
+            var capability = new DefaultProgram {ID = ID, Description = Description, Service = Service};
+            capability.Icons.AddAll(Icons);
+            capability.Verbs.AddAll(Verbs);
+            return capability;
         }
         #endregion
 
@@ -59,7 +110,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (other == null) return false;
 
-            return base.Equals(other);
+            return base.Equals(other) && other.Service == Service;
         }
 
         /// <inheritdoc/>
@@ -76,6 +127,7 @@ namespace ZeroInstall.Model.Capabilities
             unchecked
             {
                 int result = base.GetHashCode();
+                result = (result * 397) ^ (Service ?? "").GetHashCode();
                 return result;
             }
         }

@@ -40,36 +40,36 @@ namespace ZeroInstall.Model.Capabilities
         public string Provider { get; set; }
 
         /// <summary>
-        /// A human-readable description of the action such as "Burn CD".
+        /// A human-readable description of the AutoPlay operation.
         /// </summary>
-        [Description("A human-readable description of the action such as \"Burn CD\".")]
+        [Description("A human-readable description of the AutoPlay operation.")]
         [XmlAttribute("description")]
         public string Description { get; set; }
 
         // Preserve order
         private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
         /// <summary>
-        /// Zero or more icons to use for the action.
+        /// Zero or more icons to represent the AutoPlay operation.
         /// </summary>
         /// <remarks>The first compatible one is selected. If empty the application icon is used.</remarks>
-        [Description("Zero or more icons to use for the action. (The first compatible one is selected. If empty the application icon is used.)")]
+        [Description("Zero or more icons to represent the AutoPlay operation. (The first compatible one is selected. If empty the application icon is used.)")]
         [XmlElement("icon", Namespace = Feed.XmlNamespace)]
         // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.ArrayList<Icon> Icons { get { return _icons; } }
 
         /// <summary>
-        /// The <see cref="FileType"/> ID used to perform the action.
+        /// The programatic identifier used to store the <see cref="Verb"/>.
         /// </summary>
-        [Description("The FileType ID used to perform the action.")]
-        [XmlAttribute("file-type-id")]
-        public string FileTypeID { get; set; }
+        [Description("The programatic identifier used to store the Verb.")]
+        [XmlAttribute("prog-id")]
+        public string ProgID { get; set; }
 
         /// <summary>
-        /// The verb from the file type used to perform the action.
+        /// The command to execute when the handler gets called.
         /// </summary>
-        [Description("The verb from the file type used to perform the action.")]
-        [XmlAttribute("file-type-verb")]
-        public string FileTypeIDVerb { get; set; }
+        [Description("The command to execute when the handler gets called.")]
+        [XmlElement("verb")]
+        public Verb Verb { get; set; }
 
         // Preserve order
         private readonly C5.ArrayList<AutoPlayEvent> _events = new C5.ArrayList<AutoPlayEvent>();
@@ -98,7 +98,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability CloneCapability()
         {
-            var capability = new AutoPlay {ID = ID, Provider = Provider, Description = Description, FileTypeID = FileTypeID, FileTypeIDVerb = FileTypeIDVerb};
+            var capability = new AutoPlay {ID = ID, Description = Description, Provider = Provider, ProgID = ProgID, Verb = Verb};
             capability.Icons.AddAll(Icons);
             capability.Events.AddAll(Events);
             return capability;
@@ -112,7 +112,7 @@ namespace ZeroInstall.Model.Capabilities
             if (other == null) return false;
 
             return base.Equals(other) &&
-                other.Provider == Provider && other.Description == Description && other.FileTypeID == FileTypeID && other.FileTypeIDVerb == FileTypeIDVerb &&
+                other.Description == Description && other.Provider == Provider && other.ProgID == ProgID && other.Verb == Verb &&
                 Icons.SequencedEquals(other.Icons) && Events.SequencedEquals(other.Events);
         }
 
@@ -132,9 +132,10 @@ namespace ZeroInstall.Model.Capabilities
                 int result = base.GetHashCode();
                 result = (result * 397) ^ (Provider ?? "").GetHashCode();
                 result = (result * 397) ^ (Description ?? "").GetHashCode();
+                result = (result * 397) ^ (Provider ?? "").GetHashCode();
+                result = (result * 397) ^ (ProgID ?? "").GetHashCode();
+                result = (result * 397) ^ Verb.GetHashCode();
                 result = (result * 397) ^ Icons.GetSequencedHashCode();
-                result = (result * 397) ^ (FileTypeID ?? "").GetHashCode();
-                result = (result * 397) ^ (FileTypeIDVerb ?? "").GetHashCode();
                 result = (result * 397) ^ Events.GetSequencedHashCode();
                 return result;
             }

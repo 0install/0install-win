@@ -38,6 +38,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <summary>
         /// Indicates whether this capability can be registered only machine-wide and not per-user.
         /// </summary>
+        [XmlIgnore]
         public abstract bool GlobalOnly { get; }
 
         /// <summary>
