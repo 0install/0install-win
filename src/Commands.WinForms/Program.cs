@@ -57,6 +57,8 @@ namespace ZeroInstall.Commands.WinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            Log.Info("Zero Install Command WinForms GUI started with: " + args);
+
             // Automatically show help for missing args
             if (args.Length == 0) args = new[] { "--help" };
 
@@ -171,6 +173,7 @@ namespace ZeroInstall.Commands.WinForms
                 catch (SolverException ex)
                 {
                     handler.DisableProgressUI();
+                    Log.Error(ex.Message); // Solver error message are often too long for the headline, so repeat it in the log
                     ErrorBox.Show(ex.Message, errorLog.ToString());
                 }
                 catch (ImplementationNotFoundException ex)
