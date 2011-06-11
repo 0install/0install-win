@@ -1,6 +1,9 @@
 using System;
 using System.Diagnostics;
+using System.Reflection;
 using System.Text;
+
+[assembly: AssemblyTitle("[TITLE]")]
 
 public static class Stub
 {

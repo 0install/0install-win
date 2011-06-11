@@ -32,12 +32,13 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Builds a stub EXE that executes the "0install run" command.
         /// </summary>
         /// <param name="path">The target path to store the generated EXE file.</param>
-        /// <param name="icon">The path to the icon to use for the generated EXE file; may be <see langword="null"/>.</param>
         /// <param name="interfaceID">The interface to be passed to the "0install run" command.</param>
+        /// <param name="icon">The path to the icon to use for the generated EXE file; may be <see langword="null"/>.</param>
+        /// <param name="appName">The name of the application; will be encoded in the EXE's metadata.</param>
         /// <param name="command">The command argument to be passed to the the "0install run" command; may be <see langword="null"/>.</param>
         /// <param name="useGui">Set to <see langword="true"/> to use "0install-win" instead of "0install".</param>
         /// <exception cref="InvalidOperationException">Thrown if there was a compilation error whil generating the stub EXE.</exception>
-        public static void BuildRunStub(string path, string icon, string interfaceID, string command, bool useGui)
+        public static void BuildRunStub(string path, string interfaceID, string appName, string icon, string command, bool useGui)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -49,7 +50,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 : "run --command=" + command + " " + interfaceID;
 
             // Load the template code and insert variables
-            string code = GetEmbeddedResource("Stub.template").Replace("[EXE]", useGui ? "0install-win.exe" : "0install.exe").Replace("[ARGUMENTS]", args);
+            string code = GetEmbeddedResource("Stub.template").Replace("[EXE]", useGui ? "0install-win.exe" : "0install.exe").Replace("[ARGUMENTS]", args).Replace("[TITLE]", appName);
 
             // Configure the compiler
             var compilerParameters = new CompilerParameters

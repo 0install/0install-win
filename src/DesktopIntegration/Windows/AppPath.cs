@@ -63,7 +63,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     string stubPath = FileUtils.PathCombine(
                         Environment.GetFolderPath(global ? Environment.SpecialFolder.CommonApplicationData : Environment.SpecialFolder.LocalApplicationData),
                         "0install.net", "aliases", appPath.Name);
-                    StubBuilder.BuildRunStub(stubPath, null, interfaceID, appPath.Command, !needsTerminal);
+                    StubBuilder.BuildRunStub(stubPath, interfaceID, "", null, appPath.Command, !needsTerminal);
                     exeKey.SetValue("", stubPath);
                 }
             }

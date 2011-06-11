@@ -102,7 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Model\ClassDiagram.cd" />
-    <EmbeddedResource Include="Stub.template" />
+    <EmbeddedResource Include="Windows\Stub.template" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="IWshRuntimeLibrary">
