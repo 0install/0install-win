@@ -124,8 +124,9 @@ namespace ZeroInstall.Capture
             var capabilities = new CapabilityList {Architecture = new Architecture(OS.Windows, Cpu.All)};
             try
             {
-                CollectFileTypes(snapshotDiff, capabilities, commands);
-                CollectAutoPlays(snapshotDiff, capabilities, commands);
+                var commandProvider = new CommandProvider(installationDir, commands);
+                CollectFileTypes(snapshotDiff, capabilities, commandProvider);
+                CollectAutoPlays(snapshotDiff, capabilities, commandProvider);
             }
             #region Error handling
             catch (SecurityException ex)
@@ -147,6 +148,10 @@ namespace ZeroInstall.Capture
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
         private static string GetInstallationDir(Snapshot snapshotDiff)
         {
+            #region Sanity checks
+            if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
+            #endregion
+
             string installationDir;
             if (snapshotDiff.ProgramsDirs.Length == 0)
             {
@@ -198,22 +203,22 @@ namespace ZeroInstall.Capture
         /// </summary>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
-        /// <param name="commands">A list of commands that can be uses to start the application.</param>
+        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static void CollectFileTypes(Snapshot snapshotDiff, CapabilityList capabilities, IEnumerable<Command> commands)
+        private static void CollectFileTypes(Snapshot snapshotDiff, CapabilityList capabilities, CommandProvider commandProvider)
         {
             #region Sanity checks
             if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
             if (capabilities == null) throw new ArgumentNullException("capabilities");
-            if (commands == null) throw new ArgumentNullException("commands");
+            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
             #endregion
 
             foreach (string progID in snapshotDiff.ProgIDs)
             {
                 if (string.IsNullOrEmpty(progID)) continue;
-                var fileType = GetFileType(progID, snapshotDiff, commands);
+                var fileType = GetFileType(progID, snapshotDiff, commandProvider);
                 if (fileType != null) capabilities.Entries.Add(fileType);
             }
         }
@@ -223,19 +228,25 @@ namespace ZeroInstall.Capture
         /// </summary>
         /// <param name="progID">The programatic identifier of the file type.</param>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
-        /// <param name="commands">A list of commands that can be uses to start the application.</param>
+        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <returns>Data about the file type or <see paramref="null"/> if no file type for this <paramref name="progID"/> was detected.</returns>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static VerbCapability GetFileType(string progID, Snapshot snapshotDiff, IEnumerable<Command> commands)
+        private static VerbCapability GetFileType(string progID, Snapshot snapshotDiff, CommandProvider commandProvider)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(progID)) throw new ArgumentNullException("progID");
+            if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
+            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
+            #endregion
+
             using (var progIDKey = Registry.ClassesRoot.OpenSubKey(progID))
             {
                 if (progIDKey == null) return null;
 
                 VerbCapability capability;
-                if (progIDKey.GetValue(DesktopIntegration.Windows.UrlProtocol.ProtocolFlag) == null)
+                if (progIDKey.GetValue(DesktopIntegration.Windows.UrlProtocol.ProtocolIndicator) == null)
                 { // Normal file type
                     var fileType = new FileType
                     {
@@ -281,7 +292,7 @@ namespace ZeroInstall.Capture
 
                     foreach (string verbName in shellKey.GetSubKeyNames())
                     {
-                        var verb = GetVerb(progID, verbName, commands);
+                        var verb = GetVerb(progID, verbName, commandProvider);
                         if (verb != default(Verb)) capability.Verbs.Add(verb);
                     }
                 }
@@ -295,40 +306,37 @@ namespace ZeroInstall.Capture
         /// </summary>
         /// <param name="progID">The programatic indentifier the verb is associated with.</param>
         /// <param name="verb">The internal name of the verb.</param>
-        /// <param name="commands">A list of commands that can be uses to start the application.</param>
-        private static Verb GetVerb(string progID, string verb, IEnumerable<Command> commands)
+        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
+        private static Verb GetVerb(string progID, string verb, CommandProvider commandProvider)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(progID)) throw new ArgumentNullException("progID");
+            if (string.IsNullOrEmpty(verb)) throw new ArgumentNullException("verb");
+            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
+            #endregion
+
             using (var verbKey = Registry.ClassesRoot.OpenSubKey(progID + @"\shell\" + verb))
             {
                 if (verbKey == null) return default(Verb);
 
                 string description = verbKey.GetValue("", "").ToString();
-                string commandString;
+                string commandLine;
                 using (var commandKey = verbKey.OpenSubKey("command"))
                 {
                     if (commandKey == null) return default(Verb);
-                    commandString = commandKey.GetValue("", "").ToString();
+                    commandLine = commandKey.GetValue("", "").ToString();
                 }
 
-                foreach (var command in commands)
+                string additionalArgs;
+                var command = commandProvider.GetCommand(commandLine, out additionalArgs);
+                if (command == null) return default(Verb);
+                return new Verb
                 {
-                    // ToDo: Make more elegant
-                    if (commandString.Contains(command.Path))
-                    {
-                        // Isolate arguments
-                        string arguments = StringUtils.GetRightPartAtFirstOccurrence(commandString, command.Path + "\" ");
-                        if (arguments == DesktopIntegration.Windows.FileType.DefaultArguments) arguments = null;
-
-                        return new Verb
-                        {
-                            Name = verb,
-                            Description = description,
-                            Command = command.Name,
-                            Arguments = arguments
-                        };
-                    }
-                }
-                return default(Verb);
+                    Name = verb,
+                    Description = description,
+                    Command = command.Name,
+                    Arguments = additionalArgs
+                };
             }
         }
         #endregion
@@ -339,26 +347,27 @@ namespace ZeroInstall.Capture
         /// </summary>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
-        /// <param name="commands">A list of commands that can be uses to start the application.</param>
+        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static void CollectAutoPlays(Snapshot snapshotDiff, CapabilityList capabilities, IEnumerable<Command> commands)
+        private static void CollectAutoPlays(Snapshot snapshotDiff, CapabilityList capabilities, CommandProvider commandProvider)
         {
             #region Sanity checks
             if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
             if (capabilities == null) throw new ArgumentNullException("capabilities");
+            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
             #endregion
 
             foreach (string handler in snapshotDiff.AutoPlayHandlersUser)
             {
-                var autoPlay = GetAutoPlay(handler, Registry.CurrentUser, snapshotDiff.AutoPlayAssocsUser, commands);
+                var autoPlay = GetAutoPlay(handler, Registry.CurrentUser, snapshotDiff.AutoPlayAssocsUser, commandProvider);
                 if (autoPlay != null) capabilities.Entries.Add(autoPlay);
             }
 
             foreach (string handler in snapshotDiff.AutoPlayHandlersMachine)
             {
-                var autoPlay = GetAutoPlay(handler, Registry.LocalMachine, snapshotDiff.AutoPlayAssocsMachine, commands);
+                var autoPlay = GetAutoPlay(handler, Registry.LocalMachine, snapshotDiff.AutoPlayAssocsMachine, commandProvider);
                 if (autoPlay != null) capabilities.Entries.Add(autoPlay);
             }
         }
@@ -369,16 +378,17 @@ namespace ZeroInstall.Capture
         /// <param name="handler">The internal name of the AutoPlay handler.</param>
         /// <param name="hive">The registry hive to search in (usually HKCU or HKLM).</param>
         /// <param name="autoPlayAssocs">A list of associations of an AutoPlay events with an AutoPlay handlers</param>
-        /// <param name="commands">A list of commands that can be uses to start the application.</param>
+        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static Capability GetAutoPlay(string handler, RegistryKey hive, IEnumerable<ComparableTuple<string>> autoPlayAssocs, IEnumerable<Command> commands)
+        private static Capability GetAutoPlay(string handler, RegistryKey hive, IEnumerable<ComparableTuple<string>> autoPlayAssocs, CommandProvider commandProvider)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
             if (hive == null) throw new ArgumentNullException("hive");
             if (autoPlayAssocs == null) throw new ArgumentNullException("autoPlayAssocs");
+            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
             #endregion
 
             using (var handlerKey = hive.OpenSubKey(DesktopIntegration.Windows.AutoPlay.RegKeyHandlers + @"\" + handler))
@@ -393,7 +403,7 @@ namespace ZeroInstall.Capture
                     Provider = handlerKey.GetValue("Provider", "").ToString(),
                     Description = handlerKey.GetValue("Description", "").ToString(),
                     ProgID = progID,
-                    Verb = GetVerb(progID, verbName, commands)
+                    Verb = GetVerb(progID, verbName, commandProvider)
                 };
 
                 foreach (var autoPlayAssoc in autoPlayAssocs)
