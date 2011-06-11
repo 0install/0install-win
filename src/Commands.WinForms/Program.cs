@@ -57,6 +57,8 @@ namespace ZeroInstall.Commands.WinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            Log.Info("Zero Install Command WinForms GUI started with: " + args);
+
             // Automatically show help for missing args
             if (args.Length == 0) args = new[] { "--help" };
 
