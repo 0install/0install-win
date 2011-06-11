@@ -49,11 +49,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Applies an <see cref="Capabilities.FileType"/> and optionally <see cref="AccessPoints.FileType"/> to the current Windows system.
         /// </summary>
         /// <param name="interfaceID">The interface ID of the application being integrated.</param>
-        /// <param name="needsTerminal">The <see cref="Feed.NeedsTerminal"/> flag of the application being integrated.</param>
+        /// <param name="feed">The of the application to get additional information (e.g. icons) from.</param>
         /// <param name="fileType">The capability to be applied.</param>
         /// <param name="accessPoint">Flag indicating that an according <see cref="AccessPoints.FileType"/> was also set (i.e. the file association should become the default handler for the type).</param>
         /// <param name="global">Flag indicating to apply the configuration system-wide instead of just for the current user.</param>
-        public static void Apply(string interfaceID, bool needsTerminal, Capabilities.FileType fileType, bool accessPoint, bool global)
+        public static void Apply(string interfaceID, Feed feed, Capabilities.FileType fileType, bool accessPoint, bool global)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
@@ -65,8 +65,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
             {
                 using (var progIDKey = classesKey.CreateSubKey(fileType.ID))
                 {
-                    progIDKey.SetValue("", fileType.Description);
-                    
+                    if (fileType.Description != null) progIDKey.SetValue("", fileType.Description);
+
                     // ToDo: Set icon
 
                     using (var shellKey = progIDKey.CreateSubKey("shell"))
@@ -76,7 +76,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                             using (var verbKey = shellKey.CreateSubKey(verb.Name))
                             using (var commandKey = verbKey.CreateSubKey("command"))
                             {
-                                string launchCommand = "\"" + Path.Combine(Locations.InstallBase, needsTerminal ? "0install.exe" : "0install-win.exe") + "\" run ";
+                                string launchCommand = "\"" + Path.Combine(Locations.InstallBase, feed.NeedsTerminal ? "0install.exe" : "0install-win.exe") + "\" run ";
                                 if (!string.IsNullOrEmpty(verb.Command))
                                     launchCommand += "--command=" + StringUtils.EscapeWhitespace(verb.Command) + " ";
                                 launchCommand += StringUtils.EscapeWhitespace(interfaceID) + " " + (string.IsNullOrEmpty(verb.Arguments) ? DefaultArguments : verb.Arguments);

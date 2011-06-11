@@ -38,10 +38,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Applies an <see cref="AccessPoints.AppPath"/> to the current Windows system.
         /// </summary>
         /// <param name="interfaceID">The interface ID of the application being integrated.</param>
-        /// <param name="needsTerminal">The <see cref="Feed.NeedsTerminal"/> flag of the application being integrated.</param>
+        /// <param name="feed">The of the application to get additional information (e.g. icons) from.</param>
         /// <param name="appPath">The access point to be applied.</param>
         /// <param name="global">Flag indicating to apply the configuration system-wide instead of just for the current user.</param>
-        public static void Apply(string interfaceID, bool needsTerminal, AccessPoints.AppPath appPath, bool global)
+        public static void Apply(string interfaceID, Feed feed, AccessPoints.AppPath appPath, bool global)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
@@ -63,7 +63,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     string stubPath = FileUtils.PathCombine(
                         Environment.GetFolderPath(global ? Environment.SpecialFolder.CommonApplicationData : Environment.SpecialFolder.LocalApplicationData),
                         "0install.net", "aliases", appPath.Name);
-                    StubBuilder.BuildRunStub(stubPath, interfaceID, "", null, appPath.Command, !needsTerminal);
+                    
+                    // ToDo: Get icon
+                    StubBuilder.BuildRunStub(stubPath, interfaceID, feed.Name, null, appPath.Command, !feed.NeedsTerminal);
                     exeKey.SetValue("", stubPath);
                 }
             }
