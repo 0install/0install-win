@@ -18,7 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Common;
+using System.Text;
 using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
@@ -71,6 +71,17 @@ namespace ZeroInstall.Fetchers
         #endregion
 
         //--------------------//
+
+        #region Conversion
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            var builder = new StringBuilder("FetchRequest:");
+            foreach (var implementation in Implementations)
+                builder.AppendLine((implementation == null) ? null : implementation.ToString());
+            return builder.ToString();
+        }
+        #endregion
 
         #region Equality
         /// <inheritdoc/>
