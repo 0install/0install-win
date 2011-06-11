@@ -80,11 +80,16 @@ namespace ZeroInstall.Injector.Solver
 
             var feed = FeedTest.CreateTestFeed();
             var selections = CreateTestSelections();
+            selections.Implementations.Add(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"});
 
-            // Pretend the first implementation isn't cached but the second is
+            // Return the generated feed and an empty one (close enough to a point to PackageImplementations)
             cacheMock.ExpectAndReturn("GetFeed", feed, new Uri("http://0install.de/feeds/test/sub1.xml"));
+            cacheMock.ExpectAndReturn("GetFeed", new Feed(), new Uri("http://0install.de/feeds/test/dummy.xml"));
+
+            // Pretend the first implementation isn't cached, the second is and the third isn't
             storeMock.ExpectAndReturn("Contains", false, selections.Implementations[0].ManifestDigest);
             storeMock.ExpectAndReturn("Contains", true, selections.Implementations[1].ManifestDigest);
+            storeMock.ExpectAndReturn("Contains", false, default(ManifestDigest));
 
             var implementations = selections.ListUncachedImplementations((IStore)storeMock.MockInstance, (IFeedCache)cacheMock.MockInstance);
 

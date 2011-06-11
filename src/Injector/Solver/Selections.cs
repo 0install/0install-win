@@ -197,7 +197,8 @@ namespace ZeroInstall.Injector.Solver
 
                 // If not, get download information for the implementation by checking the original feed
                 Feed feed = feedCache.GetFeed(implementation.FromFeed ?? implementation.InterfaceID);
-                notCached.Add(feed.GetImplementation(implementation.ID));
+                var downloadableImplementation = feed.GetImplementation(implementation.ID);
+                if (downloadableImplementation != null) notCached.Add(downloadableImplementation);
             }
 
             return notCached;
