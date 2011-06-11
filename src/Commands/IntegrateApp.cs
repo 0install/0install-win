@@ -16,24 +16,25 @@
  */
 
 using System;
+using Common.Storage;
 using Common.Utils;
-using NDesk.Options;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.DesktopIntegration.Model;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Configure how an application is integrated into the desktop environment using <see cref="AccessPoint"/>s.
+    /// Integrate an application into the desktop environment.
     /// </summary>
     [CLSCompliant(false)]
-    public sealed class IntegrateApp : CommandBase
+    public sealed class IntegrateApp : AppCommand
     {
         #region Variables
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public const string Name = "integrate-app";
+
+        private bool _fileAssoc;
         #endregion
 
         #region Properties
@@ -48,7 +49,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public IntegrateApp(Policy policy) : base(policy)
         {
-            // ToDo: Options
+            Options.Add("assoc", Resources.OptionIntegrateAssoc, unused => _fileAssoc = true);
         }
         #endregion
 
@@ -58,17 +59,28 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            #region Sanity checks
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count == 0) throw new OptionException(Resources.MissingArguments, "");
-            if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
-            #endregion
+            if (Locations.IsPortable) throw new InvalidOperationException(Resources.NotAvailableInPortableMode);
 
-            // ToDo: Display warning in portable mode
+            return base.Execute();
+        }
 
-            string interfaceID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
+        /// <inheritdoc/>
+        protected override int ExecuteHelper(string interfaceID, Feed feed)
+        {
+            // ToDo: Move logic into backend
+            foreach (var capabilityList in feed.CapabilityLists)
+            {
+                if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
 
-            // ToDo
+                foreach (var capability in capabilityList.Entries)
+                {
+                    var fileType = capability as Model.Capabilities.FileType;
+                    if (fileType != null && WindowsUtils.IsWindows)
+                        DesktopIntegration.Windows.FileType.Apply(interfaceID, feed, fileType, _fileAssoc, Global);
+                }
+
+                WindowsUtils.NotifyAssocChanged();
+            }
             return 0;
         }
         #endregion

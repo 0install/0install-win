@@ -126,33 +126,43 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.AddApp">
-    <Position X="14.75" Y="4.5" Width="1.5" />
+    <Position X="14.75" Y="6.5" Width="1.25" />
     <Members>
       <Method Name="AddApp" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>AddApp.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.IntegrateApp">
-    <Position X="18.25" Y="4.5" Width="1.5" />
+    <Position X="17.75" Y="6.5" Width="1.25" />
     <Members>
       <Method Name="IntegrateApp" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IntegrateApp.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.RemoveApp">
-    <Position X="16.5" Y="4.5" Width="1.5" />
+    <Position X="16.25" Y="6.5" Width="1.25" />
     <Members>
       <Method Name="RemoveApp" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>RemoveApp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.AppCommand">
+    <Position X="16" Y="4.5" Width="1.75" />
+    <Members>
+      <Method Name="AppCommand" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AppCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

@@ -16,8 +16,6 @@
  */
 
 using System;
-using Common.Utils;
-using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
@@ -25,10 +23,10 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Add an application to the application list and integrate it into the desktop environment.
+    /// Add an application to the application list.
     /// </summary>
     [CLSCompliant(false)]
-    public sealed class AddApp : CommandBase
+    public sealed class AddApp : AppCommand
     {
         #region Variables
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
@@ -53,19 +51,9 @@ namespace ZeroInstall.Commands
 
         #region Execute
         /// <inheritdoc/>
-        public override int Execute()
+        protected override int ExecuteHelper(string interfaceID, Feed feed)
         {
-            #region Sanity checks
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count == 0) throw new OptionException(Resources.MissingArguments, "");
-            if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
-            #endregion
-
-            // ToDo: Display warning in portable mode
-
-            string interfaceID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
-
-            // ToDo
+            // ToDo: Implement
             return 0;
         }
         #endregion

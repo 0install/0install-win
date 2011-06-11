@@ -139,7 +139,7 @@
     <value>Command-line arguments:</value>
   </data>
   <data name="DescriptionAddApp" xml:space="preserve">
-    <value>Add an application to the application list and integrate it into the desktop environment.</value>
+    <value>Add an application to the application list.</value>
   </data>
   <data name="DescriptionAddFeed" xml:space="preserve">
     <value>Register an additional source of implementations (versions) of a program.</value>
@@ -154,7 +154,7 @@
     <value>Import a feed from a local file, as if it had been downloaded from the network. This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again. The file must have a trusted digital signature, as when fetching from the network.</value>
   </data>
   <data name="DescriptionIntegrateApp" xml:space="preserve">
-    <value>Configure how an application is integrated into the desktop environment.</value>
+    <value>Integrate an application into the desktop environment.</value>
   </data>
   <data name="DescriptionList" xml:space="preserve">
     <value>List all known interface (program) URIs. If a search term is given, only URIs containing that string are shown (case insensitive).</value>
@@ -163,7 +163,7 @@
     <value>List all extra feeds added to URI using '0install add-feed'.</value>
   </data>
   <data name="DescriptionRemoveApp" xml:space="preserve">
-    <value>Remove an application from the application list and the desktop environment.</value>
+    <value>Remove an application from the application list and undoes any desktop environment integration.</value>
   </data>
   <data name="DescriptionRemoveFeed" xml:space="preserve">
     <value>Un-register a feed, reversing the effect of 'add-feed'. </value>
@@ -219,6 +219,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
     <value>Can only update with Feed IDs, not with selections documents.</value>
   </data>
+  <data name="NotAvailableInPortableMode" xml:space="preserve">
+    <value>This operation is not avialable in portable mode.</value>
+  </data>
   <data name="NotParsed" xml:space="preserve">
     <value>Parse hasn't been called yet.</value>
   </data>
@@ -238,11 +241,20 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
     <value>Forces the solver to target the CPU {CPU}.
 Supported values: i386, i486, i586, i686, x86_64, ppc, ppc64</value>
   </data>
+  <data name="OptionForce" xml:space="preserve">
+    <value>Ignore warnings and perform the operation anyway.</value>
+  </data>
+  <data name="OptionGlobal" xml:space="preserve">
+    <value>Apply the configuration system-wide instead of just for the current user.</value>
+  </data>
   <data name="OptionGui" xml:space="preserve">
     <value>Show the graphical policy editor. This allows you to select which version of a program or library to use.</value>
   </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Show the built-in help text.</value>
+  </data>
+  <data name="OptionIntegrateAssoc" xml:space="preserve">
+    <value>Set the application as default handler for all file types it can open.</value>
   </data>
   <data name="OptionMain" xml:space="preserve">
     <value>Run the specified executable {MAIN} instead of the default. If it starts with '/' or '\' then the path is relative to the implementation's top-level directory, whereas otherwise it is relative to the directory containing the default main program.</value>

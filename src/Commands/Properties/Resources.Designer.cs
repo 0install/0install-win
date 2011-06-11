@@ -124,7 +124,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add an application to the application list and integrate it into the desktop environment..
+        ///   Looks up a localized string similar to Add an application to the application list..
         /// </summary>
         internal static string DescriptionAddApp {
             get {
@@ -169,7 +169,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configure how an application is integrated into the desktop environment..
+        ///   Looks up a localized string similar to Integrate an application into the desktop environment..
         /// </summary>
         internal static string DescriptionIntegrateApp {
             get {
@@ -196,7 +196,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove an application from the application list and the desktop environment..
+        ///   Looks up a localized string similar to Remove an application from the application list and undoes any desktop environment integration..
         /// </summary>
         internal static string DescriptionRemoveApp {
             get {
@@ -361,6 +361,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This operation is not avialable in portable mode..
+        /// </summary>
+        internal static string NotAvailableInPortableMode {
+            get {
+                return ResourceManager.GetString("NotAvailableInPortableMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parse hasn&apos;t been called yet..
         /// </summary>
         internal static string NotParsed {
@@ -416,6 +425,24 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ignore warnings and perform the operation anyway..
+        /// </summary>
+        internal static string OptionForce {
+            get {
+                return ResourceManager.GetString("OptionForce", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply the configuration system-wide instead of just for the current user..
+        /// </summary>
+        internal static string OptionGlobal {
+            get {
+                return ResourceManager.GetString("OptionGlobal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show the graphical policy editor. This allows you to select which version of a program or library to use..
         /// </summary>
         internal static string OptionGui {
@@ -430,6 +457,15 @@ namespace ZeroInstall.Commands.Properties {
         internal static string OptionHelp {
             get {
                 return ResourceManager.GetString("OptionHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set the application as default handler for all file types it can open..
+        /// </summary>
+        internal static string OptionIntegrateAssoc {
+            get {
+                return ResourceManager.GetString("OptionIntegrateAssoc", resourceCulture);
             }
         }
         

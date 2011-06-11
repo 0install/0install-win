@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="AddApp.cs" />
     <Compile Include="AddFeed.cs" />
+    <Compile Include="AppCommand.cs" />
     <Compile Include="CliHandler.cs" />
     <Compile Include="CommandBase.cs" />
     <Compile Include="CommandFactory.cs" />

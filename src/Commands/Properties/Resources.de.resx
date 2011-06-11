@@ -173,6 +173,9 @@
   <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
     <value>Kann nur mit Feed IDs aktualisieren, nicht mit Selections Dokumenten.</value>
   </data>
+  <data name="NotAvailableInPortableMode" xml:space="preserve">
+    <value>Dieser Vorgang steht im Portable Modus nicht zur Verfügung.</value>
+  </data>
   <data name="NotParsed" xml:space="preserve">
     <value>Parse wurde noch nicht aufgerufen.</value>
   </data>
