@@ -57,6 +57,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (feed == null) throw new ArgumentNullException("feed");
             if (fileType == null) throw new ArgumentNullException("fileType");
             #endregion
 
