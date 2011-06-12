@@ -34,18 +34,19 @@ namespace ZeroInstall.Model.Capabilities
         public static CapabilityList CreateTestCapabilityList()
         {
             var testIcon = new Icon(new Uri("http://0install.de/feeds/icons/test.ico"), "image/vnd.microsoft.icon");
+            var testVerb = new Verb {Name = Verb.NameOpen, Command = Command.NameRun, Arguments = "--open"};
             return new CapabilityList
             {
                 Architecture = new Architecture(OS.Windows, Cpu.All),
                 Entries =
                 {
-                    new AutoPlay {ID = "autoplay", Description = "Do somthing", Icons = {testIcon}, Provider = "MyApp", ProgID = "MyApp.Burn", Verb = new Verb {Name = Verb.NameOpen, Command = Command.NameRun, Arguments = "--open"}, Events = {new AutoPlayEvent {Name = AutoPlayEvent.NameBurnCD}}},
+                    new AutoPlay {ID = "autoplay", Description = "Do somthing", Icons = {testIcon}, Provider = "MyApp", ProgID = "MyApp.Burn", Verb = testVerb, Events = {new AutoPlayEvent {Name = AutoPlayEvent.NameBurnCD}}},
                     new ComServer {ID = "com-server"},
-                    new ContextMenu {ID = "context-menu"},
-                    new DefaultProgram {ID = "default-program", Description = "My mail client", Icons = {testIcon}, Verbs = {new Verb {Name = Verb.NameOpen, Command = Command.NameRun, Arguments = "--open"}}, Service = "Mail"},
-                    new FileType {ID = "my_ext", Description = "Text file", Icons = {testIcon}, Extensions = {new FileTypeExtension {Value = "txt", MimeType = "text/plain"}}, Verbs = {new Verb {Name = Verb.NameOpen, Command = Command.NameRun, Arguments = "--open"}}},
+                    new ContextMenu {ID = "context-menu", AllObjects = true, Verb = testVerb},
+                    new DefaultProgram {ID = "default-program", Description = "My mail client", Icons = {testIcon}, Verbs = {testVerb}, Service = "Mail"},
+                    new FileType {ID = "my_ext", Description = "Text file", Icons = {testIcon}, Extensions = {new FileTypeExtension {Value = "txt", MimeType = "text/plain"}}, Verbs = {testVerb}},
                     new GamesExplorer {ID = "games-explorer"},
-                    new UrlProtocol {ID = "my_protocol", Description = "My protocol", Icons = {testIcon}, Verbs = {new Verb {Name = Verb.NameOpen, Command = Command.NameRun, Arguments = "--open"}}, Prefix = "my-protocol"}
+                    new UrlProtocol {ID = "my_protocol", Description = "My protocol", Icons = {testIcon}, Verbs = {testVerb}, Prefix = "my-protocol"}
                 }
             };
         }

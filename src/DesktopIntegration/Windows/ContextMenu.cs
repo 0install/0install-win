@@ -27,10 +27,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
     {
         #region Constants
         /// <summary>The HKCU registry key prefix for registering things for all files.</summary>
-        public const string RegKeyClassesFilesPrefix = @"*\";
+        public const string RegKeyClassesFilesPrefix = "*";
 
         /// <summary>The HKCU registry key prefix for registering things for all filesytem objects (files and directories).</summary>
-        public const string RegKeyClassesAllPrefix = @"AllFilesystemObjects\";
+        public const string RegKeyClassesAllPrefix = "AllFilesystemObjects";
 
         /// <summary>The registry key postfix for registering simple context menu entries.</summary>
         public const string RegKeyContextMenuSimplePostfix = @"shell";

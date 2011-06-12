@@ -16,12 +16,13 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Represents an application's ability to be integrated into a file manager's context menu.
+    /// Represents an application's entry in a file manager's context menu.
     /// </summary>
     [XmlType("context-menu", Namespace = XmlNamespace)]
     public class ContextMenu : Capability, IEquatable<ContextMenu>
@@ -30,18 +31,29 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override bool GlobalOnly { get { return false; } }
 
-        // ToDo
+        /// <summary>
+        /// Indicates whether this context menu entry is applicable to all filesystem entries and not just files.
+        /// </summary>
+        [XmlAttribute("all-objects"), DefaultValue(false)]
+        public bool AllObjects { get; set; }
+
+        /// <summary>
+        /// The command to execute when the context menu entry is clicked.
+        /// </summary>
+        [Description("The command to execute when the context menu entry is clicked.")]
+        [XmlElement("verb")]
+        public Verb Verb { get; set; }
         #endregion
 
         //--------------------//
 
         #region Conversion
         /// <summary>
-        /// Returns the capability in the form "ContextMenu". Not safe for parsing!
+        /// Returns the capability in the form "ContextMenu: ID". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("ContextMenu");
+            return string.Format("ContextMenu: {0}", ID);
         }
         #endregion
 
@@ -49,7 +61,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability CloneCapability()
         {
-            return new ContextMenu {ID = ID};
+            return new ContextMenu {ID = ID, AllObjects = AllObjects, Verb = Verb};
         }
         #endregion
 
@@ -59,7 +71,8 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (other == null) return false;
 
-            return base.Equals(other);
+            return base.Equals(other) &&
+                other.AllObjects == AllObjects && other.Verb == Verb;
         }
 
         /// <inheritdoc/>
@@ -76,6 +89,8 @@ namespace ZeroInstall.Model.Capabilities
             unchecked
             {
                 int result = base.GetHashCode();
+                result = (result * 397) ^ AllObjects.GetHashCode();
+                result = (result * 397) ^ Verb.GetHashCode();
                 return result;
             }
         }

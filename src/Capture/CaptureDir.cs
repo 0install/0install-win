@@ -22,7 +22,6 @@ using System.Security;
 using Common;
 using Common.Collections;
 using Common.Utils;
-using Microsoft.Win32;
 using ZeroInstall.Capture.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
@@ -32,7 +31,7 @@ namespace ZeroInstall.Capture
     /// <summary>
     /// Represents a file system directory storing information from a capturing session.
     /// </summary>
-    public class CaptureDir
+    public partial class CaptureDir
     {
         #region Constants
         private const string SnapshotPreFileName = "pre.snapshot", SnapshotPostFileName = "post.snapshot";
@@ -116,17 +115,16 @@ namespace ZeroInstall.Capture
             string installationDir = GetInstallationDir(snapshotDiff);
             var commands = GetCommands(installationDir);
 
-            // ToDo: snapshotDiff.ProtocolAssocs
-            // ToDo: snapshotDiff.*ContextMenuSimple
-            // ToDo: snapshotDiff.RegisteredApplications (also pull additional URL protcols from here)
-            // ToDo: snapshotDiff.Games
-
             var capabilities = new CapabilityList {Architecture = new Architecture(OS.Windows, Cpu.All)};
             try
             {
                 var commandProvider = new CommandProvider(installationDir, commands);
+                CollectContextMenus(snapshotDiff, capabilities, commandProvider);
                 CollectFileTypes(snapshotDiff, capabilities, commandProvider);
                 CollectAutoPlays(snapshotDiff, capabilities, commandProvider);
+                CollectProtocolAssocs(snapshotDiff.ProtocolAssocs, capabilities, commandProvider);
+                CollectRegisteredApplications(snapshotDiff.RegisteredApplications, capabilities, commandProvider);
+                // ToDo: Collect from snapshotDiff.Games
             }
             #region Error handling
             catch (SecurityException ex)
@@ -138,279 +136,6 @@ namespace ZeroInstall.Capture
 
             Implementation implementation = (files && !string.IsNullOrEmpty(installationDir)) ? GetImplementation(installationDir) : null;
             BuildFeed(capabilities, commands, implementation).Save(Path.Combine(DirectoryPath, "feed.xml"));
-        }
-        #endregion
-
-        #region Installation directory
-        /// <summary>
-        /// Locates the directory into which the new application was installed.
-        /// </summary>
-        /// <param name="snapshotDiff">The elements added between two snapshots.</param>
-        private static string GetInstallationDir(Snapshot snapshotDiff)
-        {
-            #region Sanity checks
-            if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
-            #endregion
-
-            string installationDir;
-            if (snapshotDiff.ProgramsDirs.Length == 0)
-            {
-                Log.Warn(Resources.NoInstallationDirDetected);
-                installationDir = null;
-            }
-            else
-            {
-                if (snapshotDiff.ProgramsDirs.Length > 1)
-                    Log.Warn(Resources.MultipleInstallationDirsDetected);
-
-                installationDir = snapshotDiff.ProgramsDirs[0];
-                Log.Info(string.Format(Resources.UsingInstallationDir, installationDir));
-            }
-            return installationDir;
-        }
-
-        /// <summary>
-        /// Detects all EXE files within the installation directory and returns them as <see cref="Command"/>s.
-        /// </summary>
-        /// <param name="installationDir">The fully qualified path to the installation directory; may be <see langword="null"/>.</param>
-        private static IEnumerable<Command> GetCommands(string installationDir)
-        {
-            if (installationDir == null) return new Command[0];
-
-            bool firstExe = true;
-            var commands = new C5.LinkedList<Command>();
-            foreach (string absolutePath in Directory.GetFiles(installationDir, "*.exe", SearchOption.AllDirectories))
-            {
-                // Ignore unisnstaller
-                // ToDo: Better heuristic
-                if (absolutePath.Contains("uninstall")) continue;
-
-                // ToDo: Better filter
-                string relativePath = absolutePath.Replace(installationDir + Path.DirectorySeparatorChar, "");
-
-                // Assume first detected EXE is the main entry point
-                // ToDo: Better heuristic
-                commands.Add(new Command {Name = firstExe ? "run" : relativePath.Replace(".exe", "").Replace(Path.DirectorySeparatorChar, '.'), Path = relativePath});
-                firstExe = false;
-            }
-            return commands;
-        }
-        #endregion
-
-        #region Collect file types
-        /// <summary>
-        /// Collects data about file types and also URL protocol handlers indicated by a snapshot diff.
-        /// </summary>
-        /// <param name="snapshotDiff">The elements added between two snapshots.</param>
-        /// <param name="capabilities">The capability list to add the collected data to.</param>
-        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static void CollectFileTypes(Snapshot snapshotDiff, CapabilityList capabilities, CommandProvider commandProvider)
-        {
-            #region Sanity checks
-            if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
-            if (capabilities == null) throw new ArgumentNullException("capabilities");
-            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
-            #endregion
-
-            foreach (string progID in snapshotDiff.ProgIDs)
-            {
-                if (string.IsNullOrEmpty(progID)) continue;
-                var fileType = GetFileType(progID, snapshotDiff, commandProvider);
-                if (fileType != null) capabilities.Entries.Add(fileType);
-            }
-        }
-
-        /// <summary>
-        /// Retreives data about a specific file type or URL protocol from a snapshot diff.
-        /// </summary>
-        /// <param name="progID">The programatic identifier of the file type.</param>
-        /// <param name="snapshotDiff">The elements added between two snapshots.</param>
-        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
-        /// <returns>Data about the file type or <see paramref="null"/> if no file type for this <paramref name="progID"/> was detected.</returns>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static VerbCapability GetFileType(string progID, Snapshot snapshotDiff, CommandProvider commandProvider)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(progID)) throw new ArgumentNullException("progID");
-            if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
-            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
-            #endregion
-
-            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(progID))
-            {
-                if (progIDKey == null) return null;
-
-                VerbCapability capability;
-                if (progIDKey.GetValue(DesktopIntegration.Windows.UrlProtocol.ProtocolIndicator) == null)
-                { // Normal file type
-                    var fileType = new FileType
-                    {
-                        ID = progID,
-                        Description = progIDKey.GetValue("", "").ToString()
-                    };
-
-                    foreach (var fileAssoc in snapshotDiff.FileAssocs)
-                    {
-                        if (fileAssoc.Value != progID || string.IsNullOrEmpty(fileAssoc.Key)) continue;
-
-                        using (var assocKey = Registry.ClassesRoot.OpenSubKey(fileAssoc.Key))
-                        {
-                            if (assocKey == null) continue;
-
-                            fileType.Extensions.Add(new FileTypeExtension
-                            {
-                                Value = fileAssoc.Key,
-                                MimeType = assocKey.GetValue("Content Type", "").ToString(),
-                                PerceivedType = assocKey.GetValue("PerceivedType", "").ToString()
-                            });
-                        }
-                    }
-
-                    // Only return file types that have extensions associated with them
-                    if (fileType.Extensions.IsEmpty) return null;
-
-                    capability = fileType;
-                }
-                else
-                { // URL protocol handler
-                    capability = new UrlProtocol
-                    {
-                        ID = progID,
-                        Description = progIDKey.GetValue("", "").ToString(),
-                        Prefix = progID
-                    };
-                }
-
-                using (var shellKey = progIDKey.OpenSubKey("shell"))
-                {
-                    if (shellKey == null) return null;
-
-                    foreach (string verbName in shellKey.GetSubKeyNames())
-                    {
-                        var verb = GetVerb(progID, verbName, commandProvider);
-                        if (verb != default(Verb)) capability.Verbs.Add(verb);
-                    }
-                }
-
-                return capability;
-            }
-        }
-
-        /// <summary>
-        /// Retreives data about a verb (an executable command) from the registry.
-        /// </summary>
-        /// <param name="progID">The programatic indentifier the verb is associated with.</param>
-        /// <param name="verb">The internal name of the verb.</param>
-        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
-        private static Verb GetVerb(string progID, string verb, CommandProvider commandProvider)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(progID)) throw new ArgumentNullException("progID");
-            if (string.IsNullOrEmpty(verb)) throw new ArgumentNullException("verb");
-            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
-            #endregion
-
-            using (var verbKey = Registry.ClassesRoot.OpenSubKey(progID + @"\shell\" + verb))
-            {
-                if (verbKey == null) return default(Verb);
-
-                string description = verbKey.GetValue("", "").ToString();
-                string commandLine;
-                using (var commandKey = verbKey.OpenSubKey("command"))
-                {
-                    if (commandKey == null) return default(Verb);
-                    commandLine = commandKey.GetValue("", "").ToString();
-                }
-
-                string additionalArgs;
-                var command = commandProvider.GetCommand(commandLine, out additionalArgs);
-                if (command == null) return default(Verb);
-                return new Verb
-                {
-                    Name = verb,
-                    Description = description,
-                    Command = command.Name,
-                    Arguments = additionalArgs
-                };
-            }
-        }
-        #endregion
-
-        #region Collect AutoPlay
-        /// <summary>
-        /// Collects data about AutoPlay handlers indicated by a snapshot diff.
-        /// </summary>
-        /// <param name="snapshotDiff">The elements added between two snapshots.</param>
-        /// <param name="capabilities">The capability list to add the collected data to.</param>
-        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static void CollectAutoPlays(Snapshot snapshotDiff, CapabilityList capabilities, CommandProvider commandProvider)
-        {
-            #region Sanity checks
-            if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
-            if (capabilities == null) throw new ArgumentNullException("capabilities");
-            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
-            #endregion
-
-            foreach (string handler in snapshotDiff.AutoPlayHandlersUser)
-            {
-                var autoPlay = GetAutoPlay(handler, Registry.CurrentUser, snapshotDiff.AutoPlayAssocsUser, commandProvider);
-                if (autoPlay != null) capabilities.Entries.Add(autoPlay);
-            }
-
-            foreach (string handler in snapshotDiff.AutoPlayHandlersMachine)
-            {
-                var autoPlay = GetAutoPlay(handler, Registry.LocalMachine, snapshotDiff.AutoPlayAssocsMachine, commandProvider);
-                if (autoPlay != null) capabilities.Entries.Add(autoPlay);
-            }
-        }
-
-        /// <summary>
-        /// Retreives data about a AutoPlay handler type from a snapshot diff.
-        /// </summary>
-        /// <param name="handler">The internal name of the AutoPlay handler.</param>
-        /// <param name="hive">The registry hive to search in (usually HKCU or HKLM).</param>
-        /// <param name="autoPlayAssocs">A list of associations of an AutoPlay events with an AutoPlay handlers</param>
-        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static Capability GetAutoPlay(string handler, RegistryKey hive, IEnumerable<ComparableTuple<string>> autoPlayAssocs, CommandProvider commandProvider)
-        {
-            #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
-            if (hive == null) throw new ArgumentNullException("hive");
-            if (autoPlayAssocs == null) throw new ArgumentNullException("autoPlayAssocs");
-            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
-            #endregion
-
-            using (var handlerKey = hive.OpenSubKey(DesktopIntegration.Windows.AutoPlay.RegKeyHandlers + @"\" + handler))
-            {
-                if (handlerKey == null) return null;
-
-                string progID = handlerKey.GetValue("InvokeProgID", "").ToString();
-                string verbName = handlerKey.GetValue("InvokeVerb", "").ToString();
-                var autoPlay = new AutoPlay
-                {
-                    ID = handler,
-                    Provider = handlerKey.GetValue("Provider", "").ToString(),
-                    Description = handlerKey.GetValue("Description", "").ToString(),
-                    ProgID = progID,
-                    Verb = GetVerb(progID, verbName, commandProvider)
-                };
-
-                foreach (var autoPlayAssoc in autoPlayAssocs)
-                    if (autoPlayAssoc.Value == handler) autoPlay.Events.Add(new AutoPlayEvent {Name = autoPlayAssoc.Key});
-
-                return autoPlay;
-            }
         }
         #endregion
 

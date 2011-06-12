@@ -135,13 +135,13 @@ namespace ZeroInstall.Capture
             snapshot.ClassIDs = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ComServer.RegKeyClassesIDs);
             snapshot.RegisteredApplications = WindowsUtils.GetValueNames(Registry.LocalMachine, FileType.RegKeyMachineRegisteredApplications);
 
-            snapshot.FilesContextMenuSimple = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyContextMenuSimplePostfix);
-            snapshot.FilesContextMenuExtended = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyContextMenuExtendedPostfix);
-            snapshot.FilesPropertySheets = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + ContextMenu.RegKeyPropertySheetsPostfix);
+            snapshot.FilesContextMenuSimple = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + "\\" + ContextMenu.RegKeyContextMenuSimplePostfix);
+            snapshot.FilesContextMenuExtended = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + "\\" + ContextMenu.RegKeyContextMenuExtendedPostfix);
+            snapshot.FilesPropertySheets = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + "\\" + ContextMenu.RegKeyPropertySheetsPostfix);
 
-            snapshot.AllContextMenuSimple = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + ContextMenu.RegKeyContextMenuSimplePostfix);
-            snapshot.AllContextMenuExtended = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + ContextMenu.RegKeyContextMenuExtendedPostfix);
-            snapshot.AllPropertySheets = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + ContextMenu.RegKeyPropertySheetsPostfix);
+            snapshot.AllContextMenuSimple = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + "\\" + ContextMenu.RegKeyContextMenuSimplePostfix);
+            snapshot.AllContextMenuExtended = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + "\\" + ContextMenu.RegKeyContextMenuExtendedPostfix);
+            snapshot.AllPropertySheets = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + "\\" + ContextMenu.RegKeyPropertySheetsPostfix);
 
             snapshot.Games = WindowsUtils.GetSubKeyNames(Registry.LocalMachine, GamesExplorer.RegKeyMachineGames);
         }

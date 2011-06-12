@@ -34,10 +34,9 @@ namespace ZeroInstall.Model.Capabilities
         public override bool GlobalOnly { get { return false; } }
 
         /// <summary>
-        /// The protocol prefix such as "http".
+        /// The protocol prefix such as "http". Should only be set when different from <see cref="Capability.ID"/>.
         /// </summary>
-        /// <remarks>If this has the same value as <see cref="Capability.ID"/> it will not be possible to announce this capability non-invasively.</remarks>
-        [Description("The protocol prefix such as \"http\".")]
+        [Description("The protocol prefix such as \"http\". Should only be set when different from ID.")]
         [XmlAttribute("prefix")]
         public string Prefix { get; set; }
         #endregion
@@ -46,11 +45,11 @@ namespace ZeroInstall.Model.Capabilities
 
         #region Conversion
         /// <summary>
-        /// Returns the capability in the form "UrlProtocol: Prefix (ID)". Not safe for parsing!
+        /// Returns the capability in the form "UrlProtocol: Description (ID)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("UrlProtocol : {0} ({1})", Prefix, ID);
+            return string.Format("UrlProtocol : {0} ({1})", Description, ID);
         }
         #endregion
 

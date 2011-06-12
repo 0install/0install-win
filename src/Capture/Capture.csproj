@@ -50,7 +50,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CaptureDir.AppRegistration.cs" />
+    <Compile Include="CaptureDir.AutoPlay.cs" />
+    <Compile Include="CaptureDir.Commands.cs" />
+    <Compile Include="CaptureDir.ContextMenu.cs" />
     <Compile Include="CaptureDir.cs" />
+    <Compile Include="CaptureDir.FileType.cs" />
+    <Compile Include="CaptureDir.UrlProtocol.cs" />
     <Compile Include="CommandProvider.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
