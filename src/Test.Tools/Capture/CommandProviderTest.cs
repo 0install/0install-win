@@ -41,6 +41,9 @@ namespace ZeroInstall.Capture
 
             string additionalArgs;
 
+            Assert.AreSame(commandNoArgs, provider.GetCommand("installation directory" + Path.DirectorySeparatorChar + "entry.exe", out additionalArgs));
+            Assert.AreEqual("", additionalArgs);
+
             Assert.AreSame(commandNoArgs, provider.GetCommand("\"installation directory" + Path.DirectorySeparatorChar + "entry.exe\" --arg1", out additionalArgs));
             Assert.AreEqual("--arg1", additionalArgs);
 

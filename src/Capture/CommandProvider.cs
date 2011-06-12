@@ -17,8 +17,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
-using System.Text;
 using Common.Utils;
 using ZeroInstall.Model;
 
@@ -55,8 +55,6 @@ namespace ZeroInstall.Capture
         #endregion
 
         #region Variables
-        private readonly string _installationDir;
-
         /// <summary>A list of command-lines and coressponding <see cref="Command"/>s.</summary>
         private readonly List<CommandTuple> _commmands = new List<CommandTuple>();
         #endregion
@@ -74,21 +72,31 @@ namespace ZeroInstall.Capture
             if (commmands == null) throw new ArgumentNullException("commmands");
             #endregion
 
-            _installationDir = installationDir;
-
             // Associate each command with its command-line
-            foreach (var commmand in commmands)
-                _commmands.Add(new CommandTuple(GetCommandLine(installationDir, commmand), commmand));
+            foreach (var command in commmands)
+            {
+                string path = Path.Combine(installationDir, command.Path.Replace('/', Path.DirectorySeparatorChar));
+                string arguments = StringUtils.ConcatenateEscape(command.Arguments);
+
+                _commmands.Add(GetCommandTuple(installationDir, command, true));
+
+                // Only add a version without escaping if it causes no ambiguities
+                if (!StringUtils.ContainsWhitespace(path) || string.IsNullOrEmpty(arguments))
+                    _commmands.Add(GetCommandTuple(installationDir, command, false));
+            }
 
             // Sort backwards to make sure the most specific matches are selected first
             _commmands.Sort((tuple1, tuple2) => tuple2.CommandLine.CompareTo(tuple2.CommandLine));
         }
 
-        private static string GetCommandLine(string installationDir, Command command)
+        private static CommandTuple GetCommandTuple(string installationDir, Command command, bool escapePath)
         {
-            var builder = new StringBuilder('"' + Path.Combine(installationDir, command.Path) + '"');
-            command.Arguments.Apply(args => builder.Append(" " + StringUtils.EscapeWhitespace(args)));
-            return builder.ToString();
+            string path = Path.Combine(installationDir, command.Path.Replace('/', Path.DirectorySeparatorChar));
+            string arguments = StringUtils.ConcatenateEscape(command.Arguments);
+
+            string commmandLine = escapePath ? ('"' + path + '"') : path;
+            if (!string.IsNullOrEmpty(arguments)) commmandLine += " " + arguments;
+            return new CommandTuple(commmandLine, command);
         }
         #endregion
 
@@ -108,17 +116,9 @@ namespace ZeroInstall.Capture
 
             foreach (var tuple in _commmands)
             {
-                // Find partial matches
-                if (commandLine.StartsWith(tuple.CommandLine))
+                if (commandLine.StartsWith(tuple.CommandLine, true, CultureInfo.InvariantCulture))
                 {
                     additionalArgs = commandLine.Substring(tuple.CommandLine.Length).TrimStart();
-                    return tuple.Command;
-                }
-
-                // Find exact matches
-                if (commandLine == Path.Combine(_installationDir, tuple.Command.Path))
-                {
-                    additionalArgs = "";
                     return tuple.Command;
                 }
             }
