@@ -71,7 +71,7 @@ namespace ZeroInstall.Capture
             foreach (string absolutePath in Directory.GetFiles(installationDir, "*.exe", SearchOption.AllDirectories))
             {
                 // Ignore uninstallers
-                if (absolutePath.Contains("uninstall") || absolutePath.Contains("unins0")) continue;
+                if (StringUtils.Contains(absolutePath, "uninstall") || StringUtils.Contains(absolutePath, "unins0")) continue;
 
                 // Cut away installation directory plus trailing slash
                 string relativePath = absolutePath.Substring(installationDir.Length + 1);

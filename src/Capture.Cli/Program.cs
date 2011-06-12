@@ -153,6 +153,11 @@ namespace ZeroInstall.Capture.Cli
                         // Wrap exception since only certain exception types are allowed
                         throw new OptionException(ex.Message, "installation-dir", ex);
                     }
+                    catch (NotSupportedException ex)
+                    {
+                        // Wrap exception since only certain exception types are allowed
+                        throw new OptionException(ex.Message, "installation-dir", ex);
+                    }
                     #endregion
                 }},
                 {"main-exe=", Resources.OptionMainExe, value => parseResults.MainExe = StringUtils.UnescapeWhitespace(value)},
@@ -182,6 +187,11 @@ namespace ZeroInstall.Capture.Cli
             try { parseResults.DirectoryPath = (additionalArgs.Count >= 2) ? Path.GetFullPath(StringUtils.UnescapeWhitespace(additionalArgs[1])) : Environment.CurrentDirectory; }
             #region Error handling
             catch (ArgumentException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new OptionException(ex.Message, "", ex);
+            }
+            catch (NotSupportedException ex)
             {
                 // Wrap exception since only certain exception types are allowed
                 throw new OptionException(ex.Message, "", ex);
