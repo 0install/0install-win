@@ -15,7 +15,7 @@ namespace ZeroInstall.Store.Feeds
     public interface IFeedCache
     {
         /// <summary>
-        /// Determines whether this cache contains a local copy of a feed identified by a specific URL.
+        /// Determines whether this cache contains a local copy of a <see cref="Feed"/> identified by a specific URL.
         /// </summary>
         /// <param name="feedID">The ID used to identify the feed. May be an HTTP(S) URL or an absolute local path.</param>
         /// <returns>

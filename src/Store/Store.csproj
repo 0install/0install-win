@@ -53,6 +53,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Feeds\DiskIconCache.cs" />
+    <Compile Include="Feeds\IconCacheProvider.cs" />
+    <Compile Include="Feeds\IIconCache.cs" />
     <Compile Include="Feeds\IOpenPgp.cs" />
     <Compile Include="Feeds\MemoryFeedCache.cs" />
     <Compile Include="Feeds\OpenPgpProvider.cs" />

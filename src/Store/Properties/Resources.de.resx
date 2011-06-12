@@ -123,9 +123,6 @@
   <data name="ArchiveInvalidPath" xml:space="preserve">
     <value>Das Archiv enthält ungültige Pfade (möglicherweise ein Sicherheitsrisiko).</value>
   </data>
-  <data name="RubyGemInvalid" xml:space="preserve">
-    <value>Konnte data.tar.gz in der Ruby Gem Datei nicht finden.</value>
-  </data>
   <data name="DeletingImplementation" xml:space="preserve">
     <value>Lösche Implementierung {0}</value>
   </data>
@@ -149,6 +146,9 @@ Tatsächlicher Wert: {1}</value>
   <data name="GeneratingManifest" xml:space="preserve">
     <value>Generiere Manifest ({0})</value>
   </data>
+  <data name="IconNotInCache" xml:space="preserve">
+    <value>'{0}' konnte nicht im Icon Cache gefunden werden. Nach folgender Datei wurde gesucht: {1}</value>
+  </data>
   <data name="IllegalFileType" xml:space="preserve">
     <value>Die Datei '{0}' ist weder ein symbolischer Link noch eine reguläre Datei.</value>
   </data>
@@ -168,14 +168,14 @@ Falls Sie ein FAT-formatiertes Laufwerk verwenden, konvertieren Sie es bitte zu 
   <data name="InvalidNumberOfLineParts" xml:space="preserve">
     <value>Die Anzahl der Blöcke in dieser Zeile stimmt nicht.</value>
   </data>
+  <data name="InvalidSignature" xml:space="preserve">
+    <value>Die Signatur ist ungültig oder beschädigt.</value>
+  </data>
   <data name="InvalidUrl" xml:space="preserve">
     <value>Die angeforderte URL ist ungültig.</value>
   </data>
   <data name="MissingPath" xml:space="preserve">
     <value>Kein Pfad angegeben.</value>
-  </data>
-  <data name="PathNotRelative" xml:space="preserve">
-    <value>Der Pfad sollte relativ sein.</value>
   </data>
   <data name="NewlineInName" xml:space="preserve">
     <value>Der Datei- oder Verzeichnisname darf keinen Zeilenumbruch enthalten.</value>
@@ -183,8 +183,22 @@ Falls Sie ein FAT-formatiertes Laufwerk verwenden, konvertieren Sie es bitte zu 
   <data name="NoKnownDigestMethod" xml:space="preserve">
     <value>Es wurde keine bekannte Digest-Methode definiert.</value>
   </data>
+  <data name="NonRootedPathInConfig" xml:space="preserve">
+    <value>Der Pfad '{0}' ist nicht absolut. Relative Pfade sind nur im Portable Modus erlaubt.
+Festgelegt in der Konfigurationsdatei '{1}'.</value>
+  </data>
   <data name="NumberTooLarge" xml:space="preserve">
     <value>Der Zahlenwert ist zu groß.</value>
+  </data>
+  <data name="PathNotRelative" xml:space="preserve">
+    <value>Der Pfad sollte relativ sein.</value>
+  </data>
+  <data name="ProblemAccessingStore" xml:space="preserve">
+    <value>Es gab ein Problem beim Zugriff auf den Implementierungs-Store '{0}'.</value>
+  </data>
+  <data name="ProblemAccessingStoreEx" xml:space="preserve">
+    <value>Es gab ein Problem beim Zugriff auf den Implementierungs-Store '{0}'.
+Festgelegt in der Konfigurationsdatei '{1}'.</value>
   </data>
   <data name="ReplayAttack" xml:space="preserve">
     <value>Änderungszeit des neuen Feeds liegt vor der der alten version!
@@ -194,6 +208,9 @@ Neue Zeit: {2}</value>
   </data>
   <data name="RootedPathRequired" xml:space="preserve">
     <value>Ein vollständig qulifizierter/gewurzelter Pfad wird benötigt.</value>
+  </data>
+  <data name="RubyGemInvalid" xml:space="preserve">
+    <value>Konnte data.tar.gz in der Ruby Gem Datei nicht finden.</value>
   </data>
   <data name="SignatureAldreadyExists" xml:space="preserve">
     <value>Die Signaturdatei existiert bereits.</value>
@@ -212,19 +229,5 @@ Neue Zeit: {2}</value>
   </data>
   <data name="WrongPassphrase" xml:space="preserve">
     <value>Die Passphrase die Sie eingegeben haben ist inkorrekt.</value>
-  </data>
-  <data name="InvalidSignature" xml:space="preserve">
-    <value>Die Signatur ist ungültig oder beschädigt.</value>
-  </data>
-  <data name="ProblemAccessingStore" xml:space="preserve">
-    <value>Es gab ein Problem beim Zugriff auf den Implementierungs-Store '{0}'.</value>
-  </data>
-	<data name="ProblemAccessingStoreEx" xml:space="preserve">
-    <value>Es gab ein Problem beim Zugriff auf den Implementierungs-Store '{0}'.
-Festgelegt in der Konfigurationsdatei '{1}'.</value>
-  </data>
-	<data name="NonRootedPathInConfig" xml:space="preserve">
-    <value>Der Pfad '{0}' ist nicht absolut. Relative Pfade sind nur im Portable Modus erlaubt.
-Festgelegt in der Konfigurationsdatei '{1}'.</value>
   </data>
 </root>

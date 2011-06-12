@@ -117,29 +117,59 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PathNotRelative" xml:space="preserve">
-    <value>Path should be relative.</value>
+  <data name="ArchiveInvalid" xml:space="preserve">
+    <value>The archive file is invalid or damaged.</value>
   </data>
-  <data name="NewlineInName" xml:space="preserve">
-    <value>The file or directory name must not contain a newline character.</value>
+  <data name="ArchiveInvalidPath" xml:space="preserve">
+    <value>The archive contains invalid paths (potentially a security risk).</value>
   </data>
-  <data name="NoKnownDigestMethod" xml:space="preserve">
-    <value>No known digest method was defined.</value>
+  <data name="DeletingImplementation" xml:space="preserve">
+    <value>Deleting implementation {0}</value>
   </data>
-  <data name="InvalidNumberOfLineParts" xml:space="preserve">
-    <value>Invalid number of parts in line.</value>
+  <data name="DigestMismatch" xml:space="preserve">
+    <value>An implementation's manifest hash doesn't match the expected value!
+Expected value: {0}
+Actual value: {1}</value>
+  </data>
+  <data name="DirectoryNotFound" xml:space="preserve">
+    <value>The directory '{0}' could not be found.</value>
+  </data>
+  <data name="ExtractingArchive" xml:space="preserve">
+    <value>Extracting archive ({0})</value>
+  </data>
+  <data name="FeedNotInCache" xml:space="preserve">
+    <value>'{0}' could not be located in the feed cache. Looked for file at: {1}</value>
+  </data>
+  <data name="FileToSignNotFound" xml:space="preserve">
+    <value>The file to be signed could not be found.</value>
+  </data>
+  <data name="GeneratingManifest" xml:space="preserve">
+    <value>Generating manifest ({0})</value>
+  </data>
+  <data name="IconNotInCache" xml:space="preserve">
+    <value>'{0}' could not be located in the icon cache. Looked for file at: {1}</value>
+  </data>
+  <data name="IllegalFileType" xml:space="preserve">
+    <value>The file '{0}' is neither a symbolic link nor a regular file.</value>
+  </data>
+  <data name="ImplementationAlreadyInStore" xml:space="preserve">
+    <value>The implementation '{0}' is already in the store.</value>
+  </data>
+  <data name="ImplementationNotFound" xml:space="preserve">
+    <value>The following implementation could not be located: {0}</value>
+  </data>
+  <data name="InsufficientFSTimeAccuracy" xml:space="preserve">
+    <value>The underlying file system does not store file change times with sufficient accuracy.
+If you are using a FAT-formatted drive please convert it to NTFS.</value>
   </data>
   <data name="InvalidLinesInManifest" xml:space="preserve">
     <value>The manifest file contains invalid lines.</value>
   </data>
-  <data name="NumberTooLarge" xml:space="preserve">
-    <value>The number value is too large.</value>
+  <data name="InvalidNumberOfLineParts" xml:space="preserve">
+    <value>Invalid number of parts in line.</value>
   </data>
-  <data name="RootedPathRequired" xml:space="preserve">
-    <value>A fully qualified/rooted path is required.</value>
-  </data>
-  <data name="UnableToAddImplementionToStore" xml:space="preserve">
-    <value>Unable to add implementation to a store.</value>
+  <data name="InvalidSignature" xml:space="preserve">
+    <value>The signature is invalid or damaged.</value>
   </data>
   <data name="InvalidUrl" xml:space="preserve">
     <value>The requested URL is invalid.</value>
@@ -147,74 +177,21 @@
   <data name="MissingPath" xml:space="preserve">
     <value>No path specified.</value>
   </data>
-  <data name="InsufficientFSTimeAccuracy" xml:space="preserve">
-    <value>The underlying file system does not store file change times with sufficient accuracy.
-If you are using a FAT-formatted drive please convert it to NTFS.</value>
+  <data name="NewlineInName" xml:space="preserve">
+    <value>The file or directory name must not contain a newline character.</value>
   </data>
-  <data name="ImplementationNotFound" xml:space="preserve">
-    <value>The following implementation could not be located: {0}</value>
+  <data name="NoKnownDigestMethod" xml:space="preserve">
+    <value>No known digest method was defined.</value>
   </data>
-  <data name="FileToSignNotFound" xml:space="preserve">
-    <value>The file to be signed could not be found.</value>
+  <data name="NonRootedPathInConfig" xml:space="preserve">
+    <value>The path '{0}' is not an absolute path. Relative paths are only allowed in portable mode.
+Specified in the configuration file '{1}'.</value>
   </data>
-  <data name="DigestMismatch" xml:space="preserve">
-    <value>An implementation's manifest hash doesn't match the expected value!
-Expected value: {0}
-Actual value: {1}</value>
+  <data name="NumberTooLarge" xml:space="preserve">
+    <value>The number value is too large.</value>
   </data>
-  <data name="SignatureAldreadyExists" xml:space="preserve">
-    <value>Signature file already exists.</value>
-  </data>
-  <data name="UnableToFindSecretKey" xml:space="preserve">
-    <value>Unable to find a secret key with the specified name.</value>
-  </data>
-  <data name="IllegalFileType" xml:space="preserve">
-    <value>The file '{0}' is neither a symbolic link nor a regular file.</value>
-  </data>
-  <data name="FeedNotInCache" xml:space="preserve">
-    <value>'{0}' could not be located in the feed cache. Looked for file at: {1}</value>
-  </data>
-  <data name="ArchiveInvalid" xml:space="preserve">
-    <value>The archive file is invalid or damaged.</value>
-  </data>
-  <data name="ArchiveInvalidPath" xml:space="preserve">
-    <value>The archive contains invalid paths (potentially a security risk).</value>
-  </data>
-  <data name="RubyGemInvalid" xml:space="preserve">
-    <value>Unable to find data.tar.gz inside Ruby Gem file.</value>
-  </data>
-  <data name="UnknownMimeType" xml:space="preserve">
-    <value>The specified MIME type is unknown.</value>
-  </data>
-  <data name="GeneratingManifest" xml:space="preserve">
-    <value>Generating manifest ({0})</value>
-  </data>
-  <data name="ExtractingArchive" xml:space="preserve">
-    <value>Extracting archive ({0})</value>
-  </data>
-  <data name="WrongPassphrase" xml:space="preserve">
-    <value>The passphrase you entered is incorrect.</value>
-  </data>
-  <data name="ImplementationAlreadyInStore" xml:space="preserve">
-    <value>The implementation '{0}' is already in the store.</value>
-  </data>
-  <data name="StoreServiceCommunicationProblem" xml:space="preserve">
-    <value>Unable to establish connection with StoreService.</value>
-  </data>
-  <data name="DirectoryNotFound" xml:space="preserve">
-    <value>The directory '{0}' could not be found.</value>
-  </data>
-  <data name="ReplayAttack" xml:space="preserve">
-    <value>New feed's modification time is before old version!
-Feed ID: {0}
-Old time: {1}
-New time: {2}</value>
-  </data>
-  <data name="DeletingImplementation" xml:space="preserve">
-    <value>Deleting implementation {0}</value>
-  </data>
-  <data name="InvalidSignature" xml:space="preserve">
-    <value>The signature is invalid or damaged.</value>
+  <data name="PathNotRelative" xml:space="preserve">
+    <value>Path should be relative.</value>
   </data>
   <data name="ProblemAccessingStore" xml:space="preserve">
     <value>There was a problem accessing the implementation store '{0}'.</value>
@@ -223,8 +200,34 @@ New time: {2}</value>
     <value>There was a problem accessing the implementation store '{0}'.
 Specified in the configuration file '{1}'.</value>
   </data>
-  <data name="NonRootedPathInConfig" xml:space="preserve">
-    <value>The path '{0}' is not an absolute path. Relative paths are only allowed in portable mode.
-Specified in the configuration file '{1}'.</value>
+  <data name="ReplayAttack" xml:space="preserve">
+    <value>New feed's modification time is before old version!
+Feed ID: {0}
+Old time: {1}
+New time: {2}</value>
+  </data>
+  <data name="RootedPathRequired" xml:space="preserve">
+    <value>A fully qualified/rooted path is required.</value>
+  </data>
+  <data name="RubyGemInvalid" xml:space="preserve">
+    <value>Unable to find data.tar.gz inside Ruby Gem file.</value>
+  </data>
+  <data name="SignatureAldreadyExists" xml:space="preserve">
+    <value>Signature file already exists.</value>
+  </data>
+  <data name="StoreServiceCommunicationProblem" xml:space="preserve">
+    <value>Unable to establish connection with StoreService.</value>
+  </data>
+  <data name="UnableToAddImplementionToStore" xml:space="preserve">
+    <value>Unable to add implementation to a store.</value>
+  </data>
+  <data name="UnableToFindSecretKey" xml:space="preserve">
+    <value>Unable to find a secret key with the specified name.</value>
+  </data>
+  <data name="UnknownMimeType" xml:space="preserve">
+    <value>The specified MIME type is unknown.</value>
+  </data>
+  <data name="WrongPassphrase" xml:space="preserve">
+    <value>The passphrase you entered is incorrect.</value>
   </data>
 </root>
