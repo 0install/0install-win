@@ -201,7 +201,7 @@ namespace ZeroInstall.Capture
         private static ComparableTuple<string>[] GetProtocolAssoc()
         {
             var protocolAssocList = new C5.LinkedList<ComparableTuple<string>>();
-            foreach (string protocol in new [] {"http", "https", "ftp", "gopher"})
+            foreach (string protocol in new [] {"ftp", "gopher", "http", "https"})
             {
                 var command = Registry.GetValue(@"HKEY_CLASSES_ROOT\" + protocol + @"\shell\open\command", "", "") as string;
                 if (!string.IsNullOrEmpty(command)) protocolAssocList.Add(new ComparableTuple<string>(protocol, command));
@@ -282,8 +282,8 @@ namespace ZeroInstall.Capture
                 AutoPlayAssocsMachine = EnumerableUtils.GetAddedElements(oldSnapshot.AutoPlayAssocsMachine, newSnapshot.AutoPlayAssocsMachine),
                 FileAssocs = EnumerableUtils.GetAddedElements(oldSnapshot.FileAssocs, newSnapshot.FileAssocs),
                 ProtocolAssocs = EnumerableUtils.GetAddedElements(oldSnapshot.ProtocolAssocs, newSnapshot.ProtocolAssocs),
-                ProgIDs = EnumerableUtils.GetAddedElements(oldSnapshot.ProgIDs, newSnapshot.ProgIDs),
-                ClassIDs = EnumerableUtils.GetAddedElements(oldSnapshot.ClassIDs, newSnapshot.ClassIDs),
+                ProgIDs = EnumerableUtils.GetAddedElements(oldSnapshot.ProgIDs, newSnapshot.ProgIDs, StringComparer.InvariantCultureIgnoreCase),
+                ClassIDs = EnumerableUtils.GetAddedElements(oldSnapshot.ClassIDs, newSnapshot.ClassIDs, StringComparer.InvariantCultureIgnoreCase),
                 RegisteredApplications = EnumerableUtils.GetAddedElements(oldSnapshot.RegisteredApplications, newSnapshot.RegisteredApplications),
                 FilesContextMenuSimple = EnumerableUtils.GetAddedElements(oldSnapshot.FilesContextMenuSimple, newSnapshot.FilesContextMenuSimple),
                 FilesContextMenuExtended = EnumerableUtils.GetAddedElements(oldSnapshot.FilesContextMenuExtended, newSnapshot.FilesContextMenuExtended),
@@ -292,7 +292,7 @@ namespace ZeroInstall.Capture
                 AllContextMenuExtended = EnumerableUtils.GetAddedElements(oldSnapshot.AllContextMenuExtended, newSnapshot.AllContextMenuExtended),
                 AllPropertySheets = EnumerableUtils.GetAddedElements(oldSnapshot.AllPropertySheets, newSnapshot.AllPropertySheets),
                 Games = EnumerableUtils.GetAddedElements(oldSnapshot.Games, newSnapshot.Games),
-                ProgramsDirs = EnumerableUtils.GetAddedElements(oldSnapshot.ProgramsDirs, newSnapshot.ProgramsDirs)
+                ProgramsDirs = EnumerableUtils.GetAddedElements(oldSnapshot.ProgramsDirs, newSnapshot.ProgramsDirs, StringComparer.InvariantCultureIgnoreCase)
             };
         }
         #endregion
