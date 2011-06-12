@@ -40,9 +40,6 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         /// <summary>The registry value name for perceived type storage.</summary>
         public const string RegValuePerceivedType = "PerceivedType";
-
-        /// <summary>The default value for <see cref="Capabilities.Verb.Arguments"/>.</summary>
-        public const string DefaultArguments = "\"%1\"";
         #endregion
 
         #region Apply
@@ -81,7 +78,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                                 string launchCommand = "\"" + Path.Combine(Locations.InstallBase, feed.NeedsTerminal ? "0install.exe" : "0install-win.exe") + "\" run ";
                                 if (!string.IsNullOrEmpty(verb.Command))
                                     launchCommand += "--command=" + StringUtils.EscapeWhitespace(verb.Command) + " ";
-                                launchCommand += StringUtils.EscapeWhitespace(interfaceID) + " " + (string.IsNullOrEmpty(verb.Arguments) ? DefaultArguments : verb.Arguments);
+                                launchCommand += StringUtils.EscapeWhitespace(interfaceID) + " " + verb.Arguments;
                                 commandKey.SetValue("", launchCommand);
                             }
                         }
