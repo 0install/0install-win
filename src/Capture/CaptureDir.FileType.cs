@@ -99,9 +99,6 @@ namespace ZeroInstall.Capture
                         }
                     }
 
-                    // Only return file types that have extensions associated with them
-                    if (fileType.Extensions.IsEmpty) return null;
-
                     capability = fileType;
                 }
                 else
@@ -114,6 +111,9 @@ namespace ZeroInstall.Capture
                 }
 
                 capability.Verbs.AddAll(GetVerbs(progIDKey, commandProvider));
+
+                // Only return capabilities that have verbs associated with them
+                if (capability.Verbs.IsEmpty) return null;
 
                 return capability;
             }

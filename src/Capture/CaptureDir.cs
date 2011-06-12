@@ -116,15 +116,15 @@ namespace ZeroInstall.Capture
             if (string.IsNullOrEmpty(installationDir)) installationDir = GetInstallationDir(snapshotDiff);
             var commands = GetCommands(installationDir, mainExe);
 
-            string appName, appDescription;
+            string appName = null, appDescription = null;
             var capabilities = new CapabilityList {Architecture = new Architecture(OS.Windows, Cpu.All)};
             try
             {
                 var commandProvider = new CommandProvider(installationDir, commands);
 
-                CollectDefaultPrograms(snapshotDiff, commandProvider, capabilities, out appName);
+                CollectDefaultPrograms(snapshotDiff, commandProvider, capabilities, ref appName);
 
-                var appRegistration = GetAppRegistration(snapshotDiff, commandProvider, capabilities, out appDescription);
+                var appRegistration = GetAppRegistration(snapshotDiff, commandProvider, capabilities, ref appName, ref appDescription);
                 capabilities.Entries.Add(appRegistration);
                 if (appRegistration == null)
                 { // Only collect URL protocols if there wasn't already an application registration that covered them

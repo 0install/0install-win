@@ -35,11 +35,12 @@ namespace ZeroInstall.Capture
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
         /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
-        /// <param name="appDescription">Returns user-friendly description of the application; <see langword="null"/> if the description was not found.</param>
+        /// <param name="appName">Is set to the name of the application as displayed to the user; unchanged if the name was not found.</param>
+        /// <param name="appDescription">Is set to a user-friendly description of the application; unchanged if the name was not found.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static AppRegistration GetAppRegistration(Snapshot snapshotDiff, CommandProvider commandProvider, CapabilityList capabilities, out string appDescription)
+        private static AppRegistration GetAppRegistration(Snapshot snapshotDiff, CommandProvider commandProvider, CapabilityList capabilities, ref string appName, ref string appDescription)
         {
             #region Sanity checks
             if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
@@ -50,7 +51,6 @@ namespace ZeroInstall.Capture
             // Ambiguity warnings
             if (snapshotDiff.RegisteredApplications.Length == 0)
             {
-                appDescription = null;
                 return null;
             }
             if (snapshotDiff.RegisteredApplications.Length > 1)
@@ -61,7 +61,6 @@ namespace ZeroInstall.Capture
             string capabilitiesRegPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\" + DesktopIntegration.Windows.AppRegistration.RegKeyMachineRegisteredApplications, appRegName, "") as string;
             if (string.IsNullOrEmpty(capabilitiesRegPath))
             {
-                appDescription = null;
                 return null;
             }
 
@@ -71,11 +70,11 @@ namespace ZeroInstall.Capture
                 if (capsKey == null)
                 {
                     Log.Warn(string.Format(Resources.InvalidCapabilitiesRegistryPath, capabilitiesRegPath));
-                    appDescription = null;
                     return null;
                 }
 
-                appDescription = capsKey.GetValue(DesktopIntegration.Windows.AppRegistration.RegValueAppDescription, "").ToString();
+                if (string.IsNullOrEmpty(appName)) appName = capsKey.GetValue(DesktopIntegration.Windows.AppRegistration.RegValueAppName, "").ToString();
+                if (string.IsNullOrEmpty(appDescription)) appDescription = capsKey.GetValue(DesktopIntegration.Windows.AppRegistration.RegValueAppDescription, "").ToString();
 
                 CollectProtocolAssocsEx(capsKey, commandProvider, capabilities);
                 CollectFileAssocsEx(capsKey, capabilities);

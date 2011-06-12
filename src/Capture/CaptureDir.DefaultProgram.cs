@@ -34,11 +34,11 @@ namespace ZeroInstall.Capture
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
         /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
-        /// <param name="appName">Returns the name of the application as displayed to the user; <see langword="null"/> if the name was not found.</param>
+        /// <param name="appName">Is set to the name of the application as displayed to the user; unchanged if the name was not found.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static void CollectDefaultPrograms(Snapshot snapshotDiff, CommandProvider commandProvider, CapabilityList capabilities, out string appName)
+        private static void CollectDefaultPrograms(Snapshot snapshotDiff, CommandProvider commandProvider, CapabilityList capabilities, ref string appName)
         {
             #region Sanity checks
             if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
@@ -50,8 +50,6 @@ namespace ZeroInstall.Capture
             if (snapshotDiff.ServiceAssocs.Length > 1)
                 Log.Warn(Resources.MultipleDefaultProgramsDetected);
 
-            appName = null;
-
             foreach (var serviceAssoc in snapshotDiff.ServiceAssocs)
             {
                 string service = serviceAssoc.Key;
@@ -61,7 +59,7 @@ namespace ZeroInstall.Capture
                 {
                     if (clientKey == null) continue;
 
-                    appName = clientKey.GetValue("", "").ToString();
+                    if (string.IsNullOrEmpty(appName)) appName = clientKey.GetValue("", "").ToString();
 
                     var defaultProgram = new DefaultProgram
                     {
