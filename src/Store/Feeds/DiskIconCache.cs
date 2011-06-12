@@ -18,23 +18,21 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Common.Net;
+using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Feeds
 {
     /// <summary>
-    /// Provides access to a disk-based cache of <see cref="Feed"/>s that were downloaded via HTTP(S).
+    /// Provides access to a disk-based cache of <see cref="Icon"/>s that were downloaded via HTTP(S).
     /// </summary>
-    /// <remarks>
-    ///   <para>Local feed files are simply passed through this cache.</para>
-    ///   <para>Once a feed has been added to this cache it is considered trusted (signature is not checked again).</para>
-    /// </remarks>
-    public sealed class DiskFeedCache : IFeedCache
+    public sealed class DiskIconCache : IIconCache
     {
         #region Properties
         /// <summary>
-        /// The directory containing the cached <see cref="Feed"/>s.
+        /// The directory containing the cached <see cref="Icon"/>s.
         /// </summary>
         public string DirectoryPath { get; private set; }
         #endregion
@@ -45,36 +43,31 @@ namespace ZeroInstall.Store.Feeds
         /// </summary>
         /// <param name="path">A fully qualified directory path.</param>
         /// <exception cref="DirectoryNotFoundException">Thrown if <paramref name="path"/> does not point to an existing directory.</exception>
-        public DiskFeedCache(string path)
+        public DiskIconCache(string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
             if (!Directory.Exists(path)) throw new DirectoryNotFoundException(string.Format(Resources.DirectoryNotFound, path));
-            
+
             DirectoryPath = path;
         }
         #endregion
 
         //--------------------//
-        
+
         #region Contains
         /// <inheritdoc/>
-        public bool Contains(string feedID)
+        public bool Contains(Uri iconUrl)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            if (iconUrl == null) throw new ArgumentNullException("iconUrl");
             #endregion
 
-            try { ModelUtils.ValidateInterfaceID(feedID); }
-            catch(InvalidInterfaceIDException)
-            {
-                return false;
-            }
+            string path = Path.Combine(DirectoryPath, ModelUtils.Escape(iconUrl.ToString()));
 
-            // Local files are passed through directly
-            return File.Exists(feedID) || File.Exists(Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)));
+            return File.Exists(path);
         }
         #endregion
 
@@ -103,61 +96,36 @@ namespace ZeroInstall.Store.Feeds
 
         #region Get
         /// <inheritdoc/>
-        public Feed GetFeed(string feedID)
+        public string GetIcon(Uri iconUrl, ITaskHandler handler)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            ModelUtils.ValidateInterfaceID(feedID);
+            if (iconUrl == null) throw new ArgumentNullException("iconUrl");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // Local files are passed through directly
-            string path = File.Exists(feedID) ? feedID : Path.Combine(DirectoryPath, ModelUtils.Escape(feedID));
+            string path = Path.Combine(DirectoryPath, ModelUtils.Escape(iconUrl.ToString()));
 
-            if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedID, path));
-            
-            var feed = Feed.Load(path);
-            feed.Simplify();
-            return feed;
-        }
-        #endregion
+            if (!File.Exists(path))
+            {
+                // Download missing icon
+                handler.RunTask(new DownloadFile(iconUrl, path), null);
+            }
 
-        #region Add
-        /// <inheritdoc/>
-        public void Add(string feedID, string path)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            ModelUtils.ValidateInterfaceID(feedID);
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            #endregion
-
-            // Don't cache local files
-            if (feedID == path) return;
-
-            string targetPath = Path.Combine(DirectoryPath, ModelUtils.Escape(feedID));
-
-            // Detect replay attacks
-            var oldTime = File.GetLastWriteTimeUtc(targetPath);
-            var newTime = File.GetLastWriteTimeUtc(path);
-            if (oldTime > newTime)
-                throw new ReplayAttackException(string.Format(Resources.ReplayAttack, feedID, oldTime, newTime));
-
-            File.Copy(path, targetPath);
+            return path;
         }
         #endregion
 
         #region Remove
         /// <inheritdoc/>
-        public void Remove(string feedID)
+        public void Remove(Uri iconUrl)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            ModelUtils.ValidateInterfaceID(feedID);
+            if (iconUrl == null) throw new ArgumentNullException("iconUrl");
             #endregion
 
-            string path = Path.Combine(DirectoryPath, ModelUtils.Escape(feedID));
+            string path = Path.Combine(DirectoryPath, ModelUtils.Escape(iconUrl.ToString()));
 
-            if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedID, path));
+            if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.IconNotInCache, iconUrl, path));
             File.Delete(path);
         }
         #endregion
