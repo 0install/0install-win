@@ -125,6 +125,15 @@ namespace ZeroInstall.Capture.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set {PATH} as the relative path to the main EXE of the application to be captured.  Only applicable to the &quot;collect&quot; operation. Will try to determine correct file automatically if not specified..
+        /// </summary>
+        internal static string OptionMainExe {
+            get {
+                return ResourceManager.GetString("OptionMainExe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Options:.
         /// </summary>
         internal static string Options {

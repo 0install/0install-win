@@ -120,11 +120,20 @@
   <data name="DirectoryNotEmpty" xml:space="preserve">
     <value>The directory '{0}' is not empty.</value>
   </data>
+  <data name="InvalidCapabilitiesRegistryPath" xml:space="preserve">
+    <value>Invalid capabilities registry path: {0}</value>
+  </data>
   <data name="MissingProgramFiles32Bit" xml:space="preserve">
     <value>No 32-bit %ProgramFiles% directory found.</value>
   </data>
+  <data name="MultipleDefaultProgramsDetected" xml:space="preserve">
+    <value>Multiple new default programs were detected in the registry. Handling them all, but the last one may take precedence in  some cases.</value>
+  </data>
   <data name="MultipleInstallationDirsDetected" xml:space="preserve">
     <value>Multiple installation directories were detected. Choosing first by default.</value>
+  </data>
+  <data name="MultipleRegisteredAppsDetected" xml:space="preserve">
+    <value>Multiple new application registrations were detected in the registry. Choosing first by default.</value>
   </data>
   <data name="NoInstallationDirDetected" xml:space="preserve">
     <value>No installation directory was detected.</value>

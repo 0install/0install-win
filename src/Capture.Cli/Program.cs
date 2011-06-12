@@ -21,6 +21,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using Common;
+using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Capture.Cli.Properties;
 
@@ -145,7 +146,7 @@ namespace ZeroInstall.Capture.Cli
                 {"f|force", Resources.OptionForce, unused => parseResults.Force = true},
                 {"installation-dir=", Resources.OptionInstallationDir, value =>
                 {
-                    try { parseResults.InstallationDirectory = Path.GetFullPath(value); }
+                    try { parseResults.InstallationDirectory = Path.GetFullPath(StringUtils.UnescapeWhitespace(value)); }
                     #region Error handling
                     catch (ArgumentException ex)
                     {
@@ -154,6 +155,7 @@ namespace ZeroInstall.Capture.Cli
                     }
                     #endregion
                 }},
+                {"main-exe=", Resources.OptionMainExe, value => parseResults.MainExe = StringUtils.UnescapeWhitespace(value)},
                 {"files", Resources.OptionFiles, unused => parseResults.GetFiles = true}
             };
             #endregion
@@ -177,7 +179,14 @@ namespace ZeroInstall.Capture.Cli
             parseResults.Command = additionalArgs[0];
 
             // Determine the capture directory to use
-            parseResults.DirectoryPath = (additionalArgs.Count >= 2) ? additionalArgs[1] : Environment.CurrentDirectory;
+            try { parseResults.DirectoryPath = (additionalArgs.Count >= 2) ? Path.GetFullPath(StringUtils.UnescapeWhitespace(additionalArgs[1])) : Environment.CurrentDirectory; }
+            #region Error handling
+            catch (ArgumentException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new OptionException(ex.Message, "", ex);
+            }
+            #endregion
 
             // Return the now filled results structure
             return parseResults;
@@ -268,7 +277,7 @@ namespace ZeroInstall.Capture.Cli
                     }
                     #endregion
 
-                    captureDir.Collect(results.InstallationDirectory, results.GetFiles);
+                    captureDir.Collect(results.InstallationDirectory, results.MainExe, results.GetFiles);
                     Console.WriteLine(Resources.InstallDataCollected);
                     return ErrorLevel.OK;
                 }

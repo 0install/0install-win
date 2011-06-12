@@ -100,10 +100,11 @@ namespace ZeroInstall.Capture
         /// Collects data from the locations indicated by the differences between <see cref="SnapshotPre"/> and <see cref="SnapshotPost"/>.
         /// </summary>
         /// <param name="installationDir">The fully qualified path to the installation directory; leave <see langword="null"/> for auto-detection.</param>
+        /// <param name="mainExe">The relative path to the main EXE; leave <see langword="null"/> for auto-detection.</param>
         /// <param name="getFiles">Indicates whether to collect installation files in addition to registry data.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry or file system.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the registry or file system was not permitted.</exception>
-        public void Collect(string installationDir, bool getFiles)
+        public void Collect(string installationDir, string mainExe, bool getFiles)
         {
             #region Sanity checks
             if (SnapshotPre == null) throw new InvalidOperationException("Pre-installation snapshot missing.");
@@ -113,19 +114,21 @@ namespace ZeroInstall.Capture
             var snapshotDiff = Snapshot.Diff(SnapshotPre, SnapshotPost);
 
             if (string.IsNullOrEmpty(installationDir)) installationDir = GetInstallationDir(snapshotDiff);
-            var commands = GetCommands(installationDir);
+            var commands = GetCommands(installationDir, mainExe);
 
+            string appName, appDescription;
             var capabilities = new CapabilityList {Architecture = new Architecture(OS.Windows, Cpu.All)};
             try
             {
                 var commandProvider = new CommandProvider(installationDir, commands);
-                CollectContextMenus(snapshotDiff, capabilities, commandProvider);
-                CollectFileTypes(snapshotDiff, capabilities, commandProvider);
-                CollectAutoPlays(snapshotDiff, capabilities, commandProvider);
-                CollectRegisteredApplications(snapshotDiff, capabilities, commandProvider);
-                CollectProtocolAssocs(snapshotDiff.ProtocolAssocs, capabilities, commandProvider);
-                CollectComServers(snapshotDiff.ClassIDs, capabilities, commandProvider);
-                CollectGames(snapshotDiff.Games, capabilities, commandProvider);
+                CollectContextMenus(snapshotDiff, commandProvider, capabilities);
+                CollectFileTypes(snapshotDiff, commandProvider, capabilities);
+                CollectAutoPlays(snapshotDiff, commandProvider, capabilities);
+                CollectDefaultPrograms(snapshotDiff, commandProvider, capabilities, out appName);
+                CollectRegisteredApplications(snapshotDiff, commandProvider, capabilities, out appDescription);
+                CollectProtocolAssocs(snapshotDiff.ProtocolAssocs, commandProvider, capabilities);
+                CollectComServers(snapshotDiff.ClassIDs, commandProvider, capabilities);
+                CollectGames(snapshotDiff.Games, commandProvider, capabilities);
             }
             #region Error handling
             catch (SecurityException ex)
@@ -136,7 +139,7 @@ namespace ZeroInstall.Capture
             #endregion
 
             Implementation implementation = (getFiles && !string.IsNullOrEmpty(installationDir)) ? GetImplementation(installationDir) : null;
-            BuildFeed(capabilities, commands, implementation).Save(Path.Combine(DirectoryPath, "feed.xml"));
+            BuildFeed(appName, appDescription, capabilities, commands, implementation).Save(Path.Combine(DirectoryPath, "feed.xml"));
         }
         #endregion
 
@@ -167,10 +170,12 @@ namespace ZeroInstall.Capture
         /// <summary>
         /// Creates a barebone feed representing the application's capabilities.
         /// </summary>
+        /// <param name="appName">The name of the application as displayed to the user.</param>
+        /// <param name="appDescription">A user-friendly description of the application.</param>
         /// <param name="capabilities">A list of capabilities that were detected.</param>
         /// <param name="commands">A list of commands that can be uses to start the application.</param>
         /// <param name="implementation">An implementation to add to the main group; may be <see langword="null"/>.</param>
-        private static Feed BuildFeed(CapabilityList capabilities, IEnumerable<Command> commands, Implementation implementation)
+        private static Feed BuildFeed(string appName, string appDescription, CapabilityList capabilities, IEnumerable<Command> commands, Implementation implementation)
         {
             #region Sanity checks
             if (capabilities == null) throw new ArgumentNullException("capabilities");
@@ -183,10 +188,9 @@ namespace ZeroInstall.Capture
 
             return new Feed
             {
-                // ToDo: Auto-detect values from Default Program registration
-                Name = "Application name",
-                Summaries = {new LocalizableString("Application summary")},
-                Descriptions = {new LocalizableString("Application description")},
+                Name = appName ?? "Application name",
+                Summaries = {new LocalizableString("Short summary")},
+                Descriptions = {new LocalizableString(appDescription ?? "Application description")},
                 Elements = {group},
                 CapabilityLists = {capabilities}
             };

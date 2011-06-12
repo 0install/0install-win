@@ -55,6 +55,8 @@ namespace ZeroInstall.Capture
         #endregion
 
         #region Variables
+        private readonly string _installationDir;
+
         /// <summary>A list of command-lines and coressponding <see cref="Command"/>s.</summary>
         private readonly List<CommandTuple> _commmands = new List<CommandTuple>();
         #endregion
@@ -71,6 +73,8 @@ namespace ZeroInstall.Capture
             if (string.IsNullOrEmpty(installationDir)) throw new ArgumentNullException("installationDir");
             if (commmands == null) throw new ArgumentNullException("commmands");
             #endregion
+
+            _installationDir = installationDir;
 
             // Associate each command with its command-line
             foreach (var commmand in commmands)
@@ -104,9 +108,17 @@ namespace ZeroInstall.Capture
 
             foreach (var tuple in _commmands)
             {
+                // Find partial matches
                 if (commandLine.StartsWith(tuple.CommandLine))
                 {
                     additionalArgs = commandLine.Substring(tuple.CommandLine.Length).TrimStart();
+                    return tuple.Command;
+                }
+
+                // Find exact matches
+                if (commandLine == Path.Combine(_installationDir, tuple.Command.Path))
+                {
+                    additionalArgs = "";
                     return tuple.Command;
                 }
             }

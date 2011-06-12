@@ -16,13 +16,15 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Represents an application's listing in Windows Vista/7's "Default Programs".
+    /// Indicates that an application should be listed in Windows Vista/7's new "Default Programs" UI.
     /// </summary>
+    /// <remarks>The actual integration information is pulled from the other <see cref="Capability"/>s.</remarks>
     [XmlType("app-registration", Namespace = XmlNamespace)]
     public class AppRegistration : Capability, IEquatable<AppRegistration>
     {
@@ -30,18 +32,30 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override bool GlobalOnly { get { return true; } }
 
-        // ToDo
+        /// <summary>
+        /// The registry path relative to HKEY_LOCAL_MACHINE which is used to store the application's capability registration information.
+        /// </summary>
+        [Description("The registry path relative to HKEY_LOCAL_MACHINE which is used to store the application's capability registration information.")]
+        [XmlAttribute("capability-reg-pat")]
+        public string CapabilityRegPath { get; set; }
+
+        /// <summary>
+        /// Set to <see langword="true"/> for real 64-bit applications whose registry entries do not get redirected by WOW.
+        /// </summary>
+        [Description("Set to true for real 64-bit applications whose registry entries do not get redirected by WOW.")]
+        [XmlAttribute("x64"), DefaultValue(false)]
+        public bool X64 { get; set; }
         #endregion
 
         //--------------------//
 
         #region Conversion
         /// <summary>
-        /// Returns the capability in the form "AppRegistration". Not safe for parsing!
+        /// Returns the capability in the form "AppRegistration: CapabilityRegPath". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("AppRegistration");
+            return string.Format("AppRegistration: {0}", CapabilityRegPath);
         }
         #endregion
 
@@ -49,7 +63,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability CloneCapability()
         {
-            return new AppRegistration {ID = ID};
+            return new AppRegistration {ID = ID, CapabilityRegPath = CapabilityRegPath, X64 = X64};
         }
         #endregion
 
@@ -59,7 +73,8 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (other == null) return false;
 
-            return base.Equals(other);
+            return base.Equals(other) &&
+                other.CapabilityRegPath == CapabilityRegPath && other.X64 == X64;
         }
 
         /// <inheritdoc/>
@@ -76,6 +91,8 @@ namespace ZeroInstall.Model.Capabilities
             unchecked
             {
                 int result = base.GetHashCode();
+                result = (result * 397) ^ (CapabilityRegPath ?? "").GetHashCode();
+                result = (result * 397) ^ X64.GetHashCode();
                 return result;
             }
         }

@@ -30,12 +30,12 @@ namespace ZeroInstall.Capture
         /// Collects data about file types and also URL protocol handlers indicated by a snapshot diff.
         /// </summary>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
-        /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
+        /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static void CollectFileTypes(Snapshot snapshotDiff, CapabilityList capabilities, CommandProvider commandProvider)
+        private static void CollectFileTypes(Snapshot snapshotDiff, CommandProvider commandProvider, CapabilityList capabilities)
         {
             #region Sanity checks
             if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
@@ -93,8 +93,8 @@ namespace ZeroInstall.Capture
                             fileType.Extensions.Add(new FileTypeExtension
                             {
                                 Value = fileAssoc.Key,
-                                MimeType = assocKey.GetValue("Content Type", "").ToString(),
-                                PerceivedType = assocKey.GetValue("PerceivedType", "").ToString()
+                                MimeType = assocKey.GetValue(DesktopIntegration.Windows.FileType.RegValueContentType, "").ToString(),
+                                PerceivedType = assocKey.GetValue(DesktopIntegration.Windows.FileType.RegValuePerceivedType, "").ToString()
                             });
                         }
                     }
@@ -113,16 +113,7 @@ namespace ZeroInstall.Capture
                     };
                 }
 
-                using (var shellKey = progIDKey.OpenSubKey("shell"))
-                {
-                    if (shellKey == null) return null;
-
-                    foreach (string verbName in shellKey.GetSubKeyNames())
-                    {
-                        var verb = GetVerb(progID, verbName, commandProvider);
-                        if (verb != default(Verb)) capability.Verbs.Add(verb);
-                    }
-                }
+                capability.Verbs.AddAll(GetVerbs(progIDKey, commandProvider));
 
                 return capability;
             }

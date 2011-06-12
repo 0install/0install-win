@@ -32,16 +32,17 @@ namespace ZeroInstall.DesktopIntegration.Windows
     public static class FileType
     {
         #region Constants
-        /// <summary>
-        /// The default value for <see cref="Capabilities.Verb.Arguments"/>.
-        /// </summary>
-        public const string DefaultArguments = "\"%1\"";
-
         /// <summary>The HKCU/HKLM registry key backing HKCR.</summary>
         public const string RegKeyClass = @"SOFTWARE\Classes";
 
-        /// <summary>The HKLM registry key for registering applications as candidates for default programs.</summary>
-        public const string RegKeyMachineRegisteredApplications = @"SOFTWARE\RegisteredApplications";
+        /// <summary>The registry value name for MIME type storage.</summary>
+        public const string RegValueContentType = "Content Type";
+
+        /// <summary>The registry value name for perceived type storage.</summary>
+        public const string RegValuePerceivedType = "PerceivedType";
+
+        /// <summary>The default value for <see cref="Capabilities.Verb.Arguments"/>.</summary>
+        public const string DefaultArguments = "\"%1\"";
         #endregion
 
         #region Apply

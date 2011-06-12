@@ -31,6 +31,7 @@ namespace ZeroInstall.Model.Capabilities
     {
         #region Properties
         /// <inheritdoc/>
+        [XmlIgnore]
         public override bool GlobalOnly { get { return false; } }
 
         // Preserve order, duplicate string entries are not allowed

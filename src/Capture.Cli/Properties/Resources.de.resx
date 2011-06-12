@@ -139,6 +139,9 @@ Bitte bearbeiten Sie die neu angelegte 'feed.xml' Ihren Anforderungen entspreche
   <data name="OptionInstallationDir" xml:space="preserve">
     <value>{DIR} als das Installationsverzeichnis der Anwendung die erfasst werden soll setzen. Nur beim "collect" Befehl anwendbar. Versucht korrektes Verzeichnis automatisch zu ermitteln wenn nicht angegeben.</value>
   </data>
+  <data name="OptionMainExe" xml:space="preserve">
+    <value>{PATH} als den relativen Pfad zur Haupt-EXE eer Anwendung die erfasst werden soll setzen.  Nur beim "collect" Befehl anwendbar. Versucht korrekte Datei automatisch zu ermitteln wenn nicht angegeben.</value>
+  </data>
   <data name="Options" xml:space="preserve">
     <value>Optionen:</value>
   </data>

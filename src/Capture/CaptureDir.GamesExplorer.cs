@@ -30,12 +30,12 @@ namespace ZeroInstall.Capture
         /// Collects data about applications registered in the Windows Games Explorer.
         /// </summary>
         /// <param name="games">A list of applications registered in the Windows Games Explorer.</param>
-        /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
+        /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static void CollectGames(IEnumerable<string> games, CapabilityList capabilities, CommandProvider commandProvider)
+        private static void CollectGames(IEnumerable<string> games, CommandProvider commandProvider, CapabilityList capabilities)
         {
             #region Sanity checks
             if (games == null) throw new ArgumentNullException("games");

@@ -69,7 +69,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Windows\AppRegistration.cs" />
     <Compile Include="Windows\FileType.cs" />
+    <Compile Include="Windows\RegistryFilter.cs" />
     <Compile Include="Windows\ShortcutManager.cs" />
     <Compile Include="Windows\StubBuilder.cs" />
     <Compile Include="Windows\AppPath.cs" />

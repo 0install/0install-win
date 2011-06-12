@@ -18,7 +18,9 @@
 using System;
 using System.IO;
 using System.Security;
+using Common;
 using Microsoft.Win32;
+using ZeroInstall.Capture.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
 
@@ -27,15 +29,16 @@ namespace ZeroInstall.Capture
     public partial class CaptureDir
     {
         /// <summary>
-        /// Collects data about context menu entries indicated by a snapshot diff.
+        /// Collects data about default programs indicated by a snapshot diff.
         /// </summary>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
         /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
+        /// <param name="appName">Returns the name of the application as displayed to the user; <see langword="null"/> if the name was not found.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static void CollectContextMenus(Snapshot snapshotDiff, CommandProvider commandProvider, CapabilityList capabilities)
+        private static void CollectDefaultPrograms(Snapshot snapshotDiff, CommandProvider commandProvider, CapabilityList capabilities, out string appName)
         {
             #region Sanity checks
             if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
@@ -43,29 +46,32 @@ namespace ZeroInstall.Capture
             if (commandProvider == null) throw new ArgumentNullException("commandProvider");
             #endregion
 
-            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesFilesPrefix))
-                foreach (string entry in snapshotDiff.FilesContextMenuSimple)
-                {
-                    capabilities.Entries.Add(new ContextMenu
-                    {
-                        ID = "files-" + entry,
-                        AllObjects = false,
-                        Verb = GetVerb(progIDKey, commandProvider, entry)
-                    });
-                }
+            // Ambiguity warnings
+            if (snapshotDiff.ServiceAssocs.Length > 1)
+                Log.Warn(Resources.MultipleDefaultProgramsDetected);
 
-            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesAllPrefix))
-                foreach (string entry in snapshotDiff.AllContextMenuSimple)
-                {
-                    capabilities.Entries.Add(new ContextMenu
-                    {
-                        ID = "all-" + entry,
-                        AllObjects = true,
-                        Verb = GetVerb(progIDKey, commandProvider, entry)
-                    });
-                }
+            appName = null;
 
-            // ToDo: Collect from snapshotDiff.AllContextMenuExtended and snapshotDiff.FilesContextMenuExtended
+            foreach (var serviceAssoc in snapshotDiff.ServiceAssocs)
+            {
+                string service = serviceAssoc.Key;
+                string client = serviceAssoc.Value;
+
+                using (var clientKey = Registry.LocalMachine.OpenSubKey(DesktopIntegration.Windows.DefaultProgram.RegKeyMachineClients + @"\" + service + @"\" + client))
+                {
+                    if (clientKey == null) continue;
+
+                    appName = clientKey.GetValue("", "").ToString();
+
+                    var defaultProgram = new DefaultProgram
+                    {
+                        ID = client,
+                        Service = service
+                    };
+                    defaultProgram.Verbs.AddAll(GetVerbs(clientKey, commandProvider));
+                    capabilities.Entries.Add(defaultProgram);
+                }
+            }
         }
     }
 }

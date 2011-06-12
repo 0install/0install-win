@@ -32,12 +32,12 @@ namespace ZeroInstall.Capture
         /// Collects data about AutoPlay handlers indicated by a snapshot diff.
         /// </summary>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
-        /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
+        /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static void CollectAutoPlays(Snapshot snapshotDiff, CapabilityList capabilities, CommandProvider commandProvider)
+        private static void CollectAutoPlays(Snapshot snapshotDiff, CommandProvider commandProvider, CapabilityList capabilities)
         {
             #region Sanity checks
             if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
@@ -83,19 +83,23 @@ namespace ZeroInstall.Capture
 
                 string progID = handlerKey.GetValue("InvokeProgID", "").ToString();
                 string verbName = handlerKey.GetValue("InvokeVerb", "").ToString();
-                var autoPlay = new AutoPlay
+
+                using (var progIDKey = Registry.ClassesRoot.OpenSubKey(progID))
                 {
-                    ID = handler,
-                    Provider = handlerKey.GetValue("Provider", "").ToString(),
-                    Description = handlerKey.GetValue("Description", "").ToString(),
-                    ProgID = progID,
-                    Verb = GetVerb(progID, verbName, commandProvider)
-                };
+                    var autoPlay = new AutoPlay
+                    {
+                        ID = handler,
+                        Provider = handlerKey.GetValue("Provider", "").ToString(),
+                        Description = handlerKey.GetValue("Description", "").ToString(),
+                        ProgID = progID,
+                        Verb = GetVerb(progIDKey, commandProvider, verbName)
+                    };
 
-                foreach (var autoPlayAssoc in autoPlayAssocs)
-                    if (autoPlayAssoc.Value == handler) autoPlay.Events.Add(new AutoPlayEvent {Name = autoPlayAssoc.Key});
+                    foreach (var autoPlayAssoc in autoPlayAssocs)
+                        if (autoPlayAssoc.Value == handler) autoPlay.Events.Add(new AutoPlayEvent { Name = autoPlayAssoc.Key });
 
-                return autoPlay;
+                    return autoPlay;
+                }
             }
         }
     }

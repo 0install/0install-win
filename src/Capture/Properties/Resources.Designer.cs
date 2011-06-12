@@ -70,6 +70,15 @@ namespace ZeroInstall.Capture.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid capabilities registry path: {0}.
+        /// </summary>
+        internal static string InvalidCapabilitiesRegistryPath {
+            get {
+                return ResourceManager.GetString("InvalidCapabilitiesRegistryPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No 32-bit %ProgramFiles% directory found..
         /// </summary>
         internal static string MissingProgramFiles32Bit {
@@ -79,11 +88,29 @@ namespace ZeroInstall.Capture.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Multiple new default programs were detected in the registry. Handling them all, but the last one may take precedence in  some cases..
+        /// </summary>
+        internal static string MultipleDefaultProgramsDetected {
+            get {
+                return ResourceManager.GetString("MultipleDefaultProgramsDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Multiple installation directories were detected. Choosing first by default..
         /// </summary>
         internal static string MultipleInstallationDirsDetected {
             get {
                 return ResourceManager.GetString("MultipleInstallationDirsDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multiple new application registrations were detected in the registry. Choosing first by default..
+        /// </summary>
+        internal static string MultipleRegisteredAppsDetected {
+            get {
+                return ResourceManager.GetString("MultipleRegisteredAppsDetected", resourceCulture);
             }
         }
         

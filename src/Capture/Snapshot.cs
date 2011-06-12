@@ -133,7 +133,7 @@ namespace ZeroInstall.Capture
             GetFileAssocData(out snapshot.FileAssocs, out snapshot.ProgIDs);
             snapshot.ProtocolAssocs = GetProtocolAssoc();
             snapshot.ClassIDs = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ComServer.RegKeyClassesIDs);
-            snapshot.RegisteredApplications = WindowsUtils.GetValueNames(Registry.LocalMachine, FileType.RegKeyMachineRegisteredApplications);
+            snapshot.RegisteredApplications = WindowsUtils.GetValueNames(Registry.LocalMachine, AppRegistration.RegKeyMachineRegisteredApplications);
 
             snapshot.FilesContextMenuSimple = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + "\\" + ContextMenu.RegKeyContextMenuSimplePostfix);
             snapshot.FilesContextMenuExtended = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + "\\" + ContextMenu.RegKeyContextMenuExtendedPostfix);

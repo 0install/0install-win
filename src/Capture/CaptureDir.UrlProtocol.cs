@@ -32,12 +32,12 @@ namespace ZeroInstall.Capture
         /// Collects data about well-known URL protocol handlers indicated by a snapshot diff.
         /// </summary>
         /// <param name="protocolAssocs">A list of protocol associations for well-known protocols (e.g. HTTP, FTP, ...).</param>
-        /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
+        /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static void CollectProtocolAssocs(IEnumerable<ComparableTuple<string>> protocolAssocs, CapabilityList capabilities, CommandProvider commandProvider)
+        private static void CollectProtocolAssocs(IEnumerable<ComparableTuple<string>> protocolAssocs, CommandProvider commandProvider, CapabilityList capabilities)
         {
             #region Sanity checks
             if (protocolAssocs == null) throw new ArgumentNullException("protocolAssocs");
@@ -48,12 +48,13 @@ namespace ZeroInstall.Capture
             foreach (var protocolAssoc in protocolAssocs)
             {
                 string protocol = protocolAssoc.Key;
-                capabilities.Entries.Add(new UrlProtocol
-                {
-                    ID = protocol,
-                    Description = Registry.GetValue(@"HKEY_CLASSES_ROOT\" + protocol, "", "") as string,
-                    Verbs = {GetVerb(protocolAssoc.Key, "open", commandProvider)}
-                });
+                using (var protocolKey = Registry.ClassesRoot.OpenSubKey(protocol))
+                    capabilities.Entries.Add(new UrlProtocol
+                    {
+                        ID = protocol,
+                        Description = Registry.GetValue(@"HKEY_CLASSES_ROOT\" + protocol, "", "") as string,
+                        Verbs = {GetVerb(protocolKey, commandProvider, "open")}
+                    });
             }
         }
     }

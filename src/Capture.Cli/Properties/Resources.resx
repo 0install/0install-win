@@ -139,6 +139,9 @@ Please edit the newly created 'feed.xml' to fit your needs.</value>
   <data name="OptionInstallationDir" xml:space="preserve">
     <value>Set {DIR} as the directory the application to be captured is installed in.  Only applicable to the "collect" operation. Will try to determine correct directory automatically if not specified.</value>
   </data>
+  <data name="OptionMainExe" xml:space="preserve">
+    <value>Set {PATH} as the relative path to the main EXE of the application to be captured.  Only applicable to the "collect" operation. Will try to determine correct file automatically if not specified.</value>
+  </data>
   <data name="Options" xml:space="preserve">
     <value>Options:</value>
   </data>

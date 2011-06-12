@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Common;
+using Common.Utils;
 using Microsoft.Win32;
 using ZeroInstall.Capture.Properties;
 using ZeroInstall.Model;
@@ -58,13 +59,14 @@ namespace ZeroInstall.Capture
         /// <summary>
         /// Detects all EXE files within the installation directory and returns them as <see cref="Command"/>s.
         /// </summary>
-        /// <param name="installationDir">The fully qualified path to the installation directory; may be <see langword="null"/>.</param>
-        private static IEnumerable<Command> GetCommands(string installationDir)
+        /// <param name="installationDir">The fully qualified path to the installation directory; leave <see langword="null"/> for auto-detection.</param>
+        /// <param name="mainExe">The relative path to the main EXE; leave <see langword="null"/> for auto-detection.</param>
+        private static IEnumerable<Command> GetCommands(string installationDir, string mainExe)
         {
             if (installationDir == null) return new Command[0];
             installationDir = Path.GetFullPath(installationDir);
 
-            bool firstExe = true;
+            bool isFirstExe = true;
             var commands = new C5.LinkedList<Command>();
             foreach (string absolutePath in Directory.GetFiles(installationDir, "*.exe", SearchOption.AllDirectories))
             {
@@ -74,29 +76,54 @@ namespace ZeroInstall.Capture
                 // Cut away installation directory plus trailing slash
                 string relativePath = absolutePath.Substring(installationDir.Length + 1);
 
-                // Assume first detected EXE is the main entry point
-                // ToDo: Better heuristic
-                commands.Add(new Command { Name = firstExe ? "run" : relativePath.Replace(".exe", "").Replace(Path.DirectorySeparatorChar, '.'), Path = relativePath });
-                firstExe = false;
+                // Assume first detected EXE is the main entry point if not specified explicitly
+                string name = (isFirstExe && (mainExe == null)) || StringUtils.Compare(relativePath, mainExe)
+                    ? Command.NameRun
+                    : relativePath.Replace(".exe", "").Replace(Path.DirectorySeparatorChar, '.');
+                commands.Add(new Command {Name = name, Path = relativePath});
+                isFirstExe = false;
             }
             return commands;
         }
 
         /// <summary>
-        /// Retreives data about a verb (an executable command) from the registry.
+        /// Retreives data about multiple verbs (executable commands) from the registry.
         /// </summary>
-        /// <param name="progID">The programatic indentifier the verb is associated with.</param>
-        /// <param name="verb">The internal name of the verb.</param>
+        /// <param name="typeKey">The registry key containing information about the file type / protocol the verbs belong to.</param>
         /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
-        private static Verb GetVerb(string progID, string verb, CommandProvider commandProvider)
+        /// <returns>A list of detected <see cref="Verb"/>.</returns>
+        private static IEnumerable<Verb> GetVerbs(RegistryKey typeKey, CommandProvider commandProvider)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(progID)) throw new ArgumentNullException("progID");
+            if (typeKey == null) throw new ArgumentNullException("typeKey");
+            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
+            #endregion
+
+            var verbs = new List<Verb>();
+            foreach (string verbName in WindowsUtils.GetSubKeyNames(typeKey, "shell"))
+            {
+                var verb = GetVerb(typeKey, commandProvider, verbName);
+                if (verb != default(Verb)) verbs.Add(verb);
+            }
+            return verbs;
+        }
+
+        /// <summary>
+        /// Retreives data about a verb (an executable command) from the registry.
+        /// </summary>
+        /// <param name="typeKey">The registry key containing information about the file type / protocol the verb belongs to.</param>
+        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
+        /// <param name="verb">The internal name of the verb.</param>
+        /// <returns>The detected <see cref="Verb"/> or an empty <see cref="Verb"/> if no match was found.</returns>
+        private static Verb GetVerb(RegistryKey typeKey, CommandProvider commandProvider, string verb)
+        {
+            #region Sanity checks
+            if (typeKey == null) throw new ArgumentNullException("typeKey");
             if (string.IsNullOrEmpty(verb)) throw new ArgumentNullException("verb");
             if (commandProvider == null) throw new ArgumentNullException("commandProvider");
             #endregion
 
-            using (var verbKey = Registry.ClassesRoot.OpenSubKey(progID + @"\shell\" + verb))
+            using (var verbKey = typeKey.OpenSubKey(@"shell\" + verb))
             {
                 if (verbKey == null) return default(Verb);
 
@@ -111,11 +138,14 @@ namespace ZeroInstall.Capture
                 string additionalArgs;
                 var command = commandProvider.GetCommand(commandLine, out additionalArgs);
                 if (command == null) return default(Verb);
+                string commandName = command.Name;
+
+                if (commandName == Command.NameRun) commandName = null;
                 return new Verb
                 {
                     Name = verb,
                     Description = description,
-                    Command = command.Name,
+                    Command = commandName,
                     Arguments = additionalArgs
                 };
             }

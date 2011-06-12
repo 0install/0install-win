@@ -34,6 +34,9 @@ namespace ZeroInstall.Capture.Cli
         /// <summary>The directory the application to be captured is installed in.</summary>
         public string InstallationDirectory;
 
+        /// <summary>The relative path to the main EXE of the application to be captured.</summary>
+        public string MainExe;
+
         /// <summary>Indicates whether to collect installation files in addition to registry data.</summary>
         public bool GetFiles;
     }

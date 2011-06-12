@@ -18,6 +18,10 @@
 using System;
 using System.IO;
 using System.Security;
+using Common;
+using Common.Utils;
+using Microsoft.Win32;
+using ZeroInstall.Capture.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
 
@@ -26,15 +30,16 @@ namespace ZeroInstall.Capture
     public partial class CaptureDir
     {
         /// <summary>
-        /// Collects data about registered applications and default programs indicated by a snapshot diff.
+        /// Collects data about registered applications aindicated by a snapshot diff.
         /// </summary>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
-        /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
+        /// <param name="capabilities">The capability list to add the collected data to.</param>
+        /// <param name="appDescription">Returns user-friendly description of the application; <see langword="null"/> if the description was not found.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static void CollectRegisteredApplications(Snapshot snapshotDiff, CapabilityList capabilities, CommandProvider commandProvider)
+        private static void CollectRegisteredApplications(Snapshot snapshotDiff, CommandProvider commandProvider, CapabilityList capabilities, out string appDescription)
         {
             #region Sanity checks
             if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
@@ -42,9 +47,83 @@ namespace ZeroInstall.Capture
             if (commandProvider == null) throw new ArgumentNullException("commandProvider");
             #endregion
 
-            //snapshotDiff.RegisteredApplications
-            //snapshotDiff.ServiceAssocs
-            // ToDo: Implement
+            // Ambiguity warnings
+            if (snapshotDiff.RegisteredApplications.Length == 0)
+            {
+                appDescription = null;
+                return;
+            }
+            if (snapshotDiff.RegisteredApplications.Length > 1)
+                Log.Warn(Resources.MultipleRegisteredAppsDetected);
+
+            // Get registry path pointer
+            string appRegName = snapshotDiff.RegisteredApplications[0];
+            string capabilitiesRegPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\" + DesktopIntegration.Windows.AppRegistration.RegKeyMachineRegisteredApplications, appRegName, "") as string;
+            if (string.IsNullOrEmpty(capabilitiesRegPath))
+            {
+                appDescription = null;
+                return;
+            }
+
+            bool x64;
+            using (var capsKey = WindowsUtils.OpenHklmKey(capabilitiesRegPath, out x64))
+            {
+                if (capsKey == null)
+                {
+                    Log.Warn(string.Format(Resources.InvalidCapabilitiesRegistryPath, capabilitiesRegPath));
+                    appDescription = null;
+                    return;
+                }
+
+                appDescription = capsKey.GetValue(DesktopIntegration.Windows.AppRegistration.RegValueAppDescription, "").ToString();
+
+                // Note: FileAssociations and StartMenu are detected elsewhere
+                CollectProtocolAssocsEx(capsKey, commandProvider, capabilities);
+
+                capabilities.Entries.Add(new AppRegistration
+                {
+                    ID = appRegName,
+                    CapabilityRegPath = capabilitiesRegPath,
+                    X64 = x64
+                });
+            }
+        }
+
+        /// <summary>
+        /// Collects data about URL protocol handlers indicated by registered application capabilities.
+        /// </summary>
+        /// <param name="capsKey">A registry key containing capability information for a registered application.</param>
+        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
+        /// <param name="capabilities">The capability list to add the collected data to.</param>
+        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        private static void CollectProtocolAssocsEx(RegistryKey capsKey, CommandProvider commandProvider, CapabilityList capabilities)
+        {
+            using (var urlAssocKey = capsKey.OpenSubKey(DesktopIntegration.Windows.AppRegistration.RegSubKeyUrlAssocs))
+            {
+                if (urlAssocKey != null)
+                {
+                    foreach (string protocol in urlAssocKey.GetValueNames())
+                    {
+                        string progID = urlAssocKey.GetValue(protocol, "").ToString();
+                        using (var progIDKey = Registry.ClassesRoot.OpenSubKey(progID))
+                        {
+                            if (progIDKey == null) continue;
+
+                            var capability = new UrlProtocol
+                            {
+                                ID = progID,
+                                Description = progIDKey.GetValue("", "").ToString(),
+                                Prefix = protocol
+                            };
+
+                            capability.Verbs.AddAll(GetVerbs(progIDKey, commandProvider));
+                            capabilities.Entries.Add(capability);
+                        }
+                    }
+                }
+            }
         }
     }
 }

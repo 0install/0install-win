@@ -29,5 +29,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <summary>The HKLM registry key for registering applications as clients for specific services.</summary>
         public const string RegKeyMachineClients = @"SOFTWARE\Clients";
         #endregion
+
+        // ToDo: Generate InstallInfo entries
     }
 }

@@ -28,6 +28,7 @@ namespace ZeroInstall.Model.Capabilities
     {
         #region Properties
         /// <inheritdoc/>
+        [XmlIgnore]
         public override bool GlobalOnly { get { return true; } }
 
         // ToDo

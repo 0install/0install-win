@@ -8,13 +8,14 @@
       <Method Name="CloneCapability" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
+      <Property Name="GlobalOnly" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
     </Members>
     <AssociationLine Name="Verb" Type="ZeroInstall.Model.Capabilities.Verb" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="7.25" Y="4.688" />
-        <Point X="8.188" Y="4.688" />
-        <Point X="8.188" Y="5.25" />
+        <Point X="7.25" Y="4.438" />
+        <Point X="8.188" Y="4.438" />
+        <Point X="8.188" Y="4.75" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -35,10 +36,11 @@
       <Method Name="CloneCapability" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
+      <Property Name="GlobalOnly" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEgAAAAAAAAAAAEIAAAAAAAAAAAAI=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEgAAAAAAAAAAAEIAAAAAAAEAAABI=</HashCode>
       <FileName>Capabilities\AppRegistration.cs</FileName>
       <NewMemberFileName>Capabilities\GamesExplorer.cs</NewMemberFileName>
     </TypeIdentifier>
@@ -85,6 +87,7 @@
       <Method Name="CloneCapability" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
+      <Property Name="GlobalOnly" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
@@ -99,12 +102,13 @@
       <Method Name="CloneCapability" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
+      <Property Name="GlobalOnly" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
     </Members>
     <AssociationLine Name="Verb" Type="ZeroInstall.Model.Capabilities.Verb" FixedToPoint="true">
       <Path>
-        <Point X="9" Y="4.425" />
-        <Point X="9" Y="5.25" />
+        <Point X="9" Y="4.233" />
+        <Point X="9" Y="4.75" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -122,6 +126,7 @@
       <Method Name="CloneCapability" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
+      <Property Name="GlobalOnly" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
     </Members>
     <Compartments>
@@ -140,6 +145,7 @@
       <Method Name="CloneCapability" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
+      <Property Name="GlobalOnly" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
@@ -157,6 +163,7 @@
       <Method Name="CloneCapability" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
+      <Property Name="GlobalOnly" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
@@ -173,12 +180,12 @@
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
     </Members>
-    <AssociationLine Name="Verbs" Type="ZeroInstall.Model.Capabilities.Verb" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="Verbs" Type="ZeroInstall.Model.Capabilities.Verb" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="10.5" Y="3.713" />
-        <Point X="10.125" Y="3.713" />
-        <Point X="10.125" Y="5.562" />
-        <Point X="9.5" Y="5.562" />
+        <Point X="10.237" Y="3.713" />
+        <Point X="10.237" Y="5.062" />
+        <Point X="9.5" Y="5.062" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -195,6 +202,7 @@
       <Method Name="CloneCapability" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
+      <Property Name="GlobalOnly" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
@@ -204,7 +212,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Struct Name="ZeroInstall.Model.Capabilities.FileTypeExtension">
-    <Position X="10.5" Y="6.75" Width="1.5" />
+    <Position X="10.5" Y="6.5" Width="1.5" />
     <Members>
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
@@ -222,7 +230,7 @@
     <Lollipop Orientation="Left" Position="0.1" Collapsed="true" />
   </Struct>
   <Struct Name="ZeroInstall.Model.Capabilities.Verb">
-    <Position X="8" Y="5.25" Width="1.5" />
+    <Position X="8" Y="4.75" Width="1.5" />
     <Members>
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
@@ -240,7 +248,7 @@
     <Lollipop Position="1.268" Collapsed="true" />
   </Struct>
   <Struct Name="ZeroInstall.Model.Capabilities.AutoPlayEvent">
-    <Position X="5.75" Y="5.75" Width="1.5" />
+    <Position X="5.75" Y="5.25" Width="1.5" />
     <Members>
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
