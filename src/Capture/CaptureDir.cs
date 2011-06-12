@@ -122,9 +122,10 @@ namespace ZeroInstall.Capture
                 CollectContextMenus(snapshotDiff, capabilities, commandProvider);
                 CollectFileTypes(snapshotDiff, capabilities, commandProvider);
                 CollectAutoPlays(snapshotDiff, capabilities, commandProvider);
+                CollectRegisteredApplications(snapshotDiff, capabilities, commandProvider);
                 CollectProtocolAssocs(snapshotDiff.ProtocolAssocs, capabilities, commandProvider);
-                CollectRegisteredApplications(snapshotDiff.RegisteredApplications, capabilities, commandProvider);
-                // ToDo: Collect from snapshotDiff.Games
+                CollectComServers(snapshotDiff.ClassIDs, capabilities, commandProvider);
+                CollectGames(snapshotDiff.Games, capabilities, commandProvider);
             }
             #region Error handling
             catch (SecurityException ex)

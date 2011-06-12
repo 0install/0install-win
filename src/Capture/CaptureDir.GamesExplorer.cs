@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Security;
 using ZeroInstall.Model;
@@ -26,24 +27,22 @@ namespace ZeroInstall.Capture
     public partial class CaptureDir
     {
         /// <summary>
-        /// Collects data about registered applications and default programs indicated by a snapshot diff.
+        /// Collects data about applications registered in the Windows Games Explorer.
         /// </summary>
-        /// <param name="snapshotDiff">The elements added between two snapshots.</param>
+        /// <param name="games">A list of applications registered in the Windows Games Explorer.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static void CollectRegisteredApplications(Snapshot snapshotDiff, CapabilityList capabilities, CommandProvider commandProvider)
+        private static void CollectGames(IEnumerable<string> games, CapabilityList capabilities, CommandProvider commandProvider)
         {
             #region Sanity checks
-            if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
+            if (games == null) throw new ArgumentNullException("games");
             if (capabilities == null) throw new ArgumentNullException("capabilities");
             if (commandProvider == null) throw new ArgumentNullException("commandProvider");
             #endregion
 
-            //snapshotDiff.RegisteredApplications
-            //snapshotDiff.ServiceAssocs
             // ToDo: Implement
         }
     }
