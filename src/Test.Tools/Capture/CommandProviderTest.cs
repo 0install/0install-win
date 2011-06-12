@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.IO;
 using NUnit.Framework;
 using ZeroInstall.Model;
 
@@ -35,20 +37,20 @@ namespace ZeroInstall.Capture
             var commandNoArgs = new Command {Name = "no-args", Path = "entry.exe"};
             var commandArgs1 = new Command {Name = "args1", Path = "entry.exe", Arguments = {"--arg1", "long argument"}};
             var commandArgs2 = new Command {Name = "args2", Path = "entry.exe", Arguments = {"--arg2", "long argument"}};
-            var provider = new CommandProvider("C:\\installation directory", new[] { commandNoArgs, commandArgs1, commandArgs2 });
+            var provider = new CommandProvider("installation directory", new[] {commandNoArgs, commandArgs1, commandArgs2});
 
             string additionalArgs;
 
-            Assert.AreSame(commandNoArgs, provider.GetCommand("\"C:\\installation directory\\entry.exe\" --arg1", out additionalArgs));
+            Assert.AreSame(commandNoArgs, provider.GetCommand("\"installation directory" + Path.DirectorySeparatorChar + "entry.exe\" --arg1", out additionalArgs));
             Assert.AreEqual("--arg1", additionalArgs);
 
-            Assert.AreSame(commandArgs1, provider.GetCommand("\"C:\\installation directory\\entry.exe\" --arg1 \"long argument\" bla", out additionalArgs));
+            Assert.AreSame(commandArgs1, provider.GetCommand("\"installation directory" + Path.DirectorySeparatorChar + "entry.exe\" --arg1 \"long argument\" bla", out additionalArgs));
             Assert.AreEqual("bla", additionalArgs);
 
-            Assert.AreSame(commandArgs2, provider.GetCommand("\"C:\\installation directory\\entry.exe\" --arg2 \"long argument\" bla", out additionalArgs));
+            Assert.AreSame(commandArgs2, provider.GetCommand("\"installation directory" + Path.DirectorySeparatorChar + "entry.exe\" --arg2 \"long argument\" bla", out additionalArgs));
             Assert.AreEqual("bla", additionalArgs);
 
-            Assert.IsNull(provider.GetCommand("C:\\Something\\else.exe", out additionalArgs));
+            Assert.IsNull(provider.GetCommand("Something" + Path.DirectorySeparatorChar + "else.exe", out additionalArgs));
         }
     }
 }
