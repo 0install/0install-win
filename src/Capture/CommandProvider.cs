@@ -86,7 +86,7 @@ namespace ZeroInstall.Capture
 
         private static string GetCommandLine(string installationDir, Command command)
         {
-            var builder = new StringBuilder(StringUtils.EscapeWhitespace(Path.Combine(installationDir, command.Path)));
+            var builder = new StringBuilder('"' + Path.Combine(installationDir, command.Path) + '"');
             command.Arguments.Apply(args => builder.Append(" " + StringUtils.EscapeWhitespace(args)));
             return builder.ToString();
         }

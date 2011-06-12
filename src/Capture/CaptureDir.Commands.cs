@@ -80,7 +80,7 @@ namespace ZeroInstall.Capture
                 string name = (isFirstExe && (mainExe == null)) || StringUtils.Compare(relativePath, mainExe)
                     ? Command.NameRun
                     : relativePath.Replace(".exe", "").Replace(Path.DirectorySeparatorChar, '.');
-                commands.Add(new Command {Name = name, Path = relativePath});
+                commands.Add(new Command {Name = name, Path = relativePath.Replace(Path.DirectorySeparatorChar, '/')});
                 isFirstExe = false;
             }
             return commands;
