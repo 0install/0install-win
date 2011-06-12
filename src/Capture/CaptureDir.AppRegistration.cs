@@ -30,7 +30,7 @@ namespace ZeroInstall.Capture
     public partial class CaptureDir
     {
         /// <summary>
-        /// Collects data about registered applications aindicated by a snapshot diff.
+        /// Retreives data about registered applications aindicated by a snapshot diff.
         /// </summary>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
         /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
@@ -39,7 +39,7 @@ namespace ZeroInstall.Capture
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static void CollectRegisteredApplications(Snapshot snapshotDiff, CommandProvider commandProvider, CapabilityList capabilities, out string appDescription)
+        private static AppRegistration GetAppRegistration(Snapshot snapshotDiff, CommandProvider commandProvider, CapabilityList capabilities, out string appDescription)
         {
             #region Sanity checks
             if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
@@ -51,7 +51,7 @@ namespace ZeroInstall.Capture
             if (snapshotDiff.RegisteredApplications.Length == 0)
             {
                 appDescription = null;
-                return;
+                return null;
             }
             if (snapshotDiff.RegisteredApplications.Length > 1)
                 Log.Warn(Resources.MultipleRegisteredAppsDetected);
@@ -62,7 +62,7 @@ namespace ZeroInstall.Capture
             if (string.IsNullOrEmpty(capabilitiesRegPath))
             {
                 appDescription = null;
-                return;
+                return null;
             }
 
             bool x64;
@@ -72,23 +72,25 @@ namespace ZeroInstall.Capture
                 {
                     Log.Warn(string.Format(Resources.InvalidCapabilitiesRegistryPath, capabilitiesRegPath));
                     appDescription = null;
-                    return;
+                    return null;
                 }
 
                 appDescription = capsKey.GetValue(DesktopIntegration.Windows.AppRegistration.RegValueAppDescription, "").ToString();
 
-                // Note: FileAssociations and StartMenu are detected elsewhere
                 CollectProtocolAssocsEx(capsKey, commandProvider, capabilities);
+                CollectFileAssocsEx(capsKey, capabilities);
+                // Note: Contenders for StartMenu entries are detected elsewhere
 
-                capabilities.Entries.Add(new AppRegistration
+                return new AppRegistration
                 {
                     ID = appRegName,
                     CapabilityRegPath = capabilitiesRegPath,
                     X64 = x64
-                });
+                };
             }
         }
 
+        #region Protocols
         /// <summary>
         /// Collects data about URL protocol handlers indicated by registered application capabilities.
         /// </summary>
@@ -100,30 +102,94 @@ namespace ZeroInstall.Capture
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
         private static void CollectProtocolAssocsEx(RegistryKey capsKey, CommandProvider commandProvider, CapabilityList capabilities)
         {
+            #region Sanity checks
+            if (capsKey == null) throw new ArgumentNullException("capsKey");
+            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
+            if (capabilities == null) throw new ArgumentNullException("capabilities");
+            #endregion
+
             using (var urlAssocKey = capsKey.OpenSubKey(DesktopIntegration.Windows.AppRegistration.RegSubKeyUrlAssocs))
             {
-                if (urlAssocKey != null)
+                if (urlAssocKey == null) return;
+
+                foreach (string protocol in urlAssocKey.GetValueNames())
                 {
-                    foreach (string protocol in urlAssocKey.GetValueNames())
+                    string progID = urlAssocKey.GetValue(protocol, "").ToString();
+                    using (var progIDKey = Registry.ClassesRoot.OpenSubKey(progID))
                     {
-                        string progID = urlAssocKey.GetValue(protocol, "").ToString();
-                        using (var progIDKey = Registry.ClassesRoot.OpenSubKey(progID))
+                        if (progIDKey == null) continue;
+
+                        var capability = new UrlProtocol
                         {
-                            if (progIDKey == null) continue;
+                            ID = progID,
+                            Description = progIDKey.GetValue("", "").ToString(),
+                            Prefix = protocol
+                        };
 
-                            var capability = new UrlProtocol
-                            {
-                                ID = progID,
-                                Description = progIDKey.GetValue("", "").ToString(),
-                                Prefix = protocol
-                            };
-
-                            capability.Verbs.AddAll(GetVerbs(progIDKey, commandProvider));
-                            capabilities.Entries.Add(capability);
-                        }
+                        capability.Verbs.AddAll(GetVerbs(progIDKey, commandProvider));
+                        capabilities.Entries.Add(capability);
                     }
                 }
             }
         }
+        #endregion
+
+        #region File associations
+        /// <summary>
+        /// Collects data about file assocations indicated by registered application capabilities.
+        /// </summary>
+        /// <param name="capsKey">A registry key containing capability information for a registered application.</param>
+        /// <param name="capabilities">The capability list to add the collected data to.</param>
+        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        private static void CollectFileAssocsEx(RegistryKey capsKey, CapabilityList capabilities)
+        {
+            #region Sanity checks
+            if (capsKey == null) throw new ArgumentNullException("capsKey");
+            if (capabilities == null) throw new ArgumentNullException("capabilities");
+            #endregion
+
+            using (var fileAssocKey = capsKey.OpenSubKey(DesktopIntegration.Windows.AppRegistration.RegSubKeyFileAssocs))
+            {
+                if (fileAssocKey == null) return;
+
+                foreach (string extension in fileAssocKey.GetValueNames())
+                {
+                    string progID = fileAssocKey.GetValue(extension, "").ToString();
+                    AddExtensionToFileType(extension, progID, capabilities);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds an extension to an existing <see cref="FileType"/>.
+        /// </summary>
+        /// <param name="extension">The file extension including the leading dot (e.g. ".png").</param>
+        /// <param name="progID">The ID of the <see cref="FileType"/> to add the extension to.</param>
+        /// <param name="capabilities">The list of capabilities to find existing <see cref="FileType"/>s in.</param>
+        private static void AddExtensionToFileType(string extension, string progID, CapabilityList capabilities)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(progID)) throw new ArgumentNullException("progID");
+            if (string.IsNullOrEmpty(extension)) throw new ArgumentNullException("extension");
+            if (capabilities == null) throw new ArgumentNullException("capabilities");
+            #endregion
+
+            foreach (var capability in capabilities.Entries)
+            {
+                // Find the matching existing file type
+                var fileType = capability as FileType;
+                if (fileType != null && fileType.ID == progID)
+                {
+                    // Check if the file type already has the extension and add it if not
+                    FileTypeExtension temp;
+                    if (!fileType.Extensions.Find(element => element.Value == extension, out temp))
+                        fileType.Extensions.Add(new FileTypeExtension {Value = extension});
+                    break;
+                }
+            }
+        }
+        #endregion
     }
 }

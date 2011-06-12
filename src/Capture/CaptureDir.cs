@@ -121,12 +121,19 @@ namespace ZeroInstall.Capture
             try
             {
                 var commandProvider = new CommandProvider(installationDir, commands);
-                CollectContextMenus(snapshotDiff, commandProvider, capabilities);
-                CollectFileTypes(snapshotDiff, commandProvider, capabilities);
-                CollectAutoPlays(snapshotDiff, commandProvider, capabilities);
+
                 CollectDefaultPrograms(snapshotDiff, commandProvider, capabilities, out appName);
-                CollectRegisteredApplications(snapshotDiff, commandProvider, capabilities, out appDescription);
-                CollectProtocolAssocs(snapshotDiff.ProtocolAssocs, commandProvider, capabilities);
+
+                var appRegistration = GetAppRegistration(snapshotDiff, commandProvider, capabilities, out appDescription);
+                capabilities.Entries.Add(appRegistration);
+                if (appRegistration == null)
+                { // Only collect URL protocols if there wasn't already an application registration that covered them
+                    CollectProtocolAssocs(snapshotDiff.ProtocolAssocs, commandProvider, capabilities);
+                }
+
+                CollectFileTypes(snapshotDiff, commandProvider, capabilities);
+                CollectContextMenus(snapshotDiff, commandProvider, capabilities);
+                CollectAutoPlays(snapshotDiff, commandProvider, capabilities);
                 CollectComServers(snapshotDiff.ClassIDs, commandProvider, capabilities);
                 CollectGames(snapshotDiff.Games, commandProvider, capabilities);
             }
