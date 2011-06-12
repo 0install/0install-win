@@ -143,7 +143,18 @@ namespace ZeroInstall.Capture.Cli
                     throw new UserCancelException();
                 }},
                 {"f|force", Resources.OptionForce, unused => parseResults.Force = true},
-                {"F|files", Resources.OptionFiles, unused => parseResults.Files = true}
+                {"installation-dir=", Resources.OptionInstallationDir, value =>
+                {
+                    try { parseResults.InstallationDirectory = Path.GetFullPath(value); }
+                    #region Error handling
+                    catch (ArgumentException ex)
+                    {
+                        // Wrap exception since only certain exception types are allowed
+                        throw new OptionException(ex.Message, "installation-dir", ex);
+                    }
+                    #endregion
+                }},
+                {"files", Resources.OptionFiles, unused => parseResults.GetFiles = true}
             };
             #endregion
 
@@ -257,7 +268,7 @@ namespace ZeroInstall.Capture.Cli
                     }
                     #endregion
 
-                    captureDir.Collect(results.Files);
+                    captureDir.Collect(results.InstallationDirectory, results.GetFiles);
                     Console.WriteLine(Resources.InstallDataCollected);
                     return ErrorLevel.OK;
                 }

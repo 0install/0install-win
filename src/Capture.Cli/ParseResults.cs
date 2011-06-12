@@ -31,7 +31,10 @@ namespace ZeroInstall.Capture.Cli
         /// <summary>Ignore warnings and perform the operation anyway.</summary>
         public bool Force;
 
+        /// <summary>The directory the application to be captured is installed in.</summary>
+        public string InstallationDirectory;
+
         /// <summary>Indicates whether to collect installation files in addition to registry data.</summary>
-        public bool Files;
+        public bool GetFiles;
     }
 }

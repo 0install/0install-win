@@ -99,10 +99,11 @@ namespace ZeroInstall.Capture
         /// <summary>
         /// Collects data from the locations indicated by the differences between <see cref="SnapshotPre"/> and <see cref="SnapshotPost"/>.
         /// </summary>
-        /// <param name="files">Indicates whether to collect installation files in addition to registry data.</param>
+        /// <param name="installationDir">The fully qualified path to the installation directory; leave <see langword="null"/> for auto-detection.</param>
+        /// <param name="getFiles">Indicates whether to collect installation files in addition to registry data.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry or file system.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the registry or file system was not permitted.</exception>
-        public void Collect(bool files)
+        public void Collect(string installationDir, bool getFiles)
         {
             #region Sanity checks
             if (SnapshotPre == null) throw new InvalidOperationException("Pre-installation snapshot missing.");
@@ -111,8 +112,7 @@ namespace ZeroInstall.Capture
 
             var snapshotDiff = Snapshot.Diff(SnapshotPre, SnapshotPost);
 
-            // ToDo: Allow manual override
-            string installationDir = GetInstallationDir(snapshotDiff);
+            if (string.IsNullOrEmpty(installationDir)) installationDir = GetInstallationDir(snapshotDiff);
             var commands = GetCommands(installationDir);
 
             var capabilities = new CapabilityList {Architecture = new Architecture(OS.Windows, Cpu.All)};
@@ -135,7 +135,7 @@ namespace ZeroInstall.Capture
             }
             #endregion
 
-            Implementation implementation = (files && !string.IsNullOrEmpty(installationDir)) ? GetImplementation(installationDir) : null;
+            Implementation implementation = (getFiles && !string.IsNullOrEmpty(installationDir)) ? GetImplementation(installationDir) : null;
             BuildFeed(capabilities, commands, implementation).Save(Path.Combine(DirectoryPath, "feed.xml"));
         }
         #endregion

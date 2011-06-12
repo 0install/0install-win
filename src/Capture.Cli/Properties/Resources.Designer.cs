@@ -89,7 +89,7 @@ namespace ZeroInstall.Capture.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Collect installation files in addition to registry data and use it to create a first implemention. Only applicable to the &quot;collect&quot; operation..
+        ///   Looks up a localized string similar to Collect installation files in addition to registry data and use them to create a first implemention. Only applicable to the &quot;collect&quot; operation..
         /// </summary>
         internal static string OptionFiles {
             get {
@@ -112,6 +112,15 @@ namespace ZeroInstall.Capture.Cli.Properties {
         internal static string OptionHelp {
             get {
                 return ResourceManager.GetString("OptionHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set {DIR} as the directory the application to be captured is installed in.  Only applicable to the &quot;collect&quot; operation. Will try to determine correct directory automatically if not specified..
+        /// </summary>
+        internal static string OptionInstallationDir {
+            get {
+                return ResourceManager.GetString("OptionInstallationDir", resourceCulture);
             }
         }
         
