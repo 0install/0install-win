@@ -51,7 +51,7 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.GetAddedElements{T}"/> correctly detects elements added to an ordered collection.
+        /// Ensures that <see cref="EnumerableUtils.GetAddedElements{T}(T[],T[])"/> correctly detects elements added to an ordered collection.
         /// </summary>
         [Test]
         public void TestGetAddedElements()

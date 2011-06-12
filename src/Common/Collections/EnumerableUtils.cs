@@ -61,10 +61,32 @@ namespace Common.Collections
         /// <param name="oldArray">The original list of elements; may be <see langword="null"/> (will be treated as an empty array).</param>
         /// <param name="newArray">The new list of elements; may be <see langword="null"/> (will be treated as an empty array).</param>
         /// <returns>An array of elements that were added.</returns>
-        /// <remarks>Elements that are present in <paramref name="oldArray"/> but not in <paramref name="newArray"/> are ignored.</remarks>
+        /// <remarks>Elements that are present in <paramref name="oldArray"/> but not in <paramref name="newArray"/> are ignored. Elements that are equal for <see cref="IComparable{T}.CompareTo"/> but have been otherwise modified will be added.</remarks>
         public static T[] GetAddedElements<T>(T[] oldArray, T[] newArray)
-            where T : IComparable<T>
+            where T : IComparable<T>, IEquatable<T>
         {
+            return GetAddedElements(oldArray, newArray, new DefaultComparer<T>());
+        }
+
+        private class DefaultComparer<T> : IComparer<T> where T : IComparable<T>
+        {
+            public int Compare(T x, T y) { return x.CompareTo(y); }
+        }
+
+        /// <summary>
+        /// Assumes two sorted arrays. Determines which elements are present in <paramref name="newArray"/> but not in <paramref name="oldArray"/>.
+        /// </summary>
+        /// <param name="oldArray">The original list of elements; may be <see langword="null"/> (will be treated as an empty array).</param>
+        /// <param name="newArray">The new list of elements; may be <see langword="null"/> (will be treated as an empty array).</param>
+        /// <param name="comparer">An object that compares to elements to determine which one is bigger.</param>
+        /// <returns>An array of elements that were added.</returns>
+        /// <remarks>Elements that are present in <paramref name="oldArray"/> but not in <paramref name="newArray"/> are ignored. Elements that are equal for <see cref="IComparable{T}.CompareTo"/> but have been otherwise modified will be added.</remarks>
+        public static T[] GetAddedElements<T>(T[] oldArray, T[] newArray, IComparer<T> comparer)
+        {
+            #region Sanity checks
+            if (comparer == null) throw new ArgumentNullException("comparer");
+            #endregion
+
             if (newArray == null) return new T[0];
             if (oldArray == null) return newArray;
 
@@ -74,8 +96,18 @@ namespace Common.Collections
             int newCounter = 0;
             while (newCounter < newArray.Length)
             {
+                T oldElement;
                 T newElement = newArray[newCounter];
-                int comparison = (oldCounter < oldArray.Length) ? oldArray[oldCounter].CompareTo(newElement) : 1;
+                int comparison;
+                if (oldCounter < oldArray.Length)
+                { // In-range, compare elements
+                    oldElement = oldArray[oldCounter];
+                    comparison = comparer.Compare(oldElement, newElement);
+                }
+                else
+                { // Out-of-range, add all remaining new elements
+                    comparison = 1;
+                }
 
                 if (comparison == 0)
                 { // old == new
