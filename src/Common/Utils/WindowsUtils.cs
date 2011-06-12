@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Principal;
@@ -575,6 +576,31 @@ namespace Common.Utils
 
             using (var contextMenuExtendedKey = root.OpenSubKey(key))
                 return contextMenuExtendedKey == null ? new string[0] : contextMenuExtendedKey.GetSubKeyNames();
+        }
+
+        /// <summary>
+        /// Opens a HKEY_LOCAL_MACHINE key in the registry for reading, first trying to find the 64-bit version of it, then falling back to the 32-bit version.
+        /// </summary>
+        /// <param name="keyPath">The path to the key below HKEY_LOCAL_MACHINE.</param>
+        /// <param name="x64">Indicates whether a 64-bit key was opened.</param>
+        /// <returns>The opened registry key or <see langword="null"/> if it could not found.</returns>
+        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Thrown if access to the registry was not permitted.</exception>
+        public static RegistryKey OpenHklmKey(string keyPath, out bool x64)
+        {
+            RegistryKey result;
+            x64 = false;
+            // ToDo: Use Is64BitOperatingSystem and native APIs
+            if (Is64BitProcess)
+            {
+                result = Registry.LocalMachine.OpenSubKey(@"WOW6432Node\" + keyPath);
+                if (result == null) result = Registry.LocalMachine.OpenSubKey(keyPath);
+                else x64 = true;
+            }
+            else result = Registry.LocalMachine.OpenSubKey(keyPath);
+
+            return result;
         }
         #endregion
     }
