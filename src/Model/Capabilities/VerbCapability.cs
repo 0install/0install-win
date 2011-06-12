@@ -30,7 +30,7 @@ namespace ZeroInstall.Model.Capabilities
         /// A human-readable description.
         /// </summary>
         [Description("A human-readable description.")]
-        [XmlAttribute("description")]
+        [XmlAttribute("description"), DefaultValue("")]
         public string Description { get; set; }
 
         // Preserve order
@@ -38,8 +38,8 @@ namespace ZeroInstall.Model.Capabilities
         /// <summary>
         /// Zero or more icons to represent the element or the application.
         /// </summary>
-        /// <remarks>The first compatible one is selected. If empty the application icon is used.</remarks>
-        [Description("Zero or more icons to represent the element or the application. (The first compatible one is selected. If empty the application icon is used.)")]
+        /// <remarks>The first compatible icon is selected. If empty <see cref="Feed.Icons"/> is used.</remarks>
+        [Description("Zero or more icons to represent the element or the application. (The first compatible icon is selected. If empty the main feed icon is used.)")]
         [XmlElement("icon", Namespace = Feed.XmlNamespace)]
         // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.ArrayList<Icon> Icons { get { return _icons; } }
