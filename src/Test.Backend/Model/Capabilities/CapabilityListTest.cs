@@ -44,7 +44,7 @@ namespace ZeroInstall.Model.Capabilities
                     new AutoPlay {ID = "autoplay", Description = "Do somthing", Icons = {testIcon}, Provider = "MyApp", ProgID = "MyApp.Burn", Verb = testVerb, Events = {new AutoPlayEvent {Name = AutoPlayEvent.NameBurnCD}}},
                     new ComServer {ID = "com-server"},
                     new ContextMenu {ID = "context-menu", AllObjects = true, Verb = testVerb},
-                    new DefaultProgram {ID = "default-program", Description = "My mail client", Icons = {testIcon}, Verbs = {testVerb}, Service = "Mail"},
+                    new DefaultProgram {ID = "default-program", Description = "My mail client", Icons = {testIcon}, Verbs = {testVerb}, Service = "Mail", InstallCommands = new InstallCommands {ShowIcons = "helper.exe --show", HideIcons = "helper.exe --hide", Reinstall = "helper.exe --reinstall.exe"}},
                     new FileType {ID = "my_ext", Description = "Text file", Icons = {testIcon}, Extensions = {new FileTypeExtension {Value = "txt", MimeType = "text/plain"}}, Verbs = {testVerb}},
                     new GamesExplorer {ID = "games-explorer"},
                     new UrlProtocol {ID = "my_protocol", Description = "My protocol", Icons = {testIcon}, Verbs = {testVerb}, Prefix = "my-protocol"}

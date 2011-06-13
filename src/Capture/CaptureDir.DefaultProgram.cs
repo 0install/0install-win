@@ -16,9 +16,11 @@
  */
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Security;
 using Common;
+using Common.Utils;
 using Microsoft.Win32;
 using ZeroInstall.Capture.Properties;
 using ZeroInstall.Model;
@@ -69,9 +71,69 @@ namespace ZeroInstall.Capture
                         Service = service
                     };
                     defaultProgram.Verbs.AddAll(GetVerbs(clientKey, commandProvider));
+                    defaultProgram.InstallCommands = GetInstallCommands(clientKey, commandProvider.InstallationDir);
                     capabilities.Entries.Add(defaultProgram);
                 }
             }
         }
+
+        #region Install commands
+        /// <summary>
+        /// Retreives commands the application registered for use by Windows' "Set Program Access and Defaults".
+        /// </summary>
+        /// <param name="clientKey">The registry key containing the application's registration data.</param>
+        /// <param name="installationDir">The fully qualified path to the installation directory.</param>
+        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        private static InstallCommands GetInstallCommands(RegistryKey clientKey, string installationDir)
+        {
+            #region Sanity checks
+            if (clientKey == null) throw new ArgumentNullException("clientKey");
+            if (string.IsNullOrEmpty(installationDir)) throw new ArgumentNullException("installationDir");
+            #endregion
+
+            using (var installInfoKey = clientKey.OpenSubKey(DefaultProgramWindows.RegSubKeyInstallInfo))
+            {
+                if (installInfoKey == null) return default(InstallCommands);
+
+                string reinstallArgs;
+                string reinstall = IsolateCommand(installInfoKey.GetValue(DefaultProgramWindows.RegValueReinstallCommand, "").ToString(), installationDir, out reinstallArgs);
+
+                string showIconsArgs;
+                string showIcons = IsolateCommand(installInfoKey.GetValue(DefaultProgramWindows.RegValueShowIconsCommand, "").ToString(), installationDir, out showIconsArgs);
+
+                string hideIconsArgs;
+                string hideIcons = IsolateCommand(installInfoKey.GetValue(DefaultProgramWindows.RegValueHideIconsCommand, "").ToString(), installationDir, out hideIconsArgs);
+
+                return new InstallCommands
+                {
+                    Reinstall = reinstall, ReinstallArgs = reinstallArgs,
+                    ShowIcons = showIcons, ShowIconsArgs = showIconsArgs,
+                    HideIcons = hideIcons, HideIconsArgs = hideIconsArgs
+                };
+            }
+        }
+
+        /// <summary>
+        /// Isolates the path of an executable specified in a command-line relative to a base directory.
+        /// </summary>
+        /// <param name="commandLine"></param>
+        /// <param name="baseDir">The directory relative to which the executable is located.</param>
+        /// <param name="additionalArguments">Returns any additional arguments found.</param>
+        /// <returns>The path of the executable relative to <paramref name="baseDir"/> without any arguments.</returns>
+        private static string IsolateCommand(string commandLine, string baseDir, out string additionalArguments)
+        {
+            if (!commandLine.StartsWith('"' + baseDir + '\\', true, CultureInfo.InvariantCulture))
+            {
+                additionalArguments = null;
+                return null;
+            }
+            commandLine = commandLine.Substring(baseDir.Length + 2);
+
+            additionalArguments = StringUtils.GetRightPartAtFirstOccurrence(commandLine, "\" ");
+            return StringUtils.GetLeftPartAtFirstOccurrence(commandLine, '"');
+        }
+        #endregion
     }
 }

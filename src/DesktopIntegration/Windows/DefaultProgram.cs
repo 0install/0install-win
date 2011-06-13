@@ -31,8 +31,21 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         /// <summary>The registry value name for localized name storage.</summary>
         public const string RegValueLocalizedName = "LocalizedString";
-        #endregion
 
-        // ToDo: Generate InstallInfo entries
+        /// <summary>The name of the registry subkeys containing information about application installation commands and status.</summary>
+        public static string RegSubKeyInstallInfo = "InstallInfo";
+
+        /// <summary>The registry value name below <see cref="RegSubKeyInstallInfo"/> for the command to set an application as the default program.</summary>
+        public static string RegValueReinstallCommand = "ReinstallCommand";
+
+        /// <summary>The registry value name below <see cref="RegSubKeyInstallInfo"/> for the command to create icons/shortcuts to the application.</summary>
+        public static string RegValueShowIconsCommand = "ShowIconsCommand";
+
+        /// <summary>The registry value name below <see cref="RegSubKeyInstallInfo"/> for the command to remove icons/shortcuts to the application.</summary>
+        public static string RegValueHideIconsCommand = "HideIconsCommand";
+
+        /// <summary>The registry value name below <see cref="RegSubKeyInstallInfo"/> for storing whether the application's icons are currently visible.</summary>
+        public static string RegValueIconsVisible = "IconsVisible";
+        #endregion
     }
 }

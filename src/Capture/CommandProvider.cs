@@ -59,6 +59,13 @@ namespace ZeroInstall.Capture
         private readonly List<CommandTuple> _commmands = new List<CommandTuple>();
         #endregion
 
+        #region Properties
+        /// <summary>
+        /// The fully qualified path to the installation directory.
+        /// </summary>
+        public string InstallationDir { get; private set; }
+        #endregion
+
         #region Constructor
         /// <summary>
         /// Creates a new command provider.
@@ -71,6 +78,8 @@ namespace ZeroInstall.Capture
             if (string.IsNullOrEmpty(installationDir)) throw new ArgumentNullException("installationDir");
             if (commmands == null) throw new ArgumentNullException("commmands");
             #endregion
+
+            InstallationDir = installationDir;
 
             // Associate each command with its command-line
             foreach (var command in commmands)

@@ -31,7 +31,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <summary>
         /// Canonical <see cref="Service"/> for web browsers.
         /// </summary>
-        public const string ServiceInternet = "Internet";
+        public const string ServiceInternet = "StartMenuInternet";
 
         /// <summary>
         /// Canonical <see cref="Service"/> for mail clients.
@@ -75,11 +75,19 @@ namespace ZeroInstall.Model.Capabilities
         public override bool GlobalOnly { get { return true; } }
 
         /// <summary>
-        /// The name of the service such as "Internet", "Mail", "Media" etc.. Always use a canonical name when possible.
+        /// The name of the service such as "StartMenuInternet", "Mail", "Media" etc.. Always use a canonical name when possible.
         /// </summary>
-        [Description("The name of the service such as \"Internet\", \"Mail\", \"Media\", etc..  Always use a canonical name when possible.")]
+        [Description("The name of the service such as \"StartMenuInternet\", \"Mail\", \"Media\", etc..  Always use a canonical name when possible.")]
         [XmlAttribute("service")]
         public string Service { get; set; }
+
+        /// <summary>
+        /// Lists the commands the application registeres for use by Windows' "Set Program Access and Defaults". Will be transparently replaced with Zero Install commands.
+        /// </summary>
+        /// <remarks>These strings are used for registry filtering. They are never actually executed.</remarks>
+        [Description("Lists the commands the application registeres for use by Windows' \"Set Program Access and Defaults\". Will be transparently replaced with Zero Install commands.")]
+        [XmlElement("install-commands")]
+        public InstallCommands InstallCommands { get; set; }
         #endregion
 
         //--------------------//
