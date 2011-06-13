@@ -24,7 +24,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// Makes an application the default handler for a specific URL protocol.
     /// </summary>
     /// <seealso cref="ZeroInstall.Model.Capabilities.UrlProtocol"/>
-    [XmlType("url-protocol", Namespace = XmlNamespace)]
+    [XmlType("url-protocol", Namespace = AppList.XmlNamespace)]
     public class UrlProtocol : CapabilityAccessPoint, IEquatable<UrlProtocol>
     {
         #region Conversion

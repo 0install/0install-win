@@ -24,7 +24,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// Makes an application the default handler for a specific file type.
     /// </summary>
     /// <seealso cref="ZeroInstall.Model.Capabilities.FileType"/>
-    [XmlType("file-type", Namespace = XmlNamespace)]
+    [XmlType("file-type", Namespace = AppList.XmlNamespace)]
     public class FileType : CapabilityAccessPoint, IEquatable<FileType>
     {
         #region Conversion

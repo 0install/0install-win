@@ -23,7 +23,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// <summary>
     /// Creates an entry for an application in the user's application menu (i.e. Windows start menu, GNOME application menu, etc.).
     /// </summary>
-    [XmlType("menu-entry", Namespace = XmlNamespace)]
+    [XmlType("menu-entry", Namespace = AppList.XmlNamespace)]
     public class MenuEntry : IconAccessPoint, IEquatable<MenuEntry>
     {
         #region Conversion

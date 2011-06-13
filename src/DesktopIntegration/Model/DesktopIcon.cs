@@ -23,7 +23,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// <summary>
     /// Creates an icon for an application on the user's desktop.
     /// </summary>
-    [XmlType("desktop-icon", Namespace = XmlNamespace)]
+    [XmlType("desktop-icon", Namespace = AppList.XmlNamespace)]
     public class DesktopIcon : IconAccessPoint, IEquatable<DesktopIcon>
     {
         #region Conversion

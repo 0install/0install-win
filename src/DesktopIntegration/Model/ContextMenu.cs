@@ -24,7 +24,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// Integrates an application into a file manager's context menu.
     /// </summary>
     /// <seealso cref="ZeroInstall.Model.Capabilities.ContextMenu"/>
-    [XmlType("context-menu", Namespace = XmlNamespace)]
+    [XmlType("context-menu", Namespace = AppList.XmlNamespace)]
     public class ContextMenu : CapabilityAccessPoint, IEquatable<ContextMenu>
     {
         #region Properties

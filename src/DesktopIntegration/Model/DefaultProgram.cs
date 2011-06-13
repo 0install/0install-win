@@ -24,7 +24,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// Makes an application a default program of some kind (e.g. default web-browser, default e-mail client, ...).
     /// </summary>
     /// <seealso cref="ZeroInstall.Model.Capabilities.DefaultProgram"/>
-    [XmlType("default-program", Namespace = XmlNamespace)]
+    [XmlType("default-program", Namespace = AppList.XmlNamespace)]
     public class DefaultProgram : CapabilityAccessPoint, IEquatable<DefaultProgram>
     {
         #region Conversion

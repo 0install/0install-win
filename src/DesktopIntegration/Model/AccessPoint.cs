@@ -24,18 +24,9 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// <summary>
     /// An represents changes to the desktop environment's UI which the user explicitly requested.
     /// </summary>
-    [XmlType("access-point", Namespace = XmlNamespace)]
+    [XmlType("access-point", Namespace = AppList.XmlNamespace)]
     public abstract class AccessPoint : XmlUnknown, ICloneable
     {
-        #region Constants
-        /// <summary>
-        /// The XML namespace used for storing desktop integration data.
-        /// </summary>
-        public const string XmlNamespace = "http://0install.de/schema/injector/desktop-integration";
-        #endregion
-
-        //--------------------//
-
         #region Clone
         /// <summary>
         /// Creates a deep copy of this <see cref="AccessPoint"/> instance.

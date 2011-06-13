@@ -23,7 +23,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// <summary>
     /// An access points that creates some form of icon in the dektop environment.
     /// </summary>
-    [XmlType("icon-access-point", Namespace = XmlNamespace)]
+    [XmlType("icon-access-point", Namespace = AppList.XmlNamespace)]
     public abstract class IconAccessPoint : CommandAccessPoint
     {
         #region Properties

@@ -37,6 +37,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// The XML namespace used for storing feed catalogs. Used in combination with <see cref="Feed.XmlNamespace"/>.
         /// </summary>
+        // ToDo: Use namespace shared with 0install.net
         public const string XmlNamespace = "http://0install.de/schema/injector/catalog";
         #endregion
 

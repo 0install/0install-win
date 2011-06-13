@@ -23,7 +23,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// <summary>
     /// An access points that builds upon a <see cref="ZeroInstall.Model.Capabilities.Capability"/>.
     /// </summary>
-    [XmlType("capablity-access-point", Namespace = XmlNamespace)]
+    [XmlType("capablity-access-point", Namespace = AppList.XmlNamespace)]
     public abstract class CapabilityAccessPoint : AccessPoint
     {
         #region Properties

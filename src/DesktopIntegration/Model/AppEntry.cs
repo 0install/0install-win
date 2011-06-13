@@ -66,22 +66,22 @@ namespace ZeroInstall.DesktopIntegration.Model
         // Preserve order
         private readonly C5.ArrayList<CapabilityList> _capabilityLists = new C5.ArrayList<CapabilityList>();
         /// <summary>
-        /// A list of <see cref="Capability"/>s to be registered in the desktop environment.
+        /// A set of <see cref="Capability"/> lists to be registered in the desktop environment. Only compatible architectures are handled.
         /// </summary>
-        [Description("A list of capabilities to be registered in the desktop environment.")]
+        [Description("A set of Capability lists to be registered in the desktop environment. Only compatible architectures are handled.")]
         [XmlElement("capabilities", Namespace = Capability.XmlNamespace)]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<CapabilityList> CapabilityLists { get { return _capabilityLists; } }
 
         // Preserve order
-        private readonly C5.ArrayList<AccessPoint> _accessPoints = new C5.ArrayList<AccessPoint>();
+        private readonly C5.ArrayList<AccessPointList> _accessPointLists = new C5.ArrayList<AccessPointList>();
         /// <summary>
-        /// A list of <see cref="AccessPoint"/>s to be created in the desktop environment.
+        /// A set of <see cref="AccessPoint"/> lists to be registered in the desktop environment. Only compatible architectures are handled.
         /// </summary>
-        [Description("A list of access points to be created in the desktop environment.")]
-        [XmlElement(typeof(AppPath)), XmlElement(typeof(AutoPlay)), XmlElement(typeof(ContextMenu)), XmlElement(typeof(DefaultProgram)), XmlElement(typeof(DesktopIcon)), XmlElement(typeof(FileType)), XmlElement(typeof(MenuEntry)), XmlElement(typeof(UrlProtocol)), XmlElement(typeof(QuickLaunch))]
+        [Description("A set of AccessPoint lists to be registered in the desktop environment. Only compatible architectures are handled.")]
+        [XmlElement("access-points")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<AccessPoint> AccessPoints { get { return _accessPoints; } }
+        public C5.ArrayList<AccessPointList> AccessPointLists { get { return _accessPointLists; } }
         #endregion
 
         //--------------------//
@@ -105,7 +105,7 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             var appList = new AppEntry {Name = Name, Interface = Interface};
             foreach (var list in CapabilityLists) appList.CapabilityLists.Add(list.CloneCapabilityList());
-            foreach (var accessPoint in AccessPoints) appList.AccessPoints.Add(accessPoint.CloneAccessPoint());
+            foreach (var list in AccessPointLists) appList.AccessPointLists.Add(list.CloneAccessPointList());
 
             return appList;
         }
@@ -129,7 +129,7 @@ namespace ZeroInstall.DesktopIntegration.Model
             if (Name != other.Name) return false;
             if (Interface != other.Interface) return false;
             if (!CapabilityLists.SequencedEquals(other.CapabilityLists)) return false;
-            if (!AccessPoints.SequencedEquals(other.AccessPoints)) return false;
+            if (!AccessPointLists.SequencedEquals(other.AccessPointLists)) return false;
             return true;
         }
 
@@ -149,7 +149,7 @@ namespace ZeroInstall.DesktopIntegration.Model
                 int result = (Name ?? "").GetHashCode();
                 result = (result * 397) ^ (InterfaceString ?? "").GetHashCode();
                 result = (result * 397) ^ CapabilityLists.GetSequencedHashCode();
-                result = (result * 397) ^ AccessPoints.GetSequencedHashCode();
+                result = (result * 397) ^ AccessPointLists.GetSequencedHashCode();
                 return result;
             }
         }

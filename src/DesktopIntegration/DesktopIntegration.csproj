@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\AccessPoint.cs" />
+    <Compile Include="Model\AccessPointList.cs" />
     <Compile Include="Model\AppEntry.cs" />
     <Compile Include="Model\AppList.cs" />
     <Compile Include="Model\AppPath.cs" />

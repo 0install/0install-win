@@ -23,7 +23,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// <summary>
     /// Creates a shortcut for an application in the Quick Launch bar.
     /// </summary>
-    [XmlType("quick-launch", Namespace = XmlNamespace)]
+    [XmlType("quick-launch", Namespace = AppList.XmlNamespace)]
     public class QuickLaunch : IconAccessPoint, IEquatable<QuickLaunch>
     {
         #region Conversion

@@ -24,7 +24,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// Makes an application the default AutoPlay handler for a specific event.
     /// </summary>
     /// <seealso cref="ZeroInstall.Model.Capabilities.AutoPlay"/>
-    [XmlType("auto-play", Namespace = XmlNamespace)]
+    [XmlType("auto-play", Namespace = AppList.XmlNamespace)]
     public class AutoPlay : CapabilityAccessPoint, IEquatable<AutoPlay>
     {
         #region Conversion

@@ -24,7 +24,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// <summary>
     /// Makes an application discoverable via the system's search PATH.
     /// </summary>
-    [XmlType("app-path", Namespace = XmlNamespace)]
+    [XmlType("app-path", Namespace = AppList.XmlNamespace)]
     public class AppPath : CommandAccessPoint, IEquatable<AppPath>
     {
         #region Properties
