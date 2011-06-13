@@ -94,6 +94,12 @@
     <Compile Include="Controls\IconManagementControl.Designer.cs">
       <DependentUpon>IconManagementControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\KeyCombinationShortcut.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\KeyCombinationShortcut.Designer.cs">
+      <DependentUpon>KeyCombinationShortcut.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\LocalizableTextControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
