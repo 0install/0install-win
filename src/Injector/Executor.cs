@@ -90,7 +90,7 @@ namespace ZeroInstall.Injector
             if (_selections.Commands.IsEmpty) throw new CommandException(Resources.NoCommands);
             #endregion
 
-            // Build command line and add custom wrapper and arguments
+            // Build command-line and add custom wrapper and arguments
             var commandLine = BuildCommandLine(GetCommands());
             if (!string.IsNullOrEmpty(Wrapper)) commandLine.InsertAll(0, Wrapper.Split(' '));
             commandLine.AddAll(arguments);
@@ -132,7 +132,7 @@ namespace ZeroInstall.Injector
         }
         #endregion
 
-        #region Build command line
+        #region Build command-line
         /// <summary>
         /// Builds a complete command-line to execute from a list of commands.
         /// </summary>
@@ -308,7 +308,7 @@ namespace ZeroInstall.Injector
         }
         #endregion
         
-        #region Apply command line
+        #region Apply command-line
         /// <summary>
         /// Applies a command-line to a process launch environment, expanding Unix-style environment variables.
         /// </summary>
