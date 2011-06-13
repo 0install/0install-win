@@ -21,16 +21,23 @@ using System.Xml.Serialization;
 namespace ZeroInstall.DesktopIntegration.Model
 {
     /// <summary>
-    /// An access points that creates some form of icon in the dektop environment.
+    /// Creates some form of icon in the dektop environment.
     /// </summary>
     [XmlType("icon-access-point", Namespace = AppList.XmlNamespace)]
     public abstract class IconAccessPoint : CommandAccessPoint
     {
+        #region Constants
+        /// <summary>
+        /// The name of this category of <see cref="AccessPoint"/>s as used by command-line interfaces.
+        /// </summary>
+        public const string CategoryName = "icons";
+        #endregion
+
         #region Properties
         /// <summary>
-        /// The user-defined override for name of the icon.
+        /// The user-defined override for name of the icon; <see langword="null"/> to use the <see cref="ZeroInstall.Model.Feed.Name"/> + <see cref="ZeroInstall.Model.Command.Name"/>.
         /// </summary>
-        [Description("The user-defined override for name of the icon.")]
+        [Description("The user-defined override for name of the icon; null to use the Name from the Feed + the Command name.")]
         [XmlAttribute("name")]
         public string Name { get; set; }
         #endregion

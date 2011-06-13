@@ -25,7 +25,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// </summary>
     /// <seealso cref="ZeroInstall.Model.Capabilities.FileType"/>
     [XmlType("file-type", Namespace = AppList.XmlNamespace)]
-    public class FileType : CapabilityAccessPoint, IEquatable<FileType>
+    public class FileType : DefaultAccessPoint, IEquatable<FileType>
     {
         #region Conversion
         /// <summary>

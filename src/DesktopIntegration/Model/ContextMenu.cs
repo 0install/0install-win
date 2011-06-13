@@ -25,7 +25,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// </summary>
     /// <seealso cref="ZeroInstall.Model.Capabilities.ContextMenu"/>
     [XmlType("context-menu", Namespace = AppList.XmlNamespace)]
-    public class ContextMenu : CapabilityAccessPoint, IEquatable<ContextMenu>
+    public class ContextMenu : DefaultAccessPoint, IEquatable<ContextMenu>
     {
         #region Properties
         // ToDo

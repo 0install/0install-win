@@ -25,7 +25,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// </summary>
     /// <seealso cref="ZeroInstall.Model.Capabilities.UrlProtocol"/>
     [XmlType("url-protocol", Namespace = AppList.XmlNamespace)]
-    public class UrlProtocol : CapabilityAccessPoint, IEquatable<UrlProtocol>
+    public class UrlProtocol : DefaultAccessPoint, IEquatable<UrlProtocol>
     {
         #region Conversion
         /// <summary>

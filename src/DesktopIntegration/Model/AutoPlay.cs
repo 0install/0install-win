@@ -25,7 +25,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// </summary>
     /// <seealso cref="ZeroInstall.Model.Capabilities.AutoPlay"/>
     [XmlType("auto-play", Namespace = AppList.XmlNamespace)]
-    public class AutoPlay : CapabilityAccessPoint, IEquatable<AutoPlay>
+    public class AutoPlay : DefaultAccessPoint, IEquatable<AutoPlay>
     {
         #region Conversion
         /// <summary>

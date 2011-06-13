@@ -27,11 +27,18 @@ namespace ZeroInstall.DesktopIntegration.Model
     [XmlType("app-path", Namespace = AppList.XmlNamespace)]
     public class AppPath : CommandAccessPoint, IEquatable<AppPath>
     {
+        #region Constants
+        /// <summary>
+        /// The name of this category of <see cref="AccessPoint"/>s as used by command-line interfaces.
+        /// </summary>
+        public const string CategoryName = "path";
+        #endregion
+
         #region Properties
         /// <summary>
-        /// The file name for the place holder EXE (including the file extension).
+        /// The name of the command-line command (without a file extension).
         /// </summary>
-        [Description("The file name for the place holder EXE (including the file extension).")]
+        [Description("The name of the command-line command (without a file extension).")]
         [XmlAttribute("name")]
         public string Name { get; set; }
         #endregion

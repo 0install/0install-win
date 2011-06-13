@@ -25,7 +25,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// </summary>
     /// <seealso cref="ZeroInstall.Model.Capabilities.DefaultProgram"/>
     [XmlType("default-program", Namespace = AppList.XmlNamespace)]
-    public class DefaultProgram : CapabilityAccessPoint, IEquatable<DefaultProgram>
+    public class DefaultProgram : DefaultAccessPoint, IEquatable<DefaultProgram>
     {
         #region Conversion
         /// <summary>

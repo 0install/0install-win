@@ -21,16 +21,17 @@ using System.Xml.Serialization;
 namespace ZeroInstall.DesktopIntegration.Model
 {
     /// <summary>
-    /// An access points that directly points to a <see cref="ZeroInstall.Model.Command"/>.
+    /// Adds a way to explicitly launch the application to the desktop environment.
     /// </summary>
+    /// <seealso cref="ZeroInstall.Model.Command"/>
     [XmlType("command-access-point", Namespace = AppList.XmlNamespace)]
     public abstract class CommandAccessPoint : AccessPoint
     {
         #region Properties
         /// <summary>
-        /// The name of the command in the <see cref="ZeroInstall.Model.Feed"/> to use when launching via this access point.
+        /// The name of the <see cref="ZeroInstall.Model.Command"/> to use when launching via this access point.
         /// </summary>
-        [Description("The name of the command in the feed to use when launching via this access point.")]
+        [Description("The name of the Command to use when launching via this access point.")]
         [XmlAttribute("command")]
         public string Command { get; set; }
         #endregion

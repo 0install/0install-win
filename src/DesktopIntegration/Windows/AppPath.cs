@@ -63,7 +63,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 {
                     string stubPath = FileUtils.PathCombine(
                         Environment.GetFolderPath(global ? Environment.SpecialFolder.CommonApplicationData : Environment.SpecialFolder.LocalApplicationData),
-                        "0install.net", "aliases", appPath.Name);
+                        "0install.net", "aliases", appPath.Name + ".exe");
                     
                     // ToDo: Get icon
                     StubBuilder.BuildRunStub(stubPath, interfaceID, feed.Name, null, appPath.Command, !feed.NeedsTerminal);

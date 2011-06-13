@@ -21,11 +21,19 @@ using System.Xml.Serialization;
 namespace ZeroInstall.DesktopIntegration.Model
 {
     /// <summary>
-    /// An access points that builds upon a <see cref="ZeroInstall.Model.Capabilities.Capability"/>.
+    /// Makes an application the default handler for something.
     /// </summary>
-    [XmlType("capablity-access-point", Namespace = AppList.XmlNamespace)]
-    public abstract class CapabilityAccessPoint : AccessPoint
+    /// <seealso cref="ZeroInstall.Model.Capabilities.Capability"/>
+    [XmlType("default-access-point", Namespace = AppList.XmlNamespace)]
+    public abstract class DefaultAccessPoint : AccessPoint
     {
+        #region Constants
+        /// <summary>
+        /// The name of this category of <see cref="AccessPoint"/>s as used by command-line interfaces.
+        /// </summary>
+        public const string CategoryName = "defaults";
+        #endregion
+
         #region Properties
         /// <summary>
         /// The ID of the <see cref="Capability"/> being referenced.
@@ -39,7 +47,7 @@ namespace ZeroInstall.DesktopIntegration.Model
 
         #region Equality
         /// <inheritdoc/>
-        protected bool Equals(CapabilityAccessPoint other)
+        protected bool Equals(DefaultAccessPoint other)
         {
             if (other == null) return false;
 
