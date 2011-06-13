@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActionAddFeed" xml:space="preserve">
+    <value>Füge zusätzlichen Feed hinzu</value>
+  </data>
   <data name="ActionDownload" xml:space="preserve">
     <value>Lade Anwendung runter</value>
   </data>

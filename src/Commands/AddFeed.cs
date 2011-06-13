@@ -17,12 +17,12 @@
 
 using System;
 using System.Collections.Generic;
+using Common;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Feeds;
-using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
@@ -44,6 +44,9 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionAddFeed; } }
+
+        /// <inheritdoc/>
+        public override string ActionTitle { get { return Resources.ActionAddFeed; } }
         #endregion
 
         #region Constructor
@@ -66,12 +69,14 @@ namespace ZeroInstall.Commands
 
             string feedID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
 
-            // Run Solver to ensure feed is cached
-            Policy.FeedManager.Refresh = true;
-            bool stale;
-            Policy.Solver.Solve(new Requirements {InterfaceID = feedID}, Policy, out stale);
+            bool canceled = false;
+            Policy.Handler.ShowProgressUI(() => canceled = true);
 
+            UpdateFeed(feedID);
+            bool stale;
             var feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
+
+            if (canceled) throw new UserCancelException();
 
             if (feed.FeedFor.IsEmpty)
             {
