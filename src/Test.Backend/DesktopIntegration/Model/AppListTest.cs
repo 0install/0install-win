@@ -61,7 +61,7 @@ namespace ZeroInstall.DesktopIntegration.Model
                     new DefaultProgram {Capability = "default"},
                     new DesktopIcon {Command = "main", Name = "Desktop icon"},
                     new FileType {Capability = "file_type"},
-                    new MenuEntry {Command = "main", Name = "Menu entry"},
+                    new MenuEntry {Command = "main", Name = "Menu entry", Category = "Developer tools"},
                     new UrlProtocol {Capability = "protocol"},
                     new QuickLaunch {Command = "main", Name = "Quick Launch"}
                 }

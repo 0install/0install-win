@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.DesktopIntegration.Model
@@ -26,6 +27,17 @@ namespace ZeroInstall.DesktopIntegration.Model
     [XmlType("menu-entry", Namespace = AppList.XmlNamespace)]
     public class MenuEntry : IconAccessPoint, IEquatable<MenuEntry>
     {
+        #region Properties
+        /// <summary>
+        /// The category or folder in the menu to add the entry to; <see langword="null"/> for top-level entry.
+        /// </summary>
+        [Description("The category or folder in the menu to add the entry to; null for top-level entry.")]
+        [XmlAttribute("category")]
+        public string Category { get; set; }
+        #endregion
+
+        //--------------------//
+
         #region Conversion
         /// <summary>
         /// Returns the access point in the form "MenuEntry". Not safe for parsing!
@@ -40,7 +52,7 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new MenuEntry {Command = Command, Name = Name};
+            return new MenuEntry {Command = Command, Name = Name, Category = Category};
         }
         #endregion
 
@@ -50,7 +62,8 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             if (other == null) return false;
 
-            return base.Equals(other);
+            return base.Equals(other) &&
+                other.Category == Category;
         }
 
         /// <inheritdoc/>
@@ -64,7 +77,12 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            unchecked
+            {
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (Category ?? "").GetHashCode();
+                return result;
+            }
         }
         #endregion
     }
