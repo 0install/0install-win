@@ -85,7 +85,7 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonAddArchive = new System.Windows.Forms.Button();
             this.buttonAddRecipe = new System.Windows.Forms.Button();
             this.btnRunner = new System.Windows.Forms.Button();
-            this.keyCombinationShortcut = new Common.Controls.KeyCombinationShortcut(this.components);
+            this.keyCombinationShortcut = new KeyCombinationShortcut(this.components);
             this.feedEditorToolStrip = new ZeroInstall.Publish.WinForms.Controls.FeedEditorToolStrip();
             this.descriptionControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
             this.summariesControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();

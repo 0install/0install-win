@@ -1,4 +1,4 @@
-﻿namespace Common.Controls
+﻿namespace ZeroInstall.Publish.WinForms.Controls
 {
     partial class KeyCombinationShortcut
     {
