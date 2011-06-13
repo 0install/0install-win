@@ -73,8 +73,7 @@ namespace ZeroInstall.Commands.WinForms
                     command = CommandFactory.CreateAndParse(args, handler);
 
                     // Inform the handler about the name of the action being performed
-                    var selection = command as Selection;
-                    if (selection != null) handler.ActionTitle = selection.ActionTitle;
+                    handler.ActionTitle = command.ActionTitle;
                 }
                 #region Error handling
                 catch (UserCancelException)

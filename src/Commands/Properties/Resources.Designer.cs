@@ -61,6 +61,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Füge zusätzlichen Feed hinzu.
+        /// </summary>
+        internal static string ActionAddFeed {
+            get {
+                return ResourceManager.GetString("ActionAddFeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Downloading application.
         /// </summary>
         internal static string ActionDownload {

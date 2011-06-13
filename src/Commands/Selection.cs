@@ -41,7 +41,7 @@ namespace ZeroInstall.Commands
         #endregion
 
         #region Variables
-        /// <summary>Indicate that <see cref="Cancel"/> has been called</summary>
+        /// <summary>Indicate that <see cref="Cancel"/> has been called.</summary>
         protected volatile bool Canceled;
 
         /// <summary>Cached <see cref="ISolver"/> results.</summary>
@@ -67,10 +67,8 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override string Usage { get { return "[OPTIONS] URI"; } }
 
-        /// <summary>
-        /// A short title describing what this command does.
-        /// </summary>
-        public virtual string ActionTitle { get { return Resources.ActionSelection; } }
+        /// <inheritdoc/>
+        public override string ActionTitle { get { return Resources.ActionSelection; } }
 
         private readonly Requirements _requirements = new Requirements() /*{Architecture = Architecture.CurrentSystem}*/;
         /// <summary>

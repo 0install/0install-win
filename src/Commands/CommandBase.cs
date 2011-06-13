@@ -29,8 +29,10 @@ using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
+using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Commands
@@ -70,6 +72,11 @@ namespace ZeroInstall.Commands
         /// The additional arguments to be displayed after the command name in the help text.
         /// </summary>
         protected abstract string Usage { get; }
+
+        /// <summary>
+        /// A short title describing what this command does or <see langword="null"/>.
+        /// </summary>
+        public virtual string ActionTitle { get { return null; } }
 
         /// <summary>
         /// The help text describing the available command-line options and their effects.
@@ -172,6 +179,26 @@ namespace ZeroInstall.Commands
         /// <exception cref="InvalidOperationException">Thrown if this method is called before calling <see cref="Parse"/>.</exception>
         /// <remarks>When inheriting this method is usually replaced.</remarks>
         public abstract int Execute();
+        #endregion
+
+        #region Helpers
+        /// <summary>
+        /// Runs the <see cref="ISolver"/> for a specific interface in refresh mode without keeping the results.
+        /// Used to ensure the relevant <see cref="Feed"/>s are in the <see cref="IFeedCache"/>.
+        /// </summary>
+        /// <remarks>Will become obsolete once <see cref="FeedManager"/> gets its own download logic.</remarks>
+        /// <param name="interfaceID">The interface to run the solver for.</param>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
+        /// <exception cref="IOException">Thrown if an external application or file required by the solver could not be accessed.</exception>
+        /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
+        protected void UpdateFeed(string interfaceID)
+        {
+            bool refreshBackup = Policy.FeedManager.Refresh;
+            Policy.FeedManager.Refresh = true;
+            bool stale;
+            Policy.Solver.Solve(new Requirements {InterfaceID = interfaceID}, Policy, out stale);
+            Policy.FeedManager.Refresh = refreshBackup;
+        }
         #endregion
     }
 }
