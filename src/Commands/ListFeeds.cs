@@ -31,7 +31,7 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class ListFeeds : CommandBase
     {
-        #region Variables
+        #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public const string Name = "list-feeds";
         #endregion

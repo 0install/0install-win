@@ -32,10 +32,12 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class Update : Download
     {
-        #region Variables
+        #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "update";
+        #endregion
 
+        #region Variables
         private Selections _oldSelections;
         #endregion
 

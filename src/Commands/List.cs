@@ -30,7 +30,7 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class List : CommandBase
     {
-        #region Variables
+        #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public const string Name = "list";
         #endregion

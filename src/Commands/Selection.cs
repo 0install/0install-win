@@ -35,10 +35,12 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public class Selection : CommandBase
     {
-        #region Variables
+        #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public const string Name = "select";
+        #endregion
 
+        #region Variables
         /// <summary>Indicate that <see cref="Cancel"/> has been called</summary>
         protected volatile bool Canceled;
 

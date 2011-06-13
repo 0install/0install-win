@@ -33,10 +33,12 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class Run : Download
     {
-        #region Variables
+        #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "run";
+        #endregion
 
+        #region Variables
         /// <summary>An alternative executable to to run from the main <see cref="Model.Implementation"/> instead of <see cref="Element.Main"/>.</summary>
         private string _main;
 
@@ -133,11 +135,8 @@ namespace ZeroInstall.Commands
             Policy.Handler.CloseProgressUI();
 
             if (_noWait) return 0;
-            else
-            {
-                process.WaitForExit();
-                return process.ExitCode;
-            }
+            process.WaitForExit();
+            return process.ExitCode;
         }
         #endregion
     }
