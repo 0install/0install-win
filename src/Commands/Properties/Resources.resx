@@ -228,6 +228,18 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="NoUpdatesFound" xml:space="preserve">
     <value>No updates found</value>
   </data>
+  <data name="OptionAppAdd" xml:space="preserve">
+    <value>Applies all {CATEGORY} integrations.</value>
+  </data>
+  <data name="OptionAppCategory" xml:space="preserve">
+    <value>{CATEGORY} must be on of the following: </value>
+  </data>
+  <data name="OptionAppImplicitCategory" xml:space="preserve">
+    <value>Note: '{0}' are always added implicitly.</value>
+  </data>
+  <data name="OptionAppRemove" xml:space="preserve">
+    <value>Removes all {CATEGORY} integrations.</value>
+  </data>
   <data name="OptionBatch" xml:space="preserve">
     <value>Run in batch mode: don't display progress reports to the user and silently answer all questions with "No". Use a tray icon when in GUI mode.</value>
   </data>
@@ -252,9 +264,6 @@ Supported values: i386, i486, i586, i686, x86_64, ppc, ppc64</value>
   </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Show the built-in help text.</value>
-  </data>
-  <data name="OptionIntegrateAssoc" xml:space="preserve">
-    <value>Set the application as default handler for all file types it can open.</value>
   </data>
   <data name="OptionMain" xml:space="preserve">
     <value>Run the specified executable {MAIN} instead of the default. If it starts with '/' or '\' then the path is relative to the implementation's top-level directory, whereas otherwise it is relative to the directory containing the default main program.</value>

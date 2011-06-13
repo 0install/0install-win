@@ -388,6 +388,42 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Applies all {CATEGORY} integrations..
+        /// </summary>
+        internal static string OptionAppAdd {
+            get {
+                return ResourceManager.GetString("OptionAppAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {CATEGORY} must be on of the following: .
+        /// </summary>
+        internal static string OptionAppCategory {
+            get {
+                return ResourceManager.GetString("OptionAppCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note: &apos;{0}&apos; are always added implicitly..
+        /// </summary>
+        internal static string OptionAppImplicitCategory {
+            get {
+                return ResourceManager.GetString("OptionAppImplicitCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removes all {CATEGORY} integrations..
+        /// </summary>
+        internal static string OptionAppRemove {
+            get {
+                return ResourceManager.GetString("OptionAppRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Run in batch mode: don&apos;t display progress reports to the user and silently answer all questions with &quot;No&quot;. Use a tray icon when in GUI mode..
         /// </summary>
         internal static string OptionBatch {
@@ -457,15 +493,6 @@ namespace ZeroInstall.Commands.Properties {
         internal static string OptionHelp {
             get {
                 return ResourceManager.GetString("OptionHelp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Set the application as default handler for all file types it can open..
-        /// </summary>
-        internal static string OptionIntegrateAssoc {
-            get {
-                return ResourceManager.GetString("OptionIntegrateAssoc", resourceCulture);
             }
         }
         

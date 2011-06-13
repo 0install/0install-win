@@ -28,15 +28,12 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class RemoveApp : AppCommand
     {
-        #region Variables
+        #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public const string Name = "remove-app";
         #endregion
 
         #region Properties
-        /// <inheritdoc/>
-        protected override string Usage { get { return "[OPTIONS] INTERFACE"; } }
-
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionRemoveApp; } }
         #endregion

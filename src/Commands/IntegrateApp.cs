@@ -21,6 +21,9 @@ using Common.Utils;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
+using ZeroInstall.DesktopIntegration.Model;
+using System.Collections.Generic;
+using ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.Commands
 {
@@ -30,17 +33,34 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class IntegrateApp : AppCommand
     {
-        #region Variables
+        #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public const string Name = "integrate-app";
 
-        private bool _fileAssoc;
+        /// <summary>
+        /// Indicates that all <see cref="Capability"/>s shall be integrated.
+        /// </summary>
+        private const string CapabilitiesCategoryName = "capabilities";
+
+        /// <summary>
+        /// Indicates that all <see cref="Capability"/>s and <see cref="AccessPoint"/>s shall be integrated.
+        /// </summary>
+        private const string AllCategoryName = "all";
+        #endregion
+
+        #region Variables
+        /// <summary>
+        /// A list of all integration categories to be added to the already applied ones.
+        /// </summary>
+        private readonly List<string> _addIntegrations = new List<string>();
+
+        /// <summary>
+        /// A list of all integration categories to be removed from the already applied ones.
+        /// </summary>
+        private readonly List<string> _removeIntegrations = new List<string>();
         #endregion
 
         #region Properties
-        /// <inheritdoc/>
-        protected override string Usage { get { return "[OPTIONS] INTERFACE"; } }
-
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionIntegrateApp; } }
         #endregion
@@ -49,7 +69,10 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public IntegrateApp(Policy policy) : base(policy)
         {
-            Options.Add("assoc", Resources.OptionIntegrateAssoc, unused => _fileAssoc = true);
+            string categoryList = StringUtils.Concatenate(new[] {CapabilitiesCategoryName, DefaultAccessPoint.CategoryName, IconAccessPoint.CategoryName, AppPath.CategoryName, AllCategoryName}, ", ");
+
+            Options.Add("a|add=", Resources.OptionAppAdd + "\n" + Resources.OptionAppCategory + categoryList + "\n" + string.Format(Resources.OptionAppImplicitCategory, CapabilitiesCategoryName), category => _addIntegrations.Add(category.ToLower()));
+            Options.Add("r|remove=", Resources.OptionAppRemove + "\n" + Resources.OptionAppCategory + categoryList, category => _removeIntegrations.Add(category.ToLower()));
         }
         #endregion
 
@@ -76,7 +99,7 @@ namespace ZeroInstall.Commands
                 {
                     var fileType = capability as Model.Capabilities.FileType;
                     if (fileType != null && WindowsUtils.IsWindows)
-                        DesktopIntegration.Windows.FileType.Apply(interfaceID, feed, fileType, _fileAssoc, Global);
+                        DesktopIntegration.Windows.FileType.Apply(interfaceID, feed, fileType, _addIntegrations.Contains(DefaultAccessPoint.CategoryName), Global);
                 }
 
                 WindowsUtils.NotifyAssocChanged();

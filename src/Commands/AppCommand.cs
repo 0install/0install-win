@@ -36,6 +36,11 @@ namespace ZeroInstall.Commands
         protected bool Global;
         #endregion
 
+        #region Properties
+        /// <inheritdoc/>
+        protected override string Usage { get { return "[OPTIONS] INTERFACE"; } }
+        #endregion
+
         #region Constructor
         /// <inheritdoc/>
         protected AppCommand(Policy policy) : base(policy)
