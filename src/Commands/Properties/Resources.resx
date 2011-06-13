@@ -120,6 +120,9 @@
   <data name="ActionAddFeed" xml:space="preserve">
     <value>Adding additional feed</value>
   </data>
+  <data name="ActionAppCommand" xml:space="preserve">
+    <value>Managing desktop integration</value>
+  </data>
   <data name="ActionDownload" xml:space="preserve">
     <value>Downloading application</value>
   </data>

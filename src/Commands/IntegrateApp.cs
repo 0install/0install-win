@@ -19,6 +19,7 @@ using System;
 using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.DesktopIntegration.Model;
@@ -37,26 +38,18 @@ namespace ZeroInstall.Commands
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public const string Name = "integrate-app";
 
-        /// <summary>
-        /// Indicates that all <see cref="Capability"/>s shall be integrated.
-        /// </summary>
+        /// <summary>Indicates that all <see cref="Capability"/>s shall be integrated.</summary>
         private const string CapabilitiesCategoryName = "capabilities";
 
-        /// <summary>
-        /// Indicates that all <see cref="Capability"/>s and <see cref="AccessPoint"/>s shall be integrated.
-        /// </summary>
+        /// <summary>Indicates that all <see cref="Capability"/>s and <see cref="AccessPoint"/>s shall be integrated.</summary>
         private const string AllCategoryName = "all";
         #endregion
 
         #region Variables
-        /// <summary>
-        /// A list of all integration categories to be added to the already applied ones.
-        /// </summary>
+        /// <summary>A list of all integration categories to be added to the already applied ones.</summary>
         private readonly List<string> _addIntegrations = new List<string>();
 
-        /// <summary>
-        /// A list of all integration categories to be removed from the already applied ones.
-        /// </summary>
+        /// <summary>A list of all integration categories to be removed from the already applied ones.</summary>
         private readonly List<string> _removeIntegrations = new List<string>();
         #endregion
 
@@ -88,7 +81,7 @@ namespace ZeroInstall.Commands
         }
 
         /// <inheritdoc/>
-        protected override int ExecuteHelper(string interfaceID, Feed feed)
+        protected override int ExecuteHelper(string interfaceID, Feed feed, IntegrationManager integrationManager)
         {
             // ToDo: Move logic into backend
             foreach (var capabilityList in feed.CapabilityLists)
@@ -99,7 +92,7 @@ namespace ZeroInstall.Commands
                 {
                     var fileType = capability as Model.Capabilities.FileType;
                     if (fileType != null && WindowsUtils.IsWindows)
-                        DesktopIntegration.Windows.FileType.Apply(interfaceID, feed, fileType, _addIntegrations.Contains(DefaultAccessPoint.CategoryName), Global);
+                        DesktopIntegration.Windows.FileType.Apply(interfaceID, feed, fileType, _addIntegrations.Contains(DefaultAccessPoint.CategoryName), false /*_global*/);
                 }
 
                 WindowsUtils.NotifyAssocChanged();

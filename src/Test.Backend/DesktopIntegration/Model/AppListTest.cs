@@ -55,7 +55,7 @@ namespace ZeroInstall.DesktopIntegration.Model
                 Architecture = new Architecture(OS.Windows, Cpu.All),
                 Entries =
                 {
-                    new AppPath {Command = "main"},
+                    new AppPath {Command = "main", Name = "myapp"},
                     new AutoPlay {Capability = "autoplay"},
                     new ContextMenu {Capability = "context"},
                     new DefaultProgram {Capability = "default"},

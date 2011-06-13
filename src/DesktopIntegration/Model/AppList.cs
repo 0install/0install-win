@@ -20,12 +20,14 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
+using Common;
 using Common.Storage;
+using ZeroInstall.DesktopIntegration.Properties;
 
 namespace ZeroInstall.DesktopIntegration.Model
 {
     /// <summary>
-    /// Stores a list of applications the user prefers to use.
+    /// Stores a list of applications and their desktop integrations.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("app-list", Namespace = XmlNamespace)]
@@ -55,24 +57,47 @@ namespace ZeroInstall.DesktopIntegration.Model
 
         #region Storage
         /// <summary>
-        /// Loads an <see cref="AppList"/> from an XML file.
+        /// Loads a <see cref="AppList"/> from an XML file.
         /// </summary>
         /// <param name="path">The file to load from.</param>
         /// <returns>The loaded <see cref="AppList"/>.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static AppList Load(string path)
         {
-            return XmlStorage.Load<AppList>(path);
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
+            try { return XmlStorage.Load<AppList>(path); }
+            #region Error handling
+            catch (InvalidOperationException ex)
+            {
+                // Write additional diagnostic information to log
+                if (ex.Source == "System.Xml")
+                {
+                    string message = string.Format(Resources.ProblemLoading, path) + "\n" + ex.Message;
+                    if (ex.InnerException != null) message += "\n" + ex.InnerException.Message;
+                    Log.Error(message);
+                }
+
+                throw;
+            }
+            #endregion
         }
 
         /// <summary>
-        /// Loads an <see cref="AppList"/> from a stream containing an XML file.
+        /// Loads a <see cref="AppList"/> from a stream containing an XML file.
         /// </summary>
         /// <param name="stream">The stream to load from.</param>
         /// <returns>The loaded <see cref="AppList"/>.</returns>
         public static AppList Load(Stream stream)
         {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            #endregion
+
             return XmlStorage.Load<AppList>(stream);
         }
 
@@ -84,6 +109,10 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void Save(string path)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
             XmlStorage.Save(path, this);
         }
 
@@ -93,6 +122,10 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <param name="stream">The stream to save in.</param>
         public void Save(Stream stream)
         {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            #endregion
+
             XmlStorage.Save(stream, this);
         }
         #endregion

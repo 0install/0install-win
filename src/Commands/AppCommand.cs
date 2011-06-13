@@ -16,11 +16,12 @@
  */
 
 using System;
+using Common;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
-using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
@@ -32,20 +33,24 @@ namespace ZeroInstall.Commands
     public abstract class AppCommand : CommandBase
     {
         #region Variables
-        /// <summary>Apply the configuration system-wide instead of just for the current user.</summary>
-        protected bool Global;
+        /// <summary>Apply the operation system-wide instead of just for the current user.</summary>
+        private bool _global;
         #endregion
 
         #region Properties
         /// <inheritdoc/>
         protected override string Usage { get { return "[OPTIONS] INTERFACE"; } }
+
+        /// <inheritdoc/>
+        public override string ActionTitle { get { return Resources.ActionAppCommand; } }
         #endregion
 
         #region Constructor
         /// <inheritdoc/>
         protected AppCommand(Policy policy) : base(policy)
         {
-            Options.Add("g|global", Resources.OptionGlobal, unused => Global = true);
+            Options.Add("batch", Resources.OptionBatch, unused => Policy.Handler.Batch = true);
+            Options.Add("g|global", Resources.OptionGlobal, unused => _global = true);
         }
         #endregion
 
@@ -63,15 +68,16 @@ namespace ZeroInstall.Commands
 
             string interfaceID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
 
-            // Run Solver to ensure feed is cached
-            Policy.FeedManager.Refresh = true;
-            bool stale;
-            Policy.Solver.Solve(new Requirements {InterfaceID = interfaceID}, Policy, out stale);
+            bool canceled = false;
+            Policy.Handler.ShowProgressUI(() => canceled = true);
 
-            // ToDo: Get data from additional feeds
+            UpdateFeed(interfaceID);
+            bool stale;
             var feed = Policy.FeedManager.GetFeed(interfaceID, Policy, out stale);
 
-            return ExecuteHelper(interfaceID, feed);
+            if (canceled) throw new UserCancelException();
+
+            return ExecuteHelper(interfaceID, feed, new IntegrationManager(_global));
         }
 
         /// <summary>
@@ -79,8 +85,9 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="interfaceID">The interface for the application to perform the operation on.</param>
         /// <param name="feed">The feed for the application to perform the operation on.</param>
+        /// <param name="integrationManager">Manages desktop integration operations.</param>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        protected abstract int ExecuteHelper(string interfaceID, Feed feed);
+        protected abstract int ExecuteHelper(string interfaceID, Feed feed, IntegrationManager integrationManager);
         #endregion
     }
 }

@@ -17,6 +17,7 @@
 
 using System;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 
@@ -48,7 +49,7 @@ namespace ZeroInstall.Commands
 
         #region Execute
         /// <inheritdoc/>
-        protected override int ExecuteHelper(string interfaceID, Feed feed)
+        protected override int ExecuteHelper(string interfaceID, Feed feed, IntegrationManager integrationManager)
         {
             // ToDo: Implement
             return 0;

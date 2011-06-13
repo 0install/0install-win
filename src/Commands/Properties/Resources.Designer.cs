@@ -70,6 +70,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Managing desktop integration.
+        /// </summary>
+        internal static string ActionAppCommand {
+            get {
+                return ResourceManager.GetString("ActionAppCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Downloading application.
         /// </summary>
         internal static string ActionDownload {
