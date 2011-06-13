@@ -61,7 +61,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Füge zusätzlichen Feed hinzu.
+        ///   Looks up a localized string similar to Adding additional feed.
         /// </summary>
         internal static string ActionAddFeed {
             get {
