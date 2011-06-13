@@ -34,10 +34,12 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public class Download : Selection
     {
-        #region Variables
+        #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "download";
-        
+        #endregion
+
+        #region Variables
         /// <summary>Indicates the user wants the implementation locations on the disk.</summary>
         private bool _show;
 
