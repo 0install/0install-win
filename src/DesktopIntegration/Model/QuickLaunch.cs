@@ -16,35 +16,23 @@
  */
 
 using System;
-using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.DesktopIntegration.Model
 {
     /// <summary>
-    /// Creates a shorcut to an application on the user's desktop.
+    /// Creates a shortcut for an application in the Quick Launch bar.
     /// </summary>
-    [XmlType("desktop-shortcut", Namespace = XmlNamespace)]
-    public class DesktopShortcut : CommandAccessPoint, IEquatable<DesktopShortcut>
+    [XmlType("quick-launch", Namespace = XmlNamespace)]
+    public class QuickLaunch : IconAccessPoint, IEquatable<QuickLaunch>
     {
-        #region Properties
-        /// <summary>
-        /// The user-defined override for name of the shortcut.
-        /// </summary>
-        [Description("The user-defined override for name of the shortcut.")]
-        [XmlAttribute("name")]
-        public string Name { get; set; }
-        #endregion
-
-        //--------------------//
-
         #region Conversion
         /// <summary>
-        /// Returns the access point in the form "DesktopShortcut". Not safe for parsing!
+        /// Returns the access point in the form "QuickLaunch". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("DesktopShortcut");
+            return string.Format("QuickLaunch");
         }
         #endregion
 
@@ -52,18 +40,17 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new DesktopShortcut {Command = Command, Name = Name};
+            return new QuickLaunch {Command = Command, Name = Name};
         }
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(DesktopShortcut other)
+        public bool Equals(QuickLaunch other)
         {
             if (other == null) return false;
 
-            return base.Equals(other) &&
-                other.Name == Name;
+            return base.Equals(other);
         }
 
         /// <inheritdoc/>
@@ -71,18 +58,13 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(DesktopShortcut) && Equals((DesktopShortcut)obj);
+            return obj.GetType() == typeof(QuickLaunch) && Equals((QuickLaunch)obj);
         }
 
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int result = base.GetHashCode();
-                result = (result * 397) ^ (Name ?? "").GetHashCode();
-                return result;
-            }
+            return base.GetHashCode();
         }
         #endregion
     }

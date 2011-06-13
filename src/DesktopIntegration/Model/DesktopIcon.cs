@@ -21,18 +21,18 @@ using System.Xml.Serialization;
 namespace ZeroInstall.DesktopIntegration.Model
 {
     /// <summary>
-    /// Creates an entry for an application in the user's application menu (i.e. Windows start menu, GNOME application menu, etc.).
+    /// Creates an icon for an application on the user's desktop.
     /// </summary>
-    [XmlType("menu-entry", Namespace = XmlNamespace)]
-    public class MenuEntry : IconAccessPoint, IEquatable<MenuEntry>
+    [XmlType("desktop-icon", Namespace = XmlNamespace)]
+    public class DesktopIcon : IconAccessPoint, IEquatable<DesktopIcon>
     {
         #region Conversion
         /// <summary>
-        /// Returns the access point in the form "MenuEntry". Not safe for parsing!
+        /// Returns the access point in the form "DesktopIcon". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("MenuEntry");
+            return string.Format("DesktopIcon");
         }
         #endregion
 
@@ -40,13 +40,13 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new MenuEntry {Command = Command, Name = Name};
+            return new DesktopIcon {Command = Command, Name = Name};
         }
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(MenuEntry other)
+        public bool Equals(DesktopIcon other)
         {
             if (other == null) return false;
 
@@ -58,7 +58,7 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(MenuEntry) && Equals((MenuEntry)obj);
+            return obj.GetType() == typeof(DesktopIcon) && Equals((DesktopIcon)obj);
         }
 
         /// <inheritdoc/>

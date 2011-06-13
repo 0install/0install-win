@@ -59,9 +59,11 @@
     <Compile Include="Model\DefaultProgram.cs" />
     <Compile Include="Model\CommandAccessPoint.cs" />
     <Compile Include="Model\FileType.cs" />
+    <Compile Include="Model\IconAccessPoint.cs" />
     <Compile Include="Model\MenuEntry.cs" />
-    <Compile Include="Model\DesktopShortcut.cs" />
+    <Compile Include="Model\DesktopIcon.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Model\QuickLaunch.cs" />
     <Compile Include="Model\UrlProtocol.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

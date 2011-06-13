@@ -15,56 +15,46 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.DesktopIntegration.Model
 {
     /// <summary>
-    /// Creates an entry for an application in the user's application menu (i.e. Windows start menu, GNOME application menu, etc.).
+    /// An access points that creates some form of icon in the dektop environment.
     /// </summary>
-    [XmlType("menu-entry", Namespace = XmlNamespace)]
-    public class MenuEntry : IconAccessPoint, IEquatable<MenuEntry>
+    [XmlType("icon-access-point", Namespace = XmlNamespace)]
+    public abstract class IconAccessPoint : CommandAccessPoint
     {
-        #region Conversion
+        #region Properties
         /// <summary>
-        /// Returns the access point in the form "MenuEntry". Not safe for parsing!
+        /// The user-defined override for name of the icon.
         /// </summary>
-        public override string ToString()
-        {
-            return string.Format("MenuEntry");
-        }
+        [Description("The user-defined override for name of the icon.")]
+        [XmlAttribute("name")]
+        public string Name { get; set; }
         #endregion
 
-        #region Clone
-        /// <inheritdoc/>
-        public override AccessPoint CloneAccessPoint()
-        {
-            return new MenuEntry {Command = Command, Name = Name};
-        }
-        #endregion
+        //--------------------//
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(MenuEntry other)
+        protected bool Equals(IconAccessPoint other)
         {
             if (other == null) return false;
 
-            return base.Equals(other);
-        }
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(MenuEntry) && Equals((MenuEntry)obj);
+            return base.Equals(other) && other.Name == Name;
         }
 
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            unchecked
+            {
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (Name ?? "").GetHashCode();
+                return result;
+            }
         }
         #endregion
     }

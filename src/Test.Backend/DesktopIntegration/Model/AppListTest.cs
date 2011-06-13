@@ -17,6 +17,7 @@
 
 using Common.Storage;
 using NUnit.Framework;
+using ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Model
 {
@@ -32,21 +33,23 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// </summary>
         private static AppList CreateTestAppList()
         {
-            return new AppList { Entries =
+            return new AppList {Entries =
             {
                 new AppEntry
                 {
                     AutoUpdate = true,
+                    CapabilityLists = {CapabilityListTest.CreateTestCapabilityList()},
                     AccessPoints =
                     {
                         new AppPath {Command = "main"},
                         new AutoPlay {Capability = "autoplay"},
                         new ContextMenu {Capability = "context"},
                         new DefaultProgram {Capability = "default"},
-                        new DesktopShortcut {Command = "main", Name = "Desktop shortcut"},
+                        new DesktopIcon {Command = "main", Name = "Desktop icon"},
                         new FileType {Capability = "file_type"},
                         new MenuEntry {Command = "main", Name = "Menu entry"},
                         new UrlProtocol {Capability = "protocol"},
+                        new QuickLaunch {Command = "main", Name = "Quick Launch"}
                     }
                 }
             } };
