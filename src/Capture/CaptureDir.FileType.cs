@@ -21,6 +21,8 @@ using System.Security;
 using Microsoft.Win32;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
+using FileTypeWindows = ZeroInstall.DesktopIntegration.Windows.FileType;
+using UrlProtocolWindows = ZeroInstall.DesktopIntegration.Windows.UrlProtocol;
 
 namespace ZeroInstall.Capture
 {
@@ -74,13 +76,9 @@ namespace ZeroInstall.Capture
                 if (progIDKey == null) return null;
 
                 VerbCapability capability;
-                if (progIDKey.GetValue(DesktopIntegration.Windows.UrlProtocol.ProtocolIndicator) == null)
+                if (progIDKey.GetValue(UrlProtocolWindows.ProtocolIndicator) == null)
                 { // Normal file type
-                    var fileType = new FileType
-                    {
-                        ID = progID,
-                        Description = progIDKey.GetValue("", "").ToString()
-                    };
+                    var fileType = new FileType {ID = progID};
 
                     foreach (var fileAssoc in snapshotDiff.FileAssocs)
                     {
@@ -93,8 +91,8 @@ namespace ZeroInstall.Capture
                             fileType.Extensions.Add(new FileTypeExtension
                             {
                                 Value = fileAssoc.Key,
-                                MimeType = assocKey.GetValue(DesktopIntegration.Windows.FileType.RegValueContentType, "").ToString(),
-                                PerceivedType = assocKey.GetValue(DesktopIntegration.Windows.FileType.RegValuePerceivedType, "").ToString()
+                                MimeType = assocKey.GetValue(FileTypeWindows.RegValueContentType, "").ToString(),
+                                PerceivedType = assocKey.GetValue(FileTypeWindows.RegValuePerceivedType, "").ToString()
                             });
                         }
                     }
@@ -103,12 +101,11 @@ namespace ZeroInstall.Capture
                 }
                 else
                 { // URL protocol handler
-                    capability = new UrlProtocol
-                    {
-                        ID = progID,
-                        Description = progIDKey.GetValue("", "").ToString()
-                    };
+                    capability = new UrlProtocol {ID = progID};
                 }
+
+                capability.Description = progIDKey.GetValue(FileTypeWindows.RegValueFriendlyName, "").ToString();
+                if (string.IsNullOrEmpty(capability.Description)) capability.Description = progIDKey.GetValue("", "").ToString();
 
                 capability.Verbs.AddAll(GetVerbs(progIDKey, commandProvider));
 

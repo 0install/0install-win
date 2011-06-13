@@ -23,6 +23,7 @@ using Common.Collections;
 using Microsoft.Win32;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
+using AutoPlayWindows = ZeroInstall.DesktopIntegration.Windows.AutoPlay;
 
 namespace ZeroInstall.Capture
 {
@@ -77,20 +78,20 @@ namespace ZeroInstall.Capture
             if (commandProvider == null) throw new ArgumentNullException("commandProvider");
             #endregion
 
-            using (var handlerKey = hive.OpenSubKey(DesktopIntegration.Windows.AutoPlay.RegKeyHandlers + @"\" + handler))
+            using (var handlerKey = hive.OpenSubKey(AutoPlayWindows.RegKeyHandlers + @"\" + handler))
             {
                 if (handlerKey == null) return null;
 
-                string progID = handlerKey.GetValue("InvokeProgID", "").ToString();
-                string verbName = handlerKey.GetValue("InvokeVerb", "").ToString();
+                string progID = handlerKey.GetValue(AutoPlayWindows.RegValueProgID, "").ToString();
+                string verbName = handlerKey.GetValue(AutoPlayWindows.RegValueVerb, "").ToString();
 
                 using (var progIDKey = Registry.ClassesRoot.OpenSubKey(progID))
                 {
                     var autoPlay = new AutoPlay
                     {
                         ID = handler,
-                        Provider = handlerKey.GetValue("Provider", "").ToString(),
-                        Description = handlerKey.GetValue("Description", "").ToString(),
+                        Provider = handlerKey.GetValue(AutoPlayWindows.RegValueProvider, "").ToString(),
+                        Description = handlerKey.GetValue(AutoPlayWindows.RegValueDescription, "").ToString(),
                         ProgID = progID,
                         Verb = GetVerb(progIDKey, commandProvider, verbName)
                     };

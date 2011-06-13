@@ -28,6 +28,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         #region Constants
         /// <summary>The HKLM registry key for registering applications as clients for specific services.</summary>
         public const string RegKeyMachineClients = @"SOFTWARE\Clients";
+
+        /// <summary>The registry value name for localized name storage.</summary>
+        public const string RegValueLocalizedName = "LocalizedString";
         #endregion
 
         // ToDo: Generate InstallInfo entries

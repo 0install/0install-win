@@ -35,6 +35,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <summary>The HKCU/HKLM registry key backing HKCR.</summary>
         public const string RegKeyClass = @"SOFTWARE\Classes";
 
+        /// <summary>The registry value name for friendly type name storage.</summary>
+        public const string RegValueFriendlyName = "FriendlyTypeName";
+
         /// <summary>The registry value name for MIME type storage.</summary>
         public const string RegValueContentType = "Content Type";
 

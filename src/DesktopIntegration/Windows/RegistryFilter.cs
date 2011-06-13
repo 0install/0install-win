@@ -24,6 +24,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
     /// <summary>
     /// Applies a filter to registry access transparently replacing file paths on-the-fly.
     /// </summary>
+    [Serializable]
     public class RegistryFilter
     {
         #region Variables

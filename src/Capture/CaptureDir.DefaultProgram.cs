@@ -23,6 +23,7 @@ using Microsoft.Win32;
 using ZeroInstall.Capture.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
+using DefaultProgramWindows = ZeroInstall.DesktopIntegration.Windows.DefaultProgram;
 
 namespace ZeroInstall.Capture
 {
@@ -55,11 +56,12 @@ namespace ZeroInstall.Capture
                 string service = serviceAssoc.Key;
                 string client = serviceAssoc.Value;
 
-                using (var clientKey = Registry.LocalMachine.OpenSubKey(DesktopIntegration.Windows.DefaultProgram.RegKeyMachineClients + @"\" + service + @"\" + client))
+                using (var clientKey = Registry.LocalMachine.OpenSubKey(DefaultProgramWindows.RegKeyMachineClients + @"\" + service + @"\" + client))
                 {
                     if (clientKey == null) continue;
 
                     if (string.IsNullOrEmpty(appName)) appName = clientKey.GetValue("", "").ToString();
+                    if (string.IsNullOrEmpty(appName)) appName = clientKey.GetValue(DefaultProgramWindows.RegValueLocalizedName, "").ToString();
 
                     var defaultProgram = new DefaultProgram
                     {

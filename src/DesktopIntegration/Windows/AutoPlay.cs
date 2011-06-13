@@ -33,7 +33,19 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public const string RegKeyAssocs = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\EventHandlers";
 
         /// <summary>The HKCU registry key for storing user-selected AutoPlay handlers.</summary>
-        public const string RegKeyUserAssocs = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\UserChosenExecuteHandlers";
+        public const string RegKeyUserAssocs = @"SOFTWAREy\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\UserChosenExecuteHandlers";
+
+        /// <summary>The registry value name for storing the description of the AutoPlay action.</summary>
+        public const string RegValueDescription = "Action";
+
+        /// <summary>The registry value name for storing the name of the application providing the AutoPlay action.</summary>
+        public const string RegValueProvider = "Provider";
+
+        /// <summary>The registry value name for storing the programatic identifier to invoke.</summary>
+        public const string RegValueProgID = "InvokeProgID";
+
+        /// <summary>The registry value name for storing the name of the verb to invoke.</summary>
+        public const string RegValueVerb = "InvokeVerb";
         #endregion
     }
 }
