@@ -183,21 +183,18 @@ namespace ZeroInstall.Commands
 
         #region Helpers
         /// <summary>
-        /// Runs the <see cref="ISolver"/> for a specific interface in refresh mode without keeping the results.
-        /// Used to ensure the relevant <see cref="Feed"/>s are in the <see cref="IFeedCache"/>.
+        /// Runs the <see cref="ISolver"/> for a specific interface without keeping the results.
+        /// Used to ensure the relevant <see cref="Feed"/>s is in the <see cref="IFeedCache"/>.
         /// </summary>
         /// <remarks>Will become obsolete once <see cref="FeedManager"/> gets its own download logic.</remarks>
         /// <param name="interfaceID">The interface to run the solver for.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
         /// <exception cref="IOException">Thrown if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
-        protected void UpdateFeed(string interfaceID)
+        protected void CacheFeed(string interfaceID)
         {
-            bool refreshBackup = Policy.FeedManager.Refresh;
-            Policy.FeedManager.Refresh = true;
             bool stale;
             Policy.Solver.Solve(new Requirements {InterfaceID = interfaceID}, Policy, out stale);
-            Policy.FeedManager.Refresh = refreshBackup;
         }
         #endregion
     }
