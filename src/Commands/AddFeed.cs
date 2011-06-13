@@ -72,7 +72,7 @@ namespace ZeroInstall.Commands
             bool canceled = false;
             Policy.Handler.ShowProgressUI(() => canceled = true);
 
-            UpdateFeed(feedID);
+            CacheFeed(feedID);
             bool stale;
             var feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
 
