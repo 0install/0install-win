@@ -145,17 +145,6 @@ namespace Common.Utils
             internal static extern bool QueryPerformanceCounter(out long lpCounter);
             #endregion
 
-            #region Mutex
-            [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-            internal static extern IntPtr CreateMutex(IntPtr lpMutexAttributes, bool bInitialOwner, string lpName);
-
-            [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-            internal static extern IntPtr OpenMutex(UInt32 desiredAccess, bool inheritHandle, string name);
-
-            [DllImport("kernel32", CharSet = CharSet.Unicode, SetLastError = true)]
-            internal static extern int CloseHandle(IntPtr hObject);
-            #endregion
-
             #region Foreground window
             [DllImport("user32.dll")]
             internal static extern bool SetForegroundWindow(IntPtr hWnd);
@@ -183,18 +172,35 @@ namespace Common.Utils
 
             [DllImport("user32", CharSet = CharSet.Auto)]
             public static extern int GetCaretBlinkTime();
-
-            [DllImport("user32", CharSet = CharSet.Auto)]
-            public static extern IntPtr SetCapture(IntPtr handle);
-
-            [DllImport("user32", CharSet = CharSet.Auto)]
-            [return : MarshalAs(UnmanagedType.Bool)]
-            public static extern bool ReleaseCapture();
             #endregion
 
             #region Taskbar
             [DllImport("shell32", SetLastError = true, CallingConvention = CallingConvention.Winapi)]
             public static extern void SetCurrentProcessExplicitAppUserModelID([MarshalAs(UnmanagedType.LPWStr)] string appID);
+            #endregion
+        }
+
+        [SuppressUnmanagedCodeSecurity]
+        private static class UnsafeNativeMethods
+        {
+            #region Mutex
+            [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+            internal static extern IntPtr CreateMutex(IntPtr lpMutexAttributes, bool bInitialOwner, string lpName);
+
+            [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+            internal static extern IntPtr OpenMutex(UInt32 desiredAccess, bool inheritHandle, string name);
+
+            [DllImport("kernel32", CharSet = CharSet.Unicode, SetLastError = true)]
+            internal static extern int CloseHandle(IntPtr hObject);
+            #endregion
+
+            #region Window messages
+            [DllImport("user32", CharSet = CharSet.Auto)]
+            public static extern IntPtr SetCapture(IntPtr handle);
+
+            [DllImport("user32", CharSet = CharSet.Auto)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool ReleaseCapture();
             #endregion
 
             #region Shell
@@ -303,7 +309,7 @@ namespace Common.Utils
 
             if (!IsWindows) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
 
-            handle = SafeNativeMethods.CreateMutex(IntPtr.Zero, false, name);
+            handle = UnsafeNativeMethods.CreateMutex(IntPtr.Zero, false, name);
 
             int error = Marshal.GetLastWin32Error();
             switch (error)
@@ -331,7 +337,7 @@ namespace Common.Utils
 
             if (!IsWindows) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
 
-            SafeNativeMethods.OpenMutex(Synchronize, false, name);
+            UnsafeNativeMethods.OpenMutex(Synchronize, false, name);
 
             int error = Marshal.GetLastWin32Error();
             switch (error)
@@ -357,7 +363,7 @@ namespace Common.Utils
 
             if (!IsWindows) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
 
-            var handle = SafeNativeMethods.OpenMutex(Synchronize, false, name);
+            var handle = UnsafeNativeMethods.OpenMutex(Synchronize, false, name);
 
             bool result;
             int error = Marshal.GetLastWin32Error();
@@ -368,7 +374,7 @@ namespace Common.Utils
                 default: throw new Win32Exception(error);
             }
 
-            SafeNativeMethods.CloseHandle(handle);
+            UnsafeNativeMethods.CloseHandle(handle);
             return result;
         }
 
@@ -381,7 +387,7 @@ namespace Common.Utils
         {
             if (!IsWindows) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
 
-            SafeNativeMethods.CloseHandle(handle);
+            UnsafeNativeMethods.CloseHandle(handle);
         }
         #endregion
 
@@ -449,7 +455,7 @@ namespace Common.Utils
         /// <remarks>Will do nothing on non-Windows OSes.</remarks>
         public static IntPtr SetCapture(IntPtr handle)
         {
-            return IsWindows ? SafeNativeMethods.SetCapture(handle) : IntPtr.Zero;
+            return IsWindows ? UnsafeNativeMethods.SetCapture(handle) : IntPtr.Zero;
         }
 
         /// <summary>
@@ -459,7 +465,7 @@ namespace Common.Utils
         /// <remarks>Will always return <see langword="false"/> on non-Windows OSes.</remarks>
         public static bool ReleaseCapture()
         {
-            return IsWindows ? SafeNativeMethods.ReleaseCapture() : false;
+            return IsWindows ? UnsafeNativeMethods.ReleaseCapture() : false;
         }
         #endregion
 
@@ -539,7 +545,7 @@ namespace Common.Utils
 
             const int SHCNE_ASSOCCHANGED = 0x08000000;
             const int SHCNF_IDLIST = 0;
-            SafeNativeMethods.SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, IntPtr.Zero, IntPtr.Zero);
+            UnsafeNativeMethods.SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, IntPtr.Zero, IntPtr.Zero);
         }
         #endregion
 
