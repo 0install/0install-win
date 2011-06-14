@@ -24,7 +24,6 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -135,43 +134,9 @@ namespace Common.Utils
             public static extern bool IsWow64Process([In] IntPtr hProcess, [Out, MarshalAs(UnmanagedType.Bool)] out bool lpSystemInfo);
             #endregion
 
-            #region Performance counters
-            [DllImport("kernel32")]
-            [return : MarshalAs(UnmanagedType.Bool)]
-            internal static extern bool QueryPerformanceFrequency(out long lpFrequency);
-
-            [DllImport("kernel32")]
-            [return : MarshalAs(UnmanagedType.Bool)]
-            internal static extern bool QueryPerformanceCounter(out long lpCounter);
-            #endregion
-
             #region Foreground window
             [DllImport("user32.dll")]
             internal static extern bool SetForegroundWindow(IntPtr hWnd);
-            #endregion
-
-            #region Window messages
-            [DllImport("user32", CharSet = CharSet.Auto)]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            internal static extern bool PeekMessage(out WinMessage msg, IntPtr hWnd, uint messageFilterMin, uint messageFilterMax, uint flags);
-
-            [StructLayout(LayoutKind.Sequential)]
-            internal struct WinMessage
-            {
-// ReSharper disable InconsistentNaming
-                public IntPtr hWnd;
-                public IntPtr wParam;
-                public IntPtr lParam;
-                public uint time;
-                public Point p;
-// ReSharper restore InconsistentNaming
-            }
-
-            [DllImport("user32", CharSet = CharSet.Auto)]
-            internal static extern short GetAsyncKeyState(uint key);
-
-            [DllImport("user32", CharSet = CharSet.Auto)]
-            public static extern int GetCaretBlinkTime();
             #endregion
 
             #region Taskbar
@@ -192,15 +157,6 @@ namespace Common.Utils
 
             [DllImport("kernel32", CharSet = CharSet.Unicode, SetLastError = true)]
             internal static extern int CloseHandle(IntPtr hObject);
-            #endregion
-
-            #region Window messages
-            [DllImport("user32", CharSet = CharSet.Auto)]
-            public static extern IntPtr SetCapture(IntPtr handle);
-
-            [DllImport("user32", CharSet = CharSet.Auto)]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            public static extern bool ReleaseCapture();
             #endregion
 
             #region Shell
@@ -259,33 +215,6 @@ namespace Common.Utils
             get { return IsWindows && new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator); }
         }
 
-        #endregion
-
-        #region Performance counter
-        private static long _performanceFrequency;
-
-        /// <summary>
-        /// A time index in seconds that continuously increases.
-        /// </summary>
-        /// <remarks>Depending on the operating system this may be the time of the system clock or the time since the system booted.</remarks>
-        public static double AbsoluteTime
-        {
-            get
-            {
-                // Use high-accuracy kernel timing methods on NT
-                if (Environment.OSVersion.Platform == PlatformID.Win32NT)
-                {
-                    if (_performanceFrequency == 0)
-                        SafeNativeMethods.QueryPerformanceFrequency(out _performanceFrequency);
-
-                    long time;
-                    SafeNativeMethods.QueryPerformanceCounter(out time);
-                    return time / (double)_performanceFrequency;
-                }
-
-                return Environment.TickCount / 1000f;
-            }
-        }
         #endregion
 
         #region Mutex
@@ -406,83 +335,20 @@ namespace Common.Utils
         }
         #endregion
 
-        #region Window messages
-        /// <summary>
-        /// Determines whether this application is currently idle.
-        /// </summary>
-        /// <returns><see langword="true"/> if idle, <see langword="false"/> if handling window events.</returns>
-        /// <remarks>Will always return <see langword="true"/> on non-Windows OSes.</remarks>
-        public static bool AppIdle
-        {
-            get
-            {
-                if (IsWindows)
-                {
-                    SafeNativeMethods.WinMessage msg;
-                    return !SafeNativeMethods.PeekMessage(out msg, IntPtr.Zero, 0, 0, 0);
-                }
-                return true; // Not supported on non-Windows OSes
-            }
-        }
-
-        /// <summary>
-        /// Determines whether <paramref name="key"/> is pressed right now.
-        /// </summary>
-        /// <remarks>Will always return <see langword="false"/> on non-Windows OSes.</remarks>
-        public static bool IsKeyDown(Keys key)
-        {
-            if (IsWindows) return (SafeNativeMethods.GetAsyncKeyState((uint)key) & 0x8000) != 0;
-            return false; // Not supported on non-Windows OSes
-        }
-
-        /// <summary>
-        /// Text-box caret blink time in seconds.
-        /// </summary>
-        public static float CaretBlinkTime
-        {
-            get {
-                return IsWindows
-                    ? SafeNativeMethods.GetCaretBlinkTime() / 1000f
-                    : 0.5f; // Default to 0.5 seconds on non-Windows OSes
-            }
-        }
-
-        /// <summary>
-        /// Prevents the mouse cursor from leaving a specific window.
-        /// </summary>
-        /// <param name="handle">The handle to the window to lock the mouse cursor into.</param>
-        /// <returns>A handle to the window that had previously captured the mouse</returns>
-        /// <remarks>Will do nothing on non-Windows OSes.</remarks>
-        public static IntPtr SetCapture(IntPtr handle)
-        {
-            return IsWindows ? UnsafeNativeMethods.SetCapture(handle) : IntPtr.Zero;
-        }
-
-        /// <summary>
-        /// Releases the mouse cursor after it was locked by <see cref="SetCapture"/>.
-        /// </summary>
-        /// <returns><see langword="true"/> if successful; <see langword="false"/> otherwise.</returns>
-        /// <remarks>Will always return <see langword="false"/> on non-Windows OSes.</remarks>
-        public static bool ReleaseCapture()
-        {
-            return IsWindows ? UnsafeNativeMethods.ReleaseCapture() : false;
-        }
-        #endregion
-
-        #region TaskBar
+        #region Taskbar
         /// <summary>
         /// Sets the current process' explicit application user model ID.
         /// </summary>
-        /// <param name="appId">The application ID to set.</param>
+        /// <param name="appID">The application ID to set.</param>
         /// <remarks>The application ID is used to group related windows in the taskbar.</remarks>
-        public static void SetCurrentProcessAppId(string appId)
+        public static void SetCurrentProcessAppID(string appID)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(appId)) throw new ArgumentNullException("appId");
+            if (string.IsNullOrEmpty(appID)) throw new ArgumentNullException("appId");
             #endregion
 
             if (IsWindows7)
-                SafeNativeMethods.SetCurrentProcessExplicitAppUserModelID(appId);
+                SafeNativeMethods.SetCurrentProcessExplicitAppUserModelID(appID);
         }
 
         private static readonly object _syncLock = new object();
