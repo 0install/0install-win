@@ -35,58 +35,6 @@ using Microsoft.Win32;
 namespace Common.Utils
 {
     #region Enumerations
-    [CLSCompliant(false)]
-    [SuppressMessage("Microsoft.Design", "CA1028:EnumStorageShouldBeInt32", Justification = "uint required for Win32 API")]
-    public enum WindowMessage : uint
-    {
-        Empty = 0,
-
-        // Misc messages
-        Destroy = 0x0002,
-        Close = 0x0010,
-        Quit = 0x0012,
-        Paint = 0x000F,
-        SetCursor = 0x0020,
-        ActivateApplication = 0x001C,
-        EnterMenuLoop = 0x0211,
-        ExitMenuLoop = 0x0212,
-        NonClientHitTest = 0x0084,
-        PowerBroadcast = 0x0218,
-        SystemCommand = 0x0112,
-        GetMinMax = 0x0024,
-
-        // Keyboard messages
-        KeyDown = 0x0100,
-        KeyUp = 0x0101,
-        Character = 0x0102,
-        SystemKeyDown = 0x0104,
-        SystemKeyUp = 0x0105,
-        SystemCharacter = 0x0106,
-
-        // Mouse messages
-        MouseMove = 0x0200,
-        LeftButtonDown = 0x0201,
-        LeftButtonUp = 0x0202,
-        LeftButtonDoubleClick = 0x0203,
-        RightButtonDown = 0x0204,
-        RightButtonUp = 0x0205,
-        RightButtonDoubleClick = 0x0206,
-        MiddleButtonDown = 0x0207,
-        MiddleButtonUp = 0x0208,
-        MiddleButtonDoubleClick = 0x0209,
-        MouseWheel = 0x020a,
-        XButtonDown = 0x020B,
-        XButtonUp = 0x020c,
-        XButtonDoubleClick = 0x020d,
-        MouseFirst = LeftButtonDown,
-        MouseLast = XButtonDoubleClick,
-
-        // Sizing
-        EnterSizeMove = 0x0231,
-        ExitSizeMove = 0x0232,
-        Size = 0x0005,
-    }
-
     /// <summary>
     /// Represents the thumbnail progress bar state.
     /// </summary>
@@ -136,7 +84,7 @@ namespace Common.Utils
 
             #region Foreground window
             [DllImport("user32.dll")]
-            internal static extern bool SetForegroundWindow(IntPtr hWnd);
+            public static extern bool SetForegroundWindow(IntPtr hWnd);
             #endregion
 
             #region Taskbar
@@ -150,13 +98,13 @@ namespace Common.Utils
         {
             #region Mutex
             [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-            internal static extern IntPtr CreateMutex(IntPtr lpMutexAttributes, bool bInitialOwner, string lpName);
+            public static extern IntPtr CreateMutex(IntPtr lpMutexAttributes, bool bInitialOwner, string lpName);
 
             [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-            internal static extern IntPtr OpenMutex(UInt32 desiredAccess, bool inheritHandle, string name);
+            public static extern IntPtr OpenMutex(UInt32 desiredAccess, bool inheritHandle, string name);
 
             [DllImport("kernel32", CharSet = CharSet.Unicode, SetLastError = true)]
-            internal static extern int CloseHandle(IntPtr hObject);
+            public static extern int CloseHandle(IntPtr hObject);
             #endregion
 
             #region Shell
@@ -344,7 +292,7 @@ namespace Common.Utils
         public static void SetCurrentProcessAppID(string appID)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(appID)) throw new ArgumentNullException("appId");
+            if (string.IsNullOrEmpty(appID)) throw new ArgumentNullException("appID");
             #endregion
 
             if (IsWindows7)
