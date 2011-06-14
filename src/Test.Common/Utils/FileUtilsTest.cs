@@ -206,6 +206,43 @@ namespace Common.Utils
         }
         #endregion
 
+        #region Replace
+        /// <summary>
+        /// Ensures <see cref="FileUtils.Replace"/> correctly replaces the content of one file with that of another.
+        /// </summary>
+        [Test]
+        public void TestReplace()
+        {
+            using (var tempDir = new TemporaryDirectory("unit-tests"))
+            {
+                string sourcePath = Path.Combine(tempDir.Path, "source");
+                string targetPath = Path.Combine(tempDir.Path, "target");
+
+                File.WriteAllText(sourcePath, "source");
+                File.WriteAllText(targetPath, "target");
+                FileUtils.Replace(sourcePath, targetPath);
+                Assert.AreEqual("source", File.ReadAllText(targetPath));
+            }
+        }
+
+        /// <summary>
+        /// Ensures <see cref="FileUtils.Replace"/> correctly handles a missing destination file (simply move).
+        /// </summary>
+        [Test]
+        public void TestReplaceMissing()
+        {
+            using (var tempDir = new TemporaryDirectory("unit-tests"))
+            {
+                string sourcePath = Path.Combine(tempDir.Path, "source");
+                string targetPath = Path.Combine(tempDir.Path, "target");
+
+                File.WriteAllText(sourcePath, "source");
+                FileUtils.Replace(sourcePath, targetPath);
+                Assert.AreEqual("source", File.ReadAllText(targetPath));
+            }
+        }
+        #endregion
+
         #region Unix
         [Test]
         public void TestIsRegularFile()

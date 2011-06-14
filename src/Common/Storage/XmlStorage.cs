@@ -230,6 +230,7 @@ namespace Common.Storage
         /// <summary>
         /// Saves an object in an XML file.
         /// </summary>
+        /// <remarks>This method performs an atomic write operation when possible.</remarks>
         /// <typeparam name="T">The type of object to be saved in an XML stream.</typeparam>
         /// <param name="path">The XML file to be written.</param>
         /// <param name="data">The object to be stored.</param>
@@ -246,8 +247,21 @@ namespace Common.Storage
             string directory = Path.GetDirectoryName(Path.GetFullPath(path));
             if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory)) Directory.CreateDirectory(directory);
 
-            using (var fileStream = File.Create(path))
-                Save(fileStream, data, ignoreMembers);
+            try
+            {
+                // Write to temporary file first
+                using (var fileStream = File.Create(path + ".new"))
+                    Save(fileStream, data, ignoreMembers);
+                FileUtils.Replace(path + ".new", path);
+            }
+            #region Error handling
+            catch (Exception)
+            {
+                // Clean up failed transactions
+                if (File.Exists(path + ".new")) File.Delete(path + ".new");
+                throw;
+            }
+            #endregion
         }
 
         /// <summary>

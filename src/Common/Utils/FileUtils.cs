@@ -229,6 +229,39 @@ namespace Common.Utils
         }
         #endregion
 
+        #region Replace
+        /// <summary>
+        /// Replaces one file with another. Performs an atomic replace if the platform allows for it.
+        /// </summary>
+        /// <param name="sourcePath">The path of source directory. Must exist!</param>
+        /// <param name="destinationPath">The path of the target directory. Must not exist!</param>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="sourcePath"/> and <paramref name="destinationPath"/> are equal.</exception>
+        /// <exception cref="IOException">Thrown if the file could not be replaced.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if the read or write access to the files was denied.</exception>
+        public static void Replace(string sourcePath, string destinationPath)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(sourcePath)) throw new ArgumentNullException("sourcePath");
+            if (string.IsNullOrEmpty(destinationPath)) throw new ArgumentNullException("destinationPath");
+            if (sourcePath == destinationPath) throw new ArgumentException(Resources.SourceDestinationEqual);
+            #endregion
+
+            // Simply move if the destination does not exist
+            if (File.Exists(destinationPath))
+            {
+                // Try atomic file replacement
+                try { File.Replace(sourcePath, destinationPath, null); }
+                catch (PlatformNotSupportedException)
+                {
+                    // Fallback to delete and move
+                    File.Delete(destinationPath);
+                    File.Move(sourcePath, destinationPath);
+                }
+            }
+            else File.Move(sourcePath, destinationPath);
+        }
+        #endregion
+
         #region Directory walking
         /// <summary>
         /// Walks a directory structure recursivley and performs an action for every directory and file encountered.
