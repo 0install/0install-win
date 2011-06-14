@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using Common.Cli;
+using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 
@@ -82,6 +83,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Saves <see cref="Feed"/> to an XML file and signs it with <see cref="SecretKey"/>.
         /// </summary>
+        /// <remarks>Writing and signing the feed file are performed as an atomic operation (i.e. if signing fails an existing file remains unchanged).</remarks>
         /// <param name="path">The file to save in.</param>
         /// <param name="passphrase">The passphrase to use to unlock the key.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
@@ -94,22 +96,24 @@ namespace ZeroInstall.Publish
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
+            //string tempPath = ;
             try
             {
-                // Make overwriting existing files transactional
+                // Write to temporary file first
                 Feed.Save(path + ".new");
                 FeedUtils.AddStylesheet(path + ".new");
                 FeedUtils.SignFeed(path + ".new", SecretKey, passphrase);
 
-                File.Delete(path);
-                File.Move(path + ".new", path);
+                FileUtils.Replace(path + ".new", path);
             }
+            #region Error handling
             catch (Exception)
             {
                 // Clean up failed transactions
                 if (File.Exists(path + ".new")) File.Delete(path + ".new");
                 throw;
             }
+            #endregion
         }
         #endregion
     }

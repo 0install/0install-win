@@ -27,6 +27,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using Common.Streams;
+using Common.Utils;
 using ICSharpCode.SharpZipLib.Zip;
 
 namespace Common.Storage
@@ -130,6 +131,7 @@ namespace Common.Storage
         /// <summary>
         /// Saves an object in a binary file.
         /// </summary>
+        /// <remarks>This method performs an atomic write operation when possible.</remarks>
         /// <typeparam name="T">The type of object to be saved in a binary stream.</typeparam>
         /// <param name="path">The binary file to be written.</param>
         /// <param name="data">The object to be stored.</param>
@@ -145,8 +147,21 @@ namespace Common.Storage
             string directory = Path.GetDirectoryName(Path.GetFullPath(path));
             if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory)) Directory.CreateDirectory(directory);
 
-            using (var fileStream = File.Create(path))
-                Save(fileStream, data);
+            try
+            {
+                // Write to temporary file first
+                using (var fileStream = File.Create(path + ".new"))
+                    Save(fileStream, data);
+                FileUtils.Replace(path + ".new", path);
+            }
+            #region Error handling
+            catch (Exception)
+            {
+                // Clean up failed transactions
+                if (File.Exists(path + ".new")) File.Delete(path + ".new");
+                throw;
+            }
+            #endregion
         }
 
         /// <summary>

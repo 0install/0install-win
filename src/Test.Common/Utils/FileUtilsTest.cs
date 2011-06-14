@@ -206,68 +206,39 @@ namespace Common.Utils
         }
         #endregion
 
-        #region Unix
+        #region Replace
+        /// <summary>
+        /// Ensures <see cref="FileUtils.Replace"/> correctly replaces the content of one file with that of another.
+        /// </summary>
         [Test]
-        public void TestIsRegularFile()
+        public void TestReplace()
         {
-            using (var tempFile = new TemporaryFile("unit-tests"))
-                Assert.IsTrue(FileUtils.IsRegularFile(tempFile.Path), "Regular file should be detected as such");
-        }
-
-        [Test]
-        public void TestIsSymlink()
-        {
-            using (var tempFile = new TemporaryFile("unit-tests"))
-            {
-                string contents;
-                Assert.IsFalse(FileUtils.IsSymlink(tempFile.Path, out contents), "File was incorrectly identified as symlink");
-                Assert.IsNull(contents);
-            }
-        }
-
-        [Test]
-        public void TestCreateSymlink()
-        {
-            if (!MonoUtils.IsUnix) throw new InconclusiveException("Unable to test symlinks on non-Unix-like system");
-
             using (var tempDir = new TemporaryDirectory("unit-tests"))
             {
-                string symlinkPath = Path.Combine(tempDir.Path, "symlink");
+                string sourcePath = Path.Combine(tempDir.Path, "source");
+                string targetPath = Path.Combine(tempDir.Path, "target");
 
-                // Create an empty file and symlink to it using a relative path
-                File.WriteAllText(Path.Combine(tempDir.Path, "target"), "");
-                MonoUtils.CreateSymlink(symlinkPath, "target");
-                
-                string contents;
-                Assert.IsTrue(FileUtils.IsSymlink(symlinkPath, out contents), "Should detect symlink as such");
-                Assert.AreEqual(contents, "target", "Should get relative link target");
-
-                Assert.IsFalse(FileUtils.IsRegularFile(symlinkPath), "Should not detect symlink as regular file");
+                File.WriteAllText(sourcePath, "source");
+                File.WriteAllText(targetPath, "target");
+                FileUtils.Replace(sourcePath, targetPath);
+                Assert.AreEqual("source", File.ReadAllText(targetPath));
             }
         }
-        
-        [Test]
-        public void TestIsExecutable()
-        {
-            using (var tempFile = new TemporaryFile("unit-tests"))
-                Assert.IsFalse(FileUtils.IsExecutable(tempFile.Path), "File was incorrectly identified as executable");
-        }
 
+        /// <summary>
+        /// Ensures <see cref="FileUtils.Replace"/> correctly handles a missing destination file (simply move).
+        /// </summary>
         [Test]
-        public void TestSetExecutable()
+        public void TestReplaceMissing()
         {
-            if (!MonoUtils.IsUnix) throw new InconclusiveException("Unable to test executable bit on non-Unix-like system");
-
-            using (var tempFile = new TemporaryFile("unit-tests"))
+            using (var tempDir = new TemporaryDirectory("unit-tests"))
             {
-                Assert.IsFalse(FileUtils.IsExecutable(tempFile.Path), "File should not be executable yet");
+                string sourcePath = Path.Combine(tempDir.Path, "source");
+                string targetPath = Path.Combine(tempDir.Path, "target");
 
-                FileUtils.SetExecutable(tempFile.Path, true);
-                Assert.IsTrue(FileUtils.IsExecutable(tempFile.Path), "File should now be executable");
-                Assert.IsTrue(FileUtils.IsRegularFile(tempFile.Path), "File should still be considered a regular file");
-
-                FileUtils.SetExecutable(tempFile.Path, false);
-                Assert.IsFalse(FileUtils.IsExecutable(tempFile.Path), "File should no longer be executable");
+                File.WriteAllText(sourcePath, "source");
+                FileUtils.Replace(sourcePath, targetPath);
+                Assert.AreEqual("source", File.ReadAllText(targetPath));
             }
         }
         #endregion
@@ -299,6 +270,72 @@ namespace Common.Utils
 
                 dirCallbackMock.Verify();
                 fileCallbackMock.Verify();
+            }
+        }
+        #endregion
+
+        #region Unix
+        [Test]
+        public void TestIsRegularFile()
+        {
+            using (var tempFile = new TemporaryFile("unit-tests"))
+                Assert.IsTrue(FileUtils.IsRegularFile(tempFile.Path), "Regular file should be detected as such");
+        }
+
+        [Test]
+        public void TestIsSymlink()
+        {
+            using (var tempFile = new TemporaryFile("unit-tests"))
+            {
+                string contents;
+                Assert.IsFalse(FileUtils.IsSymlink(tempFile.Path, out contents), "File was incorrectly identified as symlink");
+                Assert.IsNull(contents);
+            }
+        }
+
+        [Test]
+        public void TestCreateSymlink()
+        {
+            if (!MonoUtils.IsUnix) throw new InconclusiveException("Unable to test symlinks on non-Unix-like system");
+
+            using (var tempDir = new TemporaryDirectory("unit-tests"))
+            {
+                string symlinkPath = Path.Combine(tempDir.Path, "symlink");
+
+                // Create an empty file and symlink to it using a relative path
+                File.WriteAllText(Path.Combine(tempDir.Path, "target"), "");
+                MonoUtils.CreateSymlink(symlinkPath, "target");
+
+                string contents;
+                Assert.IsTrue(FileUtils.IsSymlink(symlinkPath, out contents), "Should detect symlink as such");
+                Assert.AreEqual(contents, "target", "Should get relative link target");
+
+                Assert.IsFalse(FileUtils.IsRegularFile(symlinkPath), "Should not detect symlink as regular file");
+            }
+        }
+
+        [Test]
+        public void TestIsExecutable()
+        {
+            using (var tempFile = new TemporaryFile("unit-tests"))
+                Assert.IsFalse(FileUtils.IsExecutable(tempFile.Path), "File was incorrectly identified as executable");
+        }
+
+        [Test]
+        public void TestSetExecutable()
+        {
+            if (!MonoUtils.IsUnix) throw new InconclusiveException("Unable to test executable bit on non-Unix-like system");
+
+            using (var tempFile = new TemporaryFile("unit-tests"))
+            {
+                Assert.IsFalse(FileUtils.IsExecutable(tempFile.Path), "File should not be executable yet");
+
+                FileUtils.SetExecutable(tempFile.Path, true);
+                Assert.IsTrue(FileUtils.IsExecutable(tempFile.Path), "File should now be executable");
+                Assert.IsTrue(FileUtils.IsRegularFile(tempFile.Path), "File should still be considered a regular file");
+
+                FileUtils.SetExecutable(tempFile.Path, false);
+                Assert.IsFalse(FileUtils.IsExecutable(tempFile.Path), "File should no longer be executable");
             }
         }
         #endregion
