@@ -243,6 +243,37 @@ namespace Common.Utils
         }
         #endregion
 
+        #region Directory walking
+        // Interfaces used for mocking delegates
+        private interface IActionSimulator<T> { void Invoke(T obj); }
+
+        [Test]
+        public void TestWalkDirectory()
+        {
+            using (var tempDir = new TemporaryDirectory("unit-tests"))
+            {
+                string subDirPath = Path.Combine(tempDir.Path, "subdir");
+                Directory.CreateDirectory(subDirPath);
+                string filePath = Path.Combine(subDirPath, "file");
+                File.WriteAllText(filePath, "");
+
+                // Set up delegate mocks
+                var dirCallbackMock = new DynamicMock(typeof(IActionSimulator<string>));
+                dirCallbackMock.Expect("Invoke", tempDir.Path);
+                dirCallbackMock.Expect("Invoke", subDirPath);
+                var dirCallback = (IActionSimulator<string>)dirCallbackMock.MockInstance;
+                var fileCallbackMock = new DynamicMock(typeof(IActionSimulator<string>));
+                fileCallbackMock.Expect("Invoke", filePath);
+                var fileCallback = (IActionSimulator<string>)fileCallbackMock.MockInstance;
+
+                FileUtils.WalkDirectory(new DirectoryInfo(tempDir.Path), subDir => dirCallback.Invoke(subDir.FullName), file => fileCallback.Invoke(file.FullName));
+
+                dirCallbackMock.Verify();
+                fileCallbackMock.Verify();
+            }
+        }
+        #endregion
+
         #region Unix
         [Test]
         public void TestIsRegularFile()
@@ -274,7 +305,7 @@ namespace Common.Utils
                 // Create an empty file and symlink to it using a relative path
                 File.WriteAllText(Path.Combine(tempDir.Path, "target"), "");
                 MonoUtils.CreateSymlink(symlinkPath, "target");
-                
+
                 string contents;
                 Assert.IsTrue(FileUtils.IsSymlink(symlinkPath, out contents), "Should detect symlink as such");
                 Assert.AreEqual(contents, "target", "Should get relative link target");
@@ -282,7 +313,7 @@ namespace Common.Utils
                 Assert.IsFalse(FileUtils.IsRegularFile(symlinkPath), "Should not detect symlink as regular file");
             }
         }
-        
+
         [Test]
         public void TestIsExecutable()
         {
@@ -305,37 +336,6 @@ namespace Common.Utils
 
                 FileUtils.SetExecutable(tempFile.Path, false);
                 Assert.IsFalse(FileUtils.IsExecutable(tempFile.Path), "File should no longer be executable");
-            }
-        }
-        #endregion
-
-        #region Directory walking
-        // Interfaces used for mocking delegates
-        private interface IActionSimulator<T> { void Invoke(T obj); }
-
-        [Test]
-        public void TestWalkDirectory()
-        {
-            using (var tempDir = new TemporaryDirectory("unit-tests"))
-            {
-                string subDirPath = Path.Combine(tempDir.Path, "subdir");
-                Directory.CreateDirectory(subDirPath);
-                string filePath = Path.Combine(subDirPath, "file");
-                File.WriteAllText(filePath, "");
-
-                // Set up delegate mocks
-                var dirCallbackMock = new DynamicMock(typeof(IActionSimulator<string>));
-                dirCallbackMock.Expect("Invoke", tempDir.Path);
-                dirCallbackMock.Expect("Invoke", subDirPath);
-                var dirCallback = (IActionSimulator<string>)dirCallbackMock.MockInstance;
-                var fileCallbackMock = new DynamicMock(typeof(IActionSimulator<string>));
-                fileCallbackMock.Expect("Invoke", filePath);
-                var fileCallback = (IActionSimulator<string>)fileCallbackMock.MockInstance;
-
-                FileUtils.WalkDirectory(new DirectoryInfo(tempDir.Path), subDir => dirCallback.Invoke(subDir.FullName), file => fileCallback.Invoke(file.FullName));
-
-                dirCallbackMock.Verify();
-                fileCallbackMock.Verify();
             }
         }
         #endregion
