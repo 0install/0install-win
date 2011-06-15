@@ -52,9 +52,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="interfaceID">The interface ID of the application being integrated.</param>
         /// <param name="feed">The of the application to get additional information (e.g. icons) from.</param>
         /// <param name="fileType">The capability to be applied.</param>
-        /// <param name="accessPoint">Flag indicating that an according <see cref="AccessPoints.FileType"/> was also set (i.e. the file association should become the default handler for the type).</param>
+        /// <param name="defaults">Flag indicating that file association, etc. should become default handlers for their respective types.</param>
         /// <param name="global">Flag indicating to apply the configuration system-wide instead of just for the current user.</param>
-        public static void Apply(string interfaceID, Feed feed, Capabilities.FileType fileType, bool accessPoint, bool global)
+        public static void Apply(string interfaceID, Feed feed, Capabilities.FileType fileType, bool defaults, bool global)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
@@ -98,7 +98,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         using (var openWithKey = extensionKey.CreateSubKey("OpenWithProgIDs"))
                             openWithKey.SetValue(fileType.ID, "");
 
-                        if(accessPoint) extensionKey.SetValue("", fileType.ID);
+                        if(defaults) extensionKey.SetValue("", fileType.ID);
                     }
                 }
             }

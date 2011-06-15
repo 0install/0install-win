@@ -17,7 +17,6 @@
 
 using Common.Storage;
 using NUnit.Framework;
-using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Model
@@ -40,7 +39,7 @@ namespace ZeroInstall.DesktopIntegration.Model
                 {
                     AutoUpdate = true,
                     CapabilityLists = {CapabilityListTest.CreateTestCapabilityList()},
-                    AccessPointLists = {CreateTestAccessPointList()}
+                    AccessPoints = CreateTestAccessPointList()
                 }
             } };
         }
@@ -50,22 +49,19 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// </summary>
         private static AccessPointList CreateTestAccessPointList()
         {
-            return new AccessPointList
+            return new AccessPointList {Entries =
             {
-                Architecture = new Architecture(OS.Windows, Cpu.All),
-                Entries =
-                {
-                    new AppPath {Command = "main", Name = "myapp"},
-                    new AutoPlay {Capability = "autoplay"},
-                    new ContextMenu {Capability = "context"},
-                    new DefaultProgram {Capability = "default"},
-                    new DesktopIcon {Command = "main", Name = "Desktop icon"},
-                    new FileType {Capability = "file_type"},
-                    new MenuEntry {Command = "main", Name = "Menu entry", Category = "Developer tools"},
-                    new UrlProtocol {Capability = "protocol"},
-                    new QuickLaunch {Command = "main", Name = "Quick Launch"}
-                }
-            };
+                new AppPath {Command = "main", Name = "myapp"},
+                new AutoPlay {Capability = "autoplay"},
+                new CapabilityRegistration(),
+                new ContextMenu {Capability = "context"},
+                new DefaultProgram {Capability = "default"},
+                new DesktopIcon {Command = "main", Name = "Desktop icon"},
+                new FileType {Capability = "file_type"},
+                new MenuEntry {Command = "main", Name = "Menu entry", Category = "Developer tools"},
+                new UrlProtocol {Capability = "protocol"},
+                new QuickLaunch {Command = "main", Name = "Quick Launch"}
+            }};
         }
         #endregion
 

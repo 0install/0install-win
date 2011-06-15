@@ -23,6 +23,7 @@ using Common.Utils;
 using ZeroInstall.DesktopIntegration.Model;
 using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
+using ZeroInstall.Model.Capabilities;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration
@@ -33,14 +34,11 @@ namespace ZeroInstall.DesktopIntegration
     public class IntegrationManager
     {
         #region Constants
-        /// <summary>Indicates that all <see cref="Capabilities.Capability"/>s shall be integrated.</summary>
-        public const string CapabilitiesCategoryName = "capabilities";
-
         /// <summary>Indicates that all <see cref="Capabilities.Capability"/>s and <see cref="AccessPoint"/>s shall be integrated.</summary>
         public const string AllCategoryName = "all";
 
-        /// <summary>A list of all known integration categories.</summary>
-        public static readonly ICollection<string> Categories = new[] {CapabilitiesCategoryName, DefaultAccessPoint.CategoryName, IconAccessPoint.CategoryName, AppPath.CategoryName, AllCategoryName};
+        /// <summary>A list of all known <see cref="AccessPoint"/> categories.</summary>
+        public static readonly ICollection<string> Categories = new[] {CapabilityRegistration.CategoryName, DefaultAccessPoint.CategoryName, IconAccessPoint.CategoryName, AppPath.CategoryName, AllCategoryName};
         #endregion
 
         #region Variables
@@ -122,23 +120,23 @@ namespace ZeroInstall.DesktopIntegration
             AppEntry appEntry = FindAppEntry(interfaceID);
             if (appEntry == null) throw new InvalidOperationException(string.Format(Resources.AppNotInList, interfaceID));
 
-            RemoveIntegration(interfaceID, new[] {AllCategoryName});
+            RemoveAccessPoints(interfaceID, new[] {AllCategoryName});
 
             _appList.Entries.Remove(appEntry);
             _appList.Save(_appListPath);
         }
         #endregion
 
-        #region Integrations
+        #region AccessPoints
         /// <summary>
-        /// Applies new integrations for an application.
+        /// Applies new <see cref="AccessPoint"/>s for an application.
         /// </summary>
         /// <param name="interfaceID">The interface for the application to perform the operation on.</param>
         /// <param name="feed">The <see cref="Feed"/> for the application to perform the operation on.</param>
-        /// <param name="categories">A list of all integration categories to be added to the already applied ones.</param>
+        /// <param name="categories">A list of all <see cref="AccessPoint"/> categories to be added to the already applied ones.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public void AddIntegration(string interfaceID, Feed feed, ICollection<string> categories)
+        public void AddAccessPoint(string interfaceID, Feed feed, ICollection<string> categories)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
@@ -154,34 +152,47 @@ namespace ZeroInstall.DesktopIntegration
                 _appList.Entries.Add(appEntry);
             }
 
+            bool all = categories.Contains(AllCategoryName);
+            bool capabilities = categories.Contains(CapabilityRegistration.CategoryName) || all;
+            bool defaults = categories.Contains(DefaultAccessPoint.CategoryName) || all;
+            bool icons = categories.Contains(IconAccessPoint.CategoryName) || all;
+            bool appPath = categories.Contains(AppPath.CategoryName) || all;
+
             // ToDo: Modify model
+            if (appEntry.AccessPoints == null) appEntry.AccessPoints = new AccessPointList();
 
             _appList.Save(_appListPath);
 
             // ToDo: Apply changes
-            foreach (var capabilityList in feed.CapabilityLists)
+            if (capabilities)
             {
-                if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
-
-                foreach (var capability in capabilityList.Entries)
+                foreach (var capabilityList in appEntry.CapabilityLists)
                 {
-                    var fileType = capability as Capabilities.FileType;
-                    if (fileType != null && WindowsUtils.IsWindows)
-                        Windows.FileType.Apply(interfaceID, feed, fileType, categories.Contains(DefaultAccessPoint.CategoryName), false /*_global*/);
+                    if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
+
+                    foreach (var capability in capabilityList.Entries)
+                        ApplyCapability(interfaceID, feed, capability, defaults);
                 }
             }
             WindowsUtils.NotifyAssocChanged();
         }
 
+        private void ApplyCapability(string interfaceID, Feed feed, Capability capability, bool defaults)
+        {
+            var fileType = capability as Capabilities.FileType;
+            if (fileType != null && WindowsUtils.IsWindows)
+                Windows.FileType.Apply(interfaceID, feed, fileType, defaults, _global);
+        }
+
         /// <summary>
-        /// Removes already applied integrations for an application.
+        /// Removes already applied <see cref="AccessPoint"/>s for an application.
         /// </summary>
         /// <param name="interfaceID">The interface for the application to perform the operation on.</param>
-        /// <param name="categories">A list of all integration categories to be removed from the already applied ones.</param>
+        /// <param name="categories">A list of all <see cref="AccessPoint"/> categories to be removed from the already applied ones.</param>
         /// <exception cref="InvalidOperationException">Thrown in the application is not in the list.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public void RemoveIntegration(string interfaceID, ICollection<string> categories)
+        public void RemoveAccessPoints(string interfaceID, ICollection<string> categories)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
@@ -191,6 +202,12 @@ namespace ZeroInstall.DesktopIntegration
             // Prevent missing entries
             AppEntry appEntry = FindAppEntry(interfaceID);
             if (appEntry == null) throw new InvalidOperationException(string.Format(Resources.AppNotInList, interfaceID));
+
+            bool all = categories.Contains(AllCategoryName);
+            bool capabilities = categories.Contains(CapabilityRegistration.CategoryName) || all;
+            bool defaults = categories.Contains(DefaultAccessPoint.CategoryName) || all;
+            bool icons = categories.Contains(IconAccessPoint.CategoryName) || all;
+            bool appPath = categories.Contains(AppPath.CategoryName) || all;
 
             // ToDo: Modify model
 

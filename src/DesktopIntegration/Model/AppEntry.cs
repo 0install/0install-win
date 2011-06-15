@@ -29,7 +29,7 @@ namespace ZeroInstall.DesktopIntegration.Model
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlType("app", Namespace = AppList.XmlNamespace)]
-    public class AppEntry : IEquatable<AppEntry>
+    public class AppEntry : IEquatable<AppEntry>, ICloneable
     {
         #region Properties
         /// <summary>
@@ -64,15 +64,14 @@ namespace ZeroInstall.DesktopIntegration.Model
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<CapabilityList> CapabilityLists { get { return _capabilityLists; } }
 
-        // Preserve order
-        private readonly C5.ArrayList<AccessPointList> _accessPointLists = new C5.ArrayList<AccessPointList>();
+        private readonly AccessPointList _accessPointList = new AccessPointList();
+
         /// <summary>
-        /// A set of <see cref="AccessPoint"/> lists to be registered in the desktop environment. Only compatible architectures are handled.
+        /// A set of <see cref="AccessPoints"/>s to be registered in the desktop environment; may be <see langword="null"/>.
         /// </summary>
-        [Description("A set of AccessPoint lists to be registered in the desktop environment. Only compatible architectures are handled.")]
+        [Description("A set of AccessPoints to be registered in the desktop environment; may be null.")]
         [XmlElement("access-points")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<AccessPointList> AccessPointLists { get { return _accessPointLists; } }
+        public AccessPointList AccessPoints { get; set; }
         #endregion
 
         //--------------------//
@@ -94,9 +93,8 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <returns>The new copy of the <see cref="AppEntry"/>.</returns>
         public AppEntry CloneEntry()
         {
-            var appList = new AppEntry {Name = Name, InterfaceID = InterfaceID};
+            var appList = new AppEntry {Name = Name, InterfaceID = InterfaceID, AccessPoints = AccessPoints.CloneAccessPointList()};
             foreach (var list in CapabilityLists) appList.CapabilityLists.Add(list.CloneCapabilityList());
-            foreach (var list in AccessPointLists) appList.AccessPointLists.Add(list.CloneAccessPointList());
 
             return appList;
         }
@@ -120,7 +118,7 @@ namespace ZeroInstall.DesktopIntegration.Model
             if (Name != other.Name) return false;
             if (InterfaceID != other.InterfaceID) return false;
             if (!CapabilityLists.SequencedEquals(other.CapabilityLists)) return false;
-            if (!AccessPointLists.SequencedEquals(other.AccessPointLists)) return false;
+            if (!AccessPoints.Equals(other.AccessPoints)) return false;
             return true;
         }
 
@@ -140,7 +138,7 @@ namespace ZeroInstall.DesktopIntegration.Model
                 int result = (Name ?? "").GetHashCode();
                 result = (result * 397) ^ (InterfaceID ?? "").GetHashCode();
                 result = (result * 397) ^ CapabilityLists.GetSequencedHashCode();
-                result = (result * 397) ^ AccessPointLists.GetSequencedHashCode();
+                result = (result * 397) ^ AccessPoints.GetHashCode();
                 return result;
             }
         }

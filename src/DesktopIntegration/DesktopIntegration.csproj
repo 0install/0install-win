@@ -56,6 +56,7 @@
     <Compile Include="Model\AppList.cs" />
     <Compile Include="Model\AppPath.cs" />
     <Compile Include="Model\AutoPlay.cs" />
+    <Compile Include="Model\CapabilitiyRegistration.cs" />
     <Compile Include="Model\DefaultAccessPoint.cs" />
     <Compile Include="Model\ContextMenu.cs" />
     <Compile Include="Model\DefaultProgram.cs" />

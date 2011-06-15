@@ -109,7 +109,6 @@
   <Class Name="ZeroInstall.DesktopIntegration.Model.AppEntry">
     <Position X="3" Y="0.5" Width="1.5" />
     <Members>
-      <Field Name="_accessPointLists" Hidden="true" />
       <Field Name="_capabilityLists" Hidden="true" />
       <Method Name="Clone" Hidden="true" />
       <Method Name="CloneEntry" Hidden="true" />
@@ -118,12 +117,11 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAEBBEgADAAARABAAABIAAAAAAAAAAABA=</HashCode>
+      <HashCode>AAAAAAACAAgAABBEgACAAARAAAAAAIAAAAIAAAAAABA=</HashCode>
       <FileName>Model\AppEntry.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="CapabilityLists" />
-      <Property Name="AccessPointLists" />
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -230,7 +228,6 @@
     <Position X="6.25" Y="1" Width="1.5" />
     <Members>
       <Field Name="_accessPoints" Hidden="true" />
-      <Property Name="ArchitectureString" Hidden="true" />
       <Method Name="Clone" Hidden="true" />
       <Method Name="CloneAccessPointList" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
@@ -238,7 +235,7 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AIAAAAAAAAIAACAEgAgAAAAAAAAAgIAAAAAAAAAAABA=</HashCode>
+      <HashCode>AAAAAAAAAAAAACAEgAgAAAAAAAAAgIAAAAAAAAAAABA=</HashCode>
       <FileName>Model\AccessPointList.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -249,6 +246,20 @@
   <Class Name="ZeroInstall.Model.Capabilities.Capability" Collapsed="true">
     <Position X="10.5" Y="0.5" Width="1.5" />
     <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.DesktopIntegration.Model.CapabilityRegistration">
+    <Position X="6" Y="4.5" Width="2" />
+    <Members>
+      <Method Name="CloneAccessPoint" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAQAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\CapabilitiyRegistration.cs</FileName>
+    </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Font Name="Segoe UI" Size="9" />
