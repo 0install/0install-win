@@ -130,7 +130,7 @@
     <value>Combine all specified feeds into a single catalog {FILE}.</value>
   </data>
   <data name="OptionGnuPGPassphrase" xml:space="preserve">
-    <value>Uses {PASS} to unlock the GnuPG private key.</value>
+    <value>Use {PASS} to unlock the GnuPG private key.</value>
   </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Show the built-in help text.</value>
@@ -148,7 +148,7 @@
     <value>Display version information.</value>
   </data>
   <data name="OptionXmlSign" xml:space="preserve">
-    <value>Add an XML signature block. All remote feeds must be signed.</value>
+    <value>Add an XML signature block. (All remote feeds must be signed.)</value>
   </data>
   <data name="PleaseEnterGnuPGPassphrase" xml:space="preserve">
     <value>Please enter your GnuPG passphrase:</value>

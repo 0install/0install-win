@@ -145,10 +145,10 @@
     <value>Register an additional source of implementations (versions) of a program.</value>
   </data>
   <data name="DescriptionConfig" xml:space="preserve">
-    <value>View or change configuration settings. With no arguments, '0install config' displays all configuration settings. With one argument, it displays the current value of the named setting. With two arguments, it sets the setting to the given value.</value>
+    <value>View or change configuration settings. With no arguments, it displays all settings and their current values. With one argument, it displays the current value of the named setting. With two arguments, it sets the setting to the given value.</value>
   </data>
   <data name="DescriptionDownload" xml:space="preserve">
-    <value>This behaves similarly to '0install select', except that it also downloads the selected versions if they are not already cached. Unlike 'select', it does not print the selected versions by default. Returns an exit status of zero if it selected a suitable set of versions and they are now all downloaded and in the cache; returns a status of 1 otherwise.</value>
+    <value>This command behaves similarly to '0install select', except that it also downloads the selected versions if they are not already cached. Unlike 'select', it does not print the selected versions by default. Returns an exit status of 0 if it selected a suitable set of versions and they are now all downloaded and in the cache; returns a status of 1 otherwise.</value>
   </data>
   <data name="DescriptionImport" xml:space="preserve">
     <value>Import a feed from a local file, as if it had been downloaded from the network. This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again. The file must have a trusted digital signature, as when fetching from the network.</value>
@@ -229,8 +229,7 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
     <value>Instead of executing the default command, use {COMMAND} instead. Possible command names are defined in the program's interface.</value>
   </data>
   <data name="OptionCpu" xml:space="preserve">
-    <value>Forces the solver to target the CPU {CPU}.
-Supported values: i386, i486, i586, i686, x86_64, ppc, ppc64</value>
+    <value>Forces the solver to target a specific {CPU}.</value>
   </data>
   <data name="OptionGui" xml:space="preserve">
     <value>Show the graphical policy editor. This allows you to select which version of a program or library to use.</value>
@@ -251,8 +250,10 @@ Supported values: i386, i486, i586, i686, x86_64, ppc, ppc64</value>
     <value>Run in off-line mode, overriding the default setting. In off-line mode, no interfaces are refreshed even if they are out-of-date, and newer versions of programs won't be downloaded even if the injector already knows about them (e.g. from a previous refresh).</value>
   </data>
   <data name="OptionOS" xml:space="preserve">
-    <value>Forces the solver to target the operating system {OS}.
-Supported values: Linux, Solaris, MacOSX, Windows</value>
+    <value>Forces the solver to target the operating system {OS}.</value>
+  </data>
+  <data name="SupportedValues" xml:space="preserve">
+    <value>Supported values: {0}</value>
   </data>
   <data name="OptionRefresh" xml:space="preserve">
     <value>Fetch a fresh copy of all used interfaces.</value>

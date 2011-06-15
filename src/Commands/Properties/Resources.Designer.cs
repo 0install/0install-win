@@ -142,7 +142,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View or change configuration settings. With no arguments, &apos;0install config&apos; displays all configuration settings. With one argument, it displays the current value of the named setting. With two arguments, it sets the setting to the given value..
+        ///   Looks up a localized string similar to View or change configuration settings. With no arguments, it displays all settings and their current values. With one argument, it displays the current value of the named setting. With two arguments, it sets the setting to the given value..
         /// </summary>
         internal static string DescriptionConfig {
             get {
@@ -151,7 +151,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This behaves similarly to &apos;0install select&apos;, except that it also downloads the selected versions if they are not already cached. Unlike &apos;select&apos;, it does not print the selected versions by default. Returns an exit status of zero if it selected a suitable set of versions and they are now all downloaded and in the cache; returns a status of 1 otherwise..
+        ///   Looks up a localized string similar to This command behaves similarly to &apos;0install select&apos;, except that it also downloads the selected versions if they are not already cached. Unlike &apos;select&apos;, it does not print the selected versions by default. Returns an exit status of 0 if it selected a suitable set of versions and they are now all downloaded and in the cache; returns a status of 1 otherwise..
         /// </summary>
         internal static string DescriptionDownload {
             get {
@@ -388,8 +388,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forces the solver to target the CPU {CPU}.
-        ///Supported values: i386, i486, i586, i686, x86_64, ppc, ppc64.
+        ///   Looks up a localized string similar to Forces the solver to target a specific {CPU}..
         /// </summary>
         internal static string OptionCpu {
             get {
@@ -452,8 +451,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forces the solver to target the operating system {OS}.
-        ///Supported values: Linux, Solaris, MacOSX, Windows.
+        ///   Looks up a localized string similar to Forces the solver to target the operating system {OS}..
         /// </summary>
         internal static string OptionOS {
             get {
@@ -549,6 +547,15 @@ namespace ZeroInstall.Commands.Properties {
         internal static string SelectedImplementations {
             get {
                 return ResourceManager.GetString("SelectedImplementations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supported values: {0}.
+        /// </summary>
+        internal static string SupportedValues {
+            get {
+                return ResourceManager.GetString("SupportedValues", resourceCulture);
             }
         }
         

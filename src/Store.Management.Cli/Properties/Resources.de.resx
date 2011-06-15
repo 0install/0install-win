@@ -126,4 +126,10 @@
   <data name="SuccessfullyRemoved" xml:space="preserve">
     <value>{0} wurde erfolgreich entfernt.</value>
   </data>
+  <data name="OptionHelp" xml:space="preserve">
+    <value>Zeigt den eingebauten Hilfe-Text an.</value>
+  </data>
+  <data name="OptionVersion" xml:space="preserve">
+    <value>Zeige Versionsinformationen an.</value>
+  </data>
 </root>

@@ -117,50 +117,63 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MissingArguments" xml:space="preserve">
-    <value>Fehlende Argumente. Probieren Sie {0} --help</value>
+  <data name="tabPageVersions.Text" xml:space="preserve">
+    <value>Versionen</value>
   </data>
-  <data name="NoFeedFilesFound" xml:space="preserve">
-    <value>Konnte keine passenden Feed-Dateien finden.</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="checkBoxShowAllVersions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>558, 10</value>
   </data>
-  <data name="OptionBatch" xml:space="preserve">
-    <value>Im Stapelverarbeitungsmodus ausführen: dem Benutzer keine Meldungen zeigen und Rückfragen stillschweigend mit "Nein" beantworten.</value>
+  <data name="checkBoxShowAllVersions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>137, 17</value>
   </data>
-  <data name="OptionCatalog" xml:space="preserve">
-    <value>Alle angegebenen Feeds in einer einzelnen Katalog {DATEI} kombinieren.</value>
+  <data name="checkBoxShowAllVersions.Text" xml:space="preserve">
+    <value>Zeige alle &amp;Versionen an</value>
   </data>
-  <data name="OptionGnuPGPassphrase" xml:space="preserve">
-    <value>Verwende {PASS} um den privaten GnuPG Schlüssel freizuschalten.</value>
+  <data name="labelStability.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 13</value>
   </data>
-  <data name="OptionHelp" xml:space="preserve">
-    <value>Zeigt den eingebauten Hilfe-Text an.</value>
+  <data name="labelStability.Text" xml:space="preserve">
+    <value>Bevorzugte &amp;Stabilität:</value>
   </data>
-  <data name="OptionKey" xml:space="preserve">
-    <value>Schlüssel der zum Signieren verwenden werden soll (falls Sie mehrere haben oder falls Sie mit einem anderen Schlüssel resignieren möchten).</value>
+  <data name="comboBoxStability.Location" type="System.Drawing.Point, System.Drawing">
+    <value>116, 6</value>
   </data>
-  <data name="Options" xml:space="preserve">
-    <value>Optionen:</value>
+  <data name="buttonRemoveFeed.Text" xml:space="preserve">
+    <value>&amp;Entfernen</value>
   </data>
-  <data name="OptionUnsign" xml:space="preserve">
-    <value>Entferne bestehende Signaturen.</value>
+  <data name="buttonAddFeed.Text" xml:space="preserve">
+    <value>&amp;Hinzufügen</value>
   </data>
-  <data name="OptionVersion" xml:space="preserve">
-    <value>Zeigt die Versionsinformationen an.</value>
+  <data name="dataColumnReleased.HeaderText" xml:space="preserve">
+    <value>Veröffentlicht</value>
   </data>
-  <data name="OptionXmlSign" xml:space="preserve">
-    <value>Füge einen XML Signaturblock hinzu. (Alle Remote-Feeds müssen signiert sein.)</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="dataColumnReleased.Width" type="System.Int32, mscorlib">
+    <value>94</value>
   </data>
-  <data name="PleaseEnterGnuPGPassphrase" xml:space="preserve">
-    <value>Bitte geben Sie Ihre GnuPG Passphrase ein:</value>
+  <data name="dataColumnStability.HeaderText" xml:space="preserve">
+    <value>Stabilität</value>
   </data>
-  <data name="UnknownMode" xml:space="preserve">
-    <value>Unbekannter Betriebsmodus
-Probieren Sie {0} --help</value>
+  <data name="dataColumnUserStability.HeaderText" xml:space="preserve">
+    <value>Überschreiben</value>
   </data>
-  <data name="Usage" xml:space="preserve">
-    <value>Verwendung:</value>
+  <data name="dataColumnArchitecture.HeaderText" xml:space="preserve">
+    <value>Architektur</value>
   </data>
-  <data name="UsageFeed" xml:space="preserve">
-    <value>0publish [OPTIONEN] feed.xml</value>
+  <data name="dataColumnArchitecture.Width" type="System.Int32, mscorlib">
+    <value>83</value>
+  </data>
+  <data name="dataColumnNotes.HeaderText" xml:space="preserve">
+    <value>Hinweise</value>
+  </data>
+  <data name="dataColumnNotes.Width" type="System.Int32, mscorlib">
+    <value>75</value>
+  </data>
+  <data name="dataColumnSource.HeaderText" xml:space="preserve">
+    <value>Quelle</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Interface Eigenschaften</value>
   </data>
 </root>

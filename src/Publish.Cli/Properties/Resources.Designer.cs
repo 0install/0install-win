@@ -97,7 +97,7 @@ namespace ZeroInstall.Publish.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uses {PASS} to unlock the GnuPG private key..
+        ///   Looks up a localized string similar to Use {PASS} to unlock the GnuPG private key..
         /// </summary>
         internal static string OptionGnuPGPassphrase {
             get {
@@ -151,7 +151,7 @@ namespace ZeroInstall.Publish.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add an XML signature block. All remote feeds must be signed..
+        ///   Looks up a localized string similar to Add an XML signature block. (All remote feeds must be signed.).
         /// </summary>
         internal static string OptionXmlSign {
             get {

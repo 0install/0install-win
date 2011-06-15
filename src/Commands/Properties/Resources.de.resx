@@ -141,6 +141,15 @@
   <data name="CommandLineArguments" xml:space="preserve">
     <value>Befehlszeilenargumente</value>
   </data>
+  <data name="DescriptionAddFeed" xml:space="preserve">
+    <value>Registriere eine zusätzliche Implementierungsquelle (Versionen) für ein Programm.</value>
+  </data>
+  <data name="DescriptionConfig" xml:space="preserve">
+    <value>Konfigurationseinstellungen anzeigen oder verändernsettings. Ohne Argumente zeigt es alle Einstellungen und ihre aktuellen Werte an. Mit einem Argument zeigt es den aktuellen Wert der benannten Einstellung an. Mit zwei Argumenten setzt es den Wert der benannten Einstellung.</value>
+  </data>
+  <data name="DescriptionDownload" xml:space="preserve">
+    <value>Dieser Befehl verhält sich ähnlich zu '0install select', außer dass er die ausgewählten Versionen auch runterlädt, falls sie sich nicht bereits im Cache befinden. Im Gegensatz zu 'select' werden die ausgewählten Versionen nicht standardmäßig ausgegeben. Gibt einen Exit Status von 0 zurück falls ein geeigneter Satz an Versionen gefunden wurde und sie nun alle heruntergeladen sind und sich im Cache befinden; gibt ansonsten einen Exit Status von 1 zurück.</value>
+  </data>
   <data name="DownloadComplete" xml:space="preserve">
     <value>Download abgeschlossen</value>
   </data>
@@ -182,17 +191,50 @@
   <data name="NoUpdatesFound" xml:space="preserve">
     <value>Keine Updates gefunden</value>
   </data>
-  <data name="OptionForce" xml:space="preserve">
-    <value>Warnungen ignorieren und den Vorgang trotzdem ausführen.</value>
+  <data name="OptionBatch" xml:space="preserve">
+    <value>Im Stapelverarbeitungsmodus ausführen: dem Benutzer keine Meldungen zeigen und Rückfragen stillschweigend mit "Nein" beantworten.</value>
+  </data>
+  <data name="OptionCpu" xml:space="preserve">
+    <value>Zwingt den Solver auf eine bestimmte {CPU} abzuzielen.</value>
+  </data>
+  <data name="OptionHelp" xml:space="preserve">
+    <value>Zeigt den eingebauten Hilfe-Text an.</value>
+  </data>
+  <data name="OptionOS" xml:space="preserve">
+    <value>Zwingt den Solver auf ein bestimmtes Betriebssystem {OS} abzuzielen.</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Optionen:</value>
+  </data>
+  <data name="OptionWrapper" xml:space="preserve">
+    <value>Anstelle das ausgewählte Programm direkt auszuführen, führe {COMMAND} PROGRAM ARGS aus. Dies ist nützlich um Debugger und Tracing Tools auf das Programm anzuwenden (anstatt auf Zero Install!).  Beachten Sie, dass der Wrapper in der vom Programm festgelegten Umgebung ausgeführt wird. Somit ist dieser Mechanismus nicht für Sandboxing geeignet.</value>
+  </data>
+  <data name="OptionXml" xml:space="preserve">
+    <value>Scheibe ausgewählte Versionen auf die Konsole als Maschienen-lesbares XML.</value>
   </data>
   <data name="SelectedImplementations" xml:space="preserve">
     <value>Ausgewählte Implementierungen:</value>
   </data>
+  <data name="SupportedValues" xml:space="preserve">
+    <value>Unterstützte Werte: {0}</value>
+  </data>
+  <data name="TooManyArguments" xml:space="preserve">
+    <value>Zu viele Argumente oder unbekannte Optionen.</value>
+  </data>
   <data name="TryHelpWith" xml:space="preserve">
     <value>Probieren Sie --help mit einem der folgenden:</value>
   </data>
+  <data name="UnknownCommand" xml:space="preserve">
+    <value>Unknown Befehl '{0}'.</value>
+  </data>
+  <data name="UnknownOption" xml:space="preserve">
+    <value>Unbekannte Option.</value>
+  </data>
   <data name="UpdateProblem" xml:space="preserve">
     <value>Konnte nicht nach Updates suchen</value>
+  </data>
+  <data name="Usage" xml:space="preserve">
+    <value>Verwendung:</value>
   </data>
   <data name="VersionInformation" xml:space="preserve">
     <value>Versionsinformationen:</value>
