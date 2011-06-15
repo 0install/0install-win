@@ -150,6 +150,27 @@
   <data name="DescriptionDownload" xml:space="preserve">
     <value>Dieser Befehl verhält sich ähnlich zu '0install select', außer dass er die ausgewählten Versionen auch runterlädt, falls sie sich nicht bereits im Cache befinden. Im Gegensatz zu 'select' werden die ausgewählten Versionen nicht standardmäßig ausgegeben. Gibt einen Exit Status von 0 zurück falls ein geeigneter Satz an Versionen gefunden wurde und sie nun alle heruntergeladen sind und sich im Cache befinden; gibt ansonsten einen Exit Status von 1 zurück.</value>
   </data>
+  <data name="DescriptionImport" xml:space="preserve">
+    <value>Importiere einen Feed aus einer lokalen Datei, als wäre aus einem Netzwerk heruntergeladen worden. Dies ist praktisch um einen Feed zu testen, der nicht extra auf einem entfernten Server hochgeladen werden muss, nur um ihn wieder herunterzuladen. Diese Datei muss eine vertrauenswürdige digitale Signatur besitzen, genauso wie beim Abrufen aus dem Netzwerk.</value>
+  </data>
+  <data name="DescriptionList" xml:space="preserve">
+    <value>Listet alle bekannten Interface (Programm-) URIs auf. Wenn eine Suchbegriff angegeben wird, werden nur URIs angezeigt die den entsprechenden Begriff enthalten (Groß- und Kleinschreibung wird ignoriert).</value>
+  </data>
+  <data name="DescriptionListFeeds" xml:space="preserve">
+    <value>Listet alle zusätzlichen Feeds auf, die mit '0install add-feed' hinzugefügt wurden.</value>
+  </data>
+  <data name="DescriptionRemoveFeed" xml:space="preserve">
+    <value>Entfernt einen Feed. Dies ist das Gegenstück zu 'add-feed'.</value>
+  </data>
+  <data name="DescriptionRun" xml:space="preserve">
+    <value>Dies verhält sich ähnlich wie '0install download', mit dem Zusatz, dass das Programm gestartet wird wird nachdem sichergestellt ist dass es im Cache ist. Gibt den Exit-Status 1 zurück wenn der herunterladen Schritt fehlschlägt. Ansonsten wird der Exit-Status des gestarteten Programms zurückgegeben.</value>
+  </data>
+  <data name="DescriptionSelect" xml:space="preserve">
+    <value>Wähle eine Version des Programmes aus, welches durch seine URI identifiziert wird, und kompatible Versionen aller seiner Abhängigekeiten hat. Gibt den Exit-Status 0 zurück, wenn eine Menge an Versionen ausgewählt wurde und den Status 0, wenn keine konsistente Menge gefunden werden konnte.</value>
+  </data>
+  <data name="DescriptionUpdate" xml:space="preserve">
+    <value>Prüft ob Updates für das Programm vorhanden sind und lädt die gefundenen herunter. Dies ist gleichbedeutend wie '0install download --refresh', mit dem Zusatz, dass Informationen über das Auffinden von Änderungen ausgegeben werden.</value>
+  </data>
   <data name="DownloadComplete" xml:space="preserve">
     <value>Download abgeschlossen</value>
   </data>
@@ -176,6 +197,13 @@
   <data name="FoundFeeds" xml:space="preserve">
     <value>Gefundene Feeds:</value>
   </data>
+  <data name="LicenseInfo" xml:space="preserve">
+    <value>Dieses Programm gibt ABSOLUT KEINE GARANTIE, soweit dies gesetzlich zulässig ist.
+Sie dürfen Kopien dieses Programmes weitergeben wenn dies unter den Bedingungen der GNU Lesser General Public License geschieht.</value>
+  </data>
+  <data name="MissingArguments" xml:space="preserve">
+    <value>Keine Argumente vorhanden.</value>
+  </data>
   <data name="NoInterfaceSpecified" xml:space="preserve">
     <value>Es wurde keine Interface ID (Feed URI oder Dateipfad) angegeben.</value>
   </data>
@@ -194,17 +222,57 @@
   <data name="OptionBatch" xml:space="preserve">
     <value>Im Stapelverarbeitungsmodus ausführen: dem Benutzer keine Meldungen zeigen und Rückfragen stillschweigend mit "Nein" beantworten.</value>
   </data>
+  <data name="OptionBefore" xml:space="preserve">
+    <value>Die Version der ausgewählten Implementierung muss vor {VERSION} liegen. Zum Beispiel können Sie damit die Verwendung einer ältere Version des Programmes erzwingen.</value>
+  </data>
+  <data name="OptionCommand" xml:space="preserve">
+    <value>Anstelle der Ausführung des Standardkommandos, verwenden Sie {COMMAND}. Mögliche Kommandos sind im Programminterface spezifiziert.</value>
+  </data>
   <data name="OptionCpu" xml:space="preserve">
     <value>Zwingt den Solver auf eine bestimmte {CPU} abzuzielen.</value>
+  </data>
+  <data name="OptionGui" xml:space="preserve">
+    <value>Zeigt den grafischen Versionseditor an. Dies gestattet Ihnen die Version des Programmes oder der Bibliothek auszuwählen.</value>
   </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Zeigt den eingebauten Hilfe-Text an.</value>
   </data>
+  <data name="OptionMain" xml:space="preserve">
+    <value>Startet die spezfizierte ausführbare Datei {MAIN} anstellte des Standards. Beginnt der Pfad mit '/' oder '\', ist er relativ zum obersten Verzeichnis der Implementierung. Andernfalls ist er relativ zum Verzeichnis welches das Standardhauptprogramm enthält.</value>
+  </data>
+  <data name="OptionNotBefore" xml:space="preserve">
+    <value>Die Version der ausgewählten Implementierung muss nach {VERSION} liegen. Zum Beispiel können Sie damit eine Version 2.0 oder eine spätere starten, in dem Sie '--not-before=2.0' angeben.</value>
+  </data>
+  <data name="OptionNoWait" xml:space="preserve">
+    <value>Der Befehlt wird sofort beendet, sobald das Programm gestartet wurde, anstelle auf dessen Beendigung zu warten.</value>
+  </data>
+  <data name="OptionOffline" xml:space="preserve">
+    <value>Startet im Offline-Modus und überschreibt dabei die Standardeinstellung. Im Offline-Modus wird kein Interface erneuert, auch wenn es veraltet ist und neuere Versionen des Programms werden nicht heruntergeladen, auch wenn der Injektor sie kennt (zum Beispiel durch eine frühere Erneuerung).</value>
+  </data>
   <data name="OptionOS" xml:space="preserve">
     <value>Zwingt den Solver auf ein bestimmtes Betriebssystem {OS} abzuzielen.</value>
   </data>
+  <data name="OptionRefresh" xml:space="preserve">
+    <value>Holt einen erneute Kopie aller verwendeten Interfaces.</value>
+  </data>
   <data name="Options" xml:space="preserve">
     <value>Optionen:</value>
+  </data>
+  <data name="OptionShow" xml:space="preserve">
+    <value>Zeigt wo ausgewählte Komponenten auf dem nicht-flüchtigen Speicher gespeichert sind.</value>
+  </data>
+  <data name="OptionSource" xml:space="preserve">
+    <value>Wählt Quellecode anstelle einer Binärdatei aus. Dies wird intern von '0compile' verwendet.</value>
+  </data>
+  <data name="OptionVerbose" xml:space="preserve">
+    <value>Ausführliche Ausgaben. Verwenden Sie es zweimal um noch ausführlicher informiert zu werden.</value>
+  </data>
+  <data name="OptionVersion" xml:space="preserve">
+    <value>Zeigt Versionsinformationen an.</value>
+  </data>
+  <data name="OptionWithStore" xml:space="preserve">
+    <value>Fügt {DIR} zu der Liste der zu Durchsuchenden Implementierungscaches hinzu.
+Trotzdem werden neue Downloads nicht in dieses Verzeichnis gespeichert.</value>
   </data>
   <data name="OptionWrapper" xml:space="preserve">
     <value>Anstelle das ausgewählte Programm direkt auszuführen, führe {COMMAND} PROGRAM ARGS aus. Dies ist nützlich um Debugger und Tracing Tools auf das Programm anzuwenden (anstatt auf Zero Install!).  Beachten Sie, dass der Wrapper in der vom Programm festgelegten Umgebung ausgeführt wird. Somit ist dieser Mechanismus nicht für Sandboxing geeignet.</value>
