@@ -19,7 +19,6 @@ using System;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
-using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -49,9 +48,12 @@ namespace ZeroInstall.Commands
 
         #region Execute
         /// <inheritdoc/>
-        protected override int ExecuteHelper(string interfaceID, Feed feed, IntegrationManager integrationManager)
+        protected override int ExecuteHelper(string interfaceID, IntegrationManager integrationManager)
         {
-            // ToDo: Implement
+            integrationManager.RemoveApp(interfaceID);
+
+            // Show a "done" message (but not in batch mode, since it is too unimportant)
+            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, string.Format(Resources.AppListRemoved, interfaceID));
             return 0;
         }
         #endregion

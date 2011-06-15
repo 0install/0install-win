@@ -124,6 +124,33 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application list.
+        /// </summary>
+        internal static string AppList {
+            get {
+                return ResourceManager.GetString("AppList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; was added to the application list..
+        /// </summary>
+        internal static string AppListAdded {
+            get {
+                return ResourceManager.GetString("AppListAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; was removed from the application list..
+        /// </summary>
+        internal static string AppListRemoved {
+            get {
+                return ResourceManager.GetString("AppListRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Changes found:.
         /// </summary>
         internal static string ChangesFound {
@@ -187,7 +214,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Integrate an application into the desktop environment..
+        ///   Looks up a localized string similar to Add an application to the application list (if missing) and integrate it into the desktop environment..
         /// </summary>
         internal static string DescriptionIntegrateApp {
             get {
@@ -255,6 +282,24 @@ namespace ZeroInstall.Commands.Properties {
         internal static string DescriptionUpdate {
             get {
                 return ResourceManager.GetString("DescriptionUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Desktop integration.
+        /// </summary>
+        internal static string DesktopIntegration {
+            get {
+                return ResourceManager.GetString("DesktopIntegration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The requested changes to the desktop integration for &apos;{0}&apos; have been completed..
+        /// </summary>
+        internal static string DesktopIntegrationDone {
+            get {
+                return ResourceManager.GetString("DesktopIntegrationDone", resourceCulture);
             }
         }
         
@@ -666,6 +711,15 @@ namespace ZeroInstall.Commands.Properties {
         internal static string TryHelpWith {
             get {
                 return ResourceManager.GetString("TryHelpWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown category: {0}.
+        /// </summary>
+        internal static string UnknownCategory {
+            get {
+                return ResourceManager.GetString("UnknownCategory", resourceCulture);
             }
         }
         

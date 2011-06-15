@@ -16,10 +16,10 @@
  */
 
 using System;
+using Common;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
-using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -49,9 +49,18 @@ namespace ZeroInstall.Commands
 
         #region Execute
         /// <inheritdoc/>
-        protected override int ExecuteHelper(string interfaceID, Feed feed, IntegrationManager integrationManager)
+        protected override int ExecuteHelper(string interfaceID, IntegrationManager integrationManager)
         {
-            // ToDo: Implement
+            CacheFeed(interfaceID);
+            bool stale;
+            var feed = Policy.FeedManager.GetFeed(interfaceID, Policy, out stale);
+
+            if (Canceled) throw new UserCancelException();
+
+            integrationManager.AddApp(interfaceID, feed);
+
+            // Show a "done" message (but not in batch mode, since it is too unimportant));
+            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, string.Format(Resources.AppListAdded, feed.Name));
             return 0;
         }
         #endregion

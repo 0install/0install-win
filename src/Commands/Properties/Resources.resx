@@ -138,6 +138,15 @@
   <data name="AllComponentsDownloaded" xml:space="preserve">
     <value>All required components have been downloaded.</value>
   </data>
+  <data name="AppList" xml:space="preserve">
+    <value>Application list</value>
+  </data>
+  <data name="AppListAdded" xml:space="preserve">
+    <value>'{0}' was added to the application list.</value>
+  </data>
+  <data name="AppListRemoved" xml:space="preserve">
+    <value>'{0}' was removed from the application list.</value>
+  </data>
   <data name="ChangesFound" xml:space="preserve">
     <value>Changes found:</value>
   </data>
@@ -160,7 +169,7 @@
     <value>Import a feed from a local file, as if it had been downloaded from the network. This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again. The file must have a trusted digital signature, as when fetching from the network.</value>
   </data>
   <data name="DescriptionIntegrateApp" xml:space="preserve">
-    <value>Integrate an application into the desktop environment.</value>
+    <value>Add an application to the application list (if missing) and integrate it into the desktop environment.</value>
   </data>
   <data name="DescriptionList" xml:space="preserve">
     <value>List all known interface (program) URIs. If a search term is given, only URIs containing that string are shown (case insensitive).</value>
@@ -182,6 +191,12 @@
   </data>
   <data name="DescriptionUpdate" xml:space="preserve">
     <value>Check for updates to the program and download them if found. This is similar to '0install download --refresh', except that it prints information about whether any changes were found.</value>
+  </data>
+  <data name="DesktopIntegration" xml:space="preserve">
+    <value>Desktop integration</value>
+  </data>
+  <data name="DesktopIntegrationDone" xml:space="preserve">
+    <value>The requested changes to the desktop integration for '{0}' have been completed.</value>
   </data>
   <data name="DownloadComplete" xml:space="preserve">
     <value>Download complete</value>
@@ -323,6 +338,9 @@ However, new downloads will not be written to this directory.</value>
   </data>
   <data name="TryHelpWith" xml:space="preserve">
     <value>Try --help with one of these:</value>
+  </data>
+  <data name="UnknownCategory" xml:space="preserve">
+    <value>Unknown category: {0}</value>
   </data>
   <data name="UnknownCommand" xml:space="preserve">
     <value>Unknown command '{0}'.</value>

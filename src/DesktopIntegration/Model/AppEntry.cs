@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Model
@@ -32,27 +33,17 @@ namespace ZeroInstall.DesktopIntegration.Model
     {
         #region Properties
         /// <summary>
-        /// The URI used to identify the interface and locate the feed.
+        /// The URI or local path of the interface defining the application.
         /// </summary>
-        [Description("The URI used to identify the interface and locate the feed.")]
-        [XmlIgnore]
-        public Uri Interface
+        [Description("The URI or local path of the interface defining the application.")]
+        [XmlAttribute("interface")]
+        public string InterfaceID
         { get; set; }
-        
-        /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="Uri"/>
-        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
-        [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public String InterfaceString
-        {
-            get { return (Interface == null ? null : Interface.ToString()); }
-            set { Interface = new Uri(value); }
-        }
 
         /// <summary>
-        /// A user-definied alternative name for the appliaction, overriding the name specified in the feed.
+        /// The name of the application. Usually equal to <see cref="Feed.Name"/>.
         /// </summary>
-        [Description("A user-definied alternative name for the appliaction, overriding the name specified in the feed.")]
+        [Description("he name of the application. Usually equal to the Name specified in the Feed.")]
         [XmlAttribute("name")]
         public string Name { get; set; }
 
@@ -88,11 +79,11 @@ namespace ZeroInstall.DesktopIntegration.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the entry in the form "AppEntry: Name (Interface)". Not safe for parsing!
+        /// Returns the entry in the form "AppEntry: Name (InterfaceID)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("AppEntry: {0} ({1})", Name, Interface);
+            return string.Format("AppEntry: {0} ({1})", Name, InterfaceID);
         }
         #endregion
 
@@ -103,7 +94,7 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <returns>The new copy of the <see cref="AppEntry"/>.</returns>
         public AppEntry CloneEntry()
         {
-            var appList = new AppEntry {Name = Name, Interface = Interface};
+            var appList = new AppEntry {Name = Name, InterfaceID = InterfaceID};
             foreach (var list in CapabilityLists) appList.CapabilityLists.Add(list.CloneCapabilityList());
             foreach (var list in AccessPointLists) appList.AccessPointLists.Add(list.CloneAccessPointList());
 
@@ -127,7 +118,7 @@ namespace ZeroInstall.DesktopIntegration.Model
             if (other == null) return false;
 
             if (Name != other.Name) return false;
-            if (Interface != other.Interface) return false;
+            if (InterfaceID != other.InterfaceID) return false;
             if (!CapabilityLists.SequencedEquals(other.CapabilityLists)) return false;
             if (!AccessPointLists.SequencedEquals(other.AccessPointLists)) return false;
             return true;
@@ -147,7 +138,7 @@ namespace ZeroInstall.DesktopIntegration.Model
             unchecked
             {
                 int result = (Name ?? "").GetHashCode();
-                result = (result * 397) ^ (InterfaceString ?? "").GetHashCode();
+                result = (result * 397) ^ (InterfaceID ?? "").GetHashCode();
                 result = (result * 397) ^ CapabilityLists.GetSequencedHashCode();
                 result = (result * 397) ^ AccessPointLists.GetSequencedHashCode();
                 return result;

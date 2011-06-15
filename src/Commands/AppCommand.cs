@@ -16,7 +16,6 @@
  */
 
 using System;
-using Common;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -33,6 +32,9 @@ namespace ZeroInstall.Commands
     public abstract class AppCommand : CommandBase
     {
         #region Variables
+        /// <summary>Indicate that <see cref="Cancel"/> has been called.</summary>
+        protected volatile bool Canceled;
+
         /// <summary>Apply the operation system-wide instead of just for the current user.</summary>
         private bool _global;
         #endregion
@@ -68,26 +70,32 @@ namespace ZeroInstall.Commands
 
             string interfaceID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
 
-            bool canceled = false;
-            Policy.Handler.ShowProgressUI(() => canceled = true);
+            if (_global && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator)
+            {
+                // ToDo: Trigger UAC elevation
+            }
 
-            CacheFeed(interfaceID);
-            bool stale;
-            var feed = Policy.FeedManager.GetFeed(interfaceID, Policy, out stale);
-
-            if (canceled) throw new UserCancelException();
-
-            return ExecuteHelper(interfaceID, feed, new IntegrationManager(_global));
+            Policy.Handler.ShowProgressUI(Cancel);
+            return ExecuteHelper(interfaceID, new IntegrationManager(_global));
         }
 
         /// <summary>
         /// Template method that performs the actual operation.
         /// </summary>
         /// <param name="interfaceID">The interface for the application to perform the operation on.</param>
-        /// <param name="feed">The feed for the application to perform the operation on.</param>
         /// <param name="integrationManager">Manages desktop integration operations.</param>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        protected abstract int ExecuteHelper(string interfaceID, Feed feed, IntegrationManager integrationManager);
+        protected abstract int ExecuteHelper(string interfaceID, IntegrationManager integrationManager);
+        #endregion
+
+        #region Cancel
+        /// <summary>
+        /// Cancels the <see cref="Execute"/> session.
+        /// </summary>
+        public virtual void Cancel()
+        {
+            Canceled = true;
+        }
         #endregion
     }
 }

@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppAlreadyInList" xml:space="preserve">
+    <value>The application '{0}' is already in the application list.</value>
+  </data>
+  <data name="AppNotInList" xml:space="preserve">
+    <value>The application '{0}' is not in the application list.</value>
+  </data>
   <data name="ProblemLoading" xml:space="preserve">
     <value>There was a problem loading '{0}'.</value>
   </data>

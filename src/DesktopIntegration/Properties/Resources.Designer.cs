@@ -61,6 +61,24 @@ namespace ZeroInstall.DesktopIntegration.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The application &apos;{0}&apos; is already in the application list..
+        /// </summary>
+        internal static string AppAlreadyInList {
+            get {
+                return ResourceManager.GetString("AppAlreadyInList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The application &apos;{0}&apos; is not in the application list..
+        /// </summary>
+        internal static string AppNotInList {
+            get {
+                return ResourceManager.GetString("AppNotInList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There was a problem loading &apos;{0}&apos;..
         /// </summary>
         internal static string ProblemLoading {

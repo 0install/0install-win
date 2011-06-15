@@ -16,10 +16,14 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Common.Storage;
 using Common.Utils;
 using ZeroInstall.DesktopIntegration.Model;
+using ZeroInstall.DesktopIntegration.Properties;
+using ZeroInstall.Model;
+using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -28,6 +32,17 @@ namespace ZeroInstall.DesktopIntegration
     /// </summary>
     public class IntegrationManager
     {
+        #region Constants
+        /// <summary>Indicates that all <see cref="Capabilities.Capability"/>s shall be integrated.</summary>
+        public const string CapabilitiesCategoryName = "capabilities";
+
+        /// <summary>Indicates that all <see cref="Capabilities.Capability"/>s and <see cref="AccessPoint"/>s shall be integrated.</summary>
+        public const string AllCategoryName = "all";
+
+        /// <summary>A list of all known integration categories.</summary>
+        public static readonly ICollection<string> Categories = new[] {CapabilitiesCategoryName, DefaultAccessPoint.CategoryName, IconAccessPoint.CategoryName, AppPath.CategoryName, AllCategoryName};
+        #endregion
+
         #region Variables
         /// <summary>Apply operations system-wide instead of just for the current user.</summary>
         private readonly bool _global;
@@ -66,6 +81,164 @@ namespace ZeroInstall.DesktopIntegration
 
         //--------------------//
 
-        // ToDo
+        #region Apps
+        /// <summary>
+        /// Adds an application to the application list.
+        /// </summary>
+        /// <param name="interfaceID">The interface for the application to add.</param>
+        /// <param name="feed">The <see cref="Feed"/> for the application to add.</param>
+        /// <exception cref="InvalidOperationException">Thrown in the application is already in the list.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        public void AddApp(string interfaceID, Feed feed)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (feed == null) throw new ArgumentNullException("feed");
+            #endregion
+
+            // Prevent double entries
+            AppEntry existingEntry = FindAppEntry(interfaceID);
+            if (existingEntry != null) throw new InvalidOperationException(string.Format(Resources.AppAlreadyInList, existingEntry.Name));
+
+            _appList.Entries.Add(BuildAppEntry(interfaceID, feed));
+            _appList.Save(_appListPath);
+        }
+
+        /// <summary>
+        /// Removes an application from the application list.
+        /// </summary>
+        /// <param name="interfaceID">The interface for the application to perform the remove.</param>
+        /// <exception cref="InvalidOperationException">Thrown in the application is not in the list.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        public void RemoveApp(string interfaceID)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            #endregion
+
+            // Prevent missing entries
+            AppEntry appEntry = FindAppEntry(interfaceID);
+            if (appEntry == null) throw new InvalidOperationException(string.Format(Resources.AppNotInList, interfaceID));
+
+            RemoveIntegration(interfaceID, new[] {AllCategoryName});
+
+            _appList.Entries.Remove(appEntry);
+            _appList.Save(_appListPath);
+        }
+        #endregion
+
+        #region Integrations
+        /// <summary>
+        /// Applies new integrations for an application.
+        /// </summary>
+        /// <param name="interfaceID">The interface for the application to perform the operation on.</param>
+        /// <param name="feed">The <see cref="Feed"/> for the application to perform the operation on.</param>
+        /// <param name="categories">A list of all integration categories to be added to the already applied ones.</param>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        public void AddIntegration(string interfaceID, Feed feed, ICollection<string> categories)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (feed == null) throw new ArgumentNullException("feed");
+            if (categories == null) throw new ArgumentNullException("categories");
+            #endregion
+
+            // Implicitly add application to list if missing
+            AppEntry appEntry = FindAppEntry(interfaceID);
+            if (appEntry == null)
+            {
+                appEntry = BuildAppEntry(interfaceID, feed);
+                _appList.Entries.Add(appEntry);
+            }
+
+            // ToDo: Modify model
+
+            _appList.Save(_appListPath);
+
+            // ToDo: Apply changes
+            foreach (var capabilityList in feed.CapabilityLists)
+            {
+                if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
+
+                foreach (var capability in capabilityList.Entries)
+                {
+                    var fileType = capability as Capabilities.FileType;
+                    if (fileType != null && WindowsUtils.IsWindows)
+                        Windows.FileType.Apply(interfaceID, feed, fileType, categories.Contains(DefaultAccessPoint.CategoryName), false /*_global*/);
+                }
+            }
+            WindowsUtils.NotifyAssocChanged();
+        }
+
+        /// <summary>
+        /// Removes already applied integrations for an application.
+        /// </summary>
+        /// <param name="interfaceID">The interface for the application to perform the operation on.</param>
+        /// <param name="categories">A list of all integration categories to be removed from the already applied ones.</param>
+        /// <exception cref="InvalidOperationException">Thrown in the application is not in the list.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        public void RemoveIntegration(string interfaceID, ICollection<string> categories)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (categories == null) throw new ArgumentNullException("categories");
+            #endregion
+
+            // Prevent missing entries
+            AppEntry appEntry = FindAppEntry(interfaceID);
+            if (appEntry == null) throw new InvalidOperationException(string.Format(Resources.AppNotInList, interfaceID));
+
+            // ToDo: Modify model
+
+            // ToDo: Apply changes
+            WindowsUtils.NotifyAssocChanged();
+
+            _appList.Save(_appListPath);
+        }
+        #endregion
+
+        #region Helpers
+        /// <summary>
+        /// Tries to fo find an existing <see cref="AppEntry"/> in <see cref="_appList"/>.
+        /// </summary>
+        /// <param name="interfaceID">The <see cref="AppEntry.InterfaceID"/> to look for.</param>
+        /// <returns>The first matching <see cref="AppEntry"/> that was found; <see langword="null"/> if no match was found.</returns>
+        private AppEntry FindAppEntry(string interfaceID)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            #endregion
+
+            AppEntry appEntry;
+            _appList.Entries.Find(entry => entry.InterfaceID == interfaceID, out appEntry);
+            return appEntry;
+        }
+
+        /// <summary>
+        /// Creates a mew <see cref="AppEntry"/>.
+        /// </summary>
+        /// <param name="interfaceID">The <see cref="AppEntry.InterfaceID"/> to set.</param>
+        /// <param name="feed">The feed to get data such as the name an <see cref="Capabilities.Capability"/>s from.</param>
+        /// <returns>The newly created <see cref="AppEntry"/>.</returns>
+        private static AppEntry BuildAppEntry(string interfaceID, Feed feed)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (feed == null) throw new ArgumentNullException("feed");
+            #endregion
+
+            var appEntry = new AppEntry { InterfaceID = interfaceID, Name = feed.Name };
+            foreach (var capabilityList in feed.CapabilityLists)
+            {
+                if (capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem))
+                    appEntry.CapabilityLists.Add(capabilityList.CloneCapabilityList());
+            }
+            return appEntry;
+        }
+        #endregion
     }
 }

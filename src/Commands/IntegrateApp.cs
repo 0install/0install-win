@@ -16,20 +16,18 @@
  */
 
 using System;
+using Common;
 using Common.Storage;
 using Common.Utils;
+using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
-using ZeroInstall.Model;
-using ZeroInstall.DesktopIntegration.Model;
-using System.Collections.Generic;
-using ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Integrate an application into the desktop environment.
+    /// Add an application to the application list (if missing) and integrate it into the desktop environment.
     /// </summary>
     [CLSCompliant(false)]
     public sealed class IntegrateApp : AppCommand
@@ -37,20 +35,14 @@ namespace ZeroInstall.Commands
         #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public const string Name = "integrate-app";
-
-        /// <summary>Indicates that all <see cref="Capability"/>s shall be integrated.</summary>
-        private const string CapabilitiesCategoryName = "capabilities";
-
-        /// <summary>Indicates that all <see cref="Capability"/>s and <see cref="AccessPoint"/>s shall be integrated.</summary>
-        private const string AllCategoryName = "all";
         #endregion
 
         #region Variables
         /// <summary>A list of all integration categories to be added to the already applied ones.</summary>
-        private readonly List<string> _addIntegrations = new List<string>();
+        private readonly C5.ICollection<string> _addCategories = new C5.LinkedList<string>();
 
         /// <summary>A list of all integration categories to be removed from the already applied ones.</summary>
-        private readonly List<string> _removeIntegrations = new List<string>();
+        private readonly C5.ICollection<string> _removeCategories = new C5.LinkedList<string>();
         #endregion
 
         #region Properties
@@ -62,10 +54,20 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public IntegrateApp(Policy policy) : base(policy)
         {
-            string categoryList = StringUtils.Concatenate(new[] {CapabilitiesCategoryName, DefaultAccessPoint.CategoryName, IconAccessPoint.CategoryName, AppPath.CategoryName, AllCategoryName}, ", ");
+            string categoryList = StringUtils.Concatenate(IntegrationManager.Categories, ", ");
 
-            Options.Add("a|add=", Resources.OptionAppAdd + "\n" + Resources.OptionAppCategory + categoryList + "\n" + string.Format(Resources.OptionAppImplicitCategory, CapabilitiesCategoryName), category => _addIntegrations.Add(category.ToLower()));
-            Options.Add("r|remove=", Resources.OptionAppRemove + "\n" + Resources.OptionAppCategory + categoryList, category => _removeIntegrations.Add(category.ToLower()));
+            Options.Add("a|add=", Resources.OptionAppAdd + "\n" + Resources.OptionAppCategory + categoryList + "\n" + string.Format(Resources.OptionAppImplicitCategory, IntegrationManager.CapabilitiesCategoryName), category =>
+            {
+                category = category.ToLower();
+                if (!IntegrationManager.Categories.Contains(category)) throw new OptionException(string.Format(Resources.UnknownCategory, category), "add");
+                _addCategories.Add(category);
+            });
+            Options.Add("r|remove=", Resources.OptionAppRemove + "\n" + Resources.OptionAppCategory + categoryList, category =>
+            {
+                category = category.ToLower();
+                if (!IntegrationManager.Categories.Contains(category)) throw new OptionException(string.Format(Resources.UnknownCategory, category), "remove");
+                _removeCategories.Add(category);
+            });
         }
         #endregion
 
@@ -81,22 +83,31 @@ namespace ZeroInstall.Commands
         }
 
         /// <inheritdoc/>
-        protected override int ExecuteHelper(string interfaceID, Feed feed, IntegrationManager integrationManager)
+        protected override int ExecuteHelper(string interfaceID, IntegrationManager integrationManager)
         {
-            // ToDo: Move logic into backend
-            foreach (var capabilityList in feed.CapabilityLists)
-            {
-                if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
+            if (_addCategories.IsEmpty && _removeCategories.IsEmpty)
+                _addCategories.Add(IntegrationManager.CapabilitiesCategoryName);
 
-                foreach (var capability in capabilityList.Entries)
-                {
-                    var fileType = capability as Model.Capabilities.FileType;
-                    if (fileType != null && WindowsUtils.IsWindows)
-                        DesktopIntegration.Windows.FileType.Apply(interfaceID, feed, fileType, _addIntegrations.Contains(DefaultAccessPoint.CategoryName), false /*_global*/);
-                }
+            if (Canceled) throw new UserCancelException();
 
-                WindowsUtils.NotifyAssocChanged();
+            if (!_removeCategories.IsEmpty) integrationManager.RemoveIntegration(interfaceID, _removeCategories);
+            if (_addCategories.IsEmpty)
+            { // Stop before loading the feed if only removal was requested
+                // Show a "integration complete" message (but not in batch mode, since it is too unimportant)
+                if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, interfaceID));
+                return 0;
             }
+
+            CacheFeed(interfaceID);
+            bool stale;
+            var feed = Policy.FeedManager.GetFeed(interfaceID, Policy, out stale);
+
+            if (Canceled) throw new UserCancelException();
+
+            integrationManager.AddIntegration(interfaceID, feed, _addCategories);
+
+            // Show a "integration complete" message (but not in batch mode, since it is too unimportant)
+            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, feed.Name));
             return 0;
         }
         #endregion

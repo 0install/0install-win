@@ -138,11 +138,26 @@
   <data name="AllComponentsDownloaded" xml:space="preserve">
     <value>Alle benötigten Komponenten wurden runtergeladen.</value>
   </data>
+  <data name="AppList" xml:space="preserve">
+    <value>Anwendungsliste</value>
+  </data>
+  <data name="AppListAdded" xml:space="preserve">
+    <value>'{0}' wurde der Anwendungsliste hinzugefügt.</value>
+  </data>
+  <data name="AppListRemoved" xml:space="preserve">
+    <value>'{0}' wurde von der Anwendungsliste entefernt.</value>
+  </data>
   <data name="ChangesFound" xml:space="preserve">
     <value>Gefundene Änderungen:</value>
   </data>
   <data name="CommandLineArguments" xml:space="preserve">
     <value>Befehlszeilenargumente</value>
+  </data>
+  <data name="DesktopIntegration" xml:space="preserve">
+    <value>Desktopintegration</value>
+  </data>
+  <data name="DesktopIntegrationDone" xml:space="preserve">
+    <value>Die angeforderten Änderungen an der Desktopintegration für '{0}' sind abgeschlossen.</value>
   </data>
   <data name="DownloadComplete" xml:space="preserve">
     <value>Download abgeschlossen</value>
@@ -196,6 +211,9 @@
   </data>
   <data name="TryHelpWith" xml:space="preserve">
     <value>Probieren Sie --help mit einem der folgenden:</value>
+  </data>
+  <data name="UnknownCategory" xml:space="preserve">
+    <value>Unbekannte Kategorie: {0}</value>
   </data>
   <data name="UpdateProblem" xml:space="preserve">
     <value>Konnte nicht nach Updates suchen</value>

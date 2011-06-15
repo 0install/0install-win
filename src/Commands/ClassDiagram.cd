@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Commands.AddFeed">
-    <Position X="7.75" Y="4.75" Width="1.5" />
+    <Position X="7.75" Y="5" Width="1.5" />
     <Members>
       <Method Name="AddFeed" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEBAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>AddFeed.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Update">
-    <Position X="1" Y="14" Width="2" />
+    <Position X="1" Y="14.5" Width="2" />
     <Members>
       <Method Name="Update" Hidden="true" />
     </Members>
@@ -21,14 +21,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Configure">
-    <Position X="13" Y="4.75" Width="1.5" />
+    <Position X="13" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAAAAAAAAAgAAQAAAgAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Configure.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Download">
-    <Position X="1.75" Y="9.75" Width="2.75" />
+    <Position X="1.75" Y="10.25" Width="2.75" />
     <Members>
       <Method Name="Download" Hidden="true" />
     </Members>
@@ -38,7 +38,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Import">
-    <Position X="4.25" Y="4.75" Width="1.5" />
+    <Position X="4.25" Y="5" Width="1.5" />
     <Members>
       <Method Name="Import" Hidden="true" />
     </Members>
@@ -48,7 +48,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.List">
-    <Position X="6" Y="4.75" Width="1.5" />
+    <Position X="6" Y="5" Width="1.5" />
     <Members>
       <Method Name="List" Hidden="true" />
     </Members>
@@ -58,7 +58,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.RemoveFeed">
-    <Position X="9.5" Y="4.75" Width="1.5" />
+    <Position X="9.5" Y="5" Width="1.5" />
     <Members>
       <Method Name="RemoveFeed" Hidden="true" />
     </Members>
@@ -68,7 +68,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Run">
-    <Position X="3.25" Y="14" Width="2" />
+    <Position X="3.25" Y="14.5" Width="2" />
     <Members>
       <Method Name="Run" Hidden="true" />
     </Members>
@@ -78,7 +78,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Selection">
-    <Position X="2.25" Y="4.75" Width="1.75" />
+    <Position X="2.25" Y="5" Width="1.75" />
     <Members>
       <Field Name="_requirements" Hidden="true" />
       <Method Name="Selection" Hidden="true" />
@@ -94,12 +94,12 @@
       <Method Name="CommandBase" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAAkgAAQAAAIACgAEAAAAAAAAAAAAAABEBAA=</HashCode>
+      <HashCode>AAAggAAAAAkgAAQAAAIACAAEBAAAAAAAAAAAAABEBAA=</HashCode>
       <FileName>CommandBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.ListFeeds">
-    <Position X="11.25" Y="4.75" Width="1.5" />
+    <Position X="11.25" Y="5" Width="1.5" />
     <Members>
       <Method Name="ListFeeds" Hidden="true" />
     </Members>
@@ -109,7 +109,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.DefaultCommand">
-    <Position X="0.5" Y="4.75" Width="1.5" />
+    <Position X="0.5" Y="5" Width="1.5" />
     <Members>
       <Method Name="DefaultCommand" Hidden="true" />
     </Members>
@@ -126,7 +126,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.AddApp">
-    <Position X="14.75" Y="7.5" Width="1.25" />
+    <Position X="12.75" Y="8.5" Width="1.5" />
     <Members>
       <Method Name="AddApp" Hidden="true" />
     </Members>
@@ -136,7 +136,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.IntegrateApp">
-    <Position X="17.75" Y="7.5" Width="1.25" />
+    <Position X="14.5" Y="8.5" Width="2" />
     <Members>
       <Method Name="IntegrateApp" Hidden="true" />
     </Members>
@@ -146,7 +146,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.RemoveApp">
-    <Position X="16.25" Y="7.5" Width="1.25" />
+    <Position X="16.75" Y="8.5" Width="1.5" />
     <Members>
       <Method Name="RemoveApp" Hidden="true" />
     </Members>
@@ -156,12 +156,12 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.AppCommand">
-    <Position X="16" Y="4.75" Width="1.75" />
+    <Position X="14.75" Y="5" Width="1.5" />
     <Members>
       <Method Name="AppCommand" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAAAAAAIAEAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <HashCode>AAAAAAAAQAAAAAQAgAAAAIAEBAAAAAAAAAAAAAAAAAE=</HashCode>
       <FileName>AppCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
