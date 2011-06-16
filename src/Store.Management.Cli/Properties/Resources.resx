@@ -117,61 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="OptionHelp" xml:space="preserve">
-    <value>Show the built-in help text.</value>
+  <data name="AuditErrors" xml:space="preserve">
+    <value>One or more problems were found in the store.</value>
   </data>
-  <data name="OptionVersion" xml:space="preserve">
-    <value>Display version information.</value>
-  </data>
-  <data name="UsageAdd" xml:space="preserve">
-    <value>0store add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT]))</value>
-  </data>
-  <data name="UsageAudit" xml:space="preserve">
-    <value>0store audit [CACHE+]</value>
-  </data>
-  <data name="UsageCopy" xml:space="preserve">
-    <value>0store copy DIRECTORY [CACHE]</value>
-  </data>
-  <data name="UsageFind" xml:space="preserve">
-    <value>0store find DIGEST</value>
-  </data>
-  <data name="UsageList" xml:space="preserve">
-    <value>0store list</value>
-  </data>
-  <data name="UsageManifest" xml:space="preserve">
-    <value>0store manifest DIRECTORY [ALGORITHM]</value>
-  </data>
-  <data name="UsageOptimize" xml:space="preserve">
-    <value>0store optimise [CACHE+]</value>
-  </data>
-  <data name="UsageRemove" xml:space="preserve">
-    <value>0store remove DIGEST+</value>
-  </data>
-  <data name="UsageVerify" xml:space="preserve">
-    <value>0store verify (DIGEST|DIRECTORY)+</value>
-  </data>
-  <data name="WrongNoArguments" xml:space="preserve">
-    <value>Wrong number of arguments.
-Usage: {0}</value>
-  </data>
-  <data name="Options" xml:space="preserve">
-    <value>Options:</value>
-  </data>
-  <data name="UnknownMode" xml:space="preserve">
-    <value>Unknown operation mode.
-Try 0store --help</value>
-  </data>
-  <data name="NoAuditSupport" xml:space="preserve">
-    <value>This store does not support auditing.</value>
-  </data>
-  <data name="StoreEntryOK" xml:space="preserve">
-    <value>The store entry is OK.</value>
-  </data>
-  <data name="DirectoryNotFound" xml:space="preserve">
-    <value>The directory '{0}' was not found.</value>
-  </data>
-  <data name="NoSuchFileOrDirectory" xml:space="preserve">
-    <value>No such file or directory: {0}</value>
+  <data name="AuditPass" xml:space="preserve">
+    <value>No problems were found in the store.</value>
   </data>
   <data name="DetailsAdd" xml:space="preserve">
     <value>To add a directory to the store (makes a copy):
@@ -238,23 +188,76 @@ Implementations using the old 'sha1' algorithm are not optimised.</value>
 
 This calculates the manifest of the directory and checks that its digest matches the directory's name. It also checks that it matches the digest of the .manifest file inside the directory.</value>
   </data>
-  <data name="Usage" xml:space="preserve">
-    <value>Usage:</value>
-  </data>
-  <data name="OptionMan" xml:space="preserve">
-    <value>Display more comprehensive documentation for the operation modes.</value>
-  </data>
-  <data name="AuditErrors" xml:space="preserve">
-    <value>One or more problems were found in the store.</value>
-  </data>
-  <data name="AuditPass" xml:space="preserve">
-    <value>No problems were found in the store.</value>
-  </data>
-  <data name="SuccessfullyRemoved" xml:space="preserve">
-    <value>Successfully removed {0}.</value>
+  <data name="DirectoryNotFound" xml:space="preserve">
+    <value>The directory '{0}' was not found.</value>
   </data>
   <data name="LicenseInfo" xml:space="preserve">
     <value>This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
 You may redistribute copies of this program under the terms of the GNU Lesser General Public License.</value>
+  </data>
+  <data name="NoAuditSupport" xml:space="preserve">
+    <value>This store does not support auditing.</value>
+  </data>
+  <data name="NoSuchFileOrDirectory" xml:space="preserve">
+    <value>No such file or directory: {0}</value>
+  </data>
+  <data name="OptionHelp" xml:space="preserve">
+    <value>Show the built-in help text.</value>
+  </data>
+  <data name="OptionMan" xml:space="preserve">
+    <value>Display more comprehensive documentation for the operation modes.</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options:</value>
+  </data>
+  <data name="OptionVersion" xml:space="preserve">
+    <value>Display version information.</value>
+  </data>
+  <data name="PortableMode" xml:space="preserve">
+    <value>Portable mode</value>
+  </data>
+  <data name="StoreEntryOK" xml:space="preserve">
+    <value>The store entry is OK.</value>
+  </data>
+  <data name="SuccessfullyRemoved" xml:space="preserve">
+    <value>Successfully removed {0}.</value>
+  </data>
+  <data name="UnknownMode" xml:space="preserve">
+    <value>Unknown operation mode.
+Try 0store --help</value>
+  </data>
+  <data name="Usage" xml:space="preserve">
+    <value>Usage:</value>
+  </data>
+  <data name="UsageAdd" xml:space="preserve">
+    <value>0store add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT]))</value>
+  </data>
+  <data name="UsageAudit" xml:space="preserve">
+    <value>0store audit [CACHE+]</value>
+  </data>
+  <data name="UsageCopy" xml:space="preserve">
+    <value>0store copy DIRECTORY [CACHE]</value>
+  </data>
+  <data name="UsageFind" xml:space="preserve">
+    <value>0store find DIGEST</value>
+  </data>
+  <data name="UsageList" xml:space="preserve">
+    <value>0store list</value>
+  </data>
+  <data name="UsageManifest" xml:space="preserve">
+    <value>0store manifest DIRECTORY [ALGORITHM]</value>
+  </data>
+  <data name="UsageOptimize" xml:space="preserve">
+    <value>0store optimise [CACHE+]</value>
+  </data>
+  <data name="UsageRemove" xml:space="preserve">
+    <value>0store remove DIGEST+</value>
+  </data>
+  <data name="UsageVerify" xml:space="preserve">
+    <value>0store verify (DIGEST|DIRECTORY)+</value>
+  </data>
+  <data name="WrongNoArguments" xml:space="preserve">
+    <value>Wrong number of arguments.
+Usage: {0}</value>
   </data>
 </root>

@@ -67,11 +67,11 @@ namespace Common.Controls
                 ex = ex.InnerException;
 
             // Make the message simpler for missing files
-            detailsBox.Text = (ex is FileNotFoundException) ? ex.Message.Replace("\n", "\r\n") : ex.ToString();
+            detailsBox.Text = (ex is FileNotFoundException) ? ex.Message.Replace("\n", Environment.NewLine) : ex.ToString();
 
             // Append inner exceptions
             if (ex.InnerException != null)
-                detailsBox.Text += "\r\n\r\n" + ex.InnerException;
+                detailsBox.Text += Environment.NewLine + Environment.NewLine + ex.InnerException;
 
             _uploadUri = uploadUri;
         }

@@ -280,6 +280,9 @@ Trotzdem werden neue Downloads nicht in dieses Verzeichnis gespeichert.</value>
   <data name="OptionXml" xml:space="preserve">
     <value>Scheibe ausgewählte Versionen auf die Konsole als Maschienen-lesbares XML.</value>
   </data>
+  <data name="PortableMode" xml:space="preserve">
+    <value>Portable Modus</value>
+  </data>
   <data name="SelectedImplementations" xml:space="preserve">
     <value>Ausgewählte Implementierungen:</value>
   </data>

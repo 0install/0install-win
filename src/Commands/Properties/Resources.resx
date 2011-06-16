@@ -283,6 +283,9 @@ However, new downloads will not be written to this directory.</value>
   <data name="OptionXml" xml:space="preserve">
     <value>Write selected versions to console as machine-readable XML.</value>
   </data>
+  <data name="PortableMode" xml:space="preserve">
+    <value>Portable mode</value>
+  </data>
   <data name="SelectedImplementations" xml:space="preserve">
     <value>Selected implementations:</value>
   </data>

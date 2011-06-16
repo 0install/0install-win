@@ -276,6 +276,15 @@ namespace ZeroInstall.Store.Management.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Portable mode.
+        /// </summary>
+        internal static string PortableMode {
+            get {
+                return ResourceManager.GetString("PortableMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The store entry is OK..
         /// </summary>
         internal static string StoreEntryOK {

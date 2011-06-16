@@ -87,6 +87,10 @@ namespace ZeroInstall.Store.Management.Cli
             IList<string> restArgs;
             try { restArgs = ParseArgs(args); }
             #region Error handling
+            catch (UserCancelException)
+            {
+                return (int)ErrorLevel.OK;
+            }
             catch (ArgumentException ex)
             {
                 Log.Error(ex.Message);
@@ -152,7 +156,8 @@ namespace ZeroInstall.Store.Management.Cli
         /// </summary>
         /// <param name="args">The command-line arguments to be parsed.</param>
         /// <returns>Any unparsed commands left over.</returns>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="args"/> contains unknown options.</exception>
+        /// <exception cref="UserCancelException">Thrown if the user asked to see help information, version information, etc..</exception>
+        /// <exception cref="OptionException">Thrown if <paramref name="args"/> contains unknown options.</exception>
         private static IList<string> ParseArgs(IEnumerable<string> args)
         {
             #region Sanity checks
@@ -163,10 +168,16 @@ namespace ZeroInstall.Store.Management.Cli
             var options = new OptionSet
             {
                 // Mode selection
-                {"V|version", Resources.OptionVersion, unused => Console.WriteLine(AppInfo.Name + " " + AppInfo.Version + (Locations.IsPortable ? " - Portable mode\n" : "\n") + AppInfo.Copyright + "\n" + Resources.LicenseInfo)},
+                {"V|version", Resources.OptionVersion, unused => {
+                    Console.WriteLine(AppInfo.Name + " " + AppInfo.Version + (Locations.IsPortable ? " - " + Resources.PortableMode : "") + Environment.NewLine + AppInfo.Copyright + Environment.NewLine + Resources.LicenseInfo);
+                    throw new UserCancelException(); // Don't handle any of the other arguments
+                }},
 
                 // Documentation
-                {"man", Resources.OptionMan, unused => PrintManual()}
+                {"man", Resources.OptionMan, unused => {
+                    PrintManual();
+                    throw new UserCancelException(); // Don't handle any of the other arguments
+                }},
             };
             #endregion
 
@@ -176,6 +187,9 @@ namespace ZeroInstall.Store.Management.Cli
                 PrintUsage();
                 Console.WriteLine(Resources.Options);
                 options.WriteOptionDescriptions(Console.Out);
+
+                // Don't handle any of the other arguments
+                throw new UserCancelException();
             });
             #endregion
 
@@ -187,24 +201,23 @@ namespace ZeroInstall.Store.Management.Cli
         #region Help
         private static void PrintUsage()
         {
-            const string usage = "{0}\t{1}\n\t{2}\n\t{3}\n\t{4}\n\t{5}\n\t{5}\n\t{6}\n\t{7}\n\t{8}\n\t{9}\n";
-            Console.WriteLine(usage, Resources.Usage, Resources.UsageAdd, Resources.UsageAudit, Resources.UsageCopy, Resources.UsageFind, Resources.UsageList, Resources.UsageManifest, Resources.UsageOptimize, Resources.UsageRemove, Resources.UsageVerify);
+            var usages = new[] {Resources.UsageAdd, Resources.UsageAudit, Resources.UsageCopy, Resources.UsageFind, Resources.UsageList, Resources.UsageManifest, Resources.UsageOptimize, Resources.UsageRemove, Resources.UsageVerify};
+            Console.WriteLine(Resources.Usage + "\t" + StringUtils.Concatenate(usages, Environment.NewLine + "\t") + "\n");
         }
 
         private static void PrintManual()
         {
             // ToDo: Add flow formatting for better readability on console
-            Console.WriteLine("\n");
-            Console.WriteLine("ADD\n\n" + Resources.DetailsAdd + "\n\n\n");
-            Console.WriteLine("AUDIT\n\n" + Resources.DetailsAudit + "\n\n\n");
-            Console.WriteLine("COPY\n\n" + Resources.DetailsCopy + "\n\n\n");
-            Console.WriteLine("FIND\n\n" + Resources.DetailsFind + "\n\n\n");
-            Console.WriteLine("LIST\n\n" + Resources.DetailsList + "\n\n\n");
-            Console.WriteLine("MANAGE\n\n" + Resources.DetailsManage + "\n\n\n");
+            Console.WriteLine("ADD" + Environment.NewLine + Environment.NewLine + Resources.DetailsAdd + Environment.NewLine + Environment.NewLine + Environment.NewLine);
+            Console.WriteLine("AUDIT" + Environment.NewLine + Environment.NewLine + Resources.DetailsAudit + Environment.NewLine + Environment.NewLine + Environment.NewLine);
+            Console.WriteLine("COPY" + Environment.NewLine + Environment.NewLine + Resources.DetailsCopy + Environment.NewLine + Environment.NewLine + Environment.NewLine);
+            Console.WriteLine("FIND" + Environment.NewLine + Environment.NewLine + Resources.DetailsFind + Environment.NewLine + Environment.NewLine + Environment.NewLine);
+            Console.WriteLine("LIST" + Environment.NewLine + Environment.NewLine + Resources.DetailsList + Environment.NewLine + Environment.NewLine + Environment.NewLine);
+            Console.WriteLine("MANAGE" + Environment.NewLine + Environment.NewLine + Resources.DetailsManage + Environment.NewLine + Environment.NewLine + Environment.NewLine);
             string supportedFormats = StringUtils.Concatenate(Array.ConvertAll(ManifestFormat.All, format => format.ToString()), ", ");
-            Console.WriteLine("MANIFEST\n\n" + string.Format(Resources.DetailsManifest, supportedFormats) + "\n\n\n");
-            Console.WriteLine("REMOVE\n\n" + Resources.DetailsRemove + "\n\n\n");
-            Console.WriteLine("VERIFY\n\n" + Resources.DetailsVerify + "\n");
+            Console.WriteLine("MANIFEST" + Environment.NewLine + Environment.NewLine + string.Format(Resources.DetailsManifest, supportedFormats) + Environment.NewLine + Environment.NewLine + Environment.NewLine);
+            Console.WriteLine("REMOVE" + Environment.NewLine + Environment.NewLine + Resources.DetailsRemove + Environment.NewLine + Environment.NewLine + Environment.NewLine);
+            Console.WriteLine("VERIFY" + Environment.NewLine + Environment.NewLine + Resources.DetailsVerify);
         }
         #endregion
 

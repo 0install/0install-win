@@ -92,9 +92,9 @@ namespace ZeroInstall.Commands
                     writer.Flush();
 
                     // ToDo: Add flow formatting for better readability on console
-                    return Resources.Usage + " 0install " + GetName() + " " + Usage + "\n\n" +
-                           Description + "\n\n" +
-                           Resources.Options + "\n" + StreamUtils.ReadToString(buffer);
+                    return Resources.Usage + " 0install " + GetName() + " " + Usage + Environment.NewLine + Environment.NewLine +
+                           Description + Environment.NewLine + Environment.NewLine +
+                           Resources.Options + Environment.NewLine + StreamUtils.ReadToString(buffer);
                 }
             }
         }
@@ -127,7 +127,7 @@ namespace ZeroInstall.Commands
             });
             Options.Add("V|version", Resources.OptionVersion, unused =>
             {
-                Policy.Handler.Output(Resources.VersionInformation, AppInfo.Name + " " + AppInfo.Version + (Locations.IsPortable ? " - Portable mode\n" : "\n") + AppInfo.Copyright + "\n" + Resources.LicenseInfo);
+                Policy.Handler.Output(Resources.VersionInformation, AppInfo.Name + " " + AppInfo.Version + (Locations.IsPortable ? " - " + Resources.PortableMode : "") + Environment.NewLine + AppInfo.Copyright + Environment.NewLine + Resources.LicenseInfo);
                 throw new UserCancelException(); // Don't handle any of the other arguments
             });
 
