@@ -41,7 +41,7 @@ namespace ZeroInstall.Updater.WinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            if (args.Length > 4 )
+            if (args.Length < 3 || args.Length > 4)
             {
                 Msg.Inform(null, Resources.WrongNoArguments, MsgSeverity.Error);
                 return;
