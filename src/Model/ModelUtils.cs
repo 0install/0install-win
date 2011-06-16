@@ -49,7 +49,7 @@ namespace ZeroInstall.Model
             catch (ArgumentException) { return; }
 
             // URIs must be HTTP(S) and have a slash after the host name
-            if (!value.StartsWith("http:") && !value.StartsWith("https:")) throw new InvalidInterfaceIDException(string.Format(Resources.InvalidInterfaceID, value));
+            if (!value.StartsWith("http://") && !value.StartsWith("https://")) throw new InvalidInterfaceIDException(string.Format(Resources.InvalidInterfaceID, value));
             if (StringUtils.CountOccurences(value, '/') < 3) throw new InvalidInterfaceIDException(string.Format(Resources.MissingSlashInUri, value));
 
             // Perform more in-depth URI validation

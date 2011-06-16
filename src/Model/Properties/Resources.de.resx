@@ -127,7 +127,7 @@
     <value>Das Interface '{0}' ist keine gültige 'http(s):' URI und ist auch kein absoluter lokaler Pfad.</value>
   </data>
   <data name="MissingSlashInUri" xml:space="preserve">
-    <value>Fehlendes / nach dem Hostnamen in der URI '{0}'.</value>
+    <value>Fehlendes '/' nach dem Hostnamen in der URI '{0}'.</value>
   </data>
   <data name="MustBeDottedList" xml:space="preserve">
     <value>Die Punkt-getrennten Liste darf nur Dezimalzahlen enthalten.</value>
