@@ -282,6 +282,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="Options" xml:space="preserve">
     <value>Optionen:</value>
   </data>
+  <data name="OptionShow" xml:space="preserve">
+    <value>Zeige an wo die ausgewählten Komponenten auf dem Datenträger gespeichert sind.</value>
+  </data>
   <data name="OptionSource" xml:space="preserve">
     <value>Wählt Quellecode anstelle einer Binärdatei aus. Dies wird intern von '0compile' verwendet.</value>
   </data>

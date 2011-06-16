@@ -622,7 +622,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show were the selected components are stored on the disk..
+        ///   Looks up a localized string similar to Show where the selected components are stored on the disk..
         /// </summary>
         internal static string OptionShow {
             get {
