@@ -316,6 +316,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Missing required value for option {0}..
+        /// </summary>
+        internal static string MissingOptionValue {
+            get {
+                return ResourceManager.GetString("MissingOptionValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No interface ID (feed URI or file path) was specified..
         /// </summary>
         internal static string NoInterfaceSpecified {

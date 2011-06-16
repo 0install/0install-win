@@ -131,7 +131,11 @@ namespace ZeroInstall.Commands
                 throw new UserCancelException(); // Don't handle any of the other arguments
             });
 
-            Options.Add("with-store=", Resources.OptionWithStore, path => Policy.Fetcher.Store = new CompositeStore(new DirectoryStore(path), Policy.Fetcher.Store));
+            Options.Add("with-store=", Resources.OptionWithStore, delegate(string path)
+            {
+                if (string.IsNullOrEmpty(path)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--with-store"), "with-store");
+                Policy.Fetcher.Store = new CompositeStore(new DirectoryStore(path), Policy.Fetcher.Store);
+            });
             Options.Add("o|offline", Resources.OptionOffline, unused => Policy.Config.NetworkUse = NetworkLevel.Offline);
             Options.Add("v|verbose", Resources.OptionVerbose, unused => Policy.Verbosity++);
         }

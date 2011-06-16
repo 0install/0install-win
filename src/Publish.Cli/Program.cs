@@ -154,7 +154,12 @@ namespace ZeroInstall.Publish.Cli
                 }},
 
                 // Mode selection
-                {"catalog=", Resources.OptionCatalog, catalogFile => { parseResults.Mode = OperationMode.Catalog; parseResults.CatalogFile = catalogFile; } },
+                {"catalog=", Resources.OptionCatalog, delegate(string catalogFile)
+                {
+                    if (string.IsNullOrEmpty(catalogFile)) return;
+                    parseResults.Mode = OperationMode.Catalog;
+                    parseResults.CatalogFile = catalogFile;
+                }},
 
                 // Signatures
                 {"x|xmlsign", Resources.OptionXmlSign, unused => parseResults.XmlSign = true},
