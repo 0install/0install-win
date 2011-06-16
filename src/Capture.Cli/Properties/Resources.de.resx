@@ -140,7 +140,7 @@ Bitte bearbeiten Sie die neu angelegte 'feed.xml' Ihren Anforderungen entspreche
     <value>{DIR} als das Installationsverzeichnis der Anwendung die erfasst werden soll setzen. Nur beim "collect" Befehl anwendbar. Versucht korrektes Verzeichnis automatisch zu ermitteln wenn nicht angegeben.</value>
   </data>
   <data name="OptionMainExe" xml:space="preserve">
-    <value>{PATH} als den relativen Pfad zur Haupt-EXE eer Anwendung die erfasst werden soll setzen.  Nur beim "collect" Befehl anwendbar. Versucht korrekte Datei automatisch zu ermitteln wenn nicht angegeben.</value>
+    <value>{PATH} als den relativen Pfad zur Haupt-EXE der Anwendung die erfasst werden soll setzen.  Nur beim "collect" Befehl anwendbar. Versucht korrekte Datei automatisch zu ermitteln wenn nicht angegeben.</value>
   </data>
   <data name="Options" xml:space="preserve">
     <value>Optionen:</value>
@@ -149,10 +149,10 @@ Bitte bearbeiten Sie die neu angelegte 'feed.xml' Ihren Anforderungen entspreche
     <value>Zeigt die Versionsinformationen an.</value>
   </data>
   <data name="PostInstallSnapshotCreated" xml:space="preserve">
-    <value>Post-Installations Schnappschuss erstellt.</value>
+    <value>Post-Installation Schnappschuss erstellt.</value>
   </data>
   <data name="PreInstallSnapshotCreated" xml:space="preserve">
-    <value>Prä-Installations Schnappschuss erstellt.</value>
+    <value>Prä-Installation Schnappschuss erstellt.</value>
   </data>
   <data name="UnknownMode" xml:space="preserve">
     <value>Unbekannter Betriebsmodus
@@ -162,18 +162,18 @@ Probieren Sie {0} --help</value>
     <value>Verwendung:</value>
   </data>
   <data name="WarnExistingPostInstallSnapshot" xml:space="preserve">
-    <value>Post-Installations Schnappschuss exisitiert bereits. Mit --force erneut ausführen zum Ignorieren.</value>
+    <value>Post-Installation Schnappschuss existiert bereits. Mit --Force erneut ausführen zum Ignorieren.</value>
   </data>
   <data name="WarnMissingPreInstallSnapshot" xml:space="preserve">
-    <value>Prä-Installations Schnappschuss existiert noch nicht. Mit --force erneut ausführen zum Ignorieren.</value>
+    <value>Prä-Installation Schnappschuss existiert noch nicht. Mit --Force erneut ausführen zum Ignorieren.</value>
   </data>
   <data name="WarnOverwriteCollect" xml:space="preserve">
-    <value>Erfasster Feed exisitiert bereits. Mit --force erneut ausführen zum Überschreiben.</value>
+    <value>Erfasster Feed existiert bereits. Mit --Force erneut ausführen zum Überschreiben.</value>
   </data>
   <data name="WarnOverwritePostInstallSnapshot" xml:space="preserve">
-    <value>Post-Installations Schnappschuss exisitiert bereits. Mit --force erneut ausführen zum Überschreiben.</value>
+    <value>Post-Installation Schnappschuss existiert bereits. Mit --Force erneut ausführen zum Überschreiben.</value>
   </data>
   <data name="WarnOverwritePreInstallSnapshot" xml:space="preserve">
-    <value>Prä-Installations Schnappschuss exisitiert bereits. Mit --force erneut ausführen zum Überschreiben.</value>
+    <value>Prä-Installation Schnappschuss existiert bereits. Mit --Force erneut ausführen zum Überschreiben.</value>
   </data>
 </root>

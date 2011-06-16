@@ -121,7 +121,7 @@
     <value>Das Verzeichnis '{0}' ist nicht leer.</value>
   </data>
   <data name="InvalidCapabilitiesRegistryPath" xml:space="preserve">
-    <value>Ungültiger Capabilities Registrierugspfad: {0}</value>
+    <value>Ungültiger Capabilities Registrierungspfad: {0}</value>
   </data>
   <data name="MissingProgramFiles32Bit" xml:space="preserve">
     <value>Kein 32-bit %ProgramFiles% Verzeichnis gefunden.</value>
@@ -133,10 +133,10 @@
     <value>Es wurde mehrere Installationsverzeichnisse erkannt. Wähle erstes als Standard aus.</value>
   </data>
   <data name="MultipleRegisteredAppsDetected" xml:space="preserve">
-    <value>Es wurden mehrere neue Anwendungsregistrierugen in der Registrierung entdeckt. Choosing first by default. Wähle erste als Standard aus.</value>
+    <value>Es wurden mehrere neue Anwendungsregistrierungen in der Registrierung entdeckt. Wähle erste als Standard aus.</value>
   </data>
   <data name="NoInstallationDirDetected" xml:space="preserve">
-    <value>Es wurde kein Installationsverzeichniss erkannt.</value>
+    <value>Es wurde kein Installationsverzeichnis erkannt.</value>
   </data>
   <data name="NotCaptureDirectory" xml:space="preserve">
     <value>Das Verzeichnis '{0}' ist kein Capture-Verzeichnis. Bitte verwenden Sie '0capture init'.</value>
@@ -145,6 +145,6 @@
     <value>Diese Methode steht derzeit nur unter Windows zur Verfügung.</value>
   </data>
   <data name="UsingInstallationDir" xml:space="preserve">
-    <value>Verwende '{0}' als Installationsverzeichniss.</value>
+    <value>Verwende '{0}' als Installationsverzeichnis.</value>
   </data>
 </root>
