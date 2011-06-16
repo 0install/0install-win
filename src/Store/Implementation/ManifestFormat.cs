@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using ZeroInstall.Model;
@@ -38,12 +37,12 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// All currently supported <see cref="ManifestFormat"/>s listed from best to worst.
         /// </summary>
-        public static readonly IEnumerable<ManifestFormat> All = new[] { _sha256, _sha1New, _sha1Old };
+        public static readonly ManifestFormat[] All = new[] { _sha256, _sha1New, _sha1Old };
 
         /// <summary>
         /// All currently supported and non-deprecated <see cref="ManifestFormat"/>s listed from best to worst.
         /// </summary>
-        public static readonly IEnumerable<ManifestFormat> Recommended = new[] { _sha256, _sha1New };
+        public static readonly ManifestFormat[] Recommended = new[] { _sha256, _sha1New };
         #endregion
 
         #region Factory methods
@@ -76,6 +75,9 @@ namespace ZeroInstall.Store.Implementation
         /// The prefix used to identify the format (e.g. "sha256").
         /// </summary>
         public abstract string Prefix { get; }
+
+        /// <inheritdoc/>
+        public override string ToString() { return Prefix; }
         #endregion
 
         #region Abstract methods
@@ -162,7 +164,7 @@ namespace ZeroInstall.Store.Implementation
             private static readonly HashAlgorithm _algorithm = SHA1.Create();
             public override HashAlgorithm HashAlgorithm { get { return _algorithm; } }
 
-            public override string Prefix { get { return "sha1="; } }
+            public override string Prefix { get { return "sha1"; } }
         }
         #endregion
 
@@ -229,7 +231,7 @@ namespace ZeroInstall.Store.Implementation
             private static readonly HashAlgorithm _algorithm = SHA1.Create();
             public override HashAlgorithm HashAlgorithm { get { return _algorithm; } }
 
-            public override string Prefix { get { return "sha1new="; } }
+            public override string Prefix { get { return "sha1new"; } }
         }
 
         /// <summary>
@@ -240,7 +242,7 @@ namespace ZeroInstall.Store.Implementation
             private static readonly HashAlgorithm _algorithm = SHA256.Create();
             public override HashAlgorithm HashAlgorithm { get { return _algorithm; } }
 
-            public override string Prefix { get { return "sha256="; } }
+            public override string Prefix { get { return "sha256"; } }
         }
         #endregion
     }

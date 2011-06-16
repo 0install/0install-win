@@ -67,7 +67,7 @@ namespace ZeroInstall.Fetchers
             {
                 WriteHierarchyManifestToStream(package, dotFile);
                 dotFile.Seek(0, SeekOrigin.Begin);
-                return new ManifestDigest(ManifestFormat.Sha256.Prefix + FileUtils.ComputeHash(dotFile, ManifestFormat.Sha256.HashAlgorithm));
+                return new ManifestDigest(ManifestFormat.Sha256.Prefix + "=" + FileUtils.ComputeHash(dotFile, ManifestFormat.Sha256.HashAlgorithm));
             }
         }
 

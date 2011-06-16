@@ -117,23 +117,54 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="LicenseInfo" xml:space="preserve">
+    <value>Für dieses Programm gibt es ABSOLUT KEINE GARANTIEN, soweit dies gesetzlich zulässig ist.
+Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien dieses Programmes weitergeben.</value>
+  </data>
   <data name="MissingArguments" xml:space="preserve">
     <value>Fehlende Argumente. Probieren Sie {0} --help</value>
+  </data>
+  <data name="NoFeedFilesFound" xml:space="preserve">
+    <value>Konnte keine passenden Feed-Dateien finden.</value>
+  </data>
+  <data name="OptionBatch" xml:space="preserve">
+    <value>Im Stapelverarbeitungsmodus ausführen: dem Benutzer keine Meldungen zeigen und Rückfragen stillschweigend mit "Nein" beantworten.</value>
+  </data>
+  <data name="OptionCatalog" xml:space="preserve">
+    <value>Alle angegebenen Feeds in einer einzelnen Katalog {DATEI} kombinieren.</value>
+  </data>
+  <data name="OptionGnuPGPassphrase" xml:space="preserve">
+    <value>Verwende {PASS} um den privaten GnuPG Schlüssel freizuschalten.</value>
   </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Zeigt den eingebauten Hilfe-Text an.</value>
   </data>
+  <data name="OptionKey" xml:space="preserve">
+    <value>Schlüssel der zum Signieren verwenden werden soll (falls Sie mehrere haben oder falls Sie mit einem anderen Schlüssel resignieren möchten).</value>
+  </data>
   <data name="Options" xml:space="preserve">
     <value>Optionen:</value>
+  </data>
+  <data name="OptionUnsign" xml:space="preserve">
+    <value>Entferne bestehende Signaturen.</value>
   </data>
   <data name="OptionVersion" xml:space="preserve">
     <value>Zeigt die Versionsinformationen an.</value>
   </data>
+  <data name="OptionXmlSign" xml:space="preserve">
+    <value>Füge einen XML Signaturblock hinzu. (Alle Remote-Feeds müssen signiert sein.)</value>
+  </data>
+  <data name="PleaseEnterGnuPGPassphrase" xml:space="preserve">
+    <value>Bitte geben Sie Ihre GnuPG Passphrase ein:</value>
+  </data>
   <data name="UnknownMode" xml:space="preserve">
-    <value>Unbekannter Betriebsmodus
+    <value>Unbekannter Betriebsmodus.
 Probieren Sie {0} --help</value>
   </data>
   <data name="Usage" xml:space="preserve">
     <value>Verwendung:</value>
+  </data>
+  <data name="UsageFeed" xml:space="preserve">
+    <value>0publish [OPTIONEN] feed.xml</value>
   </data>
 </root>

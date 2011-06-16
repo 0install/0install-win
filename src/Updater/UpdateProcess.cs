@@ -49,7 +49,7 @@ namespace ZeroInstall.Updater
         /// <summary>
         /// The version number of the new/updated version.
         /// </summary>
-        public string NewVersion { get; private set; }
+        public Version NewVersion { get; private set; }
         #endregion
 
         #region Constructor
@@ -60,7 +60,7 @@ namespace ZeroInstall.Updater
         /// <param name="newVersion">The version number of the new/updated version.</param>
         /// <param name="target">The directory containing the old version to be updated.</param>
         /// <exception cref="IOException">Thrown if there was a problem accessing one of the directories.</exception>
-        /// <exception cref="NotSupportedException">Thrown if one of the directory paths is invalid.</exception>
+        /// <exception cref="NotSupportedException">Thrown if one of the directory paths or the version number is invalid.</exception>
         public UpdateProcess(string source, string newVersion, string target)
         {
             #region Sanity checks
@@ -70,7 +70,24 @@ namespace ZeroInstall.Updater
             #endregion
 
             Source = Path.GetFullPath(source);
-            NewVersion = newVersion;
+            try { NewVersion = new Version(newVersion); }
+            #region Error handling
+            catch (ArgumentException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new NotSupportedException(ex.Message, ex);
+            }
+            catch (FormatException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new NotSupportedException(ex.Message, ex);
+            }
+            catch (OverflowException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new NotSupportedException(ex.Message, ex);
+            }
+            #endregion
             Target = Path.GetFullPath(target);
 
             if (!Directory.Exists(Source)) throw new DirectoryNotFoundException(Resources.SourceMissing);
@@ -100,12 +117,10 @@ namespace ZeroInstall.Updater
         /// </summary>
         public void DeleteFiles()
         {
-            switch (NewVersion)
+            if (NewVersion >= new Version("0.54.4"))
             {
-                case "0.54.4":
-                    foreach (string file in new[] {"ZeroInstall.MyApps.dll", Path.Combine("de", "ZeroInstall.MyApps.resources.dll")})
-                        File.Delete(file);
-                    break;
+                foreach (string file in new[] {"ZeroInstall.MyApps.dll", Path.Combine("de", "ZeroInstall.MyApps.resources.dll")})
+                    File.Delete(file);
             }
         }
         #endregion

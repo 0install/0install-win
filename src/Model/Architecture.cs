@@ -101,6 +101,14 @@ namespace ZeroInstall.Model
     [TypeConverter(typeof(ArchitectureConverter))]
     public struct Architecture : IEquatable<Architecture>
     {
+        #region Constants
+        /// <summary>A list of all known string representations of <see cref="OS"/> values.</summary>
+        public static readonly string[] KnownOSStrings = {"*", "Linux", "Solaris", "MacOSX", "Darwin", "Windows", "Cygwin"};
+
+        /// <summary>A list of all known string representations of <see cref="Cpu"/> values, except for <see cref="Model.Cpu.Source"/>.</summary>
+        public static readonly string[] KnownCpuStrings = {"*", "i386", "i486", "i586", "i686", "x86_64", "ppc", "ppc64"};
+        #endregion
+
         #region Properties
         /// <summary>
         /// Determines which operating systems are supported.

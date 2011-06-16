@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DeleteEntry" xml:space="preserve">
-    <value>Möchten Sie diesen Eintrag aus dem Cache löschen?</value>
+  <data name="AllImplementationsOK" xml:space="preserve">
+    <value>Alle geprüften Implementierungen sind in Ordnung.</value>
   </data>
   <data name="DeleteCheckedEntries" xml:space="preserve">
     <value>Möchten Sie die {0} angehakten Elemente aus dem Cache löschen?</value>
+  </data>
+  <data name="DeleteEntry" xml:space="preserve">
+    <value>Möchten Sie diesen Eintrag aus dem Cache löschen?</value>
+  </data>
+  <data name="ImplementationOK" xml:space="preserve">
+    <value>Implementierung ist in Ordnung.</value>
   </data>
   <data name="NoKeep" xml:space="preserve">
     <value>Nein, behalten</value>
@@ -129,19 +135,16 @@
   <data name="OpenInFileManager" xml:space="preserve">
     <value>Im Dateimanger &amp;öffnen</value>
   </data>
-  <data name="YesDelete" xml:space="preserve">
-    <value>Ja, löschen</value>
-  </data>
-  <data name="Verify" xml:space="preserve">
-    <value xml:space="preserve">Verifizieren</value>
-  </data>
-  <data name="ImplementationOK" xml:space="preserve">
-    <value>Implementierung ist in Ordnung.</value>
-  </data>
-  <data name="AllImplementationsOK" xml:space="preserve">
-    <value>Alle geprüften Implementierungen sind in Ordnung.</value>
+  <data name="PortableMode" xml:space="preserve">
+    <value>Portable Modus</value>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>Entfernen</value>
+  </data>
+  <data name="Verify" xml:space="preserve">
+    <value>Verifizieren</value>
+  </data>
+  <data name="YesDelete" xml:space="preserve">
+    <value>Ja, löschen</value>
   </data>
 </root>

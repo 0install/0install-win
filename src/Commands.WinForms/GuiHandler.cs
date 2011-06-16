@@ -106,7 +106,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             _form.Initialize();
             if (ActionTitle != null) _form.Text = ActionTitle;
-            if (Locations.IsPortable) _form.Text += " - Portable mode";
+            if (Locations.IsPortable) _form.Text += " - " + Resources.PortableMode;
 
             // Restore normal priority as soon as the GUI becomes visible
             _form.Shown += delegate { Thread.CurrentThread.Priority = ThreadPriority.Normal; };

@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DeleteEntry" xml:space="preserve">
-    <value>Do you want to delete his entry from the cache?</value>
+  <data name="AllImplementationsOK" xml:space="preserve">
+    <value>All checked implementations are fine.</value>
   </data>
   <data name="DeleteCheckedEntries" xml:space="preserve">
     <value>Do you want to delete the {0} checked element(s) from the cache?</value>
+  </data>
+  <data name="DeleteEntry" xml:space="preserve">
+    <value>Do you want to delete his entry from the cache?</value>
+  </data>
+  <data name="ImplementationOK" xml:space="preserve">
+    <value>Implementation is fine.</value>
   </data>
   <data name="NoKeep" xml:space="preserve">
     <value>No, keep</value>
@@ -129,19 +135,16 @@
   <data name="OpenInFileManager" xml:space="preserve">
     <value>&amp;Open in file manager</value>
   </data>
-  <data name="YesDelete" xml:space="preserve">
-    <value>Yes, delete</value>
-  </data>
-  <data name="Verify" xml:space="preserve">
-    <value xml:space="preserve">Verify</value>
-  </data>
-  <data name="ImplementationOK" xml:space="preserve">
-    <value>Implementation is fine.</value>
-  </data>
-  <data name="AllImplementationsOK" xml:space="preserve">
-    <value>All checked implementations are fine.</value>
+  <data name="PortableMode" xml:space="preserve">
+    <value>Portable mode</value>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>Remove</value>
+  </data>
+  <data name="Verify" xml:space="preserve">
+    <value>Verify</value>
+  </data>
+  <data name="YesDelete" xml:space="preserve">
+    <value>Yes, delete</value>
   </data>
 </root>

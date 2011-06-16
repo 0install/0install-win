@@ -88,11 +88,27 @@ namespace ZeroInstall.Commands
             Options.Add("r|refresh", Resources.OptionRefresh, unused => Policy.FeedManager.Refresh = true);
 
             Options.Add("command=", Resources.OptionCommand, command => _requirements.CommandName = StringUtils.UnescapeWhitespace(command));
-            Options.Add("before=", Resources.OptionBefore, version => _requirements.BeforeVersion = new ImplementationVersion(version));
-            Options.Add("not-before=", Resources.OptionNotBefore, version => _requirements.NotBeforeVersion = new ImplementationVersion(version));
+            Options.Add("before=", Resources.OptionBefore, delegate(string version)
+            {
+                if (string.IsNullOrEmpty(version)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--before"), "before");
+                _requirements.BeforeVersion = new ImplementationVersion(version);
+            });
+            Options.Add("not-before=", Resources.OptionNotBefore, delegate(string version)
+            {
+                if (string.IsNullOrEmpty(version)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--not-before"), "not-before");
+                _requirements.NotBeforeVersion = new ImplementationVersion(version);
+            });
             Options.Add("s|source", Resources.OptionSource, unused => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Cpu.Source));
-            Options.Add("os=", Resources.OptionOS, os => _requirements.Architecture = new Architecture(Architecture.ParseOS(os), _requirements.Architecture.Cpu));
-            Options.Add("cpu=", Resources.OptionCpu, cpu => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Architecture.ParseCpu(cpu)));
+            Options.Add("os=", Resources.OptionOS + "\n" + string.Format(Resources.SupportedValues, StringUtils.Concatenate(Architecture.KnownOSStrings, ", ")), delegate(string os)
+            {
+                if (string.IsNullOrEmpty(os)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--os"), "os");
+                _requirements.Architecture = new Architecture(Architecture.ParseOS(os), _requirements.Architecture.Cpu);
+            });
+            Options.Add("cpu=", Resources.OptionCpu + "\n" + string.Format(Resources.SupportedValues, StringUtils.Concatenate(Architecture.KnownCpuStrings, ", ")), delegate(string cpu)
+            {
+                if (string.IsNullOrEmpty(cpu)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--cpu"), "cpu");
+                _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Architecture.ParseCpu(cpu));
+            });
 
             Options.Add("g|gui", Resources.OptionGui, unused => Policy.FeedManager.Refresh = ShowSelectionsUI = true);
             Options.Add("xml", Resources.OptionXml, unused => ShowXml = true);

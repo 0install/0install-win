@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using Common;
@@ -40,18 +41,10 @@ namespace ZeroInstall.Updater.WinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            bool rerun;
-            switch (args.Length)
+            if (args.Length > 4 )
             {
-                case 3:
-                    rerun = false;
-                    break;
-                case 4:
-                    rerun = (args[2] == "--rerun");
-                    break;
-                default:
-                    Msg.Inform(null, Resources.WrongNoArguments, MsgSeverity.Error);
-                    return;
+                Msg.Inform(null, Resources.WrongNoArguments, MsgSeverity.Error);
+                return;
             }
 
             UpdateProcess updateProcess;
@@ -68,6 +61,8 @@ namespace ZeroInstall.Updater.WinForms
                 return;
             }
             #endregion
+
+            bool rerun = ((ICollection<string>)args).Contains("--rerun");
 
 #if DEBUG
             Application.Run(new MainForm(updateProcess, rerun));

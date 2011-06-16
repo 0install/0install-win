@@ -167,7 +167,7 @@ namespace ZeroInstall.Commands.WinForms
                 catch (DigestMismatchException ex)
                 {
                     handler.DisableProgressUI();
-                    ErrorBox.Show(ex.Message, errorLog + "\n\nManifest:" + ex.ActualManifest);
+                    ErrorBox.Show(ex.Message, errorLog + Environment.NewLine + Environment.NewLine + "Manifest:" + ex.ActualManifest);
                 }
                 catch (SolverException ex)
                 {

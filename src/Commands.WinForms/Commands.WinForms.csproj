@@ -102,6 +102,9 @@
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="InterfaceDialog.de.resx">
+      <DependentUpon>InterfaceDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InterfaceDialog.resx">
       <DependentUpon>InterfaceDialog.cs</DependentUpon>
     </EmbeddedResource>

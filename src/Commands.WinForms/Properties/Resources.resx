@@ -120,6 +120,9 @@
   <data name="EnterFeedUrl" xml:space="preserve">
     <value>Please enter the URL of the new source of implementations for this interface:</value>
   </data>
+  <data name="PortableMode" xml:space="preserve">
+    <value>Portable mode</value>
+  </data>
   <data name="Properties" xml:space="preserve">
     <value>Properties</value>
   </data>

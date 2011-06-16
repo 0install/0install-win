@@ -18,10 +18,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using Common;
 using Common.Cli;
 using Common.Storage;
+using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.Cli.Properties;
@@ -148,13 +148,17 @@ namespace ZeroInstall.Publish.Cli
             {
                 // Version information
                 {"V|version", Resources.OptionVersion, unused => {
-                    var assembly = Assembly.GetEntryAssembly().GetName();
-                    Console.WriteLine(@"Zero Install Publish CLI v{0}", assembly.Version);
-                    throw new UserCancelException();
+                    Console.WriteLine(AppInfo.Name + " " + AppInfo.Version + Environment.NewLine + AppInfo.Copyright + Environment.NewLine + Resources.LicenseInfo);
+                    throw new UserCancelException(); // Don't handle any of the other arguments
                 }},
 
                 // Mode selection
-                {"catalog=", Resources.OptionCatalog, catalogFile => { parseResults.Mode = OperationMode.Catalog; parseResults.CatalogFile = catalogFile; } },
+                {"catalog=", Resources.OptionCatalog, delegate(string catalogFile)
+                {
+                    if (string.IsNullOrEmpty(catalogFile)) return;
+                    parseResults.Mode = OperationMode.Catalog;
+                    parseResults.CatalogFile = catalogFile;
+                }},
 
                 // Signatures
                 {"x|xmlsign", Resources.OptionXmlSign, unused => parseResults.XmlSign = true},
@@ -171,6 +175,7 @@ namespace ZeroInstall.Publish.Cli
                 Console.WriteLine(Resources.Options);
                 options.WriteOptionDescriptions(Console.Out);
 
+                // Don't handle any of the other arguments
                 throw new UserCancelException();
             });
             #endregion
@@ -194,8 +199,8 @@ namespace ZeroInstall.Publish.Cli
         #region Help
         private static void PrintUsage()
         {
-            const string usage = "{0}\t{1}\n";
-            Console.WriteLine(usage, Resources.Usage, Resources.UsageFeed);
+            var usages = new[] {Resources.UsageFeed};
+            Console.WriteLine(Resources.Usage + "\t" + StringUtils.Concatenate(usages, Environment.NewLine + "\t") + "\n");
         }
         #endregion
 

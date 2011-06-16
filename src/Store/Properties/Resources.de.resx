@@ -207,7 +207,7 @@ Alte Zeit: {1}
 Neue Zeit: {2}</value>
   </data>
   <data name="RootedPathRequired" xml:space="preserve">
-    <value>Ein vollständig qulifizierter/gewurzelter Pfad wird benötigt.</value>
+    <value>Ein vollständig qualifizierter/gewurzelter Pfad wird benötigt.</value>
   </data>
   <data name="RubyGemInvalid" xml:space="preserve">
     <value>Konnte data.tar.gz in der Ruby Gem Datei nicht finden.</value>
@@ -225,7 +225,7 @@ Neue Zeit: {2}</value>
     <value>Es konnte kein geheimer Schlüssel mit dem angegebenen Namen gefunden werden.</value>
   </data>
   <data name="UnknownMimeType" xml:space="preserve">
-    <value>Der angegebene MIME Typ is unbekannt.</value>
+    <value>Der angegebene MIME Typ ist unbekannt.</value>
   </data>
   <data name="WrongPassphrase" xml:space="preserve">
     <value>Die Passphrase die Sie eingegeben haben ist inkorrekt.</value>

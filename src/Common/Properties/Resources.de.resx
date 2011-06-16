@@ -154,7 +154,7 @@
     <value>Das Konfigurationsverzeichnis '{0}' ist vermutlich ungültig.</value>
   </data>
   <data name="KeyAlreadyPresent" xml:space="preserve">
-    <value>Der Schlüssel befindet sich bereits im Dictionar.</value>
+    <value>Der Schlüssel befindet sich bereits im Dictionary.</value>
   </data>
   <data name="KeyNotFound" xml:space="preserve">
     <value>Der Schlüssel wurde in der Collection nicht gefunden.</value>
