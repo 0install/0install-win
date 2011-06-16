@@ -120,7 +120,9 @@ namespace ZeroInstall.Updater
             if (NewVersion >= new Version("0.54.4"))
             {
                 foreach (string file in new[] {"ZeroInstall.MyApps.dll", Path.Combine("de", "ZeroInstall.MyApps.resources.dll")})
-                    File.Delete(file);
+                {
+                    if (File.Exists(file)) File.Delete(file);
+                }
             }
         }
         #endregion
