@@ -256,7 +256,7 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
     <value>Supported values: {0}</value>
   </data>
   <data name="OptionRefresh" xml:space="preserve">
-    <value>Fetch a fresh copy of all used interfaces.</value>
+    <value>Fetch fresh copies of all used feeds.</value>
   </data>
   <data name="Options" xml:space="preserve">
     <value>Options:</value>

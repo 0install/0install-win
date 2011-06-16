@@ -123,13 +123,138 @@
   <data name="AuditPass" xml:space="preserve">
     <value>Es wurden keine Probleme im Store gefuden.</value>
   </data>
-  <data name="SuccessfullyRemoved" xml:space="preserve">
-    <value>{0} wurde erfolgreich entfernt.</value>
+  <data name="DetailsAdd" xml:space="preserve">
+    <value>Um ein Verzeichnis zum Store hinzuzufügen (legt eine Kopie an):
+0store add sha256=XXX verzeichnis
+
+Um ein Archiv zum Store hinzuzufügen:
+0store add sha256=XXX archiv.tgz
+
+Um ein Unterverzeichnis eines Archivs zum Store hinzuzufügen:
+0store add sha256=XXX archiv.tgz unter-verzeichnis
+
+Der tatsächliche Digest wird berechnet und mit dem angegebenen verglichen. Falls sie nicht übereinstimmen wird die Operation abgelehnt.</value>
+  </data>
+  <data name="DetailsAudit" xml:space="preserve">
+    <value>Verifiziert jede Implementierung in jedem der angebenen Cache-Verzeichnisse oder in allen Default Cache-Verzeichnissen falls keine Argumente angegeben werden. Hierdurch werden alle Pakete die seit dem Entpacken manipuliert wurden entdeckt.
+Siehe 'verify' Befehl für Details wie die Überprüfung der einzelnen Pakete funktioniert.</value>
+  </data>
+  <data name="DetailsCopy" xml:space="preserve">
+    <value>Um eine Implementierung (ein Verzeichnis mit einem Namen in der Form "algorithmus=wert") zu kopieren, verwenden Sie den 'copy' Befehl. Dies ist vergleichbar mit einer normalen rekursiven Verzeichniskopie gefolgt von einem '0store verify', um zu sicherzustellen, dass der Name mit dem Inhalt übereinstimmt.
+
+Beispiele:
+Windows: 0store copy %localappdata%\0install.net\implementations\sha256=XXX %localappdata%\0install.net\implementations\
+Linux: 0store copy ~someuser/.cache/0install.net/implementations/sha256=XXX /var/cache/0install.net/implementations/</value>
+  </data>
+  <data name="DetailsFind" xml:space="preserve">
+    <value>Um den Pfad eines gespeicherten Elements zu ermitteln:
+0store find sha256=XXX</value>
+  </data>
+  <data name="DetailsList" xml:space="preserve">
+    <value>Um eine Liste aller Implementierungen in allen aktuell konfigurierten Stores zu sehen:
+0store list</value>
+  </data>
+  <data name="DetailsManage" xml:space="preserve">
+    <value>Um Feeds oder Implementierungen zu verifizieren oder zu entfernen:
+0store manage
+
+Zeigt ein GUI zur Verwaltung von Implementierungen im Store an. Zuordnungen zu gecachten Feeds werden angezeigt.</value>
+  </data>
+  <data name="DetailsManifest" xml:space="preserve">
+    <value>Um das Manifest für eine Verzeichnisstruktur zu generieren und auf der Konsole auszugeben:
+0store manifest VERZEICHNIS [ALGORITHMUS]
+
+Das Manifest listet jede Datei und jedes Verzeichnis im Baum zusammen mit Digests jeder Datei auf, wodurch ein bestimmter Satz an Dateien eindeutig identifiziert wird. Nach dem Manifest gibt die letzte Zeile den Digest des Manifests selbst an.
+
+Dieser Wert wird beim Erstellen von Feed Dateien benötigt. Der 0publish Befehl berechnet die benätigten Digests jedoch automatisch für Sie und fügt sie einer Feed Datei hinzu.
+
+Unterstützte Algorithmen: {0}</value>
+  </data>
+  <data name="DetailsOptimise" xml:space="preserve">
+    <value>Um doppelte Dateien mit Hardlinks zusammenzufassen um Speicherplatz zu sparen:
+0store optimise [CACHE]
+
+Dies liest alle Manifest-Dateien im Cache-Verzeichnis ein und sucht nach Duplikaten (Dateien mit den gleichen Berechtigungen, letztem Änderungszeitpunkt und Digest). Wenn es ein Paar findet, löscht es eine Datei und ersetzt sie (atomar) mit einem Hardlink zur anderen.
+
+Implementierungen mit dem alten "sha1"-Algorithmus werden nicht optimiert.</value>
+  </data>
+  <data name="DetailsRemove" xml:space="preserve">
+    <value>Um ein Element aus dem Store zu entfernen:
+0store remove sha256=XXX</value>
+  </data>
+  <data name="DetailsVerify" xml:space="preserve">
+    <value>Um zu verifizieren, dass ein Element korrekt gespeichert ist:
+0store verify /pfad/zu/sha256=XXX
+
+Dies berechnet das Manifest für das Verzeichnis und stellt sicher, dass sein Digest mit dem Verzeichnisnamen übereinstimmt. Es überprüft auch ob es mit dem Digest der .manifest Datei innerhalb des Verzeichnisses übereinstimmt.</value>
+  </data>
+  <data name="DirectoryNotFound" xml:space="preserve">
+    <value>Das Verzeichnis '{0}' wurde nicht gefunden.</value>
+  </data>
+  <data name="LicenseInfo" xml:space="preserve">
+    <value>Für dieses Programm gibt es ABSOLUT KEINE GARANTIEN, soweit dies gesetzlich zulässig ist.
+Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien dieses Programmes weitergeben.</value>
+  </data>
+  <data name="NoAuditSupport" xml:space="preserve">
+    <value>Dieser Store unterstützt kein Auditing.</value>
+  </data>
+  <data name="NoSuchFileOrDirectory" xml:space="preserve">
+    <value>Keine Datei oder Verzeichnis unter diesem Namen: {0}</value>
   </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Zeigt den eingebauten Hilfe-Text an.</value>
   </data>
+  <data name="OptionMan" xml:space="preserve">
+    <value>Zeige ausführlichere Dokumentation der Betriebsmodi an.</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Optionen:</value>
+  </data>
   <data name="OptionVersion" xml:space="preserve">
     <value>Zeige Versionsinformationen an.</value>
+  </data>
+  <data name="StoreEntryOK" xml:space="preserve">
+    <value>Der Store-Eintrag ist in Ordnung.</value>
+  </data>
+  <data name="SuccessfullyRemoved" xml:space="preserve">
+    <value>{0} wurde erfolgreich entfernt.</value>
+  </data>
+  <data name="UnknownMode" xml:space="preserve">
+    <value>Unbekannter Betriebsmodus.
+Probieren Sie 0store --help</value>
+  </data>
+  <data name="Usage" xml:space="preserve">
+    <value>Verwendung:</value>
+  </data>
+  <data name="UsageAdd" xml:space="preserve">
+    <value>0store add DIGEST (VERZEICHNIS | (ARCHIV [EXTRACT]))</value>
+  </data>
+  <data name="UsageAudit" xml:space="preserve">
+    <value>0store audit [CACHE+]</value>
+  </data>
+  <data name="UsageCopy" xml:space="preserve">
+    <value>0store copy VERZEICHNIS [CACHE]</value>
+  </data>
+  <data name="UsageFind" xml:space="preserve">
+    <value>0store find DIGEST</value>
+  </data>
+  <data name="UsageList" xml:space="preserve">
+    <value>0store list</value>
+  </data>
+  <data name="UsageManifest" xml:space="preserve">
+    <value>0store manifest VERZEICHNIS [ALGORITHMUS]</value>
+  </data>
+  <data name="UsageOptimize" xml:space="preserve">
+    <value>0store optimise [CACHE+]</value>
+  </data>
+  <data name="UsageRemove" xml:space="preserve">
+    <value>0store remove DIGEST+</value>
+  </data>
+  <data name="UsageVerify" xml:space="preserve">
+    <value>0store verify (DIGEST|VERZEICHNIS)+</value>
+  </data>
+  <data name="WrongNoArguments" xml:space="preserve">
+    <value>Falsche Anzahl an Argumenten.
+Verwendung: {0}</value>
   </data>
 </root>

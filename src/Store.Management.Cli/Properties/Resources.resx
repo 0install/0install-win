@@ -168,7 +168,7 @@ Try 0store --help</value>
     <value>The store entry is OK.</value>
   </data>
   <data name="DirectoryNotFound" xml:space="preserve">
-    <value>The director '{0}' was not found.</value>
+    <value>The directory '{0}' was not found.</value>
   </data>
   <data name="NoSuchFileOrDirectory" xml:space="preserve">
     <value>No such file or directory: {0}</value>
@@ -186,22 +186,23 @@ To add a subdirectory of an archive to the store:
 The actual digest is calculated and compared to the given one. If they don't match, the operation is rejected.</value>
   </data>
   <data name="DetailsAudit" xml:space="preserve">
-    <value>Verifies  every  implementation in each of the given cache directories, or in all of the default cache directories if no arguments are given. This will detect any packages which have been tampered with since they were unpacked. If 0store itself could have been modified by an attacker, mount the suspect file-system on a known-good machine and run that machine's 0store on the mounted cache directory.
-See the "verify" command for details of the verification performed on each package.</value>
+    <value>Verifies  every  implementation in each of the given cache directories, or in all of the default cache directories if no arguments are given. This will detect any packages which have been tampered with since they were unpacked.
+See the 'verify' command for details of the verification performed on each package.</value>
   </data>
   <data name="DetailsCopy" xml:space="preserve">
-    <value>To  copy an implementation (a directory with a name in the form "algorithm=value"), use the copy function. This is similar to performing a normal recursive directory copy followed by a 0store verify to check that the name matches the contents. E.g.:
-0store copy ~someuser/.cache/0install.net/implementations/sha256=XXX /var/cache/0install.net/implementations/</value>
+    <value>To  copy an implementation (a directory with a name in the form "algorithm=value"), use the 'copy' command. This is similar to performing a normal recursive directory copy followed by a '0store verify' to check that the name matches the contents.
+
+Examples:
+Windows: 0store copy %localappdata%\0install.net\implementations\sha256=XXX %localappdata%\0install.net\implementations\
+Linux: 0store copy ~someuser/.cache/0install.net/implementations/sha256=XXX /var/cache/0install.net/implementations/</value>
   </data>
   <data name="DetailsFind" xml:space="preserve">
     <value>To find the path of a stored item:
 0store find sha256=XXX</value>
   </data>
   <data name="DetailsList" xml:space="preserve">
-    <value>See the list of implementation caches currently configured:
-0store list
-
-To add directories to this list, add them to your 'implementation-dirs' configuration file.</value>
+    <value>To see the list of all implementations in all currently configured stores:
+0store list</value>
   </data>
   <data name="DetailsManage" xml:space="preserve">
     <value>To verify or remove feeds or implementations:
@@ -210,20 +211,20 @@ To add directories to this list, add them to your 'implementation-dirs' configur
 Displays a GUI for managing implementations in the store. Associations with cached feeds are displayed.</value>
   </data>
   <data name="DetailsManifest" xml:space="preserve">
-    <value>To generate the manifest for a directory structure:
+    <value>To generate the manifest for a directory structure and print it to the console:
 0store manifest DIRECTORY [ALGORITHM]
 
 The manifest lists every file and directory in the tree, along with the digest of each file, thus uniquely identifying that particular set of files. After the manifest, the last line gives the digest of the manifest itself.
 
-This value is needed when creating feed files. However, the 0publish command will automatically calculate the required digest for you and add it to a feed file. See the packager's guide on the Zero Install web site for details.
+This value is needed when creating feed files. However, the 0publish command will automatically calculate the required digest for you and add it to a feed file.
 
-Supported algorithms are 'sha1' (supported by all versions), 'sha1new' (requires injector 0.20 or later) and 'sha256'.</value>
+Supported algorithms: {0}</value>
   </data>
   <data name="DetailsOptimise" xml:space="preserve">
     <value>To hard-link duplicate files together to save space:
 0store optimise [CACHE]
 
-This reads in all the manifest files in the cache directory (~/.cache/0install.net/implementations by default) and looks for duplicates (files with the same permissions, modification time and digest). When it finds a pair, it deletes one and replaces it (atomically) with a hard-link to the other.
+This reads in all the manifest files in the cache directoy and looks for duplicates (files with the same permissions, modification time and digest). When it finds a pair, it deletes one file and replaces it (atomically) with a hard-link to the other.
 
 Implementations using the old 'sha1' algorithm are not optimised.</value>
   </data>
@@ -235,7 +236,7 @@ Implementations using the old 'sha1' algorithm are not optimised.</value>
     <value>To check that an item is stored correctly:
 0store verify /path/to/sha256=XXX
 
-This calculates the manifest of the directory and checks that its digest matches the directory's name. It also checks that it matches the digest of the .manifest file inside the directory. If the .manifest doesn't correspond to the current tree, it displays a list of the differences (in unified diff format).</value>
+This calculates the manifest of the directory and checks that its digest matches the directory's name. It also checks that it matches the digest of the .manifest file inside the directory.</value>
   </data>
   <data name="Usage" xml:space="preserve">
     <value>Usage:</value>

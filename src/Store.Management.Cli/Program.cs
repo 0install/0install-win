@@ -201,8 +201,8 @@ namespace ZeroInstall.Store.Management.Cli
             Console.WriteLine("FIND\n\n" + Resources.DetailsFind + "\n\n\n");
             Console.WriteLine("LIST\n\n" + Resources.DetailsList + "\n\n\n");
             Console.WriteLine("MANAGE\n\n" + Resources.DetailsManage + "\n\n\n");
-            Console.WriteLine("MANIFEST\n\n" + Resources.DetailsManifest + "\n\n\n");
-            Console.WriteLine("OPTMISE\n\n" + Resources.DetailsOptimise + "\n\n\n");
+            string supportedFormats = StringUtils.Concatenate(Array.ConvertAll(ManifestFormat.All, format => format.ToString()), ", ");
+            Console.WriteLine("MANIFEST\n\n" + string.Format(Resources.DetailsManifest, supportedFormats) + "\n\n\n");
             Console.WriteLine("REMOVE\n\n" + Resources.DetailsRemove + "\n\n\n");
             Console.WriteLine("VERIFY\n\n" + Resources.DetailsVerify + "\n");
         }

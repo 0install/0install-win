@@ -154,7 +154,7 @@
     <value>Bitte geben Sie Ihre GnuPG Passphrase ein:</value>
   </data>
   <data name="UnknownMode" xml:space="preserve">
-    <value>Unbekannter Betriebsmodus
+    <value>Unbekannter Betriebsmodus.
 Probieren Sie {0} --help</value>
   </data>
   <data name="Usage" xml:space="preserve">
