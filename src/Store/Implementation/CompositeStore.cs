@@ -174,12 +174,10 @@ namespace ZeroInstall.Store.Implementation
                 #region Error handling
                 catch (IOException ex)
                 {
-                    Log.Error(ex.ToString());
                     innerException = ex; // Remember the last error
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    Log.Error(ex.ToString());
                     innerException = ex; // Remember the last error
                 }
                 #endregion
@@ -210,12 +208,10 @@ namespace ZeroInstall.Store.Implementation
                 #region Error handling
                 catch (IOException ex)
                 {
-                    Log.Error(ex.ToString());
                     innerException = ex; // Remember the last error
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    Log.Error(ex.ToString());
                     innerException = ex; // Remember the last error
                 }
                 #endregion
