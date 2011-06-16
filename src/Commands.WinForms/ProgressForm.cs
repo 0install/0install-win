@@ -84,6 +84,10 @@ namespace ZeroInstall.Commands.WinForms
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
+            Visible = true;
+            WindowState = FormWindowState.Normal;
+            HideTrayIcon();
+
             //labelSolving.Visible = progressBarSolving.Visible = false;
             selectionsControl.Visible = true;
 
