@@ -145,7 +145,7 @@
     <value>Registriere eine zusätzliche Implementierungsquelle (Versionen) für ein Programm.</value>
   </data>
   <data name="DescriptionConfig" xml:space="preserve">
-    <value>Konfigurationseinstellungen anzeigen oder verändernsettings. Ohne Argumente zeigt es alle Einstellungen und ihre aktuellen Werte an. Mit einem Argument zeigt es den aktuellen Wert der benannten Einstellung an. Mit zwei Argumenten setzt es den Wert der benannten Einstellung.</value>
+    <value>Konfigurationseinstellungen anzeigen oder verändern. Ohne Argumente zeigt es alle Einstellungen und ihre aktuellen Werte an. Mit einem Argument zeigt es den aktuellen Wert der benannten Einstellung an. Mit zwei Argumenten setzt es den Wert der benannten Einstellung.</value>
   </data>
   <data name="DescriptionDownload" xml:space="preserve">
     <value>Dieser Befehl verhält sich ähnlich zu '0install select', außer dass er die ausgewählten Versionen auch runterlädt, falls sie sich nicht bereits im Cache befinden. Im Gegensatz zu 'select' werden die ausgewählten Versionen nicht standardmäßig ausgegeben. Gibt einen Exit Status von 0 zurück falls ein geeigneter Satz an Versionen gefunden wurde und sie nun alle heruntergeladen sind und sich im Cache befinden; gibt ansonsten einen Exit Status von 1 zurück.</value>
@@ -163,10 +163,10 @@
     <value>Entfernt einen Feed. Dies ist das Gegenstück zu 'add-feed'.</value>
   </data>
   <data name="DescriptionRun" xml:space="preserve">
-    <value>Dies verhält sich ähnlich wie '0install download', mit dem Zusatz, dass das Programm gestartet wird wird nachdem sichergestellt ist dass es im Cache ist. Gibt den Exit-Status 1 zurück wenn der herunterladen Schritt fehlschlägt. Ansonsten wird der Exit-Status des gestarteten Programms zurückgegeben.</value>
+    <value>Dies verhält sich ähnlich wie '0install download', mit dem Zusatz, dass das Programm gestartet wird nachdem sichergestellt ist dass es im Cache ist. Gibt den Exit-Status 1 zurück wenn der herunterladen Schritt fehlschlägt. Ansonsten wird der Exit-Status des gestarteten Programms zurückgegeben.</value>
   </data>
   <data name="DescriptionSelect" xml:space="preserve">
-    <value>Wähle eine Version des Programmes aus, welches durch seine URI identifiziert wird, und kompatible Versionen aller seiner Abhängigekeiten hat. Gibt den Exit-Status 0 zurück, wenn eine Menge an Versionen ausgewählt wurde und den Status 0, wenn keine konsistente Menge gefunden werden konnte.</value>
+    <value>Wähle eine Version des Programmes aus, welches durch seine URI identifiziert wird, und kompatible Versionen aller seiner Abhängigkeiten hat. Gibt den Exit-Status 0 zurück, wenn eine Menge an Versionen ausgewählt wurde und den Status 0, wenn keine konsistente Menge gefunden werden konnte.</value>
   </data>
   <data name="DescriptionUpdate" xml:space="preserve">
     <value>Prüft ob Updates für das Programm vorhanden sind und lädt die gefundenen herunter. Dies ist gleichbedeutend wie '0install download --refresh', mit dem Zusatz, dass Informationen über das Auffinden von Änderungen ausgegeben werden.</value>
@@ -241,7 +241,7 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
     <value>Zeigt den eingebauten Hilfe-Text an.</value>
   </data>
   <data name="OptionMain" xml:space="preserve">
-    <value>Starte die spezfizierte ausführbare Datei {MAIN} anstellte des Standards. Beginnt der Pfad mit '/' oder '\', ist er relativ zum obersten Verzeichnis der Implementierung. Andernfalls ist er relativ zum Verzeichnis welches das Standardhauptprogramm enthält.</value>
+    <value>Starte die spezifizierte ausführbare Datei {MAIN} anstellte des Standards. Beginnt der Pfad mit '/' oder '\', ist er relativ zum obersten Verzeichnis der Implementierung. Andernfalls ist er relativ zum Verzeichnis welches das Standardhauptprogramm enthält.</value>
   </data>
   <data name="OptionNotBefore" xml:space="preserve">
     <value>Die Version der ausgewählten Implementierung muss nach {VERSION} liegen. Zum Beispiel können Sie damit eine Version 2.0 oder eine spätere starten, in dem Sie '--not-before=2.0' angeben.</value>
@@ -278,7 +278,7 @@ Trotzdem werden neue Downloads nicht in dieses Verzeichnis gespeichert.</value>
     <value>Anstelle das ausgewählte Programm direkt auszuführen, führe {COMMAND} PROGRAM ARGS aus. Dies ist nützlich um Debugger und Tracing Tools auf das Programm anzuwenden (anstatt auf Zero Install!).  Beachten Sie, dass der Wrapper in der vom Programm festgelegten Umgebung ausgeführt wird. Somit ist dieser Mechanismus nicht für Sandboxing geeignet.</value>
   </data>
   <data name="OptionXml" xml:space="preserve">
-    <value>Scheibe ausgewählte Versionen auf die Konsole als Maschienen-lesbares XML.</value>
+    <value>Scheibe ausgewählte Versionen auf die Konsole als Maschinen-lesbares XML.</value>
   </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Portable Modus</value>
@@ -296,7 +296,7 @@ Trotzdem werden neue Downloads nicht in dieses Verzeichnis gespeichert.</value>
     <value>Probieren Sie --help mit einem der folgenden:</value>
   </data>
   <data name="UnknownCommand" xml:space="preserve">
-    <value>Unknown Befehl '{0}'.</value>
+    <value>Unbekannter Befehl '{0}'.</value>
   </data>
   <data name="UnknownOption" xml:space="preserve">
     <value>Unbekannte Option.</value>

@@ -121,7 +121,7 @@
     <value>Es wurden ein oder mehrere Probleme im Store gefunden.</value>
   </data>
   <data name="AuditPass" xml:space="preserve">
-    <value>Es wurden keine Probleme im Store gefuden.</value>
+    <value>Es wurden keine Probleme im Store gefunden.</value>
   </data>
   <data name="DetailsAdd" xml:space="preserve">
     <value>Um ein Verzeichnis zum Store hinzuzufügen (legt eine Kopie an):
@@ -136,7 +136,7 @@ Um ein Unterverzeichnis eines Archivs zum Store hinzuzufügen:
 Der tatsächliche Digest wird berechnet und mit dem angegebenen verglichen. Falls sie nicht übereinstimmen wird die Operation abgelehnt.</value>
   </data>
   <data name="DetailsAudit" xml:space="preserve">
-    <value>Verifiziert jede Implementierung in jedem der angebenen Cache-Verzeichnisse oder in allen Default Cache-Verzeichnissen falls keine Argumente angegeben werden. Hierdurch werden alle Pakete die seit dem Entpacken manipuliert wurden entdeckt.
+    <value>Verifiziert jede Implementierung in jedem der angegebenen Cache-Verzeichnisse oder in allen Default Cache-Verzeichnissen falls keine Argumente angegeben werden. Hierdurch werden alle Pakete die seit dem Entpacken manipuliert wurden entdeckt.
 Siehe 'verify' Befehl für Details wie die Überprüfung der einzelnen Pakete funktioniert.</value>
   </data>
   <data name="DetailsCopy" xml:space="preserve">
@@ -166,7 +166,7 @@ Zeigt ein GUI zur Verwaltung von Implementierungen im Store an. Zuordnungen zu g
 
 Das Manifest listet jede Datei und jedes Verzeichnis im Baum zusammen mit Digests jeder Datei auf, wodurch ein bestimmter Satz an Dateien eindeutig identifiziert wird. Nach dem Manifest gibt die letzte Zeile den Digest des Manifests selbst an.
 
-Dieser Wert wird beim Erstellen von Feed Dateien benötigt. Der 0publish Befehl berechnet die benätigten Digests jedoch automatisch für Sie und fügt sie einer Feed Datei hinzu.
+Dieser Wert wird beim Erstellen von Feed Dateien benötigt. Der 0publish Befehl berechnet die benötigten Digests jedoch automatisch für Sie und fügt sie einer Feed Datei hinzu.
 
 Unterstützte Algorithmen: {0}</value>
   </data>

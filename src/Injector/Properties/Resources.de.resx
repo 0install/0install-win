@@ -136,7 +136,7 @@
     <value>Keine ausgewählte Version</value>
   </data>
   <data name="NotCached" xml:space="preserve">
-    <value>(nicht gecached)</value>
+    <value>(nicht gecacht)</value>
   </data>
   <data name="NotInterfaceID" xml:space="preserve">
     <value>Das Interface '{0}' fängt nicht mit 'http:' an und ist auch existiert auch nicht als Datei '{1}'.</value>

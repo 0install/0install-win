@@ -130,6 +130,6 @@
     <value>Eigenschaften für {0}</value>
   </data>
   <data name="TryHelp" xml:space="preserve">
-    <value>Versuchen Sie {0} --help</value>
+    <value>Probieren Sie {0} --help</value>
   </data>
 </root>
