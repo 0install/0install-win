@@ -190,6 +190,9 @@
   <data name="RedoNotAvailable" xml:space="preserve">
     <value>This command cannot be performed again until the undo command has been performed.</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
   <data name="ShowDetails" xml:space="preserve">
     <value>Show details</value>
   </data>

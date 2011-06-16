@@ -48,7 +48,7 @@
             // 
             this.textSearch.ShowClearButton = true;
             this.textSearch.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textSearch.HintText = "Search";
+            this.textSearch.HintText = "(Search)";
             this.textSearch.Location = new System.Drawing.Point(0, 0);
             this.textSearch.Name = "textSearch";
             this.textSearch.Size = new System.Drawing.Size(156, 20);

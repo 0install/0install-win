@@ -177,6 +177,9 @@
   <data name="RedoNotAvailable" xml:space="preserve">
     <value>Dieser Befehl kann nicht erneut ausgeführt werden, bis der Rückgängig-Befehl ausgeführt wurde.</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Suche</value>
+  </data>
   <data name="ShowDetails" xml:space="preserve">
     <value>Details anzeigen</value>
   </data>
