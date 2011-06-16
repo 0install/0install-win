@@ -49,7 +49,7 @@ namespace ZeroInstall.Updater
         /// <summary>
         /// The version number of the new/updated version.
         /// </summary>
-        public string NewVersion { get; private set; }
+        public Version NewVersion { get; private set; }
         #endregion
 
         #region Constructor
@@ -70,7 +70,15 @@ namespace ZeroInstall.Updater
             #endregion
 
             Source = Path.GetFullPath(source);
-            NewVersion = newVersion;
+            try { NewVersion = new Version(newVersion); }
+            #region Error handling
+            catch (ArgumentException)
+            {}
+            catch (FormatException)
+            {}
+            catch (OverflowException)
+            {}
+            #endregion
             Target = Path.GetFullPath(target);
 
             if (!Directory.Exists(Source)) throw new DirectoryNotFoundException(Resources.SourceMissing);
@@ -100,12 +108,10 @@ namespace ZeroInstall.Updater
         /// </summary>
         public void DeleteFiles()
         {
-            switch (NewVersion)
+            if (NewVersion >= new Version("0.54.4"))
             {
-                case "0.54.4":
-                    foreach (string file in new[] {"ZeroInstall.MyApps.dll", Path.Combine("de", "ZeroInstall.MyApps.resources.dll")})
-                        File.Delete(file);
-                    break;
+                foreach (string file in new[] {"ZeroInstall.MyApps.dll", Path.Combine("de", "ZeroInstall.MyApps.resources.dll")})
+                    File.Delete(file);
             }
         }
         #endregion
