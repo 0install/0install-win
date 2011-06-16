@@ -262,7 +262,7 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
     <value>Options:</value>
   </data>
   <data name="OptionShow" xml:space="preserve">
-    <value>Show were the selected components are stored on the disk.</value>
+    <value>Show where the selected components are stored on the disk.</value>
   </data>
   <data name="OptionSource" xml:space="preserve">
     <value>Select source code rather than a binary. This is used internally by '0compile'.</value>
