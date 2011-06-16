@@ -26,6 +26,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
 using Common.Collections;
+using Common.Properties;
 using Common.Utils;
 
 namespace Common.Controls
@@ -164,6 +165,7 @@ namespace Common.Controls
         public FilteredTreeView()
         {
             InitializeComponent();
+            textSearch.HintText = Resources.Search;
 
             // Ensure the checked entries cache gets flushed
             _checkedEntries.CollectionChanged += delegate { _checkedEntriesArrayCache = null; };

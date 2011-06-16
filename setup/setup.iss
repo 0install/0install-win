@@ -1,5 +1,5 @@
 ;Version numbers
-#define Version "0.54.4"
+#define Version "1.0.0"
 
 ;Automatic dependency download and installation
 #include "scripts\fileversion.iss"

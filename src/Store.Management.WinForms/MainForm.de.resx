@@ -117,419 +117,45 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="splitContainer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="splitContainer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 12</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Panel1.Name" xml:space="preserve">
-    <value>splitContainer.Panel1</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Panel1.Parent" xml:space="preserve">
-    <value>splitContainer</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Panel1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tableLayoutPanelSize.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="tableLayoutPanelSize.ColumnCount" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="labelCurrentSize.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelCurrentSize.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="labelCurrentSize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 0</value>
-  </data>
   <data name="labelCurrentSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 19</value>
-  </data>
-  <data name="labelCurrentSize.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>113, 19</value>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">
-    <value>Current entry size:</value>
-  </data>
-  <data name="labelCurrentSize.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;labelCurrentSize.Name" xml:space="preserve">
-    <value>labelCurrentSize</value>
-  </data>
-  <data name="&gt;&gt;labelCurrentSize.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelCurrentSize.Parent" xml:space="preserve">
-    <value>tableLayoutPanelSize</value>
-  </data>
-  <data name="&gt;&gt;labelCurrentSize.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="textTotalSize.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+    <value>Aktueller Eintrag:</value>
   </data>
   <data name="textTotalSize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>117, 41</value>
-  </data>
-  <data name="textTotalSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 13</value>
-  </data>
-  <data name="textTotalSize.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="textTotalSize.Text" xml:space="preserve">
-    <value>-</value>
-  </data>
-  <data name="&gt;&gt;textTotalSize.Name" xml:space="preserve">
-    <value>textTotalSize</value>
-  </data>
-  <data name="&gt;&gt;textTotalSize.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textTotalSize.Parent" xml:space="preserve">
-    <value>tableLayoutPanelSize</value>
-  </data>
-  <data name="&gt;&gt;textTotalSize.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="textCurrentSize.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+    <value>122, 41</value>
   </data>
   <data name="textCurrentSize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>117, 3</value>
-  </data>
-  <data name="textCurrentSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 13</value>
-  </data>
-  <data name="textCurrentSize.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="textCurrentSize.Text" xml:space="preserve">
-    <value>-</value>
-  </data>
-  <data name="&gt;&gt;textCurrentSize.Name" xml:space="preserve">
-    <value>textCurrentSize</value>
-  </data>
-  <data name="&gt;&gt;textCurrentSize.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textCurrentSize.Parent" xml:space="preserve">
-    <value>tableLayoutPanelSize</value>
-  </data>
-  <data name="&gt;&gt;textCurrentSize.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="textCheckedSize.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+    <value>122, 3</value>
   </data>
   <data name="textCheckedSize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>117, 22</value>
-  </data>
-  <data name="textCheckedSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 13</value>
-  </data>
-  <data name="textCheckedSize.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="textCheckedSize.Text" xml:space="preserve">
-    <value>-</value>
-  </data>
-  <data name="&gt;&gt;textCheckedSize.Name" xml:space="preserve">
-    <value>textCheckedSize</value>
-  </data>
-  <data name="&gt;&gt;textCheckedSize.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textCheckedSize.Parent" xml:space="preserve">
-    <value>tableLayoutPanelSize</value>
-  </data>
-  <data name="&gt;&gt;textCheckedSize.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="labelCheckedSize.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelCheckedSize.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="labelCheckedSize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 19</value>
+    <value>122, 22</value>
   </data>
   <data name="labelCheckedSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 19</value>
-  </data>
-  <data name="labelCheckedSize.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>113, 19</value>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>Checked entries size:</value>
-  </data>
-  <data name="labelCheckedSize.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;labelCheckedSize.Name" xml:space="preserve">
-    <value>labelCheckedSize</value>
-  </data>
-  <data name="&gt;&gt;labelCheckedSize.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelCheckedSize.Parent" xml:space="preserve">
-    <value>tableLayoutPanelSize</value>
-  </data>
-  <data name="&gt;&gt;labelCheckedSize.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="labelTotalSize.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelTotalSize.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="labelTotalSize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 38</value>
+    <value>Ausgewählte Einträge:</value>
   </data>
   <data name="labelTotalSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 20</value>
-  </data>
-  <data name="labelTotalSize.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>113, 20</value>
   </data>
   <data name="labelTotalSize.Text" xml:space="preserve">
-    <value>Total size:</value>
-  </data>
-  <data name="labelTotalSize.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;labelTotalSize.Name" xml:space="preserve">
-    <value>labelTotalSize</value>
-  </data>
-  <data name="&gt;&gt;labelTotalSize.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelTotalSize.Parent" xml:space="preserve">
-    <value>tableLayoutPanelSize</value>
-  </data>
-  <data name="&gt;&gt;labelTotalSize.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="tableLayoutPanelSize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 360</value>
-  </data>
-  <data name="tableLayoutPanelSize.RowCount" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="tableLayoutPanelSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 58</value>
-  </data>
-  <data name="tableLayoutPanelSize.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelSize.Name" xml:space="preserve">
-    <value>tableLayoutPanelSize</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelSize.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelSize.Parent" xml:space="preserve">
-    <value>splitContainer.Panel2</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanelSize.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tableLayoutPanelSize.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="labelCurrentSize" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="textTotalSize" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="textCurrentSize" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="textCheckedSize" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="labelCheckedSize" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelTotalSize" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0" /&gt;&lt;Rows Styles="Percent,33,33,Percent,33,33,Percent,33,34" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="propertyGrid.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="propertyGrid.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="propertyGrid.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 354</value>
-  </data>
-  <data name="propertyGrid.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;propertyGrid.Name" xml:space="preserve">
-    <value>propertyGrid</value>
-  </data>
-  <data name="&gt;&gt;propertyGrid.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PropertyGrid, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;propertyGrid.Parent" xml:space="preserve">
-    <value>splitContainer.Panel2</value>
-  </data>
-  <data name="&gt;&gt;propertyGrid.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Panel2.Name" xml:space="preserve">
-    <value>splitContainer.Panel2</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Panel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Panel2.Parent" xml:space="preserve">
-    <value>splitContainer</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Panel2.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="splitContainer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>472, 421</value>
-  </data>
-  <data name="splitContainer.SplitterDistance" type="System.Int32, mscorlib">
-    <value>229</value>
-  </data>
-  <data name="splitContainer.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Name" xml:space="preserve">
-    <value>splitContainer</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonClose.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="buttonClose.Location" type="System.Drawing.Point, System.Drawing">
-    <value>409, 439</value>
-  </data>
-  <data name="buttonClose.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="buttonClose.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>Gesamtgröße:</value>
   </data>
   <data name="buttonClose.Text" xml:space="preserve">
-    <value>Close</value>
-  </data>
-  <data name="&gt;&gt;buttonClose.Name" xml:space="preserve">
-    <value>buttonClose</value>
-  </data>
-  <data name="&gt;&gt;buttonClose.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonClose.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonClose.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="buttonRefresh.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="buttonRefresh.Location" type="System.Drawing.Point, System.Drawing">
-    <value>328, 439</value>
-  </data>
-  <data name="buttonRefresh.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="buttonRefresh.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>Schließen</value>
   </data>
   <data name="buttonRefresh.Text" xml:space="preserve">
-    <value>&amp;Refresh</value>
-  </data>
-  <data name="&gt;&gt;buttonRefresh.Name" xml:space="preserve">
-    <value>buttonRefresh</value>
-  </data>
-  <data name="&gt;&gt;buttonRefresh.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonRefresh.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonRefresh.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="buttonRemove.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonRemove.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonRemove.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 439</value>
-  </data>
-  <data name="buttonRemove.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="buttonRemove.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>&amp;Aktualisieren</value>
   </data>
   <data name="buttonRemove.Text" xml:space="preserve">
-    <value>&amp;Remove</value>
-  </data>
-  <data name="&gt;&gt;buttonRemove.Name" xml:space="preserve">
-    <value>buttonRemove</value>
-  </data>
-  <data name="&gt;&gt;buttonRemove.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonRemove.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonRemove.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="buttonVerify.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonVerify.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonVerify.Location" type="System.Drawing.Point, System.Drawing">
-    <value>93, 439</value>
-  </data>
-  <data name="buttonVerify.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="buttonVerify.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>&amp;Entfernen</value>
   </data>
   <data name="buttonVerify.Text" xml:space="preserve">
-    <value>&amp;Verify</value>
-  </data>
-  <data name="&gt;&gt;buttonVerify.Name" xml:space="preserve">
-    <value>buttonVerify</value>
-  </data>
-  <data name="&gt;&gt;buttonVerify.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonVerify.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonVerify.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>496, 474</value>
+    <value>&amp;Verifizieren</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -847,16 +473,7 @@
         rEH//6xB8/+sQeAArEGAAKxBAACsQQAHrEEAA6xBAAGsQQABrEEAf6xBgP+sQf//rEH//6xB//+sQQ==
 </value>
   </data>
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>350, 250</value>
-  </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Zero Install cache management</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>MainForm</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Zero Install Cache Verwaltung</value>
   </data>
 </root>

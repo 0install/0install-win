@@ -117,124 +117,100 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ArchiveInvalid" xml:space="preserve">
-    <value>Die Archivdatei ist ungültig oder beschädigt.</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
   </data>
-  <data name="ArgMustBeGreaterThanZero" xml:space="preserve">
-    <value>Das Argument muss größer als Null sein.</value>
+  <data name="&gt;&gt;propertyGrid.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Abbrechen</value>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>Common.Controls.OKCancelDialog, Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
-  <data name="CannotAddCollectionToSelf" xml:space="preserve">
-    <value>Die Collection kann nicht zu sich selbst hinzugefügt werden.</value>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>ConfigForm</value>
   </data>
-  <data name="DestinationDirExist" xml:space="preserve">
-    <value>Das Zielverzeichnis existiert bereits.</value>
+  <data name="contextMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 48</value>
   </data>
-  <data name="Downloading" xml:space="preserve">
-    <value>Lade {0} runter</value>
+  <data name="&gt;&gt;contextMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="ErrorReportSent" xml:space="preserve">
-    <value>Der Fehlerbericht wurde erfolgreich versendet.</value>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>240, 180</value>
   </data>
-  <data name="FileNotExpectedSize" xml:space="preserve">
-    <value>Die Datei die von {0} runtergeladen werden sollte, hat nicht die erwartete Größe. Sollten {1} Bytes sein, waren aber {2} Bytes.</value>
+  <data name="&gt;&gt;propertyGrid.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
-  <data name="FileNotFound" xml:space="preserve">
-    <value>Die Datei "{0}" konnte nicht gefunden werden.</value>
+  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="HideDetails" xml:space="preserve">
-    <value>Details verstecken</value>
+  <data name="&gt;&gt;contextMenu.Name" xml:space="preserve">
+    <value>contextMenu</value>
   </data>
-  <data name="HttpAndFtpOnly" xml:space="preserve">
-    <value>Nur HTTP und FTP sind unterstützte Download-Protokolle.</value>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>284, 262</value>
   </data>
-  <data name="InvalidConfigDir" xml:space="preserve">
-    <value>Das Konfigurationsverzeichnis '{0}' ist vermutlich ungültig.</value>
+  <data name="&gt;&gt;buttonOK.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="KeyAlreadyPresent" xml:space="preserve">
-    <value>Der Schlüssel befindet sich bereits im Dictionary.</value>
+  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
+    <value>buttonCancel</value>
   </data>
-  <data name="KeyNotFound" xml:space="preserve">
-    <value>Der Schlüssel wurde in der Collection nicht gefunden.</value>
+  <data name="&gt;&gt;resetValueMenuItem.Name" xml:space="preserve">
+    <value>resetValueMenuItem</value>
   </data>
-  <data name="MaxElementsExceeded" xml:space="preserve">
-    <value>Die maximale Anzahl an Elementen in der Collection wurde überschritten.</value>
+  <data name="&gt;&gt;propertyGrid.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PropertyGrid, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="MissingStreamSeekSupport" xml:space="preserve">
-    <value>Der Stream muss Seeking unterstützen.</value>
+  <data name="&gt;&gt;propertyGrid.Name" xml:space="preserve">
+    <value>propertyGrid</value>
   </data>
-  <data name="No" xml:space="preserve">
-    <value>Nein</value>
+  <data name="resetValueMenuItem.Text" xml:space="preserve">
+    <value>&amp;Reset value</value>
   </data>
-  <data name="NoXmlDataInFile" xml:space="preserve">
-    <value>Es wurden keine XML Daten in der Datei gefunden.</value>
+  <data name="&gt;&gt;buttonOK.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="OnlyAvailableOnWindows" xml:space="preserve">
-    <value>Diese Methode steht nur unter Windows zur Verfügung.</value>
+  <data name="&gt;&gt;resetValueMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="RedoNotAvailable" xml:space="preserve">
-    <value>Dieser Befehl kann nicht erneut ausgeführt werden, bis der Rückgängig-Befehl ausgeführt wurde.</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="propertyGrid.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="Search" xml:space="preserve">
-    <value>Suche</value>
+  <data name="&gt;&gt;buttonOK.Name" xml:space="preserve">
+    <value>buttonOK</value>
   </data>
-  <data name="ShowDetails" xml:space="preserve">
-    <value>Details anzeigen</value>
+  <data name="&gt;&gt;buttonOK.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="SourceDestinationEqual" xml:space="preserve">
-    <value>Quelle und Ziel sind gleich.</value>
+  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="SourceDirNotExist" xml:space="preserve">
-    <value>Das Quellverzeichnis existiert nicht.</value>
+  <data name="propertyGrid.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 12</value>
   </data>
-  <data name="StateComplete" xml:space="preserve">
-    <value>Abgeschlossen</value>
+  <data name="resetValueMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
   </data>
-  <data name="StateData" xml:space="preserve">
-    <value>Verarbeite Daten</value>
+  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="StateHeader" xml:space="preserve">
-    <value>Hole Header</value>
+  <data name="propertyGrid.Size" type="System.Drawing.Size, System.Drawing">
+    <value>260, 209</value>
   </data>
-  <data name="StateIOError" xml:space="preserve">
-    <value>IO Fehler</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Zero Install configuration</value>
   </data>
-  <data name="StateMustBeReady" xml:space="preserve">
-    <value>Der Zustand muss "Ready" sein.</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="propertyGrid.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="StateReady" xml:space="preserve">
-    <value>Bereit</value>
-  </data>
-  <data name="StateWebError" xml:space="preserve">
-    <value>Web Fehler</value>
-  </data>
-  <data name="TargetsOldValuesLength" xml:space="preserve">
-    <value>Length von targets muss gleich Length von oldValues sein</value>
-  </data>
-  <data name="UnableToGenerateErrorReportFile" xml:space="preserve">
-    <value>Konnte Fehlerberichtdatei nicht erstellen. Bitte senden Sie die technischen Details per E-Mail.</value>
-  </data>
-  <data name="UnableToLaunchBundled" xml:space="preserve">
-    <value>Die mitgelieferte {0}-Installation konnte nicht gestartet werden. Bitte installieren Sie die Anwendung neu.</value>
-  </data>
-  <data name="UnableToLocateAssembly" xml:space="preserve">
-    <value>Die Assembly mit dem Namen "{0}" konnte nicht gefunden werden.</value>
-  </data>
-  <data name="UndoNotAvailable" xml:space="preserve">
-    <value>Dieser Rückgängig-Befehl kann nicht ausgeführt werden, bis der eigentliche Befehl ausgeführt wurde.</value>
-  </data>
-  <data name="UnhandledCliErrors" xml:space="preserve">
-    <value>Ein oder mehrere Fehler von einer externen Befehlszeilenanwendung wurden nicht behandelt.</value>
-  </data>
-  <data name="UnixSubsystemFail" xml:space="preserve">
-    <value>Das Unix Subsystem war nicht in der Lage die Anfrage zu bearbeiten. Eventuell haben Sie unzureichende Rechte.</value>
-  </data>
-  <data name="UserCancel" xml:space="preserve">
-    <value>Der Benutzer hat sich entschieden den Vorgang abzubrechen.</value>
-  </data>
-  <data name="Yes" xml:space="preserve">
-    <value>Ja</value>
-  </data>
+  <metadata name="contextMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>
