@@ -16,29 +16,17 @@
  */
 
 using System;
-using System.ComponentModel;
 using System.Xml.Serialization;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.DesktopIntegration.Model
+namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
-    /// Creates an entry for an application in the user's application menu (i.e. Windows start menu, GNOME application menu, etc.).
+    /// Creates an icon for an application on the user's desktop.
     /// </summary>
-    [XmlType("menu-entry", Namespace = AppList.XmlNamespace)]
-    public class MenuEntry : IconAccessPoint, IEquatable<MenuEntry>
+    [XmlType("desktop-icon", Namespace = AppList.XmlNamespace)]
+    public class DesktopIcon : IconAccessPoint, IEquatable<DesktopIcon>
     {
-        #region Properties
-        /// <summary>
-        /// The category or folder in the menu to add the entry to; <see langword="null"/> for top-level entry.
-        /// </summary>
-        [Description("The category or folder in the menu to add the entry to; null for top-level entry.")]
-        [XmlAttribute("category")]
-        public string Category { get; set; }
-        #endregion
-
-        //--------------------//
-
         #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, bool systemWide)
@@ -57,11 +45,11 @@ namespace ZeroInstall.DesktopIntegration.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the access point in the form "MenuEntry". Not safe for parsing!
+        /// Returns the access point in the form "DesktopIcon". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("MenuEntry");
+            return string.Format("DesktopIcon");
         }
         #endregion
 
@@ -69,18 +57,17 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new MenuEntry {Command = Command, Name = Name, Category = Category};
+            return new DesktopIcon {Command = Command, Name = Name};
         }
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(MenuEntry other)
+        public bool Equals(DesktopIcon other)
         {
             if (other == null) return false;
 
-            return base.Equals(other) &&
-                other.Category == Category;
+            return base.Equals(other);
         }
 
         /// <inheritdoc/>
@@ -88,18 +75,13 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(MenuEntry) && Equals((MenuEntry)obj);
+            return obj.GetType() == typeof(DesktopIcon) && Equals((DesktopIcon)obj);
         }
 
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int result = base.GetHashCode();
-                result = (result * 397) ^ (Category ?? "").GetHashCode();
-                return result;
-            }
+            return base.GetHashCode();
         }
         #endregion
     }

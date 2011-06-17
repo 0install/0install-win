@@ -17,22 +17,43 @@
 
 using System;
 using System.Xml.Serialization;
+using Common.Collections;
 using ZeroInstall.Model;
+using Capabilities = ZeroInstall.Model.Capabilities;
+using FileTypeWindows = ZeroInstall.DesktopIntegration.Windows.FileType;
 
-namespace ZeroInstall.DesktopIntegration.Model
+namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
-    /// Makes an application the default AutoPlay handler for a specific event.
+    /// Indicates that all compatible capabilities should be registered.
     /// </summary>
-    /// <seealso cref="ZeroInstall.Model.Capabilities.AutoPlay"/>
-    [XmlType("auto-play", Namespace = AppList.XmlNamespace)]
-    public class AutoPlay : DefaultAccessPoint, IEquatable<AutoPlay>
+    /// <seealso cref="ZeroInstall.Model.Capabilities"/>
+    [XmlType("capability-registration", Namespace = AppList.XmlNamespace)]
+    public class CapabilityRegistration : AccessPoint, IEquatable<CapabilityRegistration>
     {
+        #region Constants
+        /// <summary>
+        /// The name of this category of <see cref="AccessPoint"/>s as used by command-line interfaces.
+        /// </summary>
+        public const string CategoryName = "capabilities";
+        #endregion
+
+        //--------------------//
+
         #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, bool systemWide)
         {
-            // ToDo: Implement
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (feed == null) throw new ArgumentNullException("feed");
+            #endregion
+
+            foreach (var capabilityList in appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
+            {
+                foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(capabilityList.Entries))
+                    FileTypeWindows.Apply(appEntry.InterfaceID, feed, fileType, false, systemWide);
+            }
         }
 
         /// <inheritdoc/>
@@ -46,11 +67,11 @@ namespace ZeroInstall.DesktopIntegration.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the access point in the form "AutoPlay". Not safe for parsing!
+        /// Returns the access point in the form "CapabilityRegistration". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("AutoPlay");
+            return string.Format("CapabilityRegistration");
         }
         #endregion
 
@@ -58,17 +79,17 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new AutoPlay {Capability = Capability};
+            return new CapabilityRegistration();
         }
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(AutoPlay other)
+        public bool Equals(CapabilityRegistration other)
         {
             if (other == null) return false;
 
-            return base.Equals(other);
+            return true;
         }
 
         /// <inheritdoc/>
@@ -76,17 +97,13 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(AutoPlay) && Equals((AutoPlay)obj);
+            return obj.GetType() == typeof(CapabilityRegistration) && Equals((CapabilityRegistration)obj);
         }
 
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int result = base.GetHashCode();
-                return result;
-            }
+            return 0;
         }
         #endregion
     }

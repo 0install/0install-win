@@ -16,35 +16,34 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
-using Common.Utils;
 using ZeroInstall.Model;
-using Capabilities = ZeroInstall.Model.Capabilities;
-using FileTypeWindows = ZeroInstall.DesktopIntegration.Windows.FileType;
 
-namespace ZeroInstall.DesktopIntegration.Model
+namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
-    /// Makes an application the default handler for a specific file type.
+    /// Makes an application discoverable via the system's search PATH.
     /// </summary>
-    /// <seealso cref="ZeroInstall.Model.Capabilities.FileType"/>
-    [XmlType("file-type", Namespace = AppList.XmlNamespace)]
-    public class FileType : DefaultAccessPoint, IEquatable<FileType>
+    [XmlType("app-path", Namespace = AppList.XmlNamespace)]
+    public class AppPath : CommandAccessPoint, IEquatable<AppPath>
     {
+        #region Properties
+        /// <summary>
+        /// The name of the command-line command (without a file extension).
+        /// </summary>
+        [Description("The name of the command-line command (without a file extension).")]
+        [XmlAttribute("name")]
+        public string Name { get; set; }
+        #endregion
+
+        //--------------------//
+
         #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, bool systemWide)
         {
-            #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (feed == null) throw new ArgumentNullException("feed");
-            #endregion
-
-            var capability = appEntry.GetCapability<Capabilities.FileType>(Capability);
-            if (capability == null) return;
-
-            if (WindowsUtils.IsWindows)
-                FileTypeWindows.Apply(appEntry.InterfaceID, feed, capability, true, systemWide);
+            // ToDo: Implement
         }
 
         /// <inheritdoc/>
@@ -58,11 +57,11 @@ namespace ZeroInstall.DesktopIntegration.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the access point in the form "FileType: Capability". Not safe for parsing!
+        /// Returns the access point in the form "AppPath: Name (Command)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("FileType: {0}", Capability);
+            return string.Format("AppPath: {0} ({1})", Name, Command);
         }
         #endregion
 
@@ -70,17 +69,18 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new FileType {Capability = Capability};
+            return new AppPath {Command = Command, Name = Name};
         }
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(FileType other)
+        public bool Equals(AppPath other)
         {
             if (other == null) return false;
 
-            return base.Equals(other);
+            return base.Equals(other) &&
+                other.Name == Name;
         }
 
         /// <inheritdoc/>
@@ -88,7 +88,7 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(FileType) && Equals((FileType)obj);
+            return obj.GetType() == typeof(AppPath) && Equals((AppPath)obj);
         }
 
         /// <inheritdoc/>
@@ -97,6 +97,7 @@ namespace ZeroInstall.DesktopIntegration.Model
             unchecked
             {
                 int result = base.GetHashCode();
+                result = (result * 397) ^ (Name ?? "").GetHashCode();
                 return result;
             }
         }

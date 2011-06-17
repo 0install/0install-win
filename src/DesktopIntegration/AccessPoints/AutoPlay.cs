@@ -16,29 +16,18 @@
  */
 
 using System;
-using System.ComponentModel;
 using System.Xml.Serialization;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.DesktopIntegration.Model
+namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
-    /// Makes an application discoverable via the system's search PATH.
+    /// Makes an application the default AutoPlay handler for a specific event.
     /// </summary>
-    [XmlType("app-path", Namespace = AppList.XmlNamespace)]
-    public class AppPath : CommandAccessPoint, IEquatable<AppPath>
+    /// <seealso cref="ZeroInstall.Model.Capabilities.AutoPlay"/>
+    [XmlType("auto-play", Namespace = AppList.XmlNamespace)]
+    public class AutoPlay : DefaultAccessPoint, IEquatable<AutoPlay>
     {
-        #region Properties
-        /// <summary>
-        /// The name of the command-line command (without a file extension).
-        /// </summary>
-        [Description("The name of the command-line command (without a file extension).")]
-        [XmlAttribute("name")]
-        public string Name { get; set; }
-        #endregion
-
-        //--------------------//
-
         #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, bool systemWide)
@@ -57,11 +46,11 @@ namespace ZeroInstall.DesktopIntegration.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the access point in the form "AppPath: Name (Command)". Not safe for parsing!
+        /// Returns the access point in the form "AutoPlay". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("AppPath: {0} ({1})", Name, Command);
+            return string.Format("AutoPlay");
         }
         #endregion
 
@@ -69,18 +58,17 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new AppPath {Command = Command, Name = Name};
+            return new AutoPlay {Capability = Capability};
         }
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(AppPath other)
+        public bool Equals(AutoPlay other)
         {
             if (other == null) return false;
 
-            return base.Equals(other) &&
-                other.Name == Name;
+            return base.Equals(other);
         }
 
         /// <inheritdoc/>
@@ -88,7 +76,7 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(AppPath) && Equals((AppPath)obj);
+            return obj.GetType() == typeof(AutoPlay) && Equals((AutoPlay)obj);
         }
 
         /// <inheritdoc/>
@@ -97,7 +85,6 @@ namespace ZeroInstall.DesktopIntegration.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (Name ?? "").GetHashCode();
                 return result;
             }
         }

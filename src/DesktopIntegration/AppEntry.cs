@@ -19,10 +19,11 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
 
-namespace ZeroInstall.DesktopIntegration.Model
+namespace ZeroInstall.DesktopIntegration
 {
     /// <summary>
     /// Represents an application in the <see cref="AppList"/> indentified by its interface URI.

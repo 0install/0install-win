@@ -24,7 +24,7 @@ using Common;
 using Common.Storage;
 using ZeroInstall.DesktopIntegration.Properties;
 
-namespace ZeroInstall.DesktopIntegration.Model
+namespace ZeroInstall.DesktopIntegration
 {
     /// <summary>
     /// Stores a list of applications and their desktop integrations.

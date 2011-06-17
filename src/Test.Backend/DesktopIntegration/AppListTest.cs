@@ -17,9 +17,10 @@
 
 using Common.Storage;
 using NUnit.Framework;
-using ZeroInstall.Model.Capabilities;
+using ZeroInstall.DesktopIntegration.AccessPoints;
+using Capabilities = ZeroInstall.Model.Capabilities;
 
-namespace ZeroInstall.DesktopIntegration.Model
+namespace ZeroInstall.DesktopIntegration
 {
     /// <summary>
     /// Contains test methods for <see cref="AppList"/>.
@@ -38,14 +39,14 @@ namespace ZeroInstall.DesktopIntegration.Model
                 new AppEntry
                 {
                     AutoUpdate = true,
-                    CapabilityLists = {CapabilityListTest.CreateTestCapabilityList()},
+                    CapabilityLists = {Capabilities.CapabilityListTest.CreateTestCapabilityList()},
                     AccessPoints = CreateTestAccessPointList()
                 }
             } };
         }
 
         /// <summary>
-        /// Creates a fictive test <see cref="AccessPointList"/>.
+        /// Creates a fictive test <see cref="AccessPoints.AccessPointList"/>.
         /// </summary>
         private static AccessPointList CreateTestAccessPointList()
         {

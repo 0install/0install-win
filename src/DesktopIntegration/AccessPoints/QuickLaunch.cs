@@ -19,13 +19,13 @@ using System;
 using System.Xml.Serialization;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.DesktopIntegration.Model
+namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
-    /// Creates an icon for an application on the user's desktop.
+    /// Creates a shortcut for an application in the Quick Launch bar.
     /// </summary>
-    [XmlType("desktop-icon", Namespace = AppList.XmlNamespace)]
-    public class DesktopIcon : IconAccessPoint, IEquatable<DesktopIcon>
+    [XmlType("quick-launch", Namespace = AppList.XmlNamespace)]
+    public class QuickLaunch : IconAccessPoint, IEquatable<QuickLaunch>
     {
         #region Apply
         /// <inheritdoc/>
@@ -45,11 +45,11 @@ namespace ZeroInstall.DesktopIntegration.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the access point in the form "DesktopIcon". Not safe for parsing!
+        /// Returns the access point in the form "QuickLaunch". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("DesktopIcon");
+            return string.Format("QuickLaunch");
         }
         #endregion
 
@@ -57,13 +57,13 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new DesktopIcon {Command = Command, Name = Name};
+            return new QuickLaunch {Command = Command, Name = Name};
         }
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(DesktopIcon other)
+        public bool Equals(QuickLaunch other)
         {
             if (other == null) return false;
 
@@ -75,7 +75,7 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(DesktopIcon) && Equals((DesktopIcon)obj);
+            return obj.GetType() == typeof(QuickLaunch) && Equals((QuickLaunch)obj);
         }
 
         /// <inheritdoc/>

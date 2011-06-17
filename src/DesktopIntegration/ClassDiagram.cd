@@ -1,14 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ZeroInstall.DesktopIntegration.Model.AccessPoint" Collapsed="true">
-    <Position X="6.25" Y="2.75" Width="1.5" />
+  <Class Name="ZeroInstall.DesktopIntegration.AccessPoints.AccessPoint">
+    <Position X="6.25" Y="2.5" Width="1.5" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="CloneAccessPoint" Hidden="true" />
+    </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
-      <FileName>Model\AccessPoint.cs</FileName>
+      <HashCode>AAAAAAAAABAAAAAAAAAQAAAAAAAAAAAAAAAAAAEAABA=</HashCode>
+      <FileName>AccessPoints\AccessPoint.cs</FileName>
     </TypeIdentifier>
     <Lollipop Orientation="Right" Position="0.1" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.DesktopIntegration.Model.AppPath">
+  <Class Name="ZeroInstall.DesktopIntegration.AccessPoints.AppPath">
     <Position X="4" Y="4.5" Width="1.5" />
     <Members>
       <Method Name="CloneAccessPoint" Hidden="true" />
@@ -17,12 +21,12 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEgAAQAAQAACAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\AppPath.cs</FileName>
+      <HashCode>AAAAAAAAABAAAAAEgAAQAAQAAAAAAIAAAAAAAAEAAAA=</HashCode>
+      <FileName>AccessPoints\AppPath.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.DesktopIntegration.Model.AutoPlay">
+  <Class Name="ZeroInstall.DesktopIntegration.AccessPoints.AutoPlay">
     <Position X="5.75" Y="6.75" Width="1.5" />
     <Members>
       <Method Name="CloneAccessPoint" Hidden="true" />
@@ -31,12 +35,12 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEgAAQAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\AutoPlay.cs</FileName>
+      <HashCode>AAAAAAAAABAAAAAEgAAQAAAAAAAAAIAAAAAAAAEAAAA=</HashCode>
+      <FileName>AccessPoints\AutoPlay.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.DesktopIntegration.Model.ContextMenu">
+  <Class Name="ZeroInstall.DesktopIntegration.AccessPoints.ContextMenu">
     <Position X="7.5" Y="6.75" Width="1.5" />
     <Members>
       <Method Name="CloneAccessPoint" Hidden="true" />
@@ -45,12 +49,12 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEgAAQAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\ContextMenu.cs</FileName>
+      <HashCode>AAAAAAAAABAAAAAEgAAQAAAAAAAAAIAAAAAAAAEAAAA=</HashCode>
+      <FileName>AccessPoints\ContextMenu.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.DesktopIntegration.Model.DefaultProgram">
+  <Class Name="ZeroInstall.DesktopIntegration.AccessPoints.DefaultProgram">
     <Position X="9.25" Y="6.75" Width="1.5" />
     <Members>
       <Method Name="CloneAccessPoint" Hidden="true" />
@@ -59,12 +63,12 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEgAAQAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\DefaultProgram.cs</FileName>
+      <HashCode>AAAAAAAAABAAAAAEgAAQAAAAAAAAAIAAAAAAAAEAAAA=</HashCode>
+      <FileName>AccessPoints\DefaultProgram.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.DesktopIntegration.Model.DesktopIcon">
+  <Class Name="ZeroInstall.DesktopIntegration.AccessPoints.DesktopIcon">
     <Position X="2.25" Y="6.75" Width="1.5" />
     <Members>
       <Method Name="CloneAccessPoint" Hidden="true" />
@@ -73,12 +77,12 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEgAAQAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\DesktopIcon.cs</FileName>
+      <HashCode>AAAAAAAAABAAAAAEgAAQAAAAAAAAAIAAAAAAAAEAAAA=</HashCode>
+      <FileName>AccessPoints\DesktopIcon.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.DesktopIntegration.Model.FileType">
+  <Class Name="ZeroInstall.DesktopIntegration.AccessPoints.FileType">
     <Position X="11" Y="6.75" Width="1.5" />
     <Members>
       <Method Name="CloneAccessPoint" Hidden="true" />
@@ -87,12 +91,12 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEgAAQAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\FileType.cs</FileName>
+      <HashCode>AAAAAAAAABAAAAAEgAAQAAAAAAAAAIAAAAAAAAEAAAA=</HashCode>
+      <FileName>AccessPoints\FileType.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.DesktopIntegration.Model.MenuEntry">
+  <Class Name="ZeroInstall.DesktopIntegration.AccessPoints.MenuEntry">
     <Position X="0.5" Y="6.75" Width="1.5" />
     <Members>
       <Method Name="CloneAccessPoint" Hidden="true" />
@@ -101,50 +105,12 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEgAAQAAAAAAAAAIAAAAAAAAAACAA=</HashCode>
-      <FileName>Model\MenuEntry.cs</FileName>
+      <HashCode>AAAAAAAAABAAAAAEgAAQAAAAAAAAAIAAAAAAAAEACAA=</HashCode>
+      <FileName>AccessPoints\MenuEntry.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.DesktopIntegration.Model.AppEntry">
-    <Position X="3" Y="0.5" Width="1.5" />
-    <Members>
-      <Field Name="_capabilityLists" Hidden="true" />
-      <Method Name="Clone" Hidden="true" />
-      <Method Name="CloneEntry" Hidden="true" />
-      <Method Name="Equals" Hidden="true" />
-      <Method Name="GetHashCode" Hidden="true" />
-      <Method Name="ToString" Hidden="true" />
-    </Members>
-    <TypeIdentifier>
-      <HashCode>AAAAAAACAAgAABBEgACAAARAAAAAAIAAAAIAAAAAABA=</HashCode>
-      <FileName>Model\AppEntry.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="CapabilityLists" />
-    </ShowAsCollectionAssociation>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="ZeroInstall.DesktopIntegration.Model.AppList">
-    <Position X="0.5" Y="0.75" Width="1.5" />
-    <Members>
-      <Field Name="_entries" Hidden="true" />
-      <Method Name="Clone" Hidden="true" />
-      <Method Name="CloneAppList" Hidden="true" />
-      <Method Name="Equals" Hidden="true" />
-      <Method Name="GetHashCode" Hidden="true" />
-      <Field Name="XmlNamespace" Hidden="true" />
-    </Members>
-    <TypeIdentifier>
-      <HashCode>AAAAgIAQABAAACEAgAAAAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
-      <FileName>Model\AppList.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Entries" />
-    </ShowAsCollectionAssociation>
-    <Lollipop Position="0.121" Collapsed="true" />
-  </Class>
-  <Class Name="ZeroInstall.DesktopIntegration.Model.DefaultAccessPoint">
+  <Class Name="ZeroInstall.DesktopIntegration.AccessPoints.DefaultAccessPoint">
     <Position X="9" Y="4.5" Width="2" />
     <Members>
       <Method Name="Equals" Hidden="true" />
@@ -152,10 +118,10 @@
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAIAAAAgAAAAAAAACAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\DefaultAccessPoint.cs</FileName>
+      <FileName>AccessPoints\DefaultAccessPoint.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.DesktopIntegration.Model.CommandAccessPoint">
+  <Class Name="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint">
     <Position X="3" Y="2.75" Width="1.75" />
     <Members>
       <Method Name="Equals" Hidden="true" />
@@ -163,7 +129,7 @@
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAgAAABAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\CommandAccessPoint.cs</FileName>
+      <FileName>AccessPoints\CommandAccessPoint.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Model.Capabilities.CapabilityList">
@@ -185,7 +151,7 @@
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.DesktopIntegration.Model.UrlProtocol">
+  <Class Name="ZeroInstall.DesktopIntegration.AccessPoints.UrlProtocol">
     <Position X="12.75" Y="6.75" Width="1.5" />
     <Members>
       <Method Name="CloneAccessPoint" Hidden="true" />
@@ -194,12 +160,12 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEgAAQAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\UrlProtocol.cs</FileName>
+      <HashCode>AAAAAAAAABAAAAAEgAAQAAAAAAAAAIAAAAAAAAEAAAA=</HashCode>
+      <FileName>AccessPoints\UrlProtocol.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.DesktopIntegration.Model.IconAccessPoint">
+  <Class Name="ZeroInstall.DesktopIntegration.AccessPoints.IconAccessPoint">
     <Position X="2.25" Y="4.5" Width="1.5" />
     <Members>
       <Method Name="Equals" Hidden="true" />
@@ -207,10 +173,10 @@
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAgAAAAAQAACAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\IconAccessPoint.cs</FileName>
+      <FileName>AccessPoints\IconAccessPoint.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.DesktopIntegration.Model.QuickLaunch">
+  <Class Name="ZeroInstall.DesktopIntegration.AccessPoints.QuickLaunch">
     <Position X="4" Y="6.75" Width="1.5" />
     <Members>
       <Method Name="CloneAccessPoint" Hidden="true" />
@@ -219,12 +185,12 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEgAAQAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\QuickLaunch.cs</FileName>
+      <HashCode>AAAAAAAAABAAAAAEgAAQAAAAAAAAAIAAAAAAAAEAAAA=</HashCode>
+      <FileName>AccessPoints\QuickLaunch.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.243" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.DesktopIntegration.Model.AccessPointList">
+  <Class Name="ZeroInstall.DesktopIntegration.AccessPoints.AccessPointList">
     <Position X="6.25" Y="1" Width="1.5" />
     <Members>
       <Field Name="_accessPoints" Hidden="true" />
@@ -236,7 +202,7 @@
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAACAEgAgAAAAAAAAAgIAAAAAAAAAAABA=</HashCode>
-      <FileName>Model\AccessPointList.cs</FileName>
+      <FileName>AccessPoints\AccessPointList.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Entries" />
@@ -248,7 +214,7 @@
     <TypeIdentifier />
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.DesktopIntegration.Model.CapabilityRegistration">
+  <Class Name="ZeroInstall.DesktopIntegration.AccessPoints.CapabilityRegistration">
     <Position X="6" Y="4.5" Width="2" />
     <Members>
       <Method Name="CloneAccessPoint" Hidden="true" />
@@ -257,9 +223,49 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEgAAQAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\CapabilitiyRegistration.cs</FileName>
+      <HashCode>AAAAAAAAABAAAAAEgAAQAAAAACAAAIAAAAAAAAEAAAA=</HashCode>
+      <FileName>AccessPoints\CapabilitiyRegistration.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.DesktopIntegration.AppList">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Members>
+      <Field Name="_entries" Hidden="true" />
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="CloneAppList" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAgIAQABAAACEAgAAAAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
+      <FileName>AppList.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Entries" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.DesktopIntegration.AppEntry">
+    <Position X="3" Y="0.5" Width="1.75" />
+    <Members>
+      <Field Name="_capabilityLists" Hidden="true" />
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="CloneEntry" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAgAABBEgACAAARAAAAAAIACAAAAAAAAABA=</HashCode>
+      <FileName>AppEntry.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AccessPoints" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="CapabilityLists" />
+    </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Font Name="Segoe UI" Size="9" />

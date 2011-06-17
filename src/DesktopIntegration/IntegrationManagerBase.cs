@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using Common.Storage;
 using Common.Utils;
-using ZeroInstall.DesktopIntegration.Model;
+using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;

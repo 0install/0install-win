@@ -16,17 +16,29 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.DesktopIntegration.Model
+namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
-    /// Creates a shortcut for an application in the Quick Launch bar.
+    /// Creates an entry for an application in the user's application menu (i.e. Windows start menu, GNOME application menu, etc.).
     /// </summary>
-    [XmlType("quick-launch", Namespace = AppList.XmlNamespace)]
-    public class QuickLaunch : IconAccessPoint, IEquatable<QuickLaunch>
+    [XmlType("menu-entry", Namespace = AppList.XmlNamespace)]
+    public class MenuEntry : IconAccessPoint, IEquatable<MenuEntry>
     {
+        #region Properties
+        /// <summary>
+        /// The category or folder in the menu to add the entry to; <see langword="null"/> for top-level entry.
+        /// </summary>
+        [Description("The category or folder in the menu to add the entry to; null for top-level entry.")]
+        [XmlAttribute("category")]
+        public string Category { get; set; }
+        #endregion
+
+        //--------------------//
+
         #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, bool systemWide)
@@ -45,11 +57,11 @@ namespace ZeroInstall.DesktopIntegration.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the access point in the form "QuickLaunch". Not safe for parsing!
+        /// Returns the access point in the form "MenuEntry". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("QuickLaunch");
+            return string.Format("MenuEntry");
         }
         #endregion
 
@@ -57,17 +69,18 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new QuickLaunch {Command = Command, Name = Name};
+            return new MenuEntry {Command = Command, Name = Name, Category = Category};
         }
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(QuickLaunch other)
+        public bool Equals(MenuEntry other)
         {
             if (other == null) return false;
 
-            return base.Equals(other);
+            return base.Equals(other) &&
+                other.Category == Category;
         }
 
         /// <inheritdoc/>
@@ -75,13 +88,18 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(QuickLaunch) && Equals((QuickLaunch)obj);
+            return obj.GetType() == typeof(MenuEntry) && Equals((MenuEntry)obj);
         }
 
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            unchecked
+            {
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (Category ?? "").GetHashCode();
+                return result;
+            }
         }
         #endregion
     }

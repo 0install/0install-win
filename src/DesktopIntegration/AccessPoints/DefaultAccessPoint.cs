@@ -18,50 +18,46 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace ZeroInstall.DesktopIntegration.Model
+namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
-    /// Creates some form of icon in the dektop environment.
+    /// Makes an application the default handler for something.
     /// </summary>
-    [XmlType("icon-access-point", Namespace = AppList.XmlNamespace)]
-    public abstract class IconAccessPoint : CommandAccessPoint
+    /// <seealso cref="ZeroInstall.Model.Capabilities.Capability"/>
+    [XmlType("default-access-point", Namespace = AppList.XmlNamespace)]
+    public abstract class DefaultAccessPoint : AccessPoint
     {
         #region Constants
         /// <summary>
         /// The name of this category of <see cref="AccessPoint"/>s as used by command-line interfaces.
         /// </summary>
-        public const string CategoryName = "icons";
+        public const string CategoryName = "defaults";
         #endregion
 
         #region Properties
         /// <summary>
-        /// The user-defined override for name of the icon; <see langword="null"/> to use the <see cref="ZeroInstall.Model.Feed.Name"/> + <see cref="ZeroInstall.Model.Command.Name"/>.
+        /// The ID of the <see cref="Capability"/> being referenced.
         /// </summary>
-        [Description("The user-defined override for name of the icon; null to use the Name from the Feed + the Command name.")]
-        [XmlAttribute("name")]
-        public string Name { get; set; }
+        [Description("The ID of the Capability being referenced.")]
+        [XmlAttribute("capability")]
+        public string Capability { get; set; }
         #endregion
 
         //--------------------//
 
         #region Equality
         /// <inheritdoc/>
-        protected bool Equals(IconAccessPoint other)
+        protected bool Equals(DefaultAccessPoint other)
         {
             if (other == null) return false;
 
-            return base.Equals(other) && other.Name == Name;
+            return other.Capability == Capability;
         }
 
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int result = base.GetHashCode();
-                result = (result * 397) ^ (Name ?? "").GetHashCode();
-                return result;
-            }
+            return (Capability ?? "").GetHashCode();
         }
         #endregion
     }

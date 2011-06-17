@@ -17,29 +17,20 @@
 
 using System;
 using System.Xml.Serialization;
-using Common.Collections;
+using Common.Utils;
 using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
 using FileTypeWindows = ZeroInstall.DesktopIntegration.Windows.FileType;
 
-namespace ZeroInstall.DesktopIntegration.Model
+namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
-    /// Indicates that all compatible capabilities should be registered.
+    /// Makes an application the default handler for a specific file type.
     /// </summary>
-    /// <seealso cref="ZeroInstall.Model.Capabilities"/>
-    [XmlType("capability-registration", Namespace = AppList.XmlNamespace)]
-    public class CapabilityRegistration : AccessPoint, IEquatable<CapabilityRegistration>
+    /// <seealso cref="ZeroInstall.Model.Capabilities.FileType"/>
+    [XmlType("file-type", Namespace = AppList.XmlNamespace)]
+    public class FileType : DefaultAccessPoint, IEquatable<FileType>
     {
-        #region Constants
-        /// <summary>
-        /// The name of this category of <see cref="AccessPoint"/>s as used by command-line interfaces.
-        /// </summary>
-        public const string CategoryName = "capabilities";
-        #endregion
-
-        //--------------------//
-
         #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, bool systemWide)
@@ -49,11 +40,11 @@ namespace ZeroInstall.DesktopIntegration.Model
             if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
-            foreach (var capabilityList in appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
-            {
-                foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(capabilityList.Entries))
-                    FileTypeWindows.Apply(appEntry.InterfaceID, feed, fileType, false, systemWide);
-            }
+            var capability = appEntry.GetCapability<Capabilities.FileType>(Capability);
+            if (capability == null) return;
+
+            if (WindowsUtils.IsWindows)
+                FileTypeWindows.Apply(appEntry.InterfaceID, feed, capability, true, systemWide);
         }
 
         /// <inheritdoc/>
@@ -67,11 +58,11 @@ namespace ZeroInstall.DesktopIntegration.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the access point in the form "CapabilityRegistration". Not safe for parsing!
+        /// Returns the access point in the form "FileType: Capability". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("CapabilityRegistration");
+            return string.Format("FileType: {0}", Capability);
         }
         #endregion
 
@@ -79,17 +70,17 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new CapabilityRegistration();
+            return new FileType {Capability = Capability};
         }
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(CapabilityRegistration other)
+        public bool Equals(FileType other)
         {
             if (other == null) return false;
 
-            return true;
+            return base.Equals(other);
         }
 
         /// <inheritdoc/>
@@ -97,13 +88,17 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(CapabilityRegistration) && Equals((CapabilityRegistration)obj);
+            return obj.GetType() == typeof(FileType) && Equals((FileType)obj);
         }
 
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return 0;
+            unchecked
+            {
+                int result = base.GetHashCode();
+                return result;
+            }
         }
         #endregion
     }

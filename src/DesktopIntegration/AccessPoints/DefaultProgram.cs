@@ -17,34 +17,22 @@
 
 using System;
 using System.Xml.Serialization;
-using Common.Utils;
 using ZeroInstall.Model;
-using Capabilities = ZeroInstall.Model.Capabilities;
-using UrlProtocolWindows = ZeroInstall.DesktopIntegration.Windows.UrlProtocol;
 
-namespace ZeroInstall.DesktopIntegration.Model
+namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
-    /// Makes an application the default handler for a specific URL protocol.
+    /// Makes an application a default program of some kind (e.g. default web-browser, default e-mail client, ...).
     /// </summary>
-    /// <seealso cref="ZeroInstall.Model.Capabilities.UrlProtocol"/>
-    [XmlType("url-protocol", Namespace = AppList.XmlNamespace)]
-    public class UrlProtocol : DefaultAccessPoint, IEquatable<UrlProtocol>
+    /// <seealso cref="ZeroInstall.Model.Capabilities.DefaultProgram"/>
+    [XmlType("default-program", Namespace = AppList.XmlNamespace)]
+    public class DefaultProgram : DefaultAccessPoint, IEquatable<DefaultProgram>
     {
         #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, bool systemWide)
         {
-            #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (feed == null) throw new ArgumentNullException("feed");
-            #endregion
-
-            var capability = appEntry.GetCapability<Capabilities.UrlProtocol>(Capability);
-            if (capability == null) return;
-
-            if (WindowsUtils.IsWindows)
-                UrlProtocolWindows.Apply(appEntry.InterfaceID, feed, capability, true, systemWide);
+            // ToDo: Implement
         }
 
         /// <inheritdoc/>
@@ -58,11 +46,11 @@ namespace ZeroInstall.DesktopIntegration.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the access point in the form "UrlProtocol: Capability". Not safe for parsing!
+        /// Returns the access point in the form "DefaultProgram". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("UrlProtocol: {0}", Capability);
+            return string.Format("DefaultProgram");
         }
         #endregion
 
@@ -70,13 +58,13 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new UrlProtocol {Capability = Capability};
+            return new DefaultProgram {Capability = Capability};
         }
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(UrlProtocol other)
+        public bool Equals(DefaultProgram other)
         {
             if (other == null) return false;
 
@@ -88,7 +76,7 @@ namespace ZeroInstall.DesktopIntegration.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(UrlProtocol) && Equals((UrlProtocol)obj);
+            return obj.GetType() == typeof(DefaultProgram) && Equals((DefaultProgram)obj);
         }
 
         /// <inheritdoc/>

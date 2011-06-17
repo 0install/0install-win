@@ -21,7 +21,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.DesktopIntegration.Model
+namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
     /// A set of <see cref="AccessPoint"/>s that can be registered in a desktop environment.

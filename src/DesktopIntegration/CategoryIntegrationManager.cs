@@ -18,7 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using ZeroInstall.DesktopIntegration.Model;
+using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;

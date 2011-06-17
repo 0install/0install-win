@@ -52,24 +52,24 @@
     <Compile Include="CategoryIntegrationManager.cs" />
     <Compile Include="DetailedIntegrationManager.cs" />
     <Compile Include="IntegrationManagerBase.cs" />
-    <Compile Include="Model\AccessPoint.cs" />
-    <Compile Include="Model\AccessPointList.cs" />
-    <Compile Include="Model\AppEntry.cs" />
-    <Compile Include="Model\AppList.cs" />
-    <Compile Include="Model\AppPath.cs" />
-    <Compile Include="Model\AutoPlay.cs" />
-    <Compile Include="Model\CapabilitiyRegistration.cs" />
-    <Compile Include="Model\DefaultAccessPoint.cs" />
-    <Compile Include="Model\ContextMenu.cs" />
-    <Compile Include="Model\DefaultProgram.cs" />
-    <Compile Include="Model\CommandAccessPoint.cs" />
-    <Compile Include="Model\FileType.cs" />
-    <Compile Include="Model\IconAccessPoint.cs" />
-    <Compile Include="Model\MenuEntry.cs" />
-    <Compile Include="Model\DesktopIcon.cs" />
+    <Compile Include="AccessPoints\AccessPoint.cs" />
+    <Compile Include="AccessPoints\AccessPointList.cs" />
+    <Compile Include="AppEntry.cs" />
+    <Compile Include="AppList.cs" />
+    <Compile Include="AccessPoints\AppPath.cs" />
+    <Compile Include="AccessPoints\AutoPlay.cs" />
+    <Compile Include="AccessPoints\CapabilitiyRegistration.cs" />
+    <Compile Include="AccessPoints\DefaultAccessPoint.cs" />
+    <Compile Include="AccessPoints\ContextMenu.cs" />
+    <Compile Include="AccessPoints\DefaultProgram.cs" />
+    <Compile Include="AccessPoints\CommandAccessPoint.cs" />
+    <Compile Include="AccessPoints\FileType.cs" />
+    <Compile Include="AccessPoints\IconAccessPoint.cs" />
+    <Compile Include="AccessPoints\MenuEntry.cs" />
+    <Compile Include="AccessPoints\DesktopIcon.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Model\QuickLaunch.cs" />
-    <Compile Include="Model\UrlProtocol.cs" />
+    <Compile Include="AccessPoints\QuickLaunch.cs" />
+    <Compile Include="AccessPoints\UrlProtocol.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -110,7 +110,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Model\ClassDiagram.cd" />
+    <None Include="ClassDiagram.cd" />
     <EmbeddedResource Include="Windows\Stub.template" />
   </ItemGroup>
   <ItemGroup>

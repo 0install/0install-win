@@ -107,7 +107,7 @@
     <Compile Include="Model\OverlayBindingTest.cs" />
     <Compile Include="Model\PackageImplementationTest.cs" />
     <Compile Include="Model\RunnerTest.cs" />
-    <Compile Include="DesktopIntegration\Model\AppListTest.cs" />
+    <Compile Include="DesktopIntegration\AppListTest.cs" />
     <Compile Include="Store\Feeds\DiskIconCacheTest.cs" />
     <Compile Include="Store\Feeds\MemoryFeedCacheTest.cs" />
     <Compile Include="Store\Feeds\DiskFeedCacheTest.cs" />
@@ -137,6 +137,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Fetchers\testArchive.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DesktopIntegration\Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

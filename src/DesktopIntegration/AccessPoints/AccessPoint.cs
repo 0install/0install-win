@@ -20,7 +20,7 @@ using System.IO;
 using System.Xml.Serialization;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.DesktopIntegration.Model
+namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
     /// An access point represents changes to the desktop environment's UI which the user explicitly requested.

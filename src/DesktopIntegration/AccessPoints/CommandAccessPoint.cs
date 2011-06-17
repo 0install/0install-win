@@ -18,46 +18,39 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace ZeroInstall.DesktopIntegration.Model
+namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
-    /// Makes an application the default handler for something.
+    /// Adds a way to explicitly launch the application to the desktop environment.
     /// </summary>
-    /// <seealso cref="ZeroInstall.Model.Capabilities.Capability"/>
-    [XmlType("default-access-point", Namespace = AppList.XmlNamespace)]
-    public abstract class DefaultAccessPoint : AccessPoint
+    /// <seealso cref="ZeroInstall.Model.Command"/>
+    [XmlType("command-access-point", Namespace = AppList.XmlNamespace)]
+    public abstract class CommandAccessPoint : AccessPoint
     {
-        #region Constants
-        /// <summary>
-        /// The name of this category of <see cref="AccessPoint"/>s as used by command-line interfaces.
-        /// </summary>
-        public const string CategoryName = "defaults";
-        #endregion
-
         #region Properties
         /// <summary>
-        /// The ID of the <see cref="Capability"/> being referenced.
+        /// The name of the <see cref="ZeroInstall.Model.Command"/> to use when launching via this access point.
         /// </summary>
-        [Description("The ID of the Capability being referenced.")]
-        [XmlAttribute("capability")]
-        public string Capability { get; set; }
+        [Description("The name of the Command to use when launching via this access point.")]
+        [XmlAttribute("command")]
+        public string Command { get; set; }
         #endregion
 
         //--------------------//
 
         #region Equality
         /// <inheritdoc/>
-        protected bool Equals(DefaultAccessPoint other)
+        protected bool Equals(CommandAccessPoint other)
         {
             if (other == null) return false;
 
-            return other.Capability == Capability;
+            return other.Command == Command;
         }
 
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return (Capability ?? "").GetHashCode();
+            return (Command ?? "").GetHashCode();
         }
         #endregion
     }
