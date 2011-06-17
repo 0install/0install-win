@@ -51,6 +51,16 @@ namespace Common.Collections
         }
 
         /// <summary>
+        /// Ensures that <see cref="EnumerableUtils.OfType{TResult}"/> correctly filters out elements of specific types.
+        /// </summary>
+        [Test]
+        public void TestOfType()
+        {
+            var source = new object[] {1, "a", 2, "b", 3, "c"};
+            CollectionAssert.AreEqual(new[] {1, 2, 3}, EnumerableUtils.OfType<int>(source));
+        }
+
+        /// <summary>
         /// Ensures that <see cref="EnumerableUtils.GetAddedElements{T}(T[],T[])"/> correctly detects elements added to an ordered collection.
         /// </summary>
         [Test]

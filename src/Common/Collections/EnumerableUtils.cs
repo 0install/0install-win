@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Common.Collections
@@ -54,6 +55,20 @@ namespace Common.Collections
 
             using (var enumerator = collection.GetEnumerator())
                 return !enumerator.MoveNext();
+        }
+
+        /// <summary>
+        /// Filters a list of elements based on their type.
+        /// </summary>
+        /// <typeparam name="TResult">The type of elements to find.</typeparam>
+        /// <param name="source">The list of elements to filter.</param>
+        /// <returns>All elements in <paramref name="source"/> that are of tpye <typeparamref name="TResult"/>.</returns>
+        public static IEnumerable<TResult> OfType<TResult>(IEnumerable source)
+        {
+            foreach (var element in source)
+            {
+                if (element is TResult) yield return (TResult)element;
+            }
         }
 
         /// <summary>
