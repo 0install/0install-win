@@ -57,14 +57,14 @@ namespace ZeroInstall.Injector.Solver
         public C5.HashedArrayList<ImplementationSelection> Implementations { get { return _implementations; } }
 
         // Preserve order
-        private readonly C5.ArrayList<Command> _commands = new C5.ArrayList<Command>();
+        private readonly C5.LinkedList<Command> _commands = new C5.LinkedList<Command>();
         /// <summary>
         /// A set of commands required to execute the selection. The first is for the program, the second is the program's runner, and so on.
         /// </summary>
         [Category("Execution"), Description("A set of commands required to execute the selection. The first is for the program, the second is the program's runner, and so on.")]
         [XmlElement("command")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<Command> Commands { get { return _commands; } }
+        public C5.LinkedList<Command> Commands { get { return _commands; } }
         #endregion
 
         //--------------------//

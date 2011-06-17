@@ -63,14 +63,14 @@ namespace ZeroInstall.Injector.Feeds
         public Stability StabilityPolicy { get { return _stabilityPolicy; } set { _stabilityPolicy = value; } }
 
         // Preserve order
-        private readonly C5.ArrayList<FeedReference> _feeds = new C5.ArrayList<FeedReference>();
+        private readonly C5.LinkedList<FeedReference> _feeds = new C5.LinkedList<FeedReference>();
         /// <summary>
         /// Zero ore more additional feeds containing implementations of this interface.
         /// </summary>
         [Description("Zero ore more additional feeds containing implementations of this interface.")]
         [XmlElement("feed")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<FeedReference> Feeds { get { return _feeds; } }
+        public C5.LinkedList<FeedReference> Feeds { get { return _feeds; } }
         #endregion
 
         //--------------------//

@@ -40,13 +40,13 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Properties
         // Order is preserved, but ignore it when comparing
-        private readonly C5.ArrayList<Key> _keys = new C5.ArrayList<Key>();
+        private readonly C5.LinkedList<Key> _keys = new C5.LinkedList<Key>();
         /// <summary>
         /// A list of <see cref="Domain"/>s this key is valid for.
         /// </summary>
         [XmlElement("key")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<Key> Keys { get { return _keys; } }
+        public C5.LinkedList<Key> Keys { get { return _keys; } }
         #endregion
 
         //--------------------//
