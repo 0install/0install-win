@@ -21,7 +21,7 @@ using System.Security;
 using Microsoft.Win32;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
-using ContextMenuWindows = ZeroInstall.DesktopIntegration.Windows.ContextMenu;
+using Windows = ZeroInstall.DesktopIntegration.Windows;
 
 namespace ZeroInstall.Capture
 {
@@ -44,7 +44,7 @@ namespace ZeroInstall.Capture
             if (commandProvider == null) throw new ArgumentNullException("commandProvider");
             #endregion
 
-            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(ContextMenuWindows.RegKeyClassesFilesPrefix))
+            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(Windows.ContextMenu.RegKeyClassesFilesPrefix))
                 foreach (string entry in snapshotDiff.FilesContextMenuSimple)
                 {
                     capabilities.Entries.Add(new ContextMenu
@@ -55,7 +55,7 @@ namespace ZeroInstall.Capture
                     });
                 }
 
-            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(ContextMenuWindows.RegKeyClassesAllPrefix))
+            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(Windows.ContextMenu.RegKeyClassesAllPrefix))
                 foreach (string entry in snapshotDiff.AllContextMenuSimple)
                 {
                     capabilities.Entries.Add(new ContextMenu

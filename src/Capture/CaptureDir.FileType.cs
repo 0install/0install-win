@@ -21,8 +21,7 @@ using System.Security;
 using Microsoft.Win32;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
-using FileTypeWindows = ZeroInstall.DesktopIntegration.Windows.FileType;
-using UrlProtocolWindows = ZeroInstall.DesktopIntegration.Windows.UrlProtocol;
+using Windows = ZeroInstall.DesktopIntegration.Windows;
 
 namespace ZeroInstall.Capture
 {
@@ -76,7 +75,7 @@ namespace ZeroInstall.Capture
                 if (progIDKey == null) return null;
 
                 VerbCapability capability;
-                if (progIDKey.GetValue(UrlProtocolWindows.ProtocolIndicator) == null)
+                if (progIDKey.GetValue(Windows.UrlProtocol.ProtocolIndicator) == null)
                 { // Normal file type
                     var fileType = new FileType {ID = progID};
 
@@ -91,8 +90,8 @@ namespace ZeroInstall.Capture
                             fileType.Extensions.Add(new FileTypeExtension
                             {
                                 Value = fileAssoc.Key,
-                                MimeType = assocKey.GetValue(FileTypeWindows.RegValueContentType, "").ToString(),
-                                PerceivedType = assocKey.GetValue(FileTypeWindows.RegValuePerceivedType, "").ToString()
+                                MimeType = assocKey.GetValue(Windows.FileType.RegValueContentType, "").ToString(),
+                                PerceivedType = assocKey.GetValue(Windows.FileType.RegValuePerceivedType, "").ToString()
                             });
                         }
                     }
@@ -104,7 +103,7 @@ namespace ZeroInstall.Capture
                     capability = new UrlProtocol {ID = progID};
                 }
 
-                capability.Description = progIDKey.GetValue(FileTypeWindows.RegValueFriendlyName, "").ToString();
+                capability.Description = progIDKey.GetValue(Windows.FileType.RegValueFriendlyName, "").ToString();
                 if (string.IsNullOrEmpty(capability.Description)) capability.Description = progIDKey.GetValue("", "").ToString();
 
                 capability.Verbs.AddAll(GetVerbs(progIDKey, commandProvider));

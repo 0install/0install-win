@@ -24,7 +24,7 @@ using Microsoft.Win32;
 using ZeroInstall.Capture.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
-using AppRegistrationWindows = ZeroInstall.DesktopIntegration.Windows.AppRegistration;
+using Windows = ZeroInstall.DesktopIntegration.Windows;
 
 namespace ZeroInstall.Capture
 {
@@ -59,7 +59,7 @@ namespace ZeroInstall.Capture
 
             // Get registry path pointer
             string appRegName = snapshotDiff.RegisteredApplications[0];
-            string capabilitiesRegPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\" + AppRegistrationWindows.RegKeyMachineRegisteredApplications, appRegName, "") as string;
+            string capabilitiesRegPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\" + Windows.AppRegistration.RegKeyMachineRegisteredApplications, appRegName, "") as string;
             if (string.IsNullOrEmpty(capabilitiesRegPath))
             {
                 return null;
@@ -74,8 +74,8 @@ namespace ZeroInstall.Capture
                     return null;
                 }
 
-                if (string.IsNullOrEmpty(appName)) appName = capsKey.GetValue(AppRegistrationWindows.RegValueAppName, "").ToString();
-                if (string.IsNullOrEmpty(appDescription)) appDescription = capsKey.GetValue(AppRegistrationWindows.RegValueAppDescription, "").ToString();
+                if (string.IsNullOrEmpty(appName)) appName = capsKey.GetValue(Windows.AppRegistration.RegValueAppName, "").ToString();
+                if (string.IsNullOrEmpty(appDescription)) appDescription = capsKey.GetValue(Windows.AppRegistration.RegValueAppDescription, "").ToString();
 
                 CollectProtocolAssocsEx(capsKey, commandProvider, capabilities);
                 CollectFileAssocsEx(capsKey, capabilities);
@@ -108,7 +108,7 @@ namespace ZeroInstall.Capture
             if (capabilities == null) throw new ArgumentNullException("capabilities");
             #endregion
 
-            using (var urlAssocKey = capsKey.OpenSubKey(AppRegistrationWindows.RegSubKeyUrlAssocs))
+            using (var urlAssocKey = capsKey.OpenSubKey(Windows.AppRegistration.RegSubKeyUrlAssocs))
             {
                 if (urlAssocKey == null) return;
 
@@ -150,7 +150,7 @@ namespace ZeroInstall.Capture
             if (capabilities == null) throw new ArgumentNullException("capabilities");
             #endregion
 
-            using (var fileAssocKey = capsKey.OpenSubKey(AppRegistrationWindows.RegSubKeyFileAssocs))
+            using (var fileAssocKey = capsKey.OpenSubKey(Windows.AppRegistration.RegSubKeyFileAssocs))
             {
                 if (fileAssocKey == null) return;
 

@@ -20,7 +20,6 @@ using System.Xml.Serialization;
 using Common.Utils;
 using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
-using UrlProtocolWindows = ZeroInstall.DesktopIntegration.Windows.UrlProtocol;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
@@ -44,7 +43,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (capability == null) return;
 
             if (WindowsUtils.IsWindows)
-                UrlProtocolWindows.Apply(appEntry.InterfaceID, feed, capability, true, systemWide);
+                Windows.UrlProtocol.Apply(appEntry.InterfaceID, feed, capability, true, systemWide);
         }
 
         /// <inheritdoc/>

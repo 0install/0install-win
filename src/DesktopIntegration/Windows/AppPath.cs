@@ -19,7 +19,6 @@ using System;
 using Common.Utils;
 using Microsoft.Win32;
 using ZeroInstall.Model;
-using AccessPoints = ZeroInstall.DesktopIntegration.AccessPoints;
 
 namespace ZeroInstall.DesktopIntegration.Windows
 {

@@ -20,7 +20,6 @@ using System.Xml.Serialization;
 using Common.Utils;
 using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
-using FileTypeWindows = ZeroInstall.DesktopIntegration.Windows.FileType;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
@@ -44,7 +43,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (capability == null) return;
 
             if (WindowsUtils.IsWindows)
-                FileTypeWindows.Apply(appEntry.InterfaceID, feed, capability, true, systemWide);
+                Windows.FileType.Apply(appEntry.InterfaceID, feed, capability, true, systemWide);
         }
 
         /// <inheritdoc/>

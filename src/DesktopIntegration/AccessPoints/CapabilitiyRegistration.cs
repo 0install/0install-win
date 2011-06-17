@@ -20,7 +20,6 @@ using System.Xml.Serialization;
 using Common.Collections;
 using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
-using FileTypeWindows = ZeroInstall.DesktopIntegration.Windows.FileType;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
@@ -52,7 +51,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             foreach (var capabilityList in appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
             {
                 foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(capabilityList.Entries))
-                    FileTypeWindows.Apply(appEntry.InterfaceID, feed, fileType, false, systemWide);
+                    Windows.FileType.Apply(appEntry.InterfaceID, feed, fileType, false, systemWide);
             }
         }
 
