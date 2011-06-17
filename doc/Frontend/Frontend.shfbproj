@@ -30,6 +30,7 @@
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <VisibleItems>InheritedMembers, Internals, Protected, SealedProtected</VisibleItems>
     <DocumentationSources>
+      <DocumentationSource sourceFile="..\..\src\Alias.Cli\Alias.Cli.csproj" />
       <DocumentationSource sourceFile="..\..\src\Central\Central.csproj" />
       <DocumentationSource sourceFile="..\..\src\Central.WinForms\Central.WinForms.csproj" />
       <DocumentationSource sourceFile="..\..\src\Commands\Commands.csproj" />
@@ -42,6 +43,7 @@
     </DocumentationSources>
     <ProjectSummary>This chapter describes the public and protected and internal aspects of the Zero Install Frontend implementations.</ProjectSummary>
     <NamespaceSummaries>
+	  <NamespaceSummaryItem name="ZeroInstall.Alias.Cli" isDocumented="True" xmlns="">A command-line interface for creating command-line aliases for launching programs via Zero Install.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Central" isDocumented="True">Contains helper code for applications that wish to provide a general-purpose Zero Install GUI.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Central.WinForms" isDocumented="True" xmlns="">The main GUI for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Commands" isDocumented="True">Contains helper code for applications that wish to support default Zero Install command-line arguments.</NamespaceSummaryItem>
