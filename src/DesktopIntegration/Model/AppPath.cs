@@ -27,13 +27,6 @@ namespace ZeroInstall.DesktopIntegration.Model
     [XmlType("app-path", Namespace = AppList.XmlNamespace)]
     public class AppPath : CommandAccessPoint, IEquatable<AppPath>
     {
-        #region Constants
-        /// <summary>
-        /// The name of this category of <see cref="AccessPoint"/>s as used by command-line interfaces.
-        /// </summary>
-        public const string CategoryName = "path";
-        #endregion
-
         #region Properties
         /// <summary>
         /// The name of the command-line command (without a file extension).

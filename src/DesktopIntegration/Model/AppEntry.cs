@@ -64,8 +64,6 @@ namespace ZeroInstall.DesktopIntegration.Model
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<CapabilityList> CapabilityLists { get { return _capabilityLists; } }
 
-        private readonly AccessPointList _accessPointList = new AccessPointList();
-
         /// <summary>
         /// A set of <see cref="AccessPoints"/>s to be registered in the desktop environment; may be <see langword="null"/>.
         /// </summary>

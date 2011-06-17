@@ -76,7 +76,7 @@ namespace ZeroInstall.Commands
             }
 
             Policy.Handler.ShowProgressUI(Cancel);
-            return ExecuteHelper(interfaceID, new IntegrationManager(_global));
+            return ExecuteHelper(interfaceID, new CategoryIntegrationManager(_global));
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace ZeroInstall.Commands
         /// <param name="interfaceID">The interface for the application to perform the operation on.</param>
         /// <param name="integrationManager">Manages desktop integration operations.</param>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        protected abstract int ExecuteHelper(string interfaceID, IntegrationManager integrationManager);
+        protected abstract int ExecuteHelper(string interfaceID, CategoryIntegrationManager integrationManager);
         #endregion
 
         #region Cancel

@@ -55,18 +55,18 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public IntegrateApp(Policy policy) : base(policy)
         {
-            string categoryList = StringUtils.Concatenate(IntegrationManager.Categories, ", ");
+            string categoryList = StringUtils.Concatenate(CategoryIntegrationManager.Categories, ", ");
 
             Options.Add("a|add=", Resources.OptionAppAdd + "\n" + Resources.OptionAppCategory + categoryList + "\n" + string.Format(Resources.OptionAppImplicitCategory, CapabilityRegistration.CategoryName), category =>
             {
                 category = category.ToLower();
-                if (!IntegrationManager.Categories.Contains(category)) throw new OptionException(string.Format(Resources.UnknownCategory, category), "add");
+                if (!CategoryIntegrationManager.Categories.Contains(category)) throw new OptionException(string.Format(Resources.UnknownCategory, category), "add");
                 _addCategories.Add(category);
             });
             Options.Add("r|remove=", Resources.OptionAppRemove + "\n" + Resources.OptionAppCategory + categoryList, category =>
             {
                 category = category.ToLower();
-                if (!IntegrationManager.Categories.Contains(category)) throw new OptionException(string.Format(Resources.UnknownCategory, category), "remove");
+                if (!CategoryIntegrationManager.Categories.Contains(category)) throw new OptionException(string.Format(Resources.UnknownCategory, category), "remove");
                 _removeCategories.Add(category);
             });
         }
@@ -84,14 +84,14 @@ namespace ZeroInstall.Commands
         }
 
         /// <inheritdoc/>
-        protected override int ExecuteHelper(string interfaceID, IntegrationManager integrationManager)
+        protected override int ExecuteHelper(string interfaceID, CategoryIntegrationManager integrationManager)
         {
             if (_addCategories.IsEmpty && _removeCategories.IsEmpty)
                 _addCategories.Add(CapabilityRegistration.CategoryName);
 
             if (Canceled) throw new UserCancelException();
 
-            if (!_removeCategories.IsEmpty) integrationManager.RemoveAccessPoints(interfaceID, _removeCategories);
+            if (!_removeCategories.IsEmpty) integrationManager.RemoveAccessPointCategory(interfaceID, _removeCategories);
             if (_addCategories.IsEmpty)
             { // Stop before loading the feed if only removal was requested
                 // Show a "integration complete" message (but not in batch mode, since it is too unimportant)
@@ -105,7 +105,7 @@ namespace ZeroInstall.Commands
 
             if (Canceled) throw new UserCancelException();
 
-            integrationManager.AddAccessPoint(interfaceID, feed, _addCategories);
+            integrationManager.AddAccessPointCategory(interfaceID, feed, _addCategories);
 
             // Show a "integration complete" message (but not in batch mode, since it is too unimportant)
             if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, feed.Name));

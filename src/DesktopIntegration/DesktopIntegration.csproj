@@ -49,7 +49,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IntegrationManager.cs" />
+    <Compile Include="CategoryIntegrationManager.cs" />
+    <Compile Include="DetailedIntegrationManager.cs" />
+    <Compile Include="IntegrationManagerBase.cs" />
     <Compile Include="Model\AccessPoint.cs" />
     <Compile Include="Model\AccessPointList.cs" />
     <Compile Include="Model\AppEntry.cs" />

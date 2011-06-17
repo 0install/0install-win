@@ -48,7 +48,7 @@ namespace ZeroInstall.Commands
 
         #region Execute
         /// <inheritdoc/>
-        protected override int ExecuteHelper(string interfaceID, IntegrationManager integrationManager)
+        protected override int ExecuteHelper(string interfaceID, CategoryIntegrationManager integrationManager)
         {
             integrationManager.RemoveApp(interfaceID);
 
