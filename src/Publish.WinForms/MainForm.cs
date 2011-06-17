@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using C5;
 using Common;
 using Common.Collections;
 using Common.Controls;
@@ -225,7 +226,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="addButton">The button used to add new <typeparamref name="TSpecialEntry"/>s to <typeparamref name="TContainer"/>s.</param>
         /// <param name="getEditDialog">A delegate describing how to get a dialog to edit a <typeparamref name="TSpecialEntry"/>.</param>
         /// <param name="getList">A delegate describing how to get a collection of <typeparamref name="TAbstractEntry"/>s from a <typeparamref name="TContainer"/>.</param>
-        private void SetupFeedStructureHooks<TContainer, TAbstractEntry, TSpecialEntry>(Button addButton, MapAction<TSpecialEntry, Form> getEditDialog, MapAction<TContainer, IList<TAbstractEntry>> getList)
+        private void SetupFeedStructureHooks<TContainer, TAbstractEntry, TSpecialEntry>(Button addButton, MapAction<TSpecialEntry, Form> getEditDialog, MapAction<TContainer, System.Collections.Generic.IList<TAbstractEntry>> getList)
             where TContainer : class
             where TAbstractEntry : class, ICloneable
             where TSpecialEntry : class, TAbstractEntry, new()
@@ -537,7 +538,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="checkedListBox">The <see cref="CheckedListBox"/> to track for input and to update.</param>
         /// <param name="getCollection">A delegate that reads the corresponding value from the collection.</param>
-        private void SetupCommandHooks(CheckedListBox checkedListBox, SimpleResult<ICollection<string>> getCollection)
+        private void SetupCommandHooks(CheckedListBox checkedListBox, SimpleResult<System.Collections.Generic.ICollection<string>> getCollection)
         {
             ItemCheckEventHandler itemCheckEventHandler = (sender, e) =>
             {
@@ -595,17 +596,26 @@ namespace ZeroInstall.Publish.WinForms
 
         private void SetupCommandHooks(LocalizableTextControl localizableTextControl, SimpleResult<LocalizableStringCollection> getCollection)
         {
-            localizableTextControl.Values.ItemsAdded += (sender, itemCountEventArgs) => _feedEditing.ExecuteCommand(new AddToCollection<LocalizableString>(getCollection(), itemCountEventArgs.Item));
+            ItemsAddedHandler<LocalizableString> itemsAddedHandler = (sender, itemCountEventArgs) => _feedEditing.ExecuteCommand(new AddToCollection<LocalizableString>(getCollection(), itemCountEventArgs.Item));
+            localizableTextControl.Values.ItemsAdded += itemsAddedHandler;
 
-            localizableTextControl.Values.ItemsRemoved += (sender, itemCountEventArgs) => _feedEditing.ExecuteCommand(new RemoveFromCollection<LocalizableString>(getCollection(), itemCountEventArgs.Item));
+            ItemsRemovedHandler<LocalizableString> itemsRemovedHandler = (sender, itemCountEventArgs) => _feedEditing.ExecuteCommand(new RemoveFromCollection<LocalizableString>(getCollection(), itemCountEventArgs.Item));
+            localizableTextControl.Values.ItemsRemoved += itemsRemovedHandler;
 
             Populate += delegate
-            {
-                localizableTextControl.Values = getCollection();
-            };
+                        {
+                            localizableTextControl.Values.ItemsRemoved -= itemsRemovedHandler;
+                            localizableTextControl.Values.ItemsAdded -= itemsAddedHandler;
+
+                            localizableTextControl.Values.Clear();
+                            localizableTextControl.Values.AddAll(getCollection());
+
+                            localizableTextControl.Values.ItemsAdded += itemsAddedHandler;
+                            localizableTextControl.Values.ItemsRemoved += itemsRemovedHandler;
+                        };
         }
 
-        private void SetupCommandHooks(IconManagementControl iconManager, SimpleResult<ICollection<Icon>> getCollection)
+        private void SetupCommandHooks(IconManagementControl iconManager, SimpleResult<System.Collections.Generic.ICollection<Icon>> getCollection)
         {
             iconManagementControl.IconUrls.ItemInserted +=(sender, eventArgs) => _feedEditing.ExecuteCommand(new AddToCollection<Icon>(getCollection(), eventArgs.Item));
             iconManagementControl.IconUrls.ItemsRemoved += (sender, eventArgs) => _feedEditing.ExecuteCommand(new RemoveFromCollection<Icon>(getCollection(), eventArgs.Item));
