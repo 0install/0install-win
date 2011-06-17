@@ -43,14 +43,14 @@ namespace ZeroInstall.DesktopIntegration.Model
 
         #region Properties
         // Preserve order
-        private readonly C5.ArrayList<AppEntry> _entries = new C5.ArrayList<AppEntry>();
+        private readonly C5.LinkedList<AppEntry> _entries = new C5.LinkedList<AppEntry>();
         /// <summary>
         /// A list of <see cref="AppEntry"/>s.
         /// </summary>
         [Description("A list of application entries.")]
         [XmlElement("app")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<AppEntry> Entries { get { return _entries; } }
+        public C5.LinkedList<AppEntry> Entries { get { return _entries; } }
         #endregion
 
         //--------------------//

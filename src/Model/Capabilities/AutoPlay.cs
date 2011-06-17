@@ -48,7 +48,7 @@ namespace ZeroInstall.Model.Capabilities
         public string Description { get; set; }
 
         // Preserve order
-        private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
+        private readonly C5.LinkedList<Icon> _icons = new C5.LinkedList<Icon>();
         /// <summary>
         /// Zero or more icons to represent the AutoPlay operation.
         /// </summary>
@@ -56,7 +56,7 @@ namespace ZeroInstall.Model.Capabilities
         [Description("Zero or more icons to represent the element or the application. (The first compatible icon is selected. If empty the main feed icon is used.)")]
         [XmlElement("icon", Namespace = Feed.XmlNamespace)]
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.ArrayList<Icon> Icons { get { return _icons; } }
+        public C5.LinkedList<Icon> Icons { get { return _icons; } }
 
         /// <summary>
         /// The programatic identifier used to store the <see cref="Verb"/>.
@@ -73,14 +73,14 @@ namespace ZeroInstall.Model.Capabilities
         public Verb Verb { get; set; }
 
         // Preserve order
-        private readonly C5.ArrayList<AutoPlayEvent> _events = new C5.ArrayList<AutoPlayEvent>();
+        private readonly C5.LinkedList<AutoPlayEvent> _events = new C5.LinkedList<AutoPlayEvent>();
         /// <summary>
         /// The IDs of the events this action can handle.
         /// </summary>
         [Description("The IDs of the events this action can handle.")]
         [XmlElement("event")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.ArrayList<AutoPlayEvent> Events { get { return _events; } }
+        public C5.LinkedList<AutoPlayEvent> Events { get { return _events; } }
         #endregion
 
         //--------------------//

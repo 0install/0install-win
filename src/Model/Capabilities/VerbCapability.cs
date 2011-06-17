@@ -34,7 +34,7 @@ namespace ZeroInstall.Model.Capabilities
         public string Description { get; set; }
 
         // Preserve order
-        private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
+        private readonly C5.LinkedList<Icon> _icons = new C5.LinkedList<Icon>();
         /// <summary>
         /// Zero or more icons to represent the element or the application.
         /// </summary>
@@ -42,17 +42,17 @@ namespace ZeroInstall.Model.Capabilities
         [Description("Zero or more icons to represent the element or the application. (The first compatible icon is selected. If empty the main feed icon is used.)")]
         [XmlElement("icon", Namespace = Feed.XmlNamespace)]
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.ArrayList<Icon> Icons { get { return _icons; } }
+        public C5.LinkedList<Icon> Icons { get { return _icons; } }
 
         // Preserve order
-        private readonly C5.ArrayList<Verb> _verbs = new C5.ArrayList<Verb>();
+        private readonly C5.LinkedList<Verb> _verbs = new C5.LinkedList<Verb>();
         /// <summary>
         /// A list of all available operations for the element.
         /// </summary>
         [Description("A list of all available operations for the element.")]
         [XmlElement("verb")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.ArrayList<Verb> Verbs { get { return _verbs; } }
+        public C5.LinkedList<Verb> Verbs { get { return _verbs; } }
         #endregion
 
         //--------------------//

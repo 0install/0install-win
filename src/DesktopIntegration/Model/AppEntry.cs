@@ -55,14 +55,14 @@ namespace ZeroInstall.DesktopIntegration.Model
         public bool AutoUpdate { get; set; }
 
         // Preserve order
-        private readonly C5.ArrayList<CapabilityList> _capabilityLists = new C5.ArrayList<CapabilityList>();
+        private readonly C5.LinkedList<CapabilityList> _capabilityLists = new C5.LinkedList<CapabilityList>();
         /// <summary>
         /// A set of <see cref="Capability"/> lists to be registered in the desktop environment. Only compatible architectures are handled.
         /// </summary>
         [Description("A set of Capability lists to be registered in the desktop environment. Only compatible architectures are handled.")]
         [XmlElement("capabilities", Namespace = Capability.XmlNamespace)]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<CapabilityList> CapabilityLists { get { return _capabilityLists; } }
+        public C5.LinkedList<CapabilityList> CapabilityLists { get { return _capabilityLists; } }
 
         /// <summary>
         /// A set of <see cref="AccessPoints"/>s to be registered in the desktop environment; may be <see langword="null"/>.
