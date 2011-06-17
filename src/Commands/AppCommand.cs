@@ -16,6 +16,10 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -71,8 +75,13 @@ namespace ZeroInstall.Commands
             string interfaceID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
 
             if (_global && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator)
-            {
-                // ToDo: Trigger UAC elevation
+            { // Rerun the command with administrative rights
+                var commandLine = new LinkedList<string>(Environment.GetCommandLineArgs());
+                commandLine.RemoveFirst();
+                var startInfo = new ProcessStartInfo(Path.Combine(Locations.InstallBase, "0install-win.exe"), StringUtils.ConcatenateEscape(commandLine)) {Verb = "runas"};
+                var process = Process.Start(startInfo);
+                process.WaitForExit();
+                return process.ExitCode;
             }
 
             Policy.Handler.ShowProgressUI(Cancel);
