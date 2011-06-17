@@ -46,15 +46,15 @@ namespace ZeroInstall.Injector.Solver
         [XmlAttribute("interface")]
         public string InterfaceID { get; set; }
         
-        // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedArrayList<ImplementationSelection> _implementations = new C5.HashedArrayList<ImplementationSelection>();
+        // Preserve order
+        private readonly C5.LinkedList<ImplementationSelection> _implementations = new C5.LinkedList<ImplementationSelection>();
         /// <summary>
         /// A list of <see cref="ImplementationSelection"/>s chosen in this selection.
         /// </summary>
         [Description("A list of implementations chosen in this selection.")]
         [XmlElement("selection")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedArrayList<ImplementationSelection> Implementations { get { return _implementations; } }
+        public C5.LinkedList<ImplementationSelection> Implementations { get { return _implementations; } }
 
         // Preserve order
         private readonly C5.LinkedList<Command> _commands = new C5.LinkedList<Command>();

@@ -18,7 +18,6 @@
 using System;
 using System.Xml.Serialization;
 using ZeroInstall.Injector.Properties;
-using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Injector.Feeds
 {

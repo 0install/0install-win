@@ -59,9 +59,10 @@ namespace ZeroInstall.Fetchers
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // Defensive copy
+            // Defensive copy and remove duplicates
             var tempList = new C5.ArrayList<Implementation>();
-            tempList.AddAll(implementations);
+            foreach (var implementation in implementations)
+                if (implementation != null && !tempList.Contains(implementation)) tempList.Add(implementation);
 
             // Make the collection immutable
             _implementations = new C5.GuardedList<Implementation>(tempList);

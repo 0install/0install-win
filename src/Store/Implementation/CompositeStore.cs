@@ -46,15 +46,16 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Creates a new composite implementation provider with a set of <see cref="IStore"/>s.
         /// </summary>
-        /// <param name="stores">A priority-sorted list of <see cref="IStore"/>s. Queried last-to-first for adding new <see cref="Model.Implementation"/>s, first-to-last otherwise.</param>
+        /// <param name="stores">A priority-sorted list of <see cref="IStore"/>s. Queried last-to-first for adding new <see cref="Model.Implementation"/>s, first-to-last otherwise. Duplicates are ignored.</param>
         public CompositeStore(IEnumerable<IStore> stores)
         {
             #region Sanity checks
             if (stores == null) throw new ArgumentNullException("stores");
             #endregion
 
-            // Defensive copy
-            _stores.AddAll(stores);
+            // Defensive copy and remove duplicates
+            foreach (var store in stores)
+                if (store != null && !_stores.Contains(store)) _stores.Add(store);
         }
 
         /// <summary>
