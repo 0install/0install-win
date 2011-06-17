@@ -64,24 +64,24 @@ namespace ZeroInstall.Model
         public string Path { get; set; }
 
         // Preserve order
-        private readonly C5.ArrayList<string> _arguments = new C5.ArrayList<string>();
+        private readonly C5.LinkedList<string> _arguments = new C5.LinkedList<string>();
         /// <summary>
         /// A list of command-line arguments to be passed to the executable.
         /// </summary>
         [Description("A list of command-line arguments to be passed to the executable.")]
         [XmlElement("arg")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.ArrayList<string> Arguments { get { return _arguments; } }
+        public C5.LinkedList<string> Arguments { get { return _arguments; } }
         
         // Preserve order
-        private readonly C5.ArrayList<Binding> _bindings = new C5.ArrayList<Binding>();
+        private readonly C5.LinkedList<Binding> _bindings = new C5.LinkedList<Binding>();
         /// <summary>
         /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
         [Description("A list of bindings for implementations to locate dependencies.")]
         [XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding))]
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.ArrayList<Binding> Bindings { get { return _bindings; } }
+        public C5.LinkedList<Binding> Bindings { get { return _bindings; } }
 
         /// <summary>
         /// Switches the working directory of the process on startup to a location within the <see cref="Model.Implementation"/>.
@@ -91,14 +91,14 @@ namespace ZeroInstall.Model
         public WorkingDir WorkingDir { get; set; }
 
         // Preserve order
-        private readonly C5.ArrayList<Dependency> _dependencies = new C5.ArrayList<Dependency>();
+        private readonly C5.LinkedList<Dependency> _dependencies = new C5.LinkedList<Dependency>();
         /// <summary>
         /// A list of interfaces this command depends upon.
         /// </summary>
         [Description("A list of interfaces this command depends upon.")]
         [XmlElement("requires")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.ArrayList<Dependency> Dependencies { get { return _dependencies; } }
+        public C5.LinkedList<Dependency> Dependencies { get { return _dependencies; } }
 
         /// <summary>
         /// An interface that needs be used as a runner for this command. The <see cref="Path"/> is passed to that interface as an argument.

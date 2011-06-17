@@ -40,14 +40,14 @@ namespace ZeroInstall.Model
         public string Command { get; set; }
 
         // Preserve order
-        private readonly C5.ArrayList<string> _arguments = new C5.ArrayList<string>();
+        private readonly C5.LinkedList<string> _arguments = new C5.LinkedList<string>();
         /// <summary>
         /// A list of command-line arguments to be passed to the executable.
         /// </summary>
         [Description("A list of command-line arguments to be passed to the executable.")]
         [XmlElement("arg")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.ArrayList<string> Arguments { get { return _arguments; } }
+        public C5.LinkedList<string> Arguments { get { return _arguments; } }
         #endregion
 
         //--------------------//

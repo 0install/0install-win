@@ -121,24 +121,24 @@ namespace ZeroInstall.Model
         }
 
         // Preserve order
-        private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
+        private readonly C5.LinkedList<Icon> _icons = new C5.LinkedList<Icon>();
         /// <summary>
         /// Zero or more icons to use for the program.
         /// </summary>
         [Category("Interface"), Description("Zero or more icons to use for the program.")]
         [XmlElement("icon")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.ArrayList<Icon> Icons { get { return _icons; } }
-        
-        // Preserve order, duplicate string entries are not allowed
-        private readonly C5.HashedArrayList<string> _categories = new C5.HashedArrayList<string>();
+        public C5.LinkedList<Icon> Icons { get { return _icons; } }
+
+        // Preserve order
+        private readonly C5.LinkedList<string> _categories = new C5.LinkedList<string>();
         /// <summary>
         /// Zero or more categories as defined by the freedesktop.org menu specification.
         /// </summary>
         [Category("Interface"), Description("Zero or more categories as defined by the freedesktop.org menu specification.")]
         [XmlElement("category")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.HashedArrayList<string> Categories { get { return _categories; } }
+        public C5.LinkedList<string> Categories { get { return _categories; } }
 
         /// <summary>
         /// If <see langword="true"/>, this element indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.
@@ -157,44 +157,44 @@ namespace ZeroInstall.Model
         }
 
         // Preserve order
-        private readonly C5.ArrayList<FeedReference> _feeds = new C5.ArrayList<FeedReference>();
+        private readonly C5.LinkedList<FeedReference> _feeds = new C5.LinkedList<FeedReference>();
         /// <summary>
         /// Zero ore more additional feeds containing implementations of this interface.
         /// </summary>
         [Category("Feed"), Description("Zero ore more additional feeds containing implementations of this interface.")]
         [XmlElement("feed")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.ArrayList<FeedReference> Feeds { get { return _feeds; } }
+        public C5.LinkedList<FeedReference> Feeds { get { return _feeds; } }
 
         // Preserve order
-        private readonly C5.ArrayList<InterfaceReference> _feedFor = new C5.ArrayList<InterfaceReference>();
+        private readonly C5.LinkedList<InterfaceReference> _feedFor = new C5.LinkedList<InterfaceReference>();
         /// <summary>
         /// The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.
         /// </summary>
         [Category("Feed"), Description("The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.")]
         [XmlElement("feed-for")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.ArrayList<InterfaceReference> FeedFor { get { return _feedFor; } }
+        public C5.LinkedList<InterfaceReference> FeedFor { get { return _feedFor; } }
 
         // Preserve order
-        private readonly C5.ArrayList<Element> _elements = new C5.ArrayList<Element>();
+        private readonly C5.LinkedList<Element> _elements = new C5.LinkedList<Element>();
         /// <summary>
         /// A list of <see cref="Group"/>s and <see cref="Implementation"/>s contained within this interface.
         /// </summary>
         [Category("Implementation"), Description("A list of groups and implementations contained within this interface.")]
         [XmlElement(typeof(Implementation)), XmlElement(typeof(PackageImplementation)), XmlElement(typeof(Group))]
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.ArrayList<Element> Elements { get { return _elements; } }
+        public C5.LinkedList<Element> Elements { get { return _elements; } }
 
         // Preserve order
-        private readonly C5.ArrayList<CapabilityList> _capabilityLists = new C5.ArrayList<CapabilityList>();
+        private readonly C5.LinkedList<CapabilityList> _capabilityLists = new C5.LinkedList<CapabilityList>();
         /// <summary>
         /// A list of <see cref="Capability"/>s to be registered in the desktop environment.
         /// </summary>
         [Description("A list of capabilities to be registered in the desktop environment.")]
         [XmlElement("capabilities", Namespace = Capability.XmlNamespace)]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<CapabilityList> CapabilityLists { get { return _capabilityLists; } }
+        public C5.LinkedList<CapabilityList> CapabilityLists { get { return _capabilityLists; } }
         #endregion
 
         //--------------------//

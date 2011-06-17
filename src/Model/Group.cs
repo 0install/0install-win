@@ -33,14 +33,14 @@ namespace ZeroInstall.Model
     {
         #region Properties
         // Preserve order
-        private readonly C5.ArrayList<Element> _elements = new C5.ArrayList<Element>();
+        private readonly C5.LinkedList<Element> _elements = new C5.LinkedList<Element>();
         /// <summary>
         /// A list of <see cref="Group"/>s and <see cref="Implementation"/>s contained within this group.
         /// </summary>
         [Category("Implementation"), Description("A list of groups and implementations contained within this group.")]
         [XmlElement(typeof(Implementation)), XmlElement(typeof(PackageImplementation)), XmlElement(typeof(Group))]
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.ArrayList<Element> Elements { get { return _elements; } }
+        public C5.LinkedList<Element> Elements { get { return _elements; } }
         #endregion
 
         //--------------------//

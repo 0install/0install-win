@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System.Collections.Generic;
 using Common.Collections;
 
 namespace Common.Undo
@@ -64,7 +65,8 @@ namespace Common.Undo
         /// </summary>
         protected override void OnExecute()
         {
-            _previousValue = _collection.GetExactLanguage(_entry.Language);
+            try { _previousValue = _collection.GetExactLanguage(_entry.Language); }
+            catch(KeyNotFoundException) {}
             _collection.Set(_entry.Value, _entry.Language);
         }
         #endregion

@@ -591,12 +591,10 @@ namespace ZeroInstall.Publish.WinForms
 
                 _feedEditing.ExecuteCommand(new SetValueCommand<string>(pointer, selectedValue));
             };
-
         }
 
         private void SetupCommandHooks(LocalizableTextControl localizableTextControl, SimpleResult<LocalizableStringCollection> getCollection)
         {
-
             localizableTextControl.Values.ItemsAdded += (sender, itemCountEventArgs) => _feedEditing.ExecuteCommand(new AddToCollection<LocalizableString>(getCollection(), itemCountEventArgs.Item));
 
             localizableTextControl.Values.ItemsRemoved += (sender, itemCountEventArgs) => _feedEditing.ExecuteCommand(new RemoveFromCollection<LocalizableString>(getCollection(), itemCountEventArgs.Item));
@@ -607,16 +605,12 @@ namespace ZeroInstall.Publish.WinForms
             };
         }
 
-        private void SetupCommandHooks(IconManagementControl iconManager, SimpleResult<C5.ArrayList<Icon>> getCollection)
+        private void SetupCommandHooks(IconManagementControl iconManager, SimpleResult<ICollection<Icon>> getCollection)
         {
             iconManagementControl.IconUrls.ItemInserted +=(sender, eventArgs) => _feedEditing.ExecuteCommand(new AddToCollection<Icon>(getCollection(), eventArgs.Item));
-            
             iconManagementControl.IconUrls.ItemsRemoved += (sender, eventArgs) => _feedEditing.ExecuteCommand(new RemoveFromCollection<Icon>(getCollection(), eventArgs.Item));
 
-            Populate += delegate
-                            {
-                                iconManager.IconUrls = getCollection();
-                            };
+            Populate += () => iconManager.SetIcons(getCollection());
         }
         #endregion
 

@@ -39,7 +39,7 @@ namespace ZeroInstall.Model
             {
                 Uri = new Uri("http://0install.de/feeds/test/test1.xml"),
                 Name = "MyApp",
-                Categories = {"Category"},
+                Categories = {"Category1", "Category2"},
                 Homepage = new Uri("http://0install.de/"),
                 Feeds = {new FeedReference {Source = "hhttp://0install.de/feeds/test/sub1.xml"}},
                 FeedFor = {new InterfaceReference {Target = new Uri("http://0install.de/feeds/test/super1.xml")}},

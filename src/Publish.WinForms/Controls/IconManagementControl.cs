@@ -16,13 +16,13 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Net;
 using System.Security;
 using System.Windows.Forms;
-using C5;
 using Common.Utils;
 using ZeroInstall.Publish.WinForms.Properties;
 using Icon = ZeroInstall.Model.Icon;
@@ -33,29 +33,30 @@ namespace ZeroInstall.Publish.WinForms.Controls
     {
         #region Properties
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public ArrayList<Icon> IconUrls
+        public C5.ICollection<Icon> IconUrls
         {
             get
             {
                 return _icons;
             }
-            set
-            {
-                ClearControls();
-                _icons.AddAll(value);
-            }
+        }
+
+        public void SetIcons(IEnumerable<Icon> icons)
+        {
+            ClearControls();
+            _icons.AddAll(icons);
         }
         #endregion
         
         #region Constants
-        private readonly HashSet<ImageFormat> _supportedImageFormats = new HashSet<ImageFormat> { ImageFormat.Png, ImageFormat.Icon };
+        private readonly C5.HashSet<ImageFormat> _supportedImageFormats = new C5.HashSet<ImageFormat> { ImageFormat.Png, ImageFormat.Icon };
 
-        private readonly HashDictionary<ImageFormat, String> _mimeTypeTranslator =
-            new HashDictionary<ImageFormat, String> { { ImageFormat.Png, "image/png" }, { ImageFormat.Icon, "image/vnd.microsoft.icon" } };
+        private readonly C5.HashDictionary<ImageFormat, String> _mimeTypeTranslator =
+            new C5.HashDictionary<ImageFormat, String> { { ImageFormat.Png, "image/png" }, { ImageFormat.Icon, "image/vnd.microsoft.icon" } };
         #endregion
 
         #region Attributes
-        private readonly ArrayList<Icon> _icons = new ArrayList<Icon>();
+        private readonly C5.LinkedList<Icon> _icons = new C5.LinkedList<Icon>();
         #endregion
 
         #region Initialization

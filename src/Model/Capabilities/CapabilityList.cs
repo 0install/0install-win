@@ -54,14 +54,14 @@ namespace ZeroInstall.Model.Capabilities
         }
 
         // Preserve order
-        private readonly C5.ArrayList<Capability> _entries = new C5.ArrayList<Capability>();
+        private readonly C5.LinkedList<Capability> _entries = new C5.LinkedList<Capability>();
         /// <summary>
         /// A list of <see cref="Capability"/>s.
         /// </summary>
         [Description("A list of capabilities.")]
         //[XmlElement(typeof(...))]
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.ArrayList<Capability> Entries { get { return _entries; } }
+        public C5.LinkedList<Capability> Entries { get { return _entries; } }
         #endregion
 
         //--------------------//
