@@ -34,7 +34,7 @@ namespace ZeroInstall.DesktopIntegration
     {
         #region Variables
         /// <summary>Apply operations system-wide instead of just for the current user.</summary>
-        private readonly bool _global;
+        private readonly bool _systemWide;
 
         /// <summary>The storage location of the <see cref="AppList"/> file.</summary>
         private readonly string _appListPath;
@@ -51,15 +51,15 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Creates a new integration manager.
         /// </summary>
-        /// <param name="global">Apply operations system-wide instead of just for the current user.</param>
+        /// <param name="systemWide">Apply operations system-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or wirte access to the <see cref="AppList"/> file is not permitted.</exception>
         /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        protected IntegrationManagerBase(bool global)
+        protected IntegrationManagerBase(bool systemWide)
         {
-            _global = global;
+            _systemWide = systemWide;
 
-            _appListPath = global
+            _appListPath = systemWide
                 ? FileUtils.PathCombine(Locations.SystemConfigDirs.Split(Path.PathSeparator)[0], "0install.net", "desktop-integration", "myapps.xml")
                 : Locations.GetSaveConfigPath("0install.net", Path.Combine("desktop-integration", "myapps.xml"), false);
 
@@ -137,6 +137,12 @@ namespace ZeroInstall.DesktopIntegration
         /// </remarks>
         protected void AddAccessPoints(AppEntry appEntry, Feed feed, IEnumerable<AccessPoint> accessPoints)
         {
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (feed == null) throw new ArgumentNullException("feed");
+            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
+            #endregion
+
             foreach (var accessPoint in accessPoints)
             {
                 if (!appEntry.AccessPoints.Entries.Contains(accessPoint))
@@ -145,7 +151,7 @@ namespace ZeroInstall.DesktopIntegration
             AppList.Save(_appListPath);
 
             foreach (var accessPoint in accessPoints)
-                accessPoint.Apply(appEntry, feed, _global);
+                accessPoint.Apply(appEntry, feed, _systemWide);
             WindowsUtils.NotifyAssocChanged();
         }
 
@@ -162,8 +168,13 @@ namespace ZeroInstall.DesktopIntegration
         /// </remarks>
         protected void RemoveAccessPoints(AppEntry appEntry, IEnumerable<AccessPoint> accessPoints)
         {
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
+            #endregion
+
             foreach (var accessPoint in accessPoints)
-                accessPoint.Unapply(appEntry, _global);
+                accessPoint.Unapply(appEntry, _systemWide);
             WindowsUtils.NotifyAssocChanged();
 
             appEntry.AccessPoints.Entries.RemoveAll(accessPoints);

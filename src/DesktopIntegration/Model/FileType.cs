@@ -33,17 +33,22 @@ namespace ZeroInstall.DesktopIntegration.Model
     {
         #region Apply
         /// <inheritdoc/>
-        public override void Apply(AppEntry appEntry, Feed feed, bool global)
+        public override void Apply(AppEntry appEntry, Feed feed, bool systemWide)
         {
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (feed == null) throw new ArgumentNullException("feed");
+            #endregion
+
             var capability = appEntry.GetCapability<Capabilities.FileType>(Capability);
             if (capability == null) return;
 
             if (WindowsUtils.IsWindows)
-                FileTypeWindows.Apply(appEntry.InterfaceID, feed, capability, true, global);
+                FileTypeWindows.Apply(appEntry.InterfaceID, feed, capability, true, systemWide);
         }
 
         /// <inheritdoc/>
-        public override void Unapply(AppEntry appEntry, bool global)
+        public override void Unapply(AppEntry appEntry, bool systemWide)
         {
             // ToDo: Implement
         }

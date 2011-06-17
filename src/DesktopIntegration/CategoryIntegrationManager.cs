@@ -41,7 +41,7 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Constructor
         /// <inheritdoc/>
-        public CategoryIntegrationManager(bool global) : base(global)
+        public CategoryIntegrationManager(bool systemWide) : base(systemWide)
         {}
         #endregion
 

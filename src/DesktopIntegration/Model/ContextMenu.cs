@@ -30,13 +30,13 @@ namespace ZeroInstall.DesktopIntegration.Model
     {
         #region Apply
         /// <inheritdoc/>
-        public override void Apply(AppEntry appEntry, Feed feed, bool global)
+        public override void Apply(AppEntry appEntry, Feed feed, bool systemWide)
         {
             // ToDo: Implement
         }
 
         /// <inheritdoc/>
-        public override void Unapply(AppEntry appEntry, bool global)
+        public override void Unapply(AppEntry appEntry, bool systemWide)
         {
             // ToDo: Implement
         }

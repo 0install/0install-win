@@ -30,7 +30,7 @@ namespace ZeroInstall.DesktopIntegration
     {
         #region Constructor
         /// <inheritdoc/>
-        public DetailedIntegrationManagerBase(bool global) : base(global)
+        public DetailedIntegrationManagerBase(bool systemWide) : base(systemWide)
         {}
         #endregion
 

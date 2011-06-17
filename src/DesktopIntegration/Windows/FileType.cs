@@ -53,8 +53,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="feed">The feed of the application to get additional information (e.g. icons) from.</param>
         /// <param name="capability">The capability to be applied.</param>
         /// <param name="defaults">Flag indicating that file association, etc. should become default handlers for their respective types.</param>
-        /// <param name="global">Apply the configuration system-wide instead of just for the current user.</param>
-        public static void Apply(string interfaceID, Feed feed, Capabilities.FileType capability, bool defaults, bool global)
+        /// <param name="systemWide">Apply the configuration system-wide instead of just for the current user.</param>
+        public static void Apply(string interfaceID, Feed feed, Capabilities.FileType capability, bool defaults, bool systemWide)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
@@ -62,7 +62,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (capability == null) throw new ArgumentNullException("capability");
             #endregion
 
-            var hive = global ? Registry.LocalMachine : Registry.CurrentUser;
+            var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
             using (var classesKey = hive.OpenSubKey(RegKeyClasses, true))
             {
                 using (var progIDKey = classesKey.CreateSubKey(capability.ID))
