@@ -32,14 +32,14 @@ namespace ZeroInstall.Model
     {
         #region Properties
         // Preserve order
-        private readonly C5.ArrayList<RecipeStep> _steps = new C5.ArrayList<RecipeStep>();
+        private readonly C5.LinkedList<RecipeStep> _steps = new C5.LinkedList<RecipeStep>();
         /// <summary>
         /// An ordered list of <see cref="RecipeStep"/>s to execute.
         /// </summary>
         [Description("An ordered list of archives to extract.")]
         [XmlElement("archive", typeof(Archive))] // Note: explicit naming of XML tag can be removed once other RecipeStep types have been added
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.ArrayList<RecipeStep> Steps { get { return _steps; } }
+        public C5.LinkedList<RecipeStep> Steps { get { return _steps; } }
 
         /// <summary>
         /// Indicates whether this recipe contains steps of unknown type and therefore can not be processed.

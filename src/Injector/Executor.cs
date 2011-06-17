@@ -109,7 +109,8 @@ namespace ZeroInstall.Injector
         /// </summary>
         private IEnumerable<Command> GetCommands()
         {
-            var commands = _selections.Commands;
+            // Copy the list because it may need to be modified (don't want to change original selections)
+            var commands = new List<Command>(_selections.Commands);
 
             // Replace first command with custom main if specified
             if (!string.IsNullOrEmpty(Main))
@@ -120,9 +121,6 @@ namespace ZeroInstall.Injector
                     ? mainPath.TrimStart(Path.DirectorySeparatorChar)
                     // Relative to original command
                     : Path.Combine(Path.GetDirectoryName(_selections.Commands[0].Path) ?? "", mainPath);
-
-                // Clone the list because it needs to be modified (don't want to change original selections)
-                commands = (C5.ArrayList<Command>)commands.Clone();
 
                 // Keep the original runner
                 commands[0] = new Command {Path = mainPath, Runner = _selections.Commands[0].Runner};

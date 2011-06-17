@@ -31,6 +31,6 @@ namespace ZeroInstall.Model
         [Description("A list of command-line arguments to be passed to an executable.")]
         [XmlElement("arg")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        C5.ArrayList<string> Arguments { get; }
+        C5.LinkedList<string> Arguments { get; }
     }
 }

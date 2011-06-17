@@ -167,7 +167,7 @@ namespace Common.Collections
         public void Set(string value)
         {
             RemoveAll(null);
-            Add(value);
+            if (value != null) Add(value);
         }
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace Common.Collections
             #endregion
 
             RemoveAll(language);
-            Add(value, language);
+            if (value != null) Add(value, language);
         }
         #endregion
 

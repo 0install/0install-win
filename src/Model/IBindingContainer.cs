@@ -31,6 +31,6 @@ namespace ZeroInstall.Model
         [Description("A list of bindings for implementations to locate dependencies.")]
         [XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding))]
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        C5.ArrayList<Binding> Bindings { get; }
+        C5.LinkedList<Binding> Bindings { get; }
     }
 }

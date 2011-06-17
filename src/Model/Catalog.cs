@@ -43,13 +43,13 @@ namespace ZeroInstall.Model
 
         #region Properties
         // Preserve order
-        private readonly C5.ArrayList<Feed> _feeds = new C5.ArrayList<Feed>();
+        private readonly C5.LinkedList<Feed> _feeds = new C5.LinkedList<Feed>();
         /// <summary>
         /// A list of <see cref="Feed"/>s contained within this catalog.
         /// </summary>
         [XmlElement("interface", typeof(Feed), Namespace = Feed.XmlNamespace)]
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.ArrayList<Feed> Feeds { get { return _feeds; } }
+        public C5.LinkedList<Feed> Feeds { get { return _feeds; } }
         #endregion
 
         //--------------------//

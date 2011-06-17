@@ -54,14 +54,14 @@ namespace ZeroInstall.Injector.Feeds
         }
 
         // Preserve order
-        private readonly C5.ArrayList<ImplementationPreferences> _implementations = new C5.ArrayList<ImplementationPreferences>();
+        private readonly C5.LinkedList<ImplementationPreferences> _implementations = new C5.LinkedList<ImplementationPreferences>();
         /// <summary>
         /// A list of implementation-specific user-overrides.
         /// </summary>
         [Description("A list of implementation-specific user-overrides.")]
         [XmlElement("implementation")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<ImplementationPreferences> Implementations { get { return _implementations; } }
+        public C5.LinkedList<ImplementationPreferences> Implementations { get { return _implementations; } }
         #endregion
 
         //--------------------//
