@@ -35,7 +35,7 @@ namespace ZeroInstall.Injector.Feeds
         [XmlAttribute("fingerprint")]
         public string Fingerprint { get; set; }
 
-        // Order is preserved, duplicate entries are not allowed
+        // Order is preserved, duplicate entries are not intended
         private readonly C5.HashedLinkedList<Domain> _domains = new C5.HashedLinkedList<Domain>();
         /// <summary>
         /// A list of <see cref="Domain"/>s this key is valid for.
