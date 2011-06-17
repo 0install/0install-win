@@ -33,7 +33,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
     {
         #region Constants
         /// <summary>The HKCU/HKLM registry key backing HKCR.</summary>
-        public const string RegKeyClass = @"SOFTWARE\Classes";
+        public const string RegKeyClasses = @"SOFTWARE\Classes";
 
         /// <summary>The registry value name for friendly type name storage.</summary>
         public const string RegValueFriendlyName = "FriendlyTypeName";
@@ -47,33 +47,33 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Apply
         /// <summary>
-        /// Applies an <see cref="Capabilities.FileType"/> and optionally <see cref="AccessPoints.FileType"/> to the current Windows system.
+        /// Applies a <see cref="Capabilities.FileType"/> to the current Windows system.
         /// </summary>
         /// <param name="interfaceID">The interface ID of the application being integrated.</param>
-        /// <param name="feed">The of the application to get additional information (e.g. icons) from.</param>
-        /// <param name="fileType">The capability to be applied.</param>
+        /// <param name="feed">The feed of the application to get additional information (e.g. icons) from.</param>
+        /// <param name="capability">The capability to be applied.</param>
         /// <param name="defaults">Flag indicating that file association, etc. should become default handlers for their respective types.</param>
-        /// <param name="global">Flag indicating to apply the configuration system-wide instead of just for the current user.</param>
-        public static void Apply(string interfaceID, Feed feed, Capabilities.FileType fileType, bool defaults, bool global)
+        /// <param name="global">Apply the configuration system-wide instead of just for the current user.</param>
+        public static void Apply(string interfaceID, Feed feed, Capabilities.FileType capability, bool defaults, bool global)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             if (feed == null) throw new ArgumentNullException("feed");
-            if (fileType == null) throw new ArgumentNullException("fileType");
+            if (capability == null) throw new ArgumentNullException("capability");
             #endregion
 
             var hive = global ? Registry.LocalMachine : Registry.CurrentUser;
-            using (var classesKey = hive.OpenSubKey(RegKeyClass, true))
+            using (var classesKey = hive.OpenSubKey(RegKeyClasses, true))
             {
-                using (var progIDKey = classesKey.CreateSubKey(fileType.ID))
+                using (var progIDKey = classesKey.CreateSubKey(capability.ID))
                 {
-                    if (fileType.Description != null) progIDKey.SetValue("", fileType.Description);
+                    if (capability.Description != null) progIDKey.SetValue("", capability.Description);
 
                     // ToDo: Set icon
 
                     using (var shellKey = progIDKey.CreateSubKey("shell"))
                     {
-                        foreach (var verb in fileType.Verbs)
+                        foreach (var verb in capability.Verbs)
                         {
                             using (var verbKey = shellKey.CreateSubKey(verb.Name))
                             using (var commandKey = verbKey.CreateSubKey("command"))
@@ -88,7 +88,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     }
                 }
 
-                foreach (var extension in fileType.Extensions)
+                foreach (var extension in capability.Extensions)
                 {
                     using (var extensionKey = classesKey.CreateSubKey(extension.Value))
                     {
@@ -96,9 +96,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         if (extension.PerceivedType != null) extensionKey.SetValue("PerceivedType", extension.PerceivedType);
 
                         using (var openWithKey = extensionKey.CreateSubKey("OpenWithProgIDs"))
-                            openWithKey.SetValue(fileType.ID, "");
+                            openWithKey.SetValue(capability.ID, "");
 
-                        if(defaults) extensionKey.SetValue("", fileType.ID);
+                        if(defaults) extensionKey.SetValue("", capability.ID);
                     }
                 }
             }

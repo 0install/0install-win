@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.DesktopIntegration.Model
 {
@@ -34,6 +35,22 @@ namespace ZeroInstall.DesktopIntegration.Model
         [Description("The category or folder in the menu to add the entry to; null for top-level entry.")]
         [XmlAttribute("category")]
         public string Category { get; set; }
+        #endregion
+
+        //--------------------//
+
+        #region Apply
+        /// <inheritdoc/>
+        public override void Apply(AppEntry appEntry, Feed feed, bool global)
+        {
+            // ToDo: Implement
+        }
+
+        /// <inheritdoc/>
+        public override void Unapply(AppEntry appEntry, bool global)
+        {
+            // ToDo: Implement
+        }
         #endregion
 
         //--------------------//

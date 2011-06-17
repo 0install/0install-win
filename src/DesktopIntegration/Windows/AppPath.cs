@@ -38,9 +38,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Applies an <see cref="AccessPoints.AppPath"/> to the current Windows system.
         /// </summary>
         /// <param name="interfaceID">The interface ID of the application being integrated.</param>
-        /// <param name="feed">The of the application to get additional information (e.g. icons) from.</param>
+        /// <param name="feed">The feed of the application to get additional information (e.g. icons) from.</param>
         /// <param name="appPath">The access point to be applied.</param>
-        /// <param name="global">Flag indicating to apply the configuration system-wide instead of just for the current user.</param>
+        /// <param name="global">Apply the configuration system-wide instead of just for the current user.</param>
         public static void Apply(string interfaceID, Feed feed, AccessPoints.AppPath appPath, bool global)
         {
             #region Sanity checks

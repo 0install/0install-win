@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.IO;
 using System.Xml.Serialization;
 using ZeroInstall.Model;
 
@@ -27,6 +28,29 @@ namespace ZeroInstall.DesktopIntegration.Model
     [XmlType("access-point", Namespace = AppList.XmlNamespace)]
     public abstract class AccessPoint : XmlUnknown, ICloneable
     {
+        #region Apply
+        /// <summary>
+        /// Applies this access point to the current machine.
+        /// </summary>
+        /// <param name="appEntry">The application entry containing this access point.</param>
+        /// <param name="feed">The feed of the application to get additional information (e.g. icons) from.</param>
+        /// <param name="global">Apply the configuration system-wide instead of just for the current user.</param>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        public abstract void Apply(AppEntry appEntry, Feed feed, bool global);
+
+        /// <summary>
+        /// Unapplies this access point on the current machine.
+        /// </summary>
+        /// <param name="appEntry">The application entry containing this access point.</param>
+        /// <param name="global">Apply the configuration system-wide instead of just for the current user.</param>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        public abstract void Unapply(AppEntry appEntry, bool global);
+        #endregion
+
+        //--------------------//
+
         #region Clone
         /// <summary>
         /// Creates a deep copy of this <see cref="AccessPoint"/> instance.

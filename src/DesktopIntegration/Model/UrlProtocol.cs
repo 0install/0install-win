@@ -17,6 +17,10 @@
 
 using System;
 using System.Xml.Serialization;
+using Common.Utils;
+using ZeroInstall.Model;
+using Capabilities = ZeroInstall.Model.Capabilities;
+using UrlProtocolWindows = ZeroInstall.DesktopIntegration.Windows.UrlProtocol;
 
 namespace ZeroInstall.DesktopIntegration.Model
 {
@@ -27,6 +31,26 @@ namespace ZeroInstall.DesktopIntegration.Model
     [XmlType("url-protocol", Namespace = AppList.XmlNamespace)]
     public class UrlProtocol : DefaultAccessPoint, IEquatable<UrlProtocol>
     {
+        #region Apply
+        /// <inheritdoc/>
+        public override void Apply(AppEntry appEntry, Feed feed, bool global)
+        {
+            var capability = appEntry.GetCapability<Capabilities.UrlProtocol>(Capability);
+            if (capability == null) return;
+
+            if (WindowsUtils.IsWindows)
+                UrlProtocolWindows.Apply(appEntry.InterfaceID, feed, capability, true, global);
+        }
+
+        /// <inheritdoc/>
+        public override void Unapply(AppEntry appEntry, bool global)
+        {
+            // ToDo: Implement
+        }
+        #endregion
+
+        //--------------------//
+
         #region Conversion
         /// <summary>
         /// Returns the access point in the form "UrlProtocol: Capability". Not safe for parsing!

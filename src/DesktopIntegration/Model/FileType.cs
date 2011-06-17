@@ -17,6 +17,10 @@
 
 using System;
 using System.Xml.Serialization;
+using Common.Utils;
+using ZeroInstall.Model;
+using Capabilities = ZeroInstall.Model.Capabilities;
+using FileTypeWindows = ZeroInstall.DesktopIntegration.Windows.FileType;
 
 namespace ZeroInstall.DesktopIntegration.Model
 {
@@ -27,6 +31,26 @@ namespace ZeroInstall.DesktopIntegration.Model
     [XmlType("file-type", Namespace = AppList.XmlNamespace)]
     public class FileType : DefaultAccessPoint, IEquatable<FileType>
     {
+        #region Apply
+        /// <inheritdoc/>
+        public override void Apply(AppEntry appEntry, Feed feed, bool global)
+        {
+            var capability = appEntry.GetCapability<Capabilities.FileType>(Capability);
+            if (capability == null) return;
+
+            if (WindowsUtils.IsWindows)
+                FileTypeWindows.Apply(appEntry.InterfaceID, feed, capability, true, global);
+        }
+
+        /// <inheritdoc/>
+        public override void Unapply(AppEntry appEntry, bool global)
+        {
+            // ToDo: Implement
+        }
+        #endregion
+
+        //--------------------//
+
         #region Conversion
         /// <summary>
         /// Returns the access point in the form "FileType: Capability". Not safe for parsing!

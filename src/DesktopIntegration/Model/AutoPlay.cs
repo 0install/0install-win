@@ -17,6 +17,7 @@
 
 using System;
 using System.Xml.Serialization;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.DesktopIntegration.Model
 {
@@ -27,6 +28,22 @@ namespace ZeroInstall.DesktopIntegration.Model
     [XmlType("auto-play", Namespace = AppList.XmlNamespace)]
     public class AutoPlay : DefaultAccessPoint, IEquatable<AutoPlay>
     {
+        #region Apply
+        /// <inheritdoc/>
+        public override void Apply(AppEntry appEntry, Feed feed, bool global)
+        {
+            // ToDo: Implement
+        }
+
+        /// <inheritdoc/>
+        public override void Unapply(AppEntry appEntry, bool global)
+        {
+            // ToDo: Implement
+        }
+        #endregion
+
+        //--------------------//
+
         #region Conversion
         /// <summary>
         /// Returns the access point in the form "AutoPlay". Not safe for parsing!

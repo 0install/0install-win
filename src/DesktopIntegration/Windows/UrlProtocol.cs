@@ -15,6 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using Microsoft.Win32;
+using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
 using AccessPoints = ZeroInstall.DesktopIntegration.Model;
 
@@ -32,5 +35,31 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <summary>The HKCU registry key where Windows Vista and newer store URL protocol associations.</summary>
         public const string RegKeyUserVistaUrlAssoc = @"Software\Microsoft\Windows\Shell\ Associations\UrlAssociations";
         #endregion
+
+        /// <summary>
+        /// Applies an <see cref="Capabilities.UrlProtocol"/> to the current Windows system.
+        /// </summary>
+        /// <param name="interfaceID">The interface ID of the application being integrated.</param>
+        /// <param name="feed">The feed of the application to get additional information (e.g. icons) from.</param>
+        /// <param name="capability">The capability to be applied.</param>
+        /// <param name="defaults">Flag indicating that file association, etc. should become default handlers for their respective types.</param>
+        /// <param name="global">Apply the configuration system-wide instead of just for the current user.</param>
+        public static void Apply(string interfaceID, Feed feed, Capabilities.UrlProtocol capability, bool defaults, bool global)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (feed == null) throw new ArgumentNullException("feed");
+            if (capability == null) throw new ArgumentNullException("capability");
+            #endregion
+
+            var hive = global ? Registry.LocalMachine : Registry.CurrentUser;
+            using (var classesKey = hive.OpenSubKey(FileType.RegKeyClasses, true))
+            {
+                using (var progIDKey = classesKey.CreateSubKey(capability.ID))
+                {
+                    //
+                }
+            }
+        }
     }
 }

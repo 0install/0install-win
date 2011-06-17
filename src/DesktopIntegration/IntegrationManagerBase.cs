@@ -129,6 +129,12 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="appEntry">The <see cref="AppEntry"/> to add the <see cref="AccessPoint"/>s for.</param>
         /// <param name="feed">The <see cref="Feed"/> for the application the <see cref="AccessPoint"/>s refer to.</param>
         /// <param name="accessPoints">The <see cref="AccessPoint"/>s to add.</param>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        /// <remarks>
+        /// Changes to the <see cref="AppList"/> are saved before applying them to the desktop environment.
+        /// This allows you to rollback any changes using <see cref="RemoveAccessPoints"/> in case there are problems.
+        /// </remarks>
         protected void AddAccessPoints(AppEntry appEntry, Feed feed, IEnumerable<AccessPoint> accessPoints)
         {
             foreach (var accessPoint in accessPoints)
@@ -136,11 +142,10 @@ namespace ZeroInstall.DesktopIntegration
                 if (!appEntry.AccessPoints.Entries.Contains(accessPoint))
                     appEntry.AccessPoints.Entries.Add(accessPoint);
             }
-
             AppList.Save(_appListPath);
 
-            //foreach (var accessPoint in accessPoints)
-            //    accessPoint.Apply(appEntry, feed, _global);
+            foreach (var accessPoint in accessPoints)
+                accessPoint.Apply(appEntry, feed, _global);
             WindowsUtils.NotifyAssocChanged();
         }
 
@@ -149,14 +154,19 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="appEntry">The <see cref="AppEntry"/> to remove the <see cref="AccessPoint"/>s from.</param>
         /// <param name="accessPoints">The <see cref="AccessPoint"/>s to remove.</param>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        /// <remarks>
+        /// Changes are applyed to the desktop environment before saving them to the <see cref="AppList"/>.
+        /// This allows you to rerun removal processes in case there are problems.
+        /// </remarks>
         protected void RemoveAccessPoints(AppEntry appEntry, IEnumerable<AccessPoint> accessPoints)
         {
-            appEntry.AccessPoints.Entries.RemoveAll(accessPoints);
-
-            //foreach (var accessPoint in accessPoints)
-            //    accessPoint.Unapply(appEntry, _global);
+            foreach (var accessPoint in accessPoints)
+                accessPoint.Unapply(appEntry, _global);
             WindowsUtils.NotifyAssocChanged();
 
+            appEntry.AccessPoints.Entries.RemoveAll(accessPoints);
             AppList.Save(_appListPath);
         }
         #endregion
@@ -191,7 +201,7 @@ namespace ZeroInstall.DesktopIntegration
             if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
-            var appEntry = new AppEntry { InterfaceID = interfaceID, Name = feed.Name };
+            var appEntry = new AppEntry {InterfaceID = interfaceID, Name = feed.Name};
             foreach (var capabilityList in feed.CapabilityLists)
                 appEntry.CapabilityLists.Add(capabilityList.CloneCapabilityList());
             return appEntry;

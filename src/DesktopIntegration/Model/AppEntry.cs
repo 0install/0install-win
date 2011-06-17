@@ -74,6 +74,29 @@ namespace ZeroInstall.DesktopIntegration.Model
 
         //--------------------//
 
+        #region Access
+        /// <summary>
+        /// Retreives the first <see cref="Capability"/> that matches a specific type and ID and is compatible with <see cref="Architecture.CurrentSystem"/>.
+        /// </summary>
+        /// <typeparam name="T">The capability type to match.</typeparam>
+        /// <param name="id">The <see cref="Capability.ID"/> to match.</param>
+        /// <returns>The first matching <see cref="Capability"/> or <see langword="null"/> if none was found.</returns>
+        public T GetCapability<T>(string id) where T : Capability
+        {
+            foreach (var capabilityList in _capabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
+            {
+                foreach (var capability in capabilityList.Entries)
+                {
+                    var specificCapability = capability as T;
+                    if (specificCapability != null && specificCapability.ID == id) return specificCapability;
+                }
+            }
+            return null;
+        }
+        #endregion
+
+        //--------------------//
+
         #region Conversion
         /// <summary>
         /// Returns the entry in the form "AppEntry: Name (InterfaceID)". Not safe for parsing!

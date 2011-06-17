@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.DesktopIntegration.Model
 {
@@ -34,6 +35,22 @@ namespace ZeroInstall.DesktopIntegration.Model
         [Description("The name of the command-line command (without a file extension).")]
         [XmlAttribute("name")]
         public string Name { get; set; }
+        #endregion
+
+        //--------------------//
+
+        #region Apply
+        /// <inheritdoc/>
+        public override void Apply(AppEntry appEntry, Feed feed, bool global)
+        {
+            // ToDo: Implement
+        }
+
+        /// <inheritdoc/>
+        public override void Unapply(AppEntry appEntry, bool global)
+        {
+            // ToDo: Implement
+        }
         #endregion
 
         //--------------------//

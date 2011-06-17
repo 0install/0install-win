@@ -17,6 +17,10 @@
 
 using System;
 using System.Xml.Serialization;
+using Common.Collections;
+using ZeroInstall.Model;
+using Capabilities = ZeroInstall.Model.Capabilities;
+using FileTypeWindows = ZeroInstall.DesktopIntegration.Windows.FileType;
 
 namespace ZeroInstall.DesktopIntegration.Model
 {
@@ -32,6 +36,26 @@ namespace ZeroInstall.DesktopIntegration.Model
         /// The name of this category of <see cref="AccessPoint"/>s as used by command-line interfaces.
         /// </summary>
         public const string CategoryName = "capabilities";
+        #endregion
+
+        //--------------------//
+
+        #region Apply
+        /// <inheritdoc/>
+        public override void Apply(AppEntry appEntry, Feed feed, bool global)
+        {
+            foreach (var capabilityList in appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
+            {
+                foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(capabilityList.Entries))
+                    FileTypeWindows.Apply(appEntry.InterfaceID, feed, fileType, false, global);
+            }
+        }
+
+        /// <inheritdoc/>
+        public override void Unapply(AppEntry appEntry, bool global)
+        {
+            // ToDo: Implement
+        }
         #endregion
 
         //--------------------//
