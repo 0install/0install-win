@@ -14,6 +14,7 @@ copy "src\ZeroInstall_VS2010.5.1.ReSharper.user.Backup" "src\ZeroInstall_VS2010.
 
 rem Clear object caches
 del src\*.cache > NUL 2>&1
+rd /s /q src\Alias.Cli\obj > NUL 2>&1
 rd /s /q src\Central\obj > NUL 2>&1
 rd /s /q src\Central.WinForms\obj > NUL 2>&1
 rd /s /q src\Central.Gtk\obj > NUL 2>&1
