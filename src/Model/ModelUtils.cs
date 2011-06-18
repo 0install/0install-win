@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using Common.Utils;
 using ZeroInstall.Model.Properties;
@@ -141,6 +143,15 @@ namespace ZeroInstall.Model
             { // Assume a normal URI
                 return id;
             }
+        }
+
+        /// <summary>
+        /// Calculates a SHA-1 hash of a UTF-8 representation of an interface or feed ID.
+        /// </summary>
+        public static string HashID(string id)
+        {
+            var hash = SHA1.Create().ComputeHash(Encoding.UTF8.GetBytes(id));
+            return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
         }
         #endregion
     }
