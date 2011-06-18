@@ -41,8 +41,8 @@ namespace ZeroInstall.Publish.WinForms
             var toTest = new[]
             {
                 new Archive { Extract = "/home/0install" },
-                new Archive { Location = new Uri(@"http://0install.de") },
-                new Archive { MimeType = @"image/png" },
+                new Archive { Location = new Uri("http://0install.de") },
+                new Archive { MimeType = Icon.MimeTypePng },
                 new Archive { Size = 1024 },
                 new Archive { StartOffset = 512 }
             };

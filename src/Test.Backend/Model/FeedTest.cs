@@ -45,7 +45,7 @@ namespace ZeroInstall.Model
                 FeedFor = {new InterfaceReference {Target = new Uri("http://0install.de/feeds/test/super1.xml")}},
                 Summaries = {"Default summary", {"German summary", new CultureInfo("de-DE")}},
                 Descriptions = {"Default descriptions", {"German descriptions", new CultureInfo("de-DE")}},
-                Icons = {new Icon(new Uri("http://0install.de/images/test/icon.png"), "image/png")},
+                Icons = {new Icon(new Uri("http://0install.de/images/test/icon.png"), Icon.MimeTypePng)},
                 Elements = {CreateTestImplementation(), CreateTestPackageImplementation(), CreateTestGroup()},
                 CapabilityLists = {CapabilityListTest.CreateTestCapabilityList()}
             };

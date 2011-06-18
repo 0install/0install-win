@@ -52,7 +52,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private readonly C5.HashSet<ImageFormat> _supportedImageFormats = new C5.HashSet<ImageFormat> { ImageFormat.Png, ImageFormat.Icon };
 
         private readonly C5.HashDictionary<ImageFormat, String> _mimeTypeTranslator =
-            new C5.HashDictionary<ImageFormat, String> { { ImageFormat.Png, "image/png" }, { ImageFormat.Icon, "image/vnd.microsoft.icon" } };
+            new C5.HashDictionary<ImageFormat, String> { { ImageFormat.Png, Icon.MimeTypePng }, { ImageFormat.Icon, Icon.MimeTypeIco } };
         #endregion
 
         #region Attributes
