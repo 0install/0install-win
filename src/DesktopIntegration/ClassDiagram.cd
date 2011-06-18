@@ -12,7 +12,7 @@
     </TypeIdentifier>
     <Lollipop Orientation="Right" Position="0.1" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.DesktopIntegration.AccessPoints.AppPath">
+  <Class Name="ZeroInstall.DesktopIntegration.AccessPoints.AppAlias">
     <Position X="4" Y="4.5" Width="1.5" />
     <Members>
       <Method Name="CloneAccessPoint" Hidden="true" />
@@ -22,7 +22,7 @@
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAAAEgAAQAAQAAAAAAIAAAAAAAAEAAAA=</HashCode>
-      <FileName>AccessPoints\AppPath.cs</FileName>
+      <FileName>AccessPoints\AppAlias.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>

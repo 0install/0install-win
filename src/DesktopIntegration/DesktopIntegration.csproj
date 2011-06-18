@@ -55,7 +55,7 @@
     <Compile Include="AccessPoints\AccessPointList.cs" />
     <Compile Include="AppEntry.cs" />
     <Compile Include="AppList.cs" />
-    <Compile Include="AccessPoints\AppPath.cs" />
+    <Compile Include="AccessPoints\AppAlias.cs" />
     <Compile Include="AccessPoints\AutoPlay.cs" />
     <Compile Include="AccessPoints\CapabilitiyRegistration.cs" />
     <Compile Include="AccessPoints\DefaultAccessPoint.cs" />
@@ -82,7 +82,7 @@
     <Compile Include="Windows\RegistryFilter.cs" />
     <Compile Include="Windows\ShortcutManager.cs" />
     <Compile Include="Windows\StubProvider.cs" />
-    <Compile Include="Windows\AppPath.cs" />
+    <Compile Include="Windows\AppAlias.cs" />
     <Compile Include="Windows\AutoPlay.cs" />
     <Compile Include="Windows\ComServer.cs" />
     <Compile Include="Windows\ContextMenu.cs" />

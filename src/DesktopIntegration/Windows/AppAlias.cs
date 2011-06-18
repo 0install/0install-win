@@ -26,9 +26,9 @@ using Microsoft.Win32;
 namespace ZeroInstall.DesktopIntegration.Windows
 {
     /// <summary>
-    /// Contains control logic for applying <see cref="AccessPoints.AppPath"/> on Windows systems.
+    /// Contains control logic for applying <see cref="AccessPoints.AppAlias"/> on Windows systems.
     /// </summary>
-    public static class AppPath
+    public static class AppAlias
     {
         #region Constants
         /// <summary>The HKCU/HKLM registry key for storing application lookup paths.</summary>
@@ -37,20 +37,20 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Apply
         /// <summary>
-        /// Applies an <see cref="AccessPoints.AppPath"/> to the current Windows system.
+        /// Applies an <see cref="AccessPoints.AppAlias"/> to the current Windows system.
         /// </summary>
         /// <param name="target">The application being integrated.</param>
-        /// <param name="appPath">The access point to be applied.</param>
+        /// <param name="appAlias">The access point to be applied.</param>
         /// <param name="systemWide">Apply the configuration system-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public static void Apply(InterfaceFeed target, AccessPoints.AppPath appPath, bool systemWide, ITaskHandler handler)
+        public static void Apply(InterfaceFeed target, AccessPoints.AppAlias appAlias, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
-            if (appPath == null) throw new ArgumentNullException("appPath");
+            if (appAlias == null) throw new ArgumentNullException("appAlias");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
@@ -64,17 +64,24 @@ namespace ZeroInstall.DesktopIntegration.Windows
             var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
             using (var appPathsKey = hive.OpenSubKey(RegKeyAppPaths, true))
             {
-                using (var exeKey = appPathsKey.CreateSubKey(appPath.Name))
+                using (var exeKey = appPathsKey.CreateSubKey(appAlias.Name))
                 {
-                    string stubPath = FileUtils.PathCombine(
-                        Environment.GetFolderPath(systemWide ? Environment.SpecialFolder.CommonApplicationData : Environment.SpecialFolder.LocalApplicationData),
-                        "0install.net", "aliases", appPath.Name + ".exe");
-                    
-                    // ToDo: Get icon
-                    StubProvider.BuildRunStub(stubPath, target, appPath.Command, handler);
+                    string stubPath = Path.Combine(GetAliasDirPath(systemWide), appAlias.Name + ".exe");
+                    StubProvider.BuildRunStub(stubPath, target, appAlias.Command, handler);
                     exeKey.SetValue("", stubPath);
                 }
             }
+        }
+
+        private static string GetAliasDirPath(bool systemWide)
+        {
+            // Note: Ignore portable mode, roam with user profile
+            string path = FileUtils.PathCombine(
+                Environment.GetFolderPath(systemWide ? Environment.SpecialFolder.CommonApplicationData : Environment.SpecialFolder.LocalApplicationData),
+                "0install.net", "desktop-integration", "stubs");
+
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            return path;
         }
         #endregion
     }

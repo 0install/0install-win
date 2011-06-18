@@ -19,14 +19,15 @@ using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using Common.Tasks;
+using Common.Utils;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
     /// Makes an application discoverable via the system's search PATH.
     /// </summary>
-    [XmlType("app-path", Namespace = AppList.XmlNamespace)]
-    public class AppPath : CommandAccessPoint, IEquatable<AppPath>
+    [XmlType("alias", Namespace = AppList.XmlNamespace)]
+    public class AppAlias : CommandAccessPoint, IEquatable<AppAlias>
     {
         #region Properties
         /// <summary>
@@ -43,7 +44,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, InterfaceFeed target, bool systemWide, ITaskHandler handler)
         {
-            // ToDo: Implement
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            #endregion
+
+            if (WindowsUtils.IsWindows)
+                Windows.AppAlias.Apply(target, this, systemWide, handler);
         }
 
         /// <inheritdoc/>
@@ -57,11 +63,11 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Conversion
         /// <summary>
-        /// Returns the access point in the form "AppPath: Name (Command)". Not safe for parsing!
+        /// Returns the access point in the form "AppAlias: Name (Command)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("AppPath: {0} ({1})", Name, Command);
+            return string.Format("AppAlias: {0} ({1})", Name, Command);
         }
         #endregion
 
@@ -69,13 +75,13 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new AppPath {Command = Command, Name = Name};
+            return new AppAlias {Command = Command, Name = Name};
         }
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(AppPath other)
+        public bool Equals(AppAlias other)
         {
             if (other == null) return false;
 
@@ -88,7 +94,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(AppPath) && Equals((AppPath)obj);
+            return obj.GetType() == typeof(AppAlias) && Equals((AppAlias)obj);
         }
 
         /// <inheritdoc/>

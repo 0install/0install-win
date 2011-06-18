@@ -60,9 +60,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         {
             // Note: Ignore portable mode, roam with user profile
             string path = FileUtils.PathCombine(
-                (systemWide ? Locations.SystemConfigDirs.Split(Path.PathSeparator)[0] : Locations.UserConfigDir),
-                "0install.net",
-                Path.Combine("desktop-integration", "icons"));
+                Environment.GetFolderPath(systemWide ? Environment.SpecialFolder.CommonApplicationData : Environment.SpecialFolder.LocalApplicationData),
+                "0install.net", "desktop-integration", "icons");
 
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             return path;

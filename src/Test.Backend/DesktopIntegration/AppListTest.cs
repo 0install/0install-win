@@ -52,7 +52,7 @@ namespace ZeroInstall.DesktopIntegration
         {
             return new AccessPointList {Entries =
             {
-                new AppPath {Command = "main", Name = "myapp"},
+                new AppAlias {Command = "main", Name = "myapp"},
                 new AutoPlay {Capability = "autoplay"},
                 new CapabilityRegistration(),
                 new ContextMenu {Capability = "context"},

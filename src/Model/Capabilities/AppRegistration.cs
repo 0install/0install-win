@@ -25,7 +25,7 @@ namespace ZeroInstall.Model.Capabilities
     /// Indicates that an application should be listed in Windows Vista/7's new "Default Programs" UI.
     /// </summary>
     /// <remarks>The actual integration information is pulled from the other <see cref="Capability"/>s.</remarks>
-    [XmlType("app-registration", Namespace = XmlNamespace)]
+    [XmlType("registration", Namespace = XmlNamespace)]
     public class AppRegistration : Capability, IEquatable<AppRegistration>
     {
         #region Properties
