@@ -156,7 +156,7 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Generates a mutex name using the prefix "mutex-" and a SHA-256 hash of a path.
+        /// Generates a mutex name using the prefix "mutex-" and a SHA-256 hash of a UTF-8 encoded path.
         /// </summary>
         /// <param name="path">The path to use for generating the mutex; usually <see cref="Locations.InstallBase"/>.</param>
         /// <remarks>Use this to differentiate between instances of an application installed in different locations.</remarks>
@@ -166,7 +166,7 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            var locationHash = SHA256.Create().ComputeHash(Encoding.ASCII.GetBytes(path));
+            var locationHash = SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(path));
             return "mutex-" + BitConverter.ToString(locationHash).Replace("-", "").ToLowerInvariant();
         }
     }
