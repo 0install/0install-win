@@ -42,8 +42,8 @@
             this.hintTextBoxSummary.Name = "hintTextBoxSummary";
             this.hintTextBoxSummary.ShowClearButton = true;
             this.hintTextBoxSummary.Size = new System.Drawing.Size(342, 20);
-            this.hintTextBoxSummary.TabIndex = 1;
-            this.hintTextBoxSummary.Validating += new System.ComponentModel.CancelEventHandler(this.HintTextBoxSummaryValidating);
+            this.hintTextBoxSummary.TabIndex = 10;
+            this.hintTextBoxSummary.TextChanged += new System.EventHandler(this.HintTextBoxSummaryTextChanged);
             // 
             // comboBoxLanguages
             // 
@@ -53,7 +53,6 @@
             this.comboBoxLanguages.Name = "comboBoxLanguages";
             this.comboBoxLanguages.Size = new System.Drawing.Size(79, 21);
             this.comboBoxLanguages.TabIndex = 0;
-            this.comboBoxLanguages.SelectionChangeCommitted += new System.EventHandler(this.ComboBoxLanguagesSelectionChangeCommitted);
             // 
             // LocalizableTextControl
             // 

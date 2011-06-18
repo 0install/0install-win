@@ -151,4 +151,10 @@ Möchten Sie die Änderungen speichern?</value>
     <value>Passphrase falsch.
 Bitte geben Sie die GnuPG Passphrase für {0} erneut ein.</value>
   </data>
+	<data name="HintTextMultiline">
+		<value xml:space="preserve">Eine komplette, u.U. mehrzeilige Beschreibung.</value>
+	</data>
+	<data name="HintTextSinlgeLine">
+		<value xml:space="preserve">Eine kurze, einzeilige Beschreibung.</value>
+	</data>
 </root>

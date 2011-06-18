@@ -32,6 +32,18 @@ namespace ZeroInstall.Model
     [XmlType("icon", Namespace = Feed.XmlNamespace)]
     public struct Icon : IEquatable<Icon>
     {
+        #region Constants
+        /// <summary>
+        /// The <see cref="MimeType"/> value for PNG icons.
+        /// </summary>
+        public const string MimeTypePng = "image/png";
+
+        /// <summary>
+        /// The <see cref="MimeType"/> value for Windows ICO icons.
+        /// </summary>
+        public const string MimeTypeIco = "image/vnd.microsoft.icon";
+        #endregion
+
         #region Properties
         /// <summary>
         /// The URL used to locate the icon.
