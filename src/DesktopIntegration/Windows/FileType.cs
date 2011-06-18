@@ -17,8 +17,9 @@
 
 using System;
 using System.IO;
-using Common.Storage;
-using Common.Utils;
+using System.Net;
+using Common;
+using Common.Tasks;
 using Microsoft.Win32;
 using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
@@ -42,22 +43,27 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         /// <summary>The registry value name for perceived type storage.</summary>
         public const string RegValuePerceivedType = "PerceivedType";
+
+        /// <summary>The registry subkey containing <see cref="Capabilities.FileType"/> references.</summary>
+        public const string RegSubKeyIcon = "DefaultIcon";
         #endregion
 
         #region Apply
         /// <summary>
         /// Applies a <see cref="Capabilities.FileType"/> to the current Windows system.
         /// </summary>
-        /// <param name="interfaceID">The interface ID of the application being integrated.</param>
-        /// <param name="feed">The feed of the application to get additional information (e.g. icons) from.</param>
+        /// <param name="target">The application being integrated.</param>
         /// <param name="capability">The capability to be applied.</param>
         /// <param name="defaults">Flag indicating that file association, etc. should become default handlers for their respective types.</param>
         /// <param name="systemWide">Apply the configuration system-wide instead of just for the current user.</param>
-        public static void Apply(string interfaceID, Feed feed, Capabilities.FileType capability, bool defaults, bool systemWide)
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        public static void Apply(InterfaceFeed target, Capabilities.FileType capability, bool defaults, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
-            if (feed == null) throw new ArgumentNullException("feed");
             if (capability == null) throw new ArgumentNullException("capability");
             #endregion
 
@@ -68,7 +74,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 {
                     if (capability.Description != null) progIDKey.SetValue("", capability.Description);
 
-                    // ToDo: Set icon
+                    // Find the first suitable icon specified by the capability, then fall back to the feed
+                    var suitableIcons = capability.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco);
+                    if (suitableIcons.IsEmpty) suitableIcons = target.Feed.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco && icon.Location != null);
+                    if (!suitableIcons.IsEmpty)
+                    {
+                        using (var iconKey = progIDKey.CreateSubKey(RegSubKeyIcon))
+                            iconKey.SetValue("", IconProvider.GetIcon(suitableIcons.First, systemWide, handler) + ",0");
+                    }
 
                     using (var shellKey = progIDKey.CreateSubKey("shell"))
                     {
@@ -77,10 +90,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
                             using (var verbKey = shellKey.CreateSubKey(verb.Name))
                             using (var commandKey = verbKey.CreateSubKey("command"))
                             {
-                                string launchCommand = "\"" + Path.Combine(Locations.InstallBase, feed.NeedsTerminal ? "0install.exe" : "0install-win.exe") + "\" run ";
-                                if (!string.IsNullOrEmpty(verb.Command))
-                                    launchCommand += "--command=" + StringUtils.EscapeWhitespace(verb.Command) + " ";
-                                launchCommand += StringUtils.EscapeWhitespace(interfaceID) + " " + verb.Arguments;
+                                string launchCommand = "\"" + StubProvider.GetRunStub(target, verb.Command, systemWide, handler) + "\"";
+                                if (!string.IsNullOrEmpty(verb.Arguments)) launchCommand += " " + verb.Arguments;
                                 commandKey.SetValue("", launchCommand);
                             }
                         }
@@ -91,8 +102,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 {
                     using (var extensionKey = classesKey.CreateSubKey(extension.Value))
                     {
-                        if (extension.MimeType != null) extensionKey.SetValue("Content Type", extension.MimeType);
-                        if (extension.PerceivedType != null) extensionKey.SetValue("PerceivedType", extension.PerceivedType);
+                        if (extension.MimeType != null) extensionKey.SetValue(RegValueContentType, extension.MimeType);
+                        if (extension.PerceivedType != null) extensionKey.SetValue(RegValuePerceivedType, extension.PerceivedType);
 
                         using (var openWithKey = extensionKey.CreateSubKey("OpenWithProgIDs"))
                             openWithKey.SetValue(capability.ID, "");

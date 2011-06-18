@@ -50,8 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryIntegrationManager.cs" />
-    <Compile Include="DetailedIntegrationManager.cs" />
-    <Compile Include="IntegrationManagerBase.cs" />
+    <Compile Include="IntegrationManager.cs" />
     <Compile Include="AccessPoints\AccessPoint.cs" />
     <Compile Include="AccessPoints\AccessPointList.cs" />
     <Compile Include="AppEntry.cs" />
@@ -70,6 +69,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="AccessPoints\QuickLaunch.cs" />
     <Compile Include="AccessPoints\UrlProtocol.cs" />
+    <Compile Include="InterfaceFeed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -78,9 +78,10 @@
     </Compile>
     <Compile Include="Windows\AppRegistration.cs" />
     <Compile Include="Windows\FileType.cs" />
+    <Compile Include="Windows\IconProvider.cs" />
     <Compile Include="Windows\RegistryFilter.cs" />
     <Compile Include="Windows\ShortcutManager.cs" />
-    <Compile Include="Windows\StubBuilder.cs" />
+    <Compile Include="Windows\StubProvider.cs" />
     <Compile Include="Windows\AppPath.cs" />
     <Compile Include="Windows\AutoPlay.cs" />
     <Compile Include="Windows\ComServer.cs" />
@@ -107,6 +108,10 @@
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
       <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store\Store.csproj">
+      <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
+      <Name>Store</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

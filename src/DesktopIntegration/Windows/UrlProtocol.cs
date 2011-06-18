@@ -16,8 +16,11 @@
  */
 
 using System;
+using System.IO;
+using System.Net;
+using Common;
+using Common.Tasks;
 using Microsoft.Win32;
-using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -35,20 +38,24 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public const string RegKeyUserVistaUrlAssoc = @"Software\Microsoft\Windows\Shell\ Associations\UrlAssociations";
         #endregion
 
+        #region Apply
         /// <summary>
         /// Applies an <see cref="Capabilities.UrlProtocol"/> to the current Windows system.
         /// </summary>
-        /// <param name="interfaceID">The interface ID of the application being integrated.</param>
-        /// <param name="feed">The feed of the application to get additional information (e.g. icons) from.</param>
+        /// <param name="target">The application being integrated.</param>
         /// <param name="capability">The capability to be applied.</param>
         /// <param name="defaults">Flag indicating that file association, etc. should become default handlers for their respective types.</param>
         /// <param name="systemWide">Apply the configuration system-wide instead of just for the current user.</param>
-        public static void Apply(string interfaceID, Feed feed, Capabilities.UrlProtocol capability, bool defaults, bool systemWide)
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        public static void Apply(InterfaceFeed target, Capabilities.UrlProtocol capability, bool defaults, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
-            if (feed == null) throw new ArgumentNullException("feed");
             if (capability == null) throw new ArgumentNullException("capability");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
@@ -60,5 +67,6 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 }
             }
         }
+        #endregion
     }
 }

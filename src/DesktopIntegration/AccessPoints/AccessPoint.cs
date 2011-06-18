@@ -17,7 +17,10 @@
 
 using System;
 using System.IO;
+using System.Net;
 using System.Xml.Serialization;
+using Common;
+using Common.Tasks;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
@@ -33,11 +36,14 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// Applies this access point to the current machine.
         /// </summary>
         /// <param name="appEntry">The application entry containing this access point.</param>
-        /// <param name="feed">The feed of the application to get additional information (e.g. icons) from.</param>
+        /// <param name="target">The application being integrated.</param>
         /// <param name="systemWide">Apply the configuration system-wide instead of just for the current user.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public abstract void Apply(AppEntry appEntry, Feed feed, bool systemWide);
+        public abstract void Apply(AppEntry appEntry, InterfaceFeed target, bool systemWide, ITaskHandler handler);
 
         /// <summary>
         /// Unapplies this access point on the current machine.

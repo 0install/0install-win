@@ -18,19 +18,20 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using Common;
 using Common.Storage;
+using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
-using ZeroInstall.Model;
-using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration
 {
     /// <summary>
-    /// Common base class for classes that manage desktop integration.
+    /// Manages desktop integration via <see cref="AccessPoint"/>s.
     /// </summary>
-    public abstract class IntegrationManagerBase
+    public class IntegrationManager
     {
         #region Variables
         /// <summary>Apply operations system-wide instead of just for the current user.</summary>
@@ -55,13 +56,15 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or wirte access to the <see cref="AppList"/> file is not permitted.</exception>
         /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        protected IntegrationManagerBase(bool systemWide)
+        protected IntegrationManager(bool systemWide)
         {
             _systemWide = systemWide;
 
+            string appListFileName = Path.Combine("desktop-integration", "app-list.xml");
             _appListPath = systemWide
-                ? FileUtils.PathCombine(Locations.SystemConfigDirs.Split(Path.PathSeparator)[0], "0install.net", "desktop-integration", "myapps.xml")
-                : Locations.GetSaveConfigPath("0install.net", Path.Combine("desktop-integration", "myapps.xml"), false);
+                // Note: Ignore Portable mode when operating system-wide
+                ? FileUtils.PathCombine(Locations.SystemConfigDirs.Split(Path.PathSeparator)[0], "0install.net", appListFileName)
+                : Locations.GetSaveConfigPath("0install.net", appListFileName, false);
 
             if (File.Exists(_appListPath)) AppList = AppList.Load(_appListPath);
             else
@@ -78,23 +81,17 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Adds an application to the application list.
         /// </summary>
-        /// <param name="interfaceID">The interface for the application to add.</param>
-        /// <param name="feed">The <see cref="Feed"/> for the application to add.</param>
+        /// <param name="target">The application being integrated.</param>
         /// <exception cref="InvalidOperationException">Thrown in the application is already in the list.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public void AddApp(string interfaceID, Feed feed)
+        public void AddApp(InterfaceFeed target)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
-            if (feed == null) throw new ArgumentNullException("feed");
-            #endregion
-
             // Prevent double entries
-            AppEntry existingEntry = FindAppEntry(interfaceID);
+            AppEntry existingEntry = FindAppEntry(target.InterfaceID);
             if (existingEntry != null) throw new InvalidOperationException(string.Format(Resources.AppAlreadyInList, existingEntry.Name));
 
-            AppList.Entries.Add(BuildAppEntry(interfaceID, feed));
+            AppList.Entries.Add(BuildAppEntry(target));
             AppList.Save(_appListPath);
         }
 
@@ -114,35 +111,47 @@ namespace ZeroInstall.DesktopIntegration
             AppEntry appEntry = FindAppEntry(interfaceID);
             if (appEntry == null) throw new InvalidOperationException(string.Format(Resources.AppNotInList, interfaceID));
 
-            // Remove all AccessPoints first
-            RemoveAccessPoints(appEntry, appEntry.AccessPoints.Entries);
+            if (appEntry.AccessPoints != null)
+            {
+                // Unapply any remaining access points
+                foreach (var accessPoint in appEntry.AccessPoints.Entries)
+                    accessPoint.Unapply(appEntry, _systemWide);
+                WindowsUtils.NotifyAssocChanged();
+            }
 
             AppList.Entries.Remove(appEntry);
             AppList.Save(_appListPath);
         }
         #endregion
 
-        #region AccessPoint handling
+        #region AccessPoints
         /// <summary>
-        /// Adds and applies <see cref="AccessPoint"/>s to the <see cref="AppList"/>.
+        /// Applies <see cref="AccessPoint"/>s for an application.
         /// </summary>
-        /// <param name="appEntry">The <see cref="AppEntry"/> to add the <see cref="AccessPoint"/>s for.</param>
-        /// <param name="feed">The <see cref="Feed"/> for the application the <see cref="AccessPoint"/>s refer to.</param>
-        /// <param name="accessPoints">The <see cref="AccessPoint"/>s to add.</param>
+        /// <param name="target">The application being integrated.</param>
+        /// <param name="accessPoints">The <see cref="AccessPoint"/>s to apply.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        /// <remarks>
-        /// Changes to the <see cref="AppList"/> are saved before applying them to the desktop environment.
-        /// This allows you to rollback any changes using <see cref="RemoveAccessPoints"/> in case there are problems.
-        /// </remarks>
-        protected void AddAccessPoints(AppEntry appEntry, Feed feed, IEnumerable<AccessPoint> accessPoints)
+        public void AddAccessPoints(InterfaceFeed target, IEnumerable<AccessPoint> accessPoints, ITaskHandler handler)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (feed == null) throw new ArgumentNullException("feed");
             if (accessPoints == null) throw new ArgumentNullException("accessPoints");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
+            // Implicitly add application to list if missing
+            AppEntry appEntry = FindAppEntry(target.InterfaceID);
+            if (appEntry == null)
+            {
+                appEntry = BuildAppEntry(target);
+                AppList.Entries.Add(appEntry);
+            }
+            if (appEntry.AccessPoints == null) appEntry.AccessPoints = new AccessPointList();
+
+            // Update the XML data
             foreach (var accessPoint in accessPoints)
             {
                 if (!appEntry.AccessPoints.Entries.Contains(accessPoint))
@@ -150,33 +159,38 @@ namespace ZeroInstall.DesktopIntegration
             }
             AppList.Save(_appListPath);
 
+            // Apply the access points
             foreach (var accessPoint in accessPoints)
-                accessPoint.Apply(appEntry, feed, _systemWide);
+                accessPoint.Apply(appEntry, target, _systemWide, handler);
             WindowsUtils.NotifyAssocChanged();
         }
 
         /// <summary>
-        /// Unapplies and removes  <see cref="AccessPoint"/>s from the <see cref="AppList"/>.
+        /// Removes already applied <see cref="AccessPoint"/>s for an application.
         /// </summary>
-        /// <param name="appEntry">The <see cref="AppEntry"/> to remove the <see cref="AccessPoint"/>s from.</param>
+        /// <param name="interfaceID">The interface for the application to perform the operation on.</param>
         /// <param name="accessPoints">The <see cref="AccessPoint"/>s to remove.</param>
+        /// <exception cref="InvalidOperationException">Thrown in the application is not in the list.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        /// <remarks>
-        /// Changes are applyed to the desktop environment before saving them to the <see cref="AppList"/>.
-        /// This allows you to rerun removal processes in case there are problems.
-        /// </remarks>
-        protected void RemoveAccessPoints(AppEntry appEntry, IEnumerable<AccessPoint> accessPoints)
+        public void RemoveAccessPoints(string interfaceID, IEnumerable<AccessPoint> accessPoints)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             if (accessPoints == null) throw new ArgumentNullException("accessPoints");
             #endregion
 
+            // Handle missing entries
+            AppEntry appEntry = FindAppEntry(interfaceID);
+            if (appEntry == null) throw new InvalidOperationException(string.Format(Resources.AppNotInList, interfaceID));
+            if (appEntry.AccessPoints == null) return;
+
+            // Unapply the access points
             foreach (var accessPoint in accessPoints)
                 accessPoint.Unapply(appEntry, _systemWide);
             WindowsUtils.NotifyAssocChanged();
 
+            // Update the XML data
             appEntry.AccessPoints.Entries.RemoveAll(accessPoints);
             AppList.Save(_appListPath);
         }
@@ -202,18 +216,12 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Creates a new <see cref="AppEntry"/>.
         /// </summary>
-        /// <param name="interfaceID">The <see cref="AppEntry.InterfaceID"/> to set.</param>
-        /// <param name="feed">The <see cref="Feed"/> to get data such as the name an <see cref="Capabilities.Capability"/>s from.</param>
+        /// <param name="target">The application being integrated.</param>
         /// <returns>The newly created <see cref="AppEntry"/>.</returns>
-        protected static AppEntry BuildAppEntry(string interfaceID, Feed feed)
+        protected static AppEntry BuildAppEntry(InterfaceFeed target)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
-            if (feed == null) throw new ArgumentNullException("feed");
-            #endregion
-
-            var appEntry = new AppEntry {InterfaceID = interfaceID, Name = feed.Name};
-            foreach (var capabilityList in feed.CapabilityLists)
+            var appEntry = new AppEntry {InterfaceID = target.InterfaceID, Name = target.Feed.Name};
+            foreach (var capabilityList in target.Feed.CapabilityLists)
                 appEntry.CapabilityLists.Add(capabilityList.CloneCapabilityList());
             return appEntry;
         }

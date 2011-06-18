@@ -105,7 +105,7 @@ namespace ZeroInstall.Commands
 
             if (Canceled) throw new UserCancelException();
 
-            integrationManager.AddAccessPointCategory(interfaceID, feed, _addCategories);
+            integrationManager.AddAccessPointCategory(new InterfaceFeed(interfaceID, feed), _addCategories, Policy.Handler);
 
             // Show a "integration complete" message (but not in batch mode, since it is too unimportant)
             if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, feed.Name));

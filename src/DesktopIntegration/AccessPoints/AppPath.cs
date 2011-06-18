@@ -18,7 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using ZeroInstall.Model;
+using Common.Tasks;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
@@ -41,7 +41,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Apply
         /// <inheritdoc/>
-        public override void Apply(AppEntry appEntry, Feed feed, bool systemWide)
+        public override void Apply(AppEntry appEntry, InterfaceFeed target, bool systemWide, ITaskHandler handler)
         {
             // ToDo: Implement
         }

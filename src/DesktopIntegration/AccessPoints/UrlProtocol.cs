@@ -17,8 +17,8 @@
 
 using System;
 using System.Xml.Serialization;
+using Common.Tasks;
 using Common.Utils;
-using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
@@ -32,18 +32,17 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     {
         #region Apply
         /// <inheritdoc/>
-        public override void Apply(AppEntry appEntry, Feed feed, bool systemWide)
+        public override void Apply(AppEntry appEntry, InterfaceFeed target, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
             var capability = appEntry.GetCapability<Capabilities.UrlProtocol>(Capability);
             if (capability == null) return;
 
             if (WindowsUtils.IsWindows)
-                Windows.UrlProtocol.Apply(appEntry.InterfaceID, feed, capability, true, systemWide);
+                Windows.UrlProtocol.Apply(target, capability, true, systemWide, handler);
         }
 
         /// <inheritdoc/>

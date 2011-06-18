@@ -18,6 +18,7 @@
 using System;
 using System.Xml.Serialization;
 using Common.Collections;
+using Common.Tasks;
 using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
@@ -41,17 +42,16 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Apply
         /// <inheritdoc/>
-        public override void Apply(AppEntry appEntry, Feed feed, bool systemWide)
+        public override void Apply(AppEntry appEntry, InterfaceFeed target, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
             foreach (var capabilityList in appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
             {
                 foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(capabilityList.Entries))
-                    Windows.FileType.Apply(appEntry.InterfaceID, feed, fileType, false, systemWide);
+                    Windows.FileType.Apply(target, fileType, false, systemWide, handler);
             }
         }
 

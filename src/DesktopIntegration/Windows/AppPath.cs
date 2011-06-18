@@ -16,9 +16,12 @@
  */
 
 using System;
+using System.IO;
+using System.Net;
+using Common;
+using Common.Tasks;
 using Common.Utils;
 using Microsoft.Win32;
-using ZeroInstall.Model;
 
 namespace ZeroInstall.DesktopIntegration.Windows
 {
@@ -36,16 +39,19 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <summary>
         /// Applies an <see cref="AccessPoints.AppPath"/> to the current Windows system.
         /// </summary>
-        /// <param name="interfaceID">The interface ID of the application being integrated.</param>
-        /// <param name="feed">The feed of the application to get additional information (e.g. icons) from.</param>
+        /// <param name="target">The application being integrated.</param>
         /// <param name="appPath">The access point to be applied.</param>
         /// <param name="systemWide">Apply the configuration system-wide instead of just for the current user.</param>
-        public static void Apply(string interfaceID, Feed feed, AccessPoints.AppPath appPath, bool systemWide)
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        public static void Apply(InterfaceFeed target, AccessPoints.AppPath appPath, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
-            if (feed == null) throw new ArgumentNullException("feed");
             if (appPath == null) throw new ArgumentNullException("appPath");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             // Only Windows 7 and newer support per-user AppPaths
@@ -65,7 +71,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         "0install.net", "aliases", appPath.Name + ".exe");
                     
                     // ToDo: Get icon
-                    StubBuilder.BuildRunStub(stubPath, interfaceID, feed.Name, null, appPath.Command, !feed.NeedsTerminal);
+                    StubProvider.BuildRunStub(stubPath, target, appPath.Command, handler);
                     exeKey.SetValue("", stubPath);
                 }
             }

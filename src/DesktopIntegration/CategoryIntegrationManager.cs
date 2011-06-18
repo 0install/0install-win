@@ -18,6 +18,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using Common;
+using Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
@@ -27,9 +30,9 @@ using Capability = ZeroInstall.Model.Capabilities.Capability;
 namespace ZeroInstall.DesktopIntegration
 {
     /// <summary>
-    /// Allows category-based management of desktop integration, grouping <see cref="AccessPoint"/>s into broad categories.
+    /// Manages desktop integration via <see cref="AccessPoint"/>, grouping them into categories.
     /// </summary>
-    public class CategoryIntegrationManager : IntegrationManagerBase
+    public class CategoryIntegrationManager : IntegrationManager
     {
         #region Constants
         /// <summary>Indicates that all <see cref="Capability"/>s and <see cref="AccessPoint"/>s shall be integrated.</summary>
@@ -50,29 +53,30 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Applies a category of <see cref="AccessPoint"/>s for an application.
         /// </summary>
-        /// <param name="interfaceID">The interface for the application to perform the operation on.</param>
-        /// <param name="feed">The <see cref="Feed"/> for the application to perform the operation on.</param>
+        /// <param name="target">The application being integrated.</param>
         /// <param name="categories">A list of all <see cref="AccessPoint"/> categories to be added to the already applied ones.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public void AddAccessPointCategory(string interfaceID, Feed feed, ICollection<string> categories)
+        public void AddAccessPointCategory(InterfaceFeed target, ICollection<string> categories, ITaskHandler handler)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
-            if (feed == null) throw new ArgumentNullException("feed");
             if (categories == null) throw new ArgumentNullException("categories");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             // Implicitly add application to list if missing
-            AppEntry appEntry = FindAppEntry(interfaceID);
+            AppEntry appEntry = FindAppEntry(target.InterfaceID);
             if (appEntry == null)
             {
-                appEntry = BuildAppEntry(interfaceID, feed);
+                appEntry = BuildAppEntry(target);
                 AppList.Entries.Add(appEntry);
             }
             if (appEntry.AccessPoints == null) appEntry.AccessPoints = new AccessPointList();
 
-            AddAccessPoints(appEntry, feed, CategoriesToAccessPoints(appEntry, categories));
+            AddAccessPoints(target, CategoriesToAccessPoints(appEntry, categories), handler);
         }
 
         /// <summary>
@@ -90,11 +94,12 @@ namespace ZeroInstall.DesktopIntegration
             if (categories == null) throw new ArgumentNullException("categories");
             #endregion
 
+            // Handle missing entries
             AppEntry appEntry = FindAppEntry(interfaceID);
             if (appEntry == null) throw new InvalidOperationException(string.Format(Resources.AppNotInList, interfaceID));
             if (appEntry.AccessPoints == null) return;
 
-            RemoveAccessPoints(appEntry, CategoriesToAccessPoints(appEntry, categories));
+            RemoveAccessPoints(interfaceID, CategoriesToAccessPoints(appEntry, categories));
         }
 
         #region Helpers
