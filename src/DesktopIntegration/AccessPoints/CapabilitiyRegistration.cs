@@ -53,6 +53,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                 foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(capabilityList.Entries))
                     Windows.FileType.Apply(target, fileType, false, systemWide, handler);
             }
+
+            // ToDo: Uninstall entry
         }
 
         /// <inheritdoc/>
