@@ -231,7 +231,7 @@ namespace Common.Storage
             }
 
             if (binaryFound) return output;
-            throw new InvalidOperationException(Resources.NoBinaryDataInZip);
+            throw new InvalidDataException(Resources.NoBinaryDataInZip);
         }
 
         /// <summary>

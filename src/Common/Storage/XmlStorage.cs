@@ -394,7 +394,7 @@ namespace Common.Storage
             }
 
             if (xmlFound) return output;
-            throw new InvalidOperationException(Resources.NoXmlDataInZip);
+            throw new InvalidDataException(Resources.NoXmlDataInZip);
         }
 
         /// <summary>
