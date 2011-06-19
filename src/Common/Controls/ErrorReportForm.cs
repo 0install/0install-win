@@ -53,7 +53,7 @@ namespace Common.Controls
         private ErrorReportForm(Exception exception, Uri uploadUri)
         {
             #region Sanity checks
-            if (exception == null) throw new ArgumentNullException("ex");
+            if (exception == null) throw new ArgumentNullException("exception");
             if (uploadUri == null) throw new ArgumentNullException("uploadUri");
             #endregion
 
