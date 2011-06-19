@@ -160,7 +160,7 @@ namespace ZeroInstall.DesktopIntegration
                 int result = (Name ?? "").GetHashCode();
                 result = (result * 397) ^ (InterfaceID ?? "").GetHashCode();
                 result = (result * 397) ^ CapabilityLists.GetSequencedHashCode();
-                result = (result * 397) ^ AccessPoints.GetHashCode();
+                if (AccessPoints != null) result = (result * 397) ^ AccessPoints.GetHashCode();
                 return result;
             }
         }

@@ -78,7 +78,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (Locations.IsPortable) throw new InvalidOperationException(Resources.NotAvailableInPortableMode);
+            if (Locations.IsPortable) throw new NotSupportedException(Resources.NotAvailableInPortableMode);
 
             return base.Execute();
         }
