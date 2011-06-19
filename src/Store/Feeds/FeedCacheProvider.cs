@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Feeds
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         public static IFeedCache CreateDefault()
         {
-            return new MemoryFeedCache(new DiskFeedCache(Locations.GetUserCachePath("0install.net", "interfaces")));
+            return new MemoryFeedCache(new DiskFeedCache(Locations.GetUserCacheDirPath("0install.net", "interfaces")));
         }
     }
 }

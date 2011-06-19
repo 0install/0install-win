@@ -103,7 +103,7 @@ namespace ZeroInstall.Injector.Feeds
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             #endregion
 
-            var path = EnumerableUtils.GetFirst(Locations.GetLoadConfigPaths("0install.net", FileUtils.PathCombine("injector", "interfaces", ModelUtils.PrettyEscape(interfaceID)), false));
+            var path = EnumerableUtils.GetFirst(Locations.GetLoadConfigPaths("0install.net", true, "injector", "interfaces", ModelUtils.PrettyEscape(interfaceID)));
             if (string.IsNullOrEmpty(path)) return new InterfacePreferences();
 
             return XmlStorage.Load<InterfacePreferences>(path);
@@ -164,7 +164,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void SaveFor(string interfaceID)
         {
-            var path = Locations.GetSaveConfigPath("0install.net", FileUtils.PathCombine("injector", "interfaces", ModelUtils.PrettyEscape(interfaceID)), false);
+            var path = Locations.GetSaveConfigPath("0install.net", true, "injector", "interfaces", ModelUtils.PrettyEscape(interfaceID));
             XmlStorage.Save(path, this);
         }
         #endregion

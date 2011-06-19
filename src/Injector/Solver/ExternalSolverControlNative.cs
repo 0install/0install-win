@@ -46,7 +46,7 @@ namespace ZeroInstall.Injector.Solver
             if (Locations.IsPortable)
             {
                 startInfo.EnvironmentVariables["ZEROINSTALL_PORTABLE_BASE"] = Locations.PortableBase;
-                startInfo.EnvironmentVariables["GNUPGHOME"] = Locations.GetSaveConfigPath("GnuPG", "gnupg", true);
+                startInfo.EnvironmentVariables["GNUPGHOME"] = Locations.GetSaveConfigPath("GnuPG", false, "gnupg");
             }
 
             return startInfo;

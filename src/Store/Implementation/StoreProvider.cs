@@ -48,7 +48,7 @@ namespace ZeroInstall.Store.Implementation
         private static IEnumerable<IStore> GetStores()
         {
             string[] customPaths = GetCustomImplementationDirs();
-            IEnumerable<string> paths = (customPaths.Length != 0 ? customPaths : Locations.GetCachePaths("0install.net", "implementations"));
+            IEnumerable<string> paths = (customPaths.Length != 0 ? customPaths : Locations.GetCacheDirPath("0install.net", "implementations"));
 
             var stores = new C5.LinkedList<IStore>();
             foreach (var path in paths)
@@ -81,9 +81,9 @@ namespace ZeroInstall.Store.Implementation
         private static string[] GetCustomImplementationDirs()
         {
             // Always add the user cache to have a reliable fallback location for storage
-            var paths = new C5.LinkedList<string> {Locations.GetUserCachePath("0install.net", "implementations")};
+            var paths = new C5.LinkedList<string> {Locations.GetUserCacheDirPath("0install.net", "implementations")};
 
-            foreach (string configFile in Locations.GetLoadConfigPaths("0install.net", Path.Combine("injector", "implementation-dirs"), false))
+            foreach (string configFile in Locations.GetLoadConfigPaths("0install.net", true, "injector", "implementation-dirs"))
             {
                 // Read file lines using UTF-8 with BOM
                 foreach (string line in File.ReadAllLines(configFile, Encoding.UTF8))

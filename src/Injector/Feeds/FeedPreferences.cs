@@ -122,7 +122,7 @@ namespace ZeroInstall.Injector.Feeds
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
             #endregion
 
-            var path = EnumerableUtils.GetFirst(Locations.GetLoadConfigPaths("0install.net", FileUtils.PathCombine("injector", "feeds", ModelUtils.PrettyEscape(feedID)), false));
+            var path = EnumerableUtils.GetFirst(Locations.GetLoadConfigPaths("0install.net", true, "injector", "feeds", ModelUtils.PrettyEscape(feedID)));
             if (string.IsNullOrEmpty(path)) return new FeedPreferences();
 
             return XmlStorage.Load<FeedPreferences>(path);
@@ -183,7 +183,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void SaveFor(string feedID)
         {
-            var path = Locations.GetSaveConfigPath("0install.net", FileUtils.PathCombine("injector", "feeds", ModelUtils.PrettyEscape(feedID)), false);
+            var path = Locations.GetSaveConfigPath("0install.net", true, "injector", "feeds", ModelUtils.PrettyEscape(feedID));
             XmlStorage.Save(path, this);
         }
         #endregion
