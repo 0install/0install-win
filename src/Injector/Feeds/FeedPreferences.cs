@@ -148,17 +148,17 @@ namespace ZeroInstall.Injector.Feeds
             }
             catch (IOException ex)
             {
-                Log.Error("Error loading feed preferences for '" + feedID + "'. Reverting to default values.\n" + ex.Message);
+                Log.Error("Error loading feed preferences for '" + feedID + "'. Reverting to default values.\n" + ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
                 return new FeedPreferences();
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Error("Error loading feed preferences for '" + feedID + "'. Reverting to default values.\n" + ex.Message);
+                Log.Error("Error loading feed preferences for '" + feedID + "'. Reverting to default values.\n" + ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
                 return new FeedPreferences();
             }
             catch (InvalidDataException ex)
             {
-                Log.Error("Error loading feed preferences for '" + feedID + "'. Reverting to default values.\n" + ex.Message);
+                Log.Error("Error loading feed preferences for '" + feedID + "'. Reverting to default values.\n" + ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
                 return new FeedPreferences();
             }
             #endregion

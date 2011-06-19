@@ -129,17 +129,17 @@ namespace ZeroInstall.Injector.Feeds
             }
             catch (IOException ex)
             {
-                Log.Error("Error loading interface preferences for '" + interfaceID + "'. Reverting to default values.\n" + ex.Message);
+                Log.Error("Error loading interface preferences for '" + interfaceID + "'. Reverting to default values.\n" + ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
                 return new InterfacePreferences();
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Error("Error loading interface preferences for '" + interfaceID + "'. Reverting to default values.\n" + ex.Message);
+                Log.Error("Error loading interface preferences for '" + interfaceID + "'. Reverting to default values.\n" + ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
                 return new InterfacePreferences();
             }
             catch (InvalidDataException ex)
             {
-                Log.Error("Error loading interface preferences for '" + interfaceID + "'. Reverting to default values.\n" + ex.Message);
+                Log.Error("Error loading interface preferences for '" + interfaceID + "'. Reverting to default values.\n" + ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
                 return new InterfacePreferences();
             }
             #endregion

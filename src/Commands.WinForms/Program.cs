@@ -99,7 +99,7 @@ namespace ZeroInstall.Commands.WinForms
                 }
                 catch (InvalidDataException ex)
                 {
-                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                    Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Warn);
                     return;
                 }
                 catch (InvalidInterfaceIDException ex)
@@ -163,6 +163,8 @@ namespace ZeroInstall.Commands.WinForms
                 catch (InvalidDataException ex)
                 {
                     handler.DisableProgressUI();
+                    // Complete XML errors are too long for the headline, so split it into the log
+                    if (ex.InnerException != null) Log.Error(ex.InnerException.Message);
                     ErrorBox.Show(ex.Message, errorLog.ToString());
                 }
                 catch (InvalidInterfaceIDException ex)
