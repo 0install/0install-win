@@ -54,10 +54,10 @@
             // 
             this.labelMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelMessage.Location = new System.Drawing.Point(70, 9);
             this.labelMessage.Name = "labelMessage";
-            this.labelMessage.Size = new System.Drawing.Size(412, 48);
+            this.labelMessage.Size = new System.Drawing.Size(412, 59);
             this.labelMessage.TabIndex = 1;
             this.labelMessage.Text = "(Message)";
             // 
@@ -68,10 +68,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textDetails.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textDetails.Location = new System.Drawing.Point(16, 63);
+            this.textDetails.Location = new System.Drawing.Point(16, 71);
             this.textDetails.Name = "textDetails";
             this.textDetails.ReadOnly = true;
-            this.textDetails.Size = new System.Drawing.Size(466, 157);
+            this.textDetails.Size = new System.Drawing.Size(466, 149);
             this.textDetails.TabIndex = 2;
             this.textDetails.Text = "(Details)";
             // 

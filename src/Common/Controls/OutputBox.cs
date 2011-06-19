@@ -48,8 +48,8 @@ namespace Common.Controls
         public static void Show(string title, string message)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(title)) throw new ArgumentNullException("title");
-            if (string.IsNullOrEmpty(message)) throw new ArgumentNullException("message");
+            if (title == null) throw new ArgumentNullException("title");
+            if (message == null) throw new ArgumentNullException("message");
             #endregion
 
             using (var outputBox = new OutputBox

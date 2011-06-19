@@ -180,11 +180,10 @@ namespace Common.Storage
             catch (InvalidDataException ex)
             {
                 // Write additional diagnostic information to log
-                string message = string.Format(Resources.ProblemLoading, path) + "\n" + ex.Message;
-                if (ex.InnerException != null) message += "\n" + ex.InnerException.Message;
-                Log.Error(message);
+                if (ex.InnerException != null) Log.Error(ex.InnerException.Message);
 
-                throw;
+                // Wrap exception to add context information
+                throw new InvalidDataException(string.Format(Resources.ProblemLoading, path) + "\n" + ex.Message, ex);
             }
             #endregion
         }

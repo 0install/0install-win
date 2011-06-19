@@ -43,7 +43,7 @@ namespace Common.Controls
         public void AppendPar(string text, RtfColor color)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(text)) throw new ArgumentNullException("text");
+            if (text == null) throw new ArgumentNullException("text");
             #endregion
 
             text = text.Replace(@"\", @"\\").Replace(Environment.NewLine, "\\par");
