@@ -22,7 +22,6 @@ using System.Globalization;
 using System.Windows.Forms;
 using C5;
 using Common.Collections;
-using Common.Controls;
 using ZeroInstall.Publish.WinForms.Properties;
 
 namespace ZeroInstall.Publish.WinForms.Controls
@@ -97,7 +96,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         }
 
         /// <summary>
-        /// Sets delegate <see cref="LocalizableStringCollection.CollectionChanged"/> for <see cref="Values"/>.
+        /// Sets collection changed event handler for <see cref="Values"/>.
         /// </summary>
         private void InitializeValuesCollection()
         {
@@ -158,7 +157,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         }
 
         /// <summary>
-        /// Sets delegate <see cref="HintTextBox.TextChanged"/> for <see cref="hintTextBoxSummary"/>.
+        /// Sets <see cref="Control.TextChanged"/> event handler for <see cref="hintTextBoxSummary"/>.
         /// </summary>
         private void InitializeHintTextBoxSummary()
         {
