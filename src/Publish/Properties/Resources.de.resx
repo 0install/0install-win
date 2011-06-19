@@ -120,7 +120,4 @@
   <data name="FileNotFound" xml:space="preserve">
     <value>Die Datei '{0}' konnte nicht gefunden werden.</value>
   </data>
-  <data name="ProblemLoading" xml:space="preserve">
-    <value>Es gab ein Problem beim Laden von '{0}'.</value>
-  </data>
 </root>

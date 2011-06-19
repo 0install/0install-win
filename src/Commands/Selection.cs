@@ -137,7 +137,7 @@ namespace ZeroInstall.Commands
                     Requirements.InterfaceID = Selections.InterfaceID;
                     SelectionsDocument = true;
                 }
-                catch (InvalidOperationException)
+                catch (InvalidDataException)
                 { // If that fails assume it is an interface
                 }
             }

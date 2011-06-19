@@ -101,7 +101,7 @@ namespace ZeroInstall.Injector.Feeds
 
                 try { return Cache.GetFeed(feedID); }
                 #region Error handling
-                catch (InvalidOperationException ex)
+                catch (InvalidDataException ex)
                 {
                     // Wrap exception since only certain exception types are allowed in tasks
                     throw new IOException(ex.Message, ex);

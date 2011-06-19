@@ -74,24 +74,10 @@ namespace ZeroInstall.Model.Capabilities
         /// <returns>The loaded <see cref="CapabilityList"/>.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static CapabilityList Load(string path)
         {
-            try { return XmlStorage.Load<CapabilityList>(path); }
-            #region Error handling
-            catch (InvalidOperationException ex)
-            {
-                // Write additional diagnostic information to log
-                if (ex.Source == "System.Xml")
-                {
-                    string message = string.Format(Resources.ProblemLoading, path) + "\n" + ex.Message;
-                    if (ex.InnerException != null) message += "\n" + ex.InnerException.Message;
-                    Log.Error(message);
-                }
-
-                throw;
-            }
-            #endregion
+            return XmlStorage.Load<CapabilityList>(path);
         }
 
         /// <summary>

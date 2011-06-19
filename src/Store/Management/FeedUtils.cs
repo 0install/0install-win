@@ -52,7 +52,7 @@ namespace ZeroInstall.Store.Management
                 #region Error handling
                 catch (IOException ex) { Log.Error(ex.Message); }
                 catch (UnauthorizedAccessException ex) { Log.Error(ex.Message); }
-                catch (InvalidOperationException ex) { Log.Error(ex.Message); }
+                catch (InvalidDataException ex) { Log.Error(ex.Message); }
                 #endregion
             }
             return feeds;

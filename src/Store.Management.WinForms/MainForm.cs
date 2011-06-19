@@ -146,7 +146,7 @@ namespace ZeroInstall.Store.Management.WinForms
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }
-            catch (InvalidOperationException ex)
+            catch (InvalidDataException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }

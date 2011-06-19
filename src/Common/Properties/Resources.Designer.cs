@@ -235,11 +235,20 @@ namespace Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was no XML data found in the file..
+        ///   Looks up a localized string similar to There was no binary data found in the ZIP file..
         /// </summary>
-        internal static string NoXmlDataInFile {
+        internal static string NoBinaryDataInZip {
             get {
-                return ResourceManager.GetString("NoXmlDataInFile", resourceCulture);
+                return ResourceManager.GetString("NoBinaryDataInZip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was no XML data found in the ZIP file..
+        /// </summary>
+        internal static string NoXmlDataInZip {
+            get {
+                return ResourceManager.GetString("NoXmlDataInZip", resourceCulture);
             }
         }
         
@@ -249,6 +258,15 @@ namespace Common.Properties {
         internal static string OnlyAvailableOnWindows {
             get {
                 return ResourceManager.GetString("OnlyAvailableOnWindows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was a problem loading &apos;{0}&apos;..
+        /// </summary>
+        internal static string ProblemLoading {
+            get {
+                return ResourceManager.GetString("ProblemLoading", resourceCulture);
             }
         }
         

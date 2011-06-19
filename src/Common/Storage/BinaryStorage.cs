@@ -26,6 +26,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Common.Properties;
 using Common.Streams;
 using Common.Utils;
 using ICSharpCode.SharpZipLib.Zip;
@@ -49,7 +50,7 @@ namespace Common.Storage
         /// <typeparam name="T">The type of object the binary stream shall be converted into.</typeparam>
         /// <param name="stream">The binary file to be loaded.</param>
         /// <returns>The loaded object.</returns>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurred while deserializing the binary data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the binary data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T Load<T>(Stream stream)
         {
@@ -59,15 +60,9 @@ namespace Common.Storage
 
             try { return (T)_serializer.Deserialize(stream); }
             #region Error handling
-            catch (ArgumentException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new InvalidOperationException(ex.Message, ex);
-            }
             catch (SerializationException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new InvalidOperationException(ex.Message, ex);
+            { // Convert exception type
+                throw new InvalidDataException(ex.Message, ex.InnerException) {Source = ex.Source};
             }
             #endregion
         }
@@ -80,7 +75,7 @@ namespace Common.Storage
         /// <returns>The loaded object.</returns>
         /// <exception cref="IOException">Thrown if a problem occurred while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurred while deserializing the binary data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the binary data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T Load<T>(string path)
         {
@@ -98,7 +93,7 @@ namespace Common.Storage
         /// <typeparam name="T">The type of object the binary stream shall be converted into.</typeparam>
         /// <param name="data">The binary string to be parsed</param>
         /// <returns>The loaded object.</returns>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurred while deserializing the binary data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the binary data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T FromString<T>(string data)
         {
@@ -195,7 +190,7 @@ namespace Common.Storage
         /// <param name="additionalFiles">Additional files stored alongside the binary file in the ZIP archive to be read; may be <see langword="null"/>.</param>
         /// <returns>The loaded object.</returns>
         /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurred while deserializing the binary data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the binary data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T FromZip<T>(Stream stream, string password, IEnumerable<EmbeddedFile> additionalFiles)
         {
@@ -236,7 +231,7 @@ namespace Common.Storage
             }
 
             if (binaryFound) return output;
-            throw new InvalidOperationException(/*Resources.NoDataInFile*/);
+            throw new InvalidOperationException(Resources.NoBinaryDataInZip);
         }
 
         /// <summary>
@@ -250,9 +245,9 @@ namespace Common.Storage
         /// <exception cref="IOException">Thrown if a problem occurred while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
         /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurred while deserializing the binary data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the binary data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
-        public static T FromZip<T>(string path, string password, EmbeddedFile[] additionalFiles)
+        public static T FromZip<T>(string path, string password, IEnumerable<EmbeddedFile> additionalFiles)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");

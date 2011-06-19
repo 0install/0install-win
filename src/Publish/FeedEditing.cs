@@ -117,7 +117,7 @@ namespace ZeroInstall.Publish
         /// <returns>A <see cref="FeedEditing"/> containing the loaded <see cref="Feed"/>.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static FeedEditing Load(string path)
         {
             return new FeedEditing(Feed.Load(path), path);

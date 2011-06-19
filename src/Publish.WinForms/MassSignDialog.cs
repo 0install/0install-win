@@ -119,7 +119,7 @@ namespace ZeroInstall.Publish.WinForms
                     // Wrap exception since only certain exception types are allowed
                     throw new IOException(ex.Message, ex);
                 }
-                catch (InvalidOperationException ex)
+                catch (InvalidDataException ex)
                 {
                     // Wrap exception since only certain exception types are allowed
                     throw new IOException(ex.Message, ex);

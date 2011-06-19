@@ -94,7 +94,7 @@ namespace ZeroInstall.Model
         /// <returns>The loaded <see cref="Catalog"/>.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static Catalog Load(string path)
         {
             return XmlStorage.Load<Catalog>(path);
