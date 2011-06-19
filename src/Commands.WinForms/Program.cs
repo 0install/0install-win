@@ -22,6 +22,7 @@ using System.Net;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
+using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Injector;
@@ -98,7 +99,7 @@ namespace ZeroInstall.Commands.WinForms
                 }
                 catch (InvalidDataException ex)
                 {
-                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                    Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Warn);
                     return;
                 }
                 catch (InvalidInterfaceIDException ex)
@@ -162,6 +163,8 @@ namespace ZeroInstall.Commands.WinForms
                 catch (InvalidDataException ex)
                 {
                     handler.DisableProgressUI();
+                    // Complete XML errors are too long for the headline, so split it into the log
+                    if (ex.InnerException != null) Log.Error(ex.InnerException.Message);
                     ErrorBox.Show(ex.Message, errorLog.ToString());
                 }
                 catch (InvalidInterfaceIDException ex)
@@ -177,8 +180,9 @@ namespace ZeroInstall.Commands.WinForms
                 catch (SolverException ex)
                 {
                     handler.DisableProgressUI();
-                    Log.Error(ex.Message); // Solver error message are often too long for the headline, so repeat it in the log
-                    ErrorBox.Show(ex.Message, errorLog.ToString());
+                    // Solver error message are often too long for the headline, so split it into the log
+                    Log.Error(StringUtils.GetRightPartAtFirstOccurrence(ex.Message, Environment.NewLine + Environment.NewLine));
+                    ErrorBox.Show(StringUtils.GetLeftPartAtFirstOccurrence(ex.Message, Environment.NewLine + Environment.NewLine), errorLog.ToString());
                 }
                 catch (ImplementationNotFoundException ex)
                 {

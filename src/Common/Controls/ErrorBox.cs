@@ -53,8 +53,8 @@ namespace Common.Controls
         public static void Show(string message, string detailsRtf)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(message)) throw new ArgumentNullException("message");
-            if (string.IsNullOrEmpty(detailsRtf)) throw new ArgumentNullException("detailsRtf");
+            if (message == null) throw new ArgumentNullException("message");
+            if (detailsRtf == null) throw new ArgumentNullException("detailsRtf");
             #endregion
 
             Log.Error(message);

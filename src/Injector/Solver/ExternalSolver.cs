@@ -60,12 +60,7 @@ namespace ZeroInstall.Injector.Solver
             catch (InvalidDataException ex)
             {
                 Log.Warn("Solver result:\n" + result);
-                throw new SolverException(Resources.ExternalSolverOutputErrror + "\n" + ex.Message, ex);
-            }
-            catch (XmlException ex)
-            {
-                Log.Warn("Solver result:\n" + result);
-                throw new SolverException(Resources.ExternalSolverOutputErrror + "\n" + ex.Message, ex);
+                throw new SolverException(Resources.ExternalSolverOutputErrror + "\n" + ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), ex);
             }
             #endregion
         }

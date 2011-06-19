@@ -149,7 +149,8 @@ namespace Common.Storage
             try { return (T)GetSerializer(typeof(T), ignoreMembers).Deserialize(stream); }
             #region Error handling
             catch (InvalidOperationException ex)
-            { // Convert exception type
+            {
+                // Convert exception type
                 throw new InvalidDataException(ex.Message, ex.InnerException) {Source = ex.Source};
             }
             #endregion
@@ -179,12 +180,8 @@ namespace Common.Storage
             #region Error handling
             catch (InvalidDataException ex)
             {
-                // Write additional diagnostic information to log
-                string message = string.Format(Resources.ProblemLoading, path) + "\n" + ex.Message;
-                if (ex.InnerException != null) message += "\n" + ex.InnerException.Message;
-                Log.Error(message);
-
-                throw;
+                // Change exception message to add context information
+                throw new InvalidDataException(string.Format(Resources.ProblemLoading, path) + "\n" + ex.Message, ex.InnerException);
             }
             #endregion
         }

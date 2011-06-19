@@ -89,7 +89,7 @@ namespace ZeroInstall.Commands.Cli
             }
             catch (InvalidDataException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
                 return 1;
             }
             catch (InvalidInterfaceIDException ex)
@@ -133,7 +133,7 @@ namespace ZeroInstall.Commands.Cli
             }
             catch (InvalidDataException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
                 return 1;
             }
             catch (InvalidInterfaceIDException ex)
