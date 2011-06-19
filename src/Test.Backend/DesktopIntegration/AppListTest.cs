@@ -30,11 +30,28 @@ namespace ZeroInstall.DesktopIntegration
     {
         #region Helpers
         /// <summary>
-        /// Creates a fictive test <see cref="AppList"/>.
+        /// Creates a fictive test <see cref="AppList"/> without <see cref="AccessPoint"/>s.
         /// </summary>
-        private static AppList CreateTestAppList()
+        private static AppList CreateTestAppListWithoutAPs()
         {
             return new AppList {Entries =
+            {
+                new AppEntry
+                {
+                    AutoUpdate = true,
+                    CapabilityLists = {Capabilities.CapabilityListTest.CreateTestCapabilityList()}
+                }
+            } };
+        }
+
+        /// <summary>
+        /// Creates a fictive test <see cref="AppList"/> with <see cref="AccessPoint"/>s.
+        /// </summary>
+        private static AppList CreateTestAppListWithAPs()
+        {
+            return new AppList
+            {
+                Entries =
             {
                 new AppEntry
                 {
@@ -42,7 +59,8 @@ namespace ZeroInstall.DesktopIntegration
                     CapabilityLists = {Capabilities.CapabilityListTest.CreateTestCapabilityList()},
                     AccessPoints = CreateTestAccessPointList()
                 }
-            } };
+            }
+            };
         }
 
         /// <summary>
@@ -66,34 +84,54 @@ namespace ZeroInstall.DesktopIntegration
         }
         #endregion
 
-        [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
-        public void TestSaveLoad()
+        [Test(Description = "Ensures that the class is correctly serialized and deserialized without AccessPoints.")]
+        public void TestSaveLoadWithoutAPs()
         {
-            AppList appList1, appList2;
+            TestSaveLoad(CreateTestAppListWithoutAPs());
+        }
+
+        [Test(Description = "Ensures that the class is correctly serialized and deserialized with AccessPoints.")]
+        public void TestSaveLoadWithAPs()
+        {
+            TestSaveLoad(CreateTestAppListWithAPs());
+        }
+
+        private static void TestSaveLoad(AppList appList)
+        {
+            AppList appList2;
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
-                appList1 = CreateTestAppList();
-                appList1.Save(tempFile.Path);
+                appList.Save(tempFile.Path);
                 appList2 = AppList.Load(tempFile.Path);
             }
 
             // Ensure data stayed the same
-            Assert.AreEqual(appList1, appList2, "Serialized objects should be equal.");
-            Assert.AreEqual(appList1.GetHashCode(), appList2.GetHashCode(), "Serialized objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(appList1, appList2), "Serialized objects should not return the same reference.");
+            Assert.AreEqual(appList, appList2, "Serialized objects should be equal.");
+            Assert.AreEqual(appList.GetHashCode(), appList2.GetHashCode(), "Serialized objects' hashes should be equal.");
+            Assert.IsFalse(ReferenceEquals(appList, appList2), "Serialized objects should not return the same reference.");
         }
 
-        [Test(Description = "Ensures that the class can be correctly cloned.")]
-        public void TestClone()
+        [Test(Description = "Ensures that the class can be correctly cloned without AccessPoints.")]
+        public void TestClonetWithoutAPs()
         {
-            var archive1 = CreateTestAppList();
-            var archive2 = archive1.CloneAppList();
+            TestClone(CreateTestAppListWithoutAPs());
+        }
+
+        [Test(Description = "Ensures that the class can be correctly cloned with AccessPoints.")]
+        public void TestClonetWithAPs()
+        {
+            TestClone(CreateTestAppListWithAPs());
+        }
+
+        private static void TestClone(AppList appList)
+        {
+            var appList2 = appList.CloneAppList();
 
             // Ensure data stayed the same
-            Assert.AreEqual(archive1, archive2, "Cloned objects should be equal.");
-            Assert.AreEqual(archive1.GetHashCode(), archive2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(archive1, archive2), "Cloning should not return the same reference.");
+            Assert.AreEqual(appList, appList2, "Cloned objects should be equal.");
+            Assert.AreEqual(appList.GetHashCode(), appList2.GetHashCode(), "Cloned objects' hashes should be equal.");
+            Assert.IsFalse(ReferenceEquals(appList, appList2), "Cloning should not return the same reference.");
         }
     }
 }

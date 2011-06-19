@@ -115,7 +115,8 @@ namespace ZeroInstall.DesktopIntegration
         /// <returns>The new copy of the <see cref="AppEntry"/>.</returns>
         public AppEntry CloneEntry()
         {
-            var appList = new AppEntry {Name = Name, InterfaceID = InterfaceID, AccessPoints = AccessPoints.CloneAccessPointList()};
+            var appList = new AppEntry {Name = Name, InterfaceID = InterfaceID};
+            if (AccessPoints != null) appList.AccessPoints = AccessPoints.CloneAccessPointList();
             foreach (var list in CapabilityLists) appList.CapabilityLists.Add(list.CloneCapabilityList());
 
             return appList;
@@ -140,7 +141,7 @@ namespace ZeroInstall.DesktopIntegration
             if (Name != other.Name) return false;
             if (InterfaceID != other.InterfaceID) return false;
             if (!CapabilityLists.SequencedEquals(other.CapabilityLists)) return false;
-            if (!AccessPoints.Equals(other.AccessPoints)) return false;
+            if (!Equals(AccessPoints, other.AccessPoints)) return false;
             return true;
         }
 
