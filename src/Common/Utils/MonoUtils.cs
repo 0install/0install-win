@@ -21,12 +21,8 @@
  */
 
 using System;
-using System.Collections;
-using System.Collections.Specialized;
 using System.IO;
-using Common.Properties;
 using Mono.Unix;
-using Mono.Unix.Native;
 
 namespace Common.Utils
 {
