@@ -243,28 +243,28 @@ namespace Common.Storage
 
         #region Paths
         /// <summary>
-        /// Determines a path for storing a configuration resource that can roam across different machines.
+        /// Returns a path for storing a configuration resource that can roam across different machines.
         /// </summary>
         /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
-        /// <param name="resource">The file or directory name of the resource to be stored.</param>
-        /// <param name="isDirectory"><see langword="true"/> if the <paramref name="resource"/> is an entire directory instead of a single file.</param>
-        /// <returns>A fully qualified path to use to store the resource.</returns>
+        /// <param name="isFile"><see langword="true"/> if the last part of <paramref name="resource"/> refers to a file instead of a directory.</param>
+        /// <param name="resource">The path elements (directory and/or file names) of the resource to be stored.</param>
+        /// <returns>A fully qualified path to use to store the resource. Directories are guaranteed to already exist; files are not.</returns>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        /// <remarks>Any directories that are a part of the <paramref name="resource"/> are guaranteed to exist. Files are not.</remarks>
-        public static string GetSaveConfigPath(string appName, string resource, bool isDirectory)
+        public static string GetSaveConfigPath(string appName, bool isFile, params string[] resource)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
-            if (string.IsNullOrEmpty(resource)) throw new ArgumentNullException("resource");
+            if (resource == null) throw new ArgumentNullException("resource");
             #endregion
 
+            string resourceCombined = FileUtils.PathCombine(resource);
             string path;
             try
             {
                 path = IsPortable
-                    ? FileUtils.PathCombine(PortableBase, "config", resource)
-                    : FileUtils.PathCombine(UserConfigDir, appName, resource);
+                    ? FileUtils.PathCombine(PortableBase, "config", resourceCombined)
+                    : FileUtils.PathCombine(UserConfigDir, appName, resourceCombined);
             }
             #region Error handling
             catch (ArgumentException ex)
@@ -275,41 +275,41 @@ namespace Common.Storage
             #endregion
 
             // Ensure the directory part of the path exists
-            string dirPath = isDirectory ? path : (Path.GetDirectoryName(path) ?? path);
+            string dirPath = isFile ? (Path.GetDirectoryName(path) ?? path) : path;
             if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
 
             return path;
         }
 
         /// <summary>
-        /// Determines a list of paths for loading a configuration resource that can roam across different machines.
+        /// Returns a list of paths for loading a configuration resource that can roam across different machines.
         /// </summary>
         /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
-        /// <param name="resource">The file or directory name of the resource to be stored.</param>
-        /// <param name="isDirectory"><see langword="true"/> if the <paramref name="resource"/> is an entire directory instead of a single file.</param>
+        /// <param name="isFile"><see langword="true"/> if the last part of <paramref name="resource"/> refers to a file instead of a directory.</param>
+        /// <param name="resource">The path elements (directory and/or file names) of the resource to be loaded.</param>
         /// <returns>
         /// A list of fully qualified paths to use to load the resource sorted by decreasing importance.
         /// This list will always reflect the current state in the filesystem and can not be modified! It may be empty.
         /// </returns>
-        /// <remarks>The returned paths are guaranteed to exist.</remarks>
-        public static IEnumerable<string> GetLoadConfigPaths(string appName, string resource, bool isDirectory)
+        public static IEnumerable<string> GetLoadConfigPaths(string appName, bool isFile, params string[] resource)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
-            if (string.IsNullOrEmpty(resource)) throw new ArgumentNullException("resource");
+            if (resource == null) throw new ArgumentNullException("resource");
             #endregion
 
+            string resourceCombined = FileUtils.PathCombine(resource);
             string path;
             if (IsPortable)
             {
                 // Check in portable base directory
-                path = FileUtils.PathCombine(PortableBase, "config", resource);
-                if ((!isDirectory && File.Exists(path)) || (isDirectory && Directory.Exists(path))) yield return path;
+                path = FileUtils.PathCombine(PortableBase, "config", resourceCombined);
+                if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
             }
             else
             {
                 // Check in user profile
-                try { path = FileUtils.PathCombine(UserConfigDir, appName, resource); }
+                try { path = FileUtils.PathCombine(UserConfigDir, appName, resourceCombined); }
                 #region Error handling
                 catch (ArgumentException ex)
                 {
@@ -317,12 +317,12 @@ namespace Common.Storage
                     throw new IOException(string.Format(Resources.InvalidConfigDir, UserConfigDir) + "\n" + ex.Message, ex);
                 }
                 #endregion
-                if ((!isDirectory && File.Exists(path)) || (isDirectory && Directory.Exists(path))) yield return path;
+                if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
 
                 // Check in system directories
                 foreach (var dirPath in SystemConfigDirs.Split(Path.PathSeparator))
                 {
-                    try { path = FileUtils.PathCombine(dirPath, appName, resource); }
+                    try { path = FileUtils.PathCombine(dirPath, appName, resourceCombined); }
                     #region Error handling
                     catch (ArgumentException ex)
                     {
@@ -330,34 +330,34 @@ namespace Common.Storage
                         throw new IOException(string.Format(Resources.InvalidConfigDir, dirPath) + "\n" + ex.Message, ex);
                     }
                     #endregion
-                    if ((!isDirectory && File.Exists(path)) || (isDirectory && Directory.Exists(path))) yield return path;
+                    if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
                 }
             }
         }
 
         /// <summary>
-        /// Determines a path for storing a data resource that does not roam across different machines.
+        /// Returns a path for storing a data resource that does not roam across different machines.
         /// </summary>
         /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
-        /// <param name="resource">The file or directory name of the resource to be stored.</param>
-        /// <param name="isDirectory"><see langword="true"/> if the <paramref name="resource"/> is an entire directory instead of a single file.</param>
-        /// <returns>A fully qualified path to use to store the resource.</returns>
+        /// <param name="isFile"><see langword="true"/> if the last part of <paramref name="resource"/> refers to a file instead of a directory.</param>
+        /// <param name="resource">The path elements (directory and/or file names) of the resource to be stored.</param>
+        /// <returns>A fully qualified path to use to store the resource. Directories are guaranteed to already exist; files are not.</returns>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        /// <remarks>Any directories that are a part of the <paramref name="resource"/> are guaranteed to exist. Files are not.</remarks>
-        public static string GetSaveDataPath(string appName, string resource, bool isDirectory)
+        public static string GetSaveDataPath(string appName, bool isFile, params string[] resource)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
-            if (string.IsNullOrEmpty(resource)) throw new ArgumentNullException("resource");
+            if (resource == null) throw new ArgumentNullException("resource");
             #endregion
 
+            string resourceCombined = FileUtils.PathCombine(resource);
             string path;
             try
             {
                 path = IsPortable
-                    ? FileUtils.PathCombine(PortableBase, "data", resource)
-                    : FileUtils.PathCombine(UserDataDir, appName, resource);
+                    ? FileUtils.PathCombine(PortableBase, "data", resourceCombined)
+                    : FileUtils.PathCombine(UserDataDir, appName, resourceCombined);
             }
             #region Error handling
             catch (ArgumentException ex)
@@ -368,41 +368,41 @@ namespace Common.Storage
             #endregion
 
             // Ensure the directory part of the path exists
-            string dirPath = isDirectory ? path : (Path.GetDirectoryName(path) ?? path);
+            string dirPath = isFile ? (Path.GetDirectoryName(path) ?? path) : path;
             if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
 
             return path;
         }
 
         /// <summary>
-        /// Determines a list of paths for loading a data resource that does not roam across different machines.
+        /// Returns a list of paths for loading a data resource that does not roam across different machines.
         /// </summary>
         /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
-        /// <param name="resource">The file or directory name of the resource to be stored.</param>
-        /// <param name="isDirectory"><see langword="true"/> if the <paramref name="resource"/> is an entire directory instead of a single file.</param>
+        /// <param name="isFile"><see langword="true"/> if the last part of <paramref name="resource"/> refers to a file instead of a directory.</param>
+        /// <param name="resource">The path elements (directory and/or file names) of the resource to be loaded.</param>
         /// <returns>
         /// A list of fully qualified paths to use to load the resource sorted by decreasing importance.
         /// This list will always reflect the current state in the filesystem and can not be modified! It may be empty.
         /// </returns>
-        /// <remarks>The returned paths are guaranteed to exist.</remarks>
-        public static IEnumerable<string> GetLoadDataPaths(string appName, string resource, bool isDirectory)
+        public static IEnumerable<string> GetLoadDataPaths(string appName, bool isFile, params string[] resource)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
-            if (string.IsNullOrEmpty(resource)) throw new ArgumentNullException("resource");
+            if (resource == null) throw new ArgumentNullException("resource");
             #endregion
 
+            string resourceCombined = FileUtils.PathCombine(resource);
             string path;
             if (IsPortable)
             {
                 // Check in portable base directory
-                path = FileUtils.PathCombine(PortableBase, "data", resource);
-                if ((!isDirectory && File.Exists(path)) || (isDirectory && Directory.Exists(path))) yield return path;
+                path = FileUtils.PathCombine(PortableBase, "data", resourceCombined);
+                if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
             }
             else
             {
                 // Check in user profile
-                try { path = FileUtils.PathCombine(UserDataDir, appName, resource); }
+                try { path = FileUtils.PathCombine(UserDataDir, appName, resourceCombined); }
                 #region Error handling
                 catch (ArgumentException ex)
                 {
@@ -410,12 +410,12 @@ namespace Common.Storage
                     throw new IOException(string.Format(Resources.InvalidConfigDir, UserDataDir) + "\n" + ex.Message, ex);
                 }
                 #endregion
-                if ((!isDirectory && File.Exists(path)) || (isDirectory && Directory.Exists(path))) yield return path;
+                if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
 
                 // Check in system directories
                 foreach (var dirPath in SystemDataDirs.Split(Path.PathSeparator))
                 {
-                    try { path = FileUtils.PathCombine(dirPath, appName, resource); }
+                    try { path = FileUtils.PathCombine(dirPath, appName, resourceCombined); }
                     #region Error handling
                     catch (ArgumentException ex)
                     {
@@ -423,33 +423,35 @@ namespace Common.Storage
                         throw new IOException(string.Format(Resources.InvalidConfigDir, dirPath) + "\n" + ex.Message, ex);
                     }
                     #endregion
-                    if ((!isDirectory && File.Exists(path)) || (isDirectory && Directory.Exists(path))) yield return path;
+                    if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
                 }
             }
         }
+        #endregion
 
+        #region Directories
         /// <summary>
-        /// Determines a path for a cache directory that does not roam across different machines.
+        /// Returns a path for a cache directory that does not roam across different machines.
         /// </summary>
         /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
         /// <param name="resource">The directory name of the resource to be stored.</param>
-        /// <returns>A fully qualified path to use to store the resource.</returns>
+        /// <returns>A fully qualified directory path. The directory is guaranteed to already exist.</returns>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        /// <remarks>Any directories that are a part of the <paramref name="resource"/> are guaranteed to exist.</remarks>
-        public static string GetUserCachePath(string appName, string resource)
+        public static string GetUserCacheDirPath(string appName, params string[] resource)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
-            if (string.IsNullOrEmpty(resource)) throw new ArgumentNullException("resource");
+            if (resource == null) throw new ArgumentNullException("resource");
             #endregion
 
+            string resourceCombined = FileUtils.PathCombine(resource);
             string path;
             try
             {
                 path = IsPortable
-                    ? FileUtils.PathCombine(PortableBase, "cache", resource)
-                    : FileUtils.PathCombine(UserCacheDir, appName, resource);
+                    ? FileUtils.PathCombine(PortableBase, "cache", resourceCombined)
+                    : FileUtils.PathCombine(UserCacheDir, appName, resourceCombined);
             }
             #region Error handling
             catch (ArgumentException ex)
@@ -466,36 +468,37 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Determines a list of paths for cache directories that do not roam across different machines.
+        /// Returns a list of paths for cache directories that do not roam across different machines.
         /// </summary>
         /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
         /// <param name="resource">The directory name of the resource to be stored.</param>
         /// <returns>
         /// A list of fully qualified directory path sorted by decreasing importance.
         /// This list will always reflect the current state in the filesystem and can not be modified! It is never empty.
+        /// At least the first directory is usually writable.
         /// </returns>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        /// <remarks>The returned directories are guaranteed to exist. At least the first directory is usually writable.</remarks>
-        public static IEnumerable<string> GetCachePaths(string appName, string resource)
+        public static IEnumerable<string> GetCacheDirPath(string appName, params string[] resource)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
-            if (string.IsNullOrEmpty(resource)) throw new ArgumentNullException("resource");
+            if (resource == null) throw new ArgumentNullException("resource");
             #endregion
 
+            string resourceCombined = FileUtils.PathCombine(resource);
             string path;
             if (IsPortable)
             {
                 // Create in portable base directory
-                path = FileUtils.PathCombine(PortableBase, "cache", resource);
+                path = FileUtils.PathCombine(PortableBase, "cache", resourceCombined);
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                 yield return path;
             }
             else
             {
                 // Create in user profile
-                try { path = FileUtils.PathCombine(UserCacheDir, appName, resource); }
+                try { path = FileUtils.PathCombine(UserCacheDir, appName, resourceCombined); }
                 #region Error handling
                 catch (ArgumentException ex)
                 {
@@ -509,7 +512,7 @@ namespace Common.Storage
                 // Check in system directories
                 foreach (var dirPath in SystemCacheDirs.Split(Path.PathSeparator))
                 {
-                    try { path = FileUtils.PathCombine(dirPath, appName, resource); }
+                    try { path = FileUtils.PathCombine(dirPath, appName, resourceCombined); }
                     #region Error handling
                     catch (ArgumentException ex)
                     {
@@ -520,6 +523,26 @@ namespace Common.Storage
                     if (Directory.Exists(path)) yield return path;
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns a path for a directory that can safley be used for desktop integration. It ignores <see cref="IsPortable"/>.
+        /// </summary>
+        /// <param name="appName">The name of application. Used as part of the path.</param>
+        /// <param name="systemWide"><see langword="true"/> if the directory should be system-wide and machine-specific instead of roaming with the user profile.</param>
+        /// <param name="resource">The directory name of the resource to be stored.</param>
+        /// <returns>A fully qualified directory path. The directory is guaranteed to already exist.</returns>
+        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
+        public static string GetIntegrationDirPath(string appName, bool systemWide, params string[] resource)
+        {
+            string resourceCombined = FileUtils.PathCombine(resource);
+            string path = FileUtils.PathCombine(
+                Environment.GetFolderPath(systemWide ? Environment.SpecialFolder.CommonApplicationData : Environment.SpecialFolder.ApplicationData),
+                appName, resourceCombined);
+
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            return path;
         }
         #endregion
     }

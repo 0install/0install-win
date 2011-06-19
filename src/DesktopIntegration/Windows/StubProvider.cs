@@ -119,24 +119,15 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
+            string stubDirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "stubs");
             string exeName = target.Feed.Name;
             if (!string.IsNullOrEmpty(command)) exeName += "_" + command;
             exeName += "_" + ModelUtils.HashID(target.InterfaceID) + ".exe";
-            string exePath = Path.Combine(GetStubDirPath(systemWide), exeName);
+            string exePath = Path.Combine(stubDirPath, exeName);
 
+            // Return an existing stub or build a new one
             if (!File.Exists(exePath)) BuildRunStub(exePath, target, command, handler);
             return exePath;
-        }
-
-        private static string GetStubDirPath(bool systemWide)
-        {
-            // Note: Ignore portable mode, roam with user profile
-            string path = FileUtils.PathCombine(
-                Environment.GetFolderPath(systemWide ? Environment.SpecialFolder.CommonApplicationData : Environment.SpecialFolder.LocalApplicationData),
-                "0install.net", "desktop-integration", "stubs");
-
-            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-            return path;
         }
         #endregion
     }

@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Net;
 using Common;
+using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using Microsoft.Win32;
@@ -66,22 +67,13 @@ namespace ZeroInstall.DesktopIntegration.Windows
             {
                 using (var exeKey = appPathsKey.CreateSubKey(appAlias.Name))
                 {
-                    string stubPath = Path.Combine(GetAliasDirPath(systemWide), appAlias.Name + ".exe");
-                    StubProvider.BuildRunStub(stubPath, target, appAlias.Command, handler);
-                    exeKey.SetValue("", stubPath);
+                    string stubDirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "aliases");
+                    string stubFilePath = Path.Combine(stubDirPath, appAlias.Name + ".exe");
+
+                    StubProvider.BuildRunStub(stubFilePath, target, appAlias.Command, handler);
+                    exeKey.SetValue("", stubFilePath);
                 }
             }
-        }
-
-        private static string GetAliasDirPath(bool systemWide)
-        {
-            // Note: Ignore portable mode, roam with user profile
-            string path = FileUtils.PathCombine(
-                Environment.GetFolderPath(systemWide ? Environment.SpecialFolder.CommonApplicationData : Environment.SpecialFolder.LocalApplicationData),
-                "0install.net", "desktop-integration", "stubs");
-
-            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-            return path;
         }
         #endregion
     }

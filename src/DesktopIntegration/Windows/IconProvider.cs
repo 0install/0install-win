@@ -21,7 +21,6 @@ using System.Net;
 using Common;
 using Common.Storage;
 using Common.Tasks;
-using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 
@@ -35,7 +34,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <summary>
         /// Retreives an icon via the <see cref="IIconCache"/> and stores a permanent copy of it.
         /// </summary>
-        /// <param name="icon"></param>
+        /// <param name="icon">The icon to retreive.</param>
         /// <param name="systemWide">Apply the configuration system-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <returns>The path to the icon file.</returns>
@@ -45,26 +44,17 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         public static string GetIcon(Icon icon, bool systemWide, ITaskHandler handler)
         {
-            Uri iconLocation = icon.Location;
-            //
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
 
-            string iconFilePath = Path.Combine(GetIconDirPath(systemWide), ModelUtils.HashID(iconLocation.ToString()));
+            string iconDirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "icons");
+            string iconFilePath = Path.Combine(iconDirPath, ModelUtils.HashID(icon.Location.ToString()));
 
+            // Return an existing icon or get a new one from the cache
             if (!File.Exists(iconFilePath))
-                File.Copy(IconCacheProvider.CreateDefault().GetIcon(iconLocation, handler), iconFilePath, true);
-
+                File.Copy(IconCacheProvider.CreateDefault().GetIcon(icon.Location, handler), iconFilePath, true);
             return iconFilePath;
-        }
-
-        private static string GetIconDirPath(bool systemWide)
-        {
-            // Note: Ignore portable mode, roam with user profile
-            string path = FileUtils.PathCombine(
-                Environment.GetFolderPath(systemWide ? Environment.SpecialFolder.CommonApplicationData : Environment.SpecialFolder.LocalApplicationData),
-                "0install.net", "desktop-integration", "icons");
-
-            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-            return path;
         }
     }
 }

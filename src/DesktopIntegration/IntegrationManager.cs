@@ -54,17 +54,16 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="systemWide">Apply operations system-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read or wirte access to the <see cref="AppList"/> file is not permitted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted.</exception>
         /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
         protected IntegrationManager(bool systemWide)
         {
             _systemWide = systemWide;
 
-            string appListFileName = Path.Combine("desktop-integration", "app-list.xml");
             _appListPath = systemWide
                 // Note: Ignore Portable mode when operating system-wide
-                ? FileUtils.PathCombine(Locations.SystemConfigDirs.Split(Path.PathSeparator)[0], "0install.net", appListFileName)
-                : Locations.GetSaveConfigPath("0install.net", appListFileName, false);
+                ? Path.Combine(Locations.GetIntegrationDirPath("0install.net", true, "desktop-integration"), "app-list.xml")
+                : Locations.GetSaveConfigPath("0install.net", true, "desktop-integration", "app-list.xml");
 
             if (File.Exists(_appListPath)) AppList = AppList.Load(_appListPath);
             else

@@ -270,14 +270,14 @@ namespace ZeroInstall.Injector
         public static Config Load()
         {
             // Locate all applicable config files and order them from least to most important
-            var paths = new List<string>(Locations.GetLoadConfigPaths("0install.net", Path.Combine("injector", "global"), false));
+            var paths = new List<string>(Locations.GetLoadConfigPaths("0install.net", true, "injector", "global"));
             paths.Reverse();
 
             // Accumulate values from all files
             var config = new Config();
             foreach (var path in paths)
             {
-                try { FromIniToConfig(_iniParse.LoadFile(path, true), config); ; }
+                try { FromIniToConfig(_iniParse.LoadFile(path, true), config); }
                 #region Error handling
                 catch (ParsingException ex)
                 {
@@ -313,7 +313,7 @@ namespace ZeroInstall.Injector
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void Save()
         {
-            Save(Locations.GetSaveConfigPath("0install.net", Path.Combine("injector", "global"), false));
+            Save(Locations.GetSaveConfigPath("0install.net", true, "injector", "global"));
         }
         #endregion
 

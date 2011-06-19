@@ -61,7 +61,7 @@ namespace ZeroInstall.Store.Feeds
             var startInfo = base.GetStartInfo(arguments);
             
             // Pass-through portable mode
-            if (Locations.IsPortable) startInfo.EnvironmentVariables["GNUPGHOME"] = Locations.GetSaveConfigPath("GnuPG", "gnupg", true);
+            if (Locations.IsPortable) startInfo.EnvironmentVariables["GNUPGHOME"] = Locations.GetSaveConfigPath("GnuPG", false, "gnupg");
 
             return startInfo;
         }
