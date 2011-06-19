@@ -172,7 +172,7 @@ namespace ZeroInstall.Injector.Solver
         /// <exception cref="KeyNotFoundException">Thrown if the requested feed was not found in the cache.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if the feed file could not be parsed.</exception>
+        /// <exception cref="InvalidDataException">Thrown if the feed file could not be parsed.</exception>
         public IEnumerable<Implementation> ListUncachedImplementations(IStore searchStore, IFeedCache feedCache)
         {
             #region Sanity checks
