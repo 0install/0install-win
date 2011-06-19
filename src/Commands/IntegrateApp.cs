@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Common;
 using Common.Storage;
 using Common.Utils;
@@ -30,6 +31,7 @@ namespace ZeroInstall.Commands
     /// <summary>
     /// Add an application to the application list (if missing) and integrate it into the desktop environment.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [CLSCompliant(false)]
     public sealed class IntegrateApp : AppCommand
     {
@@ -86,6 +88,11 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override int ExecuteHelper(string interfaceID, CategoryIntegrationManager integrationManager)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (integrationManager == null) throw new ArgumentNullException("integrationManager");
+            #endregion
+
             if (_addCategories.IsEmpty && _removeCategories.IsEmpty)
                 _addCategories.Add(CapabilityRegistration.CategoryName);
 

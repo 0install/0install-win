@@ -6,7 +6,7 @@ using System.Security.Permissions;
 
 // Assembly info
 [assembly: AssemblyTitle("Zero Install Alias CLI")]
-[assembly: AssemblyDescription("A command-line interface for creating command-line aliases for launching programs via Zero Install.")]
+[assembly: AssemblyDescription("A shortcut for '0install add-alias'.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.de")]
 [assembly: AssemblyProduct("Zero Install")]

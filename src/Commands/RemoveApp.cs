@@ -50,6 +50,11 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override int ExecuteHelper(string interfaceID, CategoryIntegrationManager integrationManager)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (integrationManager == null) throw new ArgumentNullException("integrationManager");
+            #endregion
+
             try { integrationManager.RemoveApp(interfaceID); }
             catch (InvalidOperationException ex)
             {

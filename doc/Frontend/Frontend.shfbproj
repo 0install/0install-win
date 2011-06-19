@@ -43,13 +43,13 @@
     </DocumentationSources>
     <ProjectSummary>This chapter describes the public and protected and internal aspects of the Zero Install Frontend implementations.</ProjectSummary>
     <NamespaceSummaries>
-	  <NamespaceSummaryItem name="ZeroInstall.Alias.Cli" isDocumented="True" xmlns="">A command-line interface for creating command-line aliases for launching programs via Zero Install.</NamespaceSummaryItem>
+	  <NamespaceSummaryItem name="ZeroInstall.Alias.Cli" isDocumented="True" xmlns="">A shortcut for '0install add-alias'.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Central" isDocumented="True">Contains helper code for applications that wish to provide a general-purpose Zero Install GUI.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Central.WinForms" isDocumented="True" xmlns="">The main GUI for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Commands" isDocumented="True">Contains helper code for applications that wish to support default Zero Install command-line arguments.</NamespaceSummaryItem>
 	  <NamespaceSummaryItem name="ZeroInstall.Commands.Cli" isDocumented="True" xmlns="">A command-line interface for Zero Install, for installing and launching applications, managing caches, etc.</NamespaceSummaryItem>
 	  <NamespaceSummaryItem name="ZeroInstall.Commands.WinForms" isDocumented="True" xmlns="">A WinForms-based GUI for Zero Install, for installing and launching applications, managing caches, etc.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Launcher.Cli" isDocumented="True" xmlns="">A command-line interface for Zero Install, for launching applications. A speced down version of &lt;see cref="ZeroInstall.Command.Cli" /&gt;.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Launcher.Cli" isDocumented="True" xmlns="">A shortcut for '0install add-run'.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Service" isDocumented="True" xmlns="">A Windows service for managing the &lt;see cref="ZeroInstall.Store.Implementation.ServiceStore" /&gt;.</NamespaceSummaryItem>
     </NamespaceSummaries>
   </PropertyGroup>

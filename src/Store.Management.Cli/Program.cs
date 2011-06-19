@@ -25,9 +25,9 @@ using Common.Tasks;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Implementation.Archive;
 using ZeroInstall.Store.Management.Cli.Properties;
 using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementation.Archive;
 
 namespace ZeroInstall.Store.Management.Cli
 {

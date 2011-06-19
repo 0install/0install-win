@@ -35,8 +35,9 @@ using Common.Storage;
 namespace ZeroInstall.Launcher.Cli
 {
     /// <summary>
-    /// A command-line interface for Zero Install, for launching applications.
+    /// A shorcut for '0install run'.
     /// </summary>
+    /// <seealso cref="Run"/>
     public static class Program
     {
         /// <summary>

@@ -16,10 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -30,19 +26,11 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Common base class for <see cref="ZeroInstall.DesktopIntegration"/>-related commands.
+    /// Common base class for commands that manage an <see cref="AppList"/>.
     /// </summary>
     [CLSCompliant(false)]
-    public abstract class AppCommand : CommandBase
+    public abstract class AppCommand : IntegrationCommand
     {
-        #region Variables
-        /// <summary>Indicate that <see cref="Cancel"/> has been called.</summary>
-        protected volatile bool Canceled;
-
-        /// <summary>Apply the operation system-wide instead of just for the current user.</summary>
-        private bool _global;
-        #endregion
-
         #region Properties
         /// <inheritdoc/>
         protected override string Usage { get { return "[OPTIONS] INTERFACE"; } }
@@ -54,10 +42,7 @@ namespace ZeroInstall.Commands
         #region Constructor
         /// <inheritdoc/>
         protected AppCommand(Policy policy) : base(policy)
-        {
-            Options.Add("batch", Resources.OptionBatch, unused => Policy.Handler.Batch = true);
-            Options.Add("g|global", Resources.OptionGlobal, unused => _global = true);
-        }
+        {}
         #endregion
 
         //--------------------//
@@ -74,18 +59,11 @@ namespace ZeroInstall.Commands
 
             string interfaceID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
 
-            if (_global && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator)
-            { // Rerun the command with administrative rights
-                var commandLine = new LinkedList<string>(Environment.GetCommandLineArgs());
-                commandLine.RemoveFirst();
-                var startInfo = new ProcessStartInfo(Path.Combine(Locations.InstallBase, "0install-win.exe"), StringUtils.ConcatenateEscape(commandLine)) {Verb = "runas"};
-                var process = Process.Start(startInfo);
-                process.WaitForExit();
-                return process.ExitCode;
-            }
+            if (SystemWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator)
+                return RerunAsAdmin();
 
             Policy.Handler.ShowProgressUI(Cancel);
-            return ExecuteHelper(interfaceID, new CategoryIntegrationManager(_global));
+            return ExecuteHelper(interfaceID, new CategoryIntegrationManager(SystemWide));
         }
 
         /// <summary>
@@ -95,16 +73,6 @@ namespace ZeroInstall.Commands
         /// <param name="integrationManager">Manages desktop integration operations.</param>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
         protected abstract int ExecuteHelper(string interfaceID, CategoryIntegrationManager integrationManager);
-        #endregion
-
-        #region Cancel
-        /// <summary>
-        /// Cancels the <see cref="Execute"/> session.
-        /// </summary>
-        public virtual void Cancel()
-        {
-            Canceled = true;
-        }
         #endregion
     }
 }

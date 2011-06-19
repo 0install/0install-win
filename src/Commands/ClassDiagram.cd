@@ -141,7 +141,7 @@
       <Method Name="IntegrateApp" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAABAAEAAAAgAAQBAAAAAASAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <HashCode>AAACAAAAAAAgAAQAAAAAAIQAAAAAAAAAAAAAAAAAAAE=</HashCode>
       <FileName>IntegrateApp.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -161,8 +161,28 @@
       <Method Name="AppCommand" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQAAAAAQAgAAAAIAEBAAAAAAAAAAAAAAAAAE=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAEBAAAAAAAAAAAAAAAAAE=</HashCode>
       <FileName>AppCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.IntegrationCommand">
+    <Position X="15.5" Y="2.5" Width="1.75" />
+    <Members>
+      <Method Name="IntegrationCommand" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAABAAAQAAAAAAAgAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IntegrationCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.AddAlias">
+    <Position X="16.5" Y="5" Width="1.5" />
+    <Members>
+      <Method Name="AddAlias" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEBAAAEAAAAAAAABAAAAA=</HashCode>
+      <FileName>AddAlias.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

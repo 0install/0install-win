@@ -55,7 +55,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override void Unapply(AppEntry appEntry, bool systemWide)
         {
-            // ToDo: Implement
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            #endregion
+
+            if (WindowsUtils.IsWindows)
+                Windows.AppAlias.Unapply(this, systemWide);
         }
         #endregion
 

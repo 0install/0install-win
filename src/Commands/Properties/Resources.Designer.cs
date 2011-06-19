@@ -169,6 +169,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create an alias for launching an application via 0install without always having to enter the full URI..
+        /// </summary>
+        internal static string DescriptionAddAlias {
+            get {
+                return ResourceManager.GetString("DescriptionAddAlias", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add an application to the application list..
         /// </summary>
         internal static string DescriptionAddApp {
@@ -433,7 +442,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This operation is not avialable in portable mode..
+        ///   Looks up a localized string similar to This operation is not available in portable mode..
         /// </summary>
         internal static string NotAvailableInPortableMode {
             get {
@@ -478,7 +487,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note: &apos;{0}&apos; are added implicitly if nothing else is sepcified..
+        ///   Looks up a localized string similar to Note: &apos;{0}&apos; are added implicitly if nothing else is specified..
         /// </summary>
         internal static string OptionAppImplicitCategory {
             get {

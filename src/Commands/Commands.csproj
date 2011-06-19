@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddAlias.cs" />
     <Compile Include="AddApp.cs" />
     <Compile Include="AddFeed.cs" />
     <Compile Include="AppCommand.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="CommandBase.cs" />
     <Compile Include="CommandFactory.cs" />
     <Compile Include="Configure.cs" />
+    <Compile Include="IntegrationCommand.cs" />
     <Compile Include="IntegrateApp.cs" />
     <Compile Include="DefaultCommand.cs" />
     <Compile Include="Download.cs" />

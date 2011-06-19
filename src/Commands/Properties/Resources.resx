@@ -153,6 +153,9 @@
   <data name="CommandLineArguments" xml:space="preserve">
     <value>Command-line arguments:</value>
   </data>
+  <data name="DescriptionAddAlias" xml:space="preserve">
+    <value>Create an alias for launching an application via 0install without always having to enter the full URI.</value>
+  </data>
   <data name="DescriptionAddApp" xml:space="preserve">
     <value>Add an application to the application list.</value>
   </data>
@@ -244,7 +247,7 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
     <value>Can only update with Feed IDs, not with selections documents.</value>
   </data>
   <data name="NotAvailableInPortableMode" xml:space="preserve">
-    <value>This operation is not avialable in portable mode.</value>
+    <value>This operation is not available in portable mode.</value>
   </data>
   <data name="NotParsed" xml:space="preserve">
     <value>Parse hasn't been called yet.</value>
@@ -259,7 +262,7 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
     <value>{CATEGORY} must be on of the following: </value>
   </data>
   <data name="OptionAppImplicitCategory" xml:space="preserve">
-    <value>Note: '{0}' are added implicitly if nothing else is sepcified.</value>
+    <value>Note: '{0}' are added implicitly if nothing else is specified.</value>
   </data>
   <data name="OptionAppRemove" xml:space="preserve">
     <value>Removes all {CATEGORY} access points.</value>

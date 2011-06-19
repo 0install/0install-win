@@ -17,6 +17,7 @@
 
 using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Reflection;
@@ -25,6 +26,7 @@ using Common.Storage;
 using Common.Streams;
 using Common.Tasks;
 using Common.Utils;
+using Microsoft.CSharp;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 
@@ -61,11 +63,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             string args = string.IsNullOrEmpty(command)
                 ? "run " + target.InterfaceID
-                : "run --command=" + command + " " + target.InterfaceID;
+                : "run --command=" + StringUtils.EscapeWhitespace(command) + " " + StringUtils.EscapeWhitespace(target.InterfaceID);
 
             // Load the template code and insert variables
-            // ToDo: Proper esacping
-            string code = GetEmbeddedResource("Stub.template").Replace("[EXE]", target.Feed.NeedsTerminal ? "0install.exe" : "0install-win.exe").Replace("[ARGUMENTS]", args.Replace(@"\", @"\\")).Replace("[TITLE]", target.Feed.Name + " (via Zero Install)");
+            string code = GetEmbeddedResource("Stub.template").Replace("[EXE]", target.Feed.NeedsTerminal ? "0install.exe" : "0install-win.exe");
+            code = code.Replace("[ARGUMENTS]", EscapeForCode(args));
+            code = code.Replace("[TITLE]", EscapeForCode(target.Feed.Name));
 
             // Configure the compiler
             var compilerParameters = new CompilerParameters
@@ -80,16 +83,37 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (!suitableIcons.IsEmpty)
             {
                 string iconPath = IconCacheProvider.CreateDefault().GetIcon(suitableIcons.First.Location, handler);
-                compilerParameters.CompilerOptions += "/win32icon:" + StringUtils.EscapeWhitespace(iconPath);
+                compilerParameters.CompilerOptions += " /win32icon:" + StringUtils.EscapeWhitespace(iconPath);
             }
 
-            // Run the compilation process and check for errors
-            var compilerResults = CodeDomProvider.CreateProvider("CSharp").CompileAssemblyFromSource(compilerParameters, code);
-            if (compilerResults.Errors.HasErrors)
+            using (var manifestFile = new TemporaryFile("0install"))
             {
-                var error = compilerResults.Errors[0];
-                throw new InvalidOperationException("Compilation error " + error.ErrorNumber + " in line " + error.Line + "\n" + error.ErrorText);
+                // Select compiler
+                CodeDomProvider compiler;
+                if (File.Exists(Environment.ExpandEnvironmentVariables(@"%windir%\Microsoft.NET\Framework\v3.5\csc.exe")))
+                { // Use C# v3.5 compiler if available to add Win32 manifest
+                    File.WriteAllText(manifestFile.Path, GetEmbeddedResource("Stub.manifest"));
+                    compilerParameters.CompilerOptions += " /win32manifest:" + StringUtils.EscapeWhitespace(manifestFile.Path);
+                    compiler = new CSharpCodeProvider(new Dictionary<string, string> {{"CompilerVersion", "v3.5"}});
+                }
+                else compiler = new CSharpCodeProvider();
+
+                // Run the compilation process and check for errors
+                var compilerResults = compiler.CompileAssemblyFromSource(compilerParameters, code);
+                if (compilerResults.Errors.HasErrors)
+                {
+                    var error = compilerResults.Errors[0];
+                    throw new InvalidOperationException("Compilation error " + error.ErrorNumber + " in line " + error.Line + "\n" + error.ErrorText);
+                }
             }
+        }
+
+        /// <summary>
+        /// Escapes a string so that is safe for substitution inside C# code
+        /// </summary>
+        private static string EscapeForCode(string value)
+        {
+            return value.Replace(@"\", @"\\").Replace("\"", "\\\"").Replace("\n", @"\n");
         }
 
         private static string GetEmbeddedResource(string name)

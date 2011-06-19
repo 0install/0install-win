@@ -117,6 +117,7 @@
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <EmbeddedResource Include="Windows\Stub.template" />
+    <EmbeddedResource Include="Windows\Stub.manifest" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="IWshRuntimeLibrary">

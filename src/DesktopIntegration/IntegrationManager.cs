@@ -56,7 +56,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        protected IntegrationManager(bool systemWide)
+        public IntegrationManager(bool systemWide)
         {
             _systemWide = systemWide;
 
@@ -150,7 +150,7 @@ namespace ZeroInstall.DesktopIntegration
             }
             if (appEntry.AccessPoints == null) appEntry.AccessPoints = new AccessPointList();
 
-            // Update the XML data
+            // Add the access points to the AppList
             foreach (var accessPoint in accessPoints)
             {
                 if (!appEntry.AccessPoints.Entries.Contains(accessPoint))
@@ -189,7 +189,7 @@ namespace ZeroInstall.DesktopIntegration
                 accessPoint.Unapply(appEntry, _systemWide);
             WindowsUtils.NotifyAssocChanged();
 
-            // Update the XML data
+            // Remove the access points from the AppList
             appEntry.AccessPoints.Entries.RemoveAll(accessPoints);
             AppList.Save(_appListPath);
         }

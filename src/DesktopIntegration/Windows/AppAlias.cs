@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using Common;
@@ -42,7 +43,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="target">The application being integrated.</param>
         /// <param name="appAlias">The access point to be applied.</param>
-        /// <param name="systemWide">Apply the configuration system-wide instead of just for the current user.</param>
+        /// <param name="systemWide">Create the alias system-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
@@ -55,6 +56,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
+            string stubDirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "aliases");
+            string stubFilePath = Path.Combine(stubDirPath, appAlias.Name + ".exe");
+            StubProvider.BuildRunStub(stubFilePath, target, appAlias.Command, handler);
+
             // Only Windows 7 and newer support per-user AppPaths
             if (!systemWide && !WindowsUtils.IsWindows7)
             {
@@ -65,16 +70,41 @@ namespace ZeroInstall.DesktopIntegration.Windows
             var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
             using (var appPathsKey = hive.OpenSubKey(RegKeyAppPaths, true))
             {
-                using (var exeKey = appPathsKey.CreateSubKey(appAlias.Name))
-                {
-                    string stubDirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "aliases");
-                    string stubFilePath = Path.Combine(stubDirPath, appAlias.Name + ".exe");
-
-                    StubProvider.BuildRunStub(stubFilePath, target, appAlias.Command, handler);
+                using (var exeKey = appPathsKey.CreateSubKey(appAlias.Name + ".exe"))
                     exeKey.SetValue("", stubFilePath);
-                }
             }
         }
         #endregion
+
+        /// <summary>
+        /// Removes an <see cref="AccessPoints.AppAlias"/> from the current Windows system. 
+        /// </summary>
+        /// <param name="appAlias">The access point to be removed.</param>
+        /// <param name="systemWide">The alias was created system-wide instead of just for the current user.</param>
+        public static void Unapply(AccessPoints.AppAlias appAlias, bool systemWide)
+        {
+            #region Sanity checks
+            if (appAlias == null) throw new ArgumentNullException("appAlias");
+            #endregion
+
+            string stubDirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "aliases");
+            string stubFilePath = Path.Combine(stubDirPath, appAlias.Name + ".exe");
+
+            // Only Windows 7 and newer support per-user AppPaths
+            if (!systemWide && !WindowsUtils.IsWindows7)
+            {
+                // ToDo: Fall back to classic PATH
+                return;
+            }
+
+            var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
+            using (var appPathsKey = hive.OpenSubKey(RegKeyAppPaths, true))
+            {
+                if (((ICollection<string>)appPathsKey.GetSubKeyNames()).Contains(appAlias.Name + ".exe"))
+                    appPathsKey.DeleteSubKey(appAlias.Name + ".exe");
+            }
+
+            if (File.Exists(stubFilePath)) File.Delete(stubFilePath);
+        }
     }
 }

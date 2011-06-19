@@ -153,6 +153,9 @@
   <data name="CommandLineArguments" xml:space="preserve">
     <value>Befehlszeilenargumente</value>
   </data>
+  <data name="DescriptionAddAlias" xml:space="preserve">
+    <value>Lege einen Alias zum Starten einer Anwendung via Zero Install ohne immer die vollständige URI eingeben zu müssen an.</value>
+  </data>
   <data name="DescriptionAddFeed" xml:space="preserve">
     <value>Registriere eine zusätzliche Implementierungsquelle (Versionen) für ein Programm.</value>
   </data>

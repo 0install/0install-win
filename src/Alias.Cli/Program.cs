@@ -15,16 +15,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.ComponentModel;
+using System.IO;
+using System.Net;
+using Common;
+using Common.Utils;
+using NDesk.Options;
+using ZeroInstall.Alias.Cli.Properties;
+using ZeroInstall.Injector;
+using ZeroInstall.Commands;
+using ZeroInstall.Injector.Solver;
+using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation;
 #if !DEBUG
 using Common.Storage;
-using Common.Utils;
 #endif
 
 namespace ZeroInstall.Alias.Cli
 {
     /// <summary>
-    /// "A command-line interface for creating command-line aliases for Zero Install.
+    /// A shortcut for '0install add-alias'.
     /// </summary>
+    /// <seealso cref="AddAlias"/>
     public static class Program
     {
         /// <summary>
@@ -40,8 +53,136 @@ namespace ZeroInstall.Alias.Cli
             AppMutex.Create("Zero Install");
 #endif
 
-            // ToDo: Implement
-            return 0;
+            // Automatically show help for missing args
+            if (args.Length == 0) args = new[] { "--help" };
+
+            // Redirect to GUI version of 0install if --gui argument is specified
+            if (Array.Exists(args, arg => arg == "--gui"))
+            {
+                // ToDo: Automatically switch to GTK# on Linux
+                var process = ProcessUtils.LaunchHelperAssembly("0install-win", "add-alias " + StringUtils.ConcatenateEscape(args));
+                process.WaitForExit();
+                return process.ExitCode;
+            }
+
+            IHandler handler = new CliHandler();
+            CommandBase command;
+            try
+            {
+                command = new AddAlias(Policy.CreateDefault(handler));
+                command.Parse(args);
+            }
+            #region Error handling
+            catch (UserCancelException)
+            {
+                // This is reached if --help, --version or similar was used
+                return 0;
+            }
+            catch (OptionException ex)
+            {
+                Log.Error(ex.Message + "\n" + string.Format(Resources.TryHelp, "0launch"));
+                return 1;
+            }
+            catch (IOException ex)
+            {
+                Log.Error(ex.Message);
+                return 1;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Error(ex.Message);
+                return 1;
+            }
+            catch (InvalidDataException ex)
+            {
+                Log.Error(ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
+                return 1;
+            }
+            catch (InvalidInterfaceIDException ex)
+            {
+                Log.Error(ex.Message);
+                return 1;
+            }
+            #endregion
+
+            try { return command.Execute(); }
+            #region Error handling
+            catch (UserCancelException)
+            {
+                return 1;
+            }
+            catch (OptionException ex)
+            {
+                Log.Error(ex.Message + "\n" + string.Format(Resources.TryHelp, "0launch"));
+                return 1;
+            }
+            catch (WebException ex)
+            {
+                Log.Error(ex.Message);
+                return 1;
+            }
+            catch (NotSupportedException ex)
+            {
+                Log.Error(ex.Message);
+                return 1;
+            }
+            catch (InvalidDataException ex)
+            {
+                Log.Error(ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
+                return 1;
+            }
+            catch (IOException ex)
+            {
+                Log.Error(ex.Message);
+                return 1;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Error(ex.Message);
+                return 1;
+            }
+            catch (DigestMismatchException ex)
+            {
+                Log.Error(ex.Message);
+                //if (command.Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
+                return 1;
+            }
+            catch (InvalidInterfaceIDException ex)
+            {
+                Log.Error(ex.Message);
+                return 1;
+            }
+            catch (SolverException ex)
+            {
+                Log.Error(ex.Message);
+                return 1;
+            }
+            catch (ImplementationNotFoundException ex)
+            {
+                Log.Error(ex.Message);
+                return 1;
+            }
+            catch (CommandException ex)
+            {
+                Log.Error(ex.Message);
+                return 1;
+            }
+            catch (Win32Exception ex)
+            {
+                Log.Error(ex.Message);
+                return 1;
+            }
+            catch (BadImageFormatException ex)
+            {
+                Log.Error(ex.Message);
+                return 1;
+            }
+            #endregion
+            finally
+            {
+                // Always close GUI in the end
+                handler.CloseProgressUI();
+            }
         }
     }
 }

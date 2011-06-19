@@ -6,7 +6,7 @@ using System.Security.Permissions;
 
 // Assembly info
 [assembly: AssemblyTitle("Zero Install Launcher CLI")]
-[assembly: AssemblyDescription("A command-line interface for Zero Install, for launching applications. A speced down version of 0install.")]
+[assembly: AssemblyDescription("A shorcut for '0install run'.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.de")]
 [assembly: AssemblyProduct("Zero Install")]
