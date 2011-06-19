@@ -113,13 +113,13 @@ namespace ZeroInstall.DesktopIntegration
         }
 
         [Test(Description = "Ensures that the class can be correctly cloned without AccessPoints.")]
-        public void TestClonetWithoutAPs()
+        public void TestCloneWithoutAPs()
         {
             TestClone(CreateTestAppListWithoutAPs());
         }
 
         [Test(Description = "Ensures that the class can be correctly cloned with AccessPoints.")]
-        public void TestClonetWithAPs()
+        public void TestCloneWithAPs()
         {
             TestClone(CreateTestAppListWithAPs());
         }
