@@ -55,7 +55,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="systemWide">Apply operations system-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         protected IntegrationManager(bool systemWide)
         {
             _systemWide = systemWide;

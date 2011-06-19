@@ -125,7 +125,7 @@ namespace ZeroInstall.Store.Management.Cli
                 Log.Error(ex.Message);
                 return (int)ErrorLevel.IOError;
             }
-            catch (InvalidOperationException ex)
+            catch (InvalidDataException ex)
             {
                 Log.Error(ex.Message);
                 return (int)ErrorLevel.IOError;

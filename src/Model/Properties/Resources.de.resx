@@ -144,9 +144,6 @@
   <data name="MustStartWithDottedList" xml:space="preserve">
     <value>Die Versionsnummer muss mit einer Punkt-getrennten Liste von Dezimalzahlen beginnen.</value>
   </data>
-  <data name="ProblemLoading" xml:space="preserve">
-    <value>Es gab ein Problem beim Laden von '{0}'.</value>
-  </data>
   <data name="UnknownModifier" xml:space="preserve">
     <value>Der Modifizierer ist unbekannt.</value>
   </data>

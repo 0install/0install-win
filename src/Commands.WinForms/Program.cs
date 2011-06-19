@@ -159,6 +159,11 @@ namespace ZeroInstall.Commands.WinForms
                     handler.DisableProgressUI();
                     ErrorBox.Show(ex.Message, errorLog.ToString());
                 }
+                catch (InvalidDataException ex)
+                {
+                    handler.DisableProgressUI();
+                    ErrorBox.Show(ex.Message, errorLog.ToString());
+                }
                 catch (InvalidInterfaceIDException ex)
                 {
                     handler.DisableProgressUI();

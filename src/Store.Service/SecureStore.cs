@@ -48,7 +48,6 @@ namespace ZeroInstall.Store.Service
         /// <exception cref="ArgumentException">Thrown if the <paramref name="path"/> is invalid.</exception>
         /// <exception cref="IOException">Thrown if the directory <paramref name="path"/> could not be created.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating the directory <paramref name="path"/> is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem for <paramref name="path"/> can not store file-changed times accurate to the second.</exception>
         public SecureStore(string path)
         {
             #region Sanity checks
@@ -62,7 +61,7 @@ namespace ZeroInstall.Store.Service
             try
             {
                 if (FileUtils.DetermineTimeAccuracy(path) > 0)
-                    throw new InvalidOperationException(Resources.InsufficientFSTimeAccuracy);
+                    throw new IOException(Resources.InsufficientFSTimeAccuracy);
             }
             catch (UnauthorizedAccessException)
             {

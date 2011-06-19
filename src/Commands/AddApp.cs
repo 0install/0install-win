@@ -57,7 +57,13 @@ namespace ZeroInstall.Commands
 
             if (Canceled) throw new UserCancelException();
 
-            integrationManager.AddApp(new InterfaceFeed(interfaceID, feed));
+            try { integrationManager.AddApp(new InterfaceFeed(interfaceID, feed)); }
+            catch(InvalidOperationException ex)
+            {
+                // Show a "nothing to do" message (but not in batch mode, since it is too unimportant));
+                if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, ex.Message);
+                return 0;
+            }
 
             // Show a "done" message (but not in batch mode, since it is too unimportant));
             if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, string.Format(Resources.AppListAdded, feed.Name));

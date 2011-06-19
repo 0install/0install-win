@@ -138,7 +138,7 @@ namespace Common.Storage
         /// <param name="stream">The XML file to be loaded.</param>
         /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
         /// <returns>The loaded object.</returns>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurred while deserializing the XML data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T Load<T>(Stream stream, params MemberInfo[] ignoreMembers)
         {
@@ -146,7 +146,13 @@ namespace Common.Storage
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            return (T)GetSerializer(typeof(T), ignoreMembers).Deserialize(stream);
+            try { return (T)GetSerializer(typeof(T), ignoreMembers).Deserialize(stream); }
+            #region Error handling
+            catch (InvalidOperationException ex)
+            { // Convert exception type
+                throw new InvalidDataException(ex.Message, ex.InnerException) {Source = ex.Source};
+            }
+            #endregion
         }
 
         /// <summary>
@@ -158,7 +164,7 @@ namespace Common.Storage
         /// <returns>The loaded object.</returns>
         /// <exception cref="IOException">Thrown if a problem occurred while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurred while deserializing the XML data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T Load<T>(string path, params MemberInfo[] ignoreMembers)
         {
@@ -166,8 +172,21 @@ namespace Common.Storage
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            using (var fileStream = File.OpenRead(path))
-                return Load<T>(fileStream, ignoreMembers);
+            try {
+                using (var fileStream = File.OpenRead(path))
+                    return Load<T>(fileStream, ignoreMembers);
+            }
+            #region Error handling
+            catch (InvalidDataException ex)
+            {
+                // Write additional diagnostic information to log
+                string message = string.Format(Resources.ProblemLoading, path) + "\n" + ex.Message;
+                if (ex.InnerException != null) message += "\n" + ex.InnerException.Message;
+                Log.Error(message);
+
+                throw;
+            }
+            #endregion
         }
 
         /// <summary>
@@ -177,7 +196,7 @@ namespace Common.Storage
         /// <param name="data">The XML string to be parsed.</param>
         /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
         /// <returns>The loaded object.</returns>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurred while deserializing the XML data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T FromString<T>(string data, params MemberInfo[] ignoreMembers)
         {
@@ -332,7 +351,7 @@ namespace Common.Storage
         /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
         /// <returns>The loaded object.</returns>
         /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurred while deserializing the XML data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T FromZip<T>(Stream stream, string password, IEnumerable<EmbeddedFile> additionalFiles, params MemberInfo[] ignoreMembers)
         {
@@ -375,7 +394,7 @@ namespace Common.Storage
             }
 
             if (xmlFound) return output;
-            throw new InvalidOperationException(Resources.NoXmlDataInFile);
+            throw new InvalidDataException(Resources.NoXmlDataInZip);
         }
 
         /// <summary>
@@ -390,7 +409,7 @@ namespace Common.Storage
         /// <exception cref="IOException">Thrown if a problem occurred while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
         /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurred while deserializing the XML data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T FromZip<T>(string path, string password, IEnumerable<EmbeddedFile> additionalFiles, params MemberInfo[] ignoreMembers)
         {

@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Common;
 using Common.Collections;
 using NDesk.Options;
@@ -113,7 +114,7 @@ namespace ZeroInstall.Commands
 
             try { UncachedImplementations = Selections.ListUncachedImplementations(Policy.Fetcher.Store, Policy.FeedManager.Cache); }
             #region Error handling
-            catch (InvalidOperationException ex)
+            catch (InvalidDataException ex)
             {
                 // Wrap exception to add context
                 throw new SolverException(ex.Message, ex);

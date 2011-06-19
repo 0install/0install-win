@@ -116,7 +116,7 @@ namespace ZeroInstall.Publish.WinForms
                 _feedEditing = FeedEditing.Load(openFileDialog.FileName);
             }
             #region Error handling
-            catch (InvalidOperationException)
+            catch (InvalidDataException)
             {
                 Msg.Inform(null, Resources.FeedNotValid, MsgSeverity.Error);
             }

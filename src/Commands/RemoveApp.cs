@@ -50,7 +50,13 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override int ExecuteHelper(string interfaceID, CategoryIntegrationManager integrationManager)
         {
-            integrationManager.RemoveApp(interfaceID);
+            try { integrationManager.RemoveApp(interfaceID); }
+            catch (InvalidOperationException ex)
+            {
+                // Show a "nothing to do" message (but not in batch mode, since it is too unimportant));
+                if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, ex.Message);
+                return 0;
+            }
 
             // Show a "done" message (but not in batch mode, since it is too unimportant)
             if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, string.Format(Resources.AppListRemoved, interfaceID));

@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.IO;
 using System.Xml;
 using Common;
 using Common.Utils;
@@ -56,7 +57,7 @@ namespace ZeroInstall.Injector.Solver
             // Parse StandardOutput data as XML
             try { return Selections.LoadFromString(result); }
             #region Error handling
-            catch (InvalidOperationException ex)
+            catch (InvalidDataException ex)
             {
                 Log.Warn("Solver result:\n" + result);
                 throw new SolverException(Resources.ExternalSolverOutputErrror + "\n" + ex.Message, ex);

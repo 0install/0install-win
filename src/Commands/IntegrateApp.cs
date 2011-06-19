@@ -91,7 +91,17 @@ namespace ZeroInstall.Commands
 
             if (Canceled) throw new UserCancelException();
 
-            if (!_removeCategories.IsEmpty) integrationManager.RemoveAccessPointCategory(interfaceID, _removeCategories);
+            if (!_removeCategories.IsEmpty)
+            {
+                try { integrationManager.RemoveAccessPointCategory(interfaceID, _removeCategories); }
+                catch (InvalidOperationException ex)
+                {
+                    // Show a "nothing to do" message (but not in batch mode, since it is too unimportant));
+                    if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, ex.Message);
+                    return 0;
+                }
+            }
+
             if (_addCategories.IsEmpty)
             { // Stop before loading the feed if only removal was requested
                 // Show a "integration complete" message (but not in batch mode, since it is too unimportant)

@@ -205,7 +205,7 @@ namespace ZeroInstall.Commands.WinForms
                     Log.Error("Unable to load feed '" + feedID + "'; skipping.\n" + ex.Message);
                     continue;
                 }
-                catch (InvalidOperationException ex)
+                catch (InvalidDataException ex)
                 {
                     Log.Error("Unable to load feed '" + feedID + "'; skipping.\n" + ex.Message);
                     continue;

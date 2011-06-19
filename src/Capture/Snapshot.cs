@@ -307,7 +307,7 @@ namespace ZeroInstall.Capture
         /// <returns>The loaded <see cref="Snapshot"/>.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the binary data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the binary data.</exception>
         public static Snapshot Load(string path)
         {
             #region Sanity checks

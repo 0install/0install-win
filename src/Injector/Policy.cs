@@ -105,17 +105,7 @@ namespace ZeroInstall.Injector
         /// <exception cref="InvalidDataException">Thrown if a configuration file is damaged.</exception>
         public static Policy CreateDefault(IHandler handler)
         {
-            Config config;
-            try { config = Config.Load(); }
-            #region Error handling
-            catch (InvalidDataException ex)
-            {
-                // Wrap exception since only certain exception types are allowed in tasks
-                throw new IOException(ex.Message, ex);
-            }
-            #endregion
-
-            return new Policy(config, new FeedManager(FeedCacheProvider.CreateDefault(), OpenPgpProvider.Default), FetcherProvider.CreateDefault(), SolverProvider.Default, handler);
+            return new Policy(Config.Load(), new FeedManager(FeedCacheProvider.CreateDefault(), OpenPgpProvider.Default), FetcherProvider.CreateDefault(), SolverProvider.Default, handler);
         }
         #endregion
 

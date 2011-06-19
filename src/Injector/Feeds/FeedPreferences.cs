@@ -102,7 +102,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <returns>The loaded <see cref="FeedPreferences"/>.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static FeedPreferences Load(string path)
         {
             return XmlStorage.Load<FeedPreferences>(path);
@@ -115,7 +115,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <returns>The loaded <see cref="FeedPreferences"/>.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static FeedPreferences LoadFor(string feedID)
         {
             #region Sanity checks
@@ -156,7 +156,7 @@ namespace ZeroInstall.Injector.Feeds
                 Log.Error("Error loading feed preferences for '" + feedID + "'. Reverting to default values.\n" + ex.Message);
                 return new FeedPreferences();
             }
-            catch (InvalidOperationException ex)
+            catch (InvalidDataException ex)
             {
                 Log.Error("Error loading feed preferences for '" + feedID + "'. Reverting to default values.\n" + ex.Message);
                 return new FeedPreferences();

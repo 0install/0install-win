@@ -63,28 +63,14 @@ namespace ZeroInstall.DesktopIntegration
         /// <returns>The loaded <see cref="AppList"/>.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static AppList Load(string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            try { return XmlStorage.Load<AppList>(path); }
-            #region Error handling
-            catch (InvalidOperationException ex)
-            {
-                // Write additional diagnostic information to log
-                if (ex.Source == "System.Xml")
-                {
-                    string message = string.Format(Resources.ProblemLoading, path) + "\n" + ex.Message;
-                    if (ex.InnerException != null) message += "\n" + ex.InnerException.Message;
-                    Log.Error(message);
-                }
-
-                throw;
-            }
-            #endregion
+            return XmlStorage.Load<AppList>(path);
         }
 
         /// <summary>

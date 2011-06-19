@@ -131,6 +131,11 @@ namespace ZeroInstall.Commands.Cli
                 Log.Error(ex.Message);
                 return 1;
             }
+            catch (InvalidDataException ex)
+            {
+                Log.Error(ex.Message);
+                return 1;
+            }
             catch (InvalidInterfaceIDException ex)
             {
                 Log.Error(ex.Message);

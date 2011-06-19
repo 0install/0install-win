@@ -92,7 +92,7 @@ namespace ZeroInstall.Publish.Cli
                 Log.Error(ex.Message);
                 return (int)ErrorLevel.InvalidArguments;
             }
-            catch (InvalidOperationException ex)
+            catch (InvalidDataException ex)
             {
                 Log.Error(ex.Message);
                 return (int)ErrorLevel.IOError;
@@ -212,7 +212,7 @@ namespace ZeroInstall.Publish.Cli
         /// <returns>The error code to end the process with.</returns>
         /// <exception cref="UserCancelException">Thrown if the user cancelled the operation.</exception>
         /// <exception cref="OptionException">Thrown if the specified feed file paths were invalid.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a feed file is damaged.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a feed file is damaged.</exception>
         /// <exception cref="FileNotFoundException">Thrown if a feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file or the catalog file is not permitted.</exception>
@@ -254,7 +254,7 @@ namespace ZeroInstall.Publish.Cli
         /// Executes the commands specified by the command-line arguments.
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
-        /// <exception cref="InvalidOperationException">Thrown if the feed file is damaged.</exception>
+        /// <exception cref="InvalidDataException">Thrown if the feed file is damaged.</exception>
         /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the feed file is not permitted.</exception>
@@ -293,7 +293,7 @@ namespace ZeroInstall.Publish.Cli
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
         /// <exception cref="OptionException">Thrown if the specified feed file paths were invalid.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a feed file is damaged.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a feed file is damaged.</exception>
         /// <exception cref="FileNotFoundException">Thrown if the a files could not be found.</exception>
         /// <exception cref="IOException">Thrown if a file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file or the catalog file is not permitted.</exception>

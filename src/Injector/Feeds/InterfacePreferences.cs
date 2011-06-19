@@ -83,7 +83,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <returns>The loaded <see cref="InterfacePreferences"/>.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static InterfacePreferences Load(string path)
         {
             return XmlStorage.Load<InterfacePreferences>(path);
@@ -96,7 +96,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <returns>The loaded <see cref="InterfacePreferences"/>.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static InterfacePreferences LoadFor(string interfaceID)
         {
             #region Sanity checks
@@ -137,7 +137,7 @@ namespace ZeroInstall.Injector.Feeds
                 Log.Error("Error loading interface preferences for '" + interfaceID + "'. Reverting to default values.\n" + ex.Message);
                 return new InterfacePreferences();
             }
-            catch (InvalidOperationException ex)
+            catch (InvalidDataException ex)
             {
                 Log.Error("Error loading interface preferences for '" + interfaceID + "'. Reverting to default values.\n" + ex.Message);
                 return new InterfacePreferences();

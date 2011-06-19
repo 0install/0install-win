@@ -258,7 +258,7 @@ namespace ZeroInstall.Capture
         /// <returns>An object for accessing the capture directory.</returns>
         /// <exception cref="IOException">Thrown if the directory already exists and is not empty or if the directory could not be created.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing snapshot data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing snapshot data.</exception>
         public static CaptureDir Open(string path)
         {
             #region Sanity checks
