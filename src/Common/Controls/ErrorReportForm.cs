@@ -30,7 +30,6 @@ using System.Threading;
 using System.Windows.Forms;
 using Common.Properties;
 using Common.Storage;
-using ICSharpCode.SharpZipLib.Zip;
 
 namespace Common.Controls
 {
@@ -41,37 +40,37 @@ namespace Common.Controls
     public sealed partial class ErrorReportForm : Form
     {
         #region Variables
+        private readonly Exception _exception;
         private readonly Uri _uploadUri;
-        private readonly ExceptionInformation _exceptionInformation;
         #endregion
 
         #region Constructor
         /// <summary>
         /// Prepares reporting an error.
         /// </summary>
-        /// <param name="ex">The exception object describing the error.</param>
+        /// <param name="exception">The exception object describing the error.</param>
         /// <param name="uploadUri">The URI to upload error reports to.</param>
-        private ErrorReportForm(Exception ex, Uri uploadUri)
+        private ErrorReportForm(Exception exception, Uri uploadUri)
         {
             #region Sanity checks
-            if (ex == null) throw new ArgumentNullException("ex");
+            if (exception == null) throw new ArgumentNullException("ex");
             if (uploadUri == null) throw new ArgumentNullException("uploadUri");
             #endregion
 
             InitializeComponent();
 
-            _exceptionInformation = new ExceptionInformation(ex);
+            _exception = exception;
 
             // A missing file as the root is more important than the secondary exceptions it causes
-            if (ex.InnerException != null && ex.InnerException is FileNotFoundException)
-                ex = ex.InnerException;
+            if (exception.InnerException != null && exception.InnerException is FileNotFoundException)
+                exception = exception.InnerException;
 
             // Make the message simpler for missing files
-            detailsBox.Text = (ex is FileNotFoundException) ? ex.Message.Replace("\n", Environment.NewLine) : ex.ToString();
+            detailsBox.Text = (exception is FileNotFoundException) ? exception.Message.Replace("\n", Environment.NewLine) : exception.ToString();
 
             // Append inner exceptions
-            if (ex.InnerException != null)
-                detailsBox.Text += Environment.NewLine + Environment.NewLine + ex.InnerException;
+            if (exception.InnerException != null)
+                detailsBox.Text += Environment.NewLine + Environment.NewLine + exception.InnerException;
 
             _uploadUri = uploadUri;
         }
@@ -197,47 +196,22 @@ namespace Common.Controls
 
         #region Generate report
         /// <summary>
-        /// Generates a ZIP archive containing the log file, exception information and any user comments.
+        /// Generates a ZIP archive containing crash information.
         /// </summary>
         /// <returns></returns>
         private string GenerateReportFile()
         {
+            var crashInfo = new ErrorReport
+            {
+                Application = ApplicationInformation.Collect(),
+                Exception = new ExceptionInformation(_exception),
+                Log = Log.Content,
+                Comments = commentBox.Text
+            };
+
             string reportPath = Path.Combine(Path.GetTempPath(), Application.ProductName + " Error Report.zip");
             if (File.Exists(reportPath)) File.Delete(reportPath);
-            Stream reportStream = File.Create(reportPath);
-
-            using (var zipStream = new ZipOutputStream(reportStream))
-            {
-                zipStream.SetLevel(9);
-
-                // Store the exception information as XML
-                zipStream.PutNextEntry(new ZipEntry("Exception.xml"));
-                XmlStorage.Save(zipStream, _exceptionInformation);
-                zipStream.CloseEntry();
-
-                var writer = new StreamWriter(zipStream);
-
-                // Store the exception information as TXT
-                zipStream.PutNextEntry(new ZipEntry("Exception.txt"));
-                writer.Write(detailsBox.Text);
-                writer.Flush();
-                zipStream.CloseEntry();
-
-                // Store the log file
-                zipStream.PutNextEntry(new ZipEntry("Log.txt"));
-                writer.Write(Log.Content);
-                writer.Flush();
-                zipStream.CloseEntry();
-
-                if (!string.IsNullOrEmpty(commentBox.Text))
-                {
-                    // Store the user comment
-                    zipStream.PutNextEntry(new ZipEntry("Comment.txt"));
-                    writer.Write(commentBox.Text);
-                    writer.Flush();
-                    zipStream.CloseEntry();
-                }
-            }
+            XmlStorage.ToZip(reportPath, crashInfo, null, new EmbeddedFile[0]);
             return reportPath;
         }
         #endregion

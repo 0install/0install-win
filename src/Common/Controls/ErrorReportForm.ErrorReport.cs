@@ -21,23 +21,59 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
+using Common.Utils;
 
 namespace Common.Controls
 {
+    /// <summary>
+    /// Wraps information about an crash in a serializer-friendly format.
+    /// </summary>
+    // Note: Must be public, not internal, so XML Serialization will work
+    [XmlType("error-report")]
+    [XmlRoot("error-report")]
+    public class ErrorReport
+    {
+        #region Properties
+        /// <summary>
+        /// Information about the current application.
+        /// </summary>
+        [XmlElement("application")]
+        public ApplicationInformation Application { get; set; }
+
+        /// <summary>
+        /// Information about the exception that occured.
+        /// </summary>
+        [XmlElement("exception")]
+        public ExceptionInformation Exception { get; set; }
+
+        /// <summary>
+        /// The contents of the <see cref="Log"/> file.
+        /// </summary>
+        [XmlElement("log"), DefaultValue("")]
+        public string Log { get; set; }
+
+        /// <summary>
+        /// Comments about the crash entered by the user.
+        /// </summary>
+        [XmlElement("comments"), DefaultValue("")]
+        public string Comments { get; set; }
+        #endregion
+    }
+
     /// <summary>
     /// Wraps information about an exception in a serializer-friendly format.
     /// </summary>
     // Note: Must be public, not internal, so XML Serialization will work
     [XmlType("exception")]
-    [XmlRoot("exception")]
     public class ExceptionInformation
     {
         #region Properties
         /// <summary>
         /// The type of exception.
         /// </summary>
-        [XmlElement("type")]
+        [XmlAttribute("type")]
         public string ExceptionType { get; set; }
 
         /// <summary>
@@ -89,6 +125,49 @@ namespace Common.Controls
 
             if (ex.InnerException != null)
                 InnerException = new ExceptionInformation(ex.InnerException);
+        }
+        #endregion
+    }
+
+    /// <summary>
+    /// Wraps information about the current application in a serializer-friendly format.
+    /// </summary>
+    // Note: Must be public, not internal, so XML Serialization will work
+    [XmlType("application")]
+    public class ApplicationInformation
+    {
+        #region Properties
+        /// <summary>
+        /// The name of the application.
+        /// </summary>
+        [XmlAttribute("name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// The version number of the application.
+        /// </summary>
+        [XmlAttribute("version")]
+        public string Version { get; set; }
+
+        /// <summary>
+        /// The command-line arguments the application was started with.
+        /// </summary>
+        [XmlElement("arg")]
+        public string[] Arguments { get; set; }
+        #endregion
+
+        #region Collect
+        /// <summary>
+        /// Collects information about the current application
+        /// </summary>
+        public static ApplicationInformation Collect()
+        {
+            return new ApplicationInformation
+            {
+                Name = AppInfo.Name,
+                Version = AppInfo.Version.ToString(),
+                Arguments = Environment.GetCommandLineArgs()
+            };
         }
         #endregion
     }

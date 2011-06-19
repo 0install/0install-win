@@ -135,7 +135,7 @@
     <Compile Include="Undo\CompositeCommand.cs" />
     <Compile Include="Values\Design\ValueTypeConverter.cs" />
     <Compile Include="Values\Design\TimeSpanEditor.cs" />
-    <Compile Include="Controls\ExceptionInformation.cs" />
+    <Compile Include="Controls\ErrorReportForm.ErrorReport.cs" />
     <Compile Include="Controls\IContextMenu.cs" />
     <Compile Include="Controls\IHighlightColor.cs" />
     <Compile Include="Controls\RtfBuilder.cs" />
