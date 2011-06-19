@@ -147,6 +147,15 @@ namespace ZeroInstall.Central.WinForms
                 #endregion
             }
         }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Visible = false;
+            while (selfUpdateWorker.IsBusy)
+            {
+                Application.DoEvents();
+            }
+        }
         #endregion
 
         #region Helpers
@@ -170,6 +179,29 @@ namespace ZeroInstall.Central.WinForms
             catch (Win32Exception ex)
             {
                 Msg.Inform(this, string.Format(Resources.FailedToRun + "\n" + ex.Message, assembly), MsgSeverity.Error);
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Opens a URL in the system's default browser.
+        /// </summary>
+        /// <param name="url">The URL to open.</param>
+        private void OpenInBrowser(string url)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(url)) throw new ArgumentNullException("uri");
+            #endregion
+
+            try { Process.Start(url); }
+            #region Error handling
+            catch (FileNotFoundException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (Win32Exception ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }
             #endregion
         }
@@ -218,9 +250,7 @@ namespace ZeroInstall.Central.WinForms
 
                 case UrlPostfixBrowser:
                     e.Cancel = true;
-
-                    // Use the system's default web browser to open the URL
-                    Process.Start(e.Url.AbsoluteUri.Replace(UrlPostfixBrowser, ""));
+                    OpenInBrowser(e.Url.AbsoluteUri.Replace(UrlPostfixBrowser, ""));
                     break;
             }
         }
@@ -253,8 +283,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            // Use the system's default web browser to open the URL
-            Process.Start("http://0install.de/help/");
+            OpenInBrowser("http://0install.de/help/");
         }
         #endregion
 
@@ -279,14 +308,5 @@ namespace ZeroInstall.Central.WinForms
                 : DragDropEffects.None;
         }
         #endregion
-
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Visible = false;
-            while (selfUpdateWorker.IsBusy)
-            {
-                Application.DoEvents();
-            }
-        }
     }
 }
