@@ -35,6 +35,7 @@ namespace ZeroInstall.Model.Capabilities
         // ToDo
 
         /// <inheritdoc/>
+        [XmlIgnore]
         public override IEnumerable<string> ConflictIDs
         {
             get { return new[] {"game:" + ID}; }

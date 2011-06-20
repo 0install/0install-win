@@ -91,6 +91,7 @@ namespace ZeroInstall.Model.Capabilities
         public InstallCommands InstallCommands { get; set; }
 
         /// <inheritdoc/>
+        [XmlIgnore]
         public override IEnumerable<string> ConflictIDs
         {
             get { return new[] {"clients:" + Service + @"\" + ID}; }

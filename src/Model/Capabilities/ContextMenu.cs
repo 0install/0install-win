@@ -47,6 +47,7 @@ namespace ZeroInstall.Model.Capabilities
         public Verb Verb { get; set; }
 
         /// <inheritdoc/>
+        [XmlIgnore]
         public override IEnumerable<string> ConflictIDs
         {
             // Note: Context menu entries are only created via AccessPoints, the capability itself does nothing

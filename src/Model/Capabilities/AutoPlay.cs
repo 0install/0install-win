@@ -86,6 +86,7 @@ namespace ZeroInstall.Model.Capabilities
         public C5.LinkedList<AutoPlayEvent> Events { get { return _events; } }
 
         /// <inheritdoc/>
+        [XmlIgnore]
         public override IEnumerable<string> ConflictIDs
         {
             get { return new[] {"autoplay:" + ID, "progid:" + ProgID}; }

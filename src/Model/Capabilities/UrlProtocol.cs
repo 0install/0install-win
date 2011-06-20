@@ -43,6 +43,7 @@ namespace ZeroInstall.Model.Capabilities
         public string Prefix { get; set; }
 
         /// <inheritdoc/>
+        [XmlIgnore]
         public override IEnumerable<string> ConflictIDs
         {
             get { return new[] {"progid:" + ID}; }

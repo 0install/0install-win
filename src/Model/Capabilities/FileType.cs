@@ -46,6 +46,7 @@ namespace ZeroInstall.Model.Capabilities
         public C5.HashedArrayList<FileTypeExtension> Extensions { get { return _extensions; } }
 
         /// <inheritdoc/>
+        [XmlIgnore]
         public override IEnumerable<string> ConflictIDs
         {
             get { return new[] {"progid:" + ID}; }
