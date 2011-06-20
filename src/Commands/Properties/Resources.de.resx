@@ -135,8 +135,21 @@
   <data name="ActionUpdate" xml:space="preserve">
     <value>Suche nach Updates</value>
   </data>
+  <data name="AliasCreated" xml:space="preserve">
+    <value>Ein Alias namens '{0}' für '{1}' wurde angelegt.
+Sie müssen eventuell ihr Terminal schließen und wieder öffnen damit dies wirksam wird.</value>
+  </data>
+  <data name="AliasNotFound" xml:space="preserve">
+    <value>Es wurde kein bestehender Alias namens '{0}' gefunden.</value>
+  </data>
+  <data name="AliasRemoved" xml:space="preserve">
+    <value>Der Alias namens '{0}' für '{1}' wurde entfernt.</value>
+  </data>
   <data name="AllComponentsDownloaded" xml:space="preserve">
     <value>Alle benötigten Komponenten wurden runtergeladen.</value>
+  </data>
+  <data name="AppAlias" xml:space="preserve">
+    <value>Anwendungsalias</value>
   </data>
   <data name="AppList" xml:space="preserve">
     <value>Anwendungsliste</value>
@@ -245,6 +258,12 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   </data>
   <data name="NoUpdatesFound" xml:space="preserve">
     <value>Keine Updates gefunden</value>
+  </data>
+  <data name="OptionAliasRemove" xml:space="preserve">
+    <value>Entferne einen bestehenden Alias.</value>
+  </data>
+  <data name="OptionAliasResolve" xml:space="preserve">
+    <value>Gebe die Interface URI für den angegebenen Alias aus.</value>
   </data>
   <data name="OptionBatch" xml:space="preserve">
     <value>Im Stapelverarbeitungsmodus ausführen: dem Benutzer keine Meldungen zeigen und Rückfragen stillschweigend mit "Nein" beantworten.</value>

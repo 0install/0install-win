@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using Common.Collections;
 using Common.Tasks;
@@ -39,6 +40,24 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         #endregion
 
         //--------------------//
+
+        #region Collision
+        /// <inheritdoc/>
+        public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
+        {
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            #endregion
+
+            var idList = new LinkedList<string>();
+            foreach (var capabilityList in appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
+            {
+                foreach (var capability in capabilityList.Entries)
+                    idList.AddLast("capability:" + capability.ConflictIDs);
+            }
+            return idList;
+        }
+        #endregion
 
         #region Apply
         /// <inheritdoc/>

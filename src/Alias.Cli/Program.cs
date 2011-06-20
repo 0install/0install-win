@@ -113,7 +113,7 @@ namespace ZeroInstall.Alias.Cli
             }
             catch (OptionException ex)
             {
-                Log.Error(ex.Message + "\n" + string.Format(Resources.TryHelp, "0launch"));
+                Log.Error(ex.Message + "\n" + string.Format(Resources.TryHelp, "0alias"));
                 return 1;
             }
             catch (WebException ex)

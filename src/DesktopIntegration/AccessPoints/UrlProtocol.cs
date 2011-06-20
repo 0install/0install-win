@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using Common.Tasks;
 using Common.Utils;
@@ -30,6 +31,20 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("url-protocol", Namespace = AppList.XmlNamespace)]
     public class UrlProtocol : DefaultAccessPoint, IEquatable<UrlProtocol>
     {
+        #region Collision
+        /// <inheritdoc/>
+        public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
+        {
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            #endregion
+
+            var capability = appEntry.GetCapability<Capabilities.UrlProtocol>(Capability);
+            string protocol = string.IsNullOrEmpty(capability.Prefix) ? capability.Prefix : capability.ID;
+            return new[] {"protocol:" + protocol};
+        }
+        #endregion
+
         #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, InterfaceFeed target, bool systemWide, ITaskHandler handler)

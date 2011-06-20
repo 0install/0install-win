@@ -57,12 +57,10 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
             #endregion
 
-            string interfaceID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
-
-            if (SystemWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator)
-                return RerunAsAdmin();
+            if (SystemWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
 
             Policy.Handler.ShowProgressUI(Cancel);
+            string interfaceID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
             return ExecuteHelper(interfaceID, new CategoryIntegrationManager(SystemWide));
         }
 

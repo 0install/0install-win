@@ -135,8 +135,21 @@
   <data name="ActionUpdate" xml:space="preserve">
     <value>Checking for updates</value>
   </data>
+  <data name="AliasCreated" xml:space="preserve">
+    <value>An alias named '{0}' for '{1}' was created.
+You may have to close and reopen your terminal for this to become effective.</value>
+  </data>
+  <data name="AliasNotFound" xml:space="preserve">
+    <value>No existing alias named '{0}' was found.</value>
+  </data>
+  <data name="AliasRemoved" xml:space="preserve">
+    <value>The alias named '{0}' for '{1}' was removed.</value>
+  </data>
   <data name="AllComponentsDownloaded" xml:space="preserve">
     <value>All required components have been downloaded.</value>
+  </data>
+  <data name="AppAlias" xml:space="preserve">
+    <value>Application alias</value>
   </data>
   <data name="AppList" xml:space="preserve">
     <value>Application list</value>
@@ -254,6 +267,12 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   </data>
   <data name="NoUpdatesFound" xml:space="preserve">
     <value>No updates found</value>
+  </data>
+  <data name="OptionAliasRemove" xml:space="preserve">
+    <value>Removes an existing alias.</value>
+  </data>
+  <data name="OptionAliasResolve" xml:space="preserve">
+    <value>Print the interface URI for the given alias.</value>
   </data>
   <data name="OptionAppAdd" xml:space="preserve">
     <value>Applies all {CATEGORY} access points.</value>

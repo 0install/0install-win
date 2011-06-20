@@ -60,22 +60,25 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string stubFilePath = Path.Combine(stubDirPath, appAlias.Name + ".exe");
             StubProvider.BuildRunStub(stubFilePath, target, appAlias.Command, handler);
 
-            // Only Windows 7 and newer support per-user AppPaths
-            if (!systemWide && !WindowsUtils.IsWindows7)
-            {
-                // ToDo: Fall back to classic PATH
-                return;
-            }
+            var variableTarget = systemWide ? EnvironmentVariableTarget.Machine : EnvironmentVariableTarget.User;
+            string existingValue = Environment.GetEnvironmentVariable("PATH", variableTarget);
+            if (existingValue == null || !existingValue.Contains(stubDirPath))
+                Environment.SetEnvironmentVariable("PATH", existingValue + Path.PathSeparator + stubDirPath, variableTarget);
 
-            var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
-            using (var appPathsKey = hive.OpenSubKey(RegKeyAppPaths, true))
+            // Only Windows 7 and newer support per-user AppPaths
+            if (systemWide || WindowsUtils.IsWindows7)
             {
-                using (var exeKey = appPathsKey.CreateSubKey(appAlias.Name + ".exe"))
-                    exeKey.SetValue("", stubFilePath);
+                var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
+                using (var appPathsKey = hive.CreateSubKey(RegKeyAppPaths))
+                {
+                    using (var exeKey = appPathsKey.CreateSubKey(appAlias.Name + ".exe"))
+                        exeKey.SetValue("", stubFilePath);
+                }
             }
         }
         #endregion
 
+        #region Unapply
         /// <summary>
         /// Removes an <see cref="AccessPoints.AppAlias"/> from the current Windows system. 
         /// </summary>
@@ -90,21 +93,18 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string stubDirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "aliases");
             string stubFilePath = Path.Combine(stubDirPath, appAlias.Name + ".exe");
 
-            // Only Windows 7 and newer support per-user AppPaths
-            if (!systemWide && !WindowsUtils.IsWindows7)
-            {
-                // ToDo: Fall back to classic PATH
-                return;
-            }
-
             var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
             using (var appPathsKey = hive.OpenSubKey(RegKeyAppPaths, true))
             {
-                if (((ICollection<string>)appPathsKey.GetSubKeyNames()).Contains(appAlias.Name + ".exe"))
-                    appPathsKey.DeleteSubKey(appAlias.Name + ".exe");
+                if (appPathsKey != null)
+                {
+                    if (((ICollection<string>)appPathsKey.GetSubKeyNames()).Contains(appAlias.Name + ".exe"))
+                        appPathsKey.DeleteSubKey(appAlias.Name + ".exe");
+                }
             }
 
             if (File.Exists(stubFilePath)) File.Delete(stubFilePath);
         }
+        #endregion
     }
 }

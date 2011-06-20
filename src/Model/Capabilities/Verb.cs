@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model.Capabilities
@@ -36,6 +37,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <summary>
         /// Canonical <see cref="Name"/> for opening a file in a new window.
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
         public const string NameOpenNew = "opennew";
 
         /// <summary>

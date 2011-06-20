@@ -16,8 +16,10 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using Common.Tasks;
+using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
@@ -28,6 +30,19 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("auto-play", Namespace = AppList.XmlNamespace)]
     public class AutoPlay : DefaultAccessPoint, IEquatable<AutoPlay>
     {
+        #region Collision
+        /// <inheritdoc/>
+        public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
+        {
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            #endregion
+
+            var capabilitiy = appEntry.GetCapability<Capabilities.AutoPlay>(Capability);
+            return capabilitiy.Events.Map(eventName => "autoplay-event:" + eventName);
+        }
+        #endregion
+
         #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, InterfaceFeed target, bool systemWide, ITaskHandler handler)

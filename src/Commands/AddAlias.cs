@@ -16,7 +16,9 @@
  */
 
 using System;
+using System.Collections.Generic;
 using Common;
+using Common.Collections;
 using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
@@ -39,6 +41,11 @@ namespace ZeroInstall.Commands
         public const string Name = "add-alias";
         #endregion
 
+        #region Variables
+        private bool _resolve;
+        private bool _remove;
+        #endregion
+
         #region Properties
         /// <inheritdoc/>
         protected override string Usage { get { return "ALIAS [INTERFACE [COMMAND]]"; } }
@@ -54,7 +61,8 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public AddAlias(Policy policy) : base(policy)
         {
-            // ToDo: Add options
+            Options.Add("resolve", Resources.OptionAliasResolve, unused => _resolve = true);
+            Options.Add("remove", Resources.OptionAliasRemove, unused => _remove = true);
         }
         #endregion
 
@@ -66,19 +74,51 @@ namespace ZeroInstall.Commands
         {
             #region Sanity checks
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count == 0) throw new OptionException(Resources.MissingArguments, "");
-            if (AdditionalArgs.Count > 3) throw new OptionException(Resources.TooManyArguments, "");
             #endregion
 
             if (Locations.IsPortable) throw new NotSupportedException(Resources.NotAvailableInPortableMode);
+            if (SystemWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
 
-            // Get the alias data
-            var alias = new AppAlias {Name = AdditionalArgs[0]};
+            if (AdditionalArgs.Count < 1) throw new OptionException(Resources.MissingArguments, "");
+            string aliasName = AdditionalArgs[0];
+            var integrationManager = new IntegrationManager(SystemWide);
+
+            if (_resolve || _remove)
+            {
+                if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
+
+                AppEntry appEntry;
+                var appAlias = GetAppAlias(integrationManager.AppList, AdditionalArgs[0], out appEntry);
+                if (appAlias == null)
+                {
+                    Policy.Handler.Output(Resources.AppAlias, string.Format(Resources.AliasNotFound, aliasName));
+                    return 1;
+                }
+
+                if (_resolve)
+                {
+                    string result = appEntry.InterfaceID;
+                    if (!string.IsNullOrEmpty(appAlias.Command)) result += Environment.NewLine + "Command: " + appAlias.Command;
+                    Policy.Handler.Output(Resources.AppAlias, result);
+                    return 0;
+                }
+                if (_remove)
+                {
+                    integrationManager.RemoveAccessPoints(appEntry.InterfaceID, new AccessPoint[] {appAlias});
+
+                    // Show a "integration complete" message (but not in batch mode, since it is too unimportant)
+                    Policy.Handler.Output(Resources.AppAlias, string.Format(Resources.AliasRemoved, aliasName, appEntry.Name));
+                    return 0;
+                }
+            }
+
+            if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments, "");
+            if (AdditionalArgs.Count > 3) throw new OptionException(Resources.TooManyArguments, "");
+
+            // Collect the alias data
+            var alias = new AppAlias { Name = aliasName };
             string interfaceID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[1]));
             if (AdditionalArgs.Count >= 3) alias.Command = AdditionalArgs[2];
-
-            if (SystemWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator)
-                return RerunAsAdmin();
 
             Policy.Handler.ShowProgressUI(Cancel);
             CacheFeed(interfaceID);
@@ -88,12 +128,42 @@ namespace ZeroInstall.Commands
             if (Canceled) throw new UserCancelException();
 
             // Apply the new alias
-            var integrationManager = new IntegrationManager(SystemWide);
-            integrationManager.AddAccessPoints(new InterfaceFeed(interfaceID, feed), new AccessPoint[] {alias}, Policy.Handler);
+            try { integrationManager.AddAccessPoints(new InterfaceFeed(interfaceID, feed), new AccessPoint[] {alias}, Policy.Handler); }
+            catch (InvalidOperationException ex)
+            {
+                // Show a "failed to comply" message
+                Policy.Handler.Output(Resources.AppAlias, ex.Message);
+                return 1;
+            }
 
             // Show a "integration complete" message (but not in batch mode, since it is too unimportant)
-            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, feed.Name));
+            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.AliasCreated, aliasName, feed.Name));
             return 0;
+        }
+
+        /// <summary>
+        /// Retreives a specific <see cref="AppAlias"/>.
+        /// </summary>
+        /// <param name="appList">The list of <see cref="AppEntry"/>s to search.</param>
+        /// <param name="aliasName">The name of the alias to search for.</param>
+        /// <param name="foundAppEntry">Returns the <see cref="AppEntry"/> containing the found <see cref="AppAlias"/>; <see langword="null"/> if none was found.</param>
+        /// <returns>The first <see cref="AppAlias"/> in <paramref name="appList"/> matching <paramref name="aliasName"/>; <see langword="null"/> if none was found.</returns>
+        private static AppAlias GetAppAlias(AppList appList, string aliasName, out AppEntry foundAppEntry)
+        {
+            foreach (var appEntry in appList.Entries)
+            {
+                foreach (var appAlias in EnumerableUtils.OfType<AppAlias>(appEntry.AccessPoints.Entries))
+                {
+                    if (appAlias.Name == aliasName)
+                    {
+                        foundAppEntry = appEntry;
+                        return appAlias;
+                    }
+                }
+            }
+
+            foundAppEntry = null;
+            return null;
         }
         #endregion
     }

@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using Common.Tasks;
@@ -38,6 +39,14 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         #endregion
 
         //--------------------//
+
+        #region Collision
+        /// <inheritdoc/>
+        public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
+        {
+            return new[] { "menu:" + Category + @"\" + Name };
+        }
+        #endregion
 
         #region Apply
         /// <inheritdoc/>

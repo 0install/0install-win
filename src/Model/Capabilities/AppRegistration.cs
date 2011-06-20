@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -45,6 +46,12 @@ namespace ZeroInstall.Model.Capabilities
         [Description("Set to true for real 64-bit applications whose registry entries do not get redirected by WOW.")]
         [XmlAttribute("x64"), DefaultValue(false)]
         public bool X64 { get; set; }
+
+        /// <inheritdoc/>
+        public override IEnumerable<string> ConflictIDs
+        {
+            get { return new[] {"registered-apps:" + ID, "hklm:" + CapabilityRegPath}; }
+        }
         #endregion
 
         //--------------------//

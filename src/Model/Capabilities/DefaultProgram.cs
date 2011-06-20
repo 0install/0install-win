@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -88,6 +89,12 @@ namespace ZeroInstall.Model.Capabilities
         [Description("Lists the commands the application registeres for use by Windows' \"Set Program Access and Defaults\". Will be transparently replaced with Zero Install commands.")]
         [XmlElement("install-commands")]
         public InstallCommands InstallCommands { get; set; }
+
+        /// <inheritdoc/>
+        public override IEnumerable<string> ConflictIDs
+        {
+            get { return new[] {"clients:" + Service + @"\" + ID}; }
+        }
         #endregion
 
         //--------------------//

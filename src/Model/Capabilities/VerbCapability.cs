@@ -16,6 +16,7 @@
  */
 
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model.Capabilities
@@ -23,6 +24,7 @@ namespace ZeroInstall.Model.Capabilities
     /// <summary>
     /// Abstract base class for capabilities that can have multiple <see cref="Verb"/>s associated with them.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     public abstract class VerbCapability : Capability
     {
         #region Properties

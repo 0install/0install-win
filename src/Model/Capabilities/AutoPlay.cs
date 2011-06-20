@@ -16,7 +16,9 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model.Capabilities
@@ -25,6 +27,7 @@ namespace ZeroInstall.Model.Capabilities
     /// Represents an application's ability to act as an AutoPlay handler for certain events.
     /// </summary>
     /// <remarks>A <see cref="FileType"/> is used for actually executing the application.</remarks>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [XmlType("auto-play", Namespace = XmlNamespace)]
     public class AutoPlay : Capability, IEquatable<AutoPlay>
     {
@@ -81,6 +84,12 @@ namespace ZeroInstall.Model.Capabilities
         [XmlElement("event")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.LinkedList<AutoPlayEvent> Events { get { return _events; } }
+
+        /// <inheritdoc/>
+        public override IEnumerable<string> ConflictIDs
+        {
+            get { return new[] {"autoplay:" + ID, "progid:" + ProgID}; }
+        }
         #endregion
 
         //--------------------//

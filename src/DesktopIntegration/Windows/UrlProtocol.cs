@@ -63,7 +63,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             {
                 using (var progIDKey = classesKey.CreateSubKey(capability.ID))
                 {
-                    //
+                    // ToDo: Implement
                 }
             }
         }

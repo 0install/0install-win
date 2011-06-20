@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -44,6 +45,13 @@ namespace ZeroInstall.Model.Capabilities
         [Description("The command to execute when the context menu entry is clicked.")]
         [XmlElement("verb")]
         public Verb Verb { get; set; }
+
+        /// <inheritdoc/>
+        public override IEnumerable<string> ConflictIDs
+        {
+            // Note: Context menu entries are only created via AccessPoints, the capability itself does nothing
+            get { return new string[0]; }
+        }
         #endregion
 
         //--------------------//

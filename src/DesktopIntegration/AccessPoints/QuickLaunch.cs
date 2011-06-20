@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using Common.Tasks;
 
@@ -27,6 +28,14 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("quick-launch", Namespace = AppList.XmlNamespace)]
     public class QuickLaunch : IconAccessPoint, IEquatable<QuickLaunch>
     {
+        #region Collision
+        /// <inheritdoc/>
+        public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
+        {
+            return new[] {"quick-launch:" + Name};
+        }
+        #endregion
+
         #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, InterfaceFeed target, bool systemWide, ITaskHandler handler)

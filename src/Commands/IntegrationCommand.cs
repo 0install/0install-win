@@ -46,7 +46,10 @@ namespace ZeroInstall.Commands
             if (!WindowsUtils.IsWindows) throw new PlatformNotSupportedException();
 
             var commandLine = new LinkedList<string>(Environment.GetCommandLineArgs());
+            string executable = commandLine.First.Value;
             commandLine.RemoveFirst();
+            if (executable.StartsWith("0alias")) commandLine.AddFirst(AddAlias.Name);
+
             var startInfo = new ProcessStartInfo(Path.Combine(Locations.InstallBase, "0install-win.exe"), StringUtils.ConcatenateEscape(commandLine)) {Verb = "runas"};
             var process = Process.Start(startInfo);
             process.WaitForExit();

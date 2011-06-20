@@ -122,7 +122,13 @@ namespace ZeroInstall.Commands
 
             if (Canceled) throw new UserCancelException();
 
-            integrationManager.AddAccessPointCategory(new InterfaceFeed(interfaceID, feed), _addCategories, Policy.Handler);
+            try { integrationManager.AddAccessPointCategory(new InterfaceFeed(interfaceID, feed), _addCategories, Policy.Handler); }
+            catch (InvalidOperationException ex)
+            {
+                // Show a "failed to comply" message
+                Policy.Handler.Output(Resources.AppList, ex.Message);
+                return 1;
+            }
 
             // Show a "integration complete" message (but not in batch mode, since it is too unimportant)
             if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, feed.Name));

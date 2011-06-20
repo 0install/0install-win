@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -45,9 +46,16 @@ namespace ZeroInstall.Model.Capabilities
         /// An ID that uniquely identifies this capability within an interface.
         /// </summary>
         /// <remarks>In case of conflicts the first capability listed with a specific ID will take precedence.</remarks>
-        [Description("...")]
+        [Description("An ID that uniquely identifies this capability within an interface.")]
         [XmlAttribute("id")]
         public string ID { get; set; }
+
+        /// <summary>
+        /// Identifiers from a namespace global to all <see cref="Capability"/>s.
+        /// Collisions in this namespace indicate that the concered <see cref="Capability"/>s are in conflict cannot be registered on a single system at the same time.
+        /// </summary>
+        /// <remarks>These identifiers are not guaranteed to stay the same between versions. They should not be stored in files but instead always generated on demand.</remarks>
+        public abstract IEnumerable<string> ConflictIDs { get; }
         #endregion
 
         //--------------------//

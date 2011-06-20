@@ -115,11 +115,48 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An alias named &apos;{0}&apos; for &apos;{1}&apos; was created.
+        ///You may have to close and reopen your terminal for this to become effective..
+        /// </summary>
+        internal static string AliasCreated {
+            get {
+                return ResourceManager.GetString("AliasCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No existing alias named &apos;{0}&apos; was found..
+        /// </summary>
+        internal static string AliasNotFound {
+            get {
+                return ResourceManager.GetString("AliasNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The alias named &apos;{0}&apos; for &apos;{1}&apos; was removed..
+        /// </summary>
+        internal static string AliasRemoved {
+            get {
+                return ResourceManager.GetString("AliasRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All required components have been downloaded..
         /// </summary>
         internal static string AllComponentsDownloaded {
             get {
                 return ResourceManager.GetString("AllComponentsDownloaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application alias.
+        /// </summary>
+        internal static string AppAlias {
+            get {
+                return ResourceManager.GetString("AppAlias", resourceCulture);
             }
         }
         
@@ -465,6 +502,24 @@ namespace ZeroInstall.Commands.Properties {
         internal static string NoUpdatesFound {
             get {
                 return ResourceManager.GetString("NoUpdatesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removes an existing alias..
+        /// </summary>
+        internal static string OptionAliasRemove {
+            get {
+                return ResourceManager.GetString("OptionAliasRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Print the interface URI for the given alias..
+        /// </summary>
+        internal static string OptionAliasResolve {
+            get {
+                return ResourceManager.GetString("OptionAliasResolve", resourceCulture);
             }
         }
         

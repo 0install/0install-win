@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model.Capabilities
@@ -32,6 +33,12 @@ namespace ZeroInstall.Model.Capabilities
         public override bool GlobalOnly { get { return true; } }
 
         // ToDo
+
+        /// <inheritdoc/>
+        public override IEnumerable<string> ConflictIDs
+        {
+            get { return new[] {"game:" + ID}; }
+        }
         #endregion
 
         //--------------------//

@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
@@ -43,6 +44,12 @@ namespace ZeroInstall.Model.Capabilities
         [XmlElement("extension")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.HashedArrayList<FileTypeExtension> Extensions { get { return _extensions; } }
+
+        /// <inheritdoc/>
+        public override IEnumerable<string> ConflictIDs
+        {
+            get { return new[] {"progid:" + ID}; }
+        }
         #endregion
 
         //--------------------//

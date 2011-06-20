@@ -50,20 +50,17 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Constructor
         /// <summary>
-        /// Creates a new integration manager.
+        /// Creates a new integration manager using a custom <see cref="DesktopIntegration.AppList"/>.
         /// </summary>
         /// <param name="systemWide">Apply operations system-wide instead of just for the current user.</param>
+        /// <param name="appListPath">The storage location of the <see cref="AppList"/> file.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public IntegrationManager(bool systemWide)
+        public IntegrationManager(bool systemWide, string appListPath)
         {
             _systemWide = systemWide;
-
-            _appListPath = systemWide
-                // Note: Ignore Portable mode when operating system-wide
-                ? Path.Combine(Locations.GetIntegrationDirPath("0install.net", true, "desktop-integration"), "app-list.xml")
-                : Locations.GetSaveConfigPath("0install.net", true, "desktop-integration", "app-list.xml");
+            _appListPath = appListPath;
 
             if (File.Exists(_appListPath)) AppList = AppList.Load(_appListPath);
             else
@@ -71,6 +68,33 @@ namespace ZeroInstall.DesktopIntegration
                 AppList = new AppList();
                 AppList.Save(_appListPath);
             }
+        }
+
+        /// <summary>
+        /// Creates a new integration manager using the default <see cref="DesktopIntegration.AppList"/>.
+        /// </summary>
+        /// <param name="systemWide">Apply operations system-wide instead of just for the current user.</param>
+        /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        public IntegrationManager(bool systemWide) : this(systemWide, GetAppListPath(systemWide))
+        {}
+
+        /// <summary>
+        /// Determines the default storage location of the <see cref="AppList"/> file.
+        /// </summary>
+        /// <param name="systemWide">Use a system-wide directory with appropriate ACLs (super-user acccess only).</param>
+        private static string GetAppListPath(bool systemWide)
+        {
+            if (systemWide)
+            {
+                // Note: Ignore Portable mode when operating system-wide
+                string path = Path.Combine(Locations.GetIntegrationDirPath("0install.net", true, "desktop-integration"), "app-list.xml");
+                // ToDo: Set ACLs
+                return path;
+            }
+
+            return Locations.GetSaveConfigPath("0install.net", true, "desktop-integration", "app-list.xml");
         }
         #endregion
 
@@ -81,7 +105,7 @@ namespace ZeroInstall.DesktopIntegration
         /// Adds an application to the application list.
         /// </summary>
         /// <param name="target">The application being integrated.</param>
-        /// <exception cref="InvalidOperationException">Thrown in the application is already in the list.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if the application is already in the list.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         public void AddApp(InterfaceFeed target)
@@ -98,7 +122,7 @@ namespace ZeroInstall.DesktopIntegration
         /// Removes an application from the application list.
         /// </summary>
         /// <param name="interfaceID">The interface for the application to perform the remove.</param>
-        /// <exception cref="InvalidOperationException">Thrown in the application is not in the list.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if the application is not in the list.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         public void RemoveApp(string interfaceID)
@@ -130,6 +154,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="target">The application being integrated.</param>
         /// <param name="accessPoints">The <see cref="AccessPoint"/>s to apply.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <exception cref="InvalidOperationException">Thrown if one or more of the <paramref name="accessPoints"/> would cause a collision with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
@@ -153,6 +178,8 @@ namespace ZeroInstall.DesktopIntegration
             // Add the access points to the AppList
             foreach (var accessPoint in accessPoints)
             {
+                // ToDo: Detect collisions
+
                 if (!appEntry.AccessPoints.Entries.Contains(accessPoint))
                     appEntry.AccessPoints.Entries.Add(accessPoint);
             }
@@ -169,7 +196,7 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="interfaceID">The interface for the application to perform the operation on.</param>
         /// <param name="accessPoints">The <see cref="AccessPoint"/>s to remove.</param>
-        /// <exception cref="InvalidOperationException">Thrown in the application is not in the list.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if the application is not in the list.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         public void RemoveAccessPoints(string interfaceID, IEnumerable<AccessPoint> accessPoints)

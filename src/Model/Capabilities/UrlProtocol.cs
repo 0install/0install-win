@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
@@ -40,6 +41,12 @@ namespace ZeroInstall.Model.Capabilities
         [Description("The protocol prefix such as \"http\". Should only be set when different from ID.")]
         [XmlAttribute("prefix")]
         public string Prefix { get; set; }
+
+        /// <inheritdoc/>
+        public override IEnumerable<string> ConflictIDs
+        {
+            get { return new[] {"progid:" + ID}; }
+        }
         #endregion
 
         //--------------------//
