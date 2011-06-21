@@ -20,35 +20,35 @@ using System.IO;
 using System.Net;
 using Common;
 using Common.Tasks;
-using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows
 {
     /// <summary>
-    /// Contains control logic for applying <see cref="Capabilities.GamesExplorer"/> on Windows systems.
+    /// Contains control logic for creating and removing Windows "add/remove programs" uninstall entries.
     /// </summary>
-    public static class GamesExplorer
+    public static class UninstallEntry
     {
         #region Constants
-        /// <summary>The HKLM registry key for registering applications in the Windows Games Explorer.</summary>
-        public const string RegKeyMachineGames = @"SOFTWARE\Microsoft\Windows\CurrentVersion\GameUX\Games";
+        /// <summary>The HKCU/HKLM registry key for uninstall entries.</summary>
+        public const string RegKeyClasses = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
         #endregion
 
-        #region Register
+        #region Create
         /// <summary>
-        /// Registers a game in the current Windows system. This can only be applied system-wide, not per user.
+        /// Creates an uninstall entry for an application.
         /// </summary>
-        /// <param name="target">The application being integrated.</param>
-        /// <param name="gamesExplorer">The game to be registered.</param>
+        /// <param name="name">The name of the application the entry represents.</param>
+        /// <param name="target">The application the entry represents.</param>
+        /// <param name="systemWide">Create the entry system-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public static void Register(InterfaceFeed target, Capabilities.GamesExplorer gamesExplorer, ITaskHandler handler)
+        public static void Create(string name, InterfaceFeed target, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
-            if (gamesExplorer == null) throw new ArgumentNullException("gamesExplorer");
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
@@ -56,17 +56,18 @@ namespace ZeroInstall.DesktopIntegration.Windows
         }
         #endregion
 
-        #region Unregister
+        #region Remove
         /// <summary>
-        /// Unregisters a game in the current Windows system. This can only be applied system-wide, not per user.
+        /// Removes an uninstall entry for an application.
         /// </summary>
-        /// <param name="gamesExplorer">The game to be unregistered.</param>
+        /// <param name="interfaceID">The interface ID of the application the entry represents.</param>
+        /// <param name="systemWide">Remove the entry system-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public static void Unregister(Capabilities.GamesExplorer gamesExplorer)
+        public static void Remove(string interfaceID, bool systemWide)
         {
             #region Sanity checks
-            if (gamesExplorer == null) throw new ArgumentNullException("gamesExplorer");
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             #endregion
 
             // ToDo: Implement

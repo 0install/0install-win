@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using Common.Collections;
 using Common.Tasks;
+using Common.Utils;
 using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
@@ -65,21 +66,70 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
+            if (!WindowsUtils.IsWindows) return;
+
+            // Register all applicable capabilities
             foreach (var capabilityList in appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
             {
                 foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(capabilityList.Entries))
-                    Windows.FileType.Apply(target, fileType, false, systemWide, handler);
+                    Windows.FileType.Register(target, fileType, false, systemWide, handler);
+                foreach (var urlProtocol in EnumerableUtils.OfType<Capabilities.UrlProtocol>(capabilityList.Entries))
+                    Windows.UrlProtocol.Register(target, urlProtocol, false, systemWide, handler);
+                foreach (var autoPlay in EnumerableUtils.OfType<Capabilities.AutoPlay>(capabilityList.Entries))
+                    Windows.AutoPlay.Register(target, autoPlay, false, systemWide, handler);
+                foreach (var comServer in EnumerableUtils.OfType<Capabilities.ComServer>(capabilityList.Entries))
+                    Windows.ComServer.Register(target, comServer, systemWide, handler);
+                if (systemWide)
+                {
+                    foreach (var defaultProgram in EnumerableUtils.OfType<Capabilities.DefaultProgram>(capabilityList.Entries))
+                        Windows.DefaultProgram.Register(target, defaultProgram, false, handler);
+                    foreach (var gamesExplorer in EnumerableUtils.OfType<Capabilities.GamesExplorer>(capabilityList.Entries))
+                        Windows.GamesExplorer.Register(target, gamesExplorer, handler);
+                    foreach (var appRegistration in EnumerableUtils.OfType<Capabilities.AppRegistration>(capabilityList.Entries))
+                        Windows.AppRegistration.Apply(target, appRegistration, EnumerableUtils.OfType<Capabilities.VerbCapability>(capabilityList.Entries), handler);
+                }
             }
 
-            // ToDo: Uninstall entry
+            // Create an uninstall entry
+            Windows.UninstallEntry.Create(appEntry.Name, target, systemWide, handler);
         }
 
         /// <inheritdoc/>
         public override void Unapply(AppEntry appEntry, bool systemWide)
         {
-            // ToDo: Implement
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            #endregion
+
+            if (!WindowsUtils.IsWindows) return;
+
+            // Unregister all applicable capabilities
+            foreach (var capabilityList in appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
+            {
+                foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(capabilityList.Entries))
+                    Windows.FileType.Unregister(fileType, systemWide);
+                foreach (var urlProtocol in EnumerableUtils.OfType<Capabilities.UrlProtocol>(capabilityList.Entries))
+                    Windows.UrlProtocol.Unregister(urlProtocol, systemWide);
+                foreach (var autoPlay in EnumerableUtils.OfType<Capabilities.AutoPlay>(capabilityList.Entries))
+                    Windows.AutoPlay.Unregister(autoPlay, systemWide);
+                foreach (var comServer in EnumerableUtils.OfType<Capabilities.ComServer>(capabilityList.Entries))
+                    Windows.ComServer.Unregister(comServer, systemWide);
+                if (systemWide)
+                {
+                    foreach (var defaultProgram in EnumerableUtils.OfType<Capabilities.DefaultProgram>(capabilityList.Entries))
+                        Windows.DefaultProgram.Unregister(defaultProgram);
+                    foreach (var gamesExplorer in EnumerableUtils.OfType<Capabilities.GamesExplorer>(capabilityList.Entries))
+                        Windows.GamesExplorer.Unregister(gamesExplorer);
+                    foreach (var appRegistration in EnumerableUtils.OfType<Capabilities.AppRegistration>(capabilityList.Entries))
+                        Windows.AppRegistration.Remove(appRegistration);
+                }
+            }
+
+            // Remove the uninstall entry
+            Windows.UninstallEntry.Remove(appEntry.InterfaceID, systemWide);
         }
         #endregion
 

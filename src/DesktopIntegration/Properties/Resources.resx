@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AliasNameInvalidChars" xml:space="preserve">
+    <value>The alias name '{0}' contains invalid characters.</value>
+  </data>
   <data name="AppAlreadyInList" xml:space="preserve">
     <value>The application '{0}' is already in the application list.</value>
   </data>
@@ -125,5 +128,8 @@
   </data>
   <data name="ProblemLoading" xml:space="preserve">
     <value>There was a problem loading '{0}'.</value>
+  </data>
+  <data name="ShortcutNameInvalidChars" xml:space="preserve">
+    <value>The shortcut name '{0}' contains invalid characters.</value>
   </data>
 </root>

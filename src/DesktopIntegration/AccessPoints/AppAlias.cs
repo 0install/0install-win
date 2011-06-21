@@ -55,10 +55,11 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             if (WindowsUtils.IsWindows)
-                Windows.AppAlias.Apply(target, this, systemWide, handler);
+                Windows.AppAlias.Create(target, Command, Name, systemWide, handler);
         }
 
         /// <inheritdoc/>
@@ -69,7 +70,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             if (WindowsUtils.IsWindows)
-                Windows.AppAlias.Unapply(this, systemWide);
+                Windows.AppAlias.Remove(Name, systemWide);
         }
         #endregion
 

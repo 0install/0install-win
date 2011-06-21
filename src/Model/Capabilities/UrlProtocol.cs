@@ -33,7 +33,7 @@ namespace ZeroInstall.Model.Capabilities
         #region Properties
         /// <inheritdoc/>
         [XmlIgnore]
-        public override bool GlobalOnly { get { return false; } }
+        public override bool SystemWindeOnWindows { get { return false; } }
 
         /// <summary>
         /// The protocol prefix such as "http". Should only be set when different from <see cref="Capability.ID"/>.

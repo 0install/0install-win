@@ -31,7 +31,7 @@ namespace ZeroInstall.Model.Capabilities
         #region Properties
         /// <inheritdoc/>
         [XmlIgnore]
-        public override bool GlobalOnly { get { return false; } }
+        public override bool SystemWindeOnWindows { get { return false; } }
 
         /// <summary>
         /// Indicates whether this context menu entry is applicable to all filesystem entries and not just files.

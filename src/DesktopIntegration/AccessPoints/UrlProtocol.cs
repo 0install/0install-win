@@ -51,19 +51,28 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             var capability = appEntry.GetCapability<Capabilities.UrlProtocol>(Capability);
             if (capability == null) return;
 
             if (WindowsUtils.IsWindows)
-                Windows.UrlProtocol.Apply(target, capability, true, systemWide, handler);
+                Windows.UrlProtocol.Register(target, capability, true, systemWide, handler);
         }
 
         /// <inheritdoc/>
         public override void Unapply(AppEntry appEntry, bool systemWide)
         {
-            // ToDo: Implement
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            #endregion
+
+            var capability = appEntry.GetCapability<Capabilities.UrlProtocol>(Capability);
+            if (capability == null) return;
+
+            if (WindowsUtils.IsWindows)
+                Windows.UrlProtocol.Unregister(capability, systemWide);
         }
         #endregion
 

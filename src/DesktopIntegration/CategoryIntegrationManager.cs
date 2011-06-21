@@ -21,6 +21,7 @@ using System.IO;
 using System.Net;
 using Common;
 using Common.Tasks;
+using Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
@@ -110,7 +111,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="appEntry">The application entry to build <see cref="AccessPoint"/>s for.</param>
         /// <param name="categories">The <see cref="AccessPoint"/> categories to build <see cref="AccessPoint"/>s for</param>
         /// <returns>The newly generated lis of <see cref="AccessPoint"/>.</returns>
-        private static IEnumerable<AccessPoint> CategoriesToAccessPoints(AppEntry appEntry, ICollection<string> categories)
+        private IEnumerable<AccessPoint> CategoriesToAccessPoints(AppEntry appEntry, ICollection<string> categories)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
@@ -132,6 +133,8 @@ namespace ZeroInstall.DesktopIntegration
                 {
                     foreach (var capability in capabilityList.Entries)
                     {
+                        if (capability.SystemWindeOnWindows && !SystemWide && WindowsUtils.IsWindows) continue;
+
                         DefaultAccessPoint accessPoint = GetDefaultAccessPoint(capability);
                         if (accessPoint != null) accessPoints.Add(accessPoint);
                     }

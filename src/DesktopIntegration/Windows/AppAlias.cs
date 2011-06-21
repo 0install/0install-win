@@ -24,6 +24,7 @@ using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using Microsoft.Win32;
+using ZeroInstall.DesktopIntegration.Properties;
 
 namespace ZeroInstall.DesktopIntegration.Windows
 {
@@ -37,28 +38,32 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public const string RegKeyAppPaths = @"Software\Microsoft\Windows\CurrentVersion\App Paths";
         #endregion
 
-        #region Apply
+        #region Create
         /// <summary>
-        /// Applies an <see cref="AccessPoints.AppAlias"/> to the current Windows system.
+        /// Creates an application alias in the current Windows system.
         /// </summary>
         /// <param name="target">The application being integrated.</param>
-        /// <param name="appAlias">The access point to be applied.</param>
+        /// <param name="command">The command within <paramref name="target"/> the alias shall point to; may be <see langword="null"/>.</param>
+        /// <param name="aliasName">The name of the alias to be created.</param>
         /// <param name="systemWide">Create the alias system-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public static void Apply(InterfaceFeed target, AccessPoints.AppAlias appAlias, bool systemWide, ITaskHandler handler)
+        public static void Create(InterfaceFeed target, string command, string aliasName, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
-            if (appAlias == null) throw new ArgumentNullException("appAlias");
+            if (string.IsNullOrEmpty(aliasName)) throw new ArgumentNullException("aliasName");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
+            if (aliasName.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
+                throw new IOException(string.Format(Resources.AliasNameInvalidChars, aliasName));
+
             string stubDirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "aliases");
-            string stubFilePath = Path.Combine(stubDirPath, appAlias.Name + ".exe");
-            StubProvider.BuildRunStub(stubFilePath, target, appAlias.Command, handler);
+            string stubFilePath = Path.Combine(stubDirPath, aliasName + ".exe");
+            StubProvider.BuildRunStub(stubFilePath, target, command, handler);
 
             var variableTarget = systemWide ? EnvironmentVariableTarget.Machine : EnvironmentVariableTarget.User;
             string existingValue = Environment.GetEnvironmentVariable("PATH", variableTarget);
@@ -71,35 +76,37 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
                 using (var appPathsKey = hive.CreateSubKey(RegKeyAppPaths))
                 {
-                    using (var exeKey = appPathsKey.CreateSubKey(appAlias.Name + ".exe"))
+                    using (var exeKey = appPathsKey.CreateSubKey(aliasName + ".exe"))
                         exeKey.SetValue("", stubFilePath);
                 }
             }
         }
         #endregion
 
-        #region Unapply
+        #region Remove
         /// <summary>
-        /// Removes an <see cref="AccessPoints.AppAlias"/> from the current Windows system. 
+        /// Removes an application alias from the current Windows system. 
         /// </summary>
-        /// <param name="appAlias">The access point to be removed.</param>
+        /// <param name="aliasName">The name of the alias to be removed.</param>
         /// <param name="systemWide">The alias was created system-wide instead of just for the current user.</param>
-        public static void Unapply(AccessPoints.AppAlias appAlias, bool systemWide)
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        public static void Remove(string aliasName, bool systemWide)
         {
             #region Sanity checks
-            if (appAlias == null) throw new ArgumentNullException("appAlias");
+            if (string.IsNullOrEmpty(aliasName)) throw new ArgumentNullException("aliasName");
             #endregion
 
             string stubDirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "aliases");
-            string stubFilePath = Path.Combine(stubDirPath, appAlias.Name + ".exe");
+            string stubFilePath = Path.Combine(stubDirPath, aliasName + ".exe");
 
             var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
             using (var appPathsKey = hive.OpenSubKey(RegKeyAppPaths, true))
             {
                 if (appPathsKey != null)
                 {
-                    if (((ICollection<string>)appPathsKey.GetSubKeyNames()).Contains(appAlias.Name + ".exe"))
-                        appPathsKey.DeleteSubKey(appAlias.Name + ".exe");
+                    if (((ICollection<string>)appPathsKey.GetSubKeyNames()).Contains(aliasName + ".exe"))
+                        appPathsKey.DeleteSubKey(aliasName + ".exe");
                 }
             }
 

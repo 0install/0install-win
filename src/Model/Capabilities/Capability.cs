@@ -37,10 +37,10 @@ namespace ZeroInstall.Model.Capabilities
 
         #region Properties
         /// <summary>
-        /// Indicates whether this capability can be registered only machine-wide and not per-user.
+        /// Indicates whether this capability can be registered only system-wide and not per-user on Windows systems.
         /// </summary>
         [XmlIgnore]
-        public abstract bool GlobalOnly { get; }
+        public abstract bool SystemWindeOnWindows { get; }
 
         /// <summary>
         /// An ID that uniquely identifies this capability within an interface.

@@ -35,7 +35,7 @@ namespace ZeroInstall.DesktopIntegration
     {
         #region Variables
         /// <summary>Apply operations system-wide instead of just for the current user.</summary>
-        private readonly bool _systemWide;
+        protected readonly bool SystemWide;
 
         /// <summary>The storage location of the <see cref="AppList"/> file.</summary>
         private readonly string _appListPath;
@@ -59,7 +59,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public IntegrationManager(bool systemWide, string appListPath)
         {
-            _systemWide = systemWide;
+            SystemWide = systemWide;
             _appListPath = appListPath;
 
             if (File.Exists(_appListPath)) AppList = AppList.Load(_appListPath);
@@ -138,7 +138,7 @@ namespace ZeroInstall.DesktopIntegration
             {
                 // Unapply any remaining access points
                 foreach (var accessPoint in appEntry.AccessPoints.Entries)
-                    accessPoint.Unapply(appEntry, _systemWide);
+                    accessPoint.Unapply(appEntry, SystemWide);
                 WindowsUtils.NotifyAssocChanged();
             }
 
@@ -187,7 +187,7 @@ namespace ZeroInstall.DesktopIntegration
 
             // Apply the access points
             foreach (var accessPoint in accessPoints)
-                accessPoint.Apply(appEntry, target, _systemWide, handler);
+                accessPoint.Apply(appEntry, target, SystemWide, handler);
             WindowsUtils.NotifyAssocChanged();
         }
 
@@ -213,7 +213,7 @@ namespace ZeroInstall.DesktopIntegration
 
             // Unapply the access points
             foreach (var accessPoint in accessPoints)
-                accessPoint.Unapply(appEntry, _systemWide);
+                accessPoint.Unapply(appEntry, SystemWide);
             WindowsUtils.NotifyAssocChanged();
 
             // Remove the access points from the AppList

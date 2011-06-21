@@ -50,21 +50,31 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             var capability = appEntry.GetCapability<Capabilities.FileType>(Capability);
             if (capability == null) return;
 
             if (WindowsUtils.IsWindows)
-                Windows.FileType.Apply(target, capability, true, systemWide, handler);
+                Windows.FileType.Register(target, capability, true, systemWide, handler);
         }
 
         /// <inheritdoc/>
         public override void Unapply(AppEntry appEntry, bool systemWide)
         {
-            // ToDo: Implement
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            #endregion
+
+            var capability = appEntry.GetCapability<Capabilities.FileType>(Capability);
+            if (capability == null) return;
+
+            if (WindowsUtils.IsWindows)
+                Windows.FileType.Unregister(capability, systemWide);
         }
         #endregion
+
 
         //--------------------//
 

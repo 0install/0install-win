@@ -48,34 +48,35 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public const string RegSubKeyIcon = "DefaultIcon";
         #endregion
 
-        #region Apply
+        #region Register
         /// <summary>
-        /// Applies a <see cref="Capabilities.FileType"/> to the current Windows system.
+        /// Registers a file type in the current Windows system.
         /// </summary>
         /// <param name="target">The application being integrated.</param>
-        /// <param name="capability">The capability to be applied.</param>
-        /// <param name="defaults">Flag indicating that file association, etc. should become default handlers for their respective types.</param>
-        /// <param name="systemWide">Apply the configuration system-wide instead of just for the current user.</param>
+        /// <param name="fileType">The file type to register.</param>
+        /// <param name="setDefault">Indicates that the file associations shall become default handlers for their respective types.</param>
+        /// <param name="systemWide">Register the file type system-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public static void Apply(InterfaceFeed target, Capabilities.FileType capability, bool defaults, bool systemWide, ITaskHandler handler)
+        public static void Register(InterfaceFeed target, Capabilities.FileType fileType, bool setDefault, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
-            if (capability == null) throw new ArgumentNullException("capability");
+            if (fileType == null) throw new ArgumentNullException("fileType");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
             using (var classesKey = hive.OpenSubKey(RegKeyClasses, true))
             {
-                using (var progIDKey = classesKey.CreateSubKey(capability.ID))
+                using (var progIDKey = classesKey.CreateSubKey(fileType.ID))
                 {
-                    if (capability.Description != null) progIDKey.SetValue("", capability.Description);
+                    if (fileType.Description != null) progIDKey.SetValue("", fileType.Description);
 
                     // Find the first suitable icon specified by the capability, then fall back to the feed
-                    var suitableIcons = capability.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco);
+                    var suitableIcons = fileType.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco);
                     if (suitableIcons.IsEmpty) suitableIcons = target.Feed.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco && icon.Location != null);
                     if (!suitableIcons.IsEmpty)
                     {
@@ -85,7 +86,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
                     using (var shellKey = progIDKey.CreateSubKey("shell"))
                     {
-                        foreach (var verb in capability.Verbs)
+                        foreach (var verb in fileType.Verbs)
                         {
                             using (var verbKey = shellKey.CreateSubKey(verb.Name))
                             using (var commandKey = verbKey.CreateSubKey("command"))
@@ -98,7 +99,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     }
                 }
 
-                foreach (var extension in capability.Extensions)
+                foreach (var extension in fileType.Extensions)
                 {
                     using (var extensionKey = classesKey.CreateSubKey(extension.Value))
                     {
@@ -106,12 +107,30 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         if (extension.PerceivedType != null) extensionKey.SetValue(RegValuePerceivedType, extension.PerceivedType);
 
                         using (var openWithKey = extensionKey.CreateSubKey("OpenWithProgIDs"))
-                            openWithKey.SetValue(capability.ID, "");
+                            openWithKey.SetValue(fileType.ID, "");
 
-                        if(defaults) extensionKey.SetValue("", capability.ID);
+                        if(setDefault) extensionKey.SetValue("", fileType.ID);
                     }
                 }
             }
+        }
+        #endregion
+
+        #region Unregister
+        /// <summary>
+        /// Unregisters a file type in the current Windows system.
+        /// </summary>
+        /// <param name="fileType">The file type to remove.</param>
+        /// <param name="systemWide">Unregister the file type system-wide instead of just for the current user.</param>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        public static void Unregister(Capabilities.FileType fileType, bool systemWide)
+        {
+            #region Sanity checks
+            if (fileType == null) throw new ArgumentNullException("fileType");
+            #endregion
+
+            // ToDo: Implement
         }
         #endregion
     }

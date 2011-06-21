@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using Common.Tasks;
+using Common.Utils;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
@@ -47,13 +48,30 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, InterfaceFeed target, bool systemWide, ITaskHandler handler)
         {
-            // ToDo: Implement
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
+            var capability = appEntry.GetCapability<Capabilities.DefaultProgram>(Capability);
+            if (capability == null) return;
+
+            if (WindowsUtils.IsWindows && systemWide)
+                Windows.DefaultProgram.Register(target, capability, true, handler);
         }
 
         /// <inheritdoc/>
         public override void Unapply(AppEntry appEntry, bool systemWide)
         {
-            // ToDo: Implement
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            #endregion
+
+            var capability = appEntry.GetCapability<Capabilities.DefaultProgram>(Capability);
+            if (capability == null) return;
+
+            if (WindowsUtils.IsWindows && systemWide)
+                Windows.DefaultProgram.Unregister(capability);
         }
         #endregion
 

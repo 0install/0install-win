@@ -15,6 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.IO;
+using System.Net;
+using Common;
+using Common.Tasks;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -39,6 +44,47 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         /// <summary>The registry key postfix for registering (COM-based) property sheets.</summary>
         public const string RegKeyPropertySheetsPostfix = @"shellex\PropertySheetHandlers";
+        #endregion
+
+        #region Apply
+        /// <summary>
+        /// Adds a context menu entry to the current Windows system.
+        /// </summary>
+        /// <param name="target">The application being integrated.</param>
+        /// <param name="contextMenu">The context menu entry to add.</param>
+        /// <param name="systemWide">Add the context menu entry system-wide instead of just for the current user.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        public static void Apply(InterfaceFeed target, Capabilities.ContextMenu contextMenu, bool systemWide, ITaskHandler handler)
+        {
+            #region Sanity checks
+            if (contextMenu == null) throw new ArgumentNullException("contextMenu");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
+            // ToDo: Implement
+        }
+        #endregion
+
+        #region Remove
+        /// <summary>
+        /// Removes a context menu entry from the current Windows system.
+        /// </summary>
+        /// <param name="contextMenu">The context menu entry to remove.</param>
+        /// <param name="systemWide">Remove the context menu entry system-wide instead of just for the current user.</param>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        public static void Remove(Capabilities.ContextMenu contextMenu, bool systemWide)
+        {
+            #region Sanity checks
+            if (contextMenu == null) throw new ArgumentNullException("contextMenu");
+            #endregion
+
+            // ToDo: Implement
+        }
         #endregion
     }
 }

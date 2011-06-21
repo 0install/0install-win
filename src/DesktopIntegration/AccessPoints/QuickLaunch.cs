@@ -40,12 +40,21 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, InterfaceFeed target, bool systemWide, ITaskHandler handler)
         {
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             // ToDo: Implement
         }
 
         /// <inheritdoc/>
         public override void Unapply(AppEntry appEntry, bool systemWide)
         {
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            #endregion
+
             // ToDo: Implement
         }
         #endregion
