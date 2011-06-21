@@ -287,9 +287,6 @@ namespace Common.Utils
         #endregion
 
         #region Permssions
-        /// <summary>Recursivley deny everyone write access to a directory.</summary>
-        private static readonly FileSystemAccessRule _denyAllWrite = new FileSystemAccessRule(new SecurityIdentifier("S-1-1-0"), FileSystemRights.Write, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Deny);
-
         /// <summary>
         /// Uses the best means the current platform provides to prevent further write access to a directory (read-only attribute, ACLs, Unix octals, etc.).
         /// </summary>
@@ -393,9 +390,11 @@ namespace Common.Utils
 
         private static void ToggleWriteProtectionWinNT(DirectoryInfo directory, bool enable)
         {
+            // Add ACL to directory: Everyone = Deny write
             DirectorySecurity security = directory.GetAccessControl();
-            if (enable) security.AddAccessRule(_denyAllWrite);
-            else security.RemoveAccessRule(_denyAllWrite);
+            var denyEveryoneWrite = new FileSystemAccessRule(new SecurityIdentifier("S-1-1-0" /*Everyone*/), FileSystemRights.Write, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Deny);
+            if (enable) security.AddAccessRule(denyEveryoneWrite);
+            else security.RemoveAccessRule(denyEveryoneWrite);
             directory.SetAccessControl(security);
         }
         #endregion

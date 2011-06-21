@@ -23,6 +23,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using Common.Properties;
 using Common.Utils;
 
@@ -534,6 +536,7 @@ namespace Common.Storage
         /// <returns>A fully qualified directory path. The directory is guaranteed to already exist.</returns>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
+        /// <remarks>If a new directory is created with <paramref name="systemWide"/> set to <see langword="true"/> on Windows, ACLs are set to deny write access for non-Administrator users.</remarks>
         public static string GetIntegrationDirPath(string appName, bool systemWide, params string[] resource)
         {
             string resourceCombined = FileUtils.PathCombine(resource);
@@ -541,7 +544,22 @@ namespace Common.Storage
                 Environment.GetFolderPath(systemWide ? Environment.SpecialFolder.CommonApplicationData : Environment.SpecialFolder.ApplicationData),
                 appName, resourceCombined);
 
-            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            var directory = new DirectoryInfo(path);
+            if (!directory.Exists)
+            {
+                if (WindowsUtils.IsWindows)
+                {
+                    // Set ACLs for new directory to: Admins/System = Full access, Users/Everyone = Read+Execute
+                    var security = new DirectorySecurity();
+                    security.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.LocalSystemSid, null), FileSystemRights.FullControl, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
+                    security.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.BuiltinAdministratorsSid, null), FileSystemRights.FullControl, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
+                    security.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null), FileSystemRights.ReadAndExecute, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
+                    security.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier("S-1-1-0" /*Everyone*/), FileSystemRights.ReadAndExecute, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
+                    directory.Create(security);
+                }
+                else directory.Create();
+            }
+
             return path;
         }
         #endregion

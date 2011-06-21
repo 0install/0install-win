@@ -80,21 +80,12 @@ namespace ZeroInstall.DesktopIntegration
         public IntegrationManager(bool systemWide) : this(systemWide, GetAppListPath(systemWide))
         {}
 
-        /// <summary>
-        /// Determines the default storage location of the <see cref="AppList"/> file.
-        /// </summary>
-        /// <param name="systemWide">Use a system-wide directory with appropriate ACLs (super-user acccess only).</param>
         private static string GetAppListPath(bool systemWide)
         {
-            if (systemWide)
-            {
+            return systemWide ?
                 // Note: Ignore Portable mode when operating system-wide
-                string path = Path.Combine(Locations.GetIntegrationDirPath("0install.net", true, "desktop-integration"), "app-list.xml");
-                // ToDo: Set ACLs
-                return path;
-            }
-
-            return Locations.GetSaveConfigPath("0install.net", true, "desktop-integration", "app-list.xml");
+                Path.Combine(Locations.GetIntegrationDirPath("0install.net", true, "desktop-integration"), "app-list.xml")
+                : Locations.GetSaveConfigPath("0install.net", true, "desktop-integration", "app-list.xml");
         }
         #endregion
 
