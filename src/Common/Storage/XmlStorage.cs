@@ -198,7 +198,7 @@ namespace Common.Storage
         public static T FromString<T>(string data, params MemberInfo[] ignoreMembers)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(data)) throw new ArgumentNullException("data");
+            if (data == null) throw new ArgumentNullException("data");
             #endregion
 
             // Copy string to a stream and then parse
