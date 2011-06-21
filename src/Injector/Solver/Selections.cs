@@ -238,6 +238,10 @@ namespace ZeroInstall.Injector.Solver
         /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static Selections LoadFromString(string data)
         {
+            #region Sanity checks
+            if (data == null) throw new ArgumentNullException("data");
+            #endregion
+
             return XmlStorage.FromString<Selections>(data);
         }
 

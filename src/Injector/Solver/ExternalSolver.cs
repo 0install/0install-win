@@ -17,7 +17,6 @@
 
 using System;
 using System.IO;
-using System.Xml;
 using Common;
 using Common.Utils;
 using ZeroInstall.Injector.Properties;
