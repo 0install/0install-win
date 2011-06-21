@@ -1,3 +1,9 @@
+NUnit 2.5.10
+http://www.nunit.org/
+Modified zlib license
+Source unmodified
+Pre-compiled managed DLLs: nunit.framework.dll, nunit.mocks.dll
+
 NDesk.Options 0.2.1
 http://ndesk.org/Options
 MIT License: http://www.opensource.org/licenses/mit-license.php
