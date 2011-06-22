@@ -30,22 +30,23 @@ namespace ZeroInstall.DesktopIntegration.Windows
     public static class GamesExplorer
     {
         #region Constants
-        /// <summary>The HKLM registry key for registering applications in the Windows Games Explorer.</summary>
+        /// <summary>The HKCU/HKLM registry key for registering applications in the Windows Games Explorer.</summary>
         public const string RegKeyMachineGames = @"SOFTWARE\Microsoft\Windows\CurrentVersion\GameUX\Games";
         #endregion
 
         #region Register
         /// <summary>
-        /// Registers a game in the current Windows system. This can only be applied system-wide, not per user.
+        /// Registers a game in the current Windows system.
         /// </summary>
         /// <param name="target">The application being integrated.</param>
         /// <param name="gamesExplorer">The game to be registered.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <param name="systemWide">Register the game system-wide instead of just for the current user.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public static void Register(InterfaceFeed target, Capabilities.GamesExplorer gamesExplorer, ITaskHandler handler)
+        public static void Register(InterfaceFeed target, Capabilities.GamesExplorer gamesExplorer, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (gamesExplorer == null) throw new ArgumentNullException("gamesExplorer");
@@ -58,12 +59,13 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Unregister
         /// <summary>
-        /// Unregisters a game in the current Windows system. This can only be applied system-wide, not per user.
+        /// Unregisters a game in the current Windows system.
         /// </summary>
         /// <param name="gamesExplorer">The game to be unregistered.</param>
+        /// <param name="systemWide">Unegister the game system-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public static void Unregister(Capabilities.GamesExplorer gamesExplorer)
+        public static void Unregister(Capabilities.GamesExplorer gamesExplorer, bool systemWide)
         {
             #region Sanity checks
             if (gamesExplorer == null) throw new ArgumentNullException("gamesExplorer");

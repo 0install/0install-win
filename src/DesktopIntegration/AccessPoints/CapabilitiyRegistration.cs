@@ -82,12 +82,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                     Windows.AutoPlay.Register(target, autoPlay, false, systemWide, handler);
                 foreach (var comServer in EnumerableUtils.OfType<Capabilities.ComServer>(capabilityList.Entries))
                     Windows.ComServer.Register(target, comServer, systemWide, handler);
+                foreach (var gamesExplorer in EnumerableUtils.OfType<Capabilities.GamesExplorer>(capabilityList.Entries))
+                    Windows.GamesExplorer.Register(target, gamesExplorer, systemWide, handler);
                 if (systemWide)
                 {
                     foreach (var defaultProgram in EnumerableUtils.OfType<Capabilities.DefaultProgram>(capabilityList.Entries))
                         Windows.DefaultProgram.Register(target, defaultProgram, false, handler);
-                    foreach (var gamesExplorer in EnumerableUtils.OfType<Capabilities.GamesExplorer>(capabilityList.Entries))
-                        Windows.GamesExplorer.Register(target, gamesExplorer, handler);
                     foreach (var appRegistration in EnumerableUtils.OfType<Capabilities.AppRegistration>(capabilityList.Entries))
                         Windows.AppRegistration.Apply(target, appRegistration, EnumerableUtils.OfType<Capabilities.VerbCapability>(capabilityList.Entries), handler);
                 }
@@ -117,12 +117,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                     Windows.AutoPlay.Unregister(autoPlay, systemWide);
                 foreach (var comServer in EnumerableUtils.OfType<Capabilities.ComServer>(capabilityList.Entries))
                     Windows.ComServer.Unregister(comServer, systemWide);
+                foreach (var gamesExplorer in EnumerableUtils.OfType<Capabilities.GamesExplorer>(capabilityList.Entries))
+                    Windows.GamesExplorer.Unregister(gamesExplorer, systemWide);
                 if (systemWide)
                 {
                     foreach (var defaultProgram in EnumerableUtils.OfType<Capabilities.DefaultProgram>(capabilityList.Entries))
                         Windows.DefaultProgram.Unregister(defaultProgram);
-                    foreach (var gamesExplorer in EnumerableUtils.OfType<Capabilities.GamesExplorer>(capabilityList.Entries))
-                        Windows.GamesExplorer.Unregister(gamesExplorer);
                     foreach (var appRegistration in EnumerableUtils.OfType<Capabilities.AppRegistration>(capabilityList.Entries))
                         Windows.AppRegistration.Remove(appRegistration);
                 }
