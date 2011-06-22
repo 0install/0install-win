@@ -31,7 +31,7 @@ namespace ZeroInstall.Model.Capabilities
     {
         #region Properties
         /// <inheritdoc/>
-        public override bool SystemWindeOnWindows { get { return true; } }
+        public override bool SystemWideOnlyOnWindows { get { return true; } }
 
         /// <summary>
         /// The registry path relative to HKEY_LOCAL_MACHINE which is used to store the application's capability registration information.

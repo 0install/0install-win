@@ -133,7 +133,7 @@ namespace ZeroInstall.DesktopIntegration
                 {
                     foreach (var capability in capabilityList.Entries)
                     {
-                        if (capability.SystemWindeOnWindows && !SystemWide && WindowsUtils.IsWindows) continue;
+                        if (capability.SystemWideOnlyOnWindows && !SystemWide && WindowsUtils.IsWindows) continue;
 
                         DefaultAccessPoint accessPoint = GetDefaultAccessPoint(capability);
                         if (accessPoint != null) accessPoints.Add(accessPoint);

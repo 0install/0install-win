@@ -30,7 +30,7 @@ namespace ZeroInstall.Model.Capabilities
         #region Properties
         /// <inheritdoc/>
         [XmlIgnore]
-        public override bool SystemWindeOnWindows { get { return false; } }
+        public override bool SystemWideOnlyOnWindows { get { return false; } }
 
         // ToDo
 
