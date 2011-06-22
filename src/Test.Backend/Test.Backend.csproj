@@ -81,6 +81,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DesktopIntegration\IntegrationManagerTest.cs" />
     <Compile Include="Fetchers\FetcherStoreInteraction.cs" />
     <Compile Include="Fetchers\FetcherTests.cs" />
     <Compile Include="Fetchers\PackageBuilderManifestExtension.cs" />
@@ -137,9 +138,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Fetchers\testArchive.zip" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DesktopIntegration\Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

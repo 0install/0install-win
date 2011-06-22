@@ -41,7 +41,7 @@ namespace ZeroInstall.DesktopIntegration
                     AutoUpdate = true,
                     CapabilityLists = {Capabilities.CapabilityListTest.CreateTestCapabilityList()}
                 }
-            } };
+            }};
         }
 
         /// <summary>
@@ -49,9 +49,7 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         private static AppList CreateTestAppListWithAPs()
         {
-            return new AppList
-            {
-                Entries =
+            return new AppList {Entries =
             {
                 new AppEntry
                 {
@@ -59,8 +57,7 @@ namespace ZeroInstall.DesktopIntegration
                     CapabilityLists = {Capabilities.CapabilityListTest.CreateTestCapabilityList()},
                     AccessPoints = CreateTestAccessPointList()
                 }
-            }
-            };
+            }};
         }
 
         /// <summary>
