@@ -40,7 +40,7 @@ namespace ZeroInstall.Model.Capabilities
         /// Indicates whether this capability can be registered only system-wide and not per-user on Windows systems.
         /// </summary>
         [XmlIgnore]
-        public abstract bool SystemWideOnlyOnWindows { get; }
+        public abstract bool WindowsSystemWideOnly { get; }
 
         /// <summary>
         /// An ID that uniquely identifies this capability within an interface.
