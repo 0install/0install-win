@@ -277,7 +277,7 @@ namespace Common.Storage
             {
                 // Write the binary file to the ZIP archive
                 {
-                    var entry = new ZipEntry("Data") {DateTime = DateTime.Now, AESKeySize = 256};
+                    var entry = new ZipEntry("Data") {DateTime = DateTime.Now, AESKeySize = 128};
                     zipStream.SetLevel(9);
                     zipStream.PutNextEntry(entry);
                     Save(zipStream, data);
@@ -289,7 +289,7 @@ namespace Common.Storage
                 {
                     foreach (EmbeddedFile file in additionalFiles)
                     {
-                        var entry = new ZipEntry(file.Filename) {DateTime = DateTime.Now, AESKeySize = 256};
+                        var entry = new ZipEntry(file.Filename) {DateTime = DateTime.Now, AESKeySize = 128};
                         zipStream.SetLevel(file.CompressionLevel);
                         zipStream.PutNextEntry(entry);
                         file.StreamDelegate(zipStream);
