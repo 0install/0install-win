@@ -69,9 +69,9 @@ namespace Common.Storage
             {
                 // Write and read file
                 testData1 = new TestData {Data = "Hello"};
-                XmlStorage.ToZip(tempStream, testData1, null, new EmbeddedFile[0]);
+                XmlStorage.ToZip(tempStream, testData1, "Test password", new EmbeddedFile[0]);
                 tempStream.Seek(0, SeekOrigin.Begin);
-                testData2 = XmlStorage.FromZip<TestData>(tempStream, null, new EmbeddedFile[0]);
+                testData2 = XmlStorage.FromZip<TestData>(tempStream, "Test password", new EmbeddedFile[0]);
             }
 
             // Ensure data stayed the same

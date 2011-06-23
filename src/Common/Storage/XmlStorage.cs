@@ -347,7 +347,7 @@ namespace Common.Storage
         /// <param name="additionalFiles">Additional files stored alongside the XML file in the ZIP archive to be read; may be <see langword="null"/>.</param>
         /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
         /// <returns>The loaded object.</returns>
-        /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data.</exception>
+        /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T FromZip<T>(Stream stream, string password, IEnumerable<EmbeddedFile> additionalFiles, params MemberInfo[] ignoreMembers)
@@ -368,8 +368,8 @@ namespace Common.Storage
                     if (StringUtils.Compare(zipEntry.Name, "data.xml"))
                     {
                         // Read the XML file from the ZIP archive
-                        using (var inputStream = zipFile.GetInputStream(zipEntry))
-                            output = Load<T>(inputStream, ignoreMembers);
+                        var inputStream = zipFile.GetInputStream(zipEntry);
+                        output = Load<T>(inputStream, ignoreMembers);
                         xmlFound = true;
                     }
                     else
@@ -399,13 +399,13 @@ namespace Common.Storage
         /// </summary>
         /// <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
         /// <param name="path">The ZIP archive to be loaded.</param>
-        /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryptio.n</param>
+        /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption.</param>
         /// <param name="additionalFiles">Additional files stored alongside the XML file in the ZIP archive to be read; may be <see langword="null"/>.</param>
         /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
         /// <returns>The loaded object.</returns>
         /// <exception cref="IOException">Thrown if a problem occurred while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data.</exception>
+        /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T FromZip<T>(string path, string password, IEnumerable<EmbeddedFile> additionalFiles, params MemberInfo[] ignoreMembers)
@@ -441,7 +441,7 @@ namespace Common.Storage
 
                 // Write the XML file to the ZIP archive
                 {
-                    var entry = new ZipEntry("data.xml") { DateTime = DateTime.Now };
+                    var entry = new ZipEntry("data.xml") {DateTime = DateTime.Now, AESKeySize = 256};
                     zipStream.SetLevel(9);
                     zipStream.PutNextEntry(entry);
                     Save(zipStream, data, ignoreMembers);
@@ -453,7 +453,7 @@ namespace Common.Storage
                 {
                     foreach (EmbeddedFile file in additionalFiles)
                     {
-                        var entry = new ZipEntry(file.Filename) { DateTime = DateTime.Now };
+                        var entry = new ZipEntry(file.Filename) {DateTime = DateTime.Now, AESKeySize = 256};
                         zipStream.SetLevel(file.CompressionLevel);
                         zipStream.PutNextEntry(entry);
                         file.StreamDelegate(zipStream);
