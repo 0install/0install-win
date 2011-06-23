@@ -76,6 +76,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="SyncIntegrationManager.cs" />
     <Compile Include="Windows\AppRegistration.cs" />
     <Compile Include="Windows\FileType.cs" />
     <Compile Include="Windows\IconProvider.cs" />

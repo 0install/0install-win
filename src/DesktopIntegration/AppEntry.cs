@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
@@ -45,7 +44,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// The name of the application. Usually equal to <see cref="Feed.Name"/>.
         /// </summary>
-        [Description("he name of the application. Usually equal to the Name specified in the Feed.")]
+        [Description("The name of the application. Usually equal to the Name specified in the Feed.")]
         [XmlAttribute("name")]
         public string Name { get; set; }
 

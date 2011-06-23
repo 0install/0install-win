@@ -323,6 +323,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Synchronize the application list with the server..
+        /// </summary>
+        internal static string DescriptionSync {
+            get {
+                return ResourceManager.GetString("DescriptionSync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check for updates to the program and download them if found. This is similar to &apos;0install download --refresh&apos;, except that it prints information about whether any changes were found..
         /// </summary>
         internal static string DescriptionUpdate {
@@ -346,6 +355,15 @@ namespace ZeroInstall.Commands.Properties {
         internal static string DesktopIntegrationDone {
             get {
                 return ResourceManager.GetString("DesktopIntegrationDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Synchronized application list with server..
+        /// </summary>
+        internal static string DesktopIntegrationSyncDone {
+            get {
+                return ResourceManager.GetString("DesktopIntegrationSyncDone", resourceCulture);
             }
         }
         
@@ -484,6 +502,15 @@ namespace ZeroInstall.Commands.Properties {
         internal static string NotAvailableInPortableMode {
             get {
                 return ResourceManager.GetString("NotAvailableInPortableMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This operation is not available when operating system-wide..
+        /// </summary>
+        internal static string NotAvailableSystemWide {
+            get {
+                return ResourceManager.GetString("NotAvailableSystemWide", resourceCulture);
             }
         }
         

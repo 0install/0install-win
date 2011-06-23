@@ -78,6 +78,7 @@
     <Compile Include="RemoveFeed.cs" />
     <Compile Include="Run.cs" />
     <Compile Include="Selection.cs" />
+    <Compile Include="SyncApps.cs" />
     <Compile Include="Update.cs" />
   </ItemGroup>
   <ItemGroup>

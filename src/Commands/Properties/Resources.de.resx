@@ -196,6 +196,9 @@ Sie müssen eventuell ihr Terminal schließen und wieder öffnen damit dies wirk
   <data name="DescriptionSelect" xml:space="preserve">
     <value>Wähle eine Version des Programmes aus, welches durch seine URI identifiziert wird, und kompatible Versionen aller seiner Abhängigkeiten hat. Gibt den Exit-Status 0 zurück, wenn eine Menge an Versionen ausgewählt wurde und den Status 0, wenn keine konsistente Menge gefunden werden konnte.</value>
   </data>
+  <data name="DescriptionSync" xml:space="preserve">
+    <value>Synchronisiere die Anwendungsliste mit dem Server.</value>
+  </data>
   <data name="DescriptionUpdate" xml:space="preserve">
     <value>Prüft ob Updates für das Programm vorhanden sind und lädt die gefundenen herunter. Dies ist gleichbedeutend wie '0install download --refresh', mit dem Zusatz, dass Informationen über das Auffinden von Änderungen ausgegeben werden.</value>
   </data>
@@ -204,6 +207,9 @@ Sie müssen eventuell ihr Terminal schließen und wieder öffnen damit dies wirk
   </data>
   <data name="DesktopIntegrationDone" xml:space="preserve">
     <value>Die angeforderten Änderungen an der Desktopintegration für '{0}' sind abgeschlossen.</value>
+  </data>
+  <data name="DesktopIntegrationSyncDone" xml:space="preserve">
+    <value>Anwendungsliste mit Server synchronisiert.</value>
   </data>
   <data name="DownloadComplete" xml:space="preserve">
     <value>Download abgeschlossen</value>
@@ -252,6 +258,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   </data>
   <data name="NotAvailableInPortableMode" xml:space="preserve">
     <value>Dieser Vorgang steht im Portable Modus nicht zur Verfügung.</value>
+  </data>
+  <data name="NotAvailableSystemWide" xml:space="preserve">
+    <value>Dieser Vorgang steht nicht zur Verfügung wenn Sie System-weit arbeiten.</value>
   </data>
   <data name="NotParsed" xml:space="preserve">
     <value>Parse wurde noch nicht aufgerufen.</value>

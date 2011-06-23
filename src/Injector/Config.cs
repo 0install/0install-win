@@ -144,6 +144,47 @@ namespace ZeroInstall.Injector
         /// </summary>
         [DefaultValue(DefaultSelfUpdateID), DisplayName("Self-update ID"), Description("The ID used by the solver to search for updates for Zero Install itself.")]
         public string SelfUpdateID { get { return _selfUpdateID; } set { _selfUpdateID = value; } }
+
+        private const string DefaultSyncServer = "https://0install.de/sync/";
+        private Uri _syncServer = new Uri(DefaultSyncServer);
+        /// <summary>
+        /// The base URL of the sync server.
+        /// </summary>
+        /// <seealso cref="SyncServerUsername"/>
+        /// <seealso cref="SyncServerPassword"/>
+        [DefaultValue(typeof(Uri), DefaultSyncServer), DisplayName("Sync server"), Description("The base URL of the sync server.")]
+        public Uri SyncServer { get { return _syncServer; } set { _syncServer = value; } }
+
+        private string _syncServerUsername = "";
+        /// <summary>
+        /// The username to authenticate with against the <see cref="SyncServer"/>.
+        /// </summary>
+        /// <seealso cref="SyncServer"/>
+        /// <seealso cref="SyncServerPassword"/>
+        [DefaultValue(""), DisplayName("Sync server username"), Description("The username to authenticate with against the Sync server.")]
+        public string SyncServerUsername { get { return _syncServerUsername; } set { _syncServerUsername = value; } }
+
+        private string _syncServerPassword = "";
+        /// <summary>
+        /// The password to authenticate with against the <see cref="SyncServer"/>.
+        /// </summary>
+        /// <seealso cref="SyncServer"/>
+        /// <seealso cref="SyncServerUsername"/>
+        [DefaultValue(""), PasswordPropertyText(true), DisplayName("Sync server password"), Description("The password to authenticate with against the Sync server.")]
+        public string SyncServerPassword { get { return _syncServerPassword; } set { _syncServerPassword = value; } }
+
+        private string _syncCryptoKey = "";
+        /// <summary>
+        /// The local key used to encrypt data before sending it to the <see cref="SyncServer"/>.
+        /// </summary>
+        [DefaultValue(""), PasswordPropertyText(true), DisplayName("Sync crypto"), Description("The local key used to encrypt data before sending it to the Sync server.")]
+        public string SyncCryptoKey { get { return _syncCryptoKey; } set { _syncCryptoKey = value; } }
+
+        /// <summary>
+        /// Automatically synchronize with the <see cref="SyncServer"/> in the background.
+        /// </summary>
+        [DefaultValue(false), DisplayName("Auto sync"), Description("Automatically synchronize with the SyncServer in the background.")]
+        public bool AutoSync { get; set; }
         #endregion
 
         #region Constructor
@@ -163,6 +204,11 @@ namespace ZeroInstall.Injector
                 {"appstore_home", new PropertyPointer<string>(() => AppStoreHome, value => AppStoreHome = value, DefaultAppStoreHome)},
                 {"self_update_enabled", new PropertyPointer<string>(() => SelfUpdateID, value => SelfUpdateID = value, DefaultSelfUpdateID)},
                 {"self_update_id", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => SelfUpdateEnabled, value => SelfUpdateEnabled = value, true))},
+                {"sync_server", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => SyncServer, value => SyncServer = value, new Uri(DefaultSyncServer)))},
+                {"sync_server_user", new PropertyPointer<string>(() => SyncServerUsername, value => SyncServerUsername = value, "")},
+                {"sync_server_pw", new PropertyPointer<string>(() => SyncServerPassword, value => SyncServerPassword = value, "")},
+                {"sync_crypto_key", new PropertyPointer<string>(() => SyncCryptoKey, value => SyncCryptoKey = value, "")},
+                {"auto_sync", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => AutoSync, value => AutoSync = value, false))},
             };
         }
 

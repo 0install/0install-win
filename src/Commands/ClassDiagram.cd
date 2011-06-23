@@ -126,7 +126,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.AddApp">
-    <Position X="12.75" Y="8.5" Width="1.5" />
+    <Position X="16.25" Y="8.5" Width="1.5" />
     <Members>
       <Method Name="AddApp" Hidden="true" />
     </Members>
@@ -136,7 +136,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.IntegrateApp">
-    <Position X="14.5" Y="8.5" Width="2" />
+    <Position X="18" Y="8.5" Width="2" />
     <Members>
       <Method Name="IntegrateApp" Hidden="true" />
     </Members>
@@ -146,7 +146,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.RemoveApp">
-    <Position X="16.75" Y="8.5" Width="1.5" />
+    <Position X="20.25" Y="8.5" Width="1.5" />
     <Members>
       <Method Name="RemoveApp" Hidden="true" />
     </Members>
@@ -156,7 +156,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.AppCommand">
-    <Position X="14.75" Y="5" Width="1.5" />
+    <Position X="18.25" Y="5" Width="1.5" />
     <Members>
       <Method Name="AppCommand" Hidden="true" />
     </Members>
@@ -166,7 +166,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.IntegrationCommand">
-    <Position X="15.5" Y="2.5" Width="1.75" />
+    <Position X="16.5" Y="2.5" Width="1.5" />
     <Members>
       <Method Name="IntegrationCommand" Hidden="true" />
     </Members>
@@ -176,13 +176,23 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.AddAlias">
-    <Position X="16.5" Y="5" Width="1.5" />
+    <Position X="14.75" Y="5" Width="1.5" />
     <Members>
       <Method Name="AddAlias" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEBAAAEAAAAAAAABAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAUAAAAAAAQEBAAAAAAAAAAEAAAAAAA=</HashCode>
       <FileName>AddAlias.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.SyncApps">
+    <Position X="16.5" Y="5" Width="1.5" />
+    <Members>
+      <Method Name="SyncApps" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyncApps.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

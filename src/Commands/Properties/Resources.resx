@@ -205,6 +205,9 @@ You may have to close and reopen your terminal for this to become effective.</va
   <data name="DescriptionSelect" xml:space="preserve">
     <value>Select a version of the program identified by URI, and compatible versions of all of its dependencies. Returns an exit status of zero if it selected a set of versions, and a status of 1 if it could not find a consistent set.</value>
   </data>
+  <data name="DescriptionSync" xml:space="preserve">
+    <value>Synchronize the application list with the server.</value>
+  </data>
   <data name="DescriptionUpdate" xml:space="preserve">
     <value>Check for updates to the program and download them if found. This is similar to '0install download --refresh', except that it prints information about whether any changes were found.</value>
   </data>
@@ -213,6 +216,9 @@ You may have to close and reopen your terminal for this to become effective.</va
   </data>
   <data name="DesktopIntegrationDone" xml:space="preserve">
     <value>The requested changes to the desktop integration for '{0}' have been completed.</value>
+  </data>
+  <data name="DesktopIntegrationSyncDone" xml:space="preserve">
+    <value>Synchronized application list with server.</value>
   </data>
   <data name="DownloadComplete" xml:space="preserve">
     <value>Download complete</value>
@@ -261,6 +267,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   </data>
   <data name="NotAvailableInPortableMode" xml:space="preserve">
     <value>This operation is not available in portable mode.</value>
+  </data>
+  <data name="NotAvailableSystemWide" xml:space="preserve">
+    <value>This operation is not available when operating system-wide.</value>
   </data>
   <data name="NotParsed" xml:space="preserve">
     <value>Parse hasn't been called yet.</value>

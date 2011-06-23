@@ -38,7 +38,7 @@ namespace ZeroInstall.DesktopIntegration
         protected readonly bool SystemWide;
 
         /// <summary>The storage location of the <see cref="AppList"/> file.</summary>
-        private readonly string _appListPath;
+        protected readonly string AppListPath;
         #endregion
 
         #region Properties
@@ -60,13 +60,13 @@ namespace ZeroInstall.DesktopIntegration
         public IntegrationManager(bool systemWide, string appListPath)
         {
             SystemWide = systemWide;
-            _appListPath = appListPath;
+            AppListPath = appListPath;
 
-            if (File.Exists(_appListPath)) AppList = AppList.Load(_appListPath);
+            if (File.Exists(AppListPath)) AppList = AppList.Load(AppListPath);
             else
             {
                 AppList = new AppList();
-                AppList.Save(_appListPath);
+                AppList.Save(AppListPath);
             }
         }
 
@@ -106,7 +106,7 @@ namespace ZeroInstall.DesktopIntegration
             if (existingEntry != null) throw new InvalidOperationException(string.Format(Resources.AppAlreadyInList, existingEntry.Name));
 
             AppList.Entries.Add(BuildAppEntry(target));
-            AppList.Save(_appListPath);
+            AppList.Save(AppListPath);
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace ZeroInstall.DesktopIntegration
             }
 
             AppList.Entries.Remove(appEntry);
-            AppList.Save(_appListPath);
+            AppList.Save(AppListPath);
         }
         #endregion
 
@@ -174,7 +174,7 @@ namespace ZeroInstall.DesktopIntegration
                 if (!appEntry.AccessPoints.Entries.Contains(accessPoint))
                     appEntry.AccessPoints.Entries.Add(accessPoint);
             }
-            AppList.Save(_appListPath);
+            AppList.Save(AppListPath);
 
             // Apply the access points
             foreach (var accessPoint in accessPoints)
@@ -209,7 +209,7 @@ namespace ZeroInstall.DesktopIntegration
 
             // Remove the access points from the AppList
             appEntry.AccessPoints.Entries.RemoveAll(accessPoints);
-            AppList.Save(_appListPath);
+            AppList.Save(AppListPath);
         }
         #endregion
 
