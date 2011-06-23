@@ -221,26 +221,24 @@ namespace Common.Storage
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            using (var xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings {Encoding = new UTF8Encoding(false), Indent = true, IndentChars = "\t", NewLineChars = "\n"}))
-            {
-                var serializer = GetSerializer(typeof(T), ignoreMembers);
+            var xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings {Encoding = new UTF8Encoding(false), Indent = true, IndentChars = "\t", NewLineChars = "\n"});
+            var serializer = GetSerializer(typeof(T), ignoreMembers);
 
-                // Detect XmlRoot attribute
-                var rootAttributes = typeof(T).GetCustomAttributes(typeof(XmlRootAttribute), true);
+            // Detect XmlRoot attribute
+            var rootAttributes = typeof(T).GetCustomAttributes(typeof(XmlRootAttribute), true);
 
-                if (rootAttributes.Length == 0)
-                { // Use default serializer namespaces (XMLSchema)
-                    serializer.Serialize(xmlWriter, data);
-                }
-                else
-                { // Set custom namespace
-                    var ns = new XmlSerializerNamespaces(new[] {new XmlQualifiedName("", ((XmlRootAttribute)rootAttributes[0]).Namespace)});
-                    serializer.Serialize(xmlWriter, data, ns);
-                }
-                
-                // End file with newline
-                xmlWriter.WriteWhitespace("\n");
+            if (rootAttributes.Length == 0)
+            { // Use default serializer namespaces (XMLSchema)
+                serializer.Serialize(xmlWriter, data);
             }
+            else
+            { // Set custom namespace
+                var ns = new XmlSerializerNamespaces(new[] {new XmlQualifiedName("", ((XmlRootAttribute)rootAttributes[0]).Namespace)});
+                serializer.Serialize(xmlWriter, data, ns);
+            }
+
+            // End file with newline
+            xmlWriter.WriteWhitespace("\n");
         }
 
         /// <summary>
@@ -347,7 +345,7 @@ namespace Common.Storage
         /// <param name="additionalFiles">Additional files stored alongside the XML file in the ZIP archive to be read; may be <see langword="null"/>.</param>
         /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
         /// <returns>The loaded object.</returns>
-        /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data.</exception>
+        /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T FromZip<T>(Stream stream, string password, IEnumerable<EmbeddedFile> additionalFiles, params MemberInfo[] ignoreMembers)
@@ -368,8 +366,8 @@ namespace Common.Storage
                     if (StringUtils.Compare(zipEntry.Name, "data.xml"))
                     {
                         // Read the XML file from the ZIP archive
-                        using (var inputStream = zipFile.GetInputStream(zipEntry))
-                            output = Load<T>(inputStream, ignoreMembers);
+                        var inputStream = zipFile.GetInputStream(zipEntry);
+                        output = Load<T>(inputStream, ignoreMembers);
                         xmlFound = true;
                     }
                     else
@@ -381,8 +379,8 @@ namespace Common.Storage
                             {
                                 if (StringUtils.Compare(zipEntry.Name, file.Filename))
                                 {
-                                    using (var inputStream = zipFile.GetInputStream(zipEntry))
-                                        file.StreamDelegate(inputStream);
+                                    var inputStream = zipFile.GetInputStream(zipEntry);
+                                    file.StreamDelegate(inputStream);
                                 }
                             }
                         }
@@ -399,13 +397,13 @@ namespace Common.Storage
         /// </summary>
         /// <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
         /// <param name="path">The ZIP archive to be loaded.</param>
-        /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryptio.n</param>
+        /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption.</param>
         /// <param name="additionalFiles">Additional files stored alongside the XML file in the ZIP archive to be read; may be <see langword="null"/>.</param>
         /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
         /// <returns>The loaded object.</returns>
         /// <exception cref="IOException">Thrown if a problem occurred while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data.</exception>
+        /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T FromZip<T>(string path, string password, IEnumerable<EmbeddedFile> additionalFiles, params MemberInfo[] ignoreMembers)
@@ -441,7 +439,7 @@ namespace Common.Storage
 
                 // Write the XML file to the ZIP archive
                 {
-                    var entry = new ZipEntry("data.xml") { DateTime = DateTime.Now };
+                    var entry = new ZipEntry("data.xml") {DateTime = DateTime.Now, AESKeySize = 128};
                     zipStream.SetLevel(9);
                     zipStream.PutNextEntry(entry);
                     Save(zipStream, data, ignoreMembers);
@@ -453,7 +451,7 @@ namespace Common.Storage
                 {
                     foreach (EmbeddedFile file in additionalFiles)
                     {
-                        var entry = new ZipEntry(file.Filename) { DateTime = DateTime.Now };
+                        var entry = new ZipEntry(file.Filename) {DateTime = DateTime.Now, AESKeySize = 128};
                         zipStream.SetLevel(file.CompressionLevel);
                         zipStream.PutNextEntry(entry);
                         file.StreamDelegate(zipStream);

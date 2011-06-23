@@ -189,7 +189,7 @@ namespace Common.Storage
         /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption.</param>
         /// <param name="additionalFiles">Additional files stored alongside the binary file in the ZIP archive to be read; may be <see langword="null"/>.</param>
         /// <returns>The loaded object.</returns>
-        /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data.</exception>
+        /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the binary data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T FromZip<T>(Stream stream, string password, IEnumerable<EmbeddedFile> additionalFiles)
@@ -208,8 +208,8 @@ namespace Common.Storage
                     if (zipEntry.Name == "Data")
                     {
                         // Read the binary file from the ZIP archive
-                        using (var inputStream = zipFile.GetInputStream(zipEntry))
-                            output = Load<T>(inputStream);
+                        var inputStream = zipFile.GetInputStream(zipEntry);
+                        output = Load<T>(inputStream);
                         binaryFound = true;
                     }
                     else
@@ -221,8 +221,8 @@ namespace Common.Storage
                             {
                                 if (zipEntry.Name == file.Filename)
                                 {
-                                    using (var inputStream = zipFile.GetInputStream(zipEntry))
-                                        file.StreamDelegate(inputStream);
+                                    var inputStream = zipFile.GetInputStream(zipEntry);
+                                    file.StreamDelegate(inputStream);
                                 }
                             }
                         }
@@ -244,7 +244,7 @@ namespace Common.Storage
         /// <returns>The loaded object.</returns>
         /// <exception cref="IOException">Thrown if a problem occurred while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data.</exception>
+        /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the binary data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T FromZip<T>(string path, string password, IEnumerable<EmbeddedFile> additionalFiles)
@@ -277,7 +277,7 @@ namespace Common.Storage
             {
                 // Write the binary file to the ZIP archive
                 {
-                    var entry = new ZipEntry("Data") {DateTime = DateTime.Now};
+                    var entry = new ZipEntry("Data") {DateTime = DateTime.Now, AESKeySize = 128};
                     zipStream.SetLevel(9);
                     zipStream.PutNextEntry(entry);
                     Save(zipStream, data);
@@ -289,7 +289,7 @@ namespace Common.Storage
                 {
                     foreach (EmbeddedFile file in additionalFiles)
                     {
-                        var entry = new ZipEntry(file.Filename) {DateTime = DateTime.Now};
+                        var entry = new ZipEntry(file.Filename) {DateTime = DateTime.Now, AESKeySize = 128};
                         zipStream.SetLevel(file.CompressionLevel);
                         zipStream.PutNextEntry(entry);
                         file.StreamDelegate(zipStream);

@@ -161,8 +161,8 @@ namespace ZeroInstall.Injector
                 {"key_info_server", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => KeyInfoServer, value => KeyInfoServer = value, new Uri(DefaultKeyInfoServer)))},
                 {"auto_approve_keys", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => AutoApproveKeys, value => AutoApproveKeys = value, true))},
                 {"appstore_home", new PropertyPointer<string>(() => AppStoreHome, value => AppStoreHome = value, DefaultAppStoreHome)},
-                {"sef_update_enabled", new PropertyPointer<string>(() => SelfUpdateID, value => SelfUpdateID = value, DefaultSelfUpdateID)},
-                {"sef_update_id", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => SelfUpdateEnabled, value => SelfUpdateEnabled = value, true))}
+                {"self_update_enabled", new PropertyPointer<string>(() => SelfUpdateID, value => SelfUpdateID = value, DefaultSelfUpdateID)},
+                {"self_update_id", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => SelfUpdateEnabled, value => SelfUpdateEnabled = value, true))},
             };
         }
 
@@ -225,7 +225,6 @@ namespace ZeroInstall.Injector
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(key)) throw new ArgumentNullException("key");
-            if (value == null) throw new ArgumentNullException("value");
             #endregion
 
             _metaData[key].Value = value;
@@ -417,8 +416,8 @@ namespace ZeroInstall.Injector
                 foreach (var property in _metaData)
                 {
                     if (property.Value.Value != null)
-                    { // Use a commutative folding function (multiplication) since the order in a hash map is non-deterministic
-                        result *= property.Value.Value.GetHashCode();
+                    { // Use a commutative folding function (addition) since the order in a hash map is non-deterministic
+                        result += property.Value.Value.GetHashCode();
                     }
                 }
                 return result;
