@@ -16,11 +16,13 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
 using Common.Storage;
+using ZeroInstall.DesktopIntegration.AccessPoints;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -52,6 +54,29 @@ namespace ZeroInstall.DesktopIntegration
         #endregion
 
         //--------------------//
+
+        #region Conflict IDs
+        /// <summary>
+        /// Returns a list of all conflict IDs and the <see cref="AccessPoint"/>s belong to.
+        /// </summary>
+        /// <seealso cref="AccessPoint.GetConflictIDs"/>
+        public IDictionary<string, ConflictData> GetConflictIDs()
+        {
+            var conflictIDs = new Dictionary<string, ConflictData>();
+            foreach (var appEntry in Entries)
+            {
+                foreach (var accessPoint in appEntry.AccessPoints.Entries)
+                {
+                    foreach (string conflictID in accessPoint.GetConflictIDs(appEntry))
+                    {
+                        if (!conflictIDs.ContainsKey(conflictID))
+                            conflictIDs.Add(conflictID, new ConflictData(appEntry, accessPoint));
+                    }
+                }
+            }
+            return conflictIDs;
+        }
+        #endregion
 
         #region Storage
         /// <summary>

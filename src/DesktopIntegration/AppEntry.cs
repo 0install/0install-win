@@ -100,11 +100,11 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Conversion
         /// <summary>
-        /// Returns the entry in the form "AppEntry: Name (InterfaceID)". Not safe for parsing!
+        /// Returns the entry in the form "Name (InterfaceID)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("AppEntry: {0} ({1})", Name, InterfaceID);
+            return string.Format("{0} ({1})", Name, InterfaceID);
         }
         #endregion
 

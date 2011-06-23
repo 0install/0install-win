@@ -57,7 +57,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="target">The application being integrated.</param>
         /// <param name="categories">A list of all <see cref="AccessPoint"/> categories to be added to the already applied ones.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        /// <exception cref="InvalidOperationException">Thrown if one or more of the <paramref name="categories"/> would cause a collision with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if one or more of the <paramref name="categories"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>

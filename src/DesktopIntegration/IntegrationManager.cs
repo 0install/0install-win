@@ -145,7 +145,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="target">The application being integrated.</param>
         /// <param name="accessPoints">The <see cref="AccessPoint"/>s to apply.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        /// <exception cref="InvalidOperationException">Thrown if one or more of the <paramref name="accessPoints"/> would cause a collision with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if one or more of the <paramref name="accessPoints"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
@@ -156,6 +156,8 @@ namespace ZeroInstall.DesktopIntegration
             if (accessPoints == null) throw new ArgumentNullException("accessPoints");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
+
+            var conflictIDs = AppList.GetConflictIDs();
 
             // Implicitly add application to list if missing
             AppEntry appEntry = FindAppEntry(target.InterfaceID);
@@ -169,10 +171,19 @@ namespace ZeroInstall.DesktopIntegration
             // Add the access points to the AppList
             foreach (var accessPoint in accessPoints)
             {
-                // ToDo: Detect collisions
+                // Silently ignore existing access points
+                if (appEntry.AccessPoints.Entries.Contains(accessPoint)) continue;
 
-                if (!appEntry.AccessPoints.Entries.Contains(accessPoint))
-                    appEntry.AccessPoints.Entries.Add(accessPoint);
+                // Check for conflicts
+                foreach (string conflictID in accessPoint.GetConflictIDs(appEntry))
+                {
+                    // Check if any of the new conflict IDs matches an exisiting one
+                    ConflictData conflictData;
+                    if (conflictIDs.TryGetValue(conflictID, out conflictData))
+                        throw new InvalidOperationException(string.Format(Resources.AccessPointConflict, conflictData.AccessPoint, conflictData.AppEntry, accessPoint, appEntry));
+                }
+
+                appEntry.AccessPoints.Entries.Add(accessPoint);
             }
             AppList.Save(AppListPath);
 

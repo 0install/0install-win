@@ -17,7 +17,9 @@
 
 using System;
 using Common.Storage;
+using Common.Tasks;
 using NUnit.Framework;
+using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
 
@@ -57,6 +59,23 @@ namespace ZeroInstall.DesktopIntegration
             CollectionAssert.AreEqual(new[] {expectedAppEntry}, _integrationManager.AppList.Entries);
 
             Assert.Throws<InvalidOperationException>(() => _integrationManager.AddApp(testApp), "Do not allow adding applications to AppList more than once.");
+        }
+
+        [Test]
+        public void TestAddAccessPoints()
+        {
+            var capabilityList = CapabilityListTest.CreateTestCapabilityList();
+            var testApp1 = new InterfaceFeed("http://0install.de/feeds/test/test1.xml", new Feed {Name = "Test", CapabilityLists = {capabilityList}});
+            var testApp2 = new InterfaceFeed("http://0install.de/feeds/test/test2.xml", new Feed {Name = "Test", CapabilityLists = {capabilityList}});
+
+            Assert.AreEqual(0, _integrationManager.AppList.Entries.Count);
+            _integrationManager.AddAccessPoints(testApp1, new AccessPoint[] {new MockAccessPoint {ID = "id1"}}, new SilentTaskHandler());
+            Assert.AreEqual(1, _integrationManager.AppList.Entries.Count, "Should implicitly create missing AppEntries.");
+
+            Assert.DoesNotThrow(() => _integrationManager.AddAccessPoints(testApp1, new AccessPoint[] {new MockAccessPoint {ID = "id1"}}, new SilentTaskHandler()), "Duplicate access points should be ignored.");
+            _integrationManager.AddAccessPoints(testApp1, new AccessPoint[] {new MockAccessPoint {ID = "id2"}}, new SilentTaskHandler());
+
+            Assert.Throws<InvalidOperationException>(() => _integrationManager.AddAccessPoints(testApp2, new AccessPoint[] {new MockAccessPoint {ID = "id2"}}, new SilentTaskHandler()), "Should prevent access point conflicts.");
         }
 
         [Test]

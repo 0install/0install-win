@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccessPointConflict" xml:space="preserve">
+    <value>The access point '{0}' for the application '{1}' is in conflict with the new access point '{2}' for the application '{3}'.</value>
+  </data>
   <data name="AliasNameInvalidChars" xml:space="preserve">
     <value>The alias name '{0}' contains invalid characters.</value>
   </data>

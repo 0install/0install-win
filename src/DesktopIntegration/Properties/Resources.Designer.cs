@@ -61,6 +61,15 @@ namespace ZeroInstall.DesktopIntegration.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The access point &apos;{0}&apos; for the application &apos;{1}&apos; is in conflict with the new access point &apos;{2}&apos; for the application &apos;{3}&apos;..
+        /// </summary>
+        internal static string AccessPointConflict {
+            get {
+                return ResourceManager.GetString("AccessPointConflict", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The alias name &apos;{0}&apos; contains invalid characters..
         /// </summary>
         internal static string AliasNameInvalidChars {
