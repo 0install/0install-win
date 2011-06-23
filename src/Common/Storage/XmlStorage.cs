@@ -221,26 +221,24 @@ namespace Common.Storage
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            using (var xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings {Encoding = new UTF8Encoding(false), Indent = true, IndentChars = "\t", NewLineChars = "\n"}))
-            {
-                var serializer = GetSerializer(typeof(T), ignoreMembers);
+            var xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings {Encoding = new UTF8Encoding(false), Indent = true, IndentChars = "\t", NewLineChars = "\n"});
+            var serializer = GetSerializer(typeof(T), ignoreMembers);
 
-                // Detect XmlRoot attribute
-                var rootAttributes = typeof(T).GetCustomAttributes(typeof(XmlRootAttribute), true);
+            // Detect XmlRoot attribute
+            var rootAttributes = typeof(T).GetCustomAttributes(typeof(XmlRootAttribute), true);
 
-                if (rootAttributes.Length == 0)
-                { // Use default serializer namespaces (XMLSchema)
-                    serializer.Serialize(xmlWriter, data);
-                }
-                else
-                { // Set custom namespace
-                    var ns = new XmlSerializerNamespaces(new[] {new XmlQualifiedName("", ((XmlRootAttribute)rootAttributes[0]).Namespace)});
-                    serializer.Serialize(xmlWriter, data, ns);
-                }
-                
-                // End file with newline
-                xmlWriter.WriteWhitespace("\n");
+            if (rootAttributes.Length == 0)
+            { // Use default serializer namespaces (XMLSchema)
+                serializer.Serialize(xmlWriter, data);
             }
+            else
+            { // Set custom namespace
+                var ns = new XmlSerializerNamespaces(new[] {new XmlQualifiedName("", ((XmlRootAttribute)rootAttributes[0]).Namespace)});
+                serializer.Serialize(xmlWriter, data, ns);
+            }
+
+            // End file with newline
+            xmlWriter.WriteWhitespace("\n");
         }
 
         /// <summary>
@@ -381,8 +379,8 @@ namespace Common.Storage
                             {
                                 if (StringUtils.Compare(zipEntry.Name, file.Filename))
                                 {
-                                    using (var inputStream = zipFile.GetInputStream(zipEntry))
-                                        file.StreamDelegate(inputStream);
+                                    var inputStream = zipFile.GetInputStream(zipEntry);
+                                    file.StreamDelegate(inputStream);
                                 }
                             }
                         }

@@ -221,8 +221,8 @@ namespace Common.Storage
                             {
                                 if (zipEntry.Name == file.Filename)
                                 {
-                                    using (var inputStream = zipFile.GetInputStream(zipEntry))
-                                        file.StreamDelegate(inputStream);
+                                    var inputStream = zipFile.GetInputStream(zipEntry);
+                                    file.StreamDelegate(inputStream);
                                 }
                             }
                         }
