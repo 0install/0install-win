@@ -22,6 +22,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Utils;
 
@@ -152,6 +153,7 @@ namespace Common.Controls
         /// <summary>
         /// The command-line arguments the application was started with.
         /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Used for XML serialization.")]
         [XmlElement("arg")]
         public string[] Arguments { get; set; }
         #endregion
