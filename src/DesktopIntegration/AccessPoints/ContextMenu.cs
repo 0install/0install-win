@@ -31,7 +31,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("context-menu", Namespace = AppList.XmlNamespace)]
     public class ContextMenu : DefaultAccessPoint, IEquatable<ContextMenu>
     {
-        #region Collision
+        #region Conflict ID
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {

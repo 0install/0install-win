@@ -31,7 +31,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("file-type", Namespace = AppList.XmlNamespace)]
     public class FileType : DefaultAccessPoint, IEquatable<FileType>
     {
-        #region Collision
+        #region Conflict ID
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {

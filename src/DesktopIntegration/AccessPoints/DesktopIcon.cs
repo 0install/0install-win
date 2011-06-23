@@ -28,7 +28,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("desktop-icon", Namespace = AppList.XmlNamespace)]
     public class DesktopIcon : IconAccessPoint, IEquatable<DesktopIcon>
     {
-        #region Collision
+        #region Conflict ID
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {

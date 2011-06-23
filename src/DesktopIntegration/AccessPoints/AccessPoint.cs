@@ -32,7 +32,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("access-point", Namespace = AppList.XmlNamespace)]
     public abstract class AccessPoint : XmlUnknown, ICloneable
     {
-        #region Collision
+        #region Conflict ID
         /// <summary>
         /// Retrieves identifiers from a namespace global to all <see cref="AccessPoint"/>s.
         /// Collisions in this namespace indicate that the concered <see cref="AccessPoint"/>s are in conflict cannot be applied on a single system at the same time.

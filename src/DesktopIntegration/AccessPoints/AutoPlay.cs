@@ -31,7 +31,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("auto-play", Namespace = AppList.XmlNamespace)]
     public class AutoPlay : DefaultAccessPoint, IEquatable<AutoPlay>
     {
-        #region Collision
+        #region Conflict ID
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {

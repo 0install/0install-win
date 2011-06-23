@@ -42,7 +42,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         //--------------------//
 
-        #region Collision
+        #region Conflict ID
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {

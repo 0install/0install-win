@@ -31,7 +31,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("url-protocol", Namespace = AppList.XmlNamespace)]
     public class UrlProtocol : DefaultAccessPoint, IEquatable<UrlProtocol>
     {
-        #region Collision
+        #region Conflict ID
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {

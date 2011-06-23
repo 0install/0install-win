@@ -31,7 +31,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("default-program", Namespace = AppList.XmlNamespace)]
     public class DefaultProgram : DefaultAccessPoint, IEquatable<DefaultProgram>
     {
-        #region Collision
+        #region Conflict ID
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {

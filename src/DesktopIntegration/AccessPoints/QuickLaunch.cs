@@ -28,7 +28,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("quick-launch", Namespace = AppList.XmlNamespace)]
     public class QuickLaunch : IconAccessPoint, IEquatable<QuickLaunch>
     {
-        #region Collision
+        #region Conflict ID
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {
