@@ -106,6 +106,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Synchronizing.
+        /// </summary>
+        internal static string ActionSync {
+            get {
+                return ResourceManager.GetString("ActionSync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking for updates.
         /// </summary>
         internal static string ActionUpdate {

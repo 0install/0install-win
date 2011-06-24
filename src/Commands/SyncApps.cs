@@ -40,6 +40,9 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         protected override string Usage { get { return "[OPTIONS]"; } }
+
+        /// <inheritdoc/>
+        public override string ActionTitle { get { return Resources.ActionSync; } }
         #endregion
 
         #region Constructor

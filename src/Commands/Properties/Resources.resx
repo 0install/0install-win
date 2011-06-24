@@ -132,6 +132,9 @@
   <data name="ActionSelection" xml:space="preserve">
     <value>Selecting implementations</value>
   </data>
+  <data name="ActionSync" xml:space="preserve">
+    <value>Synchronizing</value>
+  </data>
   <data name="ActionUpdate" xml:space="preserve">
     <value>Checking for updates</value>
   </data>
