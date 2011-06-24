@@ -107,6 +107,11 @@ namespace Common.Utils
             public static extern int CloseHandle(IntPtr hObject);
             #endregion
 
+            #region Window messages
+            [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+            public static extern IntPtr SendMessageTimeout(IntPtr windowHandle, uint msg, UIntPtr wParam, string lParam, uint flags, uint timeout);
+            #endregion
+
             #region Shell
             [DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
             public static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
@@ -348,6 +353,21 @@ namespace Common.Utils
         }
         #endregion
 
+        #region Window messages
+        /// <summary>
+        /// Informs all GUI applications that changes where made to the environment variables (e.g. PATH) and that they should re-pull them.
+        /// </summary>
+        public static void NotifyEnvironmentChanged()
+        {
+            if (!IsWindows) return;
+
+            var HWND_BROADCAST = new IntPtr(0xFFFF);
+            const uint WM_SETTINGCHANGE = 0x001A;
+            const uint SMTO_ABORTIFHUNG = 0x0002;
+            UnsafeNativeMethods.SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, UIntPtr.Zero, "Environment", SMTO_ABORTIFHUNG, 10000);
+        }
+        #endregion
+
         #region Shell
         /// <summary>
         /// Informs the Windows shell that changes were made to the file association data in the registry.
@@ -357,8 +377,8 @@ namespace Common.Utils
         {
             if (!IsWindows) return;
 
-            const int SHCNE_ASSOCCHANGED = 0x08000000;
-            const int SHCNF_IDLIST = 0;
+            const uint SHCNE_ASSOCCHANGED = 0x08000000;
+            const uint SHCNF_IDLIST = 0;
             UnsafeNativeMethods.SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, IntPtr.Zero, IntPtr.Zero);
         }
         #endregion
