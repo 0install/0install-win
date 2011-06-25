@@ -22,7 +22,6 @@ using Common;
 using Common.Tasks;
 using Microsoft.Win32;
 using ZeroInstall.Model;
-using ZeroInstall.Model.Capabilities;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -78,9 +77,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             if (string.IsNullOrEmpty(fileType.ID)) throw new InvalidDataException("Missing ID");
 
-            RegisterVerbCapability(target, fileType, systemWide, handler);
-
             var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
+
+            using (var progIDKey = hive.CreateSubKey(RegKeyClasses + @"\" + fileType.ID))
+                RegisterVerbCapability(progIDKey, target, fileType, systemWide, ModelUtils.Escape(target.Feed.Name), handler);
+
             using (var classesKey = hive.OpenSubKey(RegKeyClasses, true))
             {
                 foreach (var extension in fileType.Extensions)
@@ -102,18 +103,20 @@ namespace ZeroInstall.DesktopIntegration.Windows
         }
 
         /// <summary>
-        /// Registers a capability providing verbs in the current Windows system.
+        /// Registers a <see cref="Capabilities.VerbCapability"/> in a registry key.
         /// </summary>
+        /// <param name="registryKey">The registry key to write the new data to.</param>
         /// <param name="target">The application being integrated.</param>
         /// <param name="capability">The capability to register.</param>
-        /// <param name="systemWide">Register the capability system-wide instead of just for the current user.</param>
+        /// <param name="systemWide">Assume <paramref name="registryKey"/> is effective system-wide instead of just for the current user.</param>
+        /// <param name="exeName">The name any generated stub EXEs should have without the file ending (e.g. "MyApplication").</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="capability"/> is invalid.</exception>
-        internal static void RegisterVerbCapability(InterfaceFeed target, Capabilities.VerbCapability capability, bool systemWide, ITaskHandler handler)
+        internal static void RegisterVerbCapability(RegistryKey registryKey, InterfaceFeed target, Capabilities.VerbCapability capability, bool systemWide, string exeName, ITaskHandler handler)
         {
             #region Sanity checks
             if (capability == null) throw new ArgumentNullException("capability");
@@ -122,49 +125,46 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             if (string.IsNullOrEmpty(capability.ID)) throw new InvalidDataException("Missing ID");
 
-            var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
-            using (var progIDKey = hive.CreateSubKey(RegKeyClasses + @"\" + capability.ID))
+            if (capability.Description != null) registryKey.SetValue("", capability.Description);
+
+            if (capability is Capabilities.UrlProtocol) registryKey.SetValue(UrlProtocol.ProtocolIndicator, "");
+
+            // Find the first suitable icon specified by the capability, then fall back to the feed
+            var suitableIcons = capability.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco);
+            if (suitableIcons.IsEmpty) suitableIcons = target.Feed.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco && icon.Location != null);
+            if (!suitableIcons.IsEmpty)
             {
-                if (capability.Description != null) progIDKey.SetValue("", capability.Description);
+                using (var iconKey = registryKey.CreateSubKey(RegSubKeyIcon))
+                    iconKey.SetValue("", IconProvider.GetIcon(suitableIcons.First, systemWide, handler) + ",0");
+            }
 
-                if (capability is Capabilities.UrlProtocol) progIDKey.SetValue(UrlProtocol.ProtocolIndicator, "");
-
-                // Find the first suitable icon specified by the capability, then fall back to the feed
-                var suitableIcons = capability.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco);
-                if (suitableIcons.IsEmpty) suitableIcons = target.Feed.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco && icon.Location != null);
-                if (!suitableIcons.IsEmpty)
+            using (var shellKey = registryKey.CreateSubKey("shell"))
+            {
+                foreach (var verb in capability.Verbs)
                 {
-                    using (var iconKey = progIDKey.CreateSubKey(RegSubKeyIcon))
-                        iconKey.SetValue("", IconProvider.GetIcon(suitableIcons.First, systemWide, handler) + ",0");
-                }
-
-                using (var shellKey = progIDKey.CreateSubKey("shell"))
-                {
-                    foreach (var verb in capability.Verbs)
+                    using (var verbKey = shellKey.CreateSubKey(verb.Name))
                     {
-                        using (var verbKey = shellKey.CreateSubKey(verb.Name))
-                        {
-                            if (verb.Description != null) verbKey.SetValue("", verb.Description);
-                            if (verb.Extended) verbKey.SetValue(RegValueExtendedFlag, "");
+                        if (verb.Description != null) verbKey.SetValue("", verb.Description);
+                        if (verb.Extended) verbKey.SetValue(RegValueExtendedFlag, "");
 
-                            using (var commandKey = verbKey.CreateSubKey("command"))
-                                commandKey.SetValue("", GetLaunchCommandLine(target, verb, systemWide, handler));
-                        }
+                        using (var commandKey = verbKey.CreateSubKey("command"))
+                            commandKey.SetValue("", GetLaunchCommandLine(target, verb, systemWide, exeName, handler));
                     }
                 }
             }
         }
 
         /// <summary>
-        /// Generates a command-line string for launching a <see cref="Verb"/>.
+        /// Generates a command-line string for launching a <see cref="Capabilities.Verb"/>.
         /// </summary>
         /// <param name="target">The application being integrated.</param>
         /// <param name="verb">The verb to get to launch command for.</param>
-        /// <param name="systemWide">Register the capability system-wide instead of just for the current user.</param>
+        /// <param name="systemWide">Store the stub in a system-wide directory instead of just for the current user.</param>
+        /// <param name="exeName">The name any generated stub EXEs should have without the file ending (e.g. "MyApplication").</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        internal static string GetLaunchCommandLine(InterfaceFeed target, Verb verb, bool systemWide, ITaskHandler handler)
+        internal static string GetLaunchCommandLine(InterfaceFeed target, Capabilities.Verb verb, bool systemWide, string exeName, ITaskHandler handler)
         {
-            string launchCommand = "\"" + StubProvider.GetRunStub(target, verb.Command, null, systemWide, handler) + "\"";
+            string launchCommand = "\"" + StubProvider.GetRunStub(target, verb.Command, systemWide, exeName, handler) + "\"";
             if (!string.IsNullOrEmpty(verb.Arguments)) launchCommand += " " + verb.Arguments;
             return launchCommand;
         }

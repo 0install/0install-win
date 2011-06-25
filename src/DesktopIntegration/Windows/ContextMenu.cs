@@ -21,6 +21,7 @@ using System.Net;
 using Common;
 using Common.Tasks;
 using Microsoft.Win32;
+using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -76,7 +77,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 if (contextMenu.Verb.Extended) verbKey.SetValue(FileType.RegValueExtendedFlag, "");
 
                 using (var commandKey = verbKey.CreateSubKey("command"))
-                    commandKey.SetValue("", FileType.GetLaunchCommandLine(target, contextMenu.Verb, systemWide, handler));
+                    commandKey.SetValue("", FileType.GetLaunchCommandLine(target, contextMenu.Verb, systemWide, ModelUtils.Escape(target.Feed.Name), handler));
             }
         }
         #endregion

@@ -19,7 +19,11 @@ using System;
 using System.IO;
 using System.Net;
 using Common;
+using Common.Storage;
 using Common.Tasks;
+using Common.Utils;
+using Microsoft.Win32;
+using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -73,8 +77,40 @@ namespace ZeroInstall.DesktopIntegration.Windows
             #endregion
 
             if (string.IsNullOrEmpty(defaultProgram.ID)) throw new InvalidDataException("Missing ID");
+            if (string.IsNullOrEmpty(defaultProgram.Service)) throw new InvalidDataException("Missing Service");
 
-            // ToDo: Implement
+            using (var serviceKey = Registry.LocalMachine.CreateSubKey(RegKeyMachineClients + @"\" + defaultProgram.Service))
+            {
+                using (var appKey = serviceKey.CreateSubKey(defaultProgram.ID))
+                {
+                    appKey.SetValue("", target.Feed.Name);
+
+                    // Note: Use ID as EXE name because they have to match for browsers (see: http://msdn.microsoft.com/en-us/library/cc144109)
+                    FileType.RegisterVerbCapability(appKey, target, defaultProgram, true, ModelUtils.Escape(defaultProgram.ID.Replace(".exe", "")), handler);
+
+                    using (var installInfoKey = appKey.CreateSubKey(RegSubKeyInstallInfo))
+                    {
+                        string exePath = StringUtils.EscapeWhitespace(Path.Combine(Locations.InstallBase, "0install-win.exe"));
+                        installInfoKey.SetValue(RegValueReinstallCommand, exePath + " integrate-app --global --batch --add=defaults " + StringUtils.EscapeWhitespace(target.InterfaceID));
+                        installInfoKey.SetValue(RegValueShowIconsCommand, exePath + " integrate-app --global --batch --add=icons " + StringUtils.EscapeWhitespace(target.InterfaceID));
+                        installInfoKey.SetValue(RegValueHideIconsCommand, exePath + " integrate-app --global --batch --remove=icons " + StringUtils.EscapeWhitespace(target.InterfaceID));
+                        installInfoKey.SetValue(RegValueIconsVisible, 0, RegistryValueKind.DWord);
+                    }
+                }
+
+                if (setDefault) serviceKey.SetValue("", defaultProgram.ID);
+            }
+        }
+
+        /// <summary>
+        /// Toggles the registry entry indicating whether icons for the application are currently visible.
+        /// </summary>
+        /// <param name="defaultProgram">The default program information to be modified.</param>
+        /// <param name="iconsVisible"><see langword="true"/> if the icons are currently visible, <see langword="false"/> if the icons are currently not visible.</param>
+        internal static void ToggleIconsVisible(Capabilities.DefaultProgram defaultProgram, bool iconsVisible)
+        {
+            using (var installInfoKey = Registry.LocalMachine.OpenSubKey(RegKeyMachineClients + @"\" + defaultProgram.Service + @"\" + defaultProgram.ID + @"\" + RegSubKeyInstallInfo, true))
+                installInfoKey.SetValue(RegValueIconsVisible, iconsVisible ? 1 : 0, RegistryValueKind.DWord);
         }
         #endregion
 
@@ -93,6 +129,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             #endregion
 
             if (string.IsNullOrEmpty(defaultProgram.ID)) throw new InvalidDataException("Missing ID");
+            if (string.IsNullOrEmpty(defaultProgram.Service)) throw new InvalidDataException("Missing Service");
 
             // ToDo: Implement
         }

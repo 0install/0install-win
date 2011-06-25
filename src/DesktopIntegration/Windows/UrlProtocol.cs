@@ -22,6 +22,7 @@ using Common;
 using Common.Tasks;
 using Common.Utils;
 using Microsoft.Win32;
+using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -62,17 +63,24 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             if (string.IsNullOrEmpty(urlProtocol.ID)) throw new InvalidDataException("Missing ID");
 
+            var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
+
             if (urlProtocol.KnownPrefixes.IsEmpty)
             {
-                // Can only be registered invasivley (will replace existing and become default)
-                if (setDefault) FileType.RegisterVerbCapability(target, urlProtocol, systemWide, handler);
+                // Can only be registered invasively (will replace existing and become default)
+                if (setDefault)
+                {
+                    using (var progIDKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + urlProtocol.ID))
+                        FileType.RegisterVerbCapability(progIDKey, target, urlProtocol, systemWide, ModelUtils.Escape(target.Feed.Name), handler);
+                }
             }
             else
             {
                 foreach (var prefix in urlProtocol.KnownPrefixes)
                 {
-                    // Can be registered non-invasivley (without becoming default)
-                    FileType.RegisterVerbCapability(target, urlProtocol, systemWide, handler);
+                    // Can be registered non-invasively (without becoming default)
+                    using (var progIDKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + urlProtocol.ID))
+                        FileType.RegisterVerbCapability(progIDKey, target, urlProtocol, systemWide, ModelUtils.Escape(target.Feed.Name), handler);
 
                     if (setDefault)
                     {
@@ -83,11 +91,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         }
                         else
                         {
-                            // Clean method for setting as default not applicable
-                            // Create invasive clone for specific prefix
-                            var clonedUrlProtocol = (Capabilities.UrlProtocol)urlProtocol.CloneCapability();
-                            clonedUrlProtocol.ID = prefix.Value;
-                            FileType.RegisterVerbCapability(target, clonedUrlProtocol, systemWide, handler);
+                            // Setting default invasively
+                            using (var progIDKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + prefix.Value))
+                                FileType.RegisterVerbCapability(progIDKey, target, urlProtocol, systemWide, ModelUtils.Escape(target.Feed.Name), handler);
                         }
                     }
                 }
