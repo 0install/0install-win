@@ -96,6 +96,47 @@ namespace ZeroInstall.Store.Feeds
             }
         }
 
+        /// <summary>
+        /// Ensures <see cref="DiskIconCache.GetIcon"/> updates outdated files in the cache.
+        /// </summary>
+        [Test]
+        public void TestGetIconDownloadOutdated()
+        {
+            const string iconData = "test";
+            using (var server = new MicroServer(StreamUtils.CreateFromString(iconData)))
+            {
+                // Write a file to the cache directoy but mark it as outdated
+                string prePath = Path.Combine(_tempDir.Path, ModelUtils.Escape(server.FileUri.ToString()));
+                File.WriteAllText(prePath, "outdated");
+                File.SetLastWriteTimeUtc(prePath, new DateTime(1980, 1, 1));
+
+                string path = _cache.GetIcon(server.FileUri, new SilentTaskHandler());
+                Assert.AreEqual(iconData, File.ReadAllText(path));
+            }
+        }
+
+        /// <summary>
+        /// Ensures <see cref="DiskIconCache.GetIcon"/> returns outdated files from the cache if downloads fail.
+        /// </summary>
+        [Test]
+        public void TestGetIconDownloadFail()
+        {
+            const string iconData = "test";
+            using (var server = new MicroServer(new MemoryStream()))
+            {
+                // Write a file to the cache directoy, mark it as outdated, use an unreachable/invalid URI
+                string prePath = Path.Combine(_tempDir.Path, ModelUtils.Escape(server.FileUri + "-invalid"));
+                File.WriteAllText(prePath, iconData);
+                File.SetLastWriteTimeUtc(prePath, new DateTime(1980, 1, 1));
+
+                string path = _cache.GetIcon(new Uri(server.FileUri + "-invalid"), new SilentTaskHandler());
+                Assert.AreEqual(iconData, File.ReadAllText(path));
+            }
+        }
+
+        /// <summary>
+        /// Ensures <see cref="DiskIconCache.Remove"/> correctly removes an icon from the cache.
+        /// </summary>
         [Test]
         public void TestRemove()
         {
