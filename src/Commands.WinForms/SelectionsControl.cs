@@ -173,10 +173,10 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Task tracking
         /// <summary>
-        /// Registers an <see cref="ITask"/> for tracking.
+        /// Registers an <see cref="ITask"/> for a specific implementation for tracking.
         /// </summary>
         /// <param name="task">The task to be tracked. May or may not alreay be running.</param>
-        /// <param name="tag">A digest used to associate the <paramref name="task"/> with a specific process.</param>
+        /// <param name="tag">A digest used to associate the <paramref name="task"/> with a specific implementation.</param>
         /// <remarks>
         ///   <para>This method must not be called from a background thread.</para>
         ///   <para>This method must not be called before <see cref="Control.Handle"/> has been created.</para>
