@@ -122,10 +122,38 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Task tracking
         /// <summary>
-        /// Registers an <see cref="ITask"/> for tracking.
+        /// Registers a generic <see cref="ITask"/> for tracking.
         /// </summary>
         /// <param name="task">The task to be tracked. May or may not alreay be running.</param>
-        /// <param name="tag">A digest used to associate the <paramref name="task"/> with a specific process.</param>
+        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
+        /// <remarks>This method must not be called from a background thread.</remarks>
+        public void TrackTask(ITask task)
+        {
+            #region Sanity checks
+            if (task == null) throw new ArgumentNullException("task");
+            if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
+            #endregion
+
+            // Defer execution while in tray-icon mode
+            if (IsHandleCreated)
+            {
+                trackingControl.Visible = true;
+                trackingControl.Task = task;
+                labelSolving.Visible = progressBarSolving.Visible = false;
+            }
+            else Shown += delegate
+            {
+                trackingControl.Visible = true;
+                trackingControl.Task = task;
+                labelSolving.Visible = progressBarSolving.Visible = false;
+            };
+        }
+
+        /// <summary>
+        /// Registers an <see cref="ITask"/> for a specific implementation for tracking.
+        /// </summary>
+        /// <param name="task">The task to be tracked. May or may not alreay be running.</param>
+        /// <param name="tag">A digest used to associate the <paramref name="task"/> with a specific implementation.</param>
         /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
         public void TrackTask(ITask task, ManifestDigest tag)
@@ -213,7 +241,10 @@ namespace ZeroInstall.Commands.WinForms
             Hide();
             HideTrayIcon();
 
-            // Stop tracking tasks
+            // Cancel generic tasks
+            if (trackingControl.Task != null && trackingControl.Task.CanCancel) trackingControl.Task.Cancel();
+
+            // Stop tracking selction tasks
             if (IsHandleCreated) selectionsControl.StopTracking();
 
             _cancelCallback();

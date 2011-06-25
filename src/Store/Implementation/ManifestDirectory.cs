@@ -30,7 +30,7 @@ namespace ZeroInstall.Store.Implementation
     {
         #region Properties
         /// <summary>
-        /// The time this directory was last modified in the number of seconds since the epoch.
+        /// The time this directory was last modified encoded as Unix time (number of seconds since the epoch).
         /// </summary>
         /// <remarks>Only used for old manifest format.</remarks>
         public long ModifiedTime { get; private set; }

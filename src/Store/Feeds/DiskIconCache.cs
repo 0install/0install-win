@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using Common.Net;
 using Common.Tasks;
+using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
 
@@ -105,10 +106,23 @@ namespace ZeroInstall.Store.Feeds
 
             string path = Path.Combine(DirectoryPath, ModelUtils.Escape(iconUrl.ToString()));
 
-            if (!File.Exists(path))
+            // Download missing or outdated icons
+            if (!File.Exists(path) || (DateTime.UtcNow - File.GetLastWriteTimeUtc(path)) > new TimeSpan(7, 0, 0, 0))
             {
-                // Download missing icon
-                handler.RunTask(new DownloadFile(iconUrl, path), null);
+                try
+                {
+                    // Perform atomic download and replace
+                    handler.RunTask(new DownloadFile(iconUrl, path + ".new"), null);
+                    FileUtils.Replace(path + ".new", path);
+                }
+                catch
+                {
+                    // Don't leave partial downloads in the cache
+                    if (File.Exists(path + ".new")) File.Delete(path + ".new");
+
+                    // Only pass on exceptions if there wasn't a suitable file in the cache already
+                    if (!File.Exists(path)) throw;
+                }
             }
 
             return path;

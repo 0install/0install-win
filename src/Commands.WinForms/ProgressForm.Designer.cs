@@ -37,6 +37,7 @@
             this.progressBarSolving = new System.Windows.Forms.ProgressBar();
             this.selectionsControl = new ZeroInstall.Commands.WinForms.SelectionsControl();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.trackingControl = new ZeroInstall.Commands.WinForms.TrackingControl();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -99,11 +100,22 @@
             this.selectionsControl.TabIndex = 1;
             this.selectionsControl.Visible = false;
             // 
+            // trackingControl
+            // 
+            this.trackingControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackingControl.Location = new System.Drawing.Point(13, 12);
+            this.trackingControl.Name = "trackingControl";
+            this.trackingControl.Size = new System.Drawing.Size(434, 54);
+            this.trackingControl.TabIndex = 5;
+            this.trackingControl.Visible = false;
+            // 
             // ProgressForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(459, 162);
+            this.Controls.Add(this.trackingControl);
             this.Controls.Add(this.buttonHide);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.selectionsControl);
@@ -129,6 +141,7 @@
         private System.Windows.Forms.Label labelSolving;
         private System.Windows.Forms.ProgressBar progressBarSolving;
         private System.Windows.Forms.ToolTip toolTip;
+        private TrackingControl trackingControl;
 
     }
 }

@@ -74,6 +74,11 @@ namespace ZeroInstall.Commands.WinForms
                 // Handle events coming from a non-UI thread, don't block caller
                 _form.BeginInvoke(new SimpleEventHandler(() => _form.TrackTask(task, (ManifestDigest)tag)));
             }
+            else
+            {
+                // Handle events coming from a non-UI thread, don't block caller
+                _form.BeginInvoke(new SimpleEventHandler(() => _form.TrackTask(task)));
+            }
 
             task.RunSync();
         }
