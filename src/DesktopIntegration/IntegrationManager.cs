@@ -172,6 +172,7 @@ namespace ZeroInstall.DesktopIntegration
             var filteredAccessPoints = GetFilteredAccessPoints(accessPoints, appEntry);
 
             // Apply the access points
+            // ToDo: Rollback on exceptions
             foreach (var accessPoint in filteredAccessPoints)
                 accessPoint.Apply(appEntry, target, SystemWide, handler);
             if (WindowsUtils.IsWindows) WindowsUtils.NotifyAssocChanged();

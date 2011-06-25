@@ -76,7 +76,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 if (contextMenu.Verb.Extended) verbKey.SetValue(FileType.RegValueExtendedFlag, "");
 
                 using (var commandKey = verbKey.CreateSubKey("command"))
-                    commandKey.SetValue("", FileType.GetLaunchCommand(target, contextMenu.Verb, systemWide, handler));
+                    commandKey.SetValue("", FileType.GetLaunchCommandLine(target, contextMenu.Verb, systemWide, handler));
             }
         }
         #endregion

@@ -148,14 +148,21 @@ namespace ZeroInstall.DesktopIntegration.Windows
                             if (verb.Extended) verbKey.SetValue(RegValueExtendedFlag, "");
 
                             using (var commandKey = verbKey.CreateSubKey("command"))
-                                commandKey.SetValue("", GetLaunchCommand(target, verb, systemWide, handler));
+                                commandKey.SetValue("", GetLaunchCommandLine(target, verb, systemWide, handler));
                         }
                     }
                 }
             }
         }
 
-        internal static string GetLaunchCommand(InterfaceFeed target, Verb verb, bool systemWide, ITaskHandler handler)
+        /// <summary>
+        /// Generates a command-line string for launching a <see cref="Verb"/>.
+        /// </summary>
+        /// <param name="target">The application being integrated.</param>
+        /// <param name="verb">The verb to get to launch command for.</param>
+        /// <param name="systemWide">Register the capability system-wide instead of just for the current user.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        internal static string GetLaunchCommandLine(InterfaceFeed target, Verb verb, bool systemWide, ITaskHandler handler)
         {
             string launchCommand = "\"" + StubProvider.GetRunStub(target, verb.Command, null, systemWide, handler) + "\"";
             if (!string.IsNullOrEmpty(verb.Arguments)) launchCommand += " " + verb.Arguments;

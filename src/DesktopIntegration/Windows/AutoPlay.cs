@@ -114,7 +114,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             }
 
             using (var commandKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + autoPlay.ProgID + @"\shell\" + autoPlay.Verb.Name + @"\command"))
-                commandKey.SetValue("", FileType.GetLaunchCommand(target, autoPlay.Verb, systemWide, handler));
+                commandKey.SetValue("", FileType.GetLaunchCommandLine(target, autoPlay.Verb, systemWide, handler));
         }
         #endregion
 
