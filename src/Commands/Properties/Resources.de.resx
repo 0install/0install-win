@@ -262,9 +262,6 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="NotAvailableInPortableMode" xml:space="preserve">
     <value>Dieser Vorgang steht im Portable Modus nicht zur Verfügung.</value>
   </data>
-  <data name="NotAvailableSystemWide" xml:space="preserve">
-    <value>Dieser Vorgang steht nicht zur Verfügung wenn Sie System-weit arbeiten.</value>
-  </data>
   <data name="NotParsed" xml:space="preserve">
     <value>Parse wurde noch nicht aufgerufen.</value>
   </data>

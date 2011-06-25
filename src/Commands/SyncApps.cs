@@ -20,6 +20,7 @@ using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -59,12 +60,18 @@ namespace ZeroInstall.Commands
         {
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
 
-            if (SystemWide) throw new NotSupportedException(Resources.NotAvailableSystemWide);
             if (AdditionalArgs.Count > 0) throw new OptionException(Resources.TooManyArguments, "");
 
             Policy.Handler.ShowProgressUI(Cancel);
-            var syncManager = new SyncIntegrationManager(Policy.Config.SyncServer, Policy.Config.SyncServerUsername, Policy.Config.SyncServerPassword, Policy.Config.SyncCryptoKey);
-            syncManager.Sync(Policy.Handler);
+
+            var syncManager = new SyncIntegrationManager(SystemWide, Policy.Config.SyncServer, Policy.Config.SyncServerUsername, Policy.Config.SyncServerPassword, Policy.Config.SyncCryptoKey);
+            Converter<string, Feed> feedRetreiver = delegate(string interfaceID)
+            {
+                CacheFeed(interfaceID);
+                bool stale;
+                return Policy.FeedManager.GetFeed(interfaceID, Policy, out stale);
+            };
+            syncManager.Sync(feedRetreiver, Policy.Handler);
 
             // Show a "sync complete" message (but not in batch mode, since it is too unimportant)
             if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, Resources.DesktopIntegrationSyncDone);

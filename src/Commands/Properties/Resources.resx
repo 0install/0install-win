@@ -271,9 +271,6 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="NotAvailableInPortableMode" xml:space="preserve">
     <value>This operation is not available in portable mode.</value>
   </data>
-  <data name="NotAvailableSystemWide" xml:space="preserve">
-    <value>This operation is not available when operating system-wide.</value>
-  </data>
   <data name="NotParsed" xml:space="preserve">
     <value>Parse hasn't been called yet.</value>
   </data>

@@ -16,13 +16,16 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using Common;
 using Common.Storage;
 using Common.Tasks;
+using Common.Utils;
 using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration
@@ -57,6 +60,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Creates a new sync manager.
         /// </summary>
+        /// <param name="systemWide">Apply operations system-wide instead of just for the current user.</param>
         /// <param name="syncServer">The base URL of the sync server.</param>
         /// <param name="username">The username to authenticate with against the <paramref name="syncServer"/>.</param>
         /// <param name="password">The password to authenticate with against the <paramref name="syncServer"/>.</param>
@@ -64,7 +68,8 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public SyncIntegrationManager(Uri syncServer, string username, string password, string cryptoKey) : base(false)
+        public SyncIntegrationManager(bool systemWide, Uri syncServer, string username, string password, string cryptoKey)
+            : base(systemWide)
         {
             #region Sanity checks
             if (syncServer == null) throw new ArgumentNullException("syncServer");
@@ -93,14 +98,20 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Synchronize the <see cref="AppList"/> with the sync server and (un)apply <see cref="AccessPoint"/>s accordingly.
         /// </summary>
+        /// <param name="feedRetreiver">Callback method used to retreive additional <see cref="Feed"/>s on demand.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as uploads and downloads.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data or if the specified crypto key was wrong.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public void Sync(ITaskHandler handler)
+        public void Sync(Converter<string, Feed> feedRetreiver, ITaskHandler handler)
         {
+            #region Sanity checks
+            if (feedRetreiver == null) throw new ArgumentNullException("feedRetreiver");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             var appListUri = new Uri(_syncServer, new Uri("app-list", UriKind.Relative));
             var webClient = new WebClient {Credentials = new NetworkCredential(_username, _password)};
 
@@ -109,7 +120,11 @@ namespace ZeroInstall.DesktopIntegration
             var appListData = webClient.DownloadData(appListUri);
             if (appListData.Length > 0)
             {
-                try { MergeNewData(XmlStorage.FromZip<AppList>(new MemoryStream(appListData), _cryptoKey, null), handler); }
+                try
+                {
+                    var newData = XmlStorage.FromZip<AppList>(new MemoryStream(appListData), _cryptoKey, null);
+                    MergeNewData(newData, feedRetreiver, handler);
+                }
                 #region Error handling
                 catch (ZipException ex)
                 { // Wrap exception since only certain exception types are allowed
@@ -132,6 +147,7 @@ namespace ZeroInstall.DesktopIntegration
         /// Merges a new <see cref="AppList"/> with the existing data.
         /// </summary>
         /// <param name="newAppList">The new <see cref="AppList"/> to merge in.</param>
+        /// <param name="feedRetreiver">Callback method used to retreive additional <see cref="Feed"/>s on demand.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
@@ -140,14 +156,62 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Capabilities.Capability"/>s is invalid.</exception>
         /// <remarks>Performs a three-way merge using <see cref="_appListLastSync"/> as base, <see cref="IntegrationManager.AppList"/> as mine and <paramref name="newAppList"/> as theirs.</remarks>
-        private void MergeNewData(AppList newAppList, ITaskHandler handler)
+        private void MergeNewData(AppList newAppList, Converter<string, Feed> feedRetreiver, ITaskHandler handler)
         {
             #region Sanity checks
             if (newAppList == null) throw new ArgumentNullException("newAppList");
+            if (feedRetreiver == null) throw new ArgumentNullException("feedRetreiver");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // ToDo: Implement
+            // ToDo: Redesign to allow for conflict resolution within AppEntrys
+
+            var toRemove = new LinkedList<string>();
+            var toAdd = new LinkedList<AppEntry>();
+
+            foreach (var existingEntry in AppList.Entries)
+            {
+                AppEntry foundEntry;
+                if (newAppList.Entries.Find(newEntry => newEntry.InterfaceID == existingEntry.InterfaceID, out foundEntry))
+                { // In mine and theirs => maybe both changes
+                    if (foundEntry.Timestamp > existingEntry.Timestamp)
+                    {
+                        toRemove.AddLast(existingEntry.InterfaceID);
+                        toAdd.AddLast(foundEntry);
+                    }
+                }
+                else if (_appListLastSync.Entries.Find(oldEntry => oldEntry.InterfaceID == existingEntry.InterfaceID, out foundEntry))
+                { // In mine, not in theirs, in base => was removed remotely
+                    toRemove.AddLast(existingEntry.InterfaceID);
+                }
+            }
+
+            foreach (var newEntry in newAppList.Entries)
+            {
+                AppEntry foundEntry;
+                if (!AppList.Entries.Find(existingEntry => existingEntry.InterfaceID == newEntry.InterfaceID, out foundEntry))
+                {
+                    if (!_appListLastSync.Entries.Find(oldEntry => oldEntry.InterfaceID == newEntry.InterfaceID, out foundEntry))
+                    { // In theirs, not in mine, not in base => was added remotely
+                        toAdd.AddLast(newEntry);
+                    }
+                }
+            }
+
+            foreach (string interfaceID in toRemove)
+                RemoveApp(interfaceID);
+
+            foreach (var appEntry in toAdd)
+            {
+                // Clone the AppEntry without the access points
+                var newAppEntry = new AppEntry {InterfaceID = appEntry.InterfaceID, Name = appEntry.Name, AutoUpdate = appEntry.AutoUpdate, Timestamp = FileUtils.ToUnixTime(DateTime.UtcNow)};
+                foreach (var capabilityList in appEntry.CapabilityLists)
+                    newAppEntry.CapabilityLists.Add(capabilityList.CloneCapabilityList());
+                AppList.Entries.Add(newAppEntry);
+
+                // Add the access points
+                AddAccessPoints(new InterfaceFeed(appEntry.InterfaceID, feedRetreiver(appEntry.InterfaceID)), appEntry.AccessPoints.Entries, handler);
+            }
         }
         #endregion
     }

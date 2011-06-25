@@ -515,15 +515,6 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This operation is not available when operating system-wide..
-        /// </summary>
-        internal static string NotAvailableSystemWide {
-            get {
-                return ResourceManager.GetString("NotAvailableSystemWide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Parse hasn&apos;t been called yet..
         /// </summary>
         internal static string NotParsed {

@@ -78,7 +78,8 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public IntegrationManager(bool systemWide) : this(systemWide, GetAppListPath(systemWide))
+        public IntegrationManager(bool systemWide)
+            : this(systemWide, GetAppListPath(systemWide))
         {}
 
         private static string GetAppListPath(bool systemWide)
@@ -178,11 +179,13 @@ namespace ZeroInstall.DesktopIntegration
             if (WindowsUtils.IsWindows) WindowsUtils.NotifyAssocChanged();
 
             // Add the access points to the AppList
+            long timestamp = FileUtils.ToUnixTime(DateTime.UtcNow);
             foreach (var accessPoint in filteredAccessPoints)
             {
-                accessPoint.Timestamp = FileUtils.ToUnixTime(DateTime.UtcNow);
+                accessPoint.Timestamp = timestamp;
                 appEntry.AccessPoints.Entries.Add(accessPoint);
             }
+            appEntry.Timestamp = timestamp;
             AppList.Save(AppListPath);
         }
 
@@ -244,6 +247,7 @@ namespace ZeroInstall.DesktopIntegration
 
             // Remove the access points from the AppList
             appEntry.AccessPoints.Entries.RemoveAll(accessPoints);
+            appEntry.Timestamp = FileUtils.ToUnixTime(DateTime.UtcNow);
             AppList.Save(AppListPath);
         }
         #endregion
