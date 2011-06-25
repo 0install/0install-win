@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Implementation
         public string Hash { get; private set; }
 
         /// <summary>
-        /// The time this file was last modified in the number of seconds since the epoch.
+        /// The time this file was last modified encoded as Unix time (number of seconds since the epoch).
         /// </summary>
         public long ModifiedTime { get; private set; }
 
