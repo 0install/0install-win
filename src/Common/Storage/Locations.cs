@@ -547,7 +547,7 @@ namespace Common.Storage
             var directory = new DirectoryInfo(path);
             if (!directory.Exists)
             {
-                if (WindowsUtils.IsWindows)
+                if (WindowsUtils.IsWindows && systemWide)
                 {
                     // Set ACLs for new directory to: Admins/System = Full access, Users/Everyone = Read+Execute
                     var security = new DirectorySecurity();
