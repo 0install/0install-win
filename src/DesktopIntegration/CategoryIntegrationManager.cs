@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using Common;
+using Common.Collections;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
@@ -80,6 +81,9 @@ namespace ZeroInstall.DesktopIntegration
             if (appEntry.AccessPoints == null) appEntry.AccessPoints = new AccessPointList();
 
             AddAccessPoints(target, CategoriesToAccessPoints(appEntry, categories), handler);
+
+            if (categories.Contains(IconAccessPoint.CategoryName) || categories.Contains(AllCategoryName))
+                ToggleIconsVisible(appEntry, true);
         }
 
         /// <summary>
@@ -104,6 +108,9 @@ namespace ZeroInstall.DesktopIntegration
             if (appEntry.AccessPoints == null) return;
 
             RemoveAccessPoints(interfaceID, CategoriesToAccessPoints(appEntry, categories));
+
+            if (categories.Contains(IconAccessPoint.CategoryName) || categories.Contains(AllCategoryName))
+                ToggleIconsVisible(appEntry, false);
         }
 
         #region Helpers
@@ -167,6 +174,21 @@ namespace ZeroInstall.DesktopIntegration
 
             accessPoint.Capability = capability.ID;
             return accessPoint;
+        }
+
+        /// <summary>
+        /// Toggles registry entries indicating whether icons for the application are currently visible.
+        /// </summary>
+        /// <param name="appEntry">The application being modified.</param>
+        /// <param name="iconsVisible"><see langword="true"/> if the icons are currently visible, <see langword="false"/> if the icons are currently not visible.</param>
+        /// <remarks>This is a special handler to support <see cref="Windows.DefaultProgram"/>.</remarks>
+        private static void ToggleIconsVisible(AppEntry appEntry, bool iconsVisible)
+        {
+            foreach (var capabilityList in appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
+            {
+                foreach (var defaultProgram in EnumerableUtils.OfType<Capabilities.DefaultProgram>(capabilityList.Entries))
+                    Windows.DefaultProgram.ToggleIconsVisible(defaultProgram, iconsVisible);
+            }
         }
         #endregion
     }
