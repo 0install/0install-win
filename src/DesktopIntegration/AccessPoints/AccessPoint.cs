@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Xml.Serialization;
@@ -32,6 +33,17 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("access-point", Namespace = AppList.XmlNamespace)]
     public abstract class AccessPoint : XmlUnknown, ICloneable
     {
+        #region Properties
+        /// <summary>
+        /// The time this access point was last modified encoded as Unix time (number of seconds since the epoch). Used to determine preceedence with sync conflicts.
+        /// </summary>
+        /// <remarks>This value is ignored by clone and equality methods.</remarks>
+        [XmlAttribute("timestamp"), DefaultValue(0)]
+        public long Timestamp { get; set; }
+        #endregion
+
+        //--------------------//
+
         #region Conflict ID
         /// <summary>
         /// Retrieves identifiers from a namespace global to all <see cref="AccessPoint"/>s.

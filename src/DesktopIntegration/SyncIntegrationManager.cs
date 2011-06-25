@@ -16,17 +16,13 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using Common;
+using Common.Storage;
 using Common.Tasks;
-using Common.Utils;
+using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.DesktopIntegration.Properties;
-using ZeroInstall.Model;
-using Capabilities = ZeroInstall.Model.Capabilities;
-using Capability = ZeroInstall.Model.Capabilities.Capability;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -98,9 +94,49 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as uploads and downloads.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data or if the specified crypto key was wrong.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         public void Sync(ITaskHandler handler)
+        {
+            var appListUri = new Uri(_syncServer, "app-list");
+            var webClient = new WebClient {Credentials = new NetworkCredential(_username, _password)};
+
+            // Download and merge the current AppList from the server
+            // ToDo: Use ITask to allow for cancellation
+            var appListData = webClient.DownloadData(appListUri);
+            if (appListData.Length > 0)
+            {
+                try { MergeNewData(XmlStorage.FromZip<AppList>(new MemoryStream(appListData), _cryptoKey, null), handler); }
+                #region Error handling
+                catch (ZipException ex)
+                { // Wrap exception since only certain exception types are allowed
+                    throw new InvalidDataException(ex.Message, ex);
+                }
+                #endregion
+            }
+
+            // Upload the encrypted AppList back to the server
+            var memoryStream = new MemoryStream();
+            XmlStorage.ToZip(memoryStream, AppList, _cryptoKey, null);
+            // ToDo: Use ITask to allow for cancellation
+            webClient.UploadData(appListUri, "PUT", memoryStream.ToArray());
+
+            // Save reference point for sync
+            AppList.Save(AppListPath + AppListLastSyncSuffix);
+        }
+
+        /// <summary>
+        /// Merges a new <see cref="AppList"/> with the existing data.
+        /// </summary>
+        /// <param name="newAppList">The new <see cref="AppList"/> to merge in.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <exception cref="InvalidOperationException">Thrown if one or more new <see cref="AccessPoint"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        private void MergeNewData(AppList newAppList, ITaskHandler handler)
         {
             // ToDo: Implement
         }

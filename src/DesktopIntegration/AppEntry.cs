@@ -71,6 +71,13 @@ namespace ZeroInstall.DesktopIntegration
         [Description("A set of AccessPoints to be registered in the desktop environment; may be null.")]
         [XmlElement("access-points")]
         public AccessPointList AccessPoints { get; set; }
+
+        /// <summary>
+        /// The time this entry was last modified encoded as Unix time (number of seconds since the epoch). Used to determine preceedence with sync conflicts.
+        /// </summary>
+        /// <remarks>This value is ignored by clone and equality methods.</remarks>
+        [XmlAttribute("timestamp"), DefaultValue(0)]
+        public long Timestamp { get; set; }
         #endregion
 
         //--------------------//

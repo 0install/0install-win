@@ -183,6 +183,7 @@ namespace ZeroInstall.DesktopIntegration
                         throw new InvalidOperationException(string.Format(Resources.AccessPointConflict, conflictData.AccessPoint, conflictData.AppEntry, accessPoint, appEntry));
                 }
 
+                accessPoint.Timestamp = FileUtils.ToUnixTime(DateTime.UtcNow);
                 appEntry.AccessPoints.Entries.Add(accessPoint);
             }
             AppList.Save(AppListPath);
@@ -248,7 +249,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <returns>The newly created <see cref="AppEntry"/>.</returns>
         protected static AppEntry BuildAppEntry(InterfaceFeed target)
         {
-            var appEntry = new AppEntry {InterfaceID = target.InterfaceID, Name = target.Feed.Name};
+            var appEntry = new AppEntry {InterfaceID = target.InterfaceID, Name = target.Feed.Name, Timestamp = FileUtils.ToUnixTime(DateTime.UtcNow)};
             foreach (var capabilityList in target.Feed.CapabilityLists)
                 appEntry.CapabilityLists.Add(capabilityList.CloneCapabilityList());
             return appEntry;
