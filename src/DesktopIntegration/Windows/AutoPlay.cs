@@ -20,6 +20,8 @@ using System.IO;
 using System.Net;
 using Common;
 using Common.Tasks;
+using Microsoft.Win32;
+using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -37,19 +39,22 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public const string RegKeyAssocs = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\EventHandlers";
 
         /// <summary>The HKCU registry key for storing user-selected AutoPlay handlers.</summary>
-        public const string RegKeyUserAssocs = @"SOFTWAREy\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\UserChosenExecuteHandlers";
-
-        /// <summary>The registry value name for storing the description of the AutoPlay action.</summary>
-        public const string RegValueDescription = "Action";
-
-        /// <summary>The registry value name for storing the name of the application providing the AutoPlay action.</summary>
-        public const string RegValueProvider = "Provider";
+        public const string RegKeyChosenAssocs = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\UserChosenExecuteHandlers";
 
         /// <summary>The registry value name for storing the programatic identifier to invoke.</summary>
         public const string RegValueProgID = "InvokeProgID";
 
         /// <summary>The registry value name for storing the name of the verb to invoke.</summary>
         public const string RegValueVerb = "InvokeVerb";
+
+        /// <summary>The registry value name for storing the name of the application providing the AutoPlay action.</summary>
+        public const string RegValueProvider = "Provider";
+
+        /// <summary>The registry value name for storing the description of the AutoPlay action.</summary>
+        public const string RegValueDescription = "Action";
+
+        /// <summary>The registry value name for storing the icon for the AutoPlay action.</summary>
+        public const string RegValueIcon = "DefaultIcon";
         #endregion
 
         #region Register
@@ -65,6 +70,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="autoPlay"/> is invalid.</exception>
         public static void Register(InterfaceFeed target, Capabilities.AutoPlay autoPlay, bool setDefault, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
@@ -72,7 +78,43 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // ToDo: Implement
+            if (string.IsNullOrEmpty(autoPlay.ID)) throw new InvalidDataException("Missing ID");
+            if (string.IsNullOrEmpty(autoPlay.ProgID)) throw new InvalidDataException("Missing ProgID");
+            if (string.IsNullOrEmpty(autoPlay.Verb.Name)) throw new InvalidDataException("Missing verb name");
+            if (string.IsNullOrEmpty(autoPlay.Description)) throw new InvalidDataException("Missing description");
+            if (string.IsNullOrEmpty(autoPlay.Provider)) throw new InvalidDataException("Missing provider");
+
+            var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
+            using (var handlerKey = hive.CreateSubKey(RegKeyHandlers + @"\" + autoPlay.ID))
+            {
+                handlerKey.SetValue(RegValueProgID, autoPlay.ProgID);
+                handlerKey.SetValue(RegValueVerb, autoPlay.Verb.Name);
+                handlerKey.SetValue(RegValueProvider, autoPlay.Provider);
+                handlerKey.SetValue(RegValueDescription, autoPlay.Description);
+
+                // Find the first suitable icon specified by the capability, then fall back to the feed
+                var suitableIcons = autoPlay.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco);
+                if (suitableIcons.IsEmpty) suitableIcons = target.Feed.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco && icon.Location != null);
+                if (!suitableIcons.IsEmpty)
+                    handlerKey.SetValue(RegValueIcon, IconProvider.GetIcon(suitableIcons.First, systemWide, handler) + ",0");
+            }
+
+            foreach (var autoPlayEvent in autoPlay.Events)
+            {
+                if (string.IsNullOrEmpty(autoPlayEvent.Name)) continue;
+
+                using (var eventKey = hive.CreateSubKey(RegKeyAssocs + @"\" + autoPlayEvent.Name))
+                    eventKey.SetValue(autoPlay.ID, "");
+
+                if (setDefault)
+                {
+                    using (var chosenEventKey = hive.CreateSubKey(RegKeyChosenAssocs + @"\" + autoPlayEvent.Name))
+                        chosenEventKey.SetValue("", autoPlay.ID);
+                }
+            }
+
+            using (var commandKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + autoPlay.ProgID + @"\shell\" + autoPlay.Verb.Name + @"\command"))
+                commandKey.SetValue("", FileType.GetLaunchCommand(target, autoPlay.Verb, systemWide, handler));
         }
         #endregion
 
@@ -84,11 +126,15 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="systemWide">Remove the handler system-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="autoPlay"/> is invalid.</exception>
         public static void Unregister(Capabilities.AutoPlay autoPlay, bool systemWide)
         {
             #region Sanity checks
             if (autoPlay == null) throw new ArgumentNullException("autoPlay");
             #endregion
+
+            if (string.IsNullOrEmpty(autoPlay.ID)) throw new InvalidDataException("Missing ID");
+            if (string.IsNullOrEmpty(autoPlay.ProgID)) throw new InvalidDataException("Missing ProgID");
 
             // ToDo: Implement
         }

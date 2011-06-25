@@ -20,8 +20,8 @@ using System.IO;
 using System.Net;
 using Common;
 using Common.Tasks;
+using Common.Utils;
 using Microsoft.Win32;
-using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -36,7 +36,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public const string ProtocolIndicator = "URL Protocol";
 
         /// <summary>The HKCU registry key where Windows Vista and newer store URL protocol associations.</summary>
-        public const string RegKeyUserVistaUrlAssoc = @"Software\Microsoft\Windows\Shell\ Associations\UrlAssociations";
+        public const string RegKeyUserVistaUrlAssoc = @"Software\Microsoft\Windows\Shell\Associations\UrlAssociations";
         #endregion
 
         #region Register
@@ -52,6 +52,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="urlProtocol"/> is invalid.</exception>
         public static void Register(InterfaceFeed target, Capabilities.UrlProtocol urlProtocol, bool setDefault, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
@@ -59,42 +60,34 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            if (string.IsNullOrEmpty(urlProtocol.Prefix))
+            if (string.IsNullOrEmpty(urlProtocol.ID)) throw new InvalidDataException("Missing ID");
+
+            if (urlProtocol.KnownPrefixes.IsEmpty)
             {
-                if (!setDefault) return;
+                // Can only be registered invasivley (will replace existing and become default)
+                if (setDefault) FileType.RegisterVerbCapability(target, urlProtocol, systemWide, handler);
             }
             else
             {
-                // ToDo
-            }
-
-            var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
-            using (var classesKey = hive.OpenSubKey(FileType.RegKeyClasses, true))
-            {
-                using (var progIDKey = classesKey.CreateSubKey(urlProtocol.ID))
+                foreach (var prefix in urlProtocol.KnownPrefixes)
                 {
-                    if (urlProtocol.Description != null) progIDKey.SetValue("", urlProtocol.Description);
+                    // Can be registered non-invasivley (without becoming default)
+                    FileType.RegisterVerbCapability(target, urlProtocol, systemWide, handler);
 
-                    // Find the first suitable icon specified by the capability, then fall back to the feed
-                    var suitableIcons = urlProtocol.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco);
-                    if (suitableIcons.IsEmpty) suitableIcons = target.Feed.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco && icon.Location != null);
-                    if (!suitableIcons.IsEmpty)
+                    if (setDefault)
                     {
-                        using (var iconKey = progIDKey.CreateSubKey(FileType.RegSubKeyIcon))
-                            iconKey.SetValue("", IconProvider.GetIcon(suitableIcons.First, systemWide, handler) + ",0");
-                    }
-
-                    using (var shellKey = progIDKey.CreateSubKey("shell"))
-                    {
-                        foreach (var verb in urlProtocol.Verbs)
+                        if (WindowsUtils.IsWindowsVista && !systemWide)
                         {
-                            using (var verbKey = shellKey.CreateSubKey(verb.Name))
-                            using (var commandKey = verbKey.CreateSubKey("command"))
-                            {
-                                string launchCommand = "\"" + StubProvider.GetRunStub(target, verb.Command, systemWide, handler) + "\"";
-                                if (!string.IsNullOrEmpty(verb.Arguments)) launchCommand += " " + verb.Arguments;
-                                commandKey.SetValue("", launchCommand);
-                            }
+                            using (var someKey = Registry.CurrentUser.CreateSubKey(RegKeyUserVistaUrlAssoc + @"\" + prefix.Value + @"\UserChoice"))
+                                someKey.SetValue("Progid", urlProtocol.ID);
+                        }
+                        else
+                        {
+                            // Clean method for setting as default not applicable
+                            // Create invasive clone for specific prefix
+                            var clonedUrlProtocol = (Capabilities.UrlProtocol)urlProtocol.CloneCapability();
+                            clonedUrlProtocol.ID = prefix.Value;
+                            FileType.RegisterVerbCapability(target, clonedUrlProtocol, systemWide, handler);
                         }
                     }
                 }
@@ -110,11 +103,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="systemWide">Unregister the URL protocol system-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="urlProtocol"/> is invalid.</exception>
         public static void Unregister(Capabilities.UrlProtocol urlProtocol, bool systemWide)
         {
             #region Sanity checks
             if (urlProtocol == null) throw new ArgumentNullException("urlProtocol");
             #endregion
+
+            if (string.IsNullOrEmpty(urlProtocol.ID)) throw new InvalidDataException("Missing ID");
 
             // ToDo: Implement
         }

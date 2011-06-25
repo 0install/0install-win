@@ -34,13 +34,16 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         [XmlIgnore]
         public override bool WindowsSystemWideOnly { get { return false; } }
-
+        
+        // Preserve order
+        private readonly C5.LinkedList<KnownProtocolPrefix> _knownPrefixes = new C5.LinkedList<KnownProtocolPrefix>();
         /// <summary>
-        /// The protocol prefix such as "http". Should only be set when different from <see cref="Capability.ID"/>.
+        /// A well-known protocol prefix such as "http". Should be empty and set in <see cref="Capability.ID"/> instead if it is a custom protocol.
         /// </summary>
-        [Description("The protocol prefix such as \"http\". Should only be set when different from ID.")]
-        [XmlAttribute("prefix")]
-        public string Prefix { get; set; }
+        [Description("The protocoles prefix such as \"http\". Should be empty and set in ID instead if it is a custom protocol.")]
+        [XmlElement("known-prefix")]
+        // Note: Can not use ICollection<T> interface because of XML Serialization
+        public C5.LinkedList<KnownProtocolPrefix> KnownPrefixes { get { return _knownPrefixes; } }
 
         /// <inheritdoc/>
         [XmlIgnore]
@@ -66,9 +69,10 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability CloneCapability()
         {
-            var capability = new UrlProtocol {ID = ID, Description = Description, Prefix = Prefix};
+            var capability = new UrlProtocol {ID = ID, Description = Description};
             capability.Icons.AddAll(Icons);
             capability.Verbs.AddAll(Verbs);
+            capability.KnownPrefixes.AddAll(KnownPrefixes);
             return capability;
         }
         #endregion
@@ -79,7 +83,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (other == null) return false;
 
-            return base.Equals(other) && other.Prefix == Prefix;
+            return base.Equals(other) && KnownPrefixes.SequencedEquals(other.KnownPrefixes);
         }
 
         /// <inheritdoc/>
@@ -96,7 +100,7 @@ namespace ZeroInstall.Model.Capabilities
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (Prefix ?? "").GetHashCode();
+                result = (result * 397) ^ KnownPrefixes.GetSequencedHashCode();
                 return result;
             }
         }

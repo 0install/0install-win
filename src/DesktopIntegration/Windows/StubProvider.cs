@@ -130,6 +130,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="target">The application to be laucnhed via the stub.</param>
         /// <param name="command">The command argument to be passed to the the "0install run" command; may be <see langword="null"/>.</param>
+        /// <param name="postfix">A postfix with which the EXE name must end; may be <see langword="null"/>.</param>
         /// <param name="systemWide">Apply the configuration system-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <returns>The path to the generated stub EXE.</returns>
@@ -137,7 +138,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public static string GetRunStub(InterfaceFeed target, string command, bool systemWide, ITaskHandler handler)
+        public static string GetRunStub(InterfaceFeed target, string command, string postfix, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -147,7 +148,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string exeName = target.Feed.Name;
             if (!string.IsNullOrEmpty(command)) exeName += "_" + command;
             exeName += "_" + ModelUtils.HashID(target.InterfaceID) + ".exe";
-            string exePath = Path.Combine(stubDirPath, exeName);
+            string exePath = Path.Combine(stubDirPath, exeName) + postfix;
 
             // Return an existing stub or build a new one
             if (!File.Exists(exePath)) BuildRunStub(exePath, target, command, handler);

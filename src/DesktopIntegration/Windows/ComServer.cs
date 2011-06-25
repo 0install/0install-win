@@ -46,12 +46,15 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="comServer"/> is invalid.</exception>
         public static void Register(InterfaceFeed target, Capabilities.ComServer comServer, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (comServer == null) throw new ArgumentNullException("comServer");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
+
+            if (string.IsNullOrEmpty(comServer.ID)) throw new InvalidDataException("Missing ID");
 
             // ToDo: Implement
         }
@@ -65,11 +68,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="systemWide">Unregister the COM server system-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="comServer"/> is invalid.</exception>
         public static void Unregister(Capabilities.ComServer comServer, bool systemWide)
         {
             #region Sanity checks
             if (comServer == null) throw new ArgumentNullException("comServer");
             #endregion
+
+            if (string.IsNullOrEmpty(comServer.ID)) throw new InvalidDataException("Missing ID");
 
             // ToDo: Implement
         }

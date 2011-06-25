@@ -65,7 +65,7 @@ namespace ZeroInstall.Commands
                 if (!CategoryIntegrationManager.Categories.Contains(category)) throw new OptionException(string.Format(Resources.UnknownCategory, category), "add");
                 _addCategories.Add(category);
             });
-            Options.Add("r|remove=", Resources.OptionAppRemove + "\n" + Resources.OptionAppCategory + categoryList, category =>
+            Options.Add("x|remove=", Resources.OptionAppRemove + "\n" + Resources.OptionAppCategory + categoryList, category =>
             {
                 category = category.ToLower();
                 if (!CategoryIntegrationManager.Categories.Contains(category)) throw new OptionException(string.Format(Resources.UnknownCategory, category), "remove");
@@ -100,7 +100,7 @@ namespace ZeroInstall.Commands
 
             if (!_removeCategories.IsEmpty)
             {
-                try { integrationManager.RemoveAccessPointCategory(interfaceID, _removeCategories); }
+                try { integrationManager.RemoveAccessPointCategories(interfaceID, _removeCategories); }
                 catch (InvalidOperationException ex)
                 {
                     // Show a "nothing to do" message (but not in batch mode, since it is too unimportant));
@@ -122,7 +122,7 @@ namespace ZeroInstall.Commands
 
             if (Canceled) throw new UserCancelException();
 
-            try { integrationManager.AddAccessPointCategory(new InterfaceFeed(interfaceID, feed), _addCategories, Policy.Handler); }
+            try { integrationManager.AddAccessPointCategories(new InterfaceFeed(interfaceID, feed), _addCategories, Policy.Handler); }
             catch (InvalidOperationException ex)
             {
                 // Show a "failed to comply" message

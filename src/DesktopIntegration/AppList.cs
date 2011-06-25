@@ -60,11 +60,13 @@ namespace ZeroInstall.DesktopIntegration
         /// Returns a list of all conflict IDs and the <see cref="AccessPoint"/>s belong to.
         /// </summary>
         /// <seealso cref="AccessPoint.GetConflictIDs"/>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs some potentially slow computations.")]
         public IDictionary<string, ConflictData> GetConflictIDs()
         {
             var conflictIDs = new Dictionary<string, ConflictData>();
             foreach (var appEntry in Entries)
             {
+                if (appEntry.AccessPoints == null) continue;
                 foreach (var accessPoint in appEntry.AccessPoints.Entries)
                 {
                     foreach (string conflictID in accessPoint.GetConflictIDs(appEntry))

@@ -37,7 +37,7 @@ namespace ZeroInstall.Model.Capabilities
         /// The registry path relative to HKEY_LOCAL_MACHINE which is used to store the application's capability registration information.
         /// </summary>
         [Description("The registry path relative to HKEY_LOCAL_MACHINE which is used to store the application's capability registration information.")]
-        [XmlAttribute("capability-reg-pat")]
+        [XmlAttribute("capability-reg-path")]
         public string CapabilityRegPath { get; set; }
 
         /// <summary>

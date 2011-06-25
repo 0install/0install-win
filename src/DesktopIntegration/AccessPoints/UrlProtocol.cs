@@ -40,8 +40,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             var capability = appEntry.GetCapability<Capabilities.UrlProtocol>(Capability);
-            string protocol = string.IsNullOrEmpty(capability.Prefix) ? capability.Prefix : capability.ID;
-            return new[] {"protocol:" + protocol};
+            if (capability.KnownPrefixes.IsEmpty) return new[] {"protocol:" + capability.ID};
+            return capability.KnownPrefixes.Map(prefix => "protocol:" + prefix.Value);
         }
         #endregion
 

@@ -24,6 +24,7 @@ using System.Xml.Serialization;
 using Common;
 using Common.Tasks;
 using ZeroInstall.Model;
+using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
@@ -66,6 +67,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if the access point's data or a referenced <see cref="Capabilities.Capability"/>'s data are invalid.</exception>
         public abstract void Apply(AppEntry appEntry, InterfaceFeed target, bool systemWide, ITaskHandler handler);
 
         /// <summary>

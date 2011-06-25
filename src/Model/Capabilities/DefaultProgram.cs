@@ -78,7 +78,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <summary>
         /// The name of the service such as "StartMenuInternet", "Mail", "Media" etc.. Always use a canonical name when possible.
         /// </summary>
-        [Description("The name of the service such as \"StartMenuInternet\", \"Mail\", \"Media\", etc..  Always use a canonical name when possible.")]
+        [Description("The name of the service such as \"StartMenuInternet\", \"Mail\", \"Media\", etc.. Always use a canonical name when possible.")]
         [XmlAttribute("service")]
         public string Service { get; set; }
 

@@ -22,56 +22,47 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Names a specific <see cref="AutoPlay"/> event.
+    /// Names a  well-known protocol prefix such as "http".
     /// </summary>
-    [XmlType("event", Namespace = Capability.XmlNamespace)]
-    public struct AutoPlayEvent : IEquatable<AutoPlayEvent>
+    [XmlType("known-prefix", Namespace = Capability.XmlNamespace)]
+    public struct KnownProtocolPrefix : IEquatable<KnownProtocolPrefix>
     {
-        #region Constants
-        /// <summary>
-        /// Canonical <see cref="Name"/>.
-        /// </summary>
-        public const string NamePlayCDAudio = "PlayCDAudioOnArrival", NamePlayDvdAudioO = "PlayDVDAudioOnArrival", NamePlayMusicFiles = "PlayMusicFilesOnArrival",
-            NamePlayVideoCDMovie = "PlayVideoCDMovieOnArrival", NamePlaySuperVideoCDMovie = "PlaySuperVideoCDMovieOnArrival", NamePlayDvdMovie = "PlayDVDMovieOnArrival", NamePlayBluRay = "PlayBluRayOnArrival", NamePlayVideoFiles = "PlayVideoFilesOnArrival",
-            NameBurnCD = "HandleCDBurningOnArrival", NameBurnDvd = "HandleDVDBurningOnArrival", NameBurnBluRay = "HandleBDBurningOnArrival";
-        #endregion
-
         #region Properties
         /// <summary>
-        /// The name of the event.
+        /// The value of the prefix.
         /// </summary>
-        [Description("The name of the event.")]
-        [XmlAttribute("name")]
-        public string Name { get; set; }
+        [Description("The value of the prefix.")]
+        [XmlAttribute("value")]
+        public string Value { get; set; }
         #endregion
 
         //--------------------//
 
         #region Conversion
         /// <summary>
-        /// Returns the event in the form "Name". Not safe for parsing!
+        /// Returns the prefix in the form "Value". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return Name;
+            return Value;
         }
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(AutoPlayEvent other)
+        public bool Equals(KnownProtocolPrefix other)
         {
-            return other.Name == Name;
+            return other.Value == Value;
         }
 
         /// <inheritdoc/>
-        public static bool operator ==(AutoPlayEvent left, AutoPlayEvent right)
+        public static bool operator ==(KnownProtocolPrefix left, KnownProtocolPrefix right)
         {
             return left.Equals(right);
         }
 
         /// <inheritdoc/>
-        public static bool operator !=(AutoPlayEvent left, AutoPlayEvent right)
+        public static bool operator !=(KnownProtocolPrefix left, KnownProtocolPrefix right)
         {
             return !left.Equals(right);
         }
@@ -80,13 +71,13 @@ namespace ZeroInstall.Model.Capabilities
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            return obj.GetType() == typeof(AutoPlayEvent) && Equals((AutoPlayEvent)obj);
+            return obj.GetType() == typeof(KnownProtocolPrefix) && Equals((KnownProtocolPrefix)obj);
         }
 
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return (Name ?? "").GetHashCode();
+            return (Value ?? "").GetHashCode();
         }
         #endregion
     }

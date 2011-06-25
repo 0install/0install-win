@@ -39,8 +39,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var capabilitiy = appEntry.GetCapability<Capabilities.AutoPlay>(Capability);
-            return capabilitiy.Events.Map(eventName => "autoplay-event:" + eventName);
+            var capability = appEntry.GetCapability<Capabilities.AutoPlay>(Capability);
+            return capability.Events.Map(@event => "autoplay-event:" + @event.Name);
         }
         #endregion
 

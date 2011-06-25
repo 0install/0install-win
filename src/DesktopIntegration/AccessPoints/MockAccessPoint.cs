@@ -78,6 +78,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public bool Equals(MockAccessPoint other)
         {
+            if (other == null) return false;
+
             return (other.ID == ID);
         }
 

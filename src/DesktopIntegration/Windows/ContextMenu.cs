@@ -20,6 +20,7 @@ using System.IO;
 using System.Net;
 using Common;
 using Common.Tasks;
+using Microsoft.Win32;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -58,6 +59,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="contextMenu"/> is invalid.</exception>
         public static void Apply(InterfaceFeed target, Capabilities.ContextMenu contextMenu, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
@@ -65,7 +67,17 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // ToDo: Implement
+            if (string.IsNullOrEmpty(contextMenu.Verb.Name)) throw new InvalidDataException("Missing verb name");
+
+            var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
+            using (var verbKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + (contextMenu.AllObjects ? RegKeyClassesAllPrefix : RegKeyClassesFilesPrefix) + @"\shell\" + contextMenu.Verb.Name))
+            {
+                verbKey.SetValue("", contextMenu.Verb.Description);
+                if (contextMenu.Verb.Extended) verbKey.SetValue(FileType.RegValueExtendedFlag, "");
+
+                using (var commandKey = verbKey.CreateSubKey("command"))
+                    commandKey.SetValue("", FileType.GetLaunchCommand(target, contextMenu.Verb, systemWide, handler));
+            }
         }
         #endregion
 
@@ -77,11 +89,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="systemWide">Remove the context menu entry system-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="contextMenu"/> is invalid.</exception>
         public static void Remove(Capabilities.ContextMenu contextMenu, bool systemWide)
         {
             #region Sanity checks
             if (contextMenu == null) throw new ArgumentNullException("contextMenu");
             #endregion
+
+            if (string.IsNullOrEmpty(contextMenu.Verb.Name)) throw new InvalidDataException("Missing verb name");
 
             // ToDo: Implement
         }

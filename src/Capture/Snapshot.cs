@@ -184,7 +184,7 @@ namespace ZeroInstall.Capture
                         fileAssocsList.Add(new ComparableTuple<string>(keyName, assocKey.GetValue("", "").ToString()));
 
                         // Get additional ProgIDs
-                        foreach (string progID in WindowsUtils.GetValueNames(assocKey, "OpenWithProgIDs"))
+                        foreach (string progID in WindowsUtils.GetValueNames(assocKey, FileType.RegSubKeyOpenWith))
                             fileAssocsList.Add(new ComparableTuple<string>(keyName, progID));
                     }
                 }

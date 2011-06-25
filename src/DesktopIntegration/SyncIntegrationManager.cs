@@ -23,6 +23,7 @@ using Common.Storage;
 using Common.Tasks;
 using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -88,6 +89,7 @@ namespace ZeroInstall.DesktopIntegration
 
         //--------------------//
 
+        #region Sync
         /// <summary>
         /// Synchronize the <see cref="AppList"/> with the sync server and (un)apply <see cref="AccessPoint"/>s accordingly.
         /// </summary>
@@ -99,7 +101,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         public void Sync(ITaskHandler handler)
         {
-            var appListUri = new Uri(_syncServer, "app-list");
+            var appListUri = new Uri(_syncServer, new Uri("app-list", UriKind.Relative));
             var webClient = new WebClient {Credentials = new NetworkCredential(_username, _password)};
 
             // Download and merge the current AppList from the server
@@ -131,14 +133,22 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="newAppList">The new <see cref="AppList"/> to merge in.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        /// <exception cref="InvalidOperationException">Thrown if one or more new <see cref="AccessPoint"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if one or more new <see cref="AccessPoint"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Capabilities.Capability"/>s is invalid.</exception>
+        /// <remarks>Performs a three-way merge using <see cref="_appListLastSync"/> as base, <see cref="IntegrationManager.AppList"/> as mine and <paramref name="newAppList"/> as theirs.</remarks>
         private void MergeNewData(AppList newAppList, ITaskHandler handler)
         {
+            #region Sanity checks
+            if (newAppList == null) throw new ArgumentNullException("newAppList");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             // ToDo: Implement
         }
+        #endregion
     }
 }

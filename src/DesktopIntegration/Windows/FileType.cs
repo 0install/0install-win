@@ -22,6 +22,7 @@ using Common;
 using Common.Tasks;
 using Microsoft.Win32;
 using ZeroInstall.Model;
+using ZeroInstall.Model.Capabilities;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -44,8 +45,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <summary>The registry value name for perceived type storage.</summary>
         public const string RegValuePerceivedType = "PerceivedType";
 
+        /// <summary>The registry value name for the flag indicating a menue entry should only appear when the SHIFT key is pressed.</summary>
+        public const string RegValueExtendedFlag = "extended";
+
         /// <summary>The registry subkey containing <see cref="Capabilities.FileType"/> references.</summary>
         public const string RegSubKeyIcon = "DefaultIcon";
+
+        /// <summary>The registry subkey containing "open with" ProgID references.</summary>
+        public const string RegSubKeyOpenWith = "OpenWithProgIDs";
         #endregion
 
         #region Register
@@ -61,6 +68,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="fileType"/> is invalid.</exception>
         public static void Register(InterfaceFeed target, Capabilities.FileType fileType, bool setDefault, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
@@ -68,51 +76,90 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
+            if (string.IsNullOrEmpty(fileType.ID)) throw new InvalidDataException("Missing ID");
+
+            RegisterVerbCapability(target, fileType, systemWide, handler);
+
             var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
             using (var classesKey = hive.OpenSubKey(RegKeyClasses, true))
             {
-                using (var progIDKey = classesKey.CreateSubKey(fileType.ID))
-                {
-                    if (fileType.Description != null) progIDKey.SetValue("", fileType.Description);
-
-                    // Find the first suitable icon specified by the capability, then fall back to the feed
-                    var suitableIcons = fileType.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco);
-                    if (suitableIcons.IsEmpty) suitableIcons = target.Feed.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco && icon.Location != null);
-                    if (!suitableIcons.IsEmpty)
-                    {
-                        using (var iconKey = progIDKey.CreateSubKey(RegSubKeyIcon))
-                            iconKey.SetValue("", IconProvider.GetIcon(suitableIcons.First, systemWide, handler) + ",0");
-                    }
-
-                    using (var shellKey = progIDKey.CreateSubKey("shell"))
-                    {
-                        foreach (var verb in fileType.Verbs)
-                        {
-                            using (var verbKey = shellKey.CreateSubKey(verb.Name))
-                            using (var commandKey = verbKey.CreateSubKey("command"))
-                            {
-                                string launchCommand = "\"" + StubProvider.GetRunStub(target, verb.Command, systemWide, handler) + "\"";
-                                if (!string.IsNullOrEmpty(verb.Arguments)) launchCommand += " " + verb.Arguments;
-                                commandKey.SetValue("", launchCommand);
-                            }
-                        }
-                    }
-                }
-
                 foreach (var extension in fileType.Extensions)
                 {
+                    if (string.IsNullOrEmpty(extension.Value)) continue;
+
                     using (var extensionKey = classesKey.CreateSubKey(extension.Value))
                     {
                         if (extension.MimeType != null) extensionKey.SetValue(RegValueContentType, extension.MimeType);
                         if (extension.PerceivedType != null) extensionKey.SetValue(RegValuePerceivedType, extension.PerceivedType);
 
-                        using (var openWithKey = extensionKey.CreateSubKey("OpenWithProgIDs"))
+                        using (var openWithKey = extensionKey.CreateSubKey(RegSubKeyOpenWith))
                             openWithKey.SetValue(fileType.ID, "");
 
                         if(setDefault) extensionKey.SetValue("", fileType.ID);
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Registers a capability providing verbs in the current Windows system.
+        /// </summary>
+        /// <param name="target">The application being integrated.</param>
+        /// <param name="capability">The capability to register.</param>
+        /// <param name="systemWide">Register the capability system-wide instead of just for the current user.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="capability"/> is invalid.</exception>
+        internal static void RegisterVerbCapability(InterfaceFeed target, Capabilities.VerbCapability capability, bool systemWide, ITaskHandler handler)
+        {
+            #region Sanity checks
+            if (capability == null) throw new ArgumentNullException("capability");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
+            if (string.IsNullOrEmpty(capability.ID)) throw new InvalidDataException("Missing ID");
+
+            var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
+            using (var progIDKey = hive.CreateSubKey(RegKeyClasses + @"\" + capability.ID))
+            {
+                if (capability.Description != null) progIDKey.SetValue("", capability.Description);
+
+                if (capability is Capabilities.UrlProtocol) progIDKey.SetValue(UrlProtocol.ProtocolIndicator, "");
+
+                // Find the first suitable icon specified by the capability, then fall back to the feed
+                var suitableIcons = capability.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco);
+                if (suitableIcons.IsEmpty) suitableIcons = target.Feed.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco && icon.Location != null);
+                if (!suitableIcons.IsEmpty)
+                {
+                    using (var iconKey = progIDKey.CreateSubKey(RegSubKeyIcon))
+                        iconKey.SetValue("", IconProvider.GetIcon(suitableIcons.First, systemWide, handler) + ",0");
+                }
+
+                using (var shellKey = progIDKey.CreateSubKey("shell"))
+                {
+                    foreach (var verb in capability.Verbs)
+                    {
+                        using (var verbKey = shellKey.CreateSubKey(verb.Name))
+                        {
+                            if (verb.Description != null) verbKey.SetValue("", verb.Description);
+                            if (verb.Extended) verbKey.SetValue(RegValueExtendedFlag, "");
+
+                            using (var commandKey = verbKey.CreateSubKey("command"))
+                                commandKey.SetValue("", GetLaunchCommand(target, verb, systemWide, handler));
+                        }
+                    }
+                }
+            }
+        }
+
+        internal static string GetLaunchCommand(InterfaceFeed target, Verb verb, bool systemWide, ITaskHandler handler)
+        {
+            string launchCommand = "\"" + StubProvider.GetRunStub(target, verb.Command, null, systemWide, handler) + "\"";
+            if (!string.IsNullOrEmpty(verb.Arguments)) launchCommand += " " + verb.Arguments;
+            return launchCommand;
         }
         #endregion
 
@@ -124,11 +171,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="systemWide">Unregister the file type system-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="fileType"/> is invalid.</exception>
         public static void Unregister(Capabilities.FileType fileType, bool systemWide)
         {
             #region Sanity checks
             if (fileType == null) throw new ArgumentNullException("fileType");
             #endregion
+
+            if (string.IsNullOrEmpty(fileType.ID)) throw new InvalidDataException("Missing ID");
 
             // ToDo: Implement
         }

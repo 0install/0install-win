@@ -17,10 +17,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using Common;
+using Common.Collections;
 using Common.Tasks;
+using Microsoft.Win32;
+using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
@@ -66,6 +70,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="appRegistration"/> or <paramref name="verbCapabilities"/> is invalid.</exception>
         public static void Apply(InterfaceFeed target, Capabilities.AppRegistration appRegistration, IEnumerable<VerbCapability> verbCapabilities, ITaskHandler handler)
         {
             #region Sanity checks
@@ -74,7 +79,52 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // ToDo: Implement
+            if (string.IsNullOrEmpty(appRegistration.ID)) throw new InvalidDataException("Missing ID");
+            if (string.IsNullOrEmpty(appRegistration.CapabilityRegPath)) throw new InvalidDataException("Invalid CapabilityRegPath");
+
+            using (var regAppsKey = Registry.LocalMachine.CreateSubKey(RegKeyMachineRegisteredApplications))
+                regAppsKey.SetValue(appRegistration.ID, appRegistration.CapabilityRegPath);
+
+            // ToDo: Handle appRegistration.X64
+            using (var capabilitiesKey = Registry.LocalMachine.CreateSubKey(appRegistration.CapabilityRegPath))
+            {
+                capabilitiesKey.SetValue(RegValueAppName, target.Feed.Name ?? "");
+                capabilitiesKey.SetValue(RegValueAppDescription, target.Feed.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture) ?? "");
+
+                var suitableIcons = target.Feed.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco && icon.Location != null);
+                if (!suitableIcons.IsEmpty)
+                    capabilitiesKey.SetValue(RegValueAppIcon, IconProvider.GetIcon(suitableIcons.First, true, handler) + ",0");
+
+                using (var fileAssocsKey = capabilitiesKey.CreateSubKey(RegSubKeyFileAssocs))
+                {
+                    foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(verbCapabilities))
+                    {
+                        foreach (var extension in fileType.Extensions)
+                        {
+                            if (!string.IsNullOrEmpty(extension.Value) && !string.IsNullOrEmpty(fileType.ID))
+                                fileAssocsKey.SetValue(extension.Value, fileType.ID);
+                        }
+                    }
+                }
+
+                using (var urlAssocsKey = capabilitiesKey.CreateSubKey(RegSubKeyUrlAssocs))
+                {
+                    foreach (var urlProtocol in EnumerableUtils.OfType<Capabilities.UrlProtocol>(verbCapabilities))
+                    {
+                        foreach (var prefix in urlProtocol.KnownPrefixes)
+                            urlAssocsKey.SetValue(prefix.Value, urlProtocol.ID);
+                    }
+                }
+
+                using (var startMenuKey = capabilitiesKey.CreateSubKey(RegSubKeyStartMenu))
+                {
+                    foreach (var defaultProgram in EnumerableUtils.OfType<Capabilities.DefaultProgram>(verbCapabilities))
+                    {
+                        if (!string.IsNullOrEmpty(defaultProgram.ID) && !string.IsNullOrEmpty(defaultProgram.Service))
+                            startMenuKey.SetValue(defaultProgram.Service, defaultProgram.ID);
+                    }
+                }
+            }
         }
         #endregion
 
@@ -85,11 +135,15 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="appRegistration">The registration information to be removed.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="appRegistration"/>.</exception>
         public static void Remove(Capabilities.AppRegistration appRegistration)
         {
             #region Sanity checks
             if (appRegistration == null) throw new ArgumentNullException("appRegistration");
             #endregion
+
+            if (string.IsNullOrEmpty(appRegistration.ID)) throw new InvalidDataException("Missing ID");
+            if (string.IsNullOrEmpty(appRegistration.CapabilityRegPath)) throw new InvalidDataException("Invalid CapabilityRegPath");
 
             // ToDo: Implement
         }

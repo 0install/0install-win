@@ -152,6 +152,7 @@ namespace ZeroInstall.Commands
         {
             foreach (var appEntry in appList.Entries)
             {
+                if (appEntry.AccessPoints == null) continue;
                 foreach (var appAlias in EnumerableUtils.OfType<AppAlias>(appEntry.AccessPoints.Entries))
                 {
                     if (appAlias.Name == aliasName)

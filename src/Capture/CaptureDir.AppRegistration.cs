@@ -112,6 +112,7 @@ namespace ZeroInstall.Capture
             {
                 if (urlAssocKey == null) return;
 
+                // ToDo: Fold multiple prefixes pointing to one protocol together
                 foreach (string protocol in urlAssocKey.GetValueNames())
                 {
                     string progID = urlAssocKey.GetValue(protocol, "").ToString();
@@ -123,7 +124,7 @@ namespace ZeroInstall.Capture
                         {
                             ID = progID,
                             Description = progIDKey.GetValue("", "").ToString(),
-                            Prefix = protocol
+                            KnownPrefixes = {new KnownProtocolPrefix {Value = protocol}}
                         };
 
                         capability.Verbs.AddAll(GetVerbs(progIDKey, commandProvider));

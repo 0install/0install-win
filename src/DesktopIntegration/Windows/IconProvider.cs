@@ -32,7 +32,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
     public static class IconProvider
     {
         /// <summary>
-        /// Retreives an icon via the <see cref="IIconCache"/> and stores a permanent copy of it.
+        /// Retreives a Windows icon via the <see cref="IIconCache"/> and stores a permanent copy of it.
         /// </summary>
         /// <param name="icon">The icon to retreive.</param>
         /// <param name="systemWide">Apply the configuration system-wide instead of just for the current user.</param>
@@ -49,7 +49,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             #endregion
 
             string iconDirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "icons");
-            string iconFilePath = Path.Combine(iconDirPath, ModelUtils.HashID(icon.Location.ToString()));
+            string iconFilePath = Path.Combine(iconDirPath, ModelUtils.HashID(icon.Location.ToString()) + ".ico");
 
             // Return an existing icon or get a new one from the cache
             if (!File.Exists(iconFilePath))

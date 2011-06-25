@@ -75,7 +75,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         }
         #endregion
 
-
         //--------------------//
 
         #region Conversion
