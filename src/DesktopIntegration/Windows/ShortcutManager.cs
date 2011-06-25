@@ -16,7 +16,11 @@
  */
 
 //using System;
+//using System.Globalization;
+//using Common.Tasks;
+//using Common.Utils;
 //using IWshRuntimeLibrary;
+//using ZeroInstall.Model;
 
 //namespace ZeroInstall.DesktopIntegration.Windows
 //{
@@ -32,19 +36,29 @@
 //        /// </summary>
 //        /// <param name="path">The location to place the shorcut at.</param>
 //        /// <param name="target">The target the shortcut shall point to.</param>
-//        /// <param name="icon">The path of the icon for the shortcut; may be <see langword="null"/>.</param>
-//        /// <param name="description">The shortcut description text; may be <see langword="null"/>.</param>
-//        public static void CreateShortcut(string path, string target, string icon, string description)
+//        /// <param name="command"></param>
+//        /// <param name="systemWide"></param>
+//        /// <param name="handler"></param>
+//        public static void CreateShortcut(string path, InterfaceFeed target, string command, bool systemWide, ITaskHandler handler)
 //        {
 //            #region Sanity checks
 //            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-//            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
 //            #endregion
 
-//            var shortcut = (IWshShortcut)_wshShell.CreateShortcut(target);
-//            shortcut.TargetPath = target;
-//            if (description != null) shortcut.Description = description;
-//            if (!string.IsNullOrEmpty(icon)) shortcut.IconLocation = icon;
+//            var shortcut = (IWshShortcut)_wshShell.CreateShortcut(path);
+//            shortcut.TargetPath = target.Feed.NeedsTerminal ? "0install.exe" : "0install-win.exe";
+
+//            string arguments = "run ";
+//            if (!string.IsNullOrEmpty(command)) arguments += " --command=" + StringUtils.EscapeWhitespace(command);
+//            arguments += " " + target.InterfaceID;
+//            shortcut.Arguments = arguments;
+
+//            string description = target.Feed.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture);
+//            if (!string.IsNullOrEmpty(description)) shortcut.Description = description;
+
+//            var suitableIcons = target.Feed.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco && icon.Location != null);
+//            if (!suitableIcons.IsEmpty) shortcut.IconLocation = IconProvider.GetIcon(suitableIcons.First, systemWide, handler);
+
 //            shortcut.Save();
 //        }
 //    }

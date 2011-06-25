@@ -18,8 +18,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Xml.Serialization;
 using Common.Tasks;
+using Common.Utils;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
@@ -57,7 +59,11 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // ToDo: Implement
+            if (WindowsUtils.IsWindows)
+            {
+                string shorcutPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Programs), Name + ".lnk");
+                //Windows.ShortcutManager.CreateShortcut(shorcutPath, target, Command, systemWide, handler);
+            }
         }
 
         /// <inheritdoc/>

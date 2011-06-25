@@ -29,9 +29,9 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     {
         #region Properties
         /// <summary>
-        /// The name of the <see cref="ZeroInstall.Model.Command"/> to use when launching via this access point.
+        /// The name of the <see cref="ZeroInstall.Model.Command"/> to use when launching via this access point. Leave empty to use default.
         /// </summary>
-        [Description("The name of the Command to use when launching via this access point.")]
+        [Description("The name of the Command to use when launching via this access point. Leave empty to use default.")]
         [XmlAttribute("command")]
         public string Command { get; set; }
         #endregion

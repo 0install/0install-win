@@ -144,8 +144,8 @@ namespace ZeroInstall.DesktopIntegration
             }
             if (icons)
             { // Add icons for main entry point
-                accessPoints.Add(new MenuEntry {Name = appEntry.Name, Command = Command.NameRun});
-                accessPoints.Add(new DesktopIcon {Name = appEntry.Name, Command = Command.NameRun});
+                accessPoints.Add(new MenuEntry {Name = appEntry.Name});
+                accessPoints.Add(new DesktopIcon {Name = appEntry.Name});
             }
             return accessPoints;
         }
