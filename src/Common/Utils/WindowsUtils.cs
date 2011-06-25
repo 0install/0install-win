@@ -126,6 +126,12 @@ namespace Common.Utils
         { get { return Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT; } }
 
         /// <summary>
+        /// <see langword="true"/> if the current operating system is Windows Vista or newer; <see langword="false"/> otherwise.
+        /// </summary>
+        public static bool IsWindowsVista
+        { get { return Environment.OSVersion.Platform == PlatformID.Win32NT && Environment.OSVersion.Version >= new Version(6, 0); } }
+
+        /// <summary>
         /// <see langword="true"/> if the current operating system is Windows 7 or newer; <see langword="false"/> otherwise.
         /// </summary>
         public static bool IsWindows7
