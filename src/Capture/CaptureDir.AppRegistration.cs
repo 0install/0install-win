@@ -157,8 +157,8 @@ namespace ZeroInstall.Capture
 
                 foreach (string extension in fileAssocKey.GetValueNames())
                 {
-                    string progID = fileAssocKey.GetValue(extension, "").ToString();
-                    AddExtensionToFileType(extension, progID, capabilities);
+                    string progID = fileAssocKey.GetValue(extension, "") as string;
+                    if (progID != null) AddExtensionToFileType(extension, progID, capabilities);
                 }
             }
         }

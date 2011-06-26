@@ -73,9 +73,6 @@ namespace ZeroInstall.DesktopIntegration
         {
             #region Sanity checks
             if (syncServer == null) throw new ArgumentNullException("syncServer");
-            if (string.IsNullOrEmpty(username)) throw new ArgumentNullException("username");
-            if (password == null) throw new ArgumentNullException("password");
-            if (cryptoKey == null) throw new ArgumentNullException("cryptoKey");
             #endregion
 
             _syncServer = syncServer;
