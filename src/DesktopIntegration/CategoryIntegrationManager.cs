@@ -52,6 +52,7 @@ namespace ZeroInstall.DesktopIntegration
 
         //--------------------//
 
+        #region Add
         /// <summary>
         /// Applies a category of <see cref="AccessPoint"/>s for an application.
         /// </summary>
@@ -80,12 +81,43 @@ namespace ZeroInstall.DesktopIntegration
             }
             if (appEntry.AccessPoints == null) appEntry.AccessPoints = new AccessPointList();
 
-            AddAccessPoints(target, CategoriesToAccessPoints(appEntry, categories), handler);
+            // Parse categories list
+            bool all = categories.Contains(AllCategoryName);
+            bool capabilities = categories.Contains(CapabilityRegistration.CategoryName) || all;
+            bool defaults = categories.Contains(DefaultAccessPoint.CategoryName) || all;
+            bool icons = categories.Contains(IconAccessPoint.CategoryName) || all;
 
-            if (categories.Contains(IconAccessPoint.CategoryName) || categories.Contains(AllCategoryName))
-                ToggleIconsVisible(appEntry, true);
+            // Build capability list
+            var accessPointsToAdd = new C5.LinkedList<AccessPoint>();
+            if (capabilities) accessPointsToAdd.Add(new CapabilityRegistration());
+            if (defaults)
+            {
+                // Add AccessPoints for all suitable Capabilities
+                foreach (var capabilityList in appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
+                {
+                    foreach (var capability in capabilityList.Entries)
+                    {
+                        if (capability.WindowsSystemWideOnly && !SystemWide && WindowsUtils.IsWindows) continue;
+
+                        DefaultAccessPoint accessPoint = GetDefaultAccessPoint(capability);
+                        if (accessPoint != null) accessPointsToAdd.Add(accessPoint);
+                    }
+                }
+            }
+            if (icons)
+            {
+                // Add icons for main entry point
+                accessPointsToAdd.Add(new DesktopIcon {Name = appEntry.Name});
+                accessPointsToAdd.Add(new MenuEntry {Name = appEntry.Name});
+                // ToDo: Handle additional commands
+            }
+
+            AddAccessPoints(target, accessPointsToAdd, handler);
+            if (icons) ToggleIconsVisible(appEntry, true);
         }
+        #endregion
 
+        #region Remove
         /// <summary>
         /// Removes a category of already applied <see cref="AccessPoint"/>s for an application.
         /// </summary>
@@ -107,56 +139,24 @@ namespace ZeroInstall.DesktopIntegration
             if (appEntry == null) throw new InvalidOperationException(string.Format(Resources.AppNotInList, interfaceID));
             if (appEntry.AccessPoints == null) return;
 
-            RemoveAccessPoints(interfaceID, CategoriesToAccessPoints(appEntry, categories));
-
-            if (categories.Contains(IconAccessPoint.CategoryName) || categories.Contains(AllCategoryName))
-                ToggleIconsVisible(appEntry, false);
-        }
-
-        #region Helpers
-        /// <summary>
-        /// Builds a list of <see cref="AccessPoint"/>s for specified categories.
-        /// </summary>
-        /// <param name="appEntry">The application entry to build <see cref="AccessPoint"/>s for.</param>
-        /// <param name="categories">The <see cref="AccessPoint"/> categories to build <see cref="AccessPoint"/>s for</param>
-        /// <returns>The newly generated lis of <see cref="AccessPoint"/>.</returns>
-        private IEnumerable<AccessPoint> CategoriesToAccessPoints(AppEntry appEntry, ICollection<string> categories)
-        {
-            #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (categories == null) throw new ArgumentNullException("categories");
-            #endregion
-
             // Parse categories list
             bool all = categories.Contains(AllCategoryName);
             bool capabilities = categories.Contains(CapabilityRegistration.CategoryName) || all;
             bool defaults = categories.Contains(DefaultAccessPoint.CategoryName) || all;
             bool icons = categories.Contains(IconAccessPoint.CategoryName) || all;
 
-            ICollection<AccessPoint> accessPoints = new LinkedList<AccessPoint>();
-            
-            if (capabilities) accessPoints.Add(new CapabilityRegistration());
-            if (defaults)
-            { // Add AccessPoints for all suitable Capabilities
-                foreach (var capabilityList in appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
-                {
-                    foreach (var capability in capabilityList.Entries)
-                    {
-                        if (capability.WindowsSystemWideOnly && !SystemWide && WindowsUtils.IsWindows) continue;
+            // Build capability list
+            var accessPointsToRemove = new C5.LinkedList<AccessPoint>();
+            if (capabilities) accessPointsToRemove.AddAll(EnumerableUtils.OfType<CapabilityRegistration>(appEntry.AccessPoints.Entries));
+            if (defaults) accessPointsToRemove.AddAll(EnumerableUtils.OfType<DefaultAccessPoint>(appEntry.AccessPoints.Entries));
+            if (icons) accessPointsToRemove.AddAll(EnumerableUtils.OfType<IconAccessPoint>(appEntry.AccessPoints.Entries));
 
-                        DefaultAccessPoint accessPoint = GetDefaultAccessPoint(capability);
-                        if (accessPoint != null) accessPoints.Add(accessPoint);
-                    }
-                }
-            }
-            if (icons)
-            { // Add icons for main entry point
-                accessPoints.Add(new MenuEntry {Name = appEntry.Name});
-                accessPoints.Add(new DesktopIcon {Name = appEntry.Name});
-            }
-            return accessPoints;
+            RemoveAccessPoints(interfaceID, accessPointsToRemove);
+            if (icons) ToggleIconsVisible(appEntry, false);
         }
+        #endregion
 
+        #region Helpers
         /// <summary>
         /// Creates a <see cref="DefaultAccessPoint"/> referencing a specific <see cref="Capability"/>.
         /// </summary>
