@@ -109,7 +109,7 @@ namespace Common.Utils
 
             #region Window messages
             [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-            public static extern IntPtr SendMessageTimeout(IntPtr windowHandle, uint msg, UIntPtr wParam, string lParam, uint flags, uint timeout);
+            public static extern IntPtr SendMessageTimeout(IntPtr windowHandle, uint msg, UIntPtr wParam, string lParam, uint flags, uint timeout, out UIntPtr lpdwResult);
             #endregion
 
             #region Shell
@@ -370,7 +370,8 @@ namespace Common.Utils
             var HWND_BROADCAST = new IntPtr(0xFFFF);
             const uint WM_SETTINGCHANGE = 0x001A;
             const uint SMTO_ABORTIFHUNG = 0x0002;
-            UnsafeNativeMethods.SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, UIntPtr.Zero, "Environment", SMTO_ABORTIFHUNG, 10000);
+            UIntPtr result;
+            UnsafeNativeMethods.SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, UIntPtr.Zero, "Environment", SMTO_ABORTIFHUNG, 10000, out result);
         }
         #endregion
 

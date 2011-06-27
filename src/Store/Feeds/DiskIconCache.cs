@@ -107,7 +107,8 @@ namespace ZeroInstall.Store.Feeds
             string path = Path.Combine(DirectoryPath, ModelUtils.Escape(iconUrl.ToString()));
 
             // Download missing or outdated icons
-            if (!File.Exists(path) || (DateTime.UtcNow - File.GetLastWriteTimeUtc(path)) > new TimeSpan(7, 0, 0, 0))
+            var age = DateTime.UtcNow - File.GetCreationTimeUtc(path);
+            if (!File.Exists(path) || age > new TimeSpan(7, 0, 0, 0))
             {
                 try
                 {

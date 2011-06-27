@@ -21,6 +21,7 @@
  */
 
 using System.IO;
+using ICSharpCode.SharpZipLib.Zip;
 using NUnit.Framework;
 
 namespace Common.Storage
@@ -76,6 +77,21 @@ namespace Common.Storage
 
             // Ensure data stayed the same
             Assert.AreEqual(testData1.Data, testData2.Data);
+        }
+
+        /// <summary>
+        /// Ensures <see cref="XmlStorage.FromZip{T}(Stream,string,System.Collections.Generic.IEnumerable{Common.Storage.EmbeddedFile},System.Reflection.MemberInfo[])"/> correctly detects incorrect passwords.
+        /// </summary>
+        [Test]
+        public void TestIncorrectPassword()
+        {
+            using (var tempStream = new MemoryStream())
+            {
+                var testData = new TestData {Data = "Hello"};
+                XmlStorage.ToZip(tempStream, testData, "Correct password", new EmbeddedFile[0]);
+                tempStream.Seek(0, SeekOrigin.Begin);
+                Assert.Throws<ZipException>(() => XmlStorage.FromZip<TestData>(tempStream, "Wront password", new EmbeddedFile[0]));
+            }
         }
 
         /// <summary>
