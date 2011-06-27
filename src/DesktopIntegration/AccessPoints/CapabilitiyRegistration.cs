@@ -52,10 +52,9 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             var idList = new LinkedList<string>();
             foreach (var capabilityList in appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
-            {
                 foreach (var capability in capabilityList.Entries)
-                    idList.AddLast("capability:" + capability.ConflictIDs);
-            }
+                    foreach (var conflictID in capability.ConflictIDs)
+                        idList.AddLast("capability:" + conflictID);
             return idList;
         }
         #endregion
