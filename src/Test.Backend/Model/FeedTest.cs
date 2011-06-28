@@ -202,7 +202,7 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Ensures that <see cref="Feed.GetImplementation(string)"/> correctly finds contained <see cref="Implementation"/>s.
+        /// Ensures that <see cref="Feed.GetImplementation(string)"/> correctly identifies contained <see cref="Implementation"/>s.
         /// </summary>
         [Test]
         public void TestGetImplementationString()
@@ -214,7 +214,7 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Ensures that <see cref="Feed.GetImplementation(ManifestDigest)"/> correctly finds contained <see cref="Implementation"/>s.
+        /// Ensures that <see cref="Feed.GetImplementation(ManifestDigest)"/> correctly identifies contained <see cref="Implementation"/>s.
         /// </summary>
         [Test]
         public void TestGetImplementationDigest()
@@ -223,6 +223,18 @@ namespace ZeroInstall.Model
 
             Assert.AreEqual(CreateTestImplementation(), feed.GetImplementation(new ManifestDigest("sha256=123")));
             Assert.IsNull(feed.GetImplementation(new ManifestDigest("sha256=456")));
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="Feed.GetEntryPoint"/> correctly identifies contained <see cref="EntryPoint"/>s.
+        /// </summary>
+        [Test]
+        public void TestGetEntryPoint()
+        {
+            var feed = CreateTestFeed();
+
+            Assert.AreEqual(CreateTestFeed().EntryPoints[0], feed.GetEntryPoint(Command.NameRun));
+            Assert.IsNull(feed.GetEntryPoint("unknown"));
         }
     }
 }
