@@ -67,7 +67,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             if (urlProtocol.KnownPrefixes.IsEmpty)
             {
-                // Can only be registered invasively (will replace existing and become default)
+                // Can only be registered invasively by registering protocol ProgID (will replace existing and become default)
                 if (setDefault)
                 {
                     using (var progIDKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + urlProtocol.ID))
@@ -78,7 +78,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             {
                 foreach (var prefix in urlProtocol.KnownPrefixes)
                 {
-                    // Can be registered non-invasively (without becoming default)
+                    // Can be registered non-invasively by registering custom ProgID (without becoming default)
                     using (var progIDKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + urlProtocol.ID))
                         FileType.RegisterVerbCapability(progIDKey, target, urlProtocol, systemWide, ModelUtils.Escape(target.Feed.Name), handler);
 
@@ -91,7 +91,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         }
                         else
                         {
-                            // Setting default invasively
+                            // Setting default invasively by registering protocol ProgID
                             using (var progIDKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + prefix.Value))
                                 FileType.RegisterVerbCapability(progIDKey, target, urlProtocol, systemWide, ModelUtils.Escape(target.Feed.Name), handler);
                         }

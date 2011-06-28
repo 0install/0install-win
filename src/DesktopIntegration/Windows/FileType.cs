@@ -52,6 +52,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         /// <summary>The registry subkey containing "open with" ProgID references.</summary>
         public const string RegSubKeyOpenWith = "OpenWithProgIDs";
+
+        /// <summary>The registry subkey below <see cref="RegKeyClasses"/> that contains MIME type to extension mapping.</summary>
+        public const string RegSubKeyMimeType = @"MIME\Database\Content Type";
+
+        /// <summary>The registry value name for a MIME type extension association.</summary>
+        public const string RegValueExtension = "Extension";
         #endregion
 
         #region Register
@@ -79,6 +85,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
 
+            // Register ProgID
             using (var progIDKey = hive.CreateSubKey(RegKeyClasses + @"\" + fileType.ID))
                 RegisterVerbCapability(progIDKey, target, fileType, systemWide, ModelUtils.Escape(target.Feed.Name), handler);
 
@@ -88,15 +95,23 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 {
                     if (string.IsNullOrEmpty(extension.Value)) continue;
 
+                    // Register extensions
                     using (var extensionKey = classesKey.CreateSubKey(extension.Value))
                     {
-                        if (extension.MimeType != null) extensionKey.SetValue(RegValueContentType, extension.MimeType);
-                        if (extension.PerceivedType != null) extensionKey.SetValue(RegValuePerceivedType, extension.PerceivedType);
+                        if (!string.IsNullOrEmpty(extension.MimeType)) extensionKey.SetValue(RegValueContentType, extension.MimeType);
+                        if (!string.IsNullOrEmpty(extension.PerceivedType)) extensionKey.SetValue(RegValuePerceivedType, extension.PerceivedType);
 
                         using (var openWithKey = extensionKey.CreateSubKey(RegSubKeyOpenWith))
                             openWithKey.SetValue(fileType.ID, "");
 
-                        if(setDefault) extensionKey.SetValue("", fileType.ID);
+                        if (setDefault) extensionKey.SetValue("", fileType.ID);
+                    }
+
+                    // Register MIME types
+                    if (!string.IsNullOrEmpty(extension.MimeType))
+                    {
+                        using (var mimeKey = classesKey.CreateSubKey(RegSubKeyMimeType + @"\" + extension.MimeType))
+                            mimeKey.SetValue(RegValueExtension, extension.Value);
                     }
                 }
             }

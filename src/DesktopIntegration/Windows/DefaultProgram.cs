@@ -88,6 +88,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     // Note: Use ID as EXE name because they have to match for browsers (see: http://msdn.microsoft.com/en-us/library/cc144109)
                     FileType.RegisterVerbCapability(appKey, target, defaultProgram, true, ModelUtils.Escape(defaultProgram.ID.Replace(".exe", "")), handler);
 
+                    // Set callbacks for Windows SPAD
                     using (var installInfoKey = appKey.CreateSubKey(RegSubKeyInstallInfo))
                     {
                         string exePath = StringUtils.EscapeWhitespace(Path.Combine(Locations.InstallBase, "0install-win.exe"));
