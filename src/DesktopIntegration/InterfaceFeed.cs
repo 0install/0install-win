@@ -30,7 +30,7 @@ namespace ZeroInstall.DesktopIntegration
         public readonly string InterfaceID;
 
         /// <summary>
-        /// The data aquired from <see cref="InterfaceID"/>.
+        /// The data aquired from <see cref="InterfaceID"/>. <see cref="Model.Feed.Simplify"/> has already been called.
         /// </summary>
         public readonly Feed Feed;
 
