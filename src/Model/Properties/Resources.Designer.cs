@@ -142,6 +142,15 @@ namespace ZeroInstall.Model.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No suitable icon was found..
+        /// </summary>
+        internal static string NoSuitableIconFound {
+            get {
+                return ResourceManager.GetString("NoSuitableIconFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The modifier is unknown..
         /// </summary>
         internal static string UnknownModifier {

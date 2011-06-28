@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -23,6 +24,7 @@ using System.Xml.Serialization;
 using Common.Collections;
 using Common.Storage;
 using ZeroInstall.Model.Capabilities;
+using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model
 {
@@ -281,9 +283,42 @@ namespace ZeroInstall.Model
         /// <returns>The identified <see cref="EntryPoint"/> or <see langword="null"/> no matching one was found.</returns>
         public EntryPoint GetEntryPoint(string command)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(command)) throw new ArgumentNullException("command");
+            #endregion
+
             EntryPoint foundEntryPoint;
             EntryPoints.Find(entryPoint => entryPoint.Command == command, out foundEntryPoint);
             return foundEntryPoint;
+        }
+
+        /// <summary>
+        /// Returns the best matching icon for a specific <see cref="Command"/>/<see cref="EntryPoint"/>.
+        /// </summary>
+        /// <param name="mimeType">The <see cref="Icon.MimeType"/> to try to find. Will only return exact matches.</param>
+        /// <param name="command">The name of the command the icon should represent; may be <see langword="null"/>.</param>
+        /// <returns>The best matching icon that was found.</returns>
+        /// <exception cref="KeyNotFoundException">Thrown if no matching icon was found.</exception>
+        public Icon GetIcon(string mimeType, string command)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
+            #endregion
+
+            if (!string.IsNullOrEmpty(command))
+            {
+                var entryPoint = GetEntryPoint(command);
+                if (entryPoint != null)
+                {
+                    var suitableCommandIcons = entryPoint.Icons.FindAll(icon => icon.MimeType == mimeType && icon.Location != null);
+                    if (!suitableCommandIcons.IsEmpty) return suitableCommandIcons.First;
+                }
+            }
+
+            var suitableFeedIcons = Icons.FindAll(icon => icon.MimeType == mimeType && icon.Location != null);
+            if (!suitableFeedIcons.IsEmpty) return suitableFeedIcons.First;
+
+            throw new KeyNotFoundException(Resources.NoSuitableIconFound);
         }
         #endregion
 
