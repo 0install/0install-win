@@ -20,11 +20,9 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
-using Common;
 using Common.Collections;
 using Common.Storage;
 using ZeroInstall.Model.Capabilities;
-using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model
 {
@@ -195,6 +193,16 @@ namespace ZeroInstall.Model
         [XmlElement("capabilities", Namespace = Capability.XmlNamespace)]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.LinkedList<CapabilityList> CapabilityLists { get { return _capabilityLists; } }
+
+        // Preserve order
+        private readonly C5.LinkedList<EntryPoint> _entryPoints = new C5.LinkedList<EntryPoint>();
+        /// <summary>
+        /// A list of <see cref="EntryPoint"/>s for starting this interface.
+        /// </summary>
+        [Category("Implementation"), Description("A list of EntryPoints for starting this interface.")]
+        [XmlElement("entry-point")]
+        // Note: Can not use ICollection<T> interface because of XML Serialization
+        public C5.LinkedList<EntryPoint> EntryPoints { get { return _entryPoints; } }
         #endregion
 
         //--------------------//

@@ -47,7 +47,14 @@ namespace ZeroInstall.Model
                 Descriptions = {"Default descriptions", {"German descriptions", new CultureInfo("de-DE")}},
                 Icons = {new Icon(new Uri("http://0install.de/images/test/icon.png"), Icon.MimeTypePng)},
                 Elements = {CreateTestImplementation(), CreateTestPackageImplementation(), CreateTestGroup()},
-                CapabilityLists = {CapabilityListTest.CreateTestCapabilityList()}
+                CapabilityLists = {CapabilityListTest.CreateTestCapabilityList()},
+                EntryPoints = {new EntryPoint
+                {
+                    Command = Command.NameRun,
+                    Names = {"Default name", {"German name", new CultureInfo("de-DE")}},
+                    Descriptions = {"Default descriptions", {"German descriptions", new CultureInfo("de-DE")}},
+                    Icons = {new Icon(new Uri("http://0install.de/images/test/icon.ico"), Icon.MimeTypeIco)}
+                }}
             };
         }
 
