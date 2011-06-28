@@ -87,7 +87,7 @@ namespace Common.Net
         {
             try
             {
-                string prefix = "http://localhost:" + _port + "/";
+                string prefix = "http://localhost:" + _port++ + "/";
                 _listener = new HttpListener();
                 _listener.Prefixes.Add(prefix);
                 _listener.Start();
@@ -99,8 +99,7 @@ namespace Common.Net
                 // Prevent endless looping
                 if (_port > MaxmimumPort) throw;
 
-                // Try a higher port number
-                _port++;
+                // Try again with a higher port number
                 return StartListening();
             }
             catch (SocketException)
@@ -108,8 +107,7 @@ namespace Common.Net
                 // Prevent endless looping
                 if (_port > MaxmimumPort) throw;
 
-                // Try a higher port number
-                _port++;
+                // Try again with a higher port number
                 return StartListening();
             }
             #endregion
