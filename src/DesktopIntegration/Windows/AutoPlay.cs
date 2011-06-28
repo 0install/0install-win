@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using Common;
@@ -92,11 +93,13 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 handlerKey.SetValue(RegValueProvider, autoPlay.Provider);
                 handlerKey.SetValue(RegValueDescription, autoPlay.Description);
 
-                // Find the first suitable icon specified by the capability, then fall back to the feed
-                var suitableIcons = autoPlay.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco);
-                if (suitableIcons.IsEmpty) suitableIcons = target.Feed.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco && icon.Location != null);
-                if (!suitableIcons.IsEmpty)
-                    handlerKey.SetValue(RegValueIcon, IconProvider.GetIcon(suitableIcons.First, systemWide, handler) + ",0");
+                // Set icon if available
+                try
+                {
+                    var icon = FileType.GetBestIcon(target.Feed, autoPlay);
+                    handlerKey.SetValue(RegValueIcon, IconProvider.GetIconPath(icon, systemWide, handler) + ",0");
+                }
+                catch (KeyNotFoundException) {}
             }
 
             foreach (var autoPlayEvent in autoPlay.Events)

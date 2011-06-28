@@ -16,12 +16,14 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using Common;
 using Common.Tasks;
 using Microsoft.Win32;
 using ZeroInstall.Model;
+using ZeroInstall.Model.Capabilities;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -141,18 +143,18 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(capability.ID)) throw new InvalidDataException("Missing ID");
 
             if (capability.Description != null) registryKey.SetValue("", capability.Description);
-
             if (capability is Capabilities.UrlProtocol) registryKey.SetValue(UrlProtocol.ProtocolIndicator, "");
 
-            // Find the first suitable icon specified by the capability, then fall back to the feed
-            var suitableIcons = capability.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco);
-            if (suitableIcons.IsEmpty) suitableIcons = target.Feed.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco && icon.Location != null);
-            if (!suitableIcons.IsEmpty)
+            // Set icon if available
+            try
             {
+                var icon = GetBestIcon(target.Feed, capability);
                 using (var iconKey = registryKey.CreateSubKey(RegSubKeyIcon))
-                    iconKey.SetValue("", IconProvider.GetIcon(suitableIcons.First, systemWide, handler) + ",0");
+                    iconKey.SetValue("", IconProvider.GetIconPath(icon, systemWide, handler) + ",0");
             }
+            catch (KeyNotFoundException) {}
 
+            // Write verb command information
             using (var shellKey = registryKey.CreateSubKey("shell"))
             {
                 foreach (var verb in capability.Verbs)
@@ -167,21 +169,6 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Generates a command-line string for launching a <see cref="Capabilities.Verb"/>.
-        /// </summary>
-        /// <param name="target">The application being integrated.</param>
-        /// <param name="verb">The verb to get to launch command for.</param>
-        /// <param name="systemWide">Store the stub in a system-wide directory instead of just for the current user.</param>
-        /// <param name="exeName">The name any generated stub EXEs should have without the file ending (e.g. "MyApplication").</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        internal static string GetLaunchCommandLine(InterfaceFeed target, Capabilities.Verb verb, bool systemWide, string exeName, ITaskHandler handler)
-        {
-            string launchCommand = "\"" + StubProvider.GetRunStub(target, verb.Command, systemWide, exeName, handler) + "\"";
-            if (!string.IsNullOrEmpty(verb.Arguments)) launchCommand += " " + verb.Arguments;
-            return launchCommand;
         }
         #endregion
 
@@ -203,6 +190,33 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(fileType.ID)) throw new InvalidDataException("Missing ID");
 
             // ToDo: Implement
+        }
+        #endregion
+
+        #region Helpers
+        /// <summary>
+        /// Tries to find the first suitable icon specified by the capability, then fall back to the feed
+        /// </summary>
+        /// <exception cref="KeyNotFoundException">Thrown if no suitable icon was found.</exception>
+        internal static Icon GetBestIcon(Feed feed, IconCapability capability)
+        {
+            try { return capability.GetIcon(Icon.MimeTypeIco); }
+            catch (KeyNotFoundException) { return feed.GetIcon(Icon.MimeTypeIco, null); }
+        }
+
+        /// <summary>
+        /// Generates a command-line string for launching a <see cref="Capabilities.Verb"/>.
+        /// </summary>
+        /// <param name="target">The application being integrated.</param>
+        /// <param name="verb">The verb to get to launch command for.</param>
+        /// <param name="systemWide">Store the stub in a system-wide directory instead of just for the current user.</param>
+        /// <param name="exeName">The name any generated stub EXEs should have without the file ending (e.g. "MyApplication").</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        internal static string GetLaunchCommandLine(InterfaceFeed target, Capabilities.Verb verb, bool systemWide, string exeName, ITaskHandler handler)
+        {
+            string launchCommand = "\"" + StubProvider.GetRunStub(target, verb.Command, systemWide, exeName, handler) + "\"";
+            if (!string.IsNullOrEmpty(verb.Arguments)) launchCommand += " " + verb.Arguments;
+            return launchCommand;
         }
         #endregion
     }
