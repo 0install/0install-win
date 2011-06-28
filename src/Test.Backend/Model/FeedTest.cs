@@ -45,7 +45,7 @@ namespace ZeroInstall.Model
                 FeedFor = {new InterfaceReference {Target = new Uri("http://0install.de/feeds/test/super1.xml")}},
                 Summaries = {"Default summary", {"German summary", new CultureInfo("de-DE")}},
                 Descriptions = {"Default descriptions", {"German descriptions", new CultureInfo("de-DE")}},
-                Icons = {new Icon(new Uri("http://0install.de/images/test/icon.png"), Icon.MimeTypePng)},
+                Icons = {new Icon(new Uri("http://0install.de/feeds/images/test.png"), Icon.MimeTypePng), new Icon(new Uri("http://0install.de/feeds/images/test.ico"), Icon.MimeTypeIco)},
                 Elements = {CreateTestImplementation(), CreateTestPackageImplementation(), CreateTestGroup()},
                 CapabilityLists = {CapabilityListTest.CreateTestCapabilityList()},
                 EntryPoints = {new EntryPoint
@@ -53,7 +53,7 @@ namespace ZeroInstall.Model
                     Command = Command.NameRun,
                     Names = {"Default name", {"German name", new CultureInfo("de-DE")}},
                     Descriptions = {"Default descriptions", {"German descriptions", new CultureInfo("de-DE")}},
-                    Icons = {new Icon(new Uri("http://0install.de/images/test/icon.ico"), Icon.MimeTypeIco)}
+                    Icons = {new Icon(new Uri("http://0install.de/feeds/images/test_command.png"), Icon.MimeTypePng), new Icon(new Uri("http://0install.de/feeds/images/test_command.ico"), Icon.MimeTypeIco)}
                 }}
             };
         }
@@ -235,6 +235,21 @@ namespace ZeroInstall.Model
 
             Assert.AreEqual(CreateTestFeed().EntryPoints[0], feed.GetEntryPoint(Command.NameRun));
             Assert.IsNull(feed.GetEntryPoint("unknown"));
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="Feed.GetIcon"/> correctly finds best matching <see cref="Icon"/>s for <see cref="Command"/>s.
+        /// </summary>
+        [Test]
+        public void TestGetIcon()
+        {
+            var feed = CreateTestFeed();
+
+            var feedIcon = new Icon(new Uri("http://0install.de/feeds/images/test.ico"), Icon.MimeTypeIco);
+            var commandIcon = new Icon(new Uri("http://0install.de/feeds/images/test_command.ico"), Icon.MimeTypeIco);
+
+            Assert.AreEqual(commandIcon, feed.GetIcon(Icon.MimeTypeIco, Command.NameRun));
+            Assert.AreEqual(feedIcon, feed.GetIcon(Icon.MimeTypeIco, "unknown"));
         }
     }
 }
