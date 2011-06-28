@@ -257,7 +257,7 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Returns the <see cref="Implementation"/> with a specific <see cref="ManifestDigest"/>.
+        /// Returns the first <see cref="Implementation"/> with a specific <see cref="ManifestDigest"/>.
         /// </summary>
         /// <param name="digest">The <see cref="ManifestDigest"/> to look for.</param>
         /// <returns>The identified <see cref="Implementation"/> or <see langword="null"/> no matching one was found.</returns>
@@ -272,6 +272,18 @@ namespace ZeroInstall.Model
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Returns the first <see cref="EntryPoint"/> referencing a specific <see cref="Command"/>.
+        /// </summary>
+        /// <param name="command">The command name to search for.</param>
+        /// <returns>The identified <see cref="EntryPoint"/> or <see langword="null"/> no matching one was found.</returns>
+        public EntryPoint GetEntryPoint(string command)
+        {
+            EntryPoint foundEntryPoint;
+            EntryPoints.Find(entryPoint => entryPoint.Command == command, out foundEntryPoint);
+            return foundEntryPoint;
         }
         #endregion
 
