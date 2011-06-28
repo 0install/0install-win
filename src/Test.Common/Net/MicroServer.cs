@@ -43,6 +43,9 @@ namespace Common.Net
         #endregion
 
         #region Variables
+        /// <summary>A global port counter used to make sure no two instances of the server are listening on the same port.</summary>
+        private static int _port = MinimumPort;
+
         private HttpListener _listener;
         private readonly Thread _listenerThread;
         private readonly Stream _fileContent;
@@ -71,44 +74,43 @@ namespace Common.Net
         {
             _fileContent = fileContent;
 
-            StartListening(MinimumPort);
+            FileUri = new Uri(StartListening() + "file");
 
             _listenerThread = new Thread(Listen);
             _listenerThread.Start();
         }
 
         /// <summary>
-        /// Starts listening on a port.
+        /// Starts listening and returns the URL prefix under which the content is reachable.
         /// </summary>
-        /// <param name="port">The port to listen on. Will be automatically incremented if already in use.</param>
-        private void StartListening(int port)
+        private string StartListening()
         {
             try
             {
-                // Determine URL to listen for
-                string prefix = "http://localhost:" + port + "/";
+                string prefix = "http://localhost:" + _port + "/";
                 _listener = new HttpListener();
                 _listener.Prefixes.Add(prefix);
-                FileUri = new Uri(prefix + "file");
-
                 _listener.Start();
+                return prefix;
             }
             #region Error handling
             catch (HttpListenerException)
             {
                 // Prevent endless looping
-                if (port > MaxmimumPort) throw;
+                if (_port > MaxmimumPort) throw;
 
                 // Try a higher port number
-                StartListening(port + 1);
+                _port++;
+                return StartListening();
             }
             catch (SocketException)
             {
                 // Prevent endless looping
-                if (port > MaxmimumPort) throw;
+                if (_port > MaxmimumPort) throw;
 
                 // Try a higher port number
-                StartListening(port + 1);
+                _port++;
+                return StartListening();
             }
             #endregion
         }
