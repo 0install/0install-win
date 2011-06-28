@@ -25,7 +25,7 @@ namespace ZeroInstall.Model.Capabilities
     /// Abstract base class for capabilities that can have multiple <see cref="Verb"/>s associated with them.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
-    public abstract class VerbCapability : Capability
+    public abstract class VerbCapability : IconCapability
     {
         #region Properties
         /// <summary>
@@ -34,17 +34,6 @@ namespace ZeroInstall.Model.Capabilities
         [Description("A human-readable description.")]
         [XmlAttribute("description"), DefaultValue("")]
         public string Description { get; set; }
-
-        // Preserve order
-        private readonly C5.LinkedList<Icon> _icons = new C5.LinkedList<Icon>();
-        /// <summary>
-        /// Zero or more icons to represent the element or the application.
-        /// </summary>
-        /// <remarks>The first compatible icon is selected. If empty <see cref="Feed.Icons"/> is used.</remarks>
-        [Description("Zero or more icons to represent the element or the application. (The first compatible icon is selected. If empty the main feed icon is used.)")]
-        [XmlElement("icon", Namespace = Feed.XmlNamespace)]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.LinkedList<Icon> Icons { get { return _icons; } }
 
         // Preserve order
         private readonly C5.LinkedList<Verb> _verbs = new C5.LinkedList<Verb>();
@@ -65,15 +54,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (other == null) return false;
 
-            return base.Equals(other) && other.Description == Description && Icons.SequencedEquals(other.Icons) && Verbs.SequencedEquals(other.Verbs);
-        }
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(UrlProtocol) && Equals((UrlProtocol)obj);
+            return base.Equals(other) && other.Description == Description && Verbs.SequencedEquals(other.Verbs);
         }
 
         /// <inheritdoc/>
@@ -83,7 +64,6 @@ namespace ZeroInstall.Model.Capabilities
             {
                 int result = base.GetHashCode();
                 result = (result * 397) ^ (Description ?? "").GetHashCode();
-                result = (result * 397) ^ Icons.GetSequencedHashCode();
                 result = (result * 397) ^ Verbs.GetSequencedHashCode();
                 return result;
             }

@@ -61,6 +61,7 @@
     <Compile Include="Capabilities\FileType.cs" />
     <Compile Include="Capabilities\AutoPlay.cs" />
     <Compile Include="Capabilities\FileTypeExtension.cs" />
+    <Compile Include="Capabilities\IconCapability.cs" />
     <Compile Include="Capabilities\InstallCommands.cs" />
     <Compile Include="Capabilities\KnownProtocolPrefix.cs" />
     <Compile Include="Capabilities\Verb.cs" />

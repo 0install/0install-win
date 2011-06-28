@@ -29,7 +29,7 @@ namespace ZeroInstall.Model.Capabilities
     /// <remarks>A <see cref="FileType"/> is used for actually executing the application.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [XmlType("auto-play", Namespace = XmlNamespace)]
-    public class AutoPlay : Capability, IEquatable<AutoPlay>
+    public class AutoPlay : IconCapability, IEquatable<AutoPlay>
     {
         #region Properties
         /// <inheritdoc/>
@@ -49,17 +49,6 @@ namespace ZeroInstall.Model.Capabilities
         [Description("A human-readable description of the AutoPlay operation.")]
         [XmlAttribute("description")]
         public string Description { get; set; }
-
-        // Preserve order
-        private readonly C5.LinkedList<Icon> _icons = new C5.LinkedList<Icon>();
-        /// <summary>
-        /// Zero or more icons to represent the AutoPlay operation.
-        /// </summary>
-        /// <remarks>The first compatible icon is selected. If empty <see cref="Feed.Icons"/> is used.</remarks>
-        [Description("Zero or more icons to represent the element or the application. (The first compatible icon is selected. If empty the main feed icon is used.)")]
-        [XmlElement("icon", Namespace = Feed.XmlNamespace)]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.LinkedList<Icon> Icons { get { return _icons; } }
 
         /// <summary>
         /// The programatic identifier used to store the <see cref="Verb"/>.
@@ -124,7 +113,7 @@ namespace ZeroInstall.Model.Capabilities
 
             return base.Equals(other) &&
                 other.Description == Description && other.Provider == Provider && other.ProgID == ProgID && other.Verb == Verb &&
-                Icons.SequencedEquals(other.Icons) && Events.SequencedEquals(other.Events);
+                Events.SequencedEquals(other.Events);
         }
 
         /// <inheritdoc/>
@@ -146,7 +135,6 @@ namespace ZeroInstall.Model.Capabilities
                 result = (result * 397) ^ (Provider ?? "").GetHashCode();
                 result = (result * 397) ^ (ProgID ?? "").GetHashCode();
                 result = (result * 397) ^ Verb.GetHashCode();
-                result = (result * 397) ^ Icons.GetSequencedHashCode();
                 result = (result * 397) ^ Events.GetSequencedHashCode();
                 return result;
             }
