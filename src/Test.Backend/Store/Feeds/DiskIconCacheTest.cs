@@ -97,25 +97,6 @@ namespace ZeroInstall.Store.Feeds
         }
 
         /// <summary>
-        /// Ensures <see cref="DiskIconCache.GetIcon"/> updates outdated files in the cache.
-        /// </summary>
-        [Test]
-        public void TestGetIconDownloadOutdated()
-        {
-            const string iconData = "test";
-            using (var server = new MicroServer(StreamUtils.CreateFromString(iconData)))
-            {
-                // Write a file to the cache directoy but mark it as outdated
-                string prePath = Path.Combine(_tempDir.Path, ModelUtils.Escape(server.FileUri.ToString()));
-                File.WriteAllText(prePath, "outdated");
-                File.SetCreationTimeUtc(prePath, new DateTime(1980, 1, 1));
-
-                string path = _cache.GetIcon(server.FileUri, new SilentTaskHandler());
-                Assert.AreEqual(iconData, File.ReadAllText(path));
-            }
-        }
-
-        /// <summary>
         /// Ensures <see cref="DiskIconCache.GetIcon"/> returns outdated files from the cache if downloads fail.
         /// </summary>
         [Test]
