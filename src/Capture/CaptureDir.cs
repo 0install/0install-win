@@ -193,7 +193,7 @@ namespace ZeroInstall.Capture
             group.Commands.AddAll(commands);
             if (implementation != null) group.Elements.Add(implementation);
 
-            return new Feed
+            var feed = new Feed
             {
                 Name = appName ?? "Application name",
                 Summaries = {new LocalizableString("Short summary")},
@@ -201,6 +201,9 @@ namespace ZeroInstall.Capture
                 Elements = {group},
                 CapabilityLists = {capabilities}
             };
+            foreach (var command in commands)
+                feed.EntryPoints.Add(new EntryPoint {Command = command.Name, Names = {StringUtils.GetRightPartAtLastOccurrence(command.Name, '.')}});
+            return feed;
         }
         #endregion
 
