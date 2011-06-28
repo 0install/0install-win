@@ -108,7 +108,7 @@ namespace ZeroInstall.Store.Feeds
                 // Write a file to the cache directoy but mark it as outdated
                 string prePath = Path.Combine(_tempDir.Path, ModelUtils.Escape(server.FileUri.ToString()));
                 File.WriteAllText(prePath, "outdated");
-                File.SetLastWriteTimeUtc(prePath, new DateTime(1980, 1, 1));
+                File.SetCreationTimeUtc(prePath, new DateTime(1980, 1, 1));
 
                 string path = _cache.GetIcon(server.FileUri, new SilentTaskHandler());
                 Assert.AreEqual(iconData, File.ReadAllText(path));
