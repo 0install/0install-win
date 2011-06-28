@@ -23,6 +23,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Net.Sockets;
 using System.Threading;
 using Common.Streams;
 
@@ -33,13 +34,19 @@ namespace Common.Net
     /// </summary>
     public sealed class MicroServer : IDisposable
     {
-        #region Variables
-        /// <summary>
-        /// A global port counter used to make sure no two instances of the <see cref="MicroServer"/> are listening on the same port.
-        /// </summary>
-        private static int _port = 50222;
+        #region Constants
+        /// <summary>The lowest port the server tries listening on.</summary>
+        private const int MinimumPort = 50222;
 
-        private readonly HttpListener _listener = new HttpListener();
+        /// <summary>The highest port the server tries listening on.</summary>
+        private const int MaxmimumPort = 50734;
+        #endregion
+
+        #region Variables
+        /// <summary>A global port counter used to make sure no two instances of the server are listening on the same port.</summary>
+        private static int _port = MinimumPort;
+
+        private HttpListener _listener;
         private readonly Thread _listenerThread;
         private readonly Stream _fileContent;
         #endregion
@@ -67,15 +74,43 @@ namespace Common.Net
         {
             _fileContent = fileContent;
 
-            // Determine URI to listen for
-            string prefix = "http://localhost:" + _port++ + "/";
-            _listener.Prefixes.Add(prefix);
-            FileUri = new Uri(prefix + "file");
+            FileUri = new Uri(StartListening() + "file");
 
-            // Start listening
             _listenerThread = new Thread(Listen);
-            _listener.Start();
             _listenerThread.Start();
+        }
+
+        /// <summary>
+        /// Starts listening and returns the URL prefix under which the content is reachable.
+        /// </summary>
+        private string StartListening()
+        {
+            try
+            {
+                string prefix = "http://localhost:" + _port++ + "/";
+                _listener = new HttpListener();
+                _listener.Prefixes.Add(prefix);
+                _listener.Start();
+                return prefix;
+            }
+            #region Error handling
+            catch (HttpListenerException)
+            {
+                // Prevent endless looping
+                if (_port > MaxmimumPort) throw;
+
+                // Try again with a higher port number
+                return StartListening();
+            }
+            catch (SocketException)
+            {
+                // Prevent endless looping
+                if (_port > MaxmimumPort) throw;
+
+                // Try again with a higher port number
+                return StartListening();
+            }
+            #endregion
         }
         #endregion
 
