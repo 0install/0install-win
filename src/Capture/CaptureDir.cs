@@ -202,7 +202,10 @@ namespace ZeroInstall.Capture
                 CapabilityLists = {capabilities}
             };
             foreach (var command in commands)
-                feed.EntryPoints.Add(new EntryPoint {Command = command.Name, Names = {StringUtils.GetRightPartAtLastOccurrence(command.Name, '.')}});
+            {
+                if (command.Name != Command.NameRun)
+                    feed.EntryPoints.Add(new EntryPoint {Command = command.Name, Names = {StringUtils.GetRightPartAtLastOccurrence(command.Name, '.')}});
+            }
             return feed;
         }
         #endregion
