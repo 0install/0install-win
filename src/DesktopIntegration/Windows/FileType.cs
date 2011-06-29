@@ -169,6 +169,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
                         using (var commandKey = verbKey.CreateSubKey("command"))
                             commandKey.SetValue("", GetLaunchCommandLine(target, verb, systemWide, exeName, handler));
+
+                        // Prevent conflicts with existing entries
+                        shellKey.DeleteSubKey("ddeexec", false);
                     }
                 }
             }
