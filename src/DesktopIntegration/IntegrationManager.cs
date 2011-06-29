@@ -205,7 +205,10 @@ namespace ZeroInstall.DesktopIntegration
                 {
                     ConflictData conflictData;
                     if (conflictIDs.TryGetValue(conflictID, out conflictData))
-                        throw new InvalidOperationException(string.Format(Resources.AccessPointConflict, conflictData.AccessPoint, conflictData.AppEntry, accessPoint, appEntry));
+                    {
+                        if (!accessPoint.Equals(conflictData.AccessPoint))
+                            throw new InvalidOperationException(string.Format(Resources.AccessPointConflict, conflictData.AccessPoint, conflictData.AppEntry, accessPoint, appEntry));
+                    }
                 }
 
                 filteredAccessPoints.AddLast(accessPoint);
