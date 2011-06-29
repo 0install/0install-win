@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using Common;
@@ -88,8 +89,8 @@ namespace ZeroInstall.DesktopIntegration
             bool icons = categories.Contains(IconAccessPoint.CategoryName) || all;
 
             // Build capability list
-            var accessPointsToAdd = new C5.LinkedList<AccessPoint>();
-            if (capabilities) accessPointsToAdd.Add(new CapabilityRegistration());
+            var accessPointsToAdd = new LinkedList<AccessPoint>();
+            if (capabilities) accessPointsToAdd.AddLast(new CapabilityRegistration());
             if (defaults)
             {
                 // Add AccessPoints for all suitable Capabilities
@@ -100,16 +101,23 @@ namespace ZeroInstall.DesktopIntegration
                         if (capability.WindowsSystemWideOnly && !SystemWide && WindowsUtils.IsWindows) continue;
 
                         DefaultAccessPoint accessPoint = GetDefaultAccessPoint(capability);
-                        if (accessPoint != null) accessPointsToAdd.Add(accessPoint);
+                        if (accessPoint != null) accessPointsToAdd.AddLast(accessPoint);
                     }
                 }
             }
             if (icons)
             {
                 // Add icons for main entry point
-                accessPointsToAdd.Add(new DesktopIcon {Name = appEntry.Name});
-                accessPointsToAdd.Add(new MenuEntry {Name = appEntry.Name});
-                // ToDo: Handle additional commands
+                accessPointsToAdd.AddLast(new DesktopIcon {Name = appEntry.Name});
+                accessPointsToAdd.AddLast(new MenuEntry {Name = appEntry.Name, Category = appEntry.Name});
+
+                // Add icons for additional entry points
+                foreach (var entryPoint in target.Feed.EntryPoints)
+                {
+                    string entryPointName = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentCulture);
+                    if (!string.IsNullOrEmpty(entryPoint.Command) && !string.IsNullOrEmpty(entryPointName))
+                        accessPointsToAdd.AddLast(new MenuEntry {Name = entryPointName, Category = appEntry.Name, Command = entryPoint.Command});
+                }
             }
 
             AddAccessPoints(target, accessPointsToAdd, handler);
@@ -164,6 +172,10 @@ namespace ZeroInstall.DesktopIntegration
         /// <returns>The newly created <see cref="DefaultAccessPoint"/> or null if <paramref name="capability"/> was not a suitable type of <see cref="Capability"/>.</returns>
         private static DefaultAccessPoint GetDefaultAccessPoint(Capability capability)
         {
+            #region Sanity checks
+            if (capability == null) throw new ArgumentNullException("capability");
+            #endregion
+
             DefaultAccessPoint accessPoint;
             if (capability is Capabilities.AutoPlay) accessPoint = new AutoPlay();
             else if (capability is Capabilities.ContextMenu) accessPoint = new ContextMenu();
@@ -184,6 +196,10 @@ namespace ZeroInstall.DesktopIntegration
         /// <remarks>This is a special handler to support <see cref="Windows.DefaultProgram"/>.</remarks>
         private static void ToggleIconsVisible(AppEntry appEntry, bool iconsVisible)
         {
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            #endregion
+
             foreach (var capabilityList in appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
             {
                 foreach (var defaultProgram in EnumerableUtils.OfType<Capabilities.DefaultProgram>(capabilityList.Entries))

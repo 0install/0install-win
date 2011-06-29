@@ -16,6 +16,7 @@
  */
 
 //using System;
+//using System.Collections.Generic;
 //using System.Globalization;
 //using Common.Tasks;
 //using Common.Utils;
@@ -50,14 +51,17 @@
 
 //            string arguments = "run ";
 //            if (!string.IsNullOrEmpty(command)) arguments += " --command=" + StringUtils.EscapeWhitespace(command);
-//            arguments += " " + target.InterfaceID;
+//            arguments += " " + StringUtils.EscapeWhitespace(target.InterfaceID);
 //            shortcut.Arguments = arguments;
+//            shortcut.Description = target.Feed.GetDescription(CultureInfo.CurrentCulture, command);
 
-//            string description = target.Feed.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture);
-//            if (!string.IsNullOrEmpty(description)) shortcut.Description = description;
-
-//            var suitableIcons = target.Feed.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco && icon.Location != null);
-//            if (!suitableIcons.IsEmpty) shortcut.IconLocation = IconProvider.GetIcon(suitableIcons.First, systemWide, handler);
+//            // Set icon if available
+//            try
+//            {
+//                var icon = target.Feed.GetIcon(Icon.MimeTypeIco, command);
+//                shortcut.IconLocation = IconProvider.GetIconPath(icon, systemWide, handler);
+//            }
+//            catch (KeyNotFoundException) {}
 
 //            shortcut.Save();
 //        }
