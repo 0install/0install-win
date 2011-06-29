@@ -32,7 +32,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <summary>
         /// The XML namespace used for storing application capabilities.
         /// </summary>
-        public const string XmlNamespace = "http://0install.de/schema/injector/capabilities";
+        public const string XmlNamespace = "http://0install.de/schema/desktop-integration/capabilities";
         #endregion
 
         #region Properties
