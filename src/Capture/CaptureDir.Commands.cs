@@ -51,7 +51,7 @@ namespace ZeroInstall.Capture
                     Log.Warn(Resources.MultipleInstallationDirsDetected);
 
                 installationDir = snapshotDiff.ProgramsDirs[0];
-                Log.Info(string.Format(Resources.UsingInstallationDir, installationDir));
+                Log.Info(string.Format(Resources.InstallationDirDetected, installationDir));
             }
             return installationDir;
         }

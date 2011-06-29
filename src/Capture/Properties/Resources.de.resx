@@ -120,6 +120,9 @@
   <data name="DirectoryNotEmpty" xml:space="preserve">
     <value>Das Verzeichnis '{0}' ist nicht leer.</value>
   </data>
+  <data name="InstallationDirDetected" xml:space="preserve">
+    <value>'{0}' als Installationsverzeichnis erkannt.</value>
+  </data>
   <data name="InvalidCapabilitiesRegistryPath" xml:space="preserve">
     <value>Ungültiger Capabilities Registrierungspfad: {0}</value>
   </data>
@@ -143,8 +146,5 @@
   </data>
   <data name="OnlyAvailableOnWindows" xml:space="preserve">
     <value>Diese Methode steht derzeit nur unter Windows zur Verfügung.</value>
-  </data>
-  <data name="UsingInstallationDir" xml:space="preserve">
-    <value>Verwende '{0}' als Installationsverzeichnis.</value>
   </data>
 </root>

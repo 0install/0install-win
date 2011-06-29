@@ -120,6 +120,9 @@
   <data name="DirectoryNotEmpty" xml:space="preserve">
     <value>The directory '{0}' is not empty.</value>
   </data>
+  <data name="InstallationDirDetected" xml:space="preserve">
+    <value>Detected '{0}' as installation directory.</value>
+  </data>
   <data name="InvalidCapabilitiesRegistryPath" xml:space="preserve">
     <value>Invalid capabilities registry path: {0}</value>
   </data>
@@ -143,8 +146,5 @@
   </data>
   <data name="OnlyAvailableOnWindows" xml:space="preserve">
     <value>This method is currently only available on Windows.</value>
-  </data>
-  <data name="UsingInstallationDir" xml:space="preserve">
-    <value>Using '{0}' as installation directory.</value>
   </data>
 </root>
