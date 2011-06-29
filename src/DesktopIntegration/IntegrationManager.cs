@@ -170,39 +170,36 @@ namespace ZeroInstall.DesktopIntegration
             }
             if (appEntry.AccessPoints == null) appEntry.AccessPoints = new AccessPointList();
 
-            var filteredAccessPoints = GetFilteredAccessPoints(accessPoints, appEntry);
+            CheckForConflicts(accessPoints, appEntry);
 
             // Apply the access points
             // ToDo: Rollback on exceptions
-            foreach (var accessPoint in filteredAccessPoints)
+            foreach (var accessPoint in accessPoints)
                 accessPoint.Apply(appEntry, target, SystemWide, handler);
             if (WindowsUtils.IsWindows) WindowsUtils.NotifyAssocChanged();
 
             // Add the access points to the AppList
             long timestamp = FileUtils.ToUnixTime(DateTime.UtcNow);
-            foreach (var accessPoint in filteredAccessPoints)
+            foreach (var accessPoint in accessPoints)
             {
                 accessPoint.Timestamp = timestamp;
-                appEntry.AccessPoints.Entries.Add(accessPoint);
+                appEntry.AccessPoints.Entries.UpdateOrAdd(accessPoint); // Replace previous entries
             }
             appEntry.Timestamp = timestamp;
             AppList.Save(AppListPath);
         }
 
         /// <summary>
-        /// Checks new <see cref="AccessPoint"/>s for conflicts with existing ones and drops duplicates of existing ones.
+        /// Checks new <see cref="AccessPoint"/>s for conflicts with existing ones.
         /// </summary>
         /// <exception cref="InvalidOperationException">Thrown if one or more of the <paramref name="accessPoints"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
-        private IEnumerable<AccessPoint> GetFilteredAccessPoints(IEnumerable<AccessPoint> accessPoints, AppEntry appEntry)
+        private void CheckForConflicts(IEnumerable<AccessPoint> accessPoints, AppEntry appEntry)
         {
             var filteredAccessPoints = new LinkedList<AccessPoint>();
 
             var conflictIDs = AppList.GetConflictIDs();
             foreach (var accessPoint in accessPoints)
             {
-                // Drop duplicates of existing access points
-                if (appEntry.AccessPoints.Entries.Contains(accessPoint)) continue;
-
                 // Check for conflicts with existing access points
                 foreach (string conflictID in accessPoint.GetConflictIDs(appEntry))
                 {
@@ -215,8 +212,6 @@ namespace ZeroInstall.DesktopIntegration
             }
 
             // ToDo: Check for inner conflicts
-
-            return filteredAccessPoints;
         }
 
         /// <summary>
