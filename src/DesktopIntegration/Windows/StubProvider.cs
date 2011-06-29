@@ -18,6 +18,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Reflection;
@@ -61,14 +62,15 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string directory = Path.GetDirectoryName(Path.GetFullPath(path));
             if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory)) Directory.CreateDirectory(directory);
 
-            string args = string.IsNullOrEmpty(command)
-                ? "run " + target.InterfaceID
-                : "run --command=" + StringUtils.EscapeWhitespace(command) + " " + StringUtils.EscapeWhitespace(target.InterfaceID);
+            // Build command-line
+            string args = "run ";
+            if (!string.IsNullOrEmpty(command)) args += "--command=" + StringUtils.EscapeWhitespace(command) + " ";
+            args += StringUtils.EscapeWhitespace(target.InterfaceID);
 
             // Load the template code and insert variables
             string code = GetEmbeddedResource("Stub.template").Replace("[EXE]", target.Feed.NeedsTerminal ? "0install.exe" : "0install-win.exe");
             code = code.Replace("[ARGUMENTS]", EscapeForCode(args));
-            code = code.Replace("[TITLE]", EscapeForCode(target.Feed.Name));
+            code = code.Replace("[TITLE]", EscapeForCode(target.Feed.GetName(CultureInfo.CurrentCulture, command)));
 
             // Configure the compiler
             var compilerParameters = new CompilerParameters
@@ -78,13 +80,13 @@ namespace ZeroInstall.DesktopIntegration.Windows
             };
             if (!target.Feed.NeedsTerminal) compilerParameters.CompilerOptions += " /target:winexe";
 
-            // Find the first suitable icon
-            var suitableIcons = target.Feed.Icons.FindAll(icon => icon.MimeType == Icon.MimeTypeIco && icon.Location != null);
-            if (!suitableIcons.IsEmpty)
+            // Set icon if available
+            try
             {
-                string iconPath = IconCacheProvider.CreateDefault().GetIcon(suitableIcons.First.Location, handler);
+                string iconPath = IconCacheProvider.CreateDefault().GetIcon(target.Feed.GetIcon(Icon.MimeTypeIco, command).Location, handler);
                 compilerParameters.CompilerOptions += " /win32icon:" + StringUtils.EscapeWhitespace(iconPath);
             }
+            catch (KeyNotFoundException) {}
 
             using (var manifestFile = new TemporaryFile("0install"))
             {
@@ -107,7 +109,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 }
             }
         }
+        #endregion
 
+        #region Helpers
         /// <summary>
         /// Escapes a string so that is safe for substitution inside C# code
         /// </summary>
