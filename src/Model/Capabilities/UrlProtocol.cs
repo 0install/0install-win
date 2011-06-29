@@ -28,7 +28,7 @@ namespace ZeroInstall.Model.Capabilities
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [XmlType("url-protocol", Namespace = XmlNamespace)]
-    public class UrlProtocol : VerbCapability, IEquatable<UrlProtocol>
+    public sealed class UrlProtocol : VerbCapability, IEquatable<UrlProtocol>
     {
         #region Properties
         /// <inheritdoc/>
@@ -57,11 +57,11 @@ namespace ZeroInstall.Model.Capabilities
 
         #region Conversion
         /// <summary>
-        /// Returns the capability in the form "UrlProtocol: Description (ID)". Not safe for parsing!
+        /// Returns the capability in the form "UrlProtocol: ID". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("UrlProtocol : {0} ({1})", Description, ID);
+            return string.Format("UrlProtocol : {0}", ID);
         }
         #endregion
 
@@ -69,9 +69,10 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability CloneCapability()
         {
-            var capability = new UrlProtocol {ID = ID, Description = Description};
+            var capability = new UrlProtocol {ID = ID};
             capability.Icons.AddAll(Icons);
-            capability.Verbs.AddAll(Verbs);
+            foreach (var description in Descriptions) capability.Descriptions.Add(description.CloneString());
+            foreach (var verb in Verbs) capability.Verbs.Add(verb.CloneVerb());
             capability.KnownPrefixes.AddAll(KnownPrefixes);
             return capability;
         }

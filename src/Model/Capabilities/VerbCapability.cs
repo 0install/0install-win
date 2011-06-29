@@ -28,13 +28,6 @@ namespace ZeroInstall.Model.Capabilities
     public abstract class VerbCapability : IconCapability
     {
         #region Properties
-        /// <summary>
-        /// A human-readable description.
-        /// </summary>
-        [Description("A human-readable description.")]
-        [XmlAttribute("description"), DefaultValue("")]
-        public string Description { get; set; }
-
         // Preserve order
         private readonly C5.LinkedList<Verb> _verbs = new C5.LinkedList<Verb>();
         /// <summary>
@@ -54,7 +47,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (other == null) return false;
 
-            return base.Equals(other) && other.Description == Description && Verbs.SequencedEquals(other.Verbs);
+            return base.Equals(other) && Verbs.SequencedEquals(other.Verbs);
         }
 
         /// <inheritdoc/>
@@ -63,7 +56,6 @@ namespace ZeroInstall.Model.Capabilities
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (Description ?? "").GetHashCode();
                 result = (result * 397) ^ Verbs.GetSequencedHashCode();
                 return result;
             }

@@ -28,7 +28,7 @@ namespace ZeroInstall.Model.Capabilities
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [XmlType("file-type", Namespace = XmlNamespace)]
-    public class FileType : VerbCapability, IEquatable<FileType>
+    public sealed class FileType : VerbCapability, IEquatable<FileType>
     {
         #region Properties
         /// <inheritdoc/>
@@ -57,11 +57,11 @@ namespace ZeroInstall.Model.Capabilities
 
         #region Conversion
         /// <summary>
-        /// Returns the capability in the form "FileType: Description (ID)". Not safe for parsing!
+        /// Returns the capability in the form "FileType: ID". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("FileType : {0} ({1})", Description, ID);
+            return string.Format("FileType : {0}", ID);
         }
         #endregion
 
@@ -69,9 +69,10 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability CloneCapability()
         {
-            var capability = new FileType {ID = ID, Description = Description};
+            var capability = new FileType {ID = ID};
+            foreach (var description in Descriptions) capability.Descriptions.Add(description.CloneString());
             capability.Icons.AddAll(Icons);
-            capability.Verbs.AddAll(Verbs);
+            foreach (var verb in Verbs) capability.Verbs.Add(verb.CloneVerb());
             capability.Extensions.AddAll(Extensions);
             return capability;
         }

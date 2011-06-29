@@ -25,7 +25,7 @@ namespace ZeroInstall.Model.Capabilities
     /// Represents an application's listing in the Windows Games Explorer.
     /// </summary>
     [XmlType("games-explorer", Namespace = XmlNamespace)]
-    public class GamesExplorer : Capability, IEquatable<GamesExplorer>
+    public sealed class GamesExplorer : Capability, IEquatable<GamesExplorer>
     {
         #region Properties
         /// <inheritdoc/>

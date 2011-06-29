@@ -20,17 +20,27 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using Common.Collections;
 using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Abstract base class for capabilities that can have multiple <see cref="Icon"/>s associated with them.
+    /// Abstract base class for capabilities that can have multiple <see cref="Icon"/>s and descriptions associated with them.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     public abstract class IconCapability : Capability
     {
         #region Properties
+        private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
+        /// <summary>
+        /// Human-readable descriptions of the AutoPlay operation in different languages.
+        /// </summary>
+        [Category("Interface"), Description("Human-readable descriptions of the AutoPlay operation in different languages.")]
+        [XmlElement("description")]
+        // Note: Can not use ICollection<T> interface because of XML Serialization
+        public LocalizableStringCollection Descriptions { get { return _descriptions; } }
+
         // Preserve order
         private readonly C5.LinkedList<Icon> _icons = new C5.LinkedList<Icon>();
         /// <summary>
@@ -72,7 +82,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (other == null) return false;
 
-            return base.Equals(other) && Icons.SequencedEquals(other.Icons);
+            return base.Equals(other) && Descriptions.SequencedEquals(other.Descriptions) && Icons.SequencedEquals(other.Icons);
         }
 
         /// <inheritdoc/>
@@ -81,6 +91,7 @@ namespace ZeroInstall.Model.Capabilities
             unchecked
             {
                 int result = base.GetHashCode();
+                result = (result * 397) ^ Descriptions.GetSequencedHashCode();
                 result = (result * 397) ^ Icons.GetSequencedHashCode();
                 return result;
             }

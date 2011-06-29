@@ -52,7 +52,7 @@ namespace ZeroInstall.Capture
                     capabilities.Entries.Add(new UrlProtocol
                     {
                         ID = protocol,
-                        Description = Registry.GetValue(@"HKEY_CLASSES_ROOT\" + protocol, "", "") as string,
+                        Descriptions = {Registry.GetValue(@"HKEY_CLASSES_ROOT\" + protocol, "", "") as string},
                         Verbs = {GetVerb(protocolKey, commandProvider, "open")}
                     });
             }

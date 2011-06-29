@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model.Capabilities
 {
@@ -26,7 +27,7 @@ namespace ZeroInstall.Model.Capabilities
     /// Describes the mapping of an action/verb (e.g. open, edit, ...) to a <see cref="Model.Command"/>.
     /// </summary>
     [XmlType("verb", Namespace = Capability.XmlNamespace)]
-    public struct Verb : IEquatable<Verb>
+    public sealed class Verb : XmlUnknown, ICloneable, IEquatable<Verb>
     {
         #region Constants
         /// <summary>
@@ -74,12 +75,14 @@ namespace ZeroInstall.Model.Capabilities
         [XmlAttribute("name")]
         public string Name { get; set; }
 
+        private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
         /// <summary>
-        /// A human-readable description of the verb as an alternative to <see cref="Name"/>.
+        /// Human-readable descriptions of the verb in different languages as an alternative to <see cref="Name"/>.
         /// </summary>
-        [Description("A human-readable description of the verb as an alternative to Name.")]
-        [XmlAttribute("description"), DefaultValue("")]
-        public string Description { get; set; }
+        [Description("Human-readable descriptions of the verb in different languages as an alternative to Name.")]
+        [XmlElement("description")]
+        // Note: Can not use ICollection<T> interface because of XML Serialization
+        public LocalizableStringCollection Descriptions { get { return _descriptions; } }
 
         /// <summary>
         /// The name of the command in the <see cref="Feed"/> to use when launching via this capability; leave <see langword="null"/> for <see cref="Model.Command.NameRun"/>.
@@ -116,29 +119,43 @@ namespace ZeroInstall.Model.Capabilities
         }
         #endregion
 
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Verb"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Verb"/>.</returns>
+        public Verb CloneVerb()
+        {
+            var newVerb = new Verb {Name = Name, Command = Command, Arguments = Arguments, Extended = Extended};
+            foreach (var description in Descriptions) newVerb.Descriptions.Add(description.CloneString());
+
+            return newVerb;
+        }
+
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Verb"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Verb"/> casted to a generic <see cref="object"/>.</returns>
+        public object Clone()
+        {
+            return CloneVerb();
+        }
+        #endregion
+
         #region Equality
         /// <inheritdoc/>
         public bool Equals(Verb other)
         {
-            return other.Name == Name && other.Description == Description && other.Command == Command && other.Arguments == Arguments && other.Extended == Extended;
-        }
+            if (other == null) return false;
 
-        /// <inheritdoc/>
-        public static bool operator ==(Verb left, Verb right)
-        {
-            return left.Equals(right);
-        }
-
-        /// <inheritdoc/>
-        public static bool operator !=(Verb left, Verb right)
-        {
-            return !left.Equals(right);
+            return other.Name == Name && Descriptions.SequencedEquals(other.Descriptions) && other.Command == Command && other.Arguments == Arguments && other.Extended == Extended;
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
             return obj.GetType() == typeof(Verb) && Equals((Verb)obj);
         }
 
@@ -148,7 +165,7 @@ namespace ZeroInstall.Model.Capabilities
             unchecked
             {
                 int result = (Name ?? "").GetHashCode();
-                result = (result * 397) ^ (Description ?? "").GetHashCode();
+                result = (result * 397) ^ Descriptions.GetSequencedHashCode();
                 result = (result * 397) ^ (Command ?? "").GetHashCode();
                 result = (result * 397) ^ (Arguments ?? "").GetHashCode();
                 result = (result * 397) ^ Extended.GetHashCode();

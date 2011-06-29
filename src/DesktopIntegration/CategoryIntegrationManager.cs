@@ -121,7 +121,7 @@ namespace ZeroInstall.DesktopIntegration
             }
 
             AddAccessPoints(target, accessPointsToAdd, handler);
-            if (icons) ToggleIconsVisible(appEntry, true);
+            if (icons && SystemWide) ToggleIconsVisible(appEntry, true);
         }
         #endregion
 
@@ -160,7 +160,7 @@ namespace ZeroInstall.DesktopIntegration
             if (icons) accessPointsToRemove.AddAll(EnumerableUtils.OfType<IconAccessPoint>(appEntry.AccessPoints.Entries));
 
             RemoveAccessPoints(interfaceID, accessPointsToRemove);
-            if (icons) ToggleIconsVisible(appEntry, false);
+            if (icons && SystemWide) ToggleIconsVisible(appEntry, false);
         }
         #endregion
 

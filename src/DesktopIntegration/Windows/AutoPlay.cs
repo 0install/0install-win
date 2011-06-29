@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using Common;
@@ -82,7 +83,6 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(autoPlay.ID)) throw new InvalidDataException("Missing ID");
             if (string.IsNullOrEmpty(autoPlay.ProgID)) throw new InvalidDataException("Missing ProgID");
             if (string.IsNullOrEmpty(autoPlay.Verb.Name)) throw new InvalidDataException("Missing verb name");
-            if (string.IsNullOrEmpty(autoPlay.Description)) throw new InvalidDataException("Missing description");
             if (string.IsNullOrEmpty(autoPlay.Provider)) throw new InvalidDataException("Missing provider");
 
             var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
@@ -91,7 +91,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 handlerKey.SetValue(RegValueProgID, autoPlay.ProgID);
                 handlerKey.SetValue(RegValueVerb, autoPlay.Verb.Name);
                 handlerKey.SetValue(RegValueProvider, autoPlay.Provider);
-                handlerKey.SetValue(RegValueDescription, autoPlay.Description);
+                handlerKey.SetValue(RegValueDescription, autoPlay.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture) ?? autoPlay.Verb.Name);
 
                 // Set icon if available
                 try

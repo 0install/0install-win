@@ -26,7 +26,7 @@ namespace ZeroInstall.Model.Capabilities
     /// Represents an application's entry in a file manager's context menu.
     /// </summary>
     [XmlType("context-menu", Namespace = XmlNamespace)]
-    public class ContextMenu : Capability, IEquatable<ContextMenu>
+    public sealed class ContextMenu : Capability, IEquatable<ContextMenu>
     {
         #region Properties
         /// <inheritdoc/>
@@ -71,7 +71,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability CloneCapability()
         {
-            return new ContextMenu {ID = ID, AllObjects = AllObjects, Verb = Verb};
+            return new ContextMenu {ID = ID, AllObjects = AllObjects, Verb = Verb.CloneVerb()};
         }
         #endregion
 
@@ -82,7 +82,7 @@ namespace ZeroInstall.Model.Capabilities
             if (other == null) return false;
 
             return base.Equals(other) &&
-                other.AllObjects == AllObjects && other.Verb == Verb;
+                other.AllObjects == AllObjects && Equals(other.Verb, Verb);
         }
 
         /// <inheritdoc/>

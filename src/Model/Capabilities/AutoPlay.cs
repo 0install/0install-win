@@ -29,7 +29,7 @@ namespace ZeroInstall.Model.Capabilities
     /// <remarks>A <see cref="FileType"/> is used for actually executing the application.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [XmlType("auto-play", Namespace = XmlNamespace)]
-    public class AutoPlay : IconCapability, IEquatable<AutoPlay>
+    public sealed class AutoPlay : IconCapability, IEquatable<AutoPlay>
     {
         #region Properties
         /// <inheritdoc/>
@@ -42,13 +42,6 @@ namespace ZeroInstall.Model.Capabilities
         [Description("The name of the application as shown in the AutoPlay selection list.")]
         [XmlAttribute("provider")]
         public string Provider { get; set; }
-
-        /// <summary>
-        /// A human-readable description of the AutoPlay operation.
-        /// </summary>
-        [Description("A human-readable description of the AutoPlay operation.")]
-        [XmlAttribute("description")]
-        public string Description { get; set; }
 
         /// <summary>
         /// The programatic identifier used to store the <see cref="Verb"/>.
@@ -86,11 +79,11 @@ namespace ZeroInstall.Model.Capabilities
 
         #region Conversion
         /// <summary>
-        /// Returns the capability in the form "AutoPlay: Description (ID)". Not safe for parsing!
+        /// Returns the capability in the form "AutoPlay: ID". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("AutoPlay: {0} ({1})", Description, ID);
+            return string.Format("AutoPlay: {0}", ID);
         }
         #endregion
 
@@ -98,8 +91,9 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability CloneCapability()
         {
-            var capability = new AutoPlay {ID = ID, Description = Description, Provider = Provider, ProgID = ProgID, Verb = Verb};
+            var capability = new AutoPlay {ID = ID, Provider = Provider, ProgID = ProgID, Verb = Verb.CloneVerb()};
             capability.Icons.AddAll(Icons);
+            foreach (var description in Descriptions) capability.Descriptions.Add(description.CloneString());
             capability.Events.AddAll(Events);
             return capability;
         }
@@ -112,7 +106,7 @@ namespace ZeroInstall.Model.Capabilities
             if (other == null) return false;
 
             return base.Equals(other) &&
-                other.Description == Description && other.Provider == Provider && other.ProgID == ProgID && other.Verb == Verb &&
+                other.Provider == Provider && other.ProgID == ProgID && Equals(other.Verb, Verb) &&
                 Events.SequencedEquals(other.Events);
         }
 
@@ -131,7 +125,6 @@ namespace ZeroInstall.Model.Capabilities
             {
                 int result = base.GetHashCode();
                 result = (result * 397) ^ (Provider ?? "").GetHashCode();
-                result = (result * 397) ^ (Description ?? "").GetHashCode();
                 result = (result * 397) ^ (Provider ?? "").GetHashCode();
                 result = (result * 397) ^ (ProgID ?? "").GetHashCode();
                 result = (result * 397) ^ Verb.GetHashCode();

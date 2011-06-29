@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using Common;
@@ -141,8 +142,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             if (string.IsNullOrEmpty(capability.ID)) throw new InvalidDataException("Missing ID");
 
-            if (capability.Description != null) registryKey.SetValue("", capability.Description);
             if (capability is Capabilities.UrlProtocol) registryKey.SetValue(UrlProtocol.ProtocolIndicator, "");
+
+            string description = capability.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture);
+            if (description != null) registryKey.SetValue("", description);
 
             // Set icon if available
             try
@@ -160,7 +163,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 {
                     using (var verbKey = shellKey.CreateSubKey(verb.Name))
                     {
-                        if (verb.Description != null) verbKey.SetValue("", verb.Description);
+                        string verbDescription = verb.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture);
+                        if (verbDescription != null) verbKey.SetValue("", verbDescription);
                         if (verb.Extended) verbKey.SetValue(RegValueExtendedFlag, "");
 
                         using (var commandKey = verbKey.CreateSubKey("command"))

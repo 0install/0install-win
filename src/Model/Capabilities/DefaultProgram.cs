@@ -26,7 +26,7 @@ namespace ZeroInstall.Model.Capabilities
     /// Represents an application's ability to provide some service (e.g. default web-browser, default e-mail client, ...).
     /// </summary>
     [XmlType("default-program", Namespace = XmlNamespace)]
-    public class DefaultProgram : VerbCapability, IEquatable<DefaultProgram>
+    public sealed class DefaultProgram : VerbCapability, IEquatable<DefaultProgram>
     {
         #region Constants
         /// <summary>
@@ -114,9 +114,10 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability CloneCapability()
         {
-            var capability = new DefaultProgram {ID = ID, Description = Description, Service = Service};
+            var capability = new DefaultProgram {ID = ID, Service = Service};
+            foreach (var description in Descriptions) capability.Descriptions.Add(description.CloneString());
             capability.Icons.AddAll(Icons);
-            capability.Verbs.AddAll(Verbs);
+            foreach (var verb in Verbs) capability.Verbs.Add(verb.CloneVerb());
             return capability;
         }
         #endregion

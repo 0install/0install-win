@@ -103,7 +103,7 @@ namespace ZeroInstall.Capture
             foreach (string verbName in WindowsUtils.GetSubKeyNames(typeKey, "shell"))
             {
                 var verb = GetVerb(typeKey, commandProvider, verbName);
-                if (verb != default(Verb)) verbs.Add(verb);
+                if (verb != null) verbs.Add(verb);
             }
             return verbs;
         }
@@ -125,26 +125,26 @@ namespace ZeroInstall.Capture
 
             using (var verbKey = typeKey.OpenSubKey(@"shell\" + verb))
             {
-                if (verbKey == null) return default(Verb);
+                if (verbKey == null) return null;
 
                 string description = verbKey.GetValue("", "").ToString();
                 string commandLine;
                 using (var commandKey = verbKey.OpenSubKey("command"))
                 {
-                    if (commandKey == null) return default(Verb);
+                    if (commandKey == null) return null;
                     commandLine = commandKey.GetValue("", "").ToString();
                 }
 
                 string additionalArgs;
                 var command = commandProvider.GetCommand(commandLine, out additionalArgs);
-                if (command == null) return default(Verb);
+                if (command == null) return null;
                 string commandName = command.Name;
 
                 if (commandName == Command.NameRun) commandName = null;
                 return new Verb
                 {
                     Name = verb,
-                    Description = description,
+                    Descriptions = {description},
                     Command = commandName,
                     Arguments = additionalArgs
                 };

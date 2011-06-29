@@ -27,7 +27,7 @@ namespace ZeroInstall.Model.Capabilities
     /// </summary>
     /// <remarks>The actual integration information is pulled from the other <see cref="Capability"/>s.</remarks>
     [XmlType("registration", Namespace = XmlNamespace)]
-    public class AppRegistration : Capability, IEquatable<AppRegistration>
+    public sealed class AppRegistration : Capability, IEquatable<AppRegistration>
     {
         #region Properties
         /// <inheritdoc/>

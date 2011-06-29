@@ -25,7 +25,7 @@ namespace ZeroInstall.Model.Capabilities
     /// Represents an application's ability to act as a COM server.
     /// </summary>
     [XmlType("com-server", Namespace = XmlNamespace)]
-    public class ComServer : Capability, IEquatable<ComServer>
+    public sealed class ComServer : Capability, IEquatable<ComServer>
     {
         #region Properties
         /// <inheritdoc/>

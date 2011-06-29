@@ -123,7 +123,7 @@ namespace ZeroInstall.Capture
                         var capability = new UrlProtocol
                         {
                             ID = progID,
-                            Description = progIDKey.GetValue("", "").ToString(),
+                            Descriptions = {progIDKey.GetValue("", "").ToString()},
                             KnownPrefixes = {new KnownProtocolPrefix {Value = protocol}}
                         };
 

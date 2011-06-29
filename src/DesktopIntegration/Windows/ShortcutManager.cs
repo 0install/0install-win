@@ -15,56 +15,56 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//using System;
-//using System.Collections.Generic;
-//using System.Globalization;
-//using Common.Tasks;
-//using Common.Utils;
-//using IWshRuntimeLibrary;
-//using ZeroInstall.Model;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using Common.Tasks;
+using Common.Utils;
+using IWshRuntimeLibrary;
+using ZeroInstall.Model;
 
-//namespace ZeroInstall.DesktopIntegration.Windows
-//{
-//    /// <summary>
-//    /// Utility class for creating and modifying Windows shortcut files (.lnk).
-//    /// </summary>
-//    public static class ShortcutManager
-//    {
-//        private static readonly WshShellClass _wshShell = new WshShellClass();
+namespace ZeroInstall.DesktopIntegration.Windows
+{
+    /// <summary>
+    /// Utility class for creating and modifying Windows shortcut files (.lnk).
+    /// </summary>
+    public static class ShortcutManager
+    {
+        private static readonly WshShellClass _wshShell = new WshShellClass();
 
-//        /// <summary>
-//        /// Creates a new Windows shortcut.
-//        /// </summary>
-//        /// <param name="path">The location to place the shorcut at.</param>
-//        /// <param name="target">The target the shortcut shall point to.</param>
-//        /// <param name="command"></param>
-//        /// <param name="systemWide"></param>
-//        /// <param name="handler"></param>
-//        public static void CreateShortcut(string path, InterfaceFeed target, string command, bool systemWide, ITaskHandler handler)
-//        {
-//            #region Sanity checks
-//            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-//            #endregion
+        /// <summary>
+        /// Creates a new Windows shortcut.
+        /// </summary>
+        /// <param name="path">The location to place the shorcut at.</param>
+        /// <param name="target">The target the shortcut shall point to.</param>
+        /// <param name="command"></param>
+        /// <param name="systemWide"></param>
+        /// <param name="handler"></param>
+        public static void CreateShortcut(string path, InterfaceFeed target, string command, bool systemWide, ITaskHandler handler)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
 
-//            var shortcut = (IWshShortcut)_wshShell.CreateShortcut(path);
-//            shortcut.TargetPath = target.Feed.NeedsTerminal ? "0install.exe" : "0install-win.exe";
+            var shortcut = (IWshShortcut)_wshShell.CreateShortcut(path);
+            shortcut.TargetPath = target.Feed.NeedsTerminal ? "0install.exe" : "0install-win.exe";
 
-//            string arguments = "run ";
-//            if (!string.IsNullOrEmpty(command)) arguments += " --command=" + StringUtils.EscapeWhitespace(command);
-//            arguments += " " + StringUtils.EscapeWhitespace(target.InterfaceID);
-//            shortcut.Arguments = arguments;
-//            shortcut.Description = target.Feed.GetDescription(CultureInfo.CurrentCulture, command);
+            string arguments = "run ";
+            if (!string.IsNullOrEmpty(command)) arguments += " --command=" + StringUtils.EscapeWhitespace(command);
+            arguments += " " + StringUtils.EscapeWhitespace(target.InterfaceID);
+            shortcut.Arguments = arguments;
+            shortcut.Description = target.Feed.GetDescription(CultureInfo.CurrentCulture, command);
 
-//            // Set icon if available
-//            try
-//            {
-//                var icon = target.Feed.GetIcon(Icon.MimeTypeIco, command);
-//                shortcut.IconLocation = IconProvider.GetIconPath(icon, systemWide, handler);
-//            }
-//            catch (KeyNotFoundException) {}
+            // Set icon if available
+            try
+            {
+                var icon = target.Feed.GetIcon(Icon.MimeTypeIco, command);
+                shortcut.IconLocation = IconProvider.GetIconPath(icon, systemWide, handler);
+            }
+            catch (KeyNotFoundException) { }
 
-//            shortcut.Save();
-//        }
-//    }
-//}
+            shortcut.Save();
+        }
+    }
+}
 

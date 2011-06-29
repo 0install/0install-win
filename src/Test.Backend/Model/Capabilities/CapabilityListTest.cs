@@ -34,20 +34,20 @@ namespace ZeroInstall.Model.Capabilities
         public static CapabilityList CreateTestCapabilityList()
         {
             var testIcon = new Icon(new Uri("http://0install.de/feeds/icons/test.ico"), "image/vnd.microsoft.icon");
-            var testVerb = new Verb {Name = Verb.NameOpen, Command = Command.NameRun, Arguments = "--open"};
+            var testVerb = new Verb {Name = Verb.NameOpen, Descriptions = {"Verb description"}, Command = Command.NameRun, Arguments = "--open"};
             return new CapabilityList
             {
                 Architecture = new Architecture(OS.Windows, Cpu.All),
                 Entries =
                 {
                     new AppRegistration {ID = "myapp", CapabilityRegPath = @"SOFTWARE\MyApp\Capabilities", X64 = true},
-                    new AutoPlay {ID = "autoplay", Description = "Do somthing", Icons = {testIcon}, Provider = "MyApp", ProgID = "MyApp.Burn", Verb = testVerb, Events = {new AutoPlayEvent {Name = AutoPlayEvent.NameBurnCD}}},
+                    new AutoPlay {ID = "autoplay", Descriptions = {"Do somthing"}, Icons = {testIcon}, Provider = "MyApp", ProgID = "MyApp.Burn", Verb = testVerb, Events = {new AutoPlayEvent {Name = AutoPlayEvent.NameBurnCD}}},
                     new ComServer {ID = "com-server"},
                     new ContextMenu {ID = "context-menu", AllObjects = true, Verb = testVerb},
-                    new DefaultProgram {ID = "default-program", Description = "My mail client", Icons = {testIcon}, Verbs = {testVerb}, Service = "Mail", InstallCommands = new InstallCommands {ShowIcons = "helper.exe --show", HideIcons = "helper.exe --hide", Reinstall = "helper.exe --reinstall.exe"}},
-                    new FileType {ID = "my_ext", Description = "Text file", Icons = {testIcon}, Extensions = {new FileTypeExtension {Value = "txt", MimeType = "text/plain"}}, Verbs = {testVerb}},
+                    new DefaultProgram {ID = "default-program", Descriptions = {"My mail client"}, Icons = {testIcon}, Verbs = {testVerb}, Service = "Mail", InstallCommands = new InstallCommands {ShowIcons = "helper.exe --show", HideIcons = "helper.exe --hide", Reinstall = "helper.exe --reinstall.exe"}},
+                    new FileType {ID = "my_ext", Descriptions = {"Text file"}, Icons = {testIcon}, Extensions = {new FileTypeExtension {Value = "txt", MimeType = "text/plain"}}, Verbs = {testVerb}},
                     new GamesExplorer {ID = "games-explorer"},
-                    new UrlProtocol {ID = "my_protocol", Description = "My protocol", Icons = {testIcon}, Verbs = {testVerb}, KnownPrefixes = {new KnownProtocolPrefix {Value = "my-protocol"}}}
+                    new UrlProtocol {ID = "my_protocol", Descriptions = {"My protocol"}, Icons = {testIcon}, Verbs = {testVerb}, KnownPrefixes = {new KnownProtocolPrefix {Value = "my-protocol"}}}
                 }
             };
         }

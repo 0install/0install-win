@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using Common;
@@ -73,7 +74,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
             var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
             using (var verbKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + (contextMenu.AllObjects ? RegKeyClassesAllPrefix : RegKeyClassesFilesPrefix) + @"\shell\" + contextMenu.Verb.Name))
             {
-                verbKey.SetValue("", contextMenu.Verb.Description);
+                string description = contextMenu.Verb.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture);
+                if (description != null) verbKey.SetValue("", description);
                 if (contextMenu.Verb.Extended) verbKey.SetValue(FileType.RegValueExtendedFlag, "");
 
                 using (var commandKey = verbKey.CreateSubKey("command"))
