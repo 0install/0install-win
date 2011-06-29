@@ -200,8 +200,16 @@ namespace ZeroInstall.Capture
             };
             foreach (var command in commands)
             {
-                if (command.Name != Command.NameRun)
-                    feed.EntryPoints.Add(new EntryPoint {Command = command.Name, Names = {StringUtils.GetRightPartAtLastOccurrence(command.Name, '.')}});
+                feed.EntryPoints.Add(new EntryPoint
+                {
+                    Command = command.Name,
+
+                    // Trim away leading directories and trailing file ending
+                    BinaryName = StringUtils.GetLeftPartAtLastOccurrence(StringUtils.GetRightPartAtLastOccurrence(command.Path, Path.DirectorySeparatorChar), '.'),
+
+                    // Trim away leading namespaces
+                    Names = { StringUtils.GetRightPartAtLastOccurrence(command.Name, '.') }
+                });
             }
             return feed;
         }

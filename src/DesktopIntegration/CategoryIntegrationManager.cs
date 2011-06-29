@@ -109,7 +109,8 @@ namespace ZeroInstall.DesktopIntegration
             {
                 // Add icons for main entry point
                 accessPointsToAdd.AddLast(new DesktopIcon {Name = appEntry.Name});
-                accessPointsToAdd.AddLast(new MenuEntry {Name = appEntry.Name, Category = appEntry.Name});
+                if (target.Feed.EntryPoints.IsEmpty)
+                    accessPointsToAdd.AddLast(new MenuEntry {Name = appEntry.Name, Category = appEntry.Name});
 
                 // Add icons for additional entry points
                 foreach (var entryPoint in target.Feed.EntryPoints)

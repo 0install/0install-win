@@ -89,7 +89,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             // Register ProgID
             using (var progIDKey = hive.CreateSubKey(RegKeyClasses + @"\" + fileType.ID))
-                RegisterVerbCapability(progIDKey, target, fileType, systemWide, ModelUtils.Escape(target.Feed.Name), handler);
+                RegisterVerbCapability(progIDKey, target, fileType, systemWide, handler);
 
             using (var classesKey = hive.OpenSubKey(RegKeyClasses, true))
             {
@@ -126,14 +126,13 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="target">The application being integrated.</param>
         /// <param name="capability">The capability to register.</param>
         /// <param name="systemWide">Assume <paramref name="registryKey"/> is effective system-wide instead of just for the current user.</param>
-        /// <param name="exeName">The name any generated stub EXEs should have without the file ending (e.g. "MyApplication").</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="capability"/> is invalid.</exception>
-        internal static void RegisterVerbCapability(RegistryKey registryKey, InterfaceFeed target, Capabilities.VerbCapability capability, bool systemWide, string exeName, ITaskHandler handler)
+        internal static void RegisterVerbCapability(RegistryKey registryKey, InterfaceFeed target, Capabilities.VerbCapability capability, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (capability == null) throw new ArgumentNullException("capability");
@@ -168,7 +167,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         if (verb.Extended) verbKey.SetValue(RegValueExtendedFlag, "");
 
                         using (var commandKey = verbKey.CreateSubKey("command"))
-                            commandKey.SetValue("", GetLaunchCommandLine(target, verb, systemWide, exeName, handler));
+                            commandKey.SetValue("", GetLaunchCommandLine(target, verb, systemWide, handler));
 
                         // Prevent conflicts with existing entries
                         shellKey.DeleteSubKey("ddeexec", false);
@@ -216,11 +215,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="target">The application being integrated.</param>
         /// <param name="verb">The verb to get to launch command for.</param>
         /// <param name="systemWide">Store the stub in a system-wide directory instead of just for the current user.</param>
-        /// <param name="exeName">The name any generated stub EXEs should have without the file ending (e.g. "MyApplication").</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        internal static string GetLaunchCommandLine(InterfaceFeed target, Capabilities.Verb verb, bool systemWide, string exeName, ITaskHandler handler)
+        internal static string GetLaunchCommandLine(InterfaceFeed target, Capabilities.Verb verb, bool systemWide, ITaskHandler handler)
         {
-            string launchCommand = "\"" + StubProvider.GetRunStub(target, verb.Command, systemWide, exeName, handler) + "\"";
+            string launchCommand = "\"" + StubProvider.GetRunStub(target, verb.Command, systemWide, handler) + "\"";
             if (!string.IsNullOrEmpty(verb.Arguments)) launchCommand += " " + verb.Arguments;
             return launchCommand;
         }

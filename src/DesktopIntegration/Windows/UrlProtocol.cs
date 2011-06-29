@@ -22,7 +22,6 @@ using Common;
 using Common.Tasks;
 using Common.Utils;
 using Microsoft.Win32;
-using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -71,7 +70,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 if (setDefault)
                 {
                     using (var progIDKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + urlProtocol.ID))
-                        FileType.RegisterVerbCapability(progIDKey, target, urlProtocol, systemWide, ModelUtils.Escape(target.Feed.Name), handler);
+                        FileType.RegisterVerbCapability(progIDKey, target, urlProtocol, systemWide, handler);
                 }
             }
             else
@@ -80,7 +79,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 {
                     // Can be registered non-invasively by registering custom ProgID (without becoming default)
                     using (var progIDKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + urlProtocol.ID))
-                        FileType.RegisterVerbCapability(progIDKey, target, urlProtocol, systemWide, ModelUtils.Escape(target.Feed.Name), handler);
+                        FileType.RegisterVerbCapability(progIDKey, target, urlProtocol, systemWide, handler);
 
                     if (setDefault)
                     {
@@ -93,7 +92,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         {
                             // Setting default invasively by registering protocol ProgID
                             using (var progIDKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + prefix.Value))
-                                FileType.RegisterVerbCapability(progIDKey, target, urlProtocol, systemWide, ModelUtils.Escape(target.Feed.Name), handler);
+                                FileType.RegisterVerbCapability(progIDKey, target, urlProtocol, systemWide, handler);
                         }
                     }
                 }

@@ -84,8 +84,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 {
                     appKey.SetValue("", target.Feed.Name);
 
-                    // Note: Use ID as EXE name because they have to match for browsers (see: http://msdn.microsoft.com/en-us/library/cc144109)
-                    FileType.RegisterVerbCapability(appKey, target, defaultProgram, true, defaultProgram.ID.Replace(".exe", "").Replace(".EXE", ""), handler);
+                    FileType.RegisterVerbCapability(appKey, target, defaultProgram, true, handler);
 
                     // Set callbacks for Windows SPAD
                     using (var installInfoKey = appKey.CreateSubKey(RegSubKeyInstallInfo))

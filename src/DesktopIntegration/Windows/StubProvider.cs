@@ -135,25 +135,28 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="target">The application to be laucnhed via the stub.</param>
         /// <param name="command">The command argument to be passed to the the "0install run" command; may be <see langword="null"/>.</param>
         /// <param name="systemWide">Store the stub in a system-wide directory instead of just for the current user.</param>
-        /// <param name="exeName">The name the EXE file should have without the file ending (e.g. "MyApplication").</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <returns>The path to the generated stub EXE.</returns>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public static string GetRunStub(InterfaceFeed target, string command, bool systemWide, string exeName, ITaskHandler handler)
+        public static string GetRunStub(InterfaceFeed target, string command, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
-            if (string.IsNullOrEmpty(exeName)) throw new ArgumentNullException("exeName");
             #endregion
 
             string hash = ModelUtils.HashID(target.InterfaceID + "#" + command);
             string dirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "stubs", hash);
-            string exePath = Path.Combine(dirPath, exeName + ".exe");
+
+            var entryPoint = target.Feed.GetEntryPoint(command ?? Command.NameRun);
+            string exeName = (entryPoint != null && !string.IsNullOrEmpty(entryPoint.BinaryName))
+                ? entryPoint.BinaryName
+                : ModelUtils.Escape(target.Feed.Name);
 
             // Return an existing stub or build a new one
+            string exePath = Path.Combine(dirPath, exeName + ".exe");
             if (!File.Exists(exePath)) BuildRunStub(exePath, target, command, handler);
             return exePath;
         }

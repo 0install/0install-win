@@ -58,7 +58,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             shortcut.Arguments = arguments;
 
             // .lnk descriptions may not be longer than 260 characters
-            const int maxDescriptionLength = 260;
+            const int maxDescriptionLength = 256;
             string description = target.Feed.GetDescription(CultureInfo.CurrentCulture, command);
             shortcut.Description = description.Substring(0, Math.Min(description.Length, maxDescriptionLength));
 

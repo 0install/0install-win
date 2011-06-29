@@ -23,7 +23,6 @@ using System.Net;
 using Common;
 using Common.Tasks;
 using Microsoft.Win32;
-using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -117,7 +116,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             }
 
             using (var commandKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + autoPlay.ProgID + @"\shell\" + autoPlay.Verb.Name + @"\command"))
-                commandKey.SetValue("", FileType.GetLaunchCommandLine(target, autoPlay.Verb, systemWide, ModelUtils.Escape(target.Feed.Name), handler));
+                commandKey.SetValue("", FileType.GetLaunchCommandLine(target, autoPlay.Verb, systemWide, handler));
         }
         #endregion
 
