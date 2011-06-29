@@ -44,15 +44,15 @@ namespace ZeroInstall.Model
                 Feeds = {new FeedReference {Source = "hhttp://0install.de/feeds/test/sub1.xml"}},
                 FeedFor = {new InterfaceReference {Target = new Uri("http://0install.de/feeds/test/super1.xml")}},
                 Summaries = {"Default summary", {"German summary", new CultureInfo("de-DE")}},
-                Descriptions = {"Default descriptions", {"German descriptions", new CultureInfo("de-DE")}},
+                Descriptions = {"Default description", {"German description", new CultureInfo("de-DE")}},
                 Icons = {new Icon(new Uri("http://0install.de/feeds/images/test.png"), Icon.MimeTypePng), new Icon(new Uri("http://0install.de/feeds/images/test.ico"), Icon.MimeTypeIco)},
                 Elements = {CreateTestImplementation(), CreateTestPackageImplementation(), CreateTestGroup()},
                 CapabilityLists = {CapabilityListTest.CreateTestCapabilityList()},
                 EntryPoints = {new EntryPoint
                 {
                     Command = Command.NameRun,
-                    Names = {"Default name", {"German name", new CultureInfo("de-DE")}},
-                    Descriptions = {"Default descriptions", {"German descriptions", new CultureInfo("de-DE")}},
+                    Names = {"Entry name", {"German entry name", new CultureInfo("de-DE")}},
+                    Descriptions = {"Entry description", {"German entry description", new CultureInfo("de-DE")}},
                     Icons = {new Icon(new Uri("http://0install.de/feeds/images/test_command.png"), Icon.MimeTypePng), new Icon(new Uri("http://0install.de/feeds/images/test_command.ico"), Icon.MimeTypeIco)}
                 }}
             };
@@ -238,7 +238,31 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Ensures that <see cref="Feed.GetIcon"/> correctly finds best matching <see cref="Icon"/>s for <see cref="Command"/>s.
+        /// Ensures that <see cref="Feed.GetName"/> correctly finds best matching names for <see cref="Command"/>s/<see cref="EntryPoint"/>s.
+        /// </summary>
+        [Test]
+        public void TestGetName()
+        {
+            var feed = CreateTestFeed();
+
+            Assert.AreEqual("Entry name", feed.GetName(CultureInfo.InvariantCulture, Command.NameRun));
+            Assert.AreEqual(feed.Name, feed.GetName(CultureInfo.InvariantCulture, "unknown"));
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="Feed.GetDescription"/> correctly finds best matching descriptions for <see cref="Command"/>s/<see cref="EntryPoint"/>s.
+        /// </summary>
+        [Test]
+        public void TestGetDescription()
+        {
+            var feed = CreateTestFeed();
+
+            Assert.AreEqual("Entry description", feed.GetDescription(CultureInfo.InvariantCulture, Command.NameRun));
+            Assert.AreEqual("Default description", feed.GetDescription(CultureInfo.InvariantCulture, "unknown"));
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="Feed.GetIcon"/> correctly finds best matching <see cref="Icon"/>s for <see cref="Command"/>s/<see cref="EntryPoint"/>s.
         /// </summary>
         [Test]
         public void TestGetIcon()

@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.IO;
 using System.Xml.Serialization;
 using Common.Collections;
@@ -293,7 +294,47 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Returns the best matching icon for a specific <see cref="Command"/>/<see cref="EntryPoint"/>.
+        /// Returns the best matching name for a specific <see cref="Command"/>/<see cref="EntryPoint"/>. Will fall back to <see cref="Name"/>.
+        /// </summary>
+        /// <param name="language">The language to look for; use <see cref="CultureInfo.InvariantCulture"/> for none.</param>
+        /// <param name="command">The name of the command the name should represent; may be <see langword="null"/>.</param>
+        /// <returns>The best matching name that was found.</returns>
+        public string GetName(CultureInfo language, string command)
+        {
+            if (string.IsNullOrEmpty(command)) command = Command.NameRun;
+
+            var entryPoint = GetEntryPoint(command);
+            if (entryPoint != null)
+            {
+                string name = entryPoint.Names.GetBestLanguage(language);
+                if (!string.IsNullOrEmpty(name)) return name;
+            }
+
+            return Name;
+        }
+
+        /// <summary>
+        /// Returns the best matching description for a specific <see cref="Command"/>/<see cref="EntryPoint"/>. Will fall back to <see cref="Descriptions"/>.
+        /// </summary>
+        /// <param name="language">The language to look for; use <see cref="CultureInfo.InvariantCulture"/> for none.</param>
+        /// <param name="command">The name of the command the description should represent; may be <see langword="null"/>.</param>
+        /// <returns>The best matching description that was found; <see langword="null"/> if no matching description was found.</returns>
+        public string GetDescription(CultureInfo language, string command)
+        {
+            if (string.IsNullOrEmpty(command)) command = Command.NameRun;
+
+            var entryPoint = GetEntryPoint(command);
+            if (entryPoint != null)
+            {
+                string description = entryPoint.Descriptions.GetBestLanguage(language);
+                if (!string.IsNullOrEmpty(description)) return description;
+            }
+
+            return Descriptions.GetBestLanguage(language);
+        }
+
+        /// <summary>
+        /// Returns the best matching icon for a specific <see cref="Command"/>/<see cref="EntryPoint"/>. Will fall back to <see cref="Icons"/>.
         /// </summary>
         /// <param name="mimeType">The <see cref="Icon.MimeType"/> to try to find. Will only return exact matches.</param>
         /// <param name="command">The name of the command the icon should represent; may be <see langword="null"/>.</param>
@@ -305,14 +346,13 @@ namespace ZeroInstall.Model
             if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
             #endregion
 
-            if (!string.IsNullOrEmpty(command))
+            if (string.IsNullOrEmpty(command)) command = Command.NameRun;
+
+            var entryPoint = GetEntryPoint(command);
+            if (entryPoint != null)
             {
-                var entryPoint = GetEntryPoint(command);
-                if (entryPoint != null)
-                {
-                    var suitableCommandIcons = entryPoint.Icons.FindAll(icon => icon.MimeType == mimeType && icon.Location != null);
-                    if (!suitableCommandIcons.IsEmpty) return suitableCommandIcons.First;
-                }
+                var suitableCommandIcons = entryPoint.Icons.FindAll(icon => icon.MimeType == mimeType && icon.Location != null);
+                if (!suitableCommandIcons.IsEmpty) return suitableCommandIcons.First;
             }
 
             var suitableFeedIcons = Icons.FindAll(icon => icon.MimeType == mimeType && icon.Location != null);
