@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#if !MONO
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -67,4 +68,4 @@ namespace ZeroInstall.DesktopIntegration.Windows
         }
     }
 }
-
+#endif

@@ -50,7 +50,9 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (WindowsUtils.IsWindows)
             {
                 string shorcutPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), Name + ".lnk");
+#if !MONO
                 Windows.ShortcutManager.CreateShortcut(shorcutPath, target, Command, systemWide, handler);
+#endif
             }
         }
 
