@@ -51,6 +51,7 @@ namespace ZeroInstall.Model
                 EntryPoints = {new EntryPoint
                 {
                     Command = Command.NameRun,
+                    BinaryName = "myapp",
                     Names = {"Entry name", {"German entry name", new CultureInfo("de-DE")}},
                     Descriptions = {"Entry description", {"German entry description", new CultureInfo("de-DE")}},
                     Icons = {new Icon(new Uri("http://0install.de/feeds/images/test_command.png"), Icon.MimeTypePng), new Icon(new Uri("http://0install.de/feeds/images/test_command.ico"), Icon.MimeTypeIco)}

@@ -40,6 +40,13 @@ namespace ZeroInstall.Model
         [XmlAttribute("command")]
         public string Command { get; set; }
 
+        /// <summary>
+        /// The canonical name of the binary supplying the command (without file extensions). Used by desktop integration to better name stubs.
+        /// </summary>
+        [Description("The canonical name of the binary supplying the command (without file extensions). Used by desktop integration to better name stubs.")]
+        [XmlAttribute("binary-name")]
+        public string BinaryName { get; set; }
+
         private readonly LocalizableStringCollection _names = new LocalizableStringCollection();
         /// <summary>
         /// User-friendly names for the command in different languages.
@@ -88,7 +95,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="EntryPoint"/>.</returns>
         public EntryPoint CloneEntryPoint()
         {
-            var newEntryPoint = new EntryPoint {Command = Command};
+            var newEntryPoint = new EntryPoint {Command = Command, BinaryName = BinaryName};
             foreach (var name in Names) newEntryPoint.Names.Add(name.CloneString());
             foreach (var description in Descriptions) newEntryPoint.Descriptions.Add(description.CloneString());
             newEntryPoint.Icons.AddAll(Icons);
@@ -112,7 +119,7 @@ namespace ZeroInstall.Model
         {
             if (other == null) return false;
 
-            return Command == other.Command &&
+            return Command == other.Command && BinaryName == other.BinaryName &&
                 Names.SequencedEquals(other.Names) && Descriptions.SequencedEquals(other.Descriptions) && Icons.SequencedEquals(other.Icons);
         }
 
@@ -130,6 +137,7 @@ namespace ZeroInstall.Model
             unchecked
             {
                 int result = (Command ?? "").GetHashCode();
+                result = (result * 397) ^ (BinaryName ?? "").GetHashCode();
                 result = (result * 397) ^ Names.GetSequencedHashCode();
                 result = (result * 397) ^ Descriptions.GetSequencedHashCode();
                 result = (result * 397) ^ Icons.GetSequencedHashCode();
