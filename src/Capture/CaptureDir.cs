@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security;
-using Common;
 using Common.Collections;
 using Common.Utils;
 using ZeroInstall.Capture.Properties;
@@ -161,9 +160,7 @@ namespace ZeroInstall.Capture
             if (Directory.Exists(implementationDir)) Directory.Delete(implementationDir, true);
 
             // ToDo: Use callback logic to report progress
-            Log.Info("Copying installation files...");
             FileUtils.CopyDirectory(installationDir, implementationDir, true, false);
-            Log.Info("Done.");
 
             return new Implementation
             {

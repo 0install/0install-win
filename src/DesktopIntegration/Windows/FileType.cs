@@ -23,7 +23,6 @@ using Common;
 using Common.Tasks;
 using Microsoft.Win32;
 using ZeroInstall.Model;
-using ZeroInstall.Model.Capabilities;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -195,10 +194,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Helpers
         /// <summary>
-        /// Tries to find the first suitable icon specified by the capability, then fall back to the feed
+        /// Tries to find the first suitable icon specified by the <see cref="Capabilities.IconCapability"/>, then fall back to the <see cref="Feed"/>.
         /// </summary>
         /// <exception cref="KeyNotFoundException">Thrown if no suitable icon was found.</exception>
-        internal static Icon GetBestIcon(Feed feed, IconCapability capability)
+        internal static Icon GetBestIcon(Feed feed, Capabilities.IconCapability capability)
         {
             try { return capability.GetIcon(Icon.MimeTypeIco); }
             catch (KeyNotFoundException) { return feed.GetIcon(Icon.MimeTypeIco, null); }
