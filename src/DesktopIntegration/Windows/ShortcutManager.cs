@@ -19,9 +19,9 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using Common.Tasks;
 using Common.Utils;
-using IWshRuntimeLibrary;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -31,7 +31,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
     /// </summary>
     public static class ShortcutManager
     {
-        private static readonly WshShellClass _wshShell = new WshShellClass();
+        private static readonly IWshRuntimeLibrary.WshShellClass _wshShell = new IWshRuntimeLibrary.WshShellClass();
 
         /// <summary>
         /// Creates a new Windows shortcut.
@@ -47,14 +47,20 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            var shortcut = (IWshShortcut)_wshShell.CreateShortcut(path);
+            if (File.Exists(path)) File.Delete(path);
+
+            var shortcut = (IWshRuntimeLibrary.IWshShortcut)_wshShell.CreateShortcut(path);
             shortcut.TargetPath = target.Feed.NeedsTerminal ? "0install.exe" : "0install-win.exe";
 
-            string arguments = "run ";
+            string arguments = "run";
             if (!string.IsNullOrEmpty(command)) arguments += " --command=" + StringUtils.EscapeWhitespace(command);
             arguments += " " + StringUtils.EscapeWhitespace(target.InterfaceID);
             shortcut.Arguments = arguments;
-            shortcut.Description = target.Feed.GetDescription(CultureInfo.CurrentCulture, command);
+
+            // .lnk descriptions may not be longer than 260 characters
+            const int maxDescriptionLength = 260;
+            string description = target.Feed.GetDescription(CultureInfo.CurrentCulture, command);
+            shortcut.Description = description.Substring(0, Math.Min(description.Length, maxDescriptionLength));
 
             // Set icon if available
             try
@@ -62,7 +68,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 var icon = target.Feed.GetIcon(Icon.MimeTypeIco, command);
                 shortcut.IconLocation = IconProvider.GetIconPath(icon, systemWide, handler);
             }
-            catch (KeyNotFoundException) { }
+            catch (KeyNotFoundException) {}
 
             shortcut.Save();
         }
