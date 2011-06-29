@@ -195,8 +195,6 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="InvalidOperationException">Thrown if one or more of the <paramref name="accessPoints"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
         private void CheckForConflicts(IEnumerable<AccessPoint> accessPoints, AppEntry appEntry)
         {
-            var filteredAccessPoints = new LinkedList<AccessPoint>();
-
             var conflictIDs = AppList.GetConflictIDs();
             foreach (var accessPoint in accessPoints)
             {
@@ -206,12 +204,10 @@ namespace ZeroInstall.DesktopIntegration
                     ConflictData conflictData;
                     if (conflictIDs.TryGetValue(conflictID, out conflictData))
                     {
-                        if (!accessPoint.Equals(conflictData.AccessPoint))
+                        if (!accessPoint.Equals(conflictData.AccessPoint) || appEntry.InterfaceID != conflictData.AppEntry.InterfaceID)
                             throw new InvalidOperationException(string.Format(Resources.AccessPointConflict, conflictData.AccessPoint, conflictData.AppEntry, accessPoint, appEntry));
                     }
                 }
-
-                filteredAccessPoints.AddLast(accessPoint);
             }
 
             // ToDo: Check for inner conflicts
