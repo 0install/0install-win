@@ -113,17 +113,17 @@ namespace ZeroInstall.Capture
         /// </summary>
         /// <param name="typeKey">The registry key containing information about the file type / protocol the verb belongs to.</param>
         /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
-        /// <param name="verb">The internal name of the verb.</param>
+        /// <param name="verbName">The internal name of the verb.</param>
         /// <returns>The detected <see cref="Verb"/> or an empty <see cref="Verb"/> if no match was found.</returns>
-        private static Verb GetVerb(RegistryKey typeKey, CommandProvider commandProvider, string verb)
+        private static Verb GetVerb(RegistryKey typeKey, CommandProvider commandProvider, string verbName)
         {
             #region Sanity checks
             if (typeKey == null) throw new ArgumentNullException("typeKey");
-            if (string.IsNullOrEmpty(verb)) throw new ArgumentNullException("verb");
+            if (string.IsNullOrEmpty(verbName)) throw new ArgumentNullException("verb");
             if (commandProvider == null) throw new ArgumentNullException("commandProvider");
             #endregion
 
-            using (var verbKey = typeKey.OpenSubKey(@"shell\" + verb))
+            using (var verbKey = typeKey.OpenSubKey(@"shell\" + verbName))
             {
                 if (verbKey == null) return null;
 
@@ -141,13 +141,14 @@ namespace ZeroInstall.Capture
                 string commandName = command.Name;
 
                 if (commandName == Command.NameRun) commandName = null;
-                return new Verb
+                var verb  = new Verb
                 {
-                    Name = verb,
-                    Descriptions = {description},
+                    Name = verbName,
                     Command = commandName,
                     Arguments = additionalArgs
                 };
+                if (!string.IsNullOrEmpty(description)) verb.Descriptions.Add(description);
+                return verb;
             }
         }
     }
