@@ -18,9 +18,11 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Security.Cryptography;
 using Common;
 using Common.Storage;
 using Common.Tasks;
+using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 
@@ -49,7 +51,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             #endregion
 
             string iconDirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "icons");
-            string iconFilePath = Path.Combine(iconDirPath, ModelUtils.HashID(icon.Location.ToString()) + ".ico");
+            string iconFilePath = Path.Combine(iconDirPath, StringUtils.Hash(icon.Location.ToString(), SHA256.Create()) + ".ico");
 
             // Return an existing icon or get a new one from the cache
             if (!File.Exists(iconFilePath))

@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Security.Cryptography;
 using System.ServiceProcess;
 #if !DEBUG
 using Common.Storage;
@@ -35,7 +36,7 @@ namespace ZeroInstall.Store.Service
         {
 #if !DEBUG
             // Prevent launch during update and allow instance detection
-            string mutexName = AppMutex.GenerateName(Locations.InstallBase);
+            string mutexName = "mutex-" + StringUtils.Hash(Locations.InstallBase, SHA256.Create());
             if (AppMutex.Probe(mutexName + "-update")) return;
             AppMutex.Create(mutexName);
             AppMutex.Create("Zero Install");

@@ -19,6 +19,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Security;
+using System.Security.Cryptography;
 using System.Threading;
 using Common.Utils;
 using ZeroInstall.Updater.Properties;
@@ -102,7 +103,7 @@ namespace ZeroInstall.Updater
         /// </summary>
         public void MutexWait()
         {
-            string targetMutex = AppMutex.GenerateName(Target);
+            string targetMutex = "mutex-" + StringUtils.Hash(Target, SHA256.Create());
             while (AppMutex.Probe(targetMutex))
                 Thread.Sleep(1000);
             AppMutex.Create(targetMutex + "-update", out _blockingMutex);

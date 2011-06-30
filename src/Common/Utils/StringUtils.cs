@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -363,6 +364,25 @@ namespace Common.Utils
                 value = value.Remove(value.Length - 1, 1);
             }
             return value.Replace("\\\"", "\"");
+        }
+        #endregion
+
+        #region Hash
+        /// <summary>
+        /// Computes the hash value of a string encoded as UTF-8.
+        /// </summary>
+        /// <param name="value">The string to hash.</param>
+        /// <param name="algorithm">The hashing algorithm to use.</param>
+        /// <returns>A hexadecimal string representation of the hash value.</returns>
+        public static string Hash(string value, HashAlgorithm algorithm)
+        {
+            #region Sanity checks
+            if (value == null) throw new ArgumentNullException("value");
+            if (algorithm == null) throw new ArgumentNullException("algorithm");
+            #endregion
+
+            var locationHash = algorithm.ComputeHash(Encoding.UTF8.GetBytes(value));
+            return BitConverter.ToString(locationHash).Replace("-", "").ToLowerInvariant();
         }
         #endregion
 

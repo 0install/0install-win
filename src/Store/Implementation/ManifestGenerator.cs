@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
-using Common.Streams;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Store.Properties;
@@ -202,7 +201,7 @@ namespace ZeroInstall.Store.Implementation
             // Real symlinks
             string symlinkContents;
             if (FileUtils.IsSymlink(file.FullName, out symlinkContents))
-                return new ManifestSymlink(FileUtils.ComputeHash(StreamUtils.CreateFromString(symlinkContents), hashAlgorithm), symlinkContents.Length, file.Name);
+                return new ManifestSymlink(StringUtils.Hash(symlinkContents, hashAlgorithm), symlinkContents.Length, file.Name);
 
             // External symlinks
             if (externalSymlinks.Contains(file.FullName))

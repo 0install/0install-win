@@ -22,6 +22,7 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Reflection;
+using System.Security.Cryptography;
 using Common;
 using Common.Storage;
 using Common.Streams;
@@ -43,7 +44,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Builds a stub EXE that executes the "0install run" command.
         /// </summary>
         /// <param name="path">The target path to store the generated EXE file.</param>
-        /// <param name="target">The application to be laucnhed via the stub.</param>
+        /// <param name="target">The application to be launched via the stub.</param>
         /// <param name="command">The command argument to be passed to the the "0install run" command; may be <see langword="null"/>.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
@@ -132,7 +133,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <summary>
         /// Uses <see cref="BuildRunStub"/> to build a stub EXE in a well-known location. Future calls with the same arguments will return the same EXE without rebuilding it.
         /// </summary>
-        /// <param name="target">The application to be laucnhed via the stub.</param>
+        /// <param name="target">The application to be launched via the stub.</param>
         /// <param name="command">The command argument to be passed to the the "0install run" command; may be <see langword="null"/>.</param>
         /// <param name="systemWide">Store the stub in a system-wide directory instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
@@ -147,7 +148,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            string hash = ModelUtils.HashID(target.InterfaceID + "#" + command);
+            string hash = StringUtils.Hash(target.InterfaceID + "#" + command, SHA256.Create());
             string dirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "stubs", hash);
 
             var entryPoint = target.Feed.GetEntryPoint(command ?? Command.NameRun);
