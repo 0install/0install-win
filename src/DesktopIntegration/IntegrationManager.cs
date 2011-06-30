@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using Common;
+using Common.Collections;
 using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
@@ -146,18 +147,18 @@ namespace ZeroInstall.DesktopIntegration
         /// Applies <see cref="AccessPoint"/>s for an application.
         /// </summary>
         /// <param name="target">The application being integrated.</param>
-        /// <param name="accessPoints">The <see cref="AccessPoint"/>s to apply.</param>
+        /// <param name="toAdd">The <see cref="AccessPoint"/>s to apply.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        /// <exception cref="InvalidOperationException">Thrown if one or more of the <paramref name="accessPoints"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if one or more of the <paramref name="toAdd"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Capabilities.Capability"/>s is invalid.</exception>
-        public void AddAccessPoints(InterfaceFeed target, IEnumerable<AccessPoint> accessPoints, ITaskHandler handler)
+        public void AddAccessPoints(InterfaceFeed target, IEnumerable<AccessPoint> toAdd, ITaskHandler handler)
         {
             #region Sanity checks
-            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
+            if (toAdd == null) throw new ArgumentNullException("toAdd");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
@@ -170,20 +171,25 @@ namespace ZeroInstall.DesktopIntegration
             }
             if (appEntry.AccessPoints == null) appEntry.AccessPoints = new AccessPointList();
 
-            CheckForConflicts(accessPoints, appEntry);
+            CheckForConflicts(toAdd, appEntry);
 
-            // Apply the access points
-            // ToDo: Rollback on exceptions
-            foreach (var accessPoint in accessPoints)
-                accessPoint.Apply(appEntry, target, SystemWide, handler);
+            EnumerableUtils.ApplyWithRollback(toAdd,
+                accessPoint => accessPoint.Apply(appEntry, target, SystemWide, handler),
+                accessPoint =>
+                {
+                    // Don't perform rollback if the access point was already applied previously and this was only a refresh
+                    if (!appEntry.AccessPoints.Entries.Contains(accessPoint)) 
+                        accessPoint.Unapply(appEntry, SystemWide);
+                });
+
             if (WindowsUtils.IsWindows) WindowsUtils.NotifyAssocChanged();
 
             // Add the access points to the AppList
             long timestamp = FileUtils.ToUnixTime(DateTime.UtcNow);
-            foreach (var accessPoint in accessPoints)
+            foreach (var accessPoint in toAdd)
             {
                 accessPoint.Timestamp = timestamp;
-                appEntry.AccessPoints.Entries.UpdateOrAdd(accessPoint); // Replace previous entries
+                appEntry.AccessPoints.Entries.UpdateOrAdd(accessPoint); // Replace pre-existing entries
             }
             appEntry.Timestamp = timestamp;
             AppList.Save(AppListPath);
@@ -210,6 +216,7 @@ namespace ZeroInstall.DesktopIntegration
                 }
             }
 
+            // ToDo: Check for system conflicts
             // ToDo: Check for inner conflicts
         }
 
@@ -217,16 +224,16 @@ namespace ZeroInstall.DesktopIntegration
         /// Removes already applied <see cref="AccessPoint"/>s for an application.
         /// </summary>
         /// <param name="interfaceID">The interface for the application to perform the operation on.</param>
-        /// <param name="accessPoints">The <see cref="AccessPoint"/>s to remove.</param>
+        /// <param name="toRemove">The <see cref="AccessPoint"/>s to remove.</param>
         /// <exception cref="InvalidOperationException">Thrown if the application is not in the list.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Capabilities.Capability"/>s is invalid.</exception>
-        public void RemoveAccessPoints(string interfaceID, IEnumerable<AccessPoint> accessPoints)
+        public void RemoveAccessPoints(string interfaceID, IEnumerable<AccessPoint> toRemove)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
-            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
+            if (toRemove == null) throw new ArgumentNullException("toRemove");
             #endregion
 
             // Handle missing entries
@@ -235,12 +242,13 @@ namespace ZeroInstall.DesktopIntegration
             if (appEntry.AccessPoints == null) return;
 
             // Unapply the access points
-            foreach (var accessPoint in accessPoints)
+            foreach (var accessPoint in toRemove)
                 accessPoint.Unapply(appEntry, SystemWide);
+
             if (WindowsUtils.IsWindows) WindowsUtils.NotifyAssocChanged();
 
             // Remove the access points from the AppList
-            appEntry.AccessPoints.Entries.RemoveAll(accessPoints);
+            appEntry.AccessPoints.Entries.RemoveAll(toRemove);
             appEntry.Timestamp = FileUtils.ToUnixTime(DateTime.UtcNow);
             AppList.Save(AppListPath);
         }
