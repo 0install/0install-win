@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 using Common.Storage;
 using Common.Utils;
@@ -39,7 +40,7 @@ namespace ZeroInstall.Store.Management.WinForms
         /// <summary>
         /// The application user model ID used by the Windows 7 taskbar. Encodes <see cref="Locations.InstallBase"/> and the name of this sub-app.
         /// </summary>
-        public static readonly string AppUserModelID = "ZeroInstall." + AppMutex.GenerateName(Locations.InstallBase) + ".Store.Management";
+        public static readonly string AppUserModelID = "ZeroInstall." + StringUtils.Hash(Locations.InstallBase, SHA256.Create()) + ".Store.Management";
 
         /// <summary>
         /// The main entry point for the application.
@@ -51,7 +52,7 @@ namespace ZeroInstall.Store.Management.WinForms
 
 #if !DEBUG
             // Prevent launch during update and allow instance detection
-            string mutexName = AppMutex.GenerateName(Locations.InstallBase);
+            string mutexName = "mutex-" + StringUtils.Hash(Locations.InstallBase, SHA256.Create());
             if (AppMutex.Probe(mutexName + "-update")) return;
             AppMutex.Create(mutexName);
             AppMutex.Create("Zero Install");

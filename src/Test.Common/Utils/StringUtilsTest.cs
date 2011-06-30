@@ -21,6 +21,7 @@
  */
 
 using System.Collections.Specialized;
+using System.Security.Cryptography;
 using NUnit.Framework;
 
 namespace Common.Utils
@@ -125,6 +126,14 @@ namespace Common.Utils
             Assert.AreEqual("test", StringUtils.UnescapeWhitespace("test"), "Simple strings shouldn't be modified");
             Assert.AreEqual("test1 test2", StringUtils.UnescapeWhitespace("\"test1 test2\""), "Strings with whitespaces should be unencapsulated");
             Assert.AreEqual("test1\"test2", StringUtils.UnescapeWhitespace("test1\\\"test2"), "Quotation marks should be unescaped");
+        }
+
+        private const string Sha1ForEmptyString = "da39a3ee5e6b4b0d3255bfef95601890afd80709";
+
+        [Test]
+        public void TestHash()
+        {
+            Assert.AreEqual(Sha1ForEmptyString, StringUtils.Hash("", SHA1.Create()));
         }
 
         [Test]

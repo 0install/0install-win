@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
+using System.Security.Cryptography;
 using Common;
 using Common.Utils;
 using NDesk.Options;
@@ -46,7 +47,7 @@ namespace ZeroInstall.Launcher.Cli
         {
 #if !DEBUG
             // Prevent launch during update and allow instance detection
-            string mutexName = AppMutex.GenerateName(Locations.InstallBase);
+            string mutexName = "mutex-" + StringUtils.Hash(Locations.InstallBase, SHA256.Create());
             if (AppMutex.Probe(mutexName + "-update")) return 99;
             AppMutex.Create(mutexName);
             AppMutex.Create("Zero Install");
