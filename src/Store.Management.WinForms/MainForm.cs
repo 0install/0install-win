@@ -49,6 +49,8 @@ namespace ZeroInstall.Store.Management.WinForms
         {
             InitializeComponent();
 
+            HandleCreated += delegate { Program.ConfigureTaskbar(this, Text, null, null); };
+
             _treeView.SelectedEntryChanged += OnSelectedEntryChanged;
             _treeView.CheckedEntriesChanged += OnCheckedEntriesChanged;
             splitContainer.Panel1.Controls.Add(_treeView);

@@ -19,11 +19,10 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 using Common;
-
-#if !DEBUG
-using Common.Controls;
 using Common.Storage;
 using Common.Utils;
+#if !DEBUG
+using Common.Controls;
 #endif
 
 namespace ZeroInstall.Central.WinForms
@@ -34,11 +33,23 @@ namespace ZeroInstall.Central.WinForms
     public static class Program
     {
         /// <summary>
+        /// The canonical EXE name (without the file ending) for this binary.
+        /// </summary>
+        public const string ExeName = "ZeroInstall";
+
+        /// <summary>
+        /// The application user model ID used by the Windows 7 taskbar. Encodes <see cref="Locations.InstallBase"/> and the name of this sub-app.
+        /// </summary>
+        public static readonly string AppUserModelID = "ZeroInstall." + AppMutex.GenerateName(Locations.InstallBase) + ".Central";
+
+        /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main(string[] args)
         {
+            WindowsUtils.SetCurrentProcessAppID(AppUserModelID);
+
 #if !DEBUG
             // Prevent launch during update and allow instance detection
             string mutexName = AppMutex.GenerateName(Locations.InstallBase);
@@ -68,6 +79,21 @@ namespace ZeroInstall.Central.WinForms
 #else
             ErrorReportForm.RunAppMonitored(() => Application.Run(form), new Uri("http://0install.de/error-report/"));
 #endif
+        }
+
+        /// <summary>
+        /// Configures the Windows 7 taskbar for a specific window.
+        /// </summary>
+        /// <param name="form">The window to configure.</param>
+        /// <param name="name">The name for the taskbar entry.</param>
+        /// <param name="subCommand">The name to add to the <see cref="AppUserModelID"/> as a sub-command; may be <see langword="null"/>.</param>
+        /// <param name="arguments">Additional arguments to pass to <see cref="ExeName"/> when restarting to get back to this window; may be <see langword="null"/>.</param>
+        public static void ConfigureTaskbar(Form form, string name, string subCommand, string arguments)
+        {
+            string appUserModelID = AppUserModelID;
+            if (!string.IsNullOrEmpty(subCommand)) appUserModelID += "." + subCommand;
+            string exePath = Path.Combine(Locations.InstallBase, ExeName + ".exe");
+            WindowsUtils.SetWindowAppID(form.Handle, appUserModelID, StringUtils.EscapeWhitespace(exePath) + " " + arguments, exePath, name);
         }
     }
 }
