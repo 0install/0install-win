@@ -120,7 +120,6 @@
     <Compile Include="Windows\ContextMenu.cs" />
     <Compile Include="Windows\DefaultProgram.cs" />
     <Compile Include="Windows\GamesExplorer.cs" />
-    <Compile Include="Windows\UninstallEntry.cs" />
     <Compile Include="Windows\UrlProtocol.cs" />
   </ItemGroup>
   <ItemGroup>

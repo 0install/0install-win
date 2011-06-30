@@ -91,9 +91,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                         Windows.AppRegistration.Apply(target, appRegistration, EnumerableUtils.OfType<Capabilities.VerbCapability>(capabilityList.Entries), handler);
                 }
             }
-
-            // Create an uninstall entry
-            Windows.UninstallEntry.Create(appEntry.Name, target, systemWide, handler);
         }
 
         /// <inheritdoc/>
@@ -126,9 +123,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                         Windows.AppRegistration.Remove(appRegistration);
                 }
             }
-
-            // Remove the uninstall entry
-            Windows.UninstallEntry.Remove(appEntry.InterfaceID, systemWide);
         }
         #endregion
 
