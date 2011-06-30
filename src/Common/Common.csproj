@@ -111,7 +111,10 @@
     <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Utils\WindowsUtils.cs" />
-    <Compile Include="Utils\Windows7Structures.cs" />
+    <Compile Include="Utils\WindowsUtils.NativeMethods.cs" />
+    <Compile Include="Utils\WindowsUtils.Platform.cs" />
+    <Compile Include="Utils\WindowsUtils.Shell.cs" />
+    <Compile Include="Utils\WindowsUtils.Taskbar.cs" />
     <Compile Include="Utils\ImageUtils.cs" />
     <Compile Include="Utils\MonoUtils.cs" />
     <Compile Include="Storage\Locations.cs" />
@@ -133,6 +136,7 @@
     <Compile Include="Undo\RemoveFromCollection.cs" />
     <Compile Include="Undo\SetLocalizableString.cs" />
     <Compile Include="Undo\CompositeCommand.cs" />
+    <Compile Include="Utils\WindowsUtils.Properties.cs" />
     <Compile Include="Values\Design\ValueTypeConverter.cs" />
     <Compile Include="Values\Design\TimeSpanEditor.cs" />
     <Compile Include="Controls\ErrorReportForm.ErrorReport.cs" />

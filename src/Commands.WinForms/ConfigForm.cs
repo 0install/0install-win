@@ -19,6 +19,7 @@ using System;
 using System.Windows.Forms;
 using Common.Controls;
 using Common.Storage;
+using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Injector;
 
 namespace ZeroInstall.Commands.WinForms
@@ -46,7 +47,7 @@ namespace ZeroInstall.Commands.WinForms
 
             using (var form = new ConfigForm(config))
             {
-                if (Locations.IsPortable) form.Text += " - Portable mode";
+                if (Locations.IsPortable) form.Text += " - " + Resources.PortableMode;
                 return form.ShowDialog();
             }
         }

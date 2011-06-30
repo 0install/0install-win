@@ -129,31 +129,31 @@ namespace Common.Controls
                 {
                     case TaskState.Ready:
                         Style = ProgressBarStyle.Continuous;
-                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Paused, formHandle);
+                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(formHandle, TaskbarProgressBarState.Paused);
                         break;
 
                     case TaskState.Header:
                         Style = ProgressBarStyle.Marquee;
-                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Indeterminate, formHandle);
+                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(formHandle, TaskbarProgressBarState.Indeterminate);
                         break;
 
                     case TaskState.Data:
                         if (sender.BytesTotal == -1)
                         {
                             Style = ProgressBarStyle.Marquee;
-                            if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Indeterminate, formHandle);
+                            if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(formHandle, TaskbarProgressBarState.Indeterminate);
                         }
                         else
                         {
                             Style = ProgressBarStyle.Continuous;
-                            if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Normal, formHandle);
+                            if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(formHandle, TaskbarProgressBarState.Normal);
                         }
                         break;
 
                     case TaskState.IOError:
                     case TaskState.WebError:
                         Style = ProgressBarStyle.Continuous;
-                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Error, formHandle);
+                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(formHandle, TaskbarProgressBarState.Error);
                         break;
 
                     case TaskState.Complete:
@@ -161,7 +161,7 @@ namespace Common.Controls
                         Style = ProgressBarStyle.Continuous;
                         Value = 100;
 
-                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.NoProgress, formHandle);
+                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(formHandle, TaskbarProgressBarState.NoProgress);
                         break;
                 }
             }));
@@ -192,7 +192,7 @@ namespace Common.Controls
                 {
                     Value = currentValue;
                     IntPtr formHandle = ParentHandle;
-                    if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressValue(currentValue, 100, formHandle);
+                    if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressValue(formHandle, currentValue, 100);
                 }));
             }
         }
