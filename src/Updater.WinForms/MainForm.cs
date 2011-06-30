@@ -59,7 +59,7 @@ namespace ZeroInstall.Updater.WinForms
         #region Startup
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            WindowsUtils.SetProgressState(TaskbarProgressBarState.Indeterminate, Handle);
+            WindowsUtils.SetProgressState(Handle, TaskbarProgressBarState.Indeterminate);
 
             backgroundWorker.RunWorkerAsync();
         }
