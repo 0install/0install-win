@@ -100,7 +100,7 @@ namespace ZeroInstall.Capture
             #endregion
 
             var verbs = new List<Verb>();
-            foreach (string verbName in WindowsUtils.GetSubKeyNames(typeKey, "shell"))
+            foreach (string verbName in RegUtils.GetSubKeyNames(typeKey, "shell"))
             {
                 var verb = GetVerb(typeKey, commandProvider, verbName);
                 if (verb != null) verbs.Add(verb);

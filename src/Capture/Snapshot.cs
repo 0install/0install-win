@@ -126,24 +126,24 @@ namespace ZeroInstall.Capture
         private static void TakeRegistry(Snapshot snapshot)
         {
             snapshot.ServiceAssocs = GetServiceAssocs();
-            snapshot.AutoPlayHandlersUser = WindowsUtils.GetSubKeyNames(Registry.CurrentUser, AutoPlay.RegKeyHandlers);
-            snapshot.AutoPlayHandlersMachine = WindowsUtils.GetSubKeyNames(Registry.LocalMachine, AutoPlay.RegKeyHandlers);
+            snapshot.AutoPlayHandlersUser = RegUtils.GetSubKeyNames(Registry.CurrentUser, AutoPlay.RegKeyHandlers);
+            snapshot.AutoPlayHandlersMachine = RegUtils.GetSubKeyNames(Registry.LocalMachine, AutoPlay.RegKeyHandlers);
             snapshot.AutoPlayAssocsUser = GetAutoPlayAssocs(Registry.CurrentUser);
             snapshot.AutoPlayAssocsMachine = GetAutoPlayAssocs(Registry.LocalMachine);
             GetFileAssocData(out snapshot.FileAssocs, out snapshot.ProgIDs);
             snapshot.ProtocolAssocs = GetProtocolAssoc();
-            snapshot.ClassIDs = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ComServer.RegKeyClassesIDs);
-            snapshot.RegisteredApplications = WindowsUtils.GetValueNames(Registry.LocalMachine, AppRegistration.RegKeyMachineRegisteredApplications);
+            snapshot.ClassIDs = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ComServer.RegKeyClassesIDs);
+            snapshot.RegisteredApplications = RegUtils.GetValueNames(Registry.LocalMachine, AppRegistration.RegKeyMachineRegisteredApplications);
 
-            snapshot.FilesContextMenuSimple = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + "\\" + ContextMenu.RegKeyContextMenuSimplePostfix);
-            snapshot.FilesContextMenuExtended = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + "\\" + ContextMenu.RegKeyContextMenuExtendedPostfix);
-            snapshot.FilesPropertySheets = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + "\\" + ContextMenu.RegKeyPropertySheetsPostfix);
+            snapshot.FilesContextMenuSimple = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + "\\" + ContextMenu.RegKeyContextMenuSimplePostfix);
+            snapshot.FilesContextMenuExtended = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + "\\" + ContextMenu.RegKeyContextMenuExtendedPostfix);
+            snapshot.FilesPropertySheets = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + "\\" + ContextMenu.RegKeyPropertySheetsPostfix);
 
-            snapshot.AllContextMenuSimple = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + "\\" + ContextMenu.RegKeyContextMenuSimplePostfix);
-            snapshot.AllContextMenuExtended = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + "\\" + ContextMenu.RegKeyContextMenuExtendedPostfix);
-            snapshot.AllPropertySheets = WindowsUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + "\\" + ContextMenu.RegKeyPropertySheetsPostfix);
+            snapshot.AllContextMenuSimple = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + "\\" + ContextMenu.RegKeyContextMenuSimplePostfix);
+            snapshot.AllContextMenuExtended = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + "\\" + ContextMenu.RegKeyContextMenuExtendedPostfix);
+            snapshot.AllPropertySheets = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + "\\" + ContextMenu.RegKeyPropertySheetsPostfix);
 
-            snapshot.Games = WindowsUtils.GetSubKeyNames(Registry.LocalMachine, GamesExplorer.RegKeyMachineGames);
+            snapshot.Games = RegUtils.GetSubKeyNames(Registry.LocalMachine, GamesExplorer.RegKeyMachineGames);
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace ZeroInstall.Capture
 
                 var serviceAssocsList = new C5.LinkedList<ComparableTuple<string>>();
                 foreach (string serviceName in clientsKey.GetSubKeyNames())
-                    foreach (string clientName in WindowsUtils.GetSubKeyNames(clientsKey, serviceName))
+                    foreach (string clientName in RegUtils.GetSubKeyNames(clientsKey, serviceName))
                         serviceAssocsList.Add(new ComparableTuple<string>(serviceName, clientName));
                 return serviceAssocsList.ToArray();
             }
@@ -184,7 +184,7 @@ namespace ZeroInstall.Capture
                         fileAssocsList.Add(new ComparableTuple<string>(keyName, assocKey.GetValue("", "").ToString()));
 
                         // Get additional ProgIDs
-                        foreach (string progID in WindowsUtils.GetValueNames(assocKey, FileType.RegSubKeyOpenWith))
+                        foreach (string progID in RegUtils.GetValueNames(assocKey, FileType.RegSubKeyOpenWith))
                             fileAssocsList.Add(new ComparableTuple<string>(keyName, progID));
                     }
                 }
@@ -224,7 +224,7 @@ namespace ZeroInstall.Capture
 
                 var autoPlayAssocsList = new C5.LinkedList<ComparableTuple<string>>();
                 foreach (string eventName in eventsKey.GetSubKeyNames())
-                    foreach (var handlerName in WindowsUtils.GetValueNames(eventsKey, eventName))
+                    foreach (var handlerName in RegUtils.GetValueNames(eventsKey, eventName))
                         autoPlayAssocsList.Add(new ComparableTuple<string>(eventName, handlerName));
                 return autoPlayAssocsList.ToArray();
             }

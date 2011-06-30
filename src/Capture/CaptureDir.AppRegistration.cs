@@ -66,7 +66,7 @@ namespace ZeroInstall.Capture
             }
 
             bool x64;
-            using (var capsKey = WindowsUtils.OpenHklmKey(capabilitiesRegPath, out x64))
+            using (var capsKey = RegUtils.OpenHklmKey(capabilitiesRegPath, out x64))
             {
                 if (capsKey == null)
                 {
