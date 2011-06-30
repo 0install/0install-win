@@ -20,8 +20,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Security.Cryptography;
 using Common;
 using Common.Tasks;
+using Common.Utils;
 using Microsoft.Win32;
 using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
@@ -39,6 +41,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         /// <summary>The registry value name for friendly type name storage.</summary>
         public const string RegValueFriendlyName = "FriendlyTypeName";
+
+        /// <summary>The registry value name for application user model IDs (used by the Windows 7 taksbar).</summary>
+        public const string RegValueAppUserModelID = "AppUserModelID";
 
         /// <summary>The registry value name for MIME type storage.</summary>
         public const string RegValueContentType = "Content Type";
@@ -118,7 +123,55 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 }
             }
         }
+        #endregion
 
+        #region Unregister
+        /// <summary>
+        /// Unregisters a file type in the current Windows system.
+        /// </summary>
+        /// <param name="fileType">The file type to remove.</param>
+        /// <param name="systemWide">Unregister the file type system-wide instead of just for the current user.</param>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="fileType"/> is invalid.</exception>
+        public static void Unregister(Capabilities.FileType fileType, bool systemWide)
+        {
+            #region Sanity checks
+            if (fileType == null) throw new ArgumentNullException("fileType");
+            #endregion
+
+            if (string.IsNullOrEmpty(fileType.ID)) throw new InvalidDataException("Missing ID");
+
+            var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
+            using (var classesKey = hive.OpenSubKey(RegKeyClasses, true))
+            {
+                foreach (var extension in fileType.Extensions)
+                {
+                    if (string.IsNullOrEmpty(extension.Value)) continue;
+
+                    // Unegister MIME types
+                    if (!string.IsNullOrEmpty(extension.MimeType))
+                    {
+                        // ToDo
+                    }
+
+                    // Unregister extensions
+                    using (var extensionKey = classesKey.CreateSubKey(extension.Value))
+                    {
+                        using (var openWithKey = extensionKey.CreateSubKey(RegSubKeyOpenWith))
+                            openWithKey.DeleteValue(fileType.ID);
+
+                        // ToDo: Restore previous default
+                    }
+                }
+
+                // Remove ProgID
+                classesKey.DeleteSubKeyTree(fileType.ID);
+            }
+        }
+        #endregion
+
+        #region Helpers
         /// <summary>
         /// Registers a <see cref="Capabilities.VerbCapability"/> in a registry key.
         /// </summary>
@@ -140,6 +193,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
             #endregion
 
             if (string.IsNullOrEmpty(capability.ID)) throw new InvalidDataException("Missing ID");
+
+            registryKey.SetValue(RegValueAppUserModelID, GetAppUserModelID(target.InterfaceID, null));
 
             if (capability is Capabilities.UrlProtocol) registryKey.SetValue(UrlProtocol.ProtocolIndicator, "");
 
@@ -175,30 +230,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 }
             }
         }
-        #endregion
 
-        #region Unregister
-        /// <summary>
-        /// Unregisters a file type in the current Windows system.
-        /// </summary>
-        /// <param name="fileType">The file type to remove.</param>
-        /// <param name="systemWide">Unregister the file type system-wide instead of just for the current user.</param>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="fileType"/> is invalid.</exception>
-        public static void Unregister(Capabilities.FileType fileType, bool systemWide)
-        {
-            #region Sanity checks
-            if (fileType == null) throw new ArgumentNullException("fileType");
-            #endregion
-
-            if (string.IsNullOrEmpty(fileType.ID)) throw new InvalidDataException("Missing ID");
-
-            // ToDo: Implement
-        }
-        #endregion
-
-        #region Helpers
         /// <summary>
         /// Tries to find the first suitable icon specified by the <see cref="Capabilities.IconCapability"/>, then fall back to the <see cref="Feed"/>.
         /// </summary>
@@ -221,6 +253,19 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string launchCommand = "\"" + StubProvider.GetRunStub(target, verb.Command, systemWide, handler) + "\"";
             if (!string.IsNullOrEmpty(verb.Arguments)) launchCommand += " " + verb.Arguments;
             return launchCommand;
+        }
+
+        /// <summary>
+        /// Generates an application user model ID for use with the Windows 7 taskbar.
+        /// </summary>
+        /// <param name="interfaceID">The interface ID of application being integrated.</param>
+        /// <param name="command">The name of the command within the <see cref="Feed"/> to launch; may be <see langword="null"/>.</param>
+        /// <returns>An application user model ID that uniquely an interface and feed.</returns>
+        internal static string GetAppUserModelID(string interfaceID, string command)
+        {
+            string id = interfaceID;
+            if (!string.IsNullOrEmpty(command)) id += "#" + command;
+            return "ZeroInstallApp." + StringUtils.Hash(id, SHA256.Create());
         }
         #endregion
     }

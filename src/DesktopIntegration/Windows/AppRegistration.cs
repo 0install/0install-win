@@ -82,9 +82,6 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(appRegistration.ID)) throw new InvalidDataException("Missing ID");
             if (string.IsNullOrEmpty(appRegistration.CapabilityRegPath)) throw new InvalidDataException("Invalid CapabilityRegPath");
 
-            using (var regAppsKey = Registry.LocalMachine.CreateSubKey(RegKeyMachineRegisteredApplications))
-                regAppsKey.SetValue(appRegistration.ID, appRegistration.CapabilityRegPath);
-
             // ToDo: Handle appRegistration.X64
             using (var capabilitiesKey = Registry.LocalMachine.CreateSubKey(appRegistration.CapabilityRegPath))
             {
@@ -129,6 +126,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     }
                 }
             }
+
+            using (var regAppsKey = Registry.LocalMachine.CreateSubKey(RegKeyMachineRegisteredApplications))
+                regAppsKey.SetValue(appRegistration.ID, appRegistration.CapabilityRegPath);
         }
         #endregion
 
@@ -149,7 +149,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(appRegistration.ID)) throw new InvalidDataException("Missing ID");
             if (string.IsNullOrEmpty(appRegistration.CapabilityRegPath)) throw new InvalidDataException("Invalid CapabilityRegPath");
 
-            // ToDo: Implement
+            using (var regAppsKey = Registry.LocalMachine.CreateSubKey(RegKeyMachineRegisteredApplications))
+                regAppsKey.DeleteValue(appRegistration.ID, false);
+
+            // ToDo: Handle appRegistration.X64
+            Registry.LocalMachine.DeleteSubKeyTree(appRegistration.CapabilityRegPath);
         }
         #endregion
     }

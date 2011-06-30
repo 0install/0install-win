@@ -39,6 +39,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         #endregion
 
         #region Apply
+        /// <summary>The file path for the coressponding Windows shortcut file.</summary>
+        private string WindowsShortcutPath
+        {
+            get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), Name + ".lnk"); }
+        }
+
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, InterfaceFeed target, bool systemWide, ITaskHandler handler)
         {
@@ -49,10 +55,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             if (WindowsUtils.IsWindows)
             {
-                string shorcutPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), Name + ".lnk");
-#if !MONO
-                Windows.ShortcutManager.CreateShortcut(shorcutPath, target, Command, systemWide, handler);
-#endif
+                Windows.ShortcutManager.CreateShortcut(WindowsShortcutPath, target, Command, systemWide, handler);
             }
         }
 
@@ -63,7 +66,10 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            // ToDo: Implement
+            if (WindowsUtils.IsWindows)
+            {
+                if (File.Exists(WindowsShortcutPath)) File.Delete(WindowsShortcutPath);
+            }
         }
         #endregion
 

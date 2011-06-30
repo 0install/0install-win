@@ -130,7 +130,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(defaultProgram.ID)) throw new InvalidDataException("Missing ID");
             if (string.IsNullOrEmpty(defaultProgram.Service)) throw new InvalidDataException("Missing Service");
 
-            // ToDo: Implement
+            using (var serviceKey = Registry.LocalMachine.CreateSubKey(RegKeyMachineClients + @"\" + defaultProgram.Service))
+            {
+                // ToDo: Restore previous default
+
+                serviceKey.DeleteSubKeyTree(defaultProgram.ID);
+            }
         }
         #endregion
     }

@@ -85,6 +85,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(autoPlay.Provider)) throw new InvalidDataException("Missing provider");
 
             var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
+
+            using (var commandKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + autoPlay.ProgID + @"\shell\" + autoPlay.Verb.Name + @"\command"))
+                commandKey.SetValue("", FileType.GetLaunchCommandLine(target, autoPlay.Verb, systemWide, handler));
+
             using (var handlerKey = hive.CreateSubKey(RegKeyHandlers + @"\" + autoPlay.ID))
             {
                 handlerKey.SetValue(RegValueProgID, autoPlay.ProgID);
@@ -114,9 +118,6 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         chosenEventKey.SetValue("", autoPlay.ID);
                 }
             }
-
-            using (var commandKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + autoPlay.ProgID + @"\shell\" + autoPlay.Verb.Name + @"\command"))
-                commandKey.SetValue("", FileType.GetLaunchCommandLine(target, autoPlay.Verb, systemWide, handler));
         }
         #endregion
 
@@ -138,7 +139,22 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(autoPlay.ID)) throw new InvalidDataException("Missing ID");
             if (string.IsNullOrEmpty(autoPlay.ProgID)) throw new InvalidDataException("Missing ProgID");
 
-            // ToDo: Implement
+            var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
+
+            foreach (var autoPlayEvent in autoPlay.Events)
+            {
+                if (string.IsNullOrEmpty(autoPlayEvent.Name)) continue;
+
+                using (var eventKey = hive.CreateSubKey(RegKeyAssocs + @"\" + autoPlayEvent.Name))
+                    eventKey.DeleteValue(autoPlay.ID, false);
+
+                // ToDo: Restore previous default
+            }
+
+            hive.DeleteSubKey(RegKeyHandlers + @"\" + autoPlay.ID, false);
+
+            // Remove ProgID
+            hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + autoPlay.ProgID);
         }
         #endregion
     }

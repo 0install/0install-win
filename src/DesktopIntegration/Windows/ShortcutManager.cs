@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !MONO
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -31,7 +30,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
     /// </summary>
     public static class ShortcutManager
     {
+#if !MONO
         private static readonly IWshRuntimeLibrary.WshShellClass _wshShell = new IWshRuntimeLibrary.WshShellClass();
+#endif
 
         /// <summary>
         /// Creates a new Windows shortcut.
@@ -47,6 +48,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
+#if !MONO
             if (File.Exists(path)) File.Delete(path);
 
             var shortcut = (IWshRuntimeLibrary.IWshShortcut)_wshShell.CreateShortcut(path);
@@ -71,7 +73,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             catch (KeyNotFoundException) {}
 
             shortcut.Save();
+#endif
         }
     }
 }
-#endif

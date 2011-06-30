@@ -51,6 +51,22 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         #endregion
 
         #region Apply
+        /// <summary>The directory path for the coressponding Windows start menu category.</summary>
+        private string WindowsCategoryPath
+        {
+            get
+            {
+                string menuDir = Environment.GetFolderPath(Environment.SpecialFolder.Programs);
+                return (string.IsNullOrEmpty(Category) ? menuDir : Path.Combine(menuDir, Category));
+            }
+        }
+
+        /// <summary>The file path for the coressponding Windows shortcut file.</summary>
+        private string WindowsShortcutPath
+        {
+            get { return Path.Combine(WindowsCategoryPath, Name + ".lnk"); }
+        }
+
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, InterfaceFeed target, bool systemWide, ITaskHandler handler)
         {
@@ -61,14 +77,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             if (WindowsUtils.IsWindows)
             {
-                string menuDir = Environment.GetFolderPath(Environment.SpecialFolder.Programs);
-                if (!string.IsNullOrEmpty(Category)) menuDir = Path.Combine(menuDir, Category);
-                if (!Directory.Exists(menuDir)) Directory.CreateDirectory(menuDir);
-
-                string shorcutPath = Path.Combine(menuDir, Name + ".lnk");
-#if !MONO
-                Windows.ShortcutManager.CreateShortcut(shorcutPath, target, Command, systemWide, handler);
-#endif
+                if (!Directory.Exists(WindowsCategoryPath)) Directory.CreateDirectory(WindowsCategoryPath);
+                Windows.ShortcutManager.CreateShortcut(WindowsShortcutPath, target, Command, systemWide, handler);
             }
         }
 
@@ -79,7 +89,13 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            // ToDo: Implement
+            if (WindowsUtils.IsWindows)
+            {
+                if (File.Exists(WindowsShortcutPath)) File.Delete(WindowsShortcutPath);
+
+                // Delete category directory if empty
+                if (Directory.GetFiles(WindowsCategoryPath).Length == 0) Directory.Delete(WindowsCategoryPath, false);
+            }
         }
         #endregion
 
