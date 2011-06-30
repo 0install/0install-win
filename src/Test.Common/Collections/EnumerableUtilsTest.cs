@@ -20,6 +20,8 @@
  * THE SOFTWARE.
  */
 
+using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace Common.Collections
@@ -68,6 +70,23 @@ namespace Common.Collections
         {
             CollectionAssert.AreEqual(new[] {"B", "H"}, EnumerableUtils.GetAddedElements(new[] {"A", "C", "E", "G"}, new[] {"A", "B", "C", "E", "G", "H"}));
             CollectionAssert.AreEqual(new[] {"C"}, EnumerableUtils.GetAddedElements(new[] {"A", "D"}, new[] {"C", "D"}));
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="EnumerableUtils.ApplyWithRollback{T}"/> correctly performs rollbacks on exceptions.
+        /// </summary>
+        [Test]
+        public void TestApplyWithRollback()
+        {
+            var applyCalledFor = new LinkedList<int>();
+            var rollbackCalledFor = new LinkedList<int>();
+            Assert.Throws<Exception>(() => EnumerableUtils.ApplyWithRollback(new[] {1, 2, 3},
+                value => { applyCalledFor.AddLast(value); if (value == 2) throw new Exception("Test exception"); },
+                value => rollbackCalledFor.AddLast(value)),
+                "Exceptions should be passed through after rollback.");
+
+            CollectionAssert.AreEqual(new[] {1, 2}, applyCalledFor);
+            CollectionAssert.AreEqual(new[] {2, 1}, rollbackCalledFor);
         }
     }
 }

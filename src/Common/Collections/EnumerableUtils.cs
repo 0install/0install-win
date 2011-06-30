@@ -23,6 +23,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Common.Collections
 {
@@ -31,6 +32,7 @@ namespace Common.Collections
     /// </summary>
     public static class EnumerableUtils
     {
+        #region First
         /// <summary>
         /// Returns the first element of an enumerable collection.
         /// </summary>
@@ -43,7 +45,9 @@ namespace Common.Collections
             using (var enumerator = collection.GetEnumerator())
                 return enumerator.MoveNext() ? enumerator.Current : null;
         }
+        #endregion
 
+        #region Empty
         /// <summary>
         /// Checkes whether an enumerable collection contains any elements.
         /// </summary>
@@ -56,7 +60,9 @@ namespace Common.Collections
             using (var enumerator = collection.GetEnumerator())
                 return !enumerator.MoveNext();
         }
+        #endregion
 
+        #region Of type
         /// <summary>
         /// Filters a list of elements based on their type.
         /// </summary>
@@ -70,7 +76,9 @@ namespace Common.Collections
                 if (element is TResult) yield return (TResult)element;
             }
         }
+        #endregion
 
+        #region Added elements
         /// <summary>
         /// Assumes two sorted arrays. Determines which elements are present in <paramref name="newArray"/> but not in <paramref name="oldArray"/>.
         /// </summary>
@@ -142,6 +150,54 @@ namespace Common.Collections
             }
 
             return added.ToArray();
+        }
+        #endregion
+
+        /// <summary>
+        /// Applies an operation for all elements of a collection. Automatically applies rollback operations in case of an exception.
+        /// </summary>
+        /// <typeparam name="T">The type of elements to operate on.</typeparam>
+        /// <param name="elements">The elements to apply the action for.</param>
+        /// <param name="apply">The action to apply to each element.</param>
+        /// <param name="rollback">The action to apply to each element that <paramref name="apply"/> was called on in case of an exception.</param>
+        /// <remarks>
+        /// <paramref name="rollback"/> is applied to the element that raised an exception in <paramref name="apply"/> and then interating backwards through all previous elements.
+        /// After rollback is complete the exception is passed on.
+        /// </remarks>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Suppress exceptions during rollback since they would hide the actual exception that caused the rollback in the first place")]
+        public static void ApplyWithRollback<T>(IEnumerable<T> elements, Action<T> apply, Action<T> rollback)
+        {
+            #region Sanity checks
+            if (elements == null) throw new ArgumentNullException("elements");
+            if (apply == null) throw new ArgumentNullException("apply");
+            if (rollback == null) throw new ArgumentNullException("rollback");
+            #endregion
+
+            var rollbackJournal = new LinkedList<T>();
+            try
+            {
+                foreach (var element in elements)
+                {
+                    // Remember the element for potential rollback
+                    rollbackJournal.AddFirst(element);
+
+                    apply(element);
+                }
+            }
+            catch
+            {
+                foreach (var element in rollbackJournal)
+                {
+                    try { rollback(element); }
+                    catch (Exception ex)
+                    {
+                        // Suppress exceptions during rollback since they would hide the actual exception that caused the rollback in the first place
+                        Log.Error("Failed to rollback " + element + ":\n" + ex.Message);
+                    }
+                }
+
+                throw;
+            }
         }
     }
 }
