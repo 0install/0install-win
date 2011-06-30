@@ -55,6 +55,15 @@ namespace ZeroInstall.Central.WinForms
         {
             InitializeComponent();
 
+            HandleCreated += delegate
+            {
+                Program.ConfigureTaskbar(this, Text, null, null);
+
+                var cacheLink = new ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, StoreExe + ".exe"), null);
+                var configLink = new ShellLink(buttonConfiguration.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, CommandsExe + ".exe"), "config");
+                WindowsUtils.AddTaskLinks(Program.AppUserModelID, new[] {cacheLink, configLink });
+            };
+
             browserNewApps.CanGoBackChanged += delegate { toolStripButtonBack.Enabled = browserNewApps.CanGoBack; };
         }
         #endregion
@@ -263,22 +272,32 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region Tools
+        /// <summary>
+        /// The EXE name (without the file ending) for the Windows Commands binary.
+        /// </summary>
+        private const string CommandsExe = "0install-win";
+
+        /// <summary>
+        /// The EXE name (without the file ending) for the Windows Store Management binary.
+        /// </summary>
+        private const string StoreExe = "0store-win";
+
         private void buttonLaunchInterface_Click(object sender, EventArgs e)
         {
             string interfaceID = InputBox.Show(null, "Zero Install", Resources.EnterInterfaceUrl);
             if (string.IsNullOrEmpty(interfaceID)) return;
 
-            LaunchHelperAssembly("0install-win", "run --gui " + StringUtils.EscapeWhitespace(interfaceID));
+            LaunchHelperAssembly(CommandsExe, "run --gui " + StringUtils.EscapeWhitespace(interfaceID));
         }
 
         private void buttonCacheManagement_Click(object sender, EventArgs e)
         {
-            LaunchHelperAssembly("0store-win", null);
+            LaunchHelperAssembly(StoreExe, null);
         }
 
         private void buttonConfiguration_Click(object sender, EventArgs e)
         {
-            LaunchHelperAssembly("0install-win", "config");
+            LaunchHelperAssembly(CommandsExe, "config");
         }
 
         private void buttonHelp_Click(object sender, EventArgs e)

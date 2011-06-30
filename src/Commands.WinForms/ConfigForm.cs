@@ -33,6 +33,8 @@ namespace ZeroInstall.Commands.WinForms
         {
             InitializeComponent();
             propertyGrid.SelectedObject = config;
+
+            HandleCreated += delegate { Program.ConfigureTaskbar(this, Text, "Config", "config"); };
         }
 
         /// <summary>

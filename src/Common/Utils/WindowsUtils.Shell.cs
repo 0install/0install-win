@@ -48,6 +48,25 @@ namespace Common.Utils
         public readonly int IconIndex;
 
         /// <summary>
+        /// Creates a new shell link structure.
+        /// </summary>
+        /// <param name="title">The title/name of the task link.</param>
+        /// <param name="path">The target path the link shall point to and to get the icon from.</param>
+        /// <param name="arguments">Additional arguments for <paramref name="title"/>; may be <see langword="null"/>.</param>
+        public ShellLink(string title, string path, string arguments)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(title)) throw new ArgumentNullException("title");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
+            Title = title;
+            IconPath = Path = path;
+            Arguments = arguments;
+            IconIndex = 0;
+        }
+
+        /// <summary>
         /// Creates a new shell link structure
         /// </summary>
         /// <param name="title">The title/name of the task link.</param>
