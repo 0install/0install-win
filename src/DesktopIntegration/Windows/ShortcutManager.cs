@@ -52,7 +52,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (File.Exists(path)) File.Delete(path);
 
             var shortcut = (IWshRuntimeLibrary.IWshShortcut)_wshShell.CreateShortcut(path);
-            shortcut.TargetPath = target.Feed.NeedsTerminal ? "0install.exe" : "0install-win.exe";
+
+            var entryPoint = target.Feed.GetEntryPoint(command ?? Command.NameRun);
+            bool needsTerminal = target.Feed.NeedsTerminal || (entryPoint != null && entryPoint.NeedsTerminal);
+            shortcut.TargetPath = needsTerminal ? "0install.exe" : "0install-win.exe";
 
             string arguments = "run";
             if (!string.IsNullOrEmpty(command)) arguments += " --command=" + StringUtils.EscapeWhitespace(command);

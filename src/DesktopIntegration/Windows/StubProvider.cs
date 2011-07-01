@@ -68,8 +68,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (!string.IsNullOrEmpty(command)) args += "--command=" + StringUtils.EscapeWhitespace(command) + " ";
             args += StringUtils.EscapeWhitespace(target.InterfaceID);
 
+            var entryPoint = target.Feed.GetEntryPoint(command ?? Command.NameRun);
+            bool needsTerminal = target.Feed.NeedsTerminal || (entryPoint != null && entryPoint.NeedsTerminal);
+
             // Load the template code and insert variables
-            string code = GetEmbeddedResource("Stub.template").Replace("[EXE]", target.Feed.NeedsTerminal ? "0install.exe" : "0install-win.exe");
+            string code = GetEmbeddedResource("Stub.template").Replace("[EXE]", needsTerminal ? "0install.exe" : "0install-win.exe");
             code = code.Replace("[ARGUMENTS]", EscapeForCode(args));
             code = code.Replace("[TITLE]", EscapeForCode(target.Feed.GetName(CultureInfo.CurrentCulture, command)));
 
@@ -79,7 +82,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 GenerateExecutable = true, OutputAssembly = path, IncludeDebugInformation = false, GenerateInMemory = false, TreatWarningsAsErrors = true,
                 ReferencedAssemblies = {"System.dll"}
             };
-            if (!target.Feed.NeedsTerminal) compilerParameters.CompilerOptions += " /target:winexe";
+            if (!needsTerminal) compilerParameters.CompilerOptions += " /target:winexe";
 
             // Set icon if available
             try
