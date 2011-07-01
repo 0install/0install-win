@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Properties
         /// <inheritdoc />
-        public override string Name { get { return string.Format(Resources.GeneratingManifest, Path.GetFileName(TargetDir)); } }
+        public override string Name { get { return string.Format(Resources.GeneratingManifest, Format, Path.GetFileName(TargetDir)); } }
 
         /// <summary>
         /// The path of the directory to analyze.

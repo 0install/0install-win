@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Commands.AddFeed">
-    <Position X="9.5" Y="4.5" Width="1.5" />
+    <Position X="9.5" Y="5" Width="1.5" />
     <Members>
       <Method Name="AddFeed" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEBAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>AddFeed.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Update">
-    <Position X="1" Y="13.75" Width="2" />
+    <Position X="1" Y="14.5" Width="2" />
     <Members>
       <Method Name="Update" Hidden="true" />
     </Members>
@@ -21,17 +21,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Configure">
-    <Position X="7.75" Y="4.5" Width="1.5" />
-    <Members>
-      <Method Name="Configure" Hidden="true" />
-    </Members>
+    <Position X="7.75" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAAAAAAAAAgAAQAAAgAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Configure.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Download">
-    <Position X="1.75" Y="9.5" Width="2.75" />
+    <Position X="1.75" Y="10.25" Width="2.75" />
     <Members>
       <Method Name="Download" Hidden="true" />
     </Members>
@@ -41,7 +38,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Import">
-    <Position X="4.25" Y="4.5" Width="1.5" />
+    <Position X="4.25" Y="5" Width="1.5" />
     <Members>
       <Method Name="Import" Hidden="true" />
     </Members>
@@ -51,7 +48,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.List">
-    <Position X="6" Y="4.5" Width="1.5" />
+    <Position X="6" Y="5" Width="1.5" />
     <Members>
       <Method Name="List" Hidden="true" />
     </Members>
@@ -61,7 +58,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.RemoveFeed">
-    <Position X="11.25" Y="4.5" Width="1.5" />
+    <Position X="11.25" Y="5" Width="1.5" />
     <Members>
       <Method Name="RemoveFeed" Hidden="true" />
     </Members>
@@ -71,7 +68,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Run">
-    <Position X="3.25" Y="13.75" Width="2" />
+    <Position X="3.25" Y="14.5" Width="2" />
     <Members>
       <Method Name="Run" Hidden="true" />
     </Members>
@@ -81,7 +78,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Selection">
-    <Position X="2.25" Y="4.5" Width="1.75" />
+    <Position X="2.25" Y="5" Width="1.75" />
     <Members>
       <Field Name="_requirements" Hidden="true" />
       <Method Name="Selection" Hidden="true" />
@@ -97,12 +94,12 @@
       <Method Name="CommandBase" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAAkgAAQAAAIACAAEAAAAAAAAAAAAAABEBAA=</HashCode>
+      <HashCode>AAAggAAAAAkgAAQAAAIACAAEBAAAAAAAAAAAAABEBAA=</HashCode>
       <FileName>CommandBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.ListFeeds">
-    <Position X="13" Y="4.5" Width="1.5" />
+    <Position X="13" Y="5" Width="1.5" />
     <Members>
       <Method Name="ListFeeds" Hidden="true" />
     </Members>
@@ -112,7 +109,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.DefaultCommand">
-    <Position X="0.5" Y="4.5" Width="1.5" />
+    <Position X="0.5" Y="5" Width="1.5" />
     <Members>
       <Method Name="DefaultCommand" Hidden="true" />
     </Members>
@@ -126,6 +123,16 @@
     <TypeIdentifier>
       <HashCode>AAAQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAA=</HashCode>
       <FileName>CommandFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.Digest">
+    <Position X="14.75" Y="5" Width="1.5" />
+    <Members>
+      <Method Name="Digest" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Digest.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

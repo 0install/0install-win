@@ -144,7 +144,7 @@ Tatsächlicher Wert: {1}</value>
     <value>Die Datei die signiert werden soll kann nicht gefunden werden.</value>
   </data>
   <data name="GeneratingManifest" xml:space="preserve">
-    <value>Generiere Manifest ({0})</value>
+    <value>Generiere {0} Manifest ({1})</value>
   </data>
   <data name="IconNotInCache" xml:space="preserve">
     <value>'{0}' konnte nicht im Icon Cache gefunden werden. Nach folgender Datei wurde gesucht: {1}</value>

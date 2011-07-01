@@ -70,6 +70,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Calculating digest.
+        /// </summary>
+        internal static string ActionDigest {
+            get {
+                return ResourceManager.GetString("ActionDigest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Downloading application.
         /// </summary>
         internal static string ActionDownload {
@@ -147,6 +156,15 @@ namespace ZeroInstall.Commands.Properties {
         internal static string DescriptionConfig {
             get {
                 return ResourceManager.GetString("DescriptionConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calculate the manifest digest of a directory or archive..
+        /// </summary>
+        internal static string DescriptionDigest {
+            get {
+                return ResourceManager.GetString("DescriptionDigest", resourceCulture);
             }
         }
         
@@ -288,6 +306,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to find file or directory &apos;{0}&apos;..
+        /// </summary>
+        internal static string FileOrDirNotFound {
+            get {
+                return ResourceManager.GetString("FileOrDirNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Found feeds:.
         /// </summary>
         internal static string FoundFeeds {
@@ -366,6 +393,15 @@ namespace ZeroInstall.Commands.Properties {
         internal static string NoUpdatesFound {
             get {
                 return ResourceManager.GetString("NoUpdatesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {HASH} algorithm to use for the digest..
+        /// </summary>
+        internal static string OptionAlgorithm {
+            get {
+                return ResourceManager.GetString("OptionAlgorithm", resourceCulture);
             }
         }
         
