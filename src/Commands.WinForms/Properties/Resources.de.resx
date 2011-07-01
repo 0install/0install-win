@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
   <data name="EnterFeedUrl" xml:space="preserve">
     <value>Bitte geben Sie die URL der neuen Quelle von Implementierungen für dieses Interface an:</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Verstecken</value>
   </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Portable Modus</value>
@@ -128,6 +134,9 @@
   </data>
   <data name="PropertiesFor" xml:space="preserve">
     <value>Eigenschaften für {0}</value>
+  </data>
+  <data name="Solving" xml:space="preserve">
+    <value>Löse Anfrage auf...</value>
   </data>
   <data name="TryHelp" xml:space="preserve">
     <value>Probieren Sie {0} --help</value>

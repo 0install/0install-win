@@ -61,11 +61,29 @@ namespace ZeroInstall.Commands.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter the URL of the new source of implementations for this interface:.
         /// </summary>
         internal static string EnterFeedUrl {
             get {
                 return ResourceManager.GetString("EnterFeedUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide.
+        /// </summary>
+        internal static string Hide {
+            get {
+                return ResourceManager.GetString("Hide", resourceCulture);
             }
         }
         
@@ -93,6 +111,15 @@ namespace ZeroInstall.Commands.WinForms.Properties {
         internal static string PropertiesFor {
             get {
                 return ResourceManager.GetString("PropertiesFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Solving request....
+        /// </summary>
+        internal static string Solving {
+            get {
+                return ResourceManager.GetString("Solving", resourceCulture);
             }
         }
         
