@@ -36,16 +36,18 @@
             this.comboBoxMode = new System.Windows.Forms.ComboBox();
             this.labelDefault = new System.Windows.Forms.Label();
             this.hintTextBoxDefault = new Common.Controls.HintTextBox();
+            this.hintTextBoxSeparator = new Common.Controls.HintTextBox();
+            this.labelSeparator = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(165, 209);
+            this.buttonOK.Location = new System.Drawing.Point(165, 220);
             this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(246, 209);
+            this.buttonCancel.Location = new System.Drawing.Point(246, 220);
             // 
             // labelName
             // 
@@ -116,10 +118,10 @@
             // labelDefault
             // 
             this.labelDefault.AutoSize = true;
-            this.labelDefault.Location = new System.Drawing.Point(12, 128);
+            this.labelDefault.Location = new System.Drawing.Point(12, 167);
             this.labelDefault.Name = "labelDefault";
             this.labelDefault.Size = new System.Drawing.Size(41, 13);
-            this.labelDefault.TabIndex = 6;
+            this.labelDefault.TabIndex = 8;
             this.labelDefault.Text = "Default";
             // 
             // hintTextBoxDefault
@@ -127,16 +129,37 @@
             this.hintTextBoxDefault.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxDefault.HintText = "";
-            this.hintTextBoxDefault.Location = new System.Drawing.Point(15, 144);
+            this.hintTextBoxDefault.Location = new System.Drawing.Point(15, 183);
             this.hintTextBoxDefault.Name = "hintTextBoxDefault";
             this.hintTextBoxDefault.Size = new System.Drawing.Size(306, 20);
-            this.hintTextBoxDefault.TabIndex = 7;
+            this.hintTextBoxDefault.TabIndex = 9;
+            // 
+            // hintTextBoxSeparator
+            // 
+            this.hintTextBoxSeparator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxSeparator.HintText = "";
+            this.hintTextBoxSeparator.Location = new System.Drawing.Point(15, 144);
+            this.hintTextBoxSeparator.Name = "hintTextBoxSeparator";
+            this.hintTextBoxSeparator.Size = new System.Drawing.Size(306, 20);
+            this.hintTextBoxSeparator.TabIndex = 7;
+            // 
+            // labelSeparator
+            // 
+            this.labelSeparator.AutoSize = true;
+            this.labelSeparator.Location = new System.Drawing.Point(12, 128);
+            this.labelSeparator.Name = "labelSeparator";
+            this.labelSeparator.Size = new System.Drawing.Size(53, 13);
+            this.labelSeparator.TabIndex = 6;
+            this.labelSeparator.Text = "Separator";
             // 
             // EnvironmentBindingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(333, 244);
+            this.ClientSize = new System.Drawing.Size(333, 255);
+            this.Controls.Add(this.hintTextBoxSeparator);
+            this.Controls.Add(this.labelSeparator);
             this.Controls.Add(this.hintTextBoxDefault);
             this.Controls.Add(this.labelDefault);
             this.Controls.Add(this.comboBoxMode);
@@ -159,6 +182,8 @@
             this.Controls.SetChildIndex(this.buttonCancel, 0);
             this.Controls.SetChildIndex(this.labelDefault, 0);
             this.Controls.SetChildIndex(this.hintTextBoxDefault, 0);
+            this.Controls.SetChildIndex(this.labelSeparator, 0);
+            this.Controls.SetChildIndex(this.hintTextBoxSeparator, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -174,5 +199,7 @@
         private System.Windows.Forms.ComboBox comboBoxMode;
         private System.Windows.Forms.Label labelDefault;
         private Common.Controls.HintTextBox hintTextBoxDefault;
+        private Common.Controls.HintTextBox hintTextBoxSeparator;
+        private System.Windows.Forms.Label labelSeparator;
     }
 }

@@ -47,6 +47,22 @@ namespace ZeroInstall.Model
         [XmlAttribute("binary-name")]
         public string BinaryName { get; set; }
 
+        /// <summary>
+        /// If <see langword="true"/>, this element indicates that the entry point requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.
+        /// </summary>
+        [Category("Interface"), Description("If true, this element indicates that the entry point requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.")]
+        [XmlIgnore, DefaultValue(false)]
+        public bool NeedsTerminal { get; set; }
+
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="NeedsTerminal"/>
+        [XmlElement("needs-terminal"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string NeedsTerminalString
+        {
+            get { return (NeedsTerminal ? "" : null); }
+            set { NeedsTerminal = (value != null); }
+        }
+
         private readonly LocalizableStringCollection _names = new LocalizableStringCollection();
         /// <summary>
         /// User-friendly names for the command in different languages.
@@ -95,7 +111,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="EntryPoint"/>.</returns>
         public EntryPoint CloneEntryPoint()
         {
-            var newEntryPoint = new EntryPoint {Command = Command, BinaryName = BinaryName};
+            var newEntryPoint = new EntryPoint {Command = Command, BinaryName = BinaryName, NeedsTerminal = NeedsTerminal};
             foreach (var name in Names) newEntryPoint.Names.Add(name.CloneString());
             foreach (var description in Descriptions) newEntryPoint.Descriptions.Add(description.CloneString());
             newEntryPoint.Icons.AddAll(Icons);
@@ -119,7 +135,7 @@ namespace ZeroInstall.Model
         {
             if (other == null) return false;
 
-            return Command == other.Command && BinaryName == other.BinaryName &&
+            return Command == other.Command && BinaryName == other.BinaryName && NeedsTerminal == other.NeedsTerminal &&
                 Names.SequencedEquals(other.Names) && Descriptions.SequencedEquals(other.Descriptions) && Icons.SequencedEquals(other.Icons);
         }
 
@@ -138,6 +154,7 @@ namespace ZeroInstall.Model
             {
                 int result = (Command ?? "").GetHashCode();
                 result = (result * 397) ^ (BinaryName ?? "").GetHashCode();
+                result = (result * 397) ^ NeedsTerminal.GetHashCode();
                 result = (result * 397) ^ Names.GetSequencedHashCode();
                 result = (result * 397) ^ Descriptions.GetSequencedHashCode();
                 result = (result * 397) ^ Icons.GetSequencedHashCode();

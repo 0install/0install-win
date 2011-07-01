@@ -47,7 +47,7 @@
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 3;
-            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.Text = "(Cancel)";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
@@ -64,7 +64,7 @@
             this.buttonHide.Name = "buttonHide";
             this.buttonHide.Size = new System.Drawing.Size(75, 23);
             this.buttonHide.TabIndex = 2;
-            this.buttonHide.Text = "&Hide";
+            this.buttonHide.Text = "(Hide)";
             this.toolTip.SetToolTip(this.buttonHide, "Hides the window and continues running the process as a tray icon");
             this.buttonHide.UseVisualStyleBackColor = true;
             this.buttonHide.Click += new System.EventHandler(this.buttonHide_Click);
@@ -77,7 +77,7 @@
             this.labelSolving.Name = "labelSolving";
             this.labelSolving.Size = new System.Drawing.Size(72, 20);
             this.labelSolving.TabIndex = 0;
-            this.labelSolving.Text = "Solving...";
+            this.labelSolving.Text = "(Solving)";
             // 
             // progressBarSolving
             // 

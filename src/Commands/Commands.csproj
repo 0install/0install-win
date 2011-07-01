@@ -63,6 +63,7 @@
     <Compile Include="IntegrationCommand.cs" />
     <Compile Include="IntegrateApp.cs" />
     <Compile Include="DefaultCommand.cs" />
+    <Compile Include="Digest.cs" />
     <Compile Include="Download.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Import.cs" />

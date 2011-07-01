@@ -259,6 +259,8 @@ namespace ZeroInstall.Injector
             if (!environmentVariables.ContainsKey(binding.Name)) environmentVariables.Add(binding.Name, binding.Default);
 
             string previousValue = environmentVariables[binding.Name];
+            string separator = (string.IsNullOrEmpty(binding.Separator) ? Path.PathSeparator.ToString() : binding.Separator);
+
             switch (binding.Mode)
             {
                 default:
@@ -267,7 +269,7 @@ namespace ZeroInstall.Injector
                         // No exisiting value, just set new one
                         ? newValue
                         // Prepend new value to existing one seperated by path separator
-                        : newValue + Path.PathSeparator + environmentVariables[binding.Name];
+                        : newValue + separator + environmentVariables[binding.Name];
                     break;
 
                 case EnvironmentMode.Append:
@@ -275,7 +277,7 @@ namespace ZeroInstall.Injector
                         // No exisiting value, just set new one
                         ? newValue
                         // Append new value to existing one seperated by path separator
-                        : environmentVariables[binding.Name] + Path.PathSeparator + newValue;
+                        : environmentVariables[binding.Name] + separator + newValue;
                     break;
 
                 case EnvironmentMode.Replace:

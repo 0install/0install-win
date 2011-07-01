@@ -22,6 +22,7 @@ using System.Windows.Forms;
 using Common;
 using Common.Tasks;
 using Common.Utils;
+using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
@@ -53,6 +54,13 @@ namespace ZeroInstall.Commands.WinForms
             _cancelCallback = cancelCallback;
 
             Shown += delegate { WindowsUtils.SetForegroundWindow(this); };
+
+            Load += delegate
+            {
+                labelSolving.Text = Resources.Solving;
+                buttonHide.Text = Resources.Hide;
+                buttonCancel.Text = Resources.Cancel;
+            };
         }
 
         /// <summary>

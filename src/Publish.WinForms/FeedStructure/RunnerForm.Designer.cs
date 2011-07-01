@@ -35,6 +35,14 @@
             this.groupBoxArguments.SuspendLayout();
             this.SuspendLayout();
             // 
+            // labelImportance
+            // 
+            this.labelImportance.Visible = false;
+            // 
+            // comboBoxImportance
+            // 
+            this.comboBoxImportance.Visible = false;
+            // 
             // buttonOK
             // 
             this.buttonOK.Location = new System.Drawing.Point(156, 391);
@@ -95,8 +103,9 @@
             this.Controls.Add(this.textCommand);
             this.Controls.Add(this.groupBoxArguments);
             this.Name = "RunnerForm";
-            this.ShowInTaskbar = false;
             this.Text = "Edit runner";
+            this.Controls.SetChildIndex(this.comboBoxImportance, 0);
+            this.Controls.SetChildIndex(this.labelImportance, 0);
             this.Controls.SetChildIndex(this.groupBoxArguments, 0);
             this.Controls.SetChildIndex(this.textCommand, 0);
             this.Controls.SetChildIndex(this.labelCommand, 0);

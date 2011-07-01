@@ -46,6 +46,8 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         public DependencyForm()
         {
             InitializeComponent();
+
+            comboBoxImportance.Items.AddRange(new object[] {Importance.Essential, Importance.Recommended});
         }
 
         #endregion
@@ -57,10 +59,11 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         private void ClearFormControls()
         {
-            hintTextBoxInterface.Text = String.Empty;
-            hintTextBoxUse.Text = String.Empty;
-            hintTextBoxNotBefore.Text = String.Empty;
-            hintTextBoxBefore.Text = String.Empty;
+            hintTextBoxInterface.Text = "";
+            hintTextBoxUse.Text = "";
+            hintTextBoxNotBefore.Text = "";
+            hintTextBoxBefore.Text = "";
+            comboBoxImportance.SelectedItem = Importance.Essential;
             listBoxConstraints.Items.Clear();
         }
 
@@ -70,8 +73,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         private void UpdateFormControls()
         {
             ClearFormControls();
-            if (_dependency.Interface != null) hintTextBoxInterface.Text = _dependency.Interface;
-            if (!String.IsNullOrEmpty(_dependency.Use)) hintTextBoxUse.Text = _dependency.Use;
+            hintTextBoxInterface.Text = _dependency.Interface;
+            hintTextBoxUse.Text = _dependency.Use;
+            comboBoxImportance.SelectedItem = _dependency.Importance;
             foreach (var constraint in _dependency.Constraints)
             {
                 listBoxConstraints.Items.Add(constraint);
@@ -90,7 +94,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         private void ButtonConstraintAddClick(object sender, EventArgs e)
         {
             Constraint constraint;
-            ImplementationVersion notBefore = null, before = null;
+            ImplementationVersion notBefore, before;
 
             // add NotBefore and Before
             if (ImplementationVersion.TryCreate(hintTextBoxNotBefore.Text, out notBefore) & ImplementationVersion.TryCreate(hintTextBoxBefore.Text, out before))
@@ -195,11 +199,13 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         private void ButtonOkClick(object sender, EventArgs e)
         {
             _dependency.Interface = hintTextBoxInterface.Text;
-            _dependency.Use = (!String.IsNullOrEmpty(hintTextBoxUse.Text)) ? hintTextBoxUse.Text : String.Empty;
+            _dependency.Use = (!string.IsNullOrEmpty(hintTextBoxUse.Text) ? hintTextBoxUse.Text : null);
             foreach (Constraint constraint in listBoxConstraints.Items)
             {
                 _dependency.Constraints.Add(constraint);
             }
+
+            if (comboBoxImportance.SelectedItem is Importance) _dependency.Importance = (Importance)comboBoxImportance.SelectedItem;
         }
 
         #endregion

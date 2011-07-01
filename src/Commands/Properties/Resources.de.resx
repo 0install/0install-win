@@ -123,6 +123,9 @@
   <data name="ActionAppCommand" xml:space="preserve">
     <value>Verwalte Desktopintegration</value>
   </data>
+  <data name="ActionDigest" xml:space="preserve">
+    <value>Berechne Digest</value>
+  </data>
   <data name="ActionDownload" xml:space="preserve">
     <value>Lade Anwendung runter</value>
   </data>
@@ -177,6 +180,9 @@ Sie müssen eventuell ihr Terminal schließen und wieder öffnen damit dies wirk
   </data>
   <data name="DescriptionConfig" xml:space="preserve">
     <value>Konfigurationseinstellungen anzeigen oder verändern. Ohne Argumente zeigt es alle Einstellungen und ihre aktuellen Werte an. Mit einem Argument zeigt es den aktuellen Wert der benannten Einstellung an. Mit zwei Argumenten setzt es den Wert der benannten Einstellung.</value>
+  </data>
+  <data name="DescriptionDigest" xml:space="preserve">
+    <value>Berechne den Manifest Digest eines Verzeichnisses oder eines Archivs.</value>
   </data>
   <data name="DescriptionDownload" xml:space="preserve">
     <value>Dieser Befehl verhält sich ähnlich zu '0install select', außer dass er die ausgewählten Versionen auch runterlädt, falls sie sich nicht bereits im Cache befinden. Im Gegensatz zu 'select' werden die ausgewählten Versionen nicht standardmäßig ausgegeben. Gibt einen Exit Status von 0 zurück falls ein geeigneter Satz an Versionen gefunden wurde und sie nun alle heruntergeladen sind und sich im Cache befinden; gibt ansonsten einen Exit Status von 1 zurück.</value>
@@ -237,6 +243,9 @@ Sie müssen eventuell ihr Terminal schließen und wieder öffnen damit dies wirk
     <value>Der Feed wurde erfolgreich für die folgenden Interfaces deregistriert:
 {0}</value>
   </data>
+  <data name="FileOrDirNotFound" xml:space="preserve">
+    <value>Konnte die Datei oder das Verzeichnis '{0}' nicht finden.</value>
+  </data>
   <data name="FoundFeeds" xml:space="preserve">
     <value>Gefundene Feeds:</value>
   </data>
@@ -267,6 +276,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   </data>
   <data name="NoUpdatesFound" xml:space="preserve">
     <value>Keine Updates gefunden</value>
+  </data>
+  <data name="OptionAlgorithm" xml:space="preserve">
+    <value>Der {HASH} algorithmus der für den Digest verwendet werden soll.</value>
   </data>
   <data name="OptionAliasRemove" xml:space="preserve">
     <value>Entferne einen bestehenden Alias.</value>
