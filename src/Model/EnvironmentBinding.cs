@@ -77,6 +77,13 @@ namespace ZeroInstall.Model
         public EnvironmentMode Mode { get; set; }
 
         /// <summary>
+        /// Overrides the default separator character (colon character on POSIX systems, and semi-colon on Windows).
+        /// </summary>
+        [Description("Overrides the default separator character (colon character on POSIX systems, and semi-colon on Windows).")]
+        [XmlAttribute("separator"), DefaultValue("")]
+        public string Separator { get; set; }
+
+        /// <summary>
         /// If the environment variable is not currently set then this value is used for prepending or appending.
         /// </summary>
         [Description("If the environment variable is not currently set then this value is used for prepending or appending.")]
@@ -105,7 +112,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="EnvironmentBinding"/>.</returns>
         public override Binding CloneBinding()
         {
-            return new EnvironmentBinding { Name = Name, Value = Value, Insert = Insert, Mode = Mode, Default = Default };
+            return new EnvironmentBinding {Name = Name, Value = Value, Insert = Insert, Mode = Mode, Separator = Separator, Default = Default};
         }
         #endregion
 
@@ -115,7 +122,7 @@ namespace ZeroInstall.Model
         {
             if (other == null) return false;
 
-            return other.Name == Name || other.Value == Value || other.Insert == Insert || other.Mode == Mode || other.Default == Default;
+            return other.Name == Name || other.Value == Value || other.Insert == Insert || other.Mode == Mode || other.Separator == Separator || other.Default == Default;
         }
 
         /// <inheritdoc/>
@@ -135,6 +142,7 @@ namespace ZeroInstall.Model
                 result = (result * 397) ^ (Value ?? "").GetHashCode();
                 result = (result * 397) ^ (Insert ?? "").GetHashCode();
                 result = (result * 397) ^ Mode.GetHashCode();
+                result = (result * 397) ^ (Separator ?? "").GetHashCode();
                 result = (result * 397) ^ (Default ?? "").GetHashCode();
                 return result;
             }

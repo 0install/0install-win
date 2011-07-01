@@ -22,6 +22,20 @@ using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
 {
+    #region Enumerations
+    /// <seealso cref="Dependency.Importance"/>
+    public enum Importance
+    {
+        /// <summary>A version of the <see cref="Dependency"/> must be selected.</summary>
+        [XmlEnum("essential")]
+        Essential,
+
+        /// <summary>No version of the <see cref="Dependency"/> is also an option, although selecting a version is preferable to not selecting one.</summary>
+        [XmlEnum("recommended")]
+        Recommended,
+    }
+    #endregion
+
     /// <summary>
     /// A reference to a <see cref="Feed"/> that is required by an <see cref="Implementation"/>.
     /// </summary>
@@ -35,8 +49,15 @@ namespace ZeroInstall.Model
         /// The URI or local path used to identify the <see cref="Feed"/>.
         /// </summary>
         [Description("The URI or local path used to identify the interface.")]
-        [XmlAttribute("interface")] 
+        [XmlAttribute("interface")]
         public string Interface { get; set; }
+
+        /// <summary>
+        /// Controls how important this dependency is (i.e. whether ignoring it is an option).
+        /// </summary>
+        [Description("Controls how important this dependency is (i.e. whether ignoring it is an option).")]
+        [XmlAttribute("importance"), DefaultValue(typeof(Importance), "Essential")]
+        public Importance Importance { get; set; }
 
         /// <summary>
         /// This can be used to indicate that this dependency is only needed in some cases.
@@ -87,7 +108,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="Dependency"/>.</returns>
         public virtual Dependency CloneDependency()
         {
-            var dependency = new Dependency {Interface = Interface, Use = Use};
+            var dependency = new Dependency {Interface = Interface, Importance = Importance, Use = Use};
             foreach (var binding in Bindings) dependency.Bindings.Add(binding.CloneBinding());
             foreach (var constraint in Constraints) dependency.Constraints.Add(constraint.CloneConstraint());
 
@@ -111,6 +132,7 @@ namespace ZeroInstall.Model
             if (other == null) return false;
 
             if (Interface != other.Interface) return false;
+            if (Importance != other.Importance) return false;
             if (Use != other.Use) return false;
             if (!Constraints.SequencedEquals(other.Constraints)) return false;
             if (!Bindings.SequencedEquals(other.Bindings)) return false;
@@ -131,6 +153,7 @@ namespace ZeroInstall.Model
             unchecked
             {
                 int result = (Interface ?? "").GetHashCode();
+                result = (result * 397) ^ Importance.GetHashCode();
                 result = (result * 397) ^ (Use ?? "").GetHashCode();
                 result = (result * 397) ^ Constraints.GetSequencedHashCode();
                 result = (result * 397) ^ Bindings.GetSequencedHashCode();

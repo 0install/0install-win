@@ -40,16 +40,18 @@
             this.buttonConstraintAdd = new System.Windows.Forms.Button();
             this.buttonConstraintRemove = new System.Windows.Forms.Button();
             this.labelVersion = new System.Windows.Forms.Label();
+            this.labelImportance = new System.Windows.Forms.Label();
+            this.comboBoxImportance = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(156, 208);
+            this.buttonOK.Location = new System.Drawing.Point(156, 239);
             this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(237, 208);
+            this.buttonCancel.Location = new System.Drawing.Point(237, 239);
             // 
             // hintTextBoxInterface
             // 
@@ -171,12 +173,32 @@
             this.labelVersion.TabIndex = 6;
             this.labelVersion.Text = "<= version <";
             // 
+            // labelImportance
+            // 
+            this.labelImportance.AutoSize = true;
+            this.labelImportance.Location = new System.Drawing.Point(12, 188);
+            this.labelImportance.Name = "labelImportance";
+            this.labelImportance.Size = new System.Drawing.Size(60, 13);
+            this.labelImportance.TabIndex = 12;
+            this.labelImportance.Text = "Importance";
+            // 
+            // comboBoxImportance
+            // 
+            this.comboBoxImportance.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxImportance.FormattingEnabled = true;
+            this.comboBoxImportance.Location = new System.Drawing.Point(15, 204);
+            this.comboBoxImportance.Name = "comboBoxImportance";
+            this.comboBoxImportance.Size = new System.Drawing.Size(112, 21);
+            this.comboBoxImportance.TabIndex = 13;
+            // 
             // DependencyForm
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(324, 243);
+            this.ClientSize = new System.Drawing.Size(324, 274);
+            this.Controls.Add(this.labelImportance);
+            this.Controls.Add(this.comboBoxImportance);
             this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.buttonConstraintRemove);
             this.Controls.Add(this.buttonConstraintAdd);
@@ -207,6 +229,8 @@
             this.Controls.SetChildIndex(this.buttonConstraintRemove, 0);
             this.Controls.SetChildIndex(this.buttonCancel, 0);
             this.Controls.SetChildIndex(this.labelVersion, 0);
+            this.Controls.SetChildIndex(this.comboBoxImportance, 0);
+            this.Controls.SetChildIndex(this.labelImportance, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,5 +250,7 @@
         private System.Windows.Forms.Button buttonConstraintAdd;
         private System.Windows.Forms.Button buttonConstraintRemove;
         private System.Windows.Forms.Label labelVersion;
+        protected System.Windows.Forms.Label labelImportance;
+        protected System.Windows.Forms.ComboBox comboBoxImportance;
     }
 }

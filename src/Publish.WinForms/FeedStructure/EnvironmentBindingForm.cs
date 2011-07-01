@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Windows.Forms;
 using Common.Controls;
 using ZeroInstall.Model;
 
@@ -24,7 +23,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
     public partial class EnvironmentBindingForm : OKCancelDialog
     {
-
         #region Properties
 
         private EnvironmentBinding _environmentBinding = new EnvironmentBinding();
@@ -74,9 +72,10 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         private void ClearControl()
         {
             comboBoxName.SelectedIndex = 0;
-            hintTextBoxInsert.Text = String.Empty;
+            hintTextBoxInsert.Text = "";
             comboBoxMode.SelectedIndex = 0;
-            hintTextBoxDefault.Text = String.Empty;
+            hintTextBoxSeparator.Text = "";
+            hintTextBoxDefault.Text = "";
         }
 
         /// <summary>
@@ -90,9 +89,10 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                 comboBoxName.Items.Add(_environmentBinding.Name);
                 comboBoxName.SelectedItem = _environmentBinding.Name;
             }
-            if (!String.IsNullOrEmpty(_environmentBinding.Insert)) hintTextBoxInsert.Text = _environmentBinding.Insert;
+            hintTextBoxInsert.Text = _environmentBinding.Insert;
             comboBoxMode.SelectedItem = _environmentBinding.Mode;
-            if (!String.IsNullOrEmpty(_environmentBinding.Default)) hintTextBoxDefault.Text = _environmentBinding.Default;
+            hintTextBoxSeparator.Text = _environmentBinding.Separator;
+            hintTextBoxDefault.Text = _environmentBinding.Default;
         }
 
         #endregion
@@ -106,10 +106,11 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <param name="e">Not used.</param>
         private void ButtonOkClick(object sender, EventArgs e)
         {
-            _environmentBinding.Insert = (!String.IsNullOrEmpty(hintTextBoxInsert.Text)) ? hintTextBoxInsert.Text : null;
+            _environmentBinding.Name = (!string.IsNullOrEmpty(comboBoxName.Text) ? comboBoxName.Text : null);
+            _environmentBinding.Insert = (!string.IsNullOrEmpty(hintTextBoxInsert.Text) ? hintTextBoxInsert.Text : null);
             _environmentBinding.Mode = (EnvironmentMode)comboBoxMode.SelectedItem;
-            _environmentBinding.Default = (!String.IsNullOrEmpty(hintTextBoxDefault.Text)) ? hintTextBoxDefault.Text : null;
-            _environmentBinding.Name = (!String.IsNullOrEmpty(comboBoxName.Text)) ? comboBoxName.Text : null;
+            _environmentBinding.Separator = (!string.IsNullOrEmpty(hintTextBoxSeparator.Text) ? hintTextBoxSeparator.Text : null);
+            _environmentBinding.Default = (!string.IsNullOrEmpty(hintTextBoxDefault.Text) ? hintTextBoxDefault.Text : null);
         }
 
         #endregion

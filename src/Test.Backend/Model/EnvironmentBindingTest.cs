@@ -31,7 +31,7 @@ namespace ZeroInstall.Model
         /// </summary>
         internal static EnvironmentBinding CreateTestBinding()
         {
-            return new EnvironmentBinding {Default = "default", Mode = EnvironmentMode.Replace, Name = "name", Value = "value"};
+            return new EnvironmentBinding {Name = "name", Value = "value", Default = "default", Mode = EnvironmentMode.Replace, Separator = ","};
         }
         #endregion
 

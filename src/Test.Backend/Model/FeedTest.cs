@@ -99,7 +99,9 @@ namespace ZeroInstall.Model
                 Commands = {CommandTest.CreateTestCommand1()},
                 DocDir = "doc",
                 Stability = Stability.Developer,
-                Dependencies = {new Dependency {Interface = "http://0install.de/feeds/test/test2.xml", Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding()}}}
+                Dependencies = {new Dependency {Interface = "http://0install.de/feeds/test/test2.xml", Importance = Importance.Recommended,
+                    Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding()}
+                }}
             };
         }
 
