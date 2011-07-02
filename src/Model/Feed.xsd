@@ -209,6 +209,7 @@
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element minOccurs="0" maxOccurs="1" name="needs-terminal" type="xs:string" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="name" type="tns:localizable-string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="summary" type="tns:localizable-string" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="description" type="tns:localizable-string" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="icon" type="tns:icon" />
     </xs:choice>

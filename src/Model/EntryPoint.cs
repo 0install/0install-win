@@ -72,11 +72,20 @@ namespace ZeroInstall.Model
         // Note: Can not use ICollection<T> interface because of XML Serialization
         public LocalizableStringCollection Names { get { return _names; } }
 
+        private readonly LocalizableStringCollection _summaries = new LocalizableStringCollection();
+        /// <summary>
+        /// Short one-line descriptions for different languages; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills").
+        /// </summary>
+        [Description("Short one-line descriptions for different languages; the first word should not be upper-case unless it is a proper noun (e.g. \"cures all ills\").")]
+        [XmlElement("summary")]
+        // Note: Can not use ICollection<T> interface because of XML Serialization
+        public LocalizableStringCollection Summaries { get { return _summaries; } }
+
         private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
         /// <summary>
-        /// Short descriptions of the command in different languages.
+        /// Full descriptions for different languages, which can be several paragraphs long.
         /// </summary>
-        [Description("Short descriptions of the command in different languages.")]
+        [Description("Full descriptions for different languages, which can be several paragraphs long.")]
         [XmlElement("description")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
         public LocalizableStringCollection Descriptions { get { return _descriptions; } }
@@ -113,6 +122,7 @@ namespace ZeroInstall.Model
         {
             var newEntryPoint = new EntryPoint {Command = Command, BinaryName = BinaryName, NeedsTerminal = NeedsTerminal};
             foreach (var name in Names) newEntryPoint.Names.Add(name.CloneString());
+            foreach (var summary in Summaries) newEntryPoint.Summaries.Add(summary.CloneString());
             foreach (var description in Descriptions) newEntryPoint.Descriptions.Add(description.CloneString());
             newEntryPoint.Icons.AddAll(Icons);
 
@@ -136,7 +146,7 @@ namespace ZeroInstall.Model
             if (other == null) return false;
 
             return Command == other.Command && BinaryName == other.BinaryName && NeedsTerminal == other.NeedsTerminal &&
-                Names.SequencedEquals(other.Names) && Descriptions.SequencedEquals(other.Descriptions) && Icons.SequencedEquals(other.Icons);
+                Names.SequencedEquals(other.Names) && Summaries.SequencedEquals(other.Summaries) && Descriptions.SequencedEquals(other.Descriptions) && Icons.SequencedEquals(other.Icons);
         }
 
         /// <inheritdoc/>
@@ -156,6 +166,7 @@ namespace ZeroInstall.Model
                 result = (result * 397) ^ (BinaryName ?? "").GetHashCode();
                 result = (result * 397) ^ NeedsTerminal.GetHashCode();
                 result = (result * 397) ^ Names.GetSequencedHashCode();
+                result = (result * 397) ^ Summaries.GetSequencedHashCode();
                 result = (result * 397) ^ Descriptions.GetSequencedHashCode();
                 result = (result * 397) ^ Icons.GetSequencedHashCode();
                 return result;

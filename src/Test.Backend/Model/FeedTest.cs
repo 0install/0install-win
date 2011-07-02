@@ -53,7 +53,7 @@ namespace ZeroInstall.Model
                     Command = Command.NameRun,
                     BinaryName = "myapp",
                     Names = {"Entry name", {"German entry name", new CultureInfo("de-DE")}},
-                    Descriptions = {"Entry description", {"German entry description", new CultureInfo("de-DE")}},
+                    Summaries = {"Entry summary", {"German entry summary", new CultureInfo("de-DE")}},
                     Icons = {new Icon(new Uri("http://0install.de/feeds/images/test_command.png"), Icon.MimeTypePng), new Icon(new Uri("http://0install.de/feeds/images/test_command.ico"), Icon.MimeTypeIco)}
                 }}
             };
@@ -253,15 +253,15 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Ensures that <see cref="Feed.GetDescription"/> correctly finds best matching descriptions for <see cref="Command"/>s/<see cref="EntryPoint"/>s.
+        /// Ensures that <see cref="Feed.GetSummary"/> correctly finds best matching summaries for <see cref="Command"/>s/<see cref="EntryPoint"/>s.
         /// </summary>
         [Test]
-        public void TestGetDescription()
+        public void TestGetSummary()
         {
             var feed = CreateTestFeed();
 
-            Assert.AreEqual("Entry description", feed.GetDescription(CultureInfo.InvariantCulture, Command.NameRun));
-            Assert.AreEqual("Default description", feed.GetDescription(CultureInfo.InvariantCulture, "unknown"));
+            Assert.AreEqual("Entry summary", feed.GetSummary(CultureInfo.InvariantCulture, Command.NameRun));
+            Assert.AreEqual("Default summary", feed.GetSummary(CultureInfo.InvariantCulture, "unknown"));
         }
 
         /// <summary>
