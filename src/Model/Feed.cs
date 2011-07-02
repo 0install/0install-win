@@ -188,16 +188,6 @@ namespace ZeroInstall.Model
         public C5.LinkedList<Element> Elements { get { return _elements; } }
 
         // Preserve order
-        private readonly C5.LinkedList<CapabilityList> _capabilityLists = new C5.LinkedList<CapabilityList>();
-        /// <summary>
-        /// A list of <see cref="Capability"/>s to be registered in the desktop environment.
-        /// </summary>
-        [Description("A list of capabilities to be registered in the desktop environment.")]
-        [XmlElement("capabilities", Namespace = Capability.XmlNamespace)]
-        // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.LinkedList<CapabilityList> CapabilityLists { get { return _capabilityLists; } }
-
-        // Preserve order
         private readonly C5.LinkedList<EntryPoint> _entryPoints = new C5.LinkedList<EntryPoint>();
         /// <summary>
         /// A list of <see cref="EntryPoint"/>s for starting this interface.
@@ -206,6 +196,16 @@ namespace ZeroInstall.Model
         [XmlElement("entry-point")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.LinkedList<EntryPoint> EntryPoints { get { return _entryPoints; } }
+
+        // Preserve order
+        private readonly C5.LinkedList<CapabilityList> _capabilityLists = new C5.LinkedList<CapabilityList>();
+        /// <summary>
+        /// A list of <see cref="Capability"/>s to be registered in the desktop environment.
+        /// </summary>
+        [Description("A list of capabilities to be registered in the desktop environment.")]
+        [XmlElement("capabilities", Namespace = Capability.XmlNamespace)]
+        // Note: Can not use ICollection<T> interface with XML Serialization
+        public C5.LinkedList<CapabilityList> CapabilityLists { get { return _capabilityLists; } }
         #endregion
 
         //--------------------//
