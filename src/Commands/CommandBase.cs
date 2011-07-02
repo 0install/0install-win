@@ -133,13 +133,6 @@ namespace ZeroInstall.Commands
                 Policy.Handler.Output(Resources.VersionInformation, AppInfo.Name + " " + AppInfo.Version + (Locations.IsPortable ? " - " + Resources.PortableMode : "") + Environment.NewLine + AppInfo.Copyright + Environment.NewLine + Resources.LicenseInfo);
                 throw new UserCancelException(); // Don't handle any of the other arguments
             });
-
-            Options.Add("with-store=", Resources.OptionWithStore, delegate(string path)
-            {
-                if (string.IsNullOrEmpty(path)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--with-store"), "with-store");
-                Policy.Fetcher.Store = new CompositeStore(new DirectoryStore(path), Policy.Fetcher.Store);
-            });
-            Options.Add("o|offline", Resources.OptionOffline, unused => Policy.Config.NetworkUse = NetworkLevel.Offline);
             Options.Add("v|verbose", Resources.OptionVerbose, unused => Policy.Verbosity++);
         }
         #endregion

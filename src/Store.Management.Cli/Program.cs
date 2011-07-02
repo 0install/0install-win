@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography;
 using Common;
 using Common.Collections;
 using Common.Storage;
@@ -26,9 +25,12 @@ using Common.Tasks;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation.Archive;
 using ZeroInstall.Store.Management.Cli.Properties;
 using ZeroInstall.Store.Implementation;
-using ZeroInstall.Store.Implementation.Archive;
+#if !DEBUG
+using System.Security.Cryptography;
+#endif
 
 namespace ZeroInstall.Store.Management.Cli
 {

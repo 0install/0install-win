@@ -44,7 +44,9 @@ namespace ZeroInstall.Commands
         #region Constructor
         /// <inheritdoc/>
         public Import(Policy policy) : base(policy)
-        {}
+        {
+            Options.Add("batch", Resources.OptionBatch, unused => Policy.Handler.Batch = true);
+        }
         #endregion
 
         //--------------------//

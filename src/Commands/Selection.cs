@@ -26,6 +26,7 @@ using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Commands
 {
@@ -82,7 +83,16 @@ namespace ZeroInstall.Commands
         public Selection(Policy policy) : base(policy)
         {
             Options.Add("batch", Resources.OptionBatch, unused => Policy.Handler.Batch = true);
+            Options.Add("g|gui", Resources.OptionGui, unused => Policy.FeedManager.Refresh = ShowSelectionsUI = true);
+
+            Options.Add("o|offline", Resources.OptionOffline, unused => Policy.Config.NetworkUse = NetworkLevel.Offline);
             Options.Add("r|refresh", Resources.OptionRefresh, unused => Policy.FeedManager.Refresh = true);
+
+            Options.Add("with-store=", Resources.OptionWithStore, delegate(string path)
+            {
+                if (string.IsNullOrEmpty(path)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--with-store"), "with-store");
+                Policy.Fetcher.Store = new CompositeStore(new DirectoryStore(path), Policy.Fetcher.Store);
+            });
 
             Options.Add("command=", Resources.OptionCommand, command => _requirements.CommandName = StringUtils.UnescapeWhitespace(command));
             Options.Add("before=", Resources.OptionBefore, delegate(string version)
@@ -107,7 +117,6 @@ namespace ZeroInstall.Commands
                 _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Architecture.ParseCpu(cpu));
             });
 
-            Options.Add("g|gui", Resources.OptionGui, unused => Policy.FeedManager.Refresh = ShowSelectionsUI = true);
             Options.Add("xml", Resources.OptionXml, unused => ShowXml = true);
         }
         #endregion

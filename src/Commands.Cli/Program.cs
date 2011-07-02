@@ -19,7 +19,6 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
-using System.Security.Cryptography;
 using Common;
 using Common.Utils;
 using NDesk.Options;
@@ -29,6 +28,7 @@ using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 #if !DEBUG
+using System.Security.Cryptography;
 using Common.Storage;
 #endif
 

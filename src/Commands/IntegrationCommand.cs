@@ -25,6 +25,8 @@ namespace ZeroInstall.Commands
         protected IntegrationCommand(Policy policy) : base(policy)
         {
             Options.Add("batch", Resources.OptionBatch, unused => Policy.Handler.Batch = true);
+
+            Options.Add("o|offline", Resources.OptionOffline, unused => Policy.Config.NetworkUse = NetworkLevel.Offline);
             Options.Add("r|refresh", Resources.OptionRefresh, unused => Policy.FeedManager.Refresh = true);
 
             Options.Add("g|global", Resources.OptionGlobal, unused => SystemWide = true);

@@ -551,7 +551,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         private void SetStartState()
         {
-            Button[] toDisable = { buttonLocalArchive, buttonExtractArchive };
+            Button[] toDisable = { buttonExtractArchive };
             foreach (var button in toDisable) button.Enabled = false;
             ExtractedArchivePath = null;
             ManifestDigest = new ManifestDigest();
@@ -560,7 +560,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         private void SetArchiveUrlChosenState()
         {
-            Button[] toEnable = { buttonDownload, buttonLocalArchive };
+            Button[] toEnable = { buttonDownload };
             Button[] toDisable = { buttonExtractArchive };
             foreach (var button in toEnable) button.Enabled = true;
             foreach (var button in toDisable) button.Enabled = false;
@@ -568,7 +568,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         private void SetArchiveDownloadedState()
         {
-            Button[] toEnable = { buttonDownload, buttonLocalArchive, buttonExtractArchive };
+            Button[] toEnable = { buttonDownload, buttonExtractArchive };
             foreach (var button in toEnable) button.Enabled = true;
             ExtractedArchivePath = null;
             ManifestDigest = new ManifestDigest();
@@ -593,7 +593,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         private void SetArchiveExtractedState()
         {
-            Button[] toEnable = { buttonDownload, buttonLocalArchive, buttonExtractArchive };
+            Button[] toEnable = { buttonDownload, buttonExtractArchive };
             foreach (var button in toEnable) button.Enabled = true;
             if(ValidArchive != null) ValidArchive();
         }
