@@ -161,8 +161,8 @@ namespace ZeroInstall.Injector
                 {"key_info_server", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => KeyInfoServer, value => KeyInfoServer = value, new Uri(DefaultKeyInfoServer)))},
                 {"auto_approve_keys", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => AutoApproveKeys, value => AutoApproveKeys = value, true))},
                 {"appstore_home", new PropertyPointer<string>(() => AppStoreHome, value => AppStoreHome = value, DefaultAppStoreHome)},
-                {"self_update_enabled", new PropertyPointer<string>(() => SelfUpdateID, value => SelfUpdateID = value, DefaultSelfUpdateID)},
-                {"self_update_id", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => SelfUpdateEnabled, value => SelfUpdateEnabled = value, true))},
+                {"self_update_enabled", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => SelfUpdateEnabled, value => SelfUpdateEnabled = value, true))},
+                {"self_update_id", new PropertyPointer<string>(() => SelfUpdateID, value => SelfUpdateID = value, DefaultSelfUpdateID)},
             };
         }
 
