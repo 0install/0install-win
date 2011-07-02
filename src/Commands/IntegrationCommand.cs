@@ -16,9 +16,6 @@ namespace ZeroInstall.Commands
     public abstract class IntegrationCommand : CommandBase
     {
         #region Variables
-        /// <summary>Indicate that <see cref="Cancel"/> has been called.</summary>
-        protected volatile bool Canceled;
-
         /// <summary>Apply the operation system-wide instead of just for the current user.</summary>
         protected bool SystemWide;
         #endregion
@@ -54,16 +51,6 @@ namespace ZeroInstall.Commands
             var process = Process.Start(startInfo);
             process.WaitForExit();
             return process.ExitCode;
-        }
-        #endregion
-
-        #region Cancel
-        /// <summary>
-        /// Cancels the <see cref="CommandBase.Execute"/> session.
-        /// </summary>
-        public virtual void Cancel()
-        {
-            Canceled = true;
         }
         #endregion
     }

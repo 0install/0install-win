@@ -36,7 +36,13 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public void ShowProgressUI(SimpleEventHandler cancelCallback)
         {
-            // Console UI only, so nothing to do
+            // Handle Ctrl+C
+            Console.TreatControlCAsInput = false;
+            Console.CancelKeyPress += delegate(object sender, ConsoleCancelEventArgs e)
+            {
+                cancelCallback();
+                e.Cancel = true;
+            };
         }
 
         /// <inheritdoc/>

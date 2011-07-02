@@ -188,16 +188,6 @@ namespace ZeroInstall.Model
         public C5.LinkedList<Element> Elements { get { return _elements; } }
 
         // Preserve order
-        private readonly C5.LinkedList<CapabilityList> _capabilityLists = new C5.LinkedList<CapabilityList>();
-        /// <summary>
-        /// A set of <see cref="Capability"/> lists for different architectures.
-        /// </summary>
-        [Description("A set of Capability lists for different architectures.")]
-        [XmlElement("capabilities", Namespace = Capability.XmlNamespace)]
-        // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.LinkedList<CapabilityList> CapabilityLists { get { return _capabilityLists; } }
-
-        // Preserve order
         private readonly C5.LinkedList<EntryPoint> _entryPoints = new C5.LinkedList<EntryPoint>();
         /// <summary>
         /// A list of <see cref="EntryPoint"/>s for starting this interface.
@@ -206,6 +196,16 @@ namespace ZeroInstall.Model
         [XmlElement("entry-point")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.LinkedList<EntryPoint> EntryPoints { get { return _entryPoints; } }
+
+        // Preserve order
+        private readonly C5.LinkedList<CapabilityList> _capabilityLists = new C5.LinkedList<CapabilityList>();
+        /// <summary>
+        /// A set of <see cref="Capability"/> lists for different architectures.
+        /// </summary>
+        [Description("A set of Capability lists for different architectures.")]
+        [XmlElement("capabilities", Namespace = Capability.XmlNamespace)]
+        // Note: Can not use ICollection<T> interface with XML Serialization
+        public C5.LinkedList<CapabilityList> CapabilityLists { get { return _capabilityLists; } }
         #endregion
 
         //--------------------//
