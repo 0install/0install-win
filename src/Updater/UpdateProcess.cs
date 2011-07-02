@@ -70,8 +70,12 @@ namespace ZeroInstall.Updater
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
-            Source = Path.GetFullPath(source);
-            try { NewVersion = new Version(newVersion); }
+            try
+            {
+                Source = Path.GetFullPath(source);
+                NewVersion = new Version(newVersion);
+                Target = Path.GetFullPath(target);
+            }
             #region Error handling
             catch (ArgumentException ex)
             {
@@ -89,7 +93,6 @@ namespace ZeroInstall.Updater
                 throw new NotSupportedException(ex.Message, ex);
             }
             #endregion
-            Target = Path.GetFullPath(target);
 
             if (!Directory.Exists(Source)) throw new DirectoryNotFoundException(Resources.SourceMissing);
         }
