@@ -148,6 +148,7 @@ namespace Common.Utils
             if (form == null) throw new ArgumentNullException("form");
             #endregion
 
+            if (!IsWindows) return;
             SafeNativeMethods.SetForegroundWindow(form.Handle);
         }
         #endregion
