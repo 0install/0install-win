@@ -30,6 +30,30 @@ namespace ZeroInstall.Commands
     /// </summary>
     public class CliHandler : CliTaskHandler, IHandler
     {
+        /// <summary>The currently running generic task (if any).</summary>
+        private volatile ITask _genericTask;
+
+        /// <summary>Synchronization object used to prevent prevent raceconditions when accessing <see cref="_genericTask"/>.</summary>
+        private readonly object _taskTrackLock = new object();
+
+        /// <inheritdoc/>
+        public override void RunTask(ITask task, object tag)
+        {
+            lock (_taskTrackLock)
+            {
+                // Track generic tasks when they start running
+                if (tag == null) _genericTask = task;
+            }
+
+            base.RunTask(task, tag);
+
+            lock (_taskTrackLock)
+            {
+                // Since the CliTaskHandler only runs one task at a time, this is safe
+                _genericTask = null;
+            }
+        }
+
         /// <inheritdoc />
         public bool Batch { get; set; }
 
@@ -40,7 +64,14 @@ namespace ZeroInstall.Commands
             Console.TreatControlCAsInput = false;
             Console.CancelKeyPress += delegate(object sender, ConsoleCancelEventArgs e)
             {
+                lock (_taskTrackLock)
+                {
+                    // Cancel generic tasks
+                    if (_genericTask != null && _genericTask.CanCancel) _genericTask.Cancel();
+                }
+
                 cancelCallback();
+
                 e.Cancel = true;
             };
         }

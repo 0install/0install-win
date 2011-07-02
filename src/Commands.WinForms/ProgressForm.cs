@@ -36,6 +36,9 @@ namespace ZeroInstall.Commands.WinForms
     public partial class ProgressForm : Form
     {
         #region Variables
+        /// <summary>Synchronization object used to prevent multiple concurrent generic <see cref="ITask"/>s.</summary>
+        protected readonly object GenericTaskLock = new object();
+
         /// <summary>To be called when the user wishes to cancel the current process.</summary>
         private readonly SimpleEventHandler _cancelCallback;
         #endregion
@@ -130,7 +133,7 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Task tracking
         /// <summary>
-        /// Registers a generic <see cref="ITask"/> for tracking.
+        /// Registers a generic <see cref="ITask"/> for tracking. Should only be one running at a time.
         /// </summary>
         /// <param name="task">The task to be tracked. May or may not alreay be running.</param>
         /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
@@ -158,7 +161,7 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Registers an <see cref="ITask"/> for a specific implementation for tracking.
+        /// Registers an <see cref="ITask"/> for a specific implementation for tracking. May run multiple in parallel.
         /// </summary>
         /// <param name="task">The task to be tracked. May or may not alreay be running.</param>
         /// <param name="tag">A digest used to associate the <paramref name="task"/> with a specific implementation.</param>

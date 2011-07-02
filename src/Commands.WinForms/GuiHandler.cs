@@ -64,6 +64,9 @@ namespace ZeroInstall.Commands.WinForms
         //--------------------//
 
         #region Task tracking
+        /// <summary>Synchronization object used to prevent multiple concurrent generic <see cref="ITask"/>s.</summary>
+        private readonly object _genericTaskLock = new object();
+
         /// <inheritdoc />
         public void RunTask(ITask task, object tag)
         {
@@ -76,8 +79,11 @@ namespace ZeroInstall.Commands.WinForms
             }
             else
             {
-                // Handle events coming from a non-UI thread, don't block caller
-                _form.BeginInvoke(new SimpleEventHandler(() => _form.TrackTask(task)));
+                lock (_genericTaskLock) // Prevent multiple concurrent generic tasks
+                {
+                    // Handle events coming from a non-UI thread, don't block caller
+                    _form.BeginInvoke(new SimpleEventHandler(() => _form.TrackTask(task)));
+                }
             }
 
             task.RunSync();
