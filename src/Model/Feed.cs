@@ -314,23 +314,23 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Returns the best matching description for a specific <see cref="Command"/>/<see cref="EntryPoint"/>. Will fall back to <see cref="Descriptions"/>.
+        /// Returns the best matching summary for a specific <see cref="Command"/>/<see cref="EntryPoint"/>. Will fall back to <see cref="Summaries"/>.
         /// </summary>
         /// <param name="language">The language to look for; use <see cref="CultureInfo.InvariantCulture"/> for none.</param>
-        /// <param name="command">The name of the command the description should represent; may be <see langword="null"/>.</param>
-        /// <returns>The best matching description that was found; <see langword="null"/> if no matching description was found.</returns>
-        public string GetDescription(CultureInfo language, string command)
+        /// <param name="command">The name of the command the summary should represent; may be <see langword="null"/>.</param>
+        /// <returns>The best matching summary that was found; <see langword="null"/> if no matching summary was found.</returns>
+        public string GetSummary(CultureInfo language, string command)
         {
             if (string.IsNullOrEmpty(command)) command = Command.NameRun;
 
             var entryPoint = GetEntryPoint(command);
             if (entryPoint != null)
             {
-                string description = entryPoint.Descriptions.GetBestLanguage(language);
-                if (!string.IsNullOrEmpty(description)) return description;
+                string summary = entryPoint.Summaries.GetBestLanguage(language);
+                if (!string.IsNullOrEmpty(summary)) return summary;
             }
 
-            return Descriptions.GetBestLanguage(language);
+            return Summaries.GetBestLanguage(language);
         }
 
         /// <summary>

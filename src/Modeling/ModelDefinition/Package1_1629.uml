@@ -14087,6 +14087,92 @@
                 LastKnownLocation="Architecture.uml" />
             </type_NamedElement>
           </property>
+          <property
+            Id="6eab4889-ac08-4855-a3be-0e6d951a6051"
+            name="Summaries"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isOrdered="true"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="945612ef-ceba-4298-8762-b09b817513fd"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=EntryPoint Member=Descriptions"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="b6e6a6f9-50ef-4c76-a21f-f99555ae91ef"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7eb230d5-db37-49b4-a1b1-1fb8ba9846c1">
+                    <propertyInstance
+                      Id="2181a433-66f4-4a26-b7c7-6c666fbec7aa"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="015bf931-2364-43af-b2f9-1bb836cc4aa5">
+                    <propertyInstance
+                      Id="50f056c4-78cf-48ed-89bf-2953a682a096"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="112eeb8e-8313-4ffd-9368-28c154563422">
+                    <propertyInstance
+                      Id="d4d1b0c8-a3ba-4cd5-b516-8a8a19b70c72"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c8b2490a-5a6c-478a-a9cd-d76df637d24c">
+                    <propertyInstance
+                      Id="e3569a73-ee71-4387-82b7-2941c002bda9"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9b3f2a91-c463-4389-8cae-cad183cfe3eb">
+                    <propertyInstance
+                      Id="9cd037e6-599d-4d1d-bc34-b3400a379882"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="113863a1-73bd-41dd-a5ca-3479fe413824">
+                    <propertyInstance
+                      Id="e119f8c7-637a-462d-8ce1-fdc0cb180a61"
+                      name="Set"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <lowerValueInternal>
+              <literalString
+                Id="d9d9cbf4-3a29-4a78-a434-445f9e721c36"
+                name="Lower"
+                value="*" />
+            </lowerValueInternal>
+            <upperValueInternal>
+              <literalString
+                Id="320094d8-d08c-4f56-b6bd-d465ce47e190"
+                name="Upper"
+                value="*" />
+            </upperValueInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="Architecture.uml" />
+            </type_NamedElement>
+          </property>
         </ownedAttributesInternal>
       </class>
     </packageHasNamedElement>
