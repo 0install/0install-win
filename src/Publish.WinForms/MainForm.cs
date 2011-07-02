@@ -617,10 +617,18 @@ namespace ZeroInstall.Publish.WinForms
 
         private void SetupCommandHooks(IconManagementControl iconManager, SimpleResult<System.Collections.Generic.ICollection<Icon>> getCollection)
         {
-            iconManagementControl.IconUrls.ItemInserted +=(sender, eventArgs) => _feedEditing.ExecuteCommand(new AddToCollection<Icon>(getCollection(), eventArgs.Item));
-            iconManagementControl.IconUrls.ItemsRemoved += (sender, eventArgs) => _feedEditing.ExecuteCommand(new RemoveFromCollection<Icon>(getCollection(), eventArgs.Item));
+            ItemsAddedHandler<Icon> itemsAdded = (sender, eventArgs) => _feedEditing.ExecuteCommand(new AddToCollection<Icon>(getCollection(), eventArgs.Item));
+            ItemsRemovedHandler<Icon> itemsRemoved = (sender, eventArgs) => _feedEditing.ExecuteCommand(new RemoveFromCollection<Icon>(getCollection(), eventArgs.Item));
 
-            Populate += () => iconManager.SetIcons(getCollection());
+            Populate += () =>
+                        {
+                            iconManager.IconUrls.ItemsAdded -= itemsAdded;
+                            iconManager.SetIcons(getCollection());
+                            iconManager.IconUrls.ItemsAdded += itemsAdded;
+                        };
+
+            iconManagementControl.IconUrls.ItemsAdded += itemsAdded;
+            iconManagementControl.IconUrls.ItemsRemoved += itemsRemoved;
         }
         #endregion
 
