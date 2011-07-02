@@ -41,9 +41,6 @@ namespace ZeroInstall.Commands
         #endregion
 
         #region Variables
-        /// <summary>Indicate that <see cref="Cancel"/> has been called.</summary>
-        protected volatile bool Canceled;
-
         /// <summary>Cached <see cref="ISolver"/> results.</summary>
         protected Selections Selections;
 
@@ -217,9 +214,9 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Cancels the <see cref="Execute"/> session.
         /// </summary>
-        public virtual void Cancel()
+        public override void Cancel()
         {
-            Canceled = true;
+            base.Cancel();
 
             // ToDo: Cancel Solver
         }

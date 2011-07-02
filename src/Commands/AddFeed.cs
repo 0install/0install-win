@@ -69,14 +69,13 @@ namespace ZeroInstall.Commands
 
             string feedID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
 
-            bool canceled = false;
-            Policy.Handler.ShowProgressUI(() => canceled = true);
+            Policy.Handler.ShowProgressUI(Cancel);
 
             CacheFeed(feedID);
             bool stale;
             var feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
 
-            if (canceled) throw new UserCancelException();
+            if (Canceled) throw new UserCancelException();
 
             if (feed.FeedFor.IsEmpty)
             {

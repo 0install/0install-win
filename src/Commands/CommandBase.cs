@@ -54,6 +54,9 @@ namespace ZeroInstall.Commands
 
         /// <summary>Feeds to add, terms to search for, etc.</summary>
         protected readonly C5.IList<string> AdditionalArgs = new C5.ArrayList<string>();
+
+        /// <summary>Indicate that <see cref="Cancel"/> has been called.</summary>
+        protected volatile bool Canceled;
         #endregion
 
         #region Properties
@@ -183,6 +186,16 @@ namespace ZeroInstall.Commands
         /// <exception cref="InvalidOperationException">Thrown if this method is called before calling <see cref="Parse"/>.</exception>
         /// <remarks>When inheriting this method is usually replaced.</remarks>
         public abstract int Execute();
+        #endregion
+
+        #region Cancel
+        /// <summary>
+        /// Cancels the <see cref="Execute"/> session.
+        /// </summary>
+        public virtual void Cancel()
+        {
+            Canceled = true;
+        }
         #endregion
 
         #region Helpers
