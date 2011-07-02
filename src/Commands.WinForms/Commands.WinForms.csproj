@@ -125,6 +125,9 @@
     <EmbeddedResource Include="Properties\Resources.de.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="SelectionsControl.de.resx">
+      <DependentUpon>SelectionsControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SelectionsControl.resx">
       <DependentUpon>SelectionsControl.cs</DependentUpon>
     </EmbeddedResource>
