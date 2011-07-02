@@ -57,9 +57,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
             bool needsTerminal = target.Feed.NeedsTerminal || (entryPoint != null && entryPoint.NeedsTerminal);
             shortcut.TargetPath = needsTerminal ? "0install.exe" : "0install-win.exe";
 
-            string arguments = "run";
-            if (!string.IsNullOrEmpty(command)) arguments += " --command=" + StringUtils.EscapeWhitespace(command);
-            arguments += " " + StringUtils.EscapeWhitespace(target.InterfaceID);
+            string arguments = "run ";
+            if (!needsTerminal) arguments += "--no-wait ";
+            if (!string.IsNullOrEmpty(command)) arguments += "--command=" + StringUtils.EscapeWhitespace(command) + " ";
+            arguments += StringUtils.EscapeWhitespace(target.InterfaceID);
             shortcut.Arguments = arguments;
 
             // .lnk descriptions may not be longer than 260 characters
