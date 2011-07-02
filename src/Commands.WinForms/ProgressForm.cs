@@ -245,7 +245,7 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Hides the window and then runs <see cref="_cancelCallback"/>.
+        /// Hides the window and then starts canceling the current process asynchronously.
         /// </summary>
         private void Cancel()
         {
@@ -253,12 +253,18 @@ namespace ZeroInstall.Commands.WinForms
             HideTrayIcon();
 
             // Cancel generic tasks
-            if (trackingControl.Task != null && trackingControl.Task.CanCancel) trackingControl.Task.Cancel();
+            var genericTask = trackingControl.Task;
+            if (genericTask != null && genericTask.CanCancel)
+            {
+                // Note: Must perform cancelation on a separate thread because it might send messages back to the GUI thread (which therefor must not be blocked)
+                new Thread(genericTask.Cancel).Start();
+            }
 
             // Stop tracking selction tasks
             if (IsHandleCreated) selectionsControl.StopTracking();
 
-            _cancelCallback();
+            // Note: Must perform cancelation on a separate thread because it might send messages back to the GUI thread (which therefor must not be blocked)
+            new Thread(() => _cancelCallback()).Start();
         }
         #endregion
     }

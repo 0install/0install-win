@@ -24,6 +24,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Net;
+using System.Threading;
 using System.Windows.Forms;
 using Common.Properties;
 using Common.Tasks;
@@ -35,6 +36,11 @@ namespace Common.Controls
     /// </summary>
     public sealed partial class TrackingDialog : Form
     {
+        #region Variables
+        /// <summary>Indicates that the task has been canceled and that the window may be closed.</summary>
+        private volatile bool _canceled;
+        #endregion
+
         #region Constructor
         /// <summary>
         /// Creates a new progress-tracking dialog.
@@ -62,6 +68,7 @@ namespace Common.Controls
                 labelProgress.Task = task;
                 task.StateChanged += delegate
                 {
+                    // Close window when the task has been completed
                     if (task.State >= TaskState.Complete) Invoke(new SimpleEventHandler(Close));
                 };
 
@@ -69,11 +76,20 @@ namespace Common.Controls
             };
             FormClosing += delegate(object sender, FormClosingEventArgs e)
             {
-                if (task.State < TaskState.Complete)
+                // Only close the window if the task has been completed or canceled
+                if (task.State >= TaskState.Complete || _canceled) return;
+
+                if (task.CanCancel)
                 {
-                    if (task.CanCancel) task.Cancel(); 
-                    else e.Cancel = true;
+                    // Note: Must perform cancelation on a separate thread because it might send messages back to the GUI thread (which therefor must not be blocked)
+                    new Thread(() =>
+                    {
+                        task.Cancel();
+                        _canceled = true;
+                        Invoke(new SimpleEventHandler(Close));
+                    }).Start();
                 }
+                e.Cancel = true;
             };
         }
         #endregion
