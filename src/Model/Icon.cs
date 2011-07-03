@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml;
 using System.Xml.Serialization;
+using Common.Utils;
 using ZeroInstall.Model.Design;
 
 namespace ZeroInstall.Model
@@ -56,18 +57,18 @@ namespace ZeroInstall.Model
         /// <seealso cref="Location"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("href"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public String LocationString
+        public string LocationString
         {
             get { return (Location == null ? null : Location.ToString()); }
             set { Location = (value == null ? null : new Uri(value)); }
         }
 
         /// <summary>
-        /// The MIME type of the icon.
+        /// The MIME type of the icon. This value is case-insensitive.
         /// </summary>
-        [Description("The MIME type of the icon.")]
+        [Description("The MIME type of the icon. This value is case-insensitive.")]
         [XmlAttribute("type")]
-        public String MimeType { get; set; }
+        public string MimeType { get; set; }
 
         /// <summary>
         /// Contains any unknown additional XML attributes.
@@ -105,7 +106,7 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         public bool Equals(Icon other)
         {
-            return other.LocationString == LocationString && other.MimeType == MimeType;
+            return other.LocationString == LocationString && StringUtils.Compare(other.MimeType, MimeType);
         }
 
         /// <inheritdoc/>
@@ -132,7 +133,7 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                return ((LocationString ?? "").GetHashCode() * 397) ^ (MimeType ?? "").GetHashCode();
+                return ((LocationString ?? "").GetHashCode() * 397) ^ (MimeType ?? "").ToLowerInvariant().GetHashCode();
             }
         }
         #endregion

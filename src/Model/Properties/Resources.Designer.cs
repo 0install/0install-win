@@ -151,11 +151,29 @@ namespace ZeroInstall.Model.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The modifier is unknown..
+        ///   Looks up a localized string similar to Unknown CPU..
+        /// </summary>
+        internal static string UnknownCpu {
+            get {
+                return ResourceManager.GetString("UnknownCpu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown modifier..
         /// </summary>
         internal static string UnknownModifier {
             get {
                 return ResourceManager.GetString("UnknownModifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown operating system..
+        /// </summary>
+        internal static string UnknownOS {
+            get {
+                return ResourceManager.GetString("UnknownOS", resourceCulture);
             }
         }
     }
