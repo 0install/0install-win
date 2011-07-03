@@ -132,7 +132,7 @@ namespace ZeroInstall.Fetchers
             return new ArchiveFileInfo
             {
                 Path = tempArchive,
-                MimeType = archive.MimeType,
+                MimeType = archive.MimeType.ToLowerInvariant(),
                 SubDir = archive.Extract,
                 StartOffset = archive.StartOffset
             };
