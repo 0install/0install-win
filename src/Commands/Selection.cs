@@ -98,23 +98,47 @@ namespace ZeroInstall.Commands
             Options.Add("before=", Resources.OptionBefore, delegate(string version)
             {
                 if (string.IsNullOrEmpty(version)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--before"), "before");
-                _requirements.BeforeVersion = new ImplementationVersion(version);
+                try { _requirements.BeforeVersion = new ImplementationVersion(version); }
+                #region Error handling
+                catch (ArgumentException ex)
+                {
+                    throw new OptionException(ex.Message, "before", ex);
+                }
+                #endregion
             });
             Options.Add("not-before=", Resources.OptionNotBefore, delegate(string version)
             {
                 if (string.IsNullOrEmpty(version)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--not-before"), "not-before");
-                _requirements.NotBeforeVersion = new ImplementationVersion(version);
+                try { _requirements.NotBeforeVersion = new ImplementationVersion(version); }
+                #region Error handling
+                catch (ArgumentException ex)
+                {
+                    throw new OptionException(ex.Message, "not-before", ex);
+                }
+                #endregion
             });
             Options.Add("s|source", Resources.OptionSource, unused => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Cpu.Source));
             Options.Add("os=", Resources.OptionOS + "\n" + string.Format(Resources.SupportedValues, StringUtils.Concatenate(Architecture.KnownOSStrings, ", ")), delegate(string os)
             {
                 if (string.IsNullOrEmpty(os)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--os"), "os");
-                _requirements.Architecture = new Architecture(Architecture.ParseOS(os), _requirements.Architecture.Cpu);
+                try { _requirements.Architecture = new Architecture(Architecture.ParseOS(os), _requirements.Architecture.Cpu); }
+                #region Error handling
+                catch (ArgumentException ex)
+                {
+                    throw new OptionException(ex.Message, "os", ex);
+                }
+                #endregion
             });
             Options.Add("cpu=", Resources.OptionCpu + "\n" + string.Format(Resources.SupportedValues, StringUtils.Concatenate(Architecture.KnownCpuStrings, ", ")), delegate(string cpu)
             {
                 if (string.IsNullOrEmpty(cpu)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--cpu"), "cpu");
-                _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Architecture.ParseCpu(cpu));
+                try { _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Architecture.ParseCpu(cpu)); }
+                #region Error handling
+                catch (ArgumentException ex)
+                {
+                    throw new OptionException(ex.Message, "cpu", ex);
+                }
+                #endregion
             });
 
             Options.Add("xml", Resources.OptionXml, unused => ShowXml = true);
