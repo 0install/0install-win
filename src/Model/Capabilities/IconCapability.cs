@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Collections;
+using Common.Utils;
 using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model.Capabilities
@@ -67,7 +68,7 @@ namespace ZeroInstall.Model.Capabilities
             if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
             #endregion
 
-            var suitableIcons = Icons.FindAll(icon => icon.MimeType == mimeType && icon.Location != null);
+            var suitableIcons = Icons.FindAll(icon => StringUtils.Compare(icon.MimeType, mimeType) && icon.Location != null);
             if (!suitableIcons.IsEmpty) return suitableIcons.First;
 
             throw new KeyNotFoundException(Resources.NoSuitableIconFound);
