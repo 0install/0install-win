@@ -24,6 +24,7 @@ using System.IO;
 using System.Xml.Serialization;
 using Common.Collections;
 using Common.Storage;
+using Common.Utils;
 using ZeroInstall.Model.Capabilities;
 using ZeroInstall.Model.Properties;
 
@@ -74,7 +75,7 @@ namespace ZeroInstall.Model
         /// <seealso cref="Uri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("uri"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public String UriString
+        public string UriString
         {
             get { return (Uri == null ? null : Uri.ToString()); }
             set { Uri = (value == null ? null : new Uri(value)); }
@@ -115,7 +116,7 @@ namespace ZeroInstall.Model
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Homepage"/>
         [XmlElement("homepage"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public String HomepageString
+        public string HomepageString
         {
             get { return Homepage != null ? Homepage.ToString() : null; }
             set { Homepage = (value == null ? null : new Uri(value)); }
@@ -351,11 +352,11 @@ namespace ZeroInstall.Model
             var entryPoint = GetEntryPoint(command);
             if (entryPoint != null)
             {
-                var suitableCommandIcons = entryPoint.Icons.FindAll(icon => icon.MimeType == mimeType && icon.Location != null);
+                var suitableCommandIcons = entryPoint.Icons.FindAll(icon => StringUtils.Compare(icon.MimeType, mimeType) && icon.Location != null);
                 if (!suitableCommandIcons.IsEmpty) return suitableCommandIcons.First;
             }
 
-            var suitableFeedIcons = Icons.FindAll(icon => icon.MimeType == mimeType && icon.Location != null);
+            var suitableFeedIcons = Icons.FindAll(icon => StringUtils.Compare(icon.MimeType, mimeType) && icon.Location != null);
             if (!suitableFeedIcons.IsEmpty) return suitableFeedIcons.First;
 
             throw new KeyNotFoundException(Resources.NoSuitableIconFound);

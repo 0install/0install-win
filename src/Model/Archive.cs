@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Compression;
+using Common.Utils;
 
 namespace ZeroInstall.Model
 {
@@ -42,16 +43,16 @@ namespace ZeroInstall.Model
         /// <seealso cref="Location"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("href"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public String LocationString
+        public string LocationString
         {
             get { return (Location == null ? null : Location.ToString()); }
             set { Location = (value == null ? null : new Uri(value)); }
         }
 
         /// <summary>
-        /// The type of the archive as a MIME type. If missing, the type is guessed from the extension on the <see cref="Location"/> attribute.
+        /// The type of the archive as a MIME type. If missing, the type is guessed from the extension on the <see cref="Location"/> attribute. This value is case-insensitive.
         /// </summary>
-        [Description("The type of the archive as a MIME type. If missing, the type is guessed from the extension on the location attribute.")]
+        [Description("The type of the archive as a MIME type. If missing, the type is guessed from the extension on the location attribute. This value is case-insensitive.")]
         [XmlAttribute("type"), DefaultValue("")]
         public string MimeType { get; set; }
 
@@ -127,7 +128,7 @@ namespace ZeroInstall.Model
         {
             if (other == null) return false;
 
-            return other.Location == Location && other.Size == Size && other.Extract == Extract && other.MimeType == MimeType && other.StartOffset == StartOffset;
+            return other.Location == Location && other.Size == Size && other.Extract == Extract && StringUtils.Compare(other.MimeType, MimeType) && other.StartOffset == StartOffset;
         }
 
         /// <inheritdoc/>
@@ -146,7 +147,7 @@ namespace ZeroInstall.Model
                 int result = (Location != null ? Location.GetHashCode() : 0);
                 result = (result * 397) ^ Size.GetHashCode();
                 result = (result * 397) ^ (Extract ?? "").GetHashCode();
-                result = (result * 397) ^ (MimeType ?? "").GetHashCode();
+                result = (result * 397) ^ (MimeType ?? "").ToLowerInvariant().GetHashCode();
                 result = (result * 397) ^ StartOffset.GetHashCode();
                 return result;
             }

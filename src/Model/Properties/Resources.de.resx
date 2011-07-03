@@ -148,6 +148,12 @@
     <value>Es wurde kein geeignetes Icon gefunden.</value>
   </data>
   <data name="UnknownModifier" xml:space="preserve">
-    <value>Der Modifizierer ist unbekannt.</value>
+    <value>Unbekannter Modifizierer.</value>
+  </data>
+  <data name="UnknownOS">
+    <value xml:space="preserve">Unbekanntes Betriebssystem.</value>
+  </data>
+  <data name="UnknownCpu">
+    <value xml:space="preserve">Unbekannte CPU.</value>
   </data>
 </root>

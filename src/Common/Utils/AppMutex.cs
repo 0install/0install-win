@@ -23,15 +23,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Security.Cryptography;
-using System.Text;
-using Common.Storage;
 
 namespace Common.Utils
 {
     /// <summary>
-    /// Allows control over the number of instances of an application running.
+    /// Provides a cross-proccess object allowing control over the number of instances of an application running.
     /// </summary>
+    /// <remarks><see cref="System.Threading.Mutex"/> is intended for synchronizing access to resources while this class intended to detect application instances.</remarks>
     public sealed class AppMutex
     {
         #region Handles

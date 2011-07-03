@@ -172,6 +172,7 @@ namespace ZeroInstall.Model
         /// </summary>
         /// <param name="value">The case-sensitive string to parse.</param>
         /// <returns>The identified operating system or <see cref="Model.OS.Unknown"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="value"/> is not a known operating system.</exception>
         public static OS ParseOS(string value)
         {
             #region Sanity checks
@@ -188,7 +189,7 @@ namespace ZeroInstall.Model
                 case "Darwin": os = OS.Darwin; break;
                 case "Windows": os = OS.Windows; break;
                 case "Cygwin": os = OS.Cygwin; break;
-                default: os = OS.Unknown; break;
+                default: throw new ArgumentException(Resources.UnknownOS);
             }
             return os;
         }
@@ -198,6 +199,7 @@ namespace ZeroInstall.Model
         /// </summary>
         /// <param name="value">The case-sensitive string to parse.</param>
         /// <returns>The identified CPU or <see cref="Model.Cpu.Unknown"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="value"/> is not a known CPU.</exception>
         public static Cpu ParseCpu(string value)
         {
             #region Sanity checks
@@ -216,7 +218,7 @@ namespace ZeroInstall.Model
                 case "ppc": cpu = Cpu.Ppc; break;
                 case "ppc64": cpu = Cpu.Ppc64; break;
                 case "src": cpu = Cpu.Source; break;
-                default: cpu = Cpu.Unknown; break;
+                default: throw new ArgumentException(Resources.UnknownCpu);
             }
             return cpu;
         }
@@ -238,16 +240,23 @@ namespace ZeroInstall.Model
             string os = architectureArray[0];
             string cpu = architectureArray[1];
 
-            // Parse string as enumeration and gracefully handle unkown entries as unsupported platforms
             try
             {
                 OS = ParseOS(os);
                 Cpu = ParseCpu(cpu);
             }
+            #region Error handling
             catch (ArgumentNullException ex)
             {
                 throw new ArgumentException(Resources.ArchitectureStringFormat, architecture, ex);
             }
+            catch (ArgumentException)
+            {
+                // Gracefully handle unknown entries as unsupported platforms
+                OS = OS.Unknown;
+                Cpu = Cpu.Unknown;
+            }
+            #endregion
         }
 
         /// <summary>
