@@ -97,6 +97,15 @@ namespace ZeroInstall.DesktopIntegration.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can only perform one desktop integration operation at a time..
+        /// </summary>
+        internal static string IntegrationMutex {
+            get {
+                return ResourceManager.GetString("IntegrationMutex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There was a problem loading &apos;{0}&apos;..
         /// </summary>
         internal static string ProblemLoading {

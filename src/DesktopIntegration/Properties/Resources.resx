@@ -129,6 +129,9 @@
   <data name="AppNotInList" xml:space="preserve">
     <value>The application '{0}' is not in the application list.</value>
   </data>
+  <data name="IntegrationMutex" xml:space="preserve">
+    <value>You can only perform one desktop integration operation at a time.</value>
+  </data>
   <data name="ProblemLoading" xml:space="preserve">
     <value>There was a problem loading '{0}'.</value>
   </data>

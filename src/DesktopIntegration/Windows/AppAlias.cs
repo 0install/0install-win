@@ -68,10 +68,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             var variableTarget = systemWide ? EnvironmentVariableTarget.Machine : EnvironmentVariableTarget.User;
             string existingValue = Environment.GetEnvironmentVariable("PATH", variableTarget);
             if (existingValue == null || !existingValue.Contains(stubDirPath))
-            {
                 Environment.SetEnvironmentVariable("PATH", existingValue + Path.PathSeparator + stubDirPath, variableTarget);
-                WindowsUtils.NotifyEnvironmentChanged();
-            }
 
             // Only Windows 7 and newer support per-user AppPaths
             if (systemWide || WindowsUtils.IsWindows7)

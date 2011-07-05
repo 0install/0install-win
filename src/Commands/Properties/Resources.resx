@@ -355,6 +355,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="OptionSource" xml:space="preserve">
     <value>Select source code rather than a binary. This is used internally by '0compile'.</value>
   </data>
+  <data name="OptionSyncReset" xml:space="preserve">
+    <value>Reset the synchronization data. Possible {MODE}s are 'none' (merge data from client and server normally), 'client' (replace all data on client with data from server) and 'server' (replace all data on server with data from client).</value>
+  </data>
   <data name="OptionVerbose" xml:space="preserve">
     <value>More verbose output. Use twice for even more verbose output.</value>
   </data>
@@ -394,6 +397,9 @@ However, new downloads will not be written to this directory.</value>
   </data>
   <data name="UnknownOption" xml:space="preserve">
     <value>Unknown option.</value>
+  </data>
+  <data name="UnknownResetMode" xml:space="preserve">
+    <value>Unknown synchronization reset mode.</value>
   </data>
   <data name="UpdateProblem" xml:space="preserve">
     <value>Unable to check for updates</value>

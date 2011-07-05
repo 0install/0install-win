@@ -35,6 +35,10 @@ namespace ZeroInstall.Commands
         public const string Name = "sync";
         #endregion
 
+        #region Variables
+        private SyncResetMode _syncResetMode = SyncResetMode.None;
+        #endregion
+
         #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionSync; } }
@@ -49,7 +53,18 @@ namespace ZeroInstall.Commands
         #region Constructor
         /// <inheritdoc/>
         public SyncApps(Policy policy) : base(policy)
-        {}
+        {
+            Options.Add("reset=", Resources.OptionSyncReset, mode =>
+            {
+                try { _syncResetMode = (SyncResetMode)Enum.Parse(typeof(SyncResetMode), mode, true); }
+                #region Error handling
+                catch (ArgumentException)
+                {
+                    throw new OptionException(Resources.UnknownResetMode, "reset");
+                }
+                #endregion
+            });
+        }
         #endregion
 
         //--------------------//
@@ -64,14 +79,14 @@ namespace ZeroInstall.Commands
 
             Policy.Handler.ShowProgressUI(Cancel);
 
-            var syncManager = new SyncIntegrationManager(SystemWide, Policy.Config.SyncServer, Policy.Config.SyncServerUsername, Policy.Config.SyncServerPassword, Policy.Config.SyncCryptoKey);
             Converter<string, Feed> feedRetreiver = delegate(string interfaceID)
             {
                 CacheFeed(interfaceID);
                 bool stale;
                 return Policy.FeedManager.GetFeed(interfaceID, Policy, out stale);
             };
-            syncManager.Sync(feedRetreiver, Policy.Handler);
+            using (var syncManager = new SyncIntegrationManager(SystemWide, Policy.Config.SyncServer, Policy.Config.SyncServerUsername, Policy.Config.SyncServerPassword, Policy.Config.SyncCryptoKey))
+                syncManager.Sync(_syncResetMode, feedRetreiver, Policy.Handler);
 
             // Show a "sync complete" message (but not in batch mode, since it is too unimportant)
             if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, Resources.DesktopIntegrationSyncDone);

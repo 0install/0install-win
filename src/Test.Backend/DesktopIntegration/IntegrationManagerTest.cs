@@ -45,6 +45,7 @@ namespace ZeroInstall.DesktopIntegration
         [TearDown]
         public void TearDown()
         {
+            _integrationManager.Dispose();
             _appListFile.Dispose();
         }
 

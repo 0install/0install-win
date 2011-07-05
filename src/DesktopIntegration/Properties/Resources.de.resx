@@ -129,6 +129,9 @@
   <data name="AppNotInList" xml:space="preserve">
     <value>Die Anwendung '{0}' ist noch nicht in der Anwendungsliste.</value>
   </data>
+  <data name="IntegrationMutex" xml:space="preserve">
+    <value>Sie können immer nur eine Desktopintegrations-Operation auf einmal durchführen.</value>
+  </data>
   <data name="ProblemLoading" xml:space="preserve">
     <value>Es gab ein Problem beim Laden von '{0}'.</value>
   </data>

@@ -19,11 +19,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Threading;
 using Common;
-using Common.Collections;
 using Common.Storage;
 using Common.Tasks;
-using Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
 using Capabilities = ZeroInstall.Model.Capabilities;
@@ -33,14 +32,28 @@ namespace ZeroInstall.DesktopIntegration
     /// <summary>
     /// Manages desktop integration via <see cref="AccessPoint"/>s.
     /// </summary>
-    public class IntegrationManager
+    /// <remarks>
+    /// To prevent raceconditions there may only be one desktop integration class active at any given time.
+    /// This class becomes active upon calling its constructor and becomes inactive upon calling <see cref="Dispose()"/>.
+    /// </remarks>
+    public partial class IntegrationManager : IDisposable
     {
+        #region Constants
+        /// <summary>
+        /// The name of the cross-process mutex used to signal that a desktop integration process class is currently active.
+        /// </summary>
+        public const string MutexName = "ZeroInstall.DesktopIntegration";
+        #endregion
+
         #region Variables
         /// <summary>Apply operations system-wide instead of just for the current user.</summary>
         protected readonly bool SystemWide;
 
         /// <summary>The storage location of the <see cref="AppList"/> file.</summary>
         protected readonly string AppListPath;
+
+        /// <summary>Prevents multiple processes from performing desktop integration operations simultaneously.</summary>
+        private readonly Mutex _mutex;
         #endregion
 
         #region Properties
@@ -52,7 +65,7 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Constructor
         /// <summary>
-        /// Creates a new integration manager using a custom <see cref="DesktopIntegration.AppList"/>.
+        /// Creates a new integration manager using a custom <see cref="DesktopIntegration.AppList"/>. Do not use directly unless for testing purposes!
         /// </summary>
         /// <param name="systemWide">Apply operations system-wide instead of just for the current user.</param>
         /// <param name="appListPath">The storage location of the <see cref="AppList"/> file.</param>
@@ -77,18 +90,18 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="systemWide">Apply operations system-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public IntegrationManager(bool systemWide)
-            : this(systemWide, GetAppListPath(systemWide))
-        {}
-
-        private static string GetAppListPath(bool systemWide)
+            : this(systemWide, Path.Combine(Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration"), "app-list.xml"))
         {
-            return systemWide ?
-                // Note: Ignore Portable mode when operating system-wide
-                Path.Combine(Locations.GetIntegrationDirPath("0install.net", true, "desktop-integration"), "app-list.xml")
-                : Locations.GetSaveConfigPath("0install.net", true, "desktop-integration", "app-list.xml");
+            // Prevent multiple concurrent desktop integration operations
+            _mutex = new Mutex(true, systemWide ? @"Global\" + MutexName : MutexName);
+            if (!_mutex.WaitOne(1000))
+            {
+                _mutex = null; // Don't try to release mutex if it wasn't acquired
+                throw new UnauthorizedAccessException(Resources.IntegrationMutex);
+            }
         }
         #endregion
 
@@ -109,7 +122,7 @@ namespace ZeroInstall.DesktopIntegration
             if (existingEntry != null) throw new InvalidOperationException(string.Format(Resources.AppAlreadyInList, existingEntry.Name));
 
             AppList.Entries.Add(BuildAppEntry(target));
-            AppList.Save(AppListPath);
+            Complete();
         }
 
         /// <summary>
@@ -129,16 +142,8 @@ namespace ZeroInstall.DesktopIntegration
             AppEntry appEntry = FindAppEntry(interfaceID);
             if (appEntry == null) throw new InvalidOperationException(string.Format(Resources.AppNotInList, interfaceID));
 
-            if (appEntry.AccessPoints != null)
-            {
-                // Unapply any remaining access points
-                foreach (var accessPoint in appEntry.AccessPoints.Entries)
-                    accessPoint.Unapply(appEntry, SystemWide);
-                if (WindowsUtils.IsWindows) WindowsUtils.NotifyAssocChanged();
-            }
-
-            AppList.Entries.Remove(appEntry);
-            AppList.Save(AppListPath);
+            RemoveAppEntry(appEntry);
+            Complete();
         }
         #endregion
 
@@ -169,55 +174,9 @@ namespace ZeroInstall.DesktopIntegration
                 appEntry = BuildAppEntry(target);
                 AppList.Entries.Add(appEntry);
             }
-            if (appEntry.AccessPoints == null) appEntry.AccessPoints = new AccessPointList();
 
-            CheckForConflicts(toAdd, appEntry);
-
-            EnumerableUtils.ApplyWithRollback(toAdd,
-                accessPoint => accessPoint.Apply(appEntry, target, SystemWide, handler),
-                accessPoint =>
-                {
-                    // Don't perform rollback if the access point was already applied previously and this was only a refresh
-                    if (!appEntry.AccessPoints.Entries.Contains(accessPoint)) 
-                        accessPoint.Unapply(appEntry, SystemWide);
-                });
-
-            if (WindowsUtils.IsWindows) WindowsUtils.NotifyAssocChanged();
-
-            // Add the access points to the AppList
-            long timestamp = FileUtils.ToUnixTime(DateTime.UtcNow);
-            foreach (var accessPoint in toAdd)
-            {
-                accessPoint.Timestamp = timestamp;
-                appEntry.AccessPoints.Entries.UpdateOrAdd(accessPoint); // Replace pre-existing entries
-            }
-            appEntry.Timestamp = timestamp;
-            AppList.Save(AppListPath);
-        }
-
-        /// <summary>
-        /// Checks new <see cref="AccessPoint"/>s for conflicts with existing ones.
-        /// </summary>
-        /// <exception cref="InvalidOperationException">Thrown if one or more of the <paramref name="accessPoints"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
-        private void CheckForConflicts(IEnumerable<AccessPoint> accessPoints, AppEntry appEntry)
-        {
-            var conflictIDs = AppList.GetConflictIDs();
-            foreach (var accessPoint in accessPoints)
-            {
-                // Check for conflicts with existing access points
-                foreach (string conflictID in accessPoint.GetConflictIDs(appEntry))
-                {
-                    ConflictData conflictData;
-                    if (conflictIDs.TryGetValue(conflictID, out conflictData))
-                    {
-                        if (!accessPoint.Equals(conflictData.AccessPoint) || appEntry.InterfaceID != conflictData.AppEntry.InterfaceID)
-                            throw new InvalidOperationException(string.Format(Resources.AccessPointConflict, conflictData.AccessPoint, conflictData.AppEntry, accessPoint, appEntry));
-                    }
-                }
-            }
-
-            // ToDo: Check for system conflicts
-            // ToDo: Check for inner conflicts
+            AddAccessPoints(toAdd, appEntry, target, handler);
+            Complete();
         }
 
         /// <summary>
@@ -241,47 +200,34 @@ namespace ZeroInstall.DesktopIntegration
             if (appEntry == null) throw new InvalidOperationException(string.Format(Resources.AppNotInList, interfaceID));
             if (appEntry.AccessPoints == null) return;
 
-            // Unapply the access points
-            foreach (var accessPoint in toRemove)
-                accessPoint.Unapply(appEntry, SystemWide);
-
-            if (WindowsUtils.IsWindows) WindowsUtils.NotifyAssocChanged();
-
-            // Remove the access points from the AppList
-            appEntry.AccessPoints.Entries.RemoveAll(toRemove);
-            appEntry.Timestamp = FileUtils.ToUnixTime(DateTime.UtcNow);
-            AppList.Save(AppListPath);
+            RemoveAccessPoints(toRemove, appEntry);
+            Complete();
         }
         #endregion
 
-        #region Helpers
-        /// <summary>
-        /// Tries to fo find an existing <see cref="AppEntry"/> in <see cref="AppList"/>.
-        /// </summary>
-        /// <param name="interfaceID">The <see cref="AppEntry.InterfaceID"/> to look for.</param>
-        /// <returns>The first matching <see cref="AppEntry"/> that was found; <see langword="null"/> if no match was found.</returns>
-        protected AppEntry FindAppEntry(string interfaceID)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
-            #endregion
+        //--------------------//
 
-            AppEntry appEntry;
-            AppList.Entries.Find(entry => entry.InterfaceID == interfaceID, out appEntry);
-            return appEntry;
+        #region Dispose
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <inheritdoc/>
+        ~IntegrationManager()
+        {
+            Dispose(false);
         }
 
         /// <summary>
-        /// Creates a new <see cref="AppEntry"/>.
+        /// Releases the mutex and any unmanaged resources.
         /// </summary>
-        /// <param name="target">The application being integrated.</param>
-        /// <returns>The newly created <see cref="AppEntry"/>.</returns>
-        protected static AppEntry BuildAppEntry(InterfaceFeed target)
+        /// <param name="disposing"><see langword="true"/> if called manually and not by the garbage collector.</param>
+        protected virtual void Dispose(bool disposing)
         {
-            var appEntry = new AppEntry {InterfaceID = target.InterfaceID, Name = target.Feed.Name, Timestamp = FileUtils.ToUnixTime(DateTime.UtcNow)};
-            foreach (var capabilityList in target.Feed.CapabilityLists)
-                appEntry.CapabilityLists.Add(capabilityList.CloneCapabilityList());
-            return appEntry;
+            if (_mutex != null) _mutex.ReleaseMutex();
         }
         #endregion
     }

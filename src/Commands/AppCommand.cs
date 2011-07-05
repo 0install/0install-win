@@ -61,7 +61,8 @@ namespace ZeroInstall.Commands
 
             Policy.Handler.ShowProgressUI(Cancel);
             string interfaceID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
-            return ExecuteHelper(interfaceID, new CategoryIntegrationManager(SystemWide));
+            using (var integrationManager = new CategoryIntegrationManager(SystemWide))
+                return ExecuteHelper(interfaceID, integrationManager);
         }
 
         /// <summary>

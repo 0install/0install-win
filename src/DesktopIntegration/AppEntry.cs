@@ -19,6 +19,8 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using Common.Collections;
+using Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
@@ -30,16 +32,16 @@ namespace ZeroInstall.DesktopIntegration
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlType("app", Namespace = AppList.XmlNamespace)]
-    public class AppEntry : IEquatable<AppEntry>, ICloneable
+    public sealed class AppEntry : IMergeable<AppEntry>, ICloneable
     {
         #region Properties
-        /// <summary>
-        /// The URI or local path of the interface defining the application.
-        /// </summary>
+        /// <inheritdoc/>
         [Description("The URI or local path of the interface defining the application.")]
         [XmlAttribute("interface")]
         public string InterfaceID
         { get; set; }
+
+        string IMergeable<AppEntry>.MergeID { get { return InterfaceID; } }
 
         /// <summary>
         /// The name of the application. Usually equal to <see cref="Feed.Name"/>.
@@ -72,12 +74,18 @@ namespace ZeroInstall.DesktopIntegration
         [XmlElement("access-points")]
         public AccessPointList AccessPoints { get; set; }
 
+        /// <inheritdoc/>
+        [Browsable(false)]
+        [XmlIgnore]
+        public DateTime Timestamp { get; set; }
+
         /// <summary>
-        /// The time this entry was last modified encoded as Unix time (number of seconds since the epoch). Used to determine preceedence with sync conflicts.
+        /// The time this entry was last modified encoded as Unix time (number of seconds since the epoch).
         /// </summary>
         /// <remarks>This value is ignored by clone and equality methods.</remarks>
+        [Browsable(false)]
         [XmlAttribute("timestamp"), DefaultValue(0)]
-        public long Timestamp { get; set; }
+        public long TimestampUnix { get { return FileUtils.ToUnixTime(Timestamp); } }
         #endregion
 
         //--------------------//

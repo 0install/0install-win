@@ -767,6 +767,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reset the synchronization data. Possible {MODE}s are &apos;none&apos; (merge data from client and server normally), &apos;client&apos; (replace all data on client with data from server) and &apos;server&apos; (replace all data on server with data from client)..
+        /// </summary>
+        internal static string OptionSyncReset {
+            get {
+                return ResourceManager.GetString("OptionSyncReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to More verbose output. Use twice for even more verbose output..
         /// </summary>
         internal static string OptionVerbose {
@@ -881,6 +890,15 @@ namespace ZeroInstall.Commands.Properties {
         internal static string UnknownOption {
             get {
                 return ResourceManager.GetString("UnknownOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown synchronization reset mode..
+        /// </summary>
+        internal static string UnknownResetMode {
+            get {
+                return ResourceManager.GetString("UnknownResetMode", resourceCulture);
             }
         }
         

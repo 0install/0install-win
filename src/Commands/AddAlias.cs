@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using Common;
 using Common.Collections;
 using Common.Storage;
@@ -80,46 +79,35 @@ namespace ZeroInstall.Commands
             if (SystemWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
 
             if (AdditionalArgs.Count < 1) throw new OptionException(Resources.MissingArguments, "");
-            string aliasName = AdditionalArgs[0];
-            var integrationManager = new IntegrationManager(SystemWide);
 
-            if (_resolve || _remove)
+            using (var integrationManager = new IntegrationManager(SystemWide))
             {
-                if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
-
-                AppEntry appEntry;
-                var appAlias = GetAppAlias(integrationManager.AppList, AdditionalArgs[0], out appEntry);
-                if (appAlias == null)
+                if (_resolve || _remove)
                 {
-                    Policy.Handler.Output(Resources.AppAlias, string.Format(Resources.AliasNotFound, aliasName));
-                    return 1;
+                    if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
+
+                    return ResolveOrRemove(integrationManager, AdditionalArgs[0]);
                 }
 
-                if (_resolve)
-                {
-                    string result = appEntry.InterfaceID;
-                    if (!string.IsNullOrEmpty(appAlias.Command)) result += Environment.NewLine + "Command: " + appAlias.Command;
-                    Policy.Handler.Output(Resources.AppAlias, result);
-                    return 0;
-                }
-                if (_remove)
-                {
-                    integrationManager.RemoveAccessPoints(appEntry.InterfaceID, new AccessPoint[] {appAlias});
+                if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments, "");
+                if (AdditionalArgs.Count > 3) throw new OptionException(Resources.TooManyArguments, "");
 
-                    // Show a "integration complete" message (but not in batch mode, since it is too unimportant)
-                    Policy.Handler.Output(Resources.AppAlias, string.Format(Resources.AliasRemoved, aliasName, appEntry.Name));
-                    return 0;
-                }
+                string interfaceID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[1]));
+                string command = (AdditionalArgs.Count >= 3 ? AdditionalArgs[2] : null);
+                return CreateAlias(integrationManager, AdditionalArgs[0], interfaceID, command);
             }
+        }
 
-            if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments, "");
-            if (AdditionalArgs.Count > 3) throw new OptionException(Resources.TooManyArguments, "");
-
-            // Collect the alias data
-            var alias = new AppAlias { Name = aliasName };
-            string interfaceID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[1]));
-            if (AdditionalArgs.Count >= 3) alias.Command = AdditionalArgs[2];
-
+        /// <summary>
+        /// ToDo
+        /// </summary>
+        /// <param name="integrationManager">Manages desktop integration operations.</param>
+        /// <param name="aliasName">The name of the alias to create.</param>
+        /// <param name="interfaceID"></param>
+        /// <param name="command"></param>
+        /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
+        private int CreateAlias(IntegrationManager integrationManager, string aliasName, string interfaceID, string command)
+        {
             Policy.Handler.ShowProgressUI(Cancel);
             CacheFeed(interfaceID);
             bool stale;
@@ -128,6 +116,7 @@ namespace ZeroInstall.Commands
             if (Canceled) throw new UserCancelException();
 
             // Apply the new alias
+            var alias = new AppAlias {Name = aliasName, Command = command};
             try { integrationManager.AddAccessPoints(new InterfaceFeed(interfaceID, feed), new AccessPoint[] {alias}, Policy.Handler); }
             catch (InvalidOperationException ex)
             {
@@ -138,6 +127,38 @@ namespace ZeroInstall.Commands
 
             // Show a "integration complete" message (but not in batch mode, since it is too unimportant)
             if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.AliasCreated, aliasName, feed.Name));
+            return 0;
+        }
+
+        /// <summary>
+        /// Resolves or removes existing aliases.
+        /// </summary>
+        /// <param name="integrationManager">Manages desktop integration operations.</param>
+        /// <param name="aliasName">The name of the existing alias.</param>
+        /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
+        private int ResolveOrRemove(IntegrationManager integrationManager, string aliasName)
+        {
+            AppEntry appEntry;
+            var appAlias = GetAppAlias(integrationManager.AppList, aliasName, out appEntry);
+            if (appAlias == null)
+            {
+                Policy.Handler.Output(Resources.AppAlias, string.Format(Resources.AliasNotFound, aliasName));
+                return 1;
+            }
+
+            if (_resolve)
+            {
+                string result = appEntry.InterfaceID;
+                if (!string.IsNullOrEmpty(appAlias.Command)) result += Environment.NewLine + "Command: " + appAlias.Command;
+                Policy.Handler.Output(Resources.AppAlias, result);
+            }
+            if (_remove)
+            {
+                integrationManager.RemoveAccessPoints(appEntry.InterfaceID, new AccessPoint[] {appAlias});
+
+                // Show a "integration complete" message (but not in batch mode, since it is too unimportant)
+                Policy.Handler.Output(Resources.AppAlias, string.Format(Resources.AliasRemoved, aliasName, appEntry.Name));
+            }
             return 0;
         }
 

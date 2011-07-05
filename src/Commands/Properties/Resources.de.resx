@@ -331,6 +331,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="OptionSource" xml:space="preserve">
     <value>Wählt Quellecode anstelle einer Binärdatei aus. Dies wird intern von '0compile' verwendet.</value>
   </data>
+  <data name="OptionSyncReset" xml:space="preserve">
+    <value>Setze die Synchronisationsdaten zurück. Mögliche {MODE}s sind 'none' (führe Daten vom Client und Server normal zusammen), 'client' (ersetze alle Daten auf dem Client mit Daten vom Server) und 'server' (ersetze alle Daten auf dem Server mit Daten vom Client).</value>
+  </data>
   <data name="OptionVerbose" xml:space="preserve">
     <value>Ausführlichere Ausgaben. Verwenden Sie die Option zweimal um noch ausführlicher informiert zu werden.</value>
   </data>
@@ -370,6 +373,9 @@ Trotzdem werden neue Downloads nicht in dieses Verzeichnis gespeichert.</value>
   </data>
   <data name="UnknownOption" xml:space="preserve">
     <value>Unbekannte Option.</value>
+  </data>
+  <data name="UnknownResetMode" xml:space="preserve">
+    <value>Unbekannter Synchronisations-Reset Modus.</value>
   </data>
   <data name="UpdateProblem" xml:space="preserve">
     <value>Konnte nicht nach Updates suchen</value>

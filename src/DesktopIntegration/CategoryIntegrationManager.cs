@@ -80,7 +80,6 @@ namespace ZeroInstall.DesktopIntegration
                 appEntry = BuildAppEntry(target);
                 AppList.Entries.Add(appEntry);
             }
-            if (appEntry.AccessPoints == null) appEntry.AccessPoints = new AccessPointList();
 
             // Parse categories list
             bool all = categories.Contains(AllCategoryName);
@@ -117,12 +116,21 @@ namespace ZeroInstall.DesktopIntegration
                 {
                     string entryPointName = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentCulture);
                     if (!string.IsNullOrEmpty(entryPoint.Command) && !string.IsNullOrEmpty(entryPointName))
-                        accessPointsToAdd.AddLast(new MenuEntry {Name = entryPointName, Category = appEntry.Name, Command = entryPoint.Command});
+                    {
+                        accessPointsToAdd.AddLast(new MenuEntry
+                        {
+                            Name = entryPointName,
+                            Category = appEntry.Name,
+                            // Don't explicitly write the "run" command 
+                            Command = (entryPoint.Command == Command.NameRun ? null : entryPoint.Command)
+                        });
+                    }
                 }
             }
 
-            AddAccessPoints(target, accessPointsToAdd, handler);
+            AddAccessPoints(accessPointsToAdd, appEntry, target, handler);
             if (icons && SystemWide) ToggleIconsVisible(appEntry, true);
+            Complete();
         }
         #endregion
 
@@ -160,8 +168,9 @@ namespace ZeroInstall.DesktopIntegration
             if (defaults) accessPointsToRemove.AddAll(EnumerableUtils.OfType<DefaultAccessPoint>(appEntry.AccessPoints.Entries));
             if (icons) accessPointsToRemove.AddAll(EnumerableUtils.OfType<IconAccessPoint>(appEntry.AccessPoints.Entries));
 
-            RemoveAccessPoints(interfaceID, accessPointsToRemove);
+            RemoveAccessPoints(accessPointsToRemove, appEntry);
             if (icons && SystemWide) ToggleIconsVisible(appEntry, false);
+            Complete();
         }
         #endregion
 
