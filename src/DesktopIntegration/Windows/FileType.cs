@@ -52,7 +52,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public const string RegValuePerceivedType = "PerceivedType";
 
         /// <summary>The registry value name for the flag indicating a menue entry should only appear when the SHIFT key is pressed.</summary>
-        public const string RegValueExtendedFlag = "extended";
+        public const string RegValueExtended = "extended";
 
         /// <summary>The registry subkey containing <see cref="Capabilities.FileType"/> references.</summary>
         public const string RegSubKeyIcon = "DefaultIcon";
@@ -219,7 +219,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     {
                         string verbDescription = verb.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture);
                         if (verbDescription != null) verbKey.SetValue("", verbDescription);
-                        if (verb.Extended) verbKey.SetValue(RegValueExtendedFlag, "");
+                        if (verb.Extended) verbKey.SetValue(RegValueExtended, "");
 
                         using (var commandKey = verbKey.CreateSubKey("command"))
                             commandKey.SetValue("", GetLaunchCommandLine(target, verb, systemWide, handler));

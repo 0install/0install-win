@@ -75,7 +75,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             {
                 string description = contextMenu.Verb.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture);
                 if (description != null) verbKey.SetValue("", description);
-                if (contextMenu.Verb.Extended) verbKey.SetValue(FileType.RegValueExtendedFlag, "");
+                if (contextMenu.Verb.Extended) verbKey.SetValue(FileType.RegValueExtended, "");
 
                 using (var commandKey = verbKey.CreateSubKey("command"))
                     commandKey.SetValue("", FileType.GetLaunchCommandLine(target, contextMenu.Verb, systemWide, handler));
