@@ -88,5 +88,113 @@ namespace Common.Collections
             CollectionAssert.AreEqual(new[] {1, 2}, applyCalledFor);
             CollectionAssert.AreEqual(new[] {2, 1}, rollbackCalledFor);
         }
+
+        #region Private inner class
+        private class MergeTest : IMergeable<MergeTest>
+        {
+            public string MergeID { get; set; }
+
+            public string Data { get; set; }
+
+            public DateTime Timestamp { get; set; }
+
+            public static MergeTest[] BuildArray(params string[] mergeIDs)
+            {
+                return Array.ConvertAll(mergeIDs, value => new MergeTest { MergeID = value });
+            }
+
+            public override string ToString()
+            {
+                return MergeID + " (" + Data + ")";
+            }
+
+            #region Equality
+            public bool Equals(MergeTest other)
+            {
+                if (ReferenceEquals(null, other)) return false;
+                if (ReferenceEquals(this, other)) return true;
+                return Equals(other.MergeID, MergeID) && Equals(other.Data, Data);
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(null, obj)) return false;
+                if (ReferenceEquals(this, obj)) return true;
+                return obj.GetType() == typeof(MergeTest) && Equals((MergeTest)obj);
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    return ((MergeID != null ? MergeID.GetHashCode() : 0) * 397) ^ (Data != null ? Data.GetHashCode() : 0);
+                }
+            }
+            #endregion
+        }
+        #endregion
+
+        /// <summary>
+        /// Ensures that <see cref="EnumerableUtils.Merge{T}"/> correctly detects unchanged lists.
+        /// </summary>
+        [Test]
+        public void TestMergeEquals()
+        {
+            var list = new[] {new MergeTest {MergeID = "1"}};
+
+            EnumerableUtils.Merge(new MergeTest[0], list, list,
+                delegate(MergeTest element) { throw new AssertionException(element + " should not be detected as added."); },
+                delegate(MergeTest element) { throw new AssertionException(element + " should not be detected as removed."); });
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="EnumerableUtils.Merge{T}"/> correctly detects added and removed elements.
+        /// </summary>
+        [Test]
+        public void TestMergeAddAndRemove()
+        {
+            var baseList = MergeTest.BuildArray("a", "b", "c");
+            var theirsList = MergeTest.BuildArray("a", "b", "d");
+            var mineList = MergeTest.BuildArray("a", "c", "e");
+
+            ICollection<MergeTest> toRemove = new LinkedList<MergeTest>();
+            ICollection<MergeTest> toAdd = new LinkedList<MergeTest>();
+            EnumerableUtils.Merge(baseList, theirsList, mineList, toAdd.Add, toRemove.Add);
+
+            CollectionAssert.AreEqual(MergeTest.BuildArray("d"), toAdd);
+            CollectionAssert.AreEqual(MergeTest.BuildArray("c"), toRemove);
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="EnumerableUtils.Merge{T}"/> correctly modified elements.
+        /// </summary>
+        [Test]
+        public void TestMergeModify()
+        {
+            var baseList = MergeTest.BuildArray("a", "b", "c", "d", "e");
+            var theirsList = new[]
+            {
+                new MergeTest {MergeID = "a"},
+                new MergeTest {MergeID = "b", Data = "123", Timestamp = new DateTime(2000, 1, 1)},
+                new MergeTest {MergeID = "c"},
+                new MergeTest {MergeID = "d", Data = "456", Timestamp = new DateTime(2000, 1, 1)},
+                new MergeTest {MergeID = "e", Data = "789", Timestamp = new DateTime(2999, 1, 1)}
+            };
+            var mineList = new[]
+            {
+                new MergeTest {MergeID = "a"},
+                new MergeTest {MergeID = "b"},
+                new MergeTest {MergeID = "c", Data = "abc", Timestamp = new DateTime(2000, 1, 1)},
+                new MergeTest {MergeID = "d", Data = "def", Timestamp = new DateTime(2999, 1, 1)},
+                new MergeTest {MergeID = "e", Data = "ghi", Timestamp = new DateTime(2000, 1, 1)}
+            };
+
+            ICollection<MergeTest> toRemove = new LinkedList<MergeTest>();
+            ICollection<MergeTest> toAdd = new LinkedList<MergeTest>();
+            EnumerableUtils.Merge(baseList, theirsList, mineList, toAdd.Add, toRemove.Add);
+
+            CollectionAssert.AreEqual(new[] {mineList[1], mineList[4]}, toRemove);
+            CollectionAssert.AreEqual(new[] {theirsList[1], theirsList[4]}, toAdd);
+        }
     }
 }

@@ -153,6 +153,7 @@ namespace Common.Collections
         }
         #endregion
 
+        #region Transactions
         /// <summary>
         /// Applies an operation for all elements of a collection. Automatically applies rollback operations in case of an exception.
         /// </summary>
@@ -199,5 +200,71 @@ namespace Common.Collections
                 throw;
             }
         }
+        #endregion
+
+        #region Merge
+        /// <summary>
+        /// Performs a 3-way merge on a set of collections. Changes from a foreign list are applied to a local list using callback delegates.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="baseList">A common baseline from which both <paramref name="theirsList"/> and <paramref name="mineList"/> were modified.</param>
+        /// <param name="theirsList">The foreign list with changes that shell be merged in.</param>
+        /// <param name="mineList">The local list that shall be updated with foreign changes.</param>
+        /// <param name="added">Called for every element that should be added to <paramref name="mineList"/>.</param>
+        /// <param name="removed">Called for every element that should be removed from <paramref name="mineList"/>.</param>
+        /// <remarks>Modified elements are handled by calling <paramref name="removed"/> for the old state and <paramref name="added"/> for the new state.</remarks>
+        public static void Merge<T>(ICollection<T> baseList, IEnumerable<T> theirsList, IEnumerable<T> mineList, Action<T> added, Action<T> removed)
+            where T : class, IMergeable<T>
+        {
+            #region Sanity checks
+            if (baseList == null) throw new ArgumentNullException("baseList");
+            if (theirsList == null) throw new ArgumentNullException("theirsList");
+            if (mineList == null) throw new ArgumentNullException("mineList");
+            if (added == null) throw new ArgumentNullException("added");
+            if (removed == null) throw new ArgumentNullException("removed");
+            #endregion
+
+            foreach (var mine in mineList)
+            {
+                if (mine == null) continue;
+
+                var matchingTheirs = FindMergeID(theirsList, mine.MergeID);
+                if (matchingTheirs == null)
+                { // Entry in mineList, but not in theirsList
+                    if (baseList.Contains(mine)) removed(mine); // Removed from theirsList
+                }
+                else
+                { // Entry both in mineList and in theirsList
+                    if (!mine.Equals(matchingTheirs) && matchingTheirs.Timestamp > mine.Timestamp)
+                    { // Theirs newer than mine
+                        removed(mine);
+                        added(matchingTheirs);
+                    }
+                }
+            }
+
+            foreach (var theirs in theirsList)
+            {
+                if (theirs == null) continue;
+
+                var matchingMine = FindMergeID(mineList, theirs.MergeID);
+                if (matchingMine == null)
+                { // Entry in theirsList, but not in mineList
+                    if (!baseList.Contains(theirs)) added(theirs); // Added in theirsList
+                }
+            }
+        }
+
+        /// <summary>
+        /// Finds the first element in a list matching the specified <see cref="IMergeable{T}.MergeID"/>.
+        /// </summary>
+        private static T FindMergeID<T>(IEnumerable<T> elements, string id)
+            where T : class, IMergeable<T>
+        {
+            foreach (var element in elements)
+                if (element != null && element.MergeID == id) return element;
+            return null;
+        }
+        #endregion
     }
 }
