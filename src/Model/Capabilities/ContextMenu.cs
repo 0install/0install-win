@@ -26,7 +26,7 @@ namespace ZeroInstall.Model.Capabilities
     /// Represents an application's entry in a file manager's context menu.
     /// </summary>
     [XmlType("context-menu", Namespace = XmlNamespace)]
-    public sealed class ContextMenu : Capability, IEquatable<ContextMenu>
+    public sealed class ContextMenu : DefaultCapability, IEquatable<ContextMenu>
     {
         #region Properties
         /// <inheritdoc/>

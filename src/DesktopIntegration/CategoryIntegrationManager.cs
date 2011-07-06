@@ -28,7 +28,6 @@ using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
-using Capability = ZeroInstall.Model.Capabilities.Capability;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -38,7 +37,7 @@ namespace ZeroInstall.DesktopIntegration
     public class CategoryIntegrationManager : IntegrationManager
     {
         #region Constants
-        /// <summary>Indicates that all <see cref="Capability"/>s and <see cref="AccessPoint"/>s shall be integrated.</summary>
+        /// <summary>Indicates that all <see cref="Capabilities.Capability"/>s and <see cref="AccessPoint"/>s shall be integrated.</summary>
         public const string AllCategoryName = "all";
 
         /// <summary>A list of all known <see cref="AccessPoint"/> categories.</summary>
@@ -95,10 +94,8 @@ namespace ZeroInstall.DesktopIntegration
                 // Add AccessPoints for all suitable Capabilities
                 foreach (var capabilityList in appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
                 {
-                    foreach (var capability in capabilityList.Entries)
+                    foreach (var capability in EnumerableUtils.OfType<Capabilities.DefaultCapability>(capabilityList.Entries))
                     {
-                        if (capability.WindowsSystemWideOnly && !SystemWide && WindowsUtils.IsWindows) continue;
-
                         DefaultAccessPoint accessPoint = GetDefaultAccessPoint(capability);
                         if (accessPoint != null) accessPointsToAdd.AddLast(accessPoint);
                     }
@@ -176,15 +173,18 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Helpers
         /// <summary>
-        /// Creates a <see cref="DefaultAccessPoint"/> referencing a specific <see cref="Capability"/>.
+        /// Creates a <see cref="DefaultAccessPoint"/> referencing a specific <see cref="Capabilities.DefaultCapability"/>.
         /// </summary>
-        /// <param name="capability">The <see cref="Capability"/> to create a <see cref="DefaultAccessPoint"/> for.</param>
-        /// <returns>The newly created <see cref="DefaultAccessPoint"/> or null if <paramref name="capability"/> was not a suitable type of <see cref="Capability"/>.</returns>
-        private static DefaultAccessPoint GetDefaultAccessPoint(Capability capability)
+        /// <param name="capability">The <see cref="Capabilities.DefaultCapability"/> to create a <see cref="DefaultAccessPoint"/> for.</param>
+        /// <returns>The newly created <see cref="DefaultAccessPoint"/> or null if <paramref name="capability"/> was not a suitable type of <see cref="Capabilities.DefaultCapability"/>.</returns>
+        private DefaultAccessPoint GetDefaultAccessPoint(Capabilities.DefaultCapability capability)
         {
             #region Sanity checks
             if (capability == null) throw new ArgumentNullException("capability");
             #endregion
+
+            if (capability.WindowsSystemWideOnly && !SystemWide && WindowsUtils.IsWindows) return null;
+            if (capability.ExplicitOnly) return null;
 
             DefaultAccessPoint accessPoint;
             if (capability is Capabilities.AutoPlay) accessPoint = new AutoPlay();
