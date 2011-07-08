@@ -435,11 +435,12 @@ namespace Common.Storage
 
             using (var zipStream = new ZipOutputStream(stream) {IsStreamOwner = false})
             {
-                zipStream.Password = password;
+                if (!string.IsNullOrEmpty(password)) zipStream.Password = password;
 
                 // Write the XML file to the ZIP archive
                 {
-                    var entry = new ZipEntry("data.xml") {DateTime = DateTime.Now, AESKeySize = 128};
+                    var entry = new ZipEntry("data.xml") {DateTime = DateTime.Now};
+                    if (!string.IsNullOrEmpty(password)) entry.AESKeySize = 128;
                     zipStream.SetLevel(9);
                     zipStream.PutNextEntry(entry);
                     Save(zipStream, data, ignoreMembers);
@@ -451,7 +452,8 @@ namespace Common.Storage
                 {
                     foreach (EmbeddedFile file in additionalFiles)
                     {
-                        var entry = new ZipEntry(file.Filename) {DateTime = DateTime.Now, AESKeySize = 128};
+                        var entry = new ZipEntry(file.Filename) {DateTime = DateTime.Now};
+                        if (!string.IsNullOrEmpty(password)) entry.AESKeySize = 128;
                         zipStream.SetLevel(file.CompressionLevel);
                         zipStream.PutNextEntry(entry);
                         file.StreamDelegate(zipStream);
