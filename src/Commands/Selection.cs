@@ -156,7 +156,7 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count == 0) throw new InvalidInterfaceIDException(Resources.NoInterfaceSpecified);
 
             // The first argument is the interface ID
-            Requirements.InterfaceID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs.First));
+            Requirements.InterfaceID = GetCanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs.First));
             AdditionalArgs.RemoveFirst();
 
             if (File.Exists(Requirements.InterfaceID))

@@ -92,7 +92,7 @@ namespace ZeroInstall.Commands
                 if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments, "");
                 if (AdditionalArgs.Count > 3) throw new OptionException(Resources.TooManyArguments, "");
 
-                string interfaceID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[1]));
+                string interfaceID = GetCanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[1]));
                 string command = (AdditionalArgs.Count >= 3 ? AdditionalArgs[2] : null);
                 return CreateAlias(integrationManager, AdditionalArgs[0], interfaceID, command);
             }

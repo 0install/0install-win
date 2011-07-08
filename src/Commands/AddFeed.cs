@@ -72,7 +72,7 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
             #endregion
 
-            string feedID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
+            string feedID = GetCanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
 
             Policy.Handler.ShowProgressUI(Cancel);
 
