@@ -20,9 +20,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
-using Common;
 using Common.Storage;
-using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model.Capabilities
 {
