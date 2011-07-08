@@ -71,13 +71,13 @@ namespace ZeroInstall.Commands
             IEnumerable<string> interfaces;
             if (AdditionalArgs.Count == 2)
             {
-                interfaces = new[] {ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]))};
+                interfaces = new[] {GetCanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]))};
                 feedID = AdditionalArgs[1];
                 if (File.Exists(feedID)) feedID = Path.GetFullPath(feedID);
             }
             else
             {
-                feedID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
+                feedID = GetCanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
 
                 // Run Solver to ensure feed is cached
                 Policy.FeedManager.Refresh = true;

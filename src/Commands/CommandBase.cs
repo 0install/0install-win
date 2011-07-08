@@ -206,6 +206,31 @@ namespace ZeroInstall.Commands
             bool stale;
             Policy.Solver.Solve(new Requirements {InterfaceID = interfaceID}, Policy, out stale);
         }
+
+        /// <summary>
+        /// Converts an interface or feed ID to its canonical representation.
+        /// </summary>
+        /// <remarks>Aliases prefixed by "alias:" are resolved to the IDs they represent; existing local paths are converted to absolute paths. Everything else stays unchanged.</remarks>
+        protected static string GetCanonicalID(string id)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
+            #endregion
+
+            if (id.StartsWith("alias:"))
+            {
+                // ToDo: Handle alias lookup
+                return id;
+            }
+            else if (File.Exists(id))
+            { // Use absolute paths for local files
+                return Path.GetFullPath(id);
+            }
+            else
+            { // Assume a normal URI
+                return id;
+            }
+        }
         #endregion
     }
 }
