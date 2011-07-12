@@ -25,7 +25,6 @@ using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Injector;
-using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -99,12 +98,12 @@ namespace ZeroInstall.Commands
         }
 
         /// <summary>
-        /// ToDo
+        /// Creates a new alias.
         /// </summary>
         /// <param name="integrationManager">Manages desktop integration operations.</param>
         /// <param name="aliasName">The name of the alias to create.</param>
-        /// <param name="interfaceID"></param>
-        /// <param name="command"></param>
+        /// <param name="interfaceID">The interface ID the alias shall point to.</param>
+        /// <param name="command">A command within the interface the alias shall point to.</param>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
         private int CreateAlias(IntegrationManager integrationManager, string aliasName, string interfaceID, string command)
         {
