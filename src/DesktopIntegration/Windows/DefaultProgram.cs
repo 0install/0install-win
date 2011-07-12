@@ -134,7 +134,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
             {
                 // ToDo: Restore previous default
 
-                serviceKey.DeleteSubKeyTree(defaultProgram.ID);
+                try { serviceKey.DeleteSubKeyTree(defaultProgram.ID); }
+                catch (ArgumentException) {} // Ignore missing registry keys
             }
         }
         #endregion

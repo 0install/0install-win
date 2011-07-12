@@ -166,7 +166,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 }
 
                 // Remove ProgID
-                classesKey.DeleteSubKeyTree(fileType.ID);
+                try { classesKey.DeleteSubKeyTree(fileType.ID); }
+                catch (ArgumentException) {} // Ignore missing registry keys
             }
         }
         #endregion

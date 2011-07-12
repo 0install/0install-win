@@ -153,7 +153,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 regAppsKey.DeleteValue(appRegistration.ID, false);
 
             // ToDo: Handle appRegistration.X64
-            Registry.LocalMachine.DeleteSubKeyTree(appRegistration.CapabilityRegPath);
+            try { Registry.LocalMachine.DeleteSubKeyTree(appRegistration.CapabilityRegPath); }
+            catch(ArgumentException) {} // Ignore missing registry keys
         }
         #endregion
     }

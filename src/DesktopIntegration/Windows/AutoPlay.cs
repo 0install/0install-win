@@ -154,7 +154,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
             hive.DeleteSubKey(RegKeyHandlers + @"\" + autoPlay.ID, false);
 
             // Remove ProgID
-            hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + autoPlay.ProgID);
+            try { hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + autoPlay.ProgID); }
+            catch (ArgumentException) {} // Ignore missing registry keys
         }
         #endregion
     }
