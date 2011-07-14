@@ -19,7 +19,6 @@ using System;
 using System.IO;
 using System.Security;
 using Common;
-using Common.Utils;
 using Microsoft.Win32;
 using ZeroInstall.Capture.Properties;
 using ZeroInstall.Model;
