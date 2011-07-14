@@ -19,7 +19,7 @@ using System;
 using System.Collections.Generic;
 using Common.Collections;
 
-namespace ZeroInstall.DesktopIntegration.Windows
+namespace ZeroInstall.DesktopIntegration.Hooking
 {
     /// <summary>
     /// Applies a filter to registry access transparently replacing file paths on-the-fly.
