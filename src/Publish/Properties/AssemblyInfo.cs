@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.de")]
 [assembly: AssemblyProduct("Zero Install")]
-[assembly: AssemblyCopyright("Copyright Simon E. Silva Lauinger, Bastian Eicher 2010-2011")]
+[assembly: AssemblyCopyright("Copyright 2010-2011 Simon E. Silva Lauinger, Bastian Eicher")]
 [assembly: NeutralResourcesLanguage("en")]
 
 // Version information

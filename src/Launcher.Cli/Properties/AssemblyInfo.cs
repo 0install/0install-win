@@ -10,7 +10,7 @@ using System.Security.Permissions;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.de")]
 [assembly: AssemblyProduct("Zero Install")]
-[assembly: AssemblyCopyright("Copyright Bastian Eicher 2010-2011")]
+[assembly: AssemblyCopyright("Copyright 2010-2011 Bastian Eicher")]
 [assembly: NeutralResourcesLanguage("en")]
 
 // Version information
