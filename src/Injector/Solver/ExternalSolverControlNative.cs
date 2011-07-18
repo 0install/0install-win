@@ -19,7 +19,6 @@ using System.Diagnostics;
 using System.IO;
 using Common.Cli;
 using Common.Storage;
-using Common.Utils;
 
 namespace ZeroInstall.Injector.Solver
 {
