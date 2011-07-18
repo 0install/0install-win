@@ -17,11 +17,14 @@
 
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using Common;
 using Common.Collections;
 using Common.Utils;
+using EasyHook;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Hooking;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 
@@ -125,18 +128,57 @@ namespace ZeroInstall.Commands
             // Prevent the user from pressing any buttons once the child process is being launched
             Policy.Handler.DisableProgressUI();
 
-            // Spawn the child process
+            // Get startup information
             var executor = new Executor(Selections, Policy.Fetcher.Store) {Main = _main, Wrapper = _wrapper};
             var startInfo = executor.GetStartInfo(AdditionalArgs.ToArray());
-            var process = Process.Start(startInfo);
+
+            // Spawn the child process; try to add desktop integration API hooks on Windows
+            Process process;
+            if (WindowsUtils.IsWindows)
+            {
+                try { process = StartHooked(startInfo, Requirements.InterfaceID); }
+                #region Error handling
+                catch (IOException ex)
+                {
+                    Log.Error(ex.Message);
+
+                    // Fallback to normal startup
+                    process = Process.Start(startInfo);
+                }
+                #endregion
+            }
+            else process = Process.Start(startInfo);
 
             // Wait for a moment before closing the GUI so that focus is retained until it can be passed on to the child process
             Thread.Sleep(1000);
             Policy.Handler.CloseProgressUI();
 
-            if (_noWait) return 0;
+            if (_noWait || process == null) return 0;
             process.WaitForExit();
-            return process.ExitCode;
+            try { return process.ExitCode; }
+            catch (InvalidOperationException) { return 0; }
+        }
+        #endregion
+
+        #region Hooking
+        /// <summary>
+        /// Starts a process with API hooking applied (enforces proper desktop integration).
+        /// </summary>
+        /// <param name="startInfo">The process to start.</param>
+        /// <param name="interfaceID">The interface ID the process represents.</param>
+        /// <returns>The newly spawned process.</returns>
+        private static Process StartHooked(ProcessStartInfo startInfo, string interfaceID)
+        {
+            const string hookingAssemblyStrongName = "ZeroInstall.Hooking,PublicKeyToken=3090a828a7702cec";
+
+            // ToDo: Determine required filter rules
+            var registryFilter = new RegistryFilter(new RegistryFilterRule[0]);
+
+            int processID;
+            RemoteHooking.CreateAndInject(startInfo.FileName, startInfo.Arguments, 0, hookingAssemblyStrongName, hookingAssemblyStrongName, out processID, startInfo.EnvironmentVariables, interfaceID, registryFilter);
+
+            try { return Process.GetProcessById(processID); }
+            catch (ArgumentException) { return null; }
         }
         #endregion
     }

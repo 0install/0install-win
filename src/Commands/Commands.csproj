@@ -50,6 +50,9 @@
     <Reference Include="NDesk.Options">
       <HintPath>..\..\lib\NDesk.Options.dll</HintPath>
     </Reference>
+    <Reference Include="EasyHook">
+      <HintPath>..\..\lib\EasyHook.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddAlias.cs" />
@@ -104,6 +107,10 @@
     <ProjectReference Include="..\Fetchers\Fetchers.csproj">
       <Project>{37C09DC0-86FA-422C-B7EA-6970BF348ED0}</Project>
       <Name>Fetchers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hooking\Hooking.csproj">
+      <Project>{08A3AE07-4A76-4DE7-8CC7-CDB8A5014707}</Project>
+      <Name>Hooking</Name>
     </ProjectReference>
     <ProjectReference Include="..\Injector\Injector.csproj">
       <Project>{33DF4C92-AC4A-4A36-89A2-DB334BE3D229}</Project>

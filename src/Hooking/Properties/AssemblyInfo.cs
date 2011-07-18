@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 // Assembly info
 [assembly: AssemblyTitle("Zero Install Desktop Integration Hooking Library")]
-[assembly: AssemblyDescription("This library is injected into foreign processes in order to install desktop integration API hooks.")]
+[assembly: AssemblyDescription("This library is injected into other processes in order to hook system API calls (ensuring proper desktop integration).")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.de")]
 [assembly: AssemblyProduct("Zero Install")]
@@ -17,7 +17,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.1.1")]
 
 // Security settings
-[assembly: CLSCompliant(true)]
+[assembly: CLSCompliant(false)]
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM

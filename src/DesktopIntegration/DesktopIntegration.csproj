@@ -76,6 +76,9 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="EasyHook">
+      <HintPath>..\..\lib\EasyHook.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessPoints\MockAccessPoint.cs" />
