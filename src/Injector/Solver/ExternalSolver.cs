@@ -81,8 +81,8 @@ namespace ZeroInstall.Injector.Solver
             if (requirements.Architecture.Cpu == Cpu.Source) arguments += "--source ";
             else
             {
-                if (requirements.Architecture.OS != OS.All) arguments += "--os=" + requirements.Architecture.OS + " ";
-                if (requirements.Architecture.Cpu != Cpu.All) arguments += "--cpu=" + requirements.Architecture.Cpu + " ";
+                if (requirements.Architecture.OS != OS.All) arguments += "--os=" + requirements.Architecture.OSString + " ";
+                if (requirements.Architecture.Cpu != Cpu.All) arguments += "--cpu=" + requirements.Architecture.CpuString + " ";
             }
             //if (additionalStore != null) arguments += "--store=" + additionalStore.DirectoryPath + " ";
             for (int i = 0; i < policy.Verbosity; i++)
