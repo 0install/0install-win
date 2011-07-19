@@ -23,6 +23,7 @@ using System.Net;
 using Common;
 using Common.Tasks;
 using Microsoft.Win32;
+using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -96,13 +97,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 handlerKey.SetValue(RegValueProvider, autoPlay.Provider);
                 handlerKey.SetValue(RegValueDescription, autoPlay.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture) ?? autoPlay.Verb.Name);
 
-                // Set icon if available
-                try
-                {
-                    var icon = FileType.GetBestIcon(target.Feed, autoPlay);
-                    handlerKey.SetValue(RegValueIcon, IconProvider.GetIconPath(icon, systemWide, handler) + ",0");
-                }
-                catch (KeyNotFoundException) {}
+                // Set specific icon if available, fall back to referencing the icon embedded in the stub EXE
+                string iconPath;
+                try { iconPath = IconProvider.GetIconPath(autoPlay.GetIcon(Icon.MimeTypeIco), systemWide, handler); }
+                catch (KeyNotFoundException) { iconPath = StubProvider.GetRunStub(target, null, systemWide, handler); }
+                handlerKey.SetValue(RegValueIcon, iconPath + ",0");
             }
 
             foreach (var autoPlayEvent in autoPlay.Events)

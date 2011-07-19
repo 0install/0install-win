@@ -159,7 +159,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     using (var extensionKey = classesKey.CreateSubKey(extension.Value))
                     {
                         using (var openWithKey = extensionKey.CreateSubKey(RegSubKeyOpenWith))
-                            openWithKey.DeleteValue(fileType.ID);
+                            openWithKey.DeleteValue(fileType.ID, false);
 
                         // ToDo: Restore previous default
                     }
@@ -202,15 +202,6 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string description = capability.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture);
             if (description != null) registryKey.SetValue("", description);
 
-            // Set icon if available
-            try
-            {
-                var icon = GetBestIcon(target.Feed, capability);
-                using (var iconKey = registryKey.CreateSubKey(RegSubKeyIcon))
-                    iconKey.SetValue("", IconProvider.GetIconPath(icon, systemWide, handler) + ",0");
-            }
-            catch (KeyNotFoundException) {}
-
             // Write verb command information
             using (var shellKey = registryKey.CreateSubKey("shell"))
             {
@@ -230,16 +221,13 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     }
                 }
             }
-        }
 
-        /// <summary>
-        /// Tries to find the first suitable icon specified by the <see cref="Capabilities.IconCapability"/>, then fall back to the <see cref="Feed"/>.
-        /// </summary>
-        /// <exception cref="KeyNotFoundException">Thrown if no suitable icon was found.</exception>
-        internal static Icon GetBestIcon(Feed feed, Capabilities.IconCapability capability)
-        {
-            try { return capability.GetIcon(Icon.MimeTypeIco); }
-            catch (KeyNotFoundException) { return feed.GetIcon(Icon.MimeTypeIco, null); }
+            // Set specific icon if available, fall back to referencing the icon embedded in the stub EXE
+            string iconPath;
+            try { iconPath = IconProvider.GetIconPath(capability.GetIcon(Icon.MimeTypeIco), systemWide, handler); }
+            catch (KeyNotFoundException) { iconPath = StubProvider.GetRunStub(target, null, systemWide, handler); }
+            using (var iconKey = registryKey.CreateSubKey(RegSubKeyIcon))
+                iconKey.SetValue("", iconPath + ",0");
         }
 
         /// <summary>
