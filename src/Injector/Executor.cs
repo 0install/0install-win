@@ -334,7 +334,7 @@ namespace ZeroInstall.Injector
         /// <param name="implementation">The <see cref="ImplementationBase"/> to be located.</param>
         /// <returns>A fully qualified path pointing to the implementation's location on the local disk.</returns>
         /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
-        private string GetImplementationPath(ImplementationBase implementation)
+        public string GetImplementationPath(ImplementationBase implementation)
         {
             return (string.IsNullOrEmpty(implementation.LocalPath) ? _store.GetPath(implementation.ManifestDigest) : implementation.LocalPath);
         }
