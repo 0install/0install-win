@@ -10,7 +10,7 @@ using ZeroInstall.Injector;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Common base class for commands that manage <see cref="DesktopIntegration"/>.
+    /// Common base class for commands that manage <see cref="ZeroInstall.DesktopIntegration"/>.
     /// </summary>
     [CLSCompliant(false)]
     public abstract class IntegrationCommand : CommandBase
