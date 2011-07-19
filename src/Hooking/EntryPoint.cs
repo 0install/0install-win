@@ -33,6 +33,8 @@ namespace ZeroInstall.Hooking
         #region Variables
         private readonly string _interfaceID;
 
+        private readonly string _implementationDir;
+
         private readonly RegistryFilter _registryFilter;
 
         private LocalHook _regQueryValueExWHook, _regQueryValueExAHook,
@@ -48,11 +50,13 @@ namespace ZeroInstall.Hooking
         /// <param name="inContext">Hooking context information.</param>
         /// <param name="environmentVariables">A set of environment variables to be applied to the process.</param>
         /// <param name="interfaceID">The interface ID the process represents.</param>
+        /// <param name="implenetationDir">The base directory of the implementation containing this executable.</param>
         /// <param name="registryFilter">A set of filter rules to registry access.</param>
-        public EntryPoint(RemoteHooking.IContext inContext, StringDictionary environmentVariables, string interfaceID, RegistryFilter registryFilter)
+        public EntryPoint(RemoteHooking.IContext inContext, StringDictionary environmentVariables, string interfaceID, string implenetationDir, RegistryFilter registryFilter)
         {
             _interfaceID = interfaceID;
             _registryFilter = registryFilter;
+            _implementationDir = implenetationDir;
         }
         #endregion
 
@@ -65,8 +69,9 @@ namespace ZeroInstall.Hooking
         /// <param name="inContext">Hooking context information.</param>
         /// <param name="environmentVariables">A set of environment variables to be applied to the process.</param>
         /// <param name="interfaceID">The interface ID the process represents.</param>
+        /// <param name="implenetationDir">The base directory of the implementation containing this executable.</param>
         /// <param name="registryFilter">A set of filter rules to registry access.</param>
-        public void Run(RemoteHooking.IContext inContext, StringDictionary environmentVariables, string interfaceID, RegistryFilter registryFilter)
+        public void Run(RemoteHooking.IContext inContext, StringDictionary environmentVariables, string interfaceID, string implenetationDir, RegistryFilter registryFilter)
         {
             if (environmentVariables != null)
             {

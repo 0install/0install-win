@@ -49,10 +49,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="InvalidOperationException">Thrown if there was a compilation error while generating the stub EXE.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public static void BuildRunStub(string path, InterfaceFeed target, string command, ITaskHandler handler)
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem is not permitted.</exception>
+        internal static void BuildRunStub(string path, InterfaceFeed target, string command, ITaskHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -142,9 +142,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <returns>The path to the generated stub EXE.</returns>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem is not permitted.</exception>
         public static string GetRunStub(InterfaceFeed target, string command, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks

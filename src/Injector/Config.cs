@@ -185,6 +185,13 @@ namespace ZeroInstall.Injector
         /// </summary>
         [DefaultValue(false), DisplayName("Auto sync"), Description("Automatically synchronize with the SyncServer in the background.")]
         public bool AutoSync { get; set; }
+
+        private bool _allowApiHooking = true;
+        /// <summary>
+        /// Controls whether Zero Install may install hooks for operating sytem APIs to improve desktop integration.
+        /// </summary>
+        [DefaultValue(true), DisplayName("Allow API hooking"), Description("Controls whether Zero Install may install hooks for operating sytem APIs to improve desktop integration.")]
+        public bool AllowApiHooking { get { return _allowApiHooking; } set { _allowApiHooking = value; } }
         #endregion
 
         #region Constructor
@@ -209,6 +216,7 @@ namespace ZeroInstall.Injector
                 {"sync_server_pw", new PropertyPointer<string>(() => SyncServerPassword, value => SyncServerPassword = value, "")},
                 {"sync_crypto_key", new PropertyPointer<string>(() => SyncCryptoKey, value => SyncCryptoKey = value, "")},
                 {"auto_sync", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => AutoSync, value => AutoSync = value, false))},
+                {"allow_api_hooking", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => AllowApiHooking, value => AllowApiHooking = value, true))},
             };
         }
 

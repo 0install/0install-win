@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -24,6 +25,7 @@ using Common.Collections;
 using Common.Utils;
 using EasyHook;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Hooking;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
@@ -128,26 +130,23 @@ namespace ZeroInstall.Commands
             // Prevent the user from pressing any buttons once the child process is being launched
             Policy.Handler.DisableProgressUI();
 
-            // Get startup information
-            var executor = new Executor(Selections, Policy.Fetcher.Store) {Main = _main, Wrapper = _wrapper};
-            var startInfo = executor.GetStartInfo(AdditionalArgs.ToArray());
-
             // Spawn the child process; try to add desktop integration API hooks on Windows
+            var executor = new Executor(Selections, Policy.Fetcher.Store) {Main = _main, Wrapper = _wrapper};
             Process process;
-            if (WindowsUtils.IsWindows)
+            if (Policy.Config.AllowApiHooking && WindowsUtils.IsWindows)
             {
-                try { process = StartHooked(startInfo, Requirements.InterfaceID); }
+                try { process = StartHooked(executor, Requirements.InterfaceID); }
                 #region Error handling
-                catch (IOException ex)
+                catch (ApplicationException ex)
                 {
                     Log.Error(ex.Message);
 
                     // Fallback to normal startup
-                    process = Process.Start(startInfo);
+                    process = StartNormal(executor);
                 }
                 #endregion
             }
-            else process = Process.Start(startInfo);
+            else process = StartNormal(executor);
 
             // Wait for a moment before closing the GUI so that focus is retained until it can be passed on to the child process
             Thread.Sleep(1000);
@@ -158,27 +157,77 @@ namespace ZeroInstall.Commands
             try { return process.ExitCode; }
             catch (InvalidOperationException) { return 0; }
         }
+
+        /// <summary>
+        /// Starts a process.
+        /// </summary>
+        /// <param name="executor">The process to start.</param>
+        private Process StartNormal(Executor executor)
+        {
+            return Process.Start(executor.GetStartInfo(AdditionalArgs.ToArray()));
+        }
         #endregion
 
         #region Hooking
         /// <summary>
-        /// Starts a process with API hooking applied (enforces proper desktop integration).
+        /// Starts a process with hooks for operating sytem APIs to improve desktop integration.
         /// </summary>
-        /// <param name="startInfo">The process to start.</param>
+        /// <param name="executor">The process to start.</param>
         /// <param name="interfaceID">The interface ID the process represents.</param>
         /// <returns>The newly spawned process.</returns>
-        private static Process StartHooked(ProcessStartInfo startInfo, string interfaceID)
+        private Process StartHooked(Executor executor, string interfaceID)
         {
-            const string hookingAssemblyStrongName = "ZeroInstall.Hooking,PublicKeyToken=3090a828a7702cec";
+            string implementationDir = executor.GetImplementationPath(Selections.Implementations.First);
 
-            // ToDo: Determine required filter rules
-            var registryFilter = new RegistryFilter(new RegistryFilterRule[0]);
+            // Get relevant desktop integration data
+            bool stale;
+            var feed = Policy.FeedManager.GetFeed(interfaceID, Policy, out stale);
+            var registryFilter = GetRegistryFilter(new InterfaceFeed(interfaceID, feed), implementationDir);
 
+            // Start proces with hooks
             int processID;
-            RemoteHooking.CreateAndInject(startInfo.FileName, startInfo.Arguments, 0, hookingAssemblyStrongName, hookingAssemblyStrongName, out processID, startInfo.EnvironmentVariables, interfaceID, registryFilter);
+            var startInfo = executor.GetStartInfo(AdditionalArgs.ToArray());
+            const string hookingAssemblyStrongName = "ZeroInstall.Hooking,PublicKeyToken=3090a828a7702cec";
+            RemoteHooking.CreateAndInject(startInfo.FileName, startInfo.Arguments, 0, hookingAssemblyStrongName, hookingAssemblyStrongName, out processID, startInfo.EnvironmentVariables, interfaceID, implementationDir, registryFilter);
 
             try { return Process.GetProcessById(processID); }
             catch (ArgumentException) { return null; }
+        }
+
+        /// <summary>
+        /// Gets a set of filter rules for registry access.
+        /// </summary>
+        /// <param name="target">The application to be launched.</param>
+        /// <param name="implementationDir">The local path the selected main implementation is launched from.</param>
+        private RegistryFilter GetRegistryFilter(InterfaceFeed target, string implementationDir)
+        {
+            // Locate the selected main implementation
+            var mainImplementation = target.Feed.GetImplementation(Selections.Implementations.First.ID);
+
+            // Create one substitution stub for each command
+            var filterRuleList = new LinkedList<RegistryFilterRule>();
+            foreach (var command in mainImplementation.Commands)
+            {
+                // Only handle simple commands (executable path, no arguments)
+                if (string.IsNullOrEmpty(command.Path) || !command.Arguments.IsEmpty) continue;
+
+                string processCommandLine = Path.Combine(implementationDir, command.Path);
+
+                string registryCommandLine;
+                try
+                { // Try to use a system-wide stub if possible
+                    registryCommandLine = DesktopIntegration.Windows.StubProvider.GetRunStub(target, command.Name, true, Policy.Handler);
+                }
+                catch(UnauthorizedAccessException)
+                { // Fall back to per-user stub
+                    registryCommandLine = DesktopIntegration.Windows.StubProvider.GetRunStub(target, command.Name, false, Policy.Handler);
+                }
+
+                // Apply filter with normal and with escaped string
+                filterRuleList.AddLast(new RegistryFilterRule(processCommandLine, registryCommandLine));
+                filterRuleList.AddLast(new RegistryFilterRule('"' + processCommandLine + '"', '"' + registryCommandLine + '"'));
+            }
+            return new RegistryFilter(filterRuleList);
         }
         #endregion
     }
