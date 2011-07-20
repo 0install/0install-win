@@ -18,7 +18,6 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Windows.Forms;
 using Microsoft.Win32;
 
 namespace ZeroInstall.Hooking
@@ -35,15 +34,19 @@ namespace ZeroInstall.Hooking
 
             if (result == 0 && dwType == RegistryValueKind.String)
             {
-                if (lpData == IntPtr.Zero)
+                try
                 {
-                    // Load string into temporary buffer to determine the filtered length, even if the user doesn't want the value (yet)
-                    var tempData = Marshal.AllocHGlobal((int)cbData);
-                    UnsafeNativeMethods.RegQueryValueExW(hKey, lpValueName, lpReserved, out dwType, tempData, ref cbData);
-                    RegQueryFilter(tempData, ref cbData, 0, true);
-                    Marshal.FreeHGlobal(tempData);
+                    if (lpData == IntPtr.Zero)
+                    {
+                        // Load string into temporary buffer to determine the filtered length, even if the user doesn't want the value (yet)
+                        var tempData = Marshal.AllocHGlobal((int)cbData);
+                        UnsafeNativeMethods.RegQueryValueExW(hKey, lpValueName, lpReserved, out dwType, tempData, ref cbData);
+                        RegQueryFilter(tempData, ref cbData, 0, true);
+                        Marshal.FreeHGlobal(tempData);
+                    }
+                    else if (!RegQueryFilter(lpData, ref cbData, bufferSize, true)) return ErrorMoreData;
                 }
-                else if (!RegQueryFilter(lpData, ref cbData, bufferSize, true)) return ErrorMoreData;
+                catch (AccessViolationException) { }
             }
             return result;
         }
@@ -55,17 +58,19 @@ namespace ZeroInstall.Hooking
 
             if (result == 0 && dwType == RegistryValueKind.String)
             {
-                if (cbData > 5000)
-                    MessageBox.Show(cbData.ToString());
-                if (lpData == IntPtr.Zero)
+                try
                 {
-                    // Load string into temporary buffer to determine the filtered length, even if the user doesn't want the value (yet)
-                    var tempData = Marshal.AllocHGlobal((int)cbData);
-                    UnsafeNativeMethods.RegQueryValueExA(hKey, lpValueName, lpReserved, out dwType, tempData, ref cbData);
-                    RegQueryFilter(tempData, ref cbData, 0, false);
-                    Marshal.FreeHGlobal(tempData);
+                    if (lpData == IntPtr.Zero)
+                    {
+                        // Load string into temporary buffer to determine the filtered length, even if the user doesn't want the value (yet)
+                        var tempData = Marshal.AllocHGlobal((int)cbData);
+                        UnsafeNativeMethods.RegQueryValueExA(hKey, lpValueName, lpReserved, out dwType, tempData, ref cbData);
+                        RegQueryFilter(tempData, ref cbData, 0, false);
+                        Marshal.FreeHGlobal(tempData);
+                    }
+                    else if (!RegQueryFilter(lpData, ref cbData, bufferSize, false)) return ErrorMoreData;
                 }
-                else if (!RegQueryFilter(lpData, ref cbData, bufferSize, false)) return ErrorMoreData;
+                catch (AccessViolationException) { }
             }
             return result;
         }
@@ -93,7 +98,6 @@ namespace ZeroInstall.Hooking
             dataLength = (uint)encodedData.Length;
             if (dataLength > bufferSize) return false;
             Marshal.Copy(encodedData, 0, dataPointer, (int)dataLength);
-
             return true;
         }
         #endregion
@@ -102,7 +106,8 @@ namespace ZeroInstall.Hooking
         private uint RegSetValueExWCallback(IntPtr hKey, string lpValueName, int lpReserved, RegistryValueKind dwType, IntPtr lpData, uint cbData)
         {
             bool tempBuffer = false;
-            if (dwType == RegistryValueKind.String && lpData != IntPtr.Zero) tempBuffer = RegSetFilter(ref lpData, ref cbData, true);
+            try { if (dwType == RegistryValueKind.String && lpData != IntPtr.Zero) tempBuffer = RegSetFilter(ref lpData, ref cbData, true); }
+            catch (AccessViolationException) { }
 
             uint result = UnsafeNativeMethods.RegSetValueExW(hKey, lpValueName, lpReserved, dwType, lpData, cbData);
             if (tempBuffer) Marshal.FreeHGlobal(lpData);
@@ -112,7 +117,8 @@ namespace ZeroInstall.Hooking
         private uint RegSetValueExACallback(IntPtr hKey, string lpValueName, int lpReserved, RegistryValueKind dwType, IntPtr lpData, uint cbData)
         {
             bool tempBuffer = false;
-            if (dwType == RegistryValueKind.String && lpData != IntPtr.Zero) tempBuffer = RegSetFilter(ref lpData, ref cbData, false);
+            try { if (dwType == RegistryValueKind.String && lpData != IntPtr.Zero) tempBuffer = RegSetFilter(ref lpData, ref cbData, false); }
+            catch (AccessViolationException) { }
 
             uint result = UnsafeNativeMethods.RegSetValueExA(hKey, lpValueName, lpReserved, dwType, lpData, cbData);
             if (tempBuffer) Marshal.FreeHGlobal(lpData);
@@ -144,10 +150,10 @@ namespace ZeroInstall.Hooking
         #endregion
 
         #region CreateProcess
-        private bool CreateProcessCallback(string lpApplicationName, string lpCommandLine, IntPtr lpProcessAttributes, IntPtr lpThreadAttributes, bool bInheritHandles, uint dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, IntPtr lpStartupInfo, IntPtr lpProcessInformation)
+        private bool CreateProcessCallback(string lpApplicationName, string lpCommandLine, IntPtr lpProcessAttributes, IntPtr lpThreadAttributes, bool bInheritHandles, uint dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, IntPtr lpStartupInfo, out ProcessInformation lpProcessInformation)
         {
             // ToDo: Inherit hooks to child processes within the same implementation))
-            return UnsafeNativeMethods.CreateProcessW(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation);
+            return UnsafeNativeMethods.CreateProcessW(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, out lpProcessInformation);
         }
         #endregion
 
