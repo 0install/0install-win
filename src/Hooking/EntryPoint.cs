@@ -119,10 +119,10 @@ namespace ZeroInstall.Hooking
             _createProcessAHook = LocalHook.Create(LocalHook.GetProcAddress("kernel32.dll", "CreateProcessA"), new UnsafeNativeMethods.DCreateProcessA(CreateProcessCallback), null);
             _createProcessAHook.ThreadACL.SetExclusiveACL(new[] {0});
 
-            //_createWindowExWHook = LocalHook.Create(LocalHook.GetProcAddress("user32.dll", "CreateWindowExW"), new UnsafeNativeMethods.DCreateWindowExW(CreateWindowExWCallback), null);
-            //_createWindowExWHook.ThreadACL.SetExclusiveACL(new[] {0});
-            //_createWindowExAHook = LocalHook.Create(LocalHook.GetProcAddress("user32.dll", "CreateWindowExA"), new UnsafeNativeMethods.DCreateWindowExA(CreateWindowExACallback), null);
-            //_createWindowExAHook.ThreadACL.SetExclusiveACL(new[] {0});
+            _createWindowExWHook = LocalHook.Create(LocalHook.GetProcAddress("user32.dll", "CreateWindowExW"), new UnsafeNativeMethods.DCreateWindowExW(CreateWindowExWCallback), null);
+            _createWindowExWHook.ThreadACL.SetExclusiveACL(new[] {0});
+            _createWindowExAHook = LocalHook.Create(LocalHook.GetProcAddress("user32.dll", "CreateWindowExA"), new UnsafeNativeMethods.DCreateWindowExA(CreateWindowExACallback), null);
+            _createWindowExAHook.ThreadACL.SetExclusiveACL(new[] {0});
         }
         #endregion
     }

@@ -25,80 +25,32 @@ namespace ZeroInstall.Hooking
     public partial class EntryPoint
     {
         #region RegQueryValueEx
-        private const uint ErrorMoreData = 0xEA;
-
         private uint RegQueryValueExWCallback(IntPtr hKey, string lpValueName, IntPtr lpReserved, out RegistryValueKind dwType, IntPtr lpData, ref uint cbData)
         {
-            uint bufferSize = cbData;
-            var result = UnsafeNativeMethods.RegQueryValueExW(hKey, lpValueName, lpReserved, out dwType, lpData, ref cbData);
-
-            if (result == 0 && dwType == RegistryValueKind.String)
-            {
-                try
-                {
-                    if (lpData == IntPtr.Zero)
-                    {
-                        // Load string into temporary buffer to determine the filtered length, even if the user doesn't want the value (yet)
-                        var tempData = Marshal.AllocHGlobal((int)cbData);
-                        UnsafeNativeMethods.RegQueryValueExW(hKey, lpValueName, lpReserved, out dwType, tempData, ref cbData);
-                        RegQueryFilter(tempData, ref cbData, 0, true);
-                        Marshal.FreeHGlobal(tempData);
-                    }
-                    else if (!RegQueryFilter(lpData, ref cbData, bufferSize, true)) return ErrorMoreData;
-                }
-                catch (AccessViolationException) { }
+            string filteredData = GetFilteredValue(hKey, lpValueName);
+            if (filteredData == null)
+            { // Pass call through unmodified
+                return UnsafeNativeMethods.RegQueryValueExW(hKey, lpValueName, lpReserved, out dwType, lpData, ref cbData);
             }
-            return result;
+            else
+            { // Write filtered result to buffer
+                dwType = RegistryValueKind.String;
+                return WriteStringToBuffer(lpData, ref cbData, true, filteredData);
+            }
         }
 
         private uint RegQueryValueExACallback(IntPtr hKey, string lpValueName, IntPtr lpReserved, out RegistryValueKind dwType, IntPtr lpData, ref uint cbData)
         {
-            uint bufferSize = cbData;
-            var result = UnsafeNativeMethods.RegQueryValueExA(hKey, lpValueName, lpReserved, out dwType, lpData, ref cbData);
-
-            if (result == 0 && dwType == RegistryValueKind.String)
-            {
-                try
-                {
-                    if (lpData == IntPtr.Zero)
-                    {
-                        // Load string into temporary buffer to determine the filtered length, even if the user doesn't want the value (yet)
-                        var tempData = Marshal.AllocHGlobal((int)cbData);
-                        UnsafeNativeMethods.RegQueryValueExA(hKey, lpValueName, lpReserved, out dwType, tempData, ref cbData);
-                        RegQueryFilter(tempData, ref cbData, 0, false);
-                        Marshal.FreeHGlobal(tempData);
-                    }
-                    else if (!RegQueryFilter(lpData, ref cbData, bufferSize, false)) return ErrorMoreData;
-                }
-                catch (AccessViolationException) { }
+            string filteredData = GetFilteredValue(hKey, lpValueName);
+            if (filteredData == null)
+            { // Pass call through unmodified
+                return UnsafeNativeMethods.RegQueryValueExA(hKey, lpValueName, lpReserved, out dwType, lpData, ref cbData);
             }
-            return result;
-        }
-
-        /// <summary>
-        /// Applies filter operations to registry query/read operations.
-        /// </summary>
-        /// <param name="dataPointer">A pointer to a buffer containing the data retreived from the registry.</param>
-        /// <param name="dataLength">The length of the data in the buffer specified by <paramref name="dataPointer"/>.</param>
-        /// <param name="bufferSize">The size of the buffer specified by <paramref name="dataLength"/>.</param>
-        /// <param name="unicode"><see langword="true"/> for Unicode-strings; <see langword="false"/> for ANSI-strings.</param>
-        /// <returns>
-        ///   <see langword="true"/> if the <paramref name="bufferSize"/> was sufficient;
-        ///   <see langword="false"/> if it wasn't and <paramref name="dataLength"/> now indicates the required size.
-        /// </returns>
-        private bool RegQueryFilter(IntPtr dataPointer, ref uint dataLength, uint bufferSize, bool unicode)
-        {
-            // Read string from buffer and apply filters
-            string registryData = unicode ? Marshal.PtrToStringUni(dataPointer, (int)dataLength) : Marshal.PtrToStringAnsi(dataPointer, (int)dataLength);
-            string processData = _registryFilter.ReadFilter(registryData);
-            if (processData == null) return true; // Cancel if nothing was changed
-
-            // Write string back to buffer (but do not exceed the buffer size)
-            byte[] encodedData = (unicode ? Encoding.Unicode : Encoding.Default).GetBytes(processData);
-            dataLength = (uint)encodedData.Length;
-            if (dataLength > bufferSize) return false;
-            Marshal.Copy(encodedData, 0, dataPointer, (int)dataLength);
-            return true;
+            else
+            { // Write filtered result to buffer
+                dwType = RegistryValueKind.String;
+                return WriteStringToBuffer(lpData, ref cbData, false, filteredData);
+            }
         }
         #endregion
 
@@ -106,8 +58,7 @@ namespace ZeroInstall.Hooking
         private uint RegSetValueExWCallback(IntPtr hKey, string lpValueName, int lpReserved, RegistryValueKind dwType, IntPtr lpData, uint cbData)
         {
             bool tempBuffer = false;
-            try { if (dwType == RegistryValueKind.String && lpData != IntPtr.Zero) tempBuffer = RegSetFilter(ref lpData, ref cbData, true); }
-            catch (AccessViolationException) { }
+            if (dwType == RegistryValueKind.String && lpData != IntPtr.Zero) tempBuffer = FilterWriteBuffer(ref lpData, ref cbData, true);
 
             uint result = UnsafeNativeMethods.RegSetValueExW(hKey, lpValueName, lpReserved, dwType, lpData, cbData);
             if (tempBuffer) Marshal.FreeHGlobal(lpData);
@@ -117,25 +68,91 @@ namespace ZeroInstall.Hooking
         private uint RegSetValueExACallback(IntPtr hKey, string lpValueName, int lpReserved, RegistryValueKind dwType, IntPtr lpData, uint cbData)
         {
             bool tempBuffer = false;
-            try { if (dwType == RegistryValueKind.String && lpData != IntPtr.Zero) tempBuffer = RegSetFilter(ref lpData, ref cbData, false); }
-            catch (AccessViolationException) { }
+            if (dwType == RegistryValueKind.String && lpData != IntPtr.Zero) tempBuffer = FilterWriteBuffer(ref lpData, ref cbData, false);
 
             uint result = UnsafeNativeMethods.RegSetValueExA(hKey, lpValueName, lpReserved, dwType, lpData, cbData);
             if (tempBuffer) Marshal.FreeHGlobal(lpData);
             return result;
         }
+        #endregion
+
+        #region Registry helper methods
+        /// <summary>
+        /// Perfrms a registry read operation applying <see cref="_registryFilter"/>.
+        /// </summary>
+        /// <param name="hKey">A registry key handle.</param>
+        /// <param name="valueName">The nam of the registry value in <paramref name="hKey"/> to read.</param>
+        /// <returns>The value from the registry with any required substitutions applied or <see langword="null"/> if nothing was changed.</returns>
+        private string GetFilteredValue(IntPtr hKey, string valueName)
+        {
+            RegistryValueKind valueType;
+            uint dataLength = 0;
+            uint result;
+
+            // Determine necessary buffer size and value type
+            result = UnsafeNativeMethods.RegQueryValueExW(hKey, valueName, IntPtr.Zero, out valueType, IntPtr.Zero, ref dataLength);
+            if (result != 0 || dataLength == 0 || valueType != RegistryValueKind.String) return null;
+
+            // Read string data to buffer
+            IntPtr buffer = IntPtr.Zero;
+            do
+            {
+                if (buffer != IntPtr.Zero) Marshal.FreeHGlobal(buffer);
+                buffer = Marshal.AllocHGlobal((int)dataLength);
+
+                result = UnsafeNativeMethods.RegQueryValueExW(hKey, valueName, IntPtr.Zero, out valueType, buffer, ref dataLength);
+            } while (result == UnsafeNativeMethods.ErrorMoreData);
+
+            // Filter data
+            if (result == 0)
+            {
+                string registryData = Marshal.PtrToStringUni(buffer, (int)dataLength);
+                Marshal.FreeHGlobal(buffer);
+                return _registryFilter.ReadFilter(registryData);
+            }
+            else
+            {
+                Marshal.FreeHGlobal(buffer);
+                return null;
+            }
+        }
 
         /// <summary>
-        /// Applies filter operations to registry set/write operations.
+        /// Writes data to a string buffer.
+        /// </summary>
+        /// <param name="buffer">The string buffer to write to.</param>
+        /// <param name="dataLength">Initially the length of the buffer; set to the length of the encoded data after the method call.</param>
+        /// <param name="unicode"><paramref langword="true"/> to to use Unicode-encoding in the buffer, <paramref langword="false"/> for ANSI.</param>
+        /// <param name="data">The string data to be written.</param>
+        /// <returns>The Windows API error code to ereturn, usually indicating whether <paramref name="dataLength"/> was sufficient.</returns>
+        private static uint WriteStringToBuffer(IntPtr buffer, ref uint dataLength, bool unicode, string data)
+        {
+            // Encode the data for storage in the buffer
+            uint bufferSize = dataLength;
+            byte[] encodedData = (unicode ? Encoding.Unicode : Encoding.Default).GetBytes(data);
+            dataLength = (uint)encodedData.Length;
+
+            // Write the data to the buffer if it fits
+            if (buffer == IntPtr.Zero) return 0;
+            else if (dataLength > bufferSize) return UnsafeNativeMethods.ErrorMoreData;
+            else
+            {
+                Marshal.Copy(encodedData, 0, buffer, encodedData.Length);
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Applies filter operations to string buffers for registry set/write operations.
         /// </summary>
         /// <param name="dataPointer">A pointer to a buffer containing the data retreived from the registry.</param>
         /// <param name="dataLength">The length of the data in the buffer specified by <paramref name="dataPointer"/>.</param>
         /// <param name="unicode"><see langword="true"/> for Unicode-strings; <see langword="false"/> for ANSI-strings.</param>
         /// <returns>
-        ///   <see langword="true"/> if the data was changed and a new temporary buffer is referenced by <paramref name="dataPointer"/> (needs to be manually freed);
+        ///   <see langword="true"/> if the data was changed and a new temporary buffer is now referenced by <paramref name="dataPointer"/> (needs to be manually freed);
         ///   <see langword="false"/> if nothing was changed.
         /// </returns>
-        private bool RegSetFilter(ref IntPtr dataPointer, ref uint dataLength, bool unicode)
+        private bool FilterWriteBuffer(ref IntPtr dataPointer, ref uint dataLength, bool unicode)
         {
             // Read string from buffer and apply filters
             string processData = unicode ? Marshal.PtrToStringUni(dataPointer, (int)dataLength) : Marshal.PtrToStringAnsi(dataPointer, (int)dataLength);
@@ -152,19 +169,25 @@ namespace ZeroInstall.Hooking
         #region CreateProcess
         private bool CreateProcessCallback(string lpApplicationName, string lpCommandLine, IntPtr lpProcessAttributes, IntPtr lpThreadAttributes, bool bInheritHandles, uint dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, IntPtr lpStartupInfo, out ProcessInformation lpProcessInformation)
         {
-            // ToDo: Inherit hooks to child processes within the same implementation))
-            return UnsafeNativeMethods.CreateProcessW(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, out lpProcessInformation);
+            //string target = Path.GetFullPath(string.IsNullOrEmpty(lpApplicationName) ? lpCommandLine : lpApplicationName);
+            //bool needsInjection = target.StartsWith(_implementationDir) || target.StartsWith('"' + _implementationDir);
+
+            //if (needsInjection) dwCreationFlags |= UnsafeNativeMethods.CreateSuspended;
+            var result = UnsafeNativeMethods.CreateProcessW(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, out lpProcessInformation);
+            //if (needsInjection) RemoteHooking.Inject(lpProcessInformation.dwProcessId, AssemblyStrongName, AssemblyStrongName, null, _interfaceID, _implementationDir, _registryFilter);
+
+            return result;
         }
         #endregion
 
         #region CreateWindowEx
-        private IntPtr CreateWindowExWCallback(uint dwExStyle, string lpClassName, string lpWindowName, uint dwStyle, int x, int y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hMenu, IntPtr hInstance, IntPtr lpParam)
+        private IntPtr CreateWindowExWCallback(uint dwExStyle, IntPtr lpClassName, IntPtr lpWindowName, uint dwStyle, int x, int y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hMenu, IntPtr hInstance, IntPtr lpParam)
         {
             // ToDo: Set AppUserModelID
             return UnsafeNativeMethods.CreateWindowExW(dwExStyle, lpClassName, lpWindowName, dwStyle, x, y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam);
         }
 
-        private IntPtr CreateWindowExACallback(uint dwExStyle, string lpClassName, string lpWindowName, uint dwStyle, int x, int y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hMenu, IntPtr hInstance, IntPtr lpParam)
+        private IntPtr CreateWindowExACallback(uint dwExStyle, IntPtr lpClassName, IntPtr lpWindowName, uint dwStyle, int x, int y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hMenu, IntPtr hInstance, IntPtr lpParam)
         {
             // ToDo: Set AppUserModelID
             return UnsafeNativeMethods.CreateWindowExA(dwExStyle, lpClassName, lpWindowName, dwStyle, x, y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam);
