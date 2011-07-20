@@ -30,6 +30,13 @@ namespace ZeroInstall.Hooking
     /// </summary>
     public partial class EntryPoint : IEntryPoint
     {
+        #region Constants
+        /// <summary>
+        /// The strong name of the assembly used to locate it in the GAC.
+        /// </summary>
+        public const string AssemblyStrongName = "ZeroInstall.Hooking,PublicKeyToken=3090a828a7702cec";
+        #endregion
+
         #region Variables
         private readonly string _interfaceID;
 

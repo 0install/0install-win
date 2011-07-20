@@ -187,8 +187,7 @@ namespace ZeroInstall.Commands
             // Start proces with hooks
             int processID;
             var startInfo = executor.GetStartInfo(AdditionalArgs.ToArray());
-            const string hookingAssemblyStrongName = "ZeroInstall.Hooking,PublicKeyToken=3090a828a7702cec";
-            RemoteHooking.CreateAndInject(startInfo.FileName, startInfo.Arguments, 0, hookingAssemblyStrongName, hookingAssemblyStrongName, out processID, startInfo.EnvironmentVariables, interfaceID, implementationDir, registryFilter);
+            RemoteHooking.CreateAndInject(startInfo.FileName, startInfo.Arguments, 0, Hooking.EntryPoint.AssemblyStrongName, Hooking.EntryPoint.AssemblyStrongName, out processID, startInfo.EnvironmentVariables, interfaceID, implementationDir, registryFilter);
 
             try { return Process.GetProcessById(processID); }
             catch (ArgumentException) { return null; }
