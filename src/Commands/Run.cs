@@ -22,6 +22,7 @@ using System.IO;
 using System.Threading;
 using Common;
 using Common.Collections;
+using Common.Storage;
 using Common.Utils;
 using EasyHook;
 using ZeroInstall.Commands.Properties;
@@ -177,7 +178,7 @@ namespace ZeroInstall.Commands
         /// <returns>The newly spawned process.</returns>
         private Process StartHooked(Executor executor, string interfaceID)
         {
-            string implementationDir = executor.GetImplementationPath(Selections.Implementations.First);
+            string implementationDir = executor.GetImplementationPath(Selections.Implementations.Last);
 
             // Get relevant desktop integration data
             bool stale;
@@ -201,7 +202,7 @@ namespace ZeroInstall.Commands
         private RegistryFilter GetRegistryFilter(InterfaceFeed target, string implementationDir)
         {
             // Locate the selected main implementation
-            var mainImplementation = target.Feed.GetImplementation(Selections.Implementations.First.ID);
+            var mainImplementation = target.Feed.GetImplementation(Selections.Implementations.Last.ID);
 
             // Create one substitution stub for each command
             var filterRuleList = new LinkedList<RegistryFilterRule>();
@@ -226,7 +227,37 @@ namespace ZeroInstall.Commands
                 filterRuleList.AddLast(new RegistryFilterRule(processCommandLine, registryCommandLine));
                 filterRuleList.AddLast(new RegistryFilterRule('"' + processCommandLine + '"', '"' + registryCommandLine + '"'));
             }
+
+            // Redirect Windows SPAD commands to Zero Install
+            foreach (var capabilityList in target.Feed.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
+            {
+                foreach (var defaultProgram in EnumerableUtils.OfType<Model.Capabilities.DefaultProgram>(capabilityList.Entries))
+                {
+                    if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.Reinstall))
+                        filterRuleList.AddLast(GetInstallCommandFilter(implementationDir, defaultProgram.InstallCommands.Reinstall, defaultProgram.InstallCommands.ReinstallArgs, "--global --batch --add=defaults " + StringUtils.EscapeWhitespace(target.InterfaceID)));
+                    if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.ShowIcons))
+                        filterRuleList.AddLast(GetInstallCommandFilter(implementationDir, defaultProgram.InstallCommands.ShowIcons, defaultProgram.InstallCommands.ShowIconsArgs, "--global --batch --add=icons " + StringUtils.EscapeWhitespace(target.InterfaceID)));
+                    if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.HideIcons))
+                        filterRuleList.AddLast(GetInstallCommandFilter(implementationDir, defaultProgram.InstallCommands.HideIcons, defaultProgram.InstallCommands.HideIconsArgs, "--global --batch --remove=icons " + StringUtils.EscapeWhitespace(target.InterfaceID)));
+                }
+            }
+
             return new RegistryFilter(filterRuleList);
+        }
+
+        /// <summary>
+        /// Builds a <see cref="RegistryFilterRule"/> for a <see cref="ZeroInstall.Model.Capabilities.InstallCommands"/> entry.
+        /// </summary>
+        /// <param name="implementationDir">The local path the selected main implementation is launched from.</param>
+        /// <param name="command">The path of the command relative to the <paramref name="implementationDir"/>.</param>
+        /// <param name="arguments">Additional arguments passed to the <paramref name="command"/>.</param>
+        /// <param name="zeroInstallCommand">The Zero Install command to be executed instead of the <paramref name="command"/>.</param>
+        private static RegistryFilterRule GetInstallCommandFilter(string implementationDir, string command, string arguments, string zeroInstallCommand)
+        {
+            string exePath = Path.Combine(Locations.InstallBase, "0install-win.exe");
+            return new RegistryFilterRule(
+                StringUtils.EscapeWhitespace(Path.Combine(implementationDir, command)) + " " + arguments,
+                StringUtils.EscapeWhitespace(exePath) + " " + zeroInstallCommand);
         }
         #endregion
     }
