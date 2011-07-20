@@ -199,11 +199,8 @@ namespace ZeroInstall.Model
         public virtual void Simplify()
         {
             // Convert legacy launch commands
-            if (Commands.IsEmpty)
-            {
-                if (!string.IsNullOrEmpty(Main)) Commands.Add(new Command {Name = Command.NameRun, Path = Main});
-                if (!string.IsNullOrEmpty(SelfTest)) Commands.Add(new Command {Name = Command.NameTest, Path = SelfTest});
-            }
+            if (!string.IsNullOrEmpty(Main)) Commands.Add(new Command {Name = Command.NameRun, Path = Main});
+            if (!string.IsNullOrEmpty(SelfTest)) Commands.Add(new Command {Name = Command.NameTest, Path = SelfTest});
         }
 
         /// <summary>
