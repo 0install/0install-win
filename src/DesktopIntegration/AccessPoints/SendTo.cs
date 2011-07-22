@@ -17,35 +17,26 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Xml.Serialization;
 using Common.Tasks;
-using Common.Utils;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
-    /// Creates an icon for an application on the user's desktop.
+    /// Creates a shortcut for an application in the "Send to" menu.
     /// </summary>
-    [XmlType("desktop-icon", Namespace = AppList.XmlNamespace)]
-    public class DesktopIcon : IconAccessPoint, IEquatable<DesktopIcon>
+    [XmlType("send-to", Namespace = AppList.XmlNamespace)]
+    public class SendTo : IconAccessPoint, IEquatable<SendTo>
     {
         #region Conflict ID
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {
-            return new[] {"desktop:" + Name};
+            return new[] { "send-to:" + Name };
         }
         #endregion
 
         #region Apply
-        /// <summary>The file path for the coressponding Windows shortcut file.</summary>
-        private string GetWindowsCategoryPath(bool systemWide)
-        {
-            // ToDo: Handle system-wide shortcuts
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), Name + ".lnk");
-        }
-
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, InterfaceFeed target, bool systemWide, ITaskHandler handler)
         {
@@ -54,10 +45,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            if (WindowsUtils.IsWindows)
-            {
-                Windows.ShortcutManager.CreateShortcut(GetWindowsCategoryPath(systemWide), target, Command, systemWide, handler);
-            }
+            // ToDo: Implement
         }
 
         /// <inheritdoc/>
@@ -67,10 +55,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            if (WindowsUtils.IsWindows)
-            {
-                if (File.Exists(GetWindowsCategoryPath(systemWide))) File.Delete(GetWindowsCategoryPath(systemWide));
-            }
+            // ToDo: Implement
         }
         #endregion
 
@@ -78,11 +63,11 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Conversion
         /// <summary>
-        /// Returns the access point in the form "DesktopIcon". Not safe for parsing!
+        /// Returns the access point in the form "SendTo". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("DesktopIcon");
+            return string.Format("SendTo");
         }
         #endregion
 
@@ -90,13 +75,13 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new DesktopIcon {Command = Command, Name = Name};
+            return new SendTo { Command = Command, Name = Name };
         }
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(DesktopIcon other)
+        public bool Equals(SendTo other)
         {
             if (other == null) return false;
 
@@ -108,7 +93,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(DesktopIcon) && Equals((DesktopIcon)obj);
+            return obj.GetType() == typeof(SendTo) && Equals((SendTo)obj);
         }
 
         /// <inheritdoc/>

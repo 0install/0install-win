@@ -81,6 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessPoints\SendTo.cs" />
     <Compile Include="AccessPoints\MockAccessPoint.cs" />
     <Compile Include="CategoryIntegrationManager.cs" />
     <Compile Include="ConflictData.cs" />

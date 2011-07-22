@@ -75,6 +75,7 @@ namespace ZeroInstall.DesktopIntegration
                 new DesktopIcon {Command = "main", Name = "Desktop icon"},
                 new FileType {Capability = "file_type"},
                 new MenuEntry {Command = "main", Name = "Menu entry", Category = "Developer tools"},
+                new SendTo {Command = "main", Name = "Send to"},
                 new UrlProtocol {Capability = "protocol"},
                 new QuickLaunch {Command = "main", Name = "Quick Launch"}
             }};

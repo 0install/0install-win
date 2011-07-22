@@ -32,7 +32,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {
-            return new[] {"quick-launch:" + Name};
+            return new[] { "quick-launch:" + Name };
         }
         #endregion
 
@@ -75,7 +75,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new QuickLaunch {Command = Command, Name = Name};
+            return new QuickLaunch { Command = Command, Name = Name };
         }
         #endregion
 
