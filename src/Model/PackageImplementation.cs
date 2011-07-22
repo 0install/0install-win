@@ -97,7 +97,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of distribution names where <see cref="Package"/> applies.
         /// </summary>
-        [Category("Identity"), Description("A space-separated list of distribution names where the package name applies.")]
+        [Category("Identity"), Description("A list of distribution names where the package name applies.")]
         [XmlIgnore]
         public ICollection<string> Distributions { get { return _distributions; } }
 

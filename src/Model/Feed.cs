@@ -125,9 +125,9 @@ namespace ZeroInstall.Model
         // Preserve order
         private readonly C5.LinkedList<Icon> _icons = new C5.LinkedList<Icon>();
         /// <summary>
-        /// Zero or more icons to use for the program.
+        /// Zero or more icons to represent the program.
         /// </summary>
-        [Category("Interface"), Description("Zero or more icons to use for the program.")]
+        [Category("Interface"), Description("Zero or more icons to represent the program.")]
         [XmlElement("icon")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.LinkedList<Icon> Icons { get { return _icons; } }

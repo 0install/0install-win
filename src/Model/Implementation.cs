@@ -25,7 +25,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// A implementation of a <see cref="Feed"/> that can be downloaded.
     /// </summary>
-    /// <remarks>An implementation is a specific version of an application, e.g. Fire fox 3.6 for Windows.</remarks>
+    /// <remarks>An implementation is a specific version of an application, e.g. Firefox 3.6 for Windows.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlType("implementation", Namespace = Feed.XmlNamespace)]
