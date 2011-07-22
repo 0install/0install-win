@@ -8,9 +8,5 @@
       <image class="image" xlink:href="uml_class_model" mimeType="image/png" />
       <summary>UML class diagram</summary>
     </mediaLink>
-	
-    <relatedTopics>
-      <link xlink:href="user_uml_class_model_xml">Model XML</link>
-    </relatedTopics>
   </developerConceptualDocument>
 </topic>

@@ -10,7 +10,6 @@
         <Topic id="user_uml_class_fetchers" visible="True" title="Fetchers" />
         <Topic id="user_uml_class_handler" visible="True" title="Handler" />
         <Topic id="user_uml_class_model" visible="True" title="Model" />
-        <Topic id="user_uml_class_model_xml" visible="True" title="Model XML format" />
         <Topic id="user_uml_class_policy" visible="True" title="Policy" />
         <Topic id="user_uml_class_solver" visible="True" title="Solver" />
         <Topic id="user_uml_class_store_implementation" visible="True" title="Store.Implementation" />
