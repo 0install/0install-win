@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Represents an application's ability to provide some service (e.g. default web-browser, default e-mail client, ...).
+    /// Represents an application's ability to provide some service (e.g. default web-browser, default e-mail client).
     /// </summary>
     [XmlType("default-program", Namespace = XmlNamespace)]
     public sealed class DefaultProgram : VerbCapability, IEquatable<DefaultProgram>
@@ -76,17 +76,17 @@ namespace ZeroInstall.Model.Capabilities
         public override bool WindowsSystemWideOnly { get { return true; } }
 
         /// <summary>
-        /// The name of the service such as "StartMenuInternet", "Mail", "Media" etc.. Always use a canonical name when possible.
+        /// The name of the service (e.g. "StartMenuInternet", "Mail", "Media"). Always use a canonical name when possible.
         /// </summary>
-        [Description("The name of the service such as \"StartMenuInternet\", \"Mail\", \"Media\", etc.. Always use a canonical name when possible.")]
+        [Description("The name of the service (e.g. \"StartMenuInternet\", \"Mail\", \"Media\"). Always use a canonical name when possible.")]
         [XmlAttribute("service")]
         public string Service { get; set; }
 
         /// <summary>
-        /// Lists the commands the application registeres for use by Windows' "Set Program Access and Defaults". Will be transparently replaced with Zero Install commands.
+        /// Lists the commands the application registeres for use by Windows' "Set Program Access and Defaults". Will be transparently replaced with Zero Install commands at runtime.
         /// </summary>
         /// <remarks>These strings are used for registry filtering. They are never actually executed.</remarks>
-        [Description("Lists the commands the application registeres for use by Windows' \"Set Program Access and Defaults\". Will be transparently replaced with Zero Install commands.")]
+        [Description("Lists the commands the application registeres for use by Windows' \"Set Program Access and Defaults\". Will be transparently replaced with Zero Install commandss at runtime.")]
         [XmlElement("install-commands")]
         public InstallCommands InstallCommands { get; set; }
 

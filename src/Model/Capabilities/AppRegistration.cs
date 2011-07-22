@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Indicates that an application should be listed in Windows Vista/7's new "Default Programs" UI.
+    /// Indicates that an application should be listed in Windows Vista/7's "Set your Default Programs" UI.
     /// </summary>
     /// <remarks>The actual integration information is pulled from the other <see cref="Capability"/>s.</remarks>
     [XmlType("registration", Namespace = XmlNamespace)]

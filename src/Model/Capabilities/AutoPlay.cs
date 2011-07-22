@@ -44,9 +44,9 @@ namespace ZeroInstall.Model.Capabilities
         public string Provider { get; set; }
 
         /// <summary>
-        /// The programatic identifier used to store the <see cref="Verb"/>.
+        /// The programmatic identifier used to store the <see cref="Verb"/>.
         /// </summary>
-        [Description("The programatic identifier used to store the Verb.")]
+        [Description("The programmatic identifier used to store the verb.")]
         [XmlAttribute("prog-id")]
         public string ProgID { get; set; }
 

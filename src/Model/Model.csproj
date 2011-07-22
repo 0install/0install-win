@@ -127,6 +127,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Capabilities\ClassDiagram.cd" />
+    <None Include="Capabilities\CapabilityList.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Dependency.cd" />
     <None Include="Element.cd" />
     <None Include="Feed.xsd">

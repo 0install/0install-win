@@ -22,7 +22,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Describes a specific file extensions.
+    /// Describes a specific file extension.
     /// </summary>
     [XmlType("extension", Namespace = Capability.XmlNamespace)]
     public struct FileTypeExtension : IEquatable<FileTypeExtension>
@@ -50,9 +50,9 @@ namespace ZeroInstall.Model.Capabilities
         public string MimeType { get; set; }
 
         /// <summary>
-        /// Defines the broad category of file types this extension falls into. Should always be a canonical type.
+        /// Defines the broad category of file types (e.g. text, image, audio) this extension falls into. Should always be a canonical type.
         /// </summary>
-        [Description("Defines the broad category of file types this extension falls into. Should always be a canonical type.")]
+        [Description("Defines the broad category of file (e.g. text, image, audio) types this extension falls into. Should always be a canonical type.")]
         [XmlAttribute("perceived-type"), DefaultValue("")]
         public string PerceivedType { get; set; }
         #endregion

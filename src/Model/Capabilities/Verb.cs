@@ -24,7 +24,7 @@ using Common.Collections;
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Describes the mapping of an action/verb (e.g. open, edit, ...) to a <see cref="Model.Command"/>.
+    /// Describes the mapping of an action/verb (e.g. open, edit) to a <see cref="Model.Command"/>.
     /// </summary>
     [XmlType("verb", Namespace = Capability.XmlNamespace)]
     public sealed class Verb : XmlUnknown, ICloneable, IEquatable<Verb>
@@ -99,9 +99,9 @@ namespace ZeroInstall.Model.Capabilities
 
         private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
         /// <summary>
-        /// Human-readable descriptions of the verb in different languages as an alternative to <see cref="Name"/>.
+        /// Localized human-readable descriptions of the verb as an alternative to <see cref="Name"/>.
         /// </summary>
-        [Description("Human-readable descriptions of the verb in different languages as an alternative to Name.")]
+        [Description("Localized human-readable descriptions of the verb as an alternative to Name.")]
         [XmlElement("description")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
         public LocalizableStringCollection Descriptions { get { return _descriptions; } }

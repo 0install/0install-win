@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://0install.de/schema/desktop-integration/capabilities" elementFormDefault="qualified" targetNamespace="http://0install.de/schema/desktop-integration/capabilities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xs:import namespace="http://zero-install.sourceforge.net/2004/injector/interface" />
+  <xs:element name="capabilities" nillable="true" type="tns:capabilities" />
+  <xs:complexType name="capabilities">
+    <xs:annotation>
+      <xs:documentation>Groups a number of capabilities that can be registered in a desktop environment.</xs:documentation>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element minOccurs="0" maxOccurs="1" name="registration" type="tns:registration" />
+      <xs:element minOccurs="0" maxOccurs="1" name="com-server" type="tns:com-server" />
+      <xs:element minOccurs="0" maxOccurs="1" name="context-menu" type="tns:context-menu" />
+      <xs:element minOccurs="0" maxOccurs="1" name="auto-play" type="tns:auto-play" />
+      <xs:element minOccurs="0" maxOccurs="1" name="file-type" type="tns:file-type" />
+      <xs:element minOccurs="0" maxOccurs="1" name="default-program" type="tns:default-program" />
+      <xs:element minOccurs="0" maxOccurs="1" name="url-protocol" type="tns:url-protocol" />
+      <xs:element minOccurs="0" maxOccurs="1" name="games-explorer" type="tns:games-explorer" />
+    </xs:choice>
+    <xs:attribute name="arch" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>Determines for which operating systems the capabilities are applicable.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="capability" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A capability tells the desktop environment what an application can do and in which fashion this can be represented to the user. It does not change the behaviour of existing UI elements.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="id" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>
+          An ID that differentiates this capability from other capabilities of the same time within the interface. Also serves as a programmatic identifier within the desktop environment.
+          In case of conflicts, the first capability listed with a specific ID will take precedence.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="registration">
+    <xs:annotation>
+      <xs:documentation>
+        Indicates that an application should be listed in Windows Vista/7's "Set your Default Programs" UI.
+        The actual integration information is pulled from the other capabilities.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:capability">
+        <xs:attribute name="capability-reg-path" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:appinfo>The registry path relative to HKEY_LOCAL_MACHINE which is used to store the application's capability registration information.</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="x64" type="xs:boolean">
+          <xs:annotation>
+            <xs:appinfo>Set to true for real 64-bit applications whose registry entries do not get redirected by WOW.</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="default-capability" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A capability that can be applied as a default handler for something at the user's request.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:capability">
+        <xs:attribute name="explicit-only" type="xs:boolean">
+          <xs:annotation>
+            <xs:documentation>
+              When set to true do not apply this capability is not applied as a default handler without explicit confirmation from the user.
+              Use this to exclude exotic capabilities from default integration categories.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="icon-capability" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A capability that that can have multiple icons and descriptions.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:default-capability">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="description" type="tns:localizable-string">
+            <xs:annotation>
+              <xs:documentation>Human-readable descriptions of the AutoPlay operation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" maxOccurs="unbounded" xmlns:zi="http://zero-install.sourceforge.net/2004/injector/interface" ref="zi:icon">
+            <xs:annotation>
+              <xs:documentation>An icon to represent the capability.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:choice>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="verb-capability" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A capability that that can have multiple verbs.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:icon-capability">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="verb" type="tns:verb" />
+        </xs:choice>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="verb">
+    <xs:annotation>
+      <xs:documentation>Describes the mapping of an action/verb (e.g. open, edit) to a command.</xs:documentation>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="description" type="tns:localizable-string">
+        <xs:annotation>
+          <xs:documentation>Human-readable description of the verb as an alternative to 'name'.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:choice>
+    <xs:attribute name="name" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The name of the action to perform. Use canonical names whenever possible.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="command" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The name of the command in the feed to use when launching via this capability; leave unset or empty for 'run'.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="args" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>A custom arguments list to be passed to the command. %1 will be replaced with the path of the file being opened.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="extended" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>Set this to true to hide the verb in the Windows context menu unless the Shift key is pressed when opening the menu.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="file-type">
+    <xs:annotation>
+      <xs:documentation>Represents an application's ability to handle a certain file type.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:verb-capability">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="extension" type="tns:extension" />
+        </xs:choice>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="extension">
+    <xs:annotation>
+      <xs:documentation>Describes a specific file extension.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="value" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The file extension including the leading dot (e.g. ".png").</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="mime-type" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The MIME type associated with the file extension.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="perceived-type" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>Defines the broad category of file types (e.g. text, image, audio) this extension falls into. Should always be a canonical type.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="url-protocol">
+    <xs:annotation>
+      <xs:documentation>Represents an application's ability to handle a certain URL protocol (e.g. HTTP).</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:verb-capability">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="known-prefix" type="tns:known-prefix" />
+        </xs:choice>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="known-prefix">
+    <xs:annotation>
+      <xs:documentation>Names a well-known protocol prefix. Use this for protocols that are shared accross many applications (e.g. HTTP, FTP) but not for application-specific protocols.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="value" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The value of the prefix (e.g. "http").</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="default-program">
+    <xs:annotation>
+      <xs:documentation>Represents an application's ability to provide some service (e.g. default web-browser, default e-mail client).</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:verb-capability">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element minOccurs="0" maxOccurs="1" name="install-commands" type="tns:install-commands" />
+        </xs:choice>
+        <xs:attribute name="service" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation>The name of the service (e.g. "StartMenuInternet", "Mail", "Media"). Always use a canonical name when possible.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="install-commands">
+    <xs:annotation>
+      <xs:documentation>Lists the commands the application registeres for use by Windows' "Set Program Access and Defaults". Will be transparently replaced with Zero Install commands at runtime.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="reinstall" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The path (relative to the installation directory) to the executable used to set an application as the default program without any arguments.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="reinstall-args" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>Additional arguments for the executable specified in 'reinstall'.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="show-icons" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The path (relative to the installation directory) to the executable used to create icons/shortcuts to the application without any arguments.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="show-icons-args" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>Additional arguments for the executable specified in 'show-icons'.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="hide-icons" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The path (relative to the installation directory) to the executable used to remove icons/shortcuts to the application without any arguments.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="hide-icons-args" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>Additional arguments for the executable specified in 'hide-icons'.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="auto-play">
+    <xs:annotation>
+      <xs:documentation>Represents an application's ability to act as an AutoPlay handler for certain events.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:icon-capability">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element minOccurs="0" maxOccurs="1" name="verb" type="tns:verb">
+            <xs:annotation>
+              <xs:documentation>The command to execute when the handler gets called. Required!</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="event" type="tns:event">
+            <xs:annotation>
+              <xs:documentation>Names a specific AutoPlay event. Required!</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:choice>
+        <xs:attribute name="provider" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation>The name of the application as shown in the AutoPlay selection list.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="prog-id" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation>The programmatic identifier used to store the verb.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="event">
+    <xs:attribute name="name" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The name of the event.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="context-menu">
+    <xs:annotation>
+      <xs:documentation>Represents an application's entry in a file manager's context menu.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:default-capability">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element minOccurs="0" maxOccurs="1" name="verb" type="tns:verb">
+            <xs:annotation>
+              <xs:documentation>The command to execute when the context menu entry is clicked. Required!</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:choice>
+        <xs:attribute name="all-objects" type="xs:boolean">
+          <xs:annotation>
+            <xs:documentation>Set to true if this context menu entry is applicable to all filesystem entries and not just files.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="games-explorer">
+    <xs:annotation>
+      <xs:documentation>Represents an application's listing in the Windows Games Explorer.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:capability" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="com-server">
+    <xs:annotation>
+      <xs:documentation>Represents an application's ability to act as a COM server.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:capability" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="localizable-string">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute ref="xml:lang" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>

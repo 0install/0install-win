@@ -43,10 +43,10 @@ namespace ZeroInstall.Model.Capabilities
         public abstract bool WindowsSystemWideOnly { get; }
 
         /// <summary>
-        /// An ID that uniquely identifies this capability within an interface.
+        /// An ID that differentiates this capability from other capabilities of the same time within the interface. Also serves as a programmatic identifier within the desktop environment.
         /// </summary>
-        /// <remarks>In case of conflicts the first capability listed with a specific ID will take precedence.</remarks>
-        [Description("An ID that uniquely identifies this capability within an interface.")]
+        /// <remarks>In case of conflicts, the first capability listed with a specific ID will take precedence.</remarks>
+        [Description("An ID that differentiates this capability from other capabilities of the same time within the interface. Also serves as a programmatic identifier within the desktop environment.")]
         [XmlAttribute("id")]
         public string ID { get; set; }
 

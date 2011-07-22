@@ -28,10 +28,10 @@ namespace ZeroInstall.Model.Capabilities
     {
         #region Properties
         /// <summary>
-        /// When set to <see langword="true"/> do not apply this capability as a default handler without explicit confirmation from the user.
+        /// When set to <see langword="true"/> this capability is not applied as a default handler without explicit confirmation from the user.
         /// </summary>
-        /// <remarks>Use this to exclude the capability from default integration categories.</remarks>
-        [Description("When set to true do not apply this capability as a default handler without explicit confirmation from the user.")]
+        /// <remarks>Use this to exclude exotic capabilities from default integration categories.</remarks>
+        [Description("When set to true do not apply this capability is not applied as a default handler without explicit confirmation from the user. Use this to exclude exotic capabilities from default integration categories.")]
         [XmlAttribute("explicit-only"), DefaultValue(false)]
         public bool ExplicitOnly { get; set; }
         #endregion

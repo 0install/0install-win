@@ -34,8 +34,9 @@ namespace ZeroInstall.Model.Capabilities
         public override bool WindowsSystemWideOnly { get { return false; } }
 
         /// <summary>
-        /// Indicates whether this context menu entry is applicable to all filesystem entries and not just files.
+        /// Set to <see langword="true"/> if this context menu entry is applicable to all filesystem entries and not just files.
         /// </summary>
+        [Description("Set to true if this context menu entry is applicable to all filesystem entries and not just files.")]
         [XmlAttribute("all-objects"), DefaultValue(false)]
         public bool AllObjects { get; set; }
 

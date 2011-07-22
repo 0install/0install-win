@@ -27,7 +27,7 @@ using ZeroInstall.Model.Properties;
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Abstract base class for capabilities that can have multiple <see cref="Icon"/>s and descriptions associated with them.
+    /// Abstract base class for capabilities that can have multiple <see cref="Icon"/>s and descriptions.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [XmlType("icon-capability", Namespace = XmlNamespace)]

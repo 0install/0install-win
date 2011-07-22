@@ -22,16 +22,16 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Names a  well-known protocol prefix such as "http".
+    /// Names a well-known protocol prefix. Use this for protocols that are shared accross many applications (e.g. HTTP, FTP) but not for application-specific protocols.
     /// </summary>
     [XmlType("known-prefix", Namespace = Capability.XmlNamespace)]
     public struct KnownProtocolPrefix : IEquatable<KnownProtocolPrefix>
     {
         #region Properties
         /// <summary>
-        /// The value of the prefix.
+        /// The value of the prefix (e.g. "http").
         /// </summary>
-        [Description("The value of the prefix.")]
+        [Description("The value of the prefix (e.g. \"http\").")]
         [XmlAttribute("value")]
         public string Value { get; set; }
         #endregion

@@ -24,7 +24,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Represents an application's ability to handle a certain URL protocol.
+    /// Represents an application's ability to handle a certain URL protocol (e.g. HTTP).
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [XmlType("url-protocol", Namespace = XmlNamespace)]

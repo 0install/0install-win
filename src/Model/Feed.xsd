@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://zero-install.sourceforge.net/2004/injector/interface" elementFormDefault="qualified" targetNamespace="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xs:import namespace="http://0install.de/schema/desktop-integration/capabilities" />
   <xs:element name="interface" nillable="true" type="tns:feed" />
   <xs:element name="icon" nillable="true" type="tns:icon" />
   <xs:complexType name="feed">
@@ -54,6 +55,7 @@
       <xs:element minOccurs="0" maxOccurs="unbounded" name="package-implementation" type="tns:package-implementation" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="group" type="tns:group" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="entry-point" type="tns:entry-point" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" xmlns:caps="http://0install.de/schema/desktop-integration/capabilities" ref="caps:capabilities" />
     </xs:choice>
     <xs:attribute name="min-injector-version" type="xs:string">
       <xs:annotation>

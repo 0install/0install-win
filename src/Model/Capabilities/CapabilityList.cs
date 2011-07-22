@@ -35,9 +35,9 @@ namespace ZeroInstall.Model.Capabilities
     {
         #region Properties
         /// <summary>
-        /// Determines for which operating systems the <see cref="Capability"/>s are aplicable.
+        /// Determines for which operating systems the <see cref="Capability"/>s are applicable.
         /// </summary>
-        [Description("Determines for which operating systems the capabilities are aplicable.")]
+        [Description("Determines for which operating systems the capabilities are applicable.")]
         [XmlIgnore]
         public Architecture Architecture { get; set; }
 
