@@ -23,6 +23,7 @@ namespace ZeroInstall.Model.Capabilities
     /// <summary>
     /// Abstract base class for capabilities that can be applied as default handlers for something at the user's request.
     /// </summary>
+    [XmlType("default-capability", Namespace = XmlNamespace)]
     public abstract class DefaultCapability : Capability
     {
         #region Properties

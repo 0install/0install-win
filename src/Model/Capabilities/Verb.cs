@@ -75,15 +75,6 @@ namespace ZeroInstall.Model.Capabilities
         [XmlAttribute("name")]
         public string Name { get; set; }
 
-        private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
-        /// <summary>
-        /// Human-readable descriptions of the verb in different languages as an alternative to <see cref="Name"/>.
-        /// </summary>
-        [Description("Human-readable descriptions of the verb in different languages as an alternative to Name.")]
-        [XmlElement("description")]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
-        public LocalizableStringCollection Descriptions { get { return _descriptions; } }
-
         /// <summary>
         /// The name of the command in the <see cref="Feed"/> to use when launching via this capability; leave <see langword="null"/> for <see cref="Model.Command.NameRun"/>.
         /// </summary>
@@ -105,6 +96,15 @@ namespace ZeroInstall.Model.Capabilities
         [Description("Set this to true to hide the verb in the Windows context menu unless the Shift key is pressed when opening the menu.")]
         [XmlAttribute("extended"), DefaultValue(false)]
         public bool Extended { get; set; }
+
+        private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
+        /// <summary>
+        /// Human-readable descriptions of the verb in different languages as an alternative to <see cref="Name"/>.
+        /// </summary>
+        [Description("Human-readable descriptions of the verb in different languages as an alternative to Name.")]
+        [XmlElement("description")]
+        // Note: Can not use ICollection<T> interface because of XML Serialization
+        public LocalizableStringCollection Descriptions { get { return _descriptions; } }
         #endregion
 
         //--------------------//
@@ -126,7 +126,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <returns>The new copy of the <see cref="Verb"/>.</returns>
         public Verb CloneVerb()
         {
-            var newVerb = new Verb {Name = Name, Command = Command, Arguments = Arguments, Extended = Extended};
+            var newVerb = new Verb { Name = Name, Command = Command, Arguments = Arguments, Extended = Extended };
             foreach (var description in Descriptions) newVerb.Descriptions.Add(description.CloneString());
 
             return newVerb;
@@ -148,7 +148,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (other == null) return false;
 
-            return other.Name == Name && Descriptions.SequencedEquals(other.Descriptions) && other.Command == Command && other.Arguments == Arguments && other.Extended == Extended;
+            return other.Name == Name && other.Command == Command && other.Arguments == Arguments && other.Extended == Extended && Descriptions.SequencedEquals(other.Descriptions);
         }
 
         /// <inheritdoc/>
@@ -165,10 +165,10 @@ namespace ZeroInstall.Model.Capabilities
             unchecked
             {
                 int result = (Name ?? "").GetHashCode();
-                result = (result * 397) ^ Descriptions.GetSequencedHashCode();
                 result = (result * 397) ^ (Command ?? "").GetHashCode();
                 result = (result * 397) ^ (Arguments ?? "").GetHashCode();
                 result = (result * 397) ^ Extended.GetHashCode();
+                result = (result * 397) ^ Descriptions.GetSequencedHashCode();
                 return result;
             }
         }
