@@ -88,7 +88,6 @@
     <None Include="user\uml\class\fetchers.aml" />
     <None Include="user\uml\class\handler.aml" />
     <None Include="user\uml\class\model.aml" />
-    <None Include="user\uml\class\model_xml.aml" />
     <None Include="user\uml\class\policy.aml" />
     <None Include="user\uml\class\solver.aml" />
     <None Include="user\uml\class\store_implementation.aml" />
@@ -126,10 +125,6 @@
     <Image Include="images\uml\class\Model.png">
       <ImageId>uml_class_model</ImageId>
       <AlternateText>Model</AlternateText>
-    </Image>
-    <Image Include="images\uml\class\Model_XML.png">
-      <ImageId>uml_class_model_xml</ImageId>
-      <AlternateText>Model XML</AlternateText>
     </Image>
     <Image Include="images\uml\class\Handler.png">
       <ImageId>uml_class_handler</ImageId>
