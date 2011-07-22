@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A command that can be used to launch an <see cref="Implementation"/>.
+    /// A Command says how to run an <see cref="Implementation"/> as a program..
     /// </summary>
     /// <seealso cref="Element.Commands"/>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
@@ -52,7 +52,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// The name of the command. Well-known names are <see cref="NameRun"/>, <see cref="NameTest"/> and <see cref="NameCompile"/>.
         /// </summary>
-        [Description("The URI or local path used to identify the interface.")]
+        [Description("The name of the command.")]
         [XmlAttribute("name")]
         public string Name { get; set; }
 
@@ -66,9 +66,9 @@ namespace ZeroInstall.Model
         // Preserve order
         private readonly C5.LinkedList<string> _arguments = new C5.LinkedList<string>();
         /// <summary>
-        /// A list of command-line arguments to be passed to the executable.
+        /// A list of command-line arguments to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.
         /// </summary>
-        [Description("A list of command-line arguments to be passed to the executable.")]
+        [Description("A list of command-line arguments to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.")]
         [XmlElement("arg")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.LinkedList<string> Arguments { get { return _arguments; } }

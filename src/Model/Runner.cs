@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A reference to a <see cref="Feed"/> that is required by an <see cref="Command"/> as a runner.
+    /// A reference to an interface that is required by an <see cref="Command"/> as a runner.
     /// </summary>
     /// <seealso cref="Model.Command.Runner"/>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]

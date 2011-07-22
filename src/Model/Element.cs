@@ -33,31 +33,31 @@ namespace ZeroInstall.Model
         [XmlIgnore]
         Unset,
 
-        /// <summary>Set by user as a personal preference overriding other stability criteria</summary>
+        /// <summary>Set by user as a personal preference overriding other stability criteria.</summary>
         [XmlEnum("preferred")]
         Preferred,
 
-        /// <summary>Indicates that an implementation is provided as a <see cref="PackageImplementation"/></summary>
+        /// <summary>Indicates that an implementation is provided as a <see cref="PackageImplementation"/>.</summary>
         [XmlEnum("packaged")]
         Packaged,
 
-        /// <summary>No serious problems</summary>
+        /// <summary>No serious problems.</summary>
         [XmlEnum("stable")]
         Stable,
 
-        /// <summary>Any new release</summary>
+        /// <summary>Any new release.</summary>
         [XmlEnum("testing")]
         Testing,
 
-        /// <summary>More extreme version of <see cref="Testing"/>, expected to have bugs</summary>
+        /// <summary>More extreme version of <see cref="Testing"/>, expected to have bugs.</summary>
         [XmlEnum("developer")]
         Developer,
 
-        /// <summary>Known bugs, none security-related</summary>
+        /// <summary>Known bugs, none security-related.</summary>
         [XmlEnum("buggy")]
         Buggy,
 
-        /// <summary>Known bugs, some ore all security-related</summary>
+        /// <summary>Known bugs, some or all security-related.</summary>
         [XmlEnum("insecure")]
         Insecure
     }

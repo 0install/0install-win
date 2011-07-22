@@ -37,7 +37,7 @@ namespace ZeroInstall.Model
     #endregion
 
     /// <summary>
-    /// A reference to a <see cref="Feed"/> that is required by an <see cref="Implementation"/>.
+    /// A reference to an interface that is required as dependency.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
@@ -46,7 +46,7 @@ namespace ZeroInstall.Model
     {
         #region Properties
         /// <summary>
-        /// The URI or local path used to identify the <see cref="Feed"/>.
+        /// The URI or local path used to identify the interface.
         /// </summary>
         [Description("The URI or local path used to identify the interface.")]
         [XmlAttribute("interface")]

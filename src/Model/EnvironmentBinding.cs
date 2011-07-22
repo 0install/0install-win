@@ -23,7 +23,7 @@ namespace ZeroInstall.Model
 {
     #region Enumerations
     /// <summary>
-    /// Controls how a <see cref="EnvironmentBinding.Insert"/> is added to the variable.
+    /// Controls how <see cref="EnvironmentBinding.Insert"/> or <see cref="EnvironmentBinding.Value"/> is added to a variable.
     /// </summary>
     public enum EnvironmentMode
     {
@@ -39,7 +39,7 @@ namespace ZeroInstall.Model
     #endregion
 
     /// <summary>
-    /// Make a chosen <see cref="Implementation"/> available  by setting environment variables.
+    /// Make a chosen <see cref="Implementation"/> available by setting environment variables.
     /// </summary>
     [Serializable]
     [XmlType("environment", Namespace = Feed.XmlNamespace)]
@@ -57,7 +57,7 @@ namespace ZeroInstall.Model
         /// A static value to set the variable to.
         /// </summary>
         /// <remarks>If this is set <see cref="Insert"/> must be <see langword="null"/>.</remarks>
-        [Description("A static value to set the variable to.")]
+        [Description("A static value to set the variable to. If this is set 'Insert' must be empty.")]
         [XmlAttribute("value")]
         public string Value { get; set; }
 
@@ -65,14 +65,14 @@ namespace ZeroInstall.Model
         /// The relative path of the item within the implementation to insert into the variable's value. Use <code>.</code> to publish the root directory.
         /// </summary>
         /// <remarks>If this is set <see cref="Value"/> must be <see langword="null"/>.</remarks>
-        [Description("The relative path of the item within the implementation to insert into the variable's value. Use \".\" to publish the root directory.")]
+        [Description("The relative path of the item within the implementation to insert into the variable's value. Use \".\" to publish the root directory. If this is set 'Value' must be empty.")]
         [XmlAttribute("insert")]
         public string Insert { get; set; }
 
         /// <summary>
-        /// Controls how the <see cref="Insert"/> is added to the variable.
+        /// Controls how the <see cref="Insert"/> or <see cref="Value"/> is added to the variable.
         /// </summary>
-        [Description("Controls how the value is added to the variable.")]
+        [Description("Controls how 'Insert' or 'Value' is added to the variable.")]
         [XmlAttribute("mode"), DefaultValue(typeof(EnvironmentMode), "Prepend")]
         public EnvironmentMode Mode { get; set; }
 
