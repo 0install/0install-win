@@ -35,7 +35,9 @@ namespace ZeroInstall.DesktopIntegration
     public sealed class AppEntry : IMergeable<AppEntry>, ICloneable
     {
         #region Properties
-        /// <inheritdoc/>
+        /// <summary>
+        /// The URI or local path of the interface defining the application.
+        /// </summary>
         [Description("The URI or local path of the interface defining the application.")]
         [XmlAttribute("interface")]
         public string InterfaceID

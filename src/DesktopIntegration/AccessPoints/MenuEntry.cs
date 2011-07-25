@@ -33,9 +33,9 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     {
         #region Properties
         /// <summary>
-        /// The category or folder in the menu to add the entry to; <see langword="null"/> for top-level entry.
+        /// The category or folder in the menu to add the entry to. Leave empty for top-level entry.
         /// </summary>
-        [Description("The category or folder in the menu to add the entry to; null for top-level entry.")]
+        [Description("The category or folder in the menu to add the entry to. Leave empty for top-level entry.")]
         [XmlAttribute("category")]
         public string Category { get; set; }
         #endregion

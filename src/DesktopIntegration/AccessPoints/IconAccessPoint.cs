@@ -35,9 +35,9 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Properties
         /// <summary>
-        /// The user-defined override for name of the icon; <see langword="null"/> to use the <see cref="ZeroInstall.Model.Feed.Name"/> + <see cref="ZeroInstall.Model.Command.Name"/>.
+        /// The user-defined override for name of the icon. Leve empty to use the <see cref="ZeroInstall.Model.Feed.Name"/> + <see cref="ZeroInstall.Model.EntryPoint.Names"/>.
         /// </summary>
-        [Description("The user-defined override for name of the icon; null to use the Name from the Feed + the Command name.")]
+        [Description("The user-defined override for name of the icon. Leve empty to use the Name from the Feed + the EntryPoint name.")]
         [XmlAttribute("name")]
         public string Name { get; set; }
         #endregion

@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://0install.de/schema/desktop-integration/app-list" elementFormDefault="qualified" targetNamespace="http://0install.de/schema/desktop-integration/app-list" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://0install.de/schema/desktop-integration/capabilities" />
+  <xs:element name="app-list" nillable="true" type="tns:app-list" />
+  <xs:complexType name="app-list">
+    <xs:annotation>
+      <xs:documentation>Stores a list of applications and the kind of desktop integration the user chose for them.</xs:documentation>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="app" type="tns:app" />
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="app">
+    <xs:annotation>
+      <xs:documentation>Represents an application indentified by its interface URI.</xs:documentation>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element minOccurs="0" maxOccurs="unbounded" xmlns:caps="http://0install.de/schema/desktop-integration/capabilities" ref="caps:capabilities" />
+      <xs:element minOccurs="0" maxOccurs="1" name="access-points" type="tns:access-points" />
+    </xs:choice>
+    <xs:attribute name="interface" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The URI or local path of the interface defining the application.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="name" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The name of the application. Usually equal to the name specified in the feed.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="auto-update" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>Set to true to automatically download the newest available version of the application as a regular background task. Update checks will still be performed when the application is launched when set to false.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="timestamp" type="xs:long">
+      <xs:annotation>
+        <xs:documentation>The time this entry was last modified encoded as Unix time (number of seconds since the epoch).</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="access-points">
+    <xs:annotation>
+      <xs:documentation>Contains a set of access-points that can be registered in a desktop environment.</xs:documentation>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="capability-registration" type="tns:capability-registration" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="desktop-icon" type="tns:desktop-icon" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="quick-launch" type="tns:quick-launch" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="url-protocol" type="tns:url-protocol" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="auto-play" type="tns:auto-play" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="context-menu" type="tns:context-menu" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="default-program" type="tns:default-program" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="alias" type="tns:alias" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="file-type" type="tns:file-type" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="menu-entry" type="tns:menu-entry" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="send-to" type="tns:send-to" />
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="access-point" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An access point represents changes to the desktop environment's UI which the user explicitly requested.</xs:documentation>
+    </xs:annotation>
+  </xs:complexType>
+  <xs:complexType name="capability-registration">
+    <xs:annotation>
+      <xs:documentation>Indicates that all compatible capabilities should be registered.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:access-point" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="default-access-point" abstract="true">
+    <xs:annotation>
+      <xs:documentation>Makes an application the default handler for something.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:access-point">
+        <xs:attribute name="capability" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation>The ID of the capability to be made the default handler.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="auto-play">
+    <xs:annotation>
+      <xs:documentation>Makes an application the default AutoPlay handler for a specific event.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:default-access-point" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="context-menu">
+    <xs:annotation>
+      <xs:documentation>Integrates an application into a file manager's context menu.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:default-access-point" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="default-program">
+    <xs:annotation>
+      <xs:documentation>Makes an application a default program of some kind (e.g. default web-browser, default e-mail client, ...).</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:default-access-point" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="file-type">
+    <xs:annotation>
+      <xs:documentation>Makes an application the default handler for a specific file type.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:default-access-point" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="url-protocol">
+    <xs:annotation>
+      <xs:documentation>Makes an application the default handler for a specific URL protocol.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:default-access-point" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="command-access-point" abstract="true">
+    <xs:annotation>
+      <xs:documentation>Adds a way to explicitly launch the application to the desktop environment.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:access-point">
+        <xs:attribute name="command" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>The name of the command to use when launching via this access point. Leave empty or unset to use default.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="alias">
+    <xs:annotation>
+      <xs:documentation>Makes an application discoverable via the system's search PATH.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:command-access-point">
+        <xs:attribute name="name" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation>The name of the command-line command (without a file extension).</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="icon-access-point" abstract="true">
+    <xs:annotation>
+      <xs:documentation>Creates some form of icon in the dektop environment.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:command-access-point">
+        <xs:attribute name="name" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>The user-defined override for name of the icon. Leve empty or unset to use the name from the feed + the entry-point name.</xs:documentation>
+          </xs:annotation>          
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="menu-entry">
+    <xs:annotation>
+      <xs:documentation>Creates an entry for an application in the user's application menu (i.e. Windows start menu, GNOME application menu, etc.).</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:icon-access-point">
+        <xs:attribute name="category" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>The category or folder in the menu to add the entry to. Leave unset or empty for top-level entry.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="desktop-icon">
+    <xs:annotation>
+      <xs:documentation>Creates an icon for an application on the user's desktop.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:icon-access-point" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="quick-launch">
+    <xs:annotation>
+      <xs:documentation>Creates a shortcut for an application in the Quick Launch bar.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:icon-access-point" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="send-to">
+    <xs:annotation>
+      <xs:documentation>Creates a shortcut for an application in the "Send to" menu.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:icon-access-point" />
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

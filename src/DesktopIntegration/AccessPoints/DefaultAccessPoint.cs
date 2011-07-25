@@ -36,9 +36,9 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Properties
         /// <summary>
-        /// The ID of the <see cref="Capability"/> being referenced.
+        /// The ID of the <see cref="Capability"/> to be made the default handler.
         /// </summary>
-        [Description("The ID of the Capability being referenced.")]
+        [Description("The ID of the Capability to be made the default handler.")]
         [XmlAttribute("capability")]
         public string Capability { get; set; }
         #endregion

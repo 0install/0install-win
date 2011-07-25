@@ -24,7 +24,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
-    /// A set of <see cref="AccessPoint"/>s that can be registered in a desktop environment.
+    /// Contains a set of <see cref="AccessPoint"/>s that can be registered in a desktop environment.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]

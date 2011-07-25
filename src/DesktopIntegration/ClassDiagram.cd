@@ -298,7 +298,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.DesktopIntegration.AccessPoints.SendTo">
-    <Position X="6" Y="7.5" Width="1.25" />
+    <Position X="7.5" Y="7.5" Width="1.25" />
     <Members>
       <Method Name="CloneAccessPoint" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
@@ -312,7 +312,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.DesktopIntegration.AccessPoints.QuickLaunch">
-    <Position X="7.5" Y="7.5" Width="1.25" />
+    <Position X="6" Y="7.5" Width="1.25" />
     <Members>
       <Method Name="CloneAccessPoint" Hidden="true" />
       <Method Name="Equals" Hidden="true" />

@@ -151,6 +151,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="AppList.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="ClassDiagram.cd" />
     <EmbeddedResource Include="Windows\Stub.template" />
     <EmbeddedResource Include="Windows\Stub.manifest" />
