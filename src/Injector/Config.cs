@@ -23,6 +23,7 @@ using System.IO;
 using System.Text;
 using Common;
 using Common.Storage;
+using Common.Utils;
 using Common.Values.Design;
 using IniParser;
 using ZeroInstall.Injector.Properties;
@@ -350,18 +351,38 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Saves the settings to an INI file.
         /// </summary>
+        /// <remarks>This method performs an atomic write operation when possible.</remarks>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void Save(string path)
         {
             if (_iniData == null) _iniData = new IniData();
             FromConfigToIni(this, _iniData);
-            _iniParse.SaveFile(path, _iniData);
+
+            // Make sure the containing directory exists
+            string directory = Path.GetDirectoryName(Path.GetFullPath(path));
+            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory)) Directory.CreateDirectory(directory);
+
+            try
+            {
+                // Write to temporary file first
+                _iniParse.SaveFile(path + ".new", _iniData);
+                FileUtils.Replace(path + ".new", path);
+            }
+            #region Error handling
+            catch (Exception)
+            {
+                // Clean up failed transactions
+                if (File.Exists(path + ".new")) File.Delete(path + ".new");
+                throw;
+            }
+            #endregion
         }
 
         /// <summary>
         /// Saves the settings to an INI file in the default location in the user profile.
         /// </summary>
+        /// <remarks>This method performs an atomic write operation when possible.</remarks>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void Save()
