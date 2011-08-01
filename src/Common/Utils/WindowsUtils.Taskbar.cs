@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Common.Utils
 {
@@ -37,9 +38,71 @@ namespace Common.Utils
         /// </summary>
         Paused = 0x8
     }
+
+    /// <summary>
+    /// Represents a shell link targeting a file.
+    /// </summary>
+    public struct ShellLink
+    {
+        /// <summary>The title/name of the task link.</summary>
+        public readonly string Title;
+
+        /// <summary>The target path the link shall point to.</summary>
+        public readonly string Path;
+
+        /// <summary>Additional arguments for <see cref="Title"/>; may be <see langword="null"/>.</summary>
+        public readonly string Arguments;
+
+        /// <summary>The path of the icon for the link.</summary>
+        public readonly string IconPath;
+
+        /// <summary>The resouce index within the file specified by <see cref="IconPath"/>.</summary>
+        public readonly int IconIndex;
+
+        /// <summary>
+        /// Creates a new shell link structure.
+        /// </summary>
+        /// <param name="title">The title/name of the task link.</param>
+        /// <param name="path">The target path the link shall point to and to get the icon from.</param>
+        /// <param name="arguments">Additional arguments for <paramref name="title"/>; may be <see langword="null"/>.</param>
+        public ShellLink(string title, string path, string arguments)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(title)) throw new ArgumentNullException("title");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
+            Title = title;
+            IconPath = Path = path;
+            Arguments = arguments;
+            IconIndex = 0;
+        }
+
+        /// <summary>
+        /// Creates a new shell link structure
+        /// </summary>
+        /// <param name="title">The title/name of the task link.</param>
+        /// <param name="path">The target path the link shall point to.</param>
+        /// <param name="arguments">Additional arguments for <paramref name="title"/>; may be <see langword="null"/>.</param>
+        /// <param name="iconPath">The path of the icon for the link.</param>
+        /// <param name="iconIndex">The resouce index within the file specified by <paramref name="iconPath"/>.</param>
+        public ShellLink(string title, string path, string arguments, string iconPath, int iconIndex)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(title)) throw new ArgumentNullException("title");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
+            Title = title;
+            Path = path;
+            Arguments = arguments;
+            IconPath = iconPath;
+            IconIndex = iconIndex;
+        }
+    }
     #endregion
 
-    public static partial class WindowsUtils
+    static partial class WindowsUtils
     {
         #region Enumerations
         private enum ThumbnailMask
@@ -204,6 +267,32 @@ namespace Common.Utils
 
         [ComImport, Guid("2D3468C1-36A7-43B6-AC24-D3F02FD9607A"), ClassInterfaceAttribute(ClassInterfaceType.None)]
         private class CEnumerableObjectCollection {}
+
+        [ComImport, Guid("000214F9-0000-0000-C000-000000000046"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        private interface IShellLinkW
+        {
+            void GetPath([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszFile, int cchMaxPath, IntPtr pfd, uint fFlags);
+            void GetIDList(out IntPtr ppidl);
+            void SetIDList(IntPtr pidl);
+            void GetDescription([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszFile, int cchMaxName);
+            void SetDescription([MarshalAs(UnmanagedType.LPWStr)] string pszName);
+            void GetWorkingDirectory([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszDir, int cchMaxPath);
+            void SetWorkingDirectory([MarshalAs(UnmanagedType.LPWStr)] string pszDir);
+            void GetArguments([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszArgs, int cchMaxPath);
+            void SetArguments([MarshalAs(UnmanagedType.LPWStr)] string pszArgs);
+            void GetHotKey(out short wHotKey);
+            void SetHotKey(short wHotKey);
+            void GetShowCmd(out uint iShowCmd);
+            void SetShowCmd(uint iShowCmd);
+            void GetIconLocation([Out, MarshalAs(UnmanagedType.LPWStr)] out StringBuilder pszIconPath, int cchIconPath, out int iIcon);
+            void SetIconLocation([MarshalAs(UnmanagedType.LPWStr)] string pszIconPath, int iIcon);
+            void SetRelativePath([MarshalAs(UnmanagedType.LPWStr)] string pszPathRel, uint dwReserved);
+            void Resolve(IntPtr hwnd, uint fFlags);
+            void SetPath([MarshalAs(UnmanagedType.LPWStr)] string pszFile);
+        }
+
+        [ComImport, Guid("00021401-0000-0000-C000-000000000046"), ClassInterface(ClassInterfaceType.None)]
+        private class CShellLink { }
         #endregion
 
         #region Taskbar Singleton
@@ -282,6 +371,26 @@ namespace Common.Utils
             if (!string.IsNullOrEmpty(relaunchName)) SetPropertyValue(propertyStore, new PropertyKey(stringFormat, 4), relaunchName);
 
             Marshal.ReleaseComObject(propertyStore);
+        }
+
+        /// <summary>
+        /// Converts a managed shell link structure to a COM object.
+        /// </summary>
+        private static IShellLinkW ConvertShellLink(ShellLink shellLink)
+        {
+            var nativeShellLink = (IShellLinkW)new CShellLink();
+            var nativePropertyStore = (IPropertyStore)nativeShellLink;
+
+            nativeShellLink.SetPath(shellLink.Path);
+            if (!string.IsNullOrEmpty(shellLink.Arguments)) nativeShellLink.SetArguments(shellLink.Arguments);
+            if (!string.IsNullOrEmpty(shellLink.IconPath)) nativeShellLink.SetIconLocation(shellLink.IconPath, shellLink.IconIndex);
+
+            nativeShellLink.SetShowCmd(1); // Normal window state
+
+            SetPropertyValue(nativePropertyStore, new PropertyKey(new Guid("{F29F85E0-4FF9-1068-AB91-08002B27B3D9}"), 2), shellLink.Title);
+            nativePropertyStore.Commit();
+
+            return nativeShellLink;
         }
 
         /// <summary>
