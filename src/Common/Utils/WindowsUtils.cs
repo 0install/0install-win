@@ -169,5 +169,34 @@ namespace Common.Utils
             UnsafeNativeMethods.SetCurrentProcessExplicitAppUserModelID(appID);
         }
         #endregion
+
+        #region Shell
+        /// <summary>
+        /// Informs the Windows shell that changes were made to the file association data in the registry.
+        /// </summary>
+        /// <remarks>This should be called immediatley after the changes in order to trigger a refresh of the Explorer UI.</remarks>
+        public static void NotifyAssocChanged()
+        {
+            if (!IsWindows) return;
+
+            const uint SHCNE_ASSOCCHANGED = 0x08000000;
+            const uint SHCNF_IDLIST = 0;
+            UnsafeNativeMethods.SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, IntPtr.Zero, IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Informs all GUI applications that changes where made to the environment variables (e.g. PATH) and that they should re-pull them.
+        /// </summary>
+        public static void NotifyEnvironmentChanged()
+        {
+            if (!IsWindows) return;
+
+            var HWND_BROADCAST = new IntPtr(0xFFFF);
+            const uint WM_SETTINGCHANGE = 0x001A;
+            const uint SMTO_ABORTIFHUNG = 0x0002;
+            UIntPtr result;
+            UnsafeNativeMethods.SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, UIntPtr.Zero, "Environment", SMTO_ABORTIFHUNG, 10000, out result);
+        }
+        #endregion
     }
 }

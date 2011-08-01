@@ -381,8 +381,8 @@ namespace Common.Utils
             if (algorithm == null) throw new ArgumentNullException("algorithm");
             #endregion
 
-            var locationHash = algorithm.ComputeHash(Encoding.UTF8.GetBytes(value));
-            return BitConverter.ToString(locationHash).Replace("-", "").ToLowerInvariant();
+            var hash = algorithm.ComputeHash(Encoding.UTF8.GetBytes(value));
+            return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
         }
         #endregion
 

@@ -26,7 +26,7 @@ using System.Security;
 
 namespace Common.Utils
 {
-    public static partial class WindowsUtils
+    static partial class WindowsUtils
     {
         [SuppressUnmanagedCodeSecurity]
         private static class SafeNativeMethods

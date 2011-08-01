@@ -26,7 +26,7 @@ using System.Runtime.InteropServices;
 
 namespace Common.Utils
 {
-    public static partial class WindowsUtils
+    static partial class WindowsUtils
     {
         #region Structures
         [StructLayout(LayoutKind.Sequential, Pack = 4)]

@@ -26,7 +26,7 @@ using System.Security.Principal;
 
 namespace Common.Utils
 {
-    public static partial class WindowsUtils
+    static partial class WindowsUtils
     {
         /// <summary>
         /// <see langword="true"/> if the current operating system is a modern desktop Windows version (9x- or NT-based); <see langword="false"/> otherwise.
