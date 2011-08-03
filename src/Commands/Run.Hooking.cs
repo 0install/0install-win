@@ -70,31 +70,33 @@ namespace ZeroInstall.Commands
         /// <param name="implementationDir">The local path the selected main implementation is launched from.</param>
         private RegistryFilter GetRegistryFilter(InterfaceFeed target, string implementationDir)
         {
-            // Locate the selected main implementation
-            var mainImplementation = target.Feed.GetImplementation(Selections.Implementations.First.ID);
-
-            // Create one substitution stub for each command
             var filterRuleList = new LinkedList<RegistryFilterRule>();
-            foreach (var command in mainImplementation.Commands)
+
+            var mainImplementation = target.Feed.GetImplementation(Selections.Implementations.First.ID);
+            if (mainImplementation != null)
             {
-                // Only handle simple commands (executable path, no arguments)
-                if (string.IsNullOrEmpty(command.Path) || !command.Arguments.IsEmpty) continue;
+                // Create one substitution stub for each command
+                foreach (var command in mainImplementation.Commands)
+                {
+                    // Only handle simple commands (executable path, no arguments)
+                    if (string.IsNullOrEmpty(command.Path) || !command.Arguments.IsEmpty) continue;
 
-                string processCommandLine = Path.Combine(implementationDir, command.Path);
+                    string processCommandLine = Path.Combine(implementationDir, command.Path);
 
-                string registryCommandLine;
-                try
-                { // Try to use a system-wide stub if possible
-                    registryCommandLine = DesktopIntegration.Windows.StubProvider.GetRunStub(target, command.Name, true, Policy.Handler);
+                    string registryCommandLine;
+                    try
+                    { // Try to use a system-wide stub if possible
+                        registryCommandLine = StubProvider.GetRunStub(target, command.Name, true, Policy.Handler);
+                    }
+                    catch (UnauthorizedAccessException)
+                    { // Fall back to per-user stub
+                        registryCommandLine = StubProvider.GetRunStub(target, command.Name, false, Policy.Handler);
+                    }
+
+                    // Apply filter with normal and with escaped string
+                    filterRuleList.AddLast(new RegistryFilterRule(processCommandLine, registryCommandLine));
+                    filterRuleList.AddLast(new RegistryFilterRule('"' + processCommandLine + '"', '"' + registryCommandLine + '"'));
                 }
-                catch (UnauthorizedAccessException)
-                { // Fall back to per-user stub
-                    registryCommandLine = DesktopIntegration.Windows.StubProvider.GetRunStub(target, command.Name, false, Policy.Handler);
-                }
-
-                // Apply filter with normal and with escaped string
-                filterRuleList.AddLast(new RegistryFilterRule(processCommandLine, registryCommandLine));
-                filterRuleList.AddLast(new RegistryFilterRule('"' + processCommandLine + '"', '"' + registryCommandLine + '"'));
             }
 
             // Redirect Windows SPAD commands to Zero Install
