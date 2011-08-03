@@ -71,7 +71,7 @@ namespace ZeroInstall.Commands
         private RegistryFilter GetRegistryFilter(InterfaceFeed target, string implementationDir)
         {
             // Locate the selected main implementation
-            var mainImplementation = target.Feed.GetImplementation(Selections.Implementations.Last.ID);
+            var mainImplementation = target.Feed.GetImplementation(Selections.Implementations.First.ID);
 
             // Create one substitution stub for each command
             var filterRuleList = new LinkedList<RegistryFilterRule>();
