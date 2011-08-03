@@ -191,7 +191,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Controls whether Zero Install may install hooks for operating sytem APIs to improve desktop integration.
         /// </summary>
-        [DefaultValue(true), DisplayName("Allow API hooking"), Description("Controls whether Zero Install may install hooks for operating sytem APIs to improve desktop integration.")]
+        [DefaultValue(false), DisplayName("Allow API hooking"), Description("Controls whether Zero Install may install hooks for operating sytem APIs to improve desktop integration.")]
         public bool AllowApiHooking { get { return _allowApiHooking; } set { _allowApiHooking = value; } }
         #endregion
 
