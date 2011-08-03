@@ -54,6 +54,9 @@
     <Compile Include="RegistryFilterRule.cs" />
     <Compile Include="RelaunchControl.cs" />
     <Compile Include="RelaunchEntry.cs" />
+    <None Include="..\..\lib\EasyHook.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="..\..\lib\EasyHook32.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
