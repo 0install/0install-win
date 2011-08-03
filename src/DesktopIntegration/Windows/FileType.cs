@@ -195,8 +195,6 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             if (string.IsNullOrEmpty(capability.ID)) throw new InvalidDataException("Missing ID");
 
-            registryKey.SetValue(RegValueAppUserModelID, GetAppUserModelID(target.InterfaceID, null));
-
             if (capability is Capabilities.UrlProtocol) registryKey.SetValue(UrlProtocol.ProtocolIndicator, "");
 
             string description = capability.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture);
@@ -242,19 +240,6 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string launchCommand = "\"" + StubProvider.GetRunStub(target, verb.Command, systemWide, handler) + "\"";
             if (!string.IsNullOrEmpty(verb.Arguments)) launchCommand += " " + verb.Arguments;
             return launchCommand;
-        }
-
-        /// <summary>
-        /// Generates an application user model ID for use with the Windows 7 taskbar.
-        /// </summary>
-        /// <param name="interfaceID">The interface ID of application being integrated.</param>
-        /// <param name="command">The name of the command within the <see cref="Feed"/> to launch; may be <see langword="null"/>.</param>
-        /// <returns>An application user model ID that uniquely an interface and feed.</returns>
-        internal static string GetAppUserModelID(string interfaceID, string command)
-        {
-            string id = interfaceID;
-            if (!string.IsNullOrEmpty(command)) id += "#" + command;
-            return "ZeroInstallApp." + StringUtils.Hash(id, SHA256.Create());
         }
         #endregion
     }

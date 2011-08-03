@@ -23,6 +23,7 @@ using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using Microsoft.Win32;
+using ZeroInstall.Model.Capabilities;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -94,6 +95,13 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         installInfoKey.SetValue(RegValueShowIconsCommand, exePath + " integrate-app --global --batch --add=icons " + StringUtils.EscapeWhitespace(target.InterfaceID));
                         installInfoKey.SetValue(RegValueHideIconsCommand, exePath + " integrate-app --global --batch --remove=icons " + StringUtils.EscapeWhitespace(target.InterfaceID));
                         installInfoKey.SetValue(RegValueIconsVisible, 0, RegistryValueKind.DWord);
+                    }
+
+                    if (defaultProgram.Service == Capabilities.DefaultProgram.ServiceMail)
+                    {
+                        var mailToProtocol = new Capabilities.UrlProtocol {Verbs = {new Verb {Name = Verb.NameOpen}}};
+                        using (var mailToKey = serviceKey.CreateSubKey(@"Protocols\mailto"))
+                            FileType.RegisterVerbCapability(mailToKey, target, mailToProtocol, true, handler);
                     }
                 }
 
