@@ -193,8 +193,6 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            if (string.IsNullOrEmpty(capability.ID)) throw new InvalidDataException("Missing ID");
-
             if (capability is Capabilities.UrlProtocol) registryKey.SetValue(UrlProtocol.ProtocolIndicator, "");
 
             string description = capability.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture);
