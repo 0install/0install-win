@@ -222,7 +222,7 @@ namespace ZeroInstall.Hooking
             if (_relaunchInformation == null || !WindowsUtils.IsWindows7) return;
 
             // Add correct relaunch information
-            string commandPath = (_relaunchInformation.NeedsTerminal ? _relaunchControl.CommandPathCli : _relaunchControl.CommandPathGui); // Select best suited launcher
+            string commandPath = (_relaunchInformation.NeedsTerminal ? _relaunchControl.CommandPathCli : _relaunchControl.CommandPathGui + " --no-wait"); // Select best suited launcher
             string icon = (string.IsNullOrEmpty(_relaunchInformation.IconPath) ? null : _relaunchInformation.IconPath + ",0"); // Always use the first icon in the file
             WindowsUtils.SetWindowAppID(windowHandle,
                 _relaunchInformation.AppID, '"' + commandPath + "\" run " + _relaunchInformation.Target, icon, _relaunchInformation.Name);
