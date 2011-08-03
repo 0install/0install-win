@@ -38,11 +38,13 @@ namespace ZeroInstall.Hooking
         #endregion
 
         #region Variables
-        private readonly string _interfaceID;
-
         private readonly string _implementationDir;
 
         private readonly RegistryFilter _registryFilter;
+
+        private readonly RelaunchControl _relaunchControl;
+
+        private readonly RelaunchEntry _relaunchInformation;
 
         private LocalHook _regQueryValueExWHook, _regQueryValueExAHook,
             _regSetValueExWHook, _regSetValueExAHook,
@@ -56,14 +58,15 @@ namespace ZeroInstall.Hooking
         /// </summary>
         /// <param name="inContext">Hooking context information.</param>
         /// <param name="environmentVariables">A set of environment variables to be applied to the process.</param>
-        /// <param name="interfaceID">The interface ID the process represents.</param>
-        /// <param name="implenetationDir">The base directory of the implementation containing this executable.</param>
+        /// <param name="implentationDir">The base directory of the implementation containing this executable.</param>
         /// <param name="registryFilter">A set of filter rules to registry access.</param>
-        public EntryPoint(RemoteHooking.IContext inContext, StringDictionary environmentVariables, string interfaceID, string implenetationDir, RegistryFilter registryFilter)
+        /// <param name="relaunchControl">Stores information about how commands within an implementation can be relaunched. Used for Windows 7 taskbar pinning.</param>
+        public EntryPoint(RemoteHooking.IContext inContext, StringDictionary environmentVariables, string implentationDir, RegistryFilter registryFilter, RelaunchControl relaunchControl)
         {
-            _interfaceID = interfaceID;
+            _implementationDir = implentationDir;
             _registryFilter = registryFilter;
-            _implementationDir = implenetationDir;
+            _relaunchControl = relaunchControl;
+            _relaunchInformation = relaunchControl.GetCurrentEntry();
         }
         #endregion
 
@@ -75,10 +78,10 @@ namespace ZeroInstall.Hooking
         /// </summary>
         /// <param name="inContext">Hooking context information.</param>
         /// <param name="environmentVariables">A set of environment variables to be applied to the process.</param>
-        /// <param name="interfaceID">The interface ID the process represents.</param>
-        /// <param name="implenetationDir">The base directory of the implementation containing this executable.</param>
+        /// <param name="implentationDir">The base directory of the implementation containing this executable.</param>
         /// <param name="registryFilter">A set of filter rules to registry access.</param>
-        public void Run(RemoteHooking.IContext inContext, StringDictionary environmentVariables, string interfaceID, string implenetationDir, RegistryFilter registryFilter)
+        /// <param name="relaunchControl">Stores information about how commands within an implementation can be relaunched. Used for Windows 7 taskbar pinning.</param>
+        public void Run(RemoteHooking.IContext inContext, StringDictionary environmentVariables, string implentationDir, RegistryFilter registryFilter, RelaunchControl relaunchControl)
         {
             if (environmentVariables != null)
             {

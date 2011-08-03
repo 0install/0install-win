@@ -16,8 +16,11 @@
  */
 
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using Common.Utils;
+using EasyHook;
 using Microsoft.Win32;
 
 namespace ZeroInstall.Hooking
@@ -103,9 +106,9 @@ namespace ZeroInstall.Hooking
                 result = UnsafeNativeMethods.RegQueryValueExW(hKey, valueName, IntPtr.Zero, out valueType, buffer, ref dataLength);
             } while (result == UnsafeNativeMethods.ErrorMoreData);
 
-            // Filter data
             if (result == 0)
             {
+                // Filter data
                 string registryData = Marshal.PtrToStringUni(buffer, (int)dataLength);
                 Marshal.FreeHGlobal(buffer);
                 return _registryFilter.ReadFilter(registryData);
@@ -169,12 +172,25 @@ namespace ZeroInstall.Hooking
         #region CreateProcess
         private bool CreateProcessCallback(string lpApplicationName, string lpCommandLine, IntPtr lpProcessAttributes, IntPtr lpThreadAttributes, bool bInheritHandles, uint dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, IntPtr lpStartupInfo, out ProcessInformation lpProcessInformation)
         {
-            //string target = Path.GetFullPath(string.IsNullOrEmpty(lpApplicationName) ? lpCommandLine : lpApplicationName);
-            //bool needsInjection = target.StartsWith(_implementationDir) || target.StartsWith('"' + _implementationDir);
+            bool needsInjection;
+            try
+            {
+                string target = Path.GetFullPath(string.IsNullOrEmpty(lpApplicationName) ? lpCommandLine.Trim('"') : lpApplicationName);
+                needsInjection = target.StartsWith(_implementationDir) || target.StartsWith('"' + _implementationDir);
+            }
+            catch
+            {
+                needsInjection = false;
+            }
 
-            //if (needsInjection) dwCreationFlags |= UnsafeNativeMethods.CreateSuspended;
+            if (needsInjection) dwCreationFlags |= UnsafeNativeMethods.CreateSuspended;
             var result = UnsafeNativeMethods.CreateProcessW(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, out lpProcessInformation);
-            //if (needsInjection) RemoteHooking.Inject(lpProcessInformation.dwProcessId, AssemblyStrongName, AssemblyStrongName, null, _interfaceID, _implementationDir, _registryFilter);
+            if (needsInjection) RemoteHooking.Inject(lpProcessInformation.dwProcessId, AssemblyStrongName, AssemblyStrongName,
+                // Custom arguments
+                null, // Environment variables were already set by Win32 API call
+                _implementationDir,
+                _registryFilter,
+                _relaunchControl);
 
             return result;
         }
@@ -183,14 +199,36 @@ namespace ZeroInstall.Hooking
         #region CreateWindowEx
         private IntPtr CreateWindowExWCallback(uint dwExStyle, IntPtr lpClassName, IntPtr lpWindowName, uint dwStyle, int x, int y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hMenu, IntPtr hInstance, IntPtr lpParam)
         {
-            // ToDo: Set AppUserModelID
-            return UnsafeNativeMethods.CreateWindowExW(dwExStyle, lpClassName, lpWindowName, dwStyle, x, y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam);
+            var windowHandle = UnsafeNativeMethods.CreateWindowExW(dwExStyle, lpClassName, lpWindowName, dwStyle, x, y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam);
+            if (hWndParent == IntPtr.Zero) ConfigureTaskbar(windowHandle);
+
+            return windowHandle;
         }
 
         private IntPtr CreateWindowExACallback(uint dwExStyle, IntPtr lpClassName, IntPtr lpWindowName, uint dwStyle, int x, int y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hMenu, IntPtr hInstance, IntPtr lpParam)
         {
-            // ToDo: Set AppUserModelID
-            return UnsafeNativeMethods.CreateWindowExA(dwExStyle, lpClassName, lpWindowName, dwStyle, x, y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam);
+            var windowHandle = UnsafeNativeMethods.CreateWindowExA(dwExStyle, lpClassName, lpWindowName, dwStyle, x, y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam);
+            if (hWndParent == IntPtr.Zero) ConfigureTaskbar(windowHandle);
+
+            return windowHandle;
+        }
+        
+        /// <summary>
+        /// Applies relaunch command and jump list modifications to a Windows 7 taskbar entry.
+        /// </summary>
+        /// <param name="windowHandle">A handle to the window the taskbar entry belongs to.</param>
+        private void ConfigureTaskbar(IntPtr windowHandle)
+        {
+            if (_relaunchInformation == null || !WindowsUtils.IsWindows7) return;
+
+            // Add correct relaunch information
+            string commandPath = (_relaunchInformation.NeedsTerminal ? _relaunchControl.CommandPathCli : _relaunchControl.CommandPathGui); // Select best suited launcher
+            string icon = (string.IsNullOrEmpty(_relaunchInformation.IconPath) ? null : _relaunchInformation.IconPath + ",0"); // Always use the first icon in the file
+            WindowsUtils.SetWindowAppID(windowHandle,
+                _relaunchInformation.AppID, '"' + commandPath + "\" run " + _relaunchInformation.Target, icon, _relaunchInformation.Name);
+
+            // Add jump list entry to select an alternative application version
+            WindowsUtils.AddTaskLinks(_relaunchInformation.AppID, new[] {new ShellLink("Versions", _relaunchControl.CommandPathGui, "run --gui " + _relaunchInformation.Target)});
         }
         #endregion
     }

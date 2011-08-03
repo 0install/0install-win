@@ -16,18 +16,12 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Threading;
 using Common;
 using Common.Collections;
-using Common.Storage;
 using Common.Utils;
-using EasyHook;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Hooking;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 
@@ -37,7 +31,7 @@ namespace ZeroInstall.Commands
     /// This behaves similarly to <see cref="Download"/>, except that it also runs the program after ensuring it is in the cache.
     /// </summary>
     [CLSCompliant(false)]
-    public sealed class Run : Download
+    public sealed partial class Run : Download
     {
         #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
@@ -166,98 +160,6 @@ namespace ZeroInstall.Commands
         private Process StartNormal(Executor executor)
         {
             return Process.Start(executor.GetStartInfo(AdditionalArgs.ToArray()));
-        }
-        #endregion
-
-        #region Hooking
-        /// <summary>
-        /// Starts a process with hooks for operating sytem APIs to improve desktop integration.
-        /// </summary>
-        /// <param name="executor">The process to start.</param>
-        /// <param name="interfaceID">The interface ID the process represents.</param>
-        /// <returns>The newly spawned process.</returns>
-        private Process StartHooked(Executor executor, string interfaceID)
-        {
-            string implementationDir = executor.GetImplementationPath(Selections.Implementations.Last);
-
-            // Get relevant desktop integration data
-            bool stale;
-            var feed = Policy.FeedManager.GetFeed(interfaceID, Policy, out stale);
-            var registryFilter = GetRegistryFilter(new InterfaceFeed(interfaceID, feed), implementationDir);
-
-            // Start proces with hooks
-            int processID;
-            var startInfo = executor.GetStartInfo(AdditionalArgs.ToArray());
-            RemoteHooking.CreateAndInject(startInfo.FileName, startInfo.Arguments, 0, Hooking.EntryPoint.AssemblyStrongName, Hooking.EntryPoint.AssemblyStrongName, out processID, startInfo.EnvironmentVariables, interfaceID, implementationDir, registryFilter);
-
-            try { return Process.GetProcessById(processID); }
-            catch (ArgumentException) { return null; }
-        }
-
-        /// <summary>
-        /// Gets a set of filter rules for registry access.
-        /// </summary>
-        /// <param name="target">The application to be launched.</param>
-        /// <param name="implementationDir">The local path the selected main implementation is launched from.</param>
-        private RegistryFilter GetRegistryFilter(InterfaceFeed target, string implementationDir)
-        {
-            // Locate the selected main implementation
-            var mainImplementation = target.Feed.GetImplementation(Selections.Implementations.Last.ID);
-
-            // Create one substitution stub for each command
-            var filterRuleList = new LinkedList<RegistryFilterRule>();
-            foreach (var command in mainImplementation.Commands)
-            {
-                // Only handle simple commands (executable path, no arguments)
-                if (string.IsNullOrEmpty(command.Path) || !command.Arguments.IsEmpty) continue;
-
-                string processCommandLine = Path.Combine(implementationDir, command.Path);
-
-                string registryCommandLine;
-                try
-                { // Try to use a system-wide stub if possible
-                    registryCommandLine = DesktopIntegration.Windows.StubProvider.GetRunStub(target, command.Name, true, Policy.Handler);
-                }
-                catch(UnauthorizedAccessException)
-                { // Fall back to per-user stub
-                    registryCommandLine = DesktopIntegration.Windows.StubProvider.GetRunStub(target, command.Name, false, Policy.Handler);
-                }
-
-                // Apply filter with normal and with escaped string
-                filterRuleList.AddLast(new RegistryFilterRule(processCommandLine, registryCommandLine));
-                filterRuleList.AddLast(new RegistryFilterRule('"' + processCommandLine + '"', '"' + registryCommandLine + '"'));
-            }
-
-            // Redirect Windows SPAD commands to Zero Install
-            foreach (var capabilityList in target.Feed.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
-            {
-                foreach (var defaultProgram in EnumerableUtils.OfType<Model.Capabilities.DefaultProgram>(capabilityList.Entries))
-                {
-                    if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.Reinstall))
-                        filterRuleList.AddLast(GetInstallCommandFilter(implementationDir, defaultProgram.InstallCommands.Reinstall, defaultProgram.InstallCommands.ReinstallArgs, "--global --batch --add=defaults " + StringUtils.EscapeWhitespace(target.InterfaceID)));
-                    if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.ShowIcons))
-                        filterRuleList.AddLast(GetInstallCommandFilter(implementationDir, defaultProgram.InstallCommands.ShowIcons, defaultProgram.InstallCommands.ShowIconsArgs, "--global --batch --add=icons " + StringUtils.EscapeWhitespace(target.InterfaceID)));
-                    if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.HideIcons))
-                        filterRuleList.AddLast(GetInstallCommandFilter(implementationDir, defaultProgram.InstallCommands.HideIcons, defaultProgram.InstallCommands.HideIconsArgs, "--global --batch --remove=icons " + StringUtils.EscapeWhitespace(target.InterfaceID)));
-                }
-            }
-
-            return new RegistryFilter(filterRuleList);
-        }
-
-        /// <summary>
-        /// Builds a <see cref="RegistryFilterRule"/> for a <see cref="ZeroInstall.Model.Capabilities.InstallCommands"/> entry.
-        /// </summary>
-        /// <param name="implementationDir">The local path the selected main implementation is launched from.</param>
-        /// <param name="command">The path of the command relative to the <paramref name="implementationDir"/>.</param>
-        /// <param name="arguments">Additional arguments passed to the <paramref name="command"/>.</param>
-        /// <param name="zeroInstallCommand">The Zero Install command to be executed instead of the <paramref name="command"/>.</param>
-        private static RegistryFilterRule GetInstallCommandFilter(string implementationDir, string command, string arguments, string zeroInstallCommand)
-        {
-            string exePath = Path.Combine(Locations.InstallBase, "0install-win.exe");
-            return new RegistryFilterRule(
-                StringUtils.EscapeWhitespace(Path.Combine(implementationDir, command)) + " " + arguments,
-                StringUtils.EscapeWhitespace(exePath) + " " + zeroInstallCommand);
         }
         #endregion
     }

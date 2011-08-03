@@ -23,6 +23,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Text;
 
 namespace Common.Utils
 {
@@ -35,6 +36,9 @@ namespace Common.Utils
             [DllImport("kernel32")]
             [return: MarshalAs(UnmanagedType.Bool)]
             public static extern bool IsWow64Process([In] IntPtr hProcess, [Out, MarshalAs(UnmanagedType.Bool)] out bool lpSystemInfo);
+
+            [DllImport("kernel32.dll", SetLastError = true)]
+            public static extern uint GetModuleFileName(IntPtr hModule, [Out]StringBuilder lpFilename, int nSize);
 
 
             // Foreground window

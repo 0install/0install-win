@@ -52,6 +52,8 @@
   <ItemGroup>
     <Compile Include="EntryPoint.Callbacks.cs" />
     <Compile Include="RegistryFilterRule.cs" />
+    <Compile Include="RelaunchControl.cs" />
+    <Compile Include="RelaunchEntry.cs" />
     <None Include="..\..\lib\EasyHook32.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -64,6 +66,10 @@
     <None Include="..\..\lib\EasyHook64Svc.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="..\Common\Utils\WindowsUtils.NativeMethods.cs" />
+    <Compile Include="..\Common\Utils\WindowsUtils.Properties.cs" />
+    <Compile Include="..\Common\Utils\WindowsUtils.Platform.cs" />
+    <Compile Include="..\Common\Utils\WindowsUtils.Taskbar.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="EntryPoint.NativeMethods.cs" />
