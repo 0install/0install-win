@@ -81,11 +81,14 @@ namespace ZeroInstall.Updater.WinForms
                 SetStatus(Resources.DeleteFiles);
                 _updateProcess.DeleteFiles();
 
-                SetStatus(Resources.RunNgen);
-                _updateProcess.RunNgen();
-                
-                SetStatus(Resources.UpdateRegistry);
-                _updateProcess.UpdateRegistry();
+                if (_updateProcess.IsInnoSetup)
+                {
+                    SetStatus(Resources.RunNgen);
+                    _updateProcess.RunNgen();
+
+                    SetStatus(Resources.UpdateRegistry);
+                    _updateProcess.UpdateRegistry();
+                }
             }
             catch (UnauthorizedAccessException)
             {

@@ -22,6 +22,7 @@ using System.Security;
 using System.Security.Cryptography;
 using System.Threading;
 using Common.Utils;
+using Microsoft.Win32;
 using ZeroInstall.Updater.Properties;
 
 namespace ZeroInstall.Updater
@@ -141,6 +142,34 @@ namespace ZeroInstall.Updater
         }
         #endregion
 
+        #region Inno Setup
+        /// <summary>The registry key Inno Setup uses to store uninstall information for Zero Install.</summary>
+        private const string InnoSetupRegKey = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Zero Install_is1";
+
+        /// <summary>
+        /// Indicates whether the <see cref="Target"/> was installed with Inno Setup.
+        /// </summary>
+        public bool IsInnoSetup
+        {
+            get
+            {
+                try
+                {
+                    // Check if the target path is the same as the Inno Setup installation directory
+                    string installationDirectoy = Registry.GetValue(InnoSetupRegKey, "Inno Setup: App Path", "").ToString();
+                    return (installationDirectoy == Target);
+                }
+                #region Error handling
+                catch (SecurityException ex)
+                {
+                    // Wrap exception since only certain exception types are allowed in tasks
+                    throw new UnauthorizedAccessException(ex.Message, ex);
+                }
+                #endregion
+            }
+        }
+        #endregion
+
         #region Run Ngen
         private static readonly string[] _ngenAssemblies = new[] {"ZeroInstall.exe", "0install.exe", "0install-win.exe", "0launch.exe", "0store.exe", "0store-win.exe", "StoreService.exe"};
 
@@ -167,19 +196,12 @@ namespace ZeroInstall.Updater
         {
             try
             {
-                // Check if the target path is a Inno Setup installation
-                using (var innoSetupKeyRead = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Zero Install_is1", false))
-                {
-                    if (innoSetupKeyRead == null) return; // Don't continue if there is no Inno Setup installation
-                    string appPath = (innoSetupKeyRead.GetValue("Inno Setup: App Path") ?? "").ToString();
-                    if (Path.GetFullPath(appPath) != Target) return; // Don't continue if this is an archive extracted in parallel to the Inno Setup installation
-                }
-
                 // Update the Uninstall version entry
-                using (var innoSetupKeyWrite = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Zero Install_is1", true))
-                {
-                    if (innoSetupKeyWrite != null) innoSetupKeyWrite.SetValue("DisplayVersion", NewVersion);
-                }
+                Registry.SetValue(InnoSetupRegKey, "DisplayVersion", NewVersion, RegistryValueKind.String);
+
+                // Store installation location in registry to allow other applications to locate Zero Install
+                Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Zero Install", "InstallLocation", Target, RegistryValueKind.String);
+                if (WindowsUtils.Is64BitProcess) Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Zero Install", "InstallLocation", Target, RegistryValueKind.String);
             }
             #region Error handling
             catch (SecurityException ex)
