@@ -213,6 +213,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="MissingArguments" xml:space="preserve">
     <value>Keine Argumente vorhanden.</value>
   </data>
+  <data name="MissingFeedFor" xml:space="preserve">
+    <value>Fehlendes &lt;feed-for&gt; Element in '{0}'. Es kann nicht als Feed für ein anderes Interface verwendet werden.</value>
+  </data>
   <data name="MissingOptionValue" xml:space="preserve">
     <value>Fehlender benötigter Wert für die Option {0}.</value>
   </data>

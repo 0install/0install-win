@@ -123,6 +123,9 @@
   <data name="FeedNotCachedOffline" xml:space="preserve">
     <value>The feed '{0}' is not cached and Zero Install is currently in off-line mode.</value>
   </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>File not found: {0}</value>
+  </data>
   <data name="MissingInterfaceID" xml:space="preserve">
     <value>No interface was specified.</value>
   </data>

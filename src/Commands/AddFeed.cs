@@ -72,22 +72,22 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
             #endregion
 
-            string feedID = GetCanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
-
             Policy.Handler.ShowProgressUI(Cancel);
 
-            CacheFeed(feedID);
+            string feedID = GetCanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
+
+            // Download the feed to be registered
             bool stale;
             var feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
-
             if (Canceled) throw new UserCancelException();
 
             if (feed.FeedFor.IsEmpty)
             {
-                Policy.Handler.Output(Resources.FeedManagement, string.Format("Missing <feed-for> element in '{0}'; it can't be used as a feed for any other interface.", feedID));
+                Policy.Handler.Output(Resources.FeedManagement, string.Format(Resources.MissingFeedFor, feedID));
                 return 1;
             }
 
+            // Add feed to interface preference fies
             ICollection<string> addedTo = new LinkedList<string>();
             var interfaces = feed.FeedFor.Map(reference => reference.Target.ToString());
             foreach (var interfaceID in interfaces)

@@ -90,7 +90,6 @@ namespace ZeroInstall.Commands
             #region Error handling
             catch (SolverException ex)
             {
-                if (Canceled) throw new UserCancelException();
                 Policy.Handler.Output(Resources.UpdateProblem, ex.Message);
                 return 1;
             }
@@ -100,7 +99,6 @@ namespace ZeroInstall.Commands
 
             DownloadUncachedImplementations();
 
-            if (Canceled) throw new UserCancelException();
             ShowUpdateOutput();
             return 0;
         }

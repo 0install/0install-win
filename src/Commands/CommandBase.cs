@@ -29,10 +29,8 @@ using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
-using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Commands
@@ -193,24 +191,9 @@ namespace ZeroInstall.Commands
 
         #region Helpers
         /// <summary>
-        /// Runs the <see cref="ISolver"/> for a specific interface without keeping the results.
-        /// Used to ensure the relevant <see cref="Feed"/>s is in the <see cref="IFeedCache"/>.
-        /// </summary>
-        /// <remarks>Will become obsolete once <see cref="FeedManager"/> gets its own download logic.</remarks>
-        /// <param name="interfaceID">The interface to run the solver for.</param>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
-        /// <exception cref="IOException">Thrown if an external application or file required by the solver could not be accessed.</exception>
-        /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
-        protected void CacheFeed(string interfaceID)
-        {
-            bool stale;
-            Policy.Solver.Solve(new Requirements {InterfaceID = interfaceID}, Policy, out stale);
-        }
-
-        /// <summary>
         /// Converts an interface or feed ID to its canonical representation.
         /// </summary>
-        /// <remarks>Aliases prefixed by "alias:" are resolved to the IDs they represent; existing local paths are converted to absolute paths. Everything else stays unchanged.</remarks>
+        /// <remarks>Aliases prefixed by "alias:" are resolved to the IDs they represent and relative local paths are converted to absolute paths. Everything else stays unchanged.</remarks>
         protected static string GetCanonicalID(string id)
         {
             #region Sanity checks
@@ -222,13 +205,22 @@ namespace ZeroInstall.Commands
                 // ToDo: Handle alias lookup
                 return id;
             }
-            else if (File.Exists(id))
-            { // Use absolute paths for local files
-                return Path.GetFullPath(id);
+            else if (ModelUtils.IsValidUri(id))
+            {
+                return id;
             }
             else
-            { // Assume a normal URI
-                return id;
+            {
+                // Assume invalid URIs are local paths
+                try { return Path.GetFullPath(id); }
+                #region Error handling
+                catch (ArgumentException)
+                { return id; }
+                catch (NotSupportedException)
+                { return id; }
+                catch (IOException)
+                { return id; }
+                #endregion
             }
         }
         #endregion

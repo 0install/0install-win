@@ -194,7 +194,6 @@ namespace ZeroInstall.Commands
                 Solve();
             }
 
-            if (Canceled) throw new UserCancelException();
             Policy.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
             return 0;
         }
@@ -213,7 +212,16 @@ namespace ZeroInstall.Commands
             // Don't run the solver if the user provided an external selections document
             if (SelectionsDocument) return Selections;
 
-            Selections = Policy.Solver.Solve(Requirements, Policy, out StaleFeeds);
+            try
+            {
+                Selections = Policy.Solver.Solve(Requirements, Policy, out StaleFeeds);
+            }
+            catch
+            {
+                // Suppress any left-over errors if the user cancelled anyway
+                if (Canceled) throw new UserCancelException();
+                throw;
+            }
 
             if (Canceled) throw new UserCancelException();
             return Selections;

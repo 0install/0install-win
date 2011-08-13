@@ -17,13 +17,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
+using Common;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Feeds;
-using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
@@ -67,32 +66,33 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments, "");
             #endregion
 
+            Policy.Handler.ShowProgressUI(Cancel);
+
             string feedID;
             IEnumerable<string> interfaces;
             if (AdditionalArgs.Count == 2)
-            {
+            { // Main interface for feed specified explicitly
                 interfaces = new[] {GetCanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]))};
-                feedID = AdditionalArgs[1];
-                if (File.Exists(feedID)) feedID = Path.GetFullPath(feedID);
+                feedID = GetCanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[1]));
             }
             else
-            {
+            { // Determine interfaces from feed content
                 feedID = GetCanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
 
-                // Run Solver to ensure feed is cached
-                Policy.FeedManager.Refresh = true;
+                // Download the feed to be unregistered
                 bool stale;
-                Policy.Solver.Solve(new Requirements {InterfaceID = feedID}, Policy, out stale);
-
                 var feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
+                if (Canceled) throw new UserCancelException();
+
                 interfaces = feed.FeedFor.Map(reference => reference.Target.ToString());
             }
 
+            // Remove feed from interface preference fies
             ICollection<string> removedFrom = new LinkedList<string>();
             foreach (var interfaceID in interfaces)
             {
                 var preferences = InterfacePreferences.LoadFor(interfaceID);
-                if (preferences.Feeds.Remove(new FeedReference { Source = feedID }))
+                if (preferences.Feeds.Remove(new FeedReference {Source = feedID}))
                     removedFrom.Add(interfaceID);
                 preferences.SaveFor(interfaceID);
             }

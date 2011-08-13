@@ -256,14 +256,14 @@ namespace ZeroInstall.Commands.WinForms
             var genericTask = trackingControl.Task;
             if (genericTask != null && genericTask.CanCancel)
             {
-                // Note: Must perform cancelation on a separate thread because it might send messages back to the GUI thread (which therefor must not be blocked)
+                // Note: Must perform cancellation on a separate thread because it might send messages back to the GUI thread (which therefor must not be blocked)
                 new Thread(genericTask.Cancel).Start();
             }
 
             // Stop tracking selction tasks
             if (IsHandleCreated) selectionsControl.StopTracking();
 
-            // Note: Must perform cancelation on a separate thread because it might send messages back to the GUI thread (which therefor must not be blocked)
+            // Note: Must perform cancellation on a separate thread because it might send messages back to the GUI thread (which therefor must not be blocked)
             new Thread(() => _cancelCallback()).Start();
         }
         #endregion

@@ -17,6 +17,17 @@ namespace ZeroInstall.Model
         /// </summary>
         /// <param name="value">The URI to check for validity.</param>
         /// <returns><see langword="true"/> if <paramref name="value"/> is valid; <see langword="false"/> otherwise.</returns>
+        public static bool IsValidUri(string value)
+        {
+            Uri result;
+            return Uri.TryCreate(value, UriKind.Absolute, out result) && IsValidUri(result);
+        }
+
+        /// <summary>
+        /// Determines whether an URI is a valid feed reference. Must be absolute and use the HTTP(S) protocol.
+        /// </summary>
+        /// <param name="value">The URI to check for validity.</param>
+        /// <returns><see langword="true"/> if <paramref name="value"/> is valid; <see langword="false"/> otherwise.</returns>
         public static bool IsValidUri(Uri value)
         {
             return value != null && value.IsAbsoluteUri && (value.Scheme == Uri.UriSchemeHttp || value.Scheme == Uri.UriSchemeHttps);
@@ -53,8 +64,7 @@ namespace ZeroInstall.Model
             if (StringUtils.CountOccurences(value, '/') < 3) throw new InvalidInterfaceIDException(string.Format(Resources.MissingSlashInUri, value));
 
             // Perform more in-depth URI validation
-            Uri temp;
-            if (!TryParseUri(value, out temp)) throw new InvalidInterfaceIDException(string.Format(Resources.InvalidInterfaceID, value));
+            if (!IsValidUri(value)) throw new InvalidInterfaceIDException(string.Format(Resources.InvalidInterfaceID, value));
         }
         #endregion
 
