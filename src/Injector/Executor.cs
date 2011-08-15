@@ -323,7 +323,7 @@ namespace ZeroInstall.Injector
             for (int i = 0; i < commandLineArray.Length; i++)
                 commandLineArray[i] = StringUtils.ExpandUnixVariables(commandLineArray[i], startInfo.EnvironmentVariables);
 
-            startInfo.Arguments = StringUtils.ConcatenateEscape(commandLineArray);
+            startInfo.Arguments = StringUtils.ConcatenateEscapeArgument(commandLineArray);
         }
         #endregion
 

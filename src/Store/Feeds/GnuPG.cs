@@ -72,7 +72,7 @@ namespace ZeroInstall.Store.Feeds
         public string GetPublicKey(string name)
         {
             string arguments = "--batch --no-secmem-warning --armor --export";
-            if (!string.IsNullOrEmpty(name)) arguments += " --local-user " + StringUtils.EscapeWhitespace(name);
+            if (!string.IsNullOrEmpty(name)) arguments += " --local-user " + StringUtils.EscapeArgument(name);
 
             return Execute(arguments, null);
         }

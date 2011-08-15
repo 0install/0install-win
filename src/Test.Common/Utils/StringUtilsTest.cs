@@ -81,15 +81,15 @@ namespace Common.Utils
         {
             Assert.AreEqual("part1", StringUtils.Concatenate(new[] { "part1" }, " "));
             Assert.AreEqual("part1 part2", StringUtils.Concatenate(new[] { "part1", "part2" }, " "));
-            Assert.AreEqual("\"part1 part2\" part3", StringUtils.ConcatenateEscape(new[] { "part1 part2", "part3" }));
+            Assert.AreEqual("\"part1 part2\" part3", StringUtils.ConcatenateEscapeArgument(new[] { "part1 part2", "part3" }));
         }
 
         [Test]
         public void TestConcatenateEscape()
         {
-            Assert.AreEqual("part1", StringUtils.ConcatenateEscape(new[] {"part1"}));
-            Assert.AreEqual("part1 part2", StringUtils.ConcatenateEscape(new[] {"part1", "part2"}));
-            Assert.AreEqual("\"part1 \\\" part2\" part3", StringUtils.ConcatenateEscape(new[] {"part1 \" part2", "part3"}));
+            Assert.AreEqual("part1", StringUtils.ConcatenateEscapeArgument(new[] {"part1"}));
+            Assert.AreEqual("part1 part2", StringUtils.ConcatenateEscapeArgument(new[] {"part1", "part2"}));
+            Assert.AreEqual("\"part1 \\\" part2\" part3", StringUtils.ConcatenateEscapeArgument(new[] {"part1 \" part2", "part3"}));
         }
 
         [Test]
@@ -113,19 +113,21 @@ namespace Common.Utils
         }
 
         [Test]
-        public void TestEscapeWhitespace()
+        public void TestEscapeArgument()
         {
-            Assert.AreEqual("test", StringUtils.EscapeWhitespace("test"), "Simple strings shouldn't be modified");
-            Assert.AreEqual("\"test1 test2\"", StringUtils.EscapeWhitespace("test1 test2"), "Strings with whitespaces should be encapsulated");
-            Assert.AreEqual("test1\\\"test2", StringUtils.EscapeWhitespace("test1\"test2"), "Quotation marks should be escaped");
+            Assert.AreEqual("test", StringUtils.EscapeArgument("test"), "Simple strings shouldn't be modified");
+            Assert.AreEqual("\"test1 test2\"", StringUtils.EscapeArgument("test1 test2"), "Strings with whitespaces should be encapsulated");
+            Assert.AreEqual("\"test1 test2\\\\\"", StringUtils.EscapeArgument("test1 test2\\"), "Trailing backslashes should be escaped");
+            Assert.AreEqual("test1\\\"test2", StringUtils.EscapeArgument("test1\"test2"), "Quotation marks should be escaped");
         }
 
         [Test]
-        public void TestUnescapeWhitespace()
+        public void TestUnescapeArgument()
         {
-            Assert.AreEqual("test", StringUtils.UnescapeWhitespace("test"), "Simple strings shouldn't be modified");
-            Assert.AreEqual("test1 test2", StringUtils.UnescapeWhitespace("\"test1 test2\""), "Strings with whitespaces should be unencapsulated");
-            Assert.AreEqual("test1\"test2", StringUtils.UnescapeWhitespace("test1\\\"test2"), "Quotation marks should be unescaped");
+            Assert.AreEqual("test", StringUtils.UnescapeArgument("test"), "Simple strings shouldn't be modified");
+            Assert.AreEqual("test1 test2", StringUtils.UnescapeArgument("\"test1 test2\""), "Strings with whitespaces should be unencapsulated");
+            Assert.AreEqual("test1 test2\\", StringUtils.UnescapeArgument("\"test1 test2\\\\\""), "Trailing backslashes should be unescaped");
+            Assert.AreEqual("test1\"test2", StringUtils.UnescapeArgument("test1\\\"test2"), "Quotation marks should be unescaped");
         }
 
         private const string Sha1ForEmptyString = "da39a3ee5e6b4b0d3255bfef95601890afd80709";

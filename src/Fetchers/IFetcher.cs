@@ -55,7 +55,7 @@ namespace ZeroInstall.Fetchers
         /// <summary>
         /// Cancels the execution of a request started by <see cref="Start"/>.
         /// </summary>
-        /// <param name="fetchRequest">The request to be cancelled.</param>
+        /// <param name="fetchRequest">The request to be canceled.</param>
         /// <remarks>Multiple calls or calls for non-running <see cref="FetchRequest"/>s have no effect.</remarks>
         void Cancel(FetchRequest fetchRequest);
     }

@@ -94,7 +94,7 @@ namespace ZeroInstall.Commands
                 Policy.Fetcher.Store = new CompositeStore(new DirectoryStore(path), Policy.Fetcher.Store);
             });
 
-            Options.Add("command=", Resources.OptionCommand, command => _requirements.CommandName = StringUtils.UnescapeWhitespace(command));
+            Options.Add("command=", Resources.OptionCommand, command => _requirements.CommandName = StringUtils.UnescapeArgument(command));
             Options.Add("before=", Resources.OptionBefore, delegate(string version)
             {
                 if (string.IsNullOrEmpty(version)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--before"), "before");
@@ -156,7 +156,7 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count == 0) throw new InvalidInterfaceIDException(Resources.NoInterfaceSpecified);
 
             // The first argument is the interface ID
-            Requirements.InterfaceID = GetCanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs.First));
+            Requirements.InterfaceID = GetCanonicalID(StringUtils.UnescapeArgument(AdditionalArgs.First));
             AdditionalArgs.RemoveFirst();
 
             if (File.Exists(Requirements.InterfaceID))
@@ -218,7 +218,7 @@ namespace ZeroInstall.Commands
             }
             catch
             {
-                // Suppress any left-over errors if the user cancelled anyway
+                // Suppress any left-over errors if the user canceled anyway
                 if (Canceled) throw new UserCancelException();
                 throw;
             }

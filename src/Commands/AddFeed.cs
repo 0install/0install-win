@@ -74,7 +74,7 @@ namespace ZeroInstall.Commands
 
             Policy.Handler.ShowProgressUI(Cancel);
 
-            string feedID = GetCanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
+            string feedID = GetCanonicalID(StringUtils.UnescapeArgument(AdditionalArgs[0]));
 
             // Download the feed to be registered
             bool stale;

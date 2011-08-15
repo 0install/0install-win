@@ -203,30 +203,6 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Combines multiple strings into one using <see cref="EscapeWhitespace"/>.
-        /// </summary>
-        /// <param name="parts">The strings to be combines.</param>
-        public static string ConcatenateEscape(IEnumerable<string> parts)
-        {
-            #region Sanity checks
-            if (parts == null) throw new ArgumentNullException("parts");
-            #endregion
-
-            var output = new StringBuilder();
-            bool first = true;
-            foreach (var part in parts)
-            {
-                // No separator before first or after last line
-                if (first) first = false;
-                else output.Append(' ');
-
-                output.Append(EscapeWhitespace(part));
-            }
-
-            return output.ToString();
-        }
-
-        /// <summary>
         /// Get everything to the left of the first occurrence of a character.
         /// </summary>
         public static string GetLeftPartAtFirstOccurrence(string sourceText, char ch)
@@ -336,34 +312,76 @@ namespace Common.Utils
         }
         #endregion
 
-        #region Whitespace escaping
+        #region Arguments escpaing
         /// <summary>
-        /// Escapes a string, making sure it is encapsulated within <code>"</code> if it contains whitespace characters.
-        /// </summary>
-        /// <remarks>This is how command-line arguments are escaped.</remarks>
-        public static string EscapeWhitespace(string value)
+        /// Escapes a string for use as a command-line argument, making sure it is encapsulated within <code>"</code> if it contains whitespace characters.
+        /// </summary>s
+        public static string EscapeArgument(string value)
         {
             if (value == null) return null;
 
-            value = value.Replace("\"", "\\\"");
-            if (ContainsWhitespace(value)) value = "\"" + value + "\"";
+            value = value.Replace("\"", "\\\""); // Escape quotation marks
+
+            if (ContainsWhitespace(value))
+            {
+                // Escape trailing backslashes
+                if (value.EndsWith("\\")) value += "\\";
+
+                // ToDo: Handle multiple consecutive backslashes
+
+                // Encapsulate within quotation marks
+                value = "\"" + value + "\"";
+            }
             return value;
         }
 
         /// <summary>
-        /// Unescapes a string, reverses the effect of <see cref="EscapeWhitespace"/>.
+        /// Unescapes a string used as a command-line argument, reversing the effect of <see cref="EscapeArgument"/>.
         /// </summary>
-        /// <remarks>This is how command-line arguments are unescaped.</remarks>
-        public static string UnescapeWhitespace(string value)
+        public static string UnescapeArgument(string value)
         {
             if (value == null) return null;
 
-            if (ContainsWhitespace(value) && value.StartsWith("\"") && value.EndsWith("\""))
+            // Remove encapsulating quotation marks
+            if (value.Length > 1 && value.StartsWith("\"") && value.EndsWith("\""))
             {
                 value = value.Remove(0, 1);
                 value = value.Remove(value.Length - 1, 1);
+
+                // Unescape trailing backslashes
+                if (value.EndsWith("\\\\")) value = value.Remove(value.Length - 1, 1);
+
+                // ToDo: Handle multiple consecutive backslashes
             }
-            return value.Replace("\\\"", "\"");
+
+            // Unescape quotation marks
+            value = value.Replace("\\\"", "\"");
+
+            return value;
+        }
+
+        /// <summary>
+        /// Combines multiple strings into one for use as a command-line argument using <see cref="EscapeArgument"/>.
+        /// </summary>
+        /// <param name="parts">The strings to be combines.</param>
+        public static string ConcatenateEscapeArgument(IEnumerable<string> parts)
+        {
+            #region Sanity checks
+            if (parts == null) throw new ArgumentNullException("parts");
+            #endregion
+
+            var output = new StringBuilder();
+            bool first = true;
+            foreach (var part in parts)
+            {
+                // No separator before first or after last line
+                if (first) first = false;
+                else output.Append(' ');
+
+                output.Append(EscapeArgument(part));
+            }
+
+            return output.ToString();
         }
         #endregion
 
