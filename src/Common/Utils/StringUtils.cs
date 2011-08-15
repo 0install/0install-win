@@ -336,31 +336,6 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Unescapes a string used as a command-line argument, reversing the effect of <see cref="EscapeArgument"/>.
-        /// </summary>
-        public static string UnescapeArgument(string value)
-        {
-            if (value == null) return null;
-
-            // Remove encapsulating quotation marks
-            if (value.Length > 1 && value.StartsWith("\"") && value.EndsWith("\""))
-            {
-                value = value.Remove(0, 1);
-                value = value.Remove(value.Length - 1, 1);
-
-                // Unescape trailing backslashes
-                if (value.EndsWith("\\\\")) value = value.Remove(value.Length - 1, 1);
-
-                // ToDo: Handle multiple consecutive backslashes
-            }
-
-            // Unescape quotation marks
-            value = value.Replace("\\\"", "\"");
-
-            return value;
-        }
-
-        /// <summary>
         /// Combines multiple strings into one for use as a command-line argument using <see cref="EscapeArgument"/>.
         /// </summary>
         /// <param name="parts">The strings to be combines.</param>

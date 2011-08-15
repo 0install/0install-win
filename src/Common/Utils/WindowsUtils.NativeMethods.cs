@@ -31,6 +31,11 @@ namespace Common.Utils
         [SuppressUnmanagedCodeSecurity]
         private static class SafeNativeMethods
         {
+            // Command-line arguments
+            [DllImport("shell32", CharSet = CharSet.Unicode, SetLastError = true)]
+            public static extern IntPtr CommandLineToArgvW([MarshalAs(UnmanagedType.LPWStr)] string lpCmdLine, out int pNumArgs);
+
+
             // Platform
             [DllImport("kernel32")]
             [return: MarshalAs(UnmanagedType.Bool)]
@@ -45,6 +50,11 @@ namespace Common.Utils
         [SuppressUnmanagedCodeSecurity]
         private static class UnsafeNativeMethods
         {
+            // Command-line arguments
+            [DllImport("kernel32")]
+            public static extern IntPtr LocalFree(IntPtr hMem);
+
+
             // Taskbar
             [DllImport("shell32", SetLastError = true)]
             public static extern void SetCurrentProcessExplicitAppUserModelID([MarshalAs(UnmanagedType.LPWStr)] string appID);

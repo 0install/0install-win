@@ -72,12 +72,12 @@ namespace ZeroInstall.Commands
             IEnumerable<string> interfaces;
             if (AdditionalArgs.Count == 2)
             { // Main interface for feed specified explicitly
-                interfaces = new[] {GetCanonicalID(StringUtils.UnescapeArgument(AdditionalArgs[0]))};
-                feedID = GetCanonicalID(StringUtils.UnescapeArgument(AdditionalArgs[1]));
+                interfaces = new[] {GetCanonicalID(AdditionalArgs[0])};
+                feedID = GetCanonicalID(AdditionalArgs[1]);
             }
             else
             { // Determine interfaces from feed content
-                feedID = GetCanonicalID(StringUtils.UnescapeArgument(AdditionalArgs[0]));
+                feedID = GetCanonicalID(AdditionalArgs[0]);
 
                 // Download the feed to be unregistered
                 bool stale;

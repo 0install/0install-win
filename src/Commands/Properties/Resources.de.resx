@@ -256,7 +256,8 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
     <value>Zeigt den eingebauten Hilfe-Text an.</value>
   </data>
   <data name="OptionMain" xml:space="preserve">
-    <value>Starte die spezifizierte ausführbare Datei {MAIN} anstellte des Standards. Beginnt der Pfad mit '/' oder '\', ist er relativ zum obersten Verzeichnis der Implementierung. Andernfalls ist er relativ zum Verzeichnis welches das Standardhauptprogramm enthält.</value>
+    <value>Starte die spezifizierte ausführbare Datei {MAIN} anstellte des Standards. Beginnt der Pfad mit '/' oder '\', ist er relativ zum obersten Verzeichnis der Implementierung. Andernfalls ist er relativ zum Verzeichnis welches das Standardhauptprogramm enthält.
+Darf keine Befehlszeilenargumente enthalten! Leerzeichen müssen nicht escaped werden.</value>
   </data>
   <data name="OptionNotBefore" xml:space="preserve">
     <value>Die Version der ausgewählten Implementierung muss nach {VERSION} liegen. Zum Beispiel können Sie damit eine Version 2.0 oder eine spätere starten, in dem Sie '--not-before=2.0' angeben.</value>
@@ -293,7 +294,8 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
 Trotzdem werden neue Downloads nicht in dieses Verzeichnis gespeichert.</value>
   </data>
   <data name="OptionWrapper" xml:space="preserve">
-    <value>Anstelle das ausgewählte Programm direkt auszuführen, führe {COMMAND} PROGRAM ARGS aus. Dies ist nützlich um Debugger und Tracing Tools auf das Programm anzuwenden (anstatt auf Zero Install!).  Beachten Sie, dass der Wrapper in der vom Programm festgelegten Umgebung ausgeführt wird. Somit ist dieser Mechanismus nicht für Sandboxing geeignet.</value>
+    <value>Anstelle das ausgewählte Programm direkt auszuführen, führe {COMMAND} PROGRAM ARGS aus. Dies ist nützlich um Debugger und Tracing Tools auf das Programm anzuwenden (anstatt auf Zero Install!).  Beachten Sie, dass der Wrapper in der vom Programm festgelegten Umgebung ausgeführt wird. Somit ist dieser Mechanismus nicht für Sandboxing geeignet.
+Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</value>
   </data>
   <data name="OptionXml" xml:space="preserve">
     <value>Scheibe ausgewählte Versionen auf die Konsole als Maschinen-lesbares XML.</value>
