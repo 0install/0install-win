@@ -208,10 +208,6 @@ namespace ZeroInstall.Injector
         /// <exception cref="C5.NoSuchItemException">Thrown if <paramref name="key"/> is invalid.</exception>
         public string GetOption(string key)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(key)) throw new ArgumentNullException("key");
-            #endregion
-
             return _metaData[key].Value;
         }
 
@@ -224,10 +220,6 @@ namespace ZeroInstall.Injector
         /// <exception cref="FormatException">Thrown if <paramref name="value"/> is invalid.</exception>
         public void SetOption(string key, string value)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(key)) throw new ArgumentNullException("key");
-            #endregion
-
             _metaData[key].Value = value;
         }
 
