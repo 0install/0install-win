@@ -51,7 +51,7 @@ namespace ZeroInstall.Commands
             // Start proces with hooks
             int processID;
             var startInfo = executor.GetStartInfo(AdditionalArgs.ToArray());
-            RemoteHooking.CreateAndInject(startInfo.FileName, StringUtils.EscapeWhitespace(startInfo.FileName) + " " + startInfo.Arguments, 0, Hooking.EntryPoint.AssemblyStrongName, Hooking.EntryPoint.AssemblyStrongName, out processID,
+            RemoteHooking.CreateAndInject(startInfo.FileName, StringUtils.EscapeArgument(startInfo.FileName) + " " + startInfo.Arguments, 0, Hooking.EntryPoint.AssemblyStrongName, Hooking.EntryPoint.AssemblyStrongName, out processID,
                 // Custom arguments
                 startInfo.EnvironmentVariables,
                 implementationDir,
@@ -105,11 +105,11 @@ namespace ZeroInstall.Commands
                 foreach (var defaultProgram in EnumerableUtils.OfType<Model.Capabilities.DefaultProgram>(capabilityList.Entries))
                 {
                     if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.Reinstall))
-                        filterRuleList.AddLast(GetInstallCommandFilter(implementationDir, defaultProgram.InstallCommands.Reinstall, defaultProgram.InstallCommands.ReinstallArgs, "--global --batch --add=defaults " + StringUtils.EscapeWhitespace(target.InterfaceID)));
+                        filterRuleList.AddLast(GetInstallCommandFilter(implementationDir, defaultProgram.InstallCommands.Reinstall, defaultProgram.InstallCommands.ReinstallArgs, "--global --batch --add=defaults " + StringUtils.EscapeArgument(target.InterfaceID)));
                     if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.ShowIcons))
-                        filterRuleList.AddLast(GetInstallCommandFilter(implementationDir, defaultProgram.InstallCommands.ShowIcons, defaultProgram.InstallCommands.ShowIconsArgs, "--global --batch --add=icons " + StringUtils.EscapeWhitespace(target.InterfaceID)));
+                        filterRuleList.AddLast(GetInstallCommandFilter(implementationDir, defaultProgram.InstallCommands.ShowIcons, defaultProgram.InstallCommands.ShowIconsArgs, "--global --batch --add=icons " + StringUtils.EscapeArgument(target.InterfaceID)));
                     if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.HideIcons))
-                        filterRuleList.AddLast(GetInstallCommandFilter(implementationDir, defaultProgram.InstallCommands.HideIcons, defaultProgram.InstallCommands.HideIconsArgs, "--global --batch --remove=icons " + StringUtils.EscapeWhitespace(target.InterfaceID)));
+                        filterRuleList.AddLast(GetInstallCommandFilter(implementationDir, defaultProgram.InstallCommands.HideIcons, defaultProgram.InstallCommands.HideIconsArgs, "--global --batch --remove=icons " + StringUtils.EscapeArgument(target.InterfaceID)));
                 }
             }
 
@@ -127,8 +127,8 @@ namespace ZeroInstall.Commands
         {
             string exePath = Path.Combine(Locations.InstallBase, "0install-win.exe");
             return new RegistryFilterRule(
-                StringUtils.EscapeWhitespace(Path.Combine(implementationDir, command)) + " " + arguments,
-                StringUtils.EscapeWhitespace(exePath) + " " + zeroInstallCommand);
+                StringUtils.EscapeArgument(Path.Combine(implementationDir, command)) + " " + arguments,
+                StringUtils.EscapeArgument(exePath) + " " + zeroInstallCommand);
         }
         #endregion
 
@@ -140,7 +140,7 @@ namespace ZeroInstall.Commands
         private RelaunchControl GetRelaunchControl(InterfaceFeed target)
         {
             // This will be used as a command-line argument
-            string escapedTarget = StringUtils.EscapeWhitespace(target.InterfaceID);
+            string escapedTarget = StringUtils.EscapeArgument(target.InterfaceID);
 
             // Build a relaunch entry for each entry point
             var entries = new List<RelaunchEntry>();
@@ -152,7 +152,7 @@ namespace ZeroInstall.Commands
                 entries.Add(new RelaunchEntry(
                     entryPoint.BinaryName,
                     entryPoint.Names.GetBestLanguage(CultureInfo.CurrentCulture),
-                     "--command=" + StringUtils.EscapeWhitespace(entryPoint.Command) + " " + escapedTarget,
+                     "--command=" + StringUtils.EscapeArgument(entryPoint.Command) + " " + escapedTarget,
                      entryPoint.NeedsTerminal,
                      GetIconPath(target.Feed, entryPoint.Command)));
             }

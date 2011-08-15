@@ -17,11 +17,13 @@
 
 using System;
 using System.IO;
+using System.Security;
 using System.Security.Cryptography;
 using System.Windows.Forms;
-using Common;
 using Common.Storage;
 using Common.Utils;
+using Microsoft.Win32;
+
 #if !DEBUG
 using Common.Controls;
 #endif
@@ -62,23 +64,24 @@ namespace ZeroInstall.Central.WinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            MainForm form;
-            try { form = new MainForm(); }
-            catch (IOException ex)
+            // Store installation location in registry to allow other applications to locate Zero Install
+            if (!Locations.IsPortable && WindowsUtils.IsWindows && WindowsUtils.IsAdministrator)
             {
-                Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                return;
+                try
+                {
+                    Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Zero Install", "InstallLocation", Locations.InstallBase, RegistryValueKind.String);
+                    if (WindowsUtils.Is64BitProcess) Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Zero Install", "InstallLocation", Locations.InstallBase, RegistryValueKind.String);
+                }
+                #region Error handling
+                catch(SecurityException)
+                {}
+                #endregion
             }
 
 #if DEBUG
-            Application.Run(form);
+            Application.Run(new MainForm());
 #else
-            ErrorReportForm.RunAppMonitored(() => Application.Run(form), new Uri("http://0install.de/error-report/"));
+            ErrorReportForm.RunAppMonitored(() => Application.Run(new MainForm()), new Uri("http://0install.de/error-report/"));
 #endif
         }
 
@@ -94,7 +97,7 @@ namespace ZeroInstall.Central.WinForms
             string appUserModelID = AppUserModelID;
             if (!string.IsNullOrEmpty(subCommand)) appUserModelID += "." + subCommand;
             string exePath = Path.Combine(Locations.InstallBase, ExeName + ".exe");
-            WindowsUtils.SetWindowAppID(form.Handle, appUserModelID, StringUtils.EscapeWhitespace(exePath) + " " + arguments, exePath, name);
+            WindowsUtils.SetWindowAppID(form.Handle, appUserModelID, StringUtils.EscapeArgument(exePath) + " " + arguments, exePath, name);
         }
     }
 }

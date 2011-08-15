@@ -44,12 +44,12 @@ namespace ZeroInstall.Injector
 
         #region Properties
         /// <summary>
-        /// An alternative executable to to run from the main <see cref="Model.Implementation"/> instead of <see cref="Element.Main"/>.
+        /// An alternative executable to to run from the main <see cref="Model.Implementation"/> instead of <see cref="Element.Main"/>. May not contain command-line arguments! Whitespaces do not need to be escaped.
         /// </summary>
         public string Main { get; set; }
 
         /// <summary>
-        /// Instead of executing the selected program directly, pass it as an argument to this program. Useful for debuggers.
+        /// Instead of executing the selected program directly, pass it as an argument to this program. Useful for debuggers. May contain command-line arguments. Whitespaces must be escaped!
         /// </summary>
         public string Wrapper { get; set; }
         #endregion
@@ -90,9 +90,11 @@ namespace ZeroInstall.Injector
             if (_selections.Commands.IsEmpty) throw new CommandException(Resources.NoCommands);
             #endregion
 
-            // Build command-line and add custom wrapper and arguments
+            // Build command-line
             var commandLine = BuildCommandLine(GetCommands());
-            if (!string.IsNullOrEmpty(Wrapper)) commandLine.InsertAll(0, Wrapper.Split(' '));
+            // Add wrapper in front
+            if (!string.IsNullOrEmpty(Wrapper)) commandLine.InsertAll(0, WindowsUtils.SplitArgs(Wrapper));
+            // Append arguments
             commandLine.AddAll(arguments);
 
             // Prepare the new process to launch the implementation
@@ -323,7 +325,7 @@ namespace ZeroInstall.Injector
             for (int i = 0; i < commandLineArray.Length; i++)
                 commandLineArray[i] = StringUtils.ExpandUnixVariables(commandLineArray[i], startInfo.EnvironmentVariables);
 
-            startInfo.Arguments = StringUtils.ConcatenateEscape(commandLineArray);
+            startInfo.Arguments = StringUtils.ConcatenateEscapeArgument(commandLineArray);
         }
         #endregion
 

@@ -81,11 +81,14 @@ namespace ZeroInstall.Updater.WinForms
                 SetStatus(Resources.DeleteFiles);
                 _updateProcess.DeleteFiles();
 
-                SetStatus(Resources.RunNgen);
-                _updateProcess.RunNgen();
-                
-                SetStatus(Resources.UpdateRegistry);
-                _updateProcess.UpdateRegistry();
+                if (_updateProcess.IsInnoSetup)
+                {
+                    SetStatus(Resources.RunNgen);
+                    _updateProcess.RunNgen();
+
+                    SetStatus(Resources.UpdateRegistry);
+                    _updateProcess.UpdateRegistry();
+                }
             }
             catch (UnauthorizedAccessException)
             {
@@ -131,7 +134,7 @@ namespace ZeroInstall.Updater.WinForms
         {
             try
             {
-                var startInfo = new ProcessStartInfo(Application.ExecutablePath, StringUtils.ConcatenateEscape(new[] {_updateProcess.Source, _updateProcess.NewVersion.ToString(), _updateProcess.Target, "--rerun"})) {Verb = "runas"};
+                var startInfo = new ProcessStartInfo(Application.ExecutablePath, StringUtils.ConcatenateEscapeArgument(new[] {_updateProcess.Source, _updateProcess.NewVersion.ToString(), _updateProcess.Target, "--rerun"})) {Verb = "runas"};
                 Process.Start(startInfo).WaitForExit();
             }
             catch (Win32Exception)

@@ -91,7 +91,7 @@ namespace ZeroInstall.Commands
                 if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments, "");
                 if (AdditionalArgs.Count > 3) throw new OptionException(Resources.TooManyArguments, "");
 
-                string interfaceID = GetCanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[1]));
+                string interfaceID = GetCanonicalID(AdditionalArgs[1]);
                 string command = (AdditionalArgs.Count >= 3 ? AdditionalArgs[2] : null);
                 return CreateAlias(integrationManager, AdditionalArgs[0], interfaceID, command);
             }
@@ -108,7 +108,6 @@ namespace ZeroInstall.Commands
         private int CreateAlias(IntegrationManager integrationManager, string aliasName, string interfaceID, string command)
         {
             Policy.Handler.ShowProgressUI(Cancel);
-            CacheFeed(interfaceID);
             bool stale;
             var feed = Policy.FeedManager.GetFeed(interfaceID, Policy, out stale);
 

@@ -49,8 +49,6 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Initializes the main GUI.
         /// </summary>
-        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         public MainForm()
         {
             InitializeComponent();
@@ -223,7 +221,7 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="feedUri">The URI of the feed to be launched.</param>
         private void LaunchFeed(string feedUri)
         {
-            LaunchHelperAssembly("0install-win", "run --gui --no-wait " + StringUtils.EscapeWhitespace(feedUri));
+            LaunchHelperAssembly("0install-win", "run --gui --no-wait " + StringUtils.EscapeArgument(feedUri));
         }
         #endregion
 
@@ -287,7 +285,7 @@ namespace ZeroInstall.Central.WinForms
             string interfaceID = InputBox.Show(null, "Zero Install", Resources.EnterInterfaceUrl);
             if (string.IsNullOrEmpty(interfaceID)) return;
 
-            LaunchHelperAssembly(CommandsExe, "run --gui " + StringUtils.EscapeWhitespace(interfaceID));
+            LaunchHelperAssembly(CommandsExe, "run --gui " + StringUtils.EscapeArgument(interfaceID));
         }
 
         private void buttonCacheManagement_Click(object sender, EventArgs e)

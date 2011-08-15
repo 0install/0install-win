@@ -34,6 +34,39 @@ namespace Common.Utils
     /// </summary>
     public static partial class WindowsUtils
     {
+        #region Command-line arguments
+        /// <summary>
+        /// Tries to split a command-line into individual arguments.
+        /// </summary>
+        /// <param name="commandLine">The command-line to be split.</param>
+        /// <returns>
+        /// An array of individual arguments.
+        /// Will return the entire command-line as one argument when not running on Windows or if splitting failed for some other reason.
+        /// </returns>
+        public static string[] SplitArgs(string commandLine)
+        {
+            if (string.IsNullOrEmpty(commandLine)) return new string[0];
+            if (!IsWindows) return new[] {commandLine};
+
+            int numberOfArgs;
+            var ptrToSplitArgs = SafeNativeMethods.CommandLineToArgvW(commandLine, out numberOfArgs);
+            if (ptrToSplitArgs == IntPtr.Zero) return new[] {commandLine};
+
+            try
+            {
+                // Copy result to managed array
+                var splitArgs = new string[numberOfArgs];
+                for (int i = 0; i < numberOfArgs; i++)
+                    splitArgs[i] = Marshal.PtrToStringUni(Marshal.ReadIntPtr(ptrToSplitArgs, i * IntPtr.Size));
+                return splitArgs;
+            }
+            finally
+            {
+                UnsafeNativeMethods.LocalFree(ptrToSplitArgs);
+            }
+        }
+        #endregion
+
         #region Mutex
         private const int ErrorSuccess = 0, ErrorFileNotFound = 2, ErrorAccessDenied = 5, ErrorAlreadyExists = 183;
         private const UInt32 Synchronize = 0x00100000;

@@ -131,6 +131,8 @@ namespace ZeroInstall.Injector
         [Test]
         public void TestGetStartInfoWrapper()
         {
+            if (!WindowsUtils.IsWindows) throw new InconclusiveException("Wrapper command-line parsing relies on a Win32 API and therefore will not work on non-Windows platforms");
+
             var selections = SelectionsTest.CreateTestSelections();
 
             PrepareStoreMock(selections);

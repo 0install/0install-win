@@ -21,7 +21,6 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using Common;
-using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Capture.Cli.Properties;
 
@@ -146,7 +145,7 @@ namespace ZeroInstall.Capture.Cli
                 {"f|force", Resources.OptionForce, unused => parseResults.Force = true},
                 {"installation-dir=", Resources.OptionInstallationDir, value =>
                 {
-                    try { parseResults.InstallationDirectory = Path.GetFullPath(StringUtils.UnescapeWhitespace(value)); }
+                    try { parseResults.InstallationDirectory = Path.GetFullPath(value); }
                     #region Error handling
                     catch (ArgumentException ex)
                     {
@@ -160,7 +159,7 @@ namespace ZeroInstall.Capture.Cli
                     }
                     #endregion
                 }},
-                {"main-exe=", Resources.OptionMainExe, value => parseResults.MainExe = StringUtils.UnescapeWhitespace(value)},
+                {"main-exe=", Resources.OptionMainExe, value => parseResults.MainExe = value},
                 {"files", Resources.OptionFiles, unused => parseResults.GetFiles = true}
             };
             #endregion
@@ -184,7 +183,7 @@ namespace ZeroInstall.Capture.Cli
             parseResults.Command = additionalArgs[0];
 
             // Determine the capture directory to use
-            try { parseResults.DirectoryPath = (additionalArgs.Count >= 2) ? Path.GetFullPath(StringUtils.UnescapeWhitespace(additionalArgs[1])) : Environment.CurrentDirectory; }
+            try { parseResults.DirectoryPath = (additionalArgs.Count >= 2) ? Path.GetFullPath(additionalArgs[1]) : Environment.CurrentDirectory; }
             #region Error handling
             catch (ArgumentException ex)
             {

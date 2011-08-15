@@ -116,7 +116,6 @@ namespace ZeroInstall.Commands
                 return 0;
             }
 
-            CacheFeed(interfaceID);
             bool stale;
             var feed = Policy.FeedManager.GetFeed(interfaceID, Policy, out stale);
 

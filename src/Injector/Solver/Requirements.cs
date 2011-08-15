@@ -49,7 +49,7 @@ namespace ZeroInstall.Injector.Solver
         /// <summary>
         /// The name of the command in the implementation to execute.
         /// </summary>
-        /// <remarks>Will default to <see cref="Command.NameRun"/> if <see langword="null"/>. Will remove all commands if set to <see cref="string.Empty"/>.</remarks>
+        /// <remarks>Will default to <see cref="Command.NameRun"/> if <see langword="null"/> or empty. Will remove all commands if set to <see cref="string.Empty"/>.</remarks>
         public string CommandName { get; set; }
 
         /// <summary>
@@ -64,12 +64,12 @@ namespace ZeroInstall.Injector.Solver
         public ICollection<CultureInfo> Languages { get { return _languages; } }
 
         /// <summary>
-        /// The lowest-numbered version of the implementation that can be chosen.
+        /// The lowest-numbered version of the implementation that can be chosen. <see langword="null"/> for no lower limit.
         /// </summary>
         public ImplementationVersion NotBeforeVersion { get; set; }
 
         /// <summary>
-        /// This version and all later versions of the implementation are unsuitable.
+        /// This version and all later versions of the implementation are unsuitable. <see langword="null"/> for no upper limit.
         /// </summary>
         public ImplementationVersion BeforeVersion { get; set; }
 
@@ -114,13 +114,13 @@ namespace ZeroInstall.Injector.Solver
         public string ToCommandLineArgs()
         {
             var builder = new StringBuilder();
-            if (!string.IsNullOrEmpty(CommandName)) builder.Append("--command=" + StringUtils.EscapeWhitespace(CommandName) + " ");
+            if (!string.IsNullOrEmpty(CommandName)) builder.Append("--command=" + StringUtils.EscapeArgument(CommandName) + " ");
             if (Architecture.OS != OS.All) builder.Append("--os=" + Architecture.OSString + " ");
             if (Architecture.Cpu != Cpu.All) builder.Append("--cpu=" + Architecture.CpuString + " ");
             // ToDo: Add Languages support
             if (NotBeforeVersion != null) builder.Append("--not-before=" + NotBeforeVersion + " ");
             if (BeforeVersion != null) builder.Append("--before=" + BeforeVersion + " ");
-            builder.Append(StringUtils.EscapeWhitespace(InterfaceID));
+            builder.Append(StringUtils.EscapeArgument(InterfaceID));
             return builder.ToString();
         }
         #endregion

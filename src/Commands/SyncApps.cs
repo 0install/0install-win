@@ -81,7 +81,6 @@ namespace ZeroInstall.Commands
 
             Converter<string, Feed> feedRetreiver = delegate(string interfaceID)
             {
-                CacheFeed(interfaceID);
                 bool stale;
                 return Policy.FeedManager.GetFeed(interfaceID, Policy, out stale);
             };

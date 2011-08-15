@@ -91,8 +91,7 @@ namespace ZeroInstall.Store.Feeds
             {
                 // Take the file name itself and use URL encoding to get the original URL
                 string uri = ModelUtils.Unescape(Path.GetFileName(files[i]) ?? "");
-                Uri temp;
-                if (ModelUtils.TryParseUri(uri, out temp)) result.Add(uri);
+                if (ModelUtils.IsValidUri(uri)) result.Add(uri);
             }
 
             // Return as a C-sorted list
@@ -110,8 +109,8 @@ namespace ZeroInstall.Store.Feeds
             ModelUtils.ValidateInterfaceID(feedID);
             #endregion
 
-            // Local files are passed through directly
-            string path = File.Exists(feedID) ? feedID : Path.Combine(DirectoryPath, ModelUtils.Escape(feedID));
+            // Assume invalid URIs are local paths
+            string path = (ModelUtils.IsValidUri(feedID) ? Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)) : feedID);
 
             if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedID, path));
             

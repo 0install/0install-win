@@ -94,7 +94,7 @@ namespace ZeroInstall.Commands
                 Policy.Fetcher.Store = new CompositeStore(new DirectoryStore(path), Policy.Fetcher.Store);
             });
 
-            Options.Add("command=", Resources.OptionCommand, command => _requirements.CommandName = StringUtils.UnescapeWhitespace(command));
+            Options.Add("command=", Resources.OptionCommand, command => _requirements.CommandName = command);
             Options.Add("before=", Resources.OptionBefore, delegate(string version)
             {
                 if (string.IsNullOrEmpty(version)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--before"), "before");
@@ -153,10 +153,11 @@ namespace ZeroInstall.Commands
         {
             base.Parse(args);
 
-            if (AdditionalArgs.Count == 0) throw new InvalidInterfaceIDException(Resources.NoInterfaceSpecified);
+            if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs.First))
+                throw new InvalidInterfaceIDException(Resources.NoInterfaceSpecified);
 
             // The first argument is the interface ID
-            Requirements.InterfaceID = GetCanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs.First));
+            Requirements.InterfaceID = GetCanonicalID(AdditionalArgs.First);
             AdditionalArgs.RemoveFirst();
 
             if (File.Exists(Requirements.InterfaceID))
@@ -194,7 +195,6 @@ namespace ZeroInstall.Commands
                 Solve();
             }
 
-            if (Canceled) throw new UserCancelException();
             Policy.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
             return 0;
         }
@@ -213,7 +213,16 @@ namespace ZeroInstall.Commands
             // Don't run the solver if the user provided an external selections document
             if (SelectionsDocument) return Selections;
 
-            Selections = Policy.Solver.Solve(Requirements, Policy, out StaleFeeds);
+            try
+            {
+                Selections = Policy.Solver.Solve(Requirements, Policy, out StaleFeeds);
+            }
+            catch
+            {
+                // Suppress any left-over errors if the user canceled anyway
+                if (Canceled) throw new UserCancelException();
+                throw;
+            }
 
             if (Canceled) throw new UserCancelException();
             return Selections;
@@ -240,18 +249,6 @@ namespace ZeroInstall.Commands
         protected string GetSelectionsOutput()
         {
             return ShowXml ? Selections.WriteToString() : Selections.GetHumanReadable(Policy.Fetcher.Store);
-        }
-        #endregion
-
-        #region Cancel
-        /// <summary>
-        /// Cancels the <see cref="Execute"/> session.
-        /// </summary>
-        public override void Cancel()
-        {
-            base.Cancel();
-
-            // ToDo: Cancel Solver
         }
         #endregion
     }

@@ -56,7 +56,6 @@ namespace ZeroInstall.Commands
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
             #endregion
 
-            CacheFeed(interfaceID);
             bool stale;
             var feed = Policy.FeedManager.GetFeed(interfaceID, Policy, out stale);
 

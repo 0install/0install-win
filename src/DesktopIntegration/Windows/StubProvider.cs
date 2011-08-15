@@ -65,8 +65,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             // Build command-line
             string args = "run ";
-            if (!string.IsNullOrEmpty(command)) args += "--command=" + StringUtils.EscapeWhitespace(command) + " ";
-            args += StringUtils.EscapeWhitespace(target.InterfaceID);
+            if (!string.IsNullOrEmpty(command)) args += "--command=" + StringUtils.EscapeArgument(command) + " ";
+            args += StringUtils.EscapeArgument(target.InterfaceID);
 
             var entryPoint = target.Feed.GetEntryPoint(command ?? Command.NameRun);
             bool needsTerminal = target.Feed.NeedsTerminal || (entryPoint != null && entryPoint.NeedsTerminal);
@@ -88,7 +88,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             try
             {
                 string iconPath = IconCacheProvider.CreateDefault().GetIcon(target.Feed.GetIcon(Icon.MimeTypeIco, command).Location, handler);
-                compilerParameters.CompilerOptions += " /win32icon:" + StringUtils.EscapeWhitespace(iconPath);
+                compilerParameters.CompilerOptions += " /win32icon:" + StringUtils.EscapeArgument(iconPath);
             }
             catch (KeyNotFoundException) {}
 
@@ -99,7 +99,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 if (File.Exists(Environment.ExpandEnvironmentVariables(@"%windir%\Microsoft.NET\Framework\v3.5\csc.exe")))
                 { // Use C# v3.5 compiler if available to add Win32 manifest
                     File.WriteAllText(manifestFile.Path, GetEmbeddedResource("Stub.manifest"));
-                    compilerParameters.CompilerOptions += " /win32manifest:" + StringUtils.EscapeWhitespace(manifestFile.Path);
+                    compilerParameters.CompilerOptions += " /win32manifest:" + StringUtils.EscapeArgument(manifestFile.Path);
                     compiler = new CSharpCodeProvider(new Dictionary<string, string> {{"CompilerVersion", "v3.5"}});
                 }
                 else compiler = new CSharpCodeProvider();

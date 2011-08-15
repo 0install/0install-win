@@ -17,7 +17,7 @@ namespace ZeroInstall.Store.Feeds
         /// <summary>
         /// Determines whether this cache contains a local copy of a <see cref="Feed"/> identified by a specific URL.
         /// </summary>
-        /// <param name="feedID">The ID used to identify the feed. May be an HTTP(S) URL or an absolute local path.</param>
+        /// <param name="feedID">The canonical ID used to identify the feed.</param>
         /// <returns>
         ///   <see langword="true"/> if the specified feed is available in this cache;
         ///   <see langword="false"/> if the specified feed is not available in this cache.
@@ -38,7 +38,7 @@ namespace ZeroInstall.Store.Feeds
         /// <summary>
         /// Gets a specific <see cref="Feed"/> from this cache. <see cref="Feed.Simplify"/> is automatically called.
         /// </summary>
-        /// <param name="feedID">The ID used to identify the feed. May be an HTTP(S) URL or an absolute local path.</param>
+        /// <param name="feedID">The canonical ID used to identify the feed.</param>
         /// <returns>The parsed <see cref="Feed"/> object. Do not modify this object! It may be a reference to an in-memory cache entry.</returns>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="feedID"/> was not found in the cache.</exception>
@@ -50,7 +50,7 @@ namespace ZeroInstall.Store.Feeds
         /// <summary>
         /// Adds a new <see cref="Feed"/> file to the cache. Only do this after the feed source has been verified and trusted!
         /// </summary>
-        /// <param name="feedID">The ID used to identify the feed. May be an HTTP(S) URL or an absolute local path.</param>
+        /// <param name="feedID">The canonical ID used to identify the feed.</param>
         /// <param name="path">The local path of the file to be added.</param>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
         /// <exception cref="ReplayAttackException">Thrown if the file to be added is older than a version already located in the cache.</exception>
@@ -62,7 +62,7 @@ namespace ZeroInstall.Store.Feeds
         /// <summary>
         /// Removes a specific <see cref="Feed"/> from this cache.
         /// </summary>
-        /// <param name="feedID">The ID used to identify the feed. May be an HTTP(S) URL or an absolute local path.</param>
+        /// <param name="feedID">The canonical ID used to identify the feed.</param>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="feedID"/> was not found in the cache.</exception>
         /// <exception cref="IOException">Thrown if the feed could not be deleted.</exception>

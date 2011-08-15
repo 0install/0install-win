@@ -95,7 +95,6 @@ namespace ZeroInstall.Commands
 
             DownloadUncachedImplementations();
 
-            if (Canceled) throw new UserCancelException();
             if (_show) Policy.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
             else
             {
@@ -130,7 +129,7 @@ namespace ZeroInstall.Commands
         /// <remarks>Makes sure <see cref="ISolver"/> ran with up-to-date feeds before downloading any implementations.</remarks>
         protected void DownloadUncachedImplementations()
         {
-            // Make sure cancelation doesn't fall within a blind spot between check and Fetcher start
+            // Make sure cancellation doesn't fall within a blind spot between check and Fetcher start
             lock (_fetcherCancelLock)
             {
                 if (Canceled) throw new UserCancelException();
@@ -140,13 +139,13 @@ namespace ZeroInstall.Commands
 
             Policy.Fetcher.Join(_currentFetchRequest);
             _currentFetchRequest = null;
+
+            if (Canceled) throw new UserCancelException(); // ToDo: Remove once implementation fetching can be canceled
         }
         #endregion
 
         #region Cancel
-        /// <summary>
-        /// Cancels the <see cref="Execute"/> session.
-        /// </summary>
+        /// <inheritdoc/>
         public override void Cancel()
         {
             base.Cancel();

@@ -92,9 +92,8 @@ Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Te
 Source: ..\build\Bundled\*; DestDir: {app}; Flags: ignoreversion recursesubdirs
 
 [Registry]
-;These entries were used by the NanoGrid auto-update tool
-Root: HKLM; Subkey: Software\NanoByte\Zero Install; Flags: deletekey
-Root: HKLM; Subkey: Software\Wow6432Node\NanoByte\Zero Install; Flags: deletekey
+Root: HKLM32; Subkey: Software\Zero Install; ValueType: string; ValueName: InstallLocation; ValueData: {app}; Flags: uninsdeletevalue uninsdeletekeyifempty
+Root: HKLM64; Subkey: Software\Zero Install; ValueType: string; ValueName: InstallLocation; ValueData: {app}; Flags: uninsdeletevalue uninsdeletekeyifempty; Check: IsWin64
 
 [Tasks]
 Name: desktopicon; Description: {cm:CreateDesktopIcon}

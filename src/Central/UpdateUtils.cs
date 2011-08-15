@@ -38,7 +38,7 @@ namespace ZeroInstall.Central
         /// </summary>
         /// <param name="policy">Combines UI access, preferences and resources used to solve dependencies and download implementations.</param>
         /// <returns>The version number of the newest available update; <see langword="null"/> if no update is available.</returns>
-        /// <exception cref="UserCancelException">Thrown if the user cancelled the operation.</exception>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the operation.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if an operation failed due to insufficient rights.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>

@@ -210,7 +210,7 @@ namespace ZeroInstall.Publish.Cli
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
         /// <returns>The error code to end the process with.</returns>
-        /// <exception cref="UserCancelException">Thrown if the user cancelled the operation.</exception>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the operation.</exception>
         /// <exception cref="OptionException">Thrown if the specified feed file paths were invalid.</exception>
         /// <exception cref="InvalidDataException">Thrown if a feed file is damaged.</exception>
         /// <exception cref="FileNotFoundException">Thrown if a feed file could not be found.</exception>

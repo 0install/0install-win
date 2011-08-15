@@ -61,7 +61,7 @@ namespace ZeroInstall.Alias.Cli
             if (Array.Exists(args, arg => arg == "--gui"))
             {
                 // ToDo: Automatically switch to GTK# on Linux
-                var process = ProcessUtils.LaunchHelperAssembly("0install-win", "add-alias " + StringUtils.ConcatenateEscape(args));
+                var process = ProcessUtils.LaunchHelperAssembly("0install-win", "add-alias " + StringUtils.ConcatenateEscapeArgument(args));
                 process.WaitForExit();
                 return process.ExitCode;
             }

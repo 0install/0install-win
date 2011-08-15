@@ -21,7 +21,6 @@ using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
-using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -60,7 +59,7 @@ namespace ZeroInstall.Commands
             if (SystemWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
 
             Policy.Handler.ShowProgressUI(Cancel);
-            string interfaceID = GetCanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
+            string interfaceID = GetCanonicalID(AdditionalArgs[0]);
             using (var integrationManager = new CategoryIntegrationManager(SystemWide))
                 return ExecuteHelper(interfaceID, integrationManager);
         }
