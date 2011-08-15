@@ -60,7 +60,7 @@ namespace ZeroInstall.Commands
             FetcherMock.Expect("Start");
             FetcherMock.Expect("Join");
 
-            var args = new[] {"http://0install.de/feeds/test/test1.xml", "--command=\"command name\"", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0"};
+            var args = new[] {"http://0install.de/feeds/test/test1.xml", "--command=command name", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0"};
             AssertParseExecuteResult(args, selectionsNew, "http://0install.de/feeds/test/test2.xml: 1.0 -> 2.0" + Environment.NewLine + "http://0install.de/feeds/test/sub3.xml: new -> 0.1", 0);
         }
         

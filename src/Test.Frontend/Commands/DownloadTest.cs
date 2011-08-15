@@ -55,7 +55,7 @@ namespace ZeroInstall.Commands
             var refreshPolicy = Policy.ClonePolicy();
             refreshPolicy.FeedManager.Refresh = true;
 
-            var args = new[] {"http://0install.de/feeds/test/test1.xml", "--command=\"command name\"", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0"};
+            var args = new[] {"http://0install.de/feeds/test/test1.xml", "--command=command name", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0"};
             Command.Parse(args);
 
             SolverMock.ExpectAndReturn("Solve", selections, requirements, Policy, false); // First Solve()
