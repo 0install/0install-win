@@ -251,17 +251,5 @@ namespace ZeroInstall.Commands
             return ShowXml ? Selections.WriteToString() : Selections.GetHumanReadable(Policy.Fetcher.Store);
         }
         #endregion
-
-        #region Cancel
-        /// <summary>
-        /// Cancels the <see cref="Execute"/> session.
-        /// </summary>
-        public override void Cancel()
-        {
-            base.Cancel();
-
-            // ToDo: Cancel Solver
-        }
-        #endregion
     }
 }

@@ -140,14 +140,12 @@ namespace ZeroInstall.Commands
             Policy.Fetcher.Join(_currentFetchRequest);
             _currentFetchRequest = null;
 
-            if (Canceled) throw new UserCancelException();
+            if (Canceled) throw new UserCancelException(); // ToDo: Remove once implementation fetching can be canceled
         }
         #endregion
 
         #region Cancel
-        /// <summary>
-        /// Cancels the <see cref="Execute"/> session.
-        /// </summary>
+        /// <inheritdoc/>
         public override void Cancel()
         {
             base.Cancel();

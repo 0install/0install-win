@@ -79,7 +79,7 @@ namespace ZeroInstall.Commands
             // Download the feed to be registered
             bool stale;
             var feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
-            if (Canceled) throw new UserCancelException();
+            if (Canceled) throw new UserCancelException(); // ToDo: Remove once feed retrieval can be canceled
 
             if (feed.FeedFor.IsEmpty)
             {

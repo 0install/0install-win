@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using Common;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
@@ -27,23 +28,23 @@ using ZeroInstall.Store.Feeds;
 namespace ZeroInstall.Injector.Feeds
 {
     /// <summary>
-    /// Provides access to remote and local <see cref="Model.Feed"/>s. Handles downloading, signature verification and caching.
+    /// Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.
     /// </summary>
     public class FeedManager : IEquatable<FeedManager>, ICloneable
     {
         #region Properties
         /// <summary>
-        /// The cache to retreive <see cref="Model.Feed"/>s from and store downloaded <see cref="Model.Feed"/>s to.
+        /// The cache to retreive <see cref="Feed"/>s from and store downloaded <see cref="Feed"/>s to.
         /// </summary>
         public IFeedCache Cache { get; private set; }
 
         /// <summary>
-        /// The OpenPGP-compatible encryption/signature system used to validate new <see cref="Model.Feed"/>s signatures.
+        /// The OpenPGP-compatible encryption/signature system used to validate new <see cref="Feed"/>s signatures.
         /// </summary>
         public IOpenPgp OpenPgp { get; private set; }
 
         /// <summary>
-        /// Set to <see langword="true"/> to update already cached <see cref="Model.Feed"/>s. 
+        /// Set to <see langword="true"/> to update already cached <see cref="Feed"/>s. 
         /// </summary>
         public bool Refresh { get; set; }
         #endregion
@@ -52,8 +53,8 @@ namespace ZeroInstall.Injector.Feeds
         /// <summary>
         /// Creates a new cache based on the given path to a cache directory.
         /// </summary>
-        /// <param name="cache">The disk-based cache to store downloaded <see cref="Model.Feed"/>s.</param>
-        /// <param name="openPgp">The OpenPGP-compatible encryption/signature system used to validate new <see cref="Model.Feed"/>s signatures.</param>
+        /// <param name="cache">The disk-based cache to store downloaded <see cref="Feed"/>s.</param>
+        /// <param name="openPgp">The OpenPGP-compatible encryption/signature system used to validate new <see cref="Feed"/>s signatures.</param>
         public FeedManager(IFeedCache cache, IOpenPgp openPgp)
         {
             #region Sanity checks
@@ -69,17 +70,18 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Get feed
         /// <summary>
-        /// Returns a specific <see cref="Model.Feed"/>.
+        /// Returns a specific <see cref="Feed"/>.
         /// </summary>
         /// <param name="feedID">The canonical ID used to identify the feed.</param>
         /// <param name="policy">Combines UI access, configuration and resources used to solve dependencies and download implementations.</param>
-        /// <param name="stale">Indicates that the returned <see cref="Model.Feed"/> should be updated.</param>
-        /// <returns>The parsed <see cref="Model.Feed"/> object.</returns>
-        /// <remarks><see cref="Model.Feed"/>s are always served from the <see cref="Cache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
-        /// <exception cref="Model.InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
+        /// <param name="stale">Indicates that the returned <see cref="Feed"/> should be updated.</param>
+        /// <returns>The parsed <see cref="Feed"/> object.</returns>
+        /// <remarks><see cref="Feed"/>s are always served from the <see cref="Cache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
+        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
         public Feed GetFeed(string feedID, Policy policy, out bool stale)
         {
             #region Sanity checks
@@ -112,7 +114,9 @@ namespace ZeroInstall.Injector.Feeds
         /// Loads a <see cref="Feed"/> from a local file.
         /// </summary>
         /// <param name="feedID">The ID used to identify the feed. Must be an absolute local path.</param>
-        /// <returns>The parsed <see cref="Model.Feed"/> object.</returns>
+        /// <returns>The parsed <see cref="Feed"/> object.</returns>
+        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
         private Feed LoadLocalFeed(string feedID)
         {
             if (File.Exists(feedID))
@@ -135,6 +139,11 @@ namespace ZeroInstall.Injector.Feeds
         /// </summary>
         /// <param name="feedID">The ID used to identify the feed. Must be an HTTP(S) URL.</param>
         /// <param name="policy">Combines UI access, configuration and resources used to solve dependencies and download implementations.</param>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
+        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
+        /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
         private void DownloadFeed(string feedID, Policy policy)
         {
             // HACK: Use the external solver to download feeds to the cache
@@ -151,8 +160,11 @@ namespace ZeroInstall.Injector.Feeds
         /// </summary>
         /// <param name="feedID">The ID used to identify the feed. Must be an HTTP(S) URL.</param>
         /// <param name="policy">Combines UI access, configuration and resources used to solve dependencies and download implementations.</param>
-        /// <param name="stale">Indicates that the returned <see cref="Model.Feed"/> should be updated.</param>
-        /// <returns>The parsed <see cref="Model.Feed"/> object.</returns>
+        /// <param name="stale">Indicates that the returned <see cref="Feed"/> should be updated.</param>
+        /// <returns>The parsed <see cref="Feed"/> object.</returns>
+        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
         private Feed LoadCachedFeed(string feedID, Policy policy, out bool stale)
         {
             // Detect when feeds get out-of-date
