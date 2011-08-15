@@ -75,7 +75,7 @@ namespace ZeroInstall.Injector.Solver
             string arguments = "";
             if (policy.Config.NetworkUse == NetworkLevel.Offline) arguments += "--offline ";
             if (policy.FeedManager.Refresh) arguments += "--refresh ";
-            if (requirements.CommandName != null) arguments += "--command=\"" + requirements.CommandName + "\" ";
+            if (!string.IsNullOrEmpty(requirements.CommandName)) arguments += "--command=\"" + requirements.CommandName + "\" ";
             if (requirements.BeforeVersion != null) arguments += "--before=" + requirements.BeforeVersion + " ";
             if (requirements.NotBeforeVersion != null) arguments += "--not-before=" + requirements.NotBeforeVersion + " ";
             if (requirements.Architecture.Cpu == Cpu.Source) arguments += "--source ";

@@ -49,7 +49,7 @@ namespace ZeroInstall.Injector.Solver
         /// <summary>
         /// The name of the command in the implementation to execute.
         /// </summary>
-        /// <remarks>Will default to <see cref="Command.NameRun"/> if <see langword="null"/>. Will remove all commands if set to <see cref="string.Empty"/>.</remarks>
+        /// <remarks>Will default to <see cref="Command.NameRun"/> if <see langword="null"/> or empty. Will remove all commands if set to <see cref="string.Empty"/>.</remarks>
         public string CommandName { get; set; }
 
         /// <summary>
@@ -64,12 +64,12 @@ namespace ZeroInstall.Injector.Solver
         public ICollection<CultureInfo> Languages { get { return _languages; } }
 
         /// <summary>
-        /// The lowest-numbered version of the implementation that can be chosen.
+        /// The lowest-numbered version of the implementation that can be chosen. <see langword="null"/> for no lower limit.
         /// </summary>
         public ImplementationVersion NotBeforeVersion { get; set; }
 
         /// <summary>
-        /// This version and all later versions of the implementation are unsuitable.
+        /// This version and all later versions of the implementation are unsuitable. <see langword="null"/> for no upper limit.
         /// </summary>
         public ImplementationVersion BeforeVersion { get; set; }
 

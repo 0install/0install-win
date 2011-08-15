@@ -153,7 +153,8 @@ namespace ZeroInstall.Commands
         {
             base.Parse(args);
 
-            if (AdditionalArgs.Count == 0) throw new InvalidInterfaceIDException(Resources.NoInterfaceSpecified);
+            if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs.First))
+                throw new InvalidInterfaceIDException(Resources.NoInterfaceSpecified);
 
             // The first argument is the interface ID
             Requirements.InterfaceID = GetCanonicalID(AdditionalArgs.First);
