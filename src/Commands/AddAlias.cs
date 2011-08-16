@@ -77,7 +77,7 @@ namespace ZeroInstall.Commands
             if (Locations.IsPortable) throw new NotSupportedException(Resources.NotAvailableInPortableMode);
             if (SystemWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
 
-            if (AdditionalArgs.Count < 1) throw new OptionException(Resources.MissingArguments, "");
+            if (AdditionalArgs.Count < 1 || string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
 
             using (var integrationManager = new IntegrationManager(SystemWide))
             {
@@ -88,7 +88,7 @@ namespace ZeroInstall.Commands
                     return ResolveOrRemove(integrationManager, AdditionalArgs[0]);
                 }
 
-                if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments, "");
+                if (AdditionalArgs.Count < 2 || string.IsNullOrEmpty(AdditionalArgs[1])) throw new OptionException(Resources.MissingArguments, "");
                 if (AdditionalArgs.Count > 3) throw new OptionException(Resources.TooManyArguments, "");
 
                 string interfaceID = GetCanonicalID(AdditionalArgs[1]);
@@ -103,7 +103,7 @@ namespace ZeroInstall.Commands
         /// <param name="integrationManager">Manages desktop integration operations.</param>
         /// <param name="aliasName">The name of the alias to create.</param>
         /// <param name="interfaceID">The interface ID the alias shall point to.</param>
-        /// <param name="command">A command within the interface the alias shall point to.</param>
+        /// <param name="command">A command within the interface the alias shall point to; may be <see langword="null"/>.</param>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
         private int CreateAlias(IntegrationManager integrationManager, string aliasName, string interfaceID, string command)
         {
