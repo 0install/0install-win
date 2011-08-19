@@ -1,6 +1,6 @@
 NUnit 2.5.10
 http://www.nunit.org/
-Modified zlib license
+Modified zlib license: nunit.license.txt
 Source unmodified
 Pre-compiled managed DLLs: nunit.framework.dll, nunit.mocks.dll
 
