@@ -60,8 +60,8 @@ ChangesEnvironment=yes
 UninstallDisplayIcon={app}\ZeroInstall.exe
 UninstallDisplayName=Zero Install
 SetupIconFile=Setup.ico
-WizardImageFile=compiler:WizModernImage-IS.bmp
-WizardSmallImageFile=compiler:WizModernSmallImage-IS.bmp
+WizardImageFile=WizModernImage.bmp
+WizardSmallImageFile=WizModernSmallImage.bmp
 Compression=lzma/ultra
 SolidCompression=true
 
