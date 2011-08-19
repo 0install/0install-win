@@ -1,6 +1,6 @@
 NUnit 2.5.10
 http://www.nunit.org/
-Modified zlib license
+Modified zlib license: nunit.license.txt
 Source unmodified
 Pre-compiled managed DLLs: nunit.framework.dll, nunit.mocks.dll
 
@@ -28,13 +28,13 @@ Public domain
 Source unmodified
 Self-compiled managed DLL: TaskDialog.dll
 
-The C5 Generic Collection Library 1.1.0
+The C5 Generic Collection Library 1.1.1
 http://www.itu.dk/research/c5/
 MIT-style open license: C5.license.txt
 Source unmodified
 Pre-compiled managed DLL: C5.dll
 
-INI File Parser v1.5.5
+INI File Parser v1.7
 http://code.google.com/p/ini-parser/
 MIT License: http://www.opensource.org/licenses/mit-license.php
 Source unmodified

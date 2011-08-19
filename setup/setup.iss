@@ -1,5 +1,5 @@
 ;Version numbers
-#define Version "1.1.1"
+#define Version "1.1.2"
 
 ;Automatic dependency download and installation
 #include "scripts\fileversion.iss"
@@ -60,8 +60,8 @@ ChangesEnvironment=yes
 UninstallDisplayIcon={app}\ZeroInstall.exe
 UninstallDisplayName=Zero Install
 SetupIconFile=Setup.ico
-WizardImageFile=compiler:WizModernImage-IS.bmp
-WizardSmallImageFile=compiler:WizModernSmallImage-IS.bmp
+WizardImageFile=WizModernImage.bmp
+WizardSmallImageFile=WizModernSmallImage.bmp
 Compression=lzma/ultra
 SolidCompression=true
 
