@@ -28,7 +28,7 @@ Public domain
 Source unmodified
 Self-compiled managed DLL: TaskDialog.dll
 
-The C5 Generic Collection Library 1.1.0
+The C5 Generic Collection Library 1.1.1
 http://www.itu.dk/research/c5/
 MIT-style open license: C5.license.txt
 Source unmodified
