@@ -156,7 +156,7 @@ namespace ZeroInstall.Updater
                 try
                 {
                     // Check if the target path is the same as the Inno Setup installation directory
-                    string installationDirectoy = Registry.GetValue(InnoSetupRegKey, "Inno Setup: App Path", "").ToString();
+                    string installationDirectoy = Registry.GetValue(InnoSetupRegKey, "Inno Setup: App Path", "") as string;
                     return (installationDirectoy == Target);
                 }
                 #region Error handling

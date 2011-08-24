@@ -13,8 +13,8 @@ using System.Runtime.InteropServices;
 [assembly: NeutralResourcesLanguage("en")]
 
 // Version information
-[assembly: AssemblyVersion("1.0.1")]
-[assembly: AssemblyFileVersion("1.0.1")]
+[assembly: AssemblyVersion("1.0.5")]
+[assembly: AssemblyFileVersion("1.0.5")]
 
 // Security settings
 [assembly: CLSCompliant(true)]
