@@ -117,9 +117,9 @@ namespace ZeroInstall.Hooking
             _regSetValueExAHook = LocalHook.Create(LocalHook.GetProcAddress("advapi32.dll", "RegSetValueExA"), new UnsafeNativeMethods.DRegSetValueExA(RegSetValueExACallback), null);
             _regSetValueExAHook.ThreadACL.SetExclusiveACL(new[] {0});
 
-            _createProcessWHook = LocalHook.Create(LocalHook.GetProcAddress("kernel32.dll", "CreateProcessW"), new UnsafeNativeMethods.DCreateProcessW(CreateProcessCallback), null);
+            _createProcessWHook = LocalHook.Create(LocalHook.GetProcAddress("kernel32.dll", "CreateProcessW"), new UnsafeNativeMethods.DCreateProcessW(CreateProcessWCallback), null);
             _createProcessWHook.ThreadACL.SetExclusiveACL(new[] {0});
-            _createProcessAHook = LocalHook.Create(LocalHook.GetProcAddress("kernel32.dll", "CreateProcessA"), new UnsafeNativeMethods.DCreateProcessA(CreateProcessCallback), null);
+            _createProcessAHook = LocalHook.Create(LocalHook.GetProcAddress("kernel32.dll", "CreateProcessA"), new UnsafeNativeMethods.DCreateProcessA(CreateProcessACallback), null);
             _createProcessAHook.ThreadACL.SetExclusiveACL(new[] {0});
 
             _createWindowExWHook = LocalHook.Create(LocalHook.GetProcAddress("user32.dll", "CreateWindowExW"), new UnsafeNativeMethods.DCreateWindowExW(CreateWindowExWCallback), null);

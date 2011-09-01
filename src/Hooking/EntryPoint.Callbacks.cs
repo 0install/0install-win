@@ -170,7 +170,7 @@ namespace ZeroInstall.Hooking
         #endregion
 
         #region CreateProcess
-        private bool CreateProcessCallback(string lpApplicationName, string lpCommandLine, IntPtr lpProcessAttributes, IntPtr lpThreadAttributes, bool bInheritHandles, uint dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, IntPtr lpStartupInfo, out ProcessInformation lpProcessInformation)
+        private bool CreateProcessWCallback(string lpApplicationName, string lpCommandLine, IntPtr lpProcessAttributes, IntPtr lpThreadAttributes, bool bInheritHandles, uint dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, IntPtr lpStartupInfo, out ProcessInformation lpProcessInformation)
         {
             bool needsInjection;
             try
@@ -187,10 +187,29 @@ namespace ZeroInstall.Hooking
             var result = UnsafeNativeMethods.CreateProcessW(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, out lpProcessInformation);
             if (needsInjection) RemoteHooking.Inject(lpProcessInformation.dwProcessId, AssemblyStrongName, AssemblyStrongName,
                 // Custom arguments
-                null, // Environment variables were already set by Win32 API call
-                _implementationDir,
-                _registryFilter,
-                _relaunchControl);
+                _implementationDir, _registryFilter, _relaunchControl);
+
+            return result;
+        }
+
+        private bool CreateProcessACallback(string lpApplicationName, string lpCommandLine, IntPtr lpProcessAttributes, IntPtr lpThreadAttributes, bool bInheritHandles, uint dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, IntPtr lpStartupInfo, out ProcessInformation lpProcessInformation)
+        {
+            bool needsInjection;
+            try
+            {
+                string target = Path.GetFullPath(string.IsNullOrEmpty(lpApplicationName) ? lpCommandLine.Trim('"') : lpApplicationName);
+                needsInjection = target.StartsWith(_implementationDir) || target.StartsWith('"' + _implementationDir);
+            }
+            catch
+            {
+                needsInjection = false;
+            }
+
+            if (needsInjection) dwCreationFlags |= UnsafeNativeMethods.CreateSuspended;
+            var result = UnsafeNativeMethods.CreateProcessA(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, out lpProcessInformation);
+            if (needsInjection) RemoteHooking.Inject(lpProcessInformation.dwProcessId, AssemblyStrongName, AssemblyStrongName,
+                // Custom arguments
+                _implementationDir, _registryFilter, _relaunchControl);
 
             return result;
         }
