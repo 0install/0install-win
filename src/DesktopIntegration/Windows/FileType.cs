@@ -20,10 +20,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Net;
-using System.Security.Cryptography;
 using Common;
 using Common.Tasks;
-using Common.Utils;
 using Microsoft.Win32;
 using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
@@ -36,6 +34,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
     public static class FileType
     {
         #region Constants
+        /// <summary>Prepended before any programatic identifiers used by Zero Install in the registry. This prevents conflicts with non-Zero Install installations.</summary>
+        internal const string ProgIDPrefix = "";
+
         /// <summary>The HKCU/HKLM registry key backing HKCR.</summary>
         public const string RegKeyClasses = @"SOFTWARE\Classes";
 
@@ -93,7 +94,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
 
             // Register ProgID
-            using (var progIDKey = hive.CreateSubKey(RegKeyClasses + @"\" + fileType.ID))
+            using (var progIDKey = hive.CreateSubKey(RegKeyClasses + @"\" + FileType.ProgIDPrefix + fileType.ID))
                 RegisterVerbCapability(progIDKey, target, fileType, systemWide, handler);
 
             using (var classesKey = hive.OpenSubKey(RegKeyClasses, true))
@@ -109,9 +110,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         if (!string.IsNullOrEmpty(extension.PerceivedType)) extensionKey.SetValue(RegValuePerceivedType, extension.PerceivedType);
 
                         using (var openWithKey = extensionKey.CreateSubKey(RegSubKeyOpenWith))
-                            openWithKey.SetValue(fileType.ID, "");
+                            openWithKey.SetValue(FileType.ProgIDPrefix + fileType.ID, "");
 
-                        if (setDefault) extensionKey.SetValue("", fileType.ID);
+                        if (setDefault) extensionKey.SetValue("", FileType.ProgIDPrefix + fileType.ID);
                     }
 
                     // Register MIME types
@@ -159,14 +160,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     using (var extensionKey = classesKey.CreateSubKey(extension.Value))
                     {
                         using (var openWithKey = extensionKey.CreateSubKey(RegSubKeyOpenWith))
-                            openWithKey.DeleteValue(fileType.ID, false);
+                            openWithKey.DeleteValue(FileType.ProgIDPrefix + fileType.ID, false);
 
                         // ToDo: Restore previous default
                     }
                 }
 
                 // Remove ProgID
-                try { classesKey.DeleteSubKeyTree(fileType.ID); }
+                try { classesKey.DeleteSubKeyTree(FileType.ProgIDPrefix + fileType.ID); }
                 catch (ArgumentException) {} // Ignore missing registry keys
             }
         }

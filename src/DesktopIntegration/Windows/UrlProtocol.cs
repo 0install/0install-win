@@ -78,7 +78,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 foreach (var prefix in urlProtocol.KnownPrefixes)
                 {
                     // Can be registered non-invasively by registering custom ProgID (without becoming default)
-                    using (var progIDKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + urlProtocol.ID))
+                    using (var progIDKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + FileType.ProgIDPrefix + urlProtocol.ID))
                         FileType.RegisterVerbCapability(progIDKey, target, urlProtocol, systemWide, handler);
 
                     if (setDefault)
@@ -86,7 +86,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         if (WindowsUtils.IsWindowsVista && !systemWide)
                         {
                             using (var someKey = Registry.CurrentUser.CreateSubKey(RegKeyUserVistaUrlAssoc + @"\" + prefix.Value + @"\UserChoice"))
-                                someKey.SetValue("Progid", urlProtocol.ID);
+                                someKey.SetValue("ProgID", FileType.ProgIDPrefix + urlProtocol.ID);
                         }
                         else
                         {

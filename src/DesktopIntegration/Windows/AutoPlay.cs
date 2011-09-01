@@ -87,12 +87,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
 
-            using (var commandKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + autoPlay.ProgID + @"\shell\" + autoPlay.Verb.Name + @"\command"))
+            using (var commandKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + FileType.ProgIDPrefix + autoPlay.ProgID + @"\shell\" + autoPlay.Verb.Name + @"\command"))
                 commandKey.SetValue("", FileType.GetLaunchCommandLine(target, autoPlay.Verb, systemWide, handler));
 
-            using (var handlerKey = hive.CreateSubKey(RegKeyHandlers + @"\" + autoPlay.ID))
+            using (var handlerKey = hive.CreateSubKey(RegKeyHandlers + @"\" + FileType.ProgIDPrefix + autoPlay.ID))
             {
-                handlerKey.SetValue(RegValueProgID, autoPlay.ProgID);
+                handlerKey.SetValue(RegValueProgID, FileType.ProgIDPrefix + autoPlay.ProgID);
                 handlerKey.SetValue(RegValueVerb, autoPlay.Verb.Name);
                 handlerKey.SetValue(RegValueProvider, autoPlay.Provider);
                 handlerKey.SetValue(RegValueDescription, autoPlay.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture) ?? autoPlay.Verb.Name);
@@ -109,12 +109,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 if (string.IsNullOrEmpty(autoPlayEvent.Name)) continue;
 
                 using (var eventKey = hive.CreateSubKey(RegKeyAssocs + @"\" + autoPlayEvent.Name))
-                    eventKey.SetValue(autoPlay.ID, "");
+                    eventKey.SetValue(FileType.ProgIDPrefix + autoPlay.ID, "");
 
                 if (setDefault)
                 {
                     using (var chosenEventKey = hive.CreateSubKey(RegKeyChosenAssocs + @"\" + autoPlayEvent.Name))
-                        chosenEventKey.SetValue("", autoPlay.ID);
+                        chosenEventKey.SetValue("", FileType.ProgIDPrefix + autoPlay.ID);
                 }
             }
         }
@@ -145,15 +145,15 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 if (string.IsNullOrEmpty(autoPlayEvent.Name)) continue;
 
                 using (var eventKey = hive.CreateSubKey(RegKeyAssocs + @"\" + autoPlayEvent.Name))
-                    eventKey.DeleteValue(autoPlay.ID, false);
+                    eventKey.DeleteValue(FileType.ProgIDPrefix + autoPlay.ID, false);
 
                 // ToDo: Restore previous default
             }
 
-            hive.DeleteSubKey(RegKeyHandlers + @"\" + autoPlay.ID, false);
+            hive.DeleteSubKey(RegKeyHandlers + @"\" + FileType.ProgIDPrefix + autoPlay.ID, false);
 
             // Remove ProgID
-            try { hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + autoPlay.ProgID); }
+            try { hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + FileType.ProgIDPrefix + autoPlay.ProgID); }
             catch (ArgumentException) {} // Ignore missing registry keys
         }
         #endregion

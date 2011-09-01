@@ -36,6 +36,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
     public static class AppRegistration
     {
         #region Constants
+        /// <summary>Prepended before <see cref="Capabilities.AppRegistration.CapabilityRegPath"/>. This prevents conflicts with non-Zero Install installations.</summary>
+        private const string CapabilityPrefix = @"Zero Install\Applications\";
+
         /// <summary>The HKLM registry key for registering applications as candidates for default programs.</summary>
         public const string RegKeyMachineRegisteredApplications = @"SOFTWARE\RegisteredApplications";
 
@@ -83,7 +86,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(appRegistration.CapabilityRegPath)) throw new InvalidDataException("Invalid CapabilityRegPath");
 
             // ToDo: Handle appRegistration.X64
-            using (var capabilitiesKey = Registry.LocalMachine.CreateSubKey(appRegistration.CapabilityRegPath))
+            using (var capabilitiesKey = Registry.LocalMachine.CreateSubKey(CapabilityPrefix + appRegistration.CapabilityRegPath))
             {
                 capabilitiesKey.SetValue(RegValueAppName, target.Feed.Name ?? "");
                 capabilitiesKey.SetValue(RegValueAppDescription, target.Feed.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture) ?? "");
@@ -103,7 +106,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         foreach (var extension in fileType.Extensions)
                         {
                             if (!string.IsNullOrEmpty(extension.Value) && !string.IsNullOrEmpty(fileType.ID))
-                                fileAssocsKey.SetValue(extension.Value, fileType.ID);
+                                fileAssocsKey.SetValue(extension.Value, FileType.ProgIDPrefix + fileType.ID);
                         }
                     }
                 }
@@ -113,7 +116,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     foreach (var urlProtocol in EnumerableUtils.OfType<Capabilities.UrlProtocol>(verbCapabilities))
                     {
                         foreach (var prefix in urlProtocol.KnownPrefixes)
-                            urlAssocsKey.SetValue(prefix.Value, urlProtocol.ID);
+                            urlAssocsKey.SetValue(prefix.Value, FileType.ProgIDPrefix + urlProtocol.ID);
                     }
                 }
 
@@ -128,7 +131,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             }
 
             using (var regAppsKey = Registry.LocalMachine.CreateSubKey(RegKeyMachineRegisteredApplications))
-                regAppsKey.SetValue(appRegistration.ID, appRegistration.CapabilityRegPath);
+                regAppsKey.SetValue(appRegistration.ID, CapabilityPrefix + appRegistration.CapabilityRegPath);
         }
         #endregion
 
@@ -153,7 +156,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 regAppsKey.DeleteValue(appRegistration.ID, false);
 
             // ToDo: Handle appRegistration.X64
-            try { Registry.LocalMachine.DeleteSubKeyTree(appRegistration.CapabilityRegPath); }
+            try { Registry.LocalMachine.DeleteSubKeyTree(CapabilityPrefix + appRegistration.CapabilityRegPath); }
             catch(ArgumentException) {} // Ignore missing registry keys
         }
         #endregion
