@@ -94,7 +94,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
 
             // Register ProgID
-            using (var progIDKey = hive.CreateSubKey(RegKeyClasses + @"\" + FileType.ProgIDPrefix + fileType.ID))
+            using (var progIDKey = hive.CreateSubKey(RegKeyClasses + @"\" + ProgIDPrefix + fileType.ID))
                 RegisterVerbCapability(progIDKey, target, fileType, systemWide, handler);
 
             using (var classesKey = hive.OpenSubKey(RegKeyClasses, true))
@@ -110,9 +110,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         if (!string.IsNullOrEmpty(extension.PerceivedType)) extensionKey.SetValue(RegValuePerceivedType, extension.PerceivedType);
 
                         using (var openWithKey = extensionKey.CreateSubKey(RegSubKeyOpenWith))
-                            openWithKey.SetValue(FileType.ProgIDPrefix + fileType.ID, "");
+                            openWithKey.SetValue(ProgIDPrefix + fileType.ID, "");
 
-                        if (setDefault) extensionKey.SetValue("", FileType.ProgIDPrefix + fileType.ID);
+                        if (setDefault) extensionKey.SetValue("", ProgIDPrefix + fileType.ID);
                     }
 
                     // Register MIME types
@@ -160,14 +160,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     using (var extensionKey = classesKey.CreateSubKey(extension.Value))
                     {
                         using (var openWithKey = extensionKey.CreateSubKey(RegSubKeyOpenWith))
-                            openWithKey.DeleteValue(FileType.ProgIDPrefix + fileType.ID, false);
+                            openWithKey.DeleteValue(ProgIDPrefix + fileType.ID, false);
 
                         // ToDo: Restore previous default
                     }
                 }
 
                 // Remove ProgID
-                try { classesKey.DeleteSubKeyTree(FileType.ProgIDPrefix + fileType.ID); }
+                try { classesKey.DeleteSubKeyTree(ProgIDPrefix + fileType.ID); }
                 catch (ArgumentException) {} // Ignore missing registry keys
             }
         }

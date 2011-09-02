@@ -140,8 +140,6 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             using (var serviceKey = Registry.LocalMachine.CreateSubKey(RegKeyMachineClients + @"\" + defaultProgram.Service))
             {
-                // ToDo: Restore previous default
-
                 try { serviceKey.DeleteSubKeyTree(defaultProgram.ID); }
                 catch (ArgumentException) {} // Ignore missing registry keys
             }
