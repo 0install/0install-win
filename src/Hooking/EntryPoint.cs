@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -57,11 +56,10 @@ namespace ZeroInstall.Hooking
         /// Creates a new entry point.
         /// </summary>
         /// <param name="inContext">Hooking context information.</param>
-        /// <param name="environmentVariables">A set of environment variables to be applied to the process.</param>
         /// <param name="implentationDir">The base directory of the implementation containing this executable.</param>
         /// <param name="registryFilter">A set of filter rules to registry access.</param>
         /// <param name="relaunchControl">Stores information about how commands within an implementation can be relaunched. Used for Windows 7 taskbar pinning.</param>
-        public EntryPoint(RemoteHooking.IContext inContext, StringDictionary environmentVariables, string implentationDir, RegistryFilter registryFilter, RelaunchControl relaunchControl)
+        public EntryPoint(RemoteHooking.IContext inContext, string implentationDir, RegistryFilter registryFilter, RelaunchControl relaunchControl)
         {
             _implementationDir = implentationDir;
             _registryFilter = registryFilter;
@@ -77,18 +75,11 @@ namespace ZeroInstall.Hooking
         /// Sets up the API hooks and maintains them.
         /// </summary>
         /// <param name="inContext">Hooking context information.</param>
-        /// <param name="environmentVariables">A set of environment variables to be applied to the process.</param>
         /// <param name="implentationDir">The base directory of the implementation containing this executable.</param>
         /// <param name="registryFilter">A set of filter rules to registry access.</param>
         /// <param name="relaunchControl">Stores information about how commands within an implementation can be relaunched. Used for Windows 7 taskbar pinning.</param>
-        public void Run(RemoteHooking.IContext inContext, StringDictionary environmentVariables, string implentationDir, RegistryFilter registryFilter, RelaunchControl relaunchControl)
+        public void Run(RemoteHooking.IContext inContext, string implentationDir, RegistryFilter registryFilter, RelaunchControl relaunchControl)
         {
-            if (environmentVariables != null)
-            {
-                foreach (string variableName in environmentVariables.Keys)
-                    Environment.SetEnvironmentVariable(variableName, environmentVariables[variableName], EnvironmentVariableTarget.Process);
-            }
-
             try { SetupHooks(); }
             #region Error handling
             catch (Exception ex)

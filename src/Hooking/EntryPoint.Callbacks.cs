@@ -172,6 +172,7 @@ namespace ZeroInstall.Hooking
         #region CreateProcess
         private bool CreateProcessWCallback(string lpApplicationName, string lpCommandLine, IntPtr lpProcessAttributes, IntPtr lpThreadAttributes, bool bInheritHandles, uint dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, IntPtr lpStartupInfo, out ProcessInformation lpProcessInformation)
         {
+            // Determine whether the child process belongs to the implementation and also needs hooking
             bool needsInjection;
             try
             {
@@ -183,8 +184,12 @@ namespace ZeroInstall.Hooking
                 needsInjection = false;
             }
 
+            // Start the process suspended
             if (needsInjection) dwCreationFlags |= UnsafeNativeMethods.CreateSuspended;
+
             var result = UnsafeNativeMethods.CreateProcessW(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, out lpProcessInformation);
+
+            // Inject the hooking DLL (and resume the process)
             if (needsInjection) RemoteHooking.Inject(lpProcessInformation.dwProcessId, AssemblyStrongName, AssemblyStrongName,
                 // Custom arguments
                 _implementationDir, _registryFilter, _relaunchControl);
@@ -194,6 +199,7 @@ namespace ZeroInstall.Hooking
 
         private bool CreateProcessACallback(string lpApplicationName, string lpCommandLine, IntPtr lpProcessAttributes, IntPtr lpThreadAttributes, bool bInheritHandles, uint dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, IntPtr lpStartupInfo, out ProcessInformation lpProcessInformation)
         {
+            // Determine whether the child process belongs to the implementation and also needs hooking
             bool needsInjection;
             try
             {
@@ -205,8 +211,12 @@ namespace ZeroInstall.Hooking
                 needsInjection = false;
             }
 
+            // Start the process suspended
             if (needsInjection) dwCreationFlags |= UnsafeNativeMethods.CreateSuspended;
+
             var result = UnsafeNativeMethods.CreateProcessA(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, out lpProcessInformation);
+
+            // Inject the hooking DLL (and resume the process)
             if (needsInjection) RemoteHooking.Inject(lpProcessInformation.dwProcessId, AssemblyStrongName, AssemblyStrongName,
                 // Custom arguments
                 _implementationDir, _registryFilter, _relaunchControl);

@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -34,15 +35,17 @@ namespace ZeroInstall.Injector
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public class Executor
     {
-        #region Variables
-        /// <summary>The specific <see cref="Model.Implementation"/>s chosen for the <see cref="Dependency"/>s.</summary>
-        private readonly Selections _selections;
-
-        /// <summary>Used to locate the selected <see cref="Model.Implementation"/>s.</summary>
-        private readonly IStore _store;
-        #endregion
-
         #region Properties
+        /// <summary>
+        /// The specific <see cref="Model.Implementation"/>s chosen for the <see cref="Dependency"/>s.
+        /// </summary>
+        public Selections Selections { get; set; }
+        
+        /// <summary>
+        /// Used to locate the selected <see cref="Model.Implementation"/>s.
+        /// </summary>
+        private IStore Store { get; set; }
+
         /// <summary>
         /// An alternative executable to to run from the main <see cref="Model.Implementation"/> instead of <see cref="Element.Main"/>. May not contain command-line arguments! Whitespaces do not need to be escaped.
         /// </summary>
@@ -68,14 +71,14 @@ namespace ZeroInstall.Injector
             if (selections.Implementations.IsEmpty) throw new ArgumentException(Resources.NoImplementationsPassed, "selections");
             #endregion
 
-            _selections = selections.CloneSelections();
-            _store = store;
+            Selections = selections.CloneSelections();
+            Store = store;
         }
         #endregion
 
         //--------------------//
 
-        #region Prepare process
+        #region Start process
         /// <summary>
         /// Prepares a <see cref="ProcessStartInfo"/> for executing the program as specified by the <see cref="Selections"/>.
         /// </summary>
@@ -87,7 +90,7 @@ namespace ZeroInstall.Injector
         {
             #region Sanity checks
             if (arguments == null) throw new ArgumentNullException("arguments");
-            if (_selections.Commands.IsEmpty) throw new CommandException(Resources.NoCommands);
+            if (Selections.Commands.IsEmpty) throw new CommandException(Resources.NoCommands);
             #endregion
 
             // Build command-line
@@ -103,6 +106,24 @@ namespace ZeroInstall.Injector
             ApplyCommandLine(startInfo, commandLine);
             return startInfo;
         }
+
+        /// <summary>
+        /// Starts the program as specified by the <see cref="Selections"/>.
+        /// </summary>
+        /// <param name="arguments">Arguments to be passed to the launched programs.</param>
+        /// <returns>The newly created <see cref="Process"/>.</returns>
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Model.Implementation"/>s is not cached yet.</exception>
+        /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
+        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
+        public Process Start(params string[] arguments)
+        {
+            #region Sanity checks
+            if (arguments == null) throw new ArgumentNullException("arguments");
+            if (Selections.Commands.IsEmpty) throw new CommandException(Resources.NoCommands);
+            #endregion
+
+            return Process.Start(GetStartInfo(arguments));
+        }
         #endregion
 
         #region Get commands
@@ -112,7 +133,7 @@ namespace ZeroInstall.Injector
         private IEnumerable<Command> GetCommands()
         {
             // Copy the list because it may need to be modified (don't want to change original selections)
-            var commands = new List<Command>(_selections.Commands);
+            var commands = new List<Command>(Selections.Commands);
 
             // Replace first command with custom main if specified
             if (!string.IsNullOrEmpty(Main))
@@ -122,10 +143,10 @@ namespace ZeroInstall.Injector
                     // Relative to implementation root
                     ? mainPath.TrimStart(Path.DirectorySeparatorChar)
                     // Relative to original command
-                    : Path.Combine(Path.GetDirectoryName(_selections.Commands[0].Path) ?? "", mainPath);
+                    : Path.Combine(Path.GetDirectoryName(Selections.Commands[0].Path) ?? "", mainPath);
 
                 // Keep the original runner
-                commands[0] = new Command {Path = mainPath, Runner = _selections.Commands[0].Runner};
+                commands[0] = new Command {Path = mainPath, Runner = Selections.Commands[0].Runner};
             }
 
             return commands;
@@ -141,7 +162,7 @@ namespace ZeroInstall.Injector
             var commandLine = new C5.LinkedList<string>();
 
             // The firts command always refers to the actual interface to be launched
-            string currentRunnerInterface = _selections.InterfaceID;
+            string currentRunnerInterface = Selections.InterfaceID;
 
             foreach (Command command in commands)
             {
@@ -149,7 +170,7 @@ namespace ZeroInstall.Injector
 
                 // The command's path (relative to the interface)
                 if (!string.IsNullOrEmpty(command.Path))
-                    commandString.Add(GetPath(_selections.GetImplementation(currentRunnerInterface), command));
+                    commandString.Add(GetPath(Selections.GetImplementation(currentRunnerInterface), command));
                 commandString.AddAll(command.Arguments);
 
                 var runner = command.Runner;
@@ -178,34 +199,34 @@ namespace ZeroInstall.Injector
         /// <exception cref="ImplementationNotFoundException">Thrown if an <see cref="Model.Implementation"/> is not cached yet.</exception>
         private void ApplyBindings(ProcessStartInfo startInfo)
         {
-            foreach (var implementation in _selections.Implementations)
+            foreach (var implementation in Selections.Implementations)
             {
                 // Apply bindings implementations use to find themselves
                 ApplyBindings(startInfo, implementation, implementation);
 
                 // Apply bindings implementations use to find their dependencies
                 foreach (var dependency in implementation.Dependencies)
-                    ApplyBindings(startInfo, _selections.GetImplementation(dependency.Interface), dependency);
+                    ApplyBindings(startInfo, Selections.GetImplementation(dependency.Interface), dependency);
             }
 
             // The firts command always refers to the actual interface to be launched
-            string currentRunnerInterface = _selections.InterfaceID;
+            string currentRunnerInterface = Selections.InterfaceID;
 
-            foreach (var command in _selections.Commands)
+            foreach (var command in Selections.Commands)
             {
                 // Apply bindings commands use to find themselves
-                ApplyBindings(startInfo, _selections.GetImplementation(currentRunnerInterface), command);
+                ApplyBindings(startInfo, Selections.GetImplementation(currentRunnerInterface), command);
 
                 // Apply bindings commands use to find their dependencies
                 foreach (var dependency in command.Dependencies)
-                    ApplyBindings(startInfo, _selections.GetImplementation(dependency.Interface), dependency);
+                    ApplyBindings(startInfo, Selections.GetImplementation(dependency.Interface), dependency);
 
                 // Apply bindings commands use to find their runners
                 if (command.Runner != null)
-                    ApplyBindings(startInfo, _selections.GetImplementation(command.Runner.Interface), command.Runner);
+                    ApplyBindings(startInfo, Selections.GetImplementation(command.Runner.Interface), command.Runner);
 
                 if (command.WorkingDir != null)
-                    ApplyWorkingDir(startInfo, _selections.GetImplementation(currentRunnerInterface), command.WorkingDir);
+                    ApplyWorkingDir(startInfo, Selections.GetImplementation(currentRunnerInterface), command.WorkingDir);
 
                 // Determine the interface the next command will refer to
                 var runner = command.Runner;
@@ -338,7 +359,7 @@ namespace ZeroInstall.Injector
         /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
         public string GetImplementationPath(ImplementationBase implementation)
         {
-            return (string.IsNullOrEmpty(implementation.LocalPath) ? _store.GetPath(implementation.ManifestDigest) : implementation.LocalPath);
+            return (string.IsNullOrEmpty(implementation.LocalPath) ? Store.GetPath(implementation.ManifestDigest) : implementation.LocalPath);
         }
 
         /// <summary>

@@ -81,7 +81,7 @@
     <Compile Include="RemoveApp.cs" />
     <Compile Include="RemoveFeed.cs" />
     <Compile Include="Run.cs" />
-    <Compile Include="Run.Hooking.cs" />
+    <Compile Include="RunHook.cs" />
     <Compile Include="Selection.cs" />
     <Compile Include="SyncApps.cs" />
     <Compile Include="Update.cs" />
