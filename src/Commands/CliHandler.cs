@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.IO;
 using Common;
 using Common.Cli;
 using Common.Tasks;
@@ -52,17 +53,24 @@ namespace ZeroInstall.Commands
         public void ShowProgressUI(SimpleEventHandler cancelCallback)
         {
             // Handle Ctrl+C
-            Console.TreatControlCAsInput = false;
-            Console.CancelKeyPress += delegate(object sender, ConsoleCancelEventArgs e)
+            try
             {
-                // Cancel generic tasks
-                var genericTask = _genericTask;
-                if (genericTask != null && genericTask.CanCancel) genericTask.Cancel();
+                Console.TreatControlCAsInput = false;
+                Console.CancelKeyPress += delegate(object sender, ConsoleCancelEventArgs e)
+                {
+                    // Cancel generic tasks
+                    var genericTask = _genericTask;
+                    if (genericTask != null && genericTask.CanCancel) genericTask.Cancel();
 
-                cancelCallback();
+                    cancelCallback();
 
-                e.Cancel = true;
-            };
+                    e.Cancel = true;
+                };
+            }
+            catch(IOException)
+            {
+                // Ignore failures caused by non-standard terminal emulators
+            }
         }
 
         /// <inheritdoc/>
