@@ -73,6 +73,7 @@
     <Compile Include="RemoveFeed.cs" />
     <Compile Include="Run.cs" />
     <Compile Include="Selection.cs" />
+    <Compile Include="SelfUpdate.cs" />
     <Compile Include="Update.cs" />
   </ItemGroup>
   <ItemGroup>

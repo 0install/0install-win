@@ -36,7 +36,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// A list of command names as used in command-line arguments in lower-case.
         /// </summary>
-        internal static readonly string[] ValidCommandNames = new[] {Selection.Name, Download.Name, Update.Name, Run.Name, Import.Name, List.Name, Configure.Name, AddFeed.Name, RemoveFeed.Name, ListFeeds.Name, Digest.Name};
+        internal static readonly string[] ValidCommandNames = new[] {Selection.Name, Download.Name, Update.Name, Run.Name, SelfUpdate.Name, Import.Name, List.Name, Configure.Name, AddFeed.Name, RemoveFeed.Name, ListFeeds.Name, Digest.Name};
 
         /// <summary>
         /// Creates a nw <see cref="CommandBase"/> based on a name.
@@ -58,6 +58,7 @@ namespace ZeroInstall.Commands
                 case Download.Name: return new Download(policy);
                 case Update.Name: return new Update(policy);
                 case Run.Name: return new Run(policy);
+                case SelfUpdate.Name: return new SelfUpdate(policy);
                 case Import.Name: return new Import(policy);
                 case List.Name: return new List(policy);
                 case Configure.Name: return new Configure(policy);
