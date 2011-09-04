@@ -137,7 +137,13 @@ namespace ZeroInstall.Commands
                 Policy.Fetcher.Start(_currentFetchRequest);
             }
 
-            Policy.Fetcher.Join(_currentFetchRequest);
+            try { Policy.Fetcher.Join(_currentFetchRequest); }
+            catch
+            {
+                // Suppress any left-over errors if the user canceled anyway
+                if (Canceled) throw new UserCancelException();
+                throw;
+            }
             _currentFetchRequest = null;
 
             if (Canceled) throw new UserCancelException(); // ToDo: Remove once implementation fetching can be canceled
