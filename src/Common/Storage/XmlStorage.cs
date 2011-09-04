@@ -315,17 +315,17 @@ namespace Common.Storage
             #endregion
 
             // Loads the XML document
-            var feedDom = new XmlDocument();
-            feedDom.Load(path);
+            var dom = new XmlDocument();
+            dom.Load(path);
 
             // Adds a new XSL stylesheet instruction to the DOM
-            var stylesheetInstruction = feedDom.CreateProcessingInstruction("xml-stylesheet", string.Format(CultureInfo.InvariantCulture, "type='text/xsl' href='{0}'", stylesheetFile));
-            feedDom.InsertAfter(stylesheetInstruction, feedDom.FirstChild);
+            var stylesheetInstruction = dom.CreateProcessingInstruction("xml-stylesheet", string.Format(CultureInfo.InvariantCulture, "type='text/xsl' href='{0}'", stylesheetFile));
+            dom.InsertAfter(stylesheetInstruction, dom.FirstChild);
 
             // Writes back the modified XML document
             using (var xmlWriter = XmlWriter.Create(path, new XmlWriterSettings {Encoding = new UTF8Encoding(false), Indent = true, IndentChars = "\t", NewLineChars = "\n"}))
             {
-                feedDom.WriteTo(xmlWriter);
+                dom.WriteTo(xmlWriter);
 
                 // End file with newline
                 xmlWriter.WriteWhitespace("\n");
