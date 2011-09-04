@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Xml;
 using System.Xml.Serialization;
 using Common.Storage;
 
@@ -53,29 +52,6 @@ namespace ZeroInstall.Model
         #endregion
 
         //--------------------//
-
-        #region Simplify
-        /// <summary>
-        /// Removes unimportant information about <see cref="Implementation"/>s from the contained <see cref="Feed"/>s.
-        /// </summary>
-        public void Simplify()
-        {
-            foreach (var feed in Feeds)
-            {
-                feed.Simplify();
-                feed.EntryPoints.Clear();
-
-                // ToDo: Extract supported architectures
-                feed.Elements.Clear();
-
-                // ToDo: Extract supported file types
-                feed.CapabilityLists.Clear();
-
-                feed.UnknownAttributes = new XmlAttribute[0];
-                feed.UnknownElements = new XmlElement[0];
-            }
-        }
-        #endregion
 
         #region Query
         /// <summary>

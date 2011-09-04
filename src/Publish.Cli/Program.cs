@@ -301,12 +301,21 @@ namespace ZeroInstall.Publish.Cli
         {
             var catalog = new Catalog();
 
-            foreach (var feed in results.Feeds)
-                catalog.Feeds.Add(Feed.Load(feed.FullName));
+            foreach (var feedFile in results.Feeds)
+            {
+                var feed = Feed.Load(feedFile.FullName);
+
+                // Filter out implementations that have no commands at all (usually libraries)
+                feed.Simplify();
+                Element temp;
+                if (!feed.Elements.Find(element => !element.Commands.IsEmpty, out temp)) continue;
+
+                feed.Strip();
+                catalog.Feeds.Add(feed);
+            }
 
             if (catalog.Feeds.IsEmpty) throw new FileNotFoundException(Resources.NoFeedFilesFound);
 
-            catalog.Simplify();
             catalog.Save(results.CatalogFile);
             XmlStorage.AddStylesheet(results.CatalogFile, "catalog.xsl");
         }

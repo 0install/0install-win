@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
+using System.Xml;
 using System.Xml.Serialization;
 using Common.Collections;
 using Common.Storage;
@@ -239,6 +240,23 @@ namespace ZeroInstall.Model
             // Replace original elements list with the collapsed version
             Elements.Clear();
             Elements.AddAll(collapsedElements);
+        }
+
+        /// <summary>
+        /// Strips the feed down to the bare minimum metadata removing specific <see cref="Implementation"/>s.
+        /// </summary>
+        public void Strip()
+        {
+            EntryPoints.Clear();
+
+            // ToDo: Extract supported architectures
+            Elements.Clear();
+
+            // ToDo: Extract supported file types
+            CapabilityLists.Clear();
+
+            UnknownAttributes = new XmlAttribute[0];
+            UnknownElements = new XmlElement[0];
         }
         #endregion
 
