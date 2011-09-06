@@ -60,6 +60,7 @@ namespace ZeroInstall.Commands
         {
             NoWait = true;
             Policy.FeedManager.Refresh = true;
+            Policy.Config.AllowApiHooking = false;
             Requirements.CommandName = "update";
 
             //Options.Remove("no-wait");
