@@ -135,6 +135,9 @@
   <data name="ActionSelection" xml:space="preserve">
     <value>Wähle Implementierungen aus</value>
   </data>
+  <data name="ActionSelfUpdate" xml:space="preserve">
+    <value>Akualisiere Zero Install</value>
+  </data>
   <data name="ActionSync" xml:space="preserve">
     <value>Synchronisiere</value>
   </data>
@@ -204,6 +207,9 @@ Sie müssen eventuell ihr Terminal schließen und wieder öffnen damit dies wirk
   </data>
   <data name="DescriptionSelect" xml:space="preserve">
     <value>Wähle eine Version des Programmes aus, welches durch seine URI identifiziert wird, und kompatible Versionen aller seiner Abhängigkeiten hat. Gibt den Exit-Status 0 zurück, wenn eine Menge an Versionen ausgewählt wurde und den Status 0, wenn keine konsistente Menge gefunden werden konnte.</value>
+  </data>
+  <data name="DescriptionSelfUpdate" xml:space="preserve">
+    <value>Aktualisiere Zero Install selber auf die neuste verfügbar Version.</value>
   </data>
   <data name="DescriptionSync" xml:space="preserve">
     <value>Synchronisiere die Anwendungsliste mit dem Server.</value>
@@ -300,6 +306,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   </data>
   <data name="OptionCpu" xml:space="preserve">
     <value>Zwingt den Solver auf eine bestimmte {CPU} abzuzielen.</value>
+  </data>
+  <data name="OptionForceSelfUpdate" xml:space="preserve">
+    <value>Führe das Update durch, auch wenn die derzeit installierte Version die gleiche oder neuer ist.</value>
   </data>
   <data name="OptionGui" xml:space="preserve">
     <value>Zeigt den grafischen Versionseditor an. Dies gestattet Ihnen die Version des Programmes oder der Bibliothek auszuwählen.</value>

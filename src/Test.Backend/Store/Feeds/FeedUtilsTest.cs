@@ -20,9 +20,8 @@ using System.IO;
 using NUnit.Framework;
 using NUnit.Mocks;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Feeds;
 
-namespace ZeroInstall.Store.Management
+namespace ZeroInstall.Store.Feeds
 {
     /// <summary>
     /// Contains test methods for <see cref="FeedUtils"/>.

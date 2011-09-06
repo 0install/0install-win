@@ -2,7 +2,14 @@
 <package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="9eb1c98a-53d3-4e51-a2a9-6bcd6c06dd60"
-  name="Tasks" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  name="Tasks"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="98f020b7-44ca-4465-8f83-6f19ef08d3f1"
+      handle="viewcode://./CodeSchema_Namespace?Namespace=Common.Tasks"
+      tag="ViewCode" />
+  </referencesInternal>
   <packagedElements>
     <packageHasNamedElement>
       <Interface
@@ -416,12 +423,6 @@
                 </propertyInstances>
               </stereotypeInstance>
             </appliedStereotypesInternal>
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="9d42d672-e022-4762-8f86-2ed45963e064"
-                LastKnownName="Float"
-                LastKnownLocation="Package5_1629.uml" />
-            </type_NamedElement>
           </property>
           <property
             Id="14efbee7-0124-4e2c-9da8-22955ce7ec4a"
@@ -1231,7 +1232,7 @@
         <referencesInternal>
           <reference
             Id="3afef0de-c6a3-44f6-a4bd-a67e0bba5261"
-            handle="viewcode://./CodeSchema_Interface?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IIOHandler"
+            handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Tasks Type=ITaskHandler"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -1923,12 +1924,6 @@
                 </propertyInstances>
               </stereotypeInstance>
             </appliedStereotypesInternal>
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="9d42d672-e022-4762-8f86-2ed45963e064"
-                LastKnownName="Float"
-                LastKnownLocation="Package5_1629.uml" />
-            </type_NamedElement>
           </property>
           <property
             Id="2151ed68-128f-4162-b797-25dac9e8fdda"
@@ -3185,12 +3180,6 @@
                 </propertyInstances>
               </stereotypeInstance>
             </appliedStereotypesInternal>
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="9d42d672-e022-4762-8f86-2ed45963e064"
-                LastKnownName="Float"
-                LastKnownLocation="Package5_1629.uml" />
-            </type_NamedElement>
           </property>
           <property
             Id="524241a0-1783-480b-9f30-6e41a0507b6b"

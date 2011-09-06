@@ -115,6 +115,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Updating Zero Install.
+        /// </summary>
+        internal static string ActionSelfUpdate {
+            get {
+                return ResourceManager.GetString("ActionSelfUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Synchronizing.
         /// </summary>
         internal static string ActionSync {
@@ -346,6 +355,15 @@ namespace ZeroInstall.Commands.Properties {
         internal static string DescriptionSelect {
             get {
                 return ResourceManager.GetString("DescriptionSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Zero Install itself to the most recent version..
+        /// </summary>
+        internal static string DescriptionSelfUpdate {
+            get {
+                return ResourceManager.GetString("DescriptionSelfUpdate", resourceCulture);
             }
         }
         
@@ -664,6 +682,15 @@ namespace ZeroInstall.Commands.Properties {
         internal static string OptionCpu {
             get {
                 return ResourceManager.GetString("OptionCpu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Perform the update even if the currently installed version is the same or newer..
+        /// </summary>
+        internal static string OptionForceSelfUpdate {
+            get {
+                return ResourceManager.GetString("OptionForceSelfUpdate", resourceCulture);
             }
         }
         

@@ -83,7 +83,7 @@ namespace ZeroInstall.Publish
         /// <param name="path">The feed file to sign.</param>
         /// <param name="secretKey">The private key to use for signing the file.</param>
         /// <param name="passphrase">The passphrase to use to unlock the key.</param>
-        /// <exception cref="FileNotFoundException">Thrown if the feed file to be signed could not be found.</exception>
+        /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the feed file is not permitted.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
@@ -132,7 +132,7 @@ namespace ZeroInstall.Publish
         /// <param name="path">The feed file to sign.</param>
         /// <param name="secretKey">The private key to use for signing the file.</param>
         /// <param name="passphrase">The passphrase to use to unlock the key.</param>
-        /// <exception cref="FileNotFoundException">Thrown if the feed file to be signed could not be found.</exception>
+        /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the feed file is not permitted.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
@@ -154,7 +154,7 @@ namespace ZeroInstall.Publish
         /// Removes any Base64 signature from a feed file.
         /// </summary>
         /// <param name="path">The feed file to remove the signature from.</param>
-        /// <exception cref="FileNotFoundException">Thrown if the feed file to be signed could not be found.</exception>
+        /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the feed file is not permitted.</exception>
         /// <remarks>The feed file is not parsed before removing the signature.</remarks>
@@ -163,22 +163,26 @@ namespace ZeroInstall.Publish
             // ToDo: Implement without reparsing
             Feed.Load(path).Save(path);
         }
-        #endregion
 
-        #region Verify
         /// <summary>
-        /// ToDo
+        /// Determines the key used to sign a feed. Only uses the first signature if more than one is present.
         /// </summary>
-        /// <param name="path">The feed file to verify.</param>
-        public static void VerifyFeed(string path)
+        /// <param name="path">The feed file to check for signatures.</param>
+        /// <returns>The key used to sign the feed or an empty default <see cref="OpenPgpSecretKey"/> if the feed was not signed.</returns>
+        /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
+        /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched or the feed file could not be read.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the feed file is not permitted.</exception>
+        /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
+        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
+        public static OpenPgpSecretKey GetKey(string path)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (!File.Exists(path)) throw new FileNotFoundException(string.Format(Resources.FileNotFound, path), path);
-            #endregion
+            var openPgp = OpenPgpProvider.Default;
 
-            // ToDo: Implement
-            //var gnuPG = new GnuPG();
+            OpenPgpSignature[] signatures;
+            using (var stream = File.OpenRead(path))
+                signatures = Store.Feeds.FeedUtils.GetSignatures(openPgp, stream);
+
+            return (signatures.Length == 0) ? new OpenPgpSecretKey() : openPgp.GetSecretKey(signatures[0].KeyID);
         }
         #endregion
 

@@ -16,10 +16,8 @@
  */
 
 using System;
-using System.ComponentModel;
 using System.IO;
 using Common;
-using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
@@ -34,7 +32,7 @@ namespace ZeroInstall.Central
     {
         #region Self-update
         /// <summary>
-        /// Checks for updates to Zero Install itself.
+        /// Checks if updates for Zero Install itself are available.
         /// </summary>
         /// <param name="policy">Combines UI access, preferences and resources used to solve dependencies and download implementations.</param>
         /// <returns>The version number of the newest available update; <see langword="null"/> if no update is available.</returns>
@@ -61,25 +59,6 @@ namespace ZeroInstall.Central
             // Report version of current update if it is newer than the already installed version
             var newVersion = selections.Implementations[0].Version;
             return (newVersion > currentVersion) ? newVersion : null;
-        }
-
-        /// <summary>
-        /// Downloads and installs updates to Zero Install itself.
-        /// </summary>
-        /// <param name="policy">Combines UI access, preferences and resources used to solve dependencies and download implementations.</param>
-        /// <remarks>Application should exit itself after calling this.</remarks>
-        /// <exception cref="FileNotFoundException">Thrown if the assembly could not be located.</exception>
-        /// <exception cref="Win32Exception">Thrown if there was a problem launching the assembly.</exception>
-        public static void RunSelfUpdate(Policy policy)
-        {
-            #region Sanity checks
-            if (policy == null) throw new ArgumentNullException("policy");
-            #endregion
-
-            var requirements = new Requirements {InterfaceID = policy.Config.SelfUpdateID, CommandName = "update"};
-
-            // ToDo: Perform download in-process
-            ProcessUtils.LaunchHelperAssembly("0install-win", "run --no-wait " + requirements.ToCommandLineArgs() + " \"" + Locations.InstallBase + "\"");
         }
         #endregion
     }

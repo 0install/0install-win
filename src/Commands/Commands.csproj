@@ -83,6 +83,7 @@
     <Compile Include="Run.cs" />
     <Compile Include="RunHook.cs" />
     <Compile Include="Selection.cs" />
+    <Compile Include="SelfUpdate.cs" />
     <Compile Include="SyncApps.cs" />
     <Compile Include="Update.cs" />
   </ItemGroup>

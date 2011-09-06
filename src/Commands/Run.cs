@@ -33,7 +33,7 @@ namespace ZeroInstall.Commands
     /// This behaves similarly to <see cref="Download"/>, except that it also runs the program after ensuring it is in the cache.
     /// </summary>
     [CLSCompliant(false)]
-    public sealed class Run : Download
+    public class Run : Download
     {
         #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
@@ -48,7 +48,7 @@ namespace ZeroInstall.Commands
         private string _wrapper;
 
         /// <summary>Immediately returns once the chosen program has been launched instead of waiting for it to finish executing.</summary>
-        private bool _noWait;
+        protected bool NoWait;
         #endregion
 
         #region Properties
@@ -68,7 +68,7 @@ namespace ZeroInstall.Commands
 
             Options.Add("m|main=", Resources.OptionMain, newMain => _main = newMain);
             Options.Add("w|wrapper=", Resources.OptionWrapper, newWrapper => _wrapper = newWrapper);
-            Options.Add("no-wait", Resources.OptionNoWait, unused => _noWait = true);
+            Options.Add("no-wait", Resources.OptionNoWait, unused => NoWait = true);
 
             // Work-around to disable interspersed arguments (needed for passing arguments through to sub-processes)
             Options.Add("<>", value =>
@@ -125,7 +125,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Model.Implementation"/>s is not cached yet.</exception>
         /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
         /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
-        private int LaunchImplementation()
+        protected int LaunchImplementation()
         {
             // Prevent the user from pressing any buttons once the child process is being launched
             Policy.Handler.DisableProgressUI();
@@ -162,7 +162,7 @@ namespace ZeroInstall.Commands
             Thread.Sleep(1000);
             Policy.Handler.CloseProgressUI();
 
-            if (_noWait || process == null) return 0;
+            if (NoWait || process == null) return 0;
             process.WaitForExit();
             return process.ExitCode;
         }

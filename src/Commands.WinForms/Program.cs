@@ -57,11 +57,11 @@ namespace ZeroInstall.Commands.WinForms
         {
             WindowsUtils.SetCurrentProcessAppID(AppUserModelID);
 
-#if !DEBUG
             // Prevent launch during update and allow instance detection
             string mutexName = "mutex-" + StringUtils.Hash(Locations.InstallBase, SHA256.Create());
             if (AppMutex.Probe(mutexName + "-update")) return;
             AppMutex.Create(mutexName);
+#if !DEBUG
             AppMutex.Create("Zero Install");
 #endif
 

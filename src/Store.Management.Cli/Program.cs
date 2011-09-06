@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
 using Common;
 using Common.Collections;
 using Common.Storage;
@@ -28,9 +29,6 @@ using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation.Archive;
 using ZeroInstall.Store.Management.Cli.Properties;
 using ZeroInstall.Store.Implementation;
-#if !DEBUG
-using System.Security.Cryptography;
-#endif
 
 namespace ZeroInstall.Store.Management.Cli
 {
@@ -76,11 +74,11 @@ namespace ZeroInstall.Store.Management.Cli
         /// </summary>
         static int Main(string[] args)
         {
-#if !DEBUG
             // Prevent launch during update and allow instance detection
             string mutexName = "mutex-" + StringUtils.Hash(Locations.InstallBase, SHA256.Create());
             if (AppMutex.Probe(mutexName + "-update")) return 99;
             AppMutex.Create(mutexName);
+#if !DEBUG
             AppMutex.Create("Zero Install");
 #endif
 

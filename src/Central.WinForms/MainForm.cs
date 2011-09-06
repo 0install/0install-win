@@ -139,7 +139,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 try
                 {
-                    UpdateUtils.RunSelfUpdate(_policy);
+                    ProcessUtils.LaunchHelperAssembly("0install-win", "self-update");
                     Application.Exit();
                 }
                 #region Error handling

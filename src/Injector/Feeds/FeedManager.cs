@@ -39,7 +39,7 @@ namespace ZeroInstall.Injector.Feeds
         public IFeedCache Cache { get; private set; }
 
         /// <summary>
-        /// The OpenPGP-compatible encryption/signature system used to validate new <see cref="Feed"/>s signatures.
+        /// The OpenPGP-compatible system used to validate new <see cref="Feed"/>s signatures.
         /// </summary>
         public IOpenPgp OpenPgp { get; private set; }
 
@@ -54,7 +54,7 @@ namespace ZeroInstall.Injector.Feeds
         /// Creates a new cache based on the given path to a cache directory.
         /// </summary>
         /// <param name="cache">The disk-based cache to store downloaded <see cref="Feed"/>s.</param>
-        /// <param name="openPgp">The OpenPGP-compatible encryption/signature system used to validate new <see cref="Feed"/>s signatures.</param>
+        /// <param name="openPgp">The OpenPGP-compatible system used to validate new <see cref="Feed"/>s signatures.</param>
         public FeedManager(IFeedCache cache, IOpenPgp openPgp)
         {
             #region Sanity checks
@@ -109,7 +109,9 @@ namespace ZeroInstall.Injector.Feeds
 
             return LoadCachedFeed(feedID, policy, out stale);
         }
+        #endregion
 
+        #region Local
         /// <summary>
         /// Loads a <see cref="Feed"/> from a local file.
         /// </summary>
@@ -133,28 +135,9 @@ namespace ZeroInstall.Injector.Feeds
             }
             else throw new FileNotFoundException(string.Format(Resources.FileNotFound, feedID), feedID);
         }
+        #endregion
 
-        /// <summary>
-        /// Downloads a <see cref="Feed"/> into the <see cref="Cache"/>.
-        /// </summary>
-        /// <param name="feedID">The ID used to identify the feed. Must be an HTTP(S) URL.</param>
-        /// <param name="policy">Combines UI access, configuration and resources used to solve dependencies and download implementations.</param>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
-        private void DownloadFeed(string feedID, Policy policy)
-        {
-            // HACK: Use the external solver to download feeds to the cache
-            bool stale;
-            try { policy.Solver.Solve(new Requirements {InterfaceID = feedID}, policy, out stale); }
-            catch(SolverException)
-            {
-                // Solver exceptions do not matter, since we only want the feed to get cached and do not care about selections
-            }
-        }
-
+        #region Cached
         /// <summary>
         /// Loads a <see cref="Feed"/> from the <see cref="Cache"/>.
         /// </summary>
@@ -185,6 +168,32 @@ namespace ZeroInstall.Injector.Feeds
                 throw new IOException(ex.Message, ex);
             }
             #endregion
+        }
+        #endregion
+
+        #region Download
+        /// <summary>
+        /// Downloads a <see cref="Feed"/> into the <see cref="Cache"/> validating its signatures.
+        /// </summary>
+        /// <param name="feedID">The ID used to identify the feed. Must be an HTTP(S) URL.</param>
+        /// <param name="policy">Combines UI access, configuration and resources used to solve dependencies and download implementations.</param>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
+        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
+        /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
+        private void DownloadFeed(string feedID, Policy policy)
+        {
+            // HACK: Use the external solver to download feeds to the cache
+            bool stale;
+            try
+            {
+                policy.Solver.Solve(new Requirements {InterfaceID = feedID}, policy, out stale);
+            }
+            catch (SolverException)
+            {
+                // Solver exceptions do not matter, since we only want the feed to get cached and do not care about selections
+            }
         }
         #endregion
 

@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Common;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
@@ -54,9 +53,7 @@ namespace ZeroInstall.Commands
         public Update(Policy policy) : base(policy)
         {
             //Options.Remove("o|offline");
-
             //Options.Remove("r|refresh");
-
             //Options.Remove("xml");
             //Options.Remove("show");
         }

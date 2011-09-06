@@ -19,10 +19,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Common;
+using Common.Cli;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Feeds;
 
-namespace ZeroInstall.Store.Management
+namespace ZeroInstall.Store.Feeds
 {
     /// <summary>
     /// Provides utiltity methods for managing <see cref="Feed"/>s.
@@ -56,6 +56,23 @@ namespace ZeroInstall.Store.Management
                 #endregion
             }
             return feeds;
+        }
+
+        /// <summary>
+        /// Determines which signatures a feed is signed with.
+        /// </summary>
+        /// <param name="openPgp">The OpenPGP-compatible system used to validate the signatures.</param>
+        /// <param name="data">The feed data containing an embedded signature.</param>
+        /// <returns>A list of signatures found, both valid and invalid.</returns>
+        /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
+        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
+        public static OpenPgpSignature[] GetSignatures(IOpenPgp openPgp, Stream data)
+        {
+            // ToDo: Split data into pureData and signature
+            Stream pureData = null;
+            string signature = null;
+
+            return openPgp.Verify(pureData, signature);
         }
     }
 }

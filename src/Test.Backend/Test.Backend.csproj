@@ -125,7 +125,7 @@
     <Compile Include="Store\Implementation\ManifestTest.cs" />
     <Compile Include="Store\Implementation\CompositeStoreTest.cs" />
     <Compile Include="Store\Implementation\DirectoryStoreTest.cs" />
-    <Compile Include="Store\Management\FeedUtilsTest.cs" />
+    <Compile Include="Store\Feeds\FeedUtilsTest.cs" />
     <Compile Include="Store\Management\ImplementationUtilsTest.cs" />
   </ItemGroup>
   <ItemGroup>

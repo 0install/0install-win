@@ -76,8 +76,7 @@ namespace ZeroInstall.Publish
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            // ToDo: Identify signature
-            return new SignedFeed(Feed.Load(path), default(OpenPgpSecretKey));
+            return new SignedFeed(Feed.Load(path), FeedUtils.GetKey(path));
         }
 
         /// <summary>

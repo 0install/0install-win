@@ -2459,13 +2459,18 @@
       </referencedType>
     </packageHasNamedElement>
     <logicalClassDesignerModelHasPackages>
-      <package Id="3d4184bf-32a1-4993-94f7-61679f44d260" name="Tasks">
+      <package Id="3d4184bf-32a1-4993-94f7-61679f44d260" name="Tasks" visibility="Private">
+        <referencesInternal>
+          <reference Id="421e0733-12a0-4c6e-aad4-e4f23debdb4f" handle="viewcode://./CodeSchema_Namespace?Namespace=Common.Tasks" tag="ViewCode">
+            <elementDefinition Id="98f020b7-44ca-4465-8f83-6f19ef08d3f1" />
+          </reference>
+        </referencesInternal>
         <elementDefinition Id="9eb1c98a-53d3-4e51-a2a9-6bcd6c06dd60" />
         <packagedElements>
           <packageHasNamedElement>
             <Interface Id="650d12a8-9cc9-43b8-91d4-86a18b9e1422" name="ITaskHandler" isAbstract="false" isLeaf="false">
               <referencesInternal>
-                <reference Id="117c7ed1-4e00-4e57-ba55-160dd1093c8b" handle="viewcode://./CodeSchema_Interface?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IIOHandler" tag="ViewCode">
+                <reference Id="117c7ed1-4e00-4e57-ba55-160dd1093c8b" handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Tasks Type=ITaskHandler" tag="ViewCode">
                   <elementDefinition Id="3afef0de-c6a3-44f6-a4bd-a67e0bba5261" />
                 </reference>
               </referencesInternal>
@@ -2501,62 +2506,6 @@
                 </stereotypeInstance>
               </appliedStereotypesInternal>
               <elementDefinition Id="994d7262-293c-457a-8bd8-90d073c4cbe9" />
-              <ownedAttributes>
-                <property Id="ffbfe18a-ecfc-4e63-8420-ac211498534b" name="Batch" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <referencesInternal>
-                    <reference Id="f1e79054-89a6-4782-b2a2-939d59ffc4c1" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=IHandler Member=Batch" tag="ViewCode">
-                      <elementDefinition Id="8016cd45-9764-41af-9577-476c0b28a326" />
-                    </reference>
-                  </referencesInternal>
-                  <appliedStereotypesInternal>
-                    <stereotypeInstance Id="9387fa0f-96c9-4493-a5a6-a9df6204a7e4" name="property" profile="CSharpProfile">
-                      <elementDefinition Id="0e7a5fd2-fa00-4f89-b6dc-f67222d26fd9" />
-                      <propertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="30ce643a-665b-41d0-b06f-c0b73e1e3051">
-                          <propertyInstance Id="1ff812e2-03fa-46bc-968c-2063f9382ab4" name="ClrAttributes">
-                            <elementDefinition Id="a1ced26a-9616-4042-8739-9ce6a7e9dece" />
-                          </propertyInstance>
-                          <elementDefinition Id="92a95612-1f7b-417f-94c9-01b12f1cc510" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="6fad5e15-37b3-4f2b-a37b-00bff9b20832">
-                          <propertyInstance Id="3b9dc7e6-655d-496d-8a20-82cff36784f5" name="Get" value="public">
-                            <elementDefinition Id="29bb0f2d-19c5-45d5-a745-1288dda56f83" />
-                          </propertyInstance>
-                          <elementDefinition Id="f7765489-49bc-40f6-82e2-76818fe2852a" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="30363ec8-5f0c-4291-a030-bad7c2fe6eb3">
-                          <propertyInstance Id="48bb79ba-34f1-4f45-bf3b-afeca8ce43d4" name="HasBody" value="false">
-                            <elementDefinition Id="5df65d44-2d9b-4e70-9b85-29b2ae185b57" />
-                          </propertyInstance>
-                          <elementDefinition Id="ae5b7d11-de90-4159-904a-57eebb79808c" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="bb9c34cf-84ac-48b8-abb7-71722f24cb19">
-                          <propertyInstance Id="7eff6e94-2437-4f40-a45e-2d3cca08bfe9" name="IsUnsafe" value="false">
-                            <elementDefinition Id="b847db39-c8a0-4fe3-b4a5-cccd7d36619a" />
-                          </propertyInstance>
-                          <elementDefinition Id="1949d0d0-0079-49af-88e0-c932520cb2d8" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="a68f0310-8742-4d78-84bc-7452bb779a9c">
-                          <propertyInstance Id="a4833cd1-3e56-4ae8-8a5f-6c32c60b295c" name="PackageVisibility" value="internal">
-                            <elementDefinition Id="507b3239-b453-41b8-aed5-96a801ca9be4" />
-                          </propertyInstance>
-                          <elementDefinition Id="d6980c08-c7aa-4530-ba35-16acd57f3cdb" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="659ecd56-ec26-4a1b-ad9e-94df86df827e">
-                          <propertyInstance Id="6cc27104-60b4-4f57-bf68-48d4b97652ac" name="Set" value="public">
-                            <elementDefinition Id="44fd295a-807f-44e7-9f41-a6ec78e77b0f" />
-                          </propertyInstance>
-                          <elementDefinition Id="e7a013be-3511-4aef-9332-17bafd6547c5" />
-                        </stereotypeInstanceHasPropertyInstances>
-                      </propertyInstances>
-                    </stereotypeInstance>
-                  </appliedStereotypesInternal>
-                  <elementDefinition Id="e09aae02-7f1f-40f8-833b-af9be96a5419" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="a3eecf0b-a0e3-4f01-a4bd-99bac7828382" LastKnownName="Boolean" />
-                  </type_NamedElement>
-                </property>
-              </ownedAttributes>
               <ownedOperations>
                 <operation Id="7590de14-a6e0-4237-a8f1-e550f43a330e" name="RunTask" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
