@@ -128,7 +128,7 @@ namespace ZeroInstall.Injector
 
         #region Get commands
         /// <summary>
-        /// Gets the effective list of commands. Based on <see cref="Selections.Commands"/> but applying possible <see cref="Main"/> overrides.
+        /// Gets the effective list of commands. Based on <see cref="Solver.Selections.Commands"/> but applying possible <see cref="Main"/> overrides.
         /// </summary>
         private IEnumerable<Command> GetCommands()
         {

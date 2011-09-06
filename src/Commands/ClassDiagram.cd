@@ -73,7 +73,7 @@
       <Method Name="Run" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAEAAAAAAAgACQAAAAAAAQABQAAAAAAAAACAAAAAAA=</HashCode>
+      <HashCode>AAAEAAAAAAAgAAQAAAAAAAQABQAAAAAAgAACAAAAAAA=</HashCode>
       <FileName>Run.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -84,7 +84,7 @@
       <Method Name="Selection" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAgBAAAQAAgQAQAAABAACQMBBIAAAAwAgAAAAAAAAA=</HashCode>
+      <HashCode>AAAgBAAAAAAgQAQAAABAACQMBBIAAAAwAgAAAAAAAAA=</HashCode>
       <FileName>Selection.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -94,7 +94,7 @@
       <Method Name="CommandBase" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAggAAAQAkgAAQAgAIACAAEBAAAAAAAAAAAAABEBAA=</HashCode>
+      <HashCode>AAAgAAAAQAkgAAQAgAIACAAEBAAAAAAAAAAAAABEBAA=</HashCode>
       <FileName>CommandBase.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -171,7 +171,7 @@
       <Method Name="IntegrationCommand" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAABAAAQAAAAAAAgAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IntegrationCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -181,7 +181,7 @@
       <Method Name="AddAlias" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAUAAAAAAAQEBAAAAAAAAAAEAAAAAAA=</HashCode>
+      <HashCode>AAAIAAAAAAAgAAUAAAAAAAQEBAAAAAEAAAAEAAAAAAA=</HashCode>
       <FileName>AddAlias.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -191,14 +191,14 @@
       <Method Name="SyncApps" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEBAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEBAAAAAACAAAAAAAAAAA=</HashCode>
       <FileName>SyncApps.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.CliHandler">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAEAAAAEAMAAIAAAAAAAAAAAABAAAAAAAhAA=</HashCode>
+      <HashCode>AQAAAAAAAEAAAAEgMAAIAAAAAAAAAAAABAAAAAAAhgA=</HashCode>
       <FileName>CliHandler.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -211,6 +211,16 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEBAAAAAAAAAAAAAAQAAA=</HashCode>
       <FileName>Digest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.SelfUpdate">
+    <Position X="3.25" Y="18" Width="2" />
+    <Members>
+      <Method Name="SelfUpdate" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAgAAQAAAAAAQQEBAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SelfUpdate.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
