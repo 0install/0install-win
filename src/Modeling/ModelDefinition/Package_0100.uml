@@ -71,8 +71,8 @@
           <dependency
             Id="f1800590-810e-4c99-b184-235ec9c0b920">
             <classMoniker
-              Id="d85c0249-0403-44db-b55c-7bc669d9fd63"
-              LastKnownName="GnuPG"
+              Id="ea0b8bb3-4562-4131-9869-2b561a8ceaaa"
+              LastKnownName="OpenPgpProvider"
               LastKnownLocation="Package4_1632.uml" />
           </dependency>
         </suppliersInternal>
