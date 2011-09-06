@@ -304,12 +304,6 @@ namespace ZeroInstall.Publish.Cli
             foreach (var feedFile in results.Feeds)
             {
                 var feed = Feed.Load(feedFile.FullName);
-
-                // Filter out implementations that have no commands at all (usually libraries)
-                feed.Simplify();
-                Element temp;
-                if (!feed.Elements.Find(element => !element.Commands.IsEmpty, out temp)) continue;
-
                 feed.Strip();
                 catalog.Feeds.Add(feed);
             }
