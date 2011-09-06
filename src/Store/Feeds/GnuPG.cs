@@ -69,6 +69,12 @@ namespace ZeroInstall.Store.Feeds
 
         #region Keys
         /// <inheritdoc/>
+        public void ImportKey(Stream stream)
+        {
+            // ToDo: Implement
+        }
+
+        /// <inheritdoc/>
         public string GetPublicKey(string name)
         {
             string arguments = "--batch --no-secmem-warning --armor --export";
@@ -126,7 +132,7 @@ namespace ZeroInstall.Store.Feeds
         }
         #endregion
 
-        #region Signature
+        #region Sign
         /// <inheritdoc/>
         public void DetachSign(string path, string name, string passphrase)
         {
@@ -146,7 +152,7 @@ namespace ZeroInstall.Store.Feeds
 
         #region Verify
         /// <inheritdoc/>
-        public void Verify(string data, string signature)
+        public OpenPgpSignature[] Verify(Stream data, string signature)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(signature)) throw new ArgumentNullException("signature");
@@ -160,6 +166,7 @@ namespace ZeroInstall.Store.Feeds
             //    string arguments = "--batch --no-secmem-warning --status-fd 1 --verify \"" + signatureFile.Path + "\" -";
             //    result = Execute(arguments, data);
             //}
+            throw new NotImplementedException();
         }
         #endregion
 

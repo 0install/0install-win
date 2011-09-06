@@ -28,6 +28,14 @@ namespace ZeroInstall.Store.Feeds
     public interface IOpenPgp
     {
         /// <summary>
+        /// Imports a key into the keyring.
+        /// </summary>
+        /// <param name="stream">The key data to be imported.</param>
+        /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
+        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
+        void ImportKey(Stream stream);
+
+        /// <summary>
         /// Returns a specific public key.
         /// </summary>
         /// <param name="name">The name of the user or the ID of the private key to use for signing the file; <see langword="null"/> for default key.</param>
@@ -75,13 +83,13 @@ namespace ZeroInstall.Store.Feeds
         void DetachSign(string path, string name, string passphrase);
 
         /// <summary>
-        /// Checks whether data are correctly signed.
+        /// Validates data signed by one or more keys.
         /// </summary>
-        /// <param name="data">The data to validate.</param>
-        /// <param name="signature">The signature for <paramref name="data"/>.</param>
-        /// <exception cref="SignatureException">Thrown if the signature is invalid.</exception>
+        /// <param name="data">The data that is signed.</param>
+        /// <param name="signature">The signature data.</param>
+        /// <returns>A list of signatures found, both valid and invalid.</returns>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        void Verify(string data, string signature);
+        OpenPgpSignature[] Verify(Stream data, string signature);
     }
 }
