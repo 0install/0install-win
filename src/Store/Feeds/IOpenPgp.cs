@@ -36,22 +36,22 @@ namespace ZeroInstall.Store.Feeds
         void ImportKey(Stream stream);
 
         /// <summary>
-        /// Returns a specific public key.
+        /// Returns the public key for specific keypair.
         /// </summary>
-        /// <param name="name">The name of the user or the ID of the private key to use for signing the file; <see langword="null"/> for default key.</param>
+        /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair; <see langword="null"/> to use the default key.</param>
         /// <returns>The public key in the ASCII Armored format.</returns>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        string GetPublicKey(string name);
+        string GetPublicKey(string keySpecifier);
 
         /// <summary>
-        /// Returns information about a specific secret key.
+        /// Returns information about the secret key for specific keypair.
         /// </summary>
-        /// <param name="name">The name of the user or the ID of the private key to get information about; <see langword="null"/> for default key.</param>
+        /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair; <see langword="null"/> to use the default key.</param>
         /// <exception cref="KeyNotFoundException">Thrown if the specified key could not be found on the system.</exception>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        OpenPgpSecretKey GetSecretKey(string name);
+        OpenPgpSecretKey GetSecretKey(string keySpecifier);
 
         /// <summary>
         /// Returns a list of information about available secret keys.
@@ -61,26 +61,26 @@ namespace ZeroInstall.Store.Feeds
         OpenPgpSecretKey[] ListSecretKeys();
 
         /// <summary>
-        /// Checks the passphrase of the given user for correctness.
+        /// Checks whether a passphrase is valid for a specific secret key.
         /// </summary>
-        /// <param name="name">The name of the user or the ID of the private key. <see langword="null"/> for default key.</param>
+        /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair; <see langword="null"/> to use the default key.</param>
         /// <param name="passphrase">The passphrase to check for correctness.</param>
         /// <returns><see langword="true"/> if the passphrase is correct, else <see langword="false"/>.</returns>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        bool IsPassphraseCorrect(string name, string passphrase);
+        bool IsPassphraseCorrect(string keySpecifier, string passphrase);
 
         /// <summary>
-        /// Creates a detached signature for a specific file using the user's default key.
+        /// Creates a detached signature for a file using a specific secret key.
         /// </summary>
-        /// <param name="path">The file to create the signature for.</param>
-        /// <param name="name">The name of the user or the ID of the private key to use for signing the file; <see langword="null"/> for default key.</param>
-        /// <param name="passphrase">The passphrase to use to unlock the user's default key.</param>
+        /// <param name="path">The file to sign.</param>
+        /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair; <see langword="null"/> to use the default key.</param>
+        /// <param name="passphrase">The passphrase to use to unlock the secret key.</param>
         /// <exception cref="FileNotFoundException">Thrown if the file to be signed could not be found.</exception>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        void DetachSign(string path, string name, string passphrase);
+        void DetachSign(string path, string keySpecifier, string passphrase);
 
         /// <summary>
         /// Validates data signed by one or more keys.
