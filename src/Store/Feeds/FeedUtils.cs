@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using Common;
 using Common.Cli;
+using Common.Utils;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Feeds
@@ -29,6 +30,7 @@ namespace ZeroInstall.Store.Feeds
     /// </summary>
     public static class FeedUtils
     {
+        #region Cache
         /// <summary>
         /// Loads all <see cref="Feed"/>s stored in <see cref="IFeedCache"/> into memory.
         /// </summary>
@@ -57,22 +59,32 @@ namespace ZeroInstall.Store.Feeds
             }
             return feeds;
         }
+        #endregion
 
+        #region Signatures
         /// <summary>
         /// Determines which signatures a feed is signed with.
         /// </summary>
         /// <param name="openPgp">The OpenPGP-compatible system used to validate the signatures.</param>
-        /// <param name="data">The feed data containing an embedded signature.</param>
+        /// <param name="stream">The feed data containing an embedded signature.</param>
         /// <returns>A list of signatures found, both valid and invalid.</returns>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        public static OpenPgpSignature[] GetSignatures(IOpenPgp openPgp, Stream data)
+        /// <exception cref="SignatureException">Thrown if the signature data could not be handled.</exception>
+        public static OpenPgpSignature[] GetSignatures(IOpenPgp openPgp, Stream stream)
         {
-            // ToDo: Split data into pureData and signature
-            Stream pureData = null;
+            // ToDo: Properly split stream into data and signature
+            Stream data = null;
             byte[] signature = null;
 
-            return openPgp.Verify(pureData, signature);
+            try { return openPgp.Verify(data, signature); }
+            #region Error handling
+            catch (UnhandledErrorsException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new SignatureException(ex.Message, ex);
+            }
+            #endregion
         }
+        #endregion
     }
 }
