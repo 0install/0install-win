@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.IO;
 using Common;
 using Common.Cli;
-using Common.Utils;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Feeds
@@ -66,19 +65,19 @@ namespace ZeroInstall.Store.Feeds
         /// Determines which signatures a feed is signed with.
         /// </summary>
         /// <param name="openPgp">The OpenPGP-compatible system used to validate the signatures.</param>
-        /// <param name="stream">The feed data containing an embedded signature.</param>
+        /// <param name="feedData">The feed data containing an embedded signature.</param>
         /// <returns>A list of signatures found, both valid and invalid.</returns>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
         /// <exception cref="SignatureException">Thrown if the signature data could not be handled.</exception>
-        public static OpenPgpSignature[] GetSignatures(IOpenPgp openPgp, Stream stream)
+        public static IEnumerable<OpenPgpSignature> GetSignatures(IOpenPgp openPgp, byte[] feedData)
         {
             #region Sanity checks
             if (openPgp == null) throw new ArgumentNullException("openPgp");
-            if (stream == null) throw new ArgumentNullException("stream");
+            if (feedData == null) throw new ArgumentNullException("feedData");
             #endregion
 
             // ToDo: Properly split stream into data and signature
-            Stream data = null;
+            byte[] data = null;
             byte[] signature = null;
 
             try { return openPgp.Verify(data, signature); }

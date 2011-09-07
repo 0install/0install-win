@@ -30,10 +30,10 @@ namespace ZeroInstall.Store.Feeds
         /// <summary>
         /// Imports a key into the keyring.
         /// </summary>
-        /// <param name="stream">The key data to be imported.</param>
+        /// <param name="data">The key data to be imported.</param>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        void ImportKey(Stream stream);
+        void ImportKey(byte[] data);
 
         /// <summary>
         /// Returns the public key for specific keypair.
@@ -90,6 +90,6 @@ namespace ZeroInstall.Store.Feeds
         /// <returns>A list of signatures found, both valid and invalid.</returns>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        OpenPgpSignature[] Verify(Stream data, byte[] signature);
+        IEnumerable<OpenPgpSignature> Verify(byte[] data, byte[] signature);
     }
 }

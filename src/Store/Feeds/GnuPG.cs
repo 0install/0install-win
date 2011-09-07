@@ -22,7 +22,6 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Common.Cli;
 using Common.Storage;
-using Common.Streams;
 using Common.Utils;
 using ZeroInstall.Store.Properties;
 
@@ -70,11 +69,11 @@ namespace ZeroInstall.Store.Feeds
 
         #region Keys
         /// <inheritdoc/>
-        public void ImportKey(Stream stream)
+        public void ImportKey(byte[] data)
         {
             Execute("--batch --no-secmem-warning --quiet --import", writer =>
             {
-                StreamUtils.Copy(stream, writer.BaseStream);
+                writer.BaseStream.Write(data, 0, data.Length);
                 writer.Close();
             });
         }
@@ -131,12 +130,13 @@ namespace ZeroInstall.Store.Feeds
         {
             if (string.IsNullOrEmpty(passphrase)) return false;
 
-            string tempFilePath = FileUtils.GetTempFile("gpg");
-
-            try { DetachSign(tempFilePath, keySpecifier, passphrase); }
-            catch (WrongPassphraseException)
-            { return false; }
-            return true;
+            using (var tempFile = new TemporaryFile("gpg"))
+            {
+                try { DetachSign(tempFile.Path, keySpecifier, passphrase); }
+                catch (WrongPassphraseException)
+                { return false; }
+                return true;
+            }
         }
         #endregion
 
@@ -160,7 +160,7 @@ namespace ZeroInstall.Store.Feeds
 
         #region Verify
         /// <inheritdoc/>
-        public OpenPgpSignature[] Verify(Stream data, byte[] signature)
+        public IEnumerable<OpenPgpSignature> Verify(byte[] data, byte[] signature)
         {
             #region Sanity checks
             if (data == null) throw new ArgumentNullException("data");
@@ -174,13 +174,20 @@ namespace ZeroInstall.Store.Feeds
                 string arguments = "--batch --no-secmem-warning --status-fd 1 --verify " + StringUtils.EscapeArgument(signatureFile.Path) + " -";
                 result = Execute(arguments, writer =>
                 {
-                    StreamUtils.Copy(data, writer.BaseStream, 4096);
+                    writer.BaseStream.Write(data, 0, data.Length);
                     writer.Close();
                 });
             }
+            string[] lines = StringUtils.SplitMultilineText(result);
 
-            // ToDo: Parse result
-            throw new NotImplementedException();
+            // Each signature is represented by one line of encoded information
+            var signatures = new List<OpenPgpSignature>(lines.Length);
+            foreach (var line in lines)
+            {
+                if (line.StartsWith("[GNUPG:]")) signatures.Add(OpenPgpSignature.Parse(line));
+            }
+
+            return signatures;
         }
         #endregion
 

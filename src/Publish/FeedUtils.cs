@@ -153,10 +153,7 @@ namespace ZeroInstall.Publish
         {
             var openPgp = OpenPgpProvider.Default;
 
-            OpenPgpSignature[] signatures;
-            using (var stream = File.OpenRead(path))
-                signatures = Store.Feeds.FeedUtils.GetSignatures(openPgp, stream);
-
+            var signatures = Store.Feeds.FeedUtils.GetSignatures(openPgp, File.ReadAllBytes(path));
             var secretKey = new OpenPgpSecretKey();
             try
             {

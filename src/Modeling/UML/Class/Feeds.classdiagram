@@ -872,13 +872,26 @@
                   <elementDefinition Id="e54710a9-d4bf-4bf8-8e56-d812faa53135" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="48c61062-edd7-4f1b-8808-176d928b75b0" name="data" direction="In" isUnique="false">
+                      <parameter Id="48c61062-edd7-4f1b-8808-176d928b75b0" name="data" direction="In">
                         <referencesInternal>
                           <reference Id="c375d981-6c73-430a-963a-23d93638746f" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=GnuPG Member=(Name=Verify OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=data" tag="ViewCode">
                             <elementDefinition Id="389a8c21-00b3-4308-8957-c2267a4ee1be" />
                           </reference>
                         </referencesInternal>
+                        <lowerValueInternal>
+                          <literalString Id="25ff0140-8428-43cd-8559-f26b12520219" name="Lower" value="*">
+                            <elementDefinition Id="23f2a4d4-6084-4e41-ad5e-9c9be2002609" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="2f749ae8-99f9-466c-94ef-13ccabba52e4" name="Upper" value="*">
+                            <elementDefinition Id="a08ef404-fc3d-491d-84ad-c4e58aa7fc37" />
+                          </literalString>
+                        </upperValueInternal>
                         <elementDefinition Id="db16b98d-2b5a-4edb-8e88-8b1cb559ef75" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="7676b7fb-9d1e-4bf5-8c74-83c2e5b43509" LastKnownName="Byte" />
+                        </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
@@ -928,8 +941,21 @@
                   <elementDefinition Id="9ad4a353-d23f-4f10-8587-4e4fc0fa7272" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="b2e45fad-2066-453b-aeb3-02f4e94fb3e9" name="stream" direction="In" isUnique="false">
+                      <parameter Id="b2e45fad-2066-453b-aeb3-02f4e94fb3e9" name="stream" direction="In">
+                        <lowerValueInternal>
+                          <literalString Id="74d44770-b704-4b25-ad49-94d58eb20d1b" name="Lower" value="*">
+                            <elementDefinition Id="1b028c50-986d-405b-868c-813504a75f19" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="79265769-d7f4-46fe-be84-2bfa256e4bf7" name="Upper" value="*">
+                            <elementDefinition Id="fcbf0879-3633-44a8-9216-8c4dfdfd7a8e" />
+                          </literalString>
+                        </upperValueInternal>
                         <elementDefinition Id="a33ceac6-90c9-4cc5-8eed-4d23425d7c66" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="7676b7fb-9d1e-4bf5-8c74-83c2e5b43509" LastKnownName="Byte" />
+                        </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
@@ -3811,23 +3837,36 @@
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="3d3f9c31-f37c-4270-b98b-5392f76caf22" name="data" direction="In" isUnique="false">
-                        <elementDefinition Id="e9923ede-d6ae-4ee1-9eaf-accf1001c6fa" />
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="0c53750e-85e4-4d0c-9061-5bcb5be32698" name="signature" direction="In">
+                      <parameter Id="439d3cbd-3522-4dfa-9e45-199e9c2b7577" name="data" direction="In">
                         <lowerValueInternal>
-                          <literalString Id="35510960-3711-4990-9276-51149b532118" name="Lower" value="*">
-                            <elementDefinition Id="10fb318f-aa01-4fe3-9284-7e822f697012" />
+                          <literalString Id="51bfa03b-8607-4b41-8112-e62f7f2e8b72" name="Lower" value="*">
+                            <elementDefinition Id="621b1ed9-2c2b-4985-a280-27adbe92670a" />
                           </literalString>
                         </lowerValueInternal>
                         <upperValueInternal>
-                          <literalString Id="e6bdc513-0b80-4b01-8003-bacf60aade54" name="Upper" value="*">
-                            <elementDefinition Id="ffa90e13-d1b9-4139-8e9b-11d48de90822" />
+                          <literalString Id="c8993348-b56a-4904-8978-3f7c14fd1493" name="Upper" value="*">
+                            <elementDefinition Id="e73678c4-b1a6-4b8b-87ea-d6be0a3f7abb" />
                           </literalString>
                         </upperValueInternal>
-                        <elementDefinition Id="c1836c63-3a08-4f69-ac31-787ccd9a076d" />
+                        <elementDefinition Id="f74b98ac-e0bc-4df7-8d14-d084c734751d" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="7676b7fb-9d1e-4bf5-8c74-83c2e5b43509" LastKnownName="Byte" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="823edeee-2438-4d13-a76b-4389003d46d8" name="signature" direction="In">
+                        <lowerValueInternal>
+                          <literalString Id="47e989ac-7e44-491b-9e07-c6782f9a83e3" name="Lower" value="*">
+                            <elementDefinition Id="f5448476-1026-4a28-ab88-8207ed24b119" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="d970f5ab-8101-4514-8867-47d135baacf2" name="Upper" value="*">
+                            <elementDefinition Id="b17b6638-38f5-46c5-8ab0-64239d36000b" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="45a1b6bc-c480-4a73-9737-5f85a0970130" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="7676b7fb-9d1e-4bf5-8c74-83c2e5b43509" LastKnownName="Byte" />
                         </type_NamedElement>
@@ -3904,8 +3943,21 @@
                   <elementDefinition Id="9932d7f5-78f4-4b2e-b46d-7bfb9e66b292" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="2785af6c-3dfb-482f-9581-a6a970146958" name="stream" direction="In" isUnique="false">
-                        <elementDefinition Id="f77963ae-4cb0-41d6-a7bb-6de112a18d3c" />
+                      <parameter Id="b5da9fe7-c33a-4d73-b9c1-c560c84ddd8e" name="data" direction="In">
+                        <lowerValueInternal>
+                          <literalString Id="76ff9ca5-ff62-473f-ab7a-a51ce7f9d5e8" name="Lower" value="*">
+                            <elementDefinition Id="72d30d55-8569-44ea-8d1c-085645c0e837" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="d123d442-66eb-4b2b-98ac-6c9ac178eb4e" name="Upper" value="*">
+                            <elementDefinition Id="0d80e033-f0ba-4220-ada4-98ffef24ca9a" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="11853adb-983b-4c77-bedd-86dcb1ec5408" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="7676b7fb-9d1e-4bf5-8c74-83c2e5b43509" LastKnownName="Byte" />
+                        </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>

@@ -23,7 +23,13 @@ namespace ZeroInstall.Store.Feeds
     /// Represents a signature checked by an <see cref="IOpenPgp"/> implementation.
     /// </summary>
     public abstract class OpenPgpSignature
-    {}
+    {
+        public static OpenPgpSignature Parse(string line)
+        {
+            string[] parts = line.Split(' ');
+            throw new NotImplementedException();
+        }
+    }
 
     /// <summary>
     /// Represents a valid signature.
