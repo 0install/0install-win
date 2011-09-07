@@ -247,10 +247,10 @@ namespace ZeroInstall.Model
         /// </summary>
         public void Strip()
         {
-            EntryPoints.Clear();
-
             // ToDo: Extract supported architectures
             Elements.Clear();
+
+            EntryPoints.Clear();
 
             // ToDo: Extract supported file types
             CapabilityLists.Clear();
