@@ -61,16 +61,6 @@ namespace ZeroInstall.Store.Feeds
         OpenPgpSecretKey[] ListSecretKeys();
 
         /// <summary>
-        /// Checks whether a passphrase is valid for a specific secret key.
-        /// </summary>
-        /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair; <see langword="null"/> to use the default key.</param>
-        /// <param name="passphrase">The passphrase to check for correctness.</param>
-        /// <returns><see langword="true"/> if the passphrase is correct, else <see langword="false"/>.</returns>
-        /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        bool IsPassphraseCorrect(string keySpecifier, string passphrase);
-
-        /// <summary>
         /// Creates a detached signature for a file using a specific secret key.
         /// </summary>
         /// <param name="path">The file to sign.</param>

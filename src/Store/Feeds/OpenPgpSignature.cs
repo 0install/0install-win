@@ -24,7 +24,7 @@ namespace ZeroInstall.Store.Feeds
     /// </summary>
     public abstract class OpenPgpSignature
     {
-        public static OpenPgpSignature Parse(string line)
+        internal static OpenPgpSignature Parse(string line)
         {
             string[] parts = line.Split(' ');
             throw new NotImplementedException();

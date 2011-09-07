@@ -124,20 +124,6 @@ namespace ZeroInstall.Store.Feeds
 
             return keys.ToArray();
         }
-
-        /// <inheritdoc />
-        public bool IsPassphraseCorrect(string keySpecifier, string passphrase)
-        {
-            if (string.IsNullOrEmpty(passphrase)) return false;
-
-            using (var tempFile = new TemporaryFile("gpg"))
-            {
-                try { DetachSign(tempFile.Path, keySpecifier, passphrase); }
-                catch (WrongPassphraseException)
-                { return false; }
-                return true;
-            }
-        }
         #endregion
 
         #region Sign
