@@ -47,5 +47,12 @@ namespace ZeroInstall.Store.Feeds
 
             CollectionAssert.AreEqual(new[] {feed1, feed3}, FeedUtils.GetFeeds((IFeedCache)cacheMock.MockInstance));
         }
+
+        [Test]
+        public void TestGetSignatures()
+        {
+            using (var stream = File.OpenRead(@"G:\Documents\Internet\Anthea\srv\www\0install\feeds\Blender.xml"))
+                FeedUtils.GetSignatures(OpenPgpProvider.Default, stream);
+        }
     }
 }
