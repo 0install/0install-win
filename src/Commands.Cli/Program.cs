@@ -28,6 +28,7 @@ using ZeroInstall.Commands.Cli.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Commands.Cli
@@ -133,6 +134,11 @@ namespace ZeroInstall.Commands.Cli
             catch (InvalidDataException ex)
             {
                 Log.Error(ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
+                return 1;
+            }
+            catch (SignatureException ex)
+            {
+                Log.Error(ex.Message);
                 return 1;
             }
             catch (InvalidInterfaceIDException ex)

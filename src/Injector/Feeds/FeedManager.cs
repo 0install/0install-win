@@ -82,6 +82,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
+        /// <exception cref="SignatureException">Thrown if the signature data of a feed file could not be handled.</exception>
         public Feed GetFeed(string feedID, Policy policy, out bool stale)
         {
             #region Sanity checks

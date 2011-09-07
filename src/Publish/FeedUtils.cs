@@ -172,8 +172,6 @@ namespace ZeroInstall.Publish
         /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched or the feed file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the feed file is not permitted.</exception>
-        /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         public static OpenPgpSecretKey GetKey(string path)
         {
             var openPgp = OpenPgpProvider.Default;
@@ -184,10 +182,19 @@ namespace ZeroInstall.Publish
 
             var secretKey = new OpenPgpSecretKey();
             try { if (signatures.Length > 0) secretKey = openPgp.GetSecretKey(signatures[0].KeyID); }
-            catch(KeyNotFoundException)
+            #region Error handling
+            catch (KeyNotFoundException ex)
             {
                 // Private key not in the user's keyring
+                Log.Info(ex.Message);
             }
+            catch (SignatureException ex)
+            {
+                // Unable to identify the signature
+                Log.Error(ex.Message);
+            }
+            #endregion
+
             return secretKey;
         }
         #endregion
