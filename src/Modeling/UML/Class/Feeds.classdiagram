@@ -879,15 +879,25 @@
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="cb1bcdaf-d5b5-4957-be99-2b7a2a4f99d8" name="signature" direction="In" isUnique="false">
+                      <parameter Id="cb1bcdaf-d5b5-4957-be99-2b7a2a4f99d8" name="signature" direction="In">
                         <referencesInternal>
                           <reference Id="aa4bc152-1bdf-4e03-b720-20799d11ef82" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=GnuPG Member=(Name=Verify OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=signature" tag="ViewCode">
                             <elementDefinition Id="554c4215-a78a-4aaa-944d-630ccb40f596" />
                           </reference>
                         </referencesInternal>
+                        <lowerValueInternal>
+                          <literalString Id="870606f5-bb31-4d40-b32e-3cbb019642ee" name="Lower" value="*">
+                            <elementDefinition Id="8ef0b69d-e10c-4a95-bfcc-f27e72f7818b" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="ad585135-1da3-4be7-9623-ea37bf1878d6" name="Upper" value="*">
+                            <elementDefinition Id="8a96a0a9-f292-447e-bbbd-d803690aa434" />
+                          </literalString>
+                        </upperValueInternal>
                         <elementDefinition Id="8d68f889-c9de-4a43-8330-1297b7949a58" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                          <referencedTypeMoniker Id="7676b7fb-9d1e-4bf5-8c74-83c2e5b43509" LastKnownName="Byte" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -3911,10 +3921,20 @@
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="0c53750e-85e4-4d0c-9061-5bcb5be32698" name="signature" direction="In" isUnique="false">
+                      <parameter Id="0c53750e-85e4-4d0c-9061-5bcb5be32698" name="signature" direction="In">
+                        <lowerValueInternal>
+                          <literalString Id="35510960-3711-4990-9276-51149b532118" name="Lower" value="*">
+                            <elementDefinition Id="10fb318f-aa01-4fe3-9284-7e822f697012" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="e6bdc513-0b80-4b01-8003-bacf60aade54" name="Upper" value="*">
+                            <elementDefinition Id="ffa90e13-d1b9-4139-8e9b-11d48de90822" />
+                          </literalString>
+                        </upperValueInternal>
                         <elementDefinition Id="c1836c63-3a08-4f69-ac31-787ccd9a076d" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                          <referencedTypeMoniker Id="7676b7fb-9d1e-4bf5-8c74-83c2e5b43509" LastKnownName="Byte" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -5929,6 +5949,11 @@
     <packageHasNamedElement>
       <referencedType Id="5f9fd4d8-a763-4e07-901e-f08d6cf21e63" name="OpenPgpSignature" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Feeds::OpenPgpSignature">
         <elementDefinition Id="786ffec2-0327-40f2-aad0-cbb8ab97ff51" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="7676b7fb-9d1e-4bf5-8c74-83c2e5b43509" name="Byte" isAbstract="false" isLeaf="false" cachedFullName="Byte">
+        <elementDefinition Id="4637e42d-ad55-4e39-97e2-19898d775604" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

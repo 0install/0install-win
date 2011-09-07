@@ -70,7 +70,7 @@ namespace ZeroInstall.Store.Feeds
         {
             // ToDo: Split data into pureData and signature
             Stream pureData = null;
-            string signature = null;
+            byte[] signature = null;
 
             return openPgp.Verify(pureData, signature);
         }

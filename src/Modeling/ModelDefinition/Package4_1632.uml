@@ -1822,19 +1822,30 @@
                 <parameter
                   Id="8d68f889-c9de-4a43-8330-1297b7949a58"
                   name="signature"
-                  direction="In"
-                  isUnique="false">
+                  direction="In">
                   <referencesInternal>
                     <reference
                       Id="554c4215-a78a-4aaa-944d-630ccb40f596"
                       handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=GnuPG Member=(Name=Verify OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=signature"
                       tag="ViewCode" />
                   </referencesInternal>
+                  <lowerValueInternal>
+                    <literalString
+                      Id="8ef0b69d-e10c-4a95-bfcc-f27e72f7818b"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="8a96a0a9-f292-447e-bbbd-d803690aa434"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
                   <type_NamedElement>
-                    <primitiveTypeMoniker
-                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
-                      LastKnownName="String"
-                      LastKnownLocation="Architecture.uml" />
+                    <undefinedTypeMoniker
+                      Id="4637e42d-ad55-4e39-97e2-19898d775604"
+                      LastKnownName="Byte"
+                      LastKnownLocation="Package4_1632.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -5159,13 +5170,24 @@
                 <parameter
                   Id="c1836c63-3a08-4f69-ac31-787ccd9a076d"
                   name="signature"
-                  direction="In"
-                  isUnique="false">
+                  direction="In">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="10fb318f-aa01-4fe3-9284-7e822f697012"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="ffa90e13-d1b9-4139-8e9b-11d48de90822"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
                   <type_NamedElement>
-                    <primitiveTypeMoniker
-                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
-                      LastKnownName="String"
-                      LastKnownLocation="Architecture.uml" />
+                    <undefinedTypeMoniker
+                      Id="4637e42d-ad55-4e39-97e2-19898d775604"
+                      LastKnownName="Byte"
+                      LastKnownLocation="Package4_1632.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -5521,6 +5543,11 @@
           </property>
         </ownedAttributesInternal>
       </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="4637e42d-ad55-4e39-97e2-19898d775604"
+        name="Byte" />
     </packageHasNamedElement>
   </packagedElements>
 </package>

@@ -152,11 +152,11 @@ namespace ZeroInstall.Store.Feeds
 
         #region Verify
         /// <inheritdoc/>
-        public OpenPgpSignature[] Verify(Stream data, string signature)
+        public OpenPgpSignature[] Verify(Stream data, byte[] signature)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(signature)) throw new ArgumentNullException("signature");
             if (data == null) throw new ArgumentNullException("data");
+            if (signature == null) throw new ArgumentNullException("signature");
             #endregion
 
             // ToDo: Implement
