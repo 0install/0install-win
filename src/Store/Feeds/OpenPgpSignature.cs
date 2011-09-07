@@ -85,7 +85,7 @@ namespace ZeroInstall.Store.Feeds
         /// <summary>
         /// Indicates that the signature could not be validated because the key was missing.
         /// </summary>
-        private bool MissingKey;
+        private readonly bool MissingKey;
 
         /// <summary>
         /// Creates a new signature error.

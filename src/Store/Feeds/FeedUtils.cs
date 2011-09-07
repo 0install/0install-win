@@ -72,6 +72,11 @@ namespace ZeroInstall.Store.Feeds
         /// <exception cref="SignatureException">Thrown if the signature data could not be handled.</exception>
         public static OpenPgpSignature[] GetSignatures(IOpenPgp openPgp, Stream stream)
         {
+            #region Sanity checks
+            if (openPgp == null) throw new ArgumentNullException("openPgp");
+            if (stream == null) throw new ArgumentNullException("stream");
+            #endregion
+
             // ToDo: Properly split stream into data and signature
             Stream data = null;
             byte[] signature = null;
