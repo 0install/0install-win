@@ -22,6 +22,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Common.Cli;
 using Common.Storage;
+using Common.Streams;
 using Common.Utils;
 using ZeroInstall.Store.Properties;
 
@@ -47,12 +48,12 @@ namespace ZeroInstall.Store.Feeds
         /// Runs GnuPG, processes its output and waits until it has terminated.
         /// </summary>
         /// <param name="arguments">Command-line arguments to launch the application with.</param>
-        /// <param name="defaultInput">Data to write to the application's stdin-stream right after startup; <see langword="null"/> for none.</param>
+        /// <param name="inputCallback">Callback allow you to write to the application's stdin-stream right after startup; <see langword="null"/> for none.</param>
         /// <returns>The application's complete output to the stdout-stream.</returns>
         /// <exception cref="IOException">Thrown if GnuPG could not be launched.</exception>
-        private string Execute(string arguments, string defaultInput)
+        private string Execute(string arguments, Action<StreamWriter> inputCallback)
         {
-            return Execute(arguments, defaultInput, ErrorHandler);
+            return Execute(arguments, inputCallback, ErrorHandler);
         }
 
         /// <inheritdoc/>
@@ -71,7 +72,11 @@ namespace ZeroInstall.Store.Feeds
         /// <inheritdoc/>
         public void ImportKey(Stream stream)
         {
-            // ToDo: Implement
+            Execute("--batch --no-secmem-warning --quiet --import", writer =>
+            {
+                StreamUtils.Copy(stream, writer.BaseStream);
+                writer.Close();
+            });
         }
 
         /// <inheritdoc/>
@@ -146,7 +151,7 @@ namespace ZeroInstall.Store.Feeds
             arguments += " --detach-sign \"" + path.Replace("\"", "\\\")" + "\"");
 
             if (string.IsNullOrEmpty(passphrase)) passphrase = "\n";
-            Execute(arguments, passphrase);
+            Execute(arguments, writer => writer.WriteLine(passphrase));
         }
         #endregion
 
@@ -159,13 +164,19 @@ namespace ZeroInstall.Store.Feeds
             if (signature == null) throw new ArgumentNullException("signature");
             #endregion
 
-            // ToDo: Implement
-            //string result;
-            //using (var signatureFile = new TemporaryFile("0install-sig"))
-            //{
-            //    string arguments = "--batch --no-secmem-warning --status-fd 1 --verify \"" + signatureFile.Path + "\" -";
-            //    result = Execute(arguments, data);
-            //}
+            string result;
+            using (var signatureFile = new TemporaryFile("0install-sig"))
+            {
+                File.WriteAllBytes(signatureFile.Path, signature);
+                string arguments = "--batch --no-secmem-warning --status-fd 1 --verify " + StringUtils.EscapeArgument(signatureFile.Path) + " -";
+                result = Execute(arguments, writer =>
+                {
+                    StreamUtils.Copy(data, writer.BaseStream, 4096);
+                    writer.Close();
+                });
+            }
+
+            // ToDo: Parse result
             throw new NotImplementedException();
         }
         #endregion
@@ -183,6 +194,8 @@ namespace ZeroInstall.Store.Feeds
             if (new Regex("gpg: skipped \"[\\w\\W]*\": bad passphrase").IsMatch(line)) throw new WrongPassphraseException();
             if (line.StartsWith("gpg: signing failed: bad passphrase")) throw new WrongPassphraseException();
             if (line.StartsWith("gpg: signing failed: file exists")) throw new IOException(Resources.SignatureAldreadyExists);
+            if (line.StartsWith("gpg: Signature made ")) return null;
+            if (line.StartsWith("gpg: BAD signature")) return null;
             throw new UnhandledErrorsException(line);
         }
         #endregion
