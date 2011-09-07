@@ -182,7 +182,13 @@ namespace ZeroInstall.Publish
             using (var stream = File.OpenRead(path))
                 signatures = Store.Feeds.FeedUtils.GetSignatures(openPgp, stream);
 
-            return (signatures.Length == 0) ? new OpenPgpSecretKey() : openPgp.GetSecretKey(signatures[0].KeyID);
+            var secretKey = new OpenPgpSecretKey();
+            try { if (signatures.Length > 0) secretKey = openPgp.GetSecretKey(signatures[0].KeyID); }
+            catch(KeyNotFoundException)
+            {
+                // Private key not in the user's keyring
+            }
+            return secretKey;
         }
         #endregion
 
