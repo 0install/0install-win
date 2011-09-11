@@ -2054,14 +2054,14 @@
                   Id="b874fcab-a4b8-402c-bd86-c5bd9f085df1"
                   name="path"
                   direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <primitiveTypeMoniker
-                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
-                      LastKnownName="String"
-                      LastKnownLocation="Architecture.uml" />
-                  </type_NamedElement>
-                </parameter>
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="4aaa2d99-6034-45db-8140-f8237eebed92"
+                  name="timestamp"
+                  direction="In"
+                  isUnique="false" />
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
@@ -2510,16 +2510,10 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="f68cb5ab-5235-47e6-8dbc-a3cce1796330"
+                  Id="9cd92f6c-8d55-4d20-b01d-3553f08978d9"
                   name="feedID"
                   direction="In"
                   isUnique="false">
-                  <referencesInternal>
-                    <reference
-                      Id="5aaef48d-5612-4a2e-bb4f-a3243b9f0af0"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=IFeedCache Member=(Name=Add OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=path"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <type_NamedElement>
                     <primitiveTypeMoniker
                       Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
@@ -2530,17 +2524,17 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="90ce2220-2a3d-4c95-bd75-1e8c95f0d856"
-                  name="path"
+                  Id="d393cd0b-0681-4650-80b6-5f3d1b0805e5"
+                  name="stream"
                   direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <primitiveTypeMoniker
-                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
-                      LastKnownName="String"
-                      LastKnownLocation="Architecture.uml" />
-                  </type_NamedElement>
-                </parameter>
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="80cea5b3-145e-4a49-9b52-c09b9fd5490f"
+                  name="timestamp"
+                  direction="In"
+                  isUnique="false" />
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
@@ -3128,7 +3122,8 @@
                 <parameter
                   Id="be736203-71db-4b46-932d-563aa05dd373"
                   name="feedID"
-                  direction="In">
+                  direction="In"
+                  isUnique="false">
                   <referencesInternal>
                     <reference
                       Id="ed617ba8-b6e7-4161-8e28-3a3836a94297"
@@ -3147,20 +3142,22 @@
                 <parameter
                   Id="6f2660c9-391a-436b-a41b-cd81d1b61716"
                   name="path"
-                  direction="In">
+                  direction="In"
+                  isUnique="false">
                   <referencesInternal>
                     <reference
                       Id="e6524eca-a29a-4d6c-917a-5523fcd068f5"
                       handle="viewcode://./CodeSchema_Parameter?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=MemoryFeedCache Member=(Name=Add OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=path"
                       tag="ViewCode" />
                   </referencesInternal>
-                  <type_NamedElement>
-                    <primitiveTypeMoniker
-                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
-                      LastKnownName="String"
-                      LastKnownLocation="Architecture.uml" />
-                  </type_NamedElement>
                 </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="0d740484-99c8-4848-9c7d-87b63b73f5bd"
+                  name="timestamp"
+                  direction="In"
+                  isUnique="false" />
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>

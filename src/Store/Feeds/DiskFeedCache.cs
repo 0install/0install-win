@@ -18,6 +18,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Common.Streams;
+using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
 
@@ -122,26 +124,42 @@ namespace ZeroInstall.Store.Feeds
 
         #region Add
         /// <inheritdoc/>
-        public void Add(string feedID, string path)
+        public void Add(string feedID, Stream stream, DateTime timestamp)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
             ModelUtils.ValidateInterfaceID(feedID);
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            // Don't cache local files
-            if (feedID == path) return;
-
-            string targetPath = Path.Combine(DirectoryPath, ModelUtils.Escape(feedID));
+            string path = Path.Combine(DirectoryPath, ModelUtils.Escape(feedID));
 
             // Detect replay attacks
-            var oldTime = File.GetLastWriteTimeUtc(targetPath);
-            var newTime = File.GetLastWriteTimeUtc(path);
-            if (oldTime > newTime)
-                throw new ReplayAttackException(string.Format(Resources.ReplayAttack, feedID, oldTime, newTime));
+            try
+            {
+                var oldTime = File.GetLastWriteTimeUtc(path);
+                if (oldTime > timestamp)
+                    throw new ReplayAttackException(string.Format(Resources.ReplayAttack, feedID, oldTime, timestamp));
+            }
+            catch(FileNotFoundException)
+            {}
 
-            File.Copy(path, targetPath);
+            try
+            {
+                // Perform atomic replace
+                using (var fileStream = File.OpenWrite(path + ".new"))
+                    StreamUtils.Copy(stream, fileStream, 4096);
+                File.SetLastWriteTimeUtc(path + ".new", timestamp);
+                FileUtils.Replace(path + ".new", path);
+            }
+            catch
+            {
+                // Don't leave partial downloads in the cache
+                if (File.Exists(path + ".new")) File.Delete(path + ".new");
+
+                // Only pass on exceptions if there wasn't a suitable file in the cache already
+                if (!File.Exists(path)) throw;
+            }
         }
         #endregion
 

@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Feeds
@@ -25,7 +26,7 @@ namespace ZeroInstall.Store.Feeds
     /// Provides an additional in-memory cache layer above another <see cref="IFeedCache"/>.
     /// </summary>
     /// <remarks>
-    ///   <para>Local feed files are also stored by this cache.</para>
+    ///   <para>Local feed files are also cached when read.</para>
     ///   <para>Once a feed has been added to this cache it is considered trusted (signature is not checked again).</para>
     /// </remarks>
     public sealed class MemoryFeedCache : IFeedCache
@@ -94,19 +95,24 @@ namespace ZeroInstall.Store.Feeds
 
         #region Add
         /// <inheritdoc/>
-        public void Add(string feedID, string path)
+        public void Add(string feedID, Stream stream, DateTime timestamp)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
             ModelUtils.ValidateInterfaceID(feedID);
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (stream == null) throw new ArgumentNullException("stream");
             #endregion
+
+            // Add to underlying cache
+            _backingCache.Add(feedID, stream, timestamp);
 
             // Remove old version from memory cache
             _feedDictionary.Remove(feedID);
 
-            // Add to underlying cache
-            _backingCache.Add(feedID, path);
+            // Add to memory cache
+            var feed = Feed.Load(stream);
+            feed.Simplify();
+            _feedDictionary.Add(feedID, feed);
         }
         #endregion
 

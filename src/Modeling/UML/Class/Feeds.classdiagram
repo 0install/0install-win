@@ -1576,9 +1576,11 @@
                     <operationHasOwnedParameters>
                       <parameter Id="cf0e8bbf-8b15-4712-913f-aca3c43b72a5" name="path" direction="In" isUnique="false">
                         <elementDefinition Id="b874fcab-a4b8-402c-bd86-c5bd9f085df1" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
-                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="a222140e-6c3b-4f92-a347-507d87006062" name="timestamp" direction="In" isUnique="false">
+                        <elementDefinition Id="4aaa2d99-6034-45db-8140-f8237eebed92" />
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
@@ -1918,24 +1920,21 @@
                   <elementDefinition Id="61828bb5-a1f0-4a33-aa4a-8ea9b37a9498" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="bdaff0c0-bd60-4445-a35a-efb2e27dec34" name="feedID" direction="In" isUnique="false">
-                        <referencesInternal>
-                          <reference Id="a1ce6429-19bf-45cb-8684-7e24fda2cc66" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=IFeedCache Member=(Name=Add OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=path" tag="ViewCode">
-                            <elementDefinition Id="5aaef48d-5612-4a2e-bb4f-a3243b9f0af0" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="f68cb5ab-5235-47e6-8dbc-a3cce1796330" />
+                      <parameter Id="ec039914-2b2c-4411-bc67-ba4d795a8c25" name="feedID" direction="In" isUnique="false">
+                        <elementDefinition Id="9cd92f6c-8d55-4d20-b01d-3553f08978d9" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="59db325d-f5e9-4dd3-b2b7-4aa6340f8eba" name="path" direction="In" isUnique="false">
-                        <elementDefinition Id="90ce2220-2a3d-4c95-bd75-1e8c95f0d856" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
-                        </type_NamedElement>
+                      <parameter Id="a4a4309c-5b1b-49a8-9e30-68bd33657baf" name="stream" direction="In" isUnique="false">
+                        <elementDefinition Id="d393cd0b-0681-4650-80b6-5f3d1b0805e5" />
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="3565dcc9-525c-4750-a1af-711ebb1b3727" name="timestamp" direction="In" isUnique="false">
+                        <elementDefinition Id="80cea5b3-145e-4a49-9b52-c09b9fd5490f" />
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
@@ -2365,7 +2364,7 @@
                   <elementDefinition Id="f9f1f574-34de-40dc-92de-ff3a3a16567c" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="f64530f1-8727-48ed-86cb-e3a576bb398a" name="feedID" direction="In">
+                      <parameter Id="f64530f1-8727-48ed-86cb-e3a576bb398a" name="feedID" direction="In" isUnique="false">
                         <referencesInternal>
                           <reference Id="16c996fb-b68e-488c-8897-a60deb74b095" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=MemoryFeedCache Member=(Name=Add OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=feedID" tag="ViewCode">
                             <elementDefinition Id="ed617ba8-b6e7-4161-8e28-3a3836a94297" />
@@ -2378,16 +2377,18 @@
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="13b3b2ab-da94-4766-9b4d-0d2f7c421d55" name="path" direction="In">
+                      <parameter Id="13b3b2ab-da94-4766-9b4d-0d2f7c421d55" name="path" direction="In" isUnique="false">
                         <referencesInternal>
                           <reference Id="07cee3db-70b9-4d54-bf02-e92821e181e9" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=MemoryFeedCache Member=(Name=Add OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=path" tag="ViewCode">
                             <elementDefinition Id="e6524eca-a29a-4d6c-917a-5523fcd068f5" />
                           </reference>
                         </referencesInternal>
                         <elementDefinition Id="6f2660c9-391a-436b-a41b-cd81d1b61716" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
-                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="b03655b2-65a6-4b22-abaa-f5fa1d1750ae" name="timestamp" direction="In" isUnique="false">
+                        <elementDefinition Id="0d740484-99c8-4848-9c7d-87b63b73f5bd" />
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>

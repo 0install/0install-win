@@ -104,17 +104,30 @@ namespace ZeroInstall.Store.Feeds
             var feed = FeedTest.CreateTestFeed();
             feed.Uri = new Uri("http://0install.de/feeds/test/test3.xml");
 
-            using (var tempFile = new TemporaryFile("0install-unit-tests"))
+            using (var feedStream = new MemoryStream())
             {
-                feed.Save(tempFile.Path);
-                File.SetLastWriteTimeUtc(tempFile.Path, new DateTime(2000, 1, 1));
+                feed.Save(feedStream);
+                feedStream.Position = 0;
+                _cache.Add(feed.Uri.ToString(), feedStream, new DateTime(2000, 1, 1));
 
-                _cache.Add(feed.Uri.ToString(), tempFile.Path);
                 feed.Simplify();
                 Assert.AreEqual(feed, _cache.GetFeed(feed.Uri.ToString()));
+            }
+        }
 
-                File.SetLastWriteTimeUtc(tempFile.Path, new DateTime(1998, 1, 1));
-                Assert.Throws<ReplayAttackException>(() => _cache.Add(feed.Uri.ToString(), tempFile.Path), "Should reject overwriting newer files with older ones");
+        [Test]
+        public void TestReplayAttack()
+        {
+            var feed = FeedTest.CreateTestFeed();
+            feed.Uri = new Uri("http://0install.de/feeds/test/test3.xml");
+
+            using (var feedStream = new MemoryStream())
+            {
+                feed.Save(feedStream);
+                feedStream.Position = 0;
+                _cache.Add(feed.Uri.ToString(), feedStream, new DateTime(2000, 1, 1));
+
+                Assert.Throws<ReplayAttackException>(() => _cache.Add(feed.Uri.ToString(), feedStream, new DateTime(1999, 1, 1)));
             }
         }
 
