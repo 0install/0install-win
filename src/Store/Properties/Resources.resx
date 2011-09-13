@@ -200,12 +200,6 @@ Specified in the configuration file '{1}'.</value>
     <value>There was a problem accessing the implementation store '{0}'.
 Specified in the configuration file '{1}'.</value>
   </data>
-  <data name="ReplayAttack" xml:space="preserve">
-    <value>New feed's modification time is before old version!
-Feed ID: {0}
-Old time: {1}
-New time: {2}</value>
-  </data>
   <data name="RootedPathRequired" xml:space="preserve">
     <value>A fully qualified/rooted path is required.</value>
   </data>

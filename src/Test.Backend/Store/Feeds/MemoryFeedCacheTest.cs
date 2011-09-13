@@ -85,6 +85,21 @@ namespace ZeroInstall.Store.Feeds
         }
 
         [Test]
+        public void TestGetSignautes()
+        {
+            var result = new OpenPgpSignature[0];
+            var openPgpMock = new DynamicMock(typeof(IOpenPgp));
+            var openPgp = (IOpenPgp)openPgpMock.MockInstance;
+
+            // Expect pass-through
+            _cacheMock.ExpectAndReturn("GetSignatures", result, "http://0install.de/feeds/test/test1.xml", openPgp);
+            var signatures = _cache.GetSignatures("http://0install.de/feeds/test/test1.xml", openPgp);
+
+            CollectionAssert.AreEqual(signatures, result);
+            openPgpMock.Verify();
+        }
+
+        [Test]
         public void TestAdd()
         {
             using (var feedStream = new MemoryStream())
@@ -93,9 +108,8 @@ namespace ZeroInstall.Store.Feeds
                 feedStream.Position = 0;
 
                 // Expect pass-through on adding
-                var timestamp = new DateTime(2000, 1, 1);
-                _cacheMock.Expect("Add", "http://0install.de/feeds/test/test1.xml", feedStream, timestamp);
-                _cache.Add("http://0install.de/feeds/test/test1.xml", feedStream, timestamp);
+                _cacheMock.Expect("Add", "http://0install.de/feeds/test/test1.xml", feedStream);
+                _cache.Add("http://0install.de/feeds/test/test1.xml", feedStream);
             }
 
             // Expect no pass-through due to caching on .Add()
@@ -111,9 +125,8 @@ namespace ZeroInstall.Store.Feeds
                 feedStream.Position = 0;
 
                 // Expect pass-through on adding
-                var timestamp = new DateTime(2000, 1, 1);
-                _cacheMock.Expect("Add", "http://0install.de/feeds/test/test1.xml", feedStream, timestamp);
-                _cache.Add("http://0install.de/feeds/test/test1.xml", feedStream, timestamp);
+                _cacheMock.Expect("Add", "http://0install.de/feeds/test/test1.xml", feedStream);
+                _cache.Add("http://0install.de/feeds/test/test1.xml", feedStream);
             }
 
             Assert.AreNotSame(firstAccess, _cache.GetFeed("http://0install.de/feeds/test/test1.xml"), "Adding again should overwrite cache entry");
@@ -128,9 +141,8 @@ namespace ZeroInstall.Store.Feeds
                 feedStream.Position = 0;
 
                 // Expect pass-through on adding
-                var timestamp = new DateTime(2000, 1, 1);
-                _cacheMock.Expect("Add", "http://0install.de/feeds/test/test1.xml", feedStream, timestamp);
-                _cache.Add("http://0install.de/feeds/test/test1.xml", feedStream, timestamp);
+                _cacheMock.Expect("Add", "http://0install.de/feeds/test/test1.xml", feedStream);
+                _cache.Add("http://0install.de/feeds/test/test1.xml", feedStream);
             }
 
             // Expect no pass-through due to caching on .Add()

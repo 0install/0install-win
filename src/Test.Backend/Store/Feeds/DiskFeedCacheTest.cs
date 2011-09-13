@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using Common.Storage;
 using NUnit.Framework;
+using NUnit.Mocks;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Feeds
@@ -99,6 +100,22 @@ namespace ZeroInstall.Store.Feeds
         }
 
         [Test]
+        public void TestGetSignautes()
+        {
+            var result = new OpenPgpSignature[0];
+            var openPgpMock = new DynamicMock(typeof(IOpenPgp));
+            var openPgp = (IOpenPgp)openPgpMock.MockInstance;
+
+            var data = File.ReadAllBytes(Path.Combine(_tempDir.Path, ModelUtils.Escape(_feed1.UriString)));
+            var signature = new byte[0];
+            openPgpMock.ExpectAndReturn("Verify", result, data, signature);
+            var signatures = _cache.GetSignatures("http://0install.de/feeds/test/test1.xml", openPgp);
+
+            CollectionAssert.AreEqual(signatures, result);
+            openPgpMock.Verify();
+        }
+
+        [Test]
         public void TestAdd()
         {
             var feed = FeedTest.CreateTestFeed();
@@ -108,26 +125,10 @@ namespace ZeroInstall.Store.Feeds
             {
                 feed.Save(feedStream);
                 feedStream.Position = 0;
-                _cache.Add(feed.Uri.ToString(), feedStream, new DateTime(2000, 1, 1));
+                _cache.Add(feed.Uri.ToString(), feedStream);
 
                 feed.Simplify();
                 Assert.AreEqual(feed, _cache.GetFeed(feed.Uri.ToString()));
-            }
-        }
-
-        [Test]
-        public void TestReplayAttack()
-        {
-            var feed = FeedTest.CreateTestFeed();
-            feed.Uri = new Uri("http://0install.de/feeds/test/test3.xml");
-
-            using (var feedStream = new MemoryStream())
-            {
-                feed.Save(feedStream);
-                feedStream.Position = 0;
-                _cache.Add(feed.Uri.ToString(), feedStream, new DateTime(2000, 1, 1));
-
-                Assert.Throws<ReplayAttackException>(() => _cache.Add(feed.Uri.ToString(), feedStream, new DateTime(1999, 1, 1)));
             }
         }
 

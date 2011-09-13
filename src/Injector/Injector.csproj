@@ -61,6 +61,7 @@
     <Compile Include="Feeds\ImplementationPreferences.cs" />
     <Compile Include="Feeds\InterfacePreferences.cs" />
     <Compile Include="Feeds\Key.cs" />
+    <Compile Include="Feeds\ReplayAttackException.cs" />
     <Compile Include="Feeds\Trust.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IHandler.cs" />

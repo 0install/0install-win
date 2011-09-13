@@ -147,6 +147,8 @@ namespace ZeroInstall.Fetchers
         [Test]
         public void ShouldDownloadIntoStore()
         {
+            // ToDo: One left-over temp file
+
             var package = FetcherTesting.PreparePackageBuilder();
             var localArchive = FetcherTesting.PrepareArchiveForPackage(package);
             MicroServer server;
@@ -392,6 +394,8 @@ namespace ZeroInstall.Fetchers
         [Test]
         public void ShouldPreferArchiveOverRecipe()
         {
+            // ToDo: Multiple left-over temp file
+
             var part1 = new PackageBuilder()
                 .AddFile("FILE1", "This file was in part1");
             var part2 = new PackageBuilder()
@@ -429,14 +433,13 @@ namespace ZeroInstall.Fetchers
         [Test]
         public void ShouldPreferZip()
         {
-            var implementation = new Implementation
-                                 {
-                                     RetrievalMethods =
-                                         {
-                                             new Archive {MimeType = "application/zip"},
-                                             new Archive {MimeType = "application/x-compressed"}
-                                         }
-                                 };
+            // ToDo: One left-over temp file
+
+            var implementation = new Implementation {RetrievalMethods =
+            {
+                new Archive {MimeType = "application/zip"},
+                new Archive {MimeType = "application/x-compressed"}
+            }};
 
             string selectedType = null;
 
@@ -460,7 +463,7 @@ namespace ZeroInstall.Fetchers
             Assert.AreEqual("application/zip", selectedType);
         }
 
-        class MockException : Exception
-        { }
+        private class MockException : Exception
+        {}
     }
 }

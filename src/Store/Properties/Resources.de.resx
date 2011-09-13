@@ -200,12 +200,6 @@ Festgelegt in der Konfigurationsdatei '{1}'.</value>
     <value>Es gab ein Problem beim Zugriff auf den Implementierungs-Store '{0}'.
 Festgelegt in der Konfigurationsdatei '{1}'.</value>
   </data>
-  <data name="ReplayAttack" xml:space="preserve">
-    <value>Änderungszeit des neuen Feeds liegt vor der der alten version!
-Feed ID: {0}
-Alte Zeit: {1}
-Neue Zeit: {2}</value>
-  </data>
   <data name="RootedPathRequired" xml:space="preserve">
     <value>Ein vollständig qualifizierter/gewurzelter Pfad wird benötigt.</value>
   </data>

@@ -77,8 +77,8 @@ namespace ZeroInstall.Store.Feeds
             #endregion
 
             // ToDo: Properly split stream into data and signature
-            byte[] data = null;
-            byte[] signature = null;
+            byte[] data = feedData;
+            byte[] signature = new byte[0];
 
             try { return openPgp.Verify(data, signature); }
             #region Error handling

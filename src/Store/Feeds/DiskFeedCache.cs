@@ -113,18 +113,33 @@ namespace ZeroInstall.Store.Feeds
 
             // Assume invalid URIs are local paths
             string path = (ModelUtils.IsValidUri(feedID) ? Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)) : feedID);
-
             if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedID, path));
             
             var feed = Feed.Load(path);
             feed.Simplify();
             return feed;
         }
+
+        /// <inheritdoc/>
+        public IEnumerable<OpenPgpSignature> GetSignatures(string feedID, IOpenPgp openPgp)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            ModelUtils.ValidateInterfaceID(feedID);
+            if (openPgp == null) throw new ArgumentNullException("openPgp");
+            #endregion
+
+            // Assume invalid URIs are local paths
+            string path = (ModelUtils.IsValidUri(feedID) ? Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)) : feedID);
+            if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedID, path));
+
+            return FeedUtils.GetSignatures(openPgp, File.ReadAllBytes(path));
+        }
         #endregion
 
         #region Add
         /// <inheritdoc/>
-        public void Add(string feedID, Stream stream, DateTime timestamp)
+        public void Add(string feedID, Stream stream)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
@@ -134,22 +149,11 @@ namespace ZeroInstall.Store.Feeds
 
             string path = Path.Combine(DirectoryPath, ModelUtils.Escape(feedID));
 
-            // Detect replay attacks
-            try
-            {
-                var oldTime = File.GetLastWriteTimeUtc(path);
-                if (oldTime > timestamp)
-                    throw new ReplayAttackException(string.Format(Resources.ReplayAttack, feedID, oldTime, timestamp));
-            }
-            catch(FileNotFoundException)
-            {}
-
             try
             {
                 // Perform atomic replace
                 using (var fileStream = File.OpenWrite(path + ".new"))
                     StreamUtils.Copy(stream, fileStream, 4096);
-                File.SetLastWriteTimeUtc(path + ".new", timestamp);
                 FileUtils.Replace(path + ".new", path);
             }
             catch
@@ -157,8 +161,7 @@ namespace ZeroInstall.Store.Feeds
                 // Don't leave partial downloads in the cache
                 if (File.Exists(path + ".new")) File.Delete(path + ".new");
 
-                // Only pass on exceptions if there wasn't a suitable file in the cache already
-                if (!File.Exists(path)) throw;
+                throw;
             }
         }
         #endregion

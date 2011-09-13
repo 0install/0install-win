@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="56c8b5ce-3071-451f-955e-5717fb984a08" name="Feeds" linkedPackageId="044c15fa-4edb-4e8e-9679-95d787c62489" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" dslVersion="1.0.0.0" Id="56c8b5ce-3071-451f-955e-5717fb984a08" name="Feeds" linkedPackageId="044c15fa-4edb-4e8e-9679-95d787c62489" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <appliedStereotypesInternal>
     <stereotypeInstance Id="d137db9f-23df-4e06-aa20-f943ba958f53" name="namespace" profile="CSharpProfile">
       <elementDefinition Id="0159e13c-2a5f-401e-b6f1-78dcffedcfa5" />
@@ -1578,11 +1578,6 @@
                         <elementDefinition Id="b874fcab-a4b8-402c-bd86-c5bd9f085df1" />
                       </parameter>
                     </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="a222140e-6c3b-4f92-a347-507d87006062" name="timestamp" direction="In" isUnique="false">
-                        <elementDefinition Id="4aaa2d99-6034-45db-8140-f8237eebed92" />
-                      </parameter>
-                    </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
                 <operation Id="c5d89197-004e-40f2-879a-096b7707656e" name="Contains" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
@@ -1831,6 +1826,45 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
+                <operation Id="48d8fbf0-7590-4f83-afbb-a2eb469571e6" name="GetSignatures" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="9672e371-d705-4247-9d63-18f19bccbac0" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="a40ff21a-b747-475e-87e2-ba224f500f50" name="feedID" direction="In" isUnique="false">
+                        <elementDefinition Id="ef765e9c-6e2d-42bb-a91e-c7c46aa2699d" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="98479f63-87a8-461a-a2f1-55d8fe556430" name="openPgp" direction="In" isUnique="false">
+                        <elementDefinition Id="bf24c034-790d-4d40-9fc0-a756c5c3936c" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="ca740c76-0e63-42c3-b6c5-b56830b637f3" LastKnownName="IOpenPgp" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="b7ba9f92-047f-4fdb-a6b7-0e9d22c24baa" direction="Return" isUnique="false">
+                        <lowerValueInternal>
+                          <literalString Id="a44944df-5fa7-43e6-b32d-e3ba4ef0c7c9" name="Lower" value="*">
+                            <elementDefinition Id="2291885d-2aac-4a99-8245-884eceea2ab1" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="a4bdf6b4-0a92-49af-adb1-1b0565f71205" name="Upper" value="*">
+                            <elementDefinition Id="e31e6bcb-9692-48a1-a3ea-37b80d715ed5" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="0d83b48b-e639-4d48-95fe-e4921cdba973" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="5f9fd4d8-a763-4e07-901e-f08d6cf21e63" LastKnownName="OpenPgpSignature" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
               </ownedOperationsInternal>
             </class>
           </packageHasNamedElement>
@@ -1920,21 +1954,16 @@
                   <elementDefinition Id="61828bb5-a1f0-4a33-aa4a-8ea9b37a9498" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="ec039914-2b2c-4411-bc67-ba4d795a8c25" name="feedID" direction="In" isUnique="false">
-                        <elementDefinition Id="9cd92f6c-8d55-4d20-b01d-3553f08978d9" />
+                      <parameter Id="07eb9cf3-1b85-46c4-879c-dcaff4deae92" name="feedID" direction="In" isUnique="false">
+                        <elementDefinition Id="00c88f17-90a0-4be2-a2c3-5b039a3864e1" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="a4a4309c-5b1b-49a8-9e30-68bd33657baf" name="stream" direction="In" isUnique="false">
-                        <elementDefinition Id="d393cd0b-0681-4650-80b6-5f3d1b0805e5" />
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="3565dcc9-525c-4750-a1af-711ebb1b3727" name="timestamp" direction="In" isUnique="false">
-                        <elementDefinition Id="80cea5b3-145e-4a49-9b52-c09b9fd5490f" />
+                      <parameter Id="7be58430-faeb-44e1-9e92-338b85ac45bf" name="stream" direction="In" isUnique="false">
+                        <elementDefinition Id="f908277f-89c0-4c67-b2bb-862436af1920" />
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
@@ -2185,6 +2214,82 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
+                <operation Id="3bcb61ec-71f5-4f99-b00c-75860ca53710" name="GetSignatures" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                  <appliedStereotypesInternal>
+                    <stereotypeInstance Id="f27d18da-ee1f-4d0c-9c1f-c7e227a6d6c3" name="method" profile="CSharpProfile">
+                      <elementDefinition Id="3f88d98f-5e81-4ade-80a6-d6e81c9c6224" />
+                      <propertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="26a618e6-e7ba-4474-9729-467635e91441">
+                          <propertyInstance Id="dd2ad83c-abe6-4452-8765-0b2acf336241" name="ClrAttributes">
+                            <elementDefinition Id="22414d62-f82b-4370-8f1c-fb64e73226c1" />
+                          </propertyInstance>
+                          <elementDefinition Id="a821a39d-6668-4c89-8434-0a703e0b4c67" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="6630d151-4f13-47b5-95eb-40db88fa188b">
+                          <propertyInstance Id="5d331d0b-0ced-4715-a7bb-52489abfd41d" name="IsPartial" value="false">
+                            <elementDefinition Id="69e538a0-a55f-4f2a-bd61-280e8d95a5a1" />
+                          </propertyInstance>
+                          <elementDefinition Id="23755162-f453-44f3-bb21-17514e0eef2c" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="867f792b-7962-4027-8129-fdc257bbfbce">
+                          <propertyInstance Id="4afdda69-46a3-41d9-9c1c-38b43d27a86c" name="IsUnsafe" value="false">
+                            <elementDefinition Id="e45dad59-87b8-4bd1-84d3-c8edc738f6c5" />
+                          </propertyInstance>
+                          <elementDefinition Id="381397d2-1004-4eec-bb4f-d914a24ad704" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="8c1b5a0a-048a-4a93-a6e5-db689a271869">
+                          <propertyInstance Id="55b00eec-8842-4025-aba7-b03f27a8f46e" name="PackageVisibility" value="internal">
+                            <elementDefinition Id="609e0665-67d7-443b-a75e-2202437c7757" />
+                          </propertyInstance>
+                          <elementDefinition Id="6bb6cdbb-8092-4e86-828e-df70a519c00e" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="f2a7fbe0-3957-41b5-bb4d-12d70c2f4115">
+                          <propertyInstance Id="763d7b62-b7a7-4dd1-8938-a8bc11036e66" name="params" value="false">
+                            <elementDefinition Id="59f8f102-c12f-4ec6-8a53-04bc43419b83" />
+                          </propertyInstance>
+                          <elementDefinition Id="627745bd-6398-4e3f-a25f-8b7c21d29efc" />
+                        </stereotypeInstanceHasPropertyInstances>
+                      </propertyInstances>
+                    </stereotypeInstance>
+                  </appliedStereotypesInternal>
+                  <elementDefinition Id="cdb037d7-8f35-43d0-866d-8eb348d2a48e" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="7b60f98a-9668-4006-9bd9-85fd651c5b45" name="feedID" direction="In" isUnique="false">
+                        <elementDefinition Id="1c0f64c0-83ca-4d10-86db-e74d800cfca0" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="1daa9699-4216-47ac-bd1a-b55a6fee24a9" name="openPgp" direction="In" isUnique="false">
+                        <elementDefinition Id="deab446c-528e-42b0-be11-be0698a77139" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="ca740c76-0e63-42c3-b6c5-b56830b637f3" LastKnownName="IOpenPgp" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="73debcb3-25bb-4664-bd5c-fec443e40856" direction="Return" isUnique="false">
+                        <lowerValueInternal>
+                          <literalString Id="e8d98c30-3414-49d9-b19e-812cc1075f47" name="Lower" value="*">
+                            <elementDefinition Id="e7153547-0710-4ed4-a8a8-6b73b7662644" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="68b61f1c-5d11-45ed-be65-47aa26a3c11a" name="Upper" value="*">
+                            <elementDefinition Id="0fa2f331-97f9-43aa-8b30-1ceb178d861b" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="91b10c33-13c9-4921-92b1-9efabe77b536" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="5f9fd4d8-a763-4e07-901e-f08d6cf21e63" LastKnownName="OpenPgpSignature" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
               </ownedOperations>
             </Interface>
           </packageHasNamedElement>
@@ -2240,11 +2345,11 @@
                 </interfaceRealization>
               </suppliersInternal>
               <targetEnds>
-                <association Id="7af51e80-b26f-4f4e-8dba-a48a5123f2bd" isDerived="false" sourceEndRoleName="MemoryFeedCache" targetEndRoleName="_backingCache" isLeaf="false" isAbstract="false">
+                <association Id="7af51e80-b26f-4f4e-8dba-a48a5123f2bd" isDerived="false" sourceEndRoleName="" targetEndRoleName="_backingCache" isLeaf="false" isAbstract="false">
                   <interfaceMoniker Id="bab69625-4810-4be9-9375-3a4a3674ef1b" LastKnownName="IFeedCache" />
                   <relationshipOwnedElementsInternal>
                     <associationHasOwnedEnds>
-                      <memberEnd Id="be9001e7-fbff-4f77-86b4-8267fb9a8a76" name="MemoryFeedCache" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                      <memberEnd Id="be9001e7-fbff-4f77-86b4-8267fb9a8a76" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
                         <elementDefinition Id="4cc82586-2e61-4aaa-8e0c-2575b14d27e6" />
                       </memberEnd>
                     </associationHasOwnedEnds>
@@ -2386,11 +2491,6 @@
                         <elementDefinition Id="6f2660c9-391a-436b-a41b-cd81d1b61716" />
                       </parameter>
                     </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="b03655b2-65a6-4b22-abaa-f5fa1d1750ae" name="timestamp" direction="In" isUnique="false">
-                        <elementDefinition Id="0d740484-99c8-4848-9c7d-87b63b73f5bd" />
-                      </parameter>
-                    </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
                 <operation Id="9d7d32a8-c814-4efc-807c-25a4367d7891" name="Remove" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
@@ -2513,6 +2613,45 @@
                         <elementDefinition Id="ef518fa8-c899-44ae-a6be-3e92214197e7" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="207d81cf-3a09-4148-803f-201648a04a4b" name="GetSignatures" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="6608c52e-29d2-4187-9a6b-a798cb2a0f07" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="5161c9f6-f095-4cb6-a3e4-62a4f57ce6be" name="feedID" direction="In" isUnique="false">
+                        <elementDefinition Id="3ffda397-1d54-41be-a21e-932fc178d232" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="e2d73c33-0565-45db-93ee-58b8e38cb908" name="openPgp" direction="In" isUnique="false">
+                        <elementDefinition Id="0bf54f78-123e-4141-aa59-38c2dd611cd8" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="ca740c76-0e63-42c3-b6c5-b56830b637f3" LastKnownName="IOpenPgp" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="d2987c00-6408-45e0-bebf-0954e245cd89" direction="Return" isUnique="false">
+                        <lowerValueInternal>
+                          <literalString Id="18410048-fa6a-48b8-bbdb-7f1b1e092b22" name="Lower" value="*">
+                            <elementDefinition Id="3ba0c1e9-786c-43c5-ab67-beaeb50d7073" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="62e68fb0-28a7-4d94-935f-8db0454146bf" name="Upper" value="*">
+                            <elementDefinition Id="f6adb62a-ecbf-46b4-b2e3-8297ae189eae" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="faf96583-468e-43b5-8a48-9e7fa2d94233" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="5f9fd4d8-a763-4e07-901e-f08d6cf21e63" LastKnownName="OpenPgpSignature" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -5706,6 +5845,11 @@
     <packageHasNamedElement>
       <referencedType Id="8ab5a100-2e09-4aaf-bee7-ec8a824795df" name="DateTime" isAbstract="false" isLeaf="false" cachedFullName="DateTime">
         <elementDefinition Id="1a83575b-d0b7-4cb3-b780-2734244d99a8" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="ca740c76-0e63-42c3-b6c5-b56830b637f3" name="IOpenPgp" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Feeds::IOpenPgp">
+        <elementDefinition Id="1f5177ee-45e7-46a2-8294-ccae92c4fa5e" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

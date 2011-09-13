@@ -150,6 +150,12 @@
   <data name="ProblemLoadingConfig" xml:space="preserve">
     <value>There was a problem loading configuration values from '{0}'.</value>
   </data>
+  <data name="ReplayAttack" xml:space="preserve">
+    <value>New feed's modification time is before old version!
+Feed ID: {0}
+Old time: {1}
+New time: {2}</value>
+  </data>
   <data name="SelectionCandidateNoteIncompatibleSystem" xml:space="preserve">
     <value>Not compatible with current system</value>
   </data>

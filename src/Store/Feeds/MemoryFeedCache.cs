@@ -91,11 +91,17 @@ namespace ZeroInstall.Store.Feeds
             // Get from memory cache
             return _feedDictionary[feedID];
         }
+
+        /// <inheritdoc/>
+        public IEnumerable<OpenPgpSignature> GetSignatures(string feedID, IOpenPgp openPgp)
+        {
+            return _backingCache.GetSignatures(feedID, openPgp);
+        }
         #endregion
 
         #region Add
         /// <inheritdoc/>
-        public void Add(string feedID, Stream stream, DateTime timestamp)
+        public void Add(string feedID, Stream stream)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
@@ -104,7 +110,7 @@ namespace ZeroInstall.Store.Feeds
             #endregion
 
             // Add to underlying cache
-            _backingCache.Add(feedID, stream, timestamp);
+            _backingCache.Add(feedID, stream);
 
             // Remove old version from memory cache
             _feedDictionary.Remove(feedID);

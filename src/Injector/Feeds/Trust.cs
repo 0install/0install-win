@@ -52,8 +52,6 @@ namespace ZeroInstall.Injector.Feeds
         //--------------------//
 
         #region Storage
-
-        #region Load
         /// <summary>
         /// Loads a <see cref="Trust"/> database from an XML file.
         /// </summary>
@@ -66,9 +64,7 @@ namespace ZeroInstall.Injector.Feeds
         {
             return XmlStorage.Load<Trust>(path);
         }
-        #endregion
 
-        #region Save
         /// <summary>
         /// Saves the this <see cref="Trust"/> database to an XML file.
         /// </summary>
@@ -79,8 +75,6 @@ namespace ZeroInstall.Injector.Feeds
         {
             XmlStorage.Save(path, this);
         }
-        #endregion
-
         #endregion
         
         //--------------------//
