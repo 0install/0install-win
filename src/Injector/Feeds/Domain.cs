@@ -24,7 +24,7 @@ namespace ZeroInstall.Injector.Feeds
     /// <summary>
     /// A domain-name associated to a <see cref="Domain"/>.
     /// </summary>
-    [XmlType("domain", Namespace = Trust.XmlNamespace)]
+    [XmlType("domain", Namespace = TrustDB.XmlNamespace)]
     public struct Domain : ICloneable, IEquatable<Domain>
     {
         #region Properties
@@ -32,6 +32,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <summary>
         /// A valid domain name (not a full <see cref="Uri"/>!).
         /// </summary>
+        /// <exception cref="ArgumentException">Thrown if the value is not a DNS-style hostname.</exception>
         [XmlAttribute("value")]
         public string Value
         {
@@ -44,6 +45,22 @@ namespace ZeroInstall.Injector.Feeds
 
                 _value = value;
             }
+        }
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Creates a new domain entry.
+        /// </summary>
+        /// <param name="value">A valid domain name (not a full <see cref="Uri"/>!).</param>
+        /// <exception cref="ArgumentException">Thrown if the value is not a DNS-style hostname.</exception>
+        public Domain(string value)
+        {
+            #region Sanity checks
+            if (Uri.CheckHostName(value) != UriHostNameType.Dns) throw new ArgumentException(Resources.NotValidDomain, "value");
+            #endregion
+
+            _value = value;
         }
         #endregion
 

@@ -87,6 +87,7 @@
     <Compile Include="Fetchers\TestData.cs" />
     <Compile Include="Injector\ExecutorTest.cs" />
     <Compile Include="Injector\ConfigTest.cs" />
+    <Compile Include="Injector\Feeds\FeedManagerTest.cs" />
     <Compile Include="Injector\Solver\ImplementationSelectionTest.cs" />
     <Compile Include="Injector\Solver\ExternalSolverTest.cs" />
     <Compile Include="Injector\Solver\RequirementsTest.cs" />
@@ -113,7 +114,7 @@
     <Compile Include="Store\Feeds\DiskFeedCacheTest.cs" />
     <Compile Include="Injector\Feeds\FeedPreferencesTest.cs" />
     <Compile Include="Injector\Feeds\InterfacePreferencesTest.cs" />
-    <Compile Include="Injector\Feeds\TrustTest.cs" />
+    <Compile Include="Injector\Feeds\TrustDBTest.cs" />
     <Compile Include="Store\Implementation\Archive\ExtractorTest.cs" />
     <Compile Include="Store\Implementation\Archive\TarExtractorTest.cs" />
     <Compile Include="Store\Implementation\Archive\TestData.cs" />
