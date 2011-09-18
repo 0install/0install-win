@@ -3,7 +3,7 @@
 cd /d "%~dp0"
 
 rem Project settings
-set TargetDir=%~dp0..\build\Publish
+set TargetDir=%~dp0..\build\Setup
 set SetupEXE=zero-install.exe
 
 rem Handle WOW
@@ -20,12 +20,6 @@ path %ProgramFiles_temp%\Inno Setup 5;%path%
 
 
 
-rem Purge old files
-if exist "%TargetDir%" rd /s /q "%TargetDir%"
-mkdir "%TargetDir%"
-
-
-
 echo Building Inno Setup...
 iscc /Q setup.iss
 if errorlevel 1 pause
@@ -37,16 +31,15 @@ if "%4"=="+run" "%TargetDir%\%SetupEXE%" /silent
 
 
 
-echo Building Bundled archive...
-cd "%~dp0..\build\Bundled"
-zip -9 -r "%TargetDir%\bundled.zip" . > NUL
-if errorlevel 1 pause
-
-rem Bundled content also needs to be copied into some other archives
-copy "%TargetDir%\bundled.zip" "%TargetDir%\zero-install-backend.zip" > NUL
-copy "%TargetDir%\bundled.zip" "%TargetDir%\zero-install.zip" > NUL
+rem Purge old files
+if exist "%TargetDir%\zero-install-backend.zip" del "%TargetDir%\zero-install-backend.zip"
+if exist "%TargetDir%\zero-install.zip" del "%TargetDir%\zero-install.zip"
+if exist "%TargetDir%\zero-install-tools.zip" del "%TargetDir%\zero-install-tools.zip"
+if exist "%TargetDir%\zero-install-updater.zip" del "%TargetDir%\zero-install-updater.zip"
 
 echo Building Backend archive...
+cd "%~dp0..\bundled"
+zip -9 -r "%TargetDir%\zero-install-backend.zip" . --exclude *.svn > NUL
 cd "%~dp0..\build\Backend\Release"
 zip -9 -r "%TargetDir%\zero-install-backend.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* > NUL
 if errorlevel 1 pause
@@ -56,6 +49,8 @@ zip -9 -j "%TargetDir%\zero-install-backend.zip" "%~dp0..\3rd party code.txt" > 
 if errorlevel 1 pause
 
 echo Building Frontend archive...
+cd "%~dp0..\bundled"
+zip -9 -r "%TargetDir%\zero-install.zip" . --exclude *.svn > NUL
 cd "%~dp0..\build\Frontend\Release"
 zip -9 -r "%TargetDir%\zero-install.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* *.xml > NUL
 if errorlevel 1 pause
@@ -65,8 +60,8 @@ zip -9 -j "%TargetDir%\zero-install.zip" "%~dp0..\3rd party code.txt" > NUL
 if errorlevel 1 pause
 
 echo Building Tools archive...
-cd "%~dp0..\build\Bundled"
-zip -9 -r "%TargetDir%\zero-install-tools.zip" GnuPG > NUL
+cd "%~dp0..\bundled"
+zip -9 -r "%TargetDir%\zero-install-tools.zip" GnuPG --exclude *.svn > NUL
 cd "%~dp0..\build\Tools\Release"
 zip -9 -r "%TargetDir%\zero-install-tools.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* *.xml > NUL
 if errorlevel 1 pause

@@ -2,7 +2,7 @@ This folder contains an Inno Setup Script for creating a Windows Installer.
 The resulting setup executable is placed in ..\build\Setup.
 
 The "build.cmd" script assumes "..\vs\build.cmd Release" has already been executed.
-A portable GnuPG distribution and an external solver must be located at ..\build\Bundled. Please consult the main "readme.txt" for details on how to get these.
+A portable GnuPG distribution and an external solver must be located at ..\bundled. Please consult the main "readme.txt" for details on how to get these.
 
 Code based on this project is used to add the install directory to the System PATH:
 http://legroom.net/software/modpath

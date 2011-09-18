@@ -38,14 +38,14 @@ namespace Common.Cli
         /// <param name="name">The directory name to search for.</param>
         /// <remarks>
         /// If a sub-directory named like <paramref name="name"/> is found in the installation directory this is used.
-        /// Otherwise a parallel directory named "Bundled" is probed.
+        /// Otherwise we try to locate the directory within the "bundled" directory (parallel to "src").
         /// </remarks>
         public static string GetBundledDirectory(string name)
         {
             // Use the installation directory of the launching application since the current directory may be arbitrary
             return Directory.Exists(Path.Combine(Locations.InstallBase, name))
                 ? Path.Combine(Locations.InstallBase, name)
-                : FileUtils.PathCombine(Locations.InstallBase, "..", "..", "Bundled", name);
+                : FileUtils.PathCombine(Locations.InstallBase, "..", "..", "..", "bundled", name);
         }
 
         /// <summary>
