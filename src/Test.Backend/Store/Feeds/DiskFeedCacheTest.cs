@@ -100,15 +100,12 @@ namespace ZeroInstall.Store.Feeds
         }
 
         [Test]
-        public void TestGetSignautes()
+        public void TestGetSignatures()
         {
             var result = new OpenPgpSignature[0];
             var openPgpMock = new DynamicMock(typeof(IOpenPgp));
             var openPgp = (IOpenPgp)openPgpMock.MockInstance;
 
-            var data = File.ReadAllBytes(Path.Combine(_tempDir.Path, ModelUtils.Escape(_feed1.UriString)));
-            var signature = new byte[0];
-            openPgpMock.ExpectAndReturn("Verify", result, data, signature);
             var signatures = _cache.GetSignatures("http://0install.de/feeds/test/test1.xml", openPgp);
 
             CollectionAssert.AreEqual(signatures, result);
