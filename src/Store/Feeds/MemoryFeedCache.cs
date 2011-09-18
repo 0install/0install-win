@@ -27,7 +27,7 @@ namespace ZeroInstall.Store.Feeds
     /// </summary>
     /// <remarks>
     ///   <para>Local feed files are also cached when read.</para>
-    ///   <para>Once a feed has been added to this cache it is considered trusted (signature is not checked again).</para>
+    ///   <para>Once a feed has been added to this cache it is considered trusted (signatures are not checked again).</para>
     /// </remarks>
     public sealed class MemoryFeedCache : IFeedCache
     {

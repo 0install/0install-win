@@ -10,7 +10,7 @@ namespace ZeroInstall.Store.Feeds
     /// </summary>
     /// <remarks>
     ///   <para>Local feed files may be simply passed through the cache.</para>
-    ///   <para>Once a feed has been added to this cache it is considered trusted (signature is not checked again).</para>
+    ///   <para>Once a feed has been added to this cache it is considered trusted (signatures are not checked again).</para>
     /// </remarks>
     public interface IFeedCache
     {
@@ -48,7 +48,7 @@ namespace ZeroInstall.Store.Feeds
         Feed GetFeed(string feedID);
 
         /// <summary>
-        /// Determines which signatures a feed is signed with.
+        /// Determines which signatures a <see cref="Feed"/> from this cache is signed with.
         /// </summary>
         /// <param name="feedID">The canonical ID used to identify the feed.</param>
         /// <param name="openPgp">The OpenPGP-compatible system used to validate the signatures.</param>
@@ -60,7 +60,7 @@ namespace ZeroInstall.Store.Feeds
         IEnumerable<OpenPgpSignature> GetSignatures(string feedID, IOpenPgp openPgp);
 
         /// <summary>
-        /// Adds a new <see cref="Feed"/> file to the cache. Only do this after the feed source has been verified and trusted!
+        /// Adds a new <see cref="Feed"/> file to the cache. Only do this after the feed source has been verified and trusted and replay attacks filtered!
         /// </summary>
         /// <param name="feedID">The canonical ID used to identify the feed.</param>
         /// <param name="stream">A stream containing the data of the feed to be added.</param>
