@@ -64,7 +64,7 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
             #endregion
 
-            if (!WindowsUtils.IsWindows) return false;
+            if (!WindowsUtils.IsWindowsNT) return false;
 
             // Always create the mutex both in the local session and globally and report if any instance already existed
             bool result = false;
@@ -90,7 +90,7 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
             #endregion
 
-            if (!WindowsUtils.IsWindows)
+            if (!WindowsUtils.IsWindowsNT)
             {
                 mutex = null;
                 return false;
@@ -120,7 +120,7 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
             #endregion
 
-            if (!WindowsUtils.IsWindows) return false;
+            if (!WindowsUtils.IsWindowsNT) return false;
 
             // Always create the mutex both in the local session and globally and report if any instance already existed
             bool result = false;
@@ -142,7 +142,7 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
             #endregion
 
-            if (!WindowsUtils.IsWindows) return false;
+            if (!WindowsUtils.IsWindowsNT) return false;
 
             // Always check for the mutex both in the local session and globally and report if any instance already existed
             bool result = false;

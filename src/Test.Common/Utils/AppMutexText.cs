@@ -36,7 +36,7 @@ namespace Common.Utils
         [Test]
         public void TestProbeCreateClose()
         {
-            if (!WindowsUtils.IsWindows) throw new InconclusiveException("AppMutexes are only available on the Windows platform.");
+            if (!WindowsUtils.IsWindowsNT) throw new InconclusiveException("AppMutexes are only available on the Windows NT platform.");
 
             Assert.IsFalse(AppMutex.Probe("unit-test-123"));
             AppMutex mutex;

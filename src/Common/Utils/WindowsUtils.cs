@@ -86,7 +86,7 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
             #endregion
 
-            if (!IsWindows) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
+            if (!IsWindowsNT) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
 
             handle = UnsafeNativeMethods.CreateMutex(IntPtr.Zero, false, name);
 
@@ -114,7 +114,7 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
             #endregion
 
-            if (!IsWindows) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
+            if (!IsWindowsNT) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
 
             UnsafeNativeMethods.OpenMutex(Synchronize, false, name);
 
@@ -140,7 +140,7 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
             #endregion
 
-            if (!IsWindows) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
+            if (!IsWindowsNT) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
 
             var handle = UnsafeNativeMethods.OpenMutex(Synchronize, false, name);
 
@@ -164,7 +164,7 @@ namespace Common.Utils
         /// <exception cref="PlatformNotSupportedException">Thrown when this method is called on a platform other than Windows.</exception>
         public static void CloseMutex(IntPtr handle)
         {
-            if (!IsWindows) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
+            if (!IsWindowsNT) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
 
             UnsafeNativeMethods.CloseHandle(handle);
         }

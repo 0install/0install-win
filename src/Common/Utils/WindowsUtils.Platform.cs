@@ -29,22 +29,28 @@ namespace Common.Utils
     static partial class WindowsUtils
     {
         /// <summary>
-        /// <see langword="true"/> if the current operating system is a modern desktop Windows version (9x- or NT-based); <see langword="false"/> otherwise.
+        /// <see langword="true"/> if the current operating system is Windows (9x- or NT-based); <see langword="false"/> otherwise.
         /// </summary>
         public static bool IsWindows
         { get { return Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT; } }
 
         /// <summary>
+        /// <see langword="true"/> if the current operating system is a modern Windows version (NT-based); <see langword="false"/> otherwise.
+        /// </summary>
+        public static bool IsWindowsNT
+        { get { return Environment.OSVersion.Platform == PlatformID.Win32NT; } }
+
+        /// <summary>
         /// <see langword="true"/> if the current operating system is Windows Vista or newer; <see langword="false"/> otherwise.
         /// </summary>
         public static bool IsWindowsVista
-        { get { return Environment.OSVersion.Platform == PlatformID.Win32NT && Environment.OSVersion.Version >= new Version(6, 0); } }
+        { get { return IsWindowsNT && Environment.OSVersion.Version >= new Version(6, 0); } }
 
         /// <summary>
         /// <see langword="true"/> if the current operating system is Windows 7 or newer; <see langword="false"/> otherwise.
         /// </summary>
         public static bool IsWindows7
-        { get { return Environment.OSVersion.Platform == PlatformID.Win32NT && Environment.OSVersion.Version >= new Version(6, 1); } }
+        { get { return IsWindowsNT && Environment.OSVersion.Version >= new Version(6, 1); } }
 
         /// <summary>
         /// <see langword="true"/> if the current operating system is 64-bit capable; <see langword="false"/> otherwise.
@@ -82,7 +88,7 @@ namespace Common.Utils
         {
             get
             {
-                if (!IsWindows) return true;
+                if (!IsWindowsNT) return true;
                 var identity = WindowsIdentity.GetCurrent();
                 if (identity == null) return true;
 
