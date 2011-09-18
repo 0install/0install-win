@@ -24,10 +24,39 @@ namespace ZeroInstall.Store.Feeds
     /// </summary>
     public abstract class OpenPgpSignature
     {
+        // signature codes
+        private const string ValidSignature = "VALIDSIG";
+        private const string BadSignature = "BADSIG";
+        private const string ErrorSignature = "ERRSIG";
+
+        private const int VerifyCodeIndex = 1;
+        private const int FingerprintIndex = 2;
+        private const int TimestampIndex = 4;
+        private const int KeyIDIndex = 2;
+        private const int ErrorCodeIndex = 7;
+
         internal static OpenPgpSignature Parse(string line)
         {
-            string[] parts = line.Split(' ');
-            throw new NotImplementedException();
+            string[] signatureParts = line.Split(' ');
+            switch(signatureParts[VerifyCodeIndex])
+            {
+                case ValidSignature:
+                    return new ValidSignature(signatureParts[FingerprintIndex], new DateTime(int.Parse(signatureParts[TimestampIndex])));
+                case BadSignature: return new BadSignature(signatureParts[KeyIDIndex]);
+                case ErrorSignature:
+                    return GetErrorSignature(int.Parse(signatureParts[ErrorCodeIndex]), signatureParts);
+                default:
+                    return null;
+            }
+        }
+
+        private static OpenPgpSignature GetErrorSignature(int errorCode, string[] signatureParts)
+        {
+            switch(errorCode)
+            {
+                case 9: return new MissingKeySignature(signatureParts[KeyIDIndex]);
+                default: return new ErrorSignature(signatureParts[KeyIDIndex], errorCode);
+            }
         }
     }
 
@@ -79,6 +108,26 @@ namespace ZeroInstall.Store.Feeds
     }
 
     /// <summary>
+    /// Represents a signature which's key is missing.
+    /// </summary>
+    public sealed class MissingKeySignature : OpenPgpSignature
+    {
+        /// <summary>
+        /// A short identifier string for the key used to create this signature.
+        /// </summary>
+        public readonly string KeyID;
+
+        /// <summary>
+        /// Creates a new missing key error.
+        /// </summary>
+        /// <param name="keyID">A short identifier string for the key used to create this signature.</param>
+        public MissingKeySignature(string keyID)
+        {
+            KeyID = keyID;
+        }
+    }
+
+    /// <summary>
     /// Represents a signature that could not be validated for some reason.
     /// </summary>
     public sealed class ErrorSignature : OpenPgpSignature
@@ -89,19 +138,19 @@ namespace ZeroInstall.Store.Feeds
         public readonly string KeyID;
 
         /// <summary>
-        /// Indicates that the signature could not be validated because the key was missing.
+        /// The code that refers to a description of the error.
         /// </summary>
-        private readonly bool MissingKey;
+        private readonly int ErrorCode;
 
         /// <summary>
         /// Creates a new signature error.
         /// </summary>
         /// <param name="keyID">A short identifier string for the key used to create this signature.</param>
-        /// <param name="missingKey">Indicates that the signature could not be validated because the key was missing.</param>
-        public ErrorSignature(string keyID, bool missingKey)
+        /// <param name="errorCode">The code that refers to a description of the error.</param>
+        public ErrorSignature(string keyID, int errorCode)
         {
             KeyID = keyID;
-            MissingKey = missingKey;
+            ErrorCode = errorCode;
         }
     }
 }
