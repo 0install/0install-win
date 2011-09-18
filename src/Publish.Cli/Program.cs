@@ -271,26 +271,18 @@ namespace ZeroInstall.Publish.Cli
         {
             foreach (var file in results.Feeds)
             {
-                bool wasSigned = false;
-
-                var feed = Feed.Load(file.FullName);
+                var feed = SignedFeed.Load(file.FullName);
 
                 // ToDo: Apply modifications
 
-                feed.Save(file.FullName);
+                if (!string.IsNullOrEmpty(results.Key))
+                    feed.SecretKey = OpenPgpProvider.Default.GetSecretKey(results.Key);
 
-                // Always remove existing signatures since they will become invalid if anything is changed
-                FeedUtils.UnsignFeed(file.FullName);
-                FeedUtils.AddStylesheet(file.FullName);
+                if (string.IsNullOrEmpty(results.GnuPGPassphrase))
+                    results.GnuPGPassphrase = CliUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
 
-                if ((wasSigned && !results.Unsign) || results.XmlSign)
-                {
-                    if (string.IsNullOrEmpty(results.GnuPGPassphrase))
-                        results.GnuPGPassphrase = CliUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
-
-                    var secretKey = OpenPgpProvider.Default.GetSecretKey(results.Key);
-                    FeedUtils.SignFeed(file.FullName, secretKey, results.GnuPGPassphrase);
-                }
+                // ToDo: Handle results.Sign and results.Unsign
+                feed.Save(file.FullName, results.GnuPGPassphrase);
             }
         }
         #endregion
