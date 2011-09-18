@@ -19,10 +19,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using C5;
 using Common;
 using Common.Cli;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Feeds
 {
@@ -31,12 +31,6 @@ namespace ZeroInstall.Store.Feeds
     /// </summary>
     public static class FeedUtils
     {
-        #region Constants
-        private static readonly byte[] _signatureCommentStart = Encoding.UTF8.GetBytes("<!-- Base64 Signature\n");
-        private static readonly byte[] _signatureCommentEnd = Encoding.UTF8.GetBytes("\n-->");
-        private static readonly byte _newLine = Encoding.UTF8.GetBytes("\n")[0];
-        #endregion
-
         #region Cache
         /// <summary>
         /// Loads all <see cref="Feed"/>s stored in <see cref="IFeedCache"/> into memory.
@@ -49,7 +43,7 @@ namespace ZeroInstall.Store.Feeds
             if (cache == null) throw new ArgumentNullException("cache");
             #endregion
 
-            var feeds = new System.Collections.Generic.LinkedList<Feed>();
+            var feeds = new LinkedList<Feed>();
             foreach (string id in cache.ListAll())
             {
                 try
@@ -58,10 +52,19 @@ namespace ZeroInstall.Store.Feeds
                     feed.Simplify();
                     feeds.AddLast(feed);
                 }
-                #region Error handling
-                catch (IOException ex) { Log.Error(ex.Message); }
-                catch (UnauthorizedAccessException ex) { Log.Error(ex.Message); }
-                catch (InvalidDataException ex) { Log.Error(ex.Message); }
+                    #region Error handling
+                catch (IOException ex)
+                {
+                    Log.Error(ex.Message);
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Log.Error(ex.Message);
+                }
+                catch (InvalidDataException ex)
+                {
+                    Log.Error(ex.Message);
+                }
                 #endregion
             }
             return feeds;
@@ -69,6 +72,18 @@ namespace ZeroInstall.Store.Feeds
         #endregion
 
         #region Signatures
+        /// <summary>The encoding used when looking for signature blocks in feed files.</summary>
+        private static readonly Encoding _encoding = Encoding.UTF8;
+
+        /// <summary>The string signifying the start of a signature block.</summary>
+        private const string SignatureBlockStart = "<!-- Base64 Signature\n";
+
+        /// <summary><see cref="SignatureBlockStart"/> encoded with <see cref="_encoding"/>.</summary>
+        private static readonly byte[] _signatureBlocktartBytes = _encoding.GetBytes(SignatureBlockStart);
+        
+        /// <summary>The string signifying the end of a signature block.</summary>
+        private const string SignatureBlockEnd = "\n-->\n";
+
         /// <summary>
         /// Determines which signatures a feed is signed with.
         /// </summary>
@@ -86,28 +101,15 @@ namespace ZeroInstall.Store.Feeds
 
             if (feedData.Length == 0) return new OpenPgpSignature[0];
 
-            int signatureCommentStartIndex = FindSignatureCommentStartingPoint(ref feedData);
-            if (signatureCommentStartIndex == -1) return new OpenPgpSignature[0];
+            int signatureStartIndex = GetSignatureStartIndex(feedData);
+            if (signatureStartIndex == -1) return new OpenPgpSignature[0];
 
-            // check signature comment start for validity
-            if (!IsSignatureInNewLine(ref feedData, signatureCommentStartIndex)) throw new SignatureException("The signature must be in a new line.");
-
-            // get signature
-            var signatureStartIndex = GetSignatureStartIndex(signatureCommentStartIndex);
-            var signatureEndIndex = FindSignatureEndIndex(ref feedData, signatureStartIndex);
-            if (signatureEndIndex == signatureStartIndex) throw new SignatureException("Signature does not end with a new line.");
-            var signature = GetSignature(ref feedData, signatureStartIndex, signatureEndIndex);
-
-            //check signature comment end for validity
-            if(!HasEmptyLineBetweenSignatureAndSignatureComment(ref feedData, signatureEndIndex)) throw new SignatureException("There must be an empty line between the signature and the signature comment end.");
-            var signatureCommentEndIndex = GetSignatureCommentEndIndex(signatureEndIndex);
-            if (IsSignatureCommentEndTooShort(ref feedData, signatureCommentEndIndex)) throw new SignatureException("Bad signature block: last signature comment line is too short.");
-            if (!IsSignatureCommentEndValid(ref feedData, signatureCommentEndIndex)) throw new SignatureException("Bad signature block: last signature comment line is not \"-->\".");
-            if (AnyDataAfterSignatureBlock(ref feedData, signatureCommentEndIndex)) throw new SignatureException("Bad signature block: there is some extra data after the signature block.");
-
-            byte[] feed = SeperateFeedFromSignatureBlock(ref feedData, signatureCommentStartIndex);
-
-            try { return openPgp.Verify(feed, signature); }
+            try
+            {
+                return openPgp.Verify(
+                    IsolateFeed(feedData, signatureStartIndex),
+                    IsolateAndDecodeSignature(feedData, signatureStartIndex));
+            }
             #region Error handling
             catch (UnhandledErrorsException ex)
             {
@@ -117,17 +119,22 @@ namespace ZeroInstall.Store.Feeds
             #endregion}
         }
 
-        private static int FindSignatureCommentStartingPoint(ref byte[] feedData)
-        {           
+        /// <summary>
+        /// Finds the point in a data array where the signature block starts.
+        /// </summary>
+        /// <param name="feedData">The feed data containing a signature block.</param>
+        /// <returns>The index of the first byte of the signature block; -1 if none was found.</returns>
+        private static int GetSignatureStartIndex(byte[] feedData)
+        {
             int signatureStartIndex = -1;
 
             for (int currentFeedDataIndex = 0; currentFeedDataIndex < feedData.Length; currentFeedDataIndex++)
             {
                 bool validStartingPoint = true;
-                for(int i = 0, j = currentFeedDataIndex; j < feedData.Length && i < _signatureCommentStart.Length; i++, j++)
+                for (int i = 0, j = currentFeedDataIndex; j < feedData.Length && i < _signatureBlocktartBytes.Length; i++, j++)
                 {
-                    if (feedData[j] == _signatureCommentStart[i]) continue;
-                    
+                    if (feedData[j] == _signatureBlocktartBytes[i]) continue;
+
                     validStartingPoint = false;
                     break;
                 }
@@ -137,79 +144,46 @@ namespace ZeroInstall.Store.Feeds
             return signatureStartIndex;
         }
 
-        private static bool IsSignatureInNewLine(ref byte[] feedData, int signatureCommentStartIndex)
+        /// <summary>
+        /// Isolates the actual feed from the signature block.
+        /// </summary>
+        /// <param name="feedData">The feed data containing a signature block.</param>
+        /// <param name="signatureStartIndex">The index of the first byte of the signature block.</param>
+        /// <returns>The isolated feed.</returns>
+        /// <exception cref="SignatureException">Thrown if the signature block does not start on a new line.</exception>
+        private static byte[] IsolateFeed(byte[] feedData, int signatureStartIndex)
         {
-            if (signatureCommentStartIndex <= 0) return false;
+            if (signatureStartIndex <= 0 || feedData[signatureStartIndex - 1] != _encoding.GetBytes("\n")[0])
+                throw new SignatureException(Resources.XmlSignatureMissingNewLine);
 
-            return feedData[signatureCommentStartIndex - 1] == _newLine;
-        }
-
-        private static int GetSignatureStartIndex(int signatureCommentStartIndex)
-        {
-            return signatureCommentStartIndex + _signatureCommentStart.Length;
-        }
-
-        private static byte[] GetSignature(ref byte[] feedData, int signatureStartIndex, int signatureEndIndex)
-        {
-            var base64Signature = Encoding.UTF8.GetChars(feedData, signatureStartIndex, signatureEndIndex - signatureStartIndex);
-            return Convert.FromBase64CharArray(base64Signature, 0, base64Signature.Length);
-        }
-
-        private static int FindSignatureEndIndex(ref byte[] feedData, int signatureStartIndex)
-        {
-            int signatureEndIndex = signatureStartIndex;
-            for (int currentSignaturePosition = signatureStartIndex; currentSignaturePosition < feedData.Length; currentSignaturePosition++)
-            {
-                if (feedData[currentSignaturePosition] == _newLine)
-                {
-                    signatureEndIndex = currentSignaturePosition;
-                    break;
-                }
-            }
-
-            return signatureEndIndex;
-        }
-
-        private static bool HasEmptyLineBetweenSignatureAndSignatureComment(ref byte[] feedData, int signatureEndIndex)
-        {
-            if (signatureEndIndex + 2 > feedData.Length) return false;
-            return feedData[signatureEndIndex+1] == _newLine && feedData[signatureEndIndex+2] == _newLine;
-        }
-
-        private static int GetSignatureCommentEndIndex(int signatureEndIndex)
-        {
-            return signatureEndIndex + 2;
-        }
-
-        private static bool IsSignatureCommentEndTooShort(ref byte[] feedData, int signatureCommentEndIndex)
-        {
-            return signatureCommentEndIndex + _signatureCommentEnd.Length > feedData.Length;
-        }
-
-        private static bool IsSignatureCommentEndValid(ref byte[] feedData, int signatureCommentEndIndex)
-        {
-            for(int j = signatureCommentEndIndex, i = 0; i < _signatureCommentEnd.Length; j++, i++)
-            {
-                if (feedData[j] != _signatureCommentEnd[i]) return false;
-            }
-
-            return true;
-        }
-
-        private static bool AnyDataAfterSignatureBlock(ref byte[] feedData, int signatureCommentEndIndex)
-        {
-            return feedData.Length != signatureCommentEndIndex + _signatureCommentEnd.Length;
-        }
-
-        private static byte[] SeperateFeedFromSignatureBlock(ref byte[] feedData, int signatureCommentStartIndex)
-        {
-            int signatureLength = feedData.Length - signatureCommentStartIndex;
-            int feedLength = feedData.Length - signatureLength;
-            
-            var feed = new byte[feedLength];
-            Array.Copy(feedData, 0, feed, 0, feedLength);
-
+            var feed = new byte[signatureStartIndex];
+            Array.Copy(feedData, 0, feed, 0, signatureStartIndex);
             return feed;
+        }
+
+        /// <summary>
+        /// Isolates and decodes the Base64-econded signature.
+        /// </summary>
+        /// <param name="feedData">The feed data containing a signature block.</param>
+        /// <param name="signatureStartIndex">The index of the first byte of the signature block.</param>
+        /// <returns>The decoded signature data.</returns>
+        /// <exception cref="SignatureException">Thrown if the signature contains invalid characters.</exception>
+        private static byte[] IsolateAndDecodeSignature(byte[] feedData, int signatureStartIndex)
+        {
+            // Isolate and decode signature string
+            var signatureString = _encoding.GetString(feedData, signatureStartIndex, feedData.Length - signatureStartIndex);
+            if (!signatureString.EndsWith(SignatureBlockEnd)) throw new SignatureException(Resources.XmlSignatureInvalidEnd);
+
+            // Concatenate Base64 lines and decode
+            var base64Charachters = signatureString.Substring(SignatureBlockStart.Length, signatureString.Length - SignatureBlockStart.Length - SignatureBlockEnd.Length).Replace("\n", "");
+            try { return Convert.FromBase64String(base64Charachters); }
+            #region Error handling
+            catch (FormatException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new SignatureException(Resources.XmlSignatureNotBase64 + ex.Message, ex);
+            }
+            #endregion
         }
         #endregion
     }

@@ -370,5 +370,32 @@ namespace ZeroInstall.Store.Properties {
                 return ResourceManager.GetString("WrongPassphrase", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The last line of the file is not the end of the signature block..
+        /// </summary>
+        internal static string XmlSignatureInvalidEnd {
+            get {
+                return ResourceManager.GetString("XmlSignatureInvalidEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The XML signature does not start in a new line..
+        /// </summary>
+        internal static string XmlSignatureMissingNewLine {
+            get {
+                return ResourceManager.GetString("XmlSignatureMissingNewLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The signature is not valid base 64: .
+        /// </summary>
+        internal static string XmlSignatureNotBase64 {
+            get {
+                return ResourceManager.GetString("XmlSignatureNotBase64", resourceCulture);
+            }
+        }
     }
 }
