@@ -23,6 +23,7 @@ using System.Reflection;
 using System.Text;
 using Common;
 using Common.Cli;
+using Common.Collections;
 using Common.Compression;
 using Common.Net;
 using Common.Storage;
@@ -103,7 +104,7 @@ namespace ZeroInstall.Publish
             if (File.Exists(signatureFile)) File.Delete(signatureFile);
 
             // Create a new signature file, parse it as Base64 and then delete it again
-            pgp.DetachSign(path, secretKey.KeyID, passphrase);
+            pgp.DetachSign(path, secretKey.Fingerprint, passphrase);
             string base64Signature = Convert.ToBase64String(File.ReadAllBytes(signatureFile));
             File.Delete(signatureFile);
 
@@ -122,32 +123,8 @@ namespace ZeroInstall.Publish
             if (feedDir != null)
             {
                 string publicKeyFile = Path.Combine(feedDir, secretKey.KeyID + ".gpg");
-                File.WriteAllText(publicKeyFile, pgp.GetPublicKey(secretKey.KeyID), Encoding.ASCII);
+                File.WriteAllText(publicKeyFile, pgp.GetPublicKey(secretKey.Fingerprint), Encoding.ASCII);
             }
-        }
-
-        /// <summary>
-        /// Adds a Base64 signature to a feed file and exports the appropriate public key file in the same directory.
-        /// </summary>
-        /// <param name="path">The feed file to sign.</param>
-        /// <param name="secretKey">The private key to use for signing the file.</param>
-        /// <param name="passphrase">The passphrase to use to unlock the key.</param>
-        /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
-        /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched or the feed file could not be read or written.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the feed file is not permitted.</exception>
-        /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        /// <remarks>The feed file is not parsed before signing. Invalid XML files would be signed as well. Old feed signatures are not removed.</remarks>
-        public static void SignFeed(string path, string secretKey, string passphrase)
-        {
-            try { SignFeed(path, OpenPgpProvider.Default.GetSecretKey(secretKey), passphrase); }
-            #region Error handling
-            catch (KeyNotFoundException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new UnhandledErrorsException(ex.Message, ex);
-            }
-            #endregion
         }
 
         /// <summary>
@@ -172,17 +149,31 @@ namespace ZeroInstall.Publish
         /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched or the feed file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the feed file is not permitted.</exception>
-        /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         public static OpenPgpSecretKey GetKey(string path)
         {
             var openPgp = OpenPgpProvider.Default;
 
-            OpenPgpSignature[] signatures;
-            using (var stream = File.OpenRead(path))
-                signatures = Store.Feeds.FeedUtils.GetSignatures(openPgp, stream);
+            var signatures = Store.Feeds.FeedUtils.GetSignatures(openPgp, File.ReadAllBytes(path));
+            var secretKey = new OpenPgpSecretKey();
+            try
+            {
+                var validSignature = EnumerableUtils.GetFirst(EnumerableUtils.OfType<ValidSignature>(signatures));
+                if (validSignature != null) secretKey = openPgp.GetSecretKey(validSignature.Fingerprint);
+            }
+            #region Error handling
+            catch (KeyNotFoundException ex)
+            {
+                // Private key not in the user's keyring
+                Log.Info(ex.Message);
+            }
+            catch (SignatureException ex)
+            {
+                // Unable to identify the signature
+                Log.Error(ex.Message);
+            }
+            #endregion
 
-            return (signatures.Length == 0) ? new OpenPgpSecretKey() : openPgp.GetSecretKey(signatures[0].KeyID);
+            return secretKey;
         }
         #endregion
 

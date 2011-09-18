@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using Common.Storage;
 using NUnit.Framework;
+using NUnit.Mocks;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Feeds
@@ -99,22 +100,32 @@ namespace ZeroInstall.Store.Feeds
         }
 
         [Test]
+        public void TestGetSignatures()
+        {
+            var result = new OpenPgpSignature[0];
+            var openPgpMock = new DynamicMock(typeof(IOpenPgp));
+            var openPgp = (IOpenPgp)openPgpMock.MockInstance;
+
+            var signatures = _cache.GetSignatures("http://0install.de/feeds/test/test1.xml", openPgp);
+
+            CollectionAssert.AreEqual(signatures, result);
+            openPgpMock.Verify();
+        }
+
+        [Test]
         public void TestAdd()
         {
             var feed = FeedTest.CreateTestFeed();
             feed.Uri = new Uri("http://0install.de/feeds/test/test3.xml");
 
-            using (var tempFile = new TemporaryFile("0install-unit-tests"))
+            using (var feedStream = new MemoryStream())
             {
-                feed.Save(tempFile.Path);
-                File.SetLastWriteTimeUtc(tempFile.Path, new DateTime(2000, 1, 1));
+                feed.Save(feedStream);
+                feedStream.Position = 0;
+                _cache.Add(feed.Uri.ToString(), feedStream);
 
-                _cache.Add(feed.Uri.ToString(), tempFile.Path);
                 feed.Simplify();
                 Assert.AreEqual(feed, _cache.GetFeed(feed.Uri.ToString()));
-
-                File.SetLastWriteTimeUtc(tempFile.Path, new DateTime(1998, 1, 1));
-                Assert.Throws<ReplayAttackException>(() => _cache.Add(feed.Uri.ToString(), tempFile.Path), "Should reject overwriting newer files with older ones");
             }
         }
 

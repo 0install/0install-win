@@ -30,25 +30,8 @@ namespace ZeroInstall.Injector.Feeds
     /// <summary>
     /// Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.
     /// </summary>
-    public class FeedManager : IEquatable<FeedManager>, ICloneable
+    public class FeedManager : FeedManagerBase, IEquatable<FeedManager>
     {
-        #region Properties
-        /// <summary>
-        /// The cache to retreive <see cref="Feed"/>s from and store downloaded <see cref="Feed"/>s to.
-        /// </summary>
-        public IFeedCache Cache { get; private set; }
-
-        /// <summary>
-        /// The OpenPGP-compatible system used to validate new <see cref="Feed"/>s signatures.
-        /// </summary>
-        public IOpenPgp OpenPgp { get; private set; }
-
-        /// <summary>
-        /// Set to <see langword="true"/> to update already cached <see cref="Feed"/>s. 
-        /// </summary>
-        public bool Refresh { get; set; }
-        #endregion
-
         #region Constructor
         /// <summary>
         /// Creates a new cache based on the given path to a cache directory.
@@ -56,33 +39,15 @@ namespace ZeroInstall.Injector.Feeds
         /// <param name="cache">The disk-based cache to store downloaded <see cref="Feed"/>s.</param>
         /// <param name="openPgp">The OpenPGP-compatible system used to validate new <see cref="Feed"/>s signatures.</param>
         public FeedManager(IFeedCache cache, IOpenPgp openPgp)
-        {
-            #region Sanity checks
-            if (cache == null) throw new ArgumentNullException("cache");
-            #endregion
-
-            Cache = cache;
-            OpenPgp = openPgp;
-        }
+            : base(cache, openPgp)
+        {}
         #endregion
 
         //--------------------//
 
         #region Get feed
-        /// <summary>
-        /// Returns a specific <see cref="Feed"/>.
-        /// </summary>
-        /// <param name="feedID">The canonical ID used to identify the feed.</param>
-        /// <param name="policy">Combines UI access, configuration and resources used to solve dependencies and download implementations.</param>
-        /// <param name="stale">Indicates that the returned <see cref="Feed"/> should be updated.</param>
-        /// <returns>The parsed <see cref="Feed"/> object.</returns>
-        /// <remarks><see cref="Feed"/>s are always served from the <see cref="Cache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
-        public Feed GetFeed(string feedID, Policy policy, out bool stale)
+        /// <inheritdoc/>
+        public override Feed GetFeed(string feedID, Policy policy, out bool stale)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
@@ -90,24 +55,35 @@ namespace ZeroInstall.Injector.Feeds
             #endregion
 
             // Assume invalid URIs are local paths
-            if (!ModelUtils.IsValidUri(feedID))
+            Uri feedUrl;
+            if (!ModelUtils.TryParseUri(feedID, out feedUrl))
             {
                 stale = false;
                 return LoadLocalFeed(feedID);
             }
 
-            if (Refresh) DownloadFeed(feedID, policy);
-            else if (!Cache.Contains(feedID))
+            try
             {
-                // Do not download in offline mode
-                if (policy.Config.NetworkUse == NetworkLevel.Offline)
-                    throw new IOException(string.Format(Resources.FeedNotCachedOffline, feedID));
+                if (Refresh) DownloadFeed(feedUrl, policy);
+                else if (!Cache.Contains(feedID))
+                {
+                    // Do not download in offline mode
+                    if (policy.Config.NetworkUse == NetworkLevel.Offline)
+                        throw new IOException(string.Format(Resources.FeedNotCachedOffline, feedID));
 
-                // Try to download missing feed
-                DownloadFeed(feedID, policy);
+                    // Try to download missing feed
+                    DownloadFeed(feedUrl, policy);
+                }
+
+                return LoadCachedFeed(feedID, policy, out stale);
             }
-
-            return LoadCachedFeed(feedID, policy, out stale);
+            #region Error handling
+            catch (KeyNotFoundException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(ex.Message, ex);
+            }
+            #endregion
         }
         #endregion
 
@@ -128,24 +104,25 @@ namespace ZeroInstall.Injector.Feeds
                 #region Error handling
                 catch (InvalidDataException ex)
                 {
-                    // Wrap exception since only certain exception types are allowed in tasks
+                    // Wrap exception since only certain exception types are allowed
                     throw new IOException(ex.Message, ex);
                 }
                 #endregion
             }
-            else throw new FileNotFoundException(string.Format(Resources.FileNotFound, feedID), feedID);
+            throw new FileNotFoundException(string.Format(Resources.FileNotFound, feedID), feedID);
         }
         #endregion
 
         #region Cached
         /// <summary>
-        /// Loads a <see cref="Feed"/> from the <see cref="Cache"/>.
+        /// Loads a <see cref="Feed"/> from the <see cref="FeedManagerBase.Cache"/>.
         /// </summary>
         /// <param name="feedID">The ID used to identify the feed. Must be an HTTP(S) URL.</param>
         /// <param name="policy">Combines UI access, configuration and resources used to solve dependencies and download implementations.</param>
         /// <param name="stale">Indicates that the returned <see cref="Feed"/> should be updated.</param>
         /// <returns>The parsed <see cref="Feed"/> object.</returns>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="feedID"/> was not found in the cache.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
         private Feed LoadCachedFeed(string feedID, Policy policy, out bool stale)
@@ -159,12 +136,12 @@ namespace ZeroInstall.Injector.Feeds
             #region Error handling
             catch (InvalidDataException ex)
             {
-                // Wrap exception since only certain exception types are allowed in tasks
+                // Wrap exception since only certain exception types are allowed
                 throw new IOException(ex.Message, ex);
             }
             catch (KeyNotFoundException ex)
             {
-                // Wrap exception since only certain exception types are allowed in tasks
+                // Wrap exception since only certain exception types are allowed
                 throw new IOException(ex.Message, ex);
             }
             #endregion
@@ -173,22 +150,23 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Download
         /// <summary>
-        /// Downloads a <see cref="Feed"/> into the <see cref="Cache"/> validating its signatures.
+        /// Downloads a <see cref="Feed"/> into the <see cref="FeedManagerBase.Cache"/> validating its signatures.
         /// </summary>
-        /// <param name="feedID">The ID used to identify the feed. Must be an HTTP(S) URL.</param>
+        /// <param name="feedUrl">The URL of the feed to download.</param>
         /// <param name="policy">Combines UI access, configuration and resources used to solve dependencies and download implementations.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
+        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedUrl"/> is an invalid interface ID.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="feedUrl"/> was not found in the cache.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
-        private void DownloadFeed(string feedID, Policy policy)
+        private void DownloadFeed(Uri feedUrl, Policy policy)
         {
             // HACK: Use the external solver to download feeds to the cache
             bool stale;
             try
             {
-                policy.Solver.Solve(new Requirements {InterfaceID = feedID}, policy, out stale);
+                policy.Solver.Solve(new Requirements {InterfaceID = feedUrl.ToString()}, policy, out stale);
             }
             catch (SolverException)
             {
@@ -201,21 +179,12 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Clone
         /// <summary>
-        /// Creates a shallow copy of this <see cref="FeedManager"/> instance.
+        /// Creates a shallow copy of this feed manager.
         /// </summary>
-        /// <returns>The new copy of the <see cref="FeedManager"/>.</returns>
-        public FeedManager CloneFeedManager()
+        /// <returns>The new copy of thefeed manager</returns>
+        public override IFeedManager CloneFeedManager()
         {
             return new FeedManager(Cache, OpenPgp) {Refresh = Refresh};
-        }
-        
-        /// <summary>
-        /// Creates a shallow copy of this <see cref="FeedManager"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="FeedManager"/>.</returns>
-        public object Clone()
-        {
-            return CloneFeedManager();
         }
         #endregion
 
@@ -223,9 +192,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <inheritdoc/>
         public bool Equals(FeedManager other)
         {
-            if (other == null) return false;
-
-            return Refresh == other.Refresh && Equals(other.Cache, Cache);
+            return base.Equals(other);
         }
 
         /// <inheritdoc/>
@@ -239,10 +206,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                return ((Cache != null ? Cache.GetHashCode() : 0) * 397) ^ Refresh.GetHashCode();
-            }
+            return base.GetHashCode();
         }
         #endregion
     }

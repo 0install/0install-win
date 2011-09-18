@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using NUnit.Framework;
 using NUnit.Mocks;
 using ZeroInstall.Model;
@@ -46,6 +47,69 @@ namespace ZeroInstall.Store.Feeds
             cacheMock.ExpectAndReturn("GetFeed", feed3, "http://0install.de/feeds/test/test3.xml");
 
             CollectionAssert.AreEqual(new[] {feed1, feed3}, FeedUtils.GetFeeds((IFeedCache)cacheMock.MockInstance));
+        }
+
+        const string FeedText = "Feed data\n";
+        readonly byte[] _feedBytes = Encoding.UTF8.GetBytes(FeedText);
+        private const string SignatureBlockStart = "<!-- Base64 Signature\n";
+        private static readonly byte[] _signatureBytes = Encoding.UTF8.GetBytes("Signature data");
+        private static readonly string _signatureBase64 = Convert.ToBase64String(_signatureBytes).Insert(10, "\n");
+        private const string SignatureBlockEnd = "\n\n-->\n";
+
+        /// <summary>
+        /// Ensures that <see cref="FeedUtils.GetSignatures"/> correctly separates an XML signature block from a signed feed.
+        /// </summary>
+        [Test]
+        public void TestGetSignatures()
+        {
+            var openPgpMock = new DynamicMock(typeof(IOpenPgp));
+            var result = new OpenPgpSignature[] {new ValidSignature("123", new DateTime(2000, 1, 1))};
+            openPgpMock.ExpectAndReturn("Verify", result, _feedBytes, _signatureBytes);
+
+            string input = FeedText + SignatureBlockStart + _signatureBase64 + SignatureBlockEnd;
+            CollectionAssert.AreEqual(result, FeedUtils.GetSignatures((IOpenPgp)openPgpMock.MockInstance, Encoding.UTF8.GetBytes(input)));
+
+            openPgpMock.Verify();
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="FeedUtils.GetSignatures"/> throws a <see cref="SignatureException"/> if the signature block does not start in a new line.
+        /// </summary>
+        [Test]
+        public void TestGetSignaturesMissingNewLine()
+        {
+            string input = "Feed without newline" + SignatureBlockStart + _signatureBase64 + SignatureBlockEnd;
+            Assert.Throws<SignatureException>(() => FeedUtils.GetSignatures((IOpenPgp)new DynamicMock(typeof(IOpenPgp)).MockInstance, Encoding.UTF8.GetBytes(input)));
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="FeedUtils.GetSignatures" /> throws a <see cref="SignatureException"/> if the signature contains non-base 64 characters.
+        /// </summary>
+        [Test]
+        public void TestGetSignaturesInvalidChars()
+        {
+            string input = FeedText + SignatureBlockStart + "*!?#" + SignatureBlockEnd;
+            Assert.Throws<SignatureException>(() => FeedUtils.GetSignatures((IOpenPgp)new DynamicMock(typeof(IOpenPgp)).MockInstance, Encoding.UTF8.GetBytes(input)));
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="FeedUtils.GetSignatures" /> throws a <see cref="SignatureException"/> if the correct signature end is missing.
+        /// </summary>
+        [Test]
+        public void TestGetSignaturesMissingEnd()
+        {
+            string input = FeedText + SignatureBlockStart + _signatureBase64;
+            Assert.Throws<SignatureException>(() => FeedUtils.GetSignatures((IOpenPgp)new DynamicMock(typeof(IOpenPgp)).MockInstance, Encoding.UTF8.GetBytes(input)));
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="FeedUtils.GetSignatures" /> throws a <see cref="SignatureException"/> if there is additional data after the signature block.
+        /// </summary>
+        [Test]
+        public void TestGetSignaturesDataAfterSignature()
+        {
+            string input = FeedText + SignatureBlockStart + _signatureBase64 + SignatureBlockEnd + "more data";
+            Assert.Throws<SignatureException>(() => FeedUtils.GetSignatures((IOpenPgp)new DynamicMock(typeof(IOpenPgp)).MockInstance, Encoding.UTF8.GetBytes(input)));
         }
     }
 }

@@ -231,7 +231,7 @@ namespace Common.Utils
 
         #region Replace
         /// <summary>
-        /// Replaces one file with another. Performs an atomic replace if the platform allows for it.
+        /// Replaces one file with another. Rolls back in case of problems.
         /// </summary>
         /// <param name="sourcePath">The path of source directory. Must exist!</param>
         /// <param name="destinationPath">The path of the target directory. Must not exist!</param>
@@ -249,13 +249,29 @@ namespace Common.Utils
             // Simply move if the destination does not exist
             if (File.Exists(destinationPath))
             {
-                // Try atomic file replacement
-                try { File.Replace(sourcePath, destinationPath, null); }
+                string backupPath = destinationPath + "." + Path.GetRandomFileName();
+
+                try
+                {
+                    // Use native replacement method with temporary backup file for rollback
+                    File.Replace(sourcePath, destinationPath, backupPath, true);
+                    File.Delete(backupPath);
+                }
                 catch (PlatformNotSupportedException)
                 {
-                    // Fallback to delete and move
-                    File.Delete(destinationPath);
-                    File.Move(sourcePath, destinationPath);
+                    // Emulate replacement method
+                    File.Move(destinationPath, backupPath);
+                    try
+                    {
+                        File.Move(sourcePath, destinationPath);
+                        File.Delete(backupPath);
+                    }
+                    catch
+                    {
+                        // Rollback
+                        File.Move(backupPath, destinationPath);
+                        throw;
+                    }
                 }
             }
             else File.Move(sourcePath, destinationPath);

@@ -200,12 +200,6 @@ Specified in the configuration file '{1}'.</value>
     <value>There was a problem accessing the implementation store '{0}'.
 Specified in the configuration file '{1}'.</value>
   </data>
-  <data name="ReplayAttack" xml:space="preserve">
-    <value>New feed's modification time is before old version!
-Feed ID: {0}
-Old time: {1}
-New time: {2}</value>
-  </data>
   <data name="RootedPathRequired" xml:space="preserve">
     <value>A fully qualified/rooted path is required.</value>
   </data>
@@ -229,5 +223,14 @@ New time: {2}</value>
   </data>
   <data name="WrongPassphrase" xml:space="preserve">
     <value>The passphrase you entered is incorrect.</value>
+  </data>
+  <data name="XmlSignatureInvalidEnd" xml:space="preserve">
+    <value>The last line of the file is not the end of the signature block.</value>
+  </data>
+  <data name="XmlSignatureMissingNewLine" xml:space="preserve">
+    <value>The XML signature does not start in a new line.</value>
+  </data>
+  <data name="XmlSignatureNotBase64" xml:space="preserve">
+    <value>The signature is not valid base 64: </value>
   </data>
 </root>

@@ -60,12 +60,12 @@ namespace Common.Cli
         /// Runs the external application, processes its output and waits until it has terminated.
         /// </summary>
         /// <param name="arguments">Command-line arguments to launch the application with.</param>
-        /// <param name="defaultInput">Data to write to the application's stdin-stream right after startup; <see langword="null"/> for none.</param>
+        /// <param name="inputCallback">Callback allow you to write to the application's stdin-stream right after startup; <see langword="null"/> for none.</param>
         /// <param name="errorHandler">A callback method to call whenever something is written to the stdout-stream and possibly to respond to it; <see langword="null"/> for none.</param>
         /// <returns>The application's complete output to the stdout-stream.</returns>
         /// <exception cref="IOException">Thrown if the external application could not be launched.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if there was output to stderr and <paramref name="errorHandler"/> was <see langword="null"/>.</exception>
-        protected string Execute(string arguments, string defaultInput, CliErrorHandler errorHandler)
+        protected string Execute(string arguments, Action<StreamWriter> inputCallback, CliErrorHandler errorHandler)
         {
             Process process;
             try { process = Process.Start(GetStartInfo(arguments)); }
@@ -98,8 +98,8 @@ namespace Common.Cli
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
 
-            // Write the default input first off
-            if (!string.IsNullOrEmpty(defaultInput)) process.StandardInput.WriteLine(defaultInput);
+            // Use callback to input data
+            if (inputCallback != null) inputCallback(process.StandardInput);
 
             if (errorHandler == null) process.WaitForExit();
             else

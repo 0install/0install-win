@@ -60,9 +60,9 @@ namespace Common.Storage
         public static readonly string InstallBase = AppDomain.CurrentDomain.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar);
 
         /// <summary>
-        /// The directory used for storing files if <see cref="IsPortable"/> is <see langword="true"/>. Usuall the same as <see cref="InstallBase"/>
+        /// The directory used for storing files if <see cref="IsPortable"/> is <see langword="true"/>. Defaults to <see cref="InstallBase"/>.
         /// </summary>
-        public static readonly string PortableBase = InstallBase;
+        public static string PortableBase = InstallBase;
 
         /// <summary>
         /// Indicates whether the application is currently operating in portable mode.
@@ -71,7 +71,7 @@ namespace Common.Storage
         ///   <para>Portable mode is activated by placing a file named "_portable" int the application's base directory.</para>
         ///   <para>When portable mode is active files are stored and loaded from the application's base directory instead of the user profile and sysem directories.</para>
         /// </remarks>
-        public static readonly bool IsPortable = File.Exists(Path.Combine(PortableBase, "_portable"));
+        public static bool IsPortable = File.Exists(Path.Combine(PortableBase, "_portable"));
         #endregion
 
         #region Properties
@@ -547,7 +547,7 @@ namespace Common.Storage
             var directory = new DirectoryInfo(path);
             if (!directory.Exists)
             {
-                if (WindowsUtils.IsWindows && systemWide)
+                if (WindowsUtils.IsWindowsNT && systemWide)
                 {
                     // Set ACLs for new directory to: Admins/System = Full access, Users/Everyone = Read+Execute
                     var security = new DirectorySecurity();

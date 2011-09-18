@@ -359,6 +359,10 @@ namespace ZeroInstall.Injector
         /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
         public string GetImplementationPath(ImplementationBase implementation)
         {
+            #region Sanity checks
+            if (implementation == null) throw new ArgumentNullException("implementation");
+            #endregion
+
             return (string.IsNullOrEmpty(implementation.LocalPath) ? Store.GetPath(implementation.ManifestDigest) : implementation.LocalPath);
         }
 

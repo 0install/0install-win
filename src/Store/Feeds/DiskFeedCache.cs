@@ -18,6 +18,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Common.Streams;
+using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
 
@@ -28,7 +30,7 @@ namespace ZeroInstall.Store.Feeds
     /// </summary>
     /// <remarks>
     ///   <para>Local feed files are simply passed through this cache.</para>
-    ///   <para>Once a feed has been added to this cache it is considered trusted (signature is not checked again).</para>
+    ///   <para>Once a feed has been added to this cache it is considered trusted (signatures are not checked again).</para>
     /// </remarks>
     public sealed class DiskFeedCache : IFeedCache
     {
@@ -111,37 +113,56 @@ namespace ZeroInstall.Store.Feeds
 
             // Assume invalid URIs are local paths
             string path = (ModelUtils.IsValidUri(feedID) ? Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)) : feedID);
-
             if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedID, path));
             
             var feed = Feed.Load(path);
             feed.Simplify();
             return feed;
         }
-        #endregion
 
-        #region Add
         /// <inheritdoc/>
-        public void Add(string feedID, string path)
+        public IEnumerable<OpenPgpSignature> GetSignatures(string feedID, IOpenPgp openPgp)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
             ModelUtils.ValidateInterfaceID(feedID);
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (openPgp == null) throw new ArgumentNullException("openPgp");
             #endregion
 
-            // Don't cache local files
-            if (feedID == path) return;
+            // Assume invalid URIs are local paths
+            string path = (ModelUtils.IsValidUri(feedID) ? Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)) : feedID);
+            if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedID, path));
 
-            string targetPath = Path.Combine(DirectoryPath, ModelUtils.Escape(feedID));
+            return FeedUtils.GetSignatures(openPgp, File.ReadAllBytes(path));
+        }
+        #endregion
 
-            // Detect replay attacks
-            var oldTime = File.GetLastWriteTimeUtc(targetPath);
-            var newTime = File.GetLastWriteTimeUtc(path);
-            if (oldTime > newTime)
-                throw new ReplayAttackException(string.Format(Resources.ReplayAttack, feedID, oldTime, newTime));
+        #region Add
+        /// <inheritdoc/>
+        public void Add(string feedID, Stream stream)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            ModelUtils.ValidateInterfaceID(feedID);
+            if (stream == null) throw new ArgumentNullException("stream");
+            #endregion
 
-            File.Copy(path, targetPath);
+            string path = Path.Combine(DirectoryPath, ModelUtils.Escape(feedID));
+
+            try
+            {
+                // Perform atomic replace
+                using (var fileStream = File.OpenWrite(path + ".new"))
+                    StreamUtils.Copy(stream, fileStream, 4096);
+                FileUtils.Replace(path + ".new", path);
+            }
+            catch
+            {
+                // Don't leave partial downloads in the cache
+                if (File.Exists(path + ".new")) File.Delete(path + ".new");
+
+                throw;
+            }
         }
         #endregion
 

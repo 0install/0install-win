@@ -32,7 +32,7 @@ en.DeleteCache=Do you want to delete the Zero Install cache (installed applicati
 de.DeleteCache=Möchten Sie den Zero Install Cache (installierte Anwendungen) löschen? Diese Dateien können erneut heruntergeladen werden.
 
 [Setup]
-OutputDir=..\build\Publish
+OutputDir=..\build\Setup
 OutputBaseFilename=zero-install
 
 ;General settings
@@ -89,7 +89,7 @@ Name: {app}\de\ZeroInstall.MyApps.resources.dll; Type: files
 Source: ..\lgpl.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\3rd party code.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Test.*,nunit.*,*.xml; DestDir: {app}; Flags: ignoreversion recursesubdirs
-Source: ..\build\Bundled\*; DestDir: {app}; Flags: ignoreversion recursesubdirs
+Source: ..\bundled\*; DestDir: {app}; Flags: ignoreversion recursesubdirs
 
 [Registry]
 Root: HKLM32; Subkey: Software\Zero Install; ValueType: string; ValueName: InstallLocation; ValueData: {app}; Flags: uninsdeletevalue uninsdeletekeyifempty

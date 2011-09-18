@@ -186,6 +186,22 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
+        /// Ensures that <see cref="Feed.Strip"/> correctly removes non-essential metadata.
+        /// </summary>
+        [Test]
+        public void TestStrip()
+        {
+            var feed = CreateTestFeed();
+            feed.Strip();
+
+            CollectionAssert.IsEmpty(feed.Elements);
+            CollectionAssert.IsEmpty(feed.EntryPoints);
+            CollectionAssert.IsEmpty(feed.CapabilityLists);
+            CollectionAssert.IsEmpty(feed.UnknownAttributes);
+            CollectionAssert.IsEmpty(feed.UnknownElements);
+        }
+
+        /// <summary>
         /// Ensures that <see cref="Feed.Simplify"/> correctly updates collection hash codes.
         /// </summary>
         [Test]

@@ -57,11 +57,14 @@
     <Compile Include="Config.cs" />
     <Compile Include="Feeds\Domain.cs" />
     <Compile Include="Feeds\FeedManager.cs" />
+    <Compile Include="Feeds\FeedManagerBase.cs" />
     <Compile Include="Feeds\FeedPreferences.cs" />
+    <Compile Include="Feeds\IFeedManager.cs" />
     <Compile Include="Feeds\ImplementationPreferences.cs" />
     <Compile Include="Feeds\InterfacePreferences.cs" />
     <Compile Include="Feeds\Key.cs" />
-    <Compile Include="Feeds\Trust.cs" />
+    <Compile Include="Feeds\ReplayAttackException.cs" />
+    <Compile Include="Feeds\TrustDB.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IHandler.cs" />
     <Compile Include="Executor.cs" />
@@ -122,7 +125,7 @@
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="Feeds\ClassDiagram.cd" />
-    <None Include="Feeds\Trust.xsd">
+    <None Include="Feeds\TrustDB.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

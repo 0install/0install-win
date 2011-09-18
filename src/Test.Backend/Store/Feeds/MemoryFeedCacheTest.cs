@@ -16,7 +16,7 @@
  */
 
 using System;
-using Common.Storage;
+using System.IO;
 using NUnit.Framework;
 using NUnit.Mocks;
 using ZeroInstall.Model;
@@ -85,50 +85,68 @@ namespace ZeroInstall.Store.Feeds
         }
 
         [Test]
+        public void TestGetSignautes()
+        {
+            var result = new OpenPgpSignature[0];
+            var openPgpMock = new DynamicMock(typeof(IOpenPgp));
+            var openPgp = (IOpenPgp)openPgpMock.MockInstance;
+
+            // Expect pass-through
+            _cacheMock.ExpectAndReturn("GetSignatures", result, "http://0install.de/feeds/test/test1.xml", openPgp);
+            var signatures = _cache.GetSignatures("http://0install.de/feeds/test/test1.xml", openPgp);
+
+            CollectionAssert.AreEqual(signatures, result);
+            openPgpMock.Verify();
+        }
+
+        [Test]
         public void TestAdd()
         {
-            using (var feedFile = new TemporaryFile("0install-unit-tests"))
+            using (var feedStream = new MemoryStream())
             {
+                _feed.Save(feedStream);
+                feedStream.Position = 0;
+
                 // Expect pass-through on adding
-                _cacheMock.ExpectAndReturn("Add", null, "http://0install.de/feeds/test/test1.xml", feedFile.Path);
-                _feed.Save(feedFile.Path);
-                _cache.Add("http://0install.de/feeds/test/test1.xml", feedFile.Path);
+                _cacheMock.Expect("Add", "http://0install.de/feeds/test/test1.xml", feedStream);
+                _cache.Add("http://0install.de/feeds/test/test1.xml", feedStream);
             }
 
-            // Expect pass-through on first get
+            // Expect no pass-through due to caching on .Add()
             _feed.Simplify();
-            _cacheMock.ExpectAndReturn("GetFeed", _feed, "http://0install.de/feeds/test/test1.xml");
             Feed firstAccess = _cache.GetFeed("http://0install.de/feeds/test/test1.xml");
             Assert.AreEqual(_feed, firstAccess);
             Feed secondAccess = _cache.GetFeed("http://0install.de/feeds/test/test1.xml");
             Assert.AreSame(firstAccess, secondAccess, "Cache should return identical reference on multiple GetFeed() calls");
 
-            using (var feedFile = new TemporaryFile("0install-unit-tests"))
+            using (var feedStream = new MemoryStream())
             {
+                _feed.Save(feedStream);
+                feedStream.Position = 0;
+
                 // Expect pass-through on adding
-                _cacheMock.ExpectAndReturn("Add", null, "http://0install.de/feeds/test/test1.xml", feedFile.Path);
-                _feed.Save(feedFile.Path);
-                _cache.Add("http://0install.de/feeds/test/test1.xml", feedFile.Path);
+                _cacheMock.Expect("Add", "http://0install.de/feeds/test/test1.xml", feedStream);
+                _cache.Add("http://0install.de/feeds/test/test1.xml", feedStream);
             }
 
-            _cacheMock.ExpectAndReturn("GetFeed", _feed.CloneFeed(), "http://0install.de/feeds/test/test1.xml");
             Assert.AreNotSame(firstAccess, _cache.GetFeed("http://0install.de/feeds/test/test1.xml"), "Adding again should overwrite cache entry");
         }
 
         [Test]
         public void TestRemove()
         {
-            using (var feedFile = new TemporaryFile("0install-unit-tests"))
+            using (var feedStream = new MemoryStream())
             {
+                _feed.Save(feedStream);
+                feedStream.Position = 0;
+
                 // Expect pass-through on adding
-                _cacheMock.ExpectAndReturn("Add", null, "http://0install.de/feeds/test/test1.xml", feedFile.Path);
-                _feed.Save(feedFile.Path);
-                _cache.Add("http://0install.de/feeds/test/test1.xml", feedFile.Path);
+                _cacheMock.Expect("Add", "http://0install.de/feeds/test/test1.xml", feedStream);
+                _cache.Add("http://0install.de/feeds/test/test1.xml", feedStream);
             }
 
-            // Expect pass-through on first get
+            // Expect no pass-through due to caching on .Add()
             _feed.Simplify();
-            _cacheMock.ExpectAndReturn("GetFeed", _feed, "http://0install.de/feeds/test/test1.xml");
             Feed firstAccess = _cache.GetFeed("http://0install.de/feeds/test/test1.xml");
             Assert.AreEqual(_feed, firstAccess);
             Feed secondAccess = _cache.GetFeed("http://0install.de/feeds/test/test1.xml");

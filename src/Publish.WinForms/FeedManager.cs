@@ -21,6 +21,7 @@ using System.IO;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
+using Common.Storage;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.WinForms.Properties;
 using ZeroInstall.Store.Feeds;
@@ -219,7 +220,7 @@ namespace ZeroInstall.Publish.WinForms
             try
             {
                 _feedEditing.Save(path);
-                if (!string.IsNullOrEmpty(_signingKeyPassphrase)) FeedUtils.SignFeed(_feedEditing.Path, _signingKey, _signingKeyPassphrase);
+                if (_signingKeyPassphrase == null) FeedUtils.SignFeed(_feedEditing.Path, _signingKey, _signingKeyPassphrase);
             }
             #region Error handling
             catch (IOException exception)
@@ -264,13 +265,27 @@ namespace ZeroInstall.Publish.WinForms
 
                 if (passphrase == null) return false;
 
-                if ((passphrase != string.Empty) && OpenPgpProvider.Default.IsPassphraseCorrect(_signingKey.UserID, passphrase))
+                if ((passphrase != string.Empty) && IsPassphraseCorrect(_signingKey.UserID, passphrase))
                 {
                     _signingKeyPassphrase = passphrase;
                     return true;
                 }
 
                 wrongPassphrase = true;
+            }
+        }
+
+        /// <inheritdoc />
+        private static bool IsPassphraseCorrect(string keySpecifier, string passphrase)
+        {
+            if (string.IsNullOrEmpty(passphrase)) return false;
+
+            using (var tempFile = new TemporaryFile("gpg"))
+            {
+                try { OpenPgpProvider.Default.DetachSign(tempFile.Path, keySpecifier, passphrase); }
+                catch (WrongPassphraseException)
+                { return false; }
+                return true;
             }
         }
         #endregion

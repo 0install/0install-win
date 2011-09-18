@@ -290,7 +290,7 @@
                   <elementDefinition Id="3cc0f011-bb68-46e7-b585-740b73e2174a" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="79d004ab-a573-496f-a486-a100edd96575" direction="Return">
+                      <parameter Id="79d004ab-a573-496f-a486-a100edd96575" direction="Return" isUnique="false">
                         <elementDefinition Id="33e669b3-8116-4635-9e64-7188b92715f1" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
@@ -298,7 +298,7 @@
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="205c585c-aa51-481c-8484-488bf2ef23cc" name="name" direction="In">
+                      <parameter Id="205c585c-aa51-481c-8484-488bf2ef23cc" name="name" direction="In" isUnique="false">
                         <referencesInternal>
                           <reference Id="4fd19b76-5850-4e40-ac8d-0e6aa605a172" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=GnuPG Member=(Name=GetPublicKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=name" tag="ViewCode">
                             <elementDefinition Id="0cbffca6-4098-48db-9941-47abb7532d08" />
@@ -358,12 +358,15 @@
                   <elementDefinition Id="b8dadeb4-9020-4172-bc90-a04bb7715288" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="621a3115-86aa-412a-94be-2d3724c06f66" direction="Return">
+                      <parameter Id="621a3115-86aa-412a-94be-2d3724c06f66" direction="Return" isUnique="false">
                         <elementDefinition Id="edb53ffc-d9a8-4459-b4aa-8e7be3f99ac1" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="156ceac7-3a74-4a89-9da2-9d42c6c4c370" LastKnownName="OpenPgpSecretKey" />
+                        </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="673fc9ef-1e2a-48fc-93b0-0ebc4035c66a" name="name" direction="In">
+                      <parameter Id="673fc9ef-1e2a-48fc-93b0-0ebc4035c66a" name="name" direction="In" isUnique="false">
                         <referencesInternal>
                           <reference Id="0ab7529f-5e83-4527-a16c-8db93f7070fb" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=GnuPG Member=(Name=GetSecretKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=name" tag="ViewCode">
                             <elementDefinition Id="630eb5af-0ca6-44ad-bf44-54cdf59cf337" />
@@ -742,87 +745,6 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
-                <operation Id="cf460269-5046-4d43-9257-d7e2ee3e53fe" name="IsPassphraseCorrect" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                  <referencesInternal>
-                    <reference Id="4aaeae47-4107-44f6-aba1-2c9a23d6dd8f" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=GnuPG Member=(Name=IsPassphraseCorrect OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])" tag="ViewCode">
-                      <elementDefinition Id="b53ec731-44b7-4112-8c9c-596d5c2302e7" />
-                    </reference>
-                  </referencesInternal>
-                  <appliedStereotypesInternal>
-                    <stereotypeInstance Id="d348bfc2-2ede-4934-9b2b-432adb83e515" name="method" profile="CSharpProfile">
-                      <elementDefinition Id="9645881f-61a9-4f5f-a813-4a57d2f30e0e" />
-                      <propertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="b596c6ca-7688-4b3b-9bb8-91bcaef90343">
-                          <propertyInstance Id="138b9e0a-2aba-49ca-9c31-37b9b44f79d4" name="ClrAttributes">
-                            <elementDefinition Id="7d70bba9-0be4-47ae-90ad-6b8fff67f71f" />
-                          </propertyInstance>
-                          <elementDefinition Id="f4b0be8b-f96c-4dc6-9475-d0e2039025c0" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="40d5b261-d66e-487f-89f3-389631f5ba72">
-                          <propertyInstance Id="8196e5c3-98b8-496d-a434-b29d8ebc4f8e" name="IsPartial" value="false">
-                            <elementDefinition Id="136d2f4c-f600-4cb3-824d-96b6685b3e36" />
-                          </propertyInstance>
-                          <elementDefinition Id="a678ee0a-d82d-44be-beff-9b5ebf4f4e92" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="2e274468-8200-4602-b55f-aa6f2785b71e">
-                          <propertyInstance Id="546163a9-c6e9-41f0-b0d4-a8cb04767298" name="IsUnsafe" value="false">
-                            <elementDefinition Id="5ca27eda-a370-4ad3-8905-4914ada61dbc" />
-                          </propertyInstance>
-                          <elementDefinition Id="3e4e2e17-473c-45bc-b143-a672d75c4a38" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="b0c8d8df-cfec-4f0d-b633-75c76f5d6a74">
-                          <propertyInstance Id="10c36b23-773d-45ca-9e4f-2c6647bd7169" name="PackageVisibility" value="internal">
-                            <elementDefinition Id="d03c4b85-12e0-4702-935b-c95937383507" />
-                          </propertyInstance>
-                          <elementDefinition Id="9a622378-e168-4de0-9f90-4351c95bed75" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="9106e39c-9a94-4b25-80a0-348a47bc2860">
-                          <propertyInstance Id="f02f39e1-5396-4ecf-8fe2-60297608b156" name="params" value="false">
-                            <elementDefinition Id="9b5489ac-1d95-4d10-b507-425d1137ef94" />
-                          </propertyInstance>
-                          <elementDefinition Id="23f58a63-2c63-46bd-afc6-df4977cde0ac" />
-                        </stereotypeInstanceHasPropertyInstances>
-                      </propertyInstances>
-                    </stereotypeInstance>
-                  </appliedStereotypesInternal>
-                  <elementDefinition Id="65b803d2-8b1f-430b-a456-e98762440729" />
-                  <ownedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="a26b235d-4c1a-4163-b79d-5e1edeeba890" direction="Return">
-                        <elementDefinition Id="da29b1c3-28cf-49d1-8905-79ade9aa223b" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="b1b0f494-a26c-4ed0-900c-100e49ffe174" LastKnownName="Boolean" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="2b12cb4c-c72a-4fe6-a74a-dd692a987fd5" name="name" direction="In">
-                        <referencesInternal>
-                          <reference Id="7ba371bd-b035-4477-8378-d6153710ac59" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=GnuPG Member=(Name=IsPassphraseCorrect OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=name" tag="ViewCode">
-                            <elementDefinition Id="e3bbbdbc-b53a-4c39-ae65-acfd243397cb" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="09a87761-3042-4481-b355-0af71a46d220" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="348e8233-8111-4463-82ca-12057fb9e3e2" name="passphrase" direction="In">
-                        <referencesInternal>
-                          <reference Id="3a1f62e0-d7fa-4ca7-932f-b5964e1f2628" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=GnuPG Member=(Name=IsPassphraseCorrect OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=passphrase" tag="ViewCode">
-                            <elementDefinition Id="18404d60-4cbc-446a-a2dd-fbb7f68d3eef" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="35b95980-cde2-4150-9db0-5f8c79e529c7" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                  </ownedParameters>
-                </operation>
                 <operation Id="0540dbe0-8f02-4683-a1ae-1f4ac1f0db3e" name="Verify" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
                     <reference Id="9c4fdc4e-ac67-4e08-921e-8a687a9503b6" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=GnuPG Member=(Name=Verify OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])" tag="ViewCode">
@@ -869,25 +791,48 @@
                   <elementDefinition Id="e54710a9-d4bf-4bf8-8e56-d812faa53135" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="48c61062-edd7-4f1b-8808-176d928b75b0" name="data" direction="In" isUnique="false">
+                      <parameter Id="48c61062-edd7-4f1b-8808-176d928b75b0" name="data" direction="In">
                         <referencesInternal>
                           <reference Id="c375d981-6c73-430a-963a-23d93638746f" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=GnuPG Member=(Name=Verify OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=data" tag="ViewCode">
                             <elementDefinition Id="389a8c21-00b3-4308-8957-c2267a4ee1be" />
                           </reference>
                         </referencesInternal>
+                        <lowerValueInternal>
+                          <literalString Id="25ff0140-8428-43cd-8559-f26b12520219" name="Lower" value="*">
+                            <elementDefinition Id="23f2a4d4-6084-4e41-ad5e-9c9be2002609" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="2f749ae8-99f9-466c-94ef-13ccabba52e4" name="Upper" value="*">
+                            <elementDefinition Id="a08ef404-fc3d-491d-84ad-c4e58aa7fc37" />
+                          </literalString>
+                        </upperValueInternal>
                         <elementDefinition Id="db16b98d-2b5a-4edb-8e88-8b1cb559ef75" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="7676b7fb-9d1e-4bf5-8c74-83c2e5b43509" LastKnownName="Byte" />
+                        </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="cb1bcdaf-d5b5-4957-be99-2b7a2a4f99d8" name="signature" direction="In" isUnique="false">
+                      <parameter Id="cb1bcdaf-d5b5-4957-be99-2b7a2a4f99d8" name="signature" direction="In">
                         <referencesInternal>
                           <reference Id="aa4bc152-1bdf-4e03-b720-20799d11ef82" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=GnuPG Member=(Name=Verify OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=signature" tag="ViewCode">
                             <elementDefinition Id="554c4215-a78a-4aaa-944d-630ccb40f596" />
                           </reference>
                         </referencesInternal>
+                        <lowerValueInternal>
+                          <literalString Id="870606f5-bb31-4d40-b32e-3cbb019642ee" name="Lower" value="*">
+                            <elementDefinition Id="8ef0b69d-e10c-4a95-bfcc-f27e72f7818b" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="ad585135-1da3-4be7-9623-ea37bf1878d6" name="Upper" value="*">
+                            <elementDefinition Id="8a96a0a9-f292-447e-bbbd-d803690aa434" />
+                          </literalString>
+                        </upperValueInternal>
                         <elementDefinition Id="8d68f889-c9de-4a43-8330-1297b7949a58" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                          <referencedTypeMoniker Id="7676b7fb-9d1e-4bf5-8c74-83c2e5b43509" LastKnownName="Byte" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -915,8 +860,21 @@
                   <elementDefinition Id="9ad4a353-d23f-4f10-8587-4e4fc0fa7272" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="b2e45fad-2066-453b-aeb3-02f4e94fb3e9" name="stream" direction="In" isUnique="false">
+                      <parameter Id="b2e45fad-2066-453b-aeb3-02f4e94fb3e9" name="stream" direction="In">
+                        <lowerValueInternal>
+                          <literalString Id="74d44770-b704-4b25-ad49-94d58eb20d1b" name="Lower" value="*">
+                            <elementDefinition Id="1b028c50-986d-405b-868c-813504a75f19" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="79265769-d7f4-46fe-be84-2bfa256e4bf7" name="Upper" value="*">
+                            <elementDefinition Id="fcbf0879-3633-44a8-9216-8c4dfdfd7a8e" />
+                          </literalString>
+                        </upperValueInternal>
                         <elementDefinition Id="a33ceac6-90c9-4cc5-8eed-4d23425d7c66" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="7676b7fb-9d1e-4bf5-8c74-83c2e5b43509" LastKnownName="Byte" />
+                        </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
@@ -965,7 +923,7 @@
               <elementDefinition Id="deb1bd9c-90d7-4201-ba8d-e7cf0cd4578c" />
               <targetEnds>
                 <association Id="808bdc8d-3840-4cee-b8c8-a0c8d32de1ad" isDerived="false" sourceEndRoleName="SecretKey" targetEndRoleName="Algorithm" isLeaf="false" isAbstract="false">
-                  <enumerationMoniker Id="d6afad73-bb9b-41ce-bac2-6e85a6751f50" LastKnownName="PgpAlgorithm" />
+                  <enumerationMoniker Id="d6afad73-bb9b-41ce-bac2-6e85a6751f50" LastKnownName="OpenPgpAlgorithm" />
                   <relationshipOwnedElementsInternal>
                     <associationHasOwnedEnds>
                       <memberEnd Id="19200506-5f8a-4a28-af4e-7c9c684d6d29" name="SecretKey" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="false" isNavigableOwned="false">
@@ -1078,7 +1036,7 @@
                     <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
                   </type_NamedElement>
                 </property>
-                <property Id="c11fc669-ca4a-40f4-b765-f8c8bcc841f0" name="CreationDate" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                <property Id="c11fc669-ca4a-40f4-b765-f8c8bcc841f0" name="CreationTime" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <referencesInternal>
                     <reference Id="3caa3471-62ff-4517-87fb-3c59b1b5bc83" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=GnuPGSecretKey Member=CreationDate" tag="ViewCode">
                       <elementDefinition Id="339443f7-4d99-435b-8e9d-6937097417bf" />
@@ -1123,7 +1081,7 @@
                   </appliedStereotypesInternal>
                   <elementDefinition Id="25e9a27e-79d2-4bec-a8f3-0777780c8c82" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="6b5707e0-4da3-441b-b690-3ed2b2e0a552" LastKnownName="DateTime" />
+                    <referencedTypeMoniker Id="8ab5a100-2e09-4aaf-bee7-ec8a824795df" LastKnownName="DateTime" />
                   </type_NamedElement>
                 </property>
                 <property Id="78a063d7-43ef-4c5b-86d2-f8bdd83cc54d" name="UserID" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
@@ -1170,6 +1128,12 @@
                     </stereotypeInstance>
                   </appliedStereotypesInternal>
                   <elementDefinition Id="4b3b8af1-21a4-499e-b8c6-e5dbacfc7a63" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                  </type_NamedElement>
+                </property>
+                <property Id="a80c2d81-66d3-4e6f-9d26-5ca4727b706e" name="Fingerpring" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="ef8a2ab4-8201-4f30-9350-4664e3e98640" />
                   <type_NamedElement>
                     <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
                   </type_NamedElement>
@@ -1222,132 +1186,50 @@
                   <elementDefinition Id="942f2275-99b8-4856-bb65-0fc371b55026" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="fa6c56b6-2d5d-42fd-a291-43eb6768df0e" name="bitLength" direction="In">
-                        <referencesInternal>
-                          <reference Id="99820fd7-e67a-4e2e-aa76-56cc77062a63" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=GnuPGSecretKey Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=Int32),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=GnuPGAlgorithm),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=DateTime),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=bitLength" tag="ViewCode">
-                            <elementDefinition Id="09011c18-8434-4dd5-a4af-2daf5d19b3ea" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="a3480625-95eb-48db-aba5-ea6f081a78d2" />
+                      <parameter Id="d9677b86-de02-4172-82db-0e84b07ac295" name="fingerprint" direction="In" isUnique="false">
+                        <elementDefinition Id="69432a0a-fda9-4b15-baf0-a4e963ea2691" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="3c88892f-6e53-4d9e-b1f5-9074b07ed3fc" name="keyID" direction="In" isUnique="false">
+                        <elementDefinition Id="d4a96438-cbb1-474f-919a-439555374367" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="19d4d759-4713-470b-af48-a1837cce9454" name="userID" direction="In" isUnique="false">
+                        <elementDefinition Id="9d4caaf7-80dd-41c9-be09-e50bcd72aef5" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="568d104f-ccde-4f7f-a024-f86c89e290e8" name="creationTime" direction="In" isUnique="false">
+                        <elementDefinition Id="772a29bf-d62b-4b1f-8284-087b8de59cf1" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="6b5707e0-4da3-441b-b690-3ed2b2e0a552" LastKnownName="DateTime" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="5b7e26f7-b06d-4bbe-ab88-4ca3924a5b23" name="algorithm" direction="In" isUnique="false">
+                        <elementDefinition Id="039c87a4-a7c5-44f6-8cbb-42bc86c701db" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="44570e20-bc03-47d6-8739-397c7a8e63be" LastKnownName="OpenPgpAlgorithm" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="22b07de0-de88-41b2-b315-0ed3bceaf9e1" name="int bitLength" direction="In" isUnique="false">
+                        <elementDefinition Id="a5f31102-6904-437b-87b8-0422b25812b6" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="49c766b3-385c-40ed-b7f1-e6e6d4cf1c6e" LastKnownName="Integer" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="85b97f0f-7471-4e2a-92f3-78beeba36156" name="keyType" direction="In">
-                        <referencesInternal>
-                          <reference Id="bf9ab789-8e23-4fce-9092-7860335cae00" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=GnuPGSecretKey Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=Int32),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=GnuPGAlgorithm),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=DateTime),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=keyType" tag="ViewCode">
-                            <elementDefinition Id="a7bc9637-8bbf-4c0d-b1ca-9c809e1c0213" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="75c35bd5-3cf2-41f9-afdf-03656b5ddc15" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="44570e20-bc03-47d6-8739-397c7a8e63be" LastKnownName="PgpAlgorithm" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="b2f0acf0-53c2-4cc5-8002-9759dd34c280" name="keyID" direction="In">
-                        <referencesInternal>
-                          <reference Id="f0b2b38c-b308-4e0c-bce2-2f624ebe7baf" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=GnuPGSecretKey Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=Int32),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=GnuPGAlgorithm),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=DateTime),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=keyID" tag="ViewCode">
-                            <elementDefinition Id="399410f3-b84d-4449-8f0b-ee8d8bb78534" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="d4edcdc3-bf94-48e4-a6ea-e4a3bacc5bda" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="6331c594-0c15-4f90-803c-0bf06bc35de0" name="creationDate" direction="In">
-                        <referencesInternal>
-                          <reference Id="83433764-f3ab-4128-9a50-d1bfa5206bb1" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=GnuPGSecretKey Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=Int32),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=GnuPGAlgorithm),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=DateTime),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=creationDate" tag="ViewCode">
-                            <elementDefinition Id="0dc55ea8-31d1-4169-a530-9ef53a13c9cd" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="e6648e34-e5d5-4576-b678-11aa405e000d" />
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="0a162dd2-e3d4-4bd0-973d-02f39b9b19da" name="userID" direction="In">
-                        <referencesInternal>
-                          <reference Id="bead9791-188d-423e-9f30-fcd9d56c21f7" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=GnuPGSecretKey Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=Int32),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=GnuPGAlgorithm),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=DateTime),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=userID" tag="ViewCode">
-                            <elementDefinition Id="7a41078b-613f-4767-b547-b305540644fd" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="7e946758-46af-45c4-90bf-e8be43d05022" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                  </ownedParameters>
-                </operation>
-                <operation Id="20ff90d2-957d-468b-9fc5-68e945347bb7" name="Parse" isLeaf="false" isStatic="true" isAbstract="false" concurrency="Sequential" isQuery="false">
-                  <referencesInternal>
-                    <reference Id="25a625b4-2e16-41d5-b606-fd7d762334d8" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=GnuPGSecretKey Member=(Name=Parse OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])" tag="ViewCode">
-                      <elementDefinition Id="aacc9af6-ad7d-4a6a-b7b6-cd9cfd4d29b4" />
-                    </reference>
-                  </referencesInternal>
-                  <appliedStereotypesInternal>
-                    <stereotypeInstance Id="6469d72f-2069-481e-8763-d2ac0a800161" name="method" profile="CSharpProfile">
-                      <elementDefinition Id="58dad26b-7ae8-48dd-9750-eece9e7471b4" />
-                      <propertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="c28980ff-f6ef-4ea3-addc-be60339a6bf5">
-                          <propertyInstance Id="a39aa631-74ef-4ae6-b59f-7e7128b86364" name="ClrAttributes">
-                            <elementDefinition Id="8abd8340-e5ec-4b02-b1bd-0849eede1e7c" />
-                          </propertyInstance>
-                          <elementDefinition Id="031ae0a0-28a7-4a78-bc06-22dc35f061c8" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="78d5f8c7-5db8-4843-bae2-b42930471cac">
-                          <propertyInstance Id="764d30b9-dc5e-42e4-b99e-1a570f93f4c7" name="IsPartial" value="false">
-                            <elementDefinition Id="d461d2b5-18c6-42a3-aaa3-19cfb0de4633" />
-                          </propertyInstance>
-                          <elementDefinition Id="821fe7ca-3059-4e8d-9c6e-595716ab8c2e" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="5f4d336e-c9e9-4203-a9cc-1ef0c36222f6">
-                          <propertyInstance Id="e236ae81-5424-4c81-be5b-abafbe96eca7" name="IsUnsafe" value="false">
-                            <elementDefinition Id="b1fb29a9-4844-4f65-890d-7f3393471a77" />
-                          </propertyInstance>
-                          <elementDefinition Id="e1031e5d-4d1e-48da-bd88-0e7f289decbf" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="a3990c41-a344-40bc-97ba-ade6782ec793">
-                          <propertyInstance Id="82b9c3c0-9ce0-48a8-9003-88cc633d3da7" name="PackageVisibility" value="internal">
-                            <elementDefinition Id="72999adf-f7d9-4289-8585-e620e1c3883e" />
-                          </propertyInstance>
-                          <elementDefinition Id="25231ef0-5838-4305-ae08-db6f262c6b19" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="95dd7106-7531-4c0e-bb4f-89f1e38a72ef">
-                          <propertyInstance Id="4cd3305b-07e6-4856-8fd8-70f7d3f8f374" name="params" value="false">
-                            <elementDefinition Id="dd208808-0179-40c2-b30a-f58a1c17adfb" />
-                          </propertyInstance>
-                          <elementDefinition Id="11372e03-2aea-4d74-bfbf-17d0cf9ee33f" />
-                        </stereotypeInstanceHasPropertyInstances>
-                      </propertyInstances>
-                    </stereotypeInstance>
-                  </appliedStereotypesInternal>
-                  <elementDefinition Id="78a45945-8260-4e05-aac1-ade3f8e9e575" />
-                  <ownedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="490efd68-9a82-4ea2-923c-28f815981d01" direction="Return">
-                        <elementDefinition Id="aecd3610-80ad-464a-9252-634b130ad801" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="156ceac7-3a74-4a89-9da2-9d42c6c4c370" LastKnownName="OpenPgpSecretKey" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="f932a72d-b04e-4b0b-8b35-e10fe9df388f" name="line" direction="In">
-                        <referencesInternal>
-                          <reference Id="a280a6a9-c8f5-4d12-8773-e3b56a22a5b2" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=GnuPGSecretKey Member=(Name=Parse OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=line" tag="ViewCode">
-                            <elementDefinition Id="69db0dd4-baa3-4376-9fa8-03b5cdd13179" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="4d34f1c1-e9f6-469c-8ecc-a5b95707ba52" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -1402,7 +1284,7 @@
             </class>
           </packageHasNamedElement>
           <packageHasNamedElement>
-            <enumeration Id="d6afad73-bb9b-41ce-bac2-6e85a6751f50" name="PgpAlgorithm" isAbstract="false" isLeaf="false">
+            <enumeration Id="d6afad73-bb9b-41ce-bac2-6e85a6751f50" name="OpenPgpAlgorithm" isAbstract="false" isLeaf="false">
               <referencesInternal>
                 <reference Id="7011abb0-eb07-4fc9-9f7c-3da94ce55a6b" handle="viewcode://./CodeSchema_Enum?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=GnuPGAlgorithm" tag="ViewCode">
                   <elementDefinition Id="dd173904-7aa5-4070-be69-3c992264d1b8" />
@@ -1694,9 +1576,6 @@
                     <operationHasOwnedParameters>
                       <parameter Id="cf0e8bbf-8b15-4712-913f-aca3c43b72a5" name="path" direction="In" isUnique="false">
                         <elementDefinition Id="b874fcab-a4b8-402c-bd86-c5bd9f085df1" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
-                        </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
@@ -1947,6 +1826,45 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
+                <operation Id="48d8fbf0-7590-4f83-afbb-a2eb469571e6" name="GetSignatures" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="9672e371-d705-4247-9d63-18f19bccbac0" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="a40ff21a-b747-475e-87e2-ba224f500f50" name="feedID" direction="In" isUnique="false">
+                        <elementDefinition Id="ef765e9c-6e2d-42bb-a91e-c7c46aa2699d" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="98479f63-87a8-461a-a2f1-55d8fe556430" name="openPgp" direction="In" isUnique="false">
+                        <elementDefinition Id="bf24c034-790d-4d40-9fc0-a756c5c3936c" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="ca740c76-0e63-42c3-b6c5-b56830b637f3" LastKnownName="IOpenPgp" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="b7ba9f92-047f-4fdb-a6b7-0e9d22c24baa" direction="Return" isUnique="false">
+                        <lowerValueInternal>
+                          <literalString Id="a44944df-5fa7-43e6-b32d-e3ba4ef0c7c9" name="Lower" value="*">
+                            <elementDefinition Id="2291885d-2aac-4a99-8245-884eceea2ab1" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="a4bdf6b4-0a92-49af-adb1-1b0565f71205" name="Upper" value="*">
+                            <elementDefinition Id="e31e6bcb-9692-48a1-a3ea-37b80d715ed5" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="0d83b48b-e639-4d48-95fe-e4921cdba973" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="5f9fd4d8-a763-4e07-901e-f08d6cf21e63" LastKnownName="OpenPgpSignature" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
               </ownedOperationsInternal>
             </class>
           </packageHasNamedElement>
@@ -2036,24 +1954,16 @@
                   <elementDefinition Id="61828bb5-a1f0-4a33-aa4a-8ea9b37a9498" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="bdaff0c0-bd60-4445-a35a-efb2e27dec34" name="feedID" direction="In" isUnique="false">
-                        <referencesInternal>
-                          <reference Id="a1ce6429-19bf-45cb-8684-7e24fda2cc66" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=IFeedCache Member=(Name=Add OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=path" tag="ViewCode">
-                            <elementDefinition Id="5aaef48d-5612-4a2e-bb4f-a3243b9f0af0" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="f68cb5ab-5235-47e6-8dbc-a3cce1796330" />
+                      <parameter Id="07eb9cf3-1b85-46c4-879c-dcaff4deae92" name="feedID" direction="In" isUnique="false">
+                        <elementDefinition Id="00c88f17-90a0-4be2-a2c3-5b039a3864e1" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="59db325d-f5e9-4dd3-b2b7-4aa6340f8eba" name="path" direction="In" isUnique="false">
-                        <elementDefinition Id="90ce2220-2a3d-4c95-bd75-1e8c95f0d856" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
-                        </type_NamedElement>
+                      <parameter Id="7be58430-faeb-44e1-9e92-338b85ac45bf" name="stream" direction="In" isUnique="false">
+                        <elementDefinition Id="f908277f-89c0-4c67-b2bb-862436af1920" />
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
@@ -2304,6 +2214,82 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
+                <operation Id="3bcb61ec-71f5-4f99-b00c-75860ca53710" name="GetSignatures" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                  <appliedStereotypesInternal>
+                    <stereotypeInstance Id="f27d18da-ee1f-4d0c-9c1f-c7e227a6d6c3" name="method" profile="CSharpProfile">
+                      <elementDefinition Id="3f88d98f-5e81-4ade-80a6-d6e81c9c6224" />
+                      <propertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="26a618e6-e7ba-4474-9729-467635e91441">
+                          <propertyInstance Id="dd2ad83c-abe6-4452-8765-0b2acf336241" name="ClrAttributes">
+                            <elementDefinition Id="22414d62-f82b-4370-8f1c-fb64e73226c1" />
+                          </propertyInstance>
+                          <elementDefinition Id="a821a39d-6668-4c89-8434-0a703e0b4c67" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="6630d151-4f13-47b5-95eb-40db88fa188b">
+                          <propertyInstance Id="5d331d0b-0ced-4715-a7bb-52489abfd41d" name="IsPartial" value="false">
+                            <elementDefinition Id="69e538a0-a55f-4f2a-bd61-280e8d95a5a1" />
+                          </propertyInstance>
+                          <elementDefinition Id="23755162-f453-44f3-bb21-17514e0eef2c" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="867f792b-7962-4027-8129-fdc257bbfbce">
+                          <propertyInstance Id="4afdda69-46a3-41d9-9c1c-38b43d27a86c" name="IsUnsafe" value="false">
+                            <elementDefinition Id="e45dad59-87b8-4bd1-84d3-c8edc738f6c5" />
+                          </propertyInstance>
+                          <elementDefinition Id="381397d2-1004-4eec-bb4f-d914a24ad704" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="8c1b5a0a-048a-4a93-a6e5-db689a271869">
+                          <propertyInstance Id="55b00eec-8842-4025-aba7-b03f27a8f46e" name="PackageVisibility" value="internal">
+                            <elementDefinition Id="609e0665-67d7-443b-a75e-2202437c7757" />
+                          </propertyInstance>
+                          <elementDefinition Id="6bb6cdbb-8092-4e86-828e-df70a519c00e" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="f2a7fbe0-3957-41b5-bb4d-12d70c2f4115">
+                          <propertyInstance Id="763d7b62-b7a7-4dd1-8938-a8bc11036e66" name="params" value="false">
+                            <elementDefinition Id="59f8f102-c12f-4ec6-8a53-04bc43419b83" />
+                          </propertyInstance>
+                          <elementDefinition Id="627745bd-6398-4e3f-a25f-8b7c21d29efc" />
+                        </stereotypeInstanceHasPropertyInstances>
+                      </propertyInstances>
+                    </stereotypeInstance>
+                  </appliedStereotypesInternal>
+                  <elementDefinition Id="cdb037d7-8f35-43d0-866d-8eb348d2a48e" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="7b60f98a-9668-4006-9bd9-85fd651c5b45" name="feedID" direction="In" isUnique="false">
+                        <elementDefinition Id="1c0f64c0-83ca-4d10-86db-e74d800cfca0" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="1daa9699-4216-47ac-bd1a-b55a6fee24a9" name="openPgp" direction="In" isUnique="false">
+                        <elementDefinition Id="deab446c-528e-42b0-be11-be0698a77139" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="ca740c76-0e63-42c3-b6c5-b56830b637f3" LastKnownName="IOpenPgp" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="73debcb3-25bb-4664-bd5c-fec443e40856" direction="Return" isUnique="false">
+                        <lowerValueInternal>
+                          <literalString Id="e8d98c30-3414-49d9-b19e-812cc1075f47" name="Lower" value="*">
+                            <elementDefinition Id="e7153547-0710-4ed4-a8a8-6b73b7662644" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="68b61f1c-5d11-45ed-be65-47aa26a3c11a" name="Upper" value="*">
+                            <elementDefinition Id="0fa2f331-97f9-43aa-8b30-1ceb178d861b" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="91b10c33-13c9-4921-92b1-9efabe77b536" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="5f9fd4d8-a763-4e07-901e-f08d6cf21e63" LastKnownName="OpenPgpSignature" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
               </ownedOperations>
             </Interface>
           </packageHasNamedElement>
@@ -2359,11 +2345,11 @@
                 </interfaceRealization>
               </suppliersInternal>
               <targetEnds>
-                <association Id="7af51e80-b26f-4f4e-8dba-a48a5123f2bd" isDerived="false" sourceEndRoleName="MemoryFeedCache" targetEndRoleName="_backingCache" isLeaf="false" isAbstract="false">
+                <association Id="7af51e80-b26f-4f4e-8dba-a48a5123f2bd" isDerived="false" sourceEndRoleName="" targetEndRoleName="_backingCache" isLeaf="false" isAbstract="false">
                   <interfaceMoniker Id="bab69625-4810-4be9-9375-3a4a3674ef1b" LastKnownName="IFeedCache" />
                   <relationshipOwnedElementsInternal>
                     <associationHasOwnedEnds>
-                      <memberEnd Id="be9001e7-fbff-4f77-86b4-8267fb9a8a76" name="MemoryFeedCache" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                      <memberEnd Id="be9001e7-fbff-4f77-86b4-8267fb9a8a76" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
                         <elementDefinition Id="4cc82586-2e61-4aaa-8e0c-2575b14d27e6" />
                       </memberEnd>
                     </associationHasOwnedEnds>
@@ -2483,7 +2469,7 @@
                   <elementDefinition Id="f9f1f574-34de-40dc-92de-ff3a3a16567c" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="f64530f1-8727-48ed-86cb-e3a576bb398a" name="feedID" direction="In">
+                      <parameter Id="f64530f1-8727-48ed-86cb-e3a576bb398a" name="feedID" direction="In" isUnique="false">
                         <referencesInternal>
                           <reference Id="16c996fb-b68e-488c-8897-a60deb74b095" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=MemoryFeedCache Member=(Name=Add OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=feedID" tag="ViewCode">
                             <elementDefinition Id="ed617ba8-b6e7-4161-8e28-3a3836a94297" />
@@ -2496,16 +2482,13 @@
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="13b3b2ab-da94-4766-9b4d-0d2f7c421d55" name="path" direction="In">
+                      <parameter Id="13b3b2ab-da94-4766-9b4d-0d2f7c421d55" name="path" direction="In" isUnique="false">
                         <referencesInternal>
                           <reference Id="07cee3db-70b9-4d54-bf02-e92821e181e9" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=MemoryFeedCache Member=(Name=Add OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=path" tag="ViewCode">
                             <elementDefinition Id="e6524eca-a29a-4d6c-917a-5523fcd068f5" />
                           </reference>
                         </referencesInternal>
                         <elementDefinition Id="6f2660c9-391a-436b-a41b-cd81d1b61716" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
-                        </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
@@ -2630,6 +2613,45 @@
                         <elementDefinition Id="ef518fa8-c899-44ae-a6be-3e92214197e7" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="207d81cf-3a09-4148-803f-201648a04a4b" name="GetSignatures" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="6608c52e-29d2-4187-9a6b-a798cb2a0f07" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="5161c9f6-f095-4cb6-a3e4-62a4f57ce6be" name="feedID" direction="In" isUnique="false">
+                        <elementDefinition Id="3ffda397-1d54-41be-a21e-932fc178d232" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="e2d73c33-0565-45db-93ee-58b8e38cb908" name="openPgp" direction="In" isUnique="false">
+                        <elementDefinition Id="0bf54f78-123e-4141-aa59-38c2dd611cd8" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="ca740c76-0e63-42c3-b6c5-b56830b637f3" LastKnownName="IOpenPgp" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="d2987c00-6408-45e0-bebf-0954e245cd89" direction="Return" isUnique="false">
+                        <lowerValueInternal>
+                          <literalString Id="18410048-fa6a-48b8-bbdb-7f1b1e092b22" name="Lower" value="*">
+                            <elementDefinition Id="3ba0c1e9-786c-43c5-ab67-beaeb50d7073" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="62e68fb0-28a7-4d94-935f-8db0454146bf" name="Upper" value="*">
+                            <elementDefinition Id="f6adb62a-ecbf-46b4-b2e3-8297ae189eae" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="faf96583-468e-43b5-8a48-9e7fa2d94233" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="5f9fd4d8-a763-4e07-901e-f08d6cf21e63" LastKnownName="OpenPgpSignature" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -3588,39 +3610,24 @@
                   <elementDefinition Id="caad1c8f-d213-48d2-a6a8-4dbec5c0da95" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="d17a8065-12af-47f0-ac30-619b39f8375e" name="path" direction="In">
-                        <referencesInternal>
-                          <reference Id="d343b33b-958b-47ac-87e2-9e0cd934cf8a" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=IOpenPgp Member=(Name=DetachSign OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=path" tag="ViewCode">
-                            <elementDefinition Id="9f722bf5-248d-42c3-9bb3-fd58cb83b36c" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="3260ff07-24ab-4950-bca4-9f8f39c25057" />
+                      <parameter Id="a6d4a250-99c9-4351-ac41-0c861ea91271" name="path" direction="In" isUnique="false">
+                        <elementDefinition Id="e7fa103a-128e-4695-9f8e-f33626d2858c" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="487e49fb-e1bd-4b61-aca7-3b5ed54f6867" name="name" direction="In">
-                        <referencesInternal>
-                          <reference Id="55021c75-0071-4f37-9ef3-555db48e8028" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=IOpenPgp Member=(Name=DetachSign OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=name" tag="ViewCode">
-                            <elementDefinition Id="1c82aca4-07a9-4d6b-8836-f9042641c7d2" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="d2e75fd2-6355-424c-8280-44b4020ec60a" />
+                      <parameter Id="25b9ea3f-2d5d-429b-9bee-602e3eaa9700" name="keySpecifier" direction="In" isUnique="false">
+                        <elementDefinition Id="6ce0274a-4f8b-4e51-8118-3f17b3ef46eb" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="2fce7602-6954-47e4-8ffd-cf1819a04d37" name="passphrase" direction="In">
-                        <referencesInternal>
-                          <reference Id="9fab4d2e-b180-48c5-a676-a90169bd40d8" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=IOpenPgp Member=(Name=DetachSign OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=passphrase" tag="ViewCode">
-                            <elementDefinition Id="0d89bff0-4c78-47d9-85f0-934e1cc29343" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="27579b99-3635-44a4-8fe7-0201aa9ab81b" />
+                      <parameter Id="1e05f396-2f54-4220-a8c5-ca3e0a9406bb" name="passphrase" direction="In" isUnique="false">
+                        <elementDefinition Id="bafc0c6a-d22d-41be-b172-b1eec0a76c80" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
                         </type_NamedElement>
@@ -3674,7 +3681,7 @@
                   <elementDefinition Id="e11c741b-9fc5-4d85-8aa7-cf6878b068cd" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="c71da873-5802-4e80-b301-62fe25470b1c" direction="Return">
+                      <parameter Id="c71da873-5802-4e80-b301-62fe25470b1c" direction="Return" isUnique="false">
                         <elementDefinition Id="9837c04a-7b2a-4b46-84a3-aabb3c0773e4" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
@@ -3682,13 +3689,8 @@
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="aa933e0c-54fc-4d02-a99c-e1f42d3f9fb4" name="name" direction="In">
-                        <referencesInternal>
-                          <reference Id="afdf2c70-0c12-467a-b134-e757f69d93cf" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=IOpenPgp Member=(Name=GetPublicKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=name" tag="ViewCode">
-                            <elementDefinition Id="d7eb50b1-b17e-40ba-8bc8-a49e3e9ba979" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="a415b470-3ef4-4963-abfa-9560f184f014" />
+                      <parameter Id="1cf47a3d-ce2e-4212-868e-d9f2e2e1f617" name="keySpecifier" direction="In" isUnique="false">
+                        <elementDefinition Id="b4b0916a-6e97-4541-bff3-fcf911a9ea1e" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
                         </type_NamedElement>
@@ -3742,101 +3744,18 @@
                   <elementDefinition Id="f12946eb-e40f-47c4-98b3-dd24de4de0ca" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="64906f4e-913d-4034-ba04-75687671abce" direction="Return">
-                        <elementDefinition Id="05e2d967-da5e-4285-b949-182411369215" />
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="8666db7d-914a-41d8-8809-ddf98ea08cb3" name="name" direction="In">
-                        <referencesInternal>
-                          <reference Id="4eee0fd5-a91c-4d2f-97d6-189f4162a013" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=IOpenPgp Member=(Name=GetSecretKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=name" tag="ViewCode">
-                            <elementDefinition Id="0e35a914-b57d-4374-b0d4-b4b0c5a362ef" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="2dada0b5-92c0-4519-b51b-86d90a5b5111" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                  </ownedParameters>
-                </operation>
-                <operation Id="1d5e66e4-0026-4643-b28a-1a31fb5944f7" name="IsPassphraseCorrect" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-                  <referencesInternal>
-                    <reference Id="36077cc6-9e88-4b6f-b3b0-e021527b888f" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=IOpenPgp Member=(Name=IsPassphraseCorrect OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])" tag="ViewCode">
-                      <elementDefinition Id="480bf237-8e08-4b9f-ac6b-4c0f62e059d1" />
-                    </reference>
-                  </referencesInternal>
-                  <appliedStereotypesInternal>
-                    <stereotypeInstance Id="9f02b756-c789-497c-a76b-5c6736a47178" name="method" profile="CSharpProfile">
-                      <elementDefinition Id="e00dcfb7-c38b-4134-b203-f8ada1e359d9" />
-                      <propertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="1f43b3b8-2f35-4e7f-9dbc-8af6ce90ad16">
-                          <propertyInstance Id="d8950941-44cd-459e-800e-9f6be662e65e" name="ClrAttributes">
-                            <elementDefinition Id="b01872c7-be55-4309-acf8-e70850c867d0" />
-                          </propertyInstance>
-                          <elementDefinition Id="8c85e8ab-36b3-4660-8caa-5077e9cca519" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="7b2da18b-bc74-47b4-9361-a48d932682b7">
-                          <propertyInstance Id="e1e7bef3-fb1e-40f5-94a7-eac06af8b1e4" name="IsPartial" value="false">
-                            <elementDefinition Id="47dca7d3-b7d4-4941-99da-4c6e8893cd9d" />
-                          </propertyInstance>
-                          <elementDefinition Id="03d87a11-029c-4cfd-a436-964e7b65758f" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="b590a5c9-c388-4392-b86c-16c50df63949">
-                          <propertyInstance Id="5f57abf4-dfaf-403c-a506-171e9c877a87" name="IsUnsafe" value="false">
-                            <elementDefinition Id="9f12dea3-c6d0-429b-a771-4dc291cdf559" />
-                          </propertyInstance>
-                          <elementDefinition Id="c804449e-77b7-4766-bfcf-4bc43172c227" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="8a559c0b-bf95-43aa-a4ce-56f9e0ee8ad8">
-                          <propertyInstance Id="ee63e5d5-5190-46ea-bf96-665e8e0bf7e8" name="PackageVisibility" value="internal">
-                            <elementDefinition Id="824c56b1-65b5-4584-9629-bae7de8e3e94" />
-                          </propertyInstance>
-                          <elementDefinition Id="67e32523-0fe8-4511-8375-fbb6d5b4c08e" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="7bda9942-7a80-4554-8425-6d95aeff3ba9">
-                          <propertyInstance Id="83fabc2b-e7a0-4820-b283-bbd4b35825de" name="params" value="false">
-                            <elementDefinition Id="831353b5-e5f1-459e-8af2-c31f8b00833e" />
-                          </propertyInstance>
-                          <elementDefinition Id="298374ee-836d-4cfd-9c46-6ca8079048e5" />
-                        </stereotypeInstanceHasPropertyInstances>
-                      </propertyInstances>
-                    </stereotypeInstance>
-                  </appliedStereotypesInternal>
-                  <elementDefinition Id="4a15439b-efa0-4612-aaad-71114f0ca14e" />
-                  <ownedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="3fba94ba-3026-4655-8f4f-4476f49ec40b" direction="Return">
-                        <elementDefinition Id="723892c3-5ee9-4907-84f7-1393734758ff" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="b1b0f494-a26c-4ed0-900c-100e49ffe174" LastKnownName="Boolean" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="e9e7f589-d2c7-4893-9373-995dc2c37f0c" name="name" direction="In">
-                        <referencesInternal>
-                          <reference Id="e651385a-be25-4c38-9494-6ee3c1245866" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=IOpenPgp Member=(Name=IsPassphraseCorrect OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=name" tag="ViewCode">
-                            <elementDefinition Id="2289bb5d-8b28-41ac-90fe-309c19053aaa" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="c2369c91-87c0-403c-8725-9c772cefb7df" />
+                      <parameter Id="cd62b6c4-ad73-4a02-8577-146e4a0ed49a" name="keySpecifier" direction="In" isUnique="false">
+                        <elementDefinition Id="b1517114-9d3c-4a79-9e09-b482ff269cba" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="a2a233e5-37a0-4c23-ace4-23df61dd91b9" name="passphrase" direction="In">
-                        <referencesInternal>
-                          <reference Id="61918358-5d31-46a2-83cc-29f449a12d20" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=IOpenPgp Member=(Name=IsPassphraseCorrect OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=passphrase" tag="ViewCode">
-                            <elementDefinition Id="f77964b3-9365-4fee-bd2b-fdfe8351d4fa" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="58802fd3-61ef-48e8-8fae-d26a638f7e2b" />
+                      <parameter Id="4d76b3de-3e38-43ed-8f70-a16530198722" direction="Return" isUnique="false">
+                        <elementDefinition Id="b9ddad5e-c00a-43d5-8c76-79be02436ed4" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                          <referencedTypeMoniker Id="156ceac7-3a74-4a89-9da2-9d42c6c4c370" LastKnownName="OpenPgpSecretKey" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -3906,15 +3825,38 @@
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="3d3f9c31-f37c-4270-b98b-5392f76caf22" name="data" direction="In" isUnique="false">
-                        <elementDefinition Id="e9923ede-d6ae-4ee1-9eaf-accf1001c6fa" />
+                      <parameter Id="439d3cbd-3522-4dfa-9e45-199e9c2b7577" name="data" direction="In">
+                        <lowerValueInternal>
+                          <literalString Id="51bfa03b-8607-4b41-8112-e62f7f2e8b72" name="Lower" value="*">
+                            <elementDefinition Id="621b1ed9-2c2b-4985-a280-27adbe92670a" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="c8993348-b56a-4904-8978-3f7c14fd1493" name="Upper" value="*">
+                            <elementDefinition Id="e73678c4-b1a6-4b8b-87ea-d6be0a3f7abb" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="f74b98ac-e0bc-4df7-8d14-d084c734751d" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="7676b7fb-9d1e-4bf5-8c74-83c2e5b43509" LastKnownName="Byte" />
+                        </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="0c53750e-85e4-4d0c-9061-5bcb5be32698" name="signature" direction="In" isUnique="false">
-                        <elementDefinition Id="c1836c63-3a08-4f69-ac31-787ccd9a076d" />
+                      <parameter Id="823edeee-2438-4d13-a76b-4389003d46d8" name="signature" direction="In">
+                        <lowerValueInternal>
+                          <literalString Id="47e989ac-7e44-491b-9e07-c6782f9a83e3" name="Lower" value="*">
+                            <elementDefinition Id="f5448476-1026-4a28-ab88-8207ed24b119" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="d970f5ab-8101-4514-8867-47d135baacf2" name="Upper" value="*">
+                            <elementDefinition Id="b17b6638-38f5-46c5-8ab0-64239d36000b" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="45a1b6bc-c480-4a73-9737-5f85a0970130" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                          <referencedTypeMoniker Id="7676b7fb-9d1e-4bf5-8c74-83c2e5b43509" LastKnownName="Byte" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -3989,8 +3931,21 @@
                   <elementDefinition Id="9932d7f5-78f4-4b2e-b46d-7bfb9e66b292" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="2785af6c-3dfb-482f-9581-a6a970146958" name="stream" direction="In" isUnique="false">
-                        <elementDefinition Id="f77963ae-4cb0-41d6-a7bb-6de112a18d3c" />
+                      <parameter Id="b5da9fe7-c33a-4d73-b9c1-c560c84ddd8e" name="data" direction="In">
+                        <lowerValueInternal>
+                          <literalString Id="76ff9ca5-ff62-473f-ab7a-a51ce7f9d5e8" name="Lower" value="*">
+                            <elementDefinition Id="72d30d55-8569-44ea-8d1c-085645c0e837" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="d123d442-66eb-4b2b-98ac-6c9ac178eb4e" name="Upper" value="*">
+                            <elementDefinition Id="0d80e033-f0ba-4220-ada4-98ffef24ca9a" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="11853adb-983b-4c77-bedd-86dcb1ec5408" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="7676b7fb-9d1e-4bf5-8c74-83c2e5b43509" LastKnownName="Byte" />
+                        </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
@@ -4092,87 +4047,43 @@
                 </reference>
               </referencesInternal>
               <appliedStereotypesInternal>
-                <stereotypeInstance Id="97a0a1e9-9c86-44aa-971c-1f300a9900da" name="struct" profile="CSharpProfile">
-                  <elementDefinition Id="56b1a235-fbcd-4829-b703-ecc1d3a830b9" />
+                <stereotypeInstance Id="65680cf3-ba68-408b-908b-46e1faa3e07b" name="class" profile="CSharpProfile">
+                  <elementDefinition Id="c391ac34-bd92-4eab-aca5-be195fbd4f2f" />
                   <propertyInstances>
-                    <stereotypeInstanceHasPropertyInstances Id="eb356674-1961-4a67-a761-1064a95575e7">
-                      <propertyInstance Id="987037e4-87ce-4a9c-9cda-b20a6a00e722" name="ClrAttributes">
-                        <elementDefinition Id="82a490be-7d05-4ae1-ab8e-ffbbeb044494" />
+                    <stereotypeInstanceHasPropertyInstances Id="be4a4eff-5761-4cbb-9ced-9f3877a006b1">
+                      <propertyInstance Id="3239ae55-2fbf-4a8e-b94d-2da9482d740a" name="ClrAttributes">
+                        <elementDefinition Id="a547e667-d6c0-44d3-8e27-fa07d23d43ce" />
                       </propertyInstance>
-                      <elementDefinition Id="ef619058-4cb2-4353-8099-1d8aa2ce8bd4" />
+                      <elementDefinition Id="fecd36af-167e-46ec-9639-83d352f7ed29" />
                     </stereotypeInstanceHasPropertyInstances>
-                    <stereotypeInstanceHasPropertyInstances Id="5bf55b42-55fb-4401-8e74-562a90de0360">
-                      <propertyInstance Id="046f3910-3535-4539-b3db-bfa961bd4878" name="IsPartial" value="false">
-                        <elementDefinition Id="b4fb2672-f936-44ff-ba50-d31c326821e7" />
+                    <stereotypeInstanceHasPropertyInstances Id="76121160-ccd4-454a-97e4-b215eb66b8c8">
+                      <propertyInstance Id="dbb7e071-7242-4f04-a02a-3d4cf81b0e14" name="IsPartial" value="false">
+                        <elementDefinition Id="9dbd5f0a-9f4f-4bfe-be76-c4d6ec3cfb60" />
                       </propertyInstance>
-                      <elementDefinition Id="71089332-cba4-47f5-8176-02e1e3b427ee" />
+                      <elementDefinition Id="a9ebe205-4345-4a86-9c83-54ca057054d9" />
                     </stereotypeInstanceHasPropertyInstances>
-                    <stereotypeInstanceHasPropertyInstances Id="7091512e-b394-44fe-b297-16f7d00df91e">
-                      <propertyInstance Id="4acd4f7f-1854-498c-99cd-4fcdce79d1b3" name="IsUnsafe" value="false">
-                        <elementDefinition Id="6d56af31-1c3c-4374-b34f-60a5f93d0b71" />
+                    <stereotypeInstanceHasPropertyInstances Id="5935ecc6-077d-4f5e-bade-cb611883a803">
+                      <propertyInstance Id="64febe19-6ad7-4d2b-9cab-5df0a24f2572" name="IsStatic" value="false">
+                        <elementDefinition Id="17b1c817-dabc-48cc-811a-ba154137bd90" />
                       </propertyInstance>
-                      <elementDefinition Id="9120e1be-9401-4673-9c63-bd4e170508b5" />
+                      <elementDefinition Id="b9301e19-c2c8-4bbf-8068-5d635d25bc55" />
                     </stereotypeInstanceHasPropertyInstances>
-                    <stereotypeInstanceHasPropertyInstances Id="de4fe77a-e166-4b1d-b1d0-f171d09bee51">
-                      <propertyInstance Id="ea83668b-8c96-4b52-bdbd-a3ca3a15e00a" name="PackageVisibility" value="internal">
-                        <elementDefinition Id="c46e6d66-b185-4ae3-9a04-f518c5646e0c" />
+                    <stereotypeInstanceHasPropertyInstances Id="48fc7231-9507-4905-bb5f-b175e4b0aec6">
+                      <propertyInstance Id="d260381d-0bd3-4d0d-971c-4db38d3a0350" name="IsUnsafe" value="false">
+                        <elementDefinition Id="f4e82b4a-919a-441c-8a0a-3e24fbf72559" />
                       </propertyInstance>
-                      <elementDefinition Id="b5f6ed08-28cd-4354-8745-e1ee2084f4e7" />
+                      <elementDefinition Id="4c0965d6-c1ce-4c0a-b0e7-7539768f4a7d" />
+                    </stereotypeInstanceHasPropertyInstances>
+                    <stereotypeInstanceHasPropertyInstances Id="a17f05c2-864c-4952-a74d-fca68eb53702">
+                      <propertyInstance Id="6a23e5dc-d85c-471c-96ba-18024f805b8a" name="PackageVisibility" value="internal">
+                        <elementDefinition Id="9da4d8b2-d7df-40be-bc33-a45713669588" />
+                      </propertyInstance>
+                      <elementDefinition Id="3724484b-091a-44a1-aa3b-8f5a8bf17a68" />
                     </stereotypeInstanceHasPropertyInstances>
                   </propertyInstances>
                 </stereotypeInstance>
               </appliedStereotypesInternal>
               <elementDefinition Id="786ffec2-0327-40f2-aad0-cbb8ab97ff51" />
-              <ownedAttributesInternal>
-                <property Id="260be82e-2238-4827-ad45-a7e79a770695" name="KeyID" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <referencesInternal>
-                    <reference Id="a22ee6a8-b74a-42d9-92fa-c2be336f0226" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=GnuPGSecretKey Member=KeyID" tag="ViewCode">
-                      <elementDefinition Id="da2480a3-3e01-4ffb-8fdb-545a002b6d1e" />
-                    </reference>
-                  </referencesInternal>
-                  <appliedStereotypesInternal>
-                    <stereotypeInstance Id="924fd1c7-f85a-460c-9bf2-e5e643e03394" name="field" profile="CSharpProfile">
-                      <elementDefinition Id="9e72db39-3bc4-4a90-bf0d-589afdcbb25a" />
-                      <propertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="d03aa4aa-481b-4011-8e16-c1c8328606cb">
-                          <propertyInstance Id="71450561-5928-4e68-82a6-b6a2f9b254f8" name="ClrAttributes">
-                            <elementDefinition Id="6ac88481-7166-48b3-868b-76f7caf2148f" />
-                          </propertyInstance>
-                          <elementDefinition Id="8c46f2d3-e007-448f-9247-fe6bad5cc00b" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="f00938fc-bd51-4494-ad8a-ec6e10f7777b">
-                          <propertyInstance Id="86965cc7-5ee4-47b0-b222-6c4bf2a41fc0" name="IsConst" value="false">
-                            <elementDefinition Id="22cc680b-41ad-4f98-8e51-29a4c42d83e0" />
-                          </propertyInstance>
-                          <elementDefinition Id="04fc7237-c2c6-4b07-a7e8-922f58284779" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="076501e1-52e8-4a88-9f1b-da598b45249f">
-                          <propertyInstance Id="5fecb841-a114-49be-a890-4738f4253b00" name="IsNullable" value="false">
-                            <elementDefinition Id="dce2325f-63a6-4677-bfa3-74385ebde128" />
-                          </propertyInstance>
-                          <elementDefinition Id="6cfc4e5d-cfa4-4d23-8b64-aac34bf0dadf" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="0a51fefa-31ba-42eb-af98-7985bf9f1ff9">
-                          <propertyInstance Id="2831fc44-d850-448d-8ba3-c96935a36eaf" name="IsVolatile" value="false">
-                            <elementDefinition Id="a511e16c-ebcc-4a56-b862-bd03014cfacb" />
-                          </propertyInstance>
-                          <elementDefinition Id="22e2a872-013d-45e7-98a5-aa1c61ffa859" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="eec80f6a-d8c2-4c33-a2a9-b330dbb2a586">
-                          <propertyInstance Id="ee223de5-1191-44c5-8611-6a4865058018" name="PackageVisibility" value="internal">
-                            <elementDefinition Id="553ca221-3634-4f64-915f-1d71cec49335" />
-                          </propertyInstance>
-                          <elementDefinition Id="4e919b77-98f1-4293-82af-aeeaf2ad9f45" />
-                        </stereotypeInstanceHasPropertyInstances>
-                      </propertyInstances>
-                    </stereotypeInstance>
-                  </appliedStereotypesInternal>
-                  <elementDefinition Id="23fc19f0-456e-4291-9884-4f415d0e86a3" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="37f3ced4-b2fc-423e-a2cd-5e4a0b85d499" LastKnownName="String" />
-                  </type_NamedElement>
-                </property>
-              </ownedAttributesInternal>
             </class>
           </packageHasNamedElement>
         </packagedElements>
@@ -4199,12 +4110,12 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="44570e20-bc03-47d6-8739-397c7a8e63be" name="PgpAlgorithm" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Feeds::PgpAlgorithm">
+      <referencedType Id="44570e20-bc03-47d6-8739-397c7a8e63be" name="OpenPgpAlgorithm" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Feeds::OpenPgpAlgorithm">
         <elementDefinition Id="a73b61b6-6285-4f45-b5ed-ac88cc08759b" />
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="450dbe79-2d8b-451d-8701-e6ba80773a89" name="Trust" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Injector::Feeds::Trust">
+      <referencedType Id="450dbe79-2d8b-451d-8701-e6ba80773a89" name="TrustDB" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Injector::Feeds::TrustDB">
         <elementDefinition Id="1a697764-be2b-4551-8581-2d1d415576ee" />
       </referencedType>
     </packageHasNamedElement>
@@ -4253,7 +4164,7 @@
         <elementDefinition Id="40228fa2-90d3-423f-ab17-6211360804e6" />
         <packagedElements>
           <packageHasNamedElement>
-            <class Id="1da41ffd-b61d-43b6-bcda-c9ad8e850c0f" name="Trust" isAbstract="false" isLeaf="true" isActiveClass="false">
+            <class Id="1da41ffd-b61d-43b6-bcda-c9ad8e850c0f" name="TrustDB" isAbstract="false" isLeaf="true" isActiveClass="false">
               <referencesInternal>
                 <reference Id="6650c873-0c09-4023-817c-f8eef29ed6ea" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=Trust" tag="ViewCode">
                   <elementDefinition Id="45f8454a-3955-46f4-9dd4-0b5ba3349a89" />
@@ -4297,12 +4208,6 @@
                 </stereotypeInstance>
               </appliedStereotypesInternal>
               <elementDefinition Id="1a697764-be2b-4551-8581-2d1d415576ee" />
-              <suppliersInternal>
-                <dependency Id="ff8bbc40-3e25-4e8b-9329-472d4ae844fe">
-                  <classMoniker Id="4a225fce-ea84-4c68-80b9-4a56d704a6cb" LastKnownName="OpenPgpProvider" />
-                  <elementDefinition Id="f1800590-810e-4c99-b184-235ec9c0b920" />
-                </dependency>
-              </suppliersInternal>
               <targetEnds>
                 <association Id="3f68aa8c-6971-4db9-91ce-1b70d1e2fa91" isDerived="false" sourceEndRoleName="Trust" targetEndRoleName="Keys" isLeaf="false" isAbstract="false">
                   <classMoniker Id="c3705850-7c46-40a9-8199-ee6320c3e96c" LastKnownName="Key" />
@@ -4381,7 +4286,7 @@
                       <parameter Id="f269ae8b-3b93-4598-9718-8bf4c3a8cbbe" direction="Return">
                         <elementDefinition Id="905b5f80-85e0-491f-8c4e-7a6ba3dc1268" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="450dbe79-2d8b-451d-8701-e6ba80773a89" LastKnownName="Trust" />
+                          <referencedTypeMoniker Id="450dbe79-2d8b-451d-8701-e6ba80773a89" LastKnownName="TrustDB" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -4431,6 +4336,321 @@
                     </stereotypeInstance>
                   </appliedStereotypesInternal>
                   <elementDefinition Id="e7a7b5b8-0b21-4d25-850d-ad5237fefd4a" />
+                </operation>
+                <operation Id="9947f140-6349-4c45-8864-1a6ddec3c082" name="IsTrusted" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <referencesInternal>
+                    <reference Id="8c8a34b5-8938-44b4-84f6-21af60227e5b" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=Trust Member=Save" tag="ViewCode">
+                      <elementDefinition Id="24e759d8-6ec4-4547-8ea9-2c229e1ddc66" />
+                    </reference>
+                  </referencesInternal>
+                  <appliedStereotypesInternal>
+                    <stereotypeInstance Id="c1c630b7-ab3e-4bc3-a474-7f00d1711b3f" name="method" profile="CSharpProfile">
+                      <elementDefinition Id="d4c08a69-f7d3-4946-9987-c510bfa85521" />
+                      <propertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="029b4a51-7e5d-4631-a1ac-8cd7f1cbab35">
+                          <propertyInstance Id="a330d6d7-f57b-4ce2-aafd-2324bd6176d6" name="ClrAttributes">
+                            <elementDefinition Id="4259c0ed-caaf-4aea-b13c-47387f58dc01" />
+                          </propertyInstance>
+                          <elementDefinition Id="52509841-c076-4ed6-8971-ea0e18604ab5" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="fbc39fbb-2ec4-4451-b2de-50d656c209e5">
+                          <propertyInstance Id="6d6f82c7-8b28-4e67-9951-a1eaf62abcdd" name="IsPartial" value="false">
+                            <elementDefinition Id="be974e75-0ad1-4de4-9821-3aa83ab9a149" />
+                          </propertyInstance>
+                          <elementDefinition Id="04704b13-60c8-4a64-8395-1ba9c3ea5da2" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="9b29dd85-5a53-49a3-87ae-26411c95f2dd">
+                          <propertyInstance Id="5c1fa937-fcc7-4c89-8e02-90066260258b" name="IsUnsafe" value="false">
+                            <elementDefinition Id="77736d48-6743-44fb-89e4-1e38132883c2" />
+                          </propertyInstance>
+                          <elementDefinition Id="b9988323-f0a3-4f0a-a71d-ec342d7aa666" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="7855d663-4ebb-4f10-9750-83e7d523719a">
+                          <propertyInstance Id="46b92d36-2af0-48cf-9043-f93b1c479483" name="PackageVisibility" value="internal">
+                            <elementDefinition Id="5464db9e-8d16-428b-88a6-205403583293" />
+                          </propertyInstance>
+                          <elementDefinition Id="6266dc4b-a0ee-4b88-ac7a-dfc7df8560df" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="e42261c4-0d59-4c22-9c4f-bbc375ed21dc">
+                          <propertyInstance Id="5aeea217-b3b6-4d9a-a3a2-775738ede998" name="params" value="false">
+                            <elementDefinition Id="7c0c8255-157f-4eba-864c-3991c414ef4a" />
+                          </propertyInstance>
+                          <elementDefinition Id="c8cab550-45b1-4ae1-b605-79475391298b" />
+                        </stereotypeInstanceHasPropertyInstances>
+                      </propertyInstances>
+                    </stereotypeInstance>
+                  </appliedStereotypesInternal>
+                  <elementDefinition Id="ca9d864a-6b74-451c-a6f3-c014cad3c0eb" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="a7e80772-0f92-4972-9298-92570136bcbc" name="fingerprint" direction="In" isUnique="false">
+                        <elementDefinition Id="70235d80-2151-476f-a419-3a84a5fb0ea7" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="4907316d-50b8-4611-bb95-6b4978ab01ab" name="domain" direction="In" isUnique="false">
+                        <elementDefinition Id="496323c4-4c1a-4ef0-965b-995612185e5e" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="1f1c2f1d-908f-451a-bc8f-cdb9bcbe87d9" LastKnownName="Domain" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="e5252d61-95d8-4407-8578-16cc380e4bed" direction="Return" isUnique="false">
+                        <elementDefinition Id="7e4bc08c-e004-48e2-a1b0-7051db3121ac" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="b1b0f494-a26c-4ed0-900c-100e49ffe174" LastKnownName="Boolean" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="fcf4886f-f311-42fd-b114-15bbbf2fa731" name="TrustKey" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <referencesInternal>
+                    <reference Id="9e2f4627-2e3f-436b-87b4-7bd5afece11d" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=Trust Member=Save" tag="ViewCode">
+                      <elementDefinition Id="88603bb9-5c25-4b40-b56a-fc5cfa144baa" />
+                    </reference>
+                  </referencesInternal>
+                  <appliedStereotypesInternal>
+                    <stereotypeInstance Id="3040096f-7d19-48a6-bac0-847ccd21f020" name="method" profile="CSharpProfile">
+                      <elementDefinition Id="da4c4214-81cd-46a7-a5e2-d9fa28e232e8" />
+                      <propertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="b9b90d46-6243-46d8-8236-152d8b110077">
+                          <propertyInstance Id="23a7d47d-bfec-4ef2-93d2-59e3b51d039d" name="ClrAttributes">
+                            <elementDefinition Id="c0c873a1-cf95-470a-826e-566e3df1c2dd" />
+                          </propertyInstance>
+                          <elementDefinition Id="43f307cc-713c-4097-ba43-763d31a0aa2d" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="8a17e5b3-2733-44bf-a921-95aaee22438b">
+                          <propertyInstance Id="d067c376-21fa-4901-8c3c-992da0e0df62" name="IsPartial" value="false">
+                            <elementDefinition Id="a867288b-16be-40b9-8150-eeb7c7e93a0f" />
+                          </propertyInstance>
+                          <elementDefinition Id="7307e1ca-3832-4efc-81db-ee6a8dd44ac3" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="b0002e27-b9c0-4a55-b1d5-111c44786d1d">
+                          <propertyInstance Id="fee36276-96b7-44d6-a4bc-82f086d13756" name="IsUnsafe" value="false">
+                            <elementDefinition Id="6dddd228-7187-4cf8-ac7f-97a0ce7bdb03" />
+                          </propertyInstance>
+                          <elementDefinition Id="a413ceb0-72ca-4a59-ad87-3dc9d2038441" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="4f4c8048-6b33-435e-9c5e-49f6fb204873">
+                          <propertyInstance Id="eb1501de-4826-474f-a75b-f90c4a2397a1" name="PackageVisibility" value="internal">
+                            <elementDefinition Id="0feb8b75-9caf-4ee1-a8ce-029c3630c106" />
+                          </propertyInstance>
+                          <elementDefinition Id="2ac43057-40a1-45de-9e62-f79477659cd0" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="efd41db8-a264-4061-8016-dbb411e4a7b0">
+                          <propertyInstance Id="6989c5da-47a0-44e6-a981-22ec0b534c4a" name="params" value="false">
+                            <elementDefinition Id="6c55de5c-c6b9-449d-8294-c25653959d54" />
+                          </propertyInstance>
+                          <elementDefinition Id="d658a76d-8aa1-4e55-b1c5-1dbe5a571864" />
+                        </stereotypeInstanceHasPropertyInstances>
+                      </propertyInstances>
+                    </stereotypeInstance>
+                  </appliedStereotypesInternal>
+                  <elementDefinition Id="031a8191-5e91-4370-9aa8-1fddd64554c4" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="2a05f2d7-28a3-4461-af61-dcb3d7dac821" name="fingerprint" direction="In" isUnique="false">
+                        <elementDefinition Id="3e44668b-bd9a-4024-b81d-183a6a483b32" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="3363a04d-f532-4f84-8a40-7818b8f1bae6" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="5de27c84-95e2-4f74-a47b-4200c38d685c" name="domain" direction="In" isUnique="false">
+                        <elementDefinition Id="1d1294a8-f961-43f2-bbe5-3e1f72eab380" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="c252ab1b-9b31-43e8-9fa5-942f520244f5" LastKnownName="Domain" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="045d5835-edb0-487a-80b7-5f55148212a1" name="UntrustKey" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <referencesInternal>
+                    <reference Id="eab4dc45-3251-4ccb-b707-e1a3d9d0d6f5" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=Trust Member=Save" tag="ViewCode">
+                      <elementDefinition Id="32ff7d70-8371-45ef-9072-c1a9d8d4a127" />
+                    </reference>
+                  </referencesInternal>
+                  <appliedStereotypesInternal>
+                    <stereotypeInstance Id="b2cb28dc-7029-49c9-b02b-a8790ebb4129" name="method" profile="CSharpProfile">
+                      <elementDefinition Id="19ddbe95-6729-4ed9-b7ec-d6cf7c7aca22" />
+                      <propertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="99778189-3976-4c78-9c7b-81ede8b1ce09">
+                          <propertyInstance Id="c543f33e-7aae-4b97-8fab-567024cf0491" name="ClrAttributes">
+                            <elementDefinition Id="abc8ce71-5fd8-45ca-a065-0ce73b2d2487" />
+                          </propertyInstance>
+                          <elementDefinition Id="59af7fc6-05a8-40a1-9366-bef7799911b2" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="02e9157a-e94a-4770-a899-f599d660db7d">
+                          <propertyInstance Id="55f50e4b-2234-4fa2-add9-90fc4439417f" name="IsPartial" value="false">
+                            <elementDefinition Id="280308e1-28d5-4df2-9811-5a16cababcc3" />
+                          </propertyInstance>
+                          <elementDefinition Id="24283560-9c5a-410a-8baa-89b5d286353b" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="dc4fd081-c2b1-410d-aae7-c8fbb01e16aa">
+                          <propertyInstance Id="dc621214-f612-4742-8b45-f78f5527dae0" name="IsUnsafe" value="false">
+                            <elementDefinition Id="94f4520f-792c-49ab-9998-a632aea1b6d4" />
+                          </propertyInstance>
+                          <elementDefinition Id="92894a52-dcd2-490c-abb9-c4bc6d706637" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="782ba978-e921-4628-8b4f-49292e3ecb88">
+                          <propertyInstance Id="71f011a4-a4f0-4b39-a1fc-6dcf5f3a3da8" name="PackageVisibility" value="internal">
+                            <elementDefinition Id="7f6e0183-e3dd-46d3-96d8-553814525ed5" />
+                          </propertyInstance>
+                          <elementDefinition Id="1f3f3923-f900-45db-a14b-2f8f86b8b515" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="7c89cdd3-579d-4dcc-81da-3f0954759bb0">
+                          <propertyInstance Id="e5608414-c9e9-4d16-85d4-fbb5b2cb068c" name="params" value="false">
+                            <elementDefinition Id="02ab9fd6-7bfe-43e1-937a-10270015391e" />
+                          </propertyInstance>
+                          <elementDefinition Id="c8431015-dc0a-49f5-87b7-1821d3452bc8" />
+                        </stereotypeInstanceHasPropertyInstances>
+                      </propertyInstances>
+                    </stereotypeInstance>
+                  </appliedStereotypesInternal>
+                  <elementDefinition Id="91f559fb-ecd8-4c14-95ff-29a9d694fb12" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="34fe45d2-e904-4d8f-a84f-681db283a6dc" name="fingerprint" direction="In" isUnique="false">
+                        <elementDefinition Id="604b6f9f-28f7-4db9-97c0-39f52c19fa9a" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="078942c0-b407-491e-bf69-d04810188154" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="1e2fb629-cc2e-4f52-bb4a-ea7379e8ffd0" name="domain" direction="In" isUnique="false">
+                        <elementDefinition Id="372cf2da-92d0-44d5-89ff-715755157a0e" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="fbe45e5f-559c-447d-a0b9-64155820ec69" LastKnownName="Domain" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="30168702-8030-4680-a724-8fd667ad54f2" name="Load" isLeaf="false" isStatic="true" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <referencesInternal>
+                    <reference Id="e46b8923-1030-48e0-bd66-ba69137a5ec2" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=Trust Member=Load" tag="ViewCode">
+                      <elementDefinition Id="df160521-a3e3-4b59-af39-1565b72a611a" />
+                    </reference>
+                  </referencesInternal>
+                  <appliedStereotypesInternal>
+                    <stereotypeInstance Id="69102adc-086e-433f-b3f6-cfb9a4b01f93" name="method" profile="CSharpProfile">
+                      <elementDefinition Id="addcdf88-04ca-4c1d-847c-782fd9d29476" />
+                      <propertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="75a1a636-775e-4e6b-b784-1b88b6560eaa">
+                          <propertyInstance Id="67870915-69f1-42c5-9efc-bb1a8ed993f8" name="ClrAttributes">
+                            <elementDefinition Id="b4338e9a-3c85-4fee-91a3-16571fceb2fd" />
+                          </propertyInstance>
+                          <elementDefinition Id="d01eae34-6d4d-4ef9-9e02-d30e337a70dc" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="1b02c9a0-8ef5-42db-8259-2efc06ebe717">
+                          <propertyInstance Id="33a2cb5a-38c3-441f-82c3-0074ba24bd96" name="IsPartial" value="false">
+                            <elementDefinition Id="d0f8b9c0-f0de-4658-b806-dc856964dc8f" />
+                          </propertyInstance>
+                          <elementDefinition Id="bbc2d985-4b08-4adc-94d5-ae3eadd9433c" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="48fd449d-9fdc-40ce-9700-376e6ca24d73">
+                          <propertyInstance Id="c03dad56-96af-4456-a7f6-d1bf751a2703" name="IsUnsafe" value="false">
+                            <elementDefinition Id="d975d703-5ffd-4e11-9fe7-643b8406f4fc" />
+                          </propertyInstance>
+                          <elementDefinition Id="9d1215eb-966a-4ea1-97d5-96fb60731e76" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="c7a53ff2-cf3b-44e7-b863-092578cded83">
+                          <propertyInstance Id="be1d6991-82c4-45c8-aad4-3e41af27803f" name="PackageVisibility" value="internal">
+                            <elementDefinition Id="f77ef8ca-3ca7-4513-9f22-631a89a51c8c" />
+                          </propertyInstance>
+                          <elementDefinition Id="7bf6dbc2-6eaf-4a39-b80f-825a37265d39" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="936a672f-2ee6-4954-95b9-85a8cc612dba">
+                          <propertyInstance Id="da6a5dec-c550-4a00-82a8-bf1e3c27d238" name="params" value="false">
+                            <elementDefinition Id="44eecd9f-e04e-4304-aee8-f9f3ec39ea1f" />
+                          </propertyInstance>
+                          <elementDefinition Id="bc26c523-ee3f-45f7-b1b7-a8789d1286a4" />
+                        </stereotypeInstanceHasPropertyInstances>
+                      </propertyInstances>
+                    </stereotypeInstance>
+                  </appliedStereotypesInternal>
+                  <elementDefinition Id="f0863dd1-ce6d-4e18-ab00-1c89abfd5b89" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="f1e738b6-1f7f-4cbc-a229-e484246422da" direction="Return" isUnique="false">
+                        <elementDefinition Id="b5e788f7-952e-452c-ba94-747231fb4572" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="73ceb8b6-849f-448d-9130-054308569205" LastKnownName="TrustDB" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="dddf0c87-a712-45ca-a78b-6e3329509c55" name="path" direction="In" isUnique="false">
+                        <elementDefinition Id="e1968c1c-afad-4b07-acf3-ae35d1c06b6b" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="ab8c14db-3ee7-46a9-b96f-a7eb8620e36b" name="Save" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <referencesInternal>
+                    <reference Id="05f8765d-84d4-4c90-9f97-c8d6289ace63" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=Trust Member=Save" tag="ViewCode">
+                      <elementDefinition Id="c78a48fe-879d-4cf1-911c-d161787a19b9" />
+                    </reference>
+                  </referencesInternal>
+                  <appliedStereotypesInternal>
+                    <stereotypeInstance Id="82df4dc7-323a-496d-81b6-959851bffeea" name="method" profile="CSharpProfile">
+                      <elementDefinition Id="945ec689-f746-4fff-9676-8fa9c0504c16" />
+                      <propertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="b6864156-e390-4f6a-a294-703241d648cd">
+                          <propertyInstance Id="7a9a9a7b-ea04-4806-af3a-9e7c2d3001c0" name="ClrAttributes">
+                            <elementDefinition Id="f7dc4981-e3cc-423a-a9f1-540dabf1d951" />
+                          </propertyInstance>
+                          <elementDefinition Id="ecf33ef8-4919-41de-8a28-c1309fea7ce8" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="0e24e016-d6c8-4cd3-96d3-17bdc45469df">
+                          <propertyInstance Id="bac6bf39-0dbe-4b03-8628-5cd2d235e16f" name="IsPartial" value="false">
+                            <elementDefinition Id="1fecb3a9-5bf6-4bf9-aa70-36b011315fdd" />
+                          </propertyInstance>
+                          <elementDefinition Id="9c6690f9-77fb-4bb7-b418-fac504759b80" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="33434da7-d05f-40a4-a109-74f9dc47624f">
+                          <propertyInstance Id="d2f2d218-d258-4cf0-af77-79fa77c73010" name="IsUnsafe" value="false">
+                            <elementDefinition Id="ef1271cd-c377-4bcc-8fdf-7c78a12e6360" />
+                          </propertyInstance>
+                          <elementDefinition Id="955f7284-1e84-496d-9751-f4b4c04ad4f8" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="8c8ecf51-9f9f-4dbc-918b-cffb6a3c732a">
+                          <propertyInstance Id="812924d3-1eec-4ea4-b867-49097b726fc5" name="PackageVisibility" value="internal">
+                            <elementDefinition Id="b4f60097-7b9b-4e90-aa5b-dc0a34d65a57" />
+                          </propertyInstance>
+                          <elementDefinition Id="3e786604-7c5b-4504-9100-4cf8f420d7bb" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="b49d4063-d410-4b9f-b021-3379b4ba948f">
+                          <propertyInstance Id="c8c589ef-3ecf-4279-89b6-04b4f11d87b7" name="params" value="false">
+                            <elementDefinition Id="b117cdf8-1573-49db-8ac5-eba9d0a8ec46" />
+                          </propertyInstance>
+                          <elementDefinition Id="97090930-9465-416c-830f-d315d1c184c6" />
+                        </stereotypeInstanceHasPropertyInstances>
+                      </propertyInstances>
+                    </stereotypeInstance>
+                  </appliedStereotypesInternal>
+                  <elementDefinition Id="e7bc4744-ec67-490f-a6cd-b35e4c892fb1" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="22a12461-3874-4650-9a0b-952f4ef73c93" name="path" direction="In" isUnique="false">
+                        <elementDefinition Id="6a320e7f-9336-4751-9356-1727a0969f8d" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
                 </operation>
               </ownedOperationsInternal>
             </class>
@@ -5618,10 +5838,6 @@
               </appliedStereotypesInternal>
               <elementDefinition Id="3fccbb6a-71d8-4a09-8665-76195c6e02f8" />
               <suppliersInternal>
-                <dependency Id="dadff402-39db-4c66-b786-c211135e2c6a">
-                  <classMoniker Id="1da41ffd-b61d-43b6-bcda-c9ad8e850c0f" LastKnownName="Trust" />
-                  <elementDefinition Id="48d7f569-7199-414e-b353-c0794266953b" />
-                </dependency>
                 <dependency Id="25867ab2-1880-4ccf-a0d5-5a96c6704118">
                   <classMoniker Id="4670a9f8-05e0-4d6c-b49e-c1116f256e21" LastKnownName="FeedPreferences" />
                   <elementDefinition Id="45df179b-bf48-4d81-98fe-02ce2c03f1b0" />
@@ -5630,9 +5846,13 @@
                   <classMoniker Id="bd693706-e805-41b8-827b-3dceea6649cd" LastKnownName="InterfacePreferences" />
                   <elementDefinition Id="1a823fde-3220-4aca-8879-b2b7438a6a71" />
                 </dependency>
+                <dependency Id="359e6bdd-36c3-4c06-b11d-c83b94060796">
+                  <classMoniker Id="1da41ffd-b61d-43b6-bcda-c9ad8e850c0f" LastKnownName="TrustDB" />
+                  <elementDefinition Id="60439a6e-3eaf-48be-8ef2-b1ded2e91934" />
+                </dependency>
               </suppliersInternal>
               <targetEnds>
-                <association Id="79f36b6e-b5b2-4947-8d4d-513e60103c53" isDerived="false" sourceEndRoleName="FeedManager" targetEndRoleName="FeedCache" isLeaf="false" isAbstract="false">
+                <association Id="79f36b6e-b5b2-4947-8d4d-513e60103c53" isDerived="false" sourceEndRoleName="FeedManager" targetEndRoleName="Cache" isLeaf="false" isAbstract="false">
                   <interfaceMoniker Id="bab69625-4810-4be9-9375-3a4a3674ef1b" LastKnownName="IFeedCache" />
                   <relationshipOwnedElementsInternal>
                     <associationHasOwnedEnds>
@@ -5651,12 +5871,38 @@
                       </memberEnd>
                     </associationHasOwnedEnds>
                     <associationHasOwnedEnds>
-                      <memberEnd Id="7ed0836f-29ea-4b5a-82de-29064c929372" name="FeedCache" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                      <memberEnd Id="7ed0836f-29ea-4b5a-82de-29064c929372" name="Cache" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <elementDefinition Id="6bd00018-e9db-44de-8c27-22757ccccd07" />
                       </memberEnd>
                     </associationHasOwnedEnds>
                   </relationshipOwnedElementsInternal>
                   <elementDefinition Id="05923b90-feab-41b4-83b8-d01d6866f406" />
+                </association>
+                <association Id="273371c4-65f7-4a93-bd5f-687cd784ef7b" isDerived="false" sourceEndRoleName="FeedManager" targetEndRoleName="OpenPgp" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="b45eda69-7704-469e-9445-e154953158a1" LastKnownName="IOpenPgp" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="5f09c37c-2463-4e97-a66e-6de9fa785ad4" name="FeedManager" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <lowerValueInternal>
+                          <literalString Id="db63ed52-dd02-499a-af0f-cc1ec7d4773b" name="Lower" value="*">
+                            <elementDefinition Id="12e8a15f-697d-4275-8357-e344cc7ead03" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="d42f6451-4432-4a91-b028-6531648a68a5" name="Upper" value="*">
+                            <elementDefinition Id="21ef2466-0794-4d35-9eec-e93ad59f04f6" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="8451dc09-768a-4b3e-9b2d-bf0fbda46484" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="7f0c1cf5-8fc7-407e-b5cf-9e66a58bb205" name="OpenPgp" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="16739733-9ee1-4d79-b6a1-8ea98453cc4c" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="e4efc71d-7098-4d2e-b236-50df9cfdc497" />
                 </association>
               </targetEnds>
               <ownedAttributesInternal>
@@ -5762,10 +6008,18 @@
                   <elementDefinition Id="f6e704e2-a6b3-4d6c-94d6-c4871da7e00d" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="e87d8189-b0cd-43cd-9689-1ffd2caf55f6" name="cache" direction="In" isUnique="false">
-                        <elementDefinition Id="a1e44209-95d5-4fea-b6d9-374ee2ff296d" />
+                      <parameter Id="0dc80458-68f9-44fc-b47c-365a2472f2f6" name="cache" direction="In" isUnique="false">
+                        <elementDefinition Id="4aa66487-0291-4bd1-8dd4-07ba60045cf5" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="02214adf-400d-4c0c-bd4f-c29b48b1f7b7" LastKnownName="IFeedCache" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="10306606-418d-4f9f-9500-0ca2d04c93d1" name="openPgp" direction="In" isUnique="false">
+                        <elementDefinition Id="23c0bd7c-dcae-4d70-a8b4-66ba1958b3e3" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="e89c6319-e2d6-4636-b6dc-ec46d2eaefc2" LastKnownName="IOpenPgp" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -5917,11 +6171,6 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="37f3ced4-b2fc-423e-a2cd-5e4a0b85d499" name="String" isAbstract="false" isLeaf="false" cachedFullName="String">
-        <elementDefinition Id="59259974-6d55-42c6-b7bd-763d77ac8ef9" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <referencedType Id="26353c75-b58a-48bd-bb9a-70fa9ea98eb2" name="OpenPgpSecretKey" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Feeds::OpenPgpSecretKey">
         <elementDefinition Id="deb1bd9c-90d7-4201-ba8d-e7cf0cd4578c" />
       </referencedType>
@@ -5929,6 +6178,56 @@
     <packageHasNamedElement>
       <referencedType Id="5f9fd4d8-a763-4e07-901e-f08d6cf21e63" name="OpenPgpSignature" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Feeds::OpenPgpSignature">
         <elementDefinition Id="786ffec2-0327-40f2-aad0-cbb8ab97ff51" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="7676b7fb-9d1e-4bf5-8c74-83c2e5b43509" name="Byte" isAbstract="false" isLeaf="false" cachedFullName="Byte">
+        <elementDefinition Id="4637e42d-ad55-4e39-97e2-19898d775604" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="8ab5a100-2e09-4aaf-bee7-ec8a824795df" name="DateTime" isAbstract="false" isLeaf="false" cachedFullName="DateTime">
+        <elementDefinition Id="1a83575b-d0b7-4cb3-b780-2734244d99a8" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="ca740c76-0e63-42c3-b6c5-b56830b637f3" name="IOpenPgp" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Feeds::IOpenPgp">
+        <elementDefinition Id="1f5177ee-45e7-46a2-8294-ccae92c4fa5e" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="1f1c2f1d-908f-451a-bc8f-cdb9bcbe87d9" name="Domain" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Injector::Feeds::Domain">
+        <elementDefinition Id="4aadc288-0b81-434c-9979-61b713a2db97" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="3363a04d-f532-4f84-8a40-7818b8f1bae6" name="String" isAbstract="false" isLeaf="false" cachedFullName="String">
+        <elementDefinition Id="59259974-6d55-42c6-b7bd-763d77ac8ef9" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="c252ab1b-9b31-43e8-9fa5-942f520244f5" name="Domain" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Injector::Feeds::Domain">
+        <elementDefinition Id="4aadc288-0b81-434c-9979-61b713a2db97" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="078942c0-b407-491e-bf69-d04810188154" name="String" isAbstract="false" isLeaf="false" cachedFullName="String">
+        <elementDefinition Id="59259974-6d55-42c6-b7bd-763d77ac8ef9" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="fbe45e5f-559c-447d-a0b9-64155820ec69" name="Domain" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Injector::Feeds::Domain">
+        <elementDefinition Id="4aadc288-0b81-434c-9979-61b713a2db97" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="e89c6319-e2d6-4636-b6dc-ec46d2eaefc2" name="IOpenPgp" isAbstract="false" isLeaf="false" cachedFullName="IOpenPgp">
+        <elementDefinition Id="6daf4a19-38d0-4cd3-8774-6a08bbd38eaf" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="73ceb8b6-849f-448d-9130-054308569205" name="TrustDB" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Injector::Feeds::TrustDB">
+        <elementDefinition Id="1a697764-be2b-4551-8581-2d1d415576ee" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

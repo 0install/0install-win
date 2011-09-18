@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010-2011 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher, Simon E. Silva Lauinger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -18,9 +18,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using Common;
 using Common.Cli;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Feeds
 {
@@ -29,6 +31,7 @@ namespace ZeroInstall.Store.Feeds
     /// </summary>
     public static class FeedUtils
     {
+        #region Cache
         /// <summary>
         /// Loads all <see cref="Feed"/>s stored in <see cref="IFeedCache"/> into memory.
         /// </summary>
@@ -49,30 +52,139 @@ namespace ZeroInstall.Store.Feeds
                     feed.Simplify();
                     feeds.AddLast(feed);
                 }
-                #region Error handling
-                catch (IOException ex) { Log.Error(ex.Message); }
-                catch (UnauthorizedAccessException ex) { Log.Error(ex.Message); }
-                catch (InvalidDataException ex) { Log.Error(ex.Message); }
+                    #region Error handling
+                catch (IOException ex)
+                {
+                    Log.Error(ex.Message);
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Log.Error(ex.Message);
+                }
+                catch (InvalidDataException ex)
+                {
+                    Log.Error(ex.Message);
+                }
                 #endregion
             }
             return feeds;
         }
+        #endregion
+
+        #region Signatures
+        /// <summary>The encoding used when looking for signature blocks in feed files.</summary>
+        private static readonly Encoding _encoding = Encoding.UTF8;
+
+        /// <summary>The string signifying the start of a signature block.</summary>
+        private const string SignatureBlockStart = "<!-- Base64 Signature\n";
+
+        /// <summary><see cref="SignatureBlockStart"/> encoded with <see cref="_encoding"/>.</summary>
+        private static readonly byte[] _signatureBlocktartBytes = _encoding.GetBytes(SignatureBlockStart);
+        
+        /// <summary>The string signifying the end of a signature block.</summary>
+        private const string SignatureBlockEnd = "\n-->\n";
 
         /// <summary>
         /// Determines which signatures a feed is signed with.
         /// </summary>
         /// <param name="openPgp">The OpenPGP-compatible system used to validate the signatures.</param>
-        /// <param name="data">The feed data containing an embedded signature.</param>
+        /// <param name="feedData">The feed data containing an embedded signature.</param>
         /// <returns>A list of signatures found, both valid and invalid.</returns>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        public static OpenPgpSignature[] GetSignatures(IOpenPgp openPgp, Stream data)
+        /// <exception cref="SignatureException">Thrown if the signature data could not be handled.</exception>
+        public static IEnumerable<OpenPgpSignature> GetSignatures(IOpenPgp openPgp, byte[] feedData)
         {
-            // ToDo: Split data into pureData and signature
-            Stream pureData = null;
-            string signature = null;
+            #region Sanity checks
+            if (openPgp == null) throw new ArgumentNullException("openPgp");
+            if (feedData == null) throw new ArgumentNullException("feedData");
+            #endregion
 
-            return openPgp.Verify(pureData, signature);
+            if (feedData.Length == 0) return new OpenPgpSignature[0];
+
+            int signatureStartIndex = GetSignatureStartIndex(feedData);
+            if (signatureStartIndex == -1) return new OpenPgpSignature[0];
+
+            try
+            {
+                return openPgp.Verify(
+                    IsolateFeed(feedData, signatureStartIndex),
+                    IsolateAndDecodeSignature(feedData, signatureStartIndex));
+            }
+            #region Error handling
+            catch (UnhandledErrorsException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new SignatureException(ex.Message, ex);
+            }
+            #endregion}
         }
+
+        /// <summary>
+        /// Finds the point in a data array where the signature block starts.
+        /// </summary>
+        /// <param name="feedData">The feed data containing a signature block.</param>
+        /// <returns>The index of the first byte of the signature block; -1 if none was found.</returns>
+        private static int GetSignatureStartIndex(byte[] feedData)
+        {
+            int signatureStartIndex = -1;
+
+            for (int currentFeedDataIndex = 0; currentFeedDataIndex < feedData.Length; currentFeedDataIndex++)
+            {
+                bool validStartingPoint = true;
+                for (int i = 0, j = currentFeedDataIndex; j < feedData.Length && i < _signatureBlocktartBytes.Length; i++, j++)
+                {
+                    if (feedData[j] == _signatureBlocktartBytes[i]) continue;
+
+                    validStartingPoint = false;
+                    break;
+                }
+                if (validStartingPoint) signatureStartIndex = currentFeedDataIndex;
+            }
+
+            return signatureStartIndex;
+        }
+
+        /// <summary>
+        /// Isolates the actual feed from the signature block.
+        /// </summary>
+        /// <param name="feedData">The feed data containing a signature block.</param>
+        /// <param name="signatureStartIndex">The index of the first byte of the signature block.</param>
+        /// <returns>The isolated feed.</returns>
+        /// <exception cref="SignatureException">Thrown if the signature block does not start on a new line.</exception>
+        private static byte[] IsolateFeed(byte[] feedData, int signatureStartIndex)
+        {
+            if (signatureStartIndex <= 0 || feedData[signatureStartIndex - 1] != _encoding.GetBytes("\n")[0])
+                throw new SignatureException(Resources.XmlSignatureMissingNewLine);
+
+            var feed = new byte[signatureStartIndex];
+            Array.Copy(feedData, 0, feed, 0, signatureStartIndex);
+            return feed;
+        }
+
+        /// <summary>
+        /// Isolates and decodes the Base64-econded signature.
+        /// </summary>
+        /// <param name="feedData">The feed data containing a signature block.</param>
+        /// <param name="signatureStartIndex">The index of the first byte of the signature block.</param>
+        /// <returns>The decoded signature data.</returns>
+        /// <exception cref="SignatureException">Thrown if the signature contains invalid characters.</exception>
+        private static byte[] IsolateAndDecodeSignature(byte[] feedData, int signatureStartIndex)
+        {
+            // Isolate and decode signature string
+            var signatureString = _encoding.GetString(feedData, signatureStartIndex, feedData.Length - signatureStartIndex);
+            if (!signatureString.EndsWith(SignatureBlockEnd)) throw new SignatureException(Resources.XmlSignatureInvalidEnd);
+
+            // Concatenate Base64 lines and decode
+            var base64Charachters = signatureString.Substring(SignatureBlockStart.Length, signatureString.Length - SignatureBlockStart.Length - SignatureBlockEnd.Length).Replace("\n", "");
+            try { return Convert.FromBase64String(base64Charachters); }
+            #region Error handling
+            catch (FormatException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new SignatureException(Resources.XmlSignatureNotBase64 + ex.Message, ex);
+            }
+            #endregion
+        }
+        #endregion
     }
 }

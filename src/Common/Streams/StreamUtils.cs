@@ -32,11 +32,11 @@ namespace Common.Streams
     public static class StreamUtils
     {
         /// <summary>
-        /// Copies the content of one stream to another in buffer-sized steps
+        /// Copies the content of one stream to another in buffer-sized steps.
         /// </summary>
-        /// <param name="source">The source stream to copy from</param>
-        /// <param name="destination">The destination stream to copy to</param>
-        /// <param name="bufferSize">The size of the buffer to use for copying in bytes</param>
+        /// <param name="source">The source stream to copy from.</param>
+        /// <param name="destination">The destination stream to copy to.</param>
+        /// <param name="bufferSize">The size of the buffer to use for copying in bytes.</param>
         public static void Copy(Stream source, Stream destination, long bufferSize)
         {
             #region Sanity checks
@@ -59,10 +59,10 @@ namespace Common.Streams
         }
 
         /// <summary>
-        /// Copies the content of one stream to another in one go
+        /// Copies the content of one stream to another in one go.
         /// </summary>
-        /// <param name="source">The source stream to copy from</param>
-        /// <param name="destination">The destination stream to copy to</param>
+        /// <param name="source">The source stream to copy from.</param>
+        /// <param name="destination">The destination stream to copy to.</param>
         public static void Copy(Stream source, Stream destination)
         {
             #region Sanity checks

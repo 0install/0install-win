@@ -30,6 +30,7 @@ using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Commands.WinForms
@@ -176,6 +177,11 @@ namespace ZeroInstall.Commands.WinForms
                     // Complete XML errors are too long for the headline, so split it into the log
                     if (ex.InnerException != null) Log.Error(ex.InnerException.Message);
                     ErrorBox.Show(ex.Message, errorLog.ToString());
+                }
+                catch (SignatureException ex)
+                {
+                    handler.DisableProgressUI();
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
                 }
                 catch (InvalidInterfaceIDException ex)
                 {

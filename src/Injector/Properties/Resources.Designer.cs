@@ -160,6 +160,18 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New feed&apos;s modification time is before old version!
+        ///Feed ID: {0}
+        ///Old time: {1}
+        ///New time: {2}.
+        /// </summary>
+        internal static string ReplayAttack {
+            get {
+                return ResourceManager.GetString("ReplayAttack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not compatible with current system.
         /// </summary>
         internal static string SelectionCandidateNoteIncompatibleSystem {

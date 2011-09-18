@@ -31,6 +31,7 @@ using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Commands
@@ -167,6 +168,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if an operation failed due to insufficient rights.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing an XML file.</exception>
+        /// <exception cref="SignatureException">Thrown if the signature data could not be handled for some reason.</exception>
         /// <exception cref="InvalidInterfaceIDException">Thrown if no interface ID was specified while one was needed.</exception>
         /// <exception cref="DigestMismatchException">Thrown if an <see cref="Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
         /// <exception cref="SolverException">Thrown if the <see cref="ISolver"/> was unable to solve all dependencies.</exception>

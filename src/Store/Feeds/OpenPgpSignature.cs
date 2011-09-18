@@ -15,20 +15,93 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+
 namespace ZeroInstall.Store.Feeds
 {
     /// <summary>
-    /// Represents a signature validated by an <see cref="IOpenPgp"/> implementation.
+    /// Represents a signature checked by an <see cref="IOpenPgp"/> implementation.
     /// </summary>
-    public struct OpenPgpSignature
+    public abstract class OpenPgpSignature
     {
-        #region Variables
+        internal static OpenPgpSignature Parse(string line)
+        {
+            string[] parts = line.Split(' ');
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// Represents a valid signature.
+    /// </summary>
+    public sealed class ValidSignature : OpenPgpSignature
+    {
         /// <summary>
-        /// The ID of the key used to create this signature.
+        /// A unique identifier string for the key used to create this signature.
+        /// </summary>
+        public readonly string Fingerprint;
+
+        /// <summary>
+        /// The point in time when the signature was created in UTC.
+        /// </summary>
+        public readonly DateTime Timestamp;
+
+        /// <summary>
+        /// Creates a new valid signature.
+        /// </summary>
+        /// <param name="fingerprint">A short identifier string for the key used to create this signature.</param>
+        /// <param name="timestamp">The point in time when the signature was created in UTC.</param>
+        public ValidSignature(string fingerprint, DateTime timestamp)
+        {
+            Fingerprint = fingerprint;
+            Timestamp = timestamp;
+        }
+    }
+
+    /// <summary>
+    /// Represents a bad signature (i.e., the message has been tampered with).
+    /// </summary>
+    public sealed class BadSignature : OpenPgpSignature
+    {
+        /// <summary>
+        /// A short identifier string for the key used to create this signature.
         /// </summary>
         public readonly string KeyID;
-        #endregion
 
-        // ToDo: Implement
+        /// <summary>
+        /// Creates a new bad signature.
+        /// </summary>
+        /// <param name="keyID">A short identifier string for the key used to create this signature.</param>
+        public BadSignature(string keyID)
+        {
+            KeyID = keyID;
+        }
+    }
+
+    /// <summary>
+    /// Represents a signature that could not be validated for some reason.
+    /// </summary>
+    public sealed class ErrorSignature : OpenPgpSignature
+    {
+        /// <summary>
+        /// A short identifier string for the key used to create this signature.
+        /// </summary>
+        public readonly string KeyID;
+
+        /// <summary>
+        /// Indicates that the signature could not be validated because the key was missing.
+        /// </summary>
+        private readonly bool MissingKey;
+
+        /// <summary>
+        /// Creates a new signature error.
+        /// </summary>
+        /// <param name="keyID">A short identifier string for the key used to create this signature.</param>
+        /// <param name="missingKey">Indicates that the signature could not be validated because the key was missing.</param>
+        public ErrorSignature(string keyID, bool missingKey)
+        {
+            KeyID = keyID;
+            MissingKey = missingKey;
+        }
     }
 }

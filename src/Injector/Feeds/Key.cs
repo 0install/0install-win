@@ -22,10 +22,10 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Injector.Feeds
 {
     /// <summary>
-    /// An entry in the <see cref="Trust"/> database.
+    /// An entry in the <see cref="TrustDB"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    [XmlType("key", Namespace = Trust.XmlNamespace)]
+    [XmlType("key", Namespace = TrustDB.XmlNamespace)]
     public sealed class Key : ICloneable, IEquatable<Key>
     {
         #region Properties
@@ -92,7 +92,7 @@ namespace ZeroInstall.Injector.Feeds
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(Key) && Equals((Key)obj);
+            return obj is Key && Equals((Key)obj);
         }
 
         /// <inheritdoc/>

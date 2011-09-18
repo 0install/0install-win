@@ -200,12 +200,6 @@ Festgelegt in der Konfigurationsdatei '{1}'.</value>
     <value>Es gab ein Problem beim Zugriff auf den Implementierungs-Store '{0}'.
 Festgelegt in der Konfigurationsdatei '{1}'.</value>
   </data>
-  <data name="ReplayAttack" xml:space="preserve">
-    <value>Änderungszeit des neuen Feeds liegt vor der der alten version!
-Feed ID: {0}
-Alte Zeit: {1}
-Neue Zeit: {2}</value>
-  </data>
   <data name="RootedPathRequired" xml:space="preserve">
     <value>Ein vollständig qualifizierter/gewurzelter Pfad wird benötigt.</value>
   </data>
@@ -229,5 +223,14 @@ Neue Zeit: {2}</value>
   </data>
   <data name="WrongPassphrase" xml:space="preserve">
     <value>Die Passphrase die Sie eingegeben haben ist inkorrekt.</value>
+  </data>
+  <data name="XmlSignatureInvalidEnd" xml:space="preserve">
+    <value>Die letzte Zeile der Datei ist nicht das Ende des Signaturblocks.</value>
+  </data>
+  <data name="XmlSignatureMissingNewLine" xml:space="preserve">
+    <value>Die XML-Signatur beginnt nicht auf einer neuen Zeile.</value>
+  </data>
+  <data name="XmlSignatureNotBase64" xml:space="preserve">
+    <value>Die Signature ist nicht gültiges Base 64: </value>
   </data>
 </root>

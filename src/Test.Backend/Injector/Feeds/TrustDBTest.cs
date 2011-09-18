@@ -21,34 +21,48 @@ using NUnit.Framework;
 namespace ZeroInstall.Injector.Feeds
 {
     /// <summary>
-    /// Contains test methods for <see cref="Trust"/>.
+    /// Contains test methods for <see cref="TrustDB"/>.
     /// </summary>
     [TestFixture]
-    public class TrustTest
+    public class TrustDBTest
     {
         #region Helpers
         /// <summary>
-        /// Creates a fictive test <see cref="Trust"/>.
+        /// Creates a fictive test <see cref="TrustDB"/>.
         /// </summary>
-        private static Trust CreateTestTrust()
+        private static TrustDB CreateTestTrust()
         {
-            return new Trust
+            return new TrustDB
             {
                 Keys = { new Key { Fingerprint = "abc", Domains = { new Domain { Value = "0install.de" }, new Domain { Value = "eicher.net" } } } }
             };
         }
         #endregion
 
+        [Test(Description = "Ensures that methods for adding and removing trusted keys work correctly.")]
+        public void TestAddRemoveTrust()
+        {
+            var trust = new TrustDB();
+            Assert.IsFalse(trust.IsTrusted("abc", new Domain("domain")));
+
+            trust.TrustKey("abc", new Domain("domain"));
+            CollectionAssert.AreEqual(new[] {new Key {Fingerprint = "abc", Domains = {new Domain("domain")}}}, trust.Keys);
+            Assert.IsTrue(trust.IsTrusted("abc", new Domain("domain")));
+
+            trust.UntrustKey("abc", new Domain("domain"));
+            Assert.IsFalse(trust.IsTrusted("abc", new Domain("domain")));
+        }
+
         [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
         public void TestSaveLoad()
         {
-            Trust trust1, trust2;
+            TrustDB trust1, trust2;
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
                 trust1 = CreateTestTrust();
                 trust1.Save(tempFile.Path);
-                trust2 = Trust.Load(tempFile.Path);
+                trust2 = TrustDB.Load(tempFile.Path);
             }
 
             // Ensure data stayed the same

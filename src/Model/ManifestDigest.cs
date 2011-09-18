@@ -186,10 +186,6 @@ namespace ZeroInstall.Model
         }
         #endregion
 
-        #region Access
-
-        #endregion
-
         //--------------------//
 
         #region Conversion

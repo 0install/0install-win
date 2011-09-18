@@ -47,12 +47,12 @@ namespace ZeroInstall.Store.Feeds
         /// Runs GnuPG, processes its output and waits until it has terminated.
         /// </summary>
         /// <param name="arguments">Command-line arguments to launch the application with.</param>
-        /// <param name="defaultInput">Data to write to the application's stdin-stream right after startup; <see langword="null"/> for none.</param>
+        /// <param name="inputCallback">Callback allow you to write to the application's stdin-stream right after startup; <see langword="null"/> for none.</param>
         /// <returns>The application's complete output to the stdout-stream.</returns>
         /// <exception cref="IOException">Thrown if GnuPG could not be launched.</exception>
-        private string Execute(string arguments, string defaultInput)
+        private string Execute(string arguments, Action<StreamWriter> inputCallback)
         {
-            return Execute(arguments, defaultInput, ErrorHandler);
+            return Execute(arguments, inputCallback, ErrorHandler);
         }
 
         /// <inheritdoc/>
@@ -69,31 +69,37 @@ namespace ZeroInstall.Store.Feeds
 
         #region Keys
         /// <inheritdoc/>
-        public void ImportKey(Stream stream)
+        public void ImportKey(byte[] data)
         {
-            // ToDo: Implement
+            Execute("--batch --no-secmem-warning --quiet --import", writer =>
+            {
+                writer.BaseStream.Write(data, 0, data.Length);
+                writer.Close();
+            });
         }
 
         /// <inheritdoc/>
-        public string GetPublicKey(string name)
+        public string GetPublicKey(string keySpecifier)
         {
             string arguments = "--batch --no-secmem-warning --armor --export";
-            if (!string.IsNullOrEmpty(name)) arguments += " --local-user " + StringUtils.EscapeArgument(name);
+            if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --local-user " + StringUtils.EscapeArgument(keySpecifier);
 
             return Execute(arguments, null);
         }
 
         /// <inheritdoc/>
-        public OpenPgpSecretKey GetSecretKey(string name)
+        public OpenPgpSecretKey GetSecretKey(string keySpecifier)
         {
+            // Get all available secret keys
             var secretKeys = ListSecretKeys();
 
             if (secretKeys.Length == 0) throw new KeyNotFoundException(Resources.UnableToFindSecretKey);
-            if (string.IsNullOrEmpty(name)) return secretKeys[0];
+            if (string.IsNullOrEmpty(keySpecifier)) return secretKeys[0];
 
+            // Find the first secret key that matches the key specifier
             foreach (var key in secretKeys)
             {
-                if (key.KeyID == name || StringUtils.Contains(key.UserID, name))
+                if (key.Fingerprint == keySpecifier || key.KeyID == keySpecifier || StringUtils.Contains(key.UserID, keySpecifier))
                     return key;
             }
             throw new KeyNotFoundException(Resources.UnableToFindSecretKey);
@@ -102,39 +108,27 @@ namespace ZeroInstall.Store.Feeds
         /// <inheritdoc/>
         public OpenPgpSecretKey[] ListSecretKeys()
         {
-            string result = Execute("--batch --no-secmem-warning --list-secret-keys --with-colons", null);
+            string result = Execute("--batch --no-secmem-warning --list-secret-keys --with-colons --fixed-list-mode --fingerprint", null);
             string[] lines = StringUtils.SplitMultilineText(result);
-            var keys = new List<OpenPgpSecretKey>(lines.Length / 2);
 
-            foreach (var line in lines)
-                if (line.StartsWith("sec")) keys.Add(OpenPgpSecretKey.Parse(line));
+            // Each secret key is represented by 4 lines of encoded information
+            var keys = new List<OpenPgpSecretKey>(lines.Length / 4);
+            for (int i = 0; i + 4 < lines.Length; i += 4)
+            {
+                string secLine = lines[i + 0];
+                string fprLine = lines[i + 1];
+                string uidLine = lines[i + 2];
+                //string ssbLine = lines[i + 3];
+                keys.Add(OpenPgpSecretKey.Parse(secLine, fprLine, uidLine));
+            }
 
             return keys.ToArray();
-        }
-
-        /// <inheritdoc />
-        public bool IsPassphraseCorrect(string name, string passphrase)
-        {
-            if (string.IsNullOrEmpty(passphrase)) return false;
-
-            string tempFilePath = FileUtils.GetTempFile("gpg");
-
-            try
-            {
-                DetachSign(tempFilePath, name, passphrase);
-            }
-            catch(WrongPassphraseException)
-            {
-                return false;
-            }
-
-            return true;
         }
         #endregion
 
         #region Sign
         /// <inheritdoc/>
-        public void DetachSign(string path, string name, string passphrase)
+        public void DetachSign(string path, string keySpecifier, string passphrase)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -142,31 +136,44 @@ namespace ZeroInstall.Store.Feeds
             #endregion
 
             string arguments = "--batch --no-secmem-warning --passphrase-fd 0";
-            if (!string.IsNullOrEmpty(name)) arguments += " --local-user \"" + name.Replace("\"", "\\\"") + "\"";
+            if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --local-user \"" + keySpecifier.Replace("\"", "\\\"") + "\"";
             arguments += " --detach-sign \"" + path.Replace("\"", "\\\")" + "\"");
 
             if (string.IsNullOrEmpty(passphrase)) passphrase = "\n";
-            Execute(arguments, passphrase);
+            Execute(arguments, writer => writer.WriteLine(passphrase));
         }
         #endregion
 
         #region Verify
         /// <inheritdoc/>
-        public OpenPgpSignature[] Verify(Stream data, string signature)
+        public IEnumerable<OpenPgpSignature> Verify(byte[] data, byte[] signature)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(signature)) throw new ArgumentNullException("signature");
             if (data == null) throw new ArgumentNullException("data");
+            if (signature == null) throw new ArgumentNullException("signature");
             #endregion
 
-            // ToDo: Implement
-            //string result;
-            //using (var signatureFile = new TemporaryFile("0install-sig"))
-            //{
-            //    string arguments = "--batch --no-secmem-warning --status-fd 1 --verify \"" + signatureFile.Path + "\" -";
-            //    result = Execute(arguments, data);
-            //}
-            throw new NotImplementedException();
+            string result;
+            using (var signatureFile = new TemporaryFile("0install-sig"))
+            {
+                File.WriteAllBytes(signatureFile.Path, signature);
+                string arguments = "--batch --no-secmem-warning --status-fd 1 --verify " + StringUtils.EscapeArgument(signatureFile.Path) + " -";
+                result = Execute(arguments, writer =>
+                {
+                    writer.BaseStream.Write(data, 0, data.Length);
+                    writer.Close();
+                });
+            }
+            string[] lines = StringUtils.SplitMultilineText(result);
+
+            // Each signature is represented by one line of encoded information
+            var signatures = new List<OpenPgpSignature>(lines.Length);
+            foreach (var line in lines)
+            {
+                if (line.StartsWith("[GNUPG:]")) signatures.Add(OpenPgpSignature.Parse(line));
+            }
+
+            return signatures;
         }
         #endregion
 
@@ -183,6 +190,8 @@ namespace ZeroInstall.Store.Feeds
             if (new Regex("gpg: skipped \"[\\w\\W]*\": bad passphrase").IsMatch(line)) throw new WrongPassphraseException();
             if (line.StartsWith("gpg: signing failed: bad passphrase")) throw new WrongPassphraseException();
             if (line.StartsWith("gpg: signing failed: file exists")) throw new IOException(Resources.SignatureAldreadyExists);
+            if (line.StartsWith("gpg: Signature made ")) return null;
+            if (line.StartsWith("gpg: BAD signature")) return null;
             throw new UnhandledErrorsException(line);
         }
         #endregion

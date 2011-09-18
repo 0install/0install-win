@@ -112,6 +112,11 @@ namespace ZeroInstall.Publish.Cli
                 Log.Error(ex.Message);
                 return (int)ErrorLevel.IOError;
             }
+            catch (KeyNotFoundException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.InvalidArguments;
+            }
             catch (WrongPassphraseException ex)
             {
                 Log.Error(ex.Message);
@@ -216,6 +221,7 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="FileNotFoundException">Thrown if a feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file or the catalog file is not permitted.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if a OpenPGP key could not be found.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         private static ErrorLevel Execute(ParseResults results)
@@ -258,31 +264,25 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the feed file is not permitted.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if a OpenPGP key could not be found.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         public static void ModifyFeeds(ParseResults results)
         {
             foreach (var file in results.Feeds)
             {
-                bool wasSigned = false;
-
-                var feed = Feed.Load(file.FullName);
+                var feed = SignedFeed.Load(file.FullName);
 
                 // ToDo: Apply modifications
 
-                feed.Save(file.FullName);
+                if (!string.IsNullOrEmpty(results.Key))
+                    feed.SecretKey = OpenPgpProvider.Default.GetSecretKey(results.Key);
 
-                // Always remove existing signatures since they will become invalid if anything is changed
-                FeedUtils.UnsignFeed(file.FullName);
-                FeedUtils.AddStylesheet(file.FullName);
+                if (string.IsNullOrEmpty(results.GnuPGPassphrase))
+                    results.GnuPGPassphrase = CliUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
 
-                if ((wasSigned && !results.Unsign) || results.XmlSign)
-                {
-                    if (string.IsNullOrEmpty(results.GnuPGPassphrase))
-                        results.GnuPGPassphrase = CliUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
-
-                    FeedUtils.SignFeed(file.FullName, results.Key, results.GnuPGPassphrase);
-                }
+                // ToDo: Handle results.Sign and results.Unsign
+                feed.Save(file.FullName, results.GnuPGPassphrase);
             }
         }
         #endregion
@@ -304,12 +304,6 @@ namespace ZeroInstall.Publish.Cli
             foreach (var feedFile in results.Feeds)
             {
                 var feed = Feed.Load(feedFile.FullName);
-
-                // Filter out implementations that have no commands at all (usually libraries)
-                feed.Simplify();
-                Element temp;
-                if (!feed.Elements.Find(element => !element.Commands.IsEmpty, out temp)) continue;
-
                 feed.Strip();
                 catalog.Feeds.Add(feed);
             }
