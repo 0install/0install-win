@@ -50,10 +50,9 @@ namespace ZeroInstall.Injector.Solver
                 CreateTestFeed().Save(tempFile.Path);
 
                 bool staleFeeds;
-                var feedCacheMock = (IFeedCache)new DynamicMock(typeof(IFeedCache)).MockInstance;
-                var openPgpMock = (IOpenPgp)new DynamicMock(typeof(IOpenPgp)).MockInstance;
-                var fetcherMock = (IFetcher)new DynamicMock(typeof(IFetcher)).MockInstance;
-                var policy = new Policy(new Config(), new FeedManager(feedCacheMock, openPgpMock), fetcherMock, _solver, new SilentHandler());
+                var feedManager = (IFeedManager)new DynamicMock(typeof(IFeedManager)).MockInstance;
+                var fetcher = (IFetcher)new DynamicMock(typeof(IFetcher)).MockInstance;
+                var policy = new Policy(new Config(), feedManager, fetcher, _solver, new SilentHandler());
                 Selections selections = _solver.Solve(new Requirements {InterfaceID = tempFile.Path}, policy, out staleFeeds);
                 Assert.IsFalse(staleFeeds, "Local feed files should never be considered stale");
 

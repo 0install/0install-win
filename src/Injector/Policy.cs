@@ -43,7 +43,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Allows configuration of the source used to request <see cref="Feed"/>s.
         /// </summary>
-        public FeedManager FeedManager { get; private set; }
+        public IFeedManager FeedManager { get; private set; }
 
         /// <summary>
         /// Used to download missing <see cref="Model.Implementation"/>s.
@@ -77,7 +77,7 @@ namespace ZeroInstall.Injector
         /// <param name="solver">Chooses a set of <see cref="Model.Implementation"/>s to satisfy the requirements of a program and its user.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be about download and IO tasks.</param>
         /// <seealso cref="CreateDefault"/>
-        public Policy(Config config, FeedManager feedManager, IFetcher fetcher, ISolver solver, IHandler handler)
+        public Policy(Config config, IFeedManager feedManager, IFetcher fetcher, ISolver solver, IHandler handler)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");

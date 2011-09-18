@@ -30,61 +30,24 @@ namespace ZeroInstall.Injector.Feeds
     /// <summary>
     /// Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.
     /// </summary>
-    public class FeedManager : IEquatable<FeedManager>, ICloneable
+    public class FeedManager : FeedManagerBase, IEquatable<FeedManager>
     {
-        #region Properties
-        /// <summary>
-        /// The cache to retreive <see cref="Feed"/>s from and store downloaded <see cref="Feed"/>s to.
-        /// </summary>
-        public IFeedCache Cache { get; private set; }
-
-        /// <summary>
-        /// The OpenPGP-compatible system used to validate new <see cref="Feed"/>s signatures.
-        /// </summary>
-        public IOpenPgp OpenPgp { get; private set; }
-
-        /// <summary>
-        /// Set to <see langword="true"/> to update already cached <see cref="Feed"/>s. 
-        /// </summary>
-        public bool Refresh { get; set; }
-        #endregion
-
         #region Constructor
         /// <summary>
         /// Creates a new cache based on the given path to a cache directory.
         /// </summary>
         /// <param name="cache">The disk-based cache to store downloaded <see cref="Feed"/>s.</param>
         /// <param name="openPgp">The OpenPGP-compatible system used to validate new <see cref="Feed"/>s signatures.</param>
-        public FeedManager(IFeedCache cache,  IOpenPgp openPgp)
-        {
-            #region Sanity checks
-            if (cache == null) throw new ArgumentNullException("cache");
-            if (openPgp == null) throw new ArgumentNullException("openPgp");
-            #endregion
-
-            Cache = cache;
-            OpenPgp = openPgp;
-        }
+        public FeedManager(IFeedCache cache, IOpenPgp openPgp)
+            : base(cache, openPgp)
+        {}
         #endregion
 
         //--------------------//
 
         #region Get feed
-        /// <summary>
-        /// Returns a specific <see cref="Feed"/>.
-        /// </summary>
-        /// <param name="feedID">The canonical ID used to identify the feed.</param>
-        /// <param name="policy">Combines UI access, configuration and resources used to solve dependencies and download implementations.</param>
-        /// <param name="stale">Indicates that the returned <see cref="Feed"/> should be updated.</param>
-        /// <returns>The parsed <see cref="Feed"/> object.</returns>
-        /// <remarks><see cref="Feed"/>s are always served from the <see cref="Cache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
-        /// <exception cref="SignatureException">Thrown if the signature data of a feed file could not be handled.</exception>
-        public Feed GetFeed(string feedID, Policy policy, out bool stale)
+        /// <inheritdoc/>
+        public override Feed GetFeed(string feedID, Policy policy, out bool stale)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
@@ -152,7 +115,7 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Cached
         /// <summary>
-        /// Loads a <see cref="Feed"/> from the <see cref="Cache"/>.
+        /// Loads a <see cref="Feed"/> from the <see cref="FeedManagerBase.Cache"/>.
         /// </summary>
         /// <param name="feedID">The ID used to identify the feed. Must be an HTTP(S) URL.</param>
         /// <param name="policy">Combines UI access, configuration and resources used to solve dependencies and download implementations.</param>
@@ -186,10 +149,8 @@ namespace ZeroInstall.Injector.Feeds
         #endregion
 
         #region Download
-        private static readonly WebClient _webClient = new WebClient();
-
         /// <summary>
-        /// Downloads a <see cref="Feed"/> into the <see cref="Cache"/> validating its signatures.
+        /// Downloads a <see cref="Feed"/> into the <see cref="FeedManagerBase.Cache"/> validating its signatures.
         /// </summary>
         /// <param name="feedUrl">The URL of the feed to download.</param>
         /// <param name="policy">Combines UI access, configuration and resources used to solve dependencies and download implementations.</param>
@@ -218,21 +179,12 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Clone
         /// <summary>
-        /// Creates a shallow copy of this <see cref="FeedManager"/> instance.
+        /// Creates a shallow copy of this feed manager.
         /// </summary>
-        /// <returns>The new copy of the <see cref="FeedManager"/>.</returns>
-        public FeedManager CloneFeedManager()
+        /// <returns>The new copy of thefeed manager</returns>
+        public override IFeedManager CloneFeedManager()
         {
             return new FeedManager(Cache, OpenPgp) {Refresh = Refresh};
-        }
-        
-        /// <summary>
-        /// Creates a shallow copy of this <see cref="FeedManager"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="FeedManager"/>.</returns>
-        public object Clone()
-        {
-            return CloneFeedManager();
         }
         #endregion
 
@@ -240,9 +192,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <inheritdoc/>
         public bool Equals(FeedManager other)
         {
-            if (other == null) return false;
-
-            return Refresh == other.Refresh && Equals(other.Cache, Cache);
+            return base.Equals(other);
         }
 
         /// <inheritdoc/>
@@ -256,10 +206,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                return ((Cache != null ? Cache.GetHashCode() : 0) * 397) ^ Refresh.GetHashCode();
-            }
+            return base.GetHashCode();
         }
         #endregion
     }

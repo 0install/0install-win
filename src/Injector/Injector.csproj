@@ -57,7 +57,9 @@
     <Compile Include="Config.cs" />
     <Compile Include="Feeds\Domain.cs" />
     <Compile Include="Feeds\FeedManager.cs" />
+    <Compile Include="Feeds\FeedManagerBase.cs" />
     <Compile Include="Feeds\FeedPreferences.cs" />
+    <Compile Include="Feeds\IFeedManager.cs" />
     <Compile Include="Feeds\ImplementationPreferences.cs" />
     <Compile Include="Feeds\InterfacePreferences.cs" />
     <Compile Include="Feeds\Key.cs" />
