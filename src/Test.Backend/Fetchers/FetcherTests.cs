@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Common.Collections;
 using Common.Net;
 using Common.Tasks;
 using ZeroInstall.Injector;
@@ -90,7 +91,14 @@ namespace ZeroInstall.Fetchers
 
             foreach(var package in packages)
             {
-                Archive correspondingArchive = PrepareArchiveForPackage(package);
+                string archiveFile = FileUtils.GetTempFile("0install-unit-tests");
+                package.GeneratePackageArchive(archiveFile);
+                var correspondingArchive = new Archive
+                {
+                    MimeType = "application/zip",
+                    Size = new FileInfo(archiveFile).Length,
+                    Location = new Uri(archiveFile, UriKind.Relative)
+                };
                 result.Steps.Add(correspondingArchive);
             }
 
@@ -147,8 +155,6 @@ namespace ZeroInstall.Fetchers
         [Test]
         public void ShouldDownloadIntoStore()
         {
-            // ToDo: One left-over temp file
-
             var package = FetcherTesting.PreparePackageBuilder();
             var localArchive = FetcherTesting.PrepareArchiveForPackage(package);
             MicroServer server;
@@ -161,7 +167,12 @@ namespace ZeroInstall.Fetchers
                 _fetcher.Start(request);
                 _fetcher.Join(request);
             }
-            finally { server.Dispose(); }
+            finally
+            {
+                // Clean up temp file
+                server.Dispose();
+                File.Delete(localArchive.Location.ToString());
+            }
 
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
         }
@@ -287,30 +298,6 @@ namespace ZeroInstall.Fetchers
             }
         }
 
-        //[Test]
-        //public void ShouldSkipStartOffsetIfPossible()
-        //{
-        //    const int ArchiveOffset = 0x1000;
-        //    var package = PreparePackageBuilder();
-        //    WritePackageToArchiveWithOffset(package, "archive.zip", ArchiveOffset);
-        //    Implementation implementation = SynthesizeImplementation("archive.zip", ArchiveOffset, PackageBuilderManifestExtension.ComputePackageDigest(package));
-
-        //    bool suppliedRangeToDownload = false;
-
-        //    _server.Accept += delegate(object sender, AcceptEventArgs eventArgs)
-        //    {
-        //        if (eventArgs.Context.Request != null)
-        //        {
-        //            string httpRange = eventArgs.Context.Request.Headers["Range"];
-        //            suppliedRangeToDownload = httpRange == "bytes=" + ArchiveOffset.ToString() + "-";
-        //        }
-        //    };
-
-        //    var request = new FetchRequest(new List<Implementation> { implementation });
-        //    _fetcher.RunSync(request);
-        //    Assert.IsTrue(suppliedRangeToDownload, "The Fetcher must use a range to download only part of the file");
-        //}
-
         [Test]
         public void ShouldTryNextRetrievalMethodOnFailure()
         {
@@ -394,8 +381,6 @@ namespace ZeroInstall.Fetchers
         [Test]
         public void ShouldPreferArchiveOverRecipe()
         {
-            // ToDo: Multiple left-over temp file
-
             var part1 = new PackageBuilder()
                 .AddFile("FILE1", "This file was in part1");
             var part2 = new PackageBuilder()
@@ -416,6 +401,7 @@ namespace ZeroInstall.Fetchers
                 DownloadAction = (archive, target) =>
                 {
                     downloaded = archive.Location;
+                    File.Delete(target); // Clean up temp file
                     throw new MockException();
                 }
             };
@@ -427,6 +413,15 @@ namespace ZeroInstall.Fetchers
             }
             catch (MockException)
             {}
+            finally
+            {
+                // Clean up temp files
+                File.Delete(theCompleteArchive.Location.ToString());
+                foreach (var archive in EnumerableUtils.OfType<Archive>(theRecipe.Steps))
+                {
+                    File.Delete(archive.Location.ToString());
+                }
+            }
             Assert.AreEqual(downloaded, theCompleteArchive.Location);
         }
 
@@ -448,6 +443,7 @@ namespace ZeroInstall.Fetchers
                 DownloadAction = (archive, target) =>
                 {
                     selectedType = archive.MimeType;
+                    File.Delete(target); // Clean up temp file
                     throw new MockException();
                 }
             };
