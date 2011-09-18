@@ -29,6 +29,7 @@ using ZeroInstall.Injector;
 using ZeroInstall.Commands;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Alias.Cli
@@ -128,6 +129,11 @@ namespace ZeroInstall.Alias.Cli
             catch (InvalidDataException ex)
             {
                 Log.Error(ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
+                return 1;
+            }
+            catch (SignatureException ex)
+            {
+                Log.Error(ex.Message);
                 return 1;
             }
             catch (IOException ex)
