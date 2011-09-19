@@ -36,15 +36,6 @@ namespace ZeroInstall.Store.Feeds
         void ImportKey(byte[] data);
 
         /// <summary>
-        /// Returns the public key for specific keypair.
-        /// </summary>
-        /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair; <see langword="null"/> to use the default key.</param>
-        /// <returns>The public key in the ASCII Armored format.</returns>
-        /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        string GetPublicKey(string keySpecifier);
-
-        /// <summary>
         /// Returns information about the secret key for specific keypair.
         /// </summary>
         /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair; <see langword="null"/> to use the default key.</param>
@@ -61,10 +52,19 @@ namespace ZeroInstall.Store.Feeds
         OpenPgpSecretKey[] ListSecretKeys();
 
         /// <summary>
+        /// Returns the public key for specific keypair.
+        /// </summary>
+        /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair.</param>
+        /// <returns>The public key in the ASCII Armored format.</returns>
+        /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
+        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
+        string GetPublicKey(string keySpecifier);
+
+        /// <summary>
         /// Creates a detached signature for a file using a specific secret key.
         /// </summary>
         /// <param name="path">The file to sign.</param>
-        /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair; <see langword="null"/> to use the default key.</param>
+        /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair.</param>
         /// <param name="passphrase">The passphrase to use to unlock the secret key.</param>
         /// <exception cref="FileNotFoundException">Thrown if the file to be signed could not be found.</exception>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>

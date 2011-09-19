@@ -82,7 +82,7 @@ namespace ZeroInstall.Publish
         /// Adds a Base64 signature to a feed file and exports the appropriate public key file in the same directory.
         /// </summary>
         /// <param name="path">The feed file to sign.</param>
-        /// <param name="secretKey">The private key to use for signing the file.</param>
+        /// <param name="secretKey">The secret key to use for signing the file.</param>
         /// <param name="passphrase">The passphrase to use to unlock the key.</param>
         /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched or the feed file could not be read or written.</exception>
@@ -95,6 +95,7 @@ namespace ZeroInstall.Publish
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             if (!File.Exists(path)) throw new FileNotFoundException(string.Format(Resources.FileNotFound, path), path);
+            if (secretKey == null) throw new ArgumentNullException("secretKey");
             #endregion
 
             var pgp = OpenPgpProvider.Default;
@@ -145,7 +146,7 @@ namespace ZeroInstall.Publish
         /// Determines the key used to sign a feed. Only uses the first signature if more than one is present.
         /// </summary>
         /// <param name="path">The feed file to check for signatures.</param>
-        /// <returns>The key used to sign the feed or an empty default <see cref="OpenPgpSecretKey"/> if the feed was not signed.</returns>
+        /// <returns>The key used to sign the feed; <see langword="null"/> if the feed was not signed.</returns>
         /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched or the feed file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the feed file is not permitted.</exception>
@@ -153,27 +154,26 @@ namespace ZeroInstall.Publish
         {
             var openPgp = OpenPgpProvider.Default;
 
-            var signatures = Store.Feeds.FeedUtils.GetSignatures(openPgp, File.ReadAllBytes(path));
-            var secretKey = new OpenPgpSecretKey();
             try
             {
+                var signatures = Store.Feeds.FeedUtils.GetSignatures(openPgp, File.ReadAllBytes(path));
                 var validSignature = EnumerableUtils.GetFirst(EnumerableUtils.OfType<ValidSignature>(signatures));
-                if (validSignature != null) secretKey = openPgp.GetSecretKey(validSignature.Fingerprint);
+                if (validSignature != null) return openPgp.GetSecretKey(validSignature.Fingerprint);
             }
             #region Error handling
             catch (KeyNotFoundException ex)
             {
-                // Private key not in the user's keyring
+                // Secret key not in the user's keyring
                 Log.Info(ex.Message);
             }
             catch (SignatureException ex)
             {
-                // Unable to identify the signature
+                // Unable to parse the signature
                 Log.Error(ex.Message);
             }
             #endregion
 
-            return secretKey;
+            return null;
         }
         #endregion
 

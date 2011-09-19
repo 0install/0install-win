@@ -16,6 +16,7 @@
  */
 
 using System;
+using Common.Utils;
 
 namespace ZeroInstall.Store.Feeds
 {
@@ -24,40 +25,49 @@ namespace ZeroInstall.Store.Feeds
     /// </summary>
     public abstract class OpenPgpSignature
     {
-        // signature codes
-        private const string ValidSignature = "VALIDSIG";
-        private const string BadSignature = "BADSIG";
-        private const string ErrorSignature = "ERRSIG";
-
-        private const int VerifyCodeIndex = 1;
-        private const int FingerprintIndex = 2;
-        private const int TimestampIndex = 4;
-        private const int KeyIDIndex = 2;
-        private const int ErrorCodeIndex = 7;
-
+        #region Factory methods
+        /// <summary>
+        /// Parses information about a signature checked by an <see cref="IOpenPgp"/> implementation from a console line.
+        /// </summary>
+        /// <param name="line">The console line containing the signature information.</param>
+        /// <returns>The parsed signature representation; <see langword="null"/> if <paramref name="line"/> did not contain any signature information.</returns>
+        /// <exception cref="FormatException">Thrown if <paramref name="line"/> contains incorrectly formatted signature information.</exception>
         internal static OpenPgpSignature Parse(string line)
         {
+            #region Sanity checks
+            if (line == null) throw new ArgumentNullException("line");
+            #endregion
+
+            const int signatureTypeIndex = 1, fingerprintIndex = 2, timestampIndex = 4, keyIDIndex = 2, errorCodeIndex = 7;
+
             string[] signatureParts = line.Split(' ');
-            switch(signatureParts[VerifyCodeIndex])
+            if (signatureParts.Length < signatureTypeIndex + 1) return null;
+            switch (signatureParts[signatureTypeIndex])
             {
-                case ValidSignature:
-                    return new ValidSignature(signatureParts[FingerprintIndex], new DateTime(int.Parse(signatureParts[TimestampIndex])));
-                case BadSignature: return new BadSignature(signatureParts[KeyIDIndex]);
-                case ErrorSignature:
-                    return GetErrorSignature(int.Parse(signatureParts[ErrorCodeIndex]), signatureParts);
+                case "VALIDSIG":
+                    if (signatureParts.Length != 12) throw new FormatException("Incorrect number of columns in VALIDSIG line.");
+                    return new ValidSignature(signatureParts[fingerprintIndex], FileUtils.FromUnixTime(long.Parse(signatureParts[timestampIndex])));
+
+                case "BADSIG":
+                    if (signatureParts.Length < 3) throw new FormatException("Incorrect number of columns in BADSIG line.");
+                    return new BadSignature(signatureParts[keyIDIndex]);
+
+                case "ERRSIG":
+                    if (signatureParts.Length != 8) throw new FormatException("Incorrect number of columns in ERRSIG line.");
+                    int errorCode = int.Parse(signatureParts[errorCodeIndex]);
+                    switch (errorCode)
+                    {
+                        case 9:
+                            return new MissingKeySignature(signatureParts[keyIDIndex]);
+                        default:
+                            return new ErrorSignature(signatureParts[keyIDIndex], errorCode);
+                    }
+
                 default:
                     return null;
             }
         }
-
-        private static OpenPgpSignature GetErrorSignature(int errorCode, string[] signatureParts)
-        {
-            switch(errorCode)
-            {
-                case 9: return new MissingKeySignature(signatureParts[KeyIDIndex]);
-                default: return new ErrorSignature(signatureParts[KeyIDIndex], errorCode);
-            }
-        }
+        #endregion
     }
 
     /// <summary>
@@ -65,6 +75,7 @@ namespace ZeroInstall.Store.Feeds
     /// </summary>
     public sealed class ValidSignature : OpenPgpSignature
     {
+        #region Variables
         /// <summary>
         /// A unique identifier string for the key used to create this signature.
         /// </summary>
@@ -74,7 +85,9 @@ namespace ZeroInstall.Store.Feeds
         /// The point in time when the signature was created in UTC.
         /// </summary>
         public readonly DateTime Timestamp;
+        #endregion
 
+        #region Constructor
         /// <summary>
         /// Creates a new valid signature.
         /// </summary>
@@ -85,6 +98,17 @@ namespace ZeroInstall.Store.Feeds
             Fingerprint = fingerprint;
             Timestamp = timestamp;
         }
+        #endregion
+
+        #region Conversion
+        /// <summary>
+        /// Returns the archive in the form "ValidSignature: Fingerprint (Timestamp)". Not safe for parsing!
+        /// </summary>
+        public override string ToString()
+        {
+            return string.Format("ValidSignature: {0} ({1})", Fingerprint, Timestamp);
+        }
+        #endregion
     }
 
     /// <summary>
@@ -92,11 +116,14 @@ namespace ZeroInstall.Store.Feeds
     /// </summary>
     public sealed class BadSignature : OpenPgpSignature
     {
+        #region Variables
         /// <summary>
         /// A short identifier string for the key used to create this signature.
         /// </summary>
         public readonly string KeyID;
+        #endregion
 
+        #region Constructor
         /// <summary>
         /// Creates a new bad signature.
         /// </summary>
@@ -105,6 +132,17 @@ namespace ZeroInstall.Store.Feeds
         {
             KeyID = keyID;
         }
+        #endregion
+
+        #region Conversion
+        /// <summary>
+        /// Returns the archive in the form "BadSignature: KeyID". Not safe for parsing!
+        /// </summary>
+        public override string ToString()
+        {
+            return string.Format("BadSignature: {0}", KeyID);
+        }
+        #endregion
     }
 
     /// <summary>
@@ -112,11 +150,14 @@ namespace ZeroInstall.Store.Feeds
     /// </summary>
     public sealed class MissingKeySignature : OpenPgpSignature
     {
+        #region Variables
         /// <summary>
         /// A short identifier string for the key used to create this signature.
         /// </summary>
         public readonly string KeyID;
+        #endregion
 
+        #region Constructor
         /// <summary>
         /// Creates a new missing key error.
         /// </summary>
@@ -125,6 +166,17 @@ namespace ZeroInstall.Store.Feeds
         {
             KeyID = keyID;
         }
+        #endregion
+
+        #region Conversion
+        /// <summary>
+        /// Returns the archive in the form "MissingKeySignature: KeyID". Not safe for parsing!
+        /// </summary>
+        public override string ToString()
+        {
+            return string.Format("MissingKeySignature: {0}", KeyID);
+        }
+        #endregion
     }
 
     /// <summary>
@@ -132,6 +184,7 @@ namespace ZeroInstall.Store.Feeds
     /// </summary>
     public sealed class ErrorSignature : OpenPgpSignature
     {
+        #region Variables
         /// <summary>
         /// A short identifier string for the key used to create this signature.
         /// </summary>
@@ -141,7 +194,9 @@ namespace ZeroInstall.Store.Feeds
         /// The code that refers to a description of the error.
         /// </summary>
         private readonly int ErrorCode;
+        #endregion
 
+        #region Constructor
         /// <summary>
         /// Creates a new signature error.
         /// </summary>
@@ -152,5 +207,16 @@ namespace ZeroInstall.Store.Feeds
             KeyID = keyID;
             ErrorCode = errorCode;
         }
+        #endregion
+
+        #region Conversion
+        /// <summary>
+        /// Returns the archive in the form "ErrorSignature: KeyID (ErrorCode)". Not safe for parsing!
+        /// </summary>
+        public override string ToString()
+        {
+            return string.Format("MissingKeySignature: {0} ({1})", KeyID, ErrorCode);
+        }
+        #endregion
     }
 }

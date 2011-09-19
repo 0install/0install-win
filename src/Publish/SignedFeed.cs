@@ -37,7 +37,7 @@ namespace ZeroInstall.Publish
         public Feed Feed { get; private set; }
 
         /// <summary>
-        /// The private key used to sign the <see cref="Feed"/>.
+        /// The secret key used to sign the <see cref="Feed"/>; <see langword="null"/> for no signature.
         /// </summary>
         public OpenPgpSecretKey SecretKey { get; set; }
         #endregion
@@ -47,7 +47,7 @@ namespace ZeroInstall.Publish
         /// Creates a new signed feed.
         /// </summary>
         /// <param name="feed">The wrapped <see cref="Feed"/>.</param>
-        /// <param name="secretKey">The private key used to sign the <see cref="Feed"/>.</param>
+        /// <param name="secretKey">The secret key used to sign the <see cref="Feed"/>; <see langword="null"/> for no signature.</param>
         public SignedFeed(Feed feed, OpenPgpSecretKey secretKey)
         {
             #region Sanity checks
@@ -80,7 +80,7 @@ namespace ZeroInstall.Publish
         }
 
         /// <summary>
-        /// Saves <see cref="Feed"/> to an XML file and signs it with <see cref="SecretKey"/>.
+        /// Saves <see cref="Feed"/> to an XML file and signs it with <see cref="SecretKey"/> (if specified).
         /// </summary>
         /// <remarks>Writing and signing the feed file are performed as an atomic operation (i.e. if signing fails an existing file remains unchanged).</remarks>
         /// <param name="path">The file to save in.</param>
@@ -99,8 +99,9 @@ namespace ZeroInstall.Publish
             {
                 // Write to temporary file first
                 Feed.Save(path + ".new");
+
                 FeedUtils.AddStylesheet(path + ".new");
-                FeedUtils.SignFeed(path + ".new", SecretKey, passphrase);
+                if (SecretKey != null) FeedUtils.SignFeed(path + ".new", SecretKey, passphrase);
 
                 FileUtils.Replace(path + ".new", path);
             }

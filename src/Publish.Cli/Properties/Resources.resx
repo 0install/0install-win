@@ -134,7 +134,7 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
     <value>Combine all specified feeds into a single catalog {FILE}.</value>
   </data>
   <data name="OptionGnuPGPassphrase" xml:space="preserve">
-    <value>Use {PASS} to unlock the GnuPG private key.</value>
+    <value>Use {PASS} to unlock the GnuPG secret key.</value>
   </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Show the built-in help text.</value>

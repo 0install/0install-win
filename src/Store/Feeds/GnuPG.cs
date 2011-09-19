@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
+using Common;
 using Common.Cli;
 using Common.Storage;
 using Common.Utils;
@@ -43,18 +44,6 @@ namespace ZeroInstall.Store.Feeds
         //--------------------//
 
         #region Execute
-        /// <summary>
-        /// Runs GnuPG, processes its output and waits until it has terminated.
-        /// </summary>
-        /// <param name="arguments">Command-line arguments to launch the application with.</param>
-        /// <param name="inputCallback">Callback allow you to write to the application's stdin-stream right after startup; <see langword="null"/> for none.</param>
-        /// <returns>The application's complete output to the stdout-stream.</returns>
-        /// <exception cref="IOException">Thrown if GnuPG could not be launched.</exception>
-        private string Execute(string arguments, Action<StreamWriter> inputCallback)
-        {
-            return Execute(arguments, inputCallback, ErrorHandler);
-        }
-
         /// <inheritdoc/>
         protected override ProcessStartInfo GetStartInfo(string arguments)
         {
@@ -75,16 +64,7 @@ namespace ZeroInstall.Store.Feeds
             {
                 writer.BaseStream.Write(data, 0, data.Length);
                 writer.Close();
-            });
-        }
-
-        /// <inheritdoc/>
-        public string GetPublicKey(string keySpecifier)
-        {
-            string arguments = "--batch --no-secmem-warning --armor --export";
-            if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --local-user " + StringUtils.EscapeArgument(keySpecifier);
-
-            return Execute(arguments, null);
+            }, ErrorHandlerException);
         }
 
         /// <inheritdoc/>
@@ -108,7 +88,7 @@ namespace ZeroInstall.Store.Feeds
         /// <inheritdoc/>
         public OpenPgpSecretKey[] ListSecretKeys()
         {
-            string result = Execute("--batch --no-secmem-warning --list-secret-keys --with-colons --fixed-list-mode --fingerprint", null);
+            string result = Execute("--batch --no-secmem-warning --list-secret-keys --with-colons --fixed-list-mode --fingerprint", null, ErrorHandlerException);
             string[] lines = StringUtils.SplitMultilineText(result);
 
             // Each secret key is represented by 4 lines of encoded information
@@ -119,10 +99,30 @@ namespace ZeroInstall.Store.Feeds
                 string fprLine = lines[i + 1];
                 string uidLine = lines[i + 2];
                 //string ssbLine = lines[i + 3];
-                keys.Add(OpenPgpSecretKey.Parse(secLine, fprLine, uidLine));
+                try { keys.Add(OpenPgpSecretKey.Parse(secLine, fprLine, uidLine)); }
+                #region Error handling
+                catch (FormatException ex)
+                {
+                    // Wrap exception since only certain exception types are allowed
+                    throw new UnhandledErrorsException(ex.Message, ex);
+                }
+                #endregion
             }
 
             return keys.ToArray();
+        }
+
+        /// <inheritdoc/>
+        public string GetPublicKey(string keySpecifier)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(keySpecifier)) throw new ArgumentNullException("keySpecifier");
+            #endregion
+
+            string arguments = "--batch --no-secmem-warning --armor --export";
+            if (!String.IsNullOrEmpty(keySpecifier)) arguments += " --local-user " + StringUtils.EscapeArgument(keySpecifier);
+
+            return Execute(arguments, null, ErrorHandlerException);
         }
         #endregion
 
@@ -131,16 +131,18 @@ namespace ZeroInstall.Store.Feeds
         public void DetachSign(string path, string keySpecifier, string passphrase)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (String.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             if (!File.Exists(path)) throw new FileNotFoundException(Resources.FileToSignNotFound, path);
+            if (string.IsNullOrEmpty(keySpecifier)) throw new ArgumentNullException("keySpecifier");
+            if (passphrase == null) throw new ArgumentNullException("passphrase");
             #endregion
 
             string arguments = "--batch --no-secmem-warning --passphrase-fd 0";
-            if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --local-user \"" + keySpecifier.Replace("\"", "\\\"") + "\"";
+            if (!String.IsNullOrEmpty(keySpecifier)) arguments += " --local-user \"" + keySpecifier.Replace("\"", "\\\"") + "\"";
             arguments += " --detach-sign \"" + path.Replace("\"", "\\\")" + "\"");
 
-            if (string.IsNullOrEmpty(passphrase)) passphrase = "\n";
-            Execute(arguments, writer => writer.WriteLine(passphrase));
+            if (String.IsNullOrEmpty(passphrase)) passphrase = "\n";
+            Execute(arguments, writer => writer.WriteLine(passphrase), ErrorHandlerException);
         }
         #endregion
 
@@ -162,7 +164,7 @@ namespace ZeroInstall.Store.Feeds
                 {
                     writer.BaseStream.Write(data, 0, data.Length);
                     writer.Close();
-                });
+                }, ErrorHandlerLog);
             }
             string[] lines = StringUtils.SplitMultilineText(result);
 
@@ -170,10 +172,18 @@ namespace ZeroInstall.Store.Feeds
             var signatures = new List<OpenPgpSignature>(lines.Length);
             foreach (var line in lines)
             {
-                if (!line.StartsWith("[GNUPG:]") || !line.EndsWith("\n")) continue;
-
-                var parsedSignature = OpenPgpSignature.Parse(line);
-                if (parsedSignature != null) signatures.Add(parsedSignature);
+                try
+                {
+                    var parsedSignature = OpenPgpSignature.Parse(line);
+                    if (parsedSignature != null) signatures.Add(parsedSignature);
+                }
+                #region Error handling
+                catch (FormatException ex)
+                {
+                    // Wrap exception since only certain exception types are allowed
+                    throw new UnhandledErrorsException(ex.Message, ex);
+                }
+                #endregion
             }
 
             return signatures;
@@ -182,20 +192,29 @@ namespace ZeroInstall.Store.Feeds
 
         #region Error handler
         /// <summary>
-        /// Provides error handling for GnuPG stderr.
+        /// Provides error handling for GnuPG stderr with exceptions.
         /// </summary>
         /// <param name="line">The error line written to stderr.</param>
         /// <returns>Always <see langword="null"/>.</returns>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        private static string ErrorHandler(string line)
+        private static string ErrorHandlerException(string line)
         {
             if (new Regex("gpg: skipped \"[\\w\\W]*\": bad passphrase").IsMatch(line)) throw new WrongPassphraseException();
             if (line.StartsWith("gpg: signing failed: bad passphrase")) throw new WrongPassphraseException();
             if (line.StartsWith("gpg: signing failed: file exists")) throw new IOException(Resources.SignatureAldreadyExists);
-            if (line.StartsWith("gpg: Signature made ")) return null;
-            if (line.StartsWith("gpg: BAD signature")) return null;
             throw new UnhandledErrorsException(line);
+        }
+
+        /// <summary>
+        /// Provides error handling for GnuPG stderr with loggiing.
+        /// </summary>
+        /// <param name="line">The error line written to stderr.</param>
+        /// <returns>Always <see langword="null"/>.</returns>
+        private static string ErrorHandlerLog(string line)
+        {
+            Log.Info(line);
+            return null;
         }
         #endregion
     }

@@ -42,7 +42,7 @@ namespace ZeroInstall.Publish.WinForms
             get { return _signingKey; }
             set
             {
-                if (_signingKey.Equals(value)) return;
+                if (_signingKey == value) return;
                 _signingKey = value;
                 _signingKeyPassphrase = null;
             }
@@ -220,7 +220,7 @@ namespace ZeroInstall.Publish.WinForms
             try
             {
                 _feedEditing.Save(path);
-                if (_signingKeyPassphrase == null) FeedUtils.SignFeed(_feedEditing.Path, _signingKey, _signingKeyPassphrase);
+                if (_signingKey != null) FeedUtils.SignFeed(_feedEditing.Path, _signingKey, _signingKeyPassphrase);
             }
             #region Error handling
             catch (IOException exception)
@@ -247,8 +247,9 @@ namespace ZeroInstall.Publish.WinForms
         /// <returns><see langword="true"/>, if the passphrase is needed, else <see langword="false"/>.</returns>
         private bool NeedsPassphrase()
         {
-            return string.IsNullOrEmpty(_signingKeyPassphrase) && !default(OpenPgpSecretKey).Equals(_signingKey);
+            return _signingKey != null && string.IsNullOrEmpty(_signingKeyPassphrase);
         }
+
         /// <summary>
         /// Asks the user for the passphrase of his secret key.
         /// </summary>

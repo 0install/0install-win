@@ -86,7 +86,7 @@ namespace ZeroInstall.Publish.WinForms
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            try { SignFiles((OpenPgpSecretKey)(comboBoxSecretKey.SelectedItem ?? default(OpenPgpSecretKey)), textPassword.Text); }
+            try { SignFiles(comboBoxSecretKey.SelectedItem as OpenPgpSecretKey, textPassword.Text); }
             #region Sanity checks
             catch (UserCancelException) {}
             catch (IOException ex)

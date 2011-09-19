@@ -275,13 +275,28 @@ namespace ZeroInstall.Publish.Cli
 
                 // ToDo: Apply modifications
 
-                if (!string.IsNullOrEmpty(results.Key))
-                    feed.SecretKey = OpenPgpProvider.Default.GetSecretKey(results.Key);
+                if (results.Unsign)
+                {
+                    // Remove any existing signatures
+                    feed.SecretKey = null;
+                }
+                else
+                {
+                    var openPgp = OpenPgpProvider.Default;
 
-                if (string.IsNullOrEmpty(results.GnuPGPassphrase))
+                    // Use default secret key if there are no existing signatures
+                    if (results.XmlSign && feed.SecretKey == null)
+                        feed.SecretKey = openPgp.GetSecretKey(null);
+
+                    // Use specific secret key for signature
+                    if (!string.IsNullOrEmpty(results.Key))
+                        feed.SecretKey = openPgp.GetSecretKey(results.Key);
+                }
+
+                // Ask for passphrase to unlock secret key
+                if (feed.SecretKey != null && string.IsNullOrEmpty(results.GnuPGPassphrase))
                     results.GnuPGPassphrase = CliUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
 
-                // ToDo: Handle results.Sign and results.Unsign
                 feed.Save(file.FullName, results.GnuPGPassphrase);
             }
         }

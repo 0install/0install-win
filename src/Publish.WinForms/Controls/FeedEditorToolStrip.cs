@@ -72,7 +72,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <summary>
         /// The selected <see cref="OpenPgpSecretKey"/> by the user.
         /// </summary>
-        private OpenPgpSecretKey _selectedSecretKey = default(OpenPgpSecretKey);
+        private OpenPgpSecretKey _selectedSecretKey;
         #endregion
 
         #region Properties
@@ -105,7 +105,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 comboBoxGnuPG.BeginUpdate();
                 
                 comboBoxGnuPG.Items.Clear();
-                comboBoxGnuPG.Items.Add(default(OpenPgpSecretKey));
+                comboBoxGnuPG.Items.Add("");
                 foreach (var openPgpSecretKey in value)
                     comboBoxGnuPG.Items.Add(openPgpSecretKey);
 
@@ -142,17 +142,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         public FeedEditorToolStrip()
         {
             InitializeComponent();
-            SetDefaultValues();
             ConnectEvents();
-        }
-
-        /// <summary>
-        /// Sets the default values.
-        /// </summary>
-        private void SetDefaultValues()
-        {
-            comboBoxGnuPG.Items.Add(_selectedSecretKey);
-            comboBoxGnuPG.SelectedItem = _selectedSecretKey;
         }
 
         /// <summary>
@@ -180,8 +170,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <param name="e">not used.</param>
         private void SelectedSecretKeyChanged(object sender, EventArgs e)
         {
-            _selectedSecretKey = (OpenPgpSecretKey) (comboBoxGnuPG.SelectedItem ?? default(OpenPgpSecretKey));
-            if(SecretKeyChanged != null) SecretKeyChanged(_selectedSecretKey);
+            SecretKeyChanged(comboBoxGnuPG.SelectedItem as OpenPgpSecretKey);
         }
         #endregion
     }
