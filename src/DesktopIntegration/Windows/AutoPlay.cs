@@ -65,7 +65,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="target">The application being integrated.</param>
         /// <param name="autoPlay">The AutoPlay handler information to be applied.</param>
-        /// <param name="setDefault">Indicates that the handler should become the default handler for all <see cref="Capabilities.AutoPlay.Events"/>.</param>
+        /// <param name="accessPoint">Indicates that the handler should become the default handler for all <see cref="Capabilities.AutoPlay.Events"/>.</param>
         /// <param name="systemWide">Register the handler system-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
@@ -73,7 +73,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="autoPlay"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, Capabilities.AutoPlay autoPlay, bool setDefault, bool systemWide, ITaskHandler handler)
+        public static void Register(InterfaceFeed target, Capabilities.AutoPlay autoPlay, bool accessPoint, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (autoPlay == null) throw new ArgumentNullException("autoPlay");
@@ -87,12 +87,15 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
 
-            using (var commandKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + FileType.ProgIDPrefix + autoPlay.ProgID + @"\shell\" + autoPlay.Verb.Name + @"\command"))
+            using (var commandKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + FileType.RegKeyPrefix + autoPlay.ProgID + @"\shell\" + autoPlay.Verb.Name + @"\command"))
                 commandKey.SetValue("", FileType.GetLaunchCommandLine(target, autoPlay.Verb, systemWide, handler));
 
-            using (var handlerKey = hive.CreateSubKey(RegKeyHandlers + @"\" + FileType.ProgIDPrefix + autoPlay.ID))
+            using (var handlerKey = hive.CreateSubKey(RegKeyHandlers + @"\" + FileType.RegKeyPrefix + autoPlay.ID))
             {
-                handlerKey.SetValue(RegValueProgID, FileType.ProgIDPrefix + autoPlay.ProgID);
+                // Add flag to remember whether created for capability or access point
+                handlerKey.SetValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, "");
+
+                handlerKey.SetValue(RegValueProgID, FileType.RegKeyPrefix + autoPlay.ProgID);
                 handlerKey.SetValue(RegValueVerb, autoPlay.Verb.Name);
                 handlerKey.SetValue(RegValueProvider, autoPlay.Provider);
                 handlerKey.SetValue(RegValueDescription, autoPlay.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture) ?? autoPlay.Verb.Name);
@@ -109,12 +112,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 if (string.IsNullOrEmpty(autoPlayEvent.Name)) continue;
 
                 using (var eventKey = hive.CreateSubKey(RegKeyAssocs + @"\" + autoPlayEvent.Name))
-                    eventKey.SetValue(FileType.ProgIDPrefix + autoPlay.ID, "");
+                    eventKey.SetValue(FileType.RegKeyPrefix + autoPlay.ID, "");
 
-                if (setDefault)
+                if (accessPoint)
                 {
                     using (var chosenEventKey = hive.CreateSubKey(RegKeyChosenAssocs + @"\" + autoPlayEvent.Name))
-                        chosenEventKey.SetValue("", FileType.ProgIDPrefix + autoPlay.ID);
+                        chosenEventKey.SetValue("", FileType.RegKeyPrefix + autoPlay.ID);
                 }
             }
         }
@@ -125,11 +128,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Removes an AutoPlay handler registration from the current Windows system.
         /// </summary>
         /// <param name="autoPlay">The AutoPlay handler information to be removed.</param>
+        /// <param name="accessPoint">Indicates that the handler should was the default handler for all <see cref="Capabilities.AutoPlay.Events"/>.</param>
         /// <param name="systemWide">Remove the handler system-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="autoPlay"/> is invalid.</exception>
-        public static void Unregister(Capabilities.AutoPlay autoPlay, bool systemWide)
+        public static void Unregister(Capabilities.AutoPlay autoPlay, bool accessPoint, bool systemWide)
         {
             #region Sanity checks
             if (autoPlay == null) throw new ArgumentNullException("autoPlay");
@@ -140,20 +144,40 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
 
-            foreach (var autoPlayEvent in autoPlay.Events)
+            if (accessPoint)
             {
-                if (string.IsNullOrEmpty(autoPlayEvent.Name)) continue;
-
-                using (var eventKey = hive.CreateSubKey(RegKeyAssocs + @"\" + autoPlayEvent.Name))
-                    eventKey.DeleteValue(FileType.ProgIDPrefix + autoPlay.ID, false);
-
                 // ToDo: Restore previous default
             }
 
-            hive.DeleteSubKey(RegKeyHandlers + @"\" + FileType.ProgIDPrefix + autoPlay.ID, false);
+            try
+            {
+                // Remove appropriate purpose flag and check if there are others
+                bool otherFlags;
+                using (var handlerKey = hive.OpenSubKey(RegKeyHandlers + @"\" + FileType.RegKeyPrefix + autoPlay.ID, true))
+                {
+                    if (handlerKey == null) otherFlags = false;
+                    else
+                    {
+                        handlerKey.DeleteValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, false);
+                        otherFlags = Array.Exists(handlerKey.GetValueNames(), name => name.StartsWith(FileType.PurposeFlagPrefix));
+                    }
+                }
 
-            // Remove ProgID
-            try { hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + FileType.ProgIDPrefix + autoPlay.ProgID); }
+                // Delete handler key and ProgID if there are no other references
+                if (!otherFlags)
+                {
+                    foreach (var autoPlayEvent in autoPlay.Events)
+                    {
+                        if (string.IsNullOrEmpty(autoPlayEvent.Name)) continue;
+
+                        using (var eventKey = hive.CreateSubKey(RegKeyAssocs + @"\" + autoPlayEvent.Name))
+                            eventKey.DeleteValue(FileType.RegKeyPrefix + autoPlay.ID, false);
+                    }
+
+                    hive.DeleteSubKey(RegKeyHandlers + @"\" + FileType.RegKeyPrefix + autoPlay.ID, false);
+                    hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + FileType.RegKeyPrefix + autoPlay.ProgID);
+                }
+            }
             catch (ArgumentException) {} // Ignore missing registry keys
         }
         #endregion

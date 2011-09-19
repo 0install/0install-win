@@ -45,7 +45,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="target">The application being integrated.</param>
         /// <param name="urlProtocol">The URL protocol to register.</param>
-        /// <param name="setDefault">Indicates that the handler shall become default handler for the protocol.</param>
+        /// <param name="accessPoint">Indicates that the handler shall become the default handler for the protocol.</param>
         /// <param name="systemWide">Register the URL protocol system-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
@@ -53,7 +53,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="urlProtocol"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, Capabilities.UrlProtocol urlProtocol, bool setDefault, bool systemWide, ITaskHandler handler)
+        public static void Register(InterfaceFeed target, Capabilities.UrlProtocol urlProtocol, bool accessPoint, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (urlProtocol == null) throw new ArgumentNullException("urlProtocol");
@@ -66,27 +66,30 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             if (urlProtocol.KnownPrefixes.IsEmpty)
             {
-                // Can only be registered invasively by registering protocol ProgID (will replace existing and become default)
-                if (setDefault)
-                {
+                if (accessPoint)
+                { // Can only be registered invasively by registering protocol ProgID (will replace existing and become default)
                     using (var progIDKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + urlProtocol.ID))
                         FileType.RegisterVerbCapability(progIDKey, target, urlProtocol, systemWide, handler);
                 }
             }
             else
-            {
-                foreach (var prefix in urlProtocol.KnownPrefixes)
+            { // Can be registered non-invasively by registering custom ProgID (without becoming default)
+                using (var progIDKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + FileType.RegKeyPrefix + urlProtocol.ID))
                 {
-                    // Can be registered non-invasively by registering custom ProgID (without becoming default)
-                    using (var progIDKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + FileType.ProgIDPrefix + urlProtocol.ID))
-                        FileType.RegisterVerbCapability(progIDKey, target, urlProtocol, systemWide, handler);
+                    // Add flag to remember whether created for capability or access point
+                    progIDKey.SetValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, "");
 
-                    if (setDefault)
+                    FileType.RegisterVerbCapability(progIDKey, target, urlProtocol, systemWide, handler);
+                }
+
+                if (accessPoint)
+                {
+                    foreach (var prefix in urlProtocol.KnownPrefixes)
                     {
                         if (WindowsUtils.IsWindowsVista && !systemWide)
                         {
                             using (var someKey = Registry.CurrentUser.CreateSubKey(RegKeyUserVistaUrlAssoc + @"\" + prefix.Value + @"\UserChoice"))
-                                someKey.SetValue("ProgID", FileType.ProgIDPrefix + urlProtocol.ID);
+                                someKey.SetValue("ProgID", FileType.RegKeyPrefix + urlProtocol.ID);
                         }
                         else
                         {
@@ -105,11 +108,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Unregisters a URL protocol in the current Windows system.
         /// </summary>
         /// <param name="urlProtocol">The URL protocol to remove.</param>
+        /// <param name="accessPoint">Indicates that the handler was the default handler for the protocol.</param>
         /// <param name="systemWide">Unregister the URL protocol system-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="urlProtocol"/> is invalid.</exception>
-        public static void Unregister(Capabilities.UrlProtocol urlProtocol, bool systemWide)
+        public static void Unregister(Capabilities.UrlProtocol urlProtocol, bool accessPoint, bool systemWide)
         {
             #region Sanity checks
             if (urlProtocol == null) throw new ArgumentNullException("urlProtocol");
@@ -117,7 +121,42 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             if (string.IsNullOrEmpty(urlProtocol.ID)) throw new InvalidDataException("Missing ID");
 
-            // ToDo: Implement
+            var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
+
+            if (urlProtocol.KnownPrefixes.IsEmpty)
+            {
+                if (accessPoint)
+                { // Was registered invasively by registering protocol ProgID
+                    try { hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + urlProtocol.ID); }
+                    catch (ArgumentException) {} // Ignore missing registry keys
+                }
+            }
+            else
+            { // Was registered non-invasively by registering custom ProgID
+                if (accessPoint)
+                {
+                    foreach (var prefix in urlProtocol.KnownPrefixes)
+                    {
+                        // ToDo: Restore previous default
+                    }
+                }
+
+                // Remove appropriate purpose flag and check if there are others
+                bool otherFlags;
+                using (var progIDKey = hive.OpenSubKey(FileType.RegKeyClasses + @"\" + FileType.RegKeyPrefix + urlProtocol.ID, true))
+                {
+                    if (progIDKey == null) otherFlags = false;
+                    else
+                    {
+                        progIDKey.DeleteValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, false);
+                        otherFlags = Array.Exists(progIDKey.GetValueNames(), name => name.StartsWith(FileType.PurposeFlagPrefix));
+                    }
+                }
+
+                // Delete ProgID if there are no other references
+                if (!otherFlags)
+                    hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + FileType.RegKeyPrefix + urlProtocol.ID);
+            }
         }
         #endregion
     }

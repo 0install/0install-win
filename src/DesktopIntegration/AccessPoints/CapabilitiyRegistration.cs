@@ -108,11 +108,11 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             {
                 // Note: Enumerating only once and using nested if-clauses to determine types would be more efficient but less maintainable
                 foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(capabilityList.Entries))
-                    Windows.FileType.Unregister(fileType, systemWide);
+                    Windows.FileType.Unregister(fileType, false, systemWide);
                 foreach (var urlProtocol in EnumerableUtils.OfType<Capabilities.UrlProtocol>(capabilityList.Entries))
-                    Windows.UrlProtocol.Unregister(urlProtocol, systemWide);
+                    Windows.UrlProtocol.Unregister(urlProtocol, false, systemWide);
                 foreach (var autoPlay in EnumerableUtils.OfType<Capabilities.AutoPlay>(capabilityList.Entries))
-                    Windows.AutoPlay.Unregister(autoPlay, systemWide);
+                    Windows.AutoPlay.Unregister(autoPlay, false, systemWide);
                 foreach (var comServer in EnumerableUtils.OfType<Capabilities.ComServer>(capabilityList.Entries))
                     Windows.ComServer.Unregister(comServer, systemWide);
                 foreach (var gamesExplorer in EnumerableUtils.OfType<Capabilities.GamesExplorer>(capabilityList.Entries))
@@ -120,7 +120,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                 if (systemWide)
                 {
                     foreach (var defaultProgram in EnumerableUtils.OfType<Capabilities.DefaultProgram>(capabilityList.Entries))
-                        Windows.DefaultProgram.Unregister(defaultProgram);
+                        Windows.DefaultProgram.Unregister(defaultProgram, false);
                     foreach (var appRegistration in EnumerableUtils.OfType<Capabilities.AppRegistration>(capabilityList.Entries))
                         Windows.AppRegistration.Remove(appRegistration);
                 }

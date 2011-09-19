@@ -71,7 +71,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (capability == null) return;
 
             if (WindowsUtils.IsWindows)
-                Windows.AutoPlay.Unregister(capability, systemWide);
+                Windows.AutoPlay.Unregister(capability, true, systemWide);
         }
         #endregion
 

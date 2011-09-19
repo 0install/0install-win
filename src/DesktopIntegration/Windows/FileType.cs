@@ -35,7 +35,16 @@ namespace ZeroInstall.DesktopIntegration.Windows
     {
         #region Constants
         /// <summary>Prepended before any programatic identifiers used by Zero Install in the registry. This prevents conflicts with non-Zero Install installations.</summary>
-        internal const string ProgIDPrefix = "";
+        internal const string RegKeyPrefix = "ZeroInstall.";
+
+        /// <summary>Prepended before any registry purpose flags. Purpose flags indicate what a registry key was created for and whether it is still required.</summary>
+        public const string PurposeFlagPrefix = "ZeroInstall.";
+
+        /// <summary>Indicates a registry key is required by a capability.</summary>
+        public const string PurposeFlagCapability = PurposeFlagPrefix + "Capability";
+
+        /// <summary>Indicates a registry key is required by an access point.</summary>
+        public const string PurposeFlagAccessPoint = PurposeFlagPrefix + "AccessPoint";
 
         /// <summary>The HKCU/HKLM registry key backing HKCR.</summary>
         public const string RegKeyClasses = @"SOFTWARE\Classes";
@@ -74,7 +83,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="target">The application being integrated.</param>
         /// <param name="fileType">The file type to register.</param>
-        /// <param name="setDefault">Indicates that the file associations shall become default handlers for their respective types.</param>
+        /// <param name="accessPoint">Indicates that the file associations shall become default handlers for their respective types.</param>
         /// <param name="systemWide">Register the file type system-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
@@ -82,7 +91,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="fileType"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, Capabilities.FileType fileType, bool setDefault, bool systemWide, ITaskHandler handler)
+        public static void Register(InterfaceFeed target, Capabilities.FileType fileType, bool accessPoint, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (fileType == null) throw new ArgumentNullException("fileType");
@@ -94,8 +103,13 @@ namespace ZeroInstall.DesktopIntegration.Windows
             var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
 
             // Register ProgID
-            using (var progIDKey = hive.CreateSubKey(RegKeyClasses + @"\" + ProgIDPrefix + fileType.ID))
+            using (var progIDKey = hive.CreateSubKey(RegKeyClasses + @"\" + RegKeyPrefix + fileType.ID))
+            {
+                // Add flag to remember whether created for capability or access point
+                progIDKey.SetValue(accessPoint ? PurposeFlagAccessPoint : PurposeFlagCapability, "");
+
                 RegisterVerbCapability(progIDKey, target, fileType, systemWide, handler);
+            }
 
             using (var classesKey = hive.OpenSubKey(RegKeyClasses, true))
             {
@@ -110,9 +124,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         if (!string.IsNullOrEmpty(extension.PerceivedType)) extensionKey.SetValue(RegValuePerceivedType, extension.PerceivedType);
 
                         using (var openWithKey = extensionKey.CreateSubKey(RegSubKeyOpenWith))
-                            openWithKey.SetValue(ProgIDPrefix + fileType.ID, "");
+                            openWithKey.SetValue(RegKeyPrefix + fileType.ID, "");
 
-                        if (setDefault) extensionKey.SetValue("", ProgIDPrefix + fileType.ID);
+                        if (accessPoint) extensionKey.SetValue("", RegKeyPrefix + fileType.ID);
                     }
 
                     // Register MIME types
@@ -131,11 +145,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Unregisters a file type in the current Windows system.
         /// </summary>
         /// <param name="fileType">The file type to remove.</param>
+        /// <param name="accessPoint">Indicates that the file associations were default handlers for their respective types.</param>
         /// <param name="systemWide">Unregister the file type system-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="fileType"/> is invalid.</exception>
-        public static void Unregister(Capabilities.FileType fileType, bool systemWide)
+        public static void Unregister(Capabilities.FileType fileType, bool accessPoint, bool systemWide)
         {
             #region Sanity checks
             if (fileType == null) throw new ArgumentNullException("fileType");
@@ -160,14 +175,33 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     using (var extensionKey = classesKey.CreateSubKey(extension.Value))
                     {
                         using (var openWithKey = extensionKey.CreateSubKey(RegSubKeyOpenWith))
-                            openWithKey.DeleteValue(ProgIDPrefix + fileType.ID, false);
+                            openWithKey.DeleteValue(RegKeyPrefix + fileType.ID, false);
 
-                        // ToDo: Restore previous default
+                        if (accessPoint)
+                        {
+                            // ToDo: Restore previous default
+                        }
                     }
                 }
 
-                // Remove ProgID
-                try { classesKey.DeleteSubKeyTree(ProgIDPrefix + fileType.ID); }
+                try
+                {
+                    // Remove appropriate purpose flag and check if there are others
+                    bool otherFlags;
+                    using (var progIDKey = classesKey.OpenSubKey(RegKeyPrefix + fileType.ID, true))
+                    {
+                        if (progIDKey == null) otherFlags = false;
+                        else
+                        {
+                            progIDKey.DeleteValue(accessPoint ? PurposeFlagAccessPoint : PurposeFlagCapability, false);
+                            otherFlags = Array.Exists(progIDKey.GetValueNames(), name => name.StartsWith(PurposeFlagPrefix));
+                        }
+                    }
+
+                    // Delete ProgID if there are no other references
+                    if (!otherFlags)
+                        classesKey.DeleteSubKeyTree(RegKeyPrefix + fileType.ID);
+                }
                 catch (ArgumentException) {} // Ignore missing registry keys
             }
         }

@@ -72,7 +72,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (capability == null) return;
 
             if (WindowsUtils.IsWindows)
-                Windows.UrlProtocol.Unregister(capability, systemWide);
+                Windows.UrlProtocol.Unregister(capability, true, systemWide);
         }
         #endregion
 

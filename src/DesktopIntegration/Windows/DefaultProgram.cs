@@ -62,14 +62,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="target">The application being integrated.</param>
         /// <param name="defaultProgram">The default program information to be registered.</param>
-        /// <param name="setDefault">Indicates that the program should be set as the current default for the service it provides.</param>
+        /// <param name="accessPoint">Indicates that the program should be set as the current default for the service it provides.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="defaultProgram"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, Capabilities.DefaultProgram defaultProgram, bool setDefault, ITaskHandler handler)
+        public static void Register(InterfaceFeed target, Capabilities.DefaultProgram defaultProgram, bool accessPoint, ITaskHandler handler)
         {
             #region Sanity checks
             if (defaultProgram == null) throw new ArgumentNullException("defaultProgram");
@@ -83,6 +83,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
             {
                 using (var appKey = serviceKey.CreateSubKey(defaultProgram.ID))
                 {
+                    // Add flag to remember whether created for capability or access point
+                    appKey.SetValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, "");
+
                     appKey.SetValue("", target.Feed.Name);
 
                     FileType.RegisterVerbCapability(appKey, target, defaultProgram, true, handler);
@@ -105,7 +108,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     }
                 }
 
-                if (setDefault) serviceKey.SetValue("", defaultProgram.ID);
+                if (accessPoint) serviceKey.SetValue("", defaultProgram.ID);
             }
         }
 
@@ -126,10 +129,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Unregisters an application as a candidate for a default program in the current Windows system. This can only be applied system-wide, not per user.
         /// </summary>
         /// <param name="defaultProgram">The default program information to be removed.</param>
+        /// <param name="accessPoint">Indicates that the program was set as the current default for the service it provides.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="defaultProgram"/> is invalid.</exception>
-        public static void Unregister(Capabilities.DefaultProgram defaultProgram)
+        public static void Unregister(Capabilities.DefaultProgram defaultProgram, bool accessPoint)
         {
             #region Sanity checks
             if (defaultProgram == null) throw new ArgumentNullException("defaultProgram");
@@ -140,7 +144,29 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             using (var serviceKey = Registry.LocalMachine.CreateSubKey(RegKeyMachineClients + @"\" + defaultProgram.Service))
             {
-                try { serviceKey.DeleteSubKeyTree(defaultProgram.ID); }
+                if (accessPoint)
+                {
+                    // ToDo: Restore previous default
+                }
+
+                try
+                {
+                    // Remove appropriate purpose flag and check if there are others
+                    bool otherFlags;
+                    using (var appKey = serviceKey.OpenSubKey(defaultProgram.ID, true))
+                    {
+                        if (appKey == null) otherFlags = false;
+                        else
+                        {
+                            appKey.DeleteValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, false);
+                            otherFlags = Array.Exists(appKey.GetValueNames(), name => name.StartsWith(FileType.PurposeFlagPrefix));
+                        }
+                    }
+
+                    // Delete app key if there are no other references
+                    if (!otherFlags)
+                        serviceKey.DeleteSubKeyTree(defaultProgram.ID);
+                }
                 catch (ArgumentException) {} // Ignore missing registry keys
             }
         }

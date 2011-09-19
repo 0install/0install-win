@@ -106,7 +106,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         foreach (var extension in fileType.Extensions)
                         {
                             if (!string.IsNullOrEmpty(extension.Value) && !string.IsNullOrEmpty(fileType.ID))
-                                fileAssocsKey.SetValue(extension.Value, FileType.ProgIDPrefix + fileType.ID);
+                                fileAssocsKey.SetValue(extension.Value, FileType.RegKeyPrefix + fileType.ID);
                         }
                     }
                 }
@@ -116,7 +116,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     foreach (var urlProtocol in EnumerableUtils.OfType<Capabilities.UrlProtocol>(verbCapabilities))
                     {
                         foreach (var prefix in urlProtocol.KnownPrefixes)
-                            urlAssocsKey.SetValue(prefix.Value, FileType.ProgIDPrefix + urlProtocol.ID);
+                            urlAssocsKey.SetValue(prefix.Value, FileType.RegKeyPrefix + urlProtocol.ID);
                     }
                 }
 
