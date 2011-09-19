@@ -78,6 +78,7 @@ namespace Common.Collections
             {
                 "neutralValue",
                 {"germanyValue", new CultureInfo("de-DE")},
+                // Intential duplicates (should be ignored)
                 "neutralValue",
                 {"germanyValue", new CultureInfo("de-DE")}
             };
@@ -86,6 +87,25 @@ namespace Common.Collections
             Assert.IsFalse(dictionary.ContainsExactLanguage(new CultureInfo("en")), "Unspecified language should default to English generic");
             dictionary.RemoveAll(new CultureInfo("de-DE"));
             Assert.IsFalse(dictionary.ContainsExactLanguage(new CultureInfo("de-DE")));
+        }
+
+        [Test]
+        public void TestSet()
+        {
+            var dictionary = new LocalizableStringCollection
+            {
+                "neutralValue",
+                {"germanyValue", new CultureInfo("de-DE")},
+                // Intential duplicates (should be removed)
+                "neutralValue",
+                {"germanyValue", new CultureInfo("de-DE")}
+            };
+
+            dictionary.Set("neutralValue2");
+            dictionary.Set("germanyValue2", new CultureInfo("de-DE"));
+
+            Assert.AreEqual("neutralValue2", dictionary.GetExactLanguage(new CultureInfo("en")));
+            Assert.AreEqual("germanyValue2", dictionary.GetExactLanguage(new CultureInfo("de-DE")));
         }
 
         [Test]

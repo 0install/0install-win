@@ -166,7 +166,7 @@ namespace Common.Collections
         [SuppressMessage("Microsoft.Globalization", "CA1304:SpecifyCultureInfo")]
         public void Set(string value)
         {
-            RemoveAll(null);
+            RemoveAll(new CultureInfo("en"));
             if (value != null) Add(value);
         }
 
