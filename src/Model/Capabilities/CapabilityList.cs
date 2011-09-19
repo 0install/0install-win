@@ -35,9 +35,9 @@ namespace ZeroInstall.Model.Capabilities
     {
         #region Properties
         /// <summary>
-        /// Determines for which operating systems the <see cref="Capability"/>s are aplicable.
+        /// Determines for which operating systems the <see cref="Capability"/>s are applicable.
         /// </summary>
-        [Description("Determines for which operating systems the capabilities are aplicable.")]
+        [Description("Determines for which operating systems the capabilities are applicable.")]
         [XmlIgnore]
         public Architecture Architecture { get; set; }
 
@@ -57,7 +57,7 @@ namespace ZeroInstall.Model.Capabilities
         /// A list of <see cref="Capability"/>s.
         /// </summary>
         [Description("A list of capabilities.")]
-        //[XmlElement(typeof(...))]
+        [XmlElement(typeof(AppRegistration)), XmlElement(typeof(AutoPlay)), XmlElement(typeof(ComServer)), XmlElement(typeof(ContextMenu)), XmlElement(typeof(DefaultProgram)), XmlElement(typeof(FileType)), XmlElement(typeof(GamesExplorer)), XmlElement(typeof(UrlProtocol))]
         // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.LinkedList<Capability> Entries { get { return _entries; } }
         #endregion

@@ -29,6 +29,20 @@
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugMono|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\build\Backend\Debug\</OutputPath>
+    <DocumentationFile>..\..\build\Backend\Debug\ZeroInstall.DesktopIntegration.xml</DocumentationFile>
+    <DefineConstants>MONO;DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
@@ -41,24 +55,76 @@
     <DebugSymbols>false</DebugSymbols>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseMono|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\build\Backend\Release\</OutputPath>
+    <DocumentationFile>..\..\build\Backend\Release\ZeroInstall.DesktopIntegration.xml</DocumentationFile>
+    <DefineConstants>MONO;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1591</NoWarn>
+    <DebugSymbols>false</DebugSymbols>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="C5">
       <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="EasyHook">
+      <HintPath>..\..\lib\EasyHook.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessPoint.cs" />
+    <Compile Include="AccessPoints\SendTo.cs" />
+    <Compile Include="AccessPoints\MockAccessPoint.cs" />
+    <Compile Include="CategoryIntegrationManager.cs" />
+    <Compile Include="ConflictData.cs" />
+    <Compile Include="IntegrationManager.Helpers.cs" />
+    <Compile Include="IntegrationManager.cs" />
+    <Compile Include="AccessPoints\AccessPoint.cs" />
+    <Compile Include="AccessPoints\AccessPointList.cs" />
     <Compile Include="AppEntry.cs" />
     <Compile Include="AppList.cs" />
+    <Compile Include="AccessPoints\AppAlias.cs" />
+    <Compile Include="AccessPoints\AutoPlay.cs" />
+    <Compile Include="AccessPoints\CapabilitiyRegistration.cs" />
+    <Compile Include="AccessPoints\DefaultAccessPoint.cs" />
+    <Compile Include="AccessPoints\ContextMenu.cs" />
+    <Compile Include="AccessPoints\DefaultProgram.cs" />
+    <Compile Include="AccessPoints\CommandAccessPoint.cs" />
+    <Compile Include="AccessPoints\FileType.cs" />
+    <Compile Include="AccessPoints\IconAccessPoint.cs" />
+    <Compile Include="AccessPoints\MenuEntry.cs" />
+    <Compile Include="AccessPoints\DesktopIcon.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="AccessPoints\QuickLaunch.cs" />
+    <Compile Include="AccessPoints\UrlProtocol.cs" />
+    <Compile Include="InterfaceFeed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="SyncIntegrationManager.cs" />
+    <Compile Include="Windows\AppRegistration.cs" />
+    <Compile Include="Windows\FileType.cs" />
+    <Compile Include="Windows\IconProvider.cs" />
+    <Compile Include="Windows\ShortcutManager.cs" />
+    <Compile Include="Windows\StubProvider.cs" />
+    <Compile Include="Windows\AppAlias.cs" />
+    <Compile Include="Windows\AutoPlay.cs" />
+    <Compile Include="Windows\ComServer.cs" />
+    <Compile Include="Windows\ContextMenu.cs" />
+    <Compile Include="Windows\DefaultProgram.cs" />
+    <Compile Include="Windows\GamesExplorer.cs" />
+    <Compile Include="Windows\UrlProtocol.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -79,6 +145,29 @@
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
       <Name>Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Store\Store.csproj">
+      <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
+      <Name>Store</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AppList.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ClassDiagram.cd" />
+    <EmbeddedResource Include="Windows\Stub.template" />
+    <EmbeddedResource Include="Windows\Stub.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

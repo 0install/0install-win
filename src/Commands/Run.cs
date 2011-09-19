@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using Common;
@@ -24,6 +25,7 @@ using Common.Utils;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Commands
 {
@@ -120,21 +122,47 @@ namespace ZeroInstall.Commands
         /// Launches the selected implementation.
         /// </summary>
         /// <returns>The exit code of the process or 0 if waiting is disabled.</returns>
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Model.Implementation"/>s is not cached yet.</exception>
+        /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
+        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
         protected int LaunchImplementation()
         {
             // Prevent the user from pressing any buttons once the child process is being launched
             Policy.Handler.DisableProgressUI();
 
-            // Spawn the child process
+            // Prepare new child process
             var executor = new Executor(Selections, Policy.Fetcher.Store) {Main = _main, Wrapper = _wrapper};
-            var startInfo = executor.GetStartInfo(AdditionalArgs.ToArray());
-            var process = Process.Start(startInfo);
+
+            // Hook into process launching if API hooking is applicable
+            RunHook runHook = null;
+            if (Policy.Config.AllowApiHooking && WindowsUtils.IsWindows)
+            {
+                try { runHook = new RunHook(Policy, executor); }
+                #region Error handling
+                catch (ApplicationException ex)
+                {
+                    Log.Error(ex.Message);
+                }
+                #endregion
+            }
+
+            Process process;
+            try
+            {
+                // Launch new child process
+                process = executor.Start(AdditionalArgs.ToArray());
+            }
+            finally
+            {
+                // Hook out of process launching when done
+                if (runHook != null) runHook.Dispose();
+            }
 
             // Wait for a moment before closing the GUI so that focus is retained until it can be passed on to the child process
             Thread.Sleep(1000);
             Policy.Handler.CloseProgressUI();
 
-            if (NoWait) return 0;
+            if (NoWait || process == null) return 0;
             process.WaitForExit();
             return process.ExitCode;
         }

@@ -202,9 +202,9 @@ namespace ZeroInstall.Model
         // Preserve order
         private readonly C5.LinkedList<CapabilityList> _capabilityLists = new C5.LinkedList<CapabilityList>();
         /// <summary>
-        /// A list of <see cref="Capability"/>s to be registered in the desktop environment.
+        /// A set of <see cref="Capability"/> lists for different architectures.
         /// </summary>
-        [Description("A list of capabilities to be registered in the desktop environment.")]
+        [Description("A set of Capability lists for different architectures.")]
         [XmlElement("capabilities", Namespace = Capability.XmlNamespace)]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.LinkedList<CapabilityList> CapabilityLists { get { return _capabilityLists; } }

@@ -171,7 +171,7 @@ namespace ZeroInstall.Updater
         #endregion
 
         #region Run Ngen
-        private static readonly string[] _ngenAssemblies = new[] {"ZeroInstall.exe", "0install.exe", "0install-win.exe", "0launch.exe", "0store.exe", "0store-win.exe", "StoreService.exe"};
+        private static readonly string[] _ngenAssemblies = new[] {"ZeroInstall.exe", "0install.exe", "0install-win.exe", "0launch.exe", "0alias.exe", "0store.exe", "0store-win.exe", "StoreService.exe"};
 
         /// <summary>
         /// Runs ngen in the background to pre-compile new/updated .NET assemblies.

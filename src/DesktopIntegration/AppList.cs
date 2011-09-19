@@ -16,16 +16,18 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
 using Common.Storage;
+using ZeroInstall.DesktopIntegration.AccessPoints;
 
 namespace ZeroInstall.DesktopIntegration
 {
     /// <summary>
-    /// Stores a list of applications the user prefers to use.
+    /// Stores a list of applications and the kind of desktop integration the user chose for them.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("app-list", Namespace = XmlNamespace)]
@@ -41,38 +43,72 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Properties
         // Preserve order
-        private readonly C5.ArrayList<AppEntry> _entries = new C5.ArrayList<AppEntry>();
+        private readonly C5.LinkedList<AppEntry> _entries = new C5.LinkedList<AppEntry>();
         /// <summary>
         /// A list of <see cref="AppEntry"/>s.
         /// </summary>
         [Description("A list of application entries.")]
         [XmlElement("app")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<AppEntry> Entries { get { return _entries; } }
+        public C5.LinkedList<AppEntry> Entries { get { return _entries; } }
         #endregion
 
         //--------------------//
 
+        #region Conflict IDs
+        /// <summary>
+        /// Returns a list of all conflict IDs and the <see cref="AccessPoint"/>s belong to.
+        /// </summary>
+        /// <seealso cref="AccessPoint.GetConflictIDs"/>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs some potentially slow computations.")]
+        public IDictionary<string, ConflictData> GetConflictIDs()
+        {
+            var conflictIDs = new Dictionary<string, ConflictData>();
+            foreach (var appEntry in Entries)
+            {
+                if (appEntry.AccessPoints == null) continue;
+                foreach (var accessPoint in appEntry.AccessPoints.Entries)
+                {
+                    foreach (string conflictID in accessPoint.GetConflictIDs(appEntry))
+                    {
+                        if (!conflictIDs.ContainsKey(conflictID))
+                            conflictIDs.Add(conflictID, new ConflictData(appEntry, accessPoint));
+                    }
+                }
+            }
+            return conflictIDs;
+        }
+        #endregion
+
         #region Storage
         /// <summary>
-        /// Loads an <see cref="AppList"/> from an XML file.
+        /// Loads a <see cref="AppList"/> from an XML file.
         /// </summary>
         /// <param name="path">The file to load from.</param>
         /// <returns>The loaded <see cref="AppList"/>.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static AppList Load(string path)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
             return XmlStorage.Load<AppList>(path);
         }
 
         /// <summary>
-        /// Loads an <see cref="AppList"/> from a stream containing an XML file.
+        /// Loads a <see cref="AppList"/> from a stream containing an XML file.
         /// </summary>
         /// <param name="stream">The stream to load from.</param>
         /// <returns>The loaded <see cref="AppList"/>.</returns>
         public static AppList Load(Stream stream)
         {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            #endregion
+
             return XmlStorage.Load<AppList>(stream);
         }
 
@@ -84,6 +120,10 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void Save(string path)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
             XmlStorage.Save(path, this);
         }
 
@@ -93,6 +133,10 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="stream">The stream to save in.</param>
         public void Save(Stream stream)
         {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            #endregion
+
             XmlStorage.Save(stream, this);
         }
         #endregion

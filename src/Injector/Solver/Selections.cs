@@ -213,7 +213,7 @@ namespace ZeroInstall.Injector.Solver
         /// <returns>The loaded <see cref="Selections"/>.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static Selections Load(string path)
         {
             return XmlStorage.Load<Selections>(path);
@@ -224,7 +224,7 @@ namespace ZeroInstall.Injector.Solver
         /// </summary>
         /// <param name="stream">The stream to load from.</param>
         /// <returns>The loaded <see cref="Selections"/>.</returns>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static Selections Load(Stream stream)
         {
             return XmlStorage.Load<Selections>(stream);
@@ -235,7 +235,7 @@ namespace ZeroInstall.Injector.Solver
         /// </summary>
         /// <param name="data">The XML string to be parsed.</param>
         /// <returns>The loaded <see cref="Selections"/>.</returns>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static Selections LoadFromString(string data)
         {
             #region Sanity checks

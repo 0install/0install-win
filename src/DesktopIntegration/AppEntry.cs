@@ -19,6 +19,10 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using Common.Collections;
+using Common.Utils;
+using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration
@@ -28,31 +32,23 @@ namespace ZeroInstall.DesktopIntegration
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlType("app", Namespace = AppList.XmlNamespace)]
-    public class AppEntry : IEquatable<AppEntry>
+    public sealed class AppEntry : IMergeable<AppEntry>, ICloneable
     {
         #region Properties
         /// <summary>
-        /// The URI used to identify the interface and locate the feed.
+        /// The URI or local path of the interface defining the application.
         /// </summary>
-        [Description("The URI used to identify the interface and locate the feed.")]
-        [XmlIgnore]
-        public Uri Interface
+        [Description("The URI or local path of the interface defining the application.")]
+        [XmlAttribute("interface")]
+        public string InterfaceID
         { get; set; }
-        
-        /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="Uri"/>
-        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
-        [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public String InterfaceString
-        {
-            get { return (Interface == null ? null : Interface.ToString()); }
-            set { Interface = new Uri(value); }
-        }
+
+        string IMergeable<AppEntry>.MergeID { get { return InterfaceID; } }
 
         /// <summary>
-        /// A user-definied alternative name for the appliaction, overriding the name specified in the feed.
+        /// The name of the application. Usually equal to <see cref="Feed.Name"/>.
         /// </summary>
-        [Description("A user-definied alternative name for the appliaction, overriding the name specified in the feed.")]
+        [Description("The name of the application. Usually equal to the Name specified in the Feed.")]
         [XmlAttribute("name")]
         public string Name { get; set; }
 
@@ -64,35 +60,68 @@ namespace ZeroInstall.DesktopIntegration
         public bool AutoUpdate { get; set; }
 
         // Preserve order
-        private readonly C5.ArrayList<CapabilityList> _capabilityLists = new C5.ArrayList<CapabilityList>();
+        private readonly C5.LinkedList<CapabilityList> _capabilityLists = new C5.LinkedList<CapabilityList>();
         /// <summary>
-        /// A list of <see cref="Capability"/>s to be registered in the desktop environment.
+        /// A set of <see cref="Capability"/> lists to be registered in the desktop environment. Only compatible architectures are handled.
         /// </summary>
-        [Description("A list of capabilities to be registered in the desktop environment.")]
+        [Description("A set of Capability lists to be registered in the desktop environment. Only compatible architectures are handled.")]
         [XmlElement("capabilities", Namespace = Capability.XmlNamespace)]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<CapabilityList> CapabilityLists { get { return _capabilityLists; } }
+        public C5.LinkedList<CapabilityList> CapabilityLists { get { return _capabilityLists; } }
 
-        // Preserve order
-        private readonly C5.ArrayList<AccessPoint> _accessPoints = new C5.ArrayList<AccessPoint>();
         /// <summary>
-        /// A list of <see cref="AccessPoint"/>s to be created in the desktop environment.
+        /// A set of <see cref="AccessPoints"/>s to be registered in the desktop environment; may be <see langword="null"/>.
         /// </summary>
-        [Description("A list of access points to be created in the desktop environment.")]
-        //[XmlElement(typeof(...))]
-        // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<AccessPoint> AccessPoints { get { return _accessPoints; } }
+        [Description("A set of AccessPoints to be registered in the desktop environment; may be null.")]
+        [XmlElement("access-points")]
+        public AccessPointList AccessPoints { get; set; }
+
+        /// <inheritdoc/>
+        [Browsable(false)]
+        [XmlIgnore]
+        public DateTime Timestamp { get; set; }
+
+        /// <summary>
+        /// The time this entry was last modified encoded as Unix time (number of seconds since the epoch).
+        /// </summary>
+        /// <remarks>This value is ignored by clone and equality methods.</remarks>
+        [Browsable(false)]
+        [XmlAttribute("timestamp"), DefaultValue(0)]
+        public long TimestampUnix { get { return FileUtils.ToUnixTime(Timestamp); } }
+        #endregion
+
+        //--------------------//
+
+        #region Access
+        /// <summary>
+        /// Retreives the first <see cref="Capability"/> that matches a specific type and ID and is compatible with <see cref="Architecture.CurrentSystem"/>.
+        /// </summary>
+        /// <typeparam name="T">The capability type to match.</typeparam>
+        /// <param name="id">The <see cref="Capability.ID"/> to match.</param>
+        /// <returns>The first matching <see cref="Capability"/> or <see langword="null"/> if none was found.</returns>
+        public T GetCapability<T>(string id) where T : Capability
+        {
+            foreach (var capabilityList in _capabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
+            {
+                foreach (var capability in capabilityList.Entries)
+                {
+                    var specificCapability = capability as T;
+                    if (specificCapability != null && specificCapability.ID == id) return specificCapability;
+                }
+            }
+            return null;
+        }
         #endregion
 
         //--------------------//
 
         #region Conversion
         /// <summary>
-        /// Returns the entry in the form "AppEntry: Name (Interface)". Not safe for parsing!
+        /// Returns the entry in the form "Name (InterfaceID)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("AppEntry: {0} ({1})", Name, Interface);
+            return string.Format("{0} ({1})", Name, InterfaceID);
         }
         #endregion
 
@@ -103,9 +132,9 @@ namespace ZeroInstall.DesktopIntegration
         /// <returns>The new copy of the <see cref="AppEntry"/>.</returns>
         public AppEntry CloneEntry()
         {
-            var appList = new AppEntry {Name = Name, Interface = Interface};
+            var appList = new AppEntry {Name = Name, InterfaceID = InterfaceID};
+            if (AccessPoints != null) appList.AccessPoints = AccessPoints.CloneAccessPointList();
             foreach (var list in CapabilityLists) appList.CapabilityLists.Add(list.CloneCapabilityList());
-            foreach (var accessPoint in AccessPoints) appList.AccessPoints.Add(accessPoint.CloneAccessPoint());
 
             return appList;
         }
@@ -127,9 +156,9 @@ namespace ZeroInstall.DesktopIntegration
             if (other == null) return false;
 
             if (Name != other.Name) return false;
-            if (Interface != other.Interface) return false;
+            if (InterfaceID != other.InterfaceID) return false;
             if (!CapabilityLists.SequencedEquals(other.CapabilityLists)) return false;
-            if (!AccessPoints.SequencedEquals(other.AccessPoints)) return false;
+            if (!Equals(AccessPoints, other.AccessPoints)) return false;
             return true;
         }
 
@@ -147,9 +176,9 @@ namespace ZeroInstall.DesktopIntegration
             unchecked
             {
                 int result = (Name ?? "").GetHashCode();
-                result = (result * 397) ^ (InterfaceString ?? "").GetHashCode();
+                result = (result * 397) ^ (InterfaceID ?? "").GetHashCode();
                 result = (result * 397) ^ CapabilityLists.GetSequencedHashCode();
-                result = (result * 397) ^ AccessPoints.GetSequencedHashCode();
+                if (AccessPoints != null) result = (result * 397) ^ AccessPoints.GetHashCode();
                 return result;
             }
         }

@@ -120,6 +120,9 @@
   <data name="ActionAddFeed" xml:space="preserve">
     <value>Füge zusätzlichen Feed hinzu</value>
   </data>
+  <data name="ActionAppCommand" xml:space="preserve">
+    <value>Verwalte Desktopintegration</value>
+  </data>
   <data name="ActionDigest" xml:space="preserve">
     <value>Berechne Digest</value>
   </data>
@@ -135,17 +138,45 @@
   <data name="ActionSelfUpdate" xml:space="preserve">
     <value>Akualisiere Zero Install</value>
   </data>
+  <data name="ActionSync" xml:space="preserve">
+    <value>Synchronisiere</value>
+  </data>
   <data name="ActionUpdate" xml:space="preserve">
     <value>Suche nach Updates</value>
   </data>
+  <data name="AliasCreated" xml:space="preserve">
+    <value>Ein Alias namens '{0}' für '{1}' wurde angelegt.
+Sie müssen eventuell ihr Terminal schließen und wieder öffnen damit dies wirksam wird.</value>
+  </data>
+  <data name="AliasNotFound" xml:space="preserve">
+    <value>Es wurde kein bestehender Alias namens '{0}' gefunden.</value>
+  </data>
+  <data name="AliasRemoved" xml:space="preserve">
+    <value>Der Alias namens '{0}' für '{1}' wurde entfernt.</value>
+  </data>
   <data name="AllComponentsDownloaded" xml:space="preserve">
     <value>Alle benötigten Komponenten wurden runtergeladen.</value>
+  </data>
+  <data name="AppAlias" xml:space="preserve">
+    <value>Anwendungsalias</value>
+  </data>
+  <data name="AppList" xml:space="preserve">
+    <value>Anwendungsliste</value>
+  </data>
+  <data name="AppListAdded" xml:space="preserve">
+    <value>'{0}' wurde der Anwendungsliste hinzugefügt.</value>
+  </data>
+  <data name="AppListRemoved" xml:space="preserve">
+    <value>'{0}' wurde von der Anwendungsliste entefernt.</value>
   </data>
   <data name="ChangesFound" xml:space="preserve">
     <value>Gefundene Änderungen:</value>
   </data>
   <data name="CommandLineArguments" xml:space="preserve">
     <value>Befehlszeilenargumente</value>
+  </data>
+  <data name="DescriptionAddAlias" xml:space="preserve">
+    <value>Lege einen Alias zum Starten einer Anwendung via Zero Install ohne immer die vollständige URI eingeben zu müssen an.</value>
   </data>
   <data name="DescriptionAddFeed" xml:space="preserve">
     <value>Registriere eine zusätzliche Implementierungsquelle (Versionen) für ein Programm.</value>
@@ -180,8 +211,20 @@
   <data name="DescriptionSelfUpdate" xml:space="preserve">
     <value>Aktualisiere Zero Install selber auf die neuste verfügbar Version.</value>
   </data>
+  <data name="DescriptionSync" xml:space="preserve">
+    <value>Synchronisiere die Anwendungsliste mit dem Server.</value>
+  </data>
   <data name="DescriptionUpdate" xml:space="preserve">
     <value>Prüft ob Updates für das Programm vorhanden sind und lädt die gefundenen herunter. Dies ist gleichbedeutend wie '0install download --refresh', mit dem Zusatz, dass Informationen über das Auffinden von Änderungen ausgegeben werden.</value>
+  </data>
+  <data name="DesktopIntegration" xml:space="preserve">
+    <value>Desktopintegration</value>
+  </data>
+  <data name="DesktopIntegrationDone" xml:space="preserve">
+    <value>Die angeforderten Änderungen an der Desktopintegration für '{0}' sind abgeschlossen.</value>
+  </data>
+  <data name="DesktopIntegrationSyncDone" xml:space="preserve">
+    <value>Anwendungsliste mit Server synchronisiert.</value>
   </data>
   <data name="DownloadComplete" xml:space="preserve">
     <value>Download abgeschlossen</value>
@@ -234,6 +277,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
     <value>Kann nur mit Feed IDs aktualisieren, nicht mit Selections Dokumenten.</value>
   </data>
+  <data name="NotAvailableInPortableMode" xml:space="preserve">
+    <value>Dieser Vorgang steht im Portable Modus nicht zur Verfügung.</value>
+  </data>
   <data name="NotParsed" xml:space="preserve">
     <value>Parse wurde noch nicht aufgerufen.</value>
   </data>
@@ -242,6 +288,12 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   </data>
   <data name="OptionAlgorithm" xml:space="preserve">
     <value>Der {HASH} algorithmus der für den Digest verwendet werden soll.</value>
+  </data>
+  <data name="OptionAliasRemove" xml:space="preserve">
+    <value>Entferne einen bestehenden Alias.</value>
+  </data>
+  <data name="OptionAliasResolve" xml:space="preserve">
+    <value>Gebe die Interface URI für den angegebenen Alias aus.</value>
   </data>
   <data name="OptionBatch" xml:space="preserve">
     <value>Im Stapelverarbeitungsmodus ausführen: dem Benutzer keine Meldungen zeigen und Rückfragen stillschweigend mit "Nein" beantworten.</value>
@@ -292,6 +344,9 @@ Darf keine Befehlszeilenargumente enthalten! Leerzeichen müssen nicht escaped w
   <data name="OptionSource" xml:space="preserve">
     <value>Wählt Quellecode anstelle einer Binärdatei aus. Dies wird intern von '0compile' verwendet.</value>
   </data>
+  <data name="OptionSyncReset" xml:space="preserve">
+    <value>Setze die Synchronisationsdaten zurück. Mögliche {MODE}s sind 'none' (führe Daten vom Client und Server normal zusammen), 'client' (ersetze alle Daten auf dem Client mit Daten vom Server) und 'server' (ersetze alle Daten auf dem Server mit Daten vom Client).</value>
+  </data>
   <data name="OptionVerbose" xml:space="preserve">
     <value>Ausführlichere Ausgaben. Verwenden Sie die Option zweimal um noch ausführlicher informiert zu werden.</value>
   </data>
@@ -324,11 +379,17 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   <data name="TryHelpWith" xml:space="preserve">
     <value>Probieren Sie --help mit einem der folgenden:</value>
   </data>
+  <data name="UnknownCategory" xml:space="preserve">
+    <value>Unbekannte Kategorie: {0}</value>
+  </data>
   <data name="UnknownCommand" xml:space="preserve">
     <value>Unbekannter Befehl '{0}'.</value>
   </data>
   <data name="UnknownOption" xml:space="preserve">
     <value>Unbekannte Option.</value>
+  </data>
+  <data name="UnknownResetMode" xml:space="preserve">
+    <value>Unbekannter Synchronisations-Reset Modus.</value>
   </data>
   <data name="UpdateProblem" xml:space="preserve">
     <value>Konnte nicht nach Updates suchen</value>

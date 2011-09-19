@@ -120,6 +120,9 @@
   <data name="ActionAddFeed" xml:space="preserve">
     <value>Adding additional feed</value>
   </data>
+  <data name="ActionAppCommand" xml:space="preserve">
+    <value>Managing desktop integration</value>
+  </data>
   <data name="ActionDigest" xml:space="preserve">
     <value>Calculating digest</value>
   </data>
@@ -135,17 +138,48 @@
   <data name="ActionSelfUpdate" xml:space="preserve">
     <value>Updating Zero Install</value>
   </data>
+  <data name="ActionSync" xml:space="preserve">
+    <value>Synchronizing</value>
+  </data>
   <data name="ActionUpdate" xml:space="preserve">
     <value>Checking for updates</value>
   </data>
+  <data name="AliasCreated" xml:space="preserve">
+    <value>An alias named '{0}' for '{1}' was created.
+You may have to close and reopen your terminal for this to become effective.</value>
+  </data>
+  <data name="AliasNotFound" xml:space="preserve">
+    <value>No existing alias named '{0}' was found.</value>
+  </data>
+  <data name="AliasRemoved" xml:space="preserve">
+    <value>The alias named '{0}' for '{1}' was removed.</value>
+  </data>
   <data name="AllComponentsDownloaded" xml:space="preserve">
     <value>All required components have been downloaded.</value>
+  </data>
+  <data name="AppAlias" xml:space="preserve">
+    <value>Application alias</value>
+  </data>
+  <data name="AppList" xml:space="preserve">
+    <value>Application list</value>
+  </data>
+  <data name="AppListAdded" xml:space="preserve">
+    <value>'{0}' was added to the application list.</value>
+  </data>
+  <data name="AppListRemoved" xml:space="preserve">
+    <value>'{0}' was removed from the application list.</value>
   </data>
   <data name="ChangesFound" xml:space="preserve">
     <value>Changes found:</value>
   </data>
   <data name="CommandLineArguments" xml:space="preserve">
     <value>Command-line arguments:</value>
+  </data>
+  <data name="DescriptionAddAlias" xml:space="preserve">
+    <value>Create an alias for launching an application via 0install without always having to enter the full URI.</value>
+  </data>
+  <data name="DescriptionAddApp" xml:space="preserve">
+    <value>Add an application to the application list.</value>
   </data>
   <data name="DescriptionAddFeed" xml:space="preserve">
     <value>Register an additional source of implementations (versions) of a program.</value>
@@ -162,11 +196,17 @@
   <data name="DescriptionImport" xml:space="preserve">
     <value>Import a feed from a local file, as if it had been downloaded from the network. This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again. The file must have a trusted digital signature, as when fetching from the network.</value>
   </data>
+  <data name="DescriptionIntegrateApp" xml:space="preserve">
+    <value>Add an application to the application list (if missing) and integrate it into the desktop environment.</value>
+  </data>
   <data name="DescriptionList" xml:space="preserve">
     <value>List all known interface (program) URIs. If a search term is given, only URIs containing that string are shown (case insensitive).</value>
   </data>
   <data name="DescriptionListFeeds" xml:space="preserve">
     <value>List all extra feeds added to URI using '0install add-feed'.</value>
+  </data>
+  <data name="DescriptionRemoveApp" xml:space="preserve">
+    <value>Remove an application from the application list and undoes any desktop environment integration.</value>
   </data>
   <data name="DescriptionRemoveFeed" xml:space="preserve">
     <value>Un-register a feed, reversing the effect of 'add-feed'. </value>
@@ -180,8 +220,20 @@
   <data name="DescriptionSelfUpdate" xml:space="preserve">
     <value>Update Zero Install itself to the most recent version.</value>
   </data>
+  <data name="DescriptionSync" xml:space="preserve">
+    <value>Synchronize the application list with the server.</value>
+  </data>
   <data name="DescriptionUpdate" xml:space="preserve">
     <value>Check for updates to the program and download them if found. This is similar to '0install download --refresh', except that it prints information about whether any changes were found.</value>
+  </data>
+  <data name="DesktopIntegration" xml:space="preserve">
+    <value>Desktop integration</value>
+  </data>
+  <data name="DesktopIntegrationDone" xml:space="preserve">
+    <value>The requested changes to the desktop integration for '{0}' have been completed.</value>
+  </data>
+  <data name="DesktopIntegrationSyncDone" xml:space="preserve">
+    <value>Synchronized application list with server.</value>
   </data>
   <data name="DownloadComplete" xml:space="preserve">
     <value>Download complete</value>
@@ -234,6 +286,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
     <value>Can only update with Feed IDs, not with selections documents.</value>
   </data>
+  <data name="NotAvailableInPortableMode" xml:space="preserve">
+    <value>This operation is not available in portable mode.</value>
+  </data>
   <data name="NotParsed" xml:space="preserve">
     <value>Parse hasn't been called yet.</value>
   </data>
@@ -242,6 +297,24 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   </data>
   <data name="OptionAlgorithm" xml:space="preserve">
     <value>The {HASH} algorithm to use for the digest.</value>
+  </data>
+  <data name="OptionAliasRemove" xml:space="preserve">
+    <value>Removes an existing alias.</value>
+  </data>
+  <data name="OptionAliasResolve" xml:space="preserve">
+    <value>Print the interface URI for the given alias.</value>
+  </data>
+  <data name="OptionAppAdd" xml:space="preserve">
+    <value>Applies all {CATEGORY} access points.</value>
+  </data>
+  <data name="OptionAppCategory" xml:space="preserve">
+    <value>{CATEGORY} must be on of the following: </value>
+  </data>
+  <data name="OptionAppImplicitCategory" xml:space="preserve">
+    <value>Note: '{0}' are added implicitly if nothing else is specified.</value>
+  </data>
+  <data name="OptionAppRemove" xml:space="preserve">
+    <value>Removes all {CATEGORY} access points.</value>
   </data>
   <data name="OptionBatch" xml:space="preserve">
     <value>Run in batch mode: don't display progress reports to the user and silently answer all questions with "No". Use a tray icon when in GUI mode.</value>
@@ -257,6 +330,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   </data>
   <data name="OptionForceSelfUpdate" xml:space="preserve">
     <value>Perform the update even if the currently installed version is the same or newer.</value>
+  </data>
+  <data name="OptionGlobal" xml:space="preserve">
+    <value>Apply the configuration system-wide instead of just for the current user.</value>
   </data>
   <data name="OptionGui" xml:space="preserve">
     <value>Show the graphical policy editor. This allows you to select which version of a program or library to use.</value>
@@ -292,6 +368,9 @@ May not contain command-line arguments! Whitespaces do not need to be escaped.</
   <data name="OptionSource" xml:space="preserve">
     <value>Select source code rather than a binary. This is used internally by '0compile'.</value>
   </data>
+  <data name="OptionSyncReset" xml:space="preserve">
+    <value>Reset the synchronization data. Possible {MODE}s are 'none' (merge data from client and server normally), 'client' (replace all data on client with data from server) and 'server' (replace all data on server with data from client).</value>
+  </data>
   <data name="OptionVerbose" xml:space="preserve">
     <value>More verbose output. Use twice for even more verbose output.</value>
   </data>
@@ -324,11 +403,17 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   <data name="TryHelpWith" xml:space="preserve">
     <value>Try --help with one of these:</value>
   </data>
+  <data name="UnknownCategory" xml:space="preserve">
+    <value>Unknown category: {0}</value>
+  </data>
   <data name="UnknownCommand" xml:space="preserve">
     <value>Unknown command '{0}'.</value>
   </data>
   <data name="UnknownOption" xml:space="preserve">
     <value>Unknown option.</value>
+  </data>
+  <data name="UnknownResetMode" xml:space="preserve">
+    <value>Unknown synchronization reset mode.</value>
   </data>
   <data name="UpdateProblem" xml:space="preserve">
     <value>Unable to check for updates</value>

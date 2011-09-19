@@ -70,6 +70,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Managing desktop integration.
+        /// </summary>
+        internal static string ActionAppCommand {
+            get {
+                return ResourceManager.GetString("ActionAppCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Calculating digest.
         /// </summary>
         internal static string ActionDigest {
@@ -115,6 +124,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Synchronizing.
+        /// </summary>
+        internal static string ActionSync {
+            get {
+                return ResourceManager.GetString("ActionSync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking for updates.
         /// </summary>
         internal static string ActionUpdate {
@@ -124,11 +142,75 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An alias named &apos;{0}&apos; for &apos;{1}&apos; was created.
+        ///You may have to close and reopen your terminal for this to become effective..
+        /// </summary>
+        internal static string AliasCreated {
+            get {
+                return ResourceManager.GetString("AliasCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No existing alias named &apos;{0}&apos; was found..
+        /// </summary>
+        internal static string AliasNotFound {
+            get {
+                return ResourceManager.GetString("AliasNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The alias named &apos;{0}&apos; for &apos;{1}&apos; was removed..
+        /// </summary>
+        internal static string AliasRemoved {
+            get {
+                return ResourceManager.GetString("AliasRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All required components have been downloaded..
         /// </summary>
         internal static string AllComponentsDownloaded {
             get {
                 return ResourceManager.GetString("AllComponentsDownloaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application alias.
+        /// </summary>
+        internal static string AppAlias {
+            get {
+                return ResourceManager.GetString("AppAlias", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application list.
+        /// </summary>
+        internal static string AppList {
+            get {
+                return ResourceManager.GetString("AppList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; was added to the application list..
+        /// </summary>
+        internal static string AppListAdded {
+            get {
+                return ResourceManager.GetString("AppListAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; was removed from the application list..
+        /// </summary>
+        internal static string AppListRemoved {
+            get {
+                return ResourceManager.GetString("AppListRemoved", resourceCulture);
             }
         }
         
@@ -147,6 +229,24 @@ namespace ZeroInstall.Commands.Properties {
         internal static string CommandLineArguments {
             get {
                 return ResourceManager.GetString("CommandLineArguments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create an alias for launching an application via 0install without always having to enter the full URI..
+        /// </summary>
+        internal static string DescriptionAddAlias {
+            get {
+                return ResourceManager.GetString("DescriptionAddAlias", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add an application to the application list..
+        /// </summary>
+        internal static string DescriptionAddApp {
+            get {
+                return ResourceManager.GetString("DescriptionAddApp", resourceCulture);
             }
         }
         
@@ -196,6 +296,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add an application to the application list (if missing) and integrate it into the desktop environment..
+        /// </summary>
+        internal static string DescriptionIntegrateApp {
+            get {
+                return ResourceManager.GetString("DescriptionIntegrateApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to List all known interface (program) URIs. If a search term is given, only URIs containing that string are shown (case insensitive)..
         /// </summary>
         internal static string DescriptionList {
@@ -210,6 +319,15 @@ namespace ZeroInstall.Commands.Properties {
         internal static string DescriptionListFeeds {
             get {
                 return ResourceManager.GetString("DescriptionListFeeds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove an application from the application list and undoes any desktop environment integration..
+        /// </summary>
+        internal static string DescriptionRemoveApp {
+            get {
+                return ResourceManager.GetString("DescriptionRemoveApp", resourceCulture);
             }
         }
         
@@ -250,11 +368,47 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Synchronize the application list with the server..
+        /// </summary>
+        internal static string DescriptionSync {
+            get {
+                return ResourceManager.GetString("DescriptionSync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check for updates to the program and download them if found. This is similar to &apos;0install download --refresh&apos;, except that it prints information about whether any changes were found..
         /// </summary>
         internal static string DescriptionUpdate {
             get {
                 return ResourceManager.GetString("DescriptionUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Desktop integration.
+        /// </summary>
+        internal static string DesktopIntegration {
+            get {
+                return ResourceManager.GetString("DesktopIntegration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The requested changes to the desktop integration for &apos;{0}&apos; have been completed..
+        /// </summary>
+        internal static string DesktopIntegrationDone {
+            get {
+                return ResourceManager.GetString("DesktopIntegrationDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Synchronized application list with server..
+        /// </summary>
+        internal static string DesktopIntegrationSyncDone {
+            get {
+                return ResourceManager.GetString("DesktopIntegrationSyncDone", resourceCulture);
             }
         }
         
@@ -406,6 +560,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This operation is not available in portable mode..
+        /// </summary>
+        internal static string NotAvailableInPortableMode {
+            get {
+                return ResourceManager.GetString("NotAvailableInPortableMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parse hasn&apos;t been called yet..
         /// </summary>
         internal static string NotParsed {
@@ -429,6 +592,60 @@ namespace ZeroInstall.Commands.Properties {
         internal static string OptionAlgorithm {
             get {
                 return ResourceManager.GetString("OptionAlgorithm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removes an existing alias..
+        /// </summary>
+        internal static string OptionAliasRemove {
+            get {
+                return ResourceManager.GetString("OptionAliasRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Print the interface URI for the given alias..
+        /// </summary>
+        internal static string OptionAliasResolve {
+            get {
+                return ResourceManager.GetString("OptionAliasResolve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applies all {CATEGORY} access points..
+        /// </summary>
+        internal static string OptionAppAdd {
+            get {
+                return ResourceManager.GetString("OptionAppAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {CATEGORY} must be on of the following: .
+        /// </summary>
+        internal static string OptionAppCategory {
+            get {
+                return ResourceManager.GetString("OptionAppCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note: &apos;{0}&apos; are added implicitly if nothing else is specified..
+        /// </summary>
+        internal static string OptionAppImplicitCategory {
+            get {
+                return ResourceManager.GetString("OptionAppImplicitCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removes all {CATEGORY} access points..
+        /// </summary>
+        internal static string OptionAppRemove {
+            get {
+                return ResourceManager.GetString("OptionAppRemove", resourceCulture);
             }
         }
         
@@ -474,6 +691,15 @@ namespace ZeroInstall.Commands.Properties {
         internal static string OptionForceSelfUpdate {
             get {
                 return ResourceManager.GetString("OptionForceSelfUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply the configuration system-wide instead of just for the current user..
+        /// </summary>
+        internal static string OptionGlobal {
+            get {
+                return ResourceManager.GetString("OptionGlobal", resourceCulture);
             }
         }
         
@@ -578,6 +804,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reset the synchronization data. Possible {MODE}s are &apos;none&apos; (merge data from client and server normally), &apos;client&apos; (replace all data on client with data from server) and &apos;server&apos; (replace all data on server with data from client)..
+        /// </summary>
+        internal static string OptionSyncReset {
+            get {
+                return ResourceManager.GetString("OptionSyncReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to More verbose output. Use twice for even more verbose output..
         /// </summary>
         internal static string OptionVerbose {
@@ -670,6 +905,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unknown category: {0}.
+        /// </summary>
+        internal static string UnknownCategory {
+            get {
+                return ResourceManager.GetString("UnknownCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown command &apos;{0}&apos;..
         /// </summary>
         internal static string UnknownCommand {
@@ -684,6 +928,15 @@ namespace ZeroInstall.Commands.Properties {
         internal static string UnknownOption {
             get {
                 return ResourceManager.GetString("UnknownOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown synchronization reset mode..
+        /// </summary>
+        internal static string UnknownResetMode {
+            get {
+                return ResourceManager.GetString("UnknownResetMode", resourceCulture);
             }
         }
         

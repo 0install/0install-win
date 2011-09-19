@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using Common.Storage;
 using NUnit.Framework;
 
@@ -32,7 +33,23 @@ namespace ZeroInstall.Model.Capabilities
         /// </summary>
         public static CapabilityList CreateTestCapabilityList()
         {
-            return new CapabilityList();
+            var testIcon = new Icon(new Uri("http://0install.de/feeds/icons/test.ico"), "image/vnd.microsoft.icon");
+            var testVerb = new Verb {Name = Verb.NameOpen, Descriptions = {"Verb description"}, Command = Command.NameRun, Arguments = "--open"};
+            return new CapabilityList
+            {
+                Architecture = new Architecture(OS.Windows, Cpu.All),
+                Entries =
+                {
+                    new AppRegistration {ID = "myapp", CapabilityRegPath = @"SOFTWARE\MyApp\Capabilities", X64 = true},
+                    new AutoPlay {ID = "autoplay", Descriptions = {"Do somthing"}, Icons = {testIcon}, Provider = "MyApp", ProgID = "MyApp.Burn", Verb = testVerb, Events = {new AutoPlayEvent {Name = AutoPlayEvent.NameBurnCD}}},
+                    new ComServer {ID = "com-server"},
+                    new ContextMenu {ID = "context-menu", AllObjects = true, Verb = testVerb},
+                    new DefaultProgram {ID = "default-program", Descriptions = {"My mail client"}, Icons = {testIcon}, Verbs = {testVerb}, Service = "Mail", InstallCommands = new InstallCommands {ShowIcons = "helper.exe --show", HideIcons = "helper.exe --hide", Reinstall = "helper.exe --reinstall.exe"}},
+                    new FileType {ID = "my_ext", Descriptions = {"Text file"}, Icons = {testIcon}, Extensions = {new FileTypeExtension {Value = "txt", MimeType = "text/plain"}}, Verbs = {testVerb}},
+                    new GamesExplorer {ID = "games-explorer"},
+                    new UrlProtocol {ID = "my_protocol", Descriptions = {"My protocol"}, Icons = {testIcon}, Verbs = {testVerb}, KnownPrefixes = {new KnownProtocolPrefix {Value = "my-protocol"}}}
+                }
+            };
         }
         #endregion
 
@@ -57,13 +74,13 @@ namespace ZeroInstall.Model.Capabilities
         [Test(Description = "Ensures that the class can be correctly cloned.")]
         public void TestClone()
         {
-            var archive1 = CreateTestCapabilityList();
-            var archive2 = archive1.CloneCapabilityList();
+            var capabilityList1 = CreateTestCapabilityList();
+            var capabilityList2 = capabilityList1.CloneCapabilityList();
 
             // Ensure data stayed the same
-            Assert.AreEqual(archive1, archive2, "Cloned objects should be equal.");
-            Assert.AreEqual(archive1.GetHashCode(), archive2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(archive1, archive2), "Cloning should not return the same reference.");
+            Assert.AreEqual(capabilityList1, capabilityList2, "Cloned objects should be equal.");
+            Assert.AreEqual(capabilityList1.GetHashCode(), capabilityList2.GetHashCode(), "Cloned objects' hashes should be equal.");
+            Assert.IsFalse(ReferenceEquals(capabilityList1, capabilityList2), "Cloning should not return the same reference.");
         }
     }
 }

@@ -149,6 +149,20 @@
       <SubType>Content</SubType>
       <DependentUpon>UML\Sequence\DirectoryStore_AddArchive.sequencediagram</DependentUpon>
     </Content>
+    <Content Include="UML\Sequence\Hooking_CreateProccess.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="UML\Sequence\Hooking_CreateProccess.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>UML\Sequence\Hooking_CreateProccess.sequencediagram</DependentUpon>
+    </Content>
+    <Content Include="UML\Sequence\Hooking_RegQueryValueEx.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="UML\Sequence\Hooking_RegQueryValueEx.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>UML\Sequence\Hooking_RegQueryValueEx.sequencediagram</DependentUpon>
+    </Content>
     <Content Include="UML\Sequence\ManifestGenerator_RunTask.sequencediagram">
       <SubType>Content</SubType>
     </Content>

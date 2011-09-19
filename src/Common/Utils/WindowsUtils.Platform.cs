@@ -23,6 +23,7 @@
 using System;
 using System.Diagnostics;
 using System.Security.Principal;
+using System.Text;
 
 namespace Common.Utils
 {
@@ -93,6 +94,19 @@ namespace Common.Utils
                 if (identity == null) return true;
 
                 return new WindowsPrincipal(identity).IsInRole(WindowsBuiltInRole.Administrator);
+            }
+        }
+
+        /// <summary>
+        /// Determines the path of the executable the current process was launched from.
+        /// </summary>
+        public static string CurrentProcessPath
+        {
+            get
+            {
+                var fileName = new StringBuilder(255);
+                SafeNativeMethods.GetModuleFileName(IntPtr.Zero, fileName, fileName.Capacity);
+                return fileName.ToString();
             }
         }
     }

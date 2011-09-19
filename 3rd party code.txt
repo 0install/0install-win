@@ -39,3 +39,10 @@ http://code.google.com/p/ini-parser/
 MIT License: http://www.opensource.org/licenses/mit-license.php
 Source unmodified
 Pre-compiled managed DLL: INIFileParser.dll
+
+EasyHook 2.6
+http://easyhook.codeplex.com/
+GNU LGPL: http://www.gnu.org/copyleft/lesser.html
+Source unmodified
+Pre-compiled managed DLL: EasyHook.dll
+Pre-compiled unmanaged DLLs: EasyHook32.dll, EasyHook64.dll

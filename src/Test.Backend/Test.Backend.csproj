@@ -81,6 +81,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DesktopIntegration\IntegrationManagerTest.cs" />
     <Compile Include="Fetchers\FetcherStoreInteraction.cs" />
     <Compile Include="Fetchers\FetcherTests.cs" />
     <Compile Include="Fetchers\PackageBuilderManifestExtension.cs" />

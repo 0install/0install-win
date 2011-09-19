@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2011 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -31,18 +32,33 @@ namespace ZeroInstall.Model.Capabilities
         /// <summary>
         /// The XML namespace used for storing application capabilities.
         /// </summary>
-        public const string XmlNamespace = "http://0install.de/schema/injector/capabilities";
+        public const string XmlNamespace = "http://0install.de/schema/desktop-integration/capabilities";
         #endregion
 
         #region Properties
         /// <summary>
-        /// The name of the command in the <see cref="Feed"/> to use when launching via this capability.
+        /// Indicates whether this capability can be registered only system-wide and not per-user on Windows systems.
         /// </summary>
-        [Description("The name of the command in the feed to use when launching via this capability.")]
-        [XmlAttribute("command")]
-        public string Command { get; set; }
+        [XmlIgnore]
+        public abstract bool WindowsSystemWideOnly { get; }
+
+        /// <summary>
+        /// An ID that differentiates this capability from other capabilities of the same time within the interface. Also serves as a programmatic identifier within the desktop environment.
+        /// </summary>
+        /// <remarks>In case of conflicts, the first capability listed with a specific ID will take precedence.</remarks>
+        [Description("An ID that differentiates this capability from other capabilities of the same time within the interface. Also serves as a programmatic identifier within the desktop environment.")]
+        [XmlAttribute("id")]
+        public string ID { get; set; }
+
+        /// <summary>
+        /// Identifiers from a namespace global to all <see cref="Capability"/>s.
+        /// Collisions in this namespace indicate that the concered <see cref="Capability"/>s are in conflict cannot be registered on a single system at the same time.
+        /// </summary>
+        /// <remarks>These identifiers are not guaranteed to stay the same between versions. They should not be stored in files but instead always generated on demand.</remarks>
+        [XmlIgnore]
+        public abstract IEnumerable<string> ConflictIDs { get; }
         #endregion
-        
+
         //--------------------//
 
         #region Clone
@@ -59,6 +75,22 @@ namespace ZeroInstall.Model.Capabilities
         public object Clone()
         {
             return CloneCapability();
+        }
+        #endregion
+
+        #region Equality
+        /// <inheritdoc/>
+        protected bool Equals(Capability other)
+        {
+            if (other == null) return false;
+
+            return other.ID == ID;
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return (ID ?? "").GetHashCode();
         }
         #endregion
     }

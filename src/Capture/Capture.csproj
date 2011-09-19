@@ -50,7 +50,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CaptureUtils.cs" />
+    <Compile Include="CaptureDir.AppRegistration.cs" />
+    <Compile Include="CaptureDir.AutoPlay.cs" />
+    <Compile Include="CaptureDir.Commands.cs" />
+    <Compile Include="CaptureDir.ComServer.cs" />
+    <Compile Include="CaptureDir.ContextMenu.cs" />
+    <Compile Include="CaptureDir.cs" />
+    <Compile Include="CaptureDir.DefaultProgram.cs" />
+    <Compile Include="CaptureDir.FileType.cs" />
+    <Compile Include="CaptureDir.GamesExplorer.cs" />
+    <Compile Include="CaptureDir.UrlProtocol.cs" />
+    <Compile Include="CommandProvider.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -58,6 +68,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="RegUtils.cs" />
+    <Compile Include="Snapshot.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -87,6 +99,7 @@
       <Name>Publish</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

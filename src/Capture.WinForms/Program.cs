@@ -17,12 +17,14 @@
 
 using System;
 using System.Windows.Forms;
+#if !DEBUG
 using Common.Controls;
+#endif
 
 namespace ZeroInstall.Capture.WinForms
 {
     /// <summary>
-    /// Launches a WinForms-based editor for Zero Install feed XMLs.
+    /// Launches a WinForms-based tool for capturing application installations to feeds.
     /// </summary>
     public static class Program
     {

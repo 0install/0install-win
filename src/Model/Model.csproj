@@ -51,8 +51,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Architecture.cs" />
+    <Compile Include="Capabilities\AppRegistration.cs" />
+    <Compile Include="Capabilities\AutoPlayEvent.cs" />
     <Compile Include="Capabilities\Capability.cs" />
     <Compile Include="Capabilities\CapabilityList.cs" />
+    <Compile Include="Capabilities\ComServer.cs" />
+    <Compile Include="Capabilities\ContextMenu.cs" />
+    <Compile Include="Capabilities\DefaultCapability.cs" />
+    <Compile Include="Capabilities\DefaultProgram.cs" />
+    <Compile Include="Capabilities\FileType.cs" />
+    <Compile Include="Capabilities\AutoPlay.cs" />
+    <Compile Include="Capabilities\FileTypeExtension.cs" />
+    <Compile Include="Capabilities\IconCapability.cs" />
+    <Compile Include="Capabilities\InstallCommands.cs" />
+    <Compile Include="Capabilities\KnownProtocolPrefix.cs" />
+    <Compile Include="Capabilities\Verb.cs" />
+    <Compile Include="Capabilities\GamesExplorer.cs" />
+    <Compile Include="Capabilities\UrlProtocol.cs" />
+    <Compile Include="Capabilities\VerbCapability.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Design\ArchitectureConverter.cs" />
     <Compile Include="Archive.cs" />
@@ -110,6 +126,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Capabilities\ClassDiagram.cd" />
+    <None Include="Capabilities\CapabilityList.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Dependency.cd" />
     <None Include="Element.cd" />
     <None Include="Feed.xsd">
