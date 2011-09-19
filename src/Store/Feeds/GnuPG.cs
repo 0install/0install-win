@@ -170,7 +170,10 @@ namespace ZeroInstall.Store.Feeds
             var signatures = new List<OpenPgpSignature>(lines.Length);
             foreach (var line in lines)
             {
-                if (line.StartsWith("[GNUPG:]")) signatures.Add(OpenPgpSignature.Parse(line));
+                if (!line.StartsWith("[GNUPG:]") || !line.EndsWith("\n")) continue;
+
+                var parsedSignature = OpenPgpSignature.Parse(line);
+                if (parsedSignature != null) signatures.Add(parsedSignature);
             }
 
             return signatures;
