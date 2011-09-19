@@ -21,6 +21,7 @@ using System.IO;
 using System.Xml.Serialization;
 using Common.Tasks;
 using Common.Utils;
+using Microsoft.Win32;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
@@ -39,11 +40,13 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         #endregion
 
         #region Apply
-        /// <summary>The file path for the coressponding Windows shortcut file.</summary>
-        private string GetWindowsCategoryPath(bool systemWide)
+        /// <inheritdoc/>
+        private string GetWindowsShortcutPath(bool systemWide)
         {
-            // ToDo: Handle system-wide shortcuts
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), Name + ".lnk");
+            string desktopDir = systemWide
+                ? Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "Common Desktop", "").ToString()
+                : Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            return Path.Combine(desktopDir, Name + ".lnk");
         }
 
         /// <inheritdoc/>
@@ -56,7 +59,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             if (WindowsUtils.IsWindows)
             {
-                Windows.ShortcutManager.CreateShortcut(GetWindowsCategoryPath(systemWide), target, Command, systemWide, handler);
+                Windows.ShortcutManager.CreateShortcut(GetWindowsShortcutPath(systemWide), target, Command, systemWide, handler);
             }
         }
 
@@ -69,7 +72,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             if (WindowsUtils.IsWindows)
             {
-                if (File.Exists(GetWindowsCategoryPath(systemWide))) File.Delete(GetWindowsCategoryPath(systemWide));
+                try { File.Delete(GetWindowsShortcutPath(systemWide)); }
+                catch (FileNotFoundException) {}
             }
         }
         #endregion

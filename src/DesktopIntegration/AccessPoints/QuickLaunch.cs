@@ -17,8 +17,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml.Serialization;
 using Common.Tasks;
+using Common.Utils;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
@@ -38,6 +40,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Apply
         /// <inheritdoc/>
+        private string GetWindowsShortcutPath()
+        {
+            return FileUtils.PathCombine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Microsoft", "Internet Explorer", "Quick Launch", Name + ".lnk");
+        }
+
+        /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, InterfaceFeed target, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
@@ -45,7 +53,10 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // ToDo: Implement
+            if (WindowsUtils.IsWindows && !systemWide)
+            {
+                Windows.ShortcutManager.CreateShortcut(GetWindowsShortcutPath(), target, Command, false, handler);
+            }
         }
 
         /// <inheritdoc/>
@@ -55,7 +66,10 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            // ToDo: Implement
+            if (WindowsUtils.IsWindows && !systemWide)
+            {
+                if (File.Exists(GetWindowsShortcutPath())) File.Delete(GetWindowsShortcutPath());
+            }
         }
         #endregion
 

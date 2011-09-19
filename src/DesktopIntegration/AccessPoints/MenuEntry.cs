@@ -22,6 +22,7 @@ using System.IO;
 using System.Xml.Serialization;
 using Common.Tasks;
 using Common.Utils;
+using Microsoft.Win32;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
@@ -51,18 +52,18 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         #endregion
 
         #region Apply
-        /// <summary>The directory path for the coressponding Windows start menu category.</summary>
+        /// <summary>The directory path for the Windows start menu category.</summary>
         private string GetWindowsCategoryPath(bool systemWide)
         {
-            // ToDo: Handle system-wide shortcuts
-            string menuDir = Environment.GetFolderPath(Environment.SpecialFolder.Programs);
+            string menuDir = systemWide
+                ? Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "Common Programs", "").ToString()
+                : Environment.GetFolderPath(Environment.SpecialFolder.Programs);
             return (string.IsNullOrEmpty(Category) ? menuDir : Path.Combine(menuDir, Category));
         }
 
-        /// <summary>The file path for the coressponding Windows shortcut file.</summary>
+        /// <summary>The file path for the Windows shortcut file.</summary>
         private string GetWindowsShortcutPath(bool systemWide)
         {
-            // ToDo: Handle system-wide shortcuts
             return Path.Combine(GetWindowsCategoryPath(systemWide), Name + ".lnk");
         }
 
@@ -76,7 +77,9 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             if (WindowsUtils.IsWindows)
             {
+                // Create category directory if missing
                 if (!Directory.Exists(GetWindowsCategoryPath(systemWide))) Directory.CreateDirectory(GetWindowsCategoryPath(systemWide));
+
                 Windows.ShortcutManager.CreateShortcut(GetWindowsShortcutPath(systemWide), target, Command, systemWide, handler);
             }
         }
@@ -90,7 +93,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             if (WindowsUtils.IsWindows)
             {
-                if (File.Exists(GetWindowsShortcutPath(systemWide))) File.Delete(GetWindowsShortcutPath(systemWide));
+                try { File.Delete(GetWindowsShortcutPath(systemWide)); }
+                catch (FileNotFoundException) {}
 
                 // Delete category directory if empty
                 if (Directory.GetFiles(GetWindowsCategoryPath(systemWide)).Length == 0) Directory.Delete(GetWindowsCategoryPath(systemWide), false);
