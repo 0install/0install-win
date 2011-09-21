@@ -20,6 +20,7 @@ using System.IO;
 using Common;
 using Common.Cli;
 using Common.Tasks;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
@@ -137,10 +138,10 @@ namespace ZeroInstall.Commands
         #endregion
 
         #region Dialogs
-        public bool ShowIntegrateApp(IIntegrationManager integrationManager, string interfaceID)
+        public void ShowIntegrateApp(IIntegrationManager integrationManager, InterfaceFeed target)
         {
-            // Console UI only, so fallback to default handler
-            return false;
+            // ToDo: Implement text-based UI
+            Output(Resources.DesktopIntegration, Resources.IntegrateAppUseGui);
         }
 
         /// <inheritdoc/>

@@ -20,6 +20,7 @@ using Common.Storage;
 using Common.Tasks;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
 
@@ -39,7 +40,7 @@ namespace ZeroInstall.DesktopIntegration
         {
             _appListFile = new TemporaryFile("0install-unit-tests");
             new AppList().Save(_appListFile.Path);
-            _integrationManager = new IntegrationManager(false, _appListFile.Path);
+            _integrationManager = new IntegrationManager(false, _appListFile.Path, new SilentHandler());
         }
 
         [TearDown]
@@ -70,13 +71,13 @@ namespace ZeroInstall.DesktopIntegration
             var testApp2 = new InterfaceFeed("http://0install.de/feeds/test/test2.xml", new Feed {Name = "Test", CapabilityLists = {capabilityList}});
 
             Assert.AreEqual(0, _integrationManager.AppList.Entries.Count);
-            _integrationManager.AddAccessPoints(testApp1, new AccessPoint[] {new MockAccessPoint {ID = "id1"}}, new SilentTaskHandler());
+            _integrationManager.AddAccessPoints(testApp1, new AccessPoint[] {new MockAccessPoint {ID = "id1"}});
             Assert.AreEqual(1, _integrationManager.AppList.Entries.Count, "Should implicitly create missing AppEntries.");
 
-            Assert.DoesNotThrow(() => _integrationManager.AddAccessPoints(testApp1, new AccessPoint[] {new MockAccessPoint {ID = "id1"}}, new SilentTaskHandler()), "Duplicate access points should be silently reapplied.");
-            _integrationManager.AddAccessPoints(testApp1, new AccessPoint[] {new MockAccessPoint {ID = "id2"}}, new SilentTaskHandler());
+            Assert.DoesNotThrow(() => _integrationManager.AddAccessPoints(testApp1, new AccessPoint[] {new MockAccessPoint {ID = "id1"}}), "Duplicate access points should be silently reapplied.");
+            _integrationManager.AddAccessPoints(testApp1, new AccessPoint[] {new MockAccessPoint {ID = "id2"}});
 
-            Assert.Throws<InvalidOperationException>(() => _integrationManager.AddAccessPoints(testApp2, new AccessPoint[] {new MockAccessPoint {ID = "id2"}}, new SilentTaskHandler()), "Should prevent access point conflicts.");
+            Assert.Throws<InvalidOperationException>(() => _integrationManager.AddAccessPoints(testApp2, new AccessPoint[] {new MockAccessPoint {ID = "id2"}}), "Should prevent access point conflicts.");
         }
 
         [Test]

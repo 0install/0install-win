@@ -25,6 +25,7 @@ using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Injector;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -93,52 +94,56 @@ namespace ZeroInstall.Commands
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
             #endregion
 
-            // If user specified no specific integration options...
+            // If user specified no specific integration options show UI
             if (_addCategories.IsEmpty && _removeCategories.IsEmpty)
             {
-                // Show UI to select...
-                if (Policy.Handler.ShowIntegrateApp(integrationManager, interfaceID)) return 0;
-
-                // Or use defaults if none is available...
-                _addCategories.Add(CapabilityRegistration.CategoryName);
+                Policy.Handler.ShowIntegrateApp(integrationManager, new InterfaceFeed(interfaceID, GetFeed(interfaceID)));
+                return 0;
             }
-
-            if (Canceled) throw new UserCancelException();
 
             if (!_removeCategories.IsEmpty)
             {
                 try { integrationManager.RemoveAccessPointCategories(interfaceID, _removeCategories); }
+                #region Error handling
                 catch (InvalidOperationException ex)
                 {
-                    // Show a "nothing to do" message (but not in batch mode, since it is too unimportant));
+                    // Show a "failed to comply" message (but not in batch mode, since it is too unimportant)
                     if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, ex.Message);
-                    return 0;
+                    return 2;
                 }
+                #endregion
             }
 
-            if (_addCategories.IsEmpty)
-            { // Stop before loading the feed if only removal was requested
-                // Show a "integration complete" message (but not in batch mode, since it is too unimportant)
-                if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, interfaceID));
+            if (!_addCategories.IsEmpty)
+            {
+                var feed = GetFeed(interfaceID);
+
+                try { integrationManager.AddAccessPointCategories(new InterfaceFeed(interfaceID, feed), _addCategories, Policy.Handler); }
+                #region Error handling
+                catch (InvalidOperationException ex)
+                {
+                    // Show a "failed to comply" message (but not in batch mode, since it is too unimportant)
+                    if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, ex.Message);
+                    return 2;
+                }
+                #endregion
+
+                // Show a "integration complete" message with application name (but not in batch mode, since it is too unimportant)
+                if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, feed.Name));
                 return 0;
             }
 
+            // Show a "integration complete" message without application name (but not in batch mode, since it is too unimportant)
+            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, interfaceID));
+            return 0;
+        }
+
+        private Feed GetFeed(string interfaceID)
+        {
             bool stale;
             var feed = Policy.FeedManager.GetFeed(interfaceID, Policy, out stale);
-
             if (Canceled) throw new UserCancelException();
-
-            try { integrationManager.AddAccessPointCategories(new InterfaceFeed(interfaceID, feed), _addCategories, Policy.Handler); }
-            catch (InvalidOperationException ex)
-            {
-                // Show a "failed to comply" message
-                Policy.Handler.Output(Resources.AppList, ex.Message);
-                return 1;
-            }
-
-            // Show a "integration complete" message (but not in batch mode, since it is too unimportant)
-            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, feed.Name));
-            return 0;
+            return feed;
         }
         #endregion
     }

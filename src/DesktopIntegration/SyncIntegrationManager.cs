@@ -53,7 +53,7 @@ namespace ZeroInstall.DesktopIntegration
     /// </summary>
     /// <remarks>
     /// To prevent raceconditions there may only be one desktop integration class active at any given time.
-    /// This class becomes active upon calling its constructor and becomes inactive upon calling <see cref="IntegrationManager.Dispose()"/>.
+    /// This class aquires a mutex upon calling its constructor and releases it upon calling <see cref="IntegrationManager.Dispose"/>.
     /// </remarks>
     public class SyncIntegrationManager : IntegrationManager
     {
@@ -87,11 +87,12 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="username">The username to authenticate with against the <paramref name="syncServer"/>.</param>
         /// <param name="password">The password to authenticate with against the <paramref name="syncServer"/>.</param>
         /// <param name="cryptoKey">The local key used to encrypt data before sending it to the <paramref name="syncServer"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public SyncIntegrationManager(bool systemWide, Uri syncServer, string username, string password, string cryptoKey)
-            : base(systemWide)
+        public SyncIntegrationManager(bool systemWide, Uri syncServer, string username, string password, string cryptoKey, ITaskHandler handler)
+            : base(systemWide, handler)
         {
             #region Sanity checks
             if (syncServer == null) throw new ArgumentNullException("syncServer");
@@ -211,7 +212,7 @@ namespace ZeroInstall.DesktopIntegration
                 
 
                 // Add and apply the access points
-                AddAccessPoints(appEntry.AccessPoints.Entries, newAppEntry, new InterfaceFeed(appEntry.InterfaceID, feedRetreiver(appEntry.InterfaceID)), handler);
+                AddAccessPoints(appEntry.AccessPoints.Entries, newAppEntry, new InterfaceFeed(appEntry.InterfaceID, feedRetreiver(appEntry.InterfaceID)));
             }
         }
         #endregion

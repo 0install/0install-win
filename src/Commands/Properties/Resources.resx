@@ -264,6 +264,9 @@ You may have to close and reopen your terminal for this to become effective.</va
   <data name="FoundFeeds" xml:space="preserve">
     <value>Found feeds:</value>
   </data>
+  <data name="IntegrateAppUseGui" xml:space="preserve">
+    <value>Please use the GUI version of Zero Install or specify explicit integration options using command-line arguments.</value>
+  </data>
   <data name="LicenseInfo" xml:space="preserve">
     <value>This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
 You may redistribute copies of this program under the terms of the GNU Lesser General Public License.</value>

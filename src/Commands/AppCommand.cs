@@ -32,7 +32,7 @@ namespace ZeroInstall.Commands
     {
         #region Properties
         /// <inheritdoc/>
-        protected override string Usage { get { return "[OPTIONS] INTERFACE"; } }
+        protected override string Usage { get { return "INTERFACE [OPTIONS]"; } }
 
         /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionAppCommand; } }
@@ -60,7 +60,7 @@ namespace ZeroInstall.Commands
 
             Policy.Handler.ShowProgressUI(Cancel);
             string interfaceID = GetCanonicalID(AdditionalArgs[0]);
-            using (var integrationManager = new CategoryIntegrationManager(SystemWide))
+            using (var integrationManager = new CategoryIntegrationManager(SystemWide, Policy.Handler))
                 return ExecuteHelper(interfaceID, integrationManager);
         }
 

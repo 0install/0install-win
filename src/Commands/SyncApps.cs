@@ -84,7 +84,7 @@ namespace ZeroInstall.Commands
                 bool stale;
                 return Policy.FeedManager.GetFeed(interfaceID, Policy, out stale);
             };
-            using (var syncManager = new SyncIntegrationManager(SystemWide, Policy.Config.SyncServer, Policy.Config.SyncServerUsername, Policy.Config.SyncServerPassword, Policy.Config.SyncCryptoKey))
+            using (var syncManager = new SyncIntegrationManager(SystemWide, Policy.Config.SyncServer, Policy.Config.SyncServerUsername, Policy.Config.SyncServerPassword, Policy.Config.SyncCryptoKey, Policy.Handler))
                 syncManager.Sync(_syncResetMode, feedRetreiver, Policy.Handler);
 
             // Show a "sync complete" message (but not in batch mode, since it is too unimportant)

@@ -34,6 +34,10 @@ namespace ZeroInstall.DesktopIntegration
     /// <summary>
     /// Manages desktop integration via <see cref="AccessPoint"/>, grouping them into categories.
     /// </summary>
+    /// <remarks>
+    /// To prevent raceconditions there may only be one desktop integration class active at any given time.
+    /// This class aquires a mutex upon calling its constructor and releases it upon calling <see cref="IntegrationManager.Dispose"/>.
+    /// </remarks>
     public class CategoryIntegrationManager : IntegrationManager
     {
         #region Constants
@@ -46,7 +50,7 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Constructor
         /// <inheritdoc/>
-        public CategoryIntegrationManager(bool systemWide) : base(systemWide)
+        public CategoryIntegrationManager(bool systemWide, ITaskHandler handler) : base(systemWide, handler)
         {}
         #endregion
 
@@ -125,7 +129,7 @@ namespace ZeroInstall.DesktopIntegration
                 }
             }
 
-            AddAccessPoints(accessPointsToAdd, appEntry, target, handler);
+            AddAccessPoints(accessPointsToAdd, appEntry, target);
             if (icons && SystemWide) ToggleIconsVisible(appEntry, true);
             Complete();
         }

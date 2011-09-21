@@ -79,7 +79,7 @@ namespace ZeroInstall.Commands
 
             if (AdditionalArgs.Count < 1 || string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
 
-            using (var integrationManager = new IntegrationManager(SystemWide))
+            using (var integrationManager = new IntegrationManager(SystemWide, Policy.Handler))
             {
                 if (_resolve || _remove)
                 {
@@ -115,7 +115,7 @@ namespace ZeroInstall.Commands
 
             // Apply the new alias
             var alias = new AppAlias {Name = aliasName, Command = command};
-            try { integrationManager.AddAccessPoints(new InterfaceFeed(interfaceID, feed), new AccessPoint[] {alias}, Policy.Handler); }
+            try { integrationManager.AddAccessPoints(new InterfaceFeed(interfaceID, feed), new AccessPoint[] {alias}); }
             catch (InvalidOperationException ex)
             {
                 // Show a "failed to comply" message

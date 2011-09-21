@@ -41,6 +41,7 @@
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.Name = "IntegrateAppForm";
             this.Text = "Integrate application";
+            this.Load += new System.EventHandler(this.IntegrateAppForm_Load);
             this.ResumeLayout(false);
 
         }

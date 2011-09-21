@@ -21,7 +21,6 @@ using System.IO;
 using System.Net;
 using Common;
 using Common.Collections;
-using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
@@ -92,19 +91,17 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="accessPoints">The access points to unapply.</param>
         /// <param name="appEntry">The <see cref="AppEntry"/> containing the <paramref name="accessPoints"/>.</param>
         /// <param name="target">The application being integrated.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="InvalidOperationException">Thrown if one or more of the <paramref name="accessPoints"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Capabilities.Capability"/>s is invalid.</exception>
-        protected void AddAccessPoints(IEnumerable<AccessPoint> accessPoints, AppEntry appEntry, InterfaceFeed target, ITaskHandler handler)
+        protected void AddAccessPoints(IEnumerable<AccessPoint> accessPoints, AppEntry appEntry, InterfaceFeed target)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             if (accessPoints == null) throw new ArgumentNullException("accessPoints");
-            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             if (appEntry.AccessPoints == null) appEntry.AccessPoints = new AccessPointList();
@@ -112,7 +109,7 @@ namespace ZeroInstall.DesktopIntegration
             CheckForConflicts(accessPoints, appEntry);
 
             EnumerableUtils.ApplyWithRollback(accessPoints,
-                accessPoint => accessPoint.Apply(appEntry, target, SystemWide, handler),
+                accessPoint => accessPoint.Apply(appEntry, target, SystemWide, _handler),
                 accessPoint =>
                 {
                     // Don't perform rollback if the access point was already applied previously and this was only a refresh

@@ -76,10 +76,9 @@ namespace ZeroInstall.Injector
         }
 
         /// <inheritdoc/>
-        public bool ShowIntegrateApp(IIntegrationManager integrationManager, string interfaceID)
+        public void ShowIntegrateApp(IIntegrationManager integrationManager, InterfaceFeed target)
         {
-            // No UI, so fallback to default handler
-            return false;
+            // No UI, so nothing to do
         }
 
         /// <inheritdoc/>

@@ -110,10 +110,9 @@ namespace ZeroInstall.Injector
         /// Displays application integration options to the user.
         /// </summary>
         /// <param name="integrationManager">The integration manager used to apply selected integration options.</param>
-        /// <param name="interfaceID">The interface of the application to be integrated.</param>
-        /// <returns><see langword="true"/> if a GUI to handle the request was displayed; <see langword="false"/> if no GUI was available and a default handler fallback is required.</returns>
+        /// <param name="target">The application to be integrated.</param>
         /// <remarks>This may trigger <see cref="DisableProgressUI"/> as a side effect.</remarks>
-        bool ShowIntegrateApp(IIntegrationManager integrationManager, string interfaceID);
+        void ShowIntegrateApp(IIntegrationManager integrationManager, InterfaceFeed target);
 
         /// <summary>
         /// Displays the configuration settings to the user.

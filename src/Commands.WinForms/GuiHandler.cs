@@ -236,18 +236,14 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Dialogs
         /// <inheritdoc/>
-        public bool ShowIntegrateApp(IIntegrationManager integrationManager, string interfaceID)
+        public void ShowIntegrateApp(IIntegrationManager integrationManager, InterfaceFeed target)
         {
             #region Sanity checks
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             #endregion
 
             DisableProgressUI();
-            IntegrateAppForm.ShowDialog(integrationManager, interfaceID);
-
-            // GUI handled the request, no default handler needed
-            return true;
+            IntegrateAppForm.ShowDialog(integrationManager, target);
         }
 
         /// <inheritdoc/>
