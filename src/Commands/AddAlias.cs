@@ -105,7 +105,7 @@ namespace ZeroInstall.Commands
         /// <param name="interfaceID">The interface ID the alias shall point to.</param>
         /// <param name="command">A command within the interface the alias shall point to; may be <see langword="null"/>.</param>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        private int CreateAlias(IntegrationManager integrationManager, string aliasName, string interfaceID, string command)
+        private int CreateAlias(IIntegrationManager integrationManager, string aliasName, string interfaceID, string command)
         {
             Policy.Handler.ShowProgressUI(Cancel);
             bool stale;
@@ -134,7 +134,7 @@ namespace ZeroInstall.Commands
         /// <param name="integrationManager">Manages desktop integration operations.</param>
         /// <param name="aliasName">The name of the existing alias.</param>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        private int ResolveOrRemove(IntegrationManager integrationManager, string aliasName)
+        private int ResolveOrRemove(IIntegrationManager integrationManager, string aliasName)
         {
             AppEntry appEntry;
             var appAlias = GetAppAlias(integrationManager.AppList, aliasName, out appEntry);

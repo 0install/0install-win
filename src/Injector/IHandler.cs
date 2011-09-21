@@ -17,6 +17,7 @@
 
 using Common;
 using Common.Tasks;
+using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Store.Feeds;
@@ -106,14 +107,19 @@ namespace ZeroInstall.Injector
         void Output(string title, string information);
 
         /// <summary>
+        /// Displays application integration options to the user.
+        /// </summary>
+        /// <param name="integrationManager">The integration manager used to apply selected integration options.</param>
+        /// <param name="interfaceID">The interface of the application to be integrated.</param>
+        /// <returns><see langword="true"/> if a GUI to handle the request was displayed; <see langword="false"/> if no GUI was available and a default handler fallback is required.</returns>
+        /// <remarks>This may trigger <see cref="DisableProgressUI"/> as a side effect.</remarks>
+        bool ShowIntegrateApp(IIntegrationManager integrationManager, string interfaceID);
+
+        /// <summary>
         /// Displays the configuration settings to the user.
         /// </summary>
         /// <param name="config">The configuration to show.</param>
         /// <returns><see langword="true"/> if the user modified any settings; <see langword="false"/> otherwise.</returns>
-        /// <remarks>
-        ///   <para>Don't call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</para>
-        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
-        /// </remarks>
         bool ShowConfig(Config config);
     }
 }

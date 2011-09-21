@@ -66,6 +66,12 @@
       <DependentUpon>ConfigForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GuiHandler.cs" />
+    <Compile Include="IntegrateAppForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IntegrateAppForm.Designer.cs">
+      <DependentUpon>IntegrateAppForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InterfaceDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigForm.resx">
       <DependentUpon>ConfigForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IntegrateAppForm.resx">
+      <DependentUpon>IntegrateAppForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InterfaceDialog.de.resx">
       <DependentUpon>InterfaceDialog.cs</DependentUpon>

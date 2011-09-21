@@ -24,6 +24,7 @@ using Common.Controls;
 using Common.Storage;
 using Common.Tasks;
 using ZeroInstall.Commands.WinForms.Properties;
+using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
@@ -233,7 +234,22 @@ namespace ZeroInstall.Commands.WinForms
         }
         #endregion
 
-        #region Configuration
+        #region Dialogs
+        /// <inheritdoc/>
+        public bool ShowIntegrateApp(IIntegrationManager integrationManager, string interfaceID)
+        {
+            #region Sanity checks
+            if (integrationManager == null) throw new ArgumentNullException("integrationManager");
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            #endregion
+
+            DisableProgressUI();
+            IntegrateAppForm.ShowDialog(integrationManager, interfaceID);
+
+            // GUI handled the request, no default handler needed
+            return true;
+        }
+
         /// <inheritdoc/>
         public bool ShowConfig(Config config)
         {

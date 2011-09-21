@@ -38,7 +38,7 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Displays the form as a modal dialog,
+        /// Displays the form as a modal dialog.
         /// </summary>
         /// <param name="config">The settings to display.</param>
         public static DialogResult ShowDialog(Config config)

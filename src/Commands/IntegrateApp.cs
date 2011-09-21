@@ -93,8 +93,15 @@ namespace ZeroInstall.Commands
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
             #endregion
 
+            // If user specified no specific integration options...
             if (_addCategories.IsEmpty && _removeCategories.IsEmpty)
+            {
+                // Show UI to select...
+                if (Policy.Handler.ShowIntegrateApp(integrationManager, interfaceID)) return 0;
+
+                // Or use defaults if none is available...
                 _addCategories.Add(CapabilityRegistration.CategoryName);
+            }
 
             if (Canceled) throw new UserCancelException();
 

@@ -17,6 +17,7 @@
 
 using Common;
 using Common.Tasks;
+using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Store.Feeds;
 
@@ -70,7 +71,16 @@ namespace ZeroInstall.Injector
 
         /// <inheritdoc />
         public virtual void Output(string title, string information)
-        {}
+        {
+            // No UI, so nothing to do
+        }
+
+        /// <inheritdoc/>
+        public bool ShowIntegrateApp(IIntegrationManager integrationManager, string interfaceID)
+        {
+            // No UI, so fallback to default handler
+            return false;
+        }
 
         /// <inheritdoc/>
         public bool ShowConfig(Config config)

@@ -36,7 +36,7 @@ namespace ZeroInstall.DesktopIntegration
     /// To prevent raceconditions there may only be one desktop integration class active at any given time.
     /// This class becomes active upon calling its constructor and becomes inactive upon calling <see cref="Dispose()"/>.
     /// </remarks>
-    public partial class IntegrationManager : IDisposable
+    public partial class IntegrationManager : IIntegrationManager, IDisposable
     {
         #region Constants
         /// <summary>

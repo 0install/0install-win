@@ -20,6 +20,7 @@ using System.IO;
 using Common;
 using Common.Cli;
 using Common.Tasks;
+using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Store.Feeds;
@@ -31,6 +32,7 @@ namespace ZeroInstall.Commands
     /// </summary>
     public class CliHandler : CliTaskHandler, IHandler
     {
+        #region Task tracking
         /// <summary>The currently running generic task (if any).</summary>
         private volatile ITask _genericTask;
 
@@ -48,7 +50,9 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc />
         public bool Batch { get; set; }
+        #endregion
 
+        #region UI control
         /// <inheritdoc/>
         public void ShowProgressUI(SimpleEventHandler cancelCallback)
         {
@@ -84,7 +88,9 @@ namespace ZeroInstall.Commands
         {
             // Console UI only, so nothing to do
         }
+        #endregion
 
+        #region Key control
         /// <inheritdoc />
         public bool AcceptNewKey(string information)
         {
@@ -106,7 +112,9 @@ namespace ZeroInstall.Commands
                 }
             }
         }
+        #endregion
 
+        #region Selections UI
         /// <inheritdoc/>
         public void ShowSelections(Selections selections, IFeedCache feedCache)
         {
@@ -118,11 +126,21 @@ namespace ZeroInstall.Commands
         {
             // Console UI only, so nothing to do
         }
+        #endregion
 
+        #region Messages
         /// <inheritdoc />
         public void Output(string title, string information)
         {
             Console.WriteLine(information);
+        }
+        #endregion
+
+        #region Dialogs
+        public bool ShowIntegrateApp(IIntegrationManager integrationManager, string interfaceID)
+        {
+            // Console UI only, so fallback to default handler
+            return false;
         }
 
         /// <inheritdoc/>
@@ -135,5 +153,6 @@ namespace ZeroInstall.Commands
             Console.Write(config.ToString());
             return false;
         }
+        #endregion
     }
 }
