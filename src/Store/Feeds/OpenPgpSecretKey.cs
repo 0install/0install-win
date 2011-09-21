@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Feeds
     /// <summary>
     /// Represents a secret key stored in a local <see cref="IOpenPgp"/> profile.
     /// </summary>
-    public sealed class OpenPgpSecretKey
+    public sealed class OpenPgpSecretKey : IEquatable<OpenPgpSecretKey>
     {
         #region Variables
         /// <summary>
@@ -138,6 +138,42 @@ namespace ZeroInstall.Store.Feeds
         public override string ToString()
         {
             return UserID ?? "";
+        }
+        #endregion
+
+        #region Equality
+        /// <inheritdoc/>
+        public bool Equals(OpenPgpSecretKey other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+
+            return Equals(other.Fingerprint, Fingerprint);
+        }
+
+        /// <inheritdoc/>
+        public static bool operator ==(OpenPgpSecretKey left, OpenPgpSecretKey right)
+        {
+            return Equals(left, right);
+        }
+
+        /// <inheritdoc/>
+        public static bool operator !=(OpenPgpSecretKey left, OpenPgpSecretKey right)
+        {
+            return !Equals(left, right);
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == typeof(OpenPgpSecretKey) && Equals((OpenPgpSecretKey)obj);
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return (Fingerprint != null ? Fingerprint.GetHashCode() : 0);
         }
         #endregion
     }

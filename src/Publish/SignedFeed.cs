@@ -80,11 +80,11 @@ namespace ZeroInstall.Publish
         }
 
         /// <summary>
-        /// Saves <see cref="Feed"/> to an XML file and signs it with <see cref="SecretKey"/> (if specified).
+        /// Saves <see cref="Feed"/> to an XML file, adds the default stylesheet and sign it it with <see cref="SecretKey"/> (if specified).
         /// </summary>
         /// <remarks>Writing and signing the feed file are performed as an atomic operation (i.e. if signing fails an existing file remains unchanged).</remarks>
         /// <param name="path">The file to save in.</param>
-        /// <param name="passphrase">The passphrase to use to unlock the key.</param>
+        /// <param name="passphrase">The passphrase to use to unlock the secret key; may be <see langword="null"/> if <see cref="SecretKey"/> is <see langword="null"/>.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>

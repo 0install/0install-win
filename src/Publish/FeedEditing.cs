@@ -19,8 +19,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Common;
+using Common.Cli;
 using Common.Undo;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Publish
 {
@@ -71,9 +73,9 @@ namespace ZeroInstall.Publish
 
         #region Properties
         /// <summary>
-        /// The <see cref="ZeroInstall.Model.Feed"/> to be editted.
+        /// The feed to be editted.
         /// </summary>
-        public Feed Feed { get; private set;  }
+        public SignedFeed Feed { get; private set;  }
 
         /// <summary>
         /// The path of the file the <see cref="Feed"/> was loaded from. <see langword="null"/> if none.
@@ -92,15 +94,15 @@ namespace ZeroInstall.Publish
         /// </summary>
         public FeedEditing()
         {
-            Feed = new Feed();
+            Feed = new SignedFeed(new Feed(), null);
         }
 
         /// <summary>
         /// Starts with a <see cref="ZeroInstall.Model.Feed"/> loaded from a file.
         /// </summary>
-        /// <param name="feed">The <see cref="ZeroInstall.Model.Feed"/> to be editted.</param>
+        /// <param name="feed">The feed to be editted.</param>
         /// <param name="path">The path of the file the <paramref name="feed"/> was loaded from.</param>
-        private FeedEditing(Feed feed, string path)
+        private FeedEditing(SignedFeed feed, string path)
         {
             Feed = feed;
             Path = path;
@@ -120,18 +122,22 @@ namespace ZeroInstall.Publish
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static FeedEditing Load(string path)
         {
-            return new FeedEditing(Feed.Load(path), path);
+            return new FeedEditing(SignedFeed.Load(path), path);
         }
 
         /// <summary>
-        /// Saves a <see cref="Feed"/> to an XML file (feed).
+        /// Saves <see cref="Feed"/> to an XML file, adds the default stylesheet and signs it with <see cref="SignedFeed.SecretKey"/> (if specified).
         /// </summary>
+        /// <remarks>Writing and signing the feed file are performed as an atomic operation (i.e. if signing fails an existing file remains unchanged).</remarks>
         /// <param name="path">The file to save in.</param>
+        /// <param name="passphrase">The passphrase to use to unlock the secret key; may be <see langword="null"/> if <see cref="SignedFeed.SecretKey"/> is <see langword="null"/>.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        public void Save(string path)
+        /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
+        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
+        public void Save(string path, string passphrase)
         {
-            Feed.Save(path);
+            Feed.Save(path, passphrase);
             FeedUtils.AddStylesheet(path);
 
             Path = path;

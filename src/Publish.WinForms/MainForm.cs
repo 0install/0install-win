@@ -362,15 +362,15 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void InitializeCommandHooks()
         {
-            SetupCommandHooks(textName, new PropertyPointer<string>(() => _feedEditing.Feed.Name, value => _feedEditing.Feed.Name = value));
-            SetupCommandHooks(checkedListBoxCategories, () => _feedEditing.Feed.Categories);
-            SetupCommandHooks(textInterfaceUri, new PropertyPointer<Uri>(() => _feedEditing.Feed.Uri, value => _feedEditing.Feed.Uri = value));
-            SetupCommandHooks(textHomepage, new PropertyPointer<Uri>(() => _feedEditing.Feed.Homepage, value => _feedEditing.Feed.Homepage = value));
-            SetupCommandHooks(summariesControl, () => _feedEditing.Feed.Summaries);
-            SetupCommandHooks(descriptionControl, () => _feedEditing.Feed.Descriptions);
-            SetupCommandHooks(checkBoxNeedsTerminal, new PropertyPointer<bool>(() => _feedEditing.Feed.NeedsTerminal, value => _feedEditing.Feed.NeedsTerminal = value));
-            SetupCommandHooks(iconManagementControl, () => _feedEditing.Feed.Icons);
-            SetupCommandHooks(comboBoxMinInjectorVersion, new PropertyPointer<string>(() => _feedEditing.Feed.MinInjectorVersionString, value => _feedEditing.Feed.MinInjectorVersionString = value));
+            SetupCommandHooks(textName, new PropertyPointer<string>(() => _feedEditing.Feed.Feed.Name, value => _feedEditing.Feed.Feed.Name = value));
+            SetupCommandHooks(checkedListBoxCategories, () => _feedEditing.Feed.Feed.Categories);
+            SetupCommandHooks(textInterfaceUri, new PropertyPointer<Uri>(() => _feedEditing.Feed.Feed.Uri, value => _feedEditing.Feed.Feed.Uri = value));
+            SetupCommandHooks(textHomepage, new PropertyPointer<Uri>(() => _feedEditing.Feed.Feed.Homepage, value => _feedEditing.Feed.Feed.Homepage = value));
+            SetupCommandHooks(summariesControl, () => _feedEditing.Feed.Feed.Summaries);
+            SetupCommandHooks(descriptionControl, () => _feedEditing.Feed.Feed.Descriptions);
+            SetupCommandHooks(checkBoxNeedsTerminal, new PropertyPointer<bool>(() => _feedEditing.Feed.Feed.NeedsTerminal, value => _feedEditing.Feed.Feed.NeedsTerminal = value));
+            SetupCommandHooks(iconManagementControl, () => _feedEditing.Feed.Feed.Icons);
+            SetupCommandHooks(comboBoxMinInjectorVersion, new PropertyPointer<string>(() => _feedEditing.Feed.Feed.MinInjectorVersionString, value => _feedEditing.Feed.Feed.MinInjectorVersionString = value));
         }
 
         /// <summary>
@@ -660,6 +660,7 @@ namespace ZeroInstall.Publish.WinForms
             _feedEditing = openedFeedEditing;
             
             InitializeEditingHooks();
+            feedEditorToolStrip.SelectedSecretKey = _feedEditing.Feed.SecretKey;
             OnUpdate();
         }
 
@@ -706,11 +707,11 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void SaveAdvancedTab()
         {
-            _feedEditing.Feed.Feeds.Clear();
-            foreach (var feed in listBoxExternalFeeds.Items) _feedEditing.Feed.Feeds.Add((FeedReference) feed);
+            _feedEditing.Feed.Feed.Feeds.Clear();
+            foreach (var feed in listBoxExternalFeeds.Items) _feedEditing.Feed.Feed.Feeds.Add((FeedReference)feed);
 
-            _feedEditing.Feed.FeedFor.Clear();
-            foreach (InterfaceReference feedFor in listBoxFeedFor.Items) _feedEditing.Feed.FeedFor.Add(feedFor);
+            _feedEditing.Feed.Feed.FeedFor.Clear();
+            foreach (InterfaceReference feedFor in listBoxFeedFor.Items) _feedEditing.Feed.Feed.FeedFor.Add(feedFor);
         }
 
         private void MainFormFormClosing(object sender, FormClosingEventArgs e)
@@ -752,8 +753,8 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void FillAdvancedTab()
         {
-            foreach (var feed in _feedEditing.Feed.Feeds) listBoxExternalFeeds.Items.Add(feed);
-            foreach (var feedFor in _feedEditing.Feed.FeedFor) listBoxFeedFor.Items.Add(feedFor);
+            foreach (var feed in _feedEditing.Feed.Feed.Feeds) listBoxExternalFeeds.Items.Add(feed);
+            foreach (var feedFor in _feedEditing.Feed.Feed.FeedFor) listBoxFeedFor.Items.Add(feedFor);
         }
 
         #endregion

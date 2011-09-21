@@ -39,11 +39,11 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         public OpenPgpSecretKey SigningKey
         {
-            get { return _signingKey; }
+            get { return _feedEditing.Feed.SecretKey; }
             set
             {
-                if (_signingKey == value) return;
-                _signingKey = value;
+                if (_feedEditing.Feed.SecretKey == value) return;
+                _feedEditing.Feed.SecretKey = value;
                 _signingKeyPassphrase = null;
             }
         }
@@ -54,10 +54,6 @@ namespace ZeroInstall.Publish.WinForms
         /// The current <see cref="FeedEditing" /> to edit.
         /// </summary>
         private FeedEditing _feedEditing = new FeedEditing();
-        /// <summary>
-        /// The <see cref="OpenPgpSecretKey"/> with the key will be signed. The <see cref="Feed"/> will not be signed if it's the default key.
-        /// </summary>
-        private OpenPgpSecretKey _signingKey;
 
         private string _signingKeyPassphrase;
         #endregion
@@ -219,8 +215,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             try
             {
-                _feedEditing.Save(path);
-                if (_signingKey != null) FeedUtils.SignFeed(_feedEditing.Path, _signingKey, _signingKeyPassphrase);
+                _feedEditing.Save(path, _signingKeyPassphrase);
             }
             #region Error handling
             catch (IOException exception)
@@ -247,7 +242,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <returns><see langword="true"/>, if the passphrase is needed, else <see langword="false"/>.</returns>
         private bool NeedsPassphrase()
         {
-            return _signingKey != null && string.IsNullOrEmpty(_signingKeyPassphrase);
+            return _feedEditing.Feed.SecretKey != null && string.IsNullOrEmpty(_signingKeyPassphrase);
         }
 
         /// <summary>
@@ -261,12 +256,12 @@ namespace ZeroInstall.Publish.WinForms
             {
                 string passphraseMessage = String.Format(wrongPassphrase
                     ? Resources.WrongPassphrase
-                    : Resources.AskForPassphrase, _signingKey.UserID);
+                    : Resources.AskForPassphrase, _feedEditing.Feed.SecretKey.UserID);
                 string passphrase = InputBox.Show(null, Resources.AskForPassphraseTitle, passphraseMessage, String.Empty, true);
 
                 if (passphrase == null) return false;
 
-                if ((passphrase != string.Empty) && IsPassphraseCorrect(_signingKey.UserID, passphrase))
+                if ((passphrase != string.Empty) && IsPassphraseCorrect(_feedEditing.Feed.SecretKey.UserID, passphrase))
                 {
                     _signingKeyPassphrase = passphrase;
                     return true;

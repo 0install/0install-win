@@ -68,13 +68,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
         public event Action<OpenPgpSecretKey> SecretKeyChanged;
         #endregion
 
-        #region Variables
-        /// <summary>
-        /// The selected <see cref="OpenPgpSecretKey"/> by the user.
-        /// </summary>
-        private OpenPgpSecretKey _selectedSecretKey;
-        #endregion
-
         #region Properties
         /// <summary>
         /// The selected <see cref="OpenPgpSecretKey"/> by the user.
@@ -82,11 +75,15 @@ namespace ZeroInstall.Publish.WinForms.Controls
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public OpenPgpSecretKey SelectedSecretKey
         {
-            get { return _selectedSecretKey; }
+            get { return comboBoxGnuPG.SelectedItem as OpenPgpSecretKey; }
             set
             {
-                if (!comboBoxGnuPG.Items.Contains(value)) comboBoxGnuPG.Items.Add(value);
-                comboBoxGnuPG.SelectedItem = value;
+                if (value == null) comboBoxGnuPG.SelectedItem = "";
+                else
+                {
+                    if (!comboBoxGnuPG.Items.Contains(value)) comboBoxGnuPG.Items.Add(value);
+                    comboBoxGnuPG.SelectedItem = value;
+                }
             }
         }
 
