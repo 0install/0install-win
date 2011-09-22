@@ -40,7 +40,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             var capability = appEntry.GetCapability<Capabilities.FileType>(Capability);
-            return capability.Extensions.Map(extension => "extension:" + extension);
+            return capability.Extensions.Map(extension => "extension:" + extension.Value);
         }
         #endregion
 
