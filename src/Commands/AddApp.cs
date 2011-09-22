@@ -56,10 +56,7 @@ namespace ZeroInstall.Commands
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
             #endregion
 
-            bool stale;
-            var feed = Policy.FeedManager.GetFeed(interfaceID, Policy, out stale);
-
-            if (Canceled) throw new UserCancelException();
+            var feed = GetFeed(interfaceID);
 
             try { integrationManager.AddApp(new InterfaceFeed(interfaceID, feed)); }
             catch(InvalidOperationException ex)

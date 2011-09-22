@@ -137,14 +137,6 @@ namespace ZeroInstall.Commands
             if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, interfaceID));
             return 0;
         }
-
-        private Feed GetFeed(string interfaceID)
-        {
-            bool stale;
-            var feed = Policy.FeedManager.GetFeed(interfaceID, Policy, out stale);
-            if (Canceled) throw new UserCancelException();
-            return feed;
-        }
         #endregion
     }
 }
