@@ -129,20 +129,6 @@ namespace ZeroInstall.Publish
         }
 
         /// <summary>
-        /// Removes any Base64 signature from a feed file.
-        /// </summary>
-        /// <param name="path">The feed file to remove the signature from.</param>
-        /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
-        /// <exception cref="IOException">Thrown if the feed file could not be read or written.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the feed file is not permitted.</exception>
-        /// <remarks>The feed file is not parsed before removing the signature.</remarks>
-        public static void UnsignFeed(string path)
-        {
-            // ToDo: Implement without reparsing
-            Feed.Load(path).Save(path);
-        }
-
-        /// <summary>
         /// Determines the key used to sign a feed. Only uses the first signature if more than one is present.
         /// </summary>
         /// <param name="path">The feed file to check for signatures.</param>

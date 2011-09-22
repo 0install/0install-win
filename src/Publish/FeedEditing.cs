@@ -138,7 +138,6 @@ namespace ZeroInstall.Publish
         public void Save(string path, string passphrase)
         {
             Feed.Save(path, passphrase);
-            FeedUtils.AddStylesheet(path);
 
             Path = path;
             Reset();

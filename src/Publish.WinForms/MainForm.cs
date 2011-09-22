@@ -62,7 +62,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             get
             {
-                return (treeViewFeedStructure.SelectedNode == null ? _feedEditing.Feed : treeViewFeedStructure.SelectedNode.Tag);
+                return (treeViewFeedStructure.SelectedNode == null ? _feedEditing.Feed.Feed : treeViewFeedStructure.SelectedNode.Tag);
             }
         }
 
@@ -110,7 +110,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void InitializeTreeViewFeedStructure()
         {
-            treeViewFeedStructure.Nodes[0].Tag = _feedEditing.Feed;
+            treeViewFeedStructure.Nodes[0].Tag = _feedEditing.Feed.Feed;
         }
 
         /// <summary>
@@ -740,7 +740,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             treeViewFeedStructure.BeginUpdate();
             treeViewFeedStructure.Nodes.Clear();
-            treeViewFeedStructure.Nodes.Add(BuildTreeNodes(_feedEditing.Feed));
+            treeViewFeedStructure.Nodes.Add(BuildTreeNodes(_feedEditing.Feed.Feed));
             treeViewFeedStructure.EndUpdate();
 
             treeViewFeedStructure.ExpandAll();
