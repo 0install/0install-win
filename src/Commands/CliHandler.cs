@@ -138,6 +138,7 @@ namespace ZeroInstall.Commands
         #endregion
 
         #region Dialogs
+        /// <inheritdoc />
         public void ShowIntegrateApp(IIntegrationManager integrationManager, InterfaceFeed target)
         {
             // ToDo: Implement text-based UI
