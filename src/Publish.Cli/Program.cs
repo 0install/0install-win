@@ -61,7 +61,7 @@ namespace ZeroInstall.Publish.Cli
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static int Main(string[] args)
+        public static int Main(string[] args)
         {
             // Automatically show help for missing args
             if (args.Length == 0) args = new[] { "--help" };
