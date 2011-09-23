@@ -97,7 +97,7 @@ namespace Common
 
         #region Ask
         /// <summary>
-        /// Asks the user a OK/cancel-question using a <see cref="MessageBox"/> or <see cref="TaskDialog"/>.
+        /// Asks the user a Yes/No-question using a <see cref="MessageBox"/> or <see cref="TaskDialog"/>.
         /// </summary>
         /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
         /// <param name="text">The message to be displayed; must not be <see langword="null"/>.</param>
@@ -169,7 +169,7 @@ namespace Common
                 #endregion
             }
 
-            return ShowMesageBox(owner, text, severity, MessageBoxButtons.OKCancel) == DialogResult.OK;
+            return ShowMesageBox(owner, text, severity, MessageBoxButtons.YesNo) == DialogResult.Yes;
         }
         #endregion
 
