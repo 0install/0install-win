@@ -1,6 +1,7 @@
 <Configuration>
   <SettingsComponent>
     <boolean>
+      <setting name="livetemplates.csharp.usevar">True</setting>
       <setting name="SolutionAnalysisEnabled">True</setting>
     </boolean>
   </SettingsComponent>
