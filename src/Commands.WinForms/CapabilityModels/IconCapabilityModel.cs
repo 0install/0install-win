@@ -21,20 +21,22 @@ using ZeroInstall.Model.Capabilities;
 namespace ZeroInstall.Commands.WinForms.CapabilityModels
 {
     /// <summary>
-    /// The specialized <see cref="CapabilityModel{T}" /> adds a property for the description of an <see cref="IconCapability" />.
+    /// The specialized <see cref="CapabilityModel"/> adds a property for the description of an <see cref="IconCapability" />.
     /// </summary>
     /// <typeparam name="T">The type of the <see cref="IconCapability" />.</typeparam>
-    internal class IconCapabilityModel<T> : CapabilityModel<T> where T : IconCapability
+    internal class IconCapabilityModel : CapabilityModel
     {
-        #region Properties
+        private readonly IconCapability _iconCapability;
+
         /// <summary>
         /// Returns the description of the <see cref="IconCapability" /> dependend on <see cref="CultureInfo.CurrentUICulture" />.
         /// </summary>
-        public string BestDescription { get { return Capability.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture); } }
-        #endregion
+        public string BestDescription { get { return _iconCapability.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture); } }
 
         /// <inheritdoc />
-        protected IconCapabilityModel(T capability, bool used) : base(capability, used)
-        {}
+        protected IconCapabilityModel(IconCapability capability, bool used) : base(capability, used)
+        {
+            _iconCapability = capability;
+        }
     }
 }

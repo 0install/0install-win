@@ -20,19 +20,21 @@ using ZeroInstall.Model.Capabilities;
 namespace ZeroInstall.Commands.WinForms.CapabilityModels
 {
     /// <summary>
-    /// The specialized <see cref="IconCapabilityModel{T}" /> adds a property that returns <see cref="DefaultProgram.Service" />.
+    /// The specialized <see cref="IconCapabilityModel"/> adds a property that returns <see cref="DefaultProgram.Service"/>.
     /// </summary>
-    internal class DefaultProgramModel : IconCapabilityModel<DefaultProgram>
+    internal class DefaultProgramModel : IconCapabilityModel
     {
-        #region Properties
+        private readonly DefaultProgram _defaultProgram;
+
         /// <summary>
         /// Returns <see cref="DefaultProgram.Service"/>.
         /// </summary>
-        public string Service { get { return Capability.Service; } }
-        #endregion
+        public string Service { get { return _defaultProgram.Service; } }
 
         /// <inheritdoc />
         public DefaultProgramModel(DefaultProgram capability, bool used) : base(capability, used)
-        {}
+        {
+            _defaultProgram = capability;
+        }
     }
 }

@@ -98,7 +98,7 @@ namespace ZeroInstall.DesktopIntegration
             if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
-            var toReapply = new List<AccessPoint>();
+            var toReapply = new List<AccessPoint>(appEntry.AccessPoints.Entries);
             if (appEntry.AccessPoints != null)
             {
                 foreach (var accessPoint in appEntry.AccessPoints.Entries)

@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using Common.Collections;
 using Common.Controls;
@@ -50,19 +49,9 @@ namespace ZeroInstall.Commands.WinForms
         private readonly Feed _feed;
 
         /// <summary>
-        /// List of the <see cref="Model.Capabilities.DefaultProgram"/>s handled by this form.
+        /// List of the <see cref="CapabilityModel"/>s handled by this form.
         /// </summary>
-        private readonly BindingList<DefaultProgramModel> _defaultProgramList = new BindingList<DefaultProgramModel>();
-
-        /// <summary>
-        /// List of the <see cref="Model.Capabilities.FileType"/>s handled by this form.
-        /// </summary>
-        private readonly BindingList<FileTypeModel> _fileTypeList = new BindingList<FileTypeModel>();
-
-        /// <summary>
-        /// List of the <see cref="Model.Capabilities.UrlProtocol"/>s handled by this form.
-        /// </summary>
-        private readonly BindingList<UrlProtocolModel> _urlProtocolList = new BindingList<UrlProtocolModel>();
+        private readonly C5.LinkedList<CapabilityModel> _capabilityModels = new C5.LinkedList<CapabilityModel>();
         #endregion
 
         /// <summary>
@@ -105,28 +94,45 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="e">not used.</param>
         private void IntegrateAppForm_Load(object sender, EventArgs e)
         {
+            var defaultProgramBinding = new BindingList<DefaultProgramModel>();
+            var fileTypeBinding = new BindingList<FileTypeModel>();
+            var urlProtocolBinding = new BindingList<UrlProtocolModel>();
+
             foreach (Capabilities.CapabilityList capabilityList in _appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
             {
                 // file types
                 foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(capabilityList.Entries))
-                    _fileTypeList.Add(new FileTypeModel(fileType, IsCapabillityUsed<AccessPoints.FileType>(fileType)));
+                {
+                    var model = new FileTypeModel(fileType, IsCapabillityUsed<AccessPoints.FileType>(fileType));
+                    fileTypeBinding.Add(model);
+                    _capabilityModels.Add(model);
+                }
 
                 // url protocols
                 foreach (var urlProtocol in EnumerableUtils.OfType<Capabilities.UrlProtocol>(capabilityList.Entries))
-                    _urlProtocolList.Add(new UrlProtocolModel(urlProtocol, IsCapabillityUsed<AccessPoints.UrlProtocol>(urlProtocol)));
+                {
+                    var model = new UrlProtocolModel(urlProtocol, IsCapabillityUsed<AccessPoints.UrlProtocol>(urlProtocol));
+                    urlProtocolBinding.Add(model);
+                    _capabilityModels.Add(model);
+                }
 
                 if (_integrationManager.SystemWide)
                 {
                     // default program
                     foreach (var defaultProgram in EnumerableUtils.OfType<Capabilities.DefaultProgram>(capabilityList.Entries))
-                        _defaultProgramList.Add(new DefaultProgramModel(defaultProgram, IsCapabillityUsed<AccessPoints.DefaultProgram>(defaultProgram)));
+                    {
+                        var model = new DefaultProgramModel(defaultProgram, IsCapabillityUsed<AccessPoints.DefaultProgram>(defaultProgram));
+                        defaultProgramBinding.Add(model);
+                        _capabilityModels.Add(model);
+                    }
                 }
             }
 
-            dataGridViewFileType.DataSource = _fileTypeList;
-            dataGridViewUrlProtocols.DataSource = _urlProtocolList;
+            // Apply data to DataGrids in bulk for better performance
+            dataGridViewFileType.DataSource = fileTypeBinding;
+            dataGridViewUrlProtocols.DataSource = urlProtocolBinding;
             dataGridViewDefaultPrograms.Visible = _integrationManager.SystemWide;
-            dataGridViewDefaultPrograms.DataSource = _defaultProgramList;
+            dataGridViewDefaultPrograms.DataSource = defaultProgramBinding;
         }
 
         /// <summary>
@@ -154,37 +160,21 @@ namespace ZeroInstall.Commands.WinForms
             // Hide so that the underlying progress tracker is visible
             Hide();
 
-            // file type
-            ApplyDefaultCapabilitiesIntegration<Capabilities.FileType, FileTypeModel, AccessPoints.FileType>(_fileTypeList);
-            // url protocol
-            ApplyDefaultCapabilitiesIntegration<Capabilities.UrlProtocol, UrlProtocolModel, AccessPoints.UrlProtocol>(_urlProtocolList);
-            // default program
-            ApplyDefaultCapabilitiesIntegration<Capabilities.DefaultProgram, DefaultProgramModel, AccessPoints.DefaultProgram>(_defaultProgramList);
+            var toAdd = new C5.LinkedList<AccessPoints.AccessPoint>();
+            var toRemove = new C5.LinkedList<AccessPoints.AccessPoint>();
 
-            // ToDo: Apply remaining integrations
-        }
-
-        /// <summary>
-        /// Adds and/or removes the integration of a list of <see cref="Capabilities.Capability"/>s.
-        /// </summary>
-        /// <typeparam name="TCapability">Type of the <see cref="Capabilities.Capability"/>.</typeparam>
-        /// <typeparam name="TModel">Type of the <see cref="CapabilityModel{T}"/>. Should be a type that holds an <typeparamref name="TCapability"/>.</typeparam>
-        /// <typeparam name="TAccessPoint">Type of the <see cref="ZeroInstall.DesktopIntegration.AccessPoints.AccessPoint"/>. Should be a suitable type to <typeparamref name="TCapability"/>.</typeparam>
-        /// <param name="capabilityModels">That shall be integrated or removed.</param>
-        private void ApplyDefaultCapabilitiesIntegration<TCapability, TModel, TAccessPoint>(IEnumerable<TModel> capabilityModels)
-            where TCapability : Capabilities.Capability
-            where TModel : CapabilityModel<TCapability>
-            where TAccessPoint : AccessPoints.DefaultAccessPoint, new()
-        {
-            foreach (TModel capabilityModel in capabilityModels)
+            foreach (var capabilityModel in _capabilityModels)
             {
-                if (!capabilityModel.Changed) continue;
-
-                if (capabilityModel.Use)
-                    _integrationManager.AddAccessPoints(_appEntry, _feed, new AccessPoints.AccessPoint[] {new TAccessPoint {Capability = capabilityModel.Capability.ID}});
-                else
-                    _integrationManager.RemoveAccessPoints(_appEntry, new AccessPoints.AccessPoint[] { new TAccessPoint { Capability = capabilityModel.Capability.ID } });
+                if (capabilityModel.Changed)
+                {
+                    var accessPoint = AccessPoints.DefaultAccessPoint.FromCapability(capabilityModel.Capability);
+                    if (capabilityModel.Use) toAdd.Add(accessPoint);
+                    else toRemove.Add(accessPoint);
+                }
             }
+
+            _integrationManager.RemoveAccessPoints(_appEntry, toRemove);
+            _integrationManager.AddAccessPoints(_appEntry, _feed, toAdd);
         }
     }
 }

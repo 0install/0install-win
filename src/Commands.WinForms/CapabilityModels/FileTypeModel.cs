@@ -21,19 +21,21 @@ using ZeroInstall.Model.Capabilities;
 namespace ZeroInstall.Commands.WinForms.CapabilityModels
 {
     /// <summary>
-    /// The specialized <see cref="IconCapabilityModel{T}" /> adds a property for the concatenation of all <see cref="FileType.Extensions" /> of an <see cref="FileType" />.
+    /// The specialized <see cref="IconCapabilityModel"/> adds a property for the concatenation of all <see cref="FileType.Extensions"/> of an <see cref="FileType"/>.
     /// </summary>
-    internal class FileTypeModel : IconCapabilityModel<FileType>
+    internal class FileTypeModel : IconCapabilityModel
     {
-        #region Properties
+        private readonly FileType _fileType;
+
         /// <summary>
         /// All <see cref="FileType.Extensions" /> concatenated with ", ".
         /// </summary>
-        public string Extensions { get { return StringUtils.Concatenate(Capability.Extensions.Map(extension => extension.Value), ", "); } }
-        #endregion
+        public string Extensions { get { return StringUtils.Concatenate(_fileType.Extensions.Map(extension => extension.Value), ", "); } }
 
         /// <inheritdoc />
         public FileTypeModel(FileType fileType, bool used) : base(fileType, used)
-        {}
+        {
+            _fileType = fileType;
+        }
     }
 }

@@ -22,25 +22,24 @@ using ZeroInstall.Model.Capabilities;
 namespace ZeroInstall.Commands.WinForms.CapabilityModels
 {
     /// <summary>
-    /// Intermediate wrapper to present <see cref="Capability" />s to the user interface.
+    /// Intermediate wrapper to present <see cref="DefaultCapability"/>s to the user interface.
     /// </summary>
-    /// <typeparam name="T">The type of the <see cref="Capability" />.</typeparam>
-    internal abstract class CapabilityModel<T> where T : Capability
+    internal abstract class CapabilityModel
     {
         #region Properties
         /// <summary>
         /// The wrapped <see cref="Capability" />.
         /// </summary>
         [Browsable(false)]
-        public T Capability { get; private set; }
+        public DefaultCapability Capability { get; private set; }
 
         /// <summary>
         /// Indicates whether the <see cref="Capability" /> shall be used or not.
         /// </summary>
-        // ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable MemberCanBePrivate.Global
         public bool Use { get; set; }
+// ReSharper restore MemberCanBePrivate.Global
 
-        // ReSharper restore MemberCanBePrivate.Global
         /// <summary>
         /// Indicates whether the <see cref="Use"/> of the <see cref="Capability" /> has been changed.
         /// </summary>
@@ -60,7 +59,7 @@ namespace ZeroInstall.Commands.WinForms.CapabilityModels
         /// </summary>
         /// <param name="capability">That shall be wrapped.</param>
         /// <param name="used">Indicates whether the <see cref="Capability" /> was already used.</param>
-        protected CapabilityModel(T capability, bool used)
+        protected CapabilityModel(DefaultCapability capability, bool used)
         {
             #region Sanity Checks
             if (capability == null) throw new ArgumentNullException("capability");

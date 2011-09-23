@@ -94,8 +94,9 @@ namespace ZeroInstall.DesktopIntegration
                 {
                     foreach (var capability in EnumerableUtils.OfType<Capabilities.DefaultCapability>(capabilityList.Entries))
                     {
-                        DefaultAccessPoint accessPoint = GetDefaultAccessPoint(capability);
-                        if (accessPoint != null) accessPointsToAdd.AddLast(accessPoint);
+                        if (capability.WindowsSystemWideOnly && !SystemWide && WindowsUtils.IsWindows) continue;
+                        if (!capability.ExplicitOnly)
+                            accessPointsToAdd.AddLast(DefaultAccessPoint.FromCapability(capability));
                     }
                 }
             }
@@ -188,32 +189,6 @@ namespace ZeroInstall.DesktopIntegration
         #endregion
 
         #region Helpers
-        /// <summary>
-        /// Creates a <see cref="DefaultAccessPoint"/> referencing a specific <see cref="Capabilities.DefaultCapability"/>.
-        /// </summary>
-        /// <param name="capability">The <see cref="Capabilities.DefaultCapability"/> to create a <see cref="DefaultAccessPoint"/> for.</param>
-        /// <returns>The newly created <see cref="DefaultAccessPoint"/> or null if <paramref name="capability"/> was not a suitable type of <see cref="Capabilities.DefaultCapability"/>.</returns>
-        private DefaultAccessPoint GetDefaultAccessPoint(Capabilities.DefaultCapability capability)
-        {
-            #region Sanity checks
-            if (capability == null) throw new ArgumentNullException("capability");
-            #endregion
-
-            if (capability.WindowsSystemWideOnly && !SystemWide && WindowsUtils.IsWindows) return null;
-            if (capability.ExplicitOnly) return null;
-
-            DefaultAccessPoint accessPoint;
-            if (capability is Capabilities.AutoPlay) accessPoint = new AutoPlay();
-            else if (capability is Capabilities.ContextMenu) accessPoint = new ContextMenu();
-            else if (capability is Capabilities.DefaultProgram) accessPoint = new DefaultProgram();
-            else if (capability is Capabilities.FileType) accessPoint = new FileType();
-            else if (capability is Capabilities.UrlProtocol) accessPoint = new UrlProtocol();
-            else return null;
-
-            accessPoint.Capability = capability.ID;
-            return accessPoint;
-        }
-
         /// <summary>
         /// Toggles registry entries indicating whether icons for the application are currently visible.
         /// </summary>

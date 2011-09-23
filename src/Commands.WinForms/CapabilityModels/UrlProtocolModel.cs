@@ -21,19 +21,21 @@ using ZeroInstall.Model.Capabilities;
 namespace ZeroInstall.Commands.WinForms.CapabilityModels
 {
     /// <summary>
-    /// The specialized <see cref="IconCapabilityModel{T}" /> adds a property for the concatenation of all <see cref="UrlProtocol.KnownPrefixes" /> of an <see cref="UrlProtocol" />.
+    /// The specialized <see cref="IconCapabilityModel"/> adds a property for the concatenation of all <see cref="UrlProtocol.KnownPrefixes"/> of an <see cref="UrlProtocol"/>.
     /// </summary>
-    internal class UrlProtocolModel : IconCapabilityModel<UrlProtocol>
+    internal class UrlProtocolModel : IconCapabilityModel
     {
-        #region Properties
+        private readonly UrlProtocol _urlProtocol;
+
         /// <summary>
-        /// All <see cref="UrlProtocol.KnownPrefixes" /> concatenated with ", ". If no <see cref="UrlProtocol.KnownPrefixes" /> is available <see cref="Capability.ID" /> will be returned.
+        /// All <see cref="UrlProtocol.KnownPrefixes"/> concatenated with ", ". If no <see cref="UrlProtocol.KnownPrefixes"/> is available <see cref="Capability.ID"/> will be returned.
         /// </summary>
-        public string KnownPrefixes { get { return Capability.KnownPrefixes.IsEmpty ? Capability.ID : StringUtils.Concatenate(Capability.KnownPrefixes.Map(extension => extension.Value), ", "); } }
-        #endregion
+        public string KnownPrefixes { get { return _urlProtocol.KnownPrefixes.IsEmpty ? Capability.ID : StringUtils.Concatenate(_urlProtocol.KnownPrefixes.Map(extension => extension.Value), ", "); } }
 
         /// <inheritdoc />
         public UrlProtocolModel(UrlProtocol capability, bool used) : base(capability, used)
-        {}
+        {
+            _urlProtocol = capability;
+        }
     }
 }
