@@ -169,6 +169,14 @@ You may have to close and reopen your terminal for this to become effective.</va
   <data name="AppListRemoved" xml:space="preserve">
     <value>'{0}' was removed from the application list.</value>
   </data>
+  <data name="AskUpdateCapabilities" xml:space="preserve">
+    <value>Do you wish to update any existing desktop integration to reflect this?
+If you select 'Yes' potentially incompatible integrations will be removed.
+If you select 'No' Zero Install will continue to use the old capabilities.</value>
+  </data>
+  <data name="CapabilitiesChanged" xml:space="preserve">
+    <value>The capabilities of the application '{0}' have changed.</value>
+  </data>
   <data name="ChangesFound" xml:space="preserve">
     <value>Changes found:</value>
   </data>
@@ -302,22 +310,19 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
     <value>The {HASH} algorithm to use for the digest.</value>
   </data>
   <data name="OptionAliasRemove" xml:space="preserve">
-    <value>Removes an existing alias.</value>
+    <value>Remove an existing alias.</value>
   </data>
   <data name="OptionAliasResolve" xml:space="preserve">
     <value>Print the interface URI for the given alias.</value>
   </data>
   <data name="OptionAppAdd" xml:space="preserve">
-    <value>Applies all {CATEGORY} access points.</value>
+    <value>Apply all {CATEGORY} access points.</value>
   </data>
   <data name="OptionAppCategory" xml:space="preserve">
-    <value>{CATEGORY} must be on of the following: </value>
-  </data>
-  <data name="OptionAppImplicitCategory" xml:space="preserve">
-    <value>Note: '{0}' are added implicitly if nothing else is specified.</value>
+    <value>{CATEGORY} must be one of the following: </value>
   </data>
   <data name="OptionAppRemove" xml:space="preserve">
-    <value>Removes all {CATEGORY} access points.</value>
+    <value>Remove all {CATEGORY} access points.</value>
   </data>
   <data name="OptionBatch" xml:space="preserve">
     <value>Run in batch mode: don't display progress reports to the user and silently answer all questions with "No". Use a tray icon when in GUI mode.</value>

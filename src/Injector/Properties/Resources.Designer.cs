@@ -217,7 +217,7 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The working directory contains an invalid paths (potentially a security risk)..
+        ///   Looks up a localized string similar to The working directory contains an invalid path (potentially a security risk)..
         /// </summary>
         internal static string WorkingDirInvalidPath {
             get {

@@ -1220,9 +1220,6 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="EnterFeedUrl" xml:space="preserve">
-    <value>Please enter the URL of the new source of implementations for this interface:</value>
-  </data>
   <data name="Hide" xml:space="preserve">
     <value>Hide</value>
   </data>
@@ -1246,5 +1243,8 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
+  </data>
+  <data name="EnterFeedUrl" xml:space="preserve">
+    <value>Please enter the URL of the new source of implementations for this interface:</value>
   </data>
 </root>

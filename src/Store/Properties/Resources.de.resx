@@ -231,6 +231,6 @@ Festgelegt in der Konfigurationsdatei '{1}'.</value>
     <value>Die XML-Signatur beginnt nicht auf einer neuen Zeile.</value>
   </data>
   <data name="XmlSignatureNotBase64" xml:space="preserve">
-    <value>Die Signature ist nicht gültiges Base 64: </value>
+    <value>Die Signatur ist nicht gültiges Base 64: </value>
   </data>
 </root>

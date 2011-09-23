@@ -136,7 +136,7 @@
     <value>Wähle Implementierungen aus</value>
   </data>
   <data name="ActionSelfUpdate" xml:space="preserve">
-    <value>Akualisiere Zero Install</value>
+    <value>Aktualisiere Zero Install</value>
   </data>
   <data name="ActionSync" xml:space="preserve">
     <value>Synchronisiere</value>
@@ -167,7 +167,15 @@ Sie müssen eventuell ihr Terminal schließen und wieder öffnen damit dies wirk
     <value>'{0}' wurde der Anwendungsliste hinzugefügt.</value>
   </data>
   <data name="AppListRemoved" xml:space="preserve">
-    <value>'{0}' wurde von der Anwendungsliste entefernt.</value>
+    <value>'{0}' wurde von der Anwendungsliste entfernt.</value>
+  </data>
+  <data name="AskUpdateCapabilities" xml:space="preserve">
+    <value>Möchten Sie die bestehende Desktopintegration daran anpassen?
+Wenn Sie 'Ja' wählen werden möglicherweise nicht mehr kompatible Integrationen entfernt.
+Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.</value>
+  </data>
+  <data name="CapabilitiesChanged" xml:space="preserve">
+    <value>Die Fähigkeiten der Anwendung '{0}' haben sich geändert.</value>
   </data>
   <data name="ChangesFound" xml:space="preserve">
     <value>Gefundene Änderungen:</value>
@@ -177,6 +185,9 @@ Sie müssen eventuell ihr Terminal schließen und wieder öffnen damit dies wirk
   </data>
   <data name="DescriptionAddAlias" xml:space="preserve">
     <value>Lege einen Alias zum Starten einer Anwendung via Zero Install ohne immer die vollständige URI eingeben zu müssen an.</value>
+  </data>
+  <data name="DescriptionAddApp" xml:space="preserve">
+    <value>Füge eine Anwendung der Anwendungsliste hinzu.</value>
   </data>
   <data name="DescriptionAddFeed" xml:space="preserve">
     <value>Registriere eine zusätzliche Implementierungsquelle (Versionen) für ein Programm.</value>
@@ -193,11 +204,17 @@ Sie müssen eventuell ihr Terminal schließen und wieder öffnen damit dies wirk
   <data name="DescriptionImport" xml:space="preserve">
     <value>Importiere einen Feed aus einer lokalen Datei, als wäre aus einem Netzwerk heruntergeladen worden. Dies ist praktisch um einen Feed zu testen, der nicht extra auf einem entfernten Server hochgeladen werden muss, nur um ihn wieder herunterzuladen. Diese Datei muss eine vertrauenswürdige digitale Signatur besitzen, genauso wie beim Abrufen aus dem Netzwerk.</value>
   </data>
+  <data name="DescriptionIntegrateApp" xml:space="preserve">
+    <value>Füge eine Anwendung der Anwendungsliste hinzu (falls sie fehlt) und integriere sie in die Desktopumgebung.</value>
+  </data>
   <data name="DescriptionList" xml:space="preserve">
-    <value>Listet alle bekannten Interface (Programm-) URIs auf. Wenn eine Suchbegriff angegeben wird, werden nur URIs angezeigt die den entsprechenden Begriff enthalten (Groß- und Kleinschreibung wird ignoriert).</value>
+    <value>Listet alle bekannten Interface (Programm-) URIs auf. Wenn ein Suchbegriff angegeben wird, werden nur URIs angezeigt die den entsprechenden Begriff enthalten (Groß- und Kleinschreibung wird ignoriert) ausgegeben.</value>
   </data>
   <data name="DescriptionListFeeds" xml:space="preserve">
     <value>Listet alle zusätzlichen Feeds auf, die mit '0install add-feed' hinzugefügt wurden.</value>
+  </data>
+  <data name="DescriptionRemoveApp" xml:space="preserve">
+    <value>Entferne eine Anwendung aus der Anwendungsliste und mache Integrationen in die Desktopumgebung rückgängig.</value>
   </data>
   <data name="DescriptionRemoveFeed" xml:space="preserve">
     <value>Entfernt einen Feed. Dies ist das Gegenstück zu 'add-feed'.</value>
@@ -209,7 +226,7 @@ Sie müssen eventuell ihr Terminal schließen und wieder öffnen damit dies wirk
     <value>Wähle eine Version des Programmes aus, welches durch seine URI identifiziert wird, und kompatible Versionen aller seiner Abhängigkeiten hat. Gibt den Exit-Status 0 zurück, wenn eine Menge an Versionen ausgewählt wurde und den Status 0, wenn keine konsistente Menge gefunden werden konnte.</value>
   </data>
   <data name="DescriptionSelfUpdate" xml:space="preserve">
-    <value>Aktualisiere Zero Install selber auf die neuste verfügbar Version.</value>
+    <value>Aktualisiere Zero Install selber auf die neuste verfügbare Version.</value>
   </data>
   <data name="DescriptionSync" xml:space="preserve">
     <value>Synchronisiere die Anwendungsliste mit dem Server.</value>
@@ -290,7 +307,7 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
     <value>Keine Updates gefunden</value>
   </data>
   <data name="OptionAlgorithm" xml:space="preserve">
-    <value>Der {HASH} algorithmus der für den Digest verwendet werden soll.</value>
+    <value>Der {HASH} Algorithmus der für den Digest verwendet werden soll.</value>
   </data>
   <data name="OptionAliasRemove" xml:space="preserve">
     <value>Entferne einen bestehenden Alias.</value>
@@ -298,11 +315,20 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="OptionAliasResolve" xml:space="preserve">
     <value>Gebe die Interface URI für den angegebenen Alias aus.</value>
   </data>
+  <data name="OptionAppAdd" xml:space="preserve">
+    <value>Wende alle {CATEGORY} Access Points an.</value>
+  </data>
+  <data name="OptionAppCategory" xml:space="preserve">
+    <value>{CATEGORY} muss einen der folgenden Werte haben: </value>
+  </data>
+  <data name="OptionAppRemove" xml:space="preserve">
+    <value>Entferne alle {CATEGORY} Access Points.</value>
+  </data>
   <data name="OptionBatch" xml:space="preserve">
     <value>Im Stapelverarbeitungsmodus ausführen: dem Benutzer keine Meldungen zeigen und Rückfragen stillschweigend mit "Nein" beantworten.</value>
   </data>
   <data name="OptionBefore" xml:space="preserve">
-    <value>Die Version der ausgewählten Implementierung muss vor {VERSION} liegen. Zum Beispiel können Sie damit die Verwendung einer ältere Version des Programmes erzwingen.</value>
+    <value>Die Version der ausgewählten Implementierung muss vor {VERSION} liegen. Zum Beispiel können Sie damit die Verwendung einer älteren Version des Programmes erzwingen.</value>
   </data>
   <data name="OptionCommand" xml:space="preserve">
     <value>Anstelle der Ausführung des Standardkommandos, verwenden Sie {COMMAND}. Mögliche Kommandos sind im Programminterface spezifiziert.</value>
@@ -312,6 +338,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   </data>
   <data name="OptionForceSelfUpdate" xml:space="preserve">
     <value>Führe das Update durch, auch wenn die derzeit installierte Version die gleiche oder neuer ist.</value>
+  </data>
+  <data name="OptionGlobal" xml:space="preserve">
+    <value>Wende die Konfiguration System-weit anstatt nur für den aktuellen User an.</value>
   </data>
   <data name="OptionGui" xml:space="preserve">
     <value>Zeigt den grafischen Versionseditor an. Dies gestattet Ihnen die Version des Programmes oder der Bibliothek auszuwählen.</value>

@@ -59,7 +59,7 @@ namespace ZeroInstall.Commands
         {
             string categoryList = StringUtils.Concatenate(CategoryIntegrationManager.Categories, ", ");
 
-            Options.Add("a|add=", Resources.OptionAppAdd + "\n" + Resources.OptionAppCategory + categoryList + "\n" + string.Format(Resources.OptionAppImplicitCategory, CapabilityRegistration.CategoryName), category =>
+            Options.Add("a|add=", Resources.OptionAppAdd + "\n" + Resources.OptionAppCategory + categoryList, category =>
             {
                 category = category.ToLower();
                 if (!CategoryIntegrationManager.Categories.Contains(category)) throw new OptionException(string.Format(Resources.UnknownCategory, category), "add");
@@ -143,7 +143,8 @@ namespace ZeroInstall.Commands
 
                 if (!appEntry.CapabilityLists.UnsequencedEquals(feed.CapabilityLists))
                 {
-                    if (Policy.Handler.AskQuestion("Update stuff?", "Stuff updated"))
+                    string changedMessage = string.Format(Resources.CapabilitiesChanged, appEntry.Name);
+                    if (Policy.Handler.AskQuestion(changedMessage + " " + Resources.AskUpdateCapabilities, changedMessage))
                         integrationManager.UpdateApp(appEntry, feed);
                 }
 

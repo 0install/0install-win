@@ -215,6 +215,26 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you wish to update any existing desktop integration to reflect this?
+        ///If you select &apos;Yes&apos; potentially incompatible integrations will be removed.
+        ///If you select &apos;No&apos; Zero Install will continue to use the old capabilities..
+        /// </summary>
+        internal static string AskUpdateCapabilities {
+            get {
+                return ResourceManager.GetString("AskUpdateCapabilities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The capabilities of the application &apos;{0}&apos; have changed..
+        /// </summary>
+        internal static string CapabilitiesChanged {
+            get {
+                return ResourceManager.GetString("CapabilitiesChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Changes found:.
         /// </summary>
         internal static string ChangesFound {
@@ -605,7 +625,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removes an existing alias..
+        ///   Looks up a localized string similar to Remove an existing alias..
         /// </summary>
         internal static string OptionAliasRemove {
             get {
@@ -623,7 +643,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Applies all {CATEGORY} access points..
+        ///   Looks up a localized string similar to Apply all {CATEGORY} access points..
         /// </summary>
         internal static string OptionAppAdd {
             get {
@@ -632,7 +652,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {CATEGORY} must be on of the following: .
+        ///   Looks up a localized string similar to {CATEGORY} must be one of the following: .
         /// </summary>
         internal static string OptionAppCategory {
             get {
@@ -641,16 +661,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note: &apos;{0}&apos; are added implicitly if nothing else is specified..
-        /// </summary>
-        internal static string OptionAppImplicitCategory {
-            get {
-                return ResourceManager.GetString("OptionAppImplicitCategory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Removes all {CATEGORY} access points..
+        ///   Looks up a localized string similar to Remove all {CATEGORY} access points..
         /// </summary>
         internal static string OptionAppRemove {
             get {

@@ -172,6 +172,6 @@ New time: {2}</value>
     <value>The working directory has already been changed by a previous command.</value>
   </data>
   <data name="WorkingDirInvalidPath" xml:space="preserve">
-    <value>The working directory contains an invalid paths (potentially a security risk).</value>
+    <value>The working directory contains an invalid path (potentially a security risk).</value>
   </data>
 </root>
