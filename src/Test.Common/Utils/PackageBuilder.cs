@@ -35,6 +35,7 @@ namespace Common.Utils
 
         public string Name { get; private set; }
         public DateTime LastWriteTime { get; private set; }
+
         public string RelativePath
         {
             get
@@ -71,10 +72,7 @@ namespace Common.Utils
         private readonly bool _executable;
         public bool IsExecutable { get { return _executable; } }
 
-        public byte[] Content
-        {
-            get { return _content.ToArray(); }
-        }
+        public byte[] Content { get { return _content.ToArray(); } }
 
         internal FileEntry(string name, byte[] content, EntryContainer parent, bool executable, DateTime lastWrite)
             : base(name, parent, lastWrite)
@@ -90,9 +88,11 @@ namespace Common.Utils
             _content.Seek(0, SeekOrigin.Begin);
             _executable = executable;
         }
-        
+
         public override void AcceptVisitor(HierarchyVisitor visitor)
-        { visitor.VisitFile(this); }
+        {
+            visitor.VisitFile(this);
+        }
     }
 
     public abstract class EntryContainer : HierarchyEntry
@@ -109,10 +109,7 @@ namespace Common.Utils
             Entries.Sort((left, right) => StringComparer.InvariantCulture.Compare(left.Name, right.Name));
         }
 
-        public IEnumerable<HierarchyEntry> Children
-        {
-            get { return Entries; }
-        }
+        public IEnumerable<HierarchyEntry> Children { get { return Entries; } }
     }
 
     public class FolderEntry : EntryContainer
@@ -127,7 +124,9 @@ namespace Common.Utils
         }
 
         public override void AcceptVisitor(HierarchyVisitor visitor)
-        { visitor.VisitFolder(this); }
+        {
+            visitor.VisitFolder(this);
+        }
     }
 
     public class RootEntry : EntryContainer
@@ -137,18 +136,25 @@ namespace Common.Utils
         {}
 
         public override void AcceptVisitor(HierarchyVisitor visitor)
-        { visitor.VisitRoot(this); }
+        {
+            visitor.VisitRoot(this);
+        }
     }
 
     public abstract class HierarchyVisitor
     {
-        public virtual void VisitFile(FileEntry entry) {}
+        public virtual void VisitFile(FileEntry entry)
+        {}
 
         public virtual void VisitFolder(FolderEntry entry)
-        { VisitChildren(entry); }
+        {
+            VisitChildren(entry);
+        }
 
         public virtual void VisitRoot(RootEntry entry)
-        { VisitChildren(entry); }
+        {
+            VisitChildren(entry);
+        }
 
         protected void VisitChildren(EntryContainer entry)
         {
@@ -157,7 +163,7 @@ namespace Common.Utils
         }
     }
 
-    class HierarchyToZip : HierarchyVisitor
+    internal class HierarchyToZip : HierarchyVisitor
     {
         private readonly ZipOutputStream _zip;
 
@@ -204,9 +210,9 @@ namespace Common.Utils
         }
     }
 
-    class HierarchyToFolder : HierarchyVisitor
+    internal class HierarchyToFolder : HierarchyVisitor
     {
-        readonly string _folder;
+        private readonly string _folder;
 
         public HierarchyToFolder(string targetFolder)
         {
@@ -272,10 +278,7 @@ namespace Common.Utils
         private readonly EntryContainer _currentSubhierarchy;
         private readonly RootEntry _packageRoot;
 
-        public EntryContainer Hierarchy
-        {
-            get { return _packageRoot; }
-        }
+        public EntryContainer Hierarchy { get { return _packageRoot; } }
 
         public PackageBuilder()
         {
@@ -289,7 +292,9 @@ namespace Common.Utils
         }
 
         public PackageBuilder AddFolder(string name)
-        { return AddFolder(name, DefaultDate); }
+        {
+            return AddFolder(name, DefaultDate);
+        }
 
         public PackageBuilder AddFolder(string name, DateTime lastWrite)
         {
@@ -299,7 +304,9 @@ namespace Common.Utils
         }
 
         public PackageBuilder AddFile(string name, byte[] content)
-        { return AddFile(name, content, DefaultDate); }
+        {
+            return AddFile(name, content, DefaultDate);
+        }
 
         public PackageBuilder AddFile(string name, string content)
         {
@@ -320,7 +327,9 @@ namespace Common.Utils
         }
 
         public PackageBuilder AddExecutable(string name, byte[] content)
-        { return AddExecutable(name, content, DefaultDate); }
+        {
+            return AddExecutable(name, content, DefaultDate);
+        }
 
         public PackageBuilder AddExecutable(string name, byte[] content, DateTime lastWrite)
         {
@@ -342,7 +351,7 @@ namespace Common.Utils
 
         public void GeneratePackageArchive(Stream output)
         {
-            using (var zip = new ZipOutputStream(output) { IsStreamOwner = false })
+            using (var zip = new ZipOutputStream(output) {IsStreamOwner = false})
             {
                 zip.SetLevel(9);
                 var hierarchyToZip = new HierarchyToZip(zip);

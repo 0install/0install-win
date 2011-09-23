@@ -26,7 +26,15 @@ using System.Text;
 namespace Common.Controls
 {
     /// <seealso cref="RtfBuilder.AppendPar"/>
-    public enum RtfColor { Black = 0, Blue = 1, Green = 2, Yellow = 3, Orange = 4, Red = 5 }
+    public enum RtfColor
+    {
+        Black = 0,
+        Blue = 1,
+        Green = 2,
+        Yellow = 3,
+        Orange = 4,
+        Red = 5
+    }
 
     /// <summary>
     /// Helps build an RTF-formated string.

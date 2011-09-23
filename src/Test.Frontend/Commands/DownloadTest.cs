@@ -44,7 +44,7 @@ namespace ZeroInstall.Commands
             var testFeed1 = FeedTest.CreateTestFeed();
             var testImplementation1 = testFeed1.GetImplementation(selections.Implementations[0].ID);
 
-            var testImplementation2 = new Implementation { ID = "id2", ManifestDigest = new ManifestDigest("sha256=abc"), Version = new ImplementationVersion("1.0") };
+            var testImplementation2 = new Implementation {ID = "id2", ManifestDigest = new ManifestDigest("sha256=abc"), Version = new ImplementationVersion("1.0")};
             var testFeed2 = new Feed
             {
                 Uri = new Uri("http://0install.de/feeds/test/test2.xml"),

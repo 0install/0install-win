@@ -80,8 +80,7 @@ namespace Common.Storage
         /// <summary>
         /// The home directory of the current user.
         /// </summary>
-        public static string HomeDir
-        { get { return Environment.GetFolderPath(Environment.SpecialFolder.Personal); } }
+        public static string HomeDir { get { return Environment.GetFolderPath(Environment.SpecialFolder.Personal); } }
 
         /// <summary>
         /// The directory to store per-user settings that can roam across different machines.
@@ -268,7 +267,7 @@ namespace Common.Storage
                     ? FileUtils.PathCombine(PortableBase, "config", resourceCombined)
                     : FileUtils.PathCombine(UserConfigDir, appName, resourceCombined);
             }
-            #region Error handling
+                #region Error handling
             catch (ArgumentException ex)
             {
                 // Wrap exception to add context information
@@ -311,27 +310,35 @@ namespace Common.Storage
             else
             {
                 // Check in user profile
-                try { path = FileUtils.PathCombine(UserConfigDir, appName, resourceCombined); }
-                #region Error handling
+                try
+                {
+                    path = FileUtils.PathCombine(UserConfigDir, appName, resourceCombined);
+                }
+                    #region Error handling
                 catch (ArgumentException ex)
                 {
                     // Wrap exception to add context information
                     throw new IOException(string.Format(Resources.InvalidConfigDir, UserConfigDir) + "\n" + ex.Message, ex);
                 }
                 #endregion
+
                 if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
 
                 // Check in system directories
                 foreach (var dirPath in SystemConfigDirs.Split(Path.PathSeparator))
                 {
-                    try { path = FileUtils.PathCombine(dirPath, appName, resourceCombined); }
-                    #region Error handling
+                    try
+                    {
+                        path = FileUtils.PathCombine(dirPath, appName, resourceCombined);
+                    }
+                        #region Error handling
                     catch (ArgumentException ex)
                     {
                         // Wrap exception to add context information
                         throw new IOException(string.Format(Resources.InvalidConfigDir, dirPath) + "\n" + ex.Message, ex);
                     }
                     #endregion
+
                     if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
                 }
             }
@@ -361,7 +368,7 @@ namespace Common.Storage
                     ? FileUtils.PathCombine(PortableBase, "data", resourceCombined)
                     : FileUtils.PathCombine(UserDataDir, appName, resourceCombined);
             }
-            #region Error handling
+                #region Error handling
             catch (ArgumentException ex)
             {
                 // Wrap exception to add context information
@@ -404,27 +411,35 @@ namespace Common.Storage
             else
             {
                 // Check in user profile
-                try { path = FileUtils.PathCombine(UserDataDir, appName, resourceCombined); }
-                #region Error handling
+                try
+                {
+                    path = FileUtils.PathCombine(UserDataDir, appName, resourceCombined);
+                }
+                    #region Error handling
                 catch (ArgumentException ex)
                 {
                     // Wrap exception to add context information
                     throw new IOException(string.Format(Resources.InvalidConfigDir, UserDataDir) + "\n" + ex.Message, ex);
                 }
                 #endregion
+
                 if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
 
                 // Check in system directories
                 foreach (var dirPath in SystemDataDirs.Split(Path.PathSeparator))
                 {
-                    try { path = FileUtils.PathCombine(dirPath, appName, resourceCombined); }
-                    #region Error handling
+                    try
+                    {
+                        path = FileUtils.PathCombine(dirPath, appName, resourceCombined);
+                    }
+                        #region Error handling
                     catch (ArgumentException ex)
                     {
                         // Wrap exception to add context information
                         throw new IOException(string.Format(Resources.InvalidConfigDir, dirPath) + "\n" + ex.Message, ex);
                     }
                     #endregion
+
                     if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
                 }
             }
@@ -455,7 +470,7 @@ namespace Common.Storage
                     ? FileUtils.PathCombine(PortableBase, "cache", resourceCombined)
                     : FileUtils.PathCombine(UserCacheDir, appName, resourceCombined);
             }
-            #region Error handling
+                #region Error handling
             catch (ArgumentException ex)
             {
                 // Wrap exception to add context information
@@ -500,28 +515,36 @@ namespace Common.Storage
             else
             {
                 // Create in user profile
-                try { path = FileUtils.PathCombine(UserCacheDir, appName, resourceCombined); }
-                #region Error handling
+                try
+                {
+                    path = FileUtils.PathCombine(UserCacheDir, appName, resourceCombined);
+                }
+                    #region Error handling
                 catch (ArgumentException ex)
                 {
                     // Wrap exception to add context information
                     throw new IOException(string.Format(Resources.InvalidConfigDir, UserCacheDir) + "\n" + ex.Message, ex);
                 }
                 #endregion
+
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                 yield return path;
 
                 // Check in system directories
                 foreach (var dirPath in SystemCacheDirs.Split(Path.PathSeparator))
                 {
-                    try { path = FileUtils.PathCombine(dirPath, appName, resourceCombined); }
-                    #region Error handling
+                    try
+                    {
+                        path = FileUtils.PathCombine(dirPath, appName, resourceCombined);
+                    }
+                        #region Error handling
                     catch (ArgumentException ex)
                     {
                         // Wrap exception to add context information
                         throw new IOException(string.Format(Resources.InvalidConfigDir, dirPath) + "\n" + ex.Message, ex);
                     }
                     #endregion
+
                     if (Directory.Exists(path)) yield return path;
                 }
             }

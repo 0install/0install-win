@@ -100,8 +100,11 @@ namespace ZeroInstall.Capture
 
             var snapshot = new Snapshot();
 
-            try { TakeRegistry(snapshot); }
-            #region Error handling
+            try
+            {
+                TakeRegistry(snapshot);
+            }
+                #region Error handling
             catch (SecurityException ex)
             {
                 // Wrap exception since only certain exception types are allowed in tasks
@@ -160,8 +163,10 @@ namespace ZeroInstall.Capture
 
                 var serviceAssocsList = new C5.LinkedList<ComparableTuple<string>>();
                 foreach (string serviceName in clientsKey.GetSubKeyNames())
+                {
                     foreach (string clientName in RegUtils.GetSubKeyNames(clientsKey, serviceName))
                         serviceAssocsList.Add(new ComparableTuple<string>(serviceName, clientName));
+                }
                 return serviceAssocsList.ToArray();
             }
         }
@@ -201,7 +206,7 @@ namespace ZeroInstall.Capture
         private static ComparableTuple<string>[] GetProtocolAssoc()
         {
             var protocolAssocList = new C5.LinkedList<ComparableTuple<string>>();
-            foreach (string protocol in new [] {"ftp", "gopher", "http", "https"})
+            foreach (string protocol in new[] {"ftp", "gopher", "http", "https"})
             {
                 var command = Registry.GetValue(@"HKEY_CLASSES_ROOT\" + protocol + @"\shell\open\command", "", "") as string;
                 if (!string.IsNullOrEmpty(command)) protocolAssocList.Add(new ComparableTuple<string>(protocol, command));
@@ -224,8 +229,10 @@ namespace ZeroInstall.Capture
 
                 var autoPlayAssocsList = new C5.LinkedList<ComparableTuple<string>>();
                 foreach (string eventName in eventsKey.GetSubKeyNames())
+                {
                     foreach (var handlerName in RegUtils.GetValueNames(eventsKey, eventName))
                         autoPlayAssocsList.Add(new ComparableTuple<string>(eventName, handlerName));
+                }
                 return autoPlayAssocsList.ToArray();
             }
         }
@@ -257,7 +264,7 @@ namespace ZeroInstall.Capture
             snapshot.ProgramsDirs = programDirs.ToArray();
         }
         #endregion
-        
+
         #region Diff
         /// <summary>
         /// Determines which elements have been added to the system between two snapshots.

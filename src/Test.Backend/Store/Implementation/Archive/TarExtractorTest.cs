@@ -26,8 +26,8 @@ namespace ZeroInstall.Store.Implementation.Archive
     [TestFixture]
     public class TarExtractorTestBasicFunctionality
     {
-        TemporaryDirectory _sandbox;
-        string _oldWorkingDirectory;
+        private TemporaryDirectory _sandbox;
+        private string _oldWorkingDirectory;
 
         [SetUp]
         public void SetUp()
@@ -78,7 +78,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             using (var archive = TestData.GetTestGemArchiveStream())
                 TestExtract("application/x-ruby-gem", archive);
         }
-        
+
         private void TestExtract(string mimeType, Stream archive)
         {
             using (var extractor = Extractor.CreateExtractor(mimeType, archive, _sandbox.Path))
@@ -93,7 +93,7 @@ namespace ZeroInstall.Store.Implementation.Archive
     }
 
     [TestFixture]
-    class TarExtractorTestCornerCases
+    internal class TarExtractorTestCornerCases
     {
         private TemporaryDirectory _sandbox;
 
@@ -120,9 +120,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                 extractor.RunSync();
 
             if (MonoUtils.IsUnix)
-            {
                 Assert.IsTrue(FileUtils.IsExecutable(Path.Combine(_sandbox.Path, "subdir2/executable")), "File 'executable' should be marked as exectuable");
-            }
             else
             {
                 string xbitFileContent = File.ReadAllText(Path.Combine(_sandbox.Path, ".xbit")).Trim();

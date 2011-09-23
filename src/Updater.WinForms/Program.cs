@@ -21,6 +21,7 @@ using System.IO;
 using System.Windows.Forms;
 using Common;
 using ZeroInstall.Updater.WinForms.Properties;
+
 #if !DEBUG
 using Common.Controls;
 #endif
@@ -48,8 +49,11 @@ namespace ZeroInstall.Updater.WinForms
             }
 
             UpdateProcess updateProcess;
-            try { updateProcess = new UpdateProcess(args[0], args[1], args[2]); }
-            #region Error handling
+            try
+            {
+                updateProcess = new UpdateProcess(args[0], args[1], args[2]);
+            }
+                #region Error handling
             catch (IOException ex)
             {
                 Msg.Inform(null, ex.Message, MsgSeverity.Error);

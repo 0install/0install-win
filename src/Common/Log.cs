@@ -29,6 +29,7 @@ using Common.Utils;
 
 namespace Common
 {
+
     #region Enumerations
     /// <summary>
     /// Describes how severe/important a <see cref="Log"/> entry is.
@@ -38,10 +39,13 @@ namespace Common
     {
         /// <summary>A message printed as-is (no time stamp, etc.). Usually used for <see cref="Console"/> output.</summary>
         Echo,
+
         /// <summary>A nice-to-know piece of information.</summary>
         Info,
+
         /// <summary>A warning that doesn't have to be acted upon immediately.</summary>
         Warn,
+
         /// <summary>A critical error that should be attended to.</summary>
         Error
     }
@@ -83,7 +87,10 @@ namespace Common
         {
             get
             {
-                lock (_sessionContent) { return _sessionContent.ToString(); }
+                lock (_sessionContent)
+                {
+                    return _sessionContent.ToString();
+                }
             }
         }
         #endregion
@@ -109,8 +116,14 @@ namespace Common
 
             // Try to open the file for writing but give up right away if there are any problems
             FileStream file;
-            try { file = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite); }
-            catch { return; }
+            try
+            {
+                file = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
+            }
+            catch
+            {
+                return;
+            }
 
             // Check if the log file has exceeded 1MB
             if (file.Length > 1024 * 1024)
@@ -161,30 +174,50 @@ namespace Common
                     // Write the colored message to the console
                     switch (severity)
                     {
-                        case LogSeverity.Warn: Console.ForegroundColor = ConsoleColor.DarkYellow; break;
-                        case LogSeverity.Error: Console.ForegroundColor = ConsoleColor.Red; break;
+                        case LogSeverity.Warn:
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            break;
+                        case LogSeverity.Error:
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            break;
                     }
                 }
-                #region Error handling
-                catch (InvalidOperationException) {}
-                catch (IOException) {}
+                    #region Error handling
+                catch (InvalidOperationException)
+                {}
+                catch (IOException)
+                {}
                 #endregion
+
                 Console.Error.WriteLine(message);
-                try { Console.ResetColor(); }
-                #region Error handling
-                catch (InvalidOperationException) {}
-                catch (IOException) {}
+                try
+                {
+                    Console.ResetColor();
+                }
+                    #region Error handling
+                catch (InvalidOperationException)
+                {}
+                catch (IOException)
+                {}
                 #endregion
 
                 // Prepend severity and current time to message
                 string formatString;
                 switch (severity)
                 {
-                    case LogSeverity.Info: formatString = "[{0:T}] {1}"; break;
-                    case LogSeverity.Warn: formatString = "[{0:T}] WARN: {1}"; break;
-                    case LogSeverity.Error: formatString = "[{0:T}] ERROR: {1}"; break;
+                    case LogSeverity.Info:
+                        formatString = "[{0:T}] {1}";
+                        break;
+                    case LogSeverity.Warn:
+                        formatString = "[{0:T}] WARN: {1}";
+                        break;
+                    case LogSeverity.Error:
+                        formatString = "[{0:T}] ERROR: {1}";
+                        break;
                     case LogSeverity.Echo:
-                    default: formatString = "{1}"; break;
+                    default:
+                        formatString = "{1}";
+                        break;
                 }
                 string fileMessage = string.Format(CultureInfo.InvariantCulture, formatString, DateTime.Now, message);
 

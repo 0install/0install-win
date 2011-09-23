@@ -62,7 +62,7 @@ namespace Common.Net
         /// </summary>
         public bool Slow { get; set; }
         #endregion
-        
+
         //--------------------//
 
         #region Constructor
@@ -93,7 +93,7 @@ namespace Common.Net
                 _listener.Start();
                 return prefix;
             }
-            #region Error handling
+                #region Error handling
             catch (HttpListenerException)
             {
                 // Prevent endless looping
@@ -134,7 +134,8 @@ namespace Common.Net
             HttpListenerContext context;
             while (_listener.IsListening)
             {
-                try {
+                try
+                {
                     context = _listener.GetContext();
 
                     // Only return one specific file
@@ -150,11 +151,15 @@ namespace Common.Net
 
                     context.Response.OutputStream.Close();
                 }
-                #region Error handling
+                    #region Error handling
                 catch (HttpListenerException)
-                { return; }
+                {
+                    return;
+                }
                 catch (InvalidOperationException)
-                { return; }
+                {
+                    return;
+                }
                 #endregion
             }
         }

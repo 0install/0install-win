@@ -26,6 +26,7 @@ using ZeroInstall.Capture.Cli.Properties;
 
 namespace ZeroInstall.Capture.Cli
 {
+
     #region Enumerations
     /// <summary>
     /// An errorlevel is returned to the original caller after the application terminates, to indicate success or the reason for failure.
@@ -64,11 +65,14 @@ namespace ZeroInstall.Capture.Cli
         public static int Main(string[] args)
         {
             // Automatically show help for missing args
-            if (args.Length == 0) args = new[] { "--help" };
+            if (args.Length == 0) args = new[] {"--help"};
 
             ParseResults results;
-            try { results = ParseArgs(args); }
-            #region Error handling
+            try
+            {
+                results = ParseArgs(args);
+            }
+                #region Error handling
             catch (UserCancelException)
             {
                 // This is reached if --help, --version or similar was used
@@ -81,8 +85,11 @@ namespace ZeroInstall.Capture.Cli
             }
             #endregion
 
-            try { return (int)Execute(results); }
-            #region Error hanlding
+            try
+            {
+                return (int)Execute(results);
+            }
+                #region Error hanlding
             catch (UserCancelException)
             {
                 return (int)ErrorLevel.UserCanceled;
@@ -137,28 +144,36 @@ namespace ZeroInstall.Capture.Cli
             var options = new OptionSet
             {
                 // Version information
-                {"V|version", Resources.OptionVersion, unused => {
-                    var assembly = Assembly.GetEntryAssembly().GetName();
-                    Console.WriteLine(@"Zero Install Capture CLI v{0}", assembly.Version);
-                    throw new UserCancelException();
-                }},
-                {"f|force", Resources.OptionForce, unused => parseResults.Force = true},
-                {"installation-dir=", Resources.OptionInstallationDir, value =>
                 {
-                    try { parseResults.InstallationDirectory = Path.GetFullPath(value); }
-                    #region Error handling
-                    catch (ArgumentException ex)
+                    "V|version", Resources.OptionVersion, unused =>
                     {
-                        // Wrap exception since only certain exception types are allowed
-                        throw new OptionException(ex.Message, "installation-dir", ex);
+                        var assembly = Assembly.GetEntryAssembly().GetName();
+                        Console.WriteLine(@"Zero Install Capture CLI v{0}", assembly.Version);
+                        throw new UserCancelException();
                     }
-                    catch (NotSupportedException ex)
+                    },
+                {"f|force", Resources.OptionForce, unused => parseResults.Force = true},
+                {
+                    "installation-dir=", Resources.OptionInstallationDir, value =>
                     {
-                        // Wrap exception since only certain exception types are allowed
-                        throw new OptionException(ex.Message, "installation-dir", ex);
+                        try
+                        {
+                            parseResults.InstallationDirectory = Path.GetFullPath(value);
+                        }
+                            #region Error handling
+                        catch (ArgumentException ex)
+                        {
+                            // Wrap exception since only certain exception types are allowed
+                            throw new OptionException(ex.Message, "installation-dir", ex);
+                        }
+                        catch (NotSupportedException ex)
+                        {
+                            // Wrap exception since only certain exception types are allowed
+                            throw new OptionException(ex.Message, "installation-dir", ex);
+                        }
+                        #endregion
                     }
-                    #endregion
-                }},
+                    },
                 {"main-exe=", Resources.OptionMainExe, value => parseResults.MainExe = value},
                 {"files", Resources.OptionFiles, unused => parseResults.GetFiles = true}
             };
@@ -183,8 +198,11 @@ namespace ZeroInstall.Capture.Cli
             parseResults.Command = additionalArgs[0];
 
             // Determine the capture directory to use
-            try { parseResults.DirectoryPath = (additionalArgs.Count >= 2) ? Path.GetFullPath(additionalArgs[1]) : Environment.CurrentDirectory; }
-            #region Error handling
+            try
+            {
+                parseResults.DirectoryPath = (additionalArgs.Count >= 2) ? Path.GetFullPath(additionalArgs[1]) : Environment.CurrentDirectory;
+            }
+                #region Error handling
             catch (ArgumentException ex)
             {
                 // Wrap exception since only certain exception types are allowed
@@ -206,7 +224,7 @@ namespace ZeroInstall.Capture.Cli
         private static void PrintUsage()
         {
             var usage = new StringBuilder(Resources.Usage);
-            foreach (string command in new [] {"init", "snap-pre", "snap-post", "collect"})
+            foreach (string command in new[] {"init", "snap-pre", "snap-post", "collect"})
                 usage.AppendLine("\t0capture " + command + " [DIRECTORY] [OPTIONS]");
             Console.WriteLine(usage);
         }

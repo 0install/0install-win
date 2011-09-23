@@ -37,6 +37,7 @@ namespace Common.Controls
     {
         #region Properties
         private ITask _task;
+
         /// <summary>
         /// The <see cref="ITask"/> to track.
         /// </summary>
@@ -75,7 +76,7 @@ namespace Common.Controls
             // Get the initial values
             StateChanged(_task);
             ProgressChanged(_task);
-                        
+
             _task.StateChanged += StateChanged;
             _task.ProgressChanged += ProgressChanged;
         }
@@ -156,7 +157,7 @@ namespace Common.Controls
             if (sender.State != TaskState.Data) return;
 
             // Copy value so it can be safely accessed from another thread
-            long bytesProcessed  = sender.BytesProcessed;
+            long bytesProcessed = sender.BytesProcessed;
             long bytesTotal = sender.BytesTotal;
 
             // Handle events coming from a non-UI thread, block caller
@@ -175,9 +176,7 @@ namespace Common.Controls
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 if (_task != null) HookOut();
-            }
             base.Dispose(disposing);
         }
         #endregion

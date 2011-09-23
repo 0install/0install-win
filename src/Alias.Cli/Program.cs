@@ -54,7 +54,7 @@ namespace ZeroInstall.Alias.Cli
 #endif
 
             // Automatically show help for missing args
-            if (args.Length == 0) args = new[] { "--help" };
+            if (args.Length == 0) args = new[] {"--help"};
 
             // Redirect to GUI version of 0install if --gui argument is specified
             if (Array.Exists(args, arg => arg == "--gui"))
@@ -72,7 +72,7 @@ namespace ZeroInstall.Alias.Cli
                 command = new AddAlias(Policy.CreateDefault(handler));
                 command.Parse(args);
             }
-            #region Error handling
+                #region Error handling
             catch (UserCancelException)
             {
                 // This is reached if --help, --version or similar was used
@@ -105,8 +105,11 @@ namespace ZeroInstall.Alias.Cli
             }
             #endregion
 
-            try { return command.Execute(); }
-            #region Error handling
+            try
+            {
+                return command.Execute();
+            }
+                #region Error handling
             catch (UserCancelException)
             {
                 return 1;
@@ -182,7 +185,8 @@ namespace ZeroInstall.Alias.Cli
                 Log.Error(ex.Message);
                 return 1;
             }
-            #endregion
+                #endregion
+
             finally
             {
                 // Always close GUI in the end

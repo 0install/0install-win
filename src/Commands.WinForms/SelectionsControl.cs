@@ -133,10 +133,7 @@ namespace ZeroInstall.Commands.WinForms
 
                 // Setup link label for modifying interface preferences
                 var linkLabel = new LinkLabel {Text = Resources.Properties, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft};
-                linkLabel.LinkClicked += delegate
-                {
-                    if (InterfaceDialog.Show(this, interfaceID, _feedCache)) ReSolve(solveCallback, waitHandle);
-                };
+                linkLabel.LinkClicked += delegate { if (InterfaceDialog.Show(this, interfaceID, _feedCache)) ReSolve(solveCallback, waitHandle); };
                 _auditLinks.AddLast(linkLabel);
                 tableLayout.Controls.Add(linkLabel, 2, i);
             }

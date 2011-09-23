@@ -54,24 +54,42 @@ namespace ZeroInstall.Commands
             if (string.IsNullOrEmpty(commandName)) return new DefaultCommand(policy);
             switch (commandName.ToLowerInvariant())
             {
-                case Selection.Name: return new Selection(policy);
-                case Download.Name: return new Download(policy);
-                case Update.Name: return new Update(policy);
-                case Run.Name: return new Run(policy);
-                case SelfUpdate.Name: return new SelfUpdate(policy);
-                case Import.Name: return new Import(policy);
-                case List.Name: return new List(policy);
-                case Configure.Name: return new Configure(policy);
-                case AddFeed.Name: return new AddFeed(policy);
-                case RemoveFeed.Name: return new RemoveFeed(policy);
-                case ListFeeds.Name: return new ListFeeds(policy);
-                case Digest.Name: return new Digest(policy);
-                case AddApp.Name: return new AddApp(policy);
-                case RemoveApp.Name: return new RemoveApp(policy);
-                case IntegrateApp.Name: return new IntegrateApp(policy);
-                case AddAlias.Name: return new AddAlias(policy);
-                case SyncApps.Name: return new SyncApps(policy);
-                default: throw new OptionException(string.Format(Resources.UnknownCommand, commandName), null);
+                case Selection.Name:
+                    return new Selection(policy);
+                case Download.Name:
+                    return new Download(policy);
+                case Update.Name:
+                    return new Update(policy);
+                case Run.Name:
+                    return new Run(policy);
+                case SelfUpdate.Name:
+                    return new SelfUpdate(policy);
+                case Import.Name:
+                    return new Import(policy);
+                case List.Name:
+                    return new List(policy);
+                case Configure.Name:
+                    return new Configure(policy);
+                case AddFeed.Name:
+                    return new AddFeed(policy);
+                case RemoveFeed.Name:
+                    return new RemoveFeed(policy);
+                case ListFeeds.Name:
+                    return new ListFeeds(policy);
+                case Digest.Name:
+                    return new Digest(policy);
+                case AddApp.Name:
+                    return new AddApp(policy);
+                case RemoveApp.Name:
+                    return new RemoveApp(policy);
+                case IntegrateApp.Name:
+                    return new IntegrateApp(policy);
+                case AddAlias.Name:
+                    return new AddAlias(policy);
+                case SyncApps.Name:
+                    return new SyncApps(policy);
+                default:
+                    throw new OptionException(string.Format(Resources.UnknownCommand, commandName), null);
             }
         }
         #endregion
@@ -92,7 +110,7 @@ namespace ZeroInstall.Commands
         public static CommandBase CreateAndParse(IEnumerable<string> args, IHandler handler)
         {
             #region Sanity checks
-            if (args == null) throw new ArgumentNullException("args");            
+            if (args == null) throw new ArgumentNullException("args");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
@@ -111,7 +129,7 @@ namespace ZeroInstall.Commands
         private static string GetCommandName(ICollection<string> arguments)
         {
             #region Sanity checks
-            if (arguments == null) throw new ArgumentNullException("arguments");            
+            if (arguments == null) throw new ArgumentNullException("arguments");
             #endregion
 
             string commandName = null;

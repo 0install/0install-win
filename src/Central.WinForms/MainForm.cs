@@ -36,11 +36,11 @@ namespace ZeroInstall.Central.WinForms
     /// <summary>
     /// The main GUI for Zero Install.
     /// </summary>
-    partial class MainForm : Form
+    internal partial class MainForm : Form
     {
         #region Variables
         private Policy _policy;
-        
+
         /// <summary>The version number of the newest available update; <see langword="null"/> if no update is available.</summary>
         private ImplementationVersion _selfUpdateVersion;
         #endregion
@@ -59,7 +59,7 @@ namespace ZeroInstall.Central.WinForms
 
                 var cacheLink = new ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, StoreExe + ".exe"), null);
                 var configLink = new ShellLink(buttonConfiguration.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, CommandsExe + ".exe"), "config");
-                WindowsUtils.AddTaskLinks(Program.AppUserModelID, new[] {cacheLink, configLink });
+                WindowsUtils.AddTaskLinks(Program.AppUserModelID, new[] {cacheLink, configLink});
             };
 
             browserNewApps.CanGoBackChanged += delegate { toolStripButtonBack.Enabled = browserNewApps.CanGoBack; };
@@ -75,11 +75,14 @@ namespace ZeroInstall.Central.WinForms
             // ToDo: Check if the user has any MyApps entries, before showing the "new apps" page
             tabControlApps.SelectedTab = tabPageNewApps;
         }
-        
+
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            try { _policy = Policy.CreateDefault(new SilentHandler()); }
-            #region Error handling
+            try
+            {
+                _policy = Policy.CreateDefault(new SilentHandler());
+            }
+                #region Error handling
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
@@ -114,9 +117,13 @@ namespace ZeroInstall.Central.WinForms
         #region Self-update
         private void selfUpdateWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            try { _selfUpdateVersion = UpdateUtils.CheckSelfUpdate(_policy); }
-            #region Error handling
-            catch(UserCancelException) {}
+            try
+            {
+                _selfUpdateVersion = UpdateUtils.CheckSelfUpdate(_policy);
+            }
+                #region Error handling
+            catch (UserCancelException)
+            {}
             catch (IOException ex)
             {
                 Log.Warn("Unable to perform self-update check:\n" + ex.Message);
@@ -142,7 +149,7 @@ namespace ZeroInstall.Central.WinForms
                     ProcessUtils.LaunchHelperAssembly("0install-win", "self-update");
                     Application.Exit();
                 }
-                #region Error handling
+                    #region Error handling
                 catch (FileNotFoundException ex)
                 {
                     Msg.Inform(this, string.Format(Resources.FailedToRun + "\n" + ex.Message, "0install-win"), MsgSeverity.Error);
@@ -159,9 +166,7 @@ namespace ZeroInstall.Central.WinForms
         {
             Visible = false;
             while (selfUpdateWorker.IsBusy)
-            {
                 Application.DoEvents();
-            }
         }
         #endregion
 
@@ -177,8 +182,11 @@ namespace ZeroInstall.Central.WinForms
             if (string.IsNullOrEmpty(assembly)) throw new ArgumentNullException("assembly");
             #endregion
 
-            try { ProcessUtils.LaunchHelperAssembly(assembly, arguments); }
-            #region Error handling
+            try
+            {
+                ProcessUtils.LaunchHelperAssembly(assembly, arguments);
+            }
+                #region Error handling
             catch (FileNotFoundException ex)
             {
                 Msg.Inform(this, string.Format(Resources.FailedToRun + "\n" + ex.Message, assembly), MsgSeverity.Error);
@@ -200,8 +208,11 @@ namespace ZeroInstall.Central.WinForms
             if (string.IsNullOrEmpty(url)) throw new ArgumentNullException("uri");
             #endregion
 
-            try { Process.Start(url); }
-            #region Error handling
+            try
+            {
+                Process.Start(url);
+            }
+                #region Error handling
             catch (FileNotFoundException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
@@ -313,9 +324,7 @@ namespace ZeroInstall.Central.WinForms
                 LaunchFeed(EnumerableUtils.GetFirst(files));
             }
             else if (e.Data.GetDataPresent(DataFormats.Text))
-            {
                 LaunchFeed((string)e.Data.GetData(DataFormats.Text));
-            }
         }
 
         private void MainForm_DragEnter(object sender, DragEventArgs e)

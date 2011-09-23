@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         {
             var packageBuilder = new PackageBuilder()
                 .AddFile("file1", "First file")
-                .AddFile("file2", new byte[] { 0 });
+                .AddFile("file2", new byte[] {0});
             packageBuilder.AddFolder("emptyFolder");
             packageBuilder.AddFolder("folder1")
                 .AddFile("nestedFile", "File 3\n")
@@ -50,9 +50,9 @@ namespace ZeroInstall.Store.Implementation.Archive
         }
         #endregion
 
-        byte[] _archiveData;
-        TemporaryDirectory _sandbox;
-        HierarchyEntry _package;
+        private byte[] _archiveData;
+        private TemporaryDirectory _sandbox;
+        private HierarchyEntry _package;
 
         [SetUp]
         public void SetUp()
@@ -93,9 +93,9 @@ namespace ZeroInstall.Store.Implementation.Archive
             _package.AcceptVisitor(comparer);
         }
 
-        class CompareHierarchyToExtractedFolder : HierarchyVisitor
+        private class CompareHierarchyToExtractedFolder : HierarchyVisitor
         {
-            string folder;
+            private string folder;
 
             public CompareHierarchyToExtractedFolder(string folderToCompare)
             {
@@ -151,7 +151,7 @@ namespace ZeroInstall.Store.Implementation.Archive
     }
 
     [TestFixture]
-    class ZipExtractorTestCornerCases
+    internal class ZipExtractorTestCornerCases
     {
         private TemporaryDirectory _sandbox;
 
@@ -175,9 +175,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                 extractor.RunSync();
 
             if (MonoUtils.IsUnix)
-            {
                 Assert.IsTrue(FileUtils.IsExecutable(Path.Combine(_sandbox.Path, "subdir2/executable")), "File 'executable' should be marked as exectuable");
-            }
             else
             {
                 string xbitFileContent = File.ReadAllText(Path.Combine(_sandbox.Path, ".xbit")).Trim();
@@ -226,7 +224,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             var builder = new PackageBuilder()
                 .AddFile("emptyFile", new byte[] {});
 
-            using(var archiveStream = File.Create(Path.Combine(_sandbox.Path, "ar.zip")))
+            using (var archiveStream = File.Create(Path.Combine(_sandbox.Path, "ar.zip")))
             {
                 builder.GeneratePackageArchive(archiveStream);
                 archiveStream.Seek(0, SeekOrigin.Begin);

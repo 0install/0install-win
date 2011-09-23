@@ -74,7 +74,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="OverlayBinding"/>.</returns>
         public override Binding CloneBinding()
         {
-            return new OverlayBinding { Source = Source, MountPoint = MountPoint };
+            return new OverlayBinding {Source = Source, MountPoint = MountPoint};
         }
         #endregion
 

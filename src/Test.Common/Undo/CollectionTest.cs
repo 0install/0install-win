@@ -34,7 +34,7 @@ namespace Common.Undo
         [Test]
         public void TestAddToCollection()
         {
-            var collection = new List<string> { "a", "b", "c" };
+            var collection = new List<string> {"a", "b", "c"};
             var command = new AddToCollection<string>(collection, "d");
 
             command.Execute();
@@ -47,7 +47,7 @@ namespace Common.Undo
         [Test]
         public void TestRemoveFromCollection()
         {
-            var collection = new List<string> { "a", "b", "c" };
+            var collection = new List<string> {"a", "b", "c"};
             var command = new RemoveFromCollection<string>(collection, "b");
 
             command.Execute();

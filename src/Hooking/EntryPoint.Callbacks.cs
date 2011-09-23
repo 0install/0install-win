@@ -190,9 +190,12 @@ namespace ZeroInstall.Hooking
             var result = UnsafeNativeMethods.CreateProcessW(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, out lpProcessInformation);
 
             // Inject the hooking DLL (and resume the process)
-            if (needsInjection) RemoteHooking.Inject(lpProcessInformation.dwProcessId, AssemblyStrongName, AssemblyStrongName,
-                // Custom arguments
-                _implementationDir, _registryFilter, _relaunchControl);
+            if (needsInjection)
+            {
+                RemoteHooking.Inject(lpProcessInformation.dwProcessId, AssemblyStrongName, AssemblyStrongName,
+                    // Custom arguments
+                    _implementationDir, _registryFilter, _relaunchControl);
+            }
 
             return result;
         }
@@ -217,9 +220,12 @@ namespace ZeroInstall.Hooking
             var result = UnsafeNativeMethods.CreateProcessA(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, out lpProcessInformation);
 
             // Inject the hooking DLL (and resume the process)
-            if (needsInjection) RemoteHooking.Inject(lpProcessInformation.dwProcessId, AssemblyStrongName, AssemblyStrongName,
-                // Custom arguments
-                _implementationDir, _registryFilter, _relaunchControl);
+            if (needsInjection)
+            {
+                RemoteHooking.Inject(lpProcessInformation.dwProcessId, AssemblyStrongName, AssemblyStrongName,
+                    // Custom arguments
+                    _implementationDir, _registryFilter, _relaunchControl);
+            }
 
             return result;
         }
@@ -241,7 +247,7 @@ namespace ZeroInstall.Hooking
 
             return windowHandle;
         }
-        
+
         /// <summary>
         /// Applies relaunch command and jump list modifications to a Windows 7 taskbar entry.
         /// </summary>

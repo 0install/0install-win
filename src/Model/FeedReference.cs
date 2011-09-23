@@ -60,7 +60,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="FeedReference"/>.</returns>
         public FeedReference CloneFeedPreferences()
         {
-            var feedRereference = new FeedReference { Source = Source };
+            var feedRereference = new FeedReference {Source = Source};
             CloneFromTo(this, feedRereference);
             return feedRereference;
         }

@@ -71,6 +71,7 @@ namespace ZeroInstall.Injector.Solver
 
         // Order is always alphabetical, duplicate string entries are not allowed
         private readonly C5.TreeSet<string> _distributions = new C5.TreeSet<string>();
+
         /// <summary>
         /// A list of distribution names where <see cref="Package"/> applies.
         /// Only set for <see cref="PackageImplementation"/>s; <see langword="null"/> if this comes from a real Zero Instal <see cref="Model.Implementation"/>.
@@ -121,7 +122,10 @@ namespace ZeroInstall.Injector.Solver
             if (ID.StartsWith("package:")) return "(" + ID + ")";
             else
             {
-                try { return store.GetPath(ManifestDigest); }
+                try
+                {
+                    return store.GetPath(ManifestDigest);
+                }
                 catch (ImplementationNotFoundException)
                 {
                     return null;

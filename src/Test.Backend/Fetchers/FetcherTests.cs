@@ -34,9 +34,10 @@ namespace ZeroInstall.Fetchers
 
     internal class MockFetcher : Fetcher
     {
-        class MockImplementationFetch : ImplementationFetch
+        private class MockImplementationFetch : ImplementationFetch
         {
             private readonly MockFetcher _outer;
+
             internal MockImplementationFetch(MockFetcher outer, Implementation implementation)
                 : base(outer, implementation)
             {
@@ -53,7 +54,7 @@ namespace ZeroInstall.Fetchers
 
         internal MockFetcher(IStore store)
             : base(store)
-        { }
+        {}
 
         protected override ImplementationFetch CreateFetch(Implementation implementation)
         {
@@ -69,7 +70,7 @@ namespace ZeroInstall.Fetchers
 
             builder.AddFile("file1", @"AAAA").
                 AddFolder("folder1").AddFile("file2", @"dskf\nsdf\n").
-                AddFolder("folder2").AddFile("file3", new byte[] { 55, 55, 55 });
+                AddFolder("folder2").AddFile("file3", new byte[] {55, 55, 55});
             return builder;
         }
 
@@ -78,18 +79,18 @@ namespace ZeroInstall.Fetchers
             string archiveFile = FileUtils.GetTempFile("0install-unit-tests");
             package.GeneratePackageArchive(archiveFile);
             return new Archive
-                   {
-                       MimeType = "application/zip",
-                       Size = new FileInfo(archiveFile).Length,
-                       Location = new Uri(archiveFile, UriKind.Relative)
-                   };
+            {
+                MimeType = "application/zip",
+                Size = new FileInfo(archiveFile).Length,
+                Location = new Uri(archiveFile, UriKind.Relative)
+            };
         }
 
         internal static Recipe PrepareRecipeForPackages(IEnumerable<PackageBuilder> packages)
         {
             var result = new Recipe();
 
-            foreach(var package in packages)
+            foreach (var package in packages)
             {
                 string archiveFile = FileUtils.GetTempFile("0install-unit-tests");
                 package.GeneratePackageArchive(archiveFile);
@@ -108,7 +109,7 @@ namespace ZeroInstall.Fetchers
         internal static Archive HostArchiveOnMicroServer(Archive archive, out MicroServer server)
         {
             server = new MicroServer(File.OpenRead(archive.LocationString));
-            var hostedArchive = (Archive) archive.Clone();
+            var hostedArchive = (Archive)archive.Clone();
             hostedArchive.Location = server.FileUri;
             return hostedArchive;
         }
@@ -192,7 +193,10 @@ namespace ZeroInstall.Fetchers
                 _fetcher.Start(request);
                 _fetcher.Join(request);
             }
-            finally { server.Dispose(); }
+            finally
+            {
+                server.Dispose();
+            }
 
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
         }
@@ -245,7 +249,10 @@ namespace ZeroInstall.Fetchers
                 _fetcher.Start(request);
                 _fetcher.Join(request);
             }
-            finally { server.Dispose(); }
+            finally
+            {
+                server.Dispose();
+            }
 
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
         }
@@ -283,13 +290,13 @@ namespace ZeroInstall.Fetchers
 
                 var recipe = new Recipe
                 {
-                    Steps = { archive1, archive2 }
+                    Steps = {archive1, archive2}
                 };
 
                 var implementation = new Implementation
                 {
                     ManifestDigest = PackageBuilderManifestExtension.ComputePackageDigest(merged),
-                    RetrievalMethods = { recipe }
+                    RetrievalMethods = {recipe}
                 };
                 var request = new FetchRequest(new List<Implementation> {implementation}, new SilentHandler());
                 _fetcher.Start(request);
@@ -322,7 +329,7 @@ namespace ZeroInstall.Fetchers
                 {
                     ID = "testPackage",
                     ManifestDigest = PackageBuilderManifestExtension.ComputePackageDigest(package),
-                    RetrievalMethods = { fakeArchive, archive }
+                    RetrievalMethods = {fakeArchive, archive}
                 };
 
                 var request = new FetchRequest(new List<Implementation> {implementation}, new SilentHandler());
@@ -337,17 +344,17 @@ namespace ZeroInstall.Fetchers
             server = new MicroServer(File.OpenRead(archiveFile));
 
             var archive = new Archive
-                          {
-                              StartOffset = offset,
-                              MimeType = "application/zip",
-                              Size = new FileInfo(archiveFile).Length - offset,
-                              Location = server.FileUri
-                          };
+            {
+                StartOffset = offset,
+                MimeType = "application/zip",
+                Size = new FileInfo(archiveFile).Length - offset,
+                Location = server.FileUri
+            };
             var result = new Implementation
-                         {
-                             ManifestDigest = digest,
-                             RetrievalMethods = { archive }
-                         };
+            {
+                ManifestDigest = digest,
+                RetrievalMethods = {archive}
+            };
             return result;
         }
     }
@@ -355,10 +362,10 @@ namespace ZeroInstall.Fetchers
     [TestFixture]
     public class ImplementationSelection
     {
-        TemporaryDirectory _testFolder;
-        TemporaryDirectory _storeDir;
-        DirectoryStore _store;
-        string _oldWorkingDirectory;
+        private TemporaryDirectory _testFolder;
+        private TemporaryDirectory _storeDir;
+        private DirectoryStore _store;
+        private string _oldWorkingDirectory;
 
         [SetUp]
         public void SetUp()
@@ -418,9 +425,7 @@ namespace ZeroInstall.Fetchers
                 // Clean up temp files
                 File.Delete(theCompleteArchive.Location.ToString());
                 foreach (var archive in EnumerableUtils.OfType<Archive>(theRecipe.Steps))
-                {
                     File.Delete(archive.Location.ToString());
-                }
             }
             Assert.AreEqual(downloaded, theCompleteArchive.Location);
         }
@@ -430,11 +435,14 @@ namespace ZeroInstall.Fetchers
         {
             // ToDo: One left-over temp file
 
-            var implementation = new Implementation {RetrievalMethods =
+            var implementation = new Implementation
             {
-                new Archive {MimeType = "application/zip"},
-                new Archive {MimeType = "application/x-compressed"}
-            }};
+                RetrievalMethods =
+                    {
+                        new Archive {MimeType = "application/zip"},
+                        new Archive {MimeType = "application/x-compressed"}
+                    }
+            };
 
             string selectedType = null;
 

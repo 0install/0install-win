@@ -33,13 +33,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
     {
         #region Properties
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public C5.ICollection<Icon> IconUrls
-        {
-            get
-            {
-                return _icons;
-            }
-        }
+        public C5.ICollection<Icon> IconUrls { get { return _icons; } }
 
         public void SetIcons(IEnumerable<Icon> icons)
         {
@@ -47,12 +41,12 @@ namespace ZeroInstall.Publish.WinForms.Controls
             _icons.AddAll(icons);
         }
         #endregion
-        
+
         #region Constants
-        private readonly C5.HashSet<ImageFormat> _supportedImageFormats = new C5.HashSet<ImageFormat> { ImageFormat.Png, ImageFormat.Icon };
+        private readonly C5.HashSet<ImageFormat> _supportedImageFormats = new C5.HashSet<ImageFormat> {ImageFormat.Png, ImageFormat.Icon};
 
         private readonly C5.HashDictionary<ImageFormat, String> _mimeTypeTranslator =
-            new C5.HashDictionary<ImageFormat, String> { { ImageFormat.Png, Icon.MimeTypePng }, { ImageFormat.Icon, Icon.MimeTypeIco } };
+            new C5.HashDictionary<ImageFormat, String> {{ImageFormat.Png, Icon.MimeTypePng}, {ImageFormat.Icon, Icon.MimeTypeIco}};
         #endregion
 
         #region Attributes
@@ -133,7 +127,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 return;
             }
 
-
             if (!_supportedImageFormats.Contains(icon.RawFormat))
             {
                 ChangeTextOfMessageLabel(Resources.ImageFormatNotSupported, Color.Red);
@@ -157,7 +150,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private static Image GetImageFromUrl(Uri url)
         {
             //TODO Exeptions dokumentieren
-            var imageStream = HttpWebRequest.Create(url).GetResponse().GetResponseStream();
+            var imageStream = WebRequest.Create(url).GetResponse().GetResponseStream();
             return Image.FromStream(imageStream);
         }
 
@@ -181,9 +174,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
             // get the icon mime type (guess or use selected)
             var mimeType = (comboBoxIconType.Text == Resources.AutoDetect
-                                ? ImageUtils.GuessImageFormat(uriTextBoxIconUrl.Uri.ToString())
-                                : (ImageFormat) comboBoxIconType.SelectedItem);
-            var icon = new Icon { Location = uriTextBoxIconUrl.Uri };
+                ? ImageUtils.GuessImageFormat(uriTextBoxIconUrl.Uri.ToString())
+                : (ImageFormat)comboBoxIconType.SelectedItem);
+            var icon = new Icon {Location = uriTextBoxIconUrl.Uri};
             if (mimeType != null) icon.MimeType = _mimeTypeTranslator[mimeType];
 
             // if nothing is selected add to the end of the list, else insert behind the selected item.
@@ -198,7 +191,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void ButtonRemoveClick(object sender, EventArgs e)
         {
             if (listBoxIconsUrls.SelectedItem == null) return;
-            var icon = (Icon) listBoxIconsUrls.SelectedItem;
+            var icon = (Icon)listBoxIconsUrls.SelectedItem;
             _icons.Remove(icon);
         }
 

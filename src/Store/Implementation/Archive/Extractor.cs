@@ -41,6 +41,7 @@ namespace ZeroInstall.Store.Implementation.Archive
 
         #region Properties
         private string _name;
+
         /// <inheritdoc />
         public override string Name { get { return string.Format(Resources.ExtractingArchive, Path.GetFileName(_name)); } }
 
@@ -104,13 +105,26 @@ namespace ZeroInstall.Store.Implementation.Archive
             Extractor extractor;
             switch (mimeType)
             {
-                case "application/zip": extractor = new ZipExtractor(stream, target); break;
-                case "application/x-tar": extractor = new TarExtractor(stream, target); break;
-                case "application/x-compressed-tar": extractor = new TarGzExtractor(stream, target); break;
-                case "application/x-bzip-compressed-tar": extractor = new TarBz2Extractor(stream, target); break;
-                case "application/x-lzma-compressed-tar": extractor = new TarLzmaExtractor(stream, target); break;
-                case "application/x-ruby-gem": extractor = new RubyGemExtractor(stream, target); break;
-                default: throw new NotSupportedException(Resources.UnknownMimeType);
+                case "application/zip":
+                    extractor = new ZipExtractor(stream, target);
+                    break;
+                case "application/x-tar":
+                    extractor = new TarExtractor(stream, target);
+                    break;
+                case "application/x-compressed-tar":
+                    extractor = new TarGzExtractor(stream, target);
+                    break;
+                case "application/x-bzip-compressed-tar":
+                    extractor = new TarBz2Extractor(stream, target);
+                    break;
+                case "application/x-lzma-compressed-tar":
+                    extractor = new TarLzmaExtractor(stream, target);
+                    break;
+                case "application/x-ruby-gem":
+                    extractor = new RubyGemExtractor(stream, target);
+                    break;
+                default:
+                    throw new NotSupportedException(Resources.UnknownMimeType);
             }
 
             return extractor;
@@ -235,7 +249,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                 if (length != 0) StreamToFile(stream, fileStream);
 
             if (executable) SetExecutableBit(relativePath);
-            // If an executable file is overwritten by a non-executable file, remove the xbit flag
+                // If an executable file is overwritten by a non-executable file, remove the xbit flag
             else if (alreadyExists) RemoveExecutableBit(relativePath);
 
             File.SetLastWriteTimeUtc(filePath, dateTime);
@@ -301,8 +315,11 @@ namespace ZeroInstall.Store.Implementation.Archive
 
             if (Path.IsPathRooted(relativePath) || relativePath.Contains(".." + Path.DirectorySeparatorChar)) throw new IOException(Resources.ArchiveInvalidPath);
 
-            try { return Path.Combine(TargetDir, relativePath); }
-            #region Error handling
+            try
+            {
+                return Path.Combine(TargetDir, relativePath);
+            }
+                #region Error handling
             catch (ArgumentException ex)
             {
                 throw new IOException(Resources.ArchiveInvalidPath, ex);
@@ -406,9 +423,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 if (Stream != null) Stream.Dispose();
-            }
         }
         #endregion
     }

@@ -48,7 +48,7 @@ namespace ZeroInstall.Store.Feeds
         protected override ProcessStartInfo GetStartInfo(string arguments)
         {
             var startInfo = base.GetStartInfo(arguments);
-            
+
             // Pass-through portable mode
             if (Locations.IsPortable) startInfo.EnvironmentVariables["GNUPGHOME"] = Locations.GetSaveConfigPath("GnuPG", false, "gnupg");
 
@@ -99,8 +99,11 @@ namespace ZeroInstall.Store.Feeds
                 string fprLine = lines[i + 1];
                 string uidLine = lines[i + 2];
                 //string ssbLine = lines[i + 3];
-                try { keys.Add(OpenPgpSecretKey.Parse(secLine, fprLine, uidLine)); }
-                #region Error handling
+                try
+                {
+                    keys.Add(OpenPgpSecretKey.Parse(secLine, fprLine, uidLine));
+                }
+                    #region Error handling
                 catch (FormatException ex)
                 {
                     // Wrap exception since only certain exception types are allowed
@@ -177,7 +180,7 @@ namespace ZeroInstall.Store.Feeds
                     var parsedSignature = OpenPgpSignature.Parse(line);
                     if (parsedSignature != null) signatures.Add(parsedSignature);
                 }
-                #region Error handling
+                    #region Error handling
                 catch (FormatException ex)
                 {
                     // Wrap exception since only certain exception types are allowed

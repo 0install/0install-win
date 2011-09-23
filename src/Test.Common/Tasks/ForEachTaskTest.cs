@@ -36,7 +36,7 @@ namespace Common.Tasks
         [Test(Description = "Ensures the work delegate gets called synchronously.")]
         public void TestCallbackSync()
         {
-            var target = new[] { "element1", "element2", "element2" };
+            var target = new[] {"element1", "element2", "element2"};
             var calledFor = new List<string>();
 
             var task = new ForEachTask<string>("Test task", target, calledFor.Add);
@@ -48,7 +48,7 @@ namespace Common.Tasks
         [Test(Description = "Ensures the work delegate gets called asynchronously.")]
         public void TestCallbackAsync()
         {
-            var target = new[] { "element1", "element2", "element2" };
+            var target = new[] {"element1", "element2", "element2"};
             var calledFor = new List<string>();
 
             var task = new ForEachTask<string>("Test task", target, calledFor.Add);

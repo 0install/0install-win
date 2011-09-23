@@ -72,7 +72,7 @@ namespace ZeroInstall.Commands
                     e.Cancel = true;
                 };
             }
-            catch(IOException)
+            catch (IOException)
             {
                 // Ignore failures caused by non-standard terminal emulators
             }

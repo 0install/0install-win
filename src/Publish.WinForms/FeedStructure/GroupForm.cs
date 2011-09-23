@@ -17,7 +17,6 @@
 
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 using Common.Controls;
 using ZeroInstall.Model;
 using System.IO;
@@ -27,7 +26,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
     public partial class GroupForm : OKCancelDialog
     {
         #region Properties
-
         /// <summary>
         /// The <see cref="Group" /> to be displayed and modified by this form.
         /// </summary>
@@ -39,17 +37,16 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         public Group Group
         {
             get { return _group; }
-            set {
+            set
+            {
                 _group = value ?? new Group();
                 targetBaseControl.TargetBase = _group.CloneGroup();
                 UpdateFormControls();
             }
         }
-
         #endregion
 
         #region Initialization
-
         /// <summary>
         /// Creates a new <see cref="GroupForm"/> object.
         /// </summary>
@@ -66,15 +63,11 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         private void InitializeComboBoxStability()
         {
             foreach (var stability in Enum.GetValues(typeof(Stability)))
-            {
                 comboBoxStability.Items.Add(stability);
-            }
         }
-
         #endregion
 
         #region Control management
-
         /// <summary>
         /// Clear all controls on this form and set them (if needed) to the default values.
         /// </summary>
@@ -96,20 +89,19 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         private void UpdateFormControls()
         {
             ClearFormControls();
-            if(_group.Version != null) hintTextBoxVersion.Text = _group.VersionString;
-            if(_group.Released != default(DateTime))
+            if (_group.Version != null) hintTextBoxVersion.Text = _group.VersionString;
+            if (_group.Released != default(DateTime))
             {
                 checkBoxEnableSettingDate.Checked = true;
                 dateTimePickerRelease.Value = _group.Released;
             }
-            if(!String.IsNullOrEmpty(_group.License)) comboBoxLicense.Text = _group.License;
-            if(!String.IsNullOrEmpty(_group.Main)) hintTextBoxMain.Text = _group.Main;
-            if(!String.IsNullOrEmpty(_group.SelfTest)) hintTextBoxSelfTest.Text = _group.SelfTest;
-            if(!String.IsNullOrEmpty(_group.DocDir)) hintTextBoxDocDir.Text = _group.DocDir;
-            if(_group.Stability != default(Stability)) comboBoxStability.SelectedItem = _group.Stability;
+            if (!String.IsNullOrEmpty(_group.License)) comboBoxLicense.Text = _group.License;
+            if (!String.IsNullOrEmpty(_group.Main)) hintTextBoxMain.Text = _group.Main;
+            if (!String.IsNullOrEmpty(_group.SelfTest)) hintTextBoxSelfTest.Text = _group.SelfTest;
+            if (!String.IsNullOrEmpty(_group.DocDir)) hintTextBoxDocDir.Text = _group.DocDir;
+            if (_group.Stability != default(Stability)) comboBoxStability.SelectedItem = _group.Stability;
             targetBaseControl.TargetBase = _group.CloneGroup();
         }
-
         #endregion
 
         #region Control validation
@@ -174,7 +166,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         private void ButtonOkClick(object sender, EventArgs e)
         {
             ImplementationVersion implementationVersion;
-            
+
             if (ImplementationVersion.TryCreate(hintTextBoxVersion.Text, out implementationVersion)) _group.Version = implementationVersion;
             _group.Released = checkBoxEnableSettingDate.Checked ? dateTimePickerRelease.Value : default(DateTime);
             if (!String.IsNullOrEmpty(comboBoxLicense.Text)) _group.License = comboBoxLicense.Text;
@@ -183,10 +175,8 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             if (!Path.IsPathRooted(hintTextBoxDocDir.Text)) _group.DocDir = hintTextBoxDocDir.Text;
             _group.Stability = (Stability)comboBoxStability.SelectedItem;
             _group.Architecture = targetBaseControl.TargetBase.Architecture;
-            foreach(var language in targetBaseControl.TargetBase.Languages)
-            {
+            foreach (var language in targetBaseControl.TargetBase.Languages)
                 _group.Languages.Add(language);
-            }
         }
         #endregion
     }

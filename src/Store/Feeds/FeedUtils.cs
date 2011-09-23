@@ -80,7 +80,7 @@ namespace ZeroInstall.Store.Feeds
 
         /// <summary><see cref="SignatureBlockStart"/> encoded with <see cref="_encoding"/>.</summary>
         private static readonly byte[] _signatureBlocktartBytes = _encoding.GetBytes(SignatureBlockStart);
-        
+
         /// <summary>The string signifying the end of a signature block.</summary>
         private const string SignatureBlockEnd = "\n-->\n";
 
@@ -110,7 +110,7 @@ namespace ZeroInstall.Store.Feeds
                     IsolateFeed(feedData, signatureStartIndex),
                     IsolateAndDecodeSignature(feedData, signatureStartIndex));
             }
-            #region Error handling
+                #region Error handling
             catch (UnhandledErrorsException ex)
             {
                 // Wrap exception since only certain exception types are allowed
@@ -176,8 +176,11 @@ namespace ZeroInstall.Store.Feeds
 
             // Concatenate Base64 lines and decode
             var base64Charachters = signatureString.Substring(SignatureBlockStart.Length, signatureString.Length - SignatureBlockStart.Length - SignatureBlockEnd.Length).Replace("\n", "");
-            try { return Convert.FromBase64String(base64Charachters); }
-            #region Error handling
+            try
+            {
+                return Convert.FromBase64String(base64Charachters);
+            }
+                #region Error handling
             catch (FormatException ex)
             {
                 // Wrap exception since only certain exception types are allowed

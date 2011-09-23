@@ -40,7 +40,10 @@ namespace Common.Controls
         public void SetUp()
         {
             _task = new MockTask();
-            try { _label = new TrackingLabel(); }
+            try
+            {
+                _label = new TrackingLabel();
+            }
             catch (TypeInitializationException ex)
             {
                 // Don't fail on Server systems

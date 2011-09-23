@@ -23,6 +23,7 @@ using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
 {
+
     #region Enumerations
     /// <summary>
     /// A stability rating for an <see cref="Implementation"/>.
@@ -85,15 +86,11 @@ namespace ZeroInstall.Model
         [Category("Release"), Description("The version number of the implementation.")]
         [XmlIgnore]
         public virtual ImplementationVersion Version { get; set; }
-        
+
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Version"/>
         [XmlAttribute("version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string VersionString
-        {
-            get { return (Version == null ? null : Version.ToString()); }
-            set { Version = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); }
-        }
+        public string VersionString { get { return (Version == null ? null : Version.ToString()); } set { Version = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
 
         /// <summary>
         /// A string to be appended to the version. The purpose of this is to allow complex version numbers (such as "1.0-rc2") in older versions of the injector.
@@ -112,13 +109,10 @@ namespace ZeroInstall.Model
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Released"/>
         [XmlAttribute("released"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public virtual string ReleasedString
-        {
-            get { return (Released == default(DateTime) ? null : Released.ToString(ReleaseDateFormat)); }
-            set { Released = DateTime.ParseExact(value, ReleaseDateFormat, CultureInfo.InvariantCulture); }
-        }
+        public virtual string ReleasedString { get { return (Released == default(DateTime) ? null : Released.ToString(ReleaseDateFormat)); } set { Released = DateTime.ParseExact(value, ReleaseDateFormat, CultureInfo.InvariantCulture); } }
 
         private Stability _stability = Stability.Unset;
+
         /// <summary>
         /// The default stability rating for this implementation.
         /// </summary>
@@ -158,6 +152,7 @@ namespace ZeroInstall.Model
 
         // Preserve order
         private readonly C5.LinkedList<Dependency> _dependencies = new C5.LinkedList<Dependency>();
+
         /// <summary>
         /// A list of interfaces this implementation depends upon.
         /// </summary>
@@ -167,6 +162,7 @@ namespace ZeroInstall.Model
 
         // Preserve order
         private readonly C5.LinkedList<Binding> _bindings = new C5.LinkedList<Binding>();
+
         /// <summary>
         /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
@@ -176,6 +172,7 @@ namespace ZeroInstall.Model
 
         // Preserve order
         private readonly C5.LinkedList<Command> _commands = new C5.LinkedList<Command>();
+
         /// <summary>
         /// A list of commands that can be used to launch this implementation.
         /// </summary>
@@ -236,9 +233,7 @@ namespace ZeroInstall.Model
         public Command GetCommand(string name)
         {
             foreach (var command in Commands)
-            {
                 if (command != null && command.Name == name) return command;
-            }
 
             return null;
         }
@@ -295,7 +290,7 @@ namespace ZeroInstall.Model
 
             return base.Equals(other) &&
                 other.Version == Version && other.VersionModifier == VersionModifier && other.Released == Released && other.License == License && other.Main == Main && other.SelfTest == SelfTest && other.DocDir == DocDir &&
-                Commands.SequencedEquals(other.Commands) && Dependencies.SequencedEquals(other.Dependencies) && Bindings.SequencedEquals(other.Bindings);
+                    Commands.SequencedEquals(other.Commands) && Dependencies.SequencedEquals(other.Dependencies) && Bindings.SequencedEquals(other.Bindings);
         }
 
         /// <inheritdoc/>

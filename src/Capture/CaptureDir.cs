@@ -136,7 +136,7 @@ namespace ZeroInstall.Capture
                 CollectComServers(snapshotDiff.ClassIDs, commandProvider, capabilities);
                 CollectGames(snapshotDiff.Games, commandProvider, capabilities);
             }
-            #region Error handling
+                #region Error handling
             catch (SecurityException ex)
             {
                 // Wrap exception since only certain exception types are allowed in tasks
@@ -203,12 +203,10 @@ namespace ZeroInstall.Capture
                 feed.EntryPoints.Add(new EntryPoint
                 {
                     Command = command.Name,
-
                     // Trim away leading directories and trailing file ending
                     BinaryName = StringUtils.GetLeftPartAtLastOccurrence(StringUtils.GetRightPartAtLastOccurrence(command.Path, '/'), '.'),
-
                     // Trim away leading namespaces
-                    Names = { StringUtils.GetRightPartAtLastOccurrence(command.Name, '.') }
+                    Names = {StringUtils.GetRightPartAtLastOccurrence(command.Name, '.')}
                 });
             }
             return feed;
@@ -246,7 +244,7 @@ namespace ZeroInstall.Capture
                 // Add flag file to capturing directory
                 File.Create(Path.Combine(path, "_capture"));
             }
-            #region Error handling
+                #region Error handling
             catch (ArgumentException ex)
             {
                 // Wrap exception since only certain exception types are allowed
@@ -284,7 +282,7 @@ namespace ZeroInstall.Capture
                 if (!File.Exists(Path.Combine(path, "_capture")))
                     throw new IOException(string.Format(Resources.NotCaptureDirectory, path));
             }
-            #region Error handling
+                #region Error handling
             catch (ArgumentException ex)
             {
                 // Wrap exception since only certain exception types are allowed

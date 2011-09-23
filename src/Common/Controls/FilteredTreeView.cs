@@ -86,13 +86,10 @@ namespace Common.Controls
         /// Toggle the visibility of the search box.
         /// </summary>
         [DefaultValue(true), Description("Toggle the visibility of the search box."), Category("Appearance")]
-        public bool ShowSearchBox
-        {
-            get { return textSearch.Visible; }
-            set { textSearch.Visible = value; }
-        }
+        public bool ShowSearchBox { get { return textSearch.Visible; } set { textSearch.Visible = value; } }
 
         private INamedCollection<T> _entries;
+
         /// <summary>
         /// The <see cref="INamed"/> (and optionally <see cref="IContextMenu"/>) objects to be listed in the tree.
         /// </summary>
@@ -107,13 +104,14 @@ namespace Common.Controls
                 if (_entries != null) _entries.CollectionChanged -= UpdateList;
                 _entries = value;
                 if (_entries != null) _entries.CollectionChanged += UpdateList;
-                
+
                 _checkedEntries.Clear();
                 UpdateList();
             }
         }
 
         private T _selectedEntry;
+
         /// <summary>
         /// The <see cref="INamed"/> object currently selected in the <see cref="TreeView"/>; <see langword="null"/> for no selection.
         /// </summary>
@@ -131,6 +129,7 @@ namespace Common.Controls
 
         private readonly C5.HashSet<T> _checkedEntries = new C5.HashSet<T>();
         private T[] _checkedEntriesArrayCache;
+
         /// <summary>
         /// Returns an array of all <see cref="INamed"/> objects currently marked with a check box.
         /// </summary>
@@ -147,11 +146,20 @@ namespace Common.Controls
         }
 
         private char _separator = '.';
+
         /// <summary>
         /// The character used to separate namespaces in the <see cref="INamed.Name"/>s. This controls how the tree structure is generated.
         /// </summary>
         [DefaultValue('.'), Description("The character used to separate namespaces in the Names. This controls how the tree structure is generated.")]
-        public char Separator { get { return _separator; } set { _separator = value; UpdateList(); } }
+        public char Separator
+        {
+            get { return _separator; }
+            set
+            {
+                _separator = value;
+                UpdateList();
+            }
+        }
 
         /// <summary>
         /// Controls whether check boxes are displayed for every entry.
@@ -221,10 +229,10 @@ namespace Common.Controls
                         _selectedEntry = entry; // Fix problems that might arrise from using clones
                         treeView.SelectedNode = AddTreeNode(entry);
                     }
-                    // List all nodes if there is no filter
+                        // List all nodes if there is no filter
                     else if (string.IsNullOrEmpty(textSearch.Text))
                         AddTreeNode(entry);
-                    // Only list nodes that match the filter
+                        // Only list nodes that match the filter
                     else if (StringUtils.Contains(entry.Name, textSearch.Text))
                         AddTreeNode(entry);
                 }

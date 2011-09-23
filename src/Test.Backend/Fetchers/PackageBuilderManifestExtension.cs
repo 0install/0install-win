@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Common.Streams;
 using Common.Utils;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Model;
@@ -23,13 +22,13 @@ using System.IO;
 
 namespace ZeroInstall.Fetchers
 {
-    class HierarchyToManifest : HierarchyVisitor
+    internal class HierarchyToManifest : HierarchyVisitor
     {
-        readonly StreamWriter _writer;
+        private readonly StreamWriter _writer;
 
         public HierarchyToManifest(Stream target)
         {
-            _writer = new StreamWriter(target) { NewLine = "\n" };
+            _writer = new StreamWriter(target) {NewLine = "\n"};
         }
 
         public override void VisitRoot(RootEntry entry)
@@ -37,12 +36,14 @@ namespace ZeroInstall.Fetchers
             VisitChildren(entry);
             _writer.Flush();
         }
+
         public override void VisitFolder(FolderEntry entry)
         {
             ManifestNode node = new ManifestDirectory(FileUtils.ToUnixTime(entry.LastWriteTime), "/" + entry.RelativePath.Replace("\\", "/"));
             _writer.WriteLine(ManifestFormat.Sha256.GenerateEntryForNode(node));
             VisitChildren(entry);
         }
+
         public override void VisitFile(FileEntry entry)
         {
             ManifestNode node;

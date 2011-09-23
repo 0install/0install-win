@@ -65,8 +65,12 @@ namespace Common.Undo
         /// </summary>
         protected override void OnExecute()
         {
-            try { _previousValue = _collection.GetExactLanguage(_entry.Language); }
-            catch(KeyNotFoundException) {}
+            try
+            {
+                _previousValue = _collection.GetExactLanguage(_entry.Language);
+            }
+            catch (KeyNotFoundException)
+            {}
             _collection.Set(_entry.Value, _entry.Language);
         }
         #endregion

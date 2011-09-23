@@ -72,9 +72,7 @@ namespace Common.Collections
         public static IEnumerable<TResult> OfType<TResult>(IEnumerable source)
         {
             foreach (var element in source)
-            {
                 if (element is TResult) yield return (TResult)element;
-            }
         }
         #endregion
 
@@ -94,7 +92,10 @@ namespace Common.Collections
 
         private class DefaultComparer<T> : IComparer<T> where T : IComparable<T>
         {
-            public int Compare(T x, T y) { return x.CompareTo(y); }
+            public int Compare(T x, T y)
+            {
+                return x.CompareTo(y);
+            }
         }
 
         /// <summary>
@@ -189,7 +190,10 @@ namespace Common.Collections
             {
                 foreach (var element in rollbackJournal)
                 {
-                    try { rollback(element); }
+                    try
+                    {
+                        rollback(element);
+                    }
                     catch (Exception ex)
                     {
                         // Suppress exceptions during rollback since they would hide the actual exception that caused the rollback in the first place

@@ -145,9 +145,7 @@ namespace Common.Net
                     // Start the server request, allowing for cancellation
                     var responseRequest = request.BeginGetResponse(null, null);
                     while (!responseRequest.AsyncWaitHandle.WaitOne(100, false))
-                    {
                         if (_cancelRequest) return;
-                    }
 
                     // Process the response
                     using (WebResponse response = request.EndGetResponse(responseRequest))
@@ -168,7 +166,7 @@ namespace Common.Net
                     }
                 }
             }
-            #region Error handling
+                #region Error handling
             catch (WebException ex)
             {
                 lock (StateLock)

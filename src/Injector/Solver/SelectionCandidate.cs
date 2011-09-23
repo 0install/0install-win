@@ -64,11 +64,7 @@ namespace ZeroInstall.Injector.Solver
         /// A user-specified override for the <see cref="Stability"/> specified in the feed.
         /// </summary>
         [Description("A user-specified override for the stability specified in the feed.")]
-        public Stability UserStability
-        {
-            get { return _implementationPreferences.UserStability; }
-            set { _implementationPreferences.UserStability = value; }
-        }
+        public Stability UserStability { get { return _implementationPreferences.UserStability; } set { _implementationPreferences.UserStability = value; } }
 
         /// <summary>
         /// For platform-specific binaries, the platform for which an <see cref="Model.Implementation"/> was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU. 

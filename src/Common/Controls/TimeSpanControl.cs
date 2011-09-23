@@ -36,7 +36,13 @@ namespace Common.Controls
         public TimeSpan Value
         {
             get { return new TimeSpan((int)upDownDays.Value, (int)upDownHours.Value, (int)upDownMinutes.Value, (int)upDownSeconds.Value); }
-            set { upDownDays.Value = value.Days; upDownHours.Value = value.Hours; upDownMinutes.Value = value.Minutes; upDownSeconds.Value = value.Seconds; }
+            set
+            {
+                upDownDays.Value = value.Days;
+                upDownHours.Value = value.Hours;
+                upDownMinutes.Value = value.Minutes;
+                upDownSeconds.Value = value.Seconds;
+            }
         }
 
         public TimeSpanControl()

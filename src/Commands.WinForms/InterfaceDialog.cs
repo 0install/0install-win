@@ -99,9 +99,7 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             using (var dialog = new InterfaceDialog(interfaceID, feedCache))
-            {
                 return (dialog.ShowDialog() == DialogResult.OK);
-            }
         }
         #endregion
 
@@ -139,8 +137,11 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private void AddFeed(string feedID)
         {
-            try { ModelUtils.ValidateInterfaceID(feedID); }
-            #region Error handling
+            try
+            {
+                ModelUtils.ValidateInterfaceID(feedID);
+            }
+                #region Error handling
             catch (InvalidInterfaceIDException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
@@ -183,8 +184,11 @@ namespace ZeroInstall.Commands.WinForms
             {
                 string feedID = feedEntry.Key;
                 Feed feed;
-                try { feed = _feedCache.GetFeed(feedID); }
-                #region Error handling
+                try
+                {
+                    feed = _feedCache.GetFeed(feedID);
+                }
+                    #region Error handling
                 catch (InvalidInterfaceIDException ex)
                 {
                     Log.Error("Unable to load feed '" + feedID + "'; skipping.\n" + ex.Message);
@@ -211,6 +215,7 @@ namespace ZeroInstall.Commands.WinForms
                     continue;
                 }
                 #endregion
+
                 var feedPreferences = feedEntry.Value;
 
                 foreach (var element in feed.Elements)
@@ -253,7 +258,7 @@ namespace ZeroInstall.Commands.WinForms
                     preferences.SaveFor(feedEntry.Key);
                 }
             }
-            #region Error handling
+                #region Error handling
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
@@ -310,9 +315,7 @@ namespace ZeroInstall.Commands.WinForms
                 foreach (var file in files) AddFeed(file);
             }
             else if (e.Data.GetDataPresent(DataFormats.Text))
-            {
                 AddFeed((string)e.Data.GetData(DataFormats.Text));
-            }
         }
 
         private void listBoxFeeds_DragEnter(object sender, DragEventArgs e)

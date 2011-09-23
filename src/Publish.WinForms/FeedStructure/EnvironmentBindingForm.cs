@@ -24,7 +24,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
     public partial class EnvironmentBindingForm : OKCancelDialog
     {
         #region Properties
-
         private EnvironmentBinding _environmentBinding = new EnvironmentBinding();
 
         public EnvironmentBinding EnvironmentBinding
@@ -36,11 +35,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                 UpdateControl();
             }
         }
-
         #endregion
 
         #region Initialization
-
         /// <summary>
         /// Creates a new <see cref="EnvironmentBindingForm"/> object.
         /// </summary>
@@ -57,15 +54,11 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         {
             //TODO Change methode that localisation is possible (Stability only contains the english names). 
             foreach (EnvironmentMode mode in Enum.GetValues(typeof(EnvironmentMode)))
-            {
                 comboBoxMode.Items.Add(mode);
-            }
         }
-
         #endregion
 
         #region Control management methodes
-
         /// <summary>
         /// Clear all controls on this form and set them (if needed) to the default values.
         /// </summary>
@@ -94,11 +87,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             hintTextBoxSeparator.Text = _environmentBinding.Separator;
             hintTextBoxDefault.Text = _environmentBinding.Default;
         }
-
         #endregion
 
         #region Dialog buttons
-
         /// <summary>
         /// Saves the values from the filled controls to <see cref="_environmentBinding"/> and closes the window.
         /// </summary>
@@ -112,7 +103,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             _environmentBinding.Separator = (!string.IsNullOrEmpty(hintTextBoxSeparator.Text) ? hintTextBoxSeparator.Text : null);
             _environmentBinding.Default = (!string.IsNullOrEmpty(hintTextBoxDefault.Text) ? hintTextBoxDefault.Text : null);
         }
-
         #endregion
     }
 }

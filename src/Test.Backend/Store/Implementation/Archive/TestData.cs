@@ -57,7 +57,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         {
             return GetTestDataResourceStreamByName("testArchive.gem");
         }
-        
+
         public static Stream GetTestRegularStream()
         {
             return StreamUtils.CreateFromString("regular\n");

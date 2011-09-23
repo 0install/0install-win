@@ -45,14 +45,11 @@ namespace ZeroInstall.Model.Capabilities
         /// <seealso cref="Architecture"/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [XmlAttribute("arch"), DefaultValue("*-*")]
-        public string ArchitectureString
-        {
-            get { return Architecture.ToString(); }
-            set { Architecture = new Architecture(value); }
-        }
+        public string ArchitectureString { get { return Architecture.ToString(); } set { Architecture = new Architecture(value); } }
 
         // Preserve order
         private readonly C5.LinkedList<Capability> _entries = new C5.LinkedList<Capability>();
+
         /// <summary>
         /// A list of <see cref="Capability"/>s.
         /// </summary>

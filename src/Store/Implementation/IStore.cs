@@ -86,7 +86,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the archive or write access to the store is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the archive content doesn't match the <paramref name="manifestDigest"/>.</exception>
         void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, ITaskHandler handler);
-        
+
         /// <summary>
         /// Extracts multiple archives, that together contain the files of an implementation, into the same folder, compares that folder's manifest to <paramref name="manifestDigest"/> and adds it to the store.
         /// </summary>

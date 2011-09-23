@@ -81,7 +81,11 @@ namespace Common.Collections
             var applyCalledFor = new LinkedList<int>();
             var rollbackCalledFor = new LinkedList<int>();
             Assert.Throws<Exception>(() => EnumerableUtils.ApplyWithRollback(new[] {1, 2, 3},
-                value => { applyCalledFor.AddLast(value); if (value == 2) throw new Exception("Test exception"); },
+                value =>
+                {
+                    applyCalledFor.AddLast(value);
+                    if (value == 2) throw new Exception("Test exception");
+                },
                 value => rollbackCalledFor.AddLast(value)),
                 "Exceptions should be passed through after rollback.");
 
@@ -100,7 +104,7 @@ namespace Common.Collections
 
             public static MergeTest[] BuildArray(params string[] mergeIDs)
             {
-                return Array.ConvertAll(mergeIDs, value => new MergeTest { MergeID = value });
+                return Array.ConvertAll(mergeIDs, value => new MergeTest {MergeID = value});
             }
 
             public override string ToString()

@@ -40,6 +40,7 @@ namespace Common.Collections
         public string Value { get; set; }
 
         private CultureInfo _language;
+
         /// <summary>
         /// The language of the <see cref="Value"/>; must not be <see langword="null"/>.
         /// </summary>

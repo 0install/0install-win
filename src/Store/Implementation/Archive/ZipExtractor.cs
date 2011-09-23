@@ -48,8 +48,11 @@ namespace ZeroInstall.Store.Implementation.Archive
             #endregion
 
             // Create a ZIP-reading stream that doesn't dispose the underlying file stream
-            try { _zip = new ZipFile(stream) { IsStreamOwner = false }; }
-            #region Error handling
+            try
+            {
+                _zip = new ZipFile(stream) {IsStreamOwner = false};
+            }
+                #region Error handling
             catch (ZipException ex)
             {
                 // Make sure only standard exception types are thrown to the outside
@@ -92,7 +95,7 @@ namespace ZeroInstall.Store.Implementation.Archive
 
                 SetDirectoryWriteTimes();
             }
-            #region Error handling
+                #region Error handling
             catch (ZipException ex)
             {
                 lock (StateLock)
@@ -185,11 +188,12 @@ namespace ZeroInstall.Store.Implementation.Archive
             try
             {
                 if (disposing)
-                {
                     if (_zip != null) _zip.Close();
-                }
             }
-            finally { base.Dispose(disposing); }
+            finally
+            {
+                base.Dispose(disposing);
+            }
         }
         #endregion
     }

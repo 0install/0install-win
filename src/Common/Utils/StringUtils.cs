@@ -129,7 +129,7 @@ namespace Common.Utils
             #endregion
 
             string lastWord = GetLastWord(value);
-            if (value == lastWord)  return "";
+            if (value == lastWord) return "";
             if (lastWord.Length == 0 || value.Length == 0 || value.Length - lastWord.Length - 1 <= 0) return value;
             return value.Substring(0, value.Length - lastWord.Length - 1);
         }
@@ -210,7 +210,7 @@ namespace Common.Utils
             #region Sanity checks
             if (sourceText == null) throw new ArgumentNullException("sourceText");
             #endregion
-            
+
             int index = sourceText.IndexOf(ch);
             return index == -1 ? sourceText : sourceText.Substring(0, index);
         }
@@ -307,7 +307,7 @@ namespace Common.Utils
             #endregion
 
             int index = sourceText.LastIndexOf(str);
-            
+
             return index == -1 ? "" : sourceText.Substring(index + str.Length);
         }
         #endregion

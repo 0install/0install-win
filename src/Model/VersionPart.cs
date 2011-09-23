@@ -3,18 +3,22 @@ using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model
 {
+
     #region Enumerations
     /// <see cref="VersionPart.Modifier"/>
     internal enum VersionModifier
     {
         /// <summary>No modifier; empty string</summary>
         None = 0,
+
         /// <summary>Pre-release</summary>
         Pre = -2,
+
         /// <summary>Release candidate</summary>
-        RC  = -1,
+        RC = -1,
+
         /// <summary>Post-release</summary>
-        Post=  1
+        Post = 1
     }
     #endregion
 
@@ -69,9 +73,7 @@ namespace ZeroInstall.Model
                 Modifier = VersionModifier.Post;
             }
             else
-            {
                 Modifier = VersionModifier.None;
-            }
 
             // Parse any rest as dotted list
             if (!string.IsNullOrEmpty(value)) DottedList = new DottedList(value);
@@ -87,11 +89,20 @@ namespace ZeroInstall.Model
             string result;
             switch (Modifier)
             {
-                case VersionModifier.None: result = ""; break;
-                case VersionModifier.Pre: result = "pre"; break;
-                case VersionModifier.RC: result = "rc"; break;
-                case VersionModifier.Post: result = "post"; break;
-                default: throw new InvalidOperationException(Resources.UnknownModifier);
+                case VersionModifier.None:
+                    result = "";
+                    break;
+                case VersionModifier.Pre:
+                    result = "pre";
+                    break;
+                case VersionModifier.RC:
+                    result = "rc";
+                    break;
+                case VersionModifier.Post:
+                    result = "post";
+                    break;
+                default:
+                    throw new InvalidOperationException(Resources.UnknownModifier);
             }
 
             // Combine both parts without any separator

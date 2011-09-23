@@ -168,9 +168,9 @@ namespace ZeroInstall.Commands
                 entries.Add(new RelaunchEntry(
                     entryPoint.BinaryName,
                     entryPoint.Names.GetBestLanguage(CultureInfo.CurrentCulture),
-                     "--command=" + StringUtils.EscapeArgument(entryPoint.Command) + " " + escapedTarget,
-                     entryPoint.NeedsTerminal,
-                     GetIconPath(entryPoint.Command)));
+                    "--command=" + StringUtils.EscapeArgument(entryPoint.Command) + " " + escapedTarget,
+                    entryPoint.NeedsTerminal,
+                    GetIconPath(entryPoint.Command)));
             }
 
             // Create a relaunch entry for the main application
@@ -198,7 +198,7 @@ namespace ZeroInstall.Commands
                 var icon = _target.Feed.GetIcon(Icon.MimeTypeIco, command);
                 return IconProvider.GetIconPath(icon, false, _policy.Handler);
             }
-            catch(KeyNotFoundException)
+            catch (KeyNotFoundException)
             {
                 return null;
             }
@@ -206,7 +206,7 @@ namespace ZeroInstall.Commands
         #endregion
 
         //--------------------//
-        
+
         #region Native
         [StructLayout(LayoutKind.Sequential)]
         private struct ProcessInformation

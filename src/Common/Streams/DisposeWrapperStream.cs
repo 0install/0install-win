@@ -51,7 +51,10 @@ namespace Common.Streams
                 _disposeHandler();
                 _baseStream.Dispose();
             }
-            finally { base.Dispose(disposing); }
+            finally
+            {
+                base.Dispose(disposing);
+            }
         }
 
         #region Pass-through

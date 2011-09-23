@@ -82,9 +82,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                 hintTextBoxSource.Text = _command.WorkingDir.Source;
             }
             else
-            {
                 checkBoxWorkingDir.Checked = false;
-            }
         }
         #endregion
 
@@ -93,7 +91,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         {
             hintTextBoxSource.Enabled = checkBoxWorkingDir.Checked;
         }
-
         #endregion
 
         #region Dialog Buttons
@@ -108,7 +105,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             _command.Path = string.IsNullOrEmpty(textBoxPath.Text) ? null : textBoxPath.Text;
             _command.Arguments.Clear();
             _command.Arguments.AddAll(argumentsControl.Arguments);
-            _command.WorkingDir = checkBoxWorkingDir.Checked ? new WorkingDir { Source = hintTextBoxSource.Text } : null;
+            _command.WorkingDir = checkBoxWorkingDir.Checked ? new WorkingDir {Source = hintTextBoxSource.Text} : null;
         }
         #endregion
     }

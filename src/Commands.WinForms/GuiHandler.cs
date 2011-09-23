@@ -103,7 +103,11 @@ namespace ZeroInstall.Commands.WinForms
             if (_form != null) return;
 
             // For cancellation execute the original cancel delegate and also stop any running selections auditing
-            _form = new ProgressForm(delegate { cancelCallback(); _auditWaitHandle.Set(); });
+            _form = new ProgressForm(delegate
+            {
+                cancelCallback();
+                _auditWaitHandle.Set();
+            });
 
             // Initialize GUI with a low priority
             var thread = new Thread(GuiThread) {Priority = ThreadPriority.Lowest};

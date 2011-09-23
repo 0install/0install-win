@@ -54,13 +54,13 @@ namespace ZeroInstall.Store.Feeds
             #endregion
 
             if (!Directory.Exists(path)) throw new DirectoryNotFoundException(string.Format(Resources.DirectoryNotFound, path));
-            
+
             DirectoryPath = path;
         }
         #endregion
 
         //--------------------//
-        
+
         #region Contains
         /// <inheritdoc/>
         public bool Contains(string feedID)
@@ -69,8 +69,11 @@ namespace ZeroInstall.Store.Feeds
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
             #endregion
 
-            try { ModelUtils.ValidateInterfaceID(feedID); }
-            catch(InvalidInterfaceIDException)
+            try
+            {
+                ModelUtils.ValidateInterfaceID(feedID);
+            }
+            catch (InvalidInterfaceIDException)
             {
                 return false;
             }
@@ -114,7 +117,7 @@ namespace ZeroInstall.Store.Feeds
             // Assume invalid URIs are local paths
             string path = (ModelUtils.IsValidUri(feedID) ? Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)) : feedID);
             if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedID, path));
-            
+
             var feed = Feed.Load(path);
             feed.Simplify();
             return feed;

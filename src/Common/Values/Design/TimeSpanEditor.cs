@@ -61,5 +61,5 @@ namespace Common.Values.Design
 
             return value;
         }
-    } 
+    }
 }

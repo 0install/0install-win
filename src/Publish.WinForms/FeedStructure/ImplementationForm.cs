@@ -24,9 +24,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
     public partial class ImplementationForm : OKCancelDialog
     {
-
         #region Properties
-
         /// <summary>
         /// The <see cref="Implementation" /> to be displayed and modified by this form.
         /// </summary>
@@ -45,11 +43,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                 UpdateFormControls();
             }
         }
-
         #endregion
 
         #region Initialization
-
         /// <summary>
         /// Creates a new <see cref="ImplementationForm"/> object.
         /// </summary>
@@ -66,11 +62,8 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         private void InitializeComboBoxStability()
         {
             foreach (var stability in Enum.GetValues(typeof(Stability)))
-            {
                 comboBoxStability.Items.Add(stability);
-            }
         }
-
         #endregion
 
         #region Control management
@@ -97,7 +90,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         private void UpdateFormControls()
         {
             ClearFormControls();
-            if(!String.IsNullOrEmpty(_implementation.VersionString)) hintTextBoxVersion.Text = _implementation.VersionString;
+            if (!String.IsNullOrEmpty(_implementation.VersionString)) hintTextBoxVersion.Text = _implementation.VersionString;
             if (_implementation.Released != default(DateTime))
             {
                 checkBoxSettingDateEnable.Checked = true;
@@ -135,14 +128,12 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         #region Buttons
         private void ButtonShowManifestDigestClick(object sender, EventArgs e)
         {
-            using(var dialog = new ManifestDigestForm(_implementation.ManifestDigest))
-            {
+            using (var dialog = new ManifestDigestForm(_implementation.ManifestDigest))
                 dialog.ShowDialog();
-            }}
+        }
         #endregion
 
         #region Dialog buttons
-
         /// <summary>
         /// Saves the values from the filled controls to <see cref="_implementation"/> and closes the window.
         /// </summary>
@@ -154,7 +145,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 
             _implementation.Version = (ImplementationVersion.TryCreate(hintTextBoxVersion.Text, out version)) ? version : null;
             _implementation.Released = checkBoxSettingDateEnable.Checked ? dateTimePickerRelease.Value : default(DateTime);
-            _implementation.Stability = (Stability) comboBoxStability.SelectedItem;
+            _implementation.Stability = (Stability)comboBoxStability.SelectedItem;
             _implementation.License = (!String.IsNullOrEmpty(comboBoxLicense.Text)) ? comboBoxLicense.Text : null;
             _implementation.ID = (!String.IsNullOrEmpty(hintTextBoxID.Text)) ? hintTextBoxID.Text : null;
             _implementation.Main = (!String.IsNullOrEmpty(hintTextBoxMain.Text)) ? hintTextBoxMain.Text : null;
@@ -162,12 +153,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             _implementation.SelfTest = (!String.IsNullOrEmpty(hintTextBoxSelfTest.Text)) ? hintTextBoxSelfTest.Text : null;
             _implementation.LocalPath = (!String.IsNullOrEmpty(hintTextBoxLocalPath.Text)) ? hintTextBoxLocalPath.Text : null;
             foreach (var language in targetBaseControl.TargetBase.Languages)
-            {
                 _implementation.Languages.Add(language);
-            }
             _implementation.Architecture = targetBaseControl.TargetBase.Architecture;
         }
-
         #endregion
     }
 }

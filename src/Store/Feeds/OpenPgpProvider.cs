@@ -23,6 +23,7 @@ namespace ZeroInstall.Store.Feeds
     public static class OpenPgpProvider
     {
         private static readonly IOpenPgp _default = new GnuPG();
+
         /// <summary>
         /// Returns the default implementation of <see cref="IOpenPgp"/>.
         /// </summary>

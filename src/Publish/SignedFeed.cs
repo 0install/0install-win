@@ -105,7 +105,7 @@ namespace ZeroInstall.Publish
 
                 FileUtils.Replace(path + ".new", path);
             }
-            #region Error handling
+                #region Error handling
             catch (Exception)
             {
                 // Clean up failed transactions

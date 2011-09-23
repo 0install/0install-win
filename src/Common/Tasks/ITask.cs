@@ -28,6 +28,7 @@ using System.Windows.Forms;
 
 namespace Common.Tasks
 {
+
     #region Delegates
     /// <summary>
     /// Delegate for handling an event concerning a specific <see cref="ITask"/> instance.
@@ -118,7 +119,7 @@ namespace Common.Tasks
         /// <exception cref="InvalidOperationException">Thrown if <see cref="State"/> is not <see cref="TaskState.Ready"/>.</exception>
         /// <remarks>Even though the task runs synchronously it may be still executed on a separate thread so it can be canceled from other threads.</remarks>
         void RunSync();
-        
+
         /// <summary>
         /// Starts executing the task in a background thread.
         /// </summary>

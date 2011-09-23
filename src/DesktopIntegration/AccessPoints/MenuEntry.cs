@@ -47,7 +47,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {
-            return new[] { "menu:" + Category + @"\" + Name };
+            return new[] {"menu:" + Category + @"\" + Name};
         }
         #endregion
 
@@ -93,8 +93,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             if (WindowsUtils.IsWindows)
             {
-                try { File.Delete(GetWindowsShortcutPath(systemWide)); }
-                catch (FileNotFoundException) {}
+                try
+                {
+                    File.Delete(GetWindowsShortcutPath(systemWide));
+                }
+                catch (FileNotFoundException)
+                {}
 
                 // Delete category directory if empty
                 if (Directory.GetFiles(GetWindowsCategoryPath(systemWide)).Length == 0) Directory.Delete(GetWindowsCategoryPath(systemWide), false);

@@ -70,7 +70,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         //--------------------//
 
         #region Control Management
-
         private void ClearFormControls()
         {
             foreach (TabPage tabPage in tabControlRecipe.TabPages)
@@ -89,7 +88,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                 var archiveControl = CreateArchiveControl();
                 archiveControl.Archive = new Archive();
 
-                var newTabPage = new TabPage("Archive") { UseVisualStyleBackColor = true };
+                var newTabPage = new TabPage("Archive") {UseVisualStyleBackColor = true};
                 newTabPage.Controls.Add(archiveControl);
                 tabControlRecipe.TabPages.Insert(tabControlRecipe.TabCount - 1, newTabPage);
             }
@@ -98,7 +97,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                 foreach (var recipeStep in _recipe.Steps)
                 {
                     var archiveControl = CreateArchiveControl();
-                    archiveControl.Archive = (Archive) recipeStep;
+                    archiveControl.Archive = (Archive)recipeStep;
 
                     var newTabPage = new TabPage("Archive") {UseVisualStyleBackColor = true};
                     newTabPage.Controls.Add(archiveControl);
@@ -107,11 +106,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             }
             tabControlRecipe.SelectedIndex = 0;
         }
-
         #endregion
 
         #region Archive Control Events
-
         /// <summary>
         /// Invoked by every archiveControl on a tabPage when a valid archive was created.
         /// </summary>
@@ -120,21 +117,19 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             if (!AreAllArchivesValid()) return;
             buttonCreateRecipe.Enabled = true;
         }
-
         #endregion
 
         #region Control events
-
         private void ButtonCreateRecipeClick(object sender, EventArgs e)
         {
             _recipe.Steps.Clear();
 
-            using(var tempDir = new TemporaryDirectory("0install-feed-editor"))
+            using (var tempDir = new TemporaryDirectory("0install-feed-editor"))
             {
                 foreach (TabPage tabPage in tabControlRecipe.TabPages)
                 {
                     if (tabPage.Name == "tabPageAddNew") continue;
-                    var archiveControl = (ArchiveControl) tabPage.Controls["archiveControl"];
+                    var archiveControl = (ArchiveControl)tabPage.Controls["archiveControl"];
 
                     string extractedArchiveDir = archiveControl.ExtractedArchivePath;
                     string subfolder = archiveControl.Archive.Extract;
@@ -142,8 +137,11 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                     FileUtils.CopyDirectory(completeSourceDir, tempDir.Path, true, true);
                     _recipe.Steps.Add(archiveControl.Archive);
                 }
-                try { ManifestDigest = ManifestUtils.CreateDigest(this, tempDir.Path); }
-                #region Error handling
+                try
+                {
+                    ManifestDigest = ManifestUtils.CreateDigest(this, tempDir.Path);
+                }
+                    #region Error handling
                 catch (UserCancelException)
                 {
                     return;
@@ -157,26 +155,22 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             }
             buttonOK.Enabled = true;
         }
-
         #endregion
 
         #region Helper methodes
-
         private bool AreAllArchivesValid()
         {
             foreach (TabPage tabPage in tabControlRecipe.TabPages)
             {
-                if(tabPage.Name == "tabPageAddNew") continue;
+                if (tabPage.Name == "tabPageAddNew") continue;
                 var control = (ArchiveControl)tabPage.Controls["archiveControl"];
                 if (control.ExtractedArchivePath == null) return false;
             }
             return true;
         }
-
         #endregion
 
         #region Add/Remove Tab logic
-
         /// <summary>
         /// Adds a new <see cref="TabPage"/> with a <see cref="ArchiveControl"/> left to the last <see cref="TabPage"/> of <see cref="tabControlRecipe"/>.
         /// </summary>
@@ -217,7 +211,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <param name="index">The index to insert the <see cref="TabPage"/></param>
         private void InsertArchiveTab(int index)
         {
-            var newTabPage = new TabPage("Archive") { UseVisualStyleBackColor = true };
+            var newTabPage = new TabPage("Archive") {UseVisualStyleBackColor = true};
             newTabPage.Controls.Add(CreateArchiveControl());
 
             tabControlRecipe.TabPages.Insert(index, newTabPage);
@@ -234,25 +228,25 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                 Name = "archiveControl",
                 Location = new Point(6, 6)
             };
-            newArchiveControl.NoValidArchive += delegate { buttonCreateRecipe.Enabled = false;
-                                                             buttonOK.Enabled = false; };
+            newArchiveControl.NoValidArchive += delegate
+            {
+                buttonCreateRecipe.Enabled = false;
+                buttonOK.Enabled = false;
+            };
             newArchiveControl.ValidArchive += ValidArchiveCreated;
             newArchiveControl.Archive = new Archive();
 
             return newArchiveControl;
         }
-
         #endregion
 
         #region Form state
-
         private void SetStartState()
         {
             ManifestDigest = new ManifestDigest();
             buttonCreateRecipe.Enabled = false;
             buttonOK.Enabled = false;
         }
-
         #endregion
     }
 }

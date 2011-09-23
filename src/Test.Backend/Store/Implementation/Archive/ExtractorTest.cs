@@ -36,13 +36,11 @@ namespace ZeroInstall.Store.Implementation.Archive
                 string path = Path.Combine(tempDir.Path, "a.zip");
 
                 using (var file = File.Create(path))
+                using (var zipStream = new ZipOutputStream(file) {IsStreamOwner = false})
                 {
-                    using (var zipStream = new ZipOutputStream(file) {IsStreamOwner = false})
-                    {
-                        var entry = new ZipEntry("file");
-                        zipStream.PutNextEntry(entry);
-                        zipStream.CloseEntry();
-                    }
+                    var entry = new ZipEntry("file");
+                    zipStream.PutNextEntry(entry);
+                    zipStream.CloseEntry();
                 }
 
                 using (var extractor = Extractor.CreateExtractor(null, path, 0, tempDir.Path))

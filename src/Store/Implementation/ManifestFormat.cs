@@ -17,18 +17,21 @@ namespace ZeroInstall.Store.Implementation
     {
         #region Singleton properties
         private static readonly ManifestFormat _sha1Old = new Sha1OldFormat();
+
         /// <summary>
         /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestDigest.Sha1Old"/>.
         /// </summary>
         public static ManifestFormat Sha1Old { get { return _sha1Old; } }
 
         private static readonly ManifestFormat _sha1New = new Sha1NewFormat();
+
         /// <summary>
         /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestDigest.Sha1New"/>.
         /// </summary>
         public static ManifestFormat Sha1New { get { return _sha1New; } }
 
         private static readonly ManifestFormat _sha256 = new Sha256Format();
+
         /// <summary>
         /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestDigest.Sha256"/>.
         /// </summary>
@@ -37,12 +40,12 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// All currently supported <see cref="ManifestFormat"/>s listed from best to worst.
         /// </summary>
-        public static readonly ManifestFormat[] All = new[] { _sha256, _sha1New, _sha1Old };
+        public static readonly ManifestFormat[] All = new[] {_sha256, _sha1New, _sha1Old};
 
         /// <summary>
         /// All currently supported and non-deprecated <see cref="ManifestFormat"/>s listed from best to worst.
         /// </summary>
-        public static readonly ManifestFormat[] Recommended = new[] { _sha256, _sha1New };
+        public static readonly ManifestFormat[] Recommended = new[] {_sha256, _sha1New};
         #endregion
 
         #region Factory methods
@@ -55,10 +58,14 @@ namespace ZeroInstall.Store.Implementation
         {
             switch (prefix)
             {
-                case ManifestDigest.Sha1OldPrefix: return Sha1Old;
-                case ManifestDigest.Sha1NewPrefix: return Sha1New;
-                case ManifestDigest.Sha256Prefix: return Sha256;
-                default: throw new ArgumentException(Resources.NoKnownDigestMethod);
+                case ManifestDigest.Sha1OldPrefix:
+                    return Sha1Old;
+                case ManifestDigest.Sha1NewPrefix:
+                    return Sha1New;
+                case ManifestDigest.Sha256Prefix:
+                    return Sha256;
+                default:
+                    throw new ArgumentException(Resources.NoKnownDigestMethod);
             }
         }
         #endregion
@@ -77,7 +84,10 @@ namespace ZeroInstall.Store.Implementation
         public abstract string Prefix { get; }
 
         /// <inheritdoc/>
-        public override string ToString() { return Prefix; }
+        public override string ToString()
+        {
+            return Prefix;
+        }
         #endregion
 
         #region Abstract methods
@@ -149,7 +159,7 @@ namespace ZeroInstall.Store.Implementation
                         result.Add(new DirectoryInfo(entry));
                         result.AddAll(GetSortedDirectoryEntries(entry));
                     }
-                    // Simply list files
+                        // Simply list files
                     else result.Add(new FileInfo(entry));
                 }
                 return result.ToArray();

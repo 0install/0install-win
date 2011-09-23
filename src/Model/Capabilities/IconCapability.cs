@@ -35,6 +35,7 @@ namespace ZeroInstall.Model.Capabilities
     {
         #region Properties
         private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
+
         /// <summary>
         /// Human-readable descriptions of the AutoPlay operation in different languages.
         /// </summary>
@@ -44,6 +45,7 @@ namespace ZeroInstall.Model.Capabilities
 
         // Preserve order
         private readonly C5.LinkedList<Icon> _icons = new C5.LinkedList<Icon>();
+
         /// <summary>
         /// Zero or more icons to represent the capability.
         /// </summary>

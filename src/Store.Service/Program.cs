@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Service
             AppMutex.Create("Zero Install");
 #endif
 
-            var servicesToRun = new ServiceBase[] { new Service() };
+            var servicesToRun = new ServiceBase[] {new Service()};
             ServiceBase.Run(servicesToRun);
         }
     }

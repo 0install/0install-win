@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Implementation
         /// The hash of the link target path.
         /// </summary>
         public string Hash { get; private set; }
-        
+
         /// <summary>
         /// The length of the link target path.
         /// </summary>
@@ -75,11 +75,14 @@ namespace ZeroInstall.Store.Implementation
         internal static ManifestSymlink FromString(string line)
         {
             const int numberOfParts = 4;
-            string[] parts = line.Split(new[] { ' ' }, numberOfParts);
+            string[] parts = line.Split(new[] {' '}, numberOfParts);
             if (parts.Length != numberOfParts) throw new FormatException(Resources.InvalidNumberOfLineParts);
 
-            try { return new ManifestSymlink(parts[1], long.Parse(parts[2]), parts[3]); }
-            #region Error handling
+            try
+            {
+                return new ManifestSymlink(parts[1], long.Parse(parts[2]), parts[3]);
+            }
+                #region Error handling
             catch (OverflowException ex)
             {
                 throw new FormatException(Resources.NumberTooLarge, ex);

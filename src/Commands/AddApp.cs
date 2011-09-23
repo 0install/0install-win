@@ -16,7 +16,6 @@
  */
 
 using System;
-using Common;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
@@ -58,8 +57,11 @@ namespace ZeroInstall.Commands
 
             var feed = GetFeed(interfaceID);
 
-            try { integrationManager.AddApp(new InterfaceFeed(interfaceID, feed)); }
-            catch(InvalidOperationException ex)
+            try
+            {
+                integrationManager.AddApp(new InterfaceFeed(interfaceID, feed));
+            }
+            catch (InvalidOperationException ex)
             {
                 // Show a "nothing to do" message (but not in batch mode, since it is too unimportant));
                 if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, ex.Message);

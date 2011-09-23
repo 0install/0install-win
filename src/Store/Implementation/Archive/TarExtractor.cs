@@ -48,7 +48,10 @@ namespace ZeroInstall.Store.Implementation.Archive
             #endregion
 
             // Create a TAR-reading stream that doesn't dispose the underlying file stream
-            try { _tar = new TarInputStream(stream) {IsStreamOwner = false}; }
+            try
+            {
+                _tar = new TarInputStream(stream) {IsStreamOwner = false};
+            }
             catch (SharpZipBaseException ex)
             {
                 // Make sure only standard exception types are thrown to the outside
@@ -58,7 +61,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         #endregion
 
         //--------------------//
-        
+
         #region Extraction
         /// <inheritdoc />
         protected override void RunTask()
@@ -84,7 +87,7 @@ namespace ZeroInstall.Store.Implementation.Archive
 
                 SetDirectoryWriteTimes();
             }
-            #region Error handling
+                #region Error handling
             catch (SharpZipBaseException ex)
             {
                 lock (StateLock)
@@ -154,11 +157,12 @@ namespace ZeroInstall.Store.Implementation.Archive
             try
             {
                 if (disposing)
-                {
                     if (_tar != null) _tar.Close();
-                }
             }
-            finally { base.Dispose(disposing); }
+            finally
+            {
+                base.Dispose(disposing);
+            }
         }
         #endregion
     }

@@ -17,7 +17,6 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-using Common;
 using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
@@ -25,7 +24,6 @@ using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Injector;
-using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -103,8 +101,11 @@ namespace ZeroInstall.Commands
 
             if (!_removeCategories.IsEmpty)
             {
-                try { integrationManager.RemoveAccessPointCategories(interfaceID, _removeCategories); }
-                #region Error handling
+                try
+                {
+                    integrationManager.RemoveAccessPointCategories(interfaceID, _removeCategories);
+                }
+                    #region Error handling
                 catch (InvalidOperationException ex)
                 {
                     // Show a "failed to comply" message (but not in batch mode, since it is too unimportant)
@@ -118,8 +119,11 @@ namespace ZeroInstall.Commands
             {
                 var feed = GetFeed(interfaceID);
 
-                try { integrationManager.AddAccessPointCategories(new InterfaceFeed(interfaceID, feed), _addCategories, Policy.Handler); }
-                #region Error handling
+                try
+                {
+                    integrationManager.AddAccessPointCategories(new InterfaceFeed(interfaceID, feed), _addCategories, Policy.Handler);
+                }
+                    #region Error handling
                 catch (InvalidOperationException ex)
                 {
                     // Show a "failed to comply" message (but not in batch mode, since it is too unimportant)

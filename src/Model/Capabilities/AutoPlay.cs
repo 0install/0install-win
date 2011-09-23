@@ -59,6 +59,7 @@ namespace ZeroInstall.Model.Capabilities
 
         // Preserve order
         private readonly C5.LinkedList<AutoPlayEvent> _events = new C5.LinkedList<AutoPlayEvent>();
+
         /// <summary>
         /// The IDs of the events this action can handle.
         /// </summary>
@@ -68,10 +69,7 @@ namespace ZeroInstall.Model.Capabilities
 
         /// <inheritdoc/>
         [XmlIgnore]
-        public override IEnumerable<string> ConflictIDs
-        {
-            get { return new[] {"autoplay:" + ID, "progid:" + ProgID}; }
-        }
+        public override IEnumerable<string> ConflictIDs { get { return new[] {"autoplay:" + ID, "progid:" + ProgID}; } }
         #endregion
 
         //--------------------//
@@ -106,7 +104,7 @@ namespace ZeroInstall.Model.Capabilities
 
             return base.Equals(other) &&
                 other.Provider == Provider && other.ProgID == ProgID && Equals(other.Verb, Verb) &&
-                Events.SequencedEquals(other.Events);
+                    Events.SequencedEquals(other.Events);
         }
 
         /// <inheritdoc/>

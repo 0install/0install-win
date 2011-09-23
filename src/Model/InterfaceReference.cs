@@ -37,18 +37,13 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("The URI used to locate the interface.")]
         [XmlIgnore]
-        public Uri Target
-        { get; set; }
+        public Uri Target { get; set; }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Target"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string TargetString
-        {
-            get { return (Target == null ? null : Target.ToString()); }
-            set { Target = (value == null ? null : new Uri(value)); }
-        }
+        public string TargetString { get { return (Target == null ? null : Target.ToString()); } set { Target = (value == null ? null : new Uri(value)); } }
         #endregion
 
         //--------------------//
@@ -97,7 +92,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="InterfaceReference"/>.</returns>
         public InterfaceReference CloneReference()
         {
-            return new InterfaceReference { Target = Target };
+            return new InterfaceReference {Target = Target};
         }
 
         /// <summary>

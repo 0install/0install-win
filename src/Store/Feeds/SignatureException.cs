@@ -33,11 +33,11 @@ namespace ZeroInstall.Store.Feeds
         {}
 
         /// <inheritdoc/>
-        public SignatureException(string message) : base(message) 
+        public SignatureException(string message) : base(message)
         {}
 
         /// <inheritdoc/>
-        public SignatureException(string message, Exception innerException) : base (message, innerException)
+        public SignatureException(string message, Exception innerException) : base(message, innerException)
         {}
 
         /// <summary>

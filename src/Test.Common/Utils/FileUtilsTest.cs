@@ -245,7 +245,10 @@ namespace Common.Utils
 
         #region Directory walking
         // Interfaces used for mocking delegates
-        private interface IActionSimulator<T> { void Invoke(T obj); }
+        private interface IActionSimulator<T>
+        {
+            void Invoke(T obj);
+        }
 
         [Test]
         public void TestWalkDirectory()

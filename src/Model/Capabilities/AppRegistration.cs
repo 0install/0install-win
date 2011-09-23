@@ -49,10 +49,7 @@ namespace ZeroInstall.Model.Capabilities
 
         /// <inheritdoc/>
         [XmlIgnore]
-        public override IEnumerable<string> ConflictIDs
-        {
-            get { return new[] {"registered-apps:" + ID, "hklm:" + CapabilityRegPath}; }
-        }
+        public override IEnumerable<string> ConflictIDs { get { return new[] {"registered-apps:" + ID, "hklm:" + CapabilityRegPath}; } }
         #endregion
 
         //--------------------//

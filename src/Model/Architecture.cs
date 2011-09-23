@@ -25,6 +25,7 @@ using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model
 {
+
     #region Enumerations
     /// <summary>
     /// Describes an operating system family.
@@ -32,28 +33,36 @@ namespace ZeroInstall.Model
     public enum OS
     {
         /// <summary>Supports all operating systems (e.g. developed with cross-platform language like Java).</summary>
-        [XmlEnum("*")] All,
+        [XmlEnum("*")]
+        All,
 
         /// <summary>Supports only Linux operating systems.</summary>
-        [XmlEnum("Linux")] Linux,
+        [XmlEnum("Linux")]
+        Linux,
 
         /// <summary>Supports only Solaris / OpenSolaris.</summary>
-        [XmlEnum("Solaris")] Solaris,
+        [XmlEnum("Solaris")]
+        Solaris,
 
         /// <summary>Supports only MacOS X.</summary>
-        [XmlEnum("MacOSX")] MacOsX,
+        [XmlEnum("MacOSX")]
+        MacOsX,
 
         /// <summary>MacOSX, without the proprietary bits.</summary>
-        [XmlEnum("Darwin")] Darwin,
+        [XmlEnum("Darwin")]
+        Darwin,
 
         /// <summary>Supports only Windows NT 5.0+ (Windows 2000, XP, 2003, Vista, 2008, 7, 2008 R2, ...).</summary>
-        [XmlEnum("Windows")] Windows,
+        [XmlEnum("Windows")]
+        Windows,
 
         /// <summary>A Unix-compatibility layer for Windows.</summary>
-        [XmlEnum("Cygwin")] Cygwin,
+        [XmlEnum("Cygwin")]
+        Cygwin,
 
         /// <summary>The supported operating system has not been set yet.</summary>
-        [XmlEnum("unknown")] Unknown = 99,
+        [XmlEnum("unknown")]
+        Unknown = 99,
     }
 
     /// <summary>
@@ -62,31 +71,40 @@ namespace ZeroInstall.Model
     public enum Cpu
     {
         /// <summary>Supports all CPU architectures (e.g. developed with cross-platform language like Java).</summary>
-        [XmlEnum("*")] All,
+        [XmlEnum("*")]
+        All,
 
         /// <summary>Supports CPUs with the i386 architecture or newer (up to i686).</summary>
-        [XmlEnum("i386")] I386,
+        [XmlEnum("i386")]
+        I386,
 
         /// <summary>Supports CPUs with the i486 architecture or newer (up to i686).</summary>
-        [XmlEnum("i486")] I486,
+        [XmlEnum("i486")]
+        I486,
 
         /// <summary>Supports CPUs with the i586 architecture or newer (up to i686).</summary>
-        [XmlEnum("i586")] I586,
+        [XmlEnum("i586")]
+        I586,
 
         /// <summary>Supports CPUs with the i686.</summary>
-        [XmlEnum("i686")] I686,
+        [XmlEnum("i686")]
+        I686,
 
         /// <summary>Requires a x86-64 capable CPU.</summary>
-        [XmlEnum("x86_64")] X64,
+        [XmlEnum("x86_64")]
+        X64,
 
         /// <summary>Supports CPUs with the PowerPC-architecture (used in older Macs).</summary>
-        [XmlEnum("ppc")] Ppc,
+        [XmlEnum("ppc")]
+        Ppc,
 
         /// <summary>Requires a 64-bit capable PowerPC CPU.</summary>
-        [XmlEnum("ppc64")] Ppc64,
+        [XmlEnum("ppc64")]
+        Ppc64,
 
         /// <summary>This is a source release and therefor architecture-independent.</summary>
-        [XmlEnum("src")] Source,
+        [XmlEnum("src")]
+        Source,
 
         /// <summary>The supported CPU architecture has not been set yet.</summary>
         [XmlEnum("unknown")]
@@ -158,9 +176,12 @@ namespace ZeroInstall.Model
                 // ToDo: Improve detection of other operating systems and CPUs
                 switch (Environment.OSVersion.Platform)
                 {
-                    case PlatformID.Unix: return new Architecture(OS.Linux, Cpu.I586);
-                    case PlatformID.MacOSX: return new Architecture(OS.MacOsX, Cpu.I686);
-                    default: return new Architecture(OS.Unknown, Cpu.Unknown);
+                    case PlatformID.Unix:
+                        return new Architecture(OS.Linux, Cpu.I586);
+                    case PlatformID.MacOSX:
+                        return new Architecture(OS.MacOsX, Cpu.I686);
+                    default:
+                        return new Architecture(OS.Unknown, Cpu.Unknown);
                 }
             }
         }
@@ -182,14 +203,29 @@ namespace ZeroInstall.Model
             OS os;
             switch (value)
             {
-                case "*": os = OS.All; break;
-                case "Linux": os = OS.Linux; break;
-                case "Solaris": os = OS.Solaris; break;
-                case "MacOSX": os = OS.MacOsX; break;
-                case "Darwin": os = OS.Darwin; break;
-                case "Windows": os = OS.Windows; break;
-                case "Cygwin": os = OS.Cygwin; break;
-                default: throw new ArgumentException(Resources.UnknownOS);
+                case "*":
+                    os = OS.All;
+                    break;
+                case "Linux":
+                    os = OS.Linux;
+                    break;
+                case "Solaris":
+                    os = OS.Solaris;
+                    break;
+                case "MacOSX":
+                    os = OS.MacOsX;
+                    break;
+                case "Darwin":
+                    os = OS.Darwin;
+                    break;
+                case "Windows":
+                    os = OS.Windows;
+                    break;
+                case "Cygwin":
+                    os = OS.Cygwin;
+                    break;
+                default:
+                    throw new ArgumentException(Resources.UnknownOS);
             }
             return os;
         }
@@ -209,16 +245,35 @@ namespace ZeroInstall.Model
             Cpu cpu;
             switch (value)
             {
-                case "*": cpu = Cpu.All; break;
-                case "i386": cpu = Cpu.I386; break;
-                case "i486": cpu = Cpu.I486; break;
-                case "i586": cpu = Cpu.I586; break;
-                case "i686": cpu = Cpu.I686; break;
-                case "x86_64": cpu = Cpu.X64; break;
-                case "ppc": cpu = Cpu.Ppc; break;
-                case "ppc64": cpu = Cpu.Ppc64; break;
-                case "src": cpu = Cpu.Source; break;
-                default: throw new ArgumentException(Resources.UnknownCpu);
+                case "*":
+                    cpu = Cpu.All;
+                    break;
+                case "i386":
+                    cpu = Cpu.I386;
+                    break;
+                case "i486":
+                    cpu = Cpu.I486;
+                    break;
+                case "i586":
+                    cpu = Cpu.I586;
+                    break;
+                case "i686":
+                    cpu = Cpu.I686;
+                    break;
+                case "x86_64":
+                    cpu = Cpu.X64;
+                    break;
+                case "ppc":
+                    cpu = Cpu.Ppc;
+                    break;
+                case "ppc64":
+                    cpu = Cpu.Ppc64;
+                    break;
+                case "src":
+                    cpu = Cpu.Source;
+                    break;
+                default:
+                    throw new ArgumentException(Resources.UnknownCpu);
             }
             return cpu;
         }
@@ -245,7 +300,7 @@ namespace ZeroInstall.Model
                 OS = ParseOS(os);
                 Cpu = ParseCpu(cpu);
             }
-            #region Error handling
+                #region Error handling
             catch (ArgumentNullException ex)
             {
                 throw new ArgumentException(Resources.ArchitectureStringFormat, architecture, ex);

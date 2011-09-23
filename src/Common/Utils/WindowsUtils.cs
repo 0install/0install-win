@@ -93,10 +93,14 @@ namespace Common.Utils
             int error = Marshal.GetLastWin32Error();
             switch (error)
             {
-                case ErrorSuccess: return false;
-                case ErrorAlreadyExists: return true;
-                case ErrorAccessDenied: return OpenMutex(name);
-                default: throw new Win32Exception(error);
+                case ErrorSuccess:
+                    return false;
+                case ErrorAlreadyExists:
+                    return true;
+                case ErrorAccessDenied:
+                    return OpenMutex(name);
+                default:
+                    throw new Win32Exception(error);
             }
         }
 
@@ -121,9 +125,12 @@ namespace Common.Utils
             int error = Marshal.GetLastWin32Error();
             switch (error)
             {
-                case ErrorSuccess: return true;
-                case ErrorFileNotFound: return false;
-                default: throw new Win32Exception(error);
+                case ErrorSuccess:
+                    return true;
+                case ErrorFileNotFound:
+                    return false;
+                default:
+                    throw new Win32Exception(error);
             }
         }
 
@@ -148,9 +155,14 @@ namespace Common.Utils
             int error = Marshal.GetLastWin32Error();
             switch (error)
             {
-                case ErrorSuccess: result = true; break;
-                case ErrorFileNotFound: result = false; break;
-                default: throw new Win32Exception(error);
+                case ErrorSuccess:
+                    result = true;
+                    break;
+                case ErrorFileNotFound:
+                    result = false;
+                    break;
+                default:
+                    throw new Win32Exception(error);
             }
 
             UnsafeNativeMethods.CloseHandle(handle);

@@ -30,6 +30,7 @@ using ZeroInstall.Injector.Properties;
 
 namespace ZeroInstall.Injector
 {
+
     #region Enumerations
     /// <summary>
     /// Controls how liberally network access is attempted.
@@ -75,6 +76,7 @@ namespace ZeroInstall.Injector
 
         private static readonly TimeSpan _defaultFreshness = new TimeSpan(7, 0, 0, 0, 0); // 7 days
         private TimeSpan _freshness = _defaultFreshness;
+
         /// <summary>
         /// The maximum age a cached <see cref="Model.Feed"/> may have until it is considered stale (needs to be updated).
         /// </summary>
@@ -83,6 +85,7 @@ namespace ZeroInstall.Injector
         public TimeSpan Freshness { get { return _freshness; } set { _freshness = value; } }
 
         private NetworkLevel _networkLevel = NetworkLevel.Full;
+
         /// <summary>
         /// Controls how liberally network access is attempted.
         /// </summary>
@@ -102,6 +105,7 @@ namespace ZeroInstall.Injector
 
         private const string DefaultFeedMirror = "http://roscidus.com/0mirror";
         private Uri _feedMirror = new Uri(DefaultFeedMirror);
+
         /// <summary>
         /// The base URL of a mirror site for keys and feeds.
         /// </summary>
@@ -110,6 +114,7 @@ namespace ZeroInstall.Injector
 
         private const string DefaultKeyInfoServer = "https://keylookup.appspot.com";
         private Uri _keyInfoServer = new Uri(DefaultKeyInfoServer);
+
         /// <summary>
         /// The base URL of a key information server.
         /// </summary>
@@ -117,6 +122,7 @@ namespace ZeroInstall.Injector
         public Uri KeyInfoServer { get { return _keyInfoServer; } set { _keyInfoServer = value; } }
 
         private bool _autoApproveKeys = true;
+
         /// <summary>
         /// Automatically approve keys known by the <see cref="KeyInfoServer"/> and seen the first time a feed is fetched.
         /// </summary>
@@ -125,6 +131,7 @@ namespace ZeroInstall.Injector
 
         private const string DefaultAppStoreHome = "http://0install.de/appstore/?client=central&lang=[LANG]";
         private string _appStoreHome = DefaultAppStoreHome;
+
         /// <summary>
         /// The homepage for the AppStore. [LANG] is a placeholder for a two character ISO language code.
         /// </summary>
@@ -132,6 +139,7 @@ namespace ZeroInstall.Injector
         public string AppStoreHome { get { return _appStoreHome; } set { _appStoreHome = value; } }
 
         private bool _selfUpdateEnabled = true;
+
         /// <summary>
         /// Controls whether Zero Install searches for updates for itself.
         /// </summary>
@@ -140,6 +148,7 @@ namespace ZeroInstall.Injector
 
         private const string DefaultSelfUpdateID = "http://0install.de/feeds/ZeroInstall.xml";
         private string _selfUpdateID = DefaultSelfUpdateID;
+
         /// <summary>
         /// The ID used by the solver to search for updates for Zero Install itself.
         /// </summary>
@@ -148,6 +157,7 @@ namespace ZeroInstall.Injector
 
         private const string DefaultSyncServer = "https://0install.de/sync/";
         private Uri _syncServer = new Uri(DefaultSyncServer);
+
         /// <summary>
         /// The base URL of the sync server.
         /// </summary>
@@ -157,6 +167,7 @@ namespace ZeroInstall.Injector
         public Uri SyncServer { get { return _syncServer; } set { _syncServer = value; } }
 
         private string _syncServerUsername = "";
+
         /// <summary>
         /// The username to authenticate with against the <see cref="SyncServer"/>.
         /// </summary>
@@ -166,6 +177,7 @@ namespace ZeroInstall.Injector
         public string SyncServerUsername { get { return _syncServerUsername; } set { _syncServerUsername = value; } }
 
         private string _syncServerPassword = "";
+
         /// <summary>
         /// The password to authenticate with against the <see cref="SyncServer"/>.
         /// </summary>
@@ -175,6 +187,7 @@ namespace ZeroInstall.Injector
         public string SyncServerPassword { get { return _syncServerPassword; } set { _syncServerPassword = value; } }
 
         private string _syncCryptoKey = "";
+
         /// <summary>
         /// The local key used to encrypt data before sending it to the <see cref="SyncServer"/>.
         /// </summary>
@@ -188,6 +201,7 @@ namespace ZeroInstall.Injector
         public bool AutoSync { get; set; }
 
         private bool _allowApiHooking;
+
         /// <summary>
         /// Controls whether Zero Install may install hooks for operating sytem APIs to improve desktop integration.
         /// </summary>
@@ -231,9 +245,12 @@ namespace ZeroInstall.Injector
                 {
                     switch (NetworkUse)
                     {
-                        case NetworkLevel.Full: return "full";
-                        case NetworkLevel.Minimal: return "minimal";
-                        case NetworkLevel.Offline: return "off-line";
+                        case NetworkLevel.Full:
+                            return "full";
+                        case NetworkLevel.Minimal:
+                            return "minimal";
+                        case NetworkLevel.Offline:
+                            return "off-line";
                     }
                     return null; // Will never be reached
                 },
@@ -241,10 +258,17 @@ namespace ZeroInstall.Injector
                 {
                     switch (value)
                     {
-                        case "full": NetworkUse = NetworkLevel.Full; return;
-                        case "minimal": NetworkUse = NetworkLevel.Minimal; return;
-                        case "off-line": NetworkUse = NetworkLevel.Offline; return;
-                        default: throw new FormatException("Must be 'full', 'minimal' or 'off-line'");
+                        case "full":
+                            NetworkUse = NetworkLevel.Full;
+                            return;
+                        case "minimal":
+                            NetworkUse = NetworkLevel.Minimal;
+                            return;
+                        case "off-line":
+                            NetworkUse = NetworkLevel.Offline;
+                            return;
+                        default:
+                            throw new FormatException("Must be 'full', 'minimal' or 'off-line'");
                     }
                 },
                 "full");
@@ -323,8 +347,11 @@ namespace ZeroInstall.Injector
             var config = new Config();
             foreach (var path in paths)
             {
-                try { FromIniToConfig(_iniParse.LoadFile(path, true), config); }
-                #region Error handling
+                try
+                {
+                    FromIniToConfig(_iniParse.LoadFile(path, true), config);
+                }
+                    #region Error handling
                 catch (ParsingException ex)
                 {
                     // Wrap exception to add context information
@@ -361,7 +388,7 @@ namespace ZeroInstall.Injector
                 _iniParse.SaveFile(path + ".new", _iniData);
                 FileUtils.Replace(path + ".new", path);
             }
-            #region Error handling
+                #region Error handling
             catch (Exception)
             {
                 // Clean up failed transactions

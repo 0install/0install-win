@@ -42,14 +42,17 @@ namespace ZeroInstall.Store.Implementation
         public ManifestFormat Format { get; private set; }
 
         private readonly C5.IList<ManifestNode> _nodes;
+
         /// <summary>
         /// A list of all elements in the tree this manifest represents.
         /// </summary>
-// ReSharper disable ReturnTypeCanBeEnumerable.Global
+        // ReSharper disable ReturnTypeCanBeEnumerable.Global
         public IList<ManifestNode> Nodes { get { return _nodes; } }
-// ReSharper restore ReturnTypeCanBeEnumerable.Global
+
+        // ReSharper restore ReturnTypeCanBeEnumerable.Global
 
         private long _totalSize = -1;
+
         /// <summary>
         /// The combined size of all files listed in the manifest in bytes.
         /// </summary>
@@ -94,7 +97,7 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         //--------------------//
-        
+
         #region Storage
         /// <summary>
         /// Writes the manifest to a file and calculates its hash.

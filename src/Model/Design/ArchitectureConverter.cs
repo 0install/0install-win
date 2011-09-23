@@ -32,19 +32,19 @@ namespace ZeroInstall.Model.Design
         /// <returns>The constructor used to create new instances of <see cref="Architecture"/> (deserialization).</returns>
         protected override ConstructorInfo GetConstructor()
         {
-            return typeof(Architecture).GetConstructor(new[] { typeof(OS), typeof(Cpu) });
+            return typeof(Architecture).GetConstructor(new[] {typeof(OS), typeof(Cpu)});
         }
 
         /// <returns>The unconverted arguments of <see cref="Architecture"/>.</returns>
         protected override object[] GetArguments(Architecture value)
         {
-            return new object[] { value.OS, value.Cpu };
+            return new object[] {value.OS, value.Cpu};
         }
 
         /// <returns>The arguments of <see cref="Architecture"/> converted to string.</returns>
         protected override string[] GetValues(Architecture value, ITypeDescriptorContext context, CultureInfo culture)
         {
-            return new[] { value.OS.ToString(), value.Cpu.ToString() };
+            return new[] {value.OS.ToString(), value.Cpu.ToString()};
         }
 
         /// <returns>A new instance of <see cref="Architecture"/>.</returns>

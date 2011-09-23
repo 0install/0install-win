@@ -72,8 +72,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
             {
                 string languageWithMarker = comboBoxLanguages.Text;
                 return CultureInfo.GetCultureInfo(languageWithMarker.StartsWith(UsingLanguageMarker)
-                                                      ? languageWithMarker.Substring(UsingLanguageMarker.Length)
-                                                      : languageWithMarker);
+                    ? languageWithMarker.Substring(UsingLanguageMarker.Length)
+                    : languageWithMarker);
             }
 
             set { comboBoxLanguages.SelectedItem = (comboBoxLanguages.Items.Contains(value.IetfLanguageTag)) ? value.IetfLanguageTag : UsingLanguageMarker + value.IetfLanguageTag; }
@@ -103,33 +103,33 @@ namespace ZeroInstall.Publish.WinForms.Controls
             Values = new LocalizableStringCollection();
 
             Values.CollectionChanged += delegate
-                                        {
-                                            var setLanguages = new SortedArray<CultureInfo>(new CultureComparer());
-                                            var notSetLanguages = new SortedArray<CultureInfo>(new CultureComparer());
+            {
+                var setLanguages = new SortedArray<CultureInfo>(new CultureComparer());
+                var notSetLanguages = new SortedArray<CultureInfo>(new CultureComparer());
 
-                                            foreach (CultureInfo language in CultureInfo.GetCultures(CultureTypes.FrameworkCultures))
-                                            {
-                                                // Exclude the invariant culture since "no language" defaults to "English generic"
-                                                if (language.Equals(CultureInfo.InvariantCulture)) continue;
+                foreach (CultureInfo language in CultureInfo.GetCultures(CultureTypes.FrameworkCultures))
+                {
+                    // Exclude the invariant culture since "no language" defaults to "English generic"
+                    if (language.Equals(CultureInfo.InvariantCulture)) continue;
 
-                                                // seperate set languages and not set languages
-                                                if (Values.ContainsExactLanguage(language)) setLanguages.Add(language);
-                                                else notSetLanguages.Add(language);
-                                            }
+                    // seperate set languages and not set languages
+                    if (Values.ContainsExactLanguage(language)) setLanguages.Add(language);
+                    else notSetLanguages.Add(language);
+                }
 
-                                            // store selected language
-                                            CultureInfo selectedLanguage = SelectedLanguage;
+                // store selected language
+                CultureInfo selectedLanguage = SelectedLanguage;
 
-                                            comboBoxLanguages.Items.Clear();
-                                            // add languages to comboBox
-                                            comboBoxLanguages.BeginUpdate();
-                                            foreach (CultureInfo settedLanguage in setLanguages) comboBoxLanguages.Items.Add(UsingLanguageMarker + settedLanguage.IetfLanguageTag);
-                                            foreach (CultureInfo notSettedLanguage in notSetLanguages) comboBoxLanguages.Items.Add(notSettedLanguage.IetfLanguageTag);
-                                            comboBoxLanguages.EndUpdate();
+                comboBoxLanguages.Items.Clear();
+                // add languages to comboBox
+                comboBoxLanguages.BeginUpdate();
+                foreach (CultureInfo settedLanguage in setLanguages) comboBoxLanguages.Items.Add(UsingLanguageMarker + settedLanguage.IetfLanguageTag);
+                foreach (CultureInfo notSettedLanguage in notSetLanguages) comboBoxLanguages.Items.Add(notSettedLanguage.IetfLanguageTag);
+                comboBoxLanguages.EndUpdate();
 
-                                            // restore selected language
-                                            SelectedLanguage = selectedLanguage;
-                                        };
+                // restore selected language
+                SelectedLanguage = selectedLanguage;
+            };
         }
 
         /// <summary>
@@ -147,13 +147,13 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
             // Sets right translation to hintTextBoxSummary
             comboBoxLanguages.SelectedIndexChanged += delegate
-                                                      {
-                                                          hintTextBoxSummary.TextChanged -= HintTextBoxSummaryTextChanged;
-                                                          hintTextBoxSummary.Text = Values.ContainsExactLanguage(SelectedLanguage)
-                                                                                        ? Values.GetExactLanguage(SelectedLanguage)
-                                                                                        : string.Empty;
-                                                          hintTextBoxSummary.TextChanged += HintTextBoxSummaryTextChanged;
-                                                      };
+            {
+                hintTextBoxSummary.TextChanged -= HintTextBoxSummaryTextChanged;
+                hintTextBoxSummary.Text = Values.ContainsExactLanguage(SelectedLanguage)
+                    ? Values.GetExactLanguage(SelectedLanguage)
+                    : string.Empty;
+                hintTextBoxSummary.TextChanged += HintTextBoxSummaryTextChanged;
+            };
         }
 
         /// <summary>

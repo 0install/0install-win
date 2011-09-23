@@ -42,12 +42,16 @@ namespace ZeroInstall.Injector.Feeds
         #region Properties
         // Order is preserved, but ignore it when comparing
         private readonly C5.LinkedList<Key> _keys = new C5.LinkedList<Key>();
+
         /// <summary>
         /// A list of known <see cref="Key"/>s.
         /// </summary>
         [XmlElement("key")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.LinkedList<Key> Keys { get { return _keys; } }
+            public C5.LinkedList<Key> Keys
+        {
+            get { return _keys; }
+        }
         #endregion
 
         //--------------------//
@@ -67,7 +71,7 @@ namespace ZeroInstall.Injector.Feeds
             return Keys.Exists(key => key.Fingerprint == fingerprint && key.Domains.Contains(domain));
         }
 
-        
+
         /// <summary>
         /// Marks a key as trusted for a specific domain.
         /// </summary>

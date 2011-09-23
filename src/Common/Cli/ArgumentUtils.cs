@@ -61,8 +61,8 @@ namespace Common.Cli
                 else if (File.Exists(entry)) result.Add(new FileInfo(entry));
                 else if (Directory.Exists(entry))
                 {
-                     foreach (string file in Directory.GetFiles(entry, defaultPattern))
-                         result.Add(new FileInfo(file));
+                    foreach (string file in Directory.GetFiles(entry, defaultPattern))
+                        result.Add(new FileInfo(file));
                 }
                 else throw new FileNotFoundException(string.Format(Properties.Resources.FileNotFound, entry), entry);
             }

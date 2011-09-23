@@ -55,7 +55,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                     if (entry.Name == "data.tar.gz") return tar;
                 }
             }
-            #region Error handling
+                #region Error handling
             catch (TarException ex)
             {
                 throw new IOException(Resources.ArchiveInvalid, ex);

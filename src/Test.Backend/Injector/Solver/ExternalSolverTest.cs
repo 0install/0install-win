@@ -27,6 +27,6 @@ namespace ZeroInstall.Injector.Solver
     {
         public ExternalSolverTest()
             : base(new ExternalSolver())
-        { }
+        {}
     }
 }

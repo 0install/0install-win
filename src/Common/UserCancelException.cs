@@ -36,15 +36,15 @@ namespace Common
         /// <summary>
         /// Creates a new user cancel exception.
         /// </summary>
-        public UserCancelException() : base (Resources.UserCancel)
+        public UserCancelException() : base(Resources.UserCancel)
         {}
 
         /// <inheritdoc />
-        public UserCancelException(string message) : base(message) 
+        public UserCancelException(string message) : base(message)
         {}
 
         /// <inheritdoc />
-        public UserCancelException(string message, Exception innerException) : base (message, innerException)
+        public UserCancelException(string message, Exception innerException) : base(message, innerException)
         {}
 
         /// <summary>

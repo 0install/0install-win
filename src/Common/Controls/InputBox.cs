@@ -58,8 +58,8 @@ namespace Common.Controls
             using (var inputBox = new InputBox
             {
                 Text = title,
-                labelPrompt = { Text = prompt.Replace("\n", Environment.NewLine) },
-                textInput = { Text = defaultText, UseSystemPasswordChar = password }
+                labelPrompt = {Text = prompt.Replace("\n", Environment.NewLine)},
+                textInput = {Text = defaultText, UseSystemPasswordChar = password}
             })
                 return (inputBox.ShowDialog(owner) == DialogResult.OK) ? inputBox.textInput.Text : null;
         }
@@ -99,9 +99,7 @@ namespace Common.Controls
                 textInput.Text = EnumerableUtils.GetFirst(files);
             }
             else if (e.Data.GetDataPresent(DataFormats.Text))
-            {
                 textInput.Text = (string)e.Data.GetData(DataFormats.Text);
-            }
         }
 
         private void InputBox_DragEnter(object sender, DragEventArgs e)

@@ -21,6 +21,5 @@ namespace ZeroInstall.Fetchers
 {
     [TestFixture]
     public class DefaultFetcherInteraction
-    {
-    }
+    {}
 }

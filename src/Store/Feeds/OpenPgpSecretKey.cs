@@ -21,6 +21,7 @@ using Common.Utils;
 
 namespace ZeroInstall.Store.Feeds
 {
+
     #region Enumerations
     /// <seealso cref="OpenPgpSecretKey.Algorithm"/>
     [SuppressMessage("Microsoft.Design", "CA1027:MarkEnumsWithFlags")]
@@ -28,10 +29,13 @@ namespace ZeroInstall.Store.Feeds
     {
         ///<summary>The algorithm used is unknown.</summary>
         Unknown = 0,
+
         /// <summary>RSA crypto system</summary>
         Rsa = 1,
+
         /// <summary>Elgamal crypto system</summary>
         Elgamal = 16,
+
         /// <summary>DAS crypto system</summary>
         Dsa = 17
     }

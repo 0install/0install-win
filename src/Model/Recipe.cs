@@ -33,6 +33,7 @@ namespace ZeroInstall.Model
         #region Properties
         // Preserve order
         private readonly C5.LinkedList<RecipeStep> _steps = new C5.LinkedList<RecipeStep>();
+
         /// <summary>
         /// An ordered list of <see cref="RecipeStep"/>s to execute.
         /// </summary>
@@ -47,7 +48,7 @@ namespace ZeroInstall.Model
         [XmlIgnore]
         public bool ContainsUnknownSteps { get { return UnknownElements != null && UnknownElements.Length > 0; } }
         #endregion
-        
+
         //--------------------//
 
         #region Simplify
@@ -97,7 +98,7 @@ namespace ZeroInstall.Model
             return recipe;
         }
         #endregion
-        
+
         #region Equality
         /// <inheritdoc/>
         public bool Equals(Recipe other)

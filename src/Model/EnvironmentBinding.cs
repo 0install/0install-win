@@ -21,6 +21,7 @@ using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
 {
+
     #region Enumerations
     /// <summary>
     /// Controls how <see cref="EnvironmentBinding.Insert"/> or <see cref="EnvironmentBinding.Value"/> is added to a variable.
@@ -28,13 +29,16 @@ namespace ZeroInstall.Model
     public enum EnvironmentMode
     {
         /// <summary>The absolute path of the item is prepended to the current value of the variable.</summary>
-        [XmlEnum("prepend")] Prepend,
+        [XmlEnum("prepend")]
+        Prepend,
 
         /// <summary>The absolute path of the item is append to the end of the current value of the variable.</summary>
-        [XmlEnum("append")] Append,
+        [XmlEnum("append")]
+        Append,
 
         /// <summary>The old value is overwritten, and the <see cref="EnvironmentBinding.Default"/> attribute is ignored.</summary>
-        [XmlEnum("replace")] Replace
+        [XmlEnum("replace")]
+        Replace
     }
     #endregion
 

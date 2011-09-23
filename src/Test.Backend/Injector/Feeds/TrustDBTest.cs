@@ -34,7 +34,7 @@ namespace ZeroInstall.Injector.Feeds
         {
             return new TrustDB
             {
-                Keys = { new Key { Fingerprint = "abc", Domains = { new Domain { Value = "0install.de" }, new Domain { Value = "eicher.net" } } } }
+                Keys = {new Key {Fingerprint = "abc", Domains = {new Domain {Value = "0install.de"}, new Domain {Value = "eicher.net"}}}}
             };
         }
         #endregion

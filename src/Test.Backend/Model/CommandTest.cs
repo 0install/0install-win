@@ -35,19 +35,22 @@ namespace ZeroInstall.Model
             {
                 Name = Command.NameRun,
                 Path = "dir 1/executable1", Arguments = {"--executable1"},
-                Dependencies = { new Dependency
-                {
-                    Interface = "http://0install.de/feeds/test/test1.xml", Bindings = {new EnvironmentBinding {Name = "TEST1_PATH_COMMAND_DEP"}}
-                }},
+                Dependencies =
+                    {
+                        new Dependency
+                        {
+                            Interface = "http://0install.de/feeds/test/test1.xml", Bindings = {new EnvironmentBinding {Name = "TEST1_PATH_COMMAND_DEP"}}
+                        }
+                    },
                 Runner = new Runner
                 {
                     Interface = "http://0install.de/feeds/test/test2.xml", Arguments = {"runner argument"}, Bindings = {new EnvironmentBinding {Name = "TEST2_PATH_RUNNER_SELF"}}
                 },
-                Bindings = {new EnvironmentBinding {Name = "TEST1_PATH_COMMAND" }},
+                Bindings = {new EnvironmentBinding {Name = "TEST1_PATH_COMMAND"}},
                 WorkingDir = new WorkingDir {Source = "bin"}
             };
         }
-        
+
         /// <summary>
         /// Creates a fictive test <see cref="Command"/>.
         /// </summary>

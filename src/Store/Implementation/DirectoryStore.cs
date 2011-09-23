@@ -58,7 +58,7 @@ namespace ZeroInstall.Store.Implementation
                 path = Path.GetFullPath(path);
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             }
-            #region Error handling
+                #region Error handling
             catch (ArgumentException ex)
             {
                 // Wrap exception since only certain exception types are allowed
@@ -87,7 +87,7 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         //--------------------//
-        
+
         #region Verify and add
         /// <summary>
         /// Verifies the <see cref="ManifestDigest"/> of a directory temporarily stored inside the cache and moves it to the final location if it passes.
@@ -120,7 +120,10 @@ namespace ZeroInstall.Store.Implementation
             VerifyDirectory(source, expectedDigest, handler).Save(Path.Combine(source, ".manifest"));
 
             // Move directory to final store destination
-            try { Directory.Move(source, target); }
+            try
+            {
+                Directory.Move(source, target);
+            }
             catch (IOException)
             {
                 if (Directory.Exists(target)) throw new ImplementationAlreadyInStoreException(expectedDigest);
@@ -128,7 +131,10 @@ namespace ZeroInstall.Store.Implementation
             }
 
             // Prevent any further changes to the directory
-            try { FileUtils.EnableWriteProtection(target); }
+            try
+            {
+                FileUtils.EnableWriteProtection(target);
+            }
             catch (IOException)
             {
                 Log.Warn("Unable to enable write protection for " + target);
@@ -167,12 +173,19 @@ namespace ZeroInstall.Store.Implementation
             if (actualDigestValue != expectedDigestValue)
             {
                 Manifest expectedManifest = null;
-                try { expectedManifest = Manifest.Load(Path.Combine(directory, ".manifest"), ManifestFormat.FromPrefix(expectedDigest.BestPrefix)); }
-                #region Error handling
-                catch (FormatException) {}
-                catch (IOException) {}
-                catch (UnauthorizedAccessException) {}
+                try
+                {
+                    expectedManifest = Manifest.Load(Path.Combine(directory, ".manifest"), ManifestFormat.FromPrefix(expectedDigest.BestPrefix));
+                }
+                    #region Error handling
+                catch (FormatException)
+                {}
+                catch (IOException)
+                {}
+                catch (UnauthorizedAccessException)
+                {}
                 #endregion
+
                 throw new DigestMismatchException(expectedDigestValue, expectedManifest, actualDigestValue, actualManifest);
             }
 
@@ -213,9 +226,7 @@ namespace ZeroInstall.Store.Implementation
         {
             // Check for all supported digest algorithms
             foreach (string digest in manifestDigest.AvailableDigests)
-            {
-                if (Directory.Exists(Path.Combine(DirectoryPath, digest))) return true;   
-            }
+                if (Directory.Exists(Path.Combine(DirectoryPath, digest))) return true;
 
             return false;
         }
@@ -251,8 +262,11 @@ namespace ZeroInstall.Store.Implementation
             try
             {
                 // Copy the source directory inside the cache so it can be validated safely (no manipulation of directory while validating)
-                try { FileUtils.CopyDirectory(path, tempDir, true, false); }
-                #region Error handling
+                try
+                {
+                    FileUtils.CopyDirectory(path, tempDir, true, false);
+                }
+                    #region Error handling
                 catch (IOException ex)
                 {
                     // Wrap too generic exceptions thrown
@@ -265,7 +279,7 @@ namespace ZeroInstall.Store.Implementation
 
                 VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);
             }
-            #region Error handling
+                #region Error handling
             catch (Exception)
             {
                 // Remove temporary directory before passing exception on
@@ -296,8 +310,11 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     // Defer task to handler
-                    try { handler.RunTask(extractor, manifestDigest); }
-                    #region Error handling
+                    try
+                    {
+                        handler.RunTask(extractor, manifestDigest);
+                    }
+                        #region Error handling
                     catch (IOException ex)
                     {
                         // Wrap too generic exceptions thrown
@@ -310,7 +327,7 @@ namespace ZeroInstall.Store.Implementation
 
                     VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);
                 }
-                #region Error handling
+                    #region Error handling
                 catch (Exception)
                 {
                     // Remove temporary directory before passing exception on
@@ -350,7 +367,7 @@ namespace ZeroInstall.Store.Implementation
 
                 VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);
             }
-            #region Error handling
+                #region Error handling
             catch (Exception)
             {
                 // Remove extracted directory if validation or something else failed
@@ -386,7 +403,7 @@ namespace ZeroInstall.Store.Implementation
 
                             Directory.Delete(tempDir, true);
                         }
-                        #region Error handling
+                            #region Error handling
                         catch (UnauthorizedAccessException ex)
                         {
                             // Wrap exception since only certain exception types are allowed in tasks
@@ -435,7 +452,10 @@ namespace ZeroInstall.Store.Implementation
             {
                 // Calculate the actual digest and compare it with the expected one
                 DigestMismatchException problem = null;
-                try { Verify(digest, handler); }
+                try
+                {
+                    Verify(digest, handler);
+                }
                 catch (DigestMismatchException ex)
                 {
                     problem = ex;

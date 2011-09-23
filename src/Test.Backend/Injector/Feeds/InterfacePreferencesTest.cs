@@ -38,7 +38,7 @@ namespace ZeroInstall.Injector.Feeds
             {
                 Uri = new Uri("http://somedomain/someapp.xml"),
                 StabilityPolicy = Stability.Testing,
-                Feeds = { new FeedReference { Source = "http://invalid" } }
+                Feeds = {new FeedReference {Source = "http://invalid"}}
             };
         }
         #endregion

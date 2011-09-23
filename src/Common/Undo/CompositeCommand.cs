@@ -69,7 +69,7 @@ namespace Common.Undo
             catch (Exception)
             { // Rollback before reporting exception
                 for (int countUndo = countExecute - 1; countUndo >= 0; countUndo--)
-                    _commands[countUndo].Undo();   
+                    _commands[countUndo].Undo();
                 throw;
             }
         }

@@ -141,7 +141,7 @@ namespace ZeroInstall.Capture
                 string commandName = command.Name;
 
                 if (commandName == Command.NameRun) commandName = null;
-                var verb  = new Verb
+                var verb = new Verb
                 {
                     Name = verbName,
                     Command = commandName,

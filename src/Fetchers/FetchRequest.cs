@@ -35,6 +35,7 @@ namespace ZeroInstall.Fetchers
         #region Properties
         // Preserve order, duplicate entries are not allowed
         private readonly C5.ISequenced<Implementation> _implementations;
+
         /// <summary>
         /// The <see cref="Model.Implementation"/>s to be downloaded.
         /// </summary>

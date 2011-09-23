@@ -88,7 +88,7 @@ namespace Common.Streams
             // Seeking from the end should work normally
             _stream.Seek(-1, SeekOrigin.End);
             Assert.AreEqual('d', (char)_stream.ReadByte());
-            
+
             // Seeking to the beginning should translate to byte 1 in original stream
             _stream.Seek(0, SeekOrigin.Begin);
             Assert.AreEqual('b', (char)_stream.ReadByte());

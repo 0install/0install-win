@@ -34,14 +34,17 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         private static AppList CreateTestAppListWithoutAPs()
         {
-            return new AppList {Entries =
+            return new AppList
             {
-                new AppEntry
-                {
-                    AutoUpdate = true,
-                    CapabilityLists = {Capabilities.CapabilityListTest.CreateTestCapabilityList()}
-                }
-            }};
+                Entries =
+                    {
+                        new AppEntry
+                        {
+                            AutoUpdate = true,
+                            CapabilityLists = {Capabilities.CapabilityListTest.CreateTestCapabilityList()}
+                        }
+                    }
+            };
         }
 
         /// <summary>
@@ -49,15 +52,18 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         private static AppList CreateTestAppListWithAPs()
         {
-            return new AppList {Entries =
+            return new AppList
             {
-                new AppEntry
-                {
-                    AutoUpdate = true,
-                    CapabilityLists = {Capabilities.CapabilityListTest.CreateTestCapabilityList()},
-                    AccessPoints = CreateTestAccessPointList()
-                }
-            }};
+                Entries =
+                    {
+                        new AppEntry
+                        {
+                            AutoUpdate = true,
+                            CapabilityLists = {Capabilities.CapabilityListTest.CreateTestCapabilityList()},
+                            AccessPoints = CreateTestAccessPointList()
+                        }
+                    }
+            };
         }
 
         /// <summary>
@@ -65,20 +71,23 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         private static AccessPointList CreateTestAccessPointList()
         {
-            return new AccessPointList {Entries =
+            return new AccessPointList
             {
-                new AppAlias {Command = "main", Name = "myapp"},
-                new AutoPlay {Capability = "autoplay"},
-                new CapabilityRegistration(),
-                new ContextMenu {Capability = "context"},
-                new DefaultProgram {Capability = "default"},
-                new DesktopIcon {Command = "main", Name = "Desktop icon"},
-                new FileType {Capability = "file_type"},
-                new MenuEntry {Command = "main", Name = "Menu entry", Category = "Developer tools"},
-                new SendTo {Command = "main", Name = "Send to"},
-                new UrlProtocol {Capability = "protocol"},
-                new QuickLaunch {Command = "main", Name = "Quick Launch"}
-            }};
+                Entries =
+                    {
+                        new AppAlias {Command = "main", Name = "myapp"},
+                        new AutoPlay {Capability = "autoplay"},
+                        new CapabilityRegistration(),
+                        new ContextMenu {Capability = "context"},
+                        new DefaultProgram {Capability = "default"},
+                        new DesktopIcon {Command = "main", Name = "Desktop icon"},
+                        new FileType {Capability = "file_type"},
+                        new MenuEntry {Command = "main", Name = "Menu entry", Category = "Developer tools"},
+                        new SendTo {Command = "main", Name = "Send to"},
+                        new UrlProtocol {Capability = "protocol"},
+                        new QuickLaunch {Command = "main", Name = "Quick Launch"}
+                    }
+            };
         }
         #endregion
 

@@ -27,6 +27,7 @@ using TaskDialog;
 
 namespace Common
 {
+
     #region Enumerations
     /// <summary>
     /// How severe/important a message is
@@ -35,8 +36,10 @@ namespace Common
     {
         /// <summary>A nice-to-know piece of information.</summary>
         Info,
+
         /// <summary>A warning that doesn't have to be acted upon immediately.</summary>
         Warn,
+
         /// <summary>A critical error that should be attended to.</summary>
         Error
     }
@@ -63,17 +66,30 @@ namespace Common
             #region Logging
             switch (severity)
             {
-                case MsgSeverity.Warn: Log.Warn(text); break;
-                case MsgSeverity.Error: Log.Error(text); break;
+                case MsgSeverity.Warn:
+                    Log.Warn(text);
+                    break;
+                case MsgSeverity.Error:
+                    Log.Error(text);
+                    break;
             }
             #endregion
 
             // Use TaskDialog if possibe, otherwise fall back to MessageBox
             if (TaskDialog.TaskDialog.IsAvailable)
             {
-                try { ShowTaskDialog(GetTaskDialog(text, severity), owner); }
-                catch (BadImageFormatException) { ShowMesageBox(owner, text, severity, MessageBoxButtons.OK); }
-                catch (EntryPointNotFoundException) { ShowMesageBox(owner, text, severity, MessageBoxButtons.OK); }
+                try
+                {
+                    ShowTaskDialog(GetTaskDialog(text, severity), owner);
+                }
+                catch (BadImageFormatException)
+                {
+                    ShowMesageBox(owner, text, severity, MessageBoxButtons.OK);
+                }
+                catch (EntryPointNotFoundException)
+                {
+                    ShowMesageBox(owner, text, severity, MessageBoxButtons.OK);
+                }
             }
             else ShowMesageBox(owner, text, severity, MessageBoxButtons.OK);
         }
@@ -100,8 +116,12 @@ namespace Common
             #region Logging
             switch (severity)
             {
-                case MsgSeverity.Warn: Log.Warn(text); break;
-                case MsgSeverity.Error: Log.Error(text); break;
+                case MsgSeverity.Warn:
+                    Log.Warn(text);
+                    break;
+                case MsgSeverity.Error:
+                    Log.Error(text);
+                    break;
             }
             #endregion
 
@@ -134,10 +154,18 @@ namespace Common
                 // Only Infos should default to OK
                 if (severity >= MsgSeverity.Warn) taskDialog.DefaultButton = (int)DialogResult.Cancel;
 
-                try { return ShowTaskDialog(taskDialog, owner) == DialogResult.OK; }
-                catch (BadImageFormatException) { return ShowMesageBox(owner, text, severity, MessageBoxButtons.OKCancel) == DialogResult.OK; }
-                catch (EntryPointNotFoundException) { return ShowMesageBox(owner, text, severity, MessageBoxButtons.OKCancel) == DialogResult.OK; }
-
+                try
+                {
+                    return ShowTaskDialog(taskDialog, owner) == DialogResult.OK;
+                }
+                catch (BadImageFormatException)
+                {
+                    return ShowMesageBox(owner, text, severity, MessageBoxButtons.OKCancel) == DialogResult.OK;
+                }
+                catch (EntryPointNotFoundException)
+                {
+                    return ShowMesageBox(owner, text, severity, MessageBoxButtons.OKCancel) == DialogResult.OK;
+                }
                 #endregion
             }
 
@@ -170,8 +198,12 @@ namespace Common
             #region Logging
             switch (severity)
             {
-                case MsgSeverity.Warn: Log.Warn(text); break;
-                case MsgSeverity.Error: Log.Error(text); break;
+                case MsgSeverity.Warn:
+                    Log.Warn(text);
+                    break;
+                case MsgSeverity.Error:
+                    Log.Error(text);
+                    break;
             }
             #endregion
 
@@ -199,9 +231,18 @@ namespace Common
                     if (severity >= MsgSeverity.Error) taskDialog.DefaultButton = (int)DialogResult.Cancel;
                 }
 
-                try { return ShowTaskDialog(taskDialog, owner); }
-                catch (BadImageFormatException) { return ShowMesageBox(owner, text, severity, allowCancel ? MessageBoxButtons.YesNoCancel : MessageBoxButtons.YesNo); }
-                catch (EntryPointNotFoundException) { return ShowMesageBox(owner, text, severity, allowCancel ? MessageBoxButtons.YesNoCancel : MessageBoxButtons.YesNo); }
+                try
+                {
+                    return ShowTaskDialog(taskDialog, owner);
+                }
+                catch (BadImageFormatException)
+                {
+                    return ShowMesageBox(owner, text, severity, allowCancel ? MessageBoxButtons.YesNoCancel : MessageBoxButtons.YesNo);
+                }
+                catch (EntryPointNotFoundException)
+                {
+                    return ShowMesageBox(owner, text, severity, allowCancel ? MessageBoxButtons.YesNoCancel : MessageBoxButtons.YesNo);
+                }
                 #endregion
             }
 
@@ -228,10 +269,16 @@ namespace Common
             MessageBoxIcon icon;
             switch (severity)
             {
-                case MsgSeverity.Warn: icon = MessageBoxIcon.Warning; break;
-                case MsgSeverity.Error: icon = MessageBoxIcon.Error; break;
+                case MsgSeverity.Warn:
+                    icon = MessageBoxIcon.Warning;
+                    break;
+                case MsgSeverity.Error:
+                    icon = MessageBoxIcon.Error;
+                    break;
                 default:
-                case MsgSeverity.Info: icon = MessageBoxIcon.Information; break;
+                case MsgSeverity.Info:
+                    icon = MessageBoxIcon.Information;
+                    break;
             }
 
             // Display MessageDialog
@@ -246,8 +293,8 @@ namespace Common
         private static TaskDialog.TaskDialog GetTaskDialog(string text, MsgSeverity severity)
         {
             // Split everything from the second line onwards off from the main text
-            string[] split = text.Replace("\r\n", "\n").Split(new[] { '\n' }, 2);
-            var taskDialog = new TaskDialog.TaskDialog { MainInstruction = split[0], WindowTitle = Application.ProductName };
+            string[] split = text.Replace("\r\n", "\n").Split(new[] {'\n'}, 2);
+            var taskDialog = new TaskDialog.TaskDialog {MainInstruction = split[0], WindowTitle = Application.ProductName};
             if (split.Length == 2) taskDialog.Content = split[1];
 
             // Handle RTL systems

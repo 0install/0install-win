@@ -43,6 +43,7 @@ namespace ZeroInstall.Model
         #region Properties
         // Preserve order
         private readonly C5.LinkedList<Feed> _feeds = new C5.LinkedList<Feed>();
+
         /// <summary>
         /// A list of <see cref="Feed"/>s contained within this catalog.
         /// </summary>

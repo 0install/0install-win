@@ -34,7 +34,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
     public partial class ArchiveControl : UserControl
     {
         #region Attributes
-
         /// <summary>
         /// The <see cref="Archive" /> to be displayed and edited by this form.
         /// </summary>
@@ -43,12 +42,10 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <summary>
         /// List with supported archive types by 0install. If more types become supported, add them to this list.
         /// </summary>
-        private readonly List<ArchiveMimeTypes> _supportedMimeTypes = new List<ArchiveMimeTypes> { ArchiveMimeTypes.Zip, ArchiveMimeTypes.Tar, ArchiveMimeTypes.TarGz, ArchiveMimeTypes.TarBz2, ArchiveMimeTypes.TarLzma };
-
+        private readonly List<ArchiveMimeTypes> _supportedMimeTypes = new List<ArchiveMimeTypes> {ArchiveMimeTypes.Zip, ArchiveMimeTypes.Tar, ArchiveMimeTypes.TarGz, ArchiveMimeTypes.TarBz2, ArchiveMimeTypes.TarLzma};
         #endregion
 
         #region Properties
-
         /// <summary>
         /// Path to the extracted archive. <see langword="null"/> when archive isn't extracted yet.
         /// </summary>
@@ -77,13 +74,11 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// </summary>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ManifestDigest ManifestDigest { get; private set; }
-
         #endregion
 
         #region Data structures
 
         #region ArchiveMimeTypes
-
         /// <summary>
         /// Mime types of archives 0install supports.
         /// </summary>
@@ -91,20 +86,28 @@ namespace ZeroInstall.Publish.WinForms.Controls
         {
             [Description("(auto detect)")]
             Auto,
+
             [Description("application/x-rpm")]
             Rpm,
+
             [Description("application/x-deb")]
             Deb,
+
             [Description("application/x-tar")]
             Tar,
+
             [Description("application/x-bzip-compressed-tar")]
             TarBz2,
+
             [Description("application/x-lzma-compressed-tar")]
             TarLzma,
+
             [Description("application/x-compressed-tar")]
             TarGz,
+
             [Description("application/zip")]
             Zip,
+
             [Description("application/vnd.ms-cab-compressed")]
             Cab
         }
@@ -127,7 +130,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 foreach (ArchiveMimeTypes archiveMimeType in Enum.GetValues(typeof(ArchiveMimeTypes)))
                 {
                     if (ControlHelpers.GetEnumDescription(archiveMimeType) != mimeTypeDescription) continue;
-                    toCreate = new ArchiveMimeType { MimeType = archiveMimeType };
+                    toCreate = new ArchiveMimeType {MimeType = archiveMimeType};
                     return true;
                 }
                 toCreate = null;
@@ -143,26 +146,23 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 return ControlHelpers.GetEnumDescription(MimeType);
             }
         }
-
         #endregion
 
         #endregion
 
         #region Events
-
         /// <summary>
         /// Raised when NO valid <see cref="Archive"/> was created.
         /// </summary>
         public event SimpleEventHandler NoValidArchive;
+
         /// <summary>
         /// Raised when a vaild <see cref="Archive"/> was created.
         /// </summary>
         public event SimpleEventHandler ValidArchive;
-
         #endregion
 
         #region Initialization
-
         public ArchiveControl()
         {
             InitializeComponent();
@@ -173,15 +173,11 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void InitializeComboBoxArchiveFormat()
         {
             foreach (ArchiveMimeTypes imageMimeType in Enum.GetValues(typeof(ArchiveMimeTypes)))
-                {
-                    comboBoxArchiveFormat.Items.Add(new ArchiveMimeType { MimeType = imageMimeType });
-                }
+                comboBoxArchiveFormat.Items.Add(new ArchiveMimeType {MimeType = imageMimeType});
         }
-
         #endregion
 
         #region Controls management
-
         private void ClearControlValues()
         {
             comboBoxArchiveFormat.SelectedIndex = 0;
@@ -199,13 +195,10 @@ namespace ZeroInstall.Publish.WinForms.Controls
             if (!String.IsNullOrEmpty(_archive.MimeType))
             {
                 ArchiveMimeType mimeType;
-                if(ArchiveMimeType.TryCreateFromDescription(_archive.MimeType, out mimeType))
-                {
+                if (ArchiveMimeType.TryCreateFromDescription(_archive.MimeType, out mimeType))
                     comboBoxArchiveFormat.SelectedIndex = (int)mimeType.MimeType;
-                } else
-                {
+                else
                     comboBoxArchiveFormat.SelectedIndex = 0;
-                }
             }
             // set other hintTextBoxes
             if (_archive.StartOffset != default(long)) hintTextBoxStartOffset.Text = _archive.StartOffset.ToString();
@@ -221,14 +214,12 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 currentNode = currentNode.Nodes.Add(folder);
             treeViewSubDirectory.ExpandAll();
             treeViewSubDirectory.EndUpdate();
-            
+
             SetStartState();
         }
-
         #endregion
 
         #region Control events
-
         /// <summary>
         /// Opens a dialog to ask the user where to download the archive from
         /// <see cref="uriTextBoxArchiveUrl"/>.Text, downloads the archive and sets
@@ -247,8 +238,11 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
             if (!SetArchiveMimeType(absoluteFilePath)) return;
 
-            try { TrackingDialog.Run(this, new DownloadFile(url, absoluteFilePath), null); }
-            #region Error handling
+            try
+            {
+                TrackingDialog.Run(this, new DownloadFile(url, absoluteFilePath), null);
+            }
+                #region Error handling
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
@@ -326,9 +320,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 {
                     errorMessage = String.Format("The extraction of the {0} format is not" +
                         " yet supported. Please extract the file yourself (e.g with 7zip) and" +
-                        " set the path to the extracted archive in the \"Locale archive\"" +
-                        " text box.\nATTENTION: DO THIS ONLY AND REALLY ONLY, IF THE FILES" +
-                        " IN YOUR ARCHIVE DOESN'T USE UNIX X-BIT!", archiveMimeType);
+                            " set the path to the extracted archive in the \"Locale archive\"" +
+                                " text box.\nATTENTION: DO THIS ONLY AND REALLY ONLY, IF THE FILES" +
+                                    " IN YOUR ARCHIVE DOESN'T USE UNIX X-BIT!", archiveMimeType);
                 }
                 if (errorMessage == null)
                 {
@@ -377,8 +371,11 @@ namespace ZeroInstall.Publish.WinForms.Controls
             if (startOffset < 0) startOffset = 0;
 
             var extractedArchivePath = Path.Combine(Path.GetDirectoryName(archive) ?? "", Path.GetFileName(archive) + "_extracted");
-            try { if (Directory.Exists(extractedArchivePath)) Directory.Delete(extractedArchivePath, true); }
-            #region Error handling
+            try
+            {
+                if (Directory.Exists(extractedArchivePath)) Directory.Delete(extractedArchivePath, true);
+            }
+                #region Error handling
             catch (UnauthorizedAccessException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
@@ -390,13 +387,13 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 return;
             }
             #endregion
-           
+
             try
             {
                 using (var extractor = Extractor.CreateExtractor(comboBoxArchiveFormat.Text, archive, startOffset, extractedArchivePath))
                     TrackingDialog.Run(this, extractor, null);
             }
-            #region Error handling
+                #region Error handling
             catch (UserCancelException)
             {
                 return;
@@ -407,16 +404,19 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 return;
             }
             #endregion
-            
+
             treeViewSubDirectory.Nodes[0].Nodes.Clear();
             FillTreeViewExtract(new DirectoryInfo(extractedArchivePath), treeViewSubDirectory.Nodes[0]);
             treeViewSubDirectory.ExpandAll();
-            
+
             ExtractedArchivePath = extractedArchivePath;
             SetArchiveProperty();
 
-            try { SetManifestDigestProperty(); }
-            #region Error handling
+            try
+            {
+                SetManifestDigestProperty();
+            }
+                #region Error handling
             catch (UserCancelException)
             {
                 return;
@@ -456,9 +456,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             var folderList = extractedDirectory.GetDirectories();
             if (folderList.Length == 0) return;
             foreach (var folder in folderList)
-            {
                 FillTreeViewExtract(folder, currentNode.Nodes.Add(folder.Name));
-            }
         }
 
         private void SetArchiveProperty()
@@ -485,13 +483,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void UriTextBoxArchiveUrlValidated(object sender, EventArgs e)
         {
             if (uriTextBoxArchiveUrl == null)
-            {
                 SetStartState();
-            }
             else
-            {
                 SetArchiveUrlChosenState();
-            }
         }
 
         /// <summary>
@@ -525,12 +519,16 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <param name="e">Not used.</param>
         private void TreeViewSubDirectoryAfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (treeViewSubDirectory.SelectedNode != null && treeViewSubDirectory.SelectedNode != treeViewSubDirectory.Nodes[0]) {
+            if (treeViewSubDirectory.SelectedNode != null && treeViewSubDirectory.SelectedNode != treeViewSubDirectory.Nodes[0])
+            {
                 string extractPath = treeViewSubDirectory.SelectedNode.FullPath.Substring("Top folder/".Length);
                 _archive.Extract = extractPath;
                 string combinedPath = Path.Combine(ExtractedArchivePath, extractPath);
-                try { ManifestDigest = ManifestUtils.CreateDigest(this, combinedPath); }
-                #region Error handling
+                try
+                {
+                    ManifestDigest = ManifestUtils.CreateDigest(this, combinedPath);
+                }
+                    #region Error handling
                 catch (UserCancelException)
                 {
                     return;
@@ -544,35 +542,33 @@ namespace ZeroInstall.Publish.WinForms.Controls
             }
             else _archive.Extract = null;
         }
-
         #endregion
 
         #region Control State
-
         private void SetStartState()
         {
-            Button[] toDisable = { buttonExtractArchive };
+            Button[] toDisable = {buttonExtractArchive};
             foreach (var button in toDisable) button.Enabled = false;
             ExtractedArchivePath = null;
             ManifestDigest = new ManifestDigest();
-            if(NoValidArchive != null) NoValidArchive();
+            if (NoValidArchive != null) NoValidArchive();
         }
 
         private void SetArchiveUrlChosenState()
         {
-            Button[] toEnable = { buttonDownload };
-            Button[] toDisable = { buttonExtractArchive };
+            Button[] toEnable = {buttonDownload};
+            Button[] toDisable = {buttonExtractArchive};
             foreach (var button in toEnable) button.Enabled = true;
             foreach (var button in toDisable) button.Enabled = false;
         }
 
         private void SetArchiveDownloadedState()
         {
-            Button[] toEnable = { buttonDownload, buttonExtractArchive };
+            Button[] toEnable = {buttonDownload, buttonExtractArchive};
             foreach (var button in toEnable) button.Enabled = true;
             ExtractedArchivePath = null;
             ManifestDigest = new ManifestDigest();
-            if(NoValidArchive != null) NoValidArchive();
+            if (NoValidArchive != null) NoValidArchive();
         }
 
         private void SetAllowedStartOffsetState()
@@ -593,11 +589,10 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         private void SetArchiveExtractedState()
         {
-            Button[] toEnable = { buttonDownload, buttonExtractArchive };
+            Button[] toEnable = {buttonDownload, buttonExtractArchive};
             foreach (var button in toEnable) button.Enabled = true;
-            if(ValidArchive != null) ValidArchive();
+            if (ValidArchive != null) ValidArchive();
         }
-
         #endregion
     }
 }

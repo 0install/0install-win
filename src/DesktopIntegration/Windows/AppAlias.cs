@@ -75,10 +75,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
             {
                 var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
                 using (var appPathsKey = hive.CreateSubKey(RegKeyAppPaths))
-                {
-                    using (var exeKey = appPathsKey.CreateSubKey(aliasName + ".exe"))
-                        exeKey.SetValue("", stubFilePath);
-                }
+                using (var exeKey = appPathsKey.CreateSubKey(aliasName + ".exe"))
+                    exeKey.SetValue("", stubFilePath);
             }
         }
         #endregion

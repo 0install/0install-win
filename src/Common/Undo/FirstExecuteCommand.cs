@@ -45,7 +45,8 @@ namespace Common.Undo
             // We cannot perform the action repeatedly in a row
             if (_actionPerformed && !_undoPerformed) throw new InvalidOperationException(Resources.RedoNotAvailable);
 
-            if (_actionPerformed) OnRedo(); else OnFirstExecute();
+            if (_actionPerformed) OnRedo();
+            else OnFirstExecute();
 
             // Action performed at least once, ready for undo
             _actionPerformed = true;

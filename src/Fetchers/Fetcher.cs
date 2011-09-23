@@ -38,6 +38,7 @@ namespace ZeroInstall.Fetchers
 
         #region Properties
         private IStore _store;
+
         /// <inheritdoc/>
         public IStore Store
         {
@@ -67,7 +68,7 @@ namespace ZeroInstall.Fetchers
             Store = store;
         }
         #endregion
-        
+
         //--------------------//
 
         protected virtual ImplementationFetch CreateFetch(Implementation implementation)
@@ -101,7 +102,7 @@ namespace ZeroInstall.Fetchers
             {
                 // Check if the process has been canceled
                 if (!_currentFetchProcess.ContainsKey(fetchRequest)) throw new UserCancelException();
-                
+
                 var fetchProcess = CreateFetch(implementation);
                 _currentFetchProcess[fetchRequest] = fetchProcess; // Store current step for cancellation
                 fetchProcess.Execute(fetchRequest.Handler);

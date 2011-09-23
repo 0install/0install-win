@@ -72,7 +72,7 @@ namespace ZeroInstall.Commands.WinForms
             Log.Info("Zero Install Command WinForms GUI started with: " + args);
 
             // Automatically show help for missing args
-            if (args.Length == 0) args = new[] { "--help" };
+            if (args.Length == 0) args = new[] {"--help"};
 
 #if !DEBUG
             ErrorReportForm.RunAppMonitored(delegate
@@ -87,7 +87,7 @@ namespace ZeroInstall.Commands.WinForms
                     // Inform the handler about the name of the action being performed
                     handler.ActionTitle = command.ActionTitle;
                 }
-                #region Error handling
+                    #region Error handling
                 catch (UserCancelException)
                 {
                     // This is reached if --help, --version or similar was used
@@ -142,8 +142,11 @@ namespace ZeroInstall.Commands.WinForms
                 };
                 #endregion
 
-                try { command.Execute(); }
-                #region Error handling
+                try
+                {
+                    command.Execute();
+                }
+                    #region Error handling
                 catch (UserCancelException)
                 {}
                 catch (OptionException ex)
@@ -220,7 +223,8 @@ namespace ZeroInstall.Commands.WinForms
                     handler.DisableProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                 }
-                #endregion
+                    #endregion
+
                 finally
                 {
                     // Always close GUI in the end

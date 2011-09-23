@@ -34,7 +34,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {
-            return new[] { "send-to:" + Name };
+            return new[] {"send-to:" + Name};
         }
         #endregion
 
@@ -54,9 +54,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             if (WindowsUtils.IsWindows && !systemWide)
-            {
                 Windows.ShortcutManager.CreateShortcut(GetWindowsShortcutPath(), target, Command, false, handler);
-            }
         }
 
         /// <inheritdoc/>
@@ -67,9 +65,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             if (WindowsUtils.IsWindows && !systemWide)
-            {
                 if (File.Exists(GetWindowsShortcutPath())) File.Delete(GetWindowsShortcutPath());
-            }
         }
         #endregion
 
@@ -89,7 +85,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override AccessPoint CloneAccessPoint()
         {
-            return new SendTo { Command = Command, Name = Name };
+            return new SendTo {Command = Command, Name = Name};
         }
         #endregion
 

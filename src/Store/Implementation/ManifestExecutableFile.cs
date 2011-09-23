@@ -51,11 +51,14 @@ namespace ZeroInstall.Store.Implementation
         internal static ManifestExecutableFile FromString(string line)
         {
             const int numberOfParts = 5;
-            string[] parts = line.Split(new[] { ' ' }, numberOfParts);
+            string[] parts = line.Split(new[] {' '}, numberOfParts);
             if (parts.Length != numberOfParts) throw new FormatException(Resources.InvalidNumberOfLineParts);
 
-            try { return new ManifestExecutableFile(parts[1], long.Parse(parts[2]), long.Parse(parts[3]), parts[4]); }
-            #region Error handling
+            try
+            {
+                return new ManifestExecutableFile(parts[1], long.Parse(parts[2]), long.Parse(parts[3]), parts[4]);
+            }
+                #region Error handling
             catch (OverflowException ex)
             {
                 throw new FormatException(Resources.NumberTooLarge, ex);

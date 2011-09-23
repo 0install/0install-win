@@ -50,19 +50,15 @@ namespace ZeroInstall.Capture
 
             // Ambiguity warnings
             if (snapshotDiff.RegisteredApplications.Length == 0)
-            {
                 return null;
-            }
             if (snapshotDiff.RegisteredApplications.Length > 1)
                 Log.Warn(Resources.MultipleRegisteredAppsDetected);
 
             // Get registry path pointer
             string appRegName = snapshotDiff.RegisteredApplications[0];
-            string capabilitiesRegPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\" + Windows.AppRegistration.RegKeyMachineRegisteredApplications, appRegName, "") as string;
+            var capabilitiesRegPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\" + Windows.AppRegistration.RegKeyMachineRegisteredApplications, appRegName, "") as string;
             if (string.IsNullOrEmpty(capabilitiesRegPath))
-            {
                 return null;
-            }
 
             bool x64;
             using (var capsKey = RegUtils.OpenHklmKey(capabilitiesRegPath, out x64))
@@ -156,7 +152,7 @@ namespace ZeroInstall.Capture
 
                 foreach (string extension in fileAssocKey.GetValueNames())
                 {
-                    string progID = fileAssocKey.GetValue(extension, "") as string;
+                    var progID = fileAssocKey.GetValue(extension, "") as string;
                     if (!string.IsNullOrEmpty(progID)) AddExtensionToFileType(extension, progID, capabilities);
                 }
             }

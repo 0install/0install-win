@@ -63,10 +63,13 @@ namespace ZeroInstall.Commands
                 algorithmNames[i] = ManifestFormat.All[i].Prefix;
             Options.Add("algorithm=",
                 Resources.OptionAlgorithm + "\n" + string.Format(Resources.SupportedValues, StringUtils.Concatenate(algorithmNames, ", ")),
-                delegate (string algorithm)
+                delegate(string algorithm)
                 {
-                    try { _algorithm = ManifestFormat.FromPrefix(algorithm); }
-                    #region Error handling
+                    try
+                    {
+                        _algorithm = ManifestFormat.FromPrefix(algorithm);
+                    }
+                        #region Error handling
                     catch (ArgumentException ex)
                     {
                         // Wrap exception since only certain exception types are allowed in commands
@@ -106,8 +109,7 @@ namespace ZeroInstall.Commands
                     throw new OptionException(Resources.TooManyArguments, "");
             }
 
-
-            Policy.Handler.ShowProgressUI(() => {});
+            Policy.Handler.ShowProgressUI(() => { });
 
             Manifest manifest;
             if (Directory.Exists(path))

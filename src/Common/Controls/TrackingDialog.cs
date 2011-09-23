@@ -121,10 +121,14 @@ namespace Common.Controls
             task.Join();
             switch (task.State)
             {
-                case TaskState.Complete: return;
-                case TaskState.WebError: throw new WebException(task.ErrorMessage);
-                case TaskState.IOError: throw new IOException(task.ErrorMessage);
-                default: throw new UserCancelException();
+                case TaskState.Complete:
+                    return;
+                case TaskState.WebError:
+                    throw new WebException(task.ErrorMessage);
+                case TaskState.IOError:
+                    throw new IOException(task.ErrorMessage);
+                default:
+                    throw new UserCancelException();
             }
         }
         #endregion

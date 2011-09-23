@@ -25,6 +25,7 @@ using System.Windows.Forms;
 
 namespace Common.Controls
 {
+
     #region Delegates
     /// <param name="sender">The <see cref="AddRemoveTabControl"/> instance that raised the event.</param>
     /// <param name="createdTabPage">The new <see cref="TabPage"/> that was created.</param>
@@ -84,12 +85,11 @@ namespace Common.Controls
         #endregion
 
         #region Properties
-
         /// <summary>
         /// The last inserted <see cref="TabPage"/>. <see langword="null"/> if no <see cref="TabPage"/> was inserted.
         /// </summary>
         public TabPage LastInsertedTabPage { get; private set; }
-        
+
         /// <summary>
         /// The last removed <see cref="TabPage"/>. <see langword="null"/> if no <see cref="TabPage"/> was removed.
         /// </summary>

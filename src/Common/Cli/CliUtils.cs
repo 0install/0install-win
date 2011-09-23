@@ -36,12 +36,24 @@ namespace Common.Cli
         private static class SafeNativeMethods
         {
             #region Stream redirect
-            public enum StdHandle { Stdin = -10, Stdout = -11, Stderr = -12 };
-            public enum FileType { Unknown = 0, Disk = 1, Char = 2, Pipe = 3 }
+            public enum StdHandle
+            {
+                Stdin = -10,
+                Stdout = -11,
+                Stderr = -12
+            };
+
+            public enum FileType
+            {
+                Unknown = 0,
+                Disk = 1,
+                Char = 2,
+                Pipe = 3
+            }
 
             [DllImport("kernel32.dll")]
             public static extern FileType GetFileType(IntPtr hdl);
-            
+
             [DllImport("kernel32.dll")]
             public static extern IntPtr GetStdHandle(StdHandle std);
             #endregion

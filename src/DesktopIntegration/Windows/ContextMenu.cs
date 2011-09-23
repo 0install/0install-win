@@ -101,8 +101,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(contextMenu.Verb.Name)) throw new InvalidDataException("Missing verb name");
 
             var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
-            try { hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + (contextMenu.AllObjects ? RegKeyClassesAllPrefix : RegKeyClassesFilesPrefix) + @"\shell\" + contextMenu.Verb.Name); }
-            catch (ArgumentException) {} // Ignore missing registry keys
+            try
+            {
+                hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + (contextMenu.AllObjects ? RegKeyClassesAllPrefix : RegKeyClassesFilesPrefix) + @"\shell\" + contextMenu.Verb.Name);
+            }
+            catch (ArgumentException)
+            {} // Ignore missing registry keys
         }
         #endregion
     }

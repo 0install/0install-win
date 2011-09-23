@@ -25,9 +25,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
     public partial class PackageImplementationForm : OKCancelDialog
     {
-
         #region Properties
-
         /// <summary>
         /// The <see cref="PackageImplementation" /> to be displayed and modified by this form.
         /// </summary>
@@ -45,20 +43,16 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                 UpdateControl();
             }
         }
-
         #endregion
 
         #region Initialization
-
         public PackageImplementationForm()
         {
             InitializeComponent();
         }
-
         #endregion
 
         #region Control management
-
         /// <summary>
         /// Clear all controls on this form.
         /// </summary>
@@ -90,11 +84,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                 checkedListBoxDistribution.SetItemChecked(itemIndex, true);
             }
         }
-
         #endregion
 
         #region Control validation
-
         /// <summary>
         /// Sets "hintTextBoxMain.ForeColor" to <see cref="Color.Green"/> if "hintTextBoxMain.Text" is an absolute path or to <see cref="Color.Red"/> if not.
         /// </summary>
@@ -114,11 +106,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         {
             hintTextBoxDocDir.ForeColor = !Path.IsPathRooted(hintTextBoxDocDir.Text) ? Color.Green : Color.Red;
         }
-
         #endregion
 
         #region Dialog buttons
-
         /// <summary>
         /// Saves the values from the filled controls to <see cref="_packageImplementation"/> and closes the window.
         /// </summary>
@@ -132,9 +122,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             _packageImplementation.DocDir = (!Path.IsPathRooted(hintTextBoxDocDir.Text)) ? hintTextBoxDocDir.Text : null;
             _packageImplementation.Distributions.Clear();
             foreach (String checkedItem in checkedListBoxDistribution.CheckedItems)
-            {
                 _packageImplementation.Distributions.Add(checkedItem);
-            }
         }
         #endregion
     }

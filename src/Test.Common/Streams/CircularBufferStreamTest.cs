@@ -47,7 +47,7 @@ namespace Common.Streams
         public void TestSequential()
         {
             _stream.Write(new byte[] {255, 1, 2, 3, 255}, 1, 3);
-            
+
             var result = new byte[5];
             _stream.Read(result, 1, 3);
             CollectionAssert.AreEqual(new byte[] {0, 1, 2, 3, 0}, result);

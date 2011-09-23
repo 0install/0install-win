@@ -34,9 +34,10 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         [XmlIgnore]
         public override bool WindowsSystemWideOnly { get { return false; } }
-        
+
         // Preserve order
         private readonly C5.LinkedList<KnownProtocolPrefix> _knownPrefixes = new C5.LinkedList<KnownProtocolPrefix>();
+
         /// <summary>
         /// A well-known protocol prefix such as "http". Should be empty and set in <see cref="Capability.ID"/> instead if it is a custom protocol.
         /// </summary>
@@ -46,10 +47,7 @@ namespace ZeroInstall.Model.Capabilities
 
         /// <inheritdoc/>
         [XmlIgnore]
-        public override IEnumerable<string> ConflictIDs
-        {
-            get { return new[] {"progid:" + ID}; }
-        }
+        public override IEnumerable<string> ConflictIDs { get { return new[] {"progid:" + ID}; } }
         #endregion
 
         //--------------------//

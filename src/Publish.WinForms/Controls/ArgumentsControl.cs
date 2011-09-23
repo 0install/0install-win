@@ -24,7 +24,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
     public partial class ArgumentsControl : UserControl
     {
         #region Properties
-
         /// <summary>
         /// The list for the arguments in <see cref="listBoxArguments"/>.
         /// </summary>
@@ -41,14 +40,11 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 _arguments.CollectionChanged -= CollectionChanged;
                 _arguments.Clear();
                 foreach (string argument in listBoxArguments.Items)
-                {
                     _arguments.Add(argument);
-                }
                 _arguments.CollectionChanged += CollectionChanged;
                 return _arguments;
             }
         }
-
         #endregion
 
         #region Initialization
@@ -78,17 +74,17 @@ namespace ZeroInstall.Publish.WinForms.Controls
         {
             // adds item of the textBox to the listBox
             buttonAddArgument.Click += (sender, eventArgs) =>
-                                           {
-                                               if (string.IsNullOrEmpty(textBoxArgument.Text)) return;
-                                               listBoxArguments.Items.Add(textBoxArgument.Text);
-                                               textBoxArgument.Text = string.Empty;
-                                           };
+            {
+                if (string.IsNullOrEmpty(textBoxArgument.Text)) return;
+                listBoxArguments.Items.Add(textBoxArgument.Text);
+                textBoxArgument.Text = string.Empty;
+            };
             // removes selected item from listBox
             buttonRemoveArgument.Click += (sender, eventArgs) =>
-                                              {
-                                                  if (listBoxArguments.SelectedItem == null) return;
-                                                  listBoxArguments.Items.Remove(listBoxArguments.SelectedItem);
-                                              };
+            {
+                if (listBoxArguments.SelectedItem == null) return;
+                listBoxArguments.Items.Remove(listBoxArguments.SelectedItem);
+            };
             // clears textBox and listBox
             buttonClearArguments.Click += (sender, eventArgs) => ClearControl();
         }
@@ -100,10 +96,10 @@ namespace ZeroInstall.Publish.WinForms.Controls
         {
             // Copies the clicked text to the textBox
             listBoxArguments.Click += (sender, eventArgs) =>
-                                          {
-                                              if(listBoxArguments.SelectedItem != null)
-                                                textBoxArgument.Text = (String) listBoxArguments.SelectedItem;
-                                          };
+            {
+                if (listBoxArguments.SelectedItem != null)
+                    textBoxArgument.Text = (String)listBoxArguments.SelectedItem;
+            };
         }
         #endregion
 
@@ -116,7 +112,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             textBoxArgument.Text = string.Empty;
             listBoxArguments.Items.Clear();
         }
-        
+
         private void UpdateControl()
         {
             listBoxArguments.Items.Clear();

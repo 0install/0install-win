@@ -39,6 +39,7 @@ namespace Common
         public T Value { get { return _getValue(); } set { _setValue(value); } }
 
         private readonly T _defaultValue;
+
         /// <summary>
         /// The default value of the property.
         /// </summary>
@@ -61,7 +62,7 @@ namespace Common
             _setValue = setValue;
             _defaultValue = defaultValue;
         }
-        
+
         /// <summary>
         /// Creates a property pointer.
         /// </summary>

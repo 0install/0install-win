@@ -45,6 +45,7 @@ namespace ZeroInstall.Capture
             #endregion
 
             using (var progIDKey = Registry.ClassesRoot.OpenSubKey(Windows.ContextMenu.RegKeyClassesFilesPrefix))
+            {
                 foreach (string entry in snapshotDiff.FilesContextMenuSimple)
                 {
                     capabilities.Entries.Add(new ContextMenu
@@ -54,8 +55,10 @@ namespace ZeroInstall.Capture
                         Verb = GetVerb(progIDKey, commandProvider, entry)
                     });
                 }
+            }
 
             using (var progIDKey = Registry.ClassesRoot.OpenSubKey(Windows.ContextMenu.RegKeyClassesAllPrefix))
+            {
                 foreach (string entry in snapshotDiff.AllContextMenuSimple)
                 {
                     capabilities.Entries.Add(new ContextMenu
@@ -65,6 +68,7 @@ namespace ZeroInstall.Capture
                         Verb = GetVerb(progIDKey, commandProvider, entry)
                     });
                 }
+            }
 
             // ToDo: Collect from snapshotDiff.AllContextMenuExtended and snapshotDiff.FilesContextMenuExtended
         }

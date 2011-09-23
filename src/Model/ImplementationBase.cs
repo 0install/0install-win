@@ -46,6 +46,7 @@ namespace ZeroInstall.Model
         public string LocalPath { get; set; }
 
         private ManifestDigest _manifestDigest;
+
         /// <summary>
         /// Digests of the .manifest file using various hashing algorithms.
         /// </summary>

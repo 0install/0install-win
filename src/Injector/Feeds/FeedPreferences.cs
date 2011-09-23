@@ -47,21 +47,21 @@ namespace ZeroInstall.Injector.Feeds
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="LastChecked"/>
         [XmlAttribute("last-checked"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public long LastCheckedUnix
-        {
-            get { return FileUtils.ToUnixTime(LastChecked); }
-            set { LastChecked = FileUtils.FromUnixTime(value); }
-        }
+        public long LastCheckedUnix { get { return FileUtils.ToUnixTime(LastChecked); } set { LastChecked = FileUtils.FromUnixTime(value); } }
 
         // Preserve order
         private readonly C5.LinkedList<ImplementationPreferences> _implementations = new C5.LinkedList<ImplementationPreferences>();
+
         /// <summary>
         /// A list of implementation-specific user-overrides.
         /// </summary>
         [Description("A list of implementation-specific user-overrides.")]
         [XmlElement("implementation")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.LinkedList<ImplementationPreferences> Implementations { get { return _implementations; } }
+            public C5.LinkedList<ImplementationPreferences> Implementations
+        {
+            get { return _implementations; }
+        }
         #endregion
 
         //--------------------//
@@ -139,9 +139,12 @@ namespace ZeroInstall.Injector.Feeds
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
             #endregion
 
-            try { return LoadFor(feedID); }
-            #region Error handling
-            catch(FileNotFoundException)
+            try
+            {
+                return LoadFor(feedID);
+            }
+                #region Error handling
+            catch (FileNotFoundException)
             {
                 Log.Info("Creating new feed preferences file for '" + feedID + "'.");
                 return new FeedPreferences();

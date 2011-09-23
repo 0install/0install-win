@@ -39,7 +39,7 @@ namespace ZeroInstall.Store.Feeds
             var feed1 = FeedTest.CreateTestFeed();
             var feed3 = FeedTest.CreateTestFeed();
             feed3.Uri = new Uri("http://0install.de/feeds/test/test3.xml");
-            
+
             var cacheMock = new DynamicMock("MockCache", typeof(IFeedCache));
             cacheMock.ExpectAndReturn("ListAll", new[] {"http://0install.de/feeds/test/test1.xml", "http://0install.de/feeds/test/test2.xml", "http://0install.de/feeds/test/test3.xml"});
             cacheMock.ExpectAndReturn("GetFeed", feed1, "http://0install.de/feeds/test/test1.xml");
@@ -49,8 +49,8 @@ namespace ZeroInstall.Store.Feeds
             CollectionAssert.AreEqual(new[] {feed1, feed3}, FeedUtils.GetFeeds((IFeedCache)cacheMock.MockInstance));
         }
 
-        const string FeedText = "Feed data\n";
-        readonly byte[] _feedBytes = Encoding.UTF8.GetBytes(FeedText);
+        private const string FeedText = "Feed data\n";
+        private readonly byte[] _feedBytes = Encoding.UTF8.GetBytes(FeedText);
         private const string SignatureBlockStart = "<!-- Base64 Signature\n";
         private static readonly byte[] _signatureBytes = Encoding.UTF8.GetBytes("Signature data");
         private static readonly string _signatureBase64 = Convert.ToBase64String(_signatureBytes).Insert(10, "\n");

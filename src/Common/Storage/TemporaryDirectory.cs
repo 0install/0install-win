@@ -64,9 +64,14 @@ namespace Common.Storage
             if (Directory.Exists(Path))
             {
                 // Write protection might prevent a directory from being deleted (especially on Unix-like sysmtes)
-                try { FileUtils.DisableWriteProtection(Path); }
-                catch (IOException) {}
-                catch (UnauthorizedAccessException) {}
+                try
+                {
+                    FileUtils.DisableWriteProtection(Path);
+                }
+                catch (IOException)
+                {}
+                catch (UnauthorizedAccessException)
+                {}
 
                 Directory.Delete(Path, true);
             }

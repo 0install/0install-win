@@ -53,8 +53,11 @@ namespace ZeroInstall.Store.Implementation
             var stores = new C5.LinkedList<IStore>();
             foreach (var path in paths)
             {
-                try { stores.Add(new DirectoryStore(path)); }
-                #region Error handling
+                try
+                {
+                    stores.Add(new DirectoryStore(path));
+                }
+                    #region Error handling
                 catch (IOException ex)
                 {
                     // Wrap exception to add context information
@@ -99,7 +102,7 @@ namespace ZeroInstall.Store.Implementation
                             else throw new IOException(string.Format(Resources.NonRootedPathInConfig, path, configFile));
                         }
                     }
-                    #region Error handling
+                        #region Error handling
                     catch (ArgumentException ex)
                     {
                         // Wrap exception to add context information

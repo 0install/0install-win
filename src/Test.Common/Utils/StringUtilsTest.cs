@@ -51,7 +51,7 @@ namespace Common.Utils
             Assert.IsFalse(StringUtils.Contains("abc", "123"));
             Assert.IsFalse(StringUtils.Contains("test", "This is a test."));
         }
-        
+
         [Test]
         public void TestCountOccurences()
         {
@@ -60,7 +60,7 @@ namespace Common.Utils
             Assert.AreEqual(1, StringUtils.CountOccurences("ab/c", '/'));
             Assert.AreEqual(2, StringUtils.CountOccurences("ab/c/", '/'));
         }
-        
+
         [Test]
         public void TestGetLastWord()
         {
@@ -79,9 +79,9 @@ namespace Common.Utils
         [Test]
         public void TestConcatenate()
         {
-            Assert.AreEqual("part1", StringUtils.Concatenate(new[] { "part1" }, " "));
-            Assert.AreEqual("part1 part2", StringUtils.Concatenate(new[] { "part1", "part2" }, " "));
-            Assert.AreEqual("\"part1 part2\" part3", StringUtils.ConcatenateEscapeArgument(new[] { "part1 part2", "part3" }));
+            Assert.AreEqual("part1", StringUtils.Concatenate(new[] {"part1"}, " "));
+            Assert.AreEqual("part1 part2", StringUtils.Concatenate(new[] {"part1", "part2"}, " "));
+            Assert.AreEqual("\"part1 part2\" part3", StringUtils.ConcatenateEscapeArgument(new[] {"part1 part2", "part3"}));
         }
 
         [Test]

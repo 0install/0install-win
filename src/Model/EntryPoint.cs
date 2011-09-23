@@ -57,13 +57,10 @@ namespace ZeroInstall.Model
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="NeedsTerminal"/>
         [XmlElement("needs-terminal"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string NeedsTerminalString
-        {
-            get { return (NeedsTerminal ? "" : null); }
-            set { NeedsTerminal = (value != null); }
-        }
+        public string NeedsTerminalString { get { return (NeedsTerminal ? "" : null); } set { NeedsTerminal = (value != null); } }
 
         private readonly LocalizableStringCollection _names = new LocalizableStringCollection();
+
         /// <summary>
         /// Localized user-friendly names for the command.
         /// </summary>
@@ -72,6 +69,7 @@ namespace ZeroInstall.Model
         public LocalizableStringCollection Names { get { return _names; } }
 
         private readonly LocalizableStringCollection _summaries = new LocalizableStringCollection();
+
         /// <summary>
         /// Short one-line descriptions for different languages; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills").
         /// </summary>
@@ -80,6 +78,7 @@ namespace ZeroInstall.Model
         public LocalizableStringCollection Summaries { get { return _summaries; } }
 
         private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
+
         /// <summary>
         /// Full descriptions for different languages, which can be several paragraphs long.
         /// </summary>
@@ -89,6 +88,7 @@ namespace ZeroInstall.Model
 
         // Preserve order
         private readonly C5.LinkedList<Icon> _icons = new C5.LinkedList<Icon>();
+
         /// <summary>
         /// Zero or more icons to represent the command.
         /// </summary>

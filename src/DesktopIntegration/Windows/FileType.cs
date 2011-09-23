@@ -202,7 +202,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     if (!otherFlags)
                         classesKey.DeleteSubKeyTree(RegKeyPrefix + fileType.ID);
                 }
-                catch (ArgumentException) {} // Ignore missing registry keys
+                catch (ArgumentException)
+                {} // Ignore missing registry keys
             }
         }
         #endregion
@@ -255,8 +256,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             // Set specific icon if available, fall back to referencing the icon embedded in the stub EXE
             string iconPath;
-            try { iconPath = IconProvider.GetIconPath(capability.GetIcon(Icon.MimeTypeIco), systemWide, handler); }
-            catch (KeyNotFoundException) { iconPath = StubProvider.GetRunStub(target, null, systemWide, handler); }
+            try
+            {
+                iconPath = IconProvider.GetIconPath(capability.GetIcon(Icon.MimeTypeIco), systemWide, handler);
+            }
+            catch (KeyNotFoundException)
+            {
+                iconPath = StubProvider.GetRunStub(target, null, systemWide, handler);
+            }
             using (var iconKey = registryKey.CreateSubKey(RegSubKeyIcon))
                 iconKey.SetValue("", iconPath + ",0");
         }

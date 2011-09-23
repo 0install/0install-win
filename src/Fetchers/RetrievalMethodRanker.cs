@@ -117,17 +117,11 @@ namespace ZeroInstall.Fetchers
             Ranking result = null;
 
             if (subject.GetType() == typeof(Archive))
-            {
                 result = new ArchiveRanking((Archive)subject);
-            }
             else if (subject.GetType() == typeof(Recipe))
-            {
                 result = new RecipeRanking((Recipe)subject);
-            }
             else
-            {
                 Debug.Fail("subject (RetrievalMethod) has unknown type");
-            }
             return result;
         }
         #endregion

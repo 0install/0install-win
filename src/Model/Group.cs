@@ -34,6 +34,7 @@ namespace ZeroInstall.Model
         #region Properties
         // Preserve order
         private readonly C5.LinkedList<Element> _elements = new C5.LinkedList<Element>();
+
         /// <summary>
         /// A list of <see cref="Group"/>s and <see cref="Implementation"/>s contained within this group.
         /// </summary>

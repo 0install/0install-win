@@ -32,19 +32,19 @@ namespace ZeroInstall.Model.Design
         /// <returns>The constructor used to create new instances of <see cref="Icon"/> (deserialization).</returns>
         protected override ConstructorInfo GetConstructor()
         {
-            return typeof(Icon).GetConstructor(new[] { typeof(Uri), typeof(string) });
+            return typeof(Icon).GetConstructor(new[] {typeof(Uri), typeof(string)});
         }
 
         /// <returns>The unconverted arguments of <see cref="Icon"/>.</returns>
         protected override object[] GetArguments(Icon value)
         {
-            return new object[] { value.LocationString, value.MimeType };
+            return new object[] {value.LocationString, value.MimeType};
         }
 
         /// <returns>The arguments of <see cref="Icon"/> converted to string.</returns>
         protected override string[] GetValues(Icon value, ITypeDescriptorContext context, CultureInfo culture)
         {
-            return new[] { value.LocationString, value.MimeType };
+            return new[] {value.LocationString, value.MimeType};
         }
 
         /// <returns>A new instance of <see cref="Icon"/>.</returns>

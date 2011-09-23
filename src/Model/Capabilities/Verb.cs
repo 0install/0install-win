@@ -98,6 +98,7 @@ namespace ZeroInstall.Model.Capabilities
         public bool Extended { get; set; }
 
         private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
+
         /// <summary>
         /// Localized human-readable descriptions of the verb as an alternative to <see cref="Name"/>.
         /// </summary>
@@ -125,7 +126,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <returns>The new copy of the <see cref="Verb"/>.</returns>
         public Verb CloneVerb()
         {
-            var newVerb = new Verb { Name = Name, Command = Command, Arguments = Arguments, Extended = Extended };
+            var newVerb = new Verb {Name = Name, Command = Command, Arguments = Arguments, Extended = Extended};
             foreach (var description in Descriptions) newVerb.Descriptions.Add(description.CloneString());
 
             return newVerb;

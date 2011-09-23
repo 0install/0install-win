@@ -30,7 +30,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override CommandBase GetCommand()
         {
- 	        return new List(Policy);
+            return new List(Policy);
         }
 
         [Test(Description = "Ensures calling with no arguments returns all feeds in the cache.")]

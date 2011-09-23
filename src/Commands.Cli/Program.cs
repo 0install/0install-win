@@ -52,7 +52,7 @@ namespace ZeroInstall.Commands.Cli
 #endif
 
             // Automatically show help for missing args
-            if (args.Length == 0) args = new[] { "--help" };
+            if (args.Length == 0) args = new[] {"--help"};
 
             // Redirect to GUI version of 0install if --gui argument is specified
             if (Array.Exists(args, arg => arg == "--gui"))
@@ -65,8 +65,11 @@ namespace ZeroInstall.Commands.Cli
 
             IHandler handler = new CliHandler();
             CommandBase command;
-            try { command = CommandFactory.CreateAndParse(args, handler); }
-            #region Error handling
+            try
+            {
+                command = CommandFactory.CreateAndParse(args, handler);
+            }
+                #region Error handling
             catch (UserCancelException)
             {
                 // This is reached if --help, --version or similar was used
@@ -99,8 +102,11 @@ namespace ZeroInstall.Commands.Cli
             }
             #endregion
 
-            try { return command.Execute(); }
-            #region Error handling
+            try
+            {
+                return command.Execute();
+            }
+                #region Error handling
             catch (UserCancelException)
             {
                 return 1;
@@ -177,7 +183,8 @@ namespace ZeroInstall.Commands.Cli
                 Log.Error(ex.Message);
                 return 1;
             }
-            #endregion
+                #endregion
+
             finally
             {
                 // Always close GUI in the end

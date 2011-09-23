@@ -56,8 +56,11 @@ namespace ZeroInstall.Commands
         {
             Options.Add("reset=", Resources.OptionSyncReset, mode =>
             {
-                try { _syncResetMode = (SyncResetMode)Enum.Parse(typeof(SyncResetMode), mode, true); }
-                #region Error handling
+                try
+                {
+                    _syncResetMode = (SyncResetMode)Enum.Parse(typeof(SyncResetMode), mode, true);
+                }
+                    #region Error handling
                 catch (ArgumentException)
                 {
                     throw new OptionException(Resources.UnknownResetMode, "reset");

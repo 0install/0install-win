@@ -61,29 +61,22 @@ namespace Common.Tasks
         public abstract bool CanCancel { get; }
 
         private TaskState _state;
+
         /// <inheritdoc />
-        public TaskState State
-        {
-            get { return _state; } protected set { UpdateHelper.Do(ref _state, value, OnStateChanged); }
-        }
+        public TaskState State { get { return _state; } protected set { UpdateHelper.Do(ref _state, value, OnStateChanged); } }
 
         /// <inheritdoc />
         public string ErrorMessage { get; protected set; }
 
         private long _bytesReceived;
+
         /// <inheritdoc />
-        public long BytesProcessed
-        {
-            get { return _bytesReceived; } protected set { UpdateHelper.Do(ref _bytesReceived, value, OnProgressChanged); }
-        }
+        public long BytesProcessed { get { return _bytesReceived; } protected set { UpdateHelper.Do(ref _bytesReceived, value, OnProgressChanged); } }
 
         private long _bytesTotal = -1;
+
         /// <inheritdoc />
-        public long BytesTotal
-        {
-            get { return _bytesTotal; }
-            protected set { UpdateHelper.Do(ref _bytesTotal, value, OnProgressChanged); }
-        }
+        public long BytesTotal { get { return _bytesTotal; } protected set { UpdateHelper.Do(ref _bytesTotal, value, OnProgressChanged); } }
 
         /// <inheritdoc />
         public double Progress
@@ -92,9 +85,12 @@ namespace Common.Tasks
             {
                 switch (BytesTotal)
                 {
-                    case -1: return -1;
-                    case 0: return 1;
-                    default: return BytesProcessed / (double)BytesTotal;
+                    case -1:
+                        return -1;
+                    case 0:
+                        return 1;
+                    default:
+                        return BytesProcessed / (double)BytesTotal;
                 }
             }
         }

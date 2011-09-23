@@ -77,7 +77,7 @@ namespace ZeroInstall.Injector.Feeds
 
                 return LoadCachedFeed(feedID, policy, out stale);
             }
-            #region Error handling
+                #region Error handling
             catch (KeyNotFoundException ex)
             {
                 // Wrap exception since only certain exception types are allowed
@@ -100,8 +100,11 @@ namespace ZeroInstall.Injector.Feeds
             if (File.Exists(feedID))
             {
                 // Use cache even for local files since there may be in-memory caching
-                try { return Cache.GetFeed(feedID); }
-                #region Error handling
+                try
+                {
+                    return Cache.GetFeed(feedID);
+                }
+                    #region Error handling
                 catch (InvalidDataException ex)
                 {
                     // Wrap exception since only certain exception types are allowed
@@ -132,8 +135,11 @@ namespace ZeroInstall.Injector.Feeds
             TimeSpan feedAge = DateTime.UtcNow - preferences.LastChecked;
             stale = (feedAge > policy.Config.Freshness);
 
-            try { return Cache.GetFeed(feedID); }
-            #region Error handling
+            try
+            {
+                return Cache.GetFeed(feedID);
+            }
+                #region Error handling
             catch (InvalidDataException ex)
             {
                 // Wrap exception since only certain exception types are allowed

@@ -49,7 +49,7 @@ namespace Common.Storage
 
         /// <summary>Used to mark something as "serialize as XML attribute".</summary>
         private static readonly XmlAttributes _asAttribute = new XmlAttributes {XmlAttribute = new XmlAttributeAttribute()};
-        
+
         /// <summary>
         /// Gets a <see cref="XmlSerializer"/> for classes of the type <paramref name="type"/>. Results are automatically cached internally.
         /// </summary>
@@ -77,7 +77,7 @@ namespace Common.Storage
                 serializer = CreateSerializer(type, ignoreMembers);
                 _serializers.Add(key, serializer);
             }
-            
+
             return serializer;
         }
 
@@ -106,9 +106,7 @@ namespace Common.Storage
             if (ignoreMembers != null)
             {
                 foreach (MemberInfo ignoreMember in ignoreMembers)
-                {
                     if (ignoreMember != null) overrides.Add(ignoreMember.ReflectedType, ignoreMember.Name, ignore);
-                }
             }
 
             var serializer = new XmlSerializer(type, overrides);
@@ -146,8 +144,11 @@ namespace Common.Storage
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            try { return (T)GetSerializer(typeof(T), ignoreMembers).Deserialize(stream); }
-            #region Error handling
+            try
+            {
+                return (T)GetSerializer(typeof(T), ignoreMembers).Deserialize(stream);
+            }
+                #region Error handling
             catch (InvalidOperationException ex)
             {
                 // Convert exception type
@@ -173,11 +174,12 @@ namespace Common.Storage
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            try {
+            try
+            {
                 using (var fileStream = File.OpenRead(path))
                     return Load<T>(fileStream, ignoreMembers);
             }
-            #region Error handling
+                #region Error handling
             catch (InvalidDataException ex)
             {
                 // Change exception message to add context information
@@ -268,7 +270,7 @@ namespace Common.Storage
                     Save(fileStream, data, ignoreMembers);
                 FileUtils.Replace(path + ".new", path);
             }
-            #region Error handling
+                #region Error handling
             catch (Exception)
             {
                 // Clean up failed transactions

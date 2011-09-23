@@ -29,11 +29,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
     {
         #region Properties
         /// <inheritdoc/>
-        public override string Name
-        {
-            get { return "Unknown#" + Digest + (SuffixCounter == 0 ? "" : " " + SuffixCounter); }
-            set { throw new NotSupportedException(); }
-        }
+        public override string Name { get { return "Unknown#" + Digest + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
         #endregion
 
         #region Constructor
@@ -48,7 +44,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
         public OrphanedImplementationNode(IStore store, ManifestDigest digest, MainForm parent)
             : base(store, digest, parent)
-        {}        
+        {}
         #endregion
     }
 }

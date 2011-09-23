@@ -45,9 +45,12 @@ namespace ZeroInstall.Publish.WinForms
         #endregion
 
         #region Constants
-        private readonly string[] _supportedInjectorVersions = new[] { "", "0.31", "0.32", "0.33", "0.34",
+        private readonly string[] _supportedInjectorVersions = new[]
+        {
+            "", "0.31", "0.32", "0.33", "0.34",
             "0.35", "0.36", "0.37", "0.38", "0.39", "0.40", "0.41", "0.41.1", "0.42", "0.42.1", "0.43",
-            "0.44", "0.45", "0.46", "0.47", "0.48", "0.49", "0.50", "0.51", "0.52", "0.53", "0.54", "1.0"};
+            "0.44", "0.45", "0.46", "0.47", "0.48", "0.49", "0.50", "0.51", "0.52", "0.53", "0.54", "1.0"
+        };
         #endregion
 
         #region Variables
@@ -58,13 +61,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>
         /// Returns part of the <see cref="Feed"/> currently selected in the <see cref="treeViewFeedStructure"/> or the <see cref="Feed"/> itself if nothing is selected.
         /// </summary>
-        private object SelectedFeedStructureElement
-        {
-            get
-            {
-                return (treeViewFeedStructure.SelectedNode == null ? _feedEditing.Feed.Feed : treeViewFeedStructure.SelectedNode.Tag);
-            }
-        }
+        private object SelectedFeedStructureElement { get { return (treeViewFeedStructure.SelectedNode == null ? _feedEditing.Feed.Feed : treeViewFeedStructure.SelectedNode.Tag); } }
 
         /// <summary>
         /// Returns parent of <see cref="SelectedFeedStructureElement"/> or <see langword="null"/> if there is no parent.
@@ -352,7 +349,7 @@ namespace ZeroInstall.Publish.WinForms
             catch (IOException)
             {
                 Msg.Inform(this, "GnuPG could not be found on your system.\nYou can not sign feeds.",
-                           MsgSeverity.Warn);
+                    MsgSeverity.Warn);
                 return new OpenPgpSecretKey[0];
             }
         }
@@ -451,16 +448,24 @@ namespace ZeroInstall.Publish.WinForms
             // Enable the undo button even before the command has been created
             textBox.KeyPress += delegate
             {
-                try { _feedEditing.UpdateButtonStatus(textBox.Uri != pointer.Value); }
-                catch (UriFormatException) {}
+                try
+                {
+                    _feedEditing.UpdateButtonStatus(textBox.Uri != pointer.Value);
+                }
+                catch (UriFormatException)
+                {}
             };
             textBox.ClearButtonClicked += delegate
             {
-                try { _feedEditing.UpdateButtonStatus(textBox.Uri != pointer.Value); }
-                catch (UriFormatException) {}
+                try
+                {
+                    _feedEditing.UpdateButtonStatus(textBox.Uri != pointer.Value);
+                }
+                catch (UriFormatException)
+                {}
             };
         }
-        
+
         /// <summary>
         /// Hooks up a <see cref="HintTextBox"/> for automatic synchronization with the <see cref="Feed"/> via command objects.
         /// </summary>
@@ -556,10 +561,8 @@ namespace ZeroInstall.Publish.WinForms
             Populate += delegate
             {
                 checkedListBox.ItemCheck -= itemCheckEventHandler;
-                for(int i = 0; i < checkedListBox.Items.Count; i++)
-                {
+                for (int i = 0; i < checkedListBox.Items.Count; i++)
                     checkedListBox.SetItemChecked(i, getCollection().Contains(checkedListBox.Items[i].ToString()));
-                }
                 checkedListBox.ItemCheck += itemCheckEventHandler;
             };
 
@@ -603,16 +606,16 @@ namespace ZeroInstall.Publish.WinForms
             localizableTextControl.Values.ItemsRemoved += itemsRemovedHandler;
 
             Populate += delegate
-                        {
-                            localizableTextControl.Values.ItemsRemoved -= itemsRemovedHandler;
-                            localizableTextControl.Values.ItemsAdded -= itemsAddedHandler;
+            {
+                localizableTextControl.Values.ItemsRemoved -= itemsRemovedHandler;
+                localizableTextControl.Values.ItemsAdded -= itemsAddedHandler;
 
-                            localizableTextControl.Values.Clear();
-                            localizableTextControl.Values.AddAll(getCollection());
+                localizableTextControl.Values.Clear();
+                localizableTextControl.Values.AddAll(getCollection());
 
-                            localizableTextControl.Values.ItemsAdded += itemsAddedHandler;
-                            localizableTextControl.Values.ItemsRemoved += itemsRemovedHandler;
-                        };
+                localizableTextControl.Values.ItemsAdded += itemsAddedHandler;
+                localizableTextControl.Values.ItemsRemoved += itemsRemovedHandler;
+            };
         }
 
         private void SetupCommandHooks(IconManagementControl iconManager, SimpleResult<System.Collections.Generic.ICollection<Icon>> getCollection)
@@ -621,11 +624,11 @@ namespace ZeroInstall.Publish.WinForms
             ItemsRemovedHandler<Icon> itemsRemoved = (sender, eventArgs) => _feedEditing.ExecuteCommand(new RemoveFromCollection<Icon>(getCollection(), eventArgs.Item));
 
             Populate += () =>
-                        {
-                            iconManager.IconUrls.ItemsAdded -= itemsAdded;
-                            iconManager.SetIcons(getCollection());
-                            iconManager.IconUrls.ItemsAdded += itemsAdded;
-                        };
+            {
+                iconManager.IconUrls.ItemsAdded -= itemsAdded;
+                iconManager.SetIcons(getCollection());
+                iconManager.IconUrls.ItemsAdded += itemsAdded;
+            };
 
             iconManagementControl.IconUrls.ItemsAdded += itemsAdded;
             iconManagementControl.IconUrls.ItemsRemoved += itemsRemoved;
@@ -658,7 +661,7 @@ namespace ZeroInstall.Publish.WinForms
             var openedFeedEditing = feedManager.Open();
             if (openedFeedEditing == null) return;
             _feedEditing = openedFeedEditing;
-            
+
             InitializeEditingHooks();
             feedEditorToolStrip.SelectedSecretKey = _feedEditing.Feed.SecretKey;
             OnUpdate();
@@ -721,7 +724,6 @@ namespace ZeroInstall.Publish.WinForms
         #endregion
 
         #region Fill form controls
-
         /// <summary>
         /// Clears all form controls and fills them with the values from a <see cref="Feed"/>.
         /// </summary>
@@ -756,11 +758,9 @@ namespace ZeroInstall.Publish.WinForms
             foreach (var feed in _feedEditing.Feed.Feed.Feeds) listBoxExternalFeeds.Items.Add(feed);
             foreach (var feedFor in _feedEditing.Feed.Feed.FeedFor) listBoxFeedFor.Items.Add(feedFor);
         }
-
         #endregion
 
         #region Reset form controls
-
         /// <summary>
         /// Sets all controls on the <see cref="MainForm"/> to default values.
         /// </summary>
@@ -788,14 +788,13 @@ namespace ZeroInstall.Publish.WinForms
             listBoxFeedFor.Items.Clear();
             feedReferenceControl.FeedReference = null;
         }
-
         #endregion
 
         #region Tabs
+
         #region Feed Tab
 
         #region treeviewFeedStructure methods
-
         /// <summary>
         /// Enables the buttons which allow the user to add specific new <see cref="TreeNode"/>s in subject to the selected <see cref="TreeNode"/>.
         /// For example: The user selected a "Dependency"-node. Now only the buttons <see cref="btnAddEnvironmentBinding"/> and <see cref="btnAddOverlayBinding"/> will be enabled.
@@ -817,7 +816,7 @@ namespace ZeroInstall.Publish.WinForms
             var selectedNode = treeViewFeedStructure.SelectedNode;
             if (selectedNode != null && selectedNode != treeViewFeedStructure.Nodes[0]) selectedNode.Toggle();
         }
-        
+
         /// <summary>
         /// Generates a <see cref="TreeNode"/> with child elements representing an object from <see cref="ZeroInstall.Model"/>.
         /// </summary>
@@ -866,14 +865,13 @@ namespace ZeroInstall.Publish.WinForms
                 nodes.Add(BuildTreeNodes(element));
             return nodes.ToArray();
         }
-
         #endregion
 
         #endregion
 
         #region Advanced Tab
-        #region External Feeds Group
 
+        #region External Feeds Group
         /// <summary>
         /// Adds a clone of <see cref="FeedReference"/> from <see cref="feedReferenceControl"/> to <see cref="listBoxExternalFeeds"/> if no equal object is in the list.
         /// </summary>
@@ -884,9 +882,7 @@ namespace ZeroInstall.Publish.WinForms
             var feedReference = feedReferenceControl.FeedReference.CloneFeedPreferences();
             if (string.IsNullOrEmpty(feedReference.Source)) return;
             foreach (FeedReference feedReferenceFromListBox in listBoxExternalFeeds.Items)
-            {
                 if (feedReference.Equals(feedReferenceFromListBox)) return;
-            }
             listBoxExternalFeeds.Items.Add(feedReference);
         }
 
@@ -909,7 +905,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void ListBoxExtFeedsSelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedItem = (FeedReference) listBoxExternalFeeds.SelectedItem;
+            var selectedItem = (FeedReference)listBoxExternalFeeds.SelectedItem;
             if (selectedItem == null) return;
             feedReferenceControl.FeedReference = selectedItem.CloneFeedPreferences();
         }
@@ -927,11 +923,9 @@ namespace ZeroInstall.Publish.WinForms
             if (String.IsNullOrEmpty(feedReference.Source)) return;
             listBoxExternalFeeds.Items[selectedFeedReferenceIndex] = feedReference;
         }
-
         #endregion
 
         #region FeedFor Group
-
         /// <summary>
         /// Adds a new <see cref="InterfaceReference"/> with the Uri from <see cref="hintTextBoxFeedFor"/> to <see cref="listBoxFeedFor"/>.
         /// </summary>
@@ -966,9 +960,10 @@ namespace ZeroInstall.Publish.WinForms
         {
             listBoxFeedFor.Items.Clear();
         }
+        #endregion
 
         #endregion
-        #endregion
+
         #endregion
     }
 }

@@ -75,7 +75,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// The feed to be editted.
         /// </summary>
-        public SignedFeed Feed { get; private set;  }
+        public SignedFeed Feed { get; private set; }
 
         /// <summary>
         /// The path of the file the <see cref="Feed"/> was loaded from. <see langword="null"/> if none.

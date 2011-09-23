@@ -30,6 +30,7 @@ using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration
 {
+
     #region Enumerations
     /// <summary>
     /// Controls how synchronization data is reset.
@@ -145,8 +146,11 @@ namespace ZeroInstall.DesktopIntegration
             if (appListData.Length > 0)
             {
                 AppList serverList;
-                try { serverList = XmlStorage.FromZip<AppList>(new MemoryStream(appListData), _cryptoKey, null); }
-                #region Error handling
+                try
+                {
+                    serverList = XmlStorage.FromZip<AppList>(new MemoryStream(appListData), _cryptoKey, null);
+                }
+                    #region Error handling
                 catch (ZipException ex)
                 {
                     // Wrap exception since only certain exception types are allowed
@@ -209,7 +213,6 @@ namespace ZeroInstall.DesktopIntegration
                 foreach (var capabilityList in appEntry.CapabilityLists)
                     newAppEntry.CapabilityLists.Add(capabilityList.CloneCapabilityList());
                 AppList.Entries.Add(newAppEntry);
-                
 
                 // Add and apply the access points
                 AddAccessPoints(appEntry.AccessPoints.Entries, newAppEntry, new InterfaceFeed(appEntry.InterfaceID, feedRetreiver(appEntry.InterfaceID)));

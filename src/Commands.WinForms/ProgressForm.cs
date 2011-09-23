@@ -127,7 +127,7 @@ namespace ZeroInstall.Commands.WinForms
             WindowState = FormWindowState.Normal;
             HideTrayIcon();
 
-            selectionsControl.BeginAudit(solveCallback, waitHandle); 
+            selectionsControl.BeginAudit(solveCallback, waitHandle);
         }
         #endregion
 
@@ -152,12 +152,15 @@ namespace ZeroInstall.Commands.WinForms
                 trackingControl.Task = task;
                 labelSolving.Visible = progressBarSolving.Visible = false;
             }
-            else Shown += delegate
+            else
             {
-                trackingControl.Visible = true;
-                trackingControl.Task = task;
-                labelSolving.Visible = progressBarSolving.Visible = false;
-            };
+                Shown += delegate
+                {
+                    trackingControl.Visible = true;
+                    trackingControl.Task = task;
+                    labelSolving.Visible = progressBarSolving.Visible = false;
+                };
+            }
         }
 
         /// <summary>

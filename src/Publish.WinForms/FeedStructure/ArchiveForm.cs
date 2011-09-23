@@ -28,46 +28,29 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
     public partial class ArchiveForm : OKCancelDialog, IDigestProvider
     {
         #region Properties
-
         /// <summary>
         /// The <see cref="Archive" /> to be displayed and modified by this form.
         /// </summary>
-        public Archive Archive
-        {
-            get { return archiveControl.Archive; }
-            set
-            {
-                archiveControl.Archive = value;
-            }
-        }
+        public Archive Archive { get { return archiveControl.Archive; } set { archiveControl.Archive = value; } }
 
         /// <summary>
         /// The <see cref="ManifestDigest"/> of the <see cref="Archive"/> edited by this form.
         /// </summary>
-        public ManifestDigest ManifestDigest
-        {
-            get { return archiveControl.ManifestDigest; }
-        }
+        public ManifestDigest ManifestDigest { get { return archiveControl.ManifestDigest; } }
 
         /// <summary>
         /// Path to the extracted archive. <see langword="null"/> when archive isn't extracted yet.
         /// </summary>
-        public string ExtractedArchivePath
-        {
-            get { return archiveControl.ExtractedArchivePath; }
-        }
-
+        public string ExtractedArchivePath { get { return archiveControl.ExtractedArchivePath; } }
         #endregion
-        
-        #region Initialization
 
+        #region Initialization
         public ArchiveForm()
         {
             InitializeComponent();
             archiveControl.NoValidArchive += delegate { buttonOK.Enabled = false; };
             archiveControl.ValidArchive += delegate { buttonOK.Enabled = true; };
         }
-
         #endregion
     }
 }

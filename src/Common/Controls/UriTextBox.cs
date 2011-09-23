@@ -78,11 +78,7 @@ namespace Common.Controls
         /// <exception cref="UriFormatException">Thrown when trying to read while <see cref="TextBox.Text"/> is not a well-formed <see cref="Uri"/>.</exception>
         /// <remarks>It is always safe to set this property. It is safe to read this property after validation has been performed.</remarks>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Uri Uri
-        {
-            get { return string.IsNullOrEmpty(Text) ? null : new Uri(Text, UriKind.Absolute); }
-            set { Text = (value == null) ? null : value.ToString(); }
-        }
+        public Uri Uri { get { return string.IsNullOrEmpty(Text) ? null : new Uri(Text, UriKind.Absolute); } set { Text = (value == null) ? null : value.ToString(); } }
 
         /// <summary>
         /// When set to <see langword="true"/> only URIs starting with "http:" or "https:" will be considered valid.
@@ -135,9 +131,7 @@ namespace Common.Controls
                 return EnumerableUtils.GetFirst(files);
             }
             if (dragEventArgs.Data.GetDataPresent(DataFormats.Text))
-            {
                 return (string)dragEventArgs.Data.GetData(DataFormats.Text);
-            }
 
             return null;
         }

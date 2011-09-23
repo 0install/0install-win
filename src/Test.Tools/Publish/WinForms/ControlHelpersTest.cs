@@ -21,12 +21,11 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms
 {
-
     /// <summary>
     /// Contains test methods for <see cref="ControlHelpers"/>.
     /// </summary>
     [TestFixture]
-    class ControlHelpersTest
+    internal class ControlHelpersTest
     {
         /// <summary>
         /// Test methode ControlHelpers.IsEmpty(Archive toCheck).
@@ -40,11 +39,11 @@ namespace ZeroInstall.Publish.WinForms
             // Test with archives with setted values
             var toTest = new[]
             {
-                new Archive { Extract = "/home/0install" },
-                new Archive { Location = new Uri("http://0install.de") },
-                new Archive { MimeType = Icon.MimeTypePng },
-                new Archive { Size = 1024 },
-                new Archive { StartOffset = 512 }
+                new Archive {Extract = "/home/0install"},
+                new Archive {Location = new Uri("http://0install.de")},
+                new Archive {MimeType = Icon.MimeTypePng},
+                new Archive {Size = 1024},
+                new Archive {StartOffset = 512}
             };
             foreach (var archive in toTest)
                 Assert.IsFalse(ControlHelpers.IsEmpty(archive));

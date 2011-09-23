@@ -40,10 +40,7 @@ namespace ZeroInstall.Injector
         #region Shared
         private DynamicMock _storeMock;
 
-        private IStore TestStore
-        {
-            get { return (IStore)_storeMock.MockInstance; }
-        }
+        private IStore TestStore { get { return (IStore)_storeMock.MockInstance; } }
 
         [SetUp]
         public void SetUp()
@@ -87,7 +84,7 @@ namespace ZeroInstall.Injector
             _storeMock.ExpectAndReturn("GetPath", Test2Path, selections.Implementations[1].ManifestDigest); // Self-binding for second/outer/runner command
             _storeMock.ExpectAndReturn("GetPath", Test1Path, selections.Implementations[0].ManifestDigest); // Working dir for first/inner command
         }
-        
+
         private static void CheckEnvironment(ProcessStartInfo startInfo)
         {
             Assert.AreEqual("default" + Path.PathSeparator + Test1Path, startInfo.EnvironmentVariables["TEST1_PATH_SELF"], "Should append implementation path");
@@ -121,7 +118,7 @@ namespace ZeroInstall.Injector
                 selections.Commands[1].Arguments[0] + " \"" + selections.Commands[0].Runner.Arguments[0] + "\" \"" + Path.Combine(Test1Path, FileUtils.UnifySlashes(selections.Commands[0].Path)) + "\" " + selections.Commands[0].Arguments[0] + " --custom",
                 startInfo.Arguments,
                 "Should combine core and additional runner arguments with application implementation directory, command path and arguments");
-            
+
             CheckEnvironment(startInfo);
         }
 
@@ -144,7 +141,7 @@ namespace ZeroInstall.Injector
                 "--wrapper \"" + Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Commands[1].Path)) + "\" " + selections.Commands[1].Arguments[0] + " \"" + selections.Commands[0].Runner.Arguments[0] + "\" \"" + Path.Combine(Test1Path, FileUtils.UnifySlashes(selections.Commands[0].Path)) + "\" " + selections.Commands[0].Arguments[0] + " --custom",
                 startInfo.Arguments,
                 "Should combine wrapper arguments, runner and application");
-            
+
             CheckEnvironment(startInfo);
         }
 
@@ -168,7 +165,7 @@ namespace ZeroInstall.Injector
                 selections.Commands[1].Arguments[0] + " \"" + selections.Commands[0].Runner.Arguments[0] + "\" \"" + FileUtils.PathCombine(Test1Path, "dir 1", "main") + "\" --custom",
                 startInfo.Arguments,
                 "Should combine core and additional runner arguments with application implementation directory, command directory and main binary override");
-            
+
             CheckEnvironment(startInfo);
         }
 

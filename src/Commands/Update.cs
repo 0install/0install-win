@@ -43,7 +43,7 @@ namespace ZeroInstall.Commands
         #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionUpdate; } }
-        
+
         /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionUpdate; } }
         #endregion
@@ -84,7 +84,7 @@ namespace ZeroInstall.Commands
                 Policy.FeedManager.Refresh = true;
                 Solve();
             }
-            #region Error handling
+                #region Error handling
             catch (SolverException ex)
             {
                 Policy.Handler.Output(Resources.UpdateProblem, ex.Message);

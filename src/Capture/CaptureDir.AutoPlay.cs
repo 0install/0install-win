@@ -97,7 +97,7 @@ namespace ZeroInstall.Capture
                     };
 
                     foreach (var autoPlayAssoc in autoPlayAssocs)
-                        if (autoPlayAssoc.Value == handler) autoPlay.Events.Add(new AutoPlayEvent { Name = autoPlayAssoc.Key });
+                        if (autoPlayAssoc.Value == handler) autoPlay.Events.Add(new AutoPlayEvent {Name = autoPlayAssoc.Key});
 
                     return autoPlay;
                 }

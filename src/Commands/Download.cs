@@ -82,7 +82,7 @@ namespace ZeroInstall.Commands
             #endregion
 
             Policy.Handler.ShowProgressUI(Cancel);
-            
+
             Solve();
 
             // If any of the feeds are getting old or any implementations need to be downloaded rerun solver in refresh mode (unless it was already in that mode to begin with)
@@ -111,8 +111,11 @@ namespace ZeroInstall.Commands
         {
             var result = base.Solve();
 
-            try { UncachedImplementations = Selections.ListUncachedImplementations(Policy.Fetcher.Store, Policy.FeedManager.Cache); }
-            #region Error handling
+            try
+            {
+                UncachedImplementations = Selections.ListUncachedImplementations(Policy.Fetcher.Store, Policy.FeedManager.Cache);
+            }
+                #region Error handling
             catch (InvalidDataException ex)
             {
                 // Wrap exception to add context
@@ -137,7 +140,10 @@ namespace ZeroInstall.Commands
                 Policy.Fetcher.Start(_currentFetchRequest);
             }
 
-            try { Policy.Fetcher.Join(_currentFetchRequest); }
+            try
+            {
+                Policy.Fetcher.Join(_currentFetchRequest);
+            }
             catch
             {
                 // Suppress any left-over errors if the user canceled anyway

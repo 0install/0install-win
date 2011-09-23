@@ -23,6 +23,7 @@ namespace ZeroInstall.Injector.Solver
     public static class SolverProvider
     {
         private static readonly ISolver _default = new ExternalSolver();
+
         /// <summary>
         /// Returns the default implementation of <see cref="ISolver"/>.
         /// </summary>

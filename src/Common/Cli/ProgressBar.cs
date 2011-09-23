@@ -33,10 +33,11 @@ namespace Common.Cli
     /// A progress bar rendered on the <see cref="Console"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "IDisposable is only implemented here to support using() blocks.")]
-    public class ProgressBar: IDisposable
+    public class ProgressBar : IDisposable
     {
         #region Properties
         private TaskState _state;
+
         /// <summary>
         /// The current status of the task.
         /// </summary>
@@ -51,12 +52,17 @@ namespace Common.Cli
                     throw new InvalidEnumArgumentException("value", (int)value, typeof(TaskState));
                 #endregion
 
-                try { UpdateHelper.Do(ref _state, value, Draw); }
-                catch (IOException) {}
+                try
+                {
+                    UpdateHelper.Do(ref _state, value, Draw);
+                }
+                catch (IOException)
+                {}
             }
         }
 
         private int _maximum = 20;
+
         /// <summary>
         /// The maximum valid value for <see cref="Value"/>; must be greater than 0. Determines the length of the progress bar in console characters.
         /// </summary>
@@ -71,14 +77,19 @@ namespace Common.Cli
                     throw new ArgumentOutOfRangeException("value", Resources.ArgMustBeGreaterThanZero);
                 #endregion
 
-                try { UpdateHelper.Do(ref _maximum, value, Draw); }
-                catch (IOException) {}
+                try
+                {
+                    UpdateHelper.Do(ref _maximum, value, Draw);
+                }
+                catch (IOException)
+                {}
 
                 if (Value > Maximum) Value = Maximum;
             }
         }
 
         private int _value;
+
         /// <summary>
         /// The progress of the task as a value between 0 and <see cref="Maximum"/>; -1 when unknown.
         /// </summary>
@@ -93,8 +104,12 @@ namespace Common.Cli
                     throw new ArgumentOutOfRangeException("value");
                 #endregion
 
-                try { UpdateHelper.Do(ref _value, value, Draw); }
-                catch (IOException) {}
+                try
+                {
+                    UpdateHelper.Do(ref _value, value, Draw);
+                }
+                catch (IOException)
+                {}
             }
         }
         #endregion

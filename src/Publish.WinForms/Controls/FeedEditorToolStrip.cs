@@ -100,7 +100,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 #endregion
 
                 comboBoxGnuPG.BeginUpdate();
-                
+
                 comboBoxGnuPG.Items.Clear();
                 comboBoxGnuPG.Items.Add("");
                 foreach (var openPgpSecretKey in value)
@@ -114,25 +114,13 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// Enables or disables the undo <see cref="Button"/>.
         /// </summary>
         [DefaultValue(false)]
-        public bool UndoEnabled
-        {
-            set
-            {
-                buttonUndo.Enabled = value;
-            }
-        }
+        public bool UndoEnabled { set { buttonUndo.Enabled = value; } }
 
         /// <summary>
         /// Enables or disables the redo <see cref="Button"/>.
         /// </summary>
         [DefaultValue(false)]
-        public bool RedoEnabled
-        {
-            set
-            {
-                buttonRedo.Enabled = value;
-            }
-        }
+        public bool RedoEnabled { set { buttonRedo.Enabled = value; } }
         #endregion
 
         #region Constructor

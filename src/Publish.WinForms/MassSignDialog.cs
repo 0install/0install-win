@@ -70,9 +70,7 @@ namespace ZeroInstall.Publish.WinForms
             #endregion
 
             using (var dialog = new MassSignDialog(files))
-            {
                 dialog.ShowDialog();
-            }
         }
         #endregion
 
@@ -86,9 +84,13 @@ namespace ZeroInstall.Publish.WinForms
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            try { SignFiles(comboBoxSecretKey.SelectedItem as OpenPgpSecretKey, textPassword.Text); }
-            #region Sanity checks
-            catch (UserCancelException) {}
+            try
+            {
+                SignFiles(comboBoxSecretKey.SelectedItem as OpenPgpSecretKey, textPassword.Text);
+            }
+                #region Sanity checks
+            catch (UserCancelException)
+            {}
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
@@ -112,8 +114,11 @@ namespace ZeroInstall.Publish.WinForms
             var task = new ForEachTask<FileInfo>("Signing feeds", _files, file =>
             {
                 SignedFeed feed;
-                try { feed = SignedFeed.Load(file.FullName); }
-                #region Error handling
+                try
+                {
+                    feed = SignedFeed.Load(file.FullName);
+                }
+                    #region Error handling
                 catch (UnauthorizedAccessException ex)
                 {
                     // Wrap exception since only certain exception types are allowed
@@ -125,9 +130,13 @@ namespace ZeroInstall.Publish.WinForms
                     throw new IOException(ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), ex);
                 }
                 #endregion
+
                 feed.SecretKey = secretKey;
-                try { feed.Save(file.FullName, passphrase); }
-                #region Error handling
+                try
+                {
+                    feed.Save(file.FullName, passphrase);
+                }
+                    #region Error handling
                 catch (UnauthorizedAccessException ex)
                 {
                     // Wrap exception since only certain exception types are allowed

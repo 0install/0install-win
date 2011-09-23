@@ -41,7 +41,7 @@ namespace Common.Streams
 
         /// <summary>The index of the first byte currently store in the <see cref="_buffer"/>.</summary>
         private volatile int _dataStart;
-        
+
         /// <summary>The number of bytes currently stored in the <see cref="_buffer"/>.</summary>
         private volatile int _dataLength; // Invariant: _positionWrite - _positionRead <= _dataLength <= _buffer.Length
 
@@ -71,18 +71,21 @@ namespace Common.Streams
         public override bool CanSeek { get { return false; } }
 
         private long _positionRead;
+
         /// <summary>
         /// Indicates how many bytes have been read from this buffer so far in total.
         /// </summary>
         public override long Position { get { return _positionRead; } set { throw new NotSupportedException(); } }
 
         private long _positionWrite;
+
         /// <summary>
         /// Indicates how many bytes have been written to this buffer so far in total.
         /// </summary>
         public long PositionWrite { get { return _positionWrite; } }
 
         private long _length = -1;
+
         /// <summary>
         /// The estimated number of bytes that will run through this buffer in total; -1 for unknown.
         /// </summary>
@@ -185,7 +188,7 @@ namespace Common.Streams
 
                 // Block while buffer is full
                 _spaceAvailable.WaitOne();
-                
+
                 lock (_bufferLock)
                 {
                     // The index of the last byte currently stored in the buffer plus one
@@ -252,7 +255,7 @@ namespace Common.Streams
 
         /// <inheritdoc/>
         public override void Flush()
-        { }
+        {}
         #endregion
 
         //--------------------//

@@ -24,7 +24,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
     public partial class WorkingDirForm : OKCancelDialog
     {
         #region Properties
-
         /// <summary>
         /// The <see cref="WorkingDir"/> to shown and edited by this form.
         /// </summary>
@@ -35,13 +34,10 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         public WorkingDir WorkingDir
         {
-            get
-            {
-                return _workingDir;
-            }
+            get { return _workingDir; }
             set
             {
-                _workingDir =  value ?? new WorkingDir();
+                _workingDir = value ?? new WorkingDir();
                 UpdateControl();
             }
         }
@@ -72,7 +68,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 
             hintTextBoxSource.Text = WorkingDir.Source;
         }
-
         #endregion
 
         #region Dialog buttons

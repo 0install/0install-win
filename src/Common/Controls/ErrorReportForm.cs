@@ -123,8 +123,12 @@ namespace Common.Controls
             };
 
             // Activate WinForms exception handling
-            try { Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException); }
-            catch (InvalidOperationException) {}
+            try
+            {
+                Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            }
+            catch (InvalidOperationException)
+            {}
 
             Application.ThreadException += winFormsHandler;
             AppDomain.CurrentDomain.UnhandledException += backgroundHandler;

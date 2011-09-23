@@ -41,14 +41,14 @@ namespace ZeroInstall.Injector.Solver
                 Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")},
                 DocDir = "doc", Stability = Stability.Developer,
                 Bindings =
-                {
-                    new EnvironmentBinding {Name = "TEST1_PATH_SELF", Default = "default", Mode = EnvironmentMode.Append},
-                    new EnvironmentBinding {Name = "TEST1_VALUE", Value = "test1", Mode = EnvironmentMode.Replace}
-                },
-                Dependencies = { new Dependency { Interface = "http://0install.de/feeds/test/test2.xml", Bindings = { new EnvironmentBinding {Name = "TEST2_PATH_SUB_DEP", Insert = "sub", Default = "default", Mode = EnvironmentMode.Append} } } }
+                    {
+                        new EnvironmentBinding {Name = "TEST1_PATH_SELF", Default = "default", Mode = EnvironmentMode.Append},
+                        new EnvironmentBinding {Name = "TEST1_VALUE", Value = "test1", Mode = EnvironmentMode.Replace}
+                    },
+                Dependencies = {new Dependency {Interface = "http://0install.de/feeds/test/test2.xml", Bindings = {new EnvironmentBinding {Name = "TEST2_PATH_SUB_DEP", Insert = "sub", Default = "default", Mode = EnvironmentMode.Append}}}}
             };
         }
-        
+
         /// <summary>
         /// Creates a fictive test <see cref="ImplementationSelection"/>.
         /// </summary>
@@ -62,10 +62,10 @@ namespace ZeroInstall.Injector.Solver
                 Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")},
                 DocDir = "doc", Stability = Stability.Developer,
                 Bindings =
-                {
-                    new EnvironmentBinding {Name = "TEST2_PATH_SELF", Default = "default", Mode = EnvironmentMode.Prepend},
-                    new EnvironmentBinding {Name = "TEST2_VALUE", Value = "test2", Mode = EnvironmentMode.Replace}
-                }
+                    {
+                        new EnvironmentBinding {Name = "TEST2_PATH_SELF", Default = "default", Mode = EnvironmentMode.Prepend},
+                        new EnvironmentBinding {Name = "TEST2_VALUE", Value = "test2", Mode = EnvironmentMode.Replace}
+                    }
             };
         }
         #endregion

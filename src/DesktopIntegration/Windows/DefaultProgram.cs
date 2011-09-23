@@ -167,7 +167,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     if (!otherFlags)
                         serviceKey.DeleteSubKeyTree(defaultProgram.ID);
                 }
-                catch (ArgumentException) {} // Ignore missing registry keys
+                catch (ArgumentException)
+                {} // Ignore missing registry keys
             }
         }
         #endregion

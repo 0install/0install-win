@@ -93,7 +93,7 @@ namespace ZeroInstall.Commands
             bool stale;
             Feed feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
             if (Canceled) throw new UserCancelException();
-            
+
             // Refresh if stale instead of spawning background updater like 'run'
             if (stale)
             {

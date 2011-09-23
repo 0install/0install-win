@@ -32,6 +32,7 @@ using Common.Properties;
 
 namespace Common.Cli
 {
+
     #region Delegates
     /// <summary>
     /// A callback method for handling error messages from a CLI application.
@@ -68,8 +69,11 @@ namespace Common.Cli
         protected string Execute(string arguments, Action<StreamWriter> inputCallback, CliErrorHandler errorHandler)
         {
             Process process;
-            try { process = Process.Start(GetStartInfo(arguments)); }
-            #region Error handling
+            try
+            {
+                process = Process.Start(GetStartInfo(arguments));
+            }
+                #region Error handling
             catch (Win32Exception ex)
             {
                 throw new IOException(string.Format(Resources.UnableToLaunchBundled, AppBinary), ex);
@@ -91,7 +95,7 @@ namespace Common.Cli
             process.ErrorDataReceived += (sender, e) =>
             {
                 if (e.Data != null)
-                lock (errorList) errorList.Enqueue(e.Data);
+                    lock (errorList) errorList.Enqueue(e.Data);
             };
 
             // Start async read threads

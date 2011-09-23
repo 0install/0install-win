@@ -67,7 +67,7 @@ namespace ZeroInstall.Fetchers
             // ToDo: Handle canceling when task hasn't been started yet
             if (_currentTask != null && _currentTask.CanCancel) _currentTask.Cancel();
         }
-        
+
         private void TryRetrievalMethods(ITaskHandler handler)
         {
             foreach (var method in _retrievalMethods)
@@ -101,9 +101,7 @@ namespace ZeroInstall.Fetchers
             var archive = method as Archive;
             var recipe = method as Recipe;
             if (archive != null)
-            {
                 PerformArchiveStep(archive, handler);
-            }
             else if (recipe != null)
             {
                 if (recipe.ContainsUnknownSteps) throw new NotSupportedException("Recipe contains unknown steps.");
@@ -119,8 +117,12 @@ namespace ZeroInstall.Fetchers
             {
                 _fetcherInstance.Store.AddArchive(tempArchiveInfo, _digest, new HookTaskHandler(handler, task => _currentTask = task));
             }
-            catch (ImplementationAlreadyInStoreException) {}
-            finally { File.Delete(tempArchiveInfo.Path); }
+            catch (ImplementationAlreadyInStoreException)
+            {}
+            finally
+            {
+                File.Delete(tempArchiveInfo.Path);
+            }
         }
 
         private ArchiveFileInfo DownloadAndPrepareArchive(Archive archive, ITaskHandler handler)
@@ -152,8 +154,12 @@ namespace ZeroInstall.Fetchers
             {
                 _fetcherInstance.Store.AddMultipleArchives(archives, _digest, new HookTaskHandler(handler, task => _currentTask = task));
             }
-            catch (ImplementationAlreadyInStoreException) {}
-            finally { foreach (var archive in archives) File.Delete(archive.Path); }
+            catch (ImplementationAlreadyInStoreException)
+            {}
+            finally
+            {
+                foreach (var archive in archives) File.Delete(archive.Path);
+            }
         }
 
         protected virtual void DownloadArchive(Archive archive, string destination, ITaskHandler handler)

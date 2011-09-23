@@ -77,7 +77,7 @@ namespace ZeroInstall.Store.Implementation
         internal static ManifestDirectory FromString(string line)
         {
             const int numberOfParts = 2;
-            string[] parts = line.Split(new[] { ' ' }, numberOfParts);
+            string[] parts = line.Split(new[] {' '}, numberOfParts);
             if (parts.Length != numberOfParts) throw new FormatException(Resources.InvalidNumberOfLineParts);
 
             return new ManifestDirectory(parts[1]);
@@ -92,11 +92,14 @@ namespace ZeroInstall.Store.Implementation
         internal static ManifestDirectory FromStringOld(string line)
         {
             const int numberOfParts = 3;
-            string[] parts = line.Split(new[] { ' ' }, numberOfParts);
+            string[] parts = line.Split(new[] {' '}, numberOfParts);
             if (parts.Length != numberOfParts) throw new FormatException(Resources.InvalidNumberOfLineParts);
 
-            try { return new ManifestDirectory(long.Parse(parts[1]), parts[2]); }
-            #region Error handling
+            try
+            {
+                return new ManifestDirectory(long.Parse(parts[1]), parts[2]);
+            }
+                #region Error handling
             catch (OverflowException ex)
             {
                 throw new FormatException(Resources.NumberTooLarge, ex);

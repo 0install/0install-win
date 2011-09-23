@@ -55,7 +55,10 @@ namespace ZeroInstall.Commands
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
             #endregion
 
-            try { integrationManager.RemoveApp(interfaceID); }
+            try
+            {
+                integrationManager.RemoveApp(interfaceID);
+            }
             catch (InvalidOperationException ex)
             {
                 // Show a "nothing to do" message (but not in batch mode, since it is too unimportant));

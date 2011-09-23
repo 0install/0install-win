@@ -57,11 +57,7 @@ namespace ZeroInstall.Model
         /// <seealso cref="Location"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("href"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string LocationString
-        {
-            get { return (Location == null ? null : Location.ToString()); }
-            set { Location = (value == null ? null : new Uri(value)); }
-        }
+        public string LocationString { get { return (Location == null ? null : Location.ToString()); } set { Location = (value == null ? null : new Uri(value)); } }
 
         /// <summary>
         /// The MIME type of the icon. This value is case-insensitive.

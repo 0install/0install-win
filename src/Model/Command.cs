@@ -65,15 +65,17 @@ namespace ZeroInstall.Model
 
         // Preserve order
         private readonly C5.LinkedList<string> _arguments = new C5.LinkedList<string>();
+
         /// <summary>
         /// A list of command-line arguments to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.
         /// </summary>
         [Description("A list of command-line arguments to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.")]
         [XmlElement("arg")]
         public C5.LinkedList<string> Arguments { get { return _arguments; } }
-        
+
         // Preserve order
         private readonly C5.LinkedList<Binding> _bindings = new C5.LinkedList<Binding>();
+
         /// <summary>
         /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
@@ -90,6 +92,7 @@ namespace ZeroInstall.Model
 
         // Preserve order
         private readonly C5.LinkedList<Dependency> _dependencies = new C5.LinkedList<Dependency>();
+
         /// <summary>
         /// A list of interfaces this command depends upon.
         /// </summary>

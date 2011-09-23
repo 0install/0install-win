@@ -115,7 +115,10 @@ namespace ZeroInstall.Commands
 
             // Apply the new alias
             var alias = new AppAlias {Name = aliasName, Command = command};
-            try { integrationManager.AddAccessPoints(new InterfaceFeed(interfaceID, feed), new AccessPoint[] {alias}); }
+            try
+            {
+                integrationManager.AddAccessPoints(new InterfaceFeed(interfaceID, feed), new AccessPoint[] {alias});
+            }
             catch (InvalidOperationException ex)
             {
                 // Show a "failed to comply" message

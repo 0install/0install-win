@@ -37,12 +37,16 @@ namespace ZeroInstall.Injector.Feeds
 
         // Order is preserved, duplicate entries are not intended
         private readonly C5.HashedLinkedList<Domain> _domains = new C5.HashedLinkedList<Domain>();
+
         /// <summary>
         /// A list of <see cref="Domain"/>s this key is valid for.
         /// </summary>
         [XmlElement("domain")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedLinkedList<Domain> Domains { get { return _domains; } }
+            public C5.HashedLinkedList<Domain> Domains
+        {
+            get { return _domains; }
+        }
         #endregion
 
         //--------------------//

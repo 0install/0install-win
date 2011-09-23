@@ -37,13 +37,13 @@ namespace ZeroInstall.Injector.Solver
         /// <summary>
         /// Indicates that the <see cref="ISolver"/> encountered a specific problem.
         /// </summary>
-        public SolverException(string message) : base(message) 
+        public SolverException(string message) : base(message)
         {}
 
         /// <summary>
         /// Indicates that there was a problem parsing the <see cref="ISolver"/>'s output.
         /// </summary>
-        public SolverException(string message, Exception innerException) : base (message, innerException)
+        public SolverException(string message, Exception innerException) : base(message, innerException)
         {}
 
         /// <summary>

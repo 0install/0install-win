@@ -92,9 +92,9 @@ namespace ZeroInstall.Commands
             #endregion
 
             Policy.Handler.ShowProgressUI(Cancel);
-            
+
             Solve();
-            
+
             // If any implementations need to be downloaded rerun solver in refresh mode (unless it was already in that mode to begin with)
             if (!EnumerableUtils.IsEmpty(UncachedImplementations) && !Policy.FeedManager.Refresh && Policy.Config.NetworkUse != NetworkLevel.Offline)
             {
@@ -137,8 +137,11 @@ namespace ZeroInstall.Commands
             RunHook runHook = null;
             if (Policy.Config.AllowApiHooking && WindowsUtils.IsWindows)
             {
-                try { runHook = new RunHook(Policy, executor); }
-                #region Error handling
+                try
+                {
+                    runHook = new RunHook(Policy, executor);
+                }
+                    #region Error handling
                 catch (ApplicationException ex)
                 {
                     Log.Error(ex.Message);

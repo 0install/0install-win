@@ -45,7 +45,7 @@ namespace Common.Tasks
         }
 
         /// <inheritdoc />
-        public event TaskEventHandler ProgressChanged { add {} remove {} }
+        public event TaskEventHandler ProgressChanged { add { } remove { } }
         #endregion
 
         #region Variables
@@ -73,11 +73,9 @@ namespace Common.Tasks
         public bool CanCancel { get { return true; } }
 
         private TaskState _state;
+
         /// <inheritdoc />
-        public TaskState State
-        {
-            get { return _state; } private set { UpdateHelper.Do(ref _state, value, OnStateChanged); }
-        }
+        public TaskState State { get { return _state; } private set { UpdateHelper.Do(ref _state, value, OnStateChanged); } }
 
         /// <inheritdoc />
         public string ErrorMessage { get; private set; }
@@ -142,7 +140,7 @@ namespace Common.Tasks
                     _work(element);
                 }
             }
-            #region Error handling
+                #region Error handling
             catch (WebException ex)
             {
                 State = TaskState.WebError;
@@ -192,7 +190,7 @@ namespace Common.Tasks
         /// </summary>
         private void RunTask()
         {
-            lock(_stateLock) State = TaskState.Data;
+            lock (_stateLock) State = TaskState.Data;
 
             try
             {
@@ -202,7 +200,7 @@ namespace Common.Tasks
                     _work(element);
                 }
             }
-            #region Error handling
+                #region Error handling
             catch (WebException ex)
             {
                 State = TaskState.WebError;
@@ -221,7 +219,7 @@ namespace Common.Tasks
                 return;
             }
             #endregion
-            
+
             lock (_stateLock) State = TaskState.Complete;
         }
         #endregion

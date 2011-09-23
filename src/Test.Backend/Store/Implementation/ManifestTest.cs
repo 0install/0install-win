@@ -101,7 +101,7 @@ namespace ZeroInstall.Store.Implementation
                 string diskHash = Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, new SilentHandler());
                 Assert.AreEqual(diskHash, inMemoryHash);
             }
-            finally 
+            finally
             {
                 Directory.Delete(packageDir, true);
             }
@@ -210,9 +210,7 @@ namespace ZeroInstall.Store.Implementation
             {
                 Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256, new SilentHandler());
                 using (var manifestFile = File.OpenRead(Path.Combine(package.Path, ".manifest")))
-                {
                     Assert.AreEqual(0, manifestFile.Length, "Empty package directory should make an empty manifest");
-                }
             }
         }
 

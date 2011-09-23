@@ -55,8 +55,11 @@ namespace ZeroInstall.Publish.WinForms
             else
             {
                 ICollection<FileInfo> files;
-                try { files = ArgumentUtils.GetFiles(args, "*.xml"); }
-                #region Error handling
+                try
+                {
+                    files = ArgumentUtils.GetFiles(args, "*.xml");
+                }
+                    #region Error handling
                 catch (FileNotFoundException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
@@ -72,7 +75,6 @@ namespace ZeroInstall.Publish.WinForms
                 {
                     MassSignDialog.Show(files);
                 }
-
             }
         }
     }

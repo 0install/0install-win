@@ -37,10 +37,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public FeedEditing FeedEditing
         {
-            get
-            {
-                return _feedEditing;
-            }
+            get { return _feedEditing; }
             set
             {
                 _feedEditing = value;
@@ -69,31 +66,31 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         private void SetupNodeDoubleClickHooks()
         {
-            SetNodeDoubleClickHook<IElementContainer, Element, Implementation>(implementation => new ImplementationForm { Implementation = implementation }, container => container.Elements);
-            SetNodeDoubleClickHook<IElementContainer, Element, PackageImplementation>(implementation => new PackageImplementationForm { PackageImplementation = implementation }, container => container.Elements);
-            SetNodeDoubleClickHook<IElementContainer, Element, Group>(group => new GroupForm { Group = group }, container => container.Elements);
+            SetNodeDoubleClickHook<IElementContainer, Element, Implementation>(implementation => new ImplementationForm {Implementation = implementation}, container => container.Elements);
+            SetNodeDoubleClickHook<IElementContainer, Element, PackageImplementation>(implementation => new PackageImplementationForm {PackageImplementation = implementation}, container => container.Elements);
+            SetNodeDoubleClickHook<IElementContainer, Element, Group>(group => new GroupForm {Group = group}, container => container.Elements);
 
-            SetNodeDoubleClickHook<IBindingContainer, Binding, EnvironmentBinding>(binding => new EnvironmentBindingForm { EnvironmentBinding = binding }, container => container.Bindings);
-            SetNodeDoubleClickHook<IBindingContainer, Binding, OverlayBinding>(binding => new OverlayBindingForm { OverlayBinding = binding }, container => container.Bindings);
+            SetNodeDoubleClickHook<IBindingContainer, Binding, EnvironmentBinding>(binding => new EnvironmentBindingForm {EnvironmentBinding = binding}, container => container.Bindings);
+            SetNodeDoubleClickHook<IBindingContainer, Binding, OverlayBinding>(binding => new OverlayBindingForm {OverlayBinding = binding}, container => container.Bindings);
 
-            SetNodeDoubleClickHook<IDependencyContainer, Dependency, Dependency>(dependency => new DependencyForm { Dependency = dependency }, container => container.Dependencies);
+            SetNodeDoubleClickHook<IDependencyContainer, Dependency, Dependency>(dependency => new DependencyForm {Dependency = dependency}, container => container.Dependencies);
 
-            SetNodeDoubleClickHook<Element, Command, Command>(command => new CommandForm { Command = command }, element => element.Commands);
-            SetNodeDoubleClickHook<Command, Runner, Runner>(runner => new RunnerForm { Runner = runner }, command => new PropertyPointer<Runner>(() => command.Runner, newValue => command.Runner = newValue));
+            SetNodeDoubleClickHook<Element, Command, Command>(command => new CommandForm {Command = command}, element => element.Commands);
+            SetNodeDoubleClickHook<Command, Runner, Runner>(runner => new RunnerForm {Runner = runner}, command => new PropertyPointer<Runner>(() => command.Runner, newValue => command.Runner = newValue));
 
-            SetNodeDoubleClickHook<Implementation, RetrievalMethod, Archive>(archive => new ArchiveForm { Archive = archive }, implementation => implementation.RetrievalMethods);
-            SetNodeDoubleClickHook<Implementation, RetrievalMethod, Recipe>(recipe => new RecipeForm { Recipe = recipe }, implementation => implementation.RetrievalMethods);
+            SetNodeDoubleClickHook<Implementation, RetrievalMethod, Archive>(archive => new ArchiveForm {Archive = archive}, implementation => implementation.RetrievalMethods);
+            SetNodeDoubleClickHook<Implementation, RetrievalMethod, Recipe>(recipe => new RecipeForm {Recipe = recipe}, implementation => implementation.RetrievalMethods);
         }
 
         private void WireControlEvents()
         {
             NodeMouseClick += (sender, eventArgs) =>
-                                  {
-                                      if (eventArgs.Button != MouseButtons.Right) return;
-                                      var selectedNode = eventArgs.Node;
-                                      if (selectedNode.ContextMenuStrip == null)
-                                          selectedNode.ContextMenuStrip = BuildContextMenuFor(selectedNode.Tag);
-                                  };
+            {
+                if (eventArgs.Button != MouseButtons.Right) return;
+                var selectedNode = eventArgs.Node;
+                if (selectedNode.ContextMenuStrip == null)
+                    selectedNode.ContextMenuStrip = BuildContextMenuFor(selectedNode.Tag);
+            };
         }
         #endregion
 
@@ -118,7 +115,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             if (data == null) throw new ArgumentNullException("data");
             #endregion
 
-            var node = new TreeNode(data.ToString()) { Tag = data };
+            var node = new TreeNode(data.ToString()) {Tag = data};
 
             node.Nodes.AddRange(BuildTreeNodesHelper<IElementContainer, Element>(data, container => container.Elements));
             node.Nodes.AddRange(BuildTreeNodesHelper<IBindingContainer, Binding>(data, container => container.Bindings));
@@ -202,19 +199,19 @@ namespace ZeroInstall.Publish.WinForms.Controls
             where TSpecialEntry : class, TAbstractEntry, new()
         {
             #region Sanity checks
-            if(data == null) throw new ArgumentNullException("data");
+            if (data == null) throw new ArgumentNullException("data");
             if (text == null) throw new ArgumentNullException("text");
             if (getPointer == null) throw new ArgumentNullException("getPointer");
             #endregion
 
             if (!(data is TContainer)) return null;
-            var container = (TContainer) data;
-            
+            var container = (TContainer)data;
+
             var toolStripItem = new ToolStripMenuItem(text, null, delegate
-                {
-                    _feedEditing.ExecuteCommand(new SetValueCommand<TAbstractEntry>(getPointer(container), new TSpecialEntry()));
-                    StartBuildingTreeNodes();
-                });
+            {
+                _feedEditing.ExecuteCommand(new SetValueCommand<TAbstractEntry>(getPointer(container), new TSpecialEntry()));
+                StartBuildingTreeNodes();
+            });
 
             return toolStripItem;
         }
@@ -234,10 +231,10 @@ namespace ZeroInstall.Publish.WinForms.Controls
             var container = (TContainer)data;
 
             var toolStripItem = new ToolStripMenuItem(text, null, delegate
-                {
-                    _feedEditing.ExecuteCommand(new AddToCollection<TAbstractEntry>(getList(container), new TSpecialEntry()));
-                    StartBuildingTreeNodes();
-                });
+            {
+                _feedEditing.ExecuteCommand(new AddToCollection<TAbstractEntry>(getList(container), new TSpecialEntry()));
+                StartBuildingTreeNodes();
+            });
 
             return toolStripItem;
         }

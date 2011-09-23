@@ -42,7 +42,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// The path of the directory to analyze.
         /// </summary>
-        public string TargetDir { get; private set;  }
+        public string TargetDir { get; private set; }
 
         /// <summary>
         /// The format of the manifest to generate.
@@ -136,7 +136,7 @@ namespace ZeroInstall.Store.Implementation
 
                 Result = new Manifest(nodes, Format);
             }
-            #region Error handling
+                #region Error handling
             catch (IOException ex)
             {
                 lock (StateLock)

@@ -102,8 +102,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
                 // Set specific icon if available, fall back to referencing the icon embedded in the stub EXE
                 string iconPath;
-                try { iconPath = IconProvider.GetIconPath(autoPlay.GetIcon(Icon.MimeTypeIco), systemWide, handler); }
-                catch (KeyNotFoundException) { iconPath = StubProvider.GetRunStub(target, null, systemWide, handler); }
+                try
+                {
+                    iconPath = IconProvider.GetIconPath(autoPlay.GetIcon(Icon.MimeTypeIco), systemWide, handler);
+                }
+                catch (KeyNotFoundException)
+                {
+                    iconPath = StubProvider.GetRunStub(target, null, systemWide, handler);
+                }
                 handlerKey.SetValue(RegValueIcon, iconPath + ",0");
             }
 
@@ -178,7 +184,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + FileType.RegKeyPrefix + autoPlay.ProgID);
                 }
             }
-            catch (ArgumentException) {} // Ignore missing registry keys
+            catch (ArgumentException)
+            {} // Ignore missing registry keys
         }
         #endregion
     }

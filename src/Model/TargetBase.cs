@@ -34,6 +34,7 @@ namespace ZeroInstall.Model
         #region Properties
         // Order is always alphabetical, duplicate entries are not allowed
         private readonly LanguageCollection _languages = new LanguageCollection();
+
         /// <summary>
         /// The natural language(s) which an <see cref="Model.Implementation"/> supports.
         /// </summary>
@@ -60,11 +61,7 @@ namespace ZeroInstall.Model
         /// <seealso cref="Architecture"/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [XmlAttribute("arch"), DefaultValue("*-*")]
-        public string ArchitectureString
-        {
-            get { return Architecture.ToString(); }
-            set { Architecture = new Architecture(value); }
-        }
+        public string ArchitectureString { get { return Architecture.ToString(); } set { Architecture = new Architecture(value); } }
         #endregion
 
         //--------------------//
@@ -85,7 +82,7 @@ namespace ZeroInstall.Model
             to.ArchitectureString = from.ArchitectureString;
         }
         #endregion
-        
+
         #region Equality
         /// <inheritdoc/>
         protected bool Equals(TargetBase other)

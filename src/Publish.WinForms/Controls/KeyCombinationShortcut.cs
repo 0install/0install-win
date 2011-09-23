@@ -68,7 +68,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             if (e == null) throw new ArgumentNullException("e");
             #endregion
 
-            if(_shortcuts.Contains(e.KeyData)) _shortcuts[e.KeyData]();
+            if (_shortcuts.Contains(e.KeyData)) _shortcuts[e.KeyData]();
         }
         #endregion
 

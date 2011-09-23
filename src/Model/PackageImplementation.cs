@@ -49,7 +49,7 @@ namespace ZeroInstall.Model
                 // ToDo: PackageKit integration
                 return null;
             }
-            set {}
+            set { }
         }
 
         /// <summary>
@@ -63,25 +63,18 @@ namespace ZeroInstall.Model
                 // ToDo: PackageKit integration
                 return new DateTime();
             }
-            set {}
+            set { }
         }
 
         /// <summary>Not used.</summary>
         [XmlIgnore, Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public override string ReleasedString
-        {
-            set {}
-        }
+        public override string ReleasedString { set { } }
 
         /// <summary>
         /// The default stability rating for all <see cref="PackageImplementation"/>s is always "packaged".
         /// </summary>
         [XmlIgnore, Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public override Stability Stability
-        {
-            get { return Stability.Unset; }
-            set {}
-        }
+        public override Stability Stability { get { return Stability.Unset; } set { } }
         #endregion
 
         #region Properties
@@ -94,6 +87,7 @@ namespace ZeroInstall.Model
 
         // Order is always alphabetical, duplicate string entries are not allowed
         private readonly C5.TreeSet<string> _distributions = new C5.TreeSet<string>();
+
         /// <summary>
         /// A list of distribution names where <see cref="Package"/> applies.
         /// </summary>

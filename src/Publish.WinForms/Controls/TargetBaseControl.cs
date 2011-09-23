@@ -29,8 +29,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
     public partial class TargetBaseControl : UserControl
     {
         #region Properties
-        
         private TargetBase _targetBase;
+
         /// <summary>
         /// The <see cref="TargetBase" /> which fills the controls. If <see langword="null" /> the control resets.
         /// </summary>
@@ -44,7 +44,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 UpdateControls();
             }
         }
-
         #endregion
 
         # region Initialization
@@ -76,6 +75,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 comboBoxOS.Items.Add(os);
             comboBoxOS.SelectedIndex = (int)OS.All;
         }
+
         /// <summary>
         /// List all possible <see cref="Cpu"/>s in <see cref="comboBoxLanguage"/>.
         /// </summary>
@@ -85,11 +85,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 comboBoxCpu.Items.Add(cpu);
             comboBoxCpu.SelectedIndex = (int)Cpu.All;
         }
-
         #endregion
 
         #region Control management methodes
-
         /// <summary>
         /// Set the controls values to the standard values if _targetBase is null.
         /// </summary>
@@ -111,11 +109,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
             comboBoxOS.SelectedItem = _targetBase.Architecture.OS;
             comboBoxCpu.SelectedItem = _targetBase.Architecture.Cpu;
         }
-
         #endregion
 
         #region Language methodes
-
         /// <summary>
         /// Clear <see cref="listBoxLanguages"/> and write the languages from <see cref="_targetBase" /> into it.
         /// </summary>
@@ -180,11 +176,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
             _targetBase.Languages.Clear();
             UpdateLanguages();
         }
-
         #endregion
 
         #region OS and Cpu methodes
-
         /// <summary>
         /// Updates "_targetBase.Architecture.OS".
         /// </summary>
@@ -199,10 +193,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// </summary>
         private void comboBoxCpu_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_targetBase == null ||comboBoxCpu.SelectedItem == null) return;
+            if (_targetBase == null || comboBoxCpu.SelectedItem == null) return;
             _targetBase.Architecture = new Architecture(_targetBase.Architecture.OS, (Cpu)comboBoxCpu.SelectedItem);
         }
-
         #endregion
     }
 }

@@ -23,6 +23,7 @@ using System.Windows.Forms;
 using Common.Storage;
 using Common.Utils;
 using Microsoft.Win32;
+
 #if !DEBUG
 using Common.Controls;
 #endif
@@ -71,8 +72,8 @@ namespace ZeroInstall.Central.WinForms
                     Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Zero Install", "InstallLocation", Locations.InstallBase, RegistryValueKind.String);
                     if (WindowsUtils.Is64BitProcess) Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Zero Install", "InstallLocation", Locations.InstallBase, RegistryValueKind.String);
                 }
-                #region Error handling
-                catch(SecurityException)
+                    #region Error handling
+                catch (SecurityException)
                 {}
                 #endregion
             }

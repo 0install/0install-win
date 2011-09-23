@@ -132,7 +132,7 @@ namespace ZeroInstall.Injector
             return ClonePolicy();
         }
         #endregion
-        
+
         #region Equality
         /// <inheritdoc/>
         public bool Equals(Policy other)

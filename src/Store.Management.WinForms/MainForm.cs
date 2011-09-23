@@ -85,8 +85,11 @@ namespace ZeroInstall.Store.Management.WinForms
 
                 long totalSize = 0;
                 IStore store;
-                try { store = StoreProvider.CreateDefault(); }
-                #region Error handling
+                try
+                {
+                    store = StoreProvider.CreateDefault();
+                }
+                    #region Error handling
                 catch (IOException ex)
                 {
                     Msg.Inform(this, ex.Message, MsgSeverity.Error);
@@ -115,8 +118,8 @@ namespace ZeroInstall.Store.Management.WinForms
                         totalSize += implementationNode.Size;
                         AddWithIncrement(nodes, implementationNode);
                     }
-                    #region Error handling
-                    // ToDo: Display less intrusive messages
+                        #region Error handling
+                        // ToDo: Display less intrusive messages
                     catch (FormatException ex)
                     {
                         Msg.Inform(this, string.Format("Problem processing the manifest file for '{0}'.\n" + ex.Message, digest), MsgSeverity.Error);
@@ -139,7 +142,7 @@ namespace ZeroInstall.Store.Management.WinForms
                 // Update total size
                 textTotalSize.Text = StringUtils.FormatBytes(totalSize);
             }
-            #region Error handling
+                #region Error handling
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
@@ -211,7 +214,7 @@ namespace ZeroInstall.Store.Management.WinForms
                 foreach (StoreNode entry in _treeView.CheckedEntries)
                     entry.Delete(this);
             }
-            #region Error handling
+                #region Error handling
             catch (KeyNotFoundException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
@@ -236,7 +239,7 @@ namespace ZeroInstall.Store.Management.WinForms
                 foreach (StoreNode entry in _treeView.CheckedEntries)
                     entry.Verify(this);
             }
-            #region Error handling
+                #region Error handling
             catch (UserCancelException)
             {
                 return;

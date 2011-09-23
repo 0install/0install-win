@@ -74,7 +74,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 var icon = target.Feed.GetIcon(Icon.MimeTypeIco, command);
                 shortcut.IconLocation = IconProvider.GetIconPath(icon, systemWide, handler);
             }
-            catch (KeyNotFoundException) {}
+            catch (KeyNotFoundException)
+            {}
 
             shortcut.Save();
 #endif

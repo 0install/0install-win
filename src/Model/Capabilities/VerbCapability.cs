@@ -31,6 +31,7 @@ namespace ZeroInstall.Model.Capabilities
         #region Properties
         // Preserve order
         private readonly C5.LinkedList<Verb> _verbs = new C5.LinkedList<Verb>();
+
         /// <summary>
         /// A list of all available operations for the element.
         /// </summary>

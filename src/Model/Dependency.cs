@@ -22,6 +22,7 @@ using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
 {
+
     #region Enumerations
     /// <seealso cref="Dependency.Importance"/>
     public enum Importance
@@ -68,6 +69,7 @@ namespace ZeroInstall.Model
 
         // Preserve order
         private readonly C5.LinkedList<Constraint> _constraints = new C5.LinkedList<Constraint>();
+
         /// <summary>
         /// A list of version <see cref="Constraint"/>s that must be fulfilled.
         /// </summary>
@@ -77,6 +79,7 @@ namespace ZeroInstall.Model
 
         // Preserve order
         private readonly C5.LinkedList<Binding> _bindings = new C5.LinkedList<Binding>();
+
         /// <summary>
         /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>

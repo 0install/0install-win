@@ -108,8 +108,14 @@ namespace Common.Net
             bool exceptionThrown = false;
             var downloadThread = new Thread(delegate()
             {
-                try { download.RunSync(); }
-                catch (UserCancelException) { exceptionThrown = true; }
+                try
+                {
+                    download.RunSync();
+                }
+                catch (UserCancelException)
+                {
+                    exceptionThrown = true;
+                }
             });
 
             // Start and then cancel the download
@@ -120,7 +126,7 @@ namespace Common.Net
 
             Assert.IsTrue(exceptionThrown, download.State.ToString());
         }
-        
+
         [Test(Description = "Ensure files with an incorrect size are rejected.")]
         public void TestIncorrectSize()
         {

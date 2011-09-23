@@ -32,7 +32,7 @@ namespace ZeroInstall.Fetchers
         {
             return GetTestDataResourceStreamByName("testArchive.zip");
         }
-        
+
         public static Stream GetTestRegularStream()
         {
             return StreamUtils.CreateFromString("regular\n");

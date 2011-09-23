@@ -41,6 +41,7 @@ namespace ZeroInstall.Model
 
         // Preserve order
         private readonly C5.LinkedList<string> _arguments = new C5.LinkedList<string>();
+
         /// <summary>
         /// A list of command-line arguments to be passed to the executable.
         /// </summary>

@@ -127,8 +127,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
             {
                 if (accessPoint)
                 { // Was registered invasively by registering protocol ProgID
-                    try { hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + urlProtocol.ID); }
-                    catch (ArgumentException) {} // Ignore missing registry keys
+                    try
+                    {
+                        hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + urlProtocol.ID);
+                    }
+                    catch (ArgumentException)
+                    {} // Ignore missing registry keys
                 }
             }
             else

@@ -19,6 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace Common.Tasks
 {
     /// <summary>
@@ -29,16 +30,22 @@ namespace Common.Tasks
     {
         /// <summary>The task is ready to begin.</summary>
         Ready,
+
         /// <summary>The thread has just been started.</summary>
         Started,
+
         /// <summary>Handling the header.</summary>
         Header,
+
         /// <summary>Handling the actual data.</summary>
         Data,
+
         /// <summary>The task has been completed sucessfully.</summary>
         Complete,
+
         /// <summary>An error occurred during the task.</summary>
         WebError,
+
         /// <summary>An error occurred while writing the file.</summary>
         IOError
     }

@@ -62,8 +62,8 @@ namespace Common.Controls
             using (var errorBox = new ErrorBox
             {
                 Text = Application.ProductName,
-                labelMessage = { Text = message },
-                textDetails = { Rtf = detailsRtf }
+                labelMessage = {Text = message},
+                textDetails = {Rtf = detailsRtf}
             })
             {
                 errorBox.toolTip.SetToolTip(errorBox.labelMessage, errorBox.labelMessage.Text);

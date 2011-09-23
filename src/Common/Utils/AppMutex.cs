@@ -46,9 +46,7 @@ namespace Common.Utils
         public void Close()
         {
             foreach (var handle in _handles)
-            {
                 if (handle != IntPtr.Zero) WindowsUtils.CloseMutex(handle);
-            }
         }
         #endregion
 
@@ -69,10 +67,22 @@ namespace Common.Utils
             // Always create the mutex both in the local session and globally and report if any instance already existed
             bool result = false;
             IntPtr handle;
-            try { result |= WindowsUtils.CreateMutex(name, out handle); }
-            catch (Win32Exception ex) { Log.Warn(ex.Message); }
-            try { result |= WindowsUtils.CreateMutex("Global\\" + name, out handle); }
-            catch (Win32Exception ex) { Log.Warn(ex.Message); }
+            try
+            {
+                result |= WindowsUtils.CreateMutex(name, out handle);
+            }
+            catch (Win32Exception ex)
+            {
+                Log.Warn(ex.Message);
+            }
+            try
+            {
+                result |= WindowsUtils.CreateMutex("Global\\" + name, out handle);
+            }
+            catch (Win32Exception ex)
+            {
+                Log.Warn(ex.Message);
+            }
 
             return result;
         }
@@ -99,10 +109,22 @@ namespace Common.Utils
             // Always create the mutex both in the local session and globally and report if any instance already existed
             bool result = false;
             IntPtr handle1 = IntPtr.Zero, handle2 = IntPtr.Zero;
-            try { result |= WindowsUtils.CreateMutex(name, out handle1); }
-            catch(Win32Exception ex) { Log.Warn(ex.Message); }
-            try { result |= WindowsUtils.CreateMutex("Global\\" + name, out handle2); }
-            catch (Win32Exception ex) { Log.Warn(ex.Message); }
+            try
+            {
+                result |= WindowsUtils.CreateMutex(name, out handle1);
+            }
+            catch (Win32Exception ex)
+            {
+                Log.Warn(ex.Message);
+            }
+            try
+            {
+                result |= WindowsUtils.CreateMutex("Global\\" + name, out handle2);
+            }
+            catch (Win32Exception ex)
+            {
+                Log.Warn(ex.Message);
+            }
 
             mutex = new AppMutex(new[] {handle1, handle2});
             return result;
@@ -124,10 +146,22 @@ namespace Common.Utils
 
             // Always create the mutex both in the local session and globally and report if any instance already existed
             bool result = false;
-            try { result |= WindowsUtils.OpenMutex(name); }
-            catch (Win32Exception ex) { Log.Warn(ex.Message); }
-            try { result |= WindowsUtils.OpenMutex("Global\\" + name); }
-            catch (Win32Exception ex) { Log.Warn(ex.Message); }
+            try
+            {
+                result |= WindowsUtils.OpenMutex(name);
+            }
+            catch (Win32Exception ex)
+            {
+                Log.Warn(ex.Message);
+            }
+            try
+            {
+                result |= WindowsUtils.OpenMutex("Global\\" + name);
+            }
+            catch (Win32Exception ex)
+            {
+                Log.Warn(ex.Message);
+            }
             return result;
         }
 
@@ -146,10 +180,22 @@ namespace Common.Utils
 
             // Always check for the mutex both in the local session and globally and report if any instance already existed
             bool result = false;
-            try { result |= WindowsUtils.ProbeMutex(name); }
-            catch (Win32Exception ex) { Log.Warn(ex.Message); }
-            try { result |= WindowsUtils.ProbeMutex("Global\\" + name); }
-            catch (Win32Exception ex) { Log.Warn(ex.Message); }
+            try
+            {
+                result |= WindowsUtils.ProbeMutex(name);
+            }
+            catch (Win32Exception ex)
+            {
+                Log.Warn(ex.Message);
+            }
+            try
+            {
+                result |= WindowsUtils.ProbeMutex("Global\\" + name);
+            }
+            catch (Win32Exception ex)
+            {
+                Log.Warn(ex.Message);
+            }
             return result;
         }
     }

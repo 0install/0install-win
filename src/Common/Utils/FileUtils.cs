@@ -94,7 +94,7 @@ namespace Common.Utils
             if (stream == null) throw new ArgumentNullException("stream");
             if (algorithm == null) throw new ArgumentNullException("algorithm");
             #endregion
-            
+
             return BitConverter.ToString(algorithm.ComputeHash(stream)).Replace("-", "").ToLowerInvariant();
         }
         #endregion
@@ -108,7 +108,7 @@ namespace Common.Utils
             TimeSpan timespan = (time - new DateTime(1970, 1, 1));
             return (long)timespan.TotalSeconds;
         }
-        
+
         /// <summary>
         /// Converts a number of seconds since the Unix epoch (1970-1-1) into a <see cref="DateTime"/>.
         /// </summary>
@@ -158,7 +158,7 @@ namespace Common.Utils
             {
                 path = Path.Combine(Path.GetTempPath(), prefix + '-' + Path.GetRandomFileName());
             } while (File.Exists(path));
-            
+
             // Create the file to ensure nobody else uses the name
             File.WriteAllBytes(path, new byte[0]);
 
@@ -292,13 +292,15 @@ namespace Common.Utils
             if (!directory.Exists) throw new DirectoryNotFoundException(Resources.SourceDirNotExist);
             #endregion
 
-            if (dirAction != null) dirAction(directory);            
+            if (dirAction != null) dirAction(directory);
             foreach (var subDir in directory.GetDirectories())
                 WalkDirectory(subDir, dirAction, fileAction);
 
             if (fileAction != null)
+            {
                 foreach (var file in directory.GetFiles())
                     fileAction(file);
+            }
         }
         #endregion
 
@@ -387,7 +389,7 @@ namespace Common.Utils
                 if (enable) WalkDirectory(directory, subDir => MonoUtils.MakeReadOnly(subDir.FullName), file => MonoUtils.MakeReadOnly(file.FullName));
                 else WalkDirectory(directory, subDir => MonoUtils.MakeWritable(subDir.FullName), file => MonoUtils.MakeWritable(file.FullName));
             }
-            #region Error handling
+                #region Error handling
             catch (InvalidOperationException ex)
             {
                 throw new IOException(Resources.UnixSubsystemFail, ex);
@@ -434,8 +436,11 @@ namespace Common.Utils
 
             if (MonoUtils.IsUnix)
             {
-                try { return MonoUtils.IsRegularFile(path); }
-                #region Error handling
+                try
+                {
+                    return MonoUtils.IsRegularFile(path);
+                }
+                    #region Error handling
                 catch (InvalidOperationException ex)
                 {
                     throw new IOException(Resources.UnixSubsystemFail, ex);
@@ -462,8 +467,11 @@ namespace Common.Utils
         {
             if (File.Exists(path) && MonoUtils.IsUnix)
             {
-                try { return MonoUtils.IsSymlink(path, out target); }
-                #region Error handling
+                try
+                {
+                    return MonoUtils.IsSymlink(path, out target);
+                }
+                    #region Error handling
                 catch (InvalidOperationException ex)
                 {
                     throw new IOException(Resources.UnixSubsystemFail, ex);
@@ -479,7 +487,7 @@ namespace Common.Utils
             target = null;
             return false;
         }
-        
+
         /// <summary>
         /// Creates a new Unix symbolic link. Only works on Unix-like systems!
         /// </summary>
@@ -495,8 +503,11 @@ namespace Common.Utils
 
             if (!MonoUtils.IsUnix) throw new PlatformNotSupportedException();
 
-            try { MonoUtils.CreateSymlink(path, target); }
-            #region Error handling
+            try
+            {
+                MonoUtils.CreateSymlink(path, target);
+            }
+                #region Error handling
             catch (InvalidOperationException ex)
             {
                 throw new IOException(Resources.UnixSubsystemFail, ex);
@@ -518,8 +529,11 @@ namespace Common.Utils
         {
             if (!File.Exists(path) || !MonoUtils.IsUnix) return false;
 
-            try { return MonoUtils.IsExecutable(path); }
-            #region Error handling
+            try
+            {
+                return MonoUtils.IsExecutable(path);
+            }
+                #region Error handling
             catch (InvalidOperationException ex)
             {
                 throw new IOException(Resources.UnixSubsystemFail, ex);
@@ -546,8 +560,11 @@ namespace Common.Utils
             if (!MonoUtils.IsUnix) throw new PlatformNotSupportedException();
             #endregion
 
-            try { MonoUtils.SetExecutable(path, executable); }
-            #region Error handling
+            try
+            {
+                MonoUtils.SetExecutable(path, executable);
+            }
+                #region Error handling
             catch (InvalidOperationException ex)
             {
                 throw new IOException(Resources.UnixSubsystemFail, ex);

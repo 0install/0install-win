@@ -53,7 +53,7 @@ namespace ZeroInstall.Store.Service
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
-            
+
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             DirectoryPath = path;
 

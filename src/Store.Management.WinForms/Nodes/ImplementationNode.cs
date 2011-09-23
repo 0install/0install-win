@@ -91,8 +91,11 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
         public override void Delete(ITaskHandler handler)
         {
-            try { _store.Remove(_digest, handler); }
-            #region Error handling
+            try
+            {
+                _store.Remove(_digest, handler);
+            }
+                #region Error handling
             catch (ImplementationNotFoundException ex)
             {
                 throw new KeyNotFoundException(ex.Message, ex);
@@ -100,7 +103,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
             #endregion
         }
         #endregion
-        
+
         #region Verify
         /// <inheritdoc/>
         public override void Verify(ITaskHandler handler)
@@ -127,7 +130,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                         Verify(Parent);
                         Msg.Inform(Parent, Resources.ImplementationOK, MsgSeverity.Info);
                     }
-                    #region Error handling
+                        #region Error handling
                     catch (UserCancelException)
                     {
                         return;
@@ -155,8 +158,11 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                 {
                     if (Msg.Ask(Parent, Resources.DeleteEntry, MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
                     {
-                        try { Delete(Parent); }
-                        #region Error handling
+                        try
+                        {
+                            Delete(Parent);
+                        }
+                            #region Error handling
                         catch (KeyNotFoundException ex)
                         {
                             Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
@@ -170,6 +176,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                             Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
                         }
                         #endregion
+
                         Parent.RefreshList();
                     }
                 })

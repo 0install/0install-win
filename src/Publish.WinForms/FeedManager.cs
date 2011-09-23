@@ -59,7 +59,6 @@ namespace ZeroInstall.Publish.WinForms
         #endregion
 
         #region Constructor
-
         /// <summary>
         /// Creates a new <see cref="FeedManager"/> instance.
         /// </summary>
@@ -67,15 +66,12 @@ namespace ZeroInstall.Publish.WinForms
         public FeedManager(IContainer parent)
         {
             #region Sanity checks
-
             if (parent == null) throw new ArgumentNullException("parent");
-
             #endregion
 
             parent.Add(this);
             InitializeComponent();
         }
-
         #endregion
 
         //--------------------//
@@ -87,8 +83,11 @@ namespace ZeroInstall.Publish.WinForms
         /// <returns>The current <see cref="FeedEditing"/>. A new one if the user allowed it, else <see langword="null"/>.</returns>
         public FeedEditing New()
         {
-            return SaveChanges(delegate { _feedEditing = new FeedEditing();
-                                            return true; }) ? _feedEditing : null;
+            return SaveChanges(delegate
+            {
+                _feedEditing = new FeedEditing();
+                return true;
+            }) ? _feedEditing : null;
         }
 
         /// <summary>
@@ -112,7 +111,7 @@ namespace ZeroInstall.Publish.WinForms
             {
                 _feedEditing = FeedEditing.Load(openFileDialog.FileName);
             }
-            #region Error handling
+                #region Error handling
             catch (InvalidDataException ex)
             {
                 Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
@@ -153,9 +152,7 @@ namespace ZeroInstall.Publish.WinForms
             #endregion
 
             if (!_feedEditing.Changed)
-            {
                 return afterSave();
-            }
 
             switch (AskSavingChanges())
             {
@@ -181,7 +178,7 @@ namespace ZeroInstall.Publish.WinForms
         private static DialogResult AskSavingChanges()
         {
             return Msg.Choose(null, Resources.SaveQuestion, MsgSeverity.Info, true,
-                              Resources.SaveChanges, Resources.DiscardChanges);
+                Resources.SaveChanges, Resources.DiscardChanges);
         }
 
         /// <summary>
@@ -201,8 +198,11 @@ namespace ZeroInstall.Publish.WinForms
         /// <returns><see langword="true"/>, if the saving was successful, else <see langword="false"/>.</returns>
         public bool SaveAs()
         {
-            if (NeedsPassphrase()) return saveFileDialog.ShowDialog(null) == DialogResult.OK && AskForPassphrase() &&
-                       SaveAs(saveFileDialog.FileName);
+            if (NeedsPassphrase())
+            {
+                return saveFileDialog.ShowDialog(null) == DialogResult.OK && AskForPassphrase() &&
+                    SaveAs(saveFileDialog.FileName);
+            }
             return saveFileDialog.ShowDialog(null) == DialogResult.OK && SaveAs(saveFileDialog.FileName);
         }
 
@@ -217,7 +217,7 @@ namespace ZeroInstall.Publish.WinForms
             {
                 _feedEditing.Save(path, _signingKeyPassphrase);
             }
-            #region Error handling
+                #region Error handling
             catch (IOException exception)
             {
                 Msg.Inform(null, exception.Message, MsgSeverity.Error);
@@ -252,7 +252,7 @@ namespace ZeroInstall.Publish.WinForms
         private bool AskForPassphrase()
         {
             bool wrongPassphrase = false;
-            while(true)
+            while (true)
             {
                 string passphraseMessage = String.Format(wrongPassphrase
                     ? Resources.WrongPassphrase
@@ -278,9 +278,14 @@ namespace ZeroInstall.Publish.WinForms
 
             using (var tempFile = new TemporaryFile("gpg"))
             {
-                try { OpenPgpProvider.Default.DetachSign(tempFile.Path, keySpecifier, passphrase); }
+                try
+                {
+                    OpenPgpProvider.Default.DetachSign(tempFile.Path, keySpecifier, passphrase);
+                }
                 catch (WrongPassphraseException)
-                { return false; }
+                {
+                    return false;
+                }
                 return true;
             }
         }

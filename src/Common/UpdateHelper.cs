@@ -22,6 +22,7 @@
 
 namespace Common
 {
+
     #region Delegates
     /// <summary>
     /// Generic delegate for handling an event without passing any parameters.
@@ -113,7 +114,7 @@ namespace Common
         public static void Do(ref string original, string value, ref bool updated1, ref bool updated2)
         {
             if (original == value) return;
-            
+
             updated1 = true;
             updated2 = true;
             original = value;
@@ -146,7 +147,10 @@ namespace Common
             if (updated != null)
             {
                 // Execute the "updated" delegate
-                try { updated(); }
+                try
+                {
+                    updated();
+                }
                 catch
                 {
                     // Restore the original value before passing exceptions upwards
@@ -178,7 +182,10 @@ namespace Common
             if (updated != null)
             {
                 // Execute the "updated" delegate
-                try { updated(); }
+                try
+                {
+                    updated();
+                }
                 catch
                 {
                     // Restore the original value before passing exceptions upwards

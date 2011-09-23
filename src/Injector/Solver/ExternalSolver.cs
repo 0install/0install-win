@@ -54,8 +54,11 @@ namespace ZeroInstall.Injector.Solver
             staleFeeds = result.Contains("<!-- STALE_FEEDS -->");
 
             // Parse StandardOutput data as XML
-            try { return Selections.LoadFromString(result); }
-            #region Error handling
+            try
+            {
+                return Selections.LoadFromString(result);
+            }
+                #region Error handling
             catch (InvalidDataException ex)
             {
                 Log.Warn("Solver result:\n" + result);

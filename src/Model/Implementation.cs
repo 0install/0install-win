@@ -34,6 +34,7 @@ namespace ZeroInstall.Model
         #region Properties
         // Preserve order
         private readonly C5.LinkedList<RetrievalMethod> _retrievalMethods = new C5.LinkedList<RetrievalMethod>();
+
         /// <summary>
         /// A list of <see cref="Archive"/>s as <see cref="RetrievalMethod"/>s.
         /// </summary>
@@ -68,7 +69,7 @@ namespace ZeroInstall.Model
         #endregion
 
         //--------------------//
-        
+
         #region Clone
         /// <summary>
         /// Creates a deep copy of this <see cref="Implementation"/> instance.

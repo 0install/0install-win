@@ -39,11 +39,7 @@ namespace ZeroInstall.Model
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="NotBeforeVersion"/>
         [XmlAttribute("not-before"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string NotBeforeVersionString
-        {
-            get { return (NotBeforeVersion == null ? null : NotBeforeVersion.ToString()); }
-            set { NotBeforeVersion = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); }
-        }
+        public string NotBeforeVersionString { get { return (NotBeforeVersion == null ? null : NotBeforeVersion.ToString()); } set { NotBeforeVersion = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
 
         /// <summary>
         /// This version and all later versions are unsuitable.
@@ -55,11 +51,7 @@ namespace ZeroInstall.Model
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="BeforeVersion"/>
         [XmlAttribute("before"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string BeforeVersionString
-        {
-            get { return (BeforeVersion == null ? null : BeforeVersion.ToString()); }
-            set { BeforeVersion = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); }
-        }
+        public string BeforeVersionString { get { return (BeforeVersion == null ? null : BeforeVersion.ToString()); } set { BeforeVersion = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
         #endregion
 
         #region Constructor

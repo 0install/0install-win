@@ -56,8 +56,14 @@ namespace ZeroInstall.Model
             #endregion
 
             // Valid local paths are always ok
-            try { if (Path.IsPathRooted(value)) return; }
-            catch (ArgumentException) { return; }
+            try
+            {
+                if (Path.IsPathRooted(value)) return;
+            }
+            catch (ArgumentException)
+            {
+                return;
+            }
 
             // URIs must be HTTP(S) and have a slash after the host name
             if (!value.StartsWith("http://") && !value.StartsWith("https://")) throw new InvalidInterfaceIDException(string.Format(Resources.InvalidInterfaceID, value));

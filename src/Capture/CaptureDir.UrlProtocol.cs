@@ -49,12 +49,14 @@ namespace ZeroInstall.Capture
             {
                 string protocol = protocolAssoc.Key;
                 using (var protocolKey = Registry.ClassesRoot.OpenSubKey(protocol))
+                {
                     capabilities.Entries.Add(new UrlProtocol
                     {
                         ID = protocol,
                         Descriptions = {Registry.GetValue(@"HKEY_CLASSES_ROOT\" + protocol, "", "") as string},
                         Verbs = {GetVerb(protocolKey, commandProvider, "open")}
                     });
+                }
             }
         }
     }

@@ -29,6 +29,7 @@ namespace ZeroInstall.Injector.Feeds
     {
         #region Properties
         private string _value;
+
         /// <summary>
         /// A valid domain name (not a full <see cref="Uri"/>!).
         /// </summary>
@@ -73,7 +74,7 @@ namespace ZeroInstall.Injector.Feeds
             return Value;
         }
         #endregion
-        
+
         #region Clone
         /// <summary>
         /// Creates a deep copy of this <see cref="Domain"/> instance.

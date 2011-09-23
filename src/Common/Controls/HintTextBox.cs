@@ -103,6 +103,7 @@ namespace Common.Controls
 
         #region Properties
         private Color _foreColor = SystemColors.ControlText;
+
         /// <summary>
         /// Gets or sets the color used when displaying text in the control.
         /// </summary>
@@ -133,6 +134,7 @@ namespace Common.Controls
         }
 
         private string _hintText;
+
         /// <summary>
         /// A text to be displayed in <see cref="SystemColors.GrayText"/> when <see cref="TextBox.Text"/> is empty.
         /// </summary>
@@ -156,6 +158,7 @@ namespace Common.Controls
         public bool IsHintTextVisible { get; private set; }
 
         private bool _showClearButton;
+
         /// <summary>
         /// Controls whether the clear button is shown. Remains invisible when the <see cref="HintText"/> is visible.
         /// </summary>

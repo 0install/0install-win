@@ -40,11 +40,11 @@ namespace ZeroInstall.Store.Feeds
         {}
 
         /// <inheritdoc/>
-        public WrongPassphraseException(string message) : base(message) 
+        public WrongPassphraseException(string message) : base(message)
         {}
 
         /// <inheritdoc/>
-        public WrongPassphraseException(string message, Exception innerException) : base (message, innerException)
+        public WrongPassphraseException(string message, Exception innerException) : base(message, innerException)
         {}
 
         /// <summary>

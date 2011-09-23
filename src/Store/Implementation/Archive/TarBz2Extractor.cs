@@ -45,7 +45,10 @@ namespace ZeroInstall.Store.Implementation.Archive
         /// <exception cref="IOException">Thrown if the compressed stream contains invalid data.</exception>
         private static Stream GetDecompressionStream(Stream stream)
         {
-            try { return new BZip2InputStream(stream); }
+            try
+            {
+                return new BZip2InputStream(stream);
+            }
             catch (BZip2Exception ex)
             {
                 // Make sure only standard exception types are thrown to the outside

@@ -25,9 +25,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
     public partial class OverlayBindingForm : OKCancelDialog
     {
-
         #region Properties
-
         /// <summary>
         /// The <see cref="OverlayBinding" /> to be displayed and modified by this form.
         /// </summary>
@@ -45,11 +43,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                 UpdateControl();
             }
         }
-
         #endregion
 
         #region Initialization
-
         /// <summary>
         /// Creates a new <see cref="OverlayBindingForm"/> object.
         /// </summary>
@@ -57,11 +53,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         {
             InitializeComponent();
         }
-
         #endregion
 
         #region Control management methodes
-
         /// <summary>
         /// Clear all controls on this form.
         /// </summary>
@@ -80,11 +74,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             if (!String.IsNullOrEmpty(_overlayBinding.Source)) hintTextBoxSrc.Text = _overlayBinding.Source;
             if (!String.IsNullOrEmpty(_overlayBinding.MountPoint)) hintTextBoxMountPoint.Text = _overlayBinding.MountPoint;
         }
-
         #endregion
 
         #region Control validation
-
         /// <summary>
         /// Sets the color of "hintTextBoxMountPoint.Text" to <see cref="Color.Green"/> if "hintTextBoxMountPoint.Text" is NOT rooted or to <see cref="Color.Red"/> if it is.
         /// </summary>
@@ -105,11 +97,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         {
             hintTextBoxMountPoint.ForeColor = (Path.IsPathRooted(hintTextBoxMountPoint.Text)) ? Color.Green : Color.Red;
         }
-
         #endregion
 
         #region Dialog buttons
-
         /// <summary>
         /// Saves the values from the filled controls to <see cref="_overlayBinding"/> and closes the window.
         /// </summary>
@@ -120,7 +110,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             _overlayBinding.Source = (!String.IsNullOrEmpty(hintTextBoxSrc.Text)) ? hintTextBoxSrc.Text : null;
             _overlayBinding.MountPoint = (!String.IsNullOrEmpty(hintTextBoxMountPoint.Text)) ? hintTextBoxMountPoint.Text : null;
         }
-
         #endregion
     }
 }

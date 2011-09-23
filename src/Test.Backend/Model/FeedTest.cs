@@ -48,14 +48,17 @@ namespace ZeroInstall.Model
                 Icons = {new Icon(new Uri("http://0install.de/feeds/images/test.png"), Icon.MimeTypePng), new Icon(new Uri("http://0install.de/feeds/images/test.ico"), Icon.MimeTypeIco)},
                 Elements = {CreateTestImplementation(), CreateTestPackageImplementation(), CreateTestGroup()},
                 CapabilityLists = {CapabilityListTest.CreateTestCapabilityList()},
-                EntryPoints = {new EntryPoint
-                {
-                    Command = Command.NameRun,
-                    BinaryName = "myapp",
-                    Names = {"Entry name", {"German entry name", new CultureInfo("de-DE")}},
-                    Summaries = {"Entry summary", {"German entry summary", new CultureInfo("de-DE")}},
-                    Icons = {new Icon(new Uri("http://0install.de/feeds/images/test_command.png"), Icon.MimeTypePng), new Icon(new Uri("http://0install.de/feeds/images/test_command.ico"), Icon.MimeTypeIco)}
-                }}
+                EntryPoints =
+                    {
+                        new EntryPoint
+                        {
+                            Command = Command.NameRun,
+                            BinaryName = "myapp",
+                            Names = {"Entry name", {"German entry name", new CultureInfo("de-DE")}},
+                            Summaries = {"Entry summary", {"German entry summary", new CultureInfo("de-DE")}},
+                            Icons = {new Icon(new Uri("http://0install.de/feeds/images/test_command.png"), Icon.MimeTypePng), new Icon(new Uri("http://0install.de/feeds/images/test_command.ico"), Icon.MimeTypeIco)}
+                        }
+                    }
             };
         }
 
@@ -74,12 +77,15 @@ namespace ZeroInstall.Model
                 Commands = {CommandTest.CreateTestCommand1()},
                 DocDir = "doc",
                 Stability = Stability.Developer,
-                Dependencies = { new Dependency
-                {
-                    Interface = "http://0install.de/feeds/test/test1.xml",
-                    Constraints = {new Constraint(new ImplementationVersion("1.0"), null), new Constraint(null, new ImplementationVersion("2.0"))},
-                    Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding()}
-                } },
+                Dependencies =
+                    {
+                        new Dependency
+                        {
+                            Interface = "http://0install.de/feeds/test/test1.xml",
+                            Constraints = {new Constraint(new ImplementationVersion("1.0"), null), new Constraint(null, new ImplementationVersion("2.0"))},
+                            Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding()}
+                        }
+                    },
                 RetrievalMethods = {new Recipe {Steps = {new Archive {Location = new Uri("http://0install.de/files/test/test.zip"), Size = 1024}}}}
             };
         }
@@ -99,9 +105,14 @@ namespace ZeroInstall.Model
                 Commands = {CommandTest.CreateTestCommand1()},
                 DocDir = "doc",
                 Stability = Stability.Developer,
-                Dependencies = {new Dependency {Interface = "http://0install.de/feeds/test/test2.xml", Importance = Importance.Recommended,
-                    Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding()}
-                }}
+                Dependencies =
+                    {
+                        new Dependency
+                        {
+                            Interface = "http://0install.de/feeds/test/test2.xml", Importance = Importance.Recommended,
+                            Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding()}
+                        }
+                    }
             };
         }
 
@@ -117,10 +128,10 @@ namespace ZeroInstall.Model
                 License = "GPL",
                 Stability = Stability.Developer,
                 Elements =
-                {
-                    new Implementation {Commands = {new Command{Name = "run", Path = "main1"}}},
-                    new Group {Elements = {new Implementation {Commands = {new Command{Name = "run", Path = "main2"}}}}},
-                }
+                    {
+                        new Implementation {Commands = {new Command {Name = "run", Path = "main1"}}},
+                        new Group {Elements = {new Implementation {Commands = {new Command {Name = "run", Path = "main2"}}}}},
+                    }
             };
         }
         #endregion
@@ -167,7 +178,7 @@ namespace ZeroInstall.Model
         [Test]
         public void TestSimplify()
         {
-            var feed = new Feed { Elements = { CreateTestGroup() } };
+            var feed = new Feed {Elements = {CreateTestGroup()}};
             feed.Simplify();
 
             var implementation = feed.Elements[0];

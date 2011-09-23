@@ -61,9 +61,14 @@ namespace ZeroInstall.Commands
             string pattern;
             switch (AdditionalArgs.Count)
             {
-                case 0: pattern = null; break;
-                case 1: pattern = AdditionalArgs.First; break;
-                default: throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
+                case 0:
+                    pattern = null;
+                    break;
+                case 1:
+                    pattern = AdditionalArgs.First;
+                    break;
+                default:
+                    throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
             }
 
             Policy.Handler.Output(Resources.FoundFeeds, GetList(pattern));

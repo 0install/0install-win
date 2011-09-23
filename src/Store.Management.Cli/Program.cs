@@ -32,6 +32,7 @@ using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Store.Management.Cli
 {
+
     #region Enumerations
     /// <summary>
     /// An errorlevel is returned to the original caller after the application terminates, to indicate success or the reason for failure.
@@ -86,8 +87,11 @@ namespace ZeroInstall.Store.Management.Cli
             if (args.Length == 0) args = new[] {"--help"};
 
             IList<string> restArgs;
-            try { restArgs = ParseArgs(args); }
-            #region Error handling
+            try
+            {
+                restArgs = ParseArgs(args);
+            }
+                #region Error handling
             catch (UserCancelException)
             {
                 return (int)ErrorLevel.OK;
@@ -106,7 +110,7 @@ namespace ZeroInstall.Store.Management.Cli
                 _store = StoreProvider.CreateDefault();
                 return (int)ExecuteArgs(restArgs, new CliTaskHandler());
             }
-            #region Error handling
+                #region Error handling
             catch (UserCancelException)
             {
                 return (int)ErrorLevel.UserCanceled;
@@ -169,16 +173,21 @@ namespace ZeroInstall.Store.Management.Cli
             var options = new OptionSet
             {
                 // Mode selection
-                {"V|version", Resources.OptionVersion, unused => {
-                    Console.WriteLine(AppInfo.Name + " " + AppInfo.Version + (Locations.IsPortable ? " - " + Resources.PortableMode : "") + Environment.NewLine + AppInfo.Copyright + Environment.NewLine + Resources.LicenseInfo);
-                    throw new UserCancelException(); // Don't handle any of the other arguments
-                }},
-
+                {
+                    "V|version", Resources.OptionVersion, unused =>
+                    {
+                        Console.WriteLine(AppInfo.Name + " " + AppInfo.Version + (Locations.IsPortable ? " - " + Resources.PortableMode : "") + Environment.NewLine + AppInfo.Copyright + Environment.NewLine + Resources.LicenseInfo);
+                        throw new UserCancelException(); // Don't handle any of the other arguments
+                    }
+                    },
                 // Documentation
-                {"man", Resources.OptionMan, unused => {
-                    PrintManual();
-                    throw new UserCancelException(); // Don't handle any of the other arguments
-                }},
+                {
+                    "man", Resources.OptionMan, unused =>
+                    {
+                        PrintManual();
+                        throw new UserCancelException(); // Don't handle any of the other arguments
+                    }
+                    },
             };
             #endregion
 

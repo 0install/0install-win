@@ -36,9 +36,9 @@ namespace ZeroInstall.Store.Implementation
         // Dummy data used by the tests
         private static readonly ManifestDigest _digest1 = new ManifestDigest(null, "abc", null);
         private static readonly ManifestDigest _digest2 = new ManifestDigest(null, "123", null);
-        private static readonly ArchiveFileInfo _archive1 = new ArchiveFileInfo { Path = "path1" };
-        private static readonly ArchiveFileInfo _archive2 = new ArchiveFileInfo { Path = "path2" };
-        private static readonly IEnumerable<ArchiveFileInfo> _archives = new[] { _archive1, _archive2 };
+        private static readonly ArchiveFileInfo _archive1 = new ArchiveFileInfo {Path = "path1"};
+        private static readonly ArchiveFileInfo _archive2 = new ArchiveFileInfo {Path = "path2"};
+        private static readonly IEnumerable<ArchiveFileInfo> _archives = new[] {_archive1, _archive2};
         private static readonly ITaskHandler _handler = new SilentHandler();
 
         private DynamicMock _mock1, _mock2;
@@ -46,10 +46,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// A <see cref="CompositeStore"/> composed of <see cref="_mock1"/> and <see cref="_mock2"/>.
         /// </summary>
-        private CompositeStore TestStore
-        {
-            get { return new CompositeStore((IStore)_mock1.MockInstance, (IStore)_mock2.MockInstance); }
-        }
+        private CompositeStore TestStore { get { return new CompositeStore((IStore)_mock1.MockInstance, (IStore)_mock2.MockInstance); } }
 
         [SetUp]
         public void SetUp()

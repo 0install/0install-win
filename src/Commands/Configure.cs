@@ -84,8 +84,11 @@ namespace ZeroInstall.Commands
         private int PrintOption(string key)
         {
             string value;
-            try { value = Policy.Config.GetOption(key); }
-            #region Error handling
+            try
+            {
+                value = Policy.Config.GetOption(key);
+            }
+                #region Error handling
             catch (C5.NoSuchItemException)
             {
                 Policy.Handler.Output("Configuration error", string.Format("Unknown option '{0}'", key));
@@ -103,8 +106,11 @@ namespace ZeroInstall.Commands
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
         private int SetOption(string key, string value)
         {
-            try { Policy.Config.SetOption(key, value); }
-            #region Error handling
+            try
+            {
+                Policy.Config.SetOption(key, value);
+            }
+                #region Error handling
             catch (C5.NoSuchItemException)
             {
                 Policy.Handler.Output("Configuration error", string.Format("Unknown option '{0}'", key));

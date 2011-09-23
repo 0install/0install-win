@@ -69,6 +69,7 @@ namespace ZeroInstall.Commands
         public override string ActionTitle { get { return Resources.ActionSelection; } }
 
         private readonly Requirements _requirements = new Requirements() /*{Architecture = Architecture.CurrentSystem}*/;
+
         /// <summary>
         /// A set of requirements/restrictions imposed by the user on the implementation selection process as parsed from the command-line arguments.
         /// </summary>
@@ -98,8 +99,11 @@ namespace ZeroInstall.Commands
             Options.Add("before=", Resources.OptionBefore, delegate(string version)
             {
                 if (string.IsNullOrEmpty(version)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--before"), "before");
-                try { _requirements.BeforeVersion = new ImplementationVersion(version); }
-                #region Error handling
+                try
+                {
+                    _requirements.BeforeVersion = new ImplementationVersion(version);
+                }
+                    #region Error handling
                 catch (ArgumentException ex)
                 {
                     throw new OptionException(ex.Message, "before", ex);
@@ -109,8 +113,11 @@ namespace ZeroInstall.Commands
             Options.Add("not-before=", Resources.OptionNotBefore, delegate(string version)
             {
                 if (string.IsNullOrEmpty(version)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--not-before"), "not-before");
-                try { _requirements.NotBeforeVersion = new ImplementationVersion(version); }
-                #region Error handling
+                try
+                {
+                    _requirements.NotBeforeVersion = new ImplementationVersion(version);
+                }
+                    #region Error handling
                 catch (ArgumentException ex)
                 {
                     throw new OptionException(ex.Message, "not-before", ex);
@@ -121,8 +128,11 @@ namespace ZeroInstall.Commands
             Options.Add("os=", Resources.OptionOS + "\n" + string.Format(Resources.SupportedValues, StringUtils.Concatenate(Architecture.KnownOSStrings, ", ")), delegate(string os)
             {
                 if (string.IsNullOrEmpty(os)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--os"), "os");
-                try { _requirements.Architecture = new Architecture(Architecture.ParseOS(os), _requirements.Architecture.Cpu); }
-                #region Error handling
+                try
+                {
+                    _requirements.Architecture = new Architecture(Architecture.ParseOS(os), _requirements.Architecture.Cpu);
+                }
+                    #region Error handling
                 catch (ArgumentException ex)
                 {
                     throw new OptionException(ex.Message, "os", ex);
@@ -132,8 +142,11 @@ namespace ZeroInstall.Commands
             Options.Add("cpu=", Resources.OptionCpu + "\n" + string.Format(Resources.SupportedValues, StringUtils.Concatenate(Architecture.KnownCpuStrings, ", ")), delegate(string cpu)
             {
                 if (string.IsNullOrEmpty(cpu)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--cpu"), "cpu");
-                try { _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Architecture.ParseCpu(cpu)); }
-                #region Error handling
+                try
+                {
+                    _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Architecture.ParseCpu(cpu));
+                }
+                    #region Error handling
                 catch (ArgumentException ex)
                 {
                     throw new OptionException(ex.Message, "cpu", ex);

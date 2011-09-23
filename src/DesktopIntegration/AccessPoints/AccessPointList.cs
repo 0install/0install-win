@@ -34,13 +34,17 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         #region Properties
         // Preserve order
         private readonly C5.LinkedList<AccessPoint> _accessPoints = new C5.LinkedList<AccessPoint>();
+
         /// <summary>
         /// A list of <see cref="AccessPoint"/>s.
         /// </summary>
         [Description("A list of access points.")]
         [XmlElement(typeof(AppAlias)), XmlElement(typeof(AutoPlay)), XmlElement(typeof(CapabilityRegistration)), XmlElement(typeof(ContextMenu)), XmlElement(typeof(DefaultProgram)), XmlElement(typeof(DesktopIcon)), XmlElement(typeof(FileType)), XmlElement(typeof(MenuEntry)), XmlElement(typeof(SendTo)), XmlElement(typeof(UrlProtocol)), XmlElement(typeof(QuickLaunch)), XmlElement(typeof(MockAccessPoint))]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.LinkedList<AccessPoint> Entries { get { return _accessPoints; } }
+            public C5.LinkedList<AccessPoint> Entries
+        {
+            get { return _accessPoints; }
+        }
         #endregion
 
         //--------------------//

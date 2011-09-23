@@ -59,8 +59,11 @@ namespace Common.Compression
             if (baseStream.CanSeek) baseStream.Position = 0;
             var properties = new byte[5];
             if (baseStream.Read(properties, 0, 5) != 5) throw new InvalidDataException(Resources.ArchiveInvalid);
-            try { decoder.SetDecoderProperties(properties); }
-            #region Error handling
+            try
+            {
+                decoder.SetDecoderProperties(properties);
+            }
+                #region Error handling
             catch (InvalidParamException ex)
             {
                 // Make sure only standard exception types are thrown to the outside
@@ -87,14 +90,18 @@ namespace Common.Compression
             // Initialize the producer thread that will deliver uncompressed data
             var thread = new Thread(delegate()
             {
-                try { decoder.Code(baseStream, bufferStream, baseStream.Length, uncompressedLength, null); }
-                #region Error handnling
+                try
+                {
+                    decoder.Code(baseStream, bufferStream, baseStream.Length, uncompressedLength, null);
+                }
+                    #region Error handnling
                 catch (ThreadAbortException)
                 {}
-                // If the buffer stream is closed to early the user probably just canceled the extraction process
+                    // If the buffer stream is closed to early the user probably just canceled the extraction process
                 catch (ObjectDisposedException)
-                { }
-                #endregion
+                {}
+                    #endregion
+
                 finally
                 {
                     bufferStream.DoneWriting();

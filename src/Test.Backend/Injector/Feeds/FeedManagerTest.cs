@@ -31,7 +31,7 @@ namespace ZeroInstall.Injector.Feeds
     /// Contains test methods for <see cref="FeedManager"/>.
     /// </summary>
     [TestFixture]
-    class FeedManagerTest
+    internal class FeedManagerTest
     {
         private DynamicMock _cacheMock;
         private DynamicMock _openPgpMock;
@@ -104,7 +104,7 @@ namespace ZeroInstall.Injector.Feeds
         }
 
         [Test(Description = "Ensures cached feeds that are stale are returned correctly.")]
-        void TestCachedStale()
+        private void TestCachedStale()
         {
             var feed = new Feed();
 

@@ -58,8 +58,11 @@ namespace Common.Storage
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            try { return (T)_serializer.Deserialize(stream); }
-            #region Error handling
+            try
+            {
+                return (T)_serializer.Deserialize(stream);
+            }
+                #region Error handling
             catch (SerializationException ex)
             { // Convert exception type
                 throw new InvalidDataException(ex.Message, ex.InnerException) {Source = ex.Source};
@@ -149,7 +152,7 @@ namespace Common.Storage
                     Save(fileStream, data);
                 FileUtils.Replace(path + ".new", path);
             }
-            #region Error handling
+                #region Error handling
             catch (Exception)
             {
                 // Clean up failed transactions

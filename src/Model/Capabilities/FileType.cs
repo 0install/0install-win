@@ -37,6 +37,7 @@ namespace ZeroInstall.Model.Capabilities
 
         // Preserve order, duplicate string entries are not allowed
         private readonly C5.HashedArrayList<FileTypeExtension> _extensions = new C5.HashedArrayList<FileTypeExtension>();
+
         /// <summary>
         /// A list of all file extensions associated with this file type.
         /// </summary>
@@ -46,10 +47,7 @@ namespace ZeroInstall.Model.Capabilities
 
         /// <inheritdoc/>
         [XmlIgnore]
-        public override IEnumerable<string> ConflictIDs
-        {
-            get { return new[] {"progid:" + ID}; }
-        }
+        public override IEnumerable<string> ConflictIDs { get { return new[] {"progid:" + ID}; } }
         #endregion
 
         //--------------------//

@@ -25,7 +25,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
     public partial class DependencyForm : OKCancelDialog
     {
-
         #region Properties
         private Dependency _dependency = new Dependency();
 
@@ -38,22 +37,18 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                 UpdateFormControls();
             }
         }
-
         #endregion
 
         # region Initialzation
-        
         public DependencyForm()
         {
             InitializeComponent();
 
             comboBoxImportance.Items.AddRange(new object[] {Importance.Essential, Importance.Recommended});
         }
-
         #endregion
 
         #region Control management methodes
-
         /// <summary>
         /// Clears all controls on this form.
         /// </summary>
@@ -77,15 +72,11 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             hintTextBoxUse.Text = _dependency.Use;
             comboBoxImportance.SelectedItem = _dependency.Importance;
             foreach (var constraint in _dependency.Constraints)
-            {
                 listBoxConstraints.Items.Add(constraint);
-            }
         }
-
         #endregion
 
         #region Constraint methodes
-
         /// <summary>
         /// Adds a <see cref="Constraint"/> from "hintTextBoxNotBefore.Text" and/or "hintTextBoxBefore.Text" to "listBoxConstraints.Items".
         /// </summary>
@@ -98,19 +89,13 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 
             // add NotBefore and Before
             if (ImplementationVersion.TryCreate(hintTextBoxNotBefore.Text, out notBefore) & ImplementationVersion.TryCreate(hintTextBoxBefore.Text, out before))
-            {
                 constraint = new Constraint(notBefore, before);
-            }
                 //add only NotBefore
             else if (notBefore != null)
-            {
                 constraint = new Constraint(notBefore, null);
-            }
                 //add only Before
             else
-            {
                 constraint = new Constraint(null, before);
-            }
             // add to the list if it is not allready in the list
             if (!listBoxConstraints.Items.Contains(constraint))
                 listBoxConstraints.Items.Add(constraint);
@@ -172,11 +157,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             hintTextBoxBefore.Text = selectedItem.BeforeVersionString ?? String.Empty;
             hintTextBoxNotBefore.Text = selectedItem.NotBeforeVersionString ?? String.Empty;
         }
-
         #endregion
 
         #region Interface and Use methodes
-
         /// <summary>
         /// Checks if "hintTextBoxInterface.Text" is a valid interface url and sets "hintTextBoxInterface.ForeColor" to <see cref="Color.Green"/> or to <see cref="Color.Red"/> if its not valid.
         /// </summary>
@@ -190,7 +173,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         #endregion
 
         #region Dialog buttons
-
         /// <summary>
         /// Saves the values from the filled controls to <see cref="_dependency"/> and closes the window.
         /// </summary>
@@ -201,13 +183,10 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             _dependency.Interface = hintTextBoxInterface.Text;
             _dependency.Use = (!string.IsNullOrEmpty(hintTextBoxUse.Text) ? hintTextBoxUse.Text : null);
             foreach (Constraint constraint in listBoxConstraints.Items)
-            {
                 _dependency.Constraints.Add(constraint);
-            }
 
             if (comboBoxImportance.SelectedItem is Importance) _dependency.Importance = (Importance)comboBoxImportance.SelectedItem;
         }
-
         #endregion
     }
 }

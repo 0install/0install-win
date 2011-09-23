@@ -47,7 +47,7 @@ namespace ZeroInstall.Commands
         #region Constructor
         /// <inheritdoc/>
         public ListFeeds(Policy policy) : base(policy)
-        { }
+        {}
         #endregion
 
         //--------------------//

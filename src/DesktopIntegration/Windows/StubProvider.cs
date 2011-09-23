@@ -90,7 +90,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 string iconPath = IconCacheProvider.CreateDefault().GetIcon(target.Feed.GetIcon(Icon.MimeTypeIco, command).Location, handler);
                 compilerParameters.CompilerOptions += " /win32icon:" + StringUtils.EscapeArgument(iconPath);
             }
-            catch (KeyNotFoundException) {}
+            catch (KeyNotFoundException)
+            {}
 
             using (var manifestFile = new TemporaryFile("0install"))
             {

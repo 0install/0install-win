@@ -37,13 +37,13 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Indicates an interface ID was not valid.
         /// </summary>
-        public InvalidInterfaceIDException(string message) : base(message) 
+        public InvalidInterfaceIDException(string message) : base(message)
         {}
 
         /// <summary>
         /// Indicates an interface ID was not valid.
         /// </summary>
-        public InvalidInterfaceIDException(string message, Exception innerException) : base (message, innerException)
+        public InvalidInterfaceIDException(string message, Exception innerException) : base(message, innerException)
         {}
 
         /// <summary>

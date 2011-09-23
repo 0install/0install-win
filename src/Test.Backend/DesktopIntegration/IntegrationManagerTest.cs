@@ -17,7 +17,6 @@
 
 using System;
 using Common.Storage;
-using Common.Tasks;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Injector;

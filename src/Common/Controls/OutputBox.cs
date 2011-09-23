@@ -55,8 +55,8 @@ namespace Common.Controls
             using (var outputBox = new OutputBox
             {
                 Text = Application.ProductName,
-                labelTitle = { Text = title },
-                textMessage = { Text = message.Replace("\n", Environment.NewLine) }
+                labelTitle = {Text = title},
+                textMessage = {Text = message.Replace("\n", Environment.NewLine)}
             })
             {
                 outputBox.toolTip.SetToolTip(outputBox.labelTitle, outputBox.labelTitle.Text);

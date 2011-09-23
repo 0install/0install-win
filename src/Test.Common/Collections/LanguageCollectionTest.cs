@@ -33,7 +33,7 @@ namespace Common.Collections
         [Test]
         public void TestToString()
         {
-            var collection = new LanguageCollection { "en-US", "de" };
+            var collection = new LanguageCollection {"en-US", "de"};
             Assert.AreEqual("de en_US", collection.ToString());
         }
 

@@ -44,11 +44,15 @@ namespace Common.Values.Design
         #region Capabilities
         /// <inheritdoc />
         public override bool GetCreateInstanceSupported(ITypeDescriptorContext context)
-        { return true; }
+        {
+            return true;
+        }
 
         /// <inheritdoc />
         public override bool GetPropertiesSupported(ITypeDescriptorContext context)
-        { return true; }
+        {
+            return true;
+        }
 
         /// <inheritdoc />
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)

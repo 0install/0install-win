@@ -146,7 +146,7 @@ namespace ZeroInstall.Publish
                 var validSignature = EnumerableUtils.GetFirst(EnumerableUtils.OfType<ValidSignature>(signatures));
                 if (validSignature != null) return openPgp.GetSecretKey(validSignature.Fingerprint);
             }
-            #region Error handling
+                #region Error handling
             catch (KeyNotFoundException ex)
             {
                 // Secret key not in the user's keyring
@@ -204,8 +204,12 @@ namespace ZeroInstall.Publish
                     if (cache)
                     {
                         var store = StoreProvider.CreateDefault();
-                        try { store.AddDirectory(tempDir.Path, digest, handler); }
-                        catch(ImplementationAlreadyInStoreException) {}
+                        try
+                        {
+                            store.AddDirectory(tempDir.Path, digest, handler);
+                        }
+                        catch (ImplementationAlreadyInStoreException)
+                        {}
                     }
 
                     var archive = new Archive {Location = location, MimeType = mimeType, Size = new FileInfo(tempFile.Path).Length, Extract = extract};

@@ -31,7 +31,12 @@ namespace ZeroInstall.Injector.Solver
         #region Enumerations
         private enum ErrorMode
         {
-            None, Info, Warn, Error, Critical, Question
+            None,
+            Info,
+            Warn,
+            Error,
+            Critical,
+            Question
         }
         #endregion
 

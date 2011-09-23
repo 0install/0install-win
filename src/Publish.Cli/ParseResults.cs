@@ -28,6 +28,7 @@ namespace ZeroInstall.Publish.Cli
     {
         /// <summary>Modify an existing <see cref="Feed"/> or create a new one.</summary>
         Normal,
+
         /// <summary>Combine all specified <see cref="Feed"/>s into a single <see cref="Catalog"/> file.</summary>
         Catalog
     }

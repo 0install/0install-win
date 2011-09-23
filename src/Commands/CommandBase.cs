@@ -60,6 +60,7 @@ namespace ZeroInstall.Commands
 
         #region Properties
         private readonly Policy _policy;
+
         /// <summary>
         /// Combines UI access, preferences and resources used to solve dependencies and download implementations.
         /// </summary>
@@ -95,21 +96,21 @@ namespace ZeroInstall.Commands
 
                     // ToDo: Add flow formatting for better readability on console
                     return Resources.Usage + " 0install " + GetName() + " " + Usage + Environment.NewLine + Environment.NewLine +
-                           Description + Environment.NewLine + Environment.NewLine +
-                           Resources.Options + Environment.NewLine + StreamUtils.ReadToString(buffer);
+                        Description + Environment.NewLine + Environment.NewLine +
+                            Resources.Options + Environment.NewLine + StreamUtils.ReadToString(buffer);
                 }
             }
         }
-        
+
         /// <summary>
         /// Uses reflection
         /// </summary>
         private string GetName()
         {
             var field = GetType().GetField("Name", BindingFlags.Public | BindingFlags.Static);
-// ReSharper disable AssignNullToNotNullAttribute
+            // ReSharper disable AssignNullToNotNullAttribute
             return (field == null) ? null : field.GetValue(null).ToString();
-// ReSharper restore AssignNullToNotNullAttribute
+            // ReSharper restore AssignNullToNotNullAttribute
         }
         #endregion
 
@@ -208,20 +209,27 @@ namespace ZeroInstall.Commands
                 return id;
             }
             else if (ModelUtils.IsValidUri(id))
-            {
                 return id;
-            }
             else
             {
                 // Assume invalid URIs are local paths
-                try { return Path.GetFullPath(id); }
-                #region Error handling
+                try
+                {
+                    return Path.GetFullPath(id);
+                }
+                    #region Error handling
                 catch (ArgumentException)
-                { return id; }
+                {
+                    return id;
+                }
                 catch (NotSupportedException)
-                { return id; }
+                {
+                    return id;
+                }
                 catch (IOException)
-                { return id; }
+                {
+                    return id;
+                }
                 #endregion
             }
         }

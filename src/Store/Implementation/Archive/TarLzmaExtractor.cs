@@ -46,7 +46,10 @@ namespace ZeroInstall.Store.Implementation.Archive
         private static Stream GetDecompressionStream(Stream stream)
         {
             const int bufferSize = 128 * 1024;
-            try { return LzmaUtils.GetDecompressionStream(stream, bufferSize); }
+            try
+            {
+                return LzmaUtils.GetDecompressionStream(stream, bufferSize);
+            }
             catch (InvalidDataException ex)
             {
                 // Make sure only standard exception types are thrown to the outside

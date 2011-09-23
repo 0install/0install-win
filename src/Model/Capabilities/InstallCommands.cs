@@ -90,7 +90,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             return other.Reinstall == Reinstall && other.ReinstallArgs == ReinstallArgs &&
                 other.ShowIcons == ShowIcons && other.ShowIconsArgs == ShowIconsArgs &&
-                other.HideIcons == HideIcons && other.HideIconsArgs == HideIconsArgs;
+                    other.HideIcons == HideIcons && other.HideIconsArgs == HideIconsArgs;
         }
 
         /// <inheritdoc/>

@@ -36,10 +36,7 @@ namespace ZeroInstall.Model.Capabilities
 
         /// <inheritdoc/>
         [XmlIgnore]
-        public override IEnumerable<string> ConflictIDs
-        {
-            get { return new[] {"classes:" + ID}; }
-        }
+        public override IEnumerable<string> ConflictIDs { get { return new[] {"classes:" + ID}; } }
         #endregion
 
         //--------------------//

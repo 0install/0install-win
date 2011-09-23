@@ -43,7 +43,7 @@ namespace Common.Cli
         /// Reports error messages from external applications launched by <see cref="CliAppControl"/>.
         /// </summary>
         /// <param name="message">The error messages from the external application.</param>
-        public UnhandledErrorsException(string message) : base(message) 
+        public UnhandledErrorsException(string message) : base(message)
         {}
 
         /// <inheritdoc/>

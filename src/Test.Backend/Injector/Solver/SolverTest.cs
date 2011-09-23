@@ -21,7 +21,6 @@ using NUnit.Mocks;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Injector.Solver
 {
@@ -39,7 +38,7 @@ namespace ZeroInstall.Injector.Solver
 
         private static Feed CreateTestFeed()
         {
-            return new Feed { Name = "Test", Summaries = { "Test" }, Elements = { new Implementation { ID = "test", Version = new ImplementationVersion("1.0"), LocalPath = ".", Main = "test" } } };
+            return new Feed {Name = "Test", Summaries = {"Test"}, Elements = {new Implementation {ID = "test", Version = new ImplementationVersion("1.0"), LocalPath = ".", Main = "test"}}};
         }
 
         [Test(Description = "Ensures ISolver.Solve() correctly solves the dependencies for a specific feed ID.")]

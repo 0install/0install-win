@@ -32,6 +32,7 @@ namespace ZeroInstall.Injector.Solver
     public class Requirements : ICloneable, IEquatable<Requirements>
     {
         private string _interfaceID;
+
         /// <summary>
         /// The URI or local path (must be absolute) to the interface to solve the dependencies for.
         /// </summary>
@@ -58,6 +59,7 @@ namespace ZeroInstall.Injector.Solver
         public Architecture Architecture { get; set; }
 
         private readonly C5.LinkedList<CultureInfo> _languages = new C5.LinkedList<CultureInfo>();
+
         /// <summary>
         /// The preferred languages for implementations in decreasing order. Use system locale if empty.
         /// </summary>

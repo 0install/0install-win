@@ -37,7 +37,7 @@ namespace ZeroInstall.Injector.Feeds
             return new FeedPreferences
             {
                 LastChecked = new DateTime(2000, 1, 1),
-                Implementations = { new ImplementationPreferences { ID = "test_id", UserStability = Stability.Testing } }
+                Implementations = {new ImplementationPreferences {ID = "test_id", UserStability = Stability.Testing}}
             };
         }
         #endregion

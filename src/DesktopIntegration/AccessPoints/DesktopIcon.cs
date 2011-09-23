@@ -58,9 +58,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             if (WindowsUtils.IsWindows)
-            {
                 Windows.ShortcutManager.CreateShortcut(GetWindowsShortcutPath(systemWide), target, Command, systemWide, handler);
-            }
         }
 
         /// <inheritdoc/>
@@ -72,8 +70,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             if (WindowsUtils.IsWindows)
             {
-                try { File.Delete(GetWindowsShortcutPath(systemWide)); }
-                catch (FileNotFoundException) {}
+                try
+                {
+                    File.Delete(GetWindowsShortcutPath(systemWide));
+                }
+                catch (FileNotFoundException)
+                {}
             }
         }
         #endregion

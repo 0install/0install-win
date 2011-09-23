@@ -55,11 +55,11 @@ namespace ZeroInstall.Store.Implementation
         {}
 
         /// <inheritdoc/>
-        public ImplementationNotFoundException(string message) : base(message) 
+        public ImplementationNotFoundException(string message) : base(message)
         {}
 
         /// <inheritdoc/>
-        public ImplementationNotFoundException(string message, Exception innerException) : base (message, innerException)
+        public ImplementationNotFoundException(string message, Exception innerException) : base(message, innerException)
         {}
 
         /// <summary>

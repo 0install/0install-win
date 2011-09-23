@@ -23,7 +23,6 @@ using System.Xml.Serialization;
 using Common;
 using Common.Collections;
 using Common.Storage;
-using Common.Utils;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Injector.Feeds
@@ -48,13 +47,10 @@ namespace ZeroInstall.Injector.Feeds
         /// <seealso cref="Uri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("uri"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public String UriString
-        {
-            get { return (Uri == null ? null : Uri.ToString()); }
-            set { Uri = (value == null ? null : new Uri(value)); }
-        }
+        public String UriString { get { return (Uri == null ? null : Uri.ToString()); } set { Uri = (value == null ? null : new Uri(value)); } }
 
         private Stability _stabilityPolicy = Stability.Unset;
+
         /// <summary>
         /// Implementations at this stability level or higher are preferred. Lower levels are used only if there is no other choice.
         /// </summary>
@@ -64,13 +60,17 @@ namespace ZeroInstall.Injector.Feeds
 
         // Preserve order
         private readonly C5.LinkedList<FeedReference> _feeds = new C5.LinkedList<FeedReference>();
+
         /// <summary>
         /// Zero ore more additional feeds containing implementations of this interface.
         /// </summary>
         [Description("Zero ore more additional feeds containing implementations of this interface.")]
         [XmlElement("feed")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.LinkedList<FeedReference> Feeds { get { return _feeds; } }
+            public C5.LinkedList<FeedReference> Feeds
+        {
+            get { return _feeds; }
+        }
         #endregion
 
         //--------------------//
@@ -120,8 +120,11 @@ namespace ZeroInstall.Injector.Feeds
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             #endregion
 
-            try { return LoadFor(interfaceID); }
-            #region Error handling
+            try
+            {
+                return LoadFor(interfaceID);
+            }
+                #region Error handling
             catch (FileNotFoundException)
             {
                 Log.Info("Creating new interface preferences file for '" + interfaceID + "'.");

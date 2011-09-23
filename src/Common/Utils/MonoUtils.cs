@@ -35,8 +35,7 @@ namespace Common.Utils
         /// <summary>
         /// <see langword="true"/> if the current operating system is a Unix-like system (e.g. Linux or MacOS X).
         /// </summary>
-        public static bool IsUnix
-        { get { return Environment.OSVersion.Platform == PlatformID.Unix || Environment.OSVersion.Platform == PlatformID.MacOSX; } }
+        public static bool IsUnix { get { return Environment.OSVersion.Platform == PlatformID.Unix || Environment.OSVersion.Platform == PlatformID.MacOSX; } }
         #endregion
 
         #region File type
@@ -72,7 +71,7 @@ namespace Common.Utils
             #endregion
 
             bool result = UnixFileSystemInfo.GetFileSystemEntry(path).IsSymbolicLink;
-            
+
             if (result)
             {
                 var symlinkInfo = new UnixSymbolicLinkInfo(path);
@@ -130,7 +129,7 @@ namespace Common.Utils
 
         /// <summary>A combination of bit flags to grant everyone executing permissions.</summary>
         private const FileAccessPermissions AllExecutePermission = FileAccessPermissions.UserExecute | FileAccessPermissions.GroupExecute | FileAccessPermissions.OtherExecute;
-        
+
         /// <summary>
         /// Checks whether a file is marked as Unix-executable.
         /// </summary>
@@ -156,7 +155,7 @@ namespace Common.Utils
         public static void SetExecutable(string path, bool executable)
         {
             var fileInfo = UnixFileSystemInfo.GetFileSystemEntry(path);
-            if (executable) fileInfo.FileAccessPermissions |=  AllExecutePermission; // Set all execution rights
+            if (executable) fileInfo.FileAccessPermissions |= AllExecutePermission; // Set all execution rights
             else fileInfo.FileAccessPermissions &= ~AllExecutePermission; // Unset all execution rights
         }
         #endregion

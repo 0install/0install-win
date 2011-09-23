@@ -74,8 +74,11 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public IEnumerable<ManifestDigest> ListAll()
         {
-            try { return _serviceProxy.ListAll(); }
-            #region Error handling
+            try
+            {
+                return _serviceProxy.ListAll();
+            }
+                #region Error handling
             catch (RemotingException ex)
             {
                 throw new UnauthorizedAccessException(Resources.StoreServiceCommunicationProblem, ex);
@@ -88,8 +91,11 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public bool Contains(ManifestDigest manifestDigest)
         {
-            try { return _serviceProxy.Contains(manifestDigest); }
-            #region Error handling
+            try
+            {
+                return _serviceProxy.Contains(manifestDigest);
+            }
+                #region Error handling
             catch (RemotingException)
             {
                 return false;
@@ -102,8 +108,11 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public string GetPath(ManifestDigest manifestDigest)
         {
-            try { return _serviceProxy.GetPath(manifestDigest); }
-            #region Error handling
+            try
+            {
+                return _serviceProxy.GetPath(manifestDigest);
+            }
+                #region Error handling
             catch (RemotingException ex)
             {
                 throw new UnauthorizedAccessException(Resources.StoreServiceCommunicationProblem, ex);
@@ -121,8 +130,11 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            try { _serviceProxy.AddDirectory(path, manifestDigest, handler); }
-            #region Error handling
+            try
+            {
+                _serviceProxy.AddDirectory(path, manifestDigest, handler);
+            }
+                #region Error handling
             catch (RemotingException ex)
             {
                 throw new UnauthorizedAccessException(Resources.StoreServiceCommunicationProblem, ex);
@@ -140,8 +152,11 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            try { _serviceProxy.AddArchive(archiveInfo, manifestDigest, handler); }
-            #region Error handling
+            try
+            {
+                _serviceProxy.AddArchive(archiveInfo, manifestDigest, handler);
+            }
+                #region Error handling
             catch (RemotingException ex)
             {
                 throw new UnauthorizedAccessException(Resources.StoreServiceCommunicationProblem, ex);
@@ -157,8 +172,11 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            try { _serviceProxy.AddMultipleArchives(archiveInfos, manifestDigest, handler); }
-            #region Error handling
+            try
+            {
+                _serviceProxy.AddMultipleArchives(archiveInfos, manifestDigest, handler);
+            }
+                #region Error handling
             catch (RemotingException ex)
             {
                 throw new UnauthorizedAccessException(Resources.StoreServiceCommunicationProblem, ex);
@@ -175,8 +193,11 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            try { _serviceProxy.Remove(manifestDigest, handler); }
-            #region Error handling
+            try
+            {
+                _serviceProxy.Remove(manifestDigest, handler);
+            }
+                #region Error handling
             catch (RemotingException ex)
             {
                 throw new UnauthorizedAccessException(Resources.StoreServiceCommunicationProblem, ex);

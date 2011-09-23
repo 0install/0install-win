@@ -53,11 +53,11 @@ namespace ZeroInstall.Store.Implementation
         {}
 
         /// <inheritdoc/>
-        public ImplementationAlreadyInStoreException(string message) : base(message) 
+        public ImplementationAlreadyInStoreException(string message) : base(message)
         {}
 
         /// <inheritdoc/>
-        public ImplementationAlreadyInStoreException(string message, Exception innerException) : base (message, innerException)
+        public ImplementationAlreadyInStoreException(string message, Exception innerException) : base(message, innerException)
         {}
 
         /// <summary>

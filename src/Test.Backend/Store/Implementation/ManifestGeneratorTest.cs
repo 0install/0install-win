@@ -34,10 +34,7 @@ namespace ZeroInstall.Store.Implementation
     {
         private ManifestGenerator _someGenerator;
         private TemporaryDirectory _sandbox;
-        private string PackageFolder
-        {
-            get { return _sandbox.Path; }
-        }
+        private string PackageFolder { get { return _sandbox.Path; } }
 
         [SetUp]
         public void SetUp()
@@ -149,9 +146,7 @@ namespace ZeroInstall.Store.Implementation
             _someGenerator.StateChanged += delegate(ITask sender)
             {
                 if (sender.State == TaskState.Complete)
-                {
                     completedLock.Set();
-                }
             };
             _someGenerator.Start();
             _someGenerator.Join();

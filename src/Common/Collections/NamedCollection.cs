@@ -68,8 +68,8 @@ namespace Common.Collections
         {
             if (entry.Name == newName) return;
             if (Contains(newName)) throw new InvalidOperationException(Resources.KeyAlreadyPresent);
-            
-            ChangeItemKey(entry, newName); 
+
+            ChangeItemKey(entry, newName);
             entry.Name = newName;
 
             Sort();

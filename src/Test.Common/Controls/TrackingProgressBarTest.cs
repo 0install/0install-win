@@ -40,7 +40,10 @@ namespace Common.Controls
         public void SetUp()
         {
             _task = new MockTask();
-            try { _progressBar = new TrackingProgressBar(); }
+            try
+            {
+                _progressBar = new TrackingProgressBar();
+            }
             catch (TypeInitializationException ex)
             {
                 // Don't fail on Server systems

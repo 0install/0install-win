@@ -214,9 +214,9 @@ namespace ZeroInstall.Model
             int matchCounter = 0;
             return
                 PartialEqualsHelper(ref matchCounter, Sha1Old, other.Sha1Old) &&
-                PartialEqualsHelper(ref matchCounter, Sha1New, other.Sha1New) &&
-                PartialEqualsHelper(ref matchCounter, Sha256, other.Sha256) &&
-                (matchCounter > 0);
+                    PartialEqualsHelper(ref matchCounter, Sha1New, other.Sha1New) &&
+                        PartialEqualsHelper(ref matchCounter, Sha256, other.Sha256) &&
+                            (matchCounter > 0);
         }
 
         /// <summary>
@@ -276,7 +276,7 @@ namespace ZeroInstall.Model
 
             // Sort based on the best digest algorithm available
             int distance = BestDigest.CompareTo(other.BestDigest);
-            
+
             // Only return 0 for true equality
             if (distance == 0) distance = 1;
 

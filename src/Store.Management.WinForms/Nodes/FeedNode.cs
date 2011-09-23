@@ -39,11 +39,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
 
         #region Properties
         /// <inheritdoc/>
-        public override string Name
-        {
-            get { return Title + (SuffixCounter == 0 ? "" : " " + SuffixCounter); }
-            set { throw new NotSupportedException(); }
-        }
+        public override string Name { get { return Title + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
 
         /// <summary>
         /// The URI indentifying this feed.
@@ -111,8 +107,11 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                 {
                     if (Msg.Ask(Parent, Resources.DeleteEntry, MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
                     {
-                        try { Delete(Parent); }
-                        #region Error handling
+                        try
+                        {
+                            Delete(Parent);
+                        }
+                            #region Error handling
                         catch (KeyNotFoundException ex)
                         {
                             Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
@@ -126,6 +125,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                             Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
                         }
                         #endregion
+
                         Parent.RefreshList();
                     }
                 })

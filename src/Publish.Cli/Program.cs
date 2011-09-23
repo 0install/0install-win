@@ -29,6 +29,7 @@ using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Publish.Cli
 {
+
     #region Enumerations
     /// <summary>
     /// An errorlevel is returned to the original caller after the application terminates, to indicate success or the reason for failure.
@@ -64,11 +65,14 @@ namespace ZeroInstall.Publish.Cli
         public static int Main(string[] args)
         {
             // Automatically show help for missing args
-            if (args.Length == 0) args = new[] { "--help" };
+            if (args.Length == 0) args = new[] {"--help"};
 
             ParseResults results;
-            try { results = ParseArgs(args); }
-            #region Error handling
+            try
+            {
+                results = ParseArgs(args);
+            }
+                #region Error handling
             catch (UserCancelException)
             {
                 // This is reached if --help, --version or similar was used
@@ -81,8 +85,11 @@ namespace ZeroInstall.Publish.Cli
             }
             #endregion
 
-            try { return (int)Execute(results); }
-            #region Error hanlding
+            try
+            {
+                return (int)Execute(results);
+            }
+                #region Error hanlding
             catch (UserCancelException)
             {
                 return (int)ErrorLevel.UserCanceled;
@@ -152,19 +159,22 @@ namespace ZeroInstall.Publish.Cli
             var options = new OptionSet
             {
                 // Version information
-                {"V|version", Resources.OptionVersion, unused => {
-                    Console.WriteLine(AppInfo.Name + " " + AppInfo.Version + Environment.NewLine + AppInfo.Copyright + Environment.NewLine + Resources.LicenseInfo);
-                    throw new UserCancelException(); // Don't handle any of the other arguments
-                }},
-
-                // Mode selection
-                {"catalog=", Resources.OptionCatalog, delegate(string catalogFile)
                 {
-                    if (string.IsNullOrEmpty(catalogFile)) return;
-                    parseResults.Mode = OperationMode.Catalog;
-                    parseResults.CatalogFile = catalogFile;
-                }},
-
+                    "V|version", Resources.OptionVersion, unused =>
+                    {
+                        Console.WriteLine(AppInfo.Name + " " + AppInfo.Version + Environment.NewLine + AppInfo.Copyright + Environment.NewLine + Resources.LicenseInfo);
+                        throw new UserCancelException(); // Don't handle any of the other arguments
+                    }
+                    },
+                // Mode selection
+                {
+                    "catalog=", Resources.OptionCatalog, delegate(string catalogFile)
+                    {
+                        if (string.IsNullOrEmpty(catalogFile)) return;
+                        parseResults.Mode = OperationMode.Catalog;
+                        parseResults.CatalogFile = catalogFile;
+                    }
+                    },
                 // Signatures
                 {"x|xmlsign", Resources.OptionXmlSign, unused => parseResults.XmlSign = true},
                 {"u|unsign", Resources.OptionXmlSign, unused => parseResults.Unsign = true},
@@ -187,8 +197,11 @@ namespace ZeroInstall.Publish.Cli
 
             // Parse the arguments and call the hooked handlers
             var additionalArgs = options.Parse(args);
-            try { parseResults.Feeds = ArgumentUtils.GetFiles(additionalArgs, "*.xml"); }
-            #region Error handling
+            try
+            {
+                parseResults.Feeds = ArgumentUtils.GetFiles(additionalArgs, "*.xml");
+            }
+                #region Error handling
             catch (FileNotFoundException ex)
             {
                 // Report as an invalid command-line argument
@@ -241,7 +254,7 @@ namespace ZeroInstall.Publish.Cli
                 case OperationMode.Catalog:
                     // Default to using all XML files in the current directory
                     if (results.Feeds.Count == 0)
-                        results.Feeds = ArgumentUtils.GetFiles(new[] { Environment.CurrentDirectory }, "*.xml");
+                        results.Feeds = ArgumentUtils.GetFiles(new[] {Environment.CurrentDirectory}, "*.xml");
 
                     CreateCatalog(results);
                     return ErrorLevel.OK;

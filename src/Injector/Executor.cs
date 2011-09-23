@@ -40,7 +40,7 @@ namespace ZeroInstall.Injector
         /// The specific <see cref="Model.Implementation"/>s chosen for the <see cref="Dependency"/>s.
         /// </summary>
         public Selections Selections { get; set; }
-        
+
         /// <summary>
         /// Used to locate the selected <see cref="Model.Implementation"/>s.
         /// </summary>
@@ -277,7 +277,7 @@ namespace ZeroInstall.Injector
                 ? Path.Combine(implementationDirectory, FileUtils.UnifySlashes(binding.Insert ?? ""))
                 // A static value
                 : binding.Value;
-            
+
             // Set the default value if the variable is not already set on the system
             if (!environmentVariables.ContainsKey(binding.Name)) environmentVariables.Add(binding.Name, binding.Default);
 
@@ -287,7 +287,7 @@ namespace ZeroInstall.Injector
             switch (binding.Mode)
             {
                 default:
-                case EnvironmentMode.Prepend: 
+                case EnvironmentMode.Prepend:
                     environmentVariables[binding.Name] = string.IsNullOrEmpty(previousValue)
                         // No exisiting value, just set new one
                         ? newValue
@@ -330,7 +330,7 @@ namespace ZeroInstall.Injector
             startInfo.WorkingDirectory = Path.Combine(GetImplementationPath(implementation), source);
         }
         #endregion
-        
+
         #region Apply command-line
         /// <summary>
         /// Applies a command-line to a process launch environment, expanding Unix-style environment variables.

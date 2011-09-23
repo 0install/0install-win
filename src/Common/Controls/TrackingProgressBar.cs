@@ -35,6 +35,7 @@ namespace Common.Controls
     {
         #region Properties
         private ITask _task;
+
         /// <summary>
         /// The <see cref="ITask"/> to track.
         /// </summary>
@@ -73,7 +74,7 @@ namespace Common.Controls
             // Get the initial values
             StateChanged(_task);
             ProgressChanged(_task);
-                        
+
             _task.StateChanged += StateChanged;
             _task.ProgressChanged += ProgressChanged;
         }
@@ -180,7 +181,7 @@ namespace Common.Controls
             else if (progress > 1) progress = 1;
 
             // Copy value so it can be safely accessed from another thread
-            int currentValue = (int)(progress * 100);
+            var currentValue = (int)(progress * 100);
 
             // When the status is complete the bar should always be full
             if (sender.State == TaskState.Complete) currentValue = 100;
@@ -205,9 +206,7 @@ namespace Common.Controls
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 if (_task != null) HookOut();
-            }
             base.Dispose(disposing);
         }
         #endregion

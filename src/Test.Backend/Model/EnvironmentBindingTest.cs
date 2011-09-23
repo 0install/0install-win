@@ -43,7 +43,7 @@ namespace ZeroInstall.Model
         {
             var binding1 = CreateTestBinding();
             var binding2 = binding1.CloneBinding();
-            
+
             // Ensure data stayed the same
             Assert.AreEqual(binding1, binding2, "Cloned objects should be equal.");
             Assert.AreEqual(binding1.GetHashCode(), binding2.GetHashCode(), "Cloned objects' hashes should be equal.");

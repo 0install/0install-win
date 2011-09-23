@@ -77,7 +77,7 @@ namespace ZeroInstall.Updater
                 NewVersion = new Version(newVersion);
                 Target = Path.GetFullPath(target);
             }
-            #region Error handling
+                #region Error handling
             catch (ArgumentException ex)
             {
                 // Wrap exception since only certain exception types are allowed
@@ -125,9 +125,7 @@ namespace ZeroInstall.Updater
             if (NewVersion >= new Version("0.54.4"))
             {
                 foreach (string file in new[] {"ZeroInstall.MyApps.dll", Path.Combine("de", "ZeroInstall.MyApps.resources.dll")})
-                {
                     if (File.Exists(file)) File.Delete(file);
-                }
             }
         }
         #endregion
@@ -156,10 +154,10 @@ namespace ZeroInstall.Updater
                 try
                 {
                     // Check if the target path is the same as the Inno Setup installation directory
-                    string installationDirectoy = Registry.GetValue(InnoSetupRegKey, "Inno Setup: App Path", "") as string;
+                    var installationDirectoy = Registry.GetValue(InnoSetupRegKey, "Inno Setup: App Path", "") as string;
                     return (installationDirectoy == Target);
                 }
-                #region Error handling
+                    #region Error handling
                 catch (SecurityException ex)
                 {
                     // Wrap exception since only certain exception types are allowed in tasks
@@ -203,7 +201,7 @@ namespace ZeroInstall.Updater
                 Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Zero Install", "InstallLocation", Target, RegistryValueKind.String);
                 if (WindowsUtils.Is64BitProcess) Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Zero Install", "InstallLocation", Target, RegistryValueKind.String);
             }
-            #region Error handling
+                #region Error handling
             catch (SecurityException ex)
             {
                 // Wrap exception since only certain exception types are allowed in tasks

@@ -76,7 +76,10 @@ namespace ZeroInstall.Store.Implementation
             var result = new C5.TreeSet<ManifestDigest>();
             foreach (IStore store in _stores)
             {
-                try { result.AddSorted(store.ListAll()); }
+                try
+                {
+                    result.AddSorted(store.ListAll());
+                }
                 catch (UnauthorizedAccessException)
                 {
                     // Ignore authorization errors, since listing is not a critical task
@@ -136,7 +139,7 @@ namespace ZeroInstall.Store.Implementation
                     store.AddDirectory(path, manifestDigest, handler);
                     return;
                 }
-                #region Error handling
+                    #region Error handling
                 catch (IOException ex)
                 {
                     innerException = ex; // Remember the last error
@@ -172,7 +175,7 @@ namespace ZeroInstall.Store.Implementation
                     store.AddArchive(archiveInfo, manifestDigest, handler);
                     return;
                 }
-                #region Error handling
+                    #region Error handling
                 catch (IOException ex)
                 {
                     innerException = ex; // Remember the last error
@@ -206,7 +209,7 @@ namespace ZeroInstall.Store.Implementation
                     store.AddMultipleArchives(archiveInfos, manifestDigest, handler);
                     return;
                 }
-                #region Error handling
+                    #region Error handling
                 catch (IOException ex)
                 {
                     innerException = ex; // Remember the last error
@@ -256,15 +259,24 @@ namespace ZeroInstall.Store.Implementation
             // Try to optimize all contained stores
             foreach (IStore store in _stores)
             {
-                try { store.Optimise(handler); }
-                #region Sanity checks
-                catch (IOException ex) { Log.Error(ex.Message); }
-                catch (UnauthorizedAccessException ex) { Log.Error(ex.Message); }
+                try
+                {
+                    store.Optimise(handler);
+                }
+                    #region Sanity checks
+                catch (IOException ex)
+                {
+                    Log.Error(ex.Message);
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Log.Error(ex.Message);
+                }
                 #endregion
             }
         }
         #endregion
-        
+
         #region Verify
         /// <inheritdoc />
         public void Verify(ManifestDigest manifestDigest, ITaskHandler handler)

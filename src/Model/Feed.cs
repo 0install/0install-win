@@ -59,11 +59,7 @@ namespace ZeroInstall.Model
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="MinInjectorVersion"/>
         [XmlAttribute("min-injector-version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string MinInjectorVersionString
-        {
-            get { return (MinInjectorVersion == null ? null : MinInjectorVersion.ToString()); }
-            set { MinInjectorVersion = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); }
-        }
+        public string MinInjectorVersionString { get { return (MinInjectorVersion == null ? null : MinInjectorVersion.ToString()); } set { MinInjectorVersion = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
 
         /// <summary>
         /// This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).
@@ -76,11 +72,7 @@ namespace ZeroInstall.Model
         /// <seealso cref="Uri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("uri"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string UriString
-        {
-            get { return (Uri == null ? null : Uri.ToString()); }
-            set { Uri = (value == null ? null : new Uri(value)); }
-        }
+        public string UriString { get { return (Uri == null ? null : Uri.ToString()); } set { Uri = (value == null ? null : new Uri(value)); } }
 
         /// <summary>
         /// A short name to identify the interface (e.g. "Foo").
@@ -90,6 +82,7 @@ namespace ZeroInstall.Model
         public string Name { get; set; }
 
         private readonly LocalizableStringCollection _summaries = new LocalizableStringCollection();
+
         /// <summary>
         /// Short one-line descriptions for different languages; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills").
         /// </summary>
@@ -98,6 +91,7 @@ namespace ZeroInstall.Model
         public LocalizableStringCollection Summaries { get { return _summaries; } }
 
         private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
+
         /// <summary>
         /// Full descriptions for different languages, which can be several paragraphs long.
         /// </summary>
@@ -115,14 +109,11 @@ namespace ZeroInstall.Model
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Homepage"/>
         [XmlElement("homepage"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string HomepageString
-        {
-            get { return Homepage != null ? Homepage.ToString() : null; }
-            set { Homepage = (value == null ? null : new Uri(value)); }
-        }
+        public string HomepageString { get { return Homepage != null ? Homepage.ToString() : null; } set { Homepage = (value == null ? null : new Uri(value)); } }
 
         // Preserve order
         private readonly C5.LinkedList<Icon> _icons = new C5.LinkedList<Icon>();
+
         /// <summary>
         /// Zero or more icons to represent the program.
         /// </summary>
@@ -132,6 +123,7 @@ namespace ZeroInstall.Model
 
         // Order is preserved, duplicate entries are not intended
         private readonly C5.HashedLinkedList<string> _categories = new C5.HashedLinkedList<string>();
+
         /// <summary>
         /// Zero or more categories as defined by the freedesktop.org menu specification.
         /// </summary>
@@ -149,14 +141,11 @@ namespace ZeroInstall.Model
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="NeedsTerminal"/>
         [XmlElement("needs-terminal"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string NeedsTerminalString
-        {
-            get { return (NeedsTerminal ? "" : null); }
-            set { NeedsTerminal = (value != null); }
-        }
+        public string NeedsTerminalString { get { return (NeedsTerminal ? "" : null); } set { NeedsTerminal = (value != null); } }
 
         // Preserve order
         private readonly C5.LinkedList<FeedReference> _feeds = new C5.LinkedList<FeedReference>();
+
         /// <summary>
         /// Zero ore more additional feeds containing implementations of this interface.
         /// </summary>
@@ -166,6 +155,7 @@ namespace ZeroInstall.Model
 
         // Preserve order
         private readonly C5.LinkedList<InterfaceReference> _feedFor = new C5.LinkedList<InterfaceReference>();
+
         /// <summary>
         /// The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.
         /// </summary>
@@ -175,6 +165,7 @@ namespace ZeroInstall.Model
 
         // Preserve order
         private readonly C5.LinkedList<Element> _elements = new C5.LinkedList<Element>();
+
         /// <summary>
         /// A list of <see cref="Group"/>s and <see cref="Implementation"/>s contained within this interface.
         /// </summary>
@@ -184,6 +175,7 @@ namespace ZeroInstall.Model
 
         // Preserve order
         private readonly C5.LinkedList<EntryPoint> _entryPoints = new C5.LinkedList<EntryPoint>();
+
         /// <summary>
         /// A list of <see cref="EntryPoint"/>s for starting this interface.
         /// </summary>
@@ -193,17 +185,21 @@ namespace ZeroInstall.Model
 
         // Preserve order
         private readonly C5.LinkedList<CapabilityList> _capabilityLists = new C5.LinkedList<CapabilityList>();
+
         /// <summary>
         /// A set of <see cref="Capability"/> lists for different architectures.
         /// </summary>
         [Description("A set of Capability lists for different architectures.")]
         [XmlElement("capabilities", Namespace = Capability.XmlNamespace)]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.LinkedList<CapabilityList> CapabilityLists { get { return _capabilityLists; } }
+            public C5.LinkedList<CapabilityList> CapabilityLists
+        {
+            get { return _capabilityLists; }
+        }
         #endregion
 
         //--------------------//
-        
+
         #region Simplify
         /// <summary>
         /// Flattens the <see cref="Group"/> inheritance structure and sets missing default values in <see cref="Implementation"/>s.
@@ -467,7 +463,7 @@ namespace ZeroInstall.Model
             return CloneFeed();
         }
         #endregion
-        
+
         #region Conversion
         /// <summary>
         /// Returns the feed/interface in the form "Inteface Name (Uri)". Not safe for parsing!

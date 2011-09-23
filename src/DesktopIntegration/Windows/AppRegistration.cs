@@ -97,7 +97,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     var icon = target.Feed.GetIcon(Icon.MimeTypeIco, null);
                     capabilitiesKey.SetValue(RegValueAppIcon, IconProvider.GetIconPath(icon, true, handler) + ",0");
                 }
-                catch (KeyNotFoundException) {}
+                catch (KeyNotFoundException)
+                {}
 
                 using (var fileAssocsKey = capabilitiesKey.CreateSubKey(RegSubKeyFileAssocs))
                 {
@@ -156,8 +157,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 regAppsKey.DeleteValue(appRegistration.ID, false);
 
             // ToDo: Handle appRegistration.X64
-            try { Registry.LocalMachine.DeleteSubKeyTree(CapabilityPrefix + appRegistration.CapabilityRegPath); }
-            catch(ArgumentException) {} // Ignore missing registry keys
+            try
+            {
+                Registry.LocalMachine.DeleteSubKeyTree(CapabilityPrefix + appRegistration.CapabilityRegPath);
+            }
+            catch (ArgumentException)
+            {} // Ignore missing registry keys
         }
         #endregion
     }

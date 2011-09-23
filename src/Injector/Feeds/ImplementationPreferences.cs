@@ -36,6 +36,7 @@ namespace ZeroInstall.Injector.Feeds
         public string ID { get; set; }
 
         private Stability _userStability = Stability.Unset;
+
         /// <summary>
         /// A user-specified override for <see cref="Element.Stability"/> specified in the feed.
         /// </summary>
@@ -48,10 +49,7 @@ namespace ZeroInstall.Injector.Feeds
         /// </summary>
         [Browsable(false)]
         [XmlIgnore]
-        public bool IsSuperflous
-        {
-            get { return UserStability == Stability.Unset; }
-        }
+        public bool IsSuperflous { get { return UserStability == Stability.Unset; } }
         #endregion
 
         //--------------------//

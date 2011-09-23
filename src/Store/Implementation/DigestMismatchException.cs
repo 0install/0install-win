@@ -74,11 +74,11 @@ namespace ZeroInstall.Store.Implementation
         {}
 
         /// <inheritdoc/>
-        public DigestMismatchException(string message) : base(message) 
+        public DigestMismatchException(string message) : base(message)
         {}
 
         /// <inheritdoc/>
-        public DigestMismatchException(string message, Exception innerException) : base (message, innerException)
+        public DigestMismatchException(string message, Exception innerException) : base(message, innerException)
         {}
 
         /// <summary>
