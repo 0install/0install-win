@@ -98,6 +98,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="e">not used.</param>
         private void IntegrateAppForm_Load(object sender, EventArgs e)
         {
+            // TODO: use CapabilityList from AppList
             foreach (CapabilityList capabilityList in _target.Feed.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
             {
                 // file types
