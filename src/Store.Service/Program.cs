@@ -30,7 +30,7 @@ namespace ZeroInstall.Store.Service
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             // Prevent launch during update and allow instance detection
             string mutexName = "mutex-" + StringUtils.Hash(Locations.InstallBase, SHA256.Create());
