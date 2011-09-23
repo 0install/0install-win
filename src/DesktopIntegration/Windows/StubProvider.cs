@@ -133,6 +133,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         #endregion
 
         #region Get
+        private static readonly TimeSpan _freshness = new TimeSpan(0, 20, 0);
+
         /// <summary>
         /// Uses <see cref="BuildRunStub"/> to build a stub EXE in a well-known location. Future calls with the same arguments will return the same EXE without rebuilding it.
         /// </summary>
@@ -159,9 +161,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 ? entryPoint.BinaryName
                 : ModelUtils.Escape(target.Feed.Name);
 
-            // Return an existing stub or build a new one
+            // Return an existing stub or build a new one...
             string exePath = Path.Combine(dirPath, exeName + ".exe");
-            if (!File.Exists(exePath)) BuildRunStub(exePath, target, command, handler);
+            // ... if none exists or the existing one is too old
+            if (!File.Exists(exePath) || (DateTime.UtcNow - File.GetLastWriteTimeUtc(exePath) > _freshness)) BuildRunStub(exePath, target, command, handler);
             return exePath;
         }
         #endregion
