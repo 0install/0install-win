@@ -1,0 +1,40 @@
+/*
+ * Copyright 2011 Simon E. Silva Lauinger
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System.Globalization;
+using ZeroInstall.Model.Capabilities;
+
+namespace ZeroInstall.Commands.WinForms.CapabilityModels
+{
+    /// <summary>
+    /// The specialized <see cref="CapabilityModel{T}" /> adds a property for the description of an <see cref="IconCapability" />.
+    /// </summary>
+    /// <typeparam name="T">The type of the <see cref="IconCapability" />.</typeparam>
+    internal class IconCapabilityModel<T> : CapabilityModel<T> where T : IconCapability
+    {
+        #region Properties
+        /// <summary>
+        /// Returns the description of the <see cref="IconCapability" /> dependend on <see cref="CultureInfo.CurrentUICulture" />.
+        /// </summary>
+        public string BestDescription { get { return Capability.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture); } }
+        #endregion
+
+        /// <inheritdoc />
+        protected IconCapabilityModel(T capability, bool used) : base(capability, used)
+        {}
+    }
+}
