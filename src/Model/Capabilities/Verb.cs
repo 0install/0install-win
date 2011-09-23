@@ -103,7 +103,6 @@ namespace ZeroInstall.Model.Capabilities
         /// </summary>
         [Description("Localized human-readable descriptions of the verb as an alternative to Name.")]
         [XmlElement("description")]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         public LocalizableStringCollection Descriptions { get { return _descriptions; } }
         #endregion
 

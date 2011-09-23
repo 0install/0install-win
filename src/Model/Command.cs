@@ -70,7 +70,6 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("A list of command-line arguments to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.")]
         [XmlElement("arg")]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.LinkedList<string> Arguments { get { return _arguments; } }
         
         // Preserve order
@@ -80,7 +79,6 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("A list of bindings for implementations to locate dependencies.")]
         [XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding))]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.LinkedList<Binding> Bindings { get { return _bindings; } }
 
         /// <summary>
@@ -97,7 +95,6 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("A list of interfaces this command depends upon.")]
         [XmlElement("requires")]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.LinkedList<Dependency> Dependencies { get { return _dependencies; } }
 
         /// <summary>

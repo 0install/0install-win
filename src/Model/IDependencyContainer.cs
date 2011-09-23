@@ -30,7 +30,6 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Execution"), Description("A list of interfaces this implementation depends upon.")]
         [XmlElement("requires")]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         C5.LinkedList<Dependency> Dependencies { get; }
     }
 }

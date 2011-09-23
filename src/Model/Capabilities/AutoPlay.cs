@@ -64,7 +64,6 @@ namespace ZeroInstall.Model.Capabilities
         /// </summary>
         [Description("The IDs of the events this action can handle.")]
         [XmlElement("event")]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.LinkedList<AutoPlayEvent> Events { get { return _events; } }
 
         /// <inheritdoc/>

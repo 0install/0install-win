@@ -163,7 +163,6 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Execution"), Description("A list of interfaces this implementation depends upon.")]
         [XmlElement("requires")]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.LinkedList<Dependency> Dependencies { get { return _dependencies; } }
 
         // Preserve order
@@ -173,7 +172,6 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("A list of bindings for implementations to locate dependencies.")]
         [XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding))]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.LinkedList<Binding> Bindings { get { return _bindings; } }
 
         // Preserve order
@@ -184,7 +182,6 @@ namespace ZeroInstall.Model
         /// <remarks>This will eventually replace <see cref="Main"/> and <see cref="SelfTest"/>.</remarks>
         [Category("Execution"), Description("A list of commands that can be used to launch this implementation.")]
         [XmlElement("command")]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.LinkedList<Command> Commands { get { return _commands; } }
         #endregion
 

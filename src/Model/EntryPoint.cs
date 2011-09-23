@@ -69,7 +69,6 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("Localized user-friendly names for the command.")]
         [XmlElement("name")]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         public LocalizableStringCollection Names { get { return _names; } }
 
         private readonly LocalizableStringCollection _summaries = new LocalizableStringCollection();
@@ -78,7 +77,6 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("Short one-line descriptions for different languages; the first word should not be upper-case unless it is a proper noun (e.g. \"cures all ills\").")]
         [XmlElement("summary")]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         public LocalizableStringCollection Summaries { get { return _summaries; } }
 
         private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
@@ -87,7 +85,6 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("Full descriptions for different languages, which can be several paragraphs long.")]
         [XmlElement("description")]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         public LocalizableStringCollection Descriptions { get { return _descriptions; } }
 
         // Preserve order
@@ -97,7 +94,6 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("Zero or more icons to represent the command.")]
         [XmlElement("icon")]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.LinkedList<Icon> Icons { get { return _icons; } }
         #endregion
 

@@ -42,7 +42,6 @@ namespace ZeroInstall.Model.Capabilities
         /// </summary>
         [Description("A list of all file extensions associated with this file type.")]
         [XmlElement("extension")]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.HashedArrayList<FileTypeExtension> Extensions { get { return _extensions; } }
 
         /// <inheritdoc/>

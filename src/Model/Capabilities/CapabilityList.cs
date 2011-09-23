@@ -58,7 +58,6 @@ namespace ZeroInstall.Model.Capabilities
         /// </summary>
         [Description("A list of capabilities.")]
         [XmlElement(typeof(AppRegistration)), XmlElement(typeof(AutoPlay)), XmlElement(typeof(ComServer)), XmlElement(typeof(ContextMenu)), XmlElement(typeof(DefaultProgram)), XmlElement(typeof(FileType)), XmlElement(typeof(GamesExplorer)), XmlElement(typeof(UrlProtocol))]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.LinkedList<Capability> Entries { get { return _entries; } }
         #endregion
 

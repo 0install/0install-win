@@ -42,7 +42,6 @@ namespace ZeroInstall.Model.Capabilities
         /// </summary>
         [Description("The protocoles prefix such as \"http\". Should be empty and set in ID instead if it is a custom protocol.")]
         [XmlElement("known-prefix")]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.LinkedList<KnownProtocolPrefix> KnownPrefixes { get { return _knownPrefixes; } }
 
         /// <inheritdoc/>

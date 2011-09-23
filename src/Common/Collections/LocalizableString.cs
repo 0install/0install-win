@@ -59,7 +59,7 @@ namespace Common.Collections
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Language"/>
-        [XmlAttribute("lang", Namespace="http://www.w3.org/XML/1998/namespace", DataType = "language")] // Will be serialized as xml:lang, must be done this way for Mono
+        [XmlAttribute("lang", Namespace = "http://www.w3.org/XML/1998/namespace", DataType = "language") /* Will be serialized as xml:lang, must be done this way for Mono */]
         public string LanguageString
         {
             get { return Language.ToString(); }

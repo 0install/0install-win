@@ -40,7 +40,6 @@ namespace ZeroInstall.Model.Capabilities
         /// </summary>
         [Category("Interface"), Description("Human-readable descriptions of the AutoPlay operation in different languages.")]
         [XmlElement("description")]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         public LocalizableStringCollection Descriptions { get { return _descriptions; } }
 
         // Preserve order
@@ -50,7 +49,6 @@ namespace ZeroInstall.Model.Capabilities
         /// </summary>
         [Description("Zero or more icons to represent the capability.")]
         [XmlElement("icon", Namespace = Feed.XmlNamespace)]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.LinkedList<Icon> Icons { get { return _icons; } }
         #endregion
 

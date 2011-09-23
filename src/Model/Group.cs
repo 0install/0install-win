@@ -39,7 +39,6 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Implementation"), Description("A list of groups and implementations contained within this group.")]
         [XmlElement(typeof(Implementation)), XmlElement(typeof(PackageImplementation)), XmlElement(typeof(Group))]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.LinkedList<Element> Elements { get { return _elements; } }
         #endregion
 

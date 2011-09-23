@@ -47,7 +47,6 @@ namespace ZeroInstall.Model
         /// A list of <see cref="Feed"/>s contained within this catalog.
         /// </summary>
         [XmlElement("interface", typeof(Feed), Namespace = Feed.XmlNamespace)]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.LinkedList<Feed> Feeds { get { return _feeds; } }
         #endregion
 

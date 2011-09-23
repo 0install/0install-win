@@ -36,7 +36,6 @@ namespace ZeroInstall.Model.Capabilities
         /// </summary>
         [Description("A list of all available operations for the element.")]
         [XmlElement("verb")]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.LinkedList<Verb> Verbs { get { return _verbs; } }
         #endregion
 

@@ -37,8 +37,7 @@ namespace ZeroInstall.Model
         /// An ordered list of <see cref="RecipeStep"/>s to execute.
         /// </summary>
         [Description("An ordered list of archives to extract.")]
-        [XmlElement("archive", typeof(Archive))] // Note: explicit naming of XML tag can be removed once other RecipeStep types have been added
-        // Note: Can not use ICollection<T> interface because of XML Serialization
+        [XmlElement("archive", typeof(Archive)) /* Note: explicit naming of XML tag can be removed once other RecipeStep types have been added */]
         public C5.LinkedList<RecipeStep> Steps { get { return _steps; } }
 
         /// <summary>
