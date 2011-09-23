@@ -104,7 +104,7 @@ namespace ZeroInstall.Injector.Feeds
         }
 
         [Test(Description = "Ensures cached feeds that are stale are returned correctly.")]
-        private void TestCachedStale()
+        public void TestCachedStale()
         {
             var feed = new Feed();
 
