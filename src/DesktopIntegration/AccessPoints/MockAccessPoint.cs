@@ -19,14 +19,16 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using Common.Tasks;
+using ZeroInstall.Model;
+using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
-    /// A mock access point that does nothing. Used for testing.
+    /// A mock access point that does nothing (used for testing). Points to a <see cref="Capabilities.FileType"/>.
     /// </summary>
     [XmlType("mock", Namespace = AppList.XmlNamespace)]
-    public class MockAccessPoint : AccessPoint, IEquatable<MockAccessPoint>
+    public class MockAccessPoint : DefaultAccessPoint, IEquatable<MockAccessPoint>
     {
         #region Properties
         /// <summary>
@@ -46,12 +48,18 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Apply
         /// <inheritdoc/>
-        public override void Apply(AppEntry appEntry, InterfaceFeed target, bool systemWide, ITaskHandler handler)
-        {}
+        public override void Apply(AppEntry appEntry, Feed feed, bool systemWide, ITaskHandler handler)
+        {
+            // Trigger exceptions in case invalid capabilities are references
+            appEntry.GetCapability<Capabilities.FileType>(Capability);
+        }
 
         /// <inheritdoc/>
         public override void Unapply(AppEntry appEntry, bool systemWide)
-        {}
+        {
+            // Trigger exceptions in case invalid capabilities are references
+            appEntry.GetCapability<Capabilities.FileType>(Capability);
+        }
         #endregion
 
         //--------------------//

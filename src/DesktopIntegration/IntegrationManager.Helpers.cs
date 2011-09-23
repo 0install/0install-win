@@ -24,6 +24,7 @@ using Common.Collections;
 using Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
+using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration
@@ -31,14 +32,43 @@ namespace ZeroInstall.DesktopIntegration
     // Contains backend helper methods usable by sub-classes
     public partial class IntegrationManager
     {
-        #region AppEntry
+        #region Apps
+        /// <summary>
+        /// Creates a new <see cref="AppEntry"/> and adds it to the <see cref="AppList"/>.
+        /// </summary>
+        /// <param name="interfaceID">The interface ID of the application to remove.</param>
+        /// <param name="feed">The feed providing additional metadata, capabilities, etc. for the application.</param>
+        /// <returns>The newly created application entry (already added to <see cref="AppList"/>).</returns>
+        /// <exception cref="InvalidOperationException">Thrown if the application is already in the list.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        protected AppEntry AddAppHelper(string interfaceID, Feed feed)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (feed == null) throw new ArgumentNullException("feed");
+            #endregion
+
+            // Prevent double entries
+            if (AppList.ContainsEntry(interfaceID)) throw new InvalidOperationException(string.Format(Resources.AppAlreadyInList, feed.Name));
+
+            // Get basic metadata and copy of capabilities from feed
+            var appEntry = new AppEntry {InterfaceID = interfaceID, Name = feed.Name, Timestamp = DateTime.UtcNow};
+            appEntry.CapabilityLists.AddAll(feed.CapabilityLists.Map(list => list.CloneCapabilityList()));
+
+            AppList.Entries.Add(appEntry);
+            return appEntry;
+        }
+
         /// <summary>
         /// Removes an <see cref="AppEntry"/> from the <see cref="AppList"/> while unapplying any remaining <see cref="AccessPoint"/>s.
         /// </summary>
+        /// <param name="appEntry">The application to remove.</param>
+        /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to <see cref="Capabilities.Capability"/> is invalid.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Capabilities.Capability"/>s is invalid.</exception>
-        protected void RemoveAppEntry(AppEntry appEntry)
+        protected void RemoveAppHelper(AppEntry appEntry)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
@@ -55,61 +85,79 @@ namespace ZeroInstall.DesktopIntegration
         }
 
         /// <summary>
-        /// Tries to fo find an existing <see cref="AppEntry"/> in <see cref="AppList"/>.
+        /// Updates an <see cref="AppEntry"/> with new metadata and capabilities from a <see cref="Feed"/>. This may unapply and remove some existing <see cref="AccessPoint"/>s.
         /// </summary>
-        /// <param name="interfaceID">The <see cref="AppEntry.InterfaceID"/> to look for.</param>
-        /// <returns>The first matching <see cref="AppEntry"/> that was found; <see langword="null"/> if no match was found.</returns>
-        protected AppEntry FindAppEntry(string interfaceID)
+        /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to <see cref="Capabilities.Capability"/> is invalid.</exception>
+        /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="ZeroInstall.Model.Capabilities.Capability"/>s is invalid.</exception>
+        /// <param name="appEntry">The application entry to update.</param>
+        /// <param name="feed">The feed providing additional metadata, capabilities, etc. for the application.</param>
+        private void UpdateAppHelper(AppEntry appEntry, Feed feed)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
-            AppEntry appEntry;
-            AppList.Entries.Find(entry => entry.InterfaceID == interfaceID, out appEntry);
-            return appEntry;
-        }
+            var toReapply = new List<AccessPoint>();
+            if (appEntry.AccessPoints != null)
+            {
+                foreach (var accessPoint in appEntry.AccessPoints.Entries)
+                {
+                    if (accessPoint is DefaultAccessPoint || accessPoint is CapabilityRegistration)
+                        toReapply.Add(accessPoint);
+                }
+            }
+            RemoveAccessPointsHelper(appEntry, toReapply);
 
-        /// <summary>
-        /// Creates a new <see cref="AppEntry"/>.
-        /// </summary>
-        /// <param name="target">The application being integrated.</param>
-        /// <returns>The newly created <see cref="AppEntry"/>.</returns>
-        protected static AppEntry BuildAppEntry(InterfaceFeed target)
-        {
-            var appEntry = new AppEntry {InterfaceID = target.InterfaceID, Name = target.Feed.Name, Timestamp = DateTime.UtcNow};
-            foreach (var capabilityList in target.Feed.CapabilityLists)
-                appEntry.CapabilityLists.Add(capabilityList.CloneCapabilityList());
-            return appEntry;
+            // Update metadata and capabilities
+            appEntry.Name = feed.Name;
+            appEntry.CapabilityLists.Clear();
+            appEntry.CapabilityLists.AddAll(feed.CapabilityLists.Map(list => list.CloneCapabilityList()));
+
+            foreach (var accessPoint in toReapply)
+            {
+                try
+                {
+                    AddAccessPointsHelper(appEntry, feed, new[] {accessPoint});
+                }
+                catch (KeyNotFoundException)
+                {
+                    Log.Warn(string.Format("Access point '{0}' no longer compatible with interface '{1}'.", accessPoint, appEntry.InterfaceID));
+                }
+            }
+
+            appEntry.Timestamp = DateTime.UtcNow;
         }
         #endregion
 
         #region AccessPoint
         /// <summary>
-        /// Adds and applies <see cref="AccessPoint"/>s.
+        /// Applies <see cref="AccessPoint"/>s for an application.
         /// </summary>
-        /// <param name="accessPoints">The access points to unapply.</param>
-        /// <param name="appEntry">The <see cref="AppEntry"/> containing the <paramref name="accessPoints"/>.</param>
-        /// <param name="target">The application being integrated.</param>
+        /// <param name="appEntry">The application being integrated.</param>
+        /// <param name="feed">The feed providing additional metadata, icons, etc. for the application.</param>
+        /// <param name="accessPoints">The access points to apply.</param>
+        /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to <see cref="Capabilities.Capability"/> is invalid.</exception>
         /// <exception cref="InvalidOperationException">Thrown if one or more of the <paramref name="accessPoints"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Capabilities.Capability"/>s is invalid.</exception>
-        protected void AddAccessPoints(IEnumerable<AccessPoint> accessPoints, AppEntry appEntry, InterfaceFeed target)
+        protected void AddAccessPointsHelper(AppEntry appEntry, Feed feed, IEnumerable<AccessPoint> accessPoints)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (feed == null) throw new ArgumentNullException("feed");
             if (accessPoints == null) throw new ArgumentNullException("accessPoints");
             #endregion
 
             if (appEntry.AccessPoints == null) appEntry.AccessPoints = new AccessPointList();
 
-            CheckForConflicts(accessPoints, appEntry);
+            CheckForConflicts(appEntry, accessPoints);
 
             EnumerableUtils.ApplyWithRollback(accessPoints,
-                accessPoint => accessPoint.Apply(appEntry, target, SystemWide, _handler),
+                accessPoint => accessPoint.Apply(appEntry, feed, SystemWide, _handler),
                 accessPoint =>
                 {
                     // Don't perform rollback if the access point was already applied previously and this was only a refresh
@@ -124,19 +172,22 @@ namespace ZeroInstall.DesktopIntegration
         }
 
         /// <summary>
-        /// Removes and unapplies already applied <see cref="AccessPoint"/>s.
+        /// Removes already applied <see cref="AccessPoint"/>s for an application.
         /// </summary>
-        /// <param name="accessPoints">The access points to unapply.</param>
         /// <param name="appEntry">The <see cref="AppEntry"/> containing the <paramref name="accessPoints"/>.</param>
+        /// <param name="accessPoints">The access points to unapply.</param>
+        /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to <see cref="Capabilities.Capability"/> is invalid.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Capabilities.Capability"/>s is invalid.</exception>
-        protected void RemoveAccessPoints(IEnumerable<AccessPoint> accessPoints, AppEntry appEntry)
+        protected void RemoveAccessPointsHelper(AppEntry appEntry, IEnumerable<AccessPoint> accessPoints)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             if (accessPoints == null) throw new ArgumentNullException("accessPoints");
             #endregion
+
+            if (appEntry.AccessPoints == null) return;
 
             foreach (var accessPoint in accessPoints)
                 accessPoint.Unapply(appEntry, SystemWide);
@@ -149,14 +200,15 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Checks new <see cref="AccessPoint"/>s for conflicts with existing ones.
         /// </summary>
-        /// <param name="accessPoints">The access point to check for conflicts.</param>
         /// <param name="appEntry">The <see cref="AppEntry"/> the <paramref name="accessPoints"/> will be added to.</param>
+        /// <param name="accessPoints">The access point to check for conflicts.</param>
+        /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to <see cref="Capabilities.Capability"/> is invalid.</exception>
         /// <exception cref="InvalidOperationException">Thrown if one or more of the <paramref name="accessPoints"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
-        private void CheckForConflicts(IEnumerable<AccessPoint> accessPoints, AppEntry appEntry)
+        private void CheckForConflicts(AppEntry appEntry, IEnumerable<AccessPoint> accessPoints)
         {
             #region Sanity checks
-            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
             if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
             #endregion
 
             var conflictIDs = AppList.GetConflictIDs();

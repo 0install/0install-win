@@ -65,7 +65,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Apply
         /// <inheritdoc/>
-        public override void Apply(AppEntry appEntry, InterfaceFeed target, bool systemWide, ITaskHandler handler)
+        public override void Apply(AppEntry appEntry, Feed feed, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
@@ -75,6 +75,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (!WindowsUtils.IsWindows) return;
 
             // Register all applicable capabilities
+            var target = new InterfaceFeed(appEntry.InterfaceID, feed);
             foreach (var capabilityList in appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
             {
                 // Note: Enumerating only once and using nested if-clauses to determine types would be more efficient but less maintainable

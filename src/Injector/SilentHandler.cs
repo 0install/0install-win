@@ -19,6 +19,7 @@ using Common;
 using Common.Tasks;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector.Solver;
+using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Injector
@@ -52,7 +53,7 @@ namespace ZeroInstall.Injector
         }
 
         /// <inheritdoc />
-        public bool AcceptNewKey(string information)
+        public bool AskQuestion(string question, string batchInformation)
         {
             return false;
         }
@@ -76,7 +77,7 @@ namespace ZeroInstall.Injector
         }
 
         /// <inheritdoc/>
-        public void ShowIntegrateApp(IIntegrationManager integrationManager, InterfaceFeed target)
+        public void ShowIntegrateApp(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed)
         {
             // No UI, so nothing to do
         }

@@ -23,6 +23,7 @@ using System.IO;
 using System.Xml.Serialization;
 using Common.Storage;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.DesktopIntegration.Properties;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -58,6 +59,39 @@ namespace ZeroInstall.DesktopIntegration
         #endregion
 
         //--------------------//
+
+        #region Access
+        /// <summary>
+        /// Checks whether an <see cref="AppEntry"/> for a specific interface ID exists.
+        /// </summary>
+        /// <param name="interfaceID">The <see cref="AppEntry.InterfaceID"/> to look for.</param>
+        /// <returns><see langword="true"/> if a matching entry was found; <see langword="false"/> otherwise.</returns>
+        public bool ContainsEntry(string interfaceID)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            #endregion
+
+            return Entries.Exists(entry => entry.InterfaceID == interfaceID);
+        }
+
+        /// <summary>
+        /// Tries to find an <see cref="AppEntry"/> for a specific interface ID.
+        /// </summary>
+        /// <param name="interfaceID">The <see cref="AppEntry.InterfaceID"/> to look for.</param>
+        /// <returns>The first matching <see cref="AppEntry"/> ; <see langword="null"/> if no match was found.</returns>
+        /// <exception cref="KeyNotFoundException">Thrown if no entry matching the interface ID was found.</exception>
+        public AppEntry GetEntry(string interfaceID)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            #endregion
+
+            AppEntry appEntry;
+            if (!Entries.Find(entry => entry.InterfaceID == interfaceID, out appEntry)) throw new KeyNotFoundException(string.Format(Resources.AppNotInList, interfaceID));
+            return appEntry;
+        }
+        #endregion
 
         #region Conflict IDs
         /// <summary>

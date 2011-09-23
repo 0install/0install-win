@@ -22,12 +22,9 @@ using Common.Collections;
 using Common.Controls;
 using ZeroInstall.Commands.WinForms.CapabilityModels;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Model;
-using ZeroInstall.Model.Capabilities;
-using DefaultProgram = ZeroInstall.Model.Capabilities.DefaultProgram;
-using FileType = ZeroInstall.Model.Capabilities.FileType;
-using UrlProtocol = ZeroInstall.Model.Capabilities.UrlProtocol;
+using AccessPoints = ZeroInstall.DesktopIntegration.AccessPoints;
+using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.Commands.WinForms
 {
@@ -38,14 +35,19 @@ namespace ZeroInstall.Commands.WinForms
     {
         #region Variables
         /// <summary>
-        /// The <see cref="IIntegrationManager"/> to be used by this form.
+        /// The integration manager used to apply selected integration options.
         /// </summary>
         private readonly IIntegrationManager _integrationManager;
 
         /// <summary>
-        /// The <see cref="InterfaceFeed"/> to be used by this form.
+        /// The application being integrated.
         /// </summary>
-        private readonly InterfaceFeed _target;
+        private readonly AppEntry _appEntry;
+
+        /// <summary>
+        /// The feed providing additional metadata, icons, etc. for the application.
+        /// </summary>
+        private readonly Feed _feed;
 
         /// <summary>
         /// List of the <see cref="Model.Capabilities.DefaultProgram"/>s handled by this form.
@@ -66,79 +68,84 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Creates an instance of the form.
         /// </summary>
-        /// <param name="integrationManager">The <see cref="IIntegrationManager"/> to be used by this form.</param>
-        /// <param name="target">The <see cref="InterfaceFeed"/> to be used by this form.</param>
-        private IntegrateAppForm(IIntegrationManager integrationManager, InterfaceFeed target)
+        /// <param name="integrationManager">The integration manager used to apply selected integration options.</param>
+        /// <param name="appEntry">The application being integrated.</param>
+        /// <param name="feed">The feed providing additional metadata, icons, etc. for the application.</param>
+        private IntegrateAppForm(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed)
         {
             InitializeComponent();
 
             _integrationManager = integrationManager;
-            _target = target;
+            _appEntry = appEntry;
+            _feed = feed;
         }
 
         /// <summary>
         /// Displays the form as a modal dialog.
         /// </summary>
         /// <param name="integrationManager">The integration manager used to apply selected integration options.</param>
-        /// <param name="target">The application to be integrated.</param>
-        public static void ShowDialog(IIntegrationManager integrationManager, InterfaceFeed target)
+        /// <param name="appEntry">The application being integrated.</param>
+        /// <param name="feed">The feed providing additional metadata, icons, etc. for the application.</param>
+        public static void ShowDialog(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed)
         {
             #region Sanity checks
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
-            using (var form = new IntegrateAppForm(integrationManager, target))
+            using (var form = new IntegrateAppForm(integrationManager, appEntry, feed))
                 form.ShowDialog();
         }
 
         /// <summary>
-        /// Loads the <see cref="Capability"/>s of <see cref="_target"/> into the controls of this form.
+        /// Loads the <see cref="Capabilities.Capability"/>s of <see cref="_appEntry"/> into the controls of this form.
         /// </summary>
         /// <param name="sender">not used.</param>
         /// <param name="e">not used.</param>
         private void IntegrateAppForm_Load(object sender, EventArgs e)
         {
-            // TODO: use CapabilityList from AppList
-            foreach (CapabilityList capabilityList in _target.Feed.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
+            foreach (Capabilities.CapabilityList capabilityList in _appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
             {
                 // file types
-                foreach (FileType fileType in EnumerableUtils.OfType<FileType>(capabilityList.Entries))
-                    _fileTypeList.Add(new FileTypeModel(fileType, IsCapabillityUsed<DesktopIntegration.AccessPoints.FileType>(fileType)));
+                foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(capabilityList.Entries))
+                    _fileTypeList.Add(new FileTypeModel(fileType, IsCapabillityUsed<AccessPoints.FileType>(fileType)));
 
                 // url protocols
-                foreach (UrlProtocol urlProtocol in EnumerableUtils.OfType<UrlProtocol>(capabilityList.Entries))
-                    _urlProtocolList.Add(new UrlProtocolModel(urlProtocol, IsCapabillityUsed<DesktopIntegration.AccessPoints.UrlProtocol>(urlProtocol)));
+                foreach (var urlProtocol in EnumerableUtils.OfType<Capabilities.UrlProtocol>(capabilityList.Entries))
+                    _urlProtocolList.Add(new UrlProtocolModel(urlProtocol, IsCapabillityUsed<AccessPoints.UrlProtocol>(urlProtocol)));
 
-                // TODO: show only if --global
-                // default program
-                foreach (DefaultProgram defaultProgram in EnumerableUtils.OfType<DefaultProgram>(capabilityList.Entries))
-                    _defaultProgramList.Add(new DefaultProgramModel(defaultProgram, IsCapabillityUsed<DesktopIntegration.AccessPoints.DefaultProgram>(defaultProgram)));
+                if (_integrationManager.SystemWide)
+                {
+                    // default program
+                    foreach (var defaultProgram in EnumerableUtils.OfType<Capabilities.DefaultProgram>(capabilityList.Entries))
+                        _defaultProgramList.Add(new DefaultProgramModel(defaultProgram, IsCapabillityUsed<AccessPoints.DefaultProgram>(defaultProgram)));
+                }
             }
 
             dataGridViewFileType.DataSource = _fileTypeList;
             dataGridViewUrlProtocols.DataSource = _urlProtocolList;
+            dataGridViewDefaultPrograms.Visible = _integrationManager.SystemWide;
             dataGridViewDefaultPrograms.DataSource = _defaultProgramList;
         }
 
         /// <summary>
-        /// Checks whether a <see cref="Capability" /> is already used by the user.
+        /// Checks whether a <see cref="Capabilities.Capability" /> is already used by the user.
         /// </summary>
         /// <typeparam name="T">Type of the <see cref="ZeroInstall.DesktopIntegration.AccessPoints.DefaultAccessPoint"/> to which <paramref name="toCheck"/> belongs to.</typeparam>
-        /// <param name="toCheck">The <see cref="Capability"/> to check for usage.</param>
+        /// <param name="toCheck">The <see cref="Capabilities.Capability"/> to check for usage.</param>
         /// <returns><see langword="true"/>, if <paramref name="toCheck"/> is already in usage.</returns>
-        private bool IsCapabillityUsed<T>(Capability toCheck) where T : DefaultAccessPoint
+        private bool IsCapabillityUsed<T>(Capabilities.Capability toCheck) where T : AccessPoints.DefaultAccessPoint
         {
-            AppEntry appEntry;
-            if (_integrationManager.AppList.Entries.Find(entry => entry.InterfaceID == _target.InterfaceID, out appEntry))
-            {
-                foreach (T accessPoint in EnumerableUtils.OfType<T>(appEntry.AccessPoints.Entries))
-                    if (accessPoint.Capability == toCheck.ID) return true;
-            }
+            if (_appEntry.AccessPoints == null) return false;
+
+            foreach (T accessPoint in EnumerableUtils.OfType<T>(_appEntry.AccessPoints.Entries))
+                if (accessPoint.Capability == toCheck.ID) return true;
             return false;
         }
 
         /// <summary>
-        /// Integrates all <see cref="Capability"/>s chosen by the user.
+        /// Integrates all <see cref="Capabilities.Capability"/>s chosen by the user.
         /// </summary>
         /// <param name="sender">not used.</param>
         /// <param name="e">not used.</param>
@@ -148,35 +155,35 @@ namespace ZeroInstall.Commands.WinForms
             Hide();
 
             // file type
-            ApplyDefaultCapabilitiesIntegration<FileType, FileTypeModel, DesktopIntegration.AccessPoints.FileType>(_fileTypeList);
+            ApplyDefaultCapabilitiesIntegration<Capabilities.FileType, FileTypeModel, AccessPoints.FileType>(_fileTypeList);
             // url protocol
-            ApplyDefaultCapabilitiesIntegration<UrlProtocol, UrlProtocolModel, DesktopIntegration.AccessPoints.UrlProtocol>(_urlProtocolList);
+            ApplyDefaultCapabilitiesIntegration<Capabilities.UrlProtocol, UrlProtocolModel, AccessPoints.UrlProtocol>(_urlProtocolList);
             // default program
-            ApplyDefaultCapabilitiesIntegration<DefaultProgram, DefaultProgramModel, DesktopIntegration.AccessPoints.DefaultProgram>(_defaultProgramList);
+            ApplyDefaultCapabilitiesIntegration<Capabilities.DefaultProgram, DefaultProgramModel, AccessPoints.DefaultProgram>(_defaultProgramList);
 
             // ToDo: Apply remaining integrations
         }
 
         /// <summary>
-        /// Adds and/or removes the integration of a list of <see cref="Capability"/>s.
+        /// Adds and/or removes the integration of a list of <see cref="Capabilities.Capability"/>s.
         /// </summary>
-        /// <typeparam name="TCapability">Type of the <see cref="Capability"/>.</typeparam>
+        /// <typeparam name="TCapability">Type of the <see cref="Capabilities.Capability"/>.</typeparam>
         /// <typeparam name="TModel">Type of the <see cref="CapabilityModel{T}"/>. Should be a type that holds an <typeparamref name="TCapability"/>.</typeparam>
         /// <typeparam name="TAccessPoint">Type of the <see cref="ZeroInstall.DesktopIntegration.AccessPoints.AccessPoint"/>. Should be a suitable type to <typeparamref name="TCapability"/>.</typeparam>
         /// <param name="capabilityModels">That shall be integrated or removed.</param>
         private void ApplyDefaultCapabilitiesIntegration<TCapability, TModel, TAccessPoint>(IEnumerable<TModel> capabilityModels)
-            where TCapability : Capability
+            where TCapability : Capabilities.Capability
             where TModel : CapabilityModel<TCapability>
-            where TAccessPoint : DefaultAccessPoint, new()
+            where TAccessPoint : AccessPoints.DefaultAccessPoint, new()
         {
             foreach (TModel capabilityModel in capabilityModels)
             {
                 if (!capabilityModel.Changed) continue;
 
                 if (capabilityModel.Use)
-                    _integrationManager.AddAccessPoints(_target, new AccessPoint[] {new TAccessPoint {Capability = capabilityModel.Capability.ID}});
+                    _integrationManager.AddAccessPoints(_appEntry, _feed, new AccessPoints.AccessPoint[] {new TAccessPoint {Capability = capabilityModel.Capability.ID}});
                 else
-                    _integrationManager.RemoveAccessPoints(_target.InterfaceID, new AccessPoint[] {new TAccessPoint {Capability = capabilityModel.Capability.ID}});
+                    _integrationManager.RemoveAccessPoints(_appEntry, new AccessPoints.AccessPoint[] { new TAccessPoint { Capability = capabilityModel.Capability.ID } });
             }
         }
     }

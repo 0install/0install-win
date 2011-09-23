@@ -20,6 +20,7 @@ using Common.Tasks;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
+using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Injector
@@ -62,15 +63,16 @@ namespace ZeroInstall.Injector
         void CloseProgressUI();
 
         /// <summary>
-        /// Asks the whether to trust a new GPG key.
+        /// Asks the user a Yes/No question (e.g., whether to trust a new GPG key).
         /// </summary>
-        /// <param name="information">Comprehensive information about the new key, to help the user make an informed decision.</param>
-        /// <returns><see langword="true"/> if the user accepted the new key; <see langword="false"/> if it was rejected.</returns>
+        /// <param name="question">The question and comprehensive information to help the user make an informed decision.</param>
+        /// <param name="batchInformation">Information to be displayed if the question was automatically answered with 'No' because <see cref="Batch"/> was set to <see langword="true"/>.</param>
+        /// <returns><see langword="true"/> if the user answered with 'Yes'; <see langword="false"/> if the user answered with 'No'.</returns>
         /// <remarks>
         ///   <para>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</para>
         ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
         /// </remarks>
-        bool AcceptNewKey(string information);
+        bool AskQuestion(string question, string batchInformation);
 
         /// <summary>
         /// Shows the user the <see cref="Selections"/> made by the <see cref="ISolver"/>.
@@ -101,7 +103,7 @@ namespace ZeroInstall.Injector
         /// <param name="title">A title for the information. Will only be displayed in GUIs, not on the console. Must not contain critical information!</param>
         /// <param name="information">The information to display.</param>
         /// <remarks>
-        ///   <para>This may trigger <see cref="DisableProgressUI"/> as a side effect. Use <see cref="AcceptNewKey"/>, <see cref="Log"/> or exceptions to avoid this.</para>
+        ///   <para>This may trigger <see cref="DisableProgressUI"/> as a side effect. Use <see cref="AskQuestion"/>, <see cref="Log"/> or exceptions to avoid this.</para>
         ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
         /// </remarks>
         void Output(string title, string information);
@@ -110,9 +112,10 @@ namespace ZeroInstall.Injector
         /// Displays application integration options to the user.
         /// </summary>
         /// <param name="integrationManager">The integration manager used to apply selected integration options.</param>
-        /// <param name="target">The application to be integrated.</param>
+        /// <param name="appEntry">The application being integrated.</param>
+        /// <param name="feed">The feed providing additional metadata, icons, etc. for the application.</param>
         /// <remarks>This may trigger <see cref="DisableProgressUI"/> as a side effect.</remarks>
-        void ShowIntegrateApp(IIntegrationManager integrationManager, InterfaceFeed target);
+        void ShowIntegrateApp(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed);
 
         /// <summary>
         /// Displays the configuration settings to the user.

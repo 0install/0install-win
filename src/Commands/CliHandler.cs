@@ -24,6 +24,7 @@ using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
+using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Commands
@@ -91,18 +92,22 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
-        #region Key control
+        #region Question
         /// <inheritdoc />
-        public bool AcceptNewKey(string information)
+        public bool AskQuestion(string question, string batchInformation)
         {
-            if (Batch) return false;
+            if (Batch)
+            {
+                Log.Warn(batchInformation);
+                return false;
+            }
 
-            Log.Info(information);
+            Log.Info(question);
 
             // Loop until the user has made a valid choice
             while (true)
             {
-                switch ((CliUtils.ReadString("Trust [Y/N] ") ?? "n").ToLower())
+                switch ((CliUtils.ReadString("[Y/N] ") ?? "n").ToLower())
                 {
                     case "y":
                     case "yes":
@@ -139,7 +144,7 @@ namespace ZeroInstall.Commands
 
         #region Dialogs
         /// <inheritdoc />
-        public void ShowIntegrateApp(IIntegrationManager integrationManager, InterfaceFeed target)
+        public void ShowIntegrateApp(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed)
         {
             // ToDo: Implement text-based UI
             Output(Resources.DesktopIntegration, Resources.IntegrateAppUseGui);

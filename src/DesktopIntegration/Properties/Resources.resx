@@ -138,4 +138,7 @@
   <data name="ShortcutNameInvalidChars" xml:space="preserve">
     <value>The shortcut name '{0}' contains invalid characters.</value>
   </data>
+  <data name="UnableToFindTypeID" xml:space="preserve">
+    <value>Unable to find {0} with the ID '{1}'.</value>
+  </data>
 </root>

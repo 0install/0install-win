@@ -18,14 +18,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using System.Threading;
-using Common;
 using Common.Storage;
 using Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
-using Capabilities = ZeroInstall.Model.Capabilities;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -46,9 +44,6 @@ namespace ZeroInstall.DesktopIntegration
         #endregion
 
         #region Variables
-        /// <summary>Apply operations system-wide instead of just for the current user.</summary>
-        protected readonly bool SystemWide;
-
         /// <summary>The storage location of the <see cref="AppList"/> file.</summary>
         protected readonly string AppListPath;
 
@@ -60,10 +55,11 @@ namespace ZeroInstall.DesktopIntegration
         #endregion
 
         #region Properties
-        /// <summary>
-        /// Stores a list of applications and their desktop integrations. Do not modify this externally! Use this class' methods instead.
-        /// </summary>
+        /// <inheritdoc/>
         public AppList AppList { get; private set; }
+
+        /// <inheritdoc/>
+        public bool SystemWide { get; private set; }
         #endregion
 
         #region Constructor
@@ -114,97 +110,110 @@ namespace ZeroInstall.DesktopIntegration
         //--------------------//
 
         #region Apps
-        /// <summary>
-        /// Adds an application to the application list.
-        /// </summary>
-        /// <param name="target">The application being integrated.</param>
-        /// <exception cref="InvalidOperationException">Thrown if the application is already in the list.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public void AddApp(InterfaceFeed target)
-        {
-            // Prevent double entries
-            AppEntry existingEntry = FindAppEntry(target.InterfaceID);
-            if (existingEntry != null) throw new InvalidOperationException(string.Format(Resources.AppAlreadyInList, existingEntry.Name));
-
-            AppList.Entries.Add(BuildAppEntry(target));
-            Complete();
-        }
-
-        /// <summary>
-        /// Removes an application from the application list.
-        /// </summary>
-        /// <param name="interfaceID">The interface for the application to perform the remove.</param>
-        /// <exception cref="InvalidOperationException">Thrown if the application is not in the list.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Capabilities.Capability"/>s is invalid.</exception>
-        public void RemoveApp(string interfaceID)
+        /// <inheritdoc/>
+        public AppEntry AddApp(string interfaceID, Feed feed)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
-            AppEntry appEntry = FindAppEntry(interfaceID);
-            if (appEntry == null) throw new InvalidOperationException(string.Format(Resources.AppNotInList, interfaceID));
+            var appEntry = AddAppHelper(interfaceID, feed);
+            Complete();
+            return appEntry;
+        }
 
-            RemoveAppEntry(appEntry);
+        /// <inheritdoc/>
+        public void RemoveApp(AppEntry appEntry)
+        {
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            #endregion
+
+            try
+            {
+                RemoveAppHelper(appEntry);
+            }
+                #region Error handling
+            catch (KeyNotFoundException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new InvalidDataException(ex.Message, ex);
+            }
+            #endregion
+
+            Complete();
+        }
+
+        /// <inheritdoc/>
+        public void UpdateApp(AppEntry appEntry, Feed feed)
+        {
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (feed == null) throw new ArgumentNullException("feed");
+            #endregion
+
+            try
+            {
+                UpdateAppHelper(appEntry, feed);
+            }
+                #region Error handling
+            catch (KeyNotFoundException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new InvalidDataException(ex.Message, ex);
+            }
+            #endregion
+
             Complete();
         }
         #endregion
 
         #region AccessPoints
-        /// <summary>
-        /// Applies <see cref="AccessPoint"/>s for an application.
-        /// </summary>
-        /// <param name="target">The application being integrated.</param>
-        /// <param name="toAdd">The <see cref="AccessPoint"/>s to apply.</param>
-        /// <exception cref="InvalidOperationException">Thrown if one or more of the <paramref name="toAdd"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Capabilities.Capability"/>s is invalid.</exception>
-        public void AddAccessPoints(InterfaceFeed target, IEnumerable<AccessPoint> toAdd)
+        /// <inheritdoc/>
+        public void AddAccessPoints(AppEntry appEntry, Feed feed, IEnumerable<AccessPoint> accessPoints)
         {
             #region Sanity checks
-            if (toAdd == null) throw new ArgumentNullException("toAdd");
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (feed == null) throw new ArgumentNullException("feed");
+            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
             #endregion
 
-            // Implicitly add application to list if missing
-            AppEntry appEntry = FindAppEntry(target.InterfaceID);
-            if (appEntry == null)
+            try
             {
-                appEntry = BuildAppEntry(target);
-                AppList.Entries.Add(appEntry);
+                AddAccessPointsHelper(appEntry, feed, accessPoints);
             }
+                #region Error handling
+            catch (KeyNotFoundException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new InvalidDataException(ex.Message, ex);
+            }
+            #endregion
 
-            AddAccessPoints(toAdd, appEntry, target);
             Complete();
         }
 
-        /// <summary>
-        /// Removes already applied <see cref="AccessPoint"/>s for an application.
-        /// </summary>
-        /// <param name="interfaceID">The interface for the application to perform the operation on.</param>
-        /// <param name="toRemove">The <see cref="AccessPoint"/>s to remove.</param>
-        /// <exception cref="InvalidOperationException">Thrown if the application is not in the list.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Capabilities.Capability"/>s is invalid.</exception>
-        public void RemoveAccessPoints(string interfaceID, IEnumerable<AccessPoint> toRemove)
+        /// <inheritdoc/>
+        public void RemoveAccessPoints(AppEntry appEntry, IEnumerable<AccessPoint> accessPoints)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
-            if (toRemove == null) throw new ArgumentNullException("toRemove");
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
             #endregion
 
-            // Handle missing entries
-            AppEntry appEntry = FindAppEntry(interfaceID);
-            if (appEntry == null) throw new InvalidOperationException(string.Format(Resources.AppNotInList, interfaceID));
-            if (appEntry.AccessPoints == null) return;
+            try
+            {
+                RemoveAccessPointsHelper(appEntry, accessPoints);
+            }
+                #region Error handling
+            catch (KeyNotFoundException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new InvalidDataException(ex.Message, ex);
+            }
+            #endregion
 
-            RemoveAccessPoints(toRemove, appEntry);
             Complete();
         }
         #endregion
@@ -231,7 +240,11 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="disposing"><see langword="true"/> if called manually and not by the garbage collector.</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (_mutex != null) _mutex.ReleaseMutex();
+            if (_mutex != null)
+            {
+                _mutex.ReleaseMutex();
+                _mutex.Close();
+            }
         }
         #endregion
     }

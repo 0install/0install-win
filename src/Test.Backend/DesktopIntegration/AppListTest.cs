@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Collections.Generic;
 using Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration.AccessPoints;
@@ -40,6 +41,7 @@ namespace ZeroInstall.DesktopIntegration
                     {
                         new AppEntry
                         {
+                            InterfaceID = "http://0install.de/feeds/test/test1.xml",
                             AutoUpdate = true,
                             CapabilityLists = {Capabilities.CapabilityListTest.CreateTestCapabilityList()}
                         }
@@ -58,6 +60,7 @@ namespace ZeroInstall.DesktopIntegration
                     {
                         new AppEntry
                         {
+                            InterfaceID = "http://0install.de/feeds/test/test1.xml",
                             AutoUpdate = true,
                             CapabilityLists = {Capabilities.CapabilityListTest.CreateTestCapabilityList()},
                             AccessPoints = CreateTestAccessPointList()
@@ -117,6 +120,22 @@ namespace ZeroInstall.DesktopIntegration
             Assert.AreEqual(appList, appList2, "Serialized objects should be equal.");
             Assert.AreEqual(appList.GetHashCode(), appList2.GetHashCode(), "Serialized objects' hashes should be equal.");
             Assert.IsFalse(ReferenceEquals(appList, appList2), "Serialized objects should not return the same reference.");
+        }
+
+        [Test]
+        public void TestContainsEntry()
+        {
+            var appList = CreateTestAppListWithAPs();
+            Assert.IsTrue(appList.ContainsEntry("http://0install.de/feeds/test/test1.xml"));
+            Assert.IsFalse(appList.ContainsEntry("http://0install.de/feeds/test/test2.xml"));
+        }
+
+        [Test]
+        public void TestGetEntry()
+        {
+            var appList = CreateTestAppListWithAPs();
+            Assert.AreEqual(appList.Entries.First, appList.GetEntry("http://0install.de/feeds/test/test1.xml"));
+            Assert.Throws<KeyNotFoundException>(() => appList.GetEntry("http://0install.de/feeds/test/test2.xml"));
         }
 
         [Test(Description = "Ensures that the class can be correctly cloned without AccessPoints.")]

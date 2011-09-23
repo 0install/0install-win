@@ -165,6 +165,9 @@ New time: {2}</value>
   <data name="SolverProblem" xml:space="preserve">
     <value>The solver encountered an unexpected problem.</value>
   </data>
+  <data name="UntrustedKeys" xml:space="preserve">
+    <value>The feed is signed with untrusted keys!</value>
+  </data>
   <data name="WokringDirDuplicate" xml:space="preserve">
     <value>The working directory has already been changed by a previous command.</value>
   </data>

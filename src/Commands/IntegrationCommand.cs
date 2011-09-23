@@ -33,7 +33,7 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
-        #region Admin
+        #region Helpers
         /// <summary>
         /// Reruns the current command as an administrator.
         /// </summary>

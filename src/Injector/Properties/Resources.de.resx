@@ -165,6 +165,9 @@ Neue Zeit: {2}</value>
   <data name="SolverProblem" xml:space="preserve">
     <value>Der Solver ist auf ein unerwartetes Problem gestoßen.</value>
   </data>
+  <data name="UntrustedKeys" xml:space="preserve">
+    <value>Der Feed ist mit nicht-vertrauten Keys signiert!</value>
+  </data>
   <data name="WokringDirDuplicate" xml:space="preserve">
     <value>Das Arbeitsverzeichnis wurde bereits von einem vorangehenden Command geändert.</value>
   </data>

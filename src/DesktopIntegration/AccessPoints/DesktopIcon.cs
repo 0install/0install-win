@@ -22,6 +22,7 @@ using System.Xml.Serialization;
 using Common.Tasks;
 using Common.Utils;
 using Microsoft.Win32;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
@@ -50,7 +51,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         }
 
         /// <inheritdoc/>
-        public override void Apply(AppEntry appEntry, InterfaceFeed target, bool systemWide, ITaskHandler handler)
+        public override void Apply(AppEntry appEntry, Feed feed, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
@@ -58,7 +59,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             if (WindowsUtils.IsWindows)
-                Windows.ShortcutManager.CreateShortcut(GetWindowsShortcutPath(systemWide), target, Command, systemWide, handler);
+                Windows.ShortcutManager.CreateShortcut(GetWindowsShortcutPath(systemWide), new InterfaceFeed(appEntry.InterfaceID, feed), Command, systemWide, handler);
         }
 
         /// <inheritdoc/>

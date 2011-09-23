@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Common.Storage;
 using Common.Utils;
@@ -85,43 +86,30 @@ namespace ZeroInstall.Commands
         }
 
         /// <inheritdoc/>
-        protected override int ExecuteHelper(string interfaceID, CategoryIntegrationManager integrationManager)
+        protected override int ExecuteHelper(CategoryIntegrationManager integrationManager, string interfaceID)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
             #endregion
 
+            var appEntry = GetAppEntry(integrationManager, interfaceID);
+
             // If user specified no specific integration options show UI
             if (_addCategories.IsEmpty && _removeCategories.IsEmpty)
             {
-                Policy.Handler.ShowIntegrateApp(integrationManager, new InterfaceFeed(interfaceID, GetFeed(interfaceID)));
+                Policy.Handler.ShowIntegrateApp(integrationManager, appEntry, GetFeed(interfaceID));
                 return 0;
             }
 
             if (!_removeCategories.IsEmpty)
-            {
-                try
-                {
-                    integrationManager.RemoveAccessPointCategories(interfaceID, _removeCategories);
-                }
-                    #region Error handling
-                catch (InvalidOperationException ex)
-                {
-                    // Show a "failed to comply" message (but not in batch mode, since it is too unimportant)
-                    if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, ex.Message);
-                    return 2;
-                }
-                #endregion
-            }
+                integrationManager.RemoveAccessPointCategories(appEntry, _removeCategories);
 
             if (!_addCategories.IsEmpty)
             {
-                var feed = GetFeed(interfaceID);
-
                 try
                 {
-                    integrationManager.AddAccessPointCategories(new InterfaceFeed(interfaceID, feed), _addCategories, Policy.Handler);
+                    integrationManager.AddAccessPointCategories(appEntry, GetFeed(interfaceID), _addCategories, Policy.Handler);
                 }
                     #region Error handling
                 catch (InvalidOperationException ex)
@@ -133,13 +121,39 @@ namespace ZeroInstall.Commands
                 #endregion
 
                 // Show a "integration complete" message with application name (but not in batch mode, since it is too unimportant)
-                if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, feed.Name));
+                if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, appEntry.Name));
                 return 0;
             }
 
             // Show a "integration complete" message without application name (but not in batch mode, since it is too unimportant)
-            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, interfaceID));
+            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, appEntry.Name));
             return 0;
+        }
+        #endregion
+
+        #region Helpers
+        private AppEntry GetAppEntry(IIntegrationManager integrationManager, string interfaceID)
+        {
+            // ToDo: Reduce need for feed loading
+            var feed = GetFeed(interfaceID);
+
+            try
+            {
+                var appEntry = integrationManager.AppList.GetEntry(interfaceID);
+
+                if (!appEntry.CapabilityLists.UnsequencedEquals(feed.CapabilityLists))
+                {
+                    if (Policy.Handler.AskQuestion("Update stuff?", "Stuff updated"))
+                        integrationManager.UpdateApp(appEntry, feed);
+                }
+
+                return appEntry;
+            }
+            catch (KeyNotFoundException)
+            {
+                // Automatically add missing AppEntry
+                return integrationManager.AddApp(interfaceID, feed);
+            }
         }
         #endregion
     }

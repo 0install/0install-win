@@ -16,12 +16,14 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Collections;
 using Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
 
@@ -102,6 +104,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <typeparam name="T">The capability type to match.</typeparam>
         /// <param name="id">The <see cref="Capability.ID"/> to match.</param>
         /// <returns>The first matching <see cref="Capability"/> or <see langword="null"/> if none was found.</returns>
+        /// <exception cref="KeyNotFoundException">Thrown if no capability matching <paramref name="id"/> and <typeparamref name="T"/> was found.</exception>
         public T GetCapability<T>(string id) where T : Capability
         {
             foreach (var capabilityList in _capabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
@@ -112,7 +115,7 @@ namespace ZeroInstall.DesktopIntegration
                     if (specificCapability != null && specificCapability.ID == id) return specificCapability;
                 }
             }
-            return null;
+            throw new KeyNotFoundException(string.Format(Resources.UnableToFindTypeID, typeof(T).Name, id));
         }
         #endregion
 

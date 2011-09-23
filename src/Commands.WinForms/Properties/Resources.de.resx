@@ -126,6 +126,9 @@
   <data name="Hide" xml:space="preserve">
     <value>Verstecken</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>Nein</value>
+  </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Portable Modus</value>
   </data>
@@ -140,5 +143,8 @@
   </data>
   <data name="TryHelp" xml:space="preserve">
     <value>Probieren Sie {0} --help</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Ja</value>
   </data>
 </root>

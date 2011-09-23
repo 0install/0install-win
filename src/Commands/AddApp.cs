@@ -48,18 +48,17 @@ namespace ZeroInstall.Commands
 
         #region Execute
         /// <inheritdoc/>
-        protected override int ExecuteHelper(string interfaceID, CategoryIntegrationManager integrationManager)
+        protected override int ExecuteHelper(CategoryIntegrationManager integrationManager, string interfaceID)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
             #endregion
 
-            var feed = GetFeed(interfaceID);
-
+            AppEntry appEntry;
             try
             {
-                integrationManager.AddApp(new InterfaceFeed(interfaceID, feed));
+                appEntry = integrationManager.AddApp(interfaceID, GetFeed(interfaceID));
             }
             catch (InvalidOperationException ex)
             {
@@ -69,7 +68,7 @@ namespace ZeroInstall.Commands
             }
 
             // Show a "done" message (but not in batch mode, since it is too unimportant));
-            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, string.Format(Resources.AppListAdded, feed.Name));
+            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, string.Format(Resources.AppListAdded, appEntry.Name));
             return 0;
         }
         #endregion

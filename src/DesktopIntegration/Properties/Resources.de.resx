@@ -138,4 +138,7 @@
   <data name="ShortcutNameInvalidChars" xml:space="preserve">
     <value>Der Verknüpfungsname '{0}' enthält ungültige Zeichen.</value>
   </data>
+  <data name="UnableToFindTypeID" xml:space="preserve">
+    <value>Konnte kein {0} mit der ID '{1}' finden.</value>
+  </data>
 </root>

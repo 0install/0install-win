@@ -241,7 +241,7 @@
                 </property>
               </ownedAttributesInternal>
               <ownedOperationsInternal>
-                <operation Id="bf93afa4-ed83-439a-9026-21095d86efd4" name="AcceptNewKey" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                <operation Id="bf93afa4-ed83-439a-9026-21095d86efd4" name="AskQuestion" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
                     <reference Id="41a1618e-8466-40f7-8b04-95683652670b" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=SilentHandler Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])" tag="ViewCode">
                       <elementDefinition Id="cf369d3f-d964-42a9-9883-32f1b95e3762" />
@@ -287,7 +287,7 @@
                   <elementDefinition Id="05b5d72d-5f94-4403-92f7-f1c6baa5123a" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="7273aec5-de63-4f78-b4b9-68c9e4073a16" direction="Return">
+                      <parameter Id="7273aec5-de63-4f78-b4b9-68c9e4073a16" direction="Return" isUnique="false">
                         <elementDefinition Id="893ea54d-e409-4b3d-8437-bb61c7d5e364" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="e29026d8-1edf-4d34-ac1e-0a8c70313b23" LastKnownName="Boolean" />
@@ -295,13 +295,16 @@
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="72ac6539-63c1-45ca-8fdf-bc7289c05ce6" name="information" direction="In">
-                        <referencesInternal>
-                          <reference Id="d4b0f98a-b28a-473d-92a4-acafd1d057e8" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=SilentHandler Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=information" tag="ViewCode">
-                            <elementDefinition Id="697757e0-ad6c-4c3f-8dc6-5c6858ad2067" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="16981045-04d2-479c-beaa-d820e446a4fb" />
+                      <parameter Id="f8b6b249-1c51-47ad-ab71-e9d9528a37b4" name="question" direction="In" isUnique="false">
+                        <elementDefinition Id="5c6cada5-d2cf-401b-997e-34993549b078" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="94d56911-3854-40ad-bccc-203bcab701dc" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="065664b5-8b16-49b3-8d20-bd73b29a7c66" name="batchInformation" direction="In" isUnique="false">
+                        <elementDefinition Id="77b0de3b-0b6c-4cdf-9912-9c126de434e4" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="94d56911-3854-40ad-bccc-203bcab701dc" LastKnownName="String" />
                         </type_NamedElement>
@@ -868,7 +871,7 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
-                <operation Id="2c0e6292-078b-465f-a841-2b1a3e8da6de" name="AcceptNewKey" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                <operation Id="2c0e6292-078b-465f-a841-2b1a3e8da6de" name="AskQuestion" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
                     <reference Id="ebcf142b-6e06-4482-a6a4-e2453f079355" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=IFeedHandler Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])" tag="ViewCode">
                       <elementDefinition Id="75e65752-ed5d-4e19-b581-92c414ff7090" />
@@ -914,7 +917,7 @@
                   <elementDefinition Id="0514d5fc-526c-4c0e-a6ff-46741f5e41fe" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="0b07083a-70ba-4801-a1c7-b87721771a90" direction="Return">
+                      <parameter Id="0b07083a-70ba-4801-a1c7-b87721771a90" direction="Return" isUnique="false">
                         <elementDefinition Id="de44acdb-a78d-4356-87be-475dc67eed68" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="aa53876b-da01-4874-882d-9a6ecc3a7141" LastKnownName="Boolean" />
@@ -922,15 +925,18 @@
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="91d6aff0-ab8f-498a-81f7-4ec809afb7c7" name="information" direction="In">
-                        <referencesInternal>
-                          <reference Id="898e6790-5aa4-4f70-ad4c-8b5905bf1c92" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=IFeedHandler Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=information" tag="ViewCode">
-                            <elementDefinition Id="fa5601dd-b846-462a-9d7e-6114af0ce47f" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="72be18f3-1317-4f3c-84a8-477d76430417" />
+                      <parameter Id="c1fc6f1f-ab31-4698-af0b-d54427092e5b" name="question" direction="In" isUnique="false">
+                        <elementDefinition Id="76a54cfc-e145-4963-911a-51849e8d16ad" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="88608fe6-39dd-4578-8129-133865beac28" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="57e40113-e26e-47d8-af9e-78bae4732ff4" name="batchInformation" direction="In" isUnique="false">
+                        <elementDefinition Id="7c5206fc-a520-4983-a611-60480e0605f0" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="94d56911-3854-40ad-bccc-203bcab701dc" LastKnownName="String" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -1311,7 +1317,7 @@
                 </property>
               </ownedAttributesInternal>
               <ownedOperationsInternal>
-                <operation Id="d291012f-dc04-4300-8770-576b3d009bbd" name="AcceptNewKey" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                <operation Id="d291012f-dc04-4300-8770-576b3d009bbd" name="AskQuestion" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
                     <reference Id="fd81ff3c-d495-451d-bf2d-7216f9df55b9" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=CliHandler Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])" tag="ViewCode">
                       <elementDefinition Id="8aa67655-af8e-4b67-acef-f245d4d33bac" />
@@ -1357,7 +1363,7 @@
                   <elementDefinition Id="b87cdd32-8024-48ab-88a0-7f1e432eaa57" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="0ea592fa-bb43-4013-a57c-a8c6ec82ffc1" direction="Return">
+                      <parameter Id="0ea592fa-bb43-4013-a57c-a8c6ec82ffc1" direction="Return" isUnique="false">
                         <elementDefinition Id="0a73ad5f-11ac-4576-aa63-8195ea0760a0" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="e29026d8-1edf-4d34-ac1e-0a8c70313b23" LastKnownName="Boolean" />
@@ -1365,13 +1371,16 @@
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="4a9f6492-58c0-415c-bf5a-cf1608a3ac7d" name="information" direction="In">
-                        <referencesInternal>
-                          <reference Id="1aa50e84-be0a-47e3-ad87-0361acf185dc" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=CliHandler Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=information" tag="ViewCode">
-                            <elementDefinition Id="80c81b57-bd04-4cd6-b7c6-fd254b195682" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="9b585c4a-59d2-471c-86ab-9fce0a1daa04" />
+                      <parameter Id="1ad8ccff-78cd-4838-a8e8-7c10c74ab69b" name="question" direction="In" isUnique="false">
+                        <elementDefinition Id="3a873645-8aff-4e9f-b30d-7c1efbc2ea9d" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="94d56911-3854-40ad-bccc-203bcab701dc" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="f7513e8d-b4e2-43f8-b3df-51185ab368a2" name="batchInformation" direction="In" isUnique="false">
+                        <elementDefinition Id="23c7cecd-2982-4ae7-b774-02a989fae53b" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="94d56911-3854-40ad-bccc-203bcab701dc" LastKnownName="String" />
                         </type_NamedElement>
@@ -1747,7 +1756,12 @@
       </package>
     </packageHasNamedElement>
     <logicalClassDesignerModelHasPackages>
-      <package Id="a634e97a-6169-4b4d-a40f-1a4e55cd4afb" name="Tasks">
+      <package Id="a634e97a-6169-4b4d-a40f-1a4e55cd4afb" name="Tasks" visibility="Private">
+        <referencesInternal>
+          <reference Id="93f8dc90-787d-4be8-93c0-45ecd53680cc" handle="viewcode://./CodeSchema_Namespace?Namespace=Common.Tasks" tag="ViewCode">
+            <elementDefinition Id="98f020b7-44ca-4465-8f83-6f19ef08d3f1" />
+          </reference>
+        </referencesInternal>
         <elementDefinition Id="9eb1c98a-53d3-4e51-a2a9-6bcd6c06dd60" />
         <packagedElements>
           <packageHasNamedElement>
@@ -2613,7 +2627,7 @@
           <packageHasNamedElement>
             <Interface Id="8737765d-26aa-46b3-9cbd-4f3361fbf842" name="ITaskHandler" isAbstract="false" isLeaf="false">
               <referencesInternal>
-                <reference Id="bc516dc1-627e-4f71-bc5c-8057bf5d7f73" handle="viewcode://./CodeSchema_Interface?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IIOHandler" tag="ViewCode">
+                <reference Id="bc516dc1-627e-4f71-bc5c-8057bf5d7f73" handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Tasks Type=ITaskHandler" tag="ViewCode">
                   <elementDefinition Id="3afef0de-c6a3-44f6-a4bd-a67e0bba5261" />
                 </reference>
               </referencesInternal>

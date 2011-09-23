@@ -25,7 +25,6 @@ using Common.Collections;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
@@ -60,7 +59,8 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Applies a category of <see cref="AccessPoint"/>s for an application.
         /// </summary>
-        /// <param name="target">The application being integrated.</param>
+        /// <param name="appEntry">The application being integrated.</param>
+        /// <param name="feed">The feed providing additional metadata, icons, etc. for the application.</param>
         /// <param name="categories">A list of all <see cref="AccessPoint"/> categories to be added to the already applied ones.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="InvalidOperationException">Thrown if one or more of the <paramref name="categories"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
@@ -69,20 +69,14 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Capabilities.Capability"/>s is invalid.</exception>
-        public void AddAccessPointCategories(InterfaceFeed target, ICollection<string> categories, ITaskHandler handler)
+        public void AddAccessPointCategories(AppEntry appEntry, Feed feed, ICollection<string> categories, ITaskHandler handler)
         {
             #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (feed == null) throw new ArgumentNullException("feed");
             if (categories == null) throw new ArgumentNullException("categories");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
-
-            // Implicitly add application to list if missing
-            AppEntry appEntry = FindAppEntry(target.InterfaceID);
-            if (appEntry == null)
-            {
-                appEntry = BuildAppEntry(target);
-                AppList.Entries.Add(appEntry);
-            }
 
             // Parse categories list
             bool all = categories.Contains(AllCategoryName);
@@ -109,11 +103,11 @@ namespace ZeroInstall.DesktopIntegration
             {
                 // Add icons for main entry point
                 accessPointsToAdd.AddLast(new DesktopIcon {Name = appEntry.Name});
-                if (target.Feed.EntryPoints.IsEmpty)
+                if (feed.EntryPoints.IsEmpty)
                     accessPointsToAdd.AddLast(new MenuEntry {Name = appEntry.Name, Category = appEntry.Name});
 
                 // Add icons for additional entry points
-                foreach (var entryPoint in target.Feed.EntryPoints)
+                foreach (var entryPoint in feed.EntryPoints)
                 {
                     string entryPointName = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentCulture);
                     if (!string.IsNullOrEmpty(entryPoint.Command) && !string.IsNullOrEmpty(entryPointName))
@@ -129,7 +123,18 @@ namespace ZeroInstall.DesktopIntegration
                 }
             }
 
-            AddAccessPoints(accessPointsToAdd, appEntry, target);
+            try
+            {
+                AddAccessPointsHelper(appEntry, feed, accessPointsToAdd);
+            }
+                #region Error handling
+            catch (KeyNotFoundException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new InvalidDataException(ex.Message, ex);
+            }
+            #endregion
+
             if (icons && SystemWide) ToggleIconsVisible(appEntry, true);
             Complete();
         }
@@ -139,22 +144,18 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Removes a category of already applied <see cref="AccessPoint"/>s for an application.
         /// </summary>
-        /// <param name="interfaceID">The interface for the application to perform the operation on.</param>
+        /// <param name="appEntry">The application being integrated.</param>
         /// <param name="categories">A list of all <see cref="AccessPoint"/> categories to be removed from the already applied ones.</param>
-        /// <exception cref="InvalidOperationException">Thrown if the application is not in the list.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Capabilities.Capability"/>s is invalid.</exception>
-        public void RemoveAccessPointCategories(string interfaceID, ICollection<string> categories)
+        public void RemoveAccessPointCategories(AppEntry appEntry, ICollection<string> categories)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
             if (categories == null) throw new ArgumentNullException("categories");
             #endregion
 
-            // Handle missing entries
-            AppEntry appEntry = FindAppEntry(interfaceID);
-            if (appEntry == null) throw new InvalidOperationException(string.Format(Resources.AppNotInList, interfaceID));
             if (appEntry.AccessPoints == null) return;
 
             // Parse categories list
@@ -169,7 +170,18 @@ namespace ZeroInstall.DesktopIntegration
             if (defaults) accessPointsToRemove.AddAll(EnumerableUtils.OfType<DefaultAccessPoint>(appEntry.AccessPoints.Entries));
             if (icons) accessPointsToRemove.AddAll(EnumerableUtils.OfType<IconAccessPoint>(appEntry.AccessPoints.Entries));
 
-            RemoveAccessPoints(accessPointsToRemove, appEntry);
+            try
+            {
+                RemoveAccessPointsHelper(appEntry, accessPointsToRemove);
+            }
+                #region Error handling
+            catch (KeyNotFoundException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new InvalidDataException(ex.Message, ex);
+            }
+            #endregion
+
             if (icons && SystemWide) ToggleIconsVisible(appEntry, false);
             Complete();
         }

@@ -160,12 +160,12 @@ namespace ZeroInstall.Commands.WinForms
         }
         #endregion
 
-        #region Key control
+        #region Question
         /// <inheritdoc />
-        public bool AcceptNewKey(string information)
+        public bool AskQuestion(string question, string batchInformation)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(information)) throw new ArgumentNullException("information");
+            if (string.IsNullOrEmpty(question)) throw new ArgumentNullException("question");
             #endregion
 
             // If GUI doesn't even exist cancel, otherwise wait until it's ready
@@ -177,8 +177,8 @@ namespace ZeroInstall.Commands.WinForms
             _form.Invoke(new SimpleEventHandler(delegate
             {
                 // Auto-deny unknown keys and inform via tray icon when in batch mode
-                if (Batch) _form.ShowTrayIcon("Feed signed with unknown keys!", ToolTipIcon.Warning);
-                else result = Msg.Ask(_form, information, MsgSeverity.Info, "Accept\nTrust this new key", "Deny\nReject the key and cancel");
+                if (Batch) _form.ShowTrayIcon(batchInformation, ToolTipIcon.Warning);
+                else result = Msg.Ask(_form, question, MsgSeverity.Info, Resources.Yes, Resources.No);
             }));
             return result;
         }
@@ -240,14 +240,14 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Dialogs
         /// <inheritdoc/>
-        public void ShowIntegrateApp(IIntegrationManager integrationManager, InterfaceFeed target)
+        public void ShowIntegrateApp(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed)
         {
             #region Sanity checks
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
             #endregion
 
             DisableProgressUI();
-            IntegrateAppForm.ShowDialog(integrationManager, target);
+            IntegrateAppForm.ShowDialog(integrationManager, appEntry, feed);
         }
 
         /// <inheritdoc/>

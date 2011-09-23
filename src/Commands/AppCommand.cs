@@ -16,16 +16,11 @@
  */
 
 using System;
-using System.IO;
-using System.Net;
-using Common;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
-using ZeroInstall.Model;
-using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Commands
 {
@@ -66,43 +61,16 @@ namespace ZeroInstall.Commands
             Policy.Handler.ShowProgressUI(Cancel);
             string interfaceID = GetCanonicalID(AdditionalArgs[0]);
             using (var integrationManager = new CategoryIntegrationManager(SystemWide, Policy.Handler))
-                return ExecuteHelper(interfaceID, integrationManager);
+                return ExecuteHelper(integrationManager, interfaceID);
         }
 
         /// <summary>
         /// Template method that performs the actual operation.
         /// </summary>
-        /// <param name="interfaceID">The interface for the application to perform the operation on.</param>
         /// <param name="integrationManager">Manages desktop integration operations.</param>
+        /// <param name="interfaceID">The interface for the application to perform the operation on.</param>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        protected abstract int ExecuteHelper(string interfaceID, CategoryIntegrationManager integrationManager);
-
-        /// <summary>
-        /// Returns a specific <see cref="Feed"/>.
-        /// </summary>
-        /// <param name="feedID">The canonical ID used to identify the feed.</param>
-        /// <returns>The parsed <see cref="Feed"/> object.</returns>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
-        /// <exception cref="SignatureException">Thrown if the signature data of a feed file could not be handled.</exception>
-        protected Feed GetFeed(string feedID)
-        {
-            bool stale;
-            Feed feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
-            if (Canceled) throw new UserCancelException();
-
-            // Refresh if stale instead of spawning background updater like 'run'
-            if (stale)
-            {
-                feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
-                if (Canceled) throw new UserCancelException();
-            }
-
-            return feed;
-        }
+        protected abstract int ExecuteHelper(CategoryIntegrationManager integrationManager, string interfaceID);
         #endregion
     }
 }

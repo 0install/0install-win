@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using Common;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -76,11 +75,7 @@ namespace ZeroInstall.Commands
 
             string feedID = GetCanonicalID(AdditionalArgs[0]);
 
-            // Download the feed to be registered
-            bool stale;
-            var feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
-            if (Canceled) throw new UserCancelException(); // ToDo: Remove once feed retrieval can be canceled
-
+            var feed = GetFeed(feedID);
             if (feed.FeedFor.IsEmpty)
             {
                 Policy.Handler.Output(Resources.FeedManagement, string.Format(Resources.MissingFeedFor, feedID));

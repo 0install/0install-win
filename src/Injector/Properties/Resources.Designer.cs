@@ -199,6 +199,15 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The feed is signed with untrusted keys!.
+        /// </summary>
+        internal static string UntrustedKeys {
+            get {
+                return ResourceManager.GetString("UntrustedKeys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The working directory has already been changed by a previous command..
         /// </summary>
         internal static string WokringDirDuplicate {

@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
@@ -48,7 +49,7 @@ namespace ZeroInstall.Commands
 
         #region Execute
         /// <inheritdoc/>
-        protected override int ExecuteHelper(string interfaceID, CategoryIntegrationManager integrationManager)
+        protected override int ExecuteHelper(CategoryIntegrationManager integrationManager, string interfaceID)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
@@ -57,9 +58,9 @@ namespace ZeroInstall.Commands
 
             try
             {
-                integrationManager.RemoveApp(interfaceID);
+                integrationManager.RemoveApp(integrationManager.AppList.GetEntry(interfaceID));
             }
-            catch (InvalidOperationException ex)
+            catch (KeyNotFoundException ex)
             {
                 // Show a "nothing to do" message (but not in batch mode, since it is too unimportant));
                 if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, ex.Message);

@@ -20,6 +20,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Web;
 using Common;
+using ZeroInstall.Injector.Properties;
 
 namespace ZeroInstall.Injector.Solver
 {
@@ -106,7 +107,7 @@ namespace ZeroInstall.Injector.Solver
                         if (line.Contains("[Y/N]") && _currentErrorMode == ErrorMode.Question)
                         {
                             _currentErrorMode = ErrorMode.None;
-                            return _handler.AcceptNewKey(_cache.ToString()) ? "Y" : "N";
+                            return _handler.AskQuestion(_cache.ToString(), Resources.UntrustedKeys) ? "Y" : "N";
                         }
                         _cache.AppendLine(line);
                     }

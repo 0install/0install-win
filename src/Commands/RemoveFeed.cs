@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using Common;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -79,12 +78,7 @@ namespace ZeroInstall.Commands
             { // Determine interfaces from feed content
                 feedID = GetCanonicalID(AdditionalArgs[0]);
 
-                // Download the feed to be unregistered
-                bool stale;
-                var feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
-                if (Canceled) throw new UserCancelException(); // ToDo: Remove once feed retrieval can be canceled
-
-                interfaces = feed.FeedFor.Map(reference => reference.Target.ToString());
+                interfaces = GetFeed(feedID).FeedFor.Map(reference => reference.Target.ToString());
             }
 
             // Remove feed from interface preference fies
