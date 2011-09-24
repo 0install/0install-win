@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Windows.Forms;
 using Common.Collections;
 using Common.Controls;
 using ZeroInstall.Commands.WinForms.CapabilityModels;
@@ -131,7 +132,7 @@ namespace ZeroInstall.Commands.WinForms
             // Apply data to DataGrids in bulk for better performance
             dataGridViewFileType.DataSource = fileTypeBinding;
             dataGridViewUrlProtocols.DataSource = urlProtocolBinding;
-            dataGridViewDefaultPrograms.Visible = _integrationManager.SystemWide;
+            if (!_integrationManager.SystemWide) tabControlCapabilities.TabPages.Remove(tabPageDefaultPrograms);
             dataGridViewDefaultPrograms.DataSource = defaultProgramBinding;
         }
 
@@ -175,6 +176,15 @@ namespace ZeroInstall.Commands.WinForms
 
             _integrationManager.RemoveAccessPoints(_appEntry, toRemove);
             _integrationManager.AddAccessPoints(_appEntry, _feed, toAdd);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if(folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
+            {
+                // TODO: zeigt den absoluten Pfad zum startmenü an. nur den relativen anzeigen.
+                textBox1.Text = folderBrowserDialog1.SelectedPath;
+            }
         }
     }
 }
