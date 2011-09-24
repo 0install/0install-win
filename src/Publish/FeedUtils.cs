@@ -203,10 +203,9 @@ namespace ZeroInstall.Publish
                     var digest = Manifest.CreateDigest(tempDir.Path, handler);
                     if (cache)
                     {
-                        var store = StoreProvider.CreateDefault();
                         try
                         {
-                            store.AddDirectory(tempDir.Path, digest, handler);
+                            StoreProvider.CreateDefault().AddDirectory(tempDir.Path, digest, handler);
                         }
                         catch (ImplementationAlreadyInStoreException)
                         {}

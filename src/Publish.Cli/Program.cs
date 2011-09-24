@@ -174,7 +174,7 @@ namespace ZeroInstall.Publish.Cli
                     }
                     },
                 // Modiciations
-                {"add-missing", "Downloads missing archives", unused => parseResults.DownloadMissing = true},
+                {"add-missing", "Downloads missing archives", unused => parseResults.AddMissing = true},
                 // Signatures
                 {"x|xmlsign", Resources.OptionXmlSign, unused => parseResults.XmlSign = true},
                 {"u|unsign", Resources.OptionXmlSign, unused => parseResults.Unsign = true},

@@ -19,8 +19,16 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Common.Cli;
+using Common.Collections;
+using Common.Compression;
+using Common.Net;
+using Common.Storage;
+using Common.Tasks;
+using ZeroInstall.Model;
 using ZeroInstall.Publish.Cli.Properties;
 using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementation.Archive;
 
 namespace ZeroInstall.Publish.Cli
 {
@@ -29,7 +37,7 @@ namespace ZeroInstall.Publish.Cli
         /// <summary>
         /// Executes the commands specified by the command-line arguments.
         /// </summary>
-        /// <param name="results">The parser results to be executed.</param>
+        /// <param name="options">The parser results to be executed.</param>
         /// <exception cref="InvalidDataException">Thrown if the feed file is damaged.</exception>
         /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
@@ -37,23 +45,96 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="KeyNotFoundException">Thrown if a OpenPGP key could not be found.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        public static void ModifyFeeds(ParseResults results)
+        public static void ModifyFeeds(ParseResults options)
         {
-            foreach (var file in results.Feeds)
+            foreach (var file in options.Feeds)
             {
                 var feed = SignedFeed.Load(file.FullName);
 
-                // ToDo: Apply modifications
+                HandleModifications(feed.Feed, options);
+                HandleSigning(feed, ref options);
 
-                HandleResults(feed, ref results);
+                feed.Save(file.FullName, options.GnuPGPassphrase);
+            }
+        }
+        
+        private static readonly ITaskHandler _handler = new CliTaskHandler();
 
-                feed.Save(file.FullName, results.GnuPGPassphrase);
+        private static void HandleModifications(Feed feed, ParseResults options)
+        {
+            if (options.AddMissing)
+                AddMissing(feed.Elements, false);
+        }
+
+        private static void AddMissing(IEnumerable<Element> elements, bool cache)
+        {
+            foreach (var element in elements)
+            {
+                var implementation = element as Implementation;
+                if (implementation != null)
+                    AddMissing(implementation, cache);
+                else
+                {
+                    var group = element as Group;
+                    if (group != null) AddMissing(group.Elements, cache);
+                }
             }
         }
 
-        private static void HandleResults(SignedFeed feed, ref ParseResults results)
+        private static void AddMissing(Implementation implementation, bool cache)
         {
-            if (results.Unsign)
+            if (implementation.ManifestDigest == default(ManifestDigest))
+            {
+                foreach (var archive in EnumerableUtils.OfType<Archive>(implementation.RetrievalMethods))
+                {
+                    var digest = DownloadMissing(archive, cache);
+                    if (implementation.ManifestDigest == default(ManifestDigest))
+                    {
+                        implementation.ManifestDigest = digest;
+                        if (string.IsNullOrEmpty(implementation.ID)) implementation.ID = "sha1new=" + digest.Sha1New;
+                    }
+                    else if (digest != implementation.ManifestDigest)
+                        throw new DigestMismatchException(implementation.ManifestDigest.ToString(), null, digest.ToString(), null);
+                }
+            }
+        }
+
+        private static ManifestDigest DownloadMissing(Archive archive, bool cache)
+        {
+            if (string.IsNullOrEmpty(archive.MimeType)) archive.MimeType = ArchiveUtils.GuessMimeType(archive.Location.ToString());
+
+            using (var tempFile = new TemporaryFile("0publish"))
+            {
+                _handler.RunTask(new DownloadFile(archive.Location, tempFile.Path), null);
+
+                using (var tempDir = new TemporaryDirectory("0publish"))
+                {
+                    using (var extractor = Extractor.CreateExtractor(archive.MimeType, tempFile.Path, 0, tempDir.Path))
+                    {
+                        extractor.SubDir = archive.Extract;
+                        _handler.RunTask(extractor, null);
+                    }
+
+                    var digest = Manifest.CreateDigest(tempDir.Path, _handler);
+                    if (cache)
+                    {
+                        try
+                        {
+                            StoreProvider.CreateDefault().AddDirectory(tempDir.Path, digest, _handler);
+                        }
+                        catch (ImplementationAlreadyInStoreException)
+                        {}
+                    }
+
+                    archive.Size = new FileInfo(tempFile.Path).Length;
+                    return digest;
+                }
+            }
+        }
+
+        private static void HandleSigning(SignedFeed feed, ref ParseResults options)
+        {
+            if (options.Unsign)
             {
                 // Remove any existing signatures
                 feed.SecretKey = null;
@@ -63,17 +144,17 @@ namespace ZeroInstall.Publish.Cli
                 var openPgp = OpenPgpProvider.Default;
 
                 // Use default secret key if there are no existing signatures
-                if (results.XmlSign && feed.SecretKey == null)
+                if (options.XmlSign && feed.SecretKey == null)
                     feed.SecretKey = openPgp.GetSecretKey(null);
 
                 // Use specific secret key for signature
-                if (!string.IsNullOrEmpty(results.Key))
-                    feed.SecretKey = openPgp.GetSecretKey(results.Key);
+                if (!string.IsNullOrEmpty(options.Key))
+                    feed.SecretKey = openPgp.GetSecretKey(options.Key);
             }
 
             // Ask for passphrase to unlock secret key
-            if (feed.SecretKey != null && string.IsNullOrEmpty(results.GnuPGPassphrase))
-                results.GnuPGPassphrase = CliUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
+            if (feed.SecretKey != null && string.IsNullOrEmpty(options.GnuPGPassphrase))
+                options.GnuPGPassphrase = CliUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
         }
     }
 }
