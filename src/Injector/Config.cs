@@ -129,15 +129,6 @@ namespace ZeroInstall.Injector
         [DefaultValue(true), DisplayName("Auto approve keys"), Description("Automatically approve keys known by the key info server and seen the first time a feed is fetched.")]
         public bool AutoApproveKeys { get { return _autoApproveKeys; } set { _autoApproveKeys = value; } }
 
-        private const string DefaultAppStoreHome = "http://0install.de/appstore/?client=central&lang=[LANG]";
-        private string _appStoreHome = DefaultAppStoreHome;
-
-        /// <summary>
-        /// The homepage for the AppStore. [LANG] is a placeholder for a two character ISO language code.
-        /// </summary>
-        [DefaultValue(DefaultAppStoreHome), DisplayName("AppStore home"), Description("The homepage for the AppStore. [LANG] is a placeholder for a two character ISO language code.")]
-        public string AppStoreHome { get { return _appStoreHome; } set { _appStoreHome = value; } }
-
         private bool _selfUpdateEnabled = true;
 
         /// <summary>
@@ -223,7 +214,6 @@ namespace ZeroInstall.Injector
                 {"feed_mirror", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => FeedMirror, value => FeedMirror = value, new Uri(DefaultFeedMirror)))},
                 {"key_info_server", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => KeyInfoServer, value => KeyInfoServer = value, new Uri(DefaultKeyInfoServer)))},
                 {"auto_approve_keys", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => AutoApproveKeys, value => AutoApproveKeys = value, true))},
-                {"appstore_home", new PropertyPointer<string>(() => AppStoreHome, value => AppStoreHome = value, DefaultAppStoreHome)},
                 {"self_update_enabled", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => SelfUpdateEnabled, value => SelfUpdateEnabled = value, true))},
                 {"self_update_id", new PropertyPointer<string>(() => SelfUpdateID, value => SelfUpdateID = value, DefaultSelfUpdateID)},
                 {"sync_server", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => SyncServer, value => SyncServer = value, new Uri(DefaultSyncServer)))},

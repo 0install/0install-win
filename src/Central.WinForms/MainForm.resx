@@ -243,28 +243,28 @@
   <data name="&gt;&gt;toolStripNewApps.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="browserNewApps.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="browserCatalog.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="browserNewApps.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="browserCatalog.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 31</value>
   </data>
-  <data name="browserNewApps.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="browserCatalog.Size" type="System.Drawing.Size, System.Drawing">
     <value>745, 280</value>
   </data>
-  <data name="browserNewApps.TabIndex" type="System.Int32, mscorlib">
+  <data name="browserCatalog.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;browserNewApps.Name" xml:space="preserve">
-    <value>browserNewApps</value>
+  <data name="&gt;&gt;browserCatalog.Name" xml:space="preserve">
+    <value>browserCatalog</value>
   </data>
-  <data name="&gt;&gt;browserNewApps.Type" xml:space="preserve">
+  <data name="&gt;&gt;browserCatalog.Type" xml:space="preserve">
     <value>System.Windows.Forms.WebBrowser, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;browserNewApps.Parent" xml:space="preserve">
+  <data name="&gt;&gt;browserCatalog.Parent" xml:space="preserve">
     <value>tabPageNewApps</value>
   </data>
-  <data name="&gt;&gt;browserNewApps.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;browserCatalog.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="tabPageNewApps.Location" type="System.Drawing.Point, System.Drawing">

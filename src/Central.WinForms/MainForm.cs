@@ -62,7 +62,7 @@ namespace ZeroInstall.Central.WinForms
                 WindowsUtils.AddTaskLinks(Program.AppUserModelID, new[] {cacheLink, configLink});
             };
 
-            browserNewApps.CanGoBackChanged += delegate { toolStripButtonBack.Enabled = browserNewApps.CanGoBack; };
+            browserCatalog.CanGoBackChanged += delegate { toolStripButtonBack.Enabled = browserCatalog.CanGoBack; };
         }
         #endregion
 
@@ -103,7 +103,8 @@ namespace ZeroInstall.Central.WinForms
             }
             #endregion
 
-            browserNewApps.Navigate(_policy.Config.AppStoreHome.Replace("[LANG]", CultureInfo.CurrentUICulture.TwoLetterISOLanguageName));
+            // Show application catalog
+            browserCatalog.Navigate("http://0install.de/catalog/?client=central&lang=" + CultureInfo.CurrentUICulture.TwoLetterISOLanguageName);
 
             // Don't check for updates when launched as a Zero Install implementation
             string topDir = Path.GetFileName(Locations.InstallBase) ?? Locations.InstallBase;
@@ -241,7 +242,7 @@ namespace ZeroInstall.Central.WinForms
         #region Toolbar
         private void toolStripButtonBack_Click(object sender, EventArgs e)
         {
-            browserNewApps.GoBack();
+            browserCatalog.GoBack();
         }
         #endregion
 

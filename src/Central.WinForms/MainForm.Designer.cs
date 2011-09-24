@@ -36,7 +36,7 @@
             this.tabPageNewApps = new System.Windows.Forms.TabPage();
             this.toolStripNewApps = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonBack = new System.Windows.Forms.ToolStripButton();
-            this.browserNewApps = new System.Windows.Forms.WebBrowser();
+            this.browserCatalog = new System.Windows.Forms.WebBrowser();
             this.buttonLaunchInterface = new System.Windows.Forms.Button();
             this.groupBoxTools = new System.Windows.Forms.GroupBox();
             this.buttonConfiguration = new System.Windows.Forms.Button();
@@ -82,7 +82,7 @@
             // tabPageNewApps
             // 
             this.tabPageNewApps.Controls.Add(this.toolStripNewApps);
-            this.tabPageNewApps.Controls.Add(this.browserNewApps);
+            this.tabPageNewApps.Controls.Add(this.browserCatalog);
             resources.ApplyResources(this.tabPageNewApps, "tabPageNewApps");
             this.tabPageNewApps.Name = "tabPageNewApps";
             this.tabPageNewApps.UseVisualStyleBackColor = true;
@@ -101,17 +101,17 @@
             this.toolStripButtonBack.Name = "toolStripButtonBack";
             this.toolStripButtonBack.Click += new System.EventHandler(this.toolStripButtonBack_Click);
             // 
-            // browserNewApps
+            // browserCatalog
             // 
-            this.browserNewApps.AllowWebBrowserDrop = false;
-            resources.ApplyResources(this.browserNewApps, "browserNewApps");
-            this.browserNewApps.IsWebBrowserContextMenuEnabled = false;
-            this.browserNewApps.Name = "browserNewApps";
-            this.browserNewApps.ScriptErrorsSuppressed = true;
-            this.browserNewApps.Url = new System.Uri("", System.UriKind.Relative);
-            this.browserNewApps.WebBrowserShortcutsEnabled = false;
-            this.browserNewApps.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.browserNewApps_Navigating);
-            this.browserNewApps.NewWindow += new System.ComponentModel.CancelEventHandler(this.browserNewApps_NewWindow);
+            this.browserCatalog.AllowWebBrowserDrop = false;
+            resources.ApplyResources(this.browserCatalog, "browserCatalog");
+            this.browserCatalog.IsWebBrowserContextMenuEnabled = false;
+            this.browserCatalog.Name = "browserCatalog";
+            this.browserCatalog.ScriptErrorsSuppressed = true;
+            this.browserCatalog.Url = new System.Uri("", System.UriKind.Relative);
+            this.browserCatalog.WebBrowserShortcutsEnabled = false;
+            this.browserCatalog.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.browserNewApps_Navigating);
+            this.browserCatalog.NewWindow += new System.ComponentModel.CancelEventHandler(this.browserNewApps_NewWindow);
             // 
             // buttonLaunchInterface
             // 
@@ -197,7 +197,7 @@
         private System.Windows.Forms.TabControl tabControlApps;
         private System.Windows.Forms.TabPage tabPageMyApps;
         private System.Windows.Forms.TabPage tabPageNewApps;
-        private System.Windows.Forms.WebBrowser browserNewApps;
+        private System.Windows.Forms.WebBrowser browserCatalog;
         private System.Windows.Forms.GroupBox groupBoxTools;
         private System.Windows.Forms.Button buttonHelp;
         private System.Windows.Forms.Button buttonLaunchInterface;
