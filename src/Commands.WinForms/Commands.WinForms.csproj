@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CapabilityModels\CapabilityModel.cs" />
+    <Compile Include="CapabilityModels\ContextMenuModel.cs" />
     <Compile Include="CapabilityModels\DefaultProgramModel.cs" />
     <Compile Include="CapabilityModels\IconCapabilityModel.cs" />
     <Compile Include="CapabilityModels\UrlProtocolModel.cs" />

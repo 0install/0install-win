@@ -48,6 +48,10 @@
             this.dataGridViewDefaultProgramsCheckBoxUse = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewDefaultProgramsTextBoxDescriptions = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewDefaultProgramsTextBoxService = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPageContextMenu = new System.Windows.Forms.TabPage();
+            this.dataGridViewContextMenu = new System.Windows.Forms.DataGridView();
+            this.dataGridViewCheckBoxContextMenuUse = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxContextMenuName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlCapabilities.SuspendLayout();
             this.tabPageFileTypes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFileType)).BeginInit();
@@ -56,6 +60,8 @@
             this.tabPageDefaultPrograms.SuspendLayout();
             this.tabPageStartMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDefaultPrograms)).BeginInit();
+            this.tabPageContextMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewContextMenu)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -75,6 +81,7 @@
             this.tabControlCapabilities.Controls.Add(this.tabPageFileTypes);
             this.tabControlCapabilities.Controls.Add(this.tabPageUrlProtocol);
             this.tabControlCapabilities.Controls.Add(this.tabPageDefaultPrograms);
+            this.tabControlCapabilities.Controls.Add(this.tabPageContextMenu);
             this.tabControlCapabilities.Controls.Add(this.tabPageStartMenu);
             this.tabControlCapabilities.Location = new System.Drawing.Point(12, 12);
             this.tabControlCapabilities.Name = "tabControlCapabilities";
@@ -88,7 +95,7 @@
             this.tabPageFileTypes.Location = new System.Drawing.Point(4, 22);
             this.tabPageFileTypes.Name = "tabPageFileTypes";
             this.tabPageFileTypes.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFileTypes.Size = new System.Drawing.Size(587, 370);
+            this.tabPageFileTypes.Size = new System.Drawing.Size(468, 163);
             this.tabPageFileTypes.TabIndex = 0;
             this.tabPageFileTypes.Text = "file types";
             this.tabPageFileTypes.UseVisualStyleBackColor = true;
@@ -108,7 +115,7 @@
             this.dataGridViewFileType.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewFileType.Name = "dataGridViewFileType";
             this.dataGridViewFileType.RowHeadersVisible = false;
-            this.dataGridViewFileType.Size = new System.Drawing.Size(581, 364);
+            this.dataGridViewFileType.Size = new System.Drawing.Size(462, 157);
             this.dataGridViewFileType.TabIndex = 0;
             // 
             // fileTypeDataGridViewUse
@@ -144,7 +151,7 @@
             this.tabPageUrlProtocol.Location = new System.Drawing.Point(4, 22);
             this.tabPageUrlProtocol.Name = "tabPageUrlProtocol";
             this.tabPageUrlProtocol.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageUrlProtocol.Size = new System.Drawing.Size(587, 370);
+            this.tabPageUrlProtocol.Size = new System.Drawing.Size(468, 163);
             this.tabPageUrlProtocol.TabIndex = 1;
             this.tabPageUrlProtocol.Text = "url protocol";
             this.tabPageUrlProtocol.UseVisualStyleBackColor = true;
@@ -164,7 +171,7 @@
             this.dataGridViewUrlProtocols.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewUrlProtocols.Name = "dataGridViewUrlProtocols";
             this.dataGridViewUrlProtocols.RowHeadersVisible = false;
-            this.dataGridViewUrlProtocols.Size = new System.Drawing.Size(581, 364);
+            this.dataGridViewUrlProtocols.Size = new System.Drawing.Size(462, 157);
             this.dataGridViewUrlProtocols.TabIndex = 1;
             // 
             // dataGridViewUrlProtocolsCheckBoxUse
@@ -211,7 +218,7 @@
             this.tabPageStartMenu.Controls.Add(this.button1);
             this.tabPageStartMenu.Location = new System.Drawing.Point(4, 22);
             this.tabPageStartMenu.Name = "tabPageStartMenu";
-            this.tabPageStartMenu.Size = new System.Drawing.Size(587, 370);
+            this.tabPageStartMenu.Size = new System.Drawing.Size(468, 163);
             this.tabPageStartMenu.TabIndex = 3;
             this.tabPageStartMenu.Text = "start menu";
             this.tabPageStartMenu.UseVisualStyleBackColor = true;
@@ -282,6 +289,53 @@
             this.dataGridViewDefaultProgramsTextBoxService.ReadOnly = true;
             this.dataGridViewDefaultProgramsTextBoxService.Width = 68;
             // 
+            // tabPageContextMenu
+            // 
+            this.tabPageContextMenu.Controls.Add(this.dataGridViewContextMenu);
+            this.tabPageContextMenu.Location = new System.Drawing.Point(4, 22);
+            this.tabPageContextMenu.Name = "tabPageContextMenu";
+            this.tabPageContextMenu.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageContextMenu.Size = new System.Drawing.Size(468, 163);
+            this.tabPageContextMenu.TabIndex = 4;
+            this.tabPageContextMenu.Text = "context menu";
+            this.tabPageContextMenu.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewContextMenu
+            // 
+            this.dataGridViewContextMenu.AllowUserToAddRows = false;
+            this.dataGridViewContextMenu.AllowUserToDeleteRows = false;
+            this.dataGridViewContextMenu.AllowUserToOrderColumns = true;
+            this.dataGridViewContextMenu.AllowUserToResizeRows = false;
+            this.dataGridViewContextMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewContextMenu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewCheckBoxContextMenuUse,
+            this.dataGridViewTextBoxContextMenuName});
+            this.dataGridViewContextMenu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewContextMenu.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewContextMenu.Name = "dataGridViewContextMenu";
+            this.dataGridViewContextMenu.RowHeadersVisible = false;
+            this.dataGridViewContextMenu.Size = new System.Drawing.Size(462, 157);
+            this.dataGridViewContextMenu.TabIndex = 6;
+            // 
+            // dataGridViewCheckBoxContextMenuUse
+            // 
+            this.dataGridViewCheckBoxContextMenuUse.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.dataGridViewCheckBoxContextMenuUse.DataPropertyName = "Use";
+            this.dataGridViewCheckBoxContextMenuUse.Frozen = true;
+            this.dataGridViewCheckBoxContextMenuUse.HeaderText = "Use";
+            this.dataGridViewCheckBoxContextMenuUse.Name = "dataGridViewCheckBoxContextMenuUse";
+            this.dataGridViewCheckBoxContextMenuUse.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewCheckBoxContextMenuUse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewCheckBoxContextMenuUse.Width = 51;
+            // 
+            // dataGridViewTextBoxContextMenuName
+            // 
+            this.dataGridViewTextBoxContextMenuName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxContextMenuName.DataPropertyName = "Name";
+            this.dataGridViewTextBoxContextMenuName.HeaderText = "Entry name";
+            this.dataGridViewTextBoxContextMenuName.Name = "dataGridViewTextBoxContextMenuName";
+            this.dataGridViewTextBoxContextMenuName.ReadOnly = true;
+            // 
             // IntegrateAppForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -303,6 +357,8 @@
             this.tabPageStartMenu.ResumeLayout(false);
             this.tabPageStartMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDefaultPrograms)).EndInit();
+            this.tabPageContextMenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewContextMenu)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -329,5 +385,9 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewDefaultProgramsCheckBoxUse;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewDefaultProgramsTextBoxDescriptions;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewDefaultProgramsTextBoxService;
+        private System.Windows.Forms.TabPage tabPageContextMenu;
+        private System.Windows.Forms.DataGridView dataGridViewContextMenu;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxContextMenuUse;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxContextMenuName;
     }
 }

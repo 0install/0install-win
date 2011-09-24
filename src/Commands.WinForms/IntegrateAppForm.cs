@@ -98,6 +98,7 @@ namespace ZeroInstall.Commands.WinForms
             var defaultProgramBinding = new BindingList<DefaultProgramModel>();
             var fileTypeBinding = new BindingList<FileTypeModel>();
             var urlProtocolBinding = new BindingList<UrlProtocolModel>();
+            var contextMenuBinding = new BindingList<ContextMenuModel>();
 
             foreach (Capabilities.CapabilityList capabilityList in _appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
             {
@@ -117,6 +118,14 @@ namespace ZeroInstall.Commands.WinForms
                     _capabilityModels.Add(model);
                 }
 
+                // context menu
+                foreach (var contextMenu in EnumerableUtils.OfType<Capabilities.ContextMenu>(capabilityList.Entries))
+                {
+                    var model = new ContextMenuModel(contextMenu, IsCapabillityUsed<AccessPoints.ContextMenu>(contextMenu));
+                    contextMenuBinding.Add(model);
+                    _capabilityModels.Add(model);
+                }
+
                 if (_integrationManager.SystemWide)
                 {
                     // default program
@@ -132,8 +141,9 @@ namespace ZeroInstall.Commands.WinForms
             // Apply data to DataGrids in bulk for better performance
             dataGridViewFileType.DataSource = fileTypeBinding;
             dataGridViewUrlProtocols.DataSource = urlProtocolBinding;
-            if (!_integrationManager.SystemWide) tabControlCapabilities.TabPages.Remove(tabPageDefaultPrograms);
             dataGridViewDefaultPrograms.DataSource = defaultProgramBinding;
+            dataGridViewContextMenu.DataSource = contextMenuBinding;
+            if (!_integrationManager.SystemWide) tabControlCapabilities.TabPages.Remove(tabPageDefaultPrograms);
         }
 
         /// <summary>
