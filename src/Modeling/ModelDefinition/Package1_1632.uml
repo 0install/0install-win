@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
   dslVersion="1.0.0.0"
   Id="c2ca15a1-edba-444e-b0b3-566e1cd782d0"
   name="Injector"
@@ -3724,79 +3724,6 @@
             </type_NamedElement>
           </property>
           <property
-            Id="a58e553b-171f-47fc-a060-2d7a697348cd"
-            name="AppStoreHome"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <referencesInternal>
-              <reference
-                Id="26cb255b-e3f3-453a-bc26-63b198cfe180"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=Config Member=AppStoreHome"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="f22aab0b-0f6c-4faa-9f6e-3d2aaf07e1f5"
-                name="property"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="50008e34-86f1-4b0a-8f54-3b4431d46dc6">
-                    <propertyInstance
-                      Id="750b37d5-398c-47d9-b8a7-aa9bb7fec980"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="7a0b767e-00c5-45fc-b5c6-e7ecf3197475">
-                    <propertyInstance
-                      Id="519427f6-9a0e-4aa7-b9ef-aa106d373205"
-                      name="Get"
-                      value="public" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="65ba4dfc-2a44-4921-b0c4-10062d5e58ed">
-                    <propertyInstance
-                      Id="23068dda-1d57-4ce3-991a-d87cf9b48b8a"
-                      name="HasBody"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="138680e4-8c15-4f2f-b7cf-e1a8d088f876">
-                    <propertyInstance
-                      Id="a86df5ce-479f-466e-9406-3b5cb932c472"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="0a67011f-5c69-405b-b5c0-f4d4b6bb836e">
-                    <propertyInstance
-                      Id="874c985b-9bc7-4fab-b53f-6ce530a6843e"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="c0c19388-1ca9-4806-9fc7-226923771b5c">
-                    <propertyInstance
-                      Id="0a8b4cf2-e05e-4881-bfda-3b4ab0115482"
-                      name="Set"
-                      value="public" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <type_NamedElement>
-              <primitiveTypeMoniker
-                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
-                LastKnownName="String"
-                LastKnownLocation="Architecture.uml" />
-            </type_NamedElement>
-          </property>
-          <property
             Id="81638826-a281-4a9d-9b01-9ca308ce8946"
             name="AutoApproveKeys"
             isLeaf="false"
@@ -4740,74 +4667,6 @@
                       Id="d1753141-00a8-40f2-b32f-188997aaac74"
                       name="Set"
                       value="public" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <type_NamedElement>
-              <primitiveTypeMoniker
-                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
-                LastKnownName="String"
-                LastKnownLocation="Architecture.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="ccf2272a-6fce-4f73-b2fb-785a13ea26d8"
-            name="DefaultAppStoreHome"
-            visibility="Private"
-            isLeaf="false"
-            isStatic="true"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <referencesInternal>
-              <reference
-                Id="88762098-c4d8-40e5-9e99-e4f5171a62d6"
-                handle="viewcode://./CodeSchema_Field?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=Config Member=DefaultAppStoreHome"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="ef405eff-36e1-4aae-ac4c-b9fa4fa023f8"
-                name="field"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="68ec94cf-8a6e-4684-a811-cd32f73ada7e">
-                    <propertyInstance
-                      Id="f5c7890e-32ff-4b8c-a63b-78866896a768"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="699bdf21-1f62-4866-a875-c7207b89192a">
-                    <propertyInstance
-                      Id="2b55ed39-f777-4ed2-81f5-85265bd977ac"
-                      name="IsConst"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="b5c1c1f7-e466-440a-8e91-d18d19fb0448">
-                    <propertyInstance
-                      Id="55a205ac-23e3-482e-86b9-27046aa0797a"
-                      name="IsNullable"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="039e21c4-2fcf-48f6-b095-e6cfeaa2d063">
-                    <propertyInstance
-                      Id="8e311d09-bbe2-45c5-8b99-ca63c814df06"
-                      name="IsVolatile"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="7af25baf-53ca-42ba-b13f-0a349f45ba72">
-                    <propertyInstance
-                      Id="7090e2ad-1bae-4091-abba-4c9dab92e6f8"
-                      name="PackageVisibility"
-                      value="internal" />
                   </stereotypeInstanceHasPropertyInstances>
                 </propertyInstances>
               </stereotypeInstance>
