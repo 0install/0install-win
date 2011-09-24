@@ -46,3 +46,9 @@ GNU LGPL: http://www.gnu.org/copyleft/lesser.html
 Source unmodified
 Pre-compiled managed DLL: EasyHook.dll
 Pre-compiled unmanaged DLLs: EasyHook32.dll, EasyHook64.dll
+
+GnuPG 1.4.11
+http://www.gnupg.org/
+GNU GPK: http://www.gnu.org/copyleft/gpl.html
+Source unmodified
+Pre-compiled EXE: gpg.exe

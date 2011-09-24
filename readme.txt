@@ -2,7 +2,7 @@ The directory "src" contains the Visual Studio project with the actual source co
 The directory "lib" contains pre-compiled 3rd party libraries. Their licensing conditions are detailed in "3rd party code.txt".
 The directory "doc" contains scripts for generating source code and developer documentation.
 The directory "setup" contains scripts for creating a Windows Installer.
-The directory "bundled" contains a portable GnuPG distribution (Windows only) and an external solver (multiple platforms). See below how to get these files.
+The directory "bundled" contains a portable GnuPG distribution (Windows only) and an external solver (multiple platforms). See below how these files are aquired.
 The directory "build" contains the results of various compilation processes. It is created on first usage. It can contain the following subdirectories:
 - Backend: Contains the libraries forming the Zero Install Backend.
 - Frontend: Contains the executables for the Zero Install Frontend plus all required libraries (including the Backend).
@@ -11,11 +11,10 @@ The directory "build" contains the results of various compilation processes. It 
 - Documentation: Contains the generated source code documentation.
 
 To add a portable GnuPG distribution:
-- Extract GnuPG 1.4.x for Windows to bundled/GnuPG.
-- Remove the documentation directory.
+- Copy GnuPG 1.4.x for Windows to bundled/GnuPG.
 - Copy iconv.dll (e.g. from a GTK+ installation) into bundled/GnuPG.
 
-To build the external solver:
+To add the external solver:
 - Install Python 2.6.x for Windows.
 - Install compatible versions of pygobject, pywin32 and py2exe.
 - Perform a Git clone of git://repo.or.cz/zeroinstall/solver.git.
