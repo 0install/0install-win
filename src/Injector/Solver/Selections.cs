@@ -91,7 +91,6 @@ namespace ZeroInstall.Injector.Solver
             return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break
         }
 
-
         /// <summary>
         /// Helper method for <see cref="GetHumanReadable"/> that recursivley writes information about <see cref="ImplementationSelection"/>s to a <see cref="StringBuilder"/>.
         /// </summary>

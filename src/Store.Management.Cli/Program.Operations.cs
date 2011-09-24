@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Management.Cli
 {
     public static partial class Program
     {
-        #region Execute helpers
+        #region Manage
         private static ErrorLevel Add(IList<string> args, ITaskHandler handler)
         {
             if (args.Count < 3 || args.Count > 4) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageAdd));
@@ -92,7 +92,9 @@ namespace ZeroInstall.Store.Management.Cli
                     new DirectoryStore(args[i]).Optimise(handler);
             }
         }
+        #endregion
 
+        #region Verify
         private static void Verify(IList<string> args, ITaskHandler handler)
         {
             if (args.Count < 2) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageVerify));
@@ -109,9 +111,7 @@ namespace ZeroInstall.Store.Management.Cli
                 Console.WriteLine(Resources.StoreEntryOK);
             }
         }
-        #endregion
 
-        #region Audit
         private static ErrorLevel Audit(IList<string> args, ITaskHandler handler)
         {
             ErrorLevel result = ErrorLevel.OK;

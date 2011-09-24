@@ -71,7 +71,6 @@ namespace ZeroInstall.Injector.Feeds
             return Keys.Exists(key => key.Fingerprint == fingerprint && key.Domains.Contains(domain));
         }
 
-
         /// <summary>
         /// Marks a key as trusted for a specific domain.
         /// </summary>

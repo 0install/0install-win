@@ -190,7 +190,7 @@ namespace ZeroInstall.Commands.WinForms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
+            if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
             {
                 // TODO: zeigt den absoluten Pfad zum startmenü an. nur den relativen anzeigen.
                 textBox1.Text = folderBrowserDialog1.SelectedPath;

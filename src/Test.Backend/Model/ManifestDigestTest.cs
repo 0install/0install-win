@@ -57,7 +57,6 @@ namespace ZeroInstall.Model
             Assert.AreEqual("sha1=test1", digest.BestDigest);
         }
 
-
         /// <summary>
         /// Ensures <see cref="ManifestDigest.PartialEquals"/> correctly compares digests.
         /// </summary>

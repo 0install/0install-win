@@ -25,6 +25,7 @@ namespace ZeroInstall.Commands.WinForms.CapabilityModels
     internal class ContextMenuModel : CapabilityModel
     {
         private readonly ContextMenu _contextMenu;
+
         /// <summary>
         /// The name of the stored <see cref="ContextMenu.Verb"/>.
         /// </summary>
