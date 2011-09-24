@@ -20,10 +20,8 @@ using System.Collections.Generic;
 using System.IO;
 using Common;
 using Common.Cli;
-using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
-using ZeroInstall.Model;
 using ZeroInstall.Publish.Cli.Properties;
 using ZeroInstall.Store.Feeds;
 
@@ -56,7 +54,7 @@ namespace ZeroInstall.Publish.Cli
     /// <summary>
     /// Launches a command-line tool for editing Zero Install feed XMLs.
     /// </summary>
-    public static class Program
+    public static partial class Program
     {
         #region Startup
         /// <summary>
@@ -175,6 +173,8 @@ namespace ZeroInstall.Publish.Cli
                         parseResults.CatalogFile = catalogFile;
                     }
                     },
+                // Modiciations
+                {"add-missing", "Downloads missing archives", unused => parseResults.DownloadMissing = true},
                 // Signatures
                 {"x|xmlsign", Resources.OptionXmlSign, unused => parseResults.XmlSign = true},
                 {"u|unsign", Resources.OptionXmlSign, unused => parseResults.Unsign = true},
@@ -263,83 +263,6 @@ namespace ZeroInstall.Publish.Cli
                     Log.Error(string.Format(Resources.UnknownMode, "0publish"));
                     return ErrorLevel.NotSupported;
             }
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Modify feeds
-        /// <summary>
-        /// Executes the commands specified by the command-line arguments.
-        /// </summary>
-        /// <param name="results">The parser results to be executed.</param>
-        /// <exception cref="InvalidDataException">Thrown if the feed file is damaged.</exception>
-        /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
-        /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the feed file is not permitted.</exception>
-        /// <exception cref="KeyNotFoundException">Thrown if a OpenPGP key could not be found.</exception>
-        /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        public static void ModifyFeeds(ParseResults results)
-        {
-            foreach (var file in results.Feeds)
-            {
-                var feed = SignedFeed.Load(file.FullName);
-
-                // ToDo: Apply modifications
-
-                if (results.Unsign)
-                {
-                    // Remove any existing signatures
-                    feed.SecretKey = null;
-                }
-                else
-                {
-                    var openPgp = OpenPgpProvider.Default;
-
-                    // Use default secret key if there are no existing signatures
-                    if (results.XmlSign && feed.SecretKey == null)
-                        feed.SecretKey = openPgp.GetSecretKey(null);
-
-                    // Use specific secret key for signature
-                    if (!string.IsNullOrEmpty(results.Key))
-                        feed.SecretKey = openPgp.GetSecretKey(results.Key);
-                }
-
-                // Ask for passphrase to unlock secret key
-                if (feed.SecretKey != null && string.IsNullOrEmpty(results.GnuPGPassphrase))
-                    results.GnuPGPassphrase = CliUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
-
-                feed.Save(file.FullName, results.GnuPGPassphrase);
-            }
-        }
-        #endregion
-
-        #region Catalog
-        /// <summary>
-        /// Creates a <see cref="Catalog"/> from the <see cref="Feed"/>s specified in the command-line arguments.
-        /// </summary>
-        /// <param name="results">The parser results to be executed.</param>
-        /// <exception cref="OptionException">Thrown if the specified feed file paths were invalid.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a feed file is damaged.</exception>
-        /// <exception cref="FileNotFoundException">Thrown if the a files could not be found.</exception>
-        /// <exception cref="IOException">Thrown if a file could not be read or written.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file or the catalog file is not permitted.</exception>
-        public static void CreateCatalog(ParseResults results)
-        {
-            var catalog = new Catalog();
-
-            foreach (var feedFile in results.Feeds)
-            {
-                var feed = Feed.Load(feedFile.FullName);
-                feed.Strip();
-                catalog.Feeds.Add(feed);
-            }
-
-            if (catalog.Feeds.IsEmpty) throw new FileNotFoundException(Resources.NoFeedFilesFound);
-
-            catalog.Save(results.CatalogFile);
-            XmlStorage.AddStylesheet(results.CatalogFile, "catalog.xsl");
         }
         #endregion
     }

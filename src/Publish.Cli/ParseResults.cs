@@ -44,6 +44,8 @@ namespace ZeroInstall.Publish.Cli
 
         public string CatalogFile;
 
+        public bool DownloadMissing;
+
         public bool XmlSign;
 
         public bool Unsign;
