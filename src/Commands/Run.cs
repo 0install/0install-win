@@ -142,9 +142,9 @@ namespace ZeroInstall.Commands
                     runHook = new RunHook(Policy, executor);
                 }
                     #region Error handling
-                catch (ApplicationException ex)
+                catch (ImplementationNotFoundException)
                 {
-                    Log.Error(ex.Message);
+                    Log.Warn("API hooking not possible due to uncached implementation");
                 }
                 #endregion
             }

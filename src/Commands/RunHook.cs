@@ -30,6 +30,7 @@ using ZeroInstall.DesktopIntegration.Windows;
 using ZeroInstall.Hooking;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation;
 using EntryPoint = ZeroInstall.Hooking.EntryPoint;
 
 namespace ZeroInstall.Commands
@@ -61,6 +62,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="policy">Combines UI access, configuration and resources used to solve dependencies and download implementations.</param>
         /// <param name="executor">The executor used to launch the new process.</param>
+        /// <exception cref="ImplementationNotFoundException">Thrown if the main implementation is not cached (possibly because it is installed natively).</exception>
         public RunHook(Policy policy, Executor executor)
         {
             _policy = policy;
