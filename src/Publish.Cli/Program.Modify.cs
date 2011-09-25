@@ -18,15 +18,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Common.Cli;
+using Common;
 using Common.Collections;
 using Common.Compression;
 using Common.Net;
 using Common.Storage;
 using Common.Tasks;
 using ZeroInstall.Model;
-using ZeroInstall.Publish.Cli.Properties;
-using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Implementation.Archive;
 
@@ -34,60 +32,44 @@ namespace ZeroInstall.Publish.Cli
 {
     public static partial class Program
     {
-        /// <summary>
-        /// Executes the commands specified by the command-line arguments.
-        /// </summary>
-        /// <param name="options">The parser results to be executed.</param>
-        /// <exception cref="InvalidDataException">Thrown if the feed file is damaged.</exception>
-        /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
-        /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the feed file is not permitted.</exception>
-        /// <exception cref="KeyNotFoundException">Thrown if a OpenPGP key could not be found.</exception>
-        /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        public static void ModifyFeeds(ParseResults options)
-        {
-            foreach (var file in options.Feeds)
-            {
-                var feed = SignedFeed.Load(file.FullName);
-
-                HandleModifications(feed.Feed, options);
-                HandleSigning(feed, ref options);
-
-                feed.Save(file.FullName, options.GnuPGPassphrase);
-            }
-        }
-        
         private static readonly ITaskHandler _handler = new CliTaskHandler();
 
-        private static void HandleModifications(Feed feed, ParseResults options)
+        /// <summary>
+        /// Applies user-selected modifications to a feed.
+        /// </summary>
+        /// <param name="feed">The feed to modify.</param>
+        /// <param name="options">The modifications to apply.</param>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the operation.</exception>
+        /// <exception cref="IOException">Thrown if there is a problem access a temporary file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a temporary file is not permitted.</exception>
+        private static void HandleModify(Feed feed, ParseResults options)
         {
             if (options.AddMissing)
-                AddMissing(feed.Elements, false);
+                AddMissing(feed.Elements, options.StoreDownloads);
         }
 
-        private static void AddMissing(IEnumerable<Element> elements, bool cache)
+        private static void AddMissing(IEnumerable<Element> elements, bool store)
         {
             foreach (var element in elements)
             {
                 var implementation = element as Implementation;
                 if (implementation != null)
-                    AddMissing(implementation, cache);
+                    AddMissing(implementation, store);
                 else
                 {
                     var group = element as Group;
-                    if (group != null) AddMissing(group.Elements, cache);
+                    if (group != null) AddMissing(group.Elements, store);
                 }
             }
         }
 
-        private static void AddMissing(Implementation implementation, bool cache)
+        private static void AddMissing(Implementation implementation, bool store)
         {
             if (implementation.ManifestDigest == default(ManifestDigest))
             {
                 foreach (var archive in EnumerableUtils.OfType<Archive>(implementation.RetrievalMethods))
                 {
-                    var digest = DownloadMissing(archive, cache);
+                    var digest = DownloadMissing(archive, store);
                     if (implementation.ManifestDigest == default(ManifestDigest))
                     {
                         implementation.ManifestDigest = digest;
@@ -99,7 +81,7 @@ namespace ZeroInstall.Publish.Cli
             }
         }
 
-        private static ManifestDigest DownloadMissing(Archive archive, bool cache)
+        private static ManifestDigest DownloadMissing(Archive archive, bool store)
         {
             if (string.IsNullOrEmpty(archive.MimeType)) archive.MimeType = ArchiveUtils.GuessMimeType(archive.Location.ToString());
 
@@ -116,7 +98,7 @@ namespace ZeroInstall.Publish.Cli
                     }
 
                     var digest = Manifest.CreateDigest(tempDir.Path, _handler);
-                    if (cache)
+                    if (store)
                     {
                         try
                         {
@@ -130,31 +112,6 @@ namespace ZeroInstall.Publish.Cli
                     return digest;
                 }
             }
-        }
-
-        private static void HandleSigning(SignedFeed feed, ref ParseResults options)
-        {
-            if (options.Unsign)
-            {
-                // Remove any existing signatures
-                feed.SecretKey = null;
-            }
-            else
-            {
-                var openPgp = OpenPgpProvider.Default;
-
-                // Use default secret key if there are no existing signatures
-                if (options.XmlSign && feed.SecretKey == null)
-                    feed.SecretKey = openPgp.GetSecretKey(null);
-
-                // Use specific secret key for signature
-                if (!string.IsNullOrEmpty(options.Key))
-                    feed.SecretKey = openPgp.GetSecretKey(options.Key);
-            }
-
-            // Ask for passphrase to unlock secret key
-            if (feed.SecretKey != null && string.IsNullOrEmpty(options.GnuPGPassphrase))
-                options.GnuPGPassphrase = CliUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
         }
     }
 }

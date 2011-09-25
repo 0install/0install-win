@@ -127,6 +127,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="NoFeedFilesFound" xml:space="preserve">
     <value>Konnte keine passenden Feed-Dateien finden.</value>
   </data>
+  <data name="OptionAddMissing" xml:space="preserve">
+    <value>Lade fehlende Archive runter, berechne Manifest Digests, etc..</value>
+  </data>
   <data name="OptionBatch" xml:space="preserve">
     <value>Im Stapelverarbeitungsmodus ausführen: dem Benutzer keine Meldungen zeigen und Rückfragen stillschweigend mit "Nein" beantworten.</value>
   </data>
@@ -145,8 +148,11 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="Options" xml:space="preserve">
     <value>Optionen:</value>
   </data>
+  <data name="OptionsStoreDownloads" xml:space="preserve">
+    <value>Füge alle heruntergeladenen Archive dem Implementierungsstore hinzu.</value>
+  </data>
   <data name="OptionUnsign" xml:space="preserve">
-    <value>Entferne bestehende Signaturen.</value>
+    <value>Entferne alle bestehenden Signaturen.</value>
   </data>
   <data name="OptionVersion" xml:space="preserve">
     <value>Zeigt die Versionsinformationen an.</value>

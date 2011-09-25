@@ -169,7 +169,7 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="source">The URL used to locate the archive.</param>
         /// <param name="extract">The name of the subdirectory in the archive to extract; <see langword="null"/> or <see cref="string.Empty"/> for entire archive.</param>
-        /// <param name="cache">Adds the downloaded archive to <see cref="StoreProvider.CreateDefault"/> when set to <see langword="true"/>.</param>
+        /// <param name="store">Adds the downloaded archive to the default <see cref="IStore"/> when set to <see langword="true"/>.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <returns>A newly created <see cref="Implementation"/> containing one <see cref="Archive"/>.</returns>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
@@ -178,7 +178,7 @@ namespace ZeroInstall.Publish
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to temporary files was not permitted.</exception>
         /// <exception cref="NotSupportedException">Thrown if the archive's MIME type could not be determined.</exception>
         /// <remarks>The archive's MIME type is guessed based on its file extension in <paramref name="source"/>.</remarks>
-        public static Implementation BuildImplementation(string source, string extract, bool cache, ITaskHandler handler)
+        public static Implementation BuildImplementation(string source, string extract, bool store, ITaskHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
@@ -201,7 +201,7 @@ namespace ZeroInstall.Publish
                     }
 
                     var digest = Manifest.CreateDigest(tempDir.Path, handler);
-                    if (cache)
+                    if (store)
                     {
                         try
                         {

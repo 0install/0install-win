@@ -89,6 +89,15 @@ namespace ZeroInstall.Publish.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Download missing archives, calculate manifest digests, etc...
+        /// </summary>
+        internal static string OptionAddMissing {
+            get {
+                return ResourceManager.GetString("OptionAddMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Run in batch mode: don&apos;t display any messages to the user and silently answer all questions with &quot;No&quot;..
         /// </summary>
         internal static string OptionBatch {
@@ -143,7 +152,16 @@ namespace ZeroInstall.Publish.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove existing signature..
+        ///   Looks up a localized string similar to Add any downloaded archives to the implementation store..
+        /// </summary>
+        internal static string OptionsStoreDownloads {
+            get {
+                return ResourceManager.GetString("OptionsStoreDownloads", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove any existing signatures..
         /// </summary>
         internal static string OptionUnsign {
             get {

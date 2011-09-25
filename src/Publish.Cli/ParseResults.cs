@@ -18,6 +18,7 @@
 using System.Collections.Generic;
 using System.IO;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Publish.Cli
 {
@@ -38,20 +39,50 @@ namespace ZeroInstall.Publish.Cli
     /// </summary>
     public struct ParseResults
     {
+        /// <summary>
+        /// The operational mode for the feed editor.
+        /// </summary>
         public OperationMode Mode;
 
+        /// <summary>
+        /// The feeds to apply the operation on.
+        /// </summary>
         public ICollection<FileInfo> Feeds;
 
+        /// <summary>
+        /// The file to store the aggregated <see cref="Catalog"/> data in.
+        /// </summary>
         public string CatalogFile;
 
+        /// <summary>
+        /// Download missing archives, calculate manifest digests, etc..
+        /// </summary>
         public bool AddMissing;
 
+        /// <summary>
+        /// Add any downloaded archives to the implementation store.
+        /// </summary>
+        public bool StoreDownloads;
+
+        /// <summary>
+        /// Add XML signature blocks to the feesd.
+        /// </summary>
         public bool XmlSign;
 
+        /// <summary>
+        /// Remove any existing signatures from the feeds.
+        /// </summary>
         public bool Unsign;
 
+        /// <summary>
+        /// A key specifier (key ID, fingerprint or any part of a user ID) for the secret key to use to sign the feeds.
+        /// </summary>
+        /// <remarks>Will use existing key or default key when left at <see langword="null"/>.</remarks>
         public string Key;
 
-        public string GnuPGPassphrase;
+        /// <summary>
+        /// The passphrase used to unlock the <see cref="OpenPgpSecretKey"/>.
+        /// </summary>
+        public string OpenPgpPassphrase;
     }
 }

@@ -20,8 +20,10 @@ using System.Collections.Generic;
 using System.IO;
 using Common;
 using Common.Cli;
+using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
+using ZeroInstall.Model;
 using ZeroInstall.Publish.Cli.Properties;
 using ZeroInstall.Store.Feeds;
 
@@ -174,12 +176,13 @@ namespace ZeroInstall.Publish.Cli
                     }
                     },
                 // Modiciations
-                {"add-missing", "Downloads missing archives", unused => parseResults.AddMissing = true},
+                {"add-missing", Resources.OptionAddMissing, unused => parseResults.AddMissing = true},
+                {"store-downloads", Resources.OptionsStoreDownloads, unused => parseResults.StoreDownloads = true},
                 // Signatures
                 {"x|xmlsign", Resources.OptionXmlSign, unused => parseResults.XmlSign = true},
-                {"u|unsign", Resources.OptionXmlSign, unused => parseResults.Unsign = true},
+                {"u|unsign", Resources.OptionUnsign, unused => parseResults.Unsign = true},
                 {"k|key=", Resources.OptionKey, user => parseResults.Key = user},
-                {"gpg-passphrase=", Resources.OptionGnuPGPassphrase, user => parseResults.GnuPGPassphrase = user},
+                {"gpg-passphrase=", Resources.OptionGnuPGPassphrase, user => parseResults.OpenPgpPassphrase = user},
             };
             #endregion
 
@@ -226,7 +229,7 @@ namespace ZeroInstall.Publish.Cli
         /// <summary>
         /// Executes the commands specified by the command-line arguments.
         /// </summary>
-        /// <param name="results">The parser results to be executed.</param>
+        /// <param name="options">The parser results to be executed.</param>
         /// <returns>The error code to end the process with.</returns>
         /// <exception cref="UserCancelException">Thrown if the user canceled the operation.</exception>
         /// <exception cref="OptionException">Thrown if the specified feed file paths were invalid.</exception>
@@ -234,35 +237,90 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="FileNotFoundException">Thrown if a feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file or the catalog file is not permitted.</exception>
-        /// <exception cref="KeyNotFoundException">Thrown if a OpenPGP key could not be found.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if an OpenPGP key could not be found.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        private static ErrorLevel Execute(ParseResults results)
+        private static ErrorLevel Execute(ParseResults options)
         {
-            switch (results.Mode)
+            switch (options.Mode)
             {
                 case OperationMode.Normal:
-                    if (results.Feeds.Count == 0)
+                    if (options.Feeds.Count == 0)
                     {
                         Log.Error(string.Format(Resources.MissingArguments, "0publish"));
                         return ErrorLevel.InvalidArguments;
                     }
 
-                    ModifyFeeds(results);
+                    foreach (var file in options.Feeds)
+                    {
+                        var feed = SignedFeed.Load(file.FullName);
+                        HandleModify(feed.Feed, options);
+                        SaveFeed(feed, file.FullName, options);
+                    }
                     return ErrorLevel.OK;
 
                 case OperationMode.Catalog:
                     // Default to using all XML files in the current directory
-                    if (results.Feeds.Count == 0)
-                        results.Feeds = ArgumentUtils.GetFiles(new[] {Environment.CurrentDirectory}, "*.xml");
+                    if (options.Feeds.Count == 0)
+                        options.Feeds = ArgumentUtils.GetFiles(new[] {Environment.CurrentDirectory}, "*.xml");
 
-                    CreateCatalog(results);
+                    var catalog = new Catalog();
+
+                    foreach (var feedFile in options.Feeds)
+                    {
+                        var feed = Feed.Load(feedFile.FullName);
+                        feed.Strip();
+                        catalog.Feeds.Add(feed);
+                    }
+
+                    if (catalog.Feeds.IsEmpty) throw new FileNotFoundException(Resources.NoFeedFilesFound);
+
+                    catalog.Save(options.CatalogFile);
+                    XmlStorage.AddStylesheet(options.CatalogFile, "catalog.xsl");
                     return ErrorLevel.OK;
 
                 default:
                     Log.Error(string.Format(Resources.UnknownMode, "0publish"));
                     return ErrorLevel.NotSupported;
             }
+        }
+
+        /// <summary>
+        /// Saves a feed applying any signature options.
+        /// </summary>
+        /// <param name="feed">The feed to save.</param>
+        /// <param name="path">The path to save the feed to.</param>
+        /// <param name="options">The parser results to be handled.</param>
+        /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file or the catalog file is not permitted.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if an OpenPGP key could not be found.</exception>
+        /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
+        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
+        private static void SaveFeed(SignedFeed feed, string path, ParseResults options)
+        {
+            if (options.Unsign)
+            {
+                // Remove any existing signatures
+                feed.SecretKey = null;
+            }
+            else
+            {
+                var openPgp = OpenPgpProvider.Default;
+
+                // Use default secret key if there are no existing signatures
+                if (options.XmlSign && feed.SecretKey == null)
+                    feed.SecretKey = openPgp.GetSecretKey(null);
+
+                // Use specific secret key for signature
+                if (!string.IsNullOrEmpty(options.Key))
+                    feed.SecretKey = openPgp.GetSecretKey(options.Key);
+            }
+
+            // Ask for passphrase to unlock secret key
+            if (feed.SecretKey != null && string.IsNullOrEmpty(options.OpenPgpPassphrase))
+                options.OpenPgpPassphrase = CliUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
+
+            feed.Save(path, options.OpenPgpPassphrase);
         }
         #endregion
     }

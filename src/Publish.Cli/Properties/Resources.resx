@@ -127,6 +127,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="NoFeedFilesFound" xml:space="preserve">
     <value>Unable to find any matching feed files.</value>
   </data>
+  <data name="OptionAddMissing" xml:space="preserve">
+    <value>Download missing archives, calculate manifest digests, etc..</value>
+  </data>
   <data name="OptionBatch" xml:space="preserve">
     <value>Run in batch mode: don't display any messages to the user and silently answer all questions with "No".</value>
   </data>
@@ -145,8 +148,11 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="Options" xml:space="preserve">
     <value>Options:</value>
   </data>
+  <data name="OptionsStoreDownloads" xml:space="preserve">
+    <value>Add any downloaded archives to the implementation store.</value>
+  </data>
   <data name="OptionUnsign" xml:space="preserve">
-    <value>Remove existing signature.</value>
+    <value>Remove any existing signatures.</value>
   </data>
   <data name="OptionVersion" xml:space="preserve">
     <value>Display version information.</value>
