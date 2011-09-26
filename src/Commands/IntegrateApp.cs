@@ -25,6 +25,7 @@ using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Injector;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -93,15 +94,53 @@ namespace ZeroInstall.Commands
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
             #endregion
 
-            var appEntry = GetAppEntry(integrationManager, interfaceID);
+            // If the user only wants to remove stuff avoid fetching the feed
+            if (_addCategories.IsEmpty && !_removeCategories.IsEmpty)
+                return RemoveOnly(integrationManager, interfaceID);
 
-            // If user specified no specific integration options show UI
+            var feed = GetFeed(interfaceID);
+            var appEntry = GetAppEntry(integrationManager, interfaceID, feed);
+
+            // If user specified no specific integration options show an interactive UI
             if (_addCategories.IsEmpty && _removeCategories.IsEmpty)
             {
-                Policy.Handler.ShowIntegrateApp(integrationManager, appEntry, GetFeed(interfaceID));
+                Policy.Handler.ShowIntegrateApp(integrationManager, appEntry, feed);
                 return 0;
             }
 
+            return RemoveAndAdd(integrationManager, feed, appEntry);
+        }
+
+        /// <summary>
+        /// Applies the <see cref="_removeCategories"/> specified by the user.
+        /// </summary>
+        /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
+        private int RemoveOnly(CategoryIntegrationManager integrationManager, string interfaceID)
+        {
+            try
+            {
+                integrationManager.RemoveAccessPointCategories(integrationManager.AppList.GetEntry(interfaceID), _removeCategories);
+            }
+                #region Error handling
+            catch (KeyNotFoundException ex)
+            {
+                // Show a "failed to comply" message (but not in batch mode, since it is too unimportant)
+                if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, ex.Message);
+                return 1;
+            }
+            #endregion
+
+            // Show a "integration complete" message without application name (but not in batch mode, since it is too unimportant)
+            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, interfaceID));
+            return 0;
+        }
+
+        /// <summary>
+        /// Applies the <see cref="_removeCategories"/> and <see cref="_addCategories"/> specified by the user.
+        /// </summary>
+        /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
+        private int RemoveAndAdd(CategoryIntegrationManager integrationManager, Feed feed, AppEntry appEntry)
+        {
             if (!_removeCategories.IsEmpty)
                 integrationManager.RemoveAccessPointCategories(appEntry, _removeCategories);
 
@@ -109,20 +148,16 @@ namespace ZeroInstall.Commands
             {
                 try
                 {
-                    integrationManager.AddAccessPointCategories(appEntry, GetFeed(interfaceID), _addCategories, Policy.Handler);
+                    integrationManager.AddAccessPointCategories(appEntry, feed, _addCategories, Policy.Handler);
                 }
                     #region Error handling
                 catch (InvalidOperationException ex)
                 {
                     // Show a "failed to comply" message (but not in batch mode, since it is too unimportant)
                     if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, ex.Message);
-                    return 2;
+                    return 1;
                 }
                 #endregion
-
-                // Show a "integration complete" message with application name (but not in batch mode, since it is too unimportant)
-                if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, appEntry.Name));
-                return 0;
             }
 
             // Show a "integration complete" message without application name (but not in batch mode, since it is too unimportant)
@@ -132,29 +167,29 @@ namespace ZeroInstall.Commands
         #endregion
 
         #region Helpers
-        private AppEntry GetAppEntry(IIntegrationManager integrationManager, string interfaceID)
+        /// <summary>
+        /// Finds an existing <see cref="AppEntry"/> or creates a new one for a specific interface ID and feed.
+        /// </summary>
+        private AppEntry GetAppEntry(CategoryIntegrationManager integrationManager, string interfaceID, Feed feed)
         {
-            // ToDo: Reduce need for feed loading
-            var feed = GetFeed(interfaceID);
-
+            AppEntry appEntry;
             try
             {
-                var appEntry = integrationManager.AppList.GetEntry(interfaceID);
+                appEntry = integrationManager.AppList.GetEntry(interfaceID);
 
                 if (!appEntry.CapabilityLists.UnsequencedEquals(feed.CapabilityLists))
                 {
                     string changedMessage = string.Format(Resources.CapabilitiesChanged, appEntry.Name);
                     if (Policy.Handler.AskQuestion(changedMessage + " " + Resources.AskUpdateCapabilities, changedMessage))
-                        integrationManager.UpdateApp(appEntry, feed);
+                        ((IIntegrationManager)integrationManager).UpdateApp(appEntry, feed);
                 }
-
-                return appEntry;
             }
             catch (KeyNotFoundException)
             {
                 // Automatically add missing AppEntry
-                return integrationManager.AddApp(interfaceID, feed);
+                appEntry = integrationManager.AddApp(interfaceID, feed);
             }
+            return appEntry;
         }
         #endregion
     }

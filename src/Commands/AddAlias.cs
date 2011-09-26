@@ -97,55 +97,6 @@ namespace ZeroInstall.Commands
                 return CreateAlias(integrationManager, AdditionalArgs[0], interfaceID, command);
             }
         }
-        #endregion
-
-        #region Helpers
-        /// <summary>
-        /// Creates a new alias.
-        /// </summary>
-        /// <param name="integrationManager">Manages desktop integration operations.</param>
-        /// <param name="aliasName">The name of the alias to create.</param>
-        /// <param name="interfaceID">The interface ID the alias shall point to.</param>
-        /// <param name="command">A command within the interface the alias shall point to; may be <see langword="null"/>.</param>
-        /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        private int CreateAlias(IIntegrationManager integrationManager, string aliasName, string interfaceID, string command)
-        {
-            Policy.Handler.ShowProgressUI(Cancel);
-
-            if (Canceled) throw new UserCancelException();
-
-            AppEntry appEntry = GetAppEntry(integrationManager, interfaceID);
-
-            // Apply the new alias
-            var alias = new AppAlias {Name = aliasName, Command = command};
-            try
-            {
-                integrationManager.AddAccessPoints(appEntry, GetFeed(interfaceID), new AccessPoint[] {alias});
-            }
-            catch (InvalidOperationException ex)
-            {
-                // Show a "failed to comply" message
-                Policy.Handler.Output(Resources.AppAlias, ex.Message);
-                return 1;
-            }
-
-            // Show a "integration complete" message (but not in batch mode, since it is too unimportant)
-            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.AliasCreated, aliasName, appEntry.Name));
-            return 0;
-        }
-
-        private AppEntry GetAppEntry(IIntegrationManager integrationManager, string interfaceID)
-        {
-            try
-            {
-                return integrationManager.AppList.GetEntry(interfaceID);
-            }
-            catch (KeyNotFoundException)
-            {
-                // Automatically add missing AppEntry
-                return integrationManager.AddApp(interfaceID, GetFeed(interfaceID));
-            }
-        }
 
         /// <summary>
         /// Resolves or removes existing aliases.
@@ -180,6 +131,42 @@ namespace ZeroInstall.Commands
         }
 
         /// <summary>
+        /// Creates a new alias.
+        /// </summary>
+        /// <param name="integrationManager">Manages desktop integration operations.</param>
+        /// <param name="aliasName">The name of the alias to create.</param>
+        /// <param name="interfaceID">The interface ID the alias shall point to.</param>
+        /// <param name="command">A command within the interface the alias shall point to; may be <see langword="null"/>.</param>
+        /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
+        private int CreateAlias(IIntegrationManager integrationManager, string aliasName, string interfaceID, string command)
+        {
+            Policy.Handler.ShowProgressUI(Cancel);
+
+            if (Canceled) throw new UserCancelException();
+
+            AppEntry appEntry = GetAppEntry(integrationManager, interfaceID);
+
+            // Apply the new alias
+            var alias = new AppAlias {Name = aliasName, Command = command};
+            try
+            {
+                integrationManager.AddAccessPoints(appEntry, GetFeed(interfaceID), new AccessPoint[] {alias});
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Show a "failed to comply" message
+                Policy.Handler.Output(Resources.AppAlias, ex.Message);
+                return 1;
+            }
+
+            // Show a "integration complete" message (but not in batch mode, since it is too unimportant)
+            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.AliasCreated, aliasName, appEntry.Name));
+            return 0;
+        }
+        #endregion
+
+        #region Helpers
+        /// <summary>
         /// Retreives a specific <see cref="AppAlias"/>.
         /// </summary>
         /// <param name="appList">The list of <see cref="AppEntry"/>s to search.</param>
@@ -203,6 +190,22 @@ namespace ZeroInstall.Commands
 
             foundAppEntry = null;
             return null;
+        }
+
+        /// <summary>
+        /// Finds an existing <see cref="AppEntry"/> or creates a new one for a specific interface ID.
+        /// </summary>
+        private AppEntry GetAppEntry(IIntegrationManager integrationManager, string interfaceID)
+        {
+            try
+            {
+                return integrationManager.AppList.GetEntry(interfaceID);
+            }
+            catch (KeyNotFoundException)
+            {
+                // Automatically add missing AppEntry
+                return integrationManager.AddApp(interfaceID, GetFeed(interfaceID));
+            }
         }
         #endregion
     }
