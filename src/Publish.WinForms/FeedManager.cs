@@ -174,11 +174,12 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>
         /// Asks the user to save the changes on the edited <see cref="Feed"/>.
         /// </summary>
-        /// <returns>The <see cref="DialogResult"/> of <see cref="Msg.Choose"/>.</returns>
+        /// <returns><see cref="DialogResult.Yes"/> if 'Yes' was chosen,
+        /// <see cref="DialogResult.No"/> if 'No' was chosen,
+        /// <see cref="DialogResult.Cancel"/> otherwise.</returns>
         private static DialogResult AskSavingChanges()
         {
-            return Msg.Choose(null, Resources.SaveQuestion, MsgSeverity.Info, true,
-                Resources.SaveChanges, Resources.DiscardChanges);
+            return Msg.YesNoCancel(null, Resources.SaveQuestion, MsgSeverity.Info, Resources.SaveChanges, Resources.DiscardChanges);
         }
 
         /// <summary>

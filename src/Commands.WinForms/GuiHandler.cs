@@ -178,7 +178,20 @@ namespace ZeroInstall.Commands.WinForms
             {
                 // Auto-deny unknown keys and inform via tray icon when in batch mode
                 if (Batch) _form.ShowTrayIcon(batchInformation, ToolTipIcon.Warning);
-                else result = Msg.Ask(_form, question, MsgSeverity.Info, Resources.Yes, Resources.No);
+                else
+                {
+                    switch (Msg.YesNoCancel(_form, question, MsgSeverity.Info, Resources.Yes, Resources.No))
+                    {
+                        case DialogResult.Yes:
+                            result = true;
+                            break;
+                        case DialogResult.No:
+                            result = false;
+                            break;
+                        default:
+                            throw new UserCancelException();
+                    }
+                }
             }));
             return result;
         }

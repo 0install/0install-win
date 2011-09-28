@@ -206,7 +206,7 @@ namespace ZeroInstall.Store.Management.WinForms
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
-            if (!Msg.Ask(this, string.Format(Resources.DeleteCheckedEntries, _treeView.CheckedEntries.Length), MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
+            if (Msg.YesNo(this, string.Format(Resources.DeleteCheckedEntries, _treeView.CheckedEntries.Length), MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
                 return;
 
             try

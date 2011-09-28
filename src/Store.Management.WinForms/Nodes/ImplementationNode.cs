@@ -156,7 +156,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                 }),
                 new MenuItem(Resources.Remove, delegate
                 {
-                    if (Msg.Ask(Parent, Resources.DeleteEntry, MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
+                    if (Msg.YesNo(Parent, Resources.DeleteEntry, MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
                     {
                         try
                         {

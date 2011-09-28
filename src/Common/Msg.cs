@@ -95,9 +95,9 @@ namespace Common
         }
         #endregion
 
-        #region Ask
+        #region OK/Cancel
         /// <summary>
-        /// Asks the user a Yes/No-question using a <see cref="MessageBox"/> or <see cref="TaskDialog"/>.
+        /// Asks the user a OK/Cancel-question using a <see cref="MessageBox"/> or <see cref="TaskDialog"/>.
         /// </summary>
         /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
         /// <param name="text">The message to be displayed; must not be <see langword="null"/>.</param>
@@ -106,7 +106,7 @@ namespace Common
         /// <param name="option2">The title and a short description (separated by a linebreak) of the <see cref="DialogResult.Cancel"/> option; may be <see langword="null"/>.</param>
         /// <returns><see langword="true"/> if <paramref name="option1"/> was selected, <see langword="false"/> if <paramref name="option2"/> was selected.</returns>
         /// <remarks>If a <see cref="MessageBox"/> is used, <paramref name="option1"/> and <paramref name="option2"/> are not display to the user, so don't rely on them!</remarks>
-        public static bool Ask(IWin32Window owner, string text, MsgSeverity severity, string option1, string option2)
+        public static bool OkCanel(IWin32Window owner, string text, MsgSeverity severity, string option1, string option2)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(text)) throw new ArgumentNullException("text");
@@ -169,25 +169,22 @@ namespace Common
                 #endregion
             }
 
-            return ShowMesageBox(owner, text, severity, MessageBoxButtons.YesNo) == DialogResult.Yes;
+            return ShowMesageBox(owner, text, severity, MessageBoxButtons.OKCancel) == DialogResult.OK;
         }
         #endregion
 
-        #region Select
+        #region Yes/No
         /// <summary>
         /// Asks the user to choose between two options (yes/no) using a <see cref="MessageBox"/> or <see cref="TaskDialog"/>.
         /// </summary>
         /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
         /// <param name="text">The message to be displayed; must not be <see langword="null"/>.</param>
         /// <param name="severity">How severe/important the message is.</param>
-        /// <param name="allowCancel">Can the user also cancel / choose neither of the two?</param>
         /// <param name="option1">The title and a short description (separated by a linebreak) of the <see cref="DialogResult.Yes"/> option; must not be <see langword="null"/>.</param>
         /// <param name="option2">The title and a short description (separated by a linebreak) of the <see cref="DialogResult.No"/> option; must not be <see langword="null"/>.</param>
-        /// <returns><see cref="DialogResult.Yes"/> if <paramref name="option1"/> was chosen,
-        /// <see cref="DialogResult.No"/> if <paramref name="option2"/> was chosen,
-        /// <see cref="DialogResult.Cancel"/> otherwise.</returns>
+        /// <returns><see langword="true"/> if <paramref name="option1"/> was chosen, <see langword="false"/> if <paramref name="option2"/> was chosen.</returns>
         /// <remarks>If a <see cref="MessageBox"/> is used, <paramref name="option1"/> and <paramref name="option2"/> are not display to the user, so don't rely on them!</remarks>
-        public static DialogResult Choose(IWin32Window owner, string text, MsgSeverity severity, bool allowCancel, string option1, string option2)
+        public static bool YesNo(IWin32Window owner, string text, MsgSeverity severity, string option1, string option2)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(text)) throw new ArgumentNullException("text");
@@ -221,15 +218,76 @@ namespace Common
                     new TaskDialogButton((int)DialogResult.No, option2.Replace("\r\n", "\n"))
                 };
 
-                // Add cancel support if desired
-                if (allowCancel)
+                try
                 {
-                    taskDialog.AllowDialogCancellation = true;
-                    taskDialog.CommonButtons = TaskDialogCommonButtons.Cancel;
-
-                    // Infos and Warnings (like Save) should default to yes
-                    if (severity >= MsgSeverity.Error) taskDialog.DefaultButton = (int)DialogResult.Cancel;
+                    return (ShowTaskDialog(taskDialog, owner) == DialogResult.Yes);
                 }
+                catch (BadImageFormatException)
+                {
+                    return (ShowMesageBox(owner, text, severity, MessageBoxButtons.YesNo) == DialogResult.Yes);
+                }
+                catch (EntryPointNotFoundException)
+                {
+                    return (ShowMesageBox(owner, text, severity, MessageBoxButtons.YesNo) == DialogResult.Yes);
+                }
+                #endregion
+            }
+
+            return (ShowMesageBox(owner, text, severity, MessageBoxButtons.YesNo) == DialogResult.Yes);
+        }
+        #endregion
+
+        #region Yes/No/Cancel
+        /// <summary>
+        /// Asks the user to choose between three options (yes/no/cancel) using a <see cref="MessageBox"/> or <see cref="TaskDialog"/>.
+        /// </summary>
+        /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
+        /// <param name="text">The message to be displayed; must not be <see langword="null"/>.</param>
+        /// <param name="severity">How severe/important the message is.</param>
+        /// <param name="option1">The title and a short description (separated by a linebreak) of the <see cref="DialogResult.Yes"/> option; must not be <see langword="null"/>.</param>
+        /// <param name="option2">The title and a short description (separated by a linebreak) of the <see cref="DialogResult.No"/> option; must not be <see langword="null"/>.</param>
+        /// <returns><see cref="DialogResult.Yes"/> if <paramref name="option1"/> was chosen,
+        /// <see cref="DialogResult.No"/> if <paramref name="option2"/> was chosen,
+        /// <see cref="DialogResult.Cancel"/> otherwise.</returns>
+        /// <remarks>If a <see cref="MessageBox"/> is used, <paramref name="option1"/> and <paramref name="option2"/> are not display to the user, so don't rely on them!</remarks>
+        public static DialogResult YesNoCancel(IWin32Window owner, string text, MsgSeverity severity, string option1, string option2)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(text)) throw new ArgumentNullException("text");
+            if (string.IsNullOrEmpty(option1)) throw new ArgumentNullException("option1");
+            if (string.IsNullOrEmpty(option2)) throw new ArgumentNullException("option2");
+            #endregion
+
+            #region Logging
+            switch (severity)
+            {
+                case MsgSeverity.Warn:
+                    Log.Warn(text);
+                    break;
+                case MsgSeverity.Error:
+                    Log.Error(text);
+                    break;
+            }
+            #endregion
+
+            // Use TaskDialog if possibe, otherwise fall back to MessageBox
+            if (TaskDialog.TaskDialog.IsAvailable)
+            {
+                #region TaskDialog
+                var taskDialog = GetTaskDialog(text, severity);
+                taskDialog.AllowDialogCancellation = true;
+                taskDialog.CommonButtons = TaskDialogCommonButtons.Cancel;
+
+                // Display fully customized text
+                taskDialog.UseCommandLinks = true;
+                taskDialog.Buttons = new[]
+                {
+                    new TaskDialogButton((int)DialogResult.Yes, option1.Replace("\r\n", "\n")),
+                    new TaskDialogButton((int)DialogResult.No, option2.Replace("\r\n", "\n"))
+                };
+
+                // Infos and Warnings (like Save) should default to yes
+                if (severity >= MsgSeverity.Error) taskDialog.DefaultButton = (int)DialogResult.Cancel;
 
                 try
                 {
@@ -237,16 +295,16 @@ namespace Common
                 }
                 catch (BadImageFormatException)
                 {
-                    return ShowMesageBox(owner, text, severity, allowCancel ? MessageBoxButtons.YesNoCancel : MessageBoxButtons.YesNo);
+                    return ShowMesageBox(owner, text, severity, MessageBoxButtons.YesNoCancel);
                 }
                 catch (EntryPointNotFoundException)
                 {
-                    return ShowMesageBox(owner, text, severity, allowCancel ? MessageBoxButtons.YesNoCancel : MessageBoxButtons.YesNo);
+                    return ShowMesageBox(owner, text, severity, MessageBoxButtons.YesNoCancel);
                 }
                 #endregion
             }
 
-            return ShowMesageBox(owner, text, severity, allowCancel ? MessageBoxButtons.YesNoCancel : MessageBoxButtons.YesNo);
+            return ShowMesageBox(owner, text, severity, MessageBoxButtons.YesNoCancel);
         }
         #endregion
 

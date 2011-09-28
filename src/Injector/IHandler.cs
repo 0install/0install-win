@@ -63,11 +63,12 @@ namespace ZeroInstall.Injector
         void CloseProgressUI();
 
         /// <summary>
-        /// Asks the user a Yes/No question (e.g., whether to trust a new GPG key).
+        /// Asks the user a Yes/No/Cancel question (e.g., whether to trust a new GPG key).
         /// </summary>
         /// <param name="question">The question and comprehensive information to help the user make an informed decision.</param>
         /// <param name="batchInformation">Information to be displayed if the question was automatically answered with 'No' because <see cref="Batch"/> was set to <see langword="true"/>.</param>
         /// <returns><see langword="true"/> if the user answered with 'Yes'; <see langword="false"/> if the user answered with 'No'.</returns>
+        /// <exception cref="UserCancelException">Thrown if the user selected 'Cancel'.</exception>
         /// <remarks>
         ///   <para>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</para>
         ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
