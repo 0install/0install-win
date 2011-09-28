@@ -106,7 +106,7 @@ namespace Common
         /// <param name="option2">The title and a short description (separated by a linebreak) of the <see cref="DialogResult.Cancel"/> option; may be <see langword="null"/>.</param>
         /// <returns><see langword="true"/> if <paramref name="option1"/> was selected, <see langword="false"/> if <paramref name="option2"/> was selected.</returns>
         /// <remarks>If a <see cref="MessageBox"/> is used, <paramref name="option1"/> and <paramref name="option2"/> are not display to the user, so don't rely on them!</remarks>
-        public static bool OkCanel(IWin32Window owner, string text, MsgSeverity severity, string option1, string option2)
+        public static bool OkCancel(IWin32Window owner, string text, MsgSeverity severity, string option1, string option2)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(text)) throw new ArgumentNullException("text");
@@ -138,7 +138,7 @@ namespace Common
                 { // Default cancel button
                     taskDialog.Buttons = new[]
                     {
-                        new TaskDialogButton((int)DialogResult.OK, option1.Replace("\r\n", "\n")),
+                        new TaskDialogButton((int)DialogResult.OK, option1.Replace("\r\n", "\n"))
                     };
                     taskDialog.CommonButtons = TaskDialogCommonButtons.Cancel;
                 }

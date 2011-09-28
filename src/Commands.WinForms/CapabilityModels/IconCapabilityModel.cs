@@ -23,7 +23,6 @@ namespace ZeroInstall.Commands.WinForms.CapabilityModels
     /// <summary>
     /// The specialized <see cref="CapabilityModel"/> adds a property for the description of an <see cref="IconCapability" />.
     /// </summary>
-    /// <typeparam name="T">The type of the <see cref="IconCapability" />.</typeparam>
     internal class IconCapabilityModel : CapabilityModel
     {
         private readonly IconCapability _iconCapability;

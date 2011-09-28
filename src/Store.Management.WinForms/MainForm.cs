@@ -207,29 +207,29 @@ namespace ZeroInstall.Store.Management.WinForms
         private void buttonRemove_Click(object sender, EventArgs e)
         {
             if (Msg.YesNo(this, string.Format(Resources.DeleteCheckedEntries, _treeView.CheckedEntries.Length), MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
-                return;
+            {
+                try
+                {
+                    foreach (StoreNode entry in _treeView.CheckedEntries)
+                        entry.Delete(this);
+                }
+                    #region Error handling
+                catch (KeyNotFoundException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                }
+                catch (IOException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                }
+                #endregion
 
-            try
-            {
-                foreach (StoreNode entry in _treeView.CheckedEntries)
-                    entry.Delete(this);
+                RefreshList();
             }
-                #region Error handling
-            catch (KeyNotFoundException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            #endregion
-
-            RefreshList();
         }
 
         private void buttonVerify_Click(object sender, EventArgs e)
