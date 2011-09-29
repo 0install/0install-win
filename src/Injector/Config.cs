@@ -129,14 +129,6 @@ namespace ZeroInstall.Injector
         [DefaultValue(true), DisplayName("Auto approve keys"), Description("Automatically approve keys known by the key info server and seen the first time a feed is fetched.")]
         public bool AutoApproveKeys { get { return _autoApproveKeys; } set { _autoApproveKeys = value; } }
 
-        private bool _selfUpdateEnabled = true;
-
-        /// <summary>
-        /// Controls whether Zero Install searches for updates for itself.
-        /// </summary>
-        [DefaultValue(true), DisplayName("Self-update enabled"), Description("Controls whether Zero Install searches for updates for itself.")]
-        public bool SelfUpdateEnabled { get { return _selfUpdateEnabled; } set { _selfUpdateEnabled = value; } }
-
         private const string DefaultSelfUpdateID = "http://0install.de/feeds/ZeroInstall.xml";
         private string _selfUpdateID = DefaultSelfUpdateID;
 
@@ -185,12 +177,6 @@ namespace ZeroInstall.Injector
         [DefaultValue(""), PasswordPropertyText(true), DisplayName("Sync crypto"), Description("The local key used to encrypt data before sending it to the Sync server.")]
         public string SyncCryptoKey { get { return _syncCryptoKey; } set { _syncCryptoKey = value; } }
 
-        /// <summary>
-        /// Automatically synchronize with the <see cref="SyncServer"/> in the background.
-        /// </summary>
-        [DefaultValue(false), DisplayName("Auto sync"), Description("Automatically synchronize with the SyncServer in the background.")]
-        public bool AutoSync { get; set; }
-
         private bool _allowApiHooking;
 
         /// <summary>
@@ -214,13 +200,11 @@ namespace ZeroInstall.Injector
                 {"feed_mirror", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => FeedMirror, value => FeedMirror = value, new Uri(DefaultFeedMirror)))},
                 {"key_info_server", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => KeyInfoServer, value => KeyInfoServer = value, new Uri(DefaultKeyInfoServer)))},
                 {"auto_approve_keys", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => AutoApproveKeys, value => AutoApproveKeys = value, true))},
-                {"self_update_enabled", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => SelfUpdateEnabled, value => SelfUpdateEnabled = value, true))},
                 {"self_update_id", new PropertyPointer<string>(() => SelfUpdateID, value => SelfUpdateID = value, DefaultSelfUpdateID)},
                 {"sync_server", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => SyncServer, value => SyncServer = value, new Uri(DefaultSyncServer)))},
                 {"sync_server_user", new PropertyPointer<string>(() => SyncServerUsername, value => SyncServerUsername = value, "")},
                 {"sync_server_pw", new PropertyPointer<string>(() => SyncServerPassword, value => SyncServerPassword = value, "")},
                 {"sync_crypto_key", new PropertyPointer<string>(() => SyncCryptoKey, value => SyncCryptoKey = value, "")},
-                {"auto_sync", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => AutoSync, value => AutoSync = value, false))},
                 {"allow_api_hooking", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => AllowApiHooking, value => AllowApiHooking = value, false))},
             };
         }

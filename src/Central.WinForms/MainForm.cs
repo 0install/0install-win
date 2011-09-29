@@ -39,8 +39,6 @@ namespace ZeroInstall.Central.WinForms
     internal partial class MainForm : Form
     {
         #region Variables
-        private Policy _policy;
-
         /// <summary>The version number of the newest available update; <see langword="null"/> if no update is available.</summary>
         private ImplementationVersion _selfUpdateVersion;
         #endregion
@@ -78,37 +76,12 @@ namespace ZeroInstall.Central.WinForms
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            try
-            {
-                _policy = Policy.CreateDefault(new SilentHandler());
-            }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                Close();
-                return;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                Close();
-                return;
-            }
-            catch (InvalidDataException ex)
-            {
-                Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
-                Close();
-                return;
-            }
-            #endregion
-
             // Show application catalog
             browserCatalog.Navigate("http://0install.de/catalog/?client=central&lang=" + CultureInfo.CurrentUICulture.TwoLetterISOLanguageName);
 
             // Don't check for updates when launched as a Zero Install implementation
             string topDir = Path.GetFileName(Locations.InstallBase) ?? Locations.InstallBase;
-            if (_policy.Config.SelfUpdateEnabled && !(topDir.StartsWith("sha") && topDir.Contains("=")))
+            if (!(topDir.StartsWith("sha") && topDir.Contains("=")))
                 selfUpdateWorker.RunWorkerAsync();
         }
         #endregion
@@ -120,7 +93,7 @@ namespace ZeroInstall.Central.WinForms
         {
             try
             {
-                _selfUpdateVersion = UpdateUtils.CheckSelfUpdate(_policy);
+                _selfUpdateVersion = UpdateUtils.CheckSelfUpdate(Policy.CreateDefault(new SilentHandler()));
             }
                 #region Error handling
             catch (UserCancelException)
@@ -130,6 +103,10 @@ namespace ZeroInstall.Central.WinForms
                 Log.Warn("Unable to perform self-update check:\n" + ex.Message);
             }
             catch (UnauthorizedAccessException ex)
+            {
+                Log.Warn("Unable to perform self-update check:\n" + ex.Message);
+            }
+            catch (InvalidDataException ex)
             {
                 Log.Warn("Unable to perform self-update check:\n" + ex.Message);
             }
@@ -206,7 +183,7 @@ namespace ZeroInstall.Central.WinForms
         private void OpenInBrowser(string url)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(url)) throw new ArgumentNullException("uri");
+            if (string.IsNullOrEmpty(url)) throw new ArgumentNullException("url");
             #endregion
 
             try
