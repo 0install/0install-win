@@ -661,6 +661,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply all access points specified in {FILE}..
+        /// </summary>
+        internal static string OptionAppImport {
+            get {
+                return ResourceManager.GetString("OptionAppImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove all {CATEGORY} access points..
         /// </summary>
         internal static string OptionAppRemove {

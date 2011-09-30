@@ -51,10 +51,15 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         [Description("A list of application entries.")]
         [XmlElement("app")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
-            public C5.LinkedList<AppEntry> Entries
+        public C5.LinkedList<AppEntry> Entries { get { return _entries; } }
+
+        /// <summary>
+        /// Returns the default file path used to store the main <see cref="AppList"/> on this system.
+        /// </summary>
+        /// <param name="systemWide">Store the <see cref="AppList"/> system-wide instead of just for the current user.</param>
+        public static string GetDefaultPath(bool systemWide)
         {
-            get { return _entries; }
+            return Path.Combine(Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration"), "app-list.xml");
         }
         #endregion
 

@@ -49,7 +49,7 @@ namespace ZeroInstall.Commands
 
         #region Execute
         /// <inheritdoc/>
-        protected override int ExecuteHelper(CategoryIntegrationManager integrationManager, string interfaceID)
+        protected override int ExecuteHelper(ICategoryIntegrationManager integrationManager, string interfaceID)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");

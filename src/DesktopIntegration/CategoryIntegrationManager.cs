@@ -19,8 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Net;
-using Common;
 using Common.Collections;
 using Common.Tasks;
 using Common.Utils;
@@ -31,17 +29,17 @@ using Capabilities = ZeroInstall.Model.Capabilities;
 namespace ZeroInstall.DesktopIntegration
 {
     /// <summary>
-    /// Manages desktop integration via <see cref="AccessPoint"/>, grouping them into categories.
+    /// Manages desktop integration via <see cref="AccessPoint"/>s, grouping them into categories.
     /// </summary>
     /// <remarks>
     /// To prevent raceconditions there may only be one desktop integration class active at any given time.
     /// This class aquires a mutex upon calling its constructor and releases it upon calling <see cref="IntegrationManager.Dispose()"/>.
     /// </remarks>
-    public class CategoryIntegrationManager : IntegrationManager
+    public class CategoryIntegrationManager : IntegrationManager, ICategoryIntegrationManager
     {
         #region Constants
         /// <summary>Indicates that all <see cref="Capabilities.Capability"/>s and <see cref="AccessPoint"/>s shall be integrated.</summary>
-        public const string AllCategoryName = "all";
+        private const string AllCategoryName = "all";
 
         /// <summary>A list of all known <see cref="AccessPoint"/> categories.</summary>
         public static readonly ICollection<string> Categories = new[] {CapabilityRegistration.CategoryName, DefaultAccessPoint.CategoryName, IconAccessPoint.CategoryName, AllCategoryName};
@@ -56,19 +54,7 @@ namespace ZeroInstall.DesktopIntegration
         //--------------------//
 
         #region Add
-        /// <summary>
-        /// Applies a category of <see cref="AccessPoint"/>s for an application.
-        /// </summary>
-        /// <param name="appEntry">The application being integrated.</param>
-        /// <param name="feed">The feed providing additional metadata, icons, etc. for the application.</param>
-        /// <param name="categories">A list of all <see cref="AccessPoint"/> categories to be added to the already applied ones.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        /// <exception cref="InvalidOperationException">Thrown if one or more of the <paramref name="categories"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Capabilities.Capability"/>s is invalid.</exception>
+        /// <inheritdoc/>
         public void AddAccessPointCategories(AppEntry appEntry, Feed feed, ICollection<string> categories, ITaskHandler handler)
         {
             #region Sanity checks
@@ -142,14 +128,7 @@ namespace ZeroInstall.DesktopIntegration
         #endregion
 
         #region Remove
-        /// <summary>
-        /// Removes a category of already applied <see cref="AccessPoint"/>s for an application.
-        /// </summary>
-        /// <param name="appEntry">The application being integrated.</param>
-        /// <param name="categories">A list of all <see cref="AccessPoint"/> categories to be removed from the already applied ones.</param>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Capabilities.Capability"/>s is invalid.</exception>
+        /// <inheritdoc/>
         public void RemoveAccessPointCategories(AppEntry appEntry, ICollection<string> categories)
         {
             #region Sanity checks

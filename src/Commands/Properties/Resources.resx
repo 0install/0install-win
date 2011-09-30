@@ -321,6 +321,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="OptionAppCategory" xml:space="preserve">
     <value>{CATEGORY} must be one of the following: </value>
   </data>
+  <data name="OptionAppImport" xml:space="preserve">
+    <value>Apply all access points specified in {FILE}.</value>
+  </data>
   <data name="OptionAppRemove" xml:space="preserve">
     <value>Remove all {CATEGORY} access points.</value>
   </data>

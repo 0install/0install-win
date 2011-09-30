@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using Common.Storage;
 using Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
@@ -95,7 +94,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public IntegrationManager(bool systemWide, ITaskHandler handler)
-            : this(systemWide, Path.Combine(Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration"), "app-list.xml"), handler)
+            : this(systemWide, AppList.GetDefaultPath(systemWide), handler)
         {
             // Prevent multiple concurrent desktop integration operations
             _mutex = new Mutex(true, systemWide ? @"Global\" + MutexName : MutexName);

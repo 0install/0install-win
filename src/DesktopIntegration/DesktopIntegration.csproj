@@ -85,6 +85,7 @@
     <Compile Include="AccessPoints\MockAccessPoint.cs" />
     <Compile Include="CategoryIntegrationManager.cs" />
     <Compile Include="ConflictData.cs" />
+    <Compile Include="ICategoryIntegrationManager.cs" />
     <Compile Include="IIntegrationManager.cs" />
     <Compile Include="IntegrationManager.Helpers.cs" />
     <Compile Include="IntegrationManager.cs" />

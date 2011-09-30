@@ -321,6 +321,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="OptionAppCategory" xml:space="preserve">
     <value>{CATEGORY} muss einen der folgenden Werte haben: </value>
   </data>
+  <data name="OptionAppImport" xml:space="preserve">
+    <value>Wende alle Access Points die in {FILE} gelistet sind an.</value>
+  </data>
   <data name="OptionAppRemove" xml:space="preserve">
     <value>Entferne alle {CATEGORY} Access Points.</value>
   </data>

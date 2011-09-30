@@ -28,6 +28,7 @@ using Common.Streams;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
@@ -204,15 +205,16 @@ namespace ZeroInstall.Commands
             #endregion
 
             if (id.StartsWith("alias:"))
-            {
-                // ToDo: Handle alias lookup
-                return id;
+            { // Look up AppEntry (and thus interface ID) belonging to an alias
+                string aliasName = id.Substring("alias:".Length);
+                AppEntry appEntry;
+                AddAlias.GetAppAlias(AppList.Load(AppList.GetDefaultPath(false)), aliasName, out appEntry);
+                return (appEntry == null ? id : appEntry.InterfaceID);
             }
             else if (ModelUtils.IsValidUri(id))
                 return id;
             else
-            {
-                // Assume invalid URIs are local paths
+            { // Assume invalid URIs are local paths
                 try
                 {
                     return Path.GetFullPath(id);

@@ -152,12 +152,13 @@ namespace ZeroInstall.Commands
             {
                 integrationManager.AddAccessPoints(appEntry, GetFeed(interfaceID), new AccessPoint[] {alias});
             }
+                #region Error handling
             catch (InvalidOperationException ex)
             {
-                // Show a "failed to comply" message
-                Policy.Handler.Output(Resources.AppAlias, ex.Message);
-                return 1;
+                // Wrap exception since only certain exception types are allowed
+                throw new NotSupportedException(ex.Message, ex);
             }
+            #endregion
 
             // Show a "integration complete" message (but not in batch mode, since it is too unimportant)
             if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.AliasCreated, aliasName, appEntry.Name));
@@ -173,7 +174,7 @@ namespace ZeroInstall.Commands
         /// <param name="aliasName">The name of the alias to search for.</param>
         /// <param name="foundAppEntry">Returns the <see cref="AppEntry"/> containing the found <see cref="AppAlias"/>; <see langword="null"/> if none was found.</param>
         /// <returns>The first <see cref="AppAlias"/> in <paramref name="appList"/> matching <paramref name="aliasName"/>; <see langword="null"/> if none was found.</returns>
-        private static AppAlias GetAppAlias(AppList appList, string aliasName, out AppEntry foundAppEntry)
+        internal static AppAlias GetAppAlias(AppList appList, string aliasName, out AppEntry foundAppEntry)
         {
             foreach (var appEntry in appList.Entries)
             {

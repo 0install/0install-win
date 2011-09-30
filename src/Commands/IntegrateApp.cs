@@ -47,6 +47,9 @@ namespace ZeroInstall.Commands
 
         /// <summary>A list of all <see cref="AccessPoint"/> categories to be removed from the already applied ones.</summary>
         private readonly C5.ICollection<string> _removeCategories = new C5.LinkedList<string>();
+
+        /// <summary>A list of <see cref="AccessPointList"/> files to be imported.</summary>
+        private readonly C5.ICollection<string> _importLists = new C5.LinkedList<string>();
         #endregion
 
         #region Properties
@@ -72,6 +75,7 @@ namespace ZeroInstall.Commands
                 if (!CategoryIntegrationManager.Categories.Contains(category)) throw new OptionException(string.Format(Resources.UnknownCategory, category), "remove");
                 _removeCategories.Add(category);
             });
+            Options.Add("i|import=", Resources.OptionAppImport, path => _importLists.Add(path));
         }
         #endregion
 
@@ -87,7 +91,7 @@ namespace ZeroInstall.Commands
         }
 
         /// <inheritdoc/>
-        protected override int ExecuteHelper(CategoryIntegrationManager integrationManager, string interfaceID)
+        protected override int ExecuteHelper(ICategoryIntegrationManager integrationManager, string interfaceID)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
@@ -95,14 +99,14 @@ namespace ZeroInstall.Commands
             #endregion
 
             // If the user only wants to remove stuff avoid fetching the feed
-            if (_addCategories.IsEmpty && !_removeCategories.IsEmpty)
+            if (_addCategories.IsEmpty && _importLists.IsEmpty && !_removeCategories.IsEmpty)
                 return RemoveOnly(integrationManager, interfaceID);
 
             var feed = GetFeed(interfaceID);
             var appEntry = GetAppEntry(integrationManager, interfaceID, feed);
 
-            // If user specified no specific integration options show an interactive UI
-            if (_addCategories.IsEmpty && _removeCategories.IsEmpty)
+            // If the user specified no specific integration options show an interactive UI
+            if (_addCategories.IsEmpty && _removeCategories.IsEmpty && _importLists.IsEmpty)
             {
                 Policy.Handler.ShowIntegrateApp(integrationManager, appEntry, feed);
                 return 0;
@@ -115,20 +119,9 @@ namespace ZeroInstall.Commands
         /// Applies the <see cref="_removeCategories"/> specified by the user.
         /// </summary>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        private int RemoveOnly(CategoryIntegrationManager integrationManager, string interfaceID)
+        private int RemoveOnly(ICategoryIntegrationManager integrationManager, string interfaceID)
         {
-            try
-            {
-                integrationManager.RemoveAccessPointCategories(integrationManager.AppList.GetEntry(interfaceID), _removeCategories);
-            }
-                #region Error handling
-            catch (KeyNotFoundException ex)
-            {
-                // Show a "failed to comply" message (but not in batch mode, since it is too unimportant)
-                if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, ex.Message);
-                return 1;
-            }
-            #endregion
+            integrationManager.RemoveAccessPointCategories(integrationManager.AppList.GetEntry(interfaceID), _removeCategories);
 
             // Show a "integration complete" message without application name (but not in batch mode, since it is too unimportant)
             if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, interfaceID));
@@ -139,26 +132,26 @@ namespace ZeroInstall.Commands
         /// Applies the <see cref="_removeCategories"/> and <see cref="_addCategories"/> specified by the user.
         /// </summary>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        private int RemoveAndAdd(CategoryIntegrationManager integrationManager, Feed feed, AppEntry appEntry)
+        private int RemoveAndAdd(ICategoryIntegrationManager integrationManager, Feed feed, AppEntry appEntry)
         {
             if (!_removeCategories.IsEmpty)
                 integrationManager.RemoveAccessPointCategories(appEntry, _removeCategories);
 
-            if (!_addCategories.IsEmpty)
+            try
             {
-                try
-                {
+                if (!_addCategories.IsEmpty)
                     integrationManager.AddAccessPointCategories(appEntry, feed, _addCategories, Policy.Handler);
-                }
-                    #region Error handling
-                catch (InvalidOperationException ex)
-                {
-                    // Show a "failed to comply" message (but not in batch mode, since it is too unimportant)
-                    if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, ex.Message);
-                    return 1;
-                }
-                #endregion
+
+                foreach (string path in _importLists)
+                    integrationManager.AddAccessPoints(appEntry, feed, AccessPointList.Load(path).Entries);
             }
+                #region Error handling
+            catch (InvalidOperationException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new NotSupportedException(ex.Message, ex);
+            }
+            #endregion
 
             // Show a "integration complete" message without application name (but not in batch mode, since it is too unimportant)
             if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, appEntry.Name));
@@ -170,7 +163,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Finds an existing <see cref="AppEntry"/> or creates a new one for a specific interface ID and feed.
         /// </summary>
-        private AppEntry GetAppEntry(CategoryIntegrationManager integrationManager, string interfaceID, Feed feed)
+        private AppEntry GetAppEntry(IIntegrationManager integrationManager, string interfaceID, Feed feed)
         {
             AppEntry appEntry;
             try
@@ -181,7 +174,7 @@ namespace ZeroInstall.Commands
                 {
                     string changedMessage = string.Format(Resources.CapabilitiesChanged, appEntry.Name);
                     if (Policy.Handler.AskQuestion(changedMessage + " " + Resources.AskUpdateCapabilities, changedMessage))
-                        ((IIntegrationManager)integrationManager).UpdateApp(appEntry, feed);
+                        integrationManager.UpdateApp(appEntry, feed);
                 }
             }
             catch (KeyNotFoundException)
