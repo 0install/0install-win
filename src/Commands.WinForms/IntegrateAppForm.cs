@@ -17,7 +17,10 @@
 
 using System;
 using System.ComponentModel;
+using System.IO;
+using System.Net;
 using System.Windows.Forms;
+using Common;
 using Common.Collections;
 using Common.Controls;
 using ZeroInstall.Commands.WinForms.CapabilityModels;
@@ -184,8 +187,36 @@ namespace ZeroInstall.Commands.WinForms
                 }
             }
 
-            _integrationManager.RemoveAccessPoints(_appEntry, toRemove);
-            _integrationManager.AddAccessPoints(_appEntry, _feed, toAdd);
+            try
+            {
+                _integrationManager.RemoveAccessPoints(_appEntry, toRemove);
+                _integrationManager.AddAccessPoints(_appEntry, _feed, toAdd);
+            }
+                #region Error handling
+            catch (UserCancelException)
+            {}
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (WebException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (InvalidOperationException ex)
+            {
+                // ToDo: More comprehensive conflict handling
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
         }
 
         private void button1_Click(object sender, EventArgs e)
