@@ -29,10 +29,13 @@ using ZeroInstall.Store.Feeds;
 namespace ZeroInstall.DesktopIntegration.Windows
 {
     /// <summary>
-    /// Utility class for getting permanent icon copies.
+    /// Utility class for getting Windows icon files. Provides persistent local paths.
     /// </summary>
     public static class IconProvider
     {
+        /// <summary>How long to keep reusing existing icons before redeploying them.</summary>
+        private static readonly TimeSpan _freshness = new TimeSpan(0, 20, 0); // 20 minutes
+
         /// <summary>
         /// Retreives a Windows icon via the <see cref="IIconCache"/> and stores a permanent copy of it.
         /// </summary>
@@ -54,7 +57,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string iconFilePath = Path.Combine(iconDirPath, StringUtils.Hash(icon.Location.ToString(), SHA256.Create()) + ".ico");
 
             // Return an existing icon or get a new one from the cache
-            if (!File.Exists(iconFilePath))
+            if (!File.Exists(iconFilePath) || (DateTime.UtcNow - File.GetLastWriteTimeUtc(iconFilePath) > _freshness))
                 File.Copy(IconCacheProvider.CreateDefault().GetIcon(icon.Location, handler), iconFilePath, true);
             return iconFilePath;
         }

@@ -35,7 +35,7 @@ using ZeroInstall.Store.Feeds;
 namespace ZeroInstall.DesktopIntegration.Windows
 {
     /// <summary>
-    /// Utility class for building stub EXEs that execute "0install" commands.
+    /// Utility class for building stub EXEs that execute "0install" commands. Provides persistent local paths.
     /// </summary>
     public static class StubProvider
     {
@@ -134,7 +134,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         #endregion
 
         #region Get
-        private static readonly TimeSpan _freshness = new TimeSpan(0, 20, 0);
+        /// <summary>How long to keep reusing existing stubs before rebuilding them.</summary>
+        private static readonly TimeSpan _freshness = new TimeSpan(1, 0, 0, 0); // 1 day
 
         /// <summary>
         /// Uses <see cref="BuildRunStub"/> to build a stub EXE in a well-known location. Future calls with the same arguments will return the same EXE without rebuilding it.
@@ -161,12 +162,42 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string exeName = (entryPoint != null && !string.IsNullOrEmpty(entryPoint.BinaryName))
                 ? entryPoint.BinaryName
                 : ModelUtils.Escape(target.Feed.Name);
-
-            // Return an existing stub or build a new one...
             string exePath = Path.Combine(dirPath, exeName + ".exe");
-            // ... if none exists or the existing one is too old
-            if (!File.Exists(exePath) || (DateTime.UtcNow - File.GetLastWriteTimeUtc(exePath) > _freshness)) BuildRunStub(exePath, target, command, handler);
-            return exePath;
+
+            if (File.Exists(exePath))
+            { // Existing stub, ...
+                if ((DateTime.UtcNow - File.GetLastWriteTimeUtc(exePath)) > _freshness)
+                { // Stale, try to rebuild
+                    try
+                    {
+                        File.Delete(exePath);
+                    }
+                        #region Error handling
+                    catch (IOException ex)
+                    {
+                        Log.Warn("Unable to replace stale stub: " + exePath + "\n"  + ex.Message);
+                        return exePath;
+                    }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        Log.Warn("Unable to replace stale stub: " + exePath + "\n" + ex.Message);
+                        return exePath;
+                    }
+                    #endregion
+
+                    BuildRunStub(exePath, target, command, handler);
+                    return exePath;
+                }
+                else
+                { // Fresh, keep existing
+                    return exePath;
+                }
+            }
+            else
+            { // No existing stub, build new one
+                BuildRunStub(exePath, target, command, handler);
+                return exePath;
+            }
         }
         #endregion
     }
