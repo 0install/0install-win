@@ -42,7 +42,7 @@ namespace Common.Utils
             [return: MarshalAs(UnmanagedType.Bool)]
             public static extern bool IsWow64Process([In] IntPtr hProcess, [Out, MarshalAs(UnmanagedType.Bool)] out bool lpSystemInfo);
 
-            [DllImport("kernel32.dll", SetLastError = true)]
+            [DllImport("kernel32", CharSet = CharSet.Unicode, SetLastError = true)]
             public static extern uint GetModuleFileName(IntPtr hModule, [Out]StringBuilder lpFilename, int nSize);
 
 

@@ -58,23 +58,26 @@ namespace Common.Storage
         /// The directory the application binaries are located in without a trailing directory separator charachter.
         /// </summary>
         public static readonly string InstallBase = AppDomain.CurrentDomain.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar);
+        #endregion
 
-        /// <summary>
-        /// The directory used for storing files if <see cref="IsPortable"/> is <see langword="true"/>. Defaults to <see cref="InstallBase"/>.
-        /// </summary>
-        public static string PortableBase = InstallBase;
+        #region Properties
+        private static bool _isPortable = File.Exists(Path.Combine(InstallBase, "_portable"));
 
         /// <summary>
         /// Indicates whether the application is currently operating in portable mode.
         /// </summary>
         /// <remarks>
-        ///   <para>Portable mode is activated by placing a file named "_portable" int the application's base directory.</para>
-        ///   <para>When portable mode is active files are stored and loaded from the application's base directory instead of the user profile and sysem directories.</para>
+        ///   <para>Portable mode is activated by placing a file named "_portable" in <see cref="InstallBase"/>.</para>
+        ///   <para>When portable mode is active files are stored and loaded from <see cref="PortableBase"/> instead of the user profile and sysem directories.</para>
         /// </remarks>
-        public static bool IsPortable = File.Exists(Path.Combine(PortableBase, "_portable"));
-        #endregion
+        public static bool IsPortable { get { return _isPortable; } set { _isPortable = value; } }
 
-        #region Properties
+        private static string _portableBase = InstallBase;
+
+        /// <summary>
+        /// The directory used for storing files if <see cref="IsPortable"/> is <see langword="true"/>. Defaults to <see cref="InstallBase"/>.
+        /// </summary>
+        public static string PortableBase { get { return _portableBase; } set { _portableBase = value; } }
 
         #region Per-user directories
         /// <summary>
@@ -263,8 +266,8 @@ namespace Common.Storage
             string path;
             try
             {
-                path = IsPortable
-                    ? FileUtils.PathCombine(PortableBase, "config", resourceCombined)
+                path = _isPortable
+                    ? FileUtils.PathCombine(_portableBase, "config", resourceCombined)
                     : FileUtils.PathCombine(UserConfigDir, appName, resourceCombined);
             }
                 #region Error handling
@@ -301,10 +304,10 @@ namespace Common.Storage
 
             string resourceCombined = FileUtils.PathCombine(resource);
             string path;
-            if (IsPortable)
+            if (_isPortable)
             {
                 // Check in portable base directory
-                path = FileUtils.PathCombine(PortableBase, "config", resourceCombined);
+                path = FileUtils.PathCombine(_portableBase, "config", resourceCombined);
                 if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
             }
             else
@@ -364,8 +367,8 @@ namespace Common.Storage
             string path;
             try
             {
-                path = IsPortable
-                    ? FileUtils.PathCombine(PortableBase, "data", resourceCombined)
+                path = _isPortable
+                    ? FileUtils.PathCombine(_portableBase, "data", resourceCombined)
                     : FileUtils.PathCombine(UserDataDir, appName, resourceCombined);
             }
                 #region Error handling
@@ -402,10 +405,10 @@ namespace Common.Storage
 
             string resourceCombined = FileUtils.PathCombine(resource);
             string path;
-            if (IsPortable)
+            if (_isPortable)
             {
                 // Check in portable base directory
-                path = FileUtils.PathCombine(PortableBase, "data", resourceCombined);
+                path = FileUtils.PathCombine(_portableBase, "data", resourceCombined);
                 if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
             }
             else
@@ -466,8 +469,8 @@ namespace Common.Storage
             string path;
             try
             {
-                path = IsPortable
-                    ? FileUtils.PathCombine(PortableBase, "cache", resourceCombined)
+                path = _isPortable
+                    ? FileUtils.PathCombine(_portableBase, "cache", resourceCombined)
                     : FileUtils.PathCombine(UserCacheDir, appName, resourceCombined);
             }
                 #region Error handling
@@ -505,10 +508,10 @@ namespace Common.Storage
 
             string resourceCombined = FileUtils.PathCombine(resource);
             string path;
-            if (IsPortable)
+            if (_isPortable)
             {
                 // Create in portable base directory
-                path = FileUtils.PathCombine(PortableBase, "cache", resourceCombined);
+                path = FileUtils.PathCombine(_portableBase, "cache", resourceCombined);
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                 yield return path;
             }
