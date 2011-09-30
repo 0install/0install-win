@@ -81,6 +81,7 @@ namespace ZeroInstall.Central.WinForms
 
             // Don't check for updates when launched as a Zero Install implementation
             string topDir = Path.GetFileName(Locations.InstallBase) ?? Locations.InstallBase;
+            // ToDo: Add option to turn auto-update off
             if (!(topDir.StartsWith("sha") && topDir.Contains("=")))
                 selfUpdateWorker.RunWorkerAsync();
         }

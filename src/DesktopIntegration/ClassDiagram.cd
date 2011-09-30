@@ -77,7 +77,7 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAEAABAAAAAEgAAQAAAAAAAAAIAAAAAQAAEAAAA=</HashCode>
+      <HashCode>AAAAAAAAABAAAAAEgAAwAAAAAAAAAIAAAAAQAAEAAAA=</HashCode>
       <FileName>AccessPoints\DesktopIcon.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -117,7 +117,7 @@
       <Method Name="GetHashCode" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAIAAAAgAAAAAAAACAAAIAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAIAAAAgAAAAAAAACAAAIAAAAAAAAgAAAA=</HashCode>
       <FileName>AccessPoints\DefaultAccessPoint.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -193,7 +193,7 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAACAEgAgAAAAAAAAAgIAAAAAAAAAAABA=</HashCode>
+      <HashCode>AAAAgIAAAAAAACAEgAgAAAAAAAAAgIAAAAAAAAAAABA=</HashCode>
       <FileName>AccessPoints\AccessPointList.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -230,7 +230,7 @@
       <Method Name="GetHashCode" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAgIAQABAAACEAgAAAAAAAAAAAAIAAAAAQAAAAABA=</HashCode>
+      <HashCode>AAAAgIAQABAAASEAgAAAAAAAAAAAAIAAAAAQAACAABA=</HashCode>
       <FileName>AppList.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -261,7 +261,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.DesktopIntegration.SyncIntegrationManager">
-    <Position X="3.25" Y="3" Width="2" />
+    <Position X="3.25" Y="3.75" Width="2" />
     <Members>
       <Method Name="SyncIntegrationManager" Hidden="true" />
     </Members>
@@ -274,14 +274,15 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="ZeroInstall.DesktopIntegration.CategoryIntegrationManager">
-    <Position X="0.5" Y="5.25" Width="2.25" />
+    <Position X="0.5" Y="6.25" Width="2.25" />
     <Members>
       <Method Name="CategoryIntegrationManager" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAAAQCAABAAAAAAAAAAAAEAAAAAAAAAAAAAI=</HashCode>
+      <HashCode>AAAAAAAAAAAQCAABAAAAAAAAAAAAEAAAAAAAAAAAAAI=</HashCode>
       <FileName>CategoryIntegrationManager.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.DesktopIntegration.IntegrationManager">
     <Position X="0.5" Y="0.5" Width="2.25" />
@@ -289,7 +290,7 @@
       <Method Name="~IntegrationManager" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>IAAACAgAACAAAAIkAAECAAEACRAAAgAAAAAAEAAAAAA=</HashCode>
+      <HashCode>IAAgAAgAAKAAQAIkAAECAQEACQAAAgAAAAAAECAAAAA=</HashCode>
       <FileName>IntegrationManager.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -306,7 +307,7 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAABAAAAAEgAAQAAAAAAAAAIAAAAAQAAEAAAA=</HashCode>
+      <HashCode>AAAAAAAAABAAAAAEgAAwAAAAAAAAAIAAAAAQAAEAAAA=</HashCode>
       <FileName>AccessPoints\SendTo.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -320,7 +321,7 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAABAAAAAEgAAQAAAAAAAAAIAAAAAQAAEAAAA=</HashCode>
+      <HashCode>AAAAAAAAABAAAAAEgAAwAAAAAAAAAIAAAAAQAAEAAAA=</HashCode>
       <FileName>AccessPoints\QuickLaunch.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
