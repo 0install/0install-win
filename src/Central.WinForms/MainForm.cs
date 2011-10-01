@@ -38,11 +38,6 @@ namespace ZeroInstall.Central.WinForms
     /// </summary>
     internal partial class MainForm : Form
     {
-        #region Variables
-        /// <summary>The version number of the newest available update; <see langword="null"/> if no update is available.</summary>
-        private ImplementationVersion _selfUpdateVersion;
-        #endregion
-
         #region Constructor
         /// <summary>
         /// Initializes the main GUI.
@@ -57,7 +52,16 @@ namespace ZeroInstall.Central.WinForms
 
                 var cacheLink = new ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, StoreExe + ".exe"), null);
                 var configLink = new ShellLink(buttonConfiguration.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, CommandsExe + ".exe"), "config");
-                WindowsUtils.AddTaskLinks(Program.AppUserModelID, new[] {cacheLink, configLink});
+                try
+                {
+                    WindowsUtils.AddTaskLinks(Program.AppUserModelID, new[] {cacheLink, configLink});
+                }
+                    #region Sanity checks
+                catch (IOException ex)
+                {
+                    Log.Error("Failed to set up task links:\n" + ex.Message);
+                }
+                #endregion
             };
 
             browserCatalog.CanGoBackChanged += delegate { toolStripButtonBack.Enabled = browserCatalog.CanGoBack; };
@@ -94,7 +98,7 @@ namespace ZeroInstall.Central.WinForms
         {
             try
             {
-                _selfUpdateVersion = UpdateUtils.CheckSelfUpdate(Policy.CreateDefault(new SilentHandler()));
+                e.Result = UpdateUtils.CheckSelfUpdate(Policy.CreateDefault(new SilentHandler()));
             }
                 #region Error handling
             catch (UserCancelException)
@@ -120,8 +124,9 @@ namespace ZeroInstall.Central.WinForms
 
         private void selfUpdateWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (_selfUpdateVersion == null || !Visible) return;
-            if (Msg.YesNo(this, string.Format(Resources.SelfUpdateAvailable, _selfUpdateVersion), MsgSeverity.Info, Resources.SelfUpdateYes, Resources.SelfUpdateNo))
+            var selfUpdateVersion = e.Result as ImplementationVersion;
+            if (selfUpdateVersion == null || !Visible) return;
+            if (Msg.YesNo(this, string.Format(Resources.SelfUpdateAvailable, selfUpdateVersion), MsgSeverity.Info, Resources.SelfUpdateYes, Resources.SelfUpdateNo))
             {
                 try
                 {

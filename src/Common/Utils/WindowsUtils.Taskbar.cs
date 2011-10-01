@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -398,6 +399,7 @@ namespace Common.Utils
         /// </summary>
         /// <param name="appID">The application ID of the jumplist to add the task to.</param>
         /// <param name="links">The links to add to the jumplist.</param>
+        /// <exception cref="IOException">Thrown if a task link could not be created, e.g, because a <see cref="ShellLink.Path"/> is incorrect.</exception>
         public static void AddTaskLinks(string appID, IEnumerable<ShellLink> links)
         {
             #region Sanity checks
