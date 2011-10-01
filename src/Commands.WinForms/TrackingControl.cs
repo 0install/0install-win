@@ -39,7 +39,7 @@ namespace ZeroInstall.Commands.WinForms
         ///   <para>The value must not be set before <see cref="Control.Handle"/> has been created.</para>
         /// </remarks>
         /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread or before the <see cref="Control.Handle"/> is created.</exception>
-        [DefaultValue(null), Description("The ITask object to track.")]
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ITask Task
         {
             set
