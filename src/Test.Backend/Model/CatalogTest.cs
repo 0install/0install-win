@@ -39,6 +39,22 @@ namespace ZeroInstall.Model
         #endregion
 
         /// <summary>
+        /// Ensures that <see cref="Catalog.Merge"/> correctly combines <see cref="Feed"/>s from multiple <see cref="Catalog"/>s and filters out duplicates.
+        /// </summary>
+        [Test]
+        public void TestMerge()
+        {
+            var feed1 = new Feed {Uri = new Uri("http://0install.de/feeds/test/test1.xml")};
+            var feed2 = new Feed {Uri = new Uri("http://0install.de/feeds/test/test2.xml")};
+            var feed3 = new Feed {Uri = new Uri("http://0install.de/feeds/test/test3.xml")};
+            var catalog1 = new Catalog {Feeds = {feed1, feed2}};
+            var catalog2 = new Catalog {Feeds = {feed2, feed3}};
+
+            var mergedCatalog = Catalog.Merge(new[] {catalog1, catalog2});
+            CollectionAssert.AreEqual(new[] {feed1, feed2, feed3}, mergedCatalog.Feeds);
+        }
+
+        /// <summary>
         /// Ensures that <see cref="Catalog.GetFeed"/> correctly finds contained <see cref="Feed"/>s.
         /// </summary>
         [Test]
@@ -84,15 +100,6 @@ namespace ZeroInstall.Model
             Assert.AreEqual(catalog1, catalog2, "Cloned objects should be equal.");
             Assert.AreEqual(catalog1.GetHashCode(), catalog2.GetHashCode(), "Cloned objects' hashes should be equal.");
             Assert.IsFalse(ReferenceEquals(catalog1, catalog2), "Cloning should not return the same reference.");
-        }
-
-        /// <summary>
-        /// Ensures that <see cref="Catalog.Simplify"/> correctly removes unneeded information from <see cref="Feed"/>s.
-        /// </summary>
-        [Test]
-        public void TestSimplify()
-        {
-            // ToDo: Implement
         }
     }
 }

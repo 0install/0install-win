@@ -51,6 +51,34 @@ namespace ZeroInstall.Model
         public C5.LinkedList<Feed> Feeds { get { return _feeds; } }
         #endregion
 
+        #region Factory methods
+        /// <summary>
+        /// Merges the content of multiple <see cref="Catalog"/>s.
+        /// </summary>
+        /// <remarks>In case of duplicate <see cref="Feed.Uri"/>s only the first instance is kept.</remarks>
+        public static Catalog Merge(IEnumerable<Catalog> catalogs)
+        {
+            #region Sanity checks
+            if (catalogs == null) throw new ArgumentNullException("catalogs");
+            #endregion
+
+            var newCatalog = new Catalog();
+            var feedUris = new C5.HashSet<Uri>(); // Hash interface URIs to detect duplicates quicker
+
+            foreach (var catalog in catalogs)
+            {
+                foreach (var feed in catalog.Feeds)
+                {
+                    if (feedUris.Contains(feed.Uri)) continue; // Drop duplicates
+                    newCatalog.Feeds.Add(feed);
+                    feedUris.Add(feed.Uri);
+                }
+            }
+
+            return newCatalog;
+        }
+        #endregion
+
         //--------------------//
 
         #region Query
