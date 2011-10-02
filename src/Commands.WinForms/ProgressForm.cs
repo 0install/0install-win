@@ -36,9 +36,6 @@ namespace ZeroInstall.Commands.WinForms
     public partial class ProgressForm : Form
     {
         #region Variables
-        /// <summary>Synchronization object used to prevent multiple concurrent generic <see cref="ITask"/>s.</summary>
-        protected readonly object GenericTaskLock = new object();
-
         /// <summary>To be called when the user wishes to cancel the current process.</summary>
         private readonly SimpleEventHandler _cancelCallback;
         #endregion
@@ -94,10 +91,6 @@ namespace ZeroInstall.Commands.WinForms
             if (selections == null) throw new ArgumentNullException("selections");
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
-
-            Visible = true;
-            WindowState = FormWindowState.Normal;
-            HideTrayIcon();
 
             //labelSolving.Visible = progressBarSolving.Visible = false;
             selectionsControl.Visible = true;
