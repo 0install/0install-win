@@ -108,19 +108,19 @@ namespace ZeroInstall.Store.Feeds
             // Download missing icons
             if (!File.Exists(path))
             {
+                string tempPath = path + "." + Path.GetRandomFileName() + ".tmp";
                 try
                 {
                     // Perform atomic download and replace
-                    handler.RunTask(new DownloadFile(iconUrl, path + ".new"), null);
-                    FileUtils.Replace(path + ".new", path);
+                    handler.RunTask(new DownloadFile(iconUrl, tempPath), null);
+                    FileUtils.Replace(tempPath, path);
                 }
-                catch
+                catch (Exception)
                 {
                     // Don't leave partial downloads in the cache
-                    if (File.Exists(path + ".new")) File.Delete(path + ".new");
+                    if (File.Exists(tempPath)) File.Delete(tempPath);
 
-                    // Only pass on exceptions if there wasn't a suitable file in the cache already
-                    if (!File.Exists(path)) throw;
+                    throw;
                 }
             }
 
