@@ -84,7 +84,7 @@ namespace ZeroInstall.Commands
         public Selection(Policy policy) : base(policy)
         {
             Options.Add("batch", Resources.OptionBatch, unused => Policy.Handler.Batch = true);
-            Options.Add("g|gui", Resources.OptionGui, unused => Policy.FeedManager.Refresh = ShowSelectionsUI = true);
+            Options.Add("g|gui", Resources.OptionGui, unused => ShowSelectionsUI = true);
 
             Options.Add("o|offline", Resources.OptionOffline, unused => Policy.Config.NetworkUse = NetworkLevel.Offline);
             Options.Add("r|refresh", Resources.OptionRefresh, unused => Policy.FeedManager.Refresh = true);
