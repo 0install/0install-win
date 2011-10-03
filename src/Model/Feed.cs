@@ -121,15 +121,15 @@ namespace ZeroInstall.Model
         [XmlElement("icon")]
         public C5.LinkedList<Icon> Icons { get { return _icons; } }
 
-        // Order is preserved, duplicate entries are not intended
-        private readonly C5.HashedLinkedList<string> _categories = new C5.HashedLinkedList<string>();
+        // Preserve order
+        private readonly C5.LinkedList<string> _categories = new C5.LinkedList<string>();
 
         /// <summary>
         /// Zero or more categories as defined by the freedesktop.org menu specification.
         /// </summary>
         [Category("Interface"), Description("Zero or more categories as defined by the freedesktop.org menu specification.")]
         [XmlElement("category")]
-        public C5.HashedLinkedList<string> Categories { get { return _categories; } }
+        public C5.LinkedList<string> Categories { get { return _categories; } }
 
         /// <summary>
         /// If <see langword="true"/>, this element indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.
