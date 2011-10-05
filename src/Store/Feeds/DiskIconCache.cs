@@ -95,6 +95,8 @@ namespace ZeroInstall.Store.Feeds
         #endregion
 
         #region Get
+        private readonly object _downloadLock = new object();
+
         /// <inheritdoc/>
         public string GetIcon(Uri iconUrl, ITaskHandler handler)
         {
@@ -107,24 +109,36 @@ namespace ZeroInstall.Store.Feeds
 
             // Download missing icons
             if (!File.Exists(path))
-            {
-                string tempPath = path + "." + Path.GetRandomFileName() + ".tmp";
-                try
-                {
-                    // Perform atomic download and replace
-                    handler.RunTask(new DownloadFile(iconUrl, tempPath), null);
-                    FileUtils.Replace(tempPath, path);
-                }
-                catch (Exception)
-                {
-                    // Don't leave partial downloads in the cache
-                    if (File.Exists(tempPath)) File.Delete(tempPath);
-
-                    throw;
+            { // Only allow one icon download at a time
+                lock (_downloadLock)
+                { // Perform double-check (inside and outside lock) to prevent race-conditions
+                    if (!File.Exists(path))
+                        DownloadFile(iconUrl, path, handler);
                 }
             }
 
             return path;
+        }
+        
+        /// <summary>
+        /// Downloads <paramref name="source"/> to <paramref name="target"/> using a temporary intermediate file to make the process atomic.
+        /// </summary>
+        private static void DownloadFile(Uri source, string target, ITaskHandler handler)
+        {
+            string tempPath = target + "." + Path.GetRandomFileName() + ".tmp";
+            try
+            {
+                // Perform atomic download and replace
+                handler.RunTask(new DownloadFile(source, tempPath), null);
+                FileUtils.Replace(tempPath, target);
+            }
+            catch (Exception)
+            {
+                // Don't leave partial downloads in the cache
+                if (File.Exists(tempPath)) File.Delete(tempPath);
+
+                throw;
+            }
         }
         #endregion
 
