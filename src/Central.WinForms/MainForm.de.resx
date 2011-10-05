@@ -120,24 +120,11 @@
   <data name="tabPageMyApps.Text" xml:space="preserve">
     <value>Meine Anwendungen</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="labelNotAvailableYet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>286, 20</value>
-  </data>
-  <data name="labelNotAvailableYet.Text" xml:space="preserve">
-    <value>Dieses Feature ist noch nicht verfügbar</value>
+  <data name="buttonLaunchInterface.Text" xml:space="preserve">
+    <value>Interface &amp;starten</value>
   </data>
   <data name="tabPageNewApps.Text" xml:space="preserve">
     <value>Neue Anwendungen</value>
-  </data>
-  <data name="toolStripButtonBack.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 22</value>
-  </data>
-  <data name="toolStripButtonBack.Text" xml:space="preserve">
-    <value>Zurück</value>
-  </data>
-  <data name="buttonLaunchInterface.Text" xml:space="preserve">
-    <value>Interface &amp;starten</value>
   </data>
   <data name="buttonConfiguration.Text" xml:space="preserve">
     <value>K&amp;onfiguration</value>
@@ -148,6 +135,7 @@
   <data name="buttonHelp.Text" xml:space="preserve">
     <value>&amp;Hilfe</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAYAMDAAAAEACACoDgAAZgAAACAgAAABAAgAqAgAAA4PAAAQEAAAAQAIAGgFAAC2FwAAMDAAAAEA

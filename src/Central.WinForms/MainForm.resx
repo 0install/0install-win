@@ -118,73 +118,43 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="pictureBoxLogo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="pictureBoxLogo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>227, 15</value>
-  </data>
-  <data name="pictureBoxLogo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="pictureBoxLogo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>327, 57</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="pictureBoxLogo.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;pictureBoxLogo.Name" xml:space="preserve">
-    <value>pictureBoxLogo</value>
-  </data>
-  <data name="&gt;&gt;pictureBoxLogo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pictureBoxLogo.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;pictureBoxLogo.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
   <data name="tabControlApps.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="labelNotAvailableYet.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="myAppsList.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="labelNotAvailableYet.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 12</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="myAppsList.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
   </data>
-  <data name="labelNotAvailableYet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 20</value>
+  <data name="myAppsList.Size" type="System.Drawing.Size, System.Drawing">
+    <value>484, 354</value>
   </data>
-  <data name="labelNotAvailableYet.TabIndex" type="System.Int32, mscorlib">
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="myAppsList.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="labelNotAvailableYet.Text" xml:space="preserve">
-    <value>This feature is not available yet</value>
+  <data name="&gt;&gt;myAppsList.Name" xml:space="preserve">
+    <value>myAppsList</value>
   </data>
-  <data name="&gt;&gt;labelNotAvailableYet.Name" xml:space="preserve">
-    <value>labelNotAvailableYet</value>
+  <data name="&gt;&gt;myAppsList.Type" xml:space="preserve">
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.1.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
-  <data name="&gt;&gt;labelNotAvailableYet.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelNotAvailableYet.Parent" xml:space="preserve">
+  <data name="&gt;&gt;myAppsList.Parent" xml:space="preserve">
     <value>tabPageMyApps</value>
   </data>
-  <data name="&gt;&gt;labelNotAvailableYet.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;myAppsList.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="tabPageMyApps.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 29</value>
+    <value>4, 22</value>
   </data>
   <data name="tabPageMyApps.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPageMyApps.Size" type="System.Drawing.Size, System.Drawing">
-    <value>748, 314</value>
+    <value>490, 360</value>
   </data>
   <data name="tabPageMyApps.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -204,77 +174,68 @@
   <data name="&gt;&gt;tabPageMyApps.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="toolStripNewApps.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="toolStripButtonBack.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="toolStripButtonBack.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="toolStripButtonBack.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 22</value>
-  </data>
-  <data name="toolStripButtonBack.Text" xml:space="preserve">
-    <value>Back</value>
-  </data>
-  <data name="toolStripNewApps.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="toolStripNewApps.Size" type="System.Drawing.Size, System.Drawing">
-    <value>742, 25</value>
-  </data>
-  <data name="toolStripNewApps.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="toolStripNewApps.Text" xml:space="preserve">
-    <value>toolStrip1</value>
-  </data>
-  <data name="&gt;&gt;toolStripNewApps.Name" xml:space="preserve">
-    <value>toolStripNewApps</value>
-  </data>
-  <data name="&gt;&gt;toolStripNewApps.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripNewApps.Parent" xml:space="preserve">
-    <value>tabPageNewApps</value>
-  </data>
-  <data name="&gt;&gt;toolStripNewApps.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="browserCatalog.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="catalogList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="browserCatalog.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 31</value>
+  <data name="catalogList.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
   </data>
-  <data name="browserCatalog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>745, 280</value>
+  <data name="catalogList.Size" type="System.Drawing.Size, System.Drawing">
+    <value>481, 322</value>
   </data>
-  <data name="browserCatalog.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="catalogList.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;browserCatalog.Name" xml:space="preserve">
-    <value>browserCatalog</value>
+  <data name="&gt;&gt;catalogList.Name" xml:space="preserve">
+    <value>catalogList</value>
   </data>
-  <data name="&gt;&gt;browserCatalog.Type" xml:space="preserve">
-    <value>System.Windows.Forms.WebBrowser, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;catalogList.Type" xml:space="preserve">
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.1.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
-  <data name="&gt;&gt;browserCatalog.Parent" xml:space="preserve">
+  <data name="&gt;&gt;catalogList.Parent" xml:space="preserve">
     <value>tabPageNewApps</value>
   </data>
-  <data name="&gt;&gt;browserCatalog.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;catalogList.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="buttonLaunchInterface.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonLaunchInterface.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonLaunchInterface.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 331</value>
+  </data>
+  <data name="buttonLaunchInterface.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 23</value>
+  </data>
+  <data name="buttonLaunchInterface.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="buttonLaunchInterface.Text" xml:space="preserve">
+    <value>&amp;Launch interface</value>
+  </data>
+  <data name="&gt;&gt;buttonLaunchInterface.Name" xml:space="preserve">
+    <value>buttonLaunchInterface</value>
+  </data>
+  <data name="&gt;&gt;buttonLaunchInterface.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonLaunchInterface.Parent" xml:space="preserve">
+    <value>tabPageNewApps</value>
+  </data>
+  <data name="&gt;&gt;buttonLaunchInterface.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="tabPageNewApps.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 29</value>
+    <value>4, 22</value>
   </data>
   <data name="tabPageNewApps.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPageNewApps.Size" type="System.Drawing.Size, System.Drawing">
-    <value>748, 314</value>
+    <value>490, 360</value>
   </data>
   <data name="tabPageNewApps.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -295,10 +256,10 @@
     <value>1</value>
   </data>
   <data name="tabControlApps.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 90</value>
+    <value>13, 75</value>
   </data>
   <data name="tabControlApps.Size" type="System.Drawing.Size, System.Drawing">
-    <value>756, 347</value>
+    <value>498, 386</value>
   </data>
   <data name="tabControlApps.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -313,40 +274,19 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tabControlApps.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>5</value>
   </data>
-  <data name="buttonLaunchInterface.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 29</value>
+  <data name="buttonConfiguration.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
-  <data name="buttonLaunchInterface.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 35</value>
-  </data>
-  <data name="buttonLaunchInterface.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="buttonLaunchInterface.Text" xml:space="preserve">
-    <value>&amp;Launch interface</value>
-  </data>
-  <data name="&gt;&gt;buttonLaunchInterface.Name" xml:space="preserve">
-    <value>buttonLaunchInterface</value>
-  </data>
-  <data name="&gt;&gt;buttonLaunchInterface.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonLaunchInterface.Parent" xml:space="preserve">
-    <value>groupBoxTools</value>
-  </data>
-  <data name="&gt;&gt;buttonLaunchInterface.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="groupBoxTools.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
+  <data name="buttonConfiguration.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="buttonConfiguration.Location" type="System.Drawing.Point, System.Drawing">
-    <value>341, 29</value>
+    <value>139, 467</value>
   </data>
   <data name="buttonConfiguration.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 35</value>
+    <value>100, 23</value>
   </data>
   <data name="buttonConfiguration.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -361,16 +301,22 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonConfiguration.Parent" xml:space="preserve">
-    <value>groupBoxTools</value>
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonConfiguration.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
+  </data>
+  <data name="buttonCacheManagement.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonCacheManagement.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="buttonCacheManagement.Location" type="System.Drawing.Point, System.Drawing">
-    <value>165, 29</value>
+    <value>13, 467</value>
   </data>
   <data name="buttonCacheManagement.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 35</value>
+    <value>120, 23</value>
   </data>
   <data name="buttonCacheManagement.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -385,19 +331,22 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonCacheManagement.Parent" xml:space="preserve">
-    <value>groupBoxTools</value>
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonCacheManagement.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="buttonHelp.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
+    <value>Bottom, Right</value>
+  </data>
+  <data name="buttonHelp.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="buttonHelp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>607, 29</value>
+    <value>436, 467</value>
   </data>
   <data name="buttonHelp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 35</value>
+    <value>75, 23</value>
   </data>
   <data name="buttonHelp.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -412,52 +361,25 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonHelp.Parent" xml:space="preserve">
-    <value>groupBoxTools</value>
-  </data>
-  <data name="&gt;&gt;buttonHelp.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="groupBoxTools.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 445</value>
-  </data>
-  <data name="groupBoxTools.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="groupBoxTools.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 7, 6, 7</value>
-  </data>
-  <data name="groupBoxTools.Size" type="System.Drawing.Size, System.Drawing">
-    <value>756, 83</value>
-  </data>
-  <data name="groupBoxTools.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="groupBoxTools.Text" xml:space="preserve">
-    <value>Tools</value>
-  </data>
-  <data name="&gt;&gt;groupBoxTools.Name" xml:space="preserve">
-    <value>groupBoxTools</value>
-  </data>
-  <data name="&gt;&gt;groupBoxTools.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBoxTools.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;groupBoxTools.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;buttonHelp.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="labelVersion.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
+    <value>Bottom, Right</value>
+  </data>
+  <data name="labelVersion.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="labelVersion.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 533</value>
+    <value>320, 493</value>
   </data>
   <data name="labelVersion.Size" type="System.Drawing.Size, System.Drawing">
-    <value>756, 20</value>
+    <value>200, 20</value>
   </data>
   <data name="labelVersion.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="labelVersion.Text" xml:space="preserve">
     <value>(Version)</value>
@@ -475,22 +397,49 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelVersion.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <metadata name="selfUpdateWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>168, 17</value>
+    <value>148, 17</value>
   </metadata>
+  <metadata name="catalogWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="pictureBoxLogo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="pictureBoxLogo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="pictureBoxLogo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>99, 10</value>
+  </data>
+  <data name="pictureBoxLogo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="pictureBoxLogo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>327, 57</value>
+  </data>
+  <data name="pictureBoxLogo.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxLogo.Name" xml:space="preserve">
+    <value>pictureBoxLogo</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxLogo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxLogo.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxLogo.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>9, 20</value>
-  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>784, 562</value>
-  </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
+    <value>524, 512</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -875,7 +824,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>683, 480</value>
+    <value>375, 350</value>
   </data>
   <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>10, 10, 10, 10</value>
@@ -886,16 +835,16 @@
   <data name="$this.Text" xml:space="preserve">
     <value>Zero Install</value>
   </data>
-  <data name="&gt;&gt;toolStripButtonBack.Name" xml:space="preserve">
-    <value>toolStripButtonBack</value>
-  </data>
-  <data name="&gt;&gt;toolStripButtonBack.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;selfUpdateWorker.Name" xml:space="preserve">
     <value>selfUpdateWorker</value>
   </data>
   <data name="&gt;&gt;selfUpdateWorker.Type" xml:space="preserve">
+    <value>System.ComponentModel.BackgroundWorker, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;catalogWorker.Name" xml:space="preserve">
+    <value>catalogWorker</value>
+  </data>
+  <data name="&gt;&gt;catalogWorker.Type" xml:space="preserve">
     <value>System.ComponentModel.BackgroundWorker, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

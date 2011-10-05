@@ -18,8 +18,8 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
+using System.Net;
 using System.Windows.Forms;
 using Common;
 using Common.Collections;
@@ -30,6 +30,7 @@ using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -63,8 +64,6 @@ namespace ZeroInstall.Central.WinForms
                 }
                 #endregion
             };
-
-            browserCatalog.CanGoBackChanged += delegate { toolStripButtonBack.Enabled = browserCatalog.CanGoBack; };
         }
         #endregion
 
@@ -74,26 +73,40 @@ namespace ZeroInstall.Central.WinForms
             if (Locations.IsPortable) Text += " - Portable mode";
             labelVersion.Text = "v" + Application.ProductVersion;
 
+            myAppsList.IconCache = catalogList.IconCache = IconCacheProvider.CreateDefault();
+
             // ToDo: Check if the user has any MyApps entries, before showing the "new apps" page
             tabControlApps.SelectedTab = tabPageNewApps;
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            // Show application catalog
-            browserCatalog.Navigate("http://0install.de/catalog/?client=central&lang=" + CultureInfo.CurrentUICulture.TwoLetterISOLanguageName);
+            SelfUpdateCheck();
 
-            // Don't check for updates when launched as a Zero Install implementation
-            string topDir = Path.GetFileName(Locations.InstallBase) ?? Locations.InstallBase;
-            // ToDo: Add option to turn auto-update off
-            if (!(topDir.StartsWith("sha") && topDir.Contains("=")))
-                selfUpdateWorker.RunWorkerAsync();
+            catalogWorker.RunWorkerAsync();
         }
         #endregion
 
         //--------------------//
 
         #region Self-update
+        private void SelfUpdateCheck()
+        {
+            // ToDo: Add option to turn self-update off
+
+            // Don't check for updates when launched as a Zero Install implementation
+            string topDir = Path.GetFileName(Locations.InstallBase) ?? Locations.InstallBase;
+            if ((topDir.StartsWith("sha") && topDir.Contains("="))) return;
+
+            FormClosing += delegate
+            {
+                Visible = false;
+                while (selfUpdateWorker.IsBusy)
+                    Application.DoEvents();
+            };
+            selfUpdateWorker.RunWorkerAsync();
+        }
+
         private void selfUpdateWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             try
@@ -145,12 +158,78 @@ namespace ZeroInstall.Central.WinForms
                 #endregion
             }
         }
+        #endregion
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        #region AppTiles
+        private void catalogWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            Visible = false;
-            while (selfUpdateWorker.IsBusy)
-                Application.DoEvents();
+            e.Result = Catalog.Load(new MemoryStream(new WebClient().DownloadData("http://0install.de/catalog/")));
+        }
+
+        private void catalogWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            var catalog = e.Result as Catalog;
+            if (catalog == null) return;
+
+            foreach (Feed feed in catalog.Feeds)
+                catalogList.AddTile(feed.Uri.ToString(), feed.Name).SetFeed(feed);
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Buttons
+        /// <summary>
+        /// The EXE name (without the file ending) for the Windows Commands binary.
+        /// </summary>
+        private const string CommandsExe = "0install-win";
+
+        /// <summary>
+        /// The EXE name (without the file ending) for the Windows Store Management binary.
+        /// </summary>
+        private const string StoreExe = "0store-win";
+
+        private void buttonLaunchInterface_Click(object sender, EventArgs e)
+        {
+            string interfaceID = InputBox.Show(null, "Zero Install", Resources.EnterInterfaceUrl);
+            if (string.IsNullOrEmpty(interfaceID)) return;
+
+            LaunchFeed(interfaceID);
+        }
+
+        private void buttonCacheManagement_Click(object sender, EventArgs e)
+        {
+            LaunchHelperAssembly(StoreExe, null);
+        }
+
+        private void buttonConfiguration_Click(object sender, EventArgs e)
+        {
+            LaunchHelperAssembly(CommandsExe, "config");
+        }
+
+        private void buttonHelp_Click(object sender, EventArgs e)
+        {
+            OpenInBrowser("http://0install.de/help/");
+        }
+        #endregion
+
+        #region Drag and drop handling
+        private void MainForm_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                var files = e.Data.GetData(DataFormats.FileDrop) as string[];
+                LaunchFeed(EnumerableUtils.GetFirst(files));
+            }
+            else if (e.Data.GetDataPresent(DataFormats.Text))
+                LaunchFeed((string)e.Data.GetData(DataFormats.Text));
+        }
+
+        private void MainForm_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = (e.Data.GetDataPresent(DataFormats.Text) || e.Data.GetDataPresent(DataFormats.FileDrop))
+                ? DragDropEffects.Copy
+                : DragDropEffects.None;
         }
         #endregion
 
@@ -207,115 +286,14 @@ namespace ZeroInstall.Central.WinForms
             }
             #endregion
         }
-        #endregion
 
-        #region Launch feed
         /// <summary>
         /// Attempts to launch a feed and closes the main window.
         /// </summary>
         /// <param name="feedUri">The URI of the feed to be launched.</param>
         private void LaunchFeed(string feedUri)
         {
-            LaunchHelperAssembly("0install-win", "run --gui --no-wait " + StringUtils.EscapeArgument(feedUri));
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Toolbar
-        private void toolStripButtonBack_Click(object sender, EventArgs e)
-        {
-            browserCatalog.GoBack();
-        }
-        #endregion
-
-        #region Browser
-        /// <summary>A URL postfix that indicates that the URL points to an installable Zero Install feed.</summary>
-        private const string UrlPostfixFeed = "#0install-feed";
-
-        /// <summary>A URL postfix that indicates that the URL should be opened in an external browser.</summary>
-        private const string UrlPostfixBrowser = "#external-browser";
-
-        private void browserNewApps_Navigating(object sender, WebBrowserNavigatingEventArgs e)
-        {
-            switch (e.Url.Fragment)
-            {
-                case UrlPostfixFeed:
-                    e.Cancel = true;
-
-                    string feedUri = e.Url.AbsoluteUri.Replace(UrlPostfixFeed, "");
-
-                    // ToDo: Display more details about the feed
-                    //if (Msg.Ask(this, "Do you want to launch this application?\n" + feedUri, MsgSeverity.Info, "Yes\nLaunch the application", "No\nGo back to the list"))
-                    LaunchFeed(feedUri);
-                    break;
-
-                case UrlPostfixBrowser:
-                    e.Cancel = true;
-                    OpenInBrowser(e.Url.AbsoluteUri.Replace(UrlPostfixBrowser, ""));
-                    break;
-            }
-        }
-
-        private void browserNewApps_NewWindow(object sender, CancelEventArgs e)
-        {
-            // Prevent any popups
-            e.Cancel = true;
-        }
-        #endregion
-
-        #region Tools
-        /// <summary>
-        /// The EXE name (without the file ending) for the Windows Commands binary.
-        /// </summary>
-        private const string CommandsExe = "0install-win";
-
-        /// <summary>
-        /// The EXE name (without the file ending) for the Windows Store Management binary.
-        /// </summary>
-        private const string StoreExe = "0store-win";
-
-        private void buttonLaunchInterface_Click(object sender, EventArgs e)
-        {
-            string interfaceID = InputBox.Show(null, "Zero Install", Resources.EnterInterfaceUrl);
-            if (string.IsNullOrEmpty(interfaceID)) return;
-
-            LaunchHelperAssembly(CommandsExe, "run --gui " + StringUtils.EscapeArgument(interfaceID));
-        }
-
-        private void buttonCacheManagement_Click(object sender, EventArgs e)
-        {
-            LaunchHelperAssembly(StoreExe, null);
-        }
-
-        private void buttonConfiguration_Click(object sender, EventArgs e)
-        {
-            LaunchHelperAssembly(CommandsExe, "config");
-        }
-
-        private void buttonHelp_Click(object sender, EventArgs e)
-        {
-            OpenInBrowser("http://0install.de/help/");
-        }
-        #endregion
-
-        #region Drag and drop handling
-        private void MainForm_DragDrop(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                var files = e.Data.GetData(DataFormats.FileDrop) as string[];
-                LaunchFeed(EnumerableUtils.GetFirst(files));
-            }
-            else if (e.Data.GetDataPresent(DataFormats.Text))
-                LaunchFeed((string)e.Data.GetData(DataFormats.Text));
-        }
-
-        private void MainForm_DragEnter(object sender, DragEventArgs e)
-        {
-            e.Effect = (e.Data.GetDataPresent(DataFormats.Text) || e.Data.GetDataPresent(DataFormats.FileDrop))
-                ? DragDropEffects.Copy
-                : DragDropEffects.None;
+            LaunchHelperAssembly(CommandsExe, "run --gui --no-wait " + StringUtils.EscapeArgument(feedUri));
         }
         #endregion
     }
