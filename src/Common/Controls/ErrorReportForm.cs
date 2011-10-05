@@ -167,34 +167,32 @@ namespace Common.Controls
         {
             Cursor = Cursors.WaitCursor;
             commentBox.Enabled = detailsBox.Enabled = buttonReport.Enabled = buttonCancel.Enabled = false;
-            reportWorker.RunWorkerAsync();
+
+            // Create WebClient for upload and register as component for automatic disposal
+            var webClient = new WebClient();
+            if (components == null) components = new Container();
+            components.Add(webClient);
+
+            webClient.UploadFileCompleted += delegate(object uploadSender, UploadFileCompletedEventArgs uploadEventArgs)
+            {
+                Cursor = Cursors.Default;
+                if (uploadEventArgs.Error == null)
+                {
+                    Msg.Inform(this, Resources.ErrorReportSent, MsgSeverity.Info);
+                    Close();
+                }
+                else
+                {
+                    Msg.Inform(this, Resources.UnableToGenerateErrorReportFile + "\n" + uploadEventArgs.Error.Message, MsgSeverity.Error);
+                    commentBox.Enabled = detailsBox.Enabled = buttonReport.Enabled = buttonCancel.Enabled = true;
+                }
+            };
+            webClient.UploadFileAsync(_uploadUri, GenerateReportFile());
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             Close();
-        }
-        #endregion
-
-        #region Background worker
-        private void reportWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            new WebClient().UploadFile(_uploadUri, GenerateReportFile());
-        }
-
-        private void reportWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            Cursor = Cursors.Default;
-            if (e.Error == null)
-            {
-                Msg.Inform(this, Resources.ErrorReportSent, MsgSeverity.Info);
-                Close();
-            }
-            else
-            {
-                Msg.Inform(this, Resources.UnableToGenerateErrorReportFile + "\n" + e.Error.Message, MsgSeverity.Error);
-                commentBox.Enabled = detailsBox.Enabled = buttonReport.Enabled = buttonCancel.Enabled = true;
-            }
         }
         #endregion
 

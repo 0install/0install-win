@@ -37,7 +37,6 @@ namespace Common.Controls
             this.buttonReport = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.commentBox = new Common.Controls.HintTextBox();
-            this.reportWorker = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -95,11 +94,6 @@ namespace Common.Controls
             this.commentBox.Name = "commentBox";
             this.commentBox.TabStop = false;
             // 
-            // reportWorker
-            // 
-            this.reportWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.reportWorker_DoWork);
-            this.reportWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.reportWorker_RunWorkerCompleted);
-            // 
             // ErrorReportForm
             // 
             resources.ApplyResources(this, "$this");
@@ -133,7 +127,6 @@ namespace Common.Controls
         private HintTextBox commentBox;
         private System.Windows.Forms.Button buttonReport;
         private System.Windows.Forms.Button buttonCancel;
-        private System.ComponentModel.BackgroundWorker reportWorker;
 
 
     }
