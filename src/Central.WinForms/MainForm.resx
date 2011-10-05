@@ -121,15 +121,15 @@
   <data name="tabControlApps.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="myAppsList.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="myAppsList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="myAppsList.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
   <data name="myAppsList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>484, 354</value>
+    <value>481, 354</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="myAppsList.TabIndex" type="System.Int32, mscorlib">
@@ -181,7 +181,7 @@
     <value>3, 3</value>
   </data>
   <data name="catalogList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>481, 322</value>
+    <value>481, 328</value>
   </data>
   <data name="catalogList.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -198,34 +198,34 @@
   <data name="&gt;&gt;catalogList.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="buttonLaunchInterface.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="buttonOtherApp.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
-  <data name="buttonLaunchInterface.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="buttonOtherApp.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonLaunchInterface.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 331</value>
+  <data name="buttonOtherApp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 337</value>
   </data>
-  <data name="buttonLaunchInterface.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 23</value>
+  <data name="buttonOtherApp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 23</value>
   </data>
-  <data name="buttonLaunchInterface.TabIndex" type="System.Int32, mscorlib">
+  <data name="buttonOtherApp.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="buttonLaunchInterface.Text" xml:space="preserve">
-    <value>&amp;Launch interface</value>
+  <data name="buttonOtherApp.Text" xml:space="preserve">
+    <value>&amp;Other application</value>
   </data>
-  <data name="&gt;&gt;buttonLaunchInterface.Name" xml:space="preserve">
-    <value>buttonLaunchInterface</value>
+  <data name="&gt;&gt;buttonOtherApp.Name" xml:space="preserve">
+    <value>buttonOtherApp</value>
   </data>
-  <data name="&gt;&gt;buttonLaunchInterface.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonOtherApp.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonLaunchInterface.Parent" xml:space="preserve">
+  <data name="&gt;&gt;buttonOtherApp.Parent" xml:space="preserve">
     <value>tabPageNewApps</value>
   </data>
-  <data name="&gt;&gt;buttonLaunchInterface.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonOtherApp.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="tabPageNewApps.Location" type="System.Drawing.Point, System.Drawing">

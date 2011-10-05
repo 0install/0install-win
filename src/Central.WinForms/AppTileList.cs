@@ -50,20 +50,20 @@ namespace ZeroInstall.Central.WinForms
         /// The light background color (one of two colors the list toggles between) for <see cref="AppTile"/>s.
         /// </summary>
         /// <seealso cref="TileColorDark"/>
-        private Color _tileColorLight = Color.LightCyan;
+        private Color _tileColorLight = SystemColors.ControlLightLight;
 
         [Category("Appearance"), Description("The light background color (one of two colors the list toggles between) for AppTiles.")]
-        [DefaultValue(typeof(Color), "LightCyan")]
+        [DefaultValue(typeof(Color), "ControlLightLight")]
         public Color TileColorLight { get { return _tileColorLight; } set { _tileColorLight = value; } }
 
         /// <summary>
         /// The dark background color (one of two colors the list toggles between) for <see cref="AppTile"/>s.
         /// </summary>
         /// <seealso cref="TileColorLight"/>
-        private Color _tileColorDark = Color.LightBlue;
+        private Color _tileColorDark = SystemColors.ControlLight;
 
         [Category("Appearance"), Description("The dark background color (one of two colors the list toggles between) for AppTiles.")]
-        [DefaultValue(typeof(Color), "LightBlue")]
+        [DefaultValue(typeof(Color), "ControlLight")]
         public Color TileColorDark { get { return _tileColorDark; } set { _tileColorDark = value; } }
         #endregion
 

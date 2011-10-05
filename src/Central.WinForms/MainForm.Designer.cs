@@ -34,7 +34,7 @@
             this.myAppsList = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabPageNewApps = new System.Windows.Forms.TabPage();
             this.catalogList = new ZeroInstall.Central.WinForms.AppTileList();
-            this.buttonLaunchInterface = new System.Windows.Forms.Button();
+            this.buttonOtherApp = new System.Windows.Forms.Button();
             this.buttonConfiguration = new System.Windows.Forms.Button();
             this.buttonCacheManagement = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
@@ -71,7 +71,7 @@
             // tabPageNewApps
             // 
             this.tabPageNewApps.Controls.Add(this.catalogList);
-            this.tabPageNewApps.Controls.Add(this.buttonLaunchInterface);
+            this.tabPageNewApps.Controls.Add(this.buttonOtherApp);
             resources.ApplyResources(this.tabPageNewApps, "tabPageNewApps");
             this.tabPageNewApps.Name = "tabPageNewApps";
             this.tabPageNewApps.UseVisualStyleBackColor = true;
@@ -81,12 +81,12 @@
             resources.ApplyResources(this.catalogList, "catalogList");
             this.catalogList.Name = "catalogList";
             // 
-            // buttonLaunchInterface
+            // buttonOtherApp
             // 
-            resources.ApplyResources(this.buttonLaunchInterface, "buttonLaunchInterface");
-            this.buttonLaunchInterface.Name = "buttonLaunchInterface";
-            this.buttonLaunchInterface.UseVisualStyleBackColor = true;
-            this.buttonLaunchInterface.Click += new System.EventHandler(this.buttonLaunchInterface_Click);
+            resources.ApplyResources(this.buttonOtherApp, "buttonOtherApp");
+            this.buttonOtherApp.Name = "buttonOtherApp";
+            this.buttonOtherApp.UseVisualStyleBackColor = true;
+            this.buttonOtherApp.Click += new System.EventHandler(this.buttonOtherApp_Click);
             // 
             // buttonConfiguration
             // 
@@ -134,7 +134,7 @@
             // MainForm
             // 
             this.AllowDrop = true;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             resources.ApplyResources(this, "$this");
             this.Controls.Add(this.pictureBoxLogo);
             this.Controls.Add(this.buttonConfiguration);
@@ -161,7 +161,7 @@
         private System.Windows.Forms.TabPage tabPageMyApps;
         private System.Windows.Forms.TabPage tabPageNewApps;
         private System.Windows.Forms.Button buttonHelp;
-        private System.Windows.Forms.Button buttonLaunchInterface;
+        private System.Windows.Forms.Button buttonOtherApp;
         private System.Windows.Forms.Button buttonCacheManagement;
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Button buttonConfiguration;

@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -27,6 +28,7 @@ using Common.Controls;
 using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
+using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
@@ -74,15 +76,13 @@ namespace ZeroInstall.Central.WinForms
             labelVersion.Text = "v" + Application.ProductVersion;
 
             myAppsList.IconCache = catalogList.IconCache = IconCacheProvider.CreateDefault();
-
-            // ToDo: Check if the user has any MyApps entries, before showing the "new apps" page
-            tabControlApps.SelectedTab = tabPageNewApps;
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
             SelfUpdateCheck();
 
+            ShowAppList();
             catalogWorker.RunWorkerAsync();
         }
         #endregion
@@ -161,6 +161,22 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region AppTiles
+        private void ShowAppList()
+        {
+            var feedCache = FeedCacheProvider.CreateDefault();
+
+            var appList = AppList.Load(AppList.GetDefaultPath(false));
+            foreach (var appEntry in appList.Entries)
+            {
+                var tile = myAppsList.AddTile(appEntry.InterfaceID, appEntry.Name);
+                tile.Added = true;
+
+                try { tile.SetFeed(feedCache.GetFeed(appEntry.InterfaceID)); }
+                catch(KeyNotFoundException)
+                {}
+            }
+        }
+
         private void catalogWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             e.Result = Catalog.Load(new MemoryStream(new WebClient().DownloadData("http://0install.de/catalog/")));
@@ -189,8 +205,10 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         private const string StoreExe = "0store-win";
 
-        private void buttonLaunchInterface_Click(object sender, EventArgs e)
+        private void buttonOtherApp_Click(object sender, EventArgs e)
         {
+            // ToDo: Show selection dialog
+
             string interfaceID = InputBox.Show(null, "Zero Install", Resources.EnterInterfaceUrl);
             if (string.IsNullOrEmpty(interfaceID)) return;
 

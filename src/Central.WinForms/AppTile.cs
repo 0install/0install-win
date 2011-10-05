@@ -206,7 +206,7 @@ namespace ZeroInstall.Central.WinForms
             // ToDo: List entry points
         }
 
-        private void updateButton_Click(object sender, EventArgs e)
+        private void buttonUpdate_Click(object sender, EventArgs e)
         {
             LaunchHelperAssembly("0install-win", "update " + StringUtils.EscapeArgument(InterfaceID));
         }

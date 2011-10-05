@@ -37,7 +37,7 @@
             this.buttonSelectVersion = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSelectComponent = new System.Windows.Forms.ToolStripMenuItem();
             this.runMenuSeperator = new System.Windows.Forms.ToolStripSeparator();
-            this.updateButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonConf = new Common.Controls.SplitButton();
             this.contextMenuManage = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonRemove = new System.Windows.Forms.ToolStripMenuItem();
@@ -108,9 +108,9 @@
             this.buttonSelectVersion,
             this.buttonSelectComponent,
             this.runMenuSeperator,
-            this.updateButton});
+            this.buttonUpdate});
             this.contextMenuRun.Name = "contextMenuRun";
-            this.contextMenuRun.Size = new System.Drawing.Size(171, 98);
+            this.contextMenuRun.Size = new System.Drawing.Size(171, 76);
             // 
             // buttonSelectVersion
             // 
@@ -131,19 +131,19 @@
             this.runMenuSeperator.Name = "runMenuSeperator";
             this.runMenuSeperator.Size = new System.Drawing.Size(167, 6);
             // 
-            // updateButton
+            // buttonUpdate
             // 
-            this.updateButton.Name = "updateButton";
-            this.updateButton.Size = new System.Drawing.Size(170, 22);
-            this.updateButton.Text = "&Update";
-            this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
+            this.buttonUpdate.Name = "buttonUpdate";
+            this.buttonUpdate.Size = new System.Drawing.Size(170, 22);
+            this.buttonUpdate.Text = "&Update";
+            this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
             // 
             // buttonConf
             // 
             this.buttonConf.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonConf.AutoSize = true;
             this.buttonConf.ContextMenuStrip = this.contextMenuManage;
-            this.buttonConf.Location = new System.Drawing.Point(324, 32);
+            this.buttonConf.Location = new System.Drawing.Point(324, 31);
             this.buttonConf.Name = "buttonConf";
             this.buttonConf.ShowSplit = true;
             this.buttonConf.Size = new System.Drawing.Size(70, 23);
@@ -228,12 +228,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.buttonConf);
             this.Controls.Add(this.linkLabelDetails);
             this.Controls.Add(this.trackingProgressBar);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.labelSummary);
             this.Controls.Add(this.pictureBoxIcon);
-            this.Controls.Add(this.buttonConf);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.buttonRun);
             this.Margin = new System.Windows.Forms.Padding(0);
@@ -268,7 +268,7 @@
         private System.Windows.Forms.ToolStripMenuItem buttonSelectVersion;
         private System.Windows.Forms.ToolStripMenuItem buttonSelectComponent;
         private System.Windows.Forms.ToolStripSeparator runMenuSeperator;
-        private System.Windows.Forms.ToolStripMenuItem updateButton;
+        private System.Windows.Forms.ToolStripMenuItem buttonUpdate;
         private System.Windows.Forms.ContextMenuStrip contextMenuAdd;
         private System.Windows.Forms.ToolStripMenuItem buttonIntegrate;
     }

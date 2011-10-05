@@ -120,8 +120,8 @@
   <data name="tabPageMyApps.Text" xml:space="preserve">
     <value>Meine Anwendungen</value>
   </data>
-  <data name="buttonLaunchInterface.Text" xml:space="preserve">
-    <value>Interface &amp;starten</value>
+  <data name="buttonOtherApp.Text" xml:space="preserve">
+    <value>&amp;Anderes Programm</value>
   </data>
   <data name="tabPageNewApps.Text" xml:space="preserve">
     <value>Neue Anwendungen</value>
