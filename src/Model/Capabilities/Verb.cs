@@ -85,7 +85,6 @@ namespace ZeroInstall.Model.Capabilities
         /// <summary>
         /// A custom arguments list to be passed to the command. %1 will be replaced with the path of the file being opened.
         /// </summary>
-        /// <remarks>Leaving this empty will pass in the path of the file being opened directly.</remarks>
         [Description("A custom arguments list to be passed to the command. %1 will be replaced with the path of the file being opened.")]
         [XmlAttribute("args"), DefaultValue("")]
         public string Arguments { get; set; }

@@ -53,12 +53,14 @@ namespace ZeroInstall.DesktopIntegration
         [XmlAttribute("name")]
         public string Name { get; set; }
 
+        private bool _autoUpdate = true;
+
         /// <summary>
         /// Set to <see langword="true"/> to automatically download the newest available version of the application as a regular background task. Update checks will still be performed when the application is launched when set to <see langword="false"/>.
         /// </summary>
         [Description("Set to true to automatically download the newest available version of the application as a regular background task. Update checks will still be performed when the application is launched when set to false.")]
-        [XmlAttribute("auto-update"), DefaultValue(false)]
-        public bool AutoUpdate { get; set; }
+        [XmlAttribute("auto-update"), DefaultValue(true)]
+        public bool AutoUpdate { get { return _autoUpdate; } set { _autoUpdate = value; } }
 
         // Preserve order
         private readonly C5.LinkedList<CapabilityList> _capabilityLists = new C5.LinkedList<CapabilityList>();
