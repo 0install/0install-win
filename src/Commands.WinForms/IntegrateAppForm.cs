@@ -98,6 +98,9 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="e">not used.</param>
         private void IntegrateAppForm_Load(object sender, EventArgs e)
         {
+            checkBoxAutoUpdate.Checked = _appEntry.AutoUpdate;
+            checkBoxCapabilities.Checked |= !EnumerableUtils.IsEmpty(EnumerableUtils.OfType<AccessPoints.CapabilityRegistration>(_appEntry.AccessPoints.Entries));
+
             var defaultProgramBinding = new BindingList<DefaultProgramModel>();
             var fileTypeBinding = new BindingList<FileTypeModel>();
             var urlProtocolBinding = new BindingList<UrlProtocolModel>();
@@ -186,6 +189,9 @@ namespace ZeroInstall.Commands.WinForms
                     else toRemove.Add(accessPoint);
                 }
             }
+
+            _appEntry.AutoUpdate = checkBoxAutoUpdate.Checked;
+            (checkBoxCapabilities.Checked ? toAdd : toRemove).Add(new AccessPoints.CapabilityRegistration());
 
             try
             {
