@@ -63,21 +63,43 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             string stubDirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "aliases");
             string stubFilePath = Path.Combine(stubDirPath, aliasName + ".exe");
-            StubProvider.BuildRunStub(stubFilePath, target, command, handler);
 
+            StubProvider.BuildRunStub(stubFilePath, target, command, handler);
+            AddToPath(stubDirPath, systemWide);
+            AddToAppPaths(aliasName + ".exe", stubFilePath, systemWide);
+        }
+
+        /// <summary>
+        /// Adds a directory to the system's search path.
+        /// </summary>
+        /// <param name="directory">The directory to add to the search path.</param>
+        /// <param name="systemWide"><see langword="true"/> to use the system-wide path variable; <see langword="false"/> for the per-user variant.</param>
+        private static void AddToPath(string directory, bool systemWide)
+        {
             var variableTarget = systemWide ? EnvironmentVariableTarget.Machine : EnvironmentVariableTarget.User;
             string existingValue = Environment.GetEnvironmentVariable("PATH", variableTarget);
-            if (existingValue == null || !existingValue.Contains(stubDirPath))
-                Environment.SetEnvironmentVariable("PATH", existingValue + Path.PathSeparator + stubDirPath, variableTarget);
-
-            // Only Windows 7 and newer support per-user AppPaths
-            if (systemWide || WindowsUtils.IsWindows7)
+            if (existingValue == null || !existingValue.Contains(directory))
             {
-                var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
-                using (var appPathsKey = hive.CreateSubKey(RegKeyAppPaths))
-                using (var exeKey = appPathsKey.CreateSubKey(aliasName + ".exe"))
-                    exeKey.SetValue("", stubFilePath);
+                Environment.SetEnvironmentVariable("PATH", existingValue + Path.PathSeparator + directory, variableTarget);
+                WindowsUtils.NotifyEnvironmentChanged();
             }
+        }
+
+        /// <summary>
+        /// Adds an EXE to the AppPath registry key.
+        /// </summary>
+        /// <param name="exeName">The name of the EXE file to add (including the file ending).</param>
+        /// <param name="exePath">The full path to the EXE file.</param>
+        /// <param name="systemWide"><see langword="true"/> to use the system-wide registry key; <see langword="false"/> for the per-user variant.</param>
+        private static void AddToAppPaths(string exeName, string exePath, bool systemWide)
+        {
+            // Only Windows 7 and newer support per-user AppPaths
+            if (!systemWide && !WindowsUtils.IsWindows7) return;
+
+            var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
+            using (var appPathsKey = hive.CreateSubKey(RegKeyAppPaths))
+            using (var exeKey = appPathsKey.CreateSubKey(exeName))
+                exeKey.SetValue("", exePath);
         }
         #endregion
 

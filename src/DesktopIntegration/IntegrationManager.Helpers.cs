@@ -239,7 +239,6 @@ namespace ZeroInstall.DesktopIntegration
         protected void Complete()
         {
             WindowsUtils.NotifyAssocChanged();
-            WindowsUtils.NotifyEnvironmentChanged();
 
             AppList.Save(AppListPath);
         }

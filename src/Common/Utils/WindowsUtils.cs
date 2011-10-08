@@ -240,7 +240,7 @@ namespace Common.Utils
             const uint WM_SETTINGCHANGE = 0x001A;
             const uint SMTO_ABORTIFHUNG = 0x0002;
             UIntPtr result;
-            UnsafeNativeMethods.SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, UIntPtr.Zero, "Environment", SMTO_ABORTIFHUNG, 10000, out result);
+            UnsafeNativeMethods.SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, UIntPtr.Zero, "Environment", SMTO_ABORTIFHUNG, 5000, out result);
         }
         #endregion
     }
