@@ -23,6 +23,7 @@ using System.Windows.Forms;
 using Common;
 using Common.Collections;
 using Common.Controls;
+using Common.Utils;
 using ZeroInstall.Commands.WinForms.CapabilityModels;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
@@ -98,8 +99,11 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="e">not used.</param>
         private void IntegrateAppForm_Load(object sender, EventArgs e)
         {
+            WindowsUtils.SetForegroundWindow(this);
+
             checkBoxAutoUpdate.Checked = _appEntry.AutoUpdate;
-            checkBoxCapabilities.Checked |= !EnumerableUtils.IsEmpty(EnumerableUtils.OfType<AccessPoints.CapabilityRegistration>(_appEntry.AccessPoints.Entries));
+            if (_appEntry.AccessPoints != null)
+                checkBoxCapabilities.Checked |= !EnumerableUtils.IsEmpty(EnumerableUtils.OfType<AccessPoints.CapabilityRegistration>(_appEntry.AccessPoints.Entries));
 
             var defaultProgramBinding = new BindingList<DefaultProgramModel>();
             var fileTypeBinding = new BindingList<FileTypeModel>();
