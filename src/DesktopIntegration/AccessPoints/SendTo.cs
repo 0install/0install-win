@@ -66,7 +66,10 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             if (WindowsUtils.IsWindows && !systemWide)
-                if (File.Exists(GetWindowsShortcutPath())) File.Delete(GetWindowsShortcutPath());
+            {
+                string filePath = GetWindowsShortcutPath();
+                if (File.Exists(filePath)) File.Delete(filePath);
+            }
         }
         #endregion
 

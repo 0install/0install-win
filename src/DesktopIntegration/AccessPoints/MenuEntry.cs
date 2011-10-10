@@ -94,15 +94,13 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             if (WindowsUtils.IsWindows)
             {
-                try
-                {
-                    File.Delete(GetWindowsShortcutPath(systemWide));
-                }
-                catch (FileNotFoundException)
-                {}
+                string filePath = GetWindowsShortcutPath(systemWide);
+                if (File.Exists(filePath)) File.Delete(filePath);
 
                 // Delete category directory if empty
-                if (Directory.GetFiles(GetWindowsCategoryPath(systemWide)).Length == 0) Directory.Delete(GetWindowsCategoryPath(systemWide), false);
+                string dirPath = GetWindowsCategoryPath(systemWide);
+                if (Directory.Exists(dirPath) && Directory.GetFiles(dirPath).Length == 0)
+                    Directory.Delete(GetWindowsCategoryPath(systemWide), false);
             }
         }
         #endregion
