@@ -81,20 +81,24 @@ namespace ZeroInstall.Capture
 
                     foreach (var fileAssoc in snapshotDiff.FileAssocs)
                     {
-                        if (fileAssoc.Value != progID || string.IsNullOrEmpty(fileAssoc.Key)) continue;
-
-                        using (var assocKey = Registry.ClassesRoot.OpenSubKey(fileAssoc.Key))
+                        if (fileAssoc.Value == progID && !string.IsNullOrEmpty(fileAssoc.Key))
                         {
-                            if (assocKey == null) continue;
-
-                            fileType.Extensions.Add(new FileTypeExtension
+                            using (var assocKey = Registry.ClassesRoot.OpenSubKey(fileAssoc.Key))
                             {
-                                Value = fileAssoc.Key,
-                                MimeType = assocKey.GetValue(Windows.FileType.RegValueContentType, "").ToString(),
-                                PerceivedType = assocKey.GetValue(Windows.FileType.RegValuePerceivedType, "").ToString()
-                            });
+                                if (assocKey == null) continue;
+
+                                fileType.Extensions.Add(new FileTypeExtension
+                                {
+                                    Value = fileAssoc.Key,
+                                    MimeType = assocKey.GetValue(Windows.FileType.RegValueContentType, "").ToString(),
+                                    PerceivedType = assocKey.GetValue(Windows.FileType.RegValuePerceivedType, "").ToString()
+                                });
+                            }
                         }
                     }
+
+                    // Don't create file types with no extensions
+                    if (fileType.Extensions.IsEmpty) return null;
 
                     capability = fileType;
                 }
