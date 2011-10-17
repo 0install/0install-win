@@ -139,7 +139,24 @@ namespace Common.Collections
         #endregion
 
         /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.Merge{T}"/> correctly detects unchanged lists.
+        /// Ensures that <see cref="EnumerableUtils.Merge{T}(IEnumerable{T},IEnumerable{T},Action{T},Action{T})"/> correctly detects added and removed elements.
+        /// </summary>
+        [Test]
+        public void TestMergeSimple()
+        {
+            var mineList = new[] {1, 2, 4};
+            var theirsList = new[] {16, 8, 4};
+
+            ICollection<int> toRemove = new LinkedList<int>();
+            ICollection<int> toAdd = new LinkedList<int>();
+            EnumerableUtils.Merge(theirsList, mineList, toAdd.Add, toRemove.Add);
+
+            CollectionAssert.AreEqual(new[] {16, 8}, toAdd);
+            CollectionAssert.AreEqual(new[] {1, 2}, toRemove);
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="EnumerableUtils.Merge{T}(IEnumerable{T},IEnumerable{T},Action{T},Action{T})"/> correctly detects unchanged lists.
         /// </summary>
         [Test]
         public void TestMergeEquals()
@@ -152,7 +169,7 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.Merge{T}"/> correctly detects added and removed elements.
+        /// Ensures that <see cref="EnumerableUtils.Merge{T}(IEnumerable{T},IEnumerable{T},Action{T},Action{T})"/> correctly detects added and removed elements.
         /// </summary>
         [Test]
         public void TestMergeAddAndRemove()
@@ -170,7 +187,7 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.Merge{T}"/> correctly modified elements.
+        /// Ensures that <see cref="EnumerableUtils.Merge{T}(IEnumerable{T},IEnumerable{T},Action{T},Action{T})"/> correctly modified elements.
         /// </summary>
         [Test]
         public void TestMergeModify()

@@ -208,9 +208,42 @@ namespace Common.Collections
 
         #region Merge
         /// <summary>
+        /// Performs a 2-way merge on two collections. Changes from a foreign list are applied to a local list using callback delegates.
+        /// </summary>
+        /// <param name="theirsList">The foreign list with changes that shell be merged in.</param>
+        /// <param name="mineList">The local list that shall be updated with foreign changes.</param>
+        /// <param name="added">Called for every element that should be added to <paramref name="mineList"/>.</param>
+        /// <param name="removed">Called for every element that should be removed from <paramref name="mineList"/>.</param>
+        /// <remarks><paramref name="theirsList"/> and <paramref name="mineList"/> Should use an internal hashmap for <see cref="ICollection{T}.Contains"/> for better performance.</remarks>
+        public static void Merge<T>(ICollection<T> theirsList, ICollection<T> mineList, Action<T> added, Action<T> removed)
+        {
+            #region Sanity checks
+            if (theirsList == null) throw new ArgumentNullException("theirsList");
+            if (mineList == null) throw new ArgumentNullException("mineList");
+            if (added == null) throw new ArgumentNullException("added");
+            if (removed == null) throw new ArgumentNullException("removed");
+            #endregion
+
+            foreach (var theirs in theirsList)
+            {
+                if (!mineList.Contains(theirs))
+                { // Entry in theirsList, but not in mineList
+                    added(theirs);
+                }
+            }
+
+            foreach (var mine in mineList)
+            {
+                if (!theirsList.Contains(mine))
+                { // Entry in mineList, but not in theirsList
+                    removed(mine);
+                }
+            }
+        }
+
+        /// <summary>
         /// Performs a 3-way merge on a set of collections. Changes from a foreign list are applied to a local list using callback delegates.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="baseList">A common baseline from which both <paramref name="theirsList"/> and <paramref name="mineList"/> were modified.</param>
         /// <param name="theirsList">The foreign list with changes that shell be merged in.</param>
         /// <param name="mineList">The local list that shall be updated with foreign changes.</param>
@@ -228,6 +261,17 @@ namespace Common.Collections
             if (removed == null) throw new ArgumentNullException("removed");
             #endregion
 
+            foreach (var theirs in theirsList)
+            {
+                if (theirs == null) continue;
+
+                var matchingMine = FindMergeID(mineList, theirs.MergeID);
+                if (matchingMine == null)
+                { // Entry in theirsList, but not in mineList
+                    if (!baseList.Contains(theirs)) added(theirs); // Added in theirsList
+                }
+            }
+
             foreach (var mine in mineList)
             {
                 if (mine == null) continue;
@@ -244,17 +288,6 @@ namespace Common.Collections
                         removed(mine);
                         added(matchingTheirs);
                     }
-                }
-            }
-
-            foreach (var theirs in theirsList)
-            {
-                if (theirs == null) continue;
-
-                var matchingMine = FindMergeID(mineList, theirs.MergeID);
-                if (matchingMine == null)
-                { // Entry in theirsList, but not in mineList
-                    if (!baseList.Contains(theirs)) added(theirs); // Added in theirsList
                 }
             }
         }
