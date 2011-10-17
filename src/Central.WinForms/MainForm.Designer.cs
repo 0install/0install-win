@@ -30,11 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControlApps = new System.Windows.Forms.TabControl();
-            this.tabPageMyApps = new System.Windows.Forms.TabPage();
-            this.myAppsList = new ZeroInstall.Central.WinForms.AppTileList();
-            this.tabPageNewApps = new System.Windows.Forms.TabPage();
-            this.catalogList = new ZeroInstall.Central.WinForms.AppTileList();
+            this.tabPageAppList = new System.Windows.Forms.TabPage();
+            this.buttonRefreshAppList = new System.Windows.Forms.Button();
+            this.appList = new ZeroInstall.Central.WinForms.AppTileList();
+            this.tabPageCatalog = new System.Windows.Forms.TabPage();
+            this.buttonRefreshCatalog = new System.Windows.Forms.Button();
             this.buttonOtherApp = new System.Windows.Forms.Button();
+            this.catalogList = new ZeroInstall.Central.WinForms.AppTileList();
             this.buttonConfiguration = new System.Windows.Forms.Button();
             this.buttonCacheManagement = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
@@ -42,44 +44,57 @@
             this.selfUpdateWorker = new System.ComponentModel.BackgroundWorker();
             this.catalogWorker = new System.ComponentModel.BackgroundWorker();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
+            this.appListWatcher = new System.IO.FileSystemWatcher();
             this.tabControlApps.SuspendLayout();
-            this.tabPageMyApps.SuspendLayout();
-            this.tabPageNewApps.SuspendLayout();
+            this.tabPageAppList.SuspendLayout();
+            this.tabPageCatalog.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.appListWatcher)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlApps
             // 
             resources.ApplyResources(this.tabControlApps, "tabControlApps");
-            this.tabControlApps.Controls.Add(this.tabPageMyApps);
-            this.tabControlApps.Controls.Add(this.tabPageNewApps);
+            this.tabControlApps.Controls.Add(this.tabPageAppList);
+            this.tabControlApps.Controls.Add(this.tabPageCatalog);
             this.tabControlApps.Name = "tabControlApps";
             this.tabControlApps.SelectedIndex = 0;
             // 
-            // tabPageMyApps
+            // tabPageAppList
             // 
-            this.tabPageMyApps.Controls.Add(this.myAppsList);
-            resources.ApplyResources(this.tabPageMyApps, "tabPageMyApps");
-            this.tabPageMyApps.Name = "tabPageMyApps";
-            this.tabPageMyApps.UseVisualStyleBackColor = true;
+            this.tabPageAppList.Controls.Add(this.buttonRefreshAppList);
+            this.tabPageAppList.Controls.Add(this.appList);
+            resources.ApplyResources(this.tabPageAppList, "tabPageAppList");
+            this.tabPageAppList.Name = "tabPageAppList";
+            this.tabPageAppList.UseVisualStyleBackColor = true;
             // 
-            // myAppsList
+            // buttonRefreshAppList
             // 
-            resources.ApplyResources(this.myAppsList, "myAppsList");
-            this.myAppsList.Name = "myAppsList";
+            resources.ApplyResources(this.buttonRefreshAppList, "buttonRefreshAppList");
+            this.buttonRefreshAppList.Name = "buttonRefreshAppList";
+            this.buttonRefreshAppList.UseVisualStyleBackColor = true;
+            this.buttonRefreshAppList.Click += new System.EventHandler(this.buttonRefreshAppList_Click);
             // 
-            // tabPageNewApps
+            // appList
             // 
-            this.tabPageNewApps.Controls.Add(this.catalogList);
-            this.tabPageNewApps.Controls.Add(this.buttonOtherApp);
-            resources.ApplyResources(this.tabPageNewApps, "tabPageNewApps");
-            this.tabPageNewApps.Name = "tabPageNewApps";
-            this.tabPageNewApps.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.appList, "appList");
+            this.appList.Name = "appList";
             // 
-            // catalogList
+            // tabPageCatalog
             // 
-            resources.ApplyResources(this.catalogList, "catalogList");
-            this.catalogList.Name = "catalogList";
+            this.tabPageCatalog.Controls.Add(this.buttonRefreshCatalog);
+            this.tabPageCatalog.Controls.Add(this.buttonOtherApp);
+            this.tabPageCatalog.Controls.Add(this.catalogList);
+            resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
+            this.tabPageCatalog.Name = "tabPageCatalog";
+            this.tabPageCatalog.UseVisualStyleBackColor = true;
+            // 
+            // buttonRefreshCatalog
+            // 
+            resources.ApplyResources(this.buttonRefreshCatalog, "buttonRefreshCatalog");
+            this.buttonRefreshCatalog.Name = "buttonRefreshCatalog";
+            this.buttonRefreshCatalog.UseVisualStyleBackColor = true;
+            this.buttonRefreshCatalog.Click += new System.EventHandler(this.buttonRefreshCatalog_Click);
             // 
             // buttonOtherApp
             // 
@@ -87,6 +102,11 @@
             this.buttonOtherApp.Name = "buttonOtherApp";
             this.buttonOtherApp.UseVisualStyleBackColor = true;
             this.buttonOtherApp.Click += new System.EventHandler(this.buttonOtherApp_Click);
+            // 
+            // catalogList
+            // 
+            resources.ApplyResources(this.catalogList, "catalogList");
+            this.catalogList.Name = "catalogList";
             // 
             // buttonConfiguration
             // 
@@ -131,6 +151,13 @@
             this.pictureBoxLogo.Name = "pictureBoxLogo";
             this.pictureBoxLogo.TabStop = false;
             // 
+            // appListWatcher
+            // 
+            this.appListWatcher.EnableRaisingEvents = true;
+            this.appListWatcher.NotifyFilter = System.IO.NotifyFilters.CreationTime | System.IO.NotifyFilters.FileName | System.IO.NotifyFilters.LastWrite | System.IO.NotifyFilters.Size;
+            this.appListWatcher.SynchronizingObject = this;
+            this.appListWatcher.Changed += new System.IO.FileSystemEventHandler(this.appListWatcher_Changed);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -143,14 +170,13 @@
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.tabControlApps);
             this.Name = "MainForm";
-            this.Load += new System.EventHandler(this.MainForm_Load);
-            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainForm_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainForm_DragEnter);
             this.tabControlApps.ResumeLayout(false);
-            this.tabPageMyApps.ResumeLayout(false);
-            this.tabPageNewApps.ResumeLayout(false);
+            this.tabPageAppList.ResumeLayout(false);
+            this.tabPageCatalog.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.appListWatcher)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -158,18 +184,21 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControlApps;
-        private System.Windows.Forms.TabPage tabPageMyApps;
-        private System.Windows.Forms.TabPage tabPageNewApps;
+        private System.Windows.Forms.TabPage tabPageAppList;
+        private System.Windows.Forms.TabPage tabPageCatalog;
         private System.Windows.Forms.Button buttonHelp;
         private System.Windows.Forms.Button buttonOtherApp;
         private System.Windows.Forms.Button buttonCacheManagement;
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Button buttonConfiguration;
         private System.ComponentModel.BackgroundWorker selfUpdateWorker;
-        private AppTileList myAppsList;
+        private AppTileList appList;
         private AppTileList catalogList;
         private System.ComponentModel.BackgroundWorker catalogWorker;
         private System.Windows.Forms.PictureBox pictureBoxLogo;
+        private System.Windows.Forms.Button buttonRefreshCatalog;
+        private System.Windows.Forms.Button buttonRefreshAppList;
+        private System.IO.FileSystemWatcher appListWatcher;
 
     }
 }

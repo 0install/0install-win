@@ -54,7 +54,7 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         public string InterfaceID { get; private set; }
 
-        private bool _added;
+        private bool _inAppList;
 
         /// <summary>
         /// <see langword="true"/> if the application is listed in the <see cref="AppList"/>; <see langword="false"/> otherwise.
@@ -62,16 +62,16 @@ namespace ZeroInstall.Central.WinForms
         /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public bool Added
+        public bool InAppList
         {
-            get { return _added; }
+            get { return _inAppList; }
             set
             {
                 #region Sanity checks
                 if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
                 #endregion
 
-                _added = value;
+                _inAppList = value;
 
                 // Toggle button visibility
                 buttonAdd.Enabled = buttonAdd.Visible = !value;

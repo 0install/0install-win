@@ -66,31 +66,38 @@ namespace ZeroInstall.Central.WinForms
                 }
                 #endregion
             };
-        }
-        #endregion
 
-        #region Startup
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            if (Locations.IsPortable) Text += " - Portable mode";
-            labelVersion.Text = "v" + Application.ProductVersion;
+            Load += delegate
+            {
+                if (Locations.IsPortable) Text += @" - Portable mode";
+                labelVersion.Text = @"v" + Application.ProductVersion;
 
-            myAppsList.IconCache = catalogList.IconCache = IconCacheProvider.CreateDefault();
-        }
+                appList.IconCache = catalogList.IconCache = IconCacheProvider.CreateDefault();
+            };
 
-        private void MainForm_Shown(object sender, EventArgs e)
-        {
-            SelfUpdateCheck();
+            // Set up AppList file monitoring
+            string appListPath = AppList.GetDefaultPath(false);
+            appListWatcher.Path = Path.GetDirectoryName(appListPath);
+            appListWatcher.Filter = Path.GetFileName(appListPath);
+            
+            Shown += delegate
+            {
+                SelfUpdateCheckAsync();
+                LoadAppListAsnyc();
+                LoadCatalogAsync();
 
-            ShowAppList();
-            catalogWorker.RunWorkerAsync();
+                appListWatcher.EnableRaisingEvents = true;
+            };
         }
         #endregion
 
         //--------------------//
 
         #region Self-update
-        private void SelfUpdateCheck()
+        /// <summary>
+        /// Runs a check for updates for Zero Install itself in the background.
+        /// </summary>
+        private void SelfUpdateCheckAsync()
         {
             // ToDo: Add option to turn self-update off
 
@@ -160,35 +167,127 @@ namespace ZeroInstall.Central.WinForms
         }
         #endregion
 
-        #region AppTiles
-        private void ShowAppList()
+        #region AppList
+        /// <summary>Stores the data currently displayed in <see cref="appList"/>. Used for comparison/merging when updating the list.</summary>
+        private AppList _currentAppList = new AppList();
+
+        /// <summary>
+        /// Loads the "my applications" list and displays it, loading additional data from feeds in the background.
+        /// </summary>
+        private void LoadAppListAsnyc()
         {
+            // ToDo: Make async
+
             var feedCache = FeedCacheProvider.CreateDefault();
+            var newAppList = AppList.Load(AppList.GetDefaultPath(false));
 
-            var appList = AppList.Load(AppList.GetDefaultPath(false));
-            foreach (var appEntry in appList.Entries)
-            {
-                var tile = myAppsList.AddTile(appEntry.InterfaceID, appEntry.Name);
-                tile.Added = true;
+            // Update the displayed AppList based on changes detected between the current and the new AppList
+            EnumerableUtils.Merge(
+                newAppList.Entries, _currentAppList.Entries,
+                addedEntry =>
+                {
+                    if (string.IsNullOrEmpty(addedEntry.InterfaceID) || addedEntry.Name == null) return;
+                    try
+                    {
+                        var tile = appList.AddTile(addedEntry.InterfaceID, addedEntry.Name);
+                        tile.InAppList = true;
+                        tile.SetFeed(feedCache.GetFeed(addedEntry.InterfaceID));
 
-                try { tile.SetFeed(feedCache.GetFeed(appEntry.InterfaceID)); }
-                catch(KeyNotFoundException)
-                {}
-            }
+                        // Update "added" status of tile in catalog list
+                        var catalogTile = catalogList.GetTile(addedEntry.InterfaceID);
+                        if (catalogTile != null) catalogTile.InAppList = true;
+                    }
+                        #region Error handling
+                    catch (KeyNotFoundException)
+                    {
+                        Log.Warn("Unable to load feed for: " + addedEntry.InterfaceID);
+                    }
+                    catch (C5.DuplicateNotAllowedException)
+                    {
+                        Log.Warn("Ignoring duplicate AppList entry for: " + addedEntry.InterfaceID);
+                    }
+                    #endregion
+                },
+                removedEntry =>
+                {
+                    appList.RemoveTile(removedEntry.InterfaceID);
+
+                    // Update "added" status of tile in catalog list
+                    var catalogTile = catalogList.GetTile(removedEntry.InterfaceID);
+                    if (catalogTile != null) catalogTile.InAppList = false;
+                });
+            appList.ColorTiles();
+            _currentAppList = newAppList;
+        }
+
+        private void appListWatcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            LoadAppListAsnyc();
+        }
+        #endregion
+
+        #region Catalog
+        /// <summary>Stores the data currently displayed in <see cref="catalogList"/>. Used for comparison/merging when updating the list.</summary>
+        private ICollection<Feed> _currentCatalogFeeds = new List<Feed>();
+
+        /// <summary>
+        /// Loads the "new applications" catalog in the background and displays it.
+        /// </summary>
+        private void LoadCatalogAsync()
+        {
+            catalogWorker.RunWorkerAsync();
         }
 
         private void catalogWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            e.Result = Catalog.Load(new MemoryStream(new WebClient().DownloadData("http://0install.de/catalog/")));
+            var mergedCatalog = new Catalog();
+
+            try
+            {
+                // ToDo: Merge data from multiple catalogs and cache data
+                mergedCatalog = Catalog.Load(new MemoryStream(new WebClient().DownloadData("http://0install.de/catalog/")));
+            }
+                #region Error handling
+            catch (WebException ex)
+            {
+                Log.Warn("Unable to load application catalog:\n" + ex.Message);
+            }
+            #endregion
+
+            // Copy the catalog feeds to a hashed list for faster comparisons
+            var catalogFeeds = new C5.HashedLinkedList<Feed>();
+            catalogFeeds.AddAll(mergedCatalog.Feeds);
+            e.Result = catalogFeeds;
         }
 
         private void catalogWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            var catalog = e.Result as Catalog;
-            if (catalog == null) return;
+            var newCatalogFeeds = (ICollection<Feed>)e.Result;
 
-            foreach (Feed feed in catalog.Feeds)
-                catalogList.AddTile(feed.Uri.ToString(), feed.Name).SetFeed(feed);
+            // Update the displayed catalog list based on changes detected between the current and the new catalog
+            EnumerableUtils.Merge(
+                newCatalogFeeds, _currentCatalogFeeds,
+                addedFeed =>
+                {
+                    if (string.IsNullOrEmpty(addedFeed.UriString) || addedFeed.Name == null) return;
+                    try
+                    {
+                        var tile = catalogList.AddTile(addedFeed.UriString, addedFeed.Name);
+                        tile.SetFeed(addedFeed);
+
+                        // Update "added" status of tile
+                        tile.InAppList = _currentAppList.ContainsEntry(addedFeed.UriString);
+                    }
+                        #region Error handling
+                    catch (C5.DuplicateNotAllowedException)
+                    {
+                        Log.Warn("Ignoring duplicate AppList entry for: " + addedFeed.Uri);
+                    }
+                    #endregion
+                },
+                removedFeed => catalogList.RemoveTile(removedFeed.UriString));
+            catalogList.ColorTiles();
+            _currentCatalogFeeds = newCatalogFeeds;
         }
         #endregion
 
@@ -204,6 +303,16 @@ namespace ZeroInstall.Central.WinForms
         /// The EXE name (without the file ending) for the Windows Store Management binary.
         /// </summary>
         private const string StoreExe = "0store-win";
+
+        private void buttonRefreshAppList_Click(object sender, EventArgs e)
+        {
+            LoadAppListAsnyc();
+        }
+
+        private void buttonRefreshCatalog_Click(object sender, EventArgs e)
+        {
+            LoadCatalogAsync();
+        }
 
         private void buttonOtherApp_Click(object sender, EventArgs e)
         {

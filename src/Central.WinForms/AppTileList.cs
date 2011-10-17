@@ -15,9 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using Common.Collections;
 using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Central.WinForms
@@ -34,8 +36,8 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>Contains <see cref="_flowLayout"/> and makes it scrollable.</summary>
         private readonly Panel _scrollPanel;
 
-        /// <summary><see langword="true"/> if the last <see cref="AppTile"/> used the <see cref="TileColorDark"/>; <see langword="false"/> if the last <see cref="AppTile"/> used the <see cref="TileColorLight"/>.</summary>
-        private bool _lastTileDark;
+        /// <summary>Maps interface IDs to <see cref="AppTile"/>s.</summary>
+        private readonly C5.IDictionary<string, AppTile> _tileDictionary = new C5.HashDictionary<string, AppTile>();
         #endregion
 
         #region Properties
@@ -112,19 +114,36 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         /// <param name="interfaceID">The interface ID of the application this tile represents.</param>
         /// <param name="appName">The name of the application this tile represents.</param>
+        /// <exception cref="C5.DuplicateNotAllowedException">Thrown if the list already contains an <see cref="AppTile"/> with the specified <paramref name="interfaceID"/>.</exception>
         public AppTile AddTile(string interfaceID, string appName)
         {
-            var tile = new AppTile(interfaceID, appName, IconCache)
-            {
-                Width = _flowLayout.Width,
-                BackColor = (_lastTileDark ? TileColorDark : TileColorLight)
-            };
-            _lastTileDark = !_lastTileDark;
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (appName == null) throw new ArgumentNullException("appName");
+            if (_tileDictionary.Contains(interfaceID)) throw new C5.DuplicateNotAllowedException();
+            #endregion
+
+            var tile = new AppTile(interfaceID, appName, IconCache) {Width = _flowLayout.Width};
 
             _flowLayout.Height += tile.Height;
             _flowLayout.Controls.Add(tile);
 
+            _tileDictionary.Add(interfaceID, tile);
             return tile;
+        }
+
+        /// <summary>
+        /// Retreives a specific application tile from the list.
+        /// </summary>
+        /// <param name="interfaceID">The interface ID of the application the tile to retreive represents.</param>
+        /// <returns>The requested <see cref="AppTile"/>; <see langword="null"/> if no matching entry was found.</returns>
+        public AppTile GetTile(string interfaceID)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            #endregion
+
+            return _tileDictionary.Contains(interfaceID) ? _tileDictionary[interfaceID] : null;
         }
 
         /// <summary>
@@ -133,8 +152,53 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="tile">The tile to remove.</param>
         public void RemoveTile(AppTile tile)
         {
+            #region Sanity checks
+            if (tile == null) throw new ArgumentNullException("tile");
+            #endregion
+
             _flowLayout.Controls.Remove(tile);
             _flowLayout.Height -= tile.Height;
+
+            _tileDictionary.Remove(tile.InterfaceID);
+        }
+
+        /// <summary>
+        /// Removes an application tile from the list. Does nothing if no matching tile can be found.
+        /// </summary>
+        /// <param name="interfaceID">The interface ID of the application the tile to remove represents.</param>
+        public void RemoveTile(string interfaceID)
+        {
+            try
+            {
+                RemoveTile(_tileDictionary[interfaceID]);
+            }
+            catch (C5.NoSuchItemException)
+            {}
+        }
+
+        /// <summary>
+        /// Removes all application tiles from the list.
+        /// </summary>
+        public void Clear()
+        {
+            _flowLayout.Controls.Clear();
+            _flowLayout.Height = 0;
+
+            _tileDictionary.Clear();
+        }
+
+        /// <summary>
+        /// Colors all application tiles in the list. Should be called after one or more tiles were added or removed.
+        /// </summary>
+        public void ColorTiles()
+        {
+            bool dark = false;
+            foreach (var tile in EnumerableUtils.OfType<AppTile>(_flowLayout.Controls))
+            {
+                // Alternate between light and dark tiles
+                tile.BackColor = dark ? TileColorDark : TileColorLight;
+                dark = !dark;
+            }
         }
         #endregion
     }
