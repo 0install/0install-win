@@ -1,5 +1,5 @@
 @echo off
-::Compiles the source documentation. Assumes "..\vs\build.cmd Debug" has already been executed.
+::Compiles the source documentation. Assumes "..\src\build.cmd Debug" has already been executed.
 cd /d "%~dp0"
 
 rem Determine VS version
@@ -31,11 +31,10 @@ FOR %%A IN (Backend\Backend.shfbproj Frontend\Frontend.shfbproj Tools\Tools.shfb
 goto end
 
 
-
 rem Error messages
 
 :err_no_vs
-echo No Visual Studio installation found. >&2
+echo ERROR: No Visual Studio installation found. >&2
 pause
 goto end
 

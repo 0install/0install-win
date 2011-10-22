@@ -65,22 +65,22 @@
     <Content Include="ModelDefinition\Package_1749.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ProjectReferences\Central.dgml">
+    <Content Include="References\Central.dgml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ProjectReferences\Command.dgml">
+    <Content Include="References\Command.dgml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ProjectReferences\Store.dgml">
+    <Content Include="References\Store.dgml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ProjectReferences\Complete.dgml">
+    <Content Include="References\All.dgml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ProjectReferences\Overview.dgml">
+    <Content Include="References\Simplified.dgml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ProjectReferences\Tools.dgml">
+    <Content Include="References\Tools.dgml">
       <SubType>Content</SubType>
     </Content>
     <Content Include="SolutionStructure.dgml">
@@ -175,7 +175,7 @@
       <SubType>Content</SubType>
     </Content>
     <Folder Include="UML" />
-    <Folder Include="ProjectReferences" />
+    <Folder Include="References" />
     <Folder Include="UML\Class" />
     <Folder Include="UML\Activity" />
     <Folder Include="UML\Sequence" />
