@@ -130,7 +130,7 @@
     <value>Es wurde kein Interface angegeben.</value>
   </data>
   <data name="NoCommands" xml:space="preserve">
-    <value>Keine Commands in der Auswahl.</value>
+    <value>Keine Commands in der Implementierung.</value>
   </data>
   <data name="NoImplementationsPassed" xml:space="preserve">
     <value>Es muss mindestens eine Implementierung übergeben werden.</value>

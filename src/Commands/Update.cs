@@ -115,7 +115,7 @@ namespace ZeroInstall.Commands
                 string interfaceID = oldImplementation.InterfaceID;
                 try
                 {
-                    var newImplementation = Selections.GetImplementation(interfaceID);
+                    var newImplementation = Selections[interfaceID];
                     if (oldImplementation.Version != newImplementation.Version)
                     { // Implementation updated
                         builder.AppendLine(interfaceID + ": " + oldImplementation.Version + " -> " + newImplementation.Version);

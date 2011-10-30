@@ -59,27 +59,11 @@ namespace ZeroInstall.Injector.Solver
         {
             get { return _implementations; }
         }
-
-        // Preserve order
-        private readonly C5.LinkedList<Command> _commands = new C5.LinkedList<Command>();
-
-        /// <summary>
-        /// A set of commands required to execute the selection. The first is for the program, the second is the program's runner, and so on.
-        /// </summary>
-        [Category("Execution"), Description("A set of commands required to execute the selection. The first is for the program, the second is the program's runner, and so on.")]
-        [XmlElement("command")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
-            public C5.LinkedList<Command> Commands
-        {
-            get { return _commands; }
-        }
         #endregion
 
         //--------------------//
 
         #region Human readable
-        private const int NoCommand = -1;
-
         /// <summary>
         /// Generates a human-readable representation of the implementation selection hierachy.
         /// </summary>
@@ -87,7 +71,7 @@ namespace ZeroInstall.Injector.Solver
         public string GetHumanReadable(IStore store)
         {
             var builder = new StringBuilder();
-            PrintNode(builder, new C5.HashSet<string>(), store, "", InterfaceID, Commands.IsEmpty ? NoCommand : 0);
+            PrintNode(builder, new C5.HashSet<string>(), store, "", InterfaceID);
             return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break
         }
 
@@ -95,19 +79,20 @@ namespace ZeroInstall.Injector.Solver
         /// Helper method for <see cref="GetHumanReadable"/> that recursivley writes information about <see cref="ImplementationSelection"/>s to a <see cref="StringBuilder"/>.
         /// </summary>
         /// <param name="builder">The string builder to write the output to.</param>
-        /// <param name="handled">A list of interface IDs that have already been handled; used to detect</param>
+        /// <param name="handled">A list of interface IDs that have already been handled; used to prevent infinite recursion.</param>
         /// <param name="store">A store to search for implementation storage locations.</param>
         /// <param name="indent">An indention prefix for the current recursion level (to create a visual hierachy).</param>
         /// <param name="interfaceID">The <see cref="ImplementationSelection.InterfaceID"/> to look for.</param>
-        /// <param name="command">The index in <see cref="Commands"/> associated with the current implementation.</param>
-        private void PrintNode(StringBuilder builder, C5.HashSet<string> handled, IStore store, string indent, string interfaceID, int command)
+        private void PrintNode(StringBuilder builder, C5.HashSet<string> handled, IStore store, string indent, string interfaceID)
         {
+            // Prevent infinite recursion
             if (handled.Contains(interfaceID)) return;
             handled.Add(interfaceID);
+
             builder.AppendLine(indent + "- URI: " + interfaceID);
             try
             {
-                var implementation = GetImplementation(interfaceID);
+                var implementation = this[interfaceID];
                 builder.AppendLine(indent + "  Version: " + implementation.Version);
                 builder.AppendLine(indent + "  Path: " + (implementation.GetPath(store) ?? Resources.NotCached));
 
@@ -115,19 +100,19 @@ namespace ZeroInstall.Injector.Solver
 
                 // Recurse into regular dependencies
                 foreach (var dependency in implementation.Dependencies)
-                    PrintNode(builder, handled, store, indent, dependency.Interface, NoCommand);
+                    PrintNode(builder, handled, store, indent, dependency.Interface);
 
-                if (command != NoCommand)
+                if (!implementation.Commands.IsEmpty)
                 {
-                    var runner = Commands[command].Runner;
-
-                    // Recurse into runner dependency
-                    if (runner != null)
-                        PrintNode(builder, handled, store, indent, runner.Interface, command + 1);
+                    var command = implementation.Commands.First;
 
                     // Recurse into command dependencies
-                    foreach (var dependency in Commands[command].Dependencies)
-                        PrintNode(builder, handled, store, indent, dependency.Interface, NoCommand);
+                    foreach (var dependency in command.Dependencies)
+                        PrintNode(builder, handled, store, indent, dependency.Interface);
+
+                    // Recurse into runner dependency
+                    if (command.Runner != null)
+                        PrintNode(builder, handled, store, indent, command.Runner.Interface);
                 }
             }
             catch (KeyNotFoundException)
@@ -142,13 +127,15 @@ namespace ZeroInstall.Injector.Solver
         /// Returns the <see cref="ImplementationSelection"/> for a specific interface.
         /// </summary>
         /// <param name="interfaceID">The <see cref="ImplementationSelection.InterfaceID"/> to look for.</param>
-        /// <returns>The identified <see cref="ImplementationSelection"/>.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if no <see cref="ImplementationSelection"/> matching <paramref name="interfaceID"/> was found in <see cref="Implementations"/>.</exception>
-        public ImplementationSelection GetImplementation(string interfaceID)
+        public ImplementationSelection this[string interfaceID]
         {
-            foreach (var implementation in _implementations)
-                if (implementation.InterfaceID == interfaceID) return implementation;
-            throw new KeyNotFoundException();
+            get
+            {
+                foreach (var implementation in _implementations)
+                    if (implementation.InterfaceID == interfaceID) return implementation;
+                throw new KeyNotFoundException();
+            }
         }
 
         /// <summary>
@@ -288,7 +275,6 @@ namespace ZeroInstall.Injector.Solver
         {
             var newSelections = new Selections {InterfaceID = InterfaceID};
             foreach (var implementation in Implementations) newSelections.Implementations.Add(implementation.CloneImplementation());
-            foreach (var command in Commands) newSelections.Commands.Add(command.CloneCommand());
             return newSelections;
         }
 
@@ -308,8 +294,7 @@ namespace ZeroInstall.Injector.Solver
         {
             if (other == null) return false;
 
-            return (InterfaceID == other.InterfaceID) &&
-                Implementations.SequencedEquals(other.Implementations) && Commands.SequencedEquals(other.Commands);
+            return (InterfaceID == other.InterfaceID) && Implementations.SequencedEquals(other.Implementations);
         }
 
         /// <inheritdoc/>
@@ -327,7 +312,6 @@ namespace ZeroInstall.Injector.Solver
             {
                 int result = (InterfaceID != null ? InterfaceID.GetHashCode() : 0);
                 result = (result * 397) ^ Implementations.GetSequencedHashCode();
-                result = (result * 397) ^ Commands.GetSequencedHashCode();
                 return result;
             }
         }

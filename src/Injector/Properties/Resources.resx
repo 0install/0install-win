@@ -130,7 +130,7 @@
     <value>No interface was specified.</value>
   </data>
   <data name="NoCommands" xml:space="preserve">
-    <value>No commands in the selection.</value>
+    <value>No commands in the implementation.</value>
   </data>
   <data name="NoImplementationsPassed" xml:space="preserve">
     <value>At least one implementation must be passed.</value>

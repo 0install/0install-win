@@ -35,13 +35,6 @@ namespace ZeroInstall.Model
             {
                 Name = Command.NameRun,
                 Path = "dir 1/executable1", Arguments = {"--executable1"},
-                Dependencies =
-                    {
-                        new Dependency
-                        {
-                            Interface = "http://0install.de/feeds/test/test1.xml", Bindings = {new EnvironmentBinding {Name = "TEST1_PATH_COMMAND_DEP"}}
-                        }
-                    },
                 Runner = new Runner
                 {
                     Interface = "http://0install.de/feeds/test/test2.xml", Arguments = {"runner argument"}, Bindings = {new EnvironmentBinding {Name = "TEST2_PATH_RUNNER_SELF"}}
@@ -59,7 +52,14 @@ namespace ZeroInstall.Model
             return new Command
             {
                 Name = Command.NameRun,
-                Path = "dir 2/executable2", Arguments = {"--executable2"}
+                Path = "dir 2/executable2", Arguments = {"--executable2"},
+                Dependencies =
+                    {
+                        new Dependency
+                        {
+                            Interface = "http://0install.de/feeds/test/test1.xml", Bindings = {new EnvironmentBinding {Name = "TEST1_PATH_COMMAND_DEP"}}
+                        }
+                    }
             };
         }
         #endregion

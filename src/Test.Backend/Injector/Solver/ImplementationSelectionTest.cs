@@ -45,7 +45,8 @@ namespace ZeroInstall.Injector.Solver
                         new EnvironmentBinding {Name = "TEST1_PATH_SELF", Default = "default", Mode = EnvironmentMode.Append},
                         new EnvironmentBinding {Name = "TEST1_VALUE", Value = "test1", Mode = EnvironmentMode.Replace}
                     },
-                Dependencies = {new Dependency {Interface = "http://0install.de/feeds/test/test2.xml", Bindings = {new EnvironmentBinding {Name = "TEST2_PATH_SUB_DEP", Insert = "sub", Default = "default", Mode = EnvironmentMode.Append}}}}
+                Dependencies = {new Dependency {Interface = "http://0install.de/feeds/test/test2.xml", Bindings = {new EnvironmentBinding {Name = "TEST2_PATH_SUB_DEP", Insert = "sub", Default = "default", Mode = EnvironmentMode.Append}}}},
+                Commands = {CommandTest.CreateTestCommand1()}
             };
         }
 
@@ -65,7 +66,8 @@ namespace ZeroInstall.Injector.Solver
                     {
                         new EnvironmentBinding {Name = "TEST2_PATH_SELF", Default = "default", Mode = EnvironmentMode.Prepend},
                         new EnvironmentBinding {Name = "TEST2_VALUE", Value = "test2", Mode = EnvironmentMode.Replace}
-                    }
+                    },
+                Commands = {CommandTest.CreateTestCommand2()}
             };
         }
         #endregion
