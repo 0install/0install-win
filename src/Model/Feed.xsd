@@ -127,6 +127,7 @@
   </xs:complexType>
   <xs:complexType name="element" abstract="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <!-- Binding types -->
       <xs:element minOccurs="0" maxOccurs="unbounded" name="environment" type="tns:environment" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="overlay" type="tns:overlay" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="command" type="tns:command" />
@@ -193,6 +194,7 @@
           <xs:documentation>A single command-line argument to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.</xs:documentation>
         </xs:annotation>
       </xs:element>
+      <!-- Binding types -->
       <xs:element minOccurs="0" maxOccurs="unbounded" name="environment" type="tns:environment" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="overlay" type="tns:overlay" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="requires" type="tns:dependency" />
@@ -269,7 +271,7 @@
       <xs:enumeration value="replace">
         <xs:annotation>
           <xs:documentation>
-            The old value is overwritten, and the <see cref="EnvironmentBinding.Default"/> attribute is ignored.
+            The old value is overwritten, and the 'default' attribute is ignored.
           </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
@@ -317,6 +319,7 @@
           <xs:documentation>Restricts the versions that are allowed.</xs:documentation>
         </xs:annotation>
       </xs:element>
+      <!-- Binding types -->
       <xs:element minOccurs="0" maxOccurs="unbounded" name="environment" type="tns:environment" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="overlay" type="tns:overlay" />
     </xs:choice>
@@ -496,7 +499,7 @@
         <xs:attribute name="type" type="xs:string">
           <xs:annotation>
             <xs:documentation>
-              The type of the archive as a MIME type. If missing, the type is guessed from the extension on the <see cref="Location"/> attribute. This value is case-insensitive.
+              The type of the archive as a MIME type. If missing, the type is guessed from the extension on the 'Location' attribute. This value is case-insensitive.
             </xs:documentation>
           </xs:annotation>
         </xs:attribute>

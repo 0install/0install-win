@@ -42,7 +42,7 @@ namespace ZeroInstall.Commands.WinForms.CapabilityModels
         // ReSharper restore MemberCanBePrivate.Global
 
         /// <summary>
-        /// Indicates whether the <see cref="Use"/> of the <see cref="Capability" /> has been changed.
+        /// Indicates whether the <see cref="Use" /> of the <see cref="Capability" /> has been changed.
         /// </summary>
         [Browsable(false)]
         public bool Changed { get { return _wasUsed != Use; } }
