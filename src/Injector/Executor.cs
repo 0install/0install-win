@@ -135,6 +135,19 @@ namespace ZeroInstall.Injector
 
         #region Bindings
         /// <summary>
+        /// Applies <see cref="Binding"/>s to make a set of <see cref="Dependency"/>s available.
+        /// </summary>
+        /// <param name="dependencyContainer">The list of <see cref="Dependency"/>s to follow.</param>
+        /// <param name="startInfo">The process launch environment to apply the <see cref="Binding"/>s to.</param>
+        /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if an <see cref="Implementation"/> is not cached yet.</exception>
+        private void ApplyDependencyBindings(IDependencyContainer dependencyContainer, ProcessStartInfo startInfo)
+        {
+            foreach (var dependency in dependencyContainer.Dependencies)
+                ApplyBindings(dependency, Selections[dependency.Interface], startInfo);
+        }
+
+        /// <summary>
         /// Applies all <see cref="Binding"/>s listed in a specific <see cref="IBindingContainer"/>.
         /// </summary>
         /// <param name="bindingContainer">The list of <see cref="Binding"/>s to be performed.</param>
@@ -160,19 +173,6 @@ namespace ZeroInstall.Injector
                 //    if (overlayBinding != null) ApplyOverlayBinding(startInfo, implementationDirectory, overlayBinding);
                 //}
             }
-        }
-
-        /// <summary>
-        /// Follows a list of <see cref="Dependency"/>s and applies their <see cref="Binding"/>s.
-        /// </summary>
-        /// <param name="dependencyContainer">The list of <see cref="Dependency"/>s to follow.</param>
-        /// <param name="startInfo">The process launch environment to apply the <see cref="Binding"/>s to.</param>
-        /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if an <see cref="Implementation"/> is not cached yet.</exception>
-        private void ApplyDependencyBindings(IDependencyContainer dependencyContainer, ProcessStartInfo startInfo)
-        {
-            foreach (var dependency in dependencyContainer.Dependencies)
-                ApplyBindings(dependency, Selections[dependency.Interface], startInfo);
         }
 
         /// <summary>

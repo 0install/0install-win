@@ -41,9 +41,9 @@ namespace ZeroInstall.Model
         public string Command { get; set; }
 
         /// <summary>
-        /// The canonical name of the binary supplying the command (without file extensions). Used by desktop integration to better name stubs.
+        /// The canonical name of the binary supplying the command (without file extensions). Used by desktop integration to name stubs better.
         /// </summary>
-        [Description("The canonical name of the binary supplying the command (without file extensions). Used by desktop integration to better name stubs.")]
+        [Description("The canonical name of the binary supplying the command (without file extensions). Used by desktop integration to name stubs better.")]
         [XmlAttribute("binary-name")]
         public string BinaryName { get; set; }
 

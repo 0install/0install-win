@@ -175,7 +175,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         #region Error handling
                     catch (IOException ex)
                     {
-                        Log.Warn("Unable to replace stale stub: " + exePath + "\n"  + ex.Message);
+                        Log.Warn("Unable to replace stale stub: " + exePath + "\n" + ex.Message);
                         return exePath;
                     }
                     catch (UnauthorizedAccessException ex)
