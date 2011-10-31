@@ -127,9 +127,10 @@
   </xs:complexType>
   <xs:complexType name="element" abstract="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <!-- Binding types -->
       <xs:element minOccurs="0" maxOccurs="unbounded" name="environment" type="tns:environment" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="overlay" type="tns:overlay" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="executable-in-var" type="tns:executable-in-var" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="executable-in-path" type="tns:executable-in-path" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="command" type="tns:command" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="requires" type="tns:dependency" />
     </xs:choice>
@@ -194,9 +195,10 @@
           <xs:documentation>A single command-line argument to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <!-- Binding types -->
       <xs:element minOccurs="0" maxOccurs="unbounded" name="environment" type="tns:environment" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="overlay" type="tns:overlay" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="executable-in-var" type="tns:executable-in-var" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="executable-in-path" type="tns:executable-in-path" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="requires" type="tns:dependency" />
       <xs:element minOccurs="0" maxOccurs="1" name="working-dir" type="tns:working-dir" />
       <xs:element minOccurs="0" maxOccurs="1" name="runner" type="tns:runner" />
@@ -296,6 +298,44 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="executable-in-var">
+    <xs:annotation>
+      <xs:documentation>Make a chosen implementation available by overlaying it onto another part of the file-system.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:binding">
+        <xs:attribute name="name" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation>The name of the environment variable.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="command" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>The command in the implementation to launch. If missing, 'run' is assumed.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="executable-in-path">
+    <xs:annotation>
+      <xs:documentation>Make a chosen implementation available as an executable in the search PATH.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:binding">
+        <xs:attribute name="name" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation>The name of the executable (without file extensions).</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="command" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>The command in the implementation to launch. If missing, 'run' is assumed.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="working-dir">
     <xs:annotation>
       <xs:documentation>
@@ -319,9 +359,10 @@
           <xs:documentation>Restricts the versions that are allowed.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <!-- Binding types -->
       <xs:element minOccurs="0" maxOccurs="unbounded" name="environment" type="tns:environment" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="overlay" type="tns:overlay" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="executable-in-var" type="tns:executable-in-var" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="executable-in-path" type="tns:executable-in-path" />
     </xs:choice>
     <xs:attribute name="interface" type="xs:string" use="required">
       <xs:annotation>

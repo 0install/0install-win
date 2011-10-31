@@ -83,7 +83,7 @@ namespace ZeroInstall.Model
                         {
                             Interface = "http://0install.de/feeds/test/test1.xml",
                             Constraints = {new Constraint(new ImplementationVersion("1.0"), null), new Constraint(null, new ImplementationVersion("2.0"))},
-                            Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding()}
+                            Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding(), ExecutableInVarTest.CreateTestBinding(), ExecutableInPathTest.CreateTestBinding()}
                         }
                     },
                 RetrievalMethods = {new Recipe {Steps = {new Archive {Location = new Uri("http://0install.de/files/test/test.zip"), Size = 1024}}}}
@@ -110,7 +110,7 @@ namespace ZeroInstall.Model
                         new Dependency
                         {
                             Interface = "http://0install.de/feeds/test/test2.xml", Importance = Importance.Recommended,
-                            Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding()}
+                            Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding(), ExecutableInVarTest.CreateTestBinding(), ExecutableInPathTest.CreateTestBinding()}
                         }
                     }
             };

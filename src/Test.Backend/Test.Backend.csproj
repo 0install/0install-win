@@ -100,6 +100,8 @@
     <Compile Include="Model\CatalogTest.cs" />
     <Compile Include="Model\CommandTest.cs" />
     <Compile Include="Model\EnvironmentBindingTest.cs" />
+    <Compile Include="Model\ExecutableInPath.cs" />
+    <Compile Include="Model\ExecutableInVarTest.cs" />
     <Compile Include="Model\FeedReferenceTest.cs" />
     <Compile Include="Model\FeedTest.cs" />
     <Compile Include="Model\ImplementationTest.cs" />
