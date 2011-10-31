@@ -37,9 +37,9 @@ namespace ZeroInstall.Model
         public string Name { get; set; }
 
         /// <summary>
-        /// The <see cref="Command"/> in the <see cref="Implementation"/> to launch; leave <see langword="null"/> for <see cref="Model.Command.NameRun"/>.
+        /// The name of the <see cref="Command"/> in the <see cref="Implementation"/> to launch; leave <see langword="null"/> for <see cref="Model.Command.NameRun"/>.
         /// </summary>
-        [Description("The command in the implementation to launch; leave null for 'run'.")]
+        [Description("The name of the command in the implementation to launch; leave null for 'run'.")]
         [XmlAttribute("command")]
         public string Command { get; set; }
         #endregion

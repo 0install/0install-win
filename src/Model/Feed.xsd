@@ -311,7 +311,7 @@
         </xs:attribute>
         <xs:attribute name="command" type="xs:string">
           <xs:annotation>
-            <xs:documentation>The command in the implementation to launch. If missing, 'run' is assumed.</xs:documentation>
+            <xs:documentation>The name of the command in the implementation to launch. If missing, 'run' is assumed.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -330,7 +330,7 @@
         </xs:attribute>
         <xs:attribute name="command" type="xs:string">
           <xs:annotation>
-            <xs:documentation>The command in the implementation to launch. If missing, 'run' is assumed.</xs:documentation>
+            <xs:documentation>The name of the command in the implementation to launch. If missing, 'run' is assumed.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -596,7 +596,7 @@
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="name" type="tns:localizable-string">
         <xs:annotation>
-          <xs:documentation>Localized user-friendly name for the command..</xs:documentation>
+          <xs:documentation>Localized user-friendly name for the command.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="summary" type="tns:localizable-string">
