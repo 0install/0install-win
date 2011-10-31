@@ -120,7 +120,9 @@ namespace ZeroInstall.Publish.WinForms
             SetupFeedStructureHooks<IElementContainer, Element, Group>(btnAddGroup, group => new GroupForm {Group = group}, container => container.Elements);
 
             SetupFeedStructureHooks<IBindingContainer, Binding, EnvironmentBinding>(btnAddEnvironmentBinding, binding => new EnvironmentBindingForm {EnvironmentBinding = binding}, container => container.Bindings);
-            SetupFeedStructureHooks<IBindingContainer, Binding, OverlayBinding>(btnAddOverlayBinding, binding => new OverlayBindingForm {OverlayBinding = binding}, container => container.Bindings);
+            SetupFeedStructureHooks<IBindingContainer, Binding, OverlayBinding>(btnAddOverlayBinding, binding => new OverlayBindingForm { OverlayBinding = binding }, container => container.Bindings);
+            SetupFeedStructureHooks<IBindingContainer, Binding, ExecutableInVar>(btnAddExecutableInVar, binding => new ExecutableInVarForm { ExecutableInVar = binding }, container => container.Bindings);
+            SetupFeedStructureHooks<IBindingContainer, Binding, ExecutableInPath>(btnAddExecutableInPath, binding => new ExecutableInPathForm { ExecutableInPath = binding }, container => container.Bindings);
 
             SetupFeedStructureHooks<IDependencyContainer, Dependency, Dependency>(btnAddDependency, dependency => new DependencyForm {Dependency = dependency}, container => container.Dependencies);
 

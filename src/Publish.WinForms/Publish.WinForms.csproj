@@ -118,6 +118,18 @@
     <Compile Include="FeedStructure\CommandForm.Designer.cs">
       <DependentUpon>CommandForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FeedStructure\ExecutableInPathForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FeedStructure\ExecutableInPathForm.Designer.cs">
+      <DependentUpon>ExecutableInPathForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FeedStructure\ExecutableInVarForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FeedStructure\ExecutableInVarForm.Designer.cs">
+      <DependentUpon>ExecutableInVarForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FeedStructure\RunnerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,6 +255,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FeedStructure\CommandForm.resx">
       <DependentUpon>CommandForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FeedStructure\ExecutableInPathForm.resx">
+      <DependentUpon>ExecutableInPathForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FeedStructure\ExecutableInVarForm.resx">
+      <DependentUpon>ExecutableInVarForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FeedStructure\DependencyForm.resx">
       <DependentUpon>DependencyForm.cs</DependentUpon>

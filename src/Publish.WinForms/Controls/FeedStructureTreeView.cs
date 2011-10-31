@@ -71,7 +71,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
             SetNodeDoubleClickHook<IElementContainer, Element, Group>(group => new GroupForm {Group = group}, container => container.Elements);
 
             SetNodeDoubleClickHook<IBindingContainer, Binding, EnvironmentBinding>(binding => new EnvironmentBindingForm {EnvironmentBinding = binding}, container => container.Bindings);
-            SetNodeDoubleClickHook<IBindingContainer, Binding, OverlayBinding>(binding => new OverlayBindingForm {OverlayBinding = binding}, container => container.Bindings);
+            SetNodeDoubleClickHook<IBindingContainer, Binding, OverlayBinding>(binding => new OverlayBindingForm { OverlayBinding = binding }, container => container.Bindings);
+            SetNodeDoubleClickHook<IBindingContainer, Binding, ExecutableInVar>(binding => new ExecutableInVarForm { ExecutableInVar = binding }, container => container.Bindings);
+            SetNodeDoubleClickHook<IBindingContainer, Binding, ExecutableInPath>(binding => new ExecutableInPathForm { ExecutableInPath = binding }, container => container.Bindings);
 
             SetNodeDoubleClickHook<IDependencyContainer, Dependency, Dependency>(dependency => new DependencyForm {Dependency = dependency}, container => container.Dependencies);
 

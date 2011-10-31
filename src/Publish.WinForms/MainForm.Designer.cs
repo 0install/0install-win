@@ -41,6 +41,8 @@ namespace ZeroInstall.Publish.WinForms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
+            this.descriptionControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
+            this.summariesControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
             this.labelDescription = new System.Windows.Forms.Label();
             this.labelSummary = new System.Windows.Forms.Label();
             this.checkBoxNeedsTerminal = new System.Windows.Forms.CheckBox();
@@ -50,6 +52,7 @@ namespace ZeroInstall.Publish.WinForms
             this.textHomepage = new Common.Controls.UriTextBox();
             this.labelHomepage = new System.Windows.Forms.Label();
             this.groupBoxIcon = new System.Windows.Forms.GroupBox();
+            this.iconManagementControl = new ZeroInstall.Publish.WinForms.Controls.IconManagementControl();
             this.labelCategories = new System.Windows.Forms.Label();
             this.textName = new Common.Controls.HintTextBox();
             this.labelProgramName = new System.Windows.Forms.Label();
@@ -79,19 +82,18 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxExternalFeeds = new System.Windows.Forms.GroupBox();
             this.buttonUpdateExternalFeed = new System.Windows.Forms.Button();
             this.groupBoxSelectedFeed = new System.Windows.Forms.GroupBox();
+            this.feedReferenceControl = new ZeroInstall.Publish.WinForms.Controls.FeedReferenceControl();
             this.listBoxExternalFeeds = new System.Windows.Forms.ListBox();
             this.buttonRemoveFeedFor = new System.Windows.Forms.Button();
             this.buttonAddExternalFeeds = new System.Windows.Forms.Button();
             this.buttonAddArchive = new System.Windows.Forms.Button();
             this.buttonAddRecipe = new System.Windows.Forms.Button();
             this.btnRunner = new System.Windows.Forms.Button();
-            this.keyCombinationShortcut = new KeyCombinationShortcut(this.components);
+            this.keyCombinationShortcut = new ZeroInstall.Publish.WinForms.Controls.KeyCombinationShortcut(this.components);
             this.feedEditorToolStrip = new ZeroInstall.Publish.WinForms.Controls.FeedEditorToolStrip();
-            this.descriptionControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
-            this.summariesControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
-            this.iconManagementControl = new ZeroInstall.Publish.WinForms.Controls.IconManagementControl();
-            this.feedReferenceControl = new ZeroInstall.Publish.WinForms.Controls.FeedReferenceControl();
             this.feedManager = new ZeroInstall.Publish.WinForms.FeedManager(this.components);
+            this.btnAddExecutableInPath = new System.Windows.Forms.Button();
+            this.btnAddExecutableInVar = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.groupBoxIcon.SuspendLayout();
@@ -140,6 +142,29 @@ namespace ZeroInstall.Publish.WinForms
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
+            // 
+            // descriptionControl
+            // 
+            this.descriptionControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.descriptionControl.Location = new System.Drawing.Point(9, 140);
+            this.descriptionControl.Multiline = true;
+            this.descriptionControl.Name = "descriptionControl";
+            this.descriptionControl.SelectedLanguage = new System.Globalization.CultureInfo("af");
+            this.descriptionControl.Size = new System.Drawing.Size(536, 79);
+            this.descriptionControl.TabIndex = 9;
+            // 
+            // summariesControl
+            // 
+            this.summariesControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.summariesControl.Location = new System.Drawing.Point(9, 98);
+            this.summariesControl.Multiline = false;
+            this.summariesControl.Name = "summariesControl";
+            this.summariesControl.SelectedLanguage = new System.Globalization.CultureInfo("af");
+            this.summariesControl.Size = new System.Drawing.Size(536, 23);
+            this.summariesControl.TabIndex = 7;
             // 
             // labelDescription
             // 
@@ -251,6 +276,16 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxIcon.TabStop = false;
             this.groupBoxIcon.Text = "Icon";
             // 
+            // iconManagementControl
+            // 
+            this.iconManagementControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.iconManagementControl.Location = new System.Drawing.Point(6, 19);
+            this.iconManagementControl.Name = "iconManagementControl";
+            this.iconManagementControl.Size = new System.Drawing.Size(524, 128);
+            this.iconManagementControl.TabIndex = 0;
+            // 
             // labelCategories
             // 
             this.labelCategories.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -298,6 +333,8 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxFeedStructure.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxFeedStructure.Controls.Add(this.btnAddExecutableInPath);
+            this.groupBoxFeedStructure.Controls.Add(this.btnAddExecutableInVar);
             this.groupBoxFeedStructure.Controls.Add(this.btnAddRunner);
             this.groupBoxFeedStructure.Controls.Add(this.btnAddRecipe);
             this.groupBoxFeedStructure.Controls.Add(this.btnAddArchive);
@@ -321,10 +358,10 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.btnAddRunner.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddRunner.Enabled = false;
-            this.btnAddRunner.Location = new System.Drawing.Point(401, 280);
+            this.btnAddRunner.Location = new System.Drawing.Point(401, 338);
             this.btnAddRunner.Name = "btnAddRunner";
             this.btnAddRunner.Size = new System.Drawing.Size(132, 23);
-            this.btnAddRunner.TabIndex = 10;
+            this.btnAddRunner.TabIndex = 13;
             this.btnAddRunner.Text = "Runner";
             this.btnAddRunner.UseVisualStyleBackColor = true;
             // 
@@ -332,10 +369,10 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.btnAddRecipe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddRecipe.Enabled = false;
-            this.btnAddRecipe.Location = new System.Drawing.Point(401, 251);
+            this.btnAddRecipe.Location = new System.Drawing.Point(401, 309);
             this.btnAddRecipe.Name = "btnAddRecipe";
             this.btnAddRecipe.Size = new System.Drawing.Size(132, 23);
-            this.btnAddRecipe.TabIndex = 9;
+            this.btnAddRecipe.TabIndex = 12;
             this.btnAddRecipe.Text = "Recipe";
             this.btnAddRecipe.UseVisualStyleBackColor = true;
             // 
@@ -343,10 +380,10 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.btnAddArchive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddArchive.Enabled = false;
-            this.btnAddArchive.Location = new System.Drawing.Point(401, 222);
+            this.btnAddArchive.Location = new System.Drawing.Point(401, 280);
             this.btnAddArchive.Name = "btnAddArchive";
             this.btnAddArchive.Size = new System.Drawing.Size(132, 23);
-            this.btnAddArchive.TabIndex = 8;
+            this.btnAddArchive.TabIndex = 11;
             this.btnAddArchive.Text = "Archive";
             this.btnAddArchive.UseVisualStyleBackColor = true;
             // 
@@ -439,10 +476,10 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.btnAddPackageImplementation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddPackageImplementation.Enabled = false;
-            this.btnAddPackageImplementation.Location = new System.Drawing.Point(401, 164);
+            this.btnAddPackageImplementation.Location = new System.Drawing.Point(401, 222);
             this.btnAddPackageImplementation.Name = "btnAddPackageImplementation";
             this.btnAddPackageImplementation.Size = new System.Drawing.Size(132, 23);
-            this.btnAddPackageImplementation.TabIndex = 6;
+            this.btnAddPackageImplementation.TabIndex = 9;
             this.btnAddPackageImplementation.Text = "Package implementation";
             this.btnAddPackageImplementation.UseVisualStyleBackColor = true;
             // 
@@ -450,10 +487,10 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.btnAddImplementation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddImplementation.Enabled = false;
-            this.btnAddImplementation.Location = new System.Drawing.Point(401, 193);
+            this.btnAddImplementation.Location = new System.Drawing.Point(401, 251);
             this.btnAddImplementation.Name = "btnAddImplementation";
             this.btnAddImplementation.Size = new System.Drawing.Size(132, 23);
-            this.btnAddImplementation.TabIndex = 7;
+            this.btnAddImplementation.TabIndex = 10;
             this.btnAddImplementation.Text = "Implementation";
             this.btnAddImplementation.UseVisualStyleBackColor = true;
             // 
@@ -601,6 +638,15 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxSelectedFeed.TabStop = false;
             this.groupBoxSelectedFeed.Text = "Edit external feed";
             // 
+            // feedReferenceControl
+            // 
+            this.feedReferenceControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.feedReferenceControl.Location = new System.Drawing.Point(6, 19);
+            this.feedReferenceControl.Name = "feedReferenceControl";
+            this.feedReferenceControl.Size = new System.Drawing.Size(518, 168);
+            this.feedReferenceControl.TabIndex = 0;
+            // 
             // listBoxExternalFeeds
             // 
             this.listBoxExternalFeeds.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -676,45 +722,31 @@ namespace ZeroInstall.Publish.WinForms
             this.feedEditorToolStrip.TabIndex = 2;
             this.feedEditorToolStrip.Text = "feedEditorToolStrip1";
             // 
-            // descriptionControl
+            // feedManager
             // 
-            this.descriptionControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.descriptionControl.Location = new System.Drawing.Point(9, 140);
-            this.descriptionControl.Multiline = true;
-            this.descriptionControl.Name = "descriptionControl";
-            this.descriptionControl.Size = new System.Drawing.Size(536, 79);
-            this.descriptionControl.TabIndex = 9;
+            this.feedManager.SigningKey = null;
             // 
-            // summariesControl
+            // btnAddExecutableInPath
             // 
-            this.summariesControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.summariesControl.Location = new System.Drawing.Point(9, 98);
-            this.summariesControl.Multiline = false;
-            this.summariesControl.Name = "summariesControl";
-            this.summariesControl.Size = new System.Drawing.Size(536, 23);
-            this.summariesControl.TabIndex = 7;
+            this.btnAddExecutableInPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddExecutableInPath.Enabled = false;
+            this.btnAddExecutableInPath.Location = new System.Drawing.Point(401, 193);
+            this.btnAddExecutableInPath.Name = "btnAddExecutableInPath";
+            this.btnAddExecutableInPath.Size = new System.Drawing.Size(132, 23);
+            this.btnAddExecutableInPath.TabIndex = 8;
+            this.btnAddExecutableInPath.Text = "Executable in PATH";
+            this.btnAddExecutableInPath.UseVisualStyleBackColor = true;
             // 
-            // iconManagementControl
+            // btnAddExecutableInVar
             // 
-            this.iconManagementControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.iconManagementControl.Location = new System.Drawing.Point(6, 19);
-            this.iconManagementControl.Name = "iconManagementControl";
-            this.iconManagementControl.Size = new System.Drawing.Size(524, 128);
-            this.iconManagementControl.TabIndex = 0;
-            // 
-            // feedReferenceControl
-            // 
-            this.feedReferenceControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.feedReferenceControl.Location = new System.Drawing.Point(6, 19);
-            this.feedReferenceControl.Name = "feedReferenceControl";
-            this.feedReferenceControl.Size = new System.Drawing.Size(518, 168);
-            this.feedReferenceControl.TabIndex = 0;
+            this.btnAddExecutableInVar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddExecutableInVar.Enabled = false;
+            this.btnAddExecutableInVar.Location = new System.Drawing.Point(401, 164);
+            this.btnAddExecutableInVar.Name = "btnAddExecutableInVar";
+            this.btnAddExecutableInVar.Size = new System.Drawing.Size(132, 23);
+            this.btnAddExecutableInVar.TabIndex = 7;
+            this.btnAddExecutableInVar.Text = "Executable in variable";
+            this.btnAddExecutableInVar.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -804,6 +836,8 @@ namespace ZeroInstall.Publish.WinForms
         private System.Windows.Forms.Button buttonAddRecipe;
         private System.Windows.Forms.Button btnRunner;
         private KeyCombinationShortcut keyCombinationShortcut;
+        private System.Windows.Forms.Button btnAddExecutableInPath;
+        private System.Windows.Forms.Button btnAddExecutableInVar;
     }
 }
 
