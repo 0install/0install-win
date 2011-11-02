@@ -23,6 +23,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Common.Properties;
@@ -243,5 +244,33 @@ namespace Common.Utils
             UnsafeNativeMethods.SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, UIntPtr.Zero, "Environment", SMTO_ABORTIFHUNG, 5000, out result);
         }
         #endregion
+
+        #region Filesystem
+        /// <summary>
+        /// Creates a hard link for a file.
+        /// </summary>
+        /// <param name="source">The new hard link to be created.</param>
+        /// <param name="target">The existing file.</param>
+        /// <remarks>Only available on Windows 2000 or newer.</remarks>
+        /// <exception cref="Win32Exception">Thrown if the hard link creation failed.</exception>
+        public static void CreateHardLink(string source, string target)
+        {
+            if (!IsWindowsNT) throw new NotSupportedException(Resources.OnlyAvailableOnWindows);
+            if (!UnsafeNativeMethods.CreateHardLink(source, target, IntPtr.Zero)) throw new Win32Exception();
+        }
+
+        /// <summary>
+        /// Creates a symbolic link for a file or directory.
+        /// </summary>
+        /// <param name="source">The new symbolic link to be created.</param>
+        /// <param name="target">The existing file or directory to point to.</param>
+        /// <remarks>Only available on Windows Vista or newer.</remarks>
+        /// <exception cref="Win32Exception">Thrown if the symbolic link creation failed.</exception>
+        public static void CreateSymbolicLink(string source, string target)
+        {
+            if (!IsWindowsVista) throw new NotSupportedException(Resources.OnlyAvailableOnWindows);
+            if (!UnsafeNativeMethods.CreateSymbolicLink(source, target, Directory.Exists(target) ? 1 : 0)) throw new Win32Exception();
+        }
+        #endregion 
     }
 }

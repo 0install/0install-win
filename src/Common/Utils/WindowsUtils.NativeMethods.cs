@@ -89,6 +89,14 @@ namespace Common.Utils
 
             [DllImport("user32", CharSet = CharSet.Unicode, SetLastError = true)]
             public static extern IntPtr SendMessageTimeout(IntPtr windowHandle, uint msg, UIntPtr wParam, string lParam, uint flags, uint timeout, out UIntPtr lpdwResult);
+
+
+            // Filesystem
+            [DllImport("kernel32", CharSet = CharSet.Unicode, SetLastError = true)]
+            public static extern bool CreateHardLink(string lpFileName, string lpExistingFileName, IntPtr lpSecurityAttributes);
+
+            [DllImport("kernel32", CharSet = CharSet.Unicode, SetLastError = true)]
+            public static extern bool CreateSymbolicLink(string lpSymlinkFileName, string lpTargetFileName, int dwFlags);
         }
     }
 }
