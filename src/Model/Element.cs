@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -228,14 +229,13 @@ namespace ZeroInstall.Model
         /// Returns the <see cref="Command"/> with a specific name.
         /// </summary>
         /// <param name="name">The <see cref="Command.Name"/> to look for. Well-known names are <see cref="Command.NameRun"/>, <see cref="Command.NameTest"/> and <see cref="Command.NameCompile"/>.</param>
-        /// <returns>The identified <see cref="Command"/> or <see langword="null"/> no matching one was found.</returns>
+        /// <exception cref="KeyNotFoundException">Thrown if no matching <see cref="Command"/> was found.</exception>
         /// <remarks>Should only be called after <see cref="Simplify"/> has been called, otherwise nested <see cref="Implementation"/>s will be missed.</remarks>
         public Command GetCommand(string name)
         {
             foreach (var command in Commands)
                 if (command != null && command.Name == name) return command;
-
-            return null;
+            throw new KeyNotFoundException();
         }
         #endregion
 
