@@ -323,6 +323,11 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         private const string StoreExe = "0store-win";
 
+        private void buttonSync_Click(object sender, EventArgs e)
+        {
+            LaunchHelperAssembly(CommandsExe, "sync");
+        }
+
         private void buttonRefreshAppList_Click(object sender, EventArgs e)
         {
             LoadAppListAsnyc();
@@ -333,7 +338,7 @@ namespace ZeroInstall.Central.WinForms
             LoadCatalogAsync();
         }
 
-        private void buttonOtherApp_Click(object sender, EventArgs e)
+        private void buttonAddOtherApp_Click(object sender, EventArgs e)
         {
             string interfaceID = InputBox.Show(null, "Zero Install", Resources.EnterInterfaceUrl);
             if (string.IsNullOrEmpty(interfaceID)) return;

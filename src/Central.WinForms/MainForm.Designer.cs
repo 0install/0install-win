@@ -31,11 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControlApps = new System.Windows.Forms.TabControl();
             this.tabPageAppList = new System.Windows.Forms.TabPage();
+            this.buttonSync = new System.Windows.Forms.Button();
             this.buttonRefreshAppList = new System.Windows.Forms.Button();
             this.appList = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
             this.buttonRefreshCatalog = new System.Windows.Forms.Button();
-            this.buttonOtherApp = new System.Windows.Forms.Button();
+            this.buttonAddOtherApp = new System.Windows.Forms.Button();
             this.catalogList = new ZeroInstall.Central.WinForms.AppTileList();
             this.buttonConfiguration = new System.Windows.Forms.Button();
             this.buttonCacheManagement = new System.Windows.Forms.Button();
@@ -62,11 +63,19 @@
             // 
             // tabPageAppList
             // 
+            this.tabPageAppList.Controls.Add(this.buttonSync);
             this.tabPageAppList.Controls.Add(this.buttonRefreshAppList);
             this.tabPageAppList.Controls.Add(this.appList);
             resources.ApplyResources(this.tabPageAppList, "tabPageAppList");
             this.tabPageAppList.Name = "tabPageAppList";
             this.tabPageAppList.UseVisualStyleBackColor = true;
+            // 
+            // buttonSync
+            // 
+            resources.ApplyResources(this.buttonSync, "buttonSync");
+            this.buttonSync.Name = "buttonSync";
+            this.buttonSync.UseVisualStyleBackColor = true;
+            this.buttonSync.Click += new System.EventHandler(this.buttonSync_Click);
             // 
             // buttonRefreshAppList
             // 
@@ -83,7 +92,7 @@
             // tabPageCatalog
             // 
             this.tabPageCatalog.Controls.Add(this.buttonRefreshCatalog);
-            this.tabPageCatalog.Controls.Add(this.buttonOtherApp);
+            this.tabPageCatalog.Controls.Add(this.buttonAddOtherApp);
             this.tabPageCatalog.Controls.Add(this.catalogList);
             resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
             this.tabPageCatalog.Name = "tabPageCatalog";
@@ -96,12 +105,12 @@
             this.buttonRefreshCatalog.UseVisualStyleBackColor = true;
             this.buttonRefreshCatalog.Click += new System.EventHandler(this.buttonRefreshCatalog_Click);
             // 
-            // buttonOtherApp
+            // buttonAddOtherApp
             // 
-            resources.ApplyResources(this.buttonOtherApp, "buttonOtherApp");
-            this.buttonOtherApp.Name = "buttonOtherApp";
-            this.buttonOtherApp.UseVisualStyleBackColor = true;
-            this.buttonOtherApp.Click += new System.EventHandler(this.buttonOtherApp_Click);
+            resources.ApplyResources(this.buttonAddOtherApp, "buttonAddOtherApp");
+            this.buttonAddOtherApp.Name = "buttonAddOtherApp";
+            this.buttonAddOtherApp.UseVisualStyleBackColor = true;
+            this.buttonAddOtherApp.Click += new System.EventHandler(this.buttonAddOtherApp_Click);
             // 
             // catalogList
             // 
@@ -189,7 +198,7 @@
         private System.Windows.Forms.TabPage tabPageAppList;
         private System.Windows.Forms.TabPage tabPageCatalog;
         private System.Windows.Forms.Button buttonHelp;
-        private System.Windows.Forms.Button buttonOtherApp;
+        private System.Windows.Forms.Button buttonAddOtherApp;
         private System.Windows.Forms.Button buttonCacheManagement;
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Button buttonConfiguration;
@@ -201,6 +210,7 @@
         private System.Windows.Forms.Button buttonRefreshCatalog;
         private System.Windows.Forms.Button buttonRefreshAppList;
         private System.IO.FileSystemWatcher appListWatcher;
+        private System.Windows.Forms.Button buttonSync;
 
     }
 }

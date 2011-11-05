@@ -121,22 +121,52 @@
   <data name="tabControlApps.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="buttonSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="buttonSync.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 337</value>
+  </data>
+  <data name="buttonSync.Size" type="System.Drawing.Size, System.Drawing">
+    <value>71, 23</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonSync.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="buttonSync.Text" xml:space="preserve">
+    <value>&amp;Sync</value>
+  </data>
+  <data name="&gt;&gt;buttonSync.Name" xml:space="preserve">
+    <value>buttonSync</value>
+  </data>
+  <data name="&gt;&gt;buttonSync.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonSync.Parent" xml:space="preserve">
+    <value>tabPageAppList</value>
+  </data>
+  <data name="&gt;&gt;buttonSync.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="buttonRefreshAppList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
   <data name="buttonRefreshAppList.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonRefreshAppList.Location" type="System.Drawing.Point, System.Drawing">
-    <value>419, 337</value>
+    <value>408, 337</value>
   </data>
   <data name="buttonRefreshAppList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 23</value>
+    <value>82, 23</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="buttonRefreshAppList.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="buttonRefreshAppList.Text" xml:space="preserve">
     <value>&amp;Refresh</value>
@@ -151,7 +181,7 @@
     <value>tabPageAppList</value>
   </data>
   <data name="&gt;&gt;buttonRefreshAppList.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="appList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -175,7 +205,7 @@
     <value>tabPageAppList</value>
   </data>
   <data name="&gt;&gt;appList.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="tabPageAppList.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -211,10 +241,10 @@
     <value>NoControl</value>
   </data>
   <data name="buttonRefreshCatalog.Location" type="System.Drawing.Point, System.Drawing">
-    <value>419, 337</value>
+    <value>408, 337</value>
   </data>
   <data name="buttonRefreshCatalog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 23</value>
+    <value>82, 23</value>
   </data>
   <data name="buttonRefreshCatalog.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -234,34 +264,34 @@
   <data name="&gt;&gt;buttonRefreshCatalog.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="buttonOtherApp.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="buttonAddOtherApp.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
-  <data name="buttonOtherApp.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="buttonAddOtherApp.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonOtherApp.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="buttonAddOtherApp.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 337</value>
   </data>
-  <data name="buttonOtherApp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 23</value>
+  <data name="buttonAddOtherApp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>167, 23</value>
   </data>
-  <data name="buttonOtherApp.TabIndex" type="System.Int32, mscorlib">
+  <data name="buttonAddOtherApp.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="buttonOtherApp.Text" xml:space="preserve">
-    <value>Add &amp;other application</value>
+  <data name="buttonAddOtherApp.Text" xml:space="preserve">
+    <value>&amp;Add other application</value>
   </data>
-  <data name="&gt;&gt;buttonOtherApp.Name" xml:space="preserve">
-    <value>buttonOtherApp</value>
+  <data name="&gt;&gt;buttonAddOtherApp.Name" xml:space="preserve">
+    <value>buttonAddOtherApp</value>
   </data>
-  <data name="&gt;&gt;buttonOtherApp.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonAddOtherApp.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonOtherApp.Parent" xml:space="preserve">
+  <data name="&gt;&gt;buttonAddOtherApp.Parent" xml:space="preserve">
     <value>tabPageCatalog</value>
   </data>
-  <data name="&gt;&gt;buttonOtherApp.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonAddOtherApp.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="catalogList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
