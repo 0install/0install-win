@@ -119,6 +119,8 @@ namespace Common.Utils
             Assert.AreEqual("\"test1 test2\"", StringUtils.EscapeArgument("test1 test2"), "Strings with whitespaces should be encapsulated");
             Assert.AreEqual("\"test1 test2\\\\\"", StringUtils.EscapeArgument("test1 test2\\"), "Trailing backslashes should be escaped");
             Assert.AreEqual("test1\\\"test2", StringUtils.EscapeArgument("test1\"test2"), "Quotation marks should be escaped");
+            Assert.AreEqual("test1\\\\test2", StringUtils.EscapeArgument("test1\\\\test2"), "Consecutive slashes without quotation marks should not be escaped");
+            Assert.AreEqual("test1\\\\\\\"test2", StringUtils.EscapeArgument("test1\\\"test2"), "Slashes with quotation marks should be escaped");
         }
 
         private const string Sha1ForEmptyString = "da39a3ee5e6b4b0d3255bfef95601890afd80709";

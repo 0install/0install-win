@@ -192,7 +192,7 @@ namespace Common.Utils
             bool first = true;
             foreach (var part in parts)
             {
-                // No separator before first or after last line
+                // No separator before first or after last part
                 if (first) first = false;
                 else output.Append(separator);
 
@@ -314,31 +314,53 @@ namespace Common.Utils
 
         #region Arguments escaping
         /// <summary>
-        /// Escapes a string for use as a command-line argument, making sure it is encapsulated within <code>"</code> if it contains whitespace characters.
+        /// Escapes a string for use as a Windows command-line argument, making sure it is encapsulated within <code>"</code> if it contains whitespace characters.
         /// </summary>
+        /// <remarks>
+        /// This coressponds to Windows' handling of command-line arguments as specified in:
+        /// http://msdn.microsoft.com/library/17w5ykft
+        /// </remarks>
         public static string EscapeArgument(string value)
         {
             if (value == null) return null;
 
-            value = value.Replace("\"", "\\\""); // Escape quotation marks
+            // Add leading quotation mark if there are whitespaces
+            bool containsWhitespace = ContainsWhitespace(value);
+            var result = containsWhitespace ? new StringBuilder("\"", value.Length + 2) : new StringBuilder(value.Length);
 
-            if (ContainsWhitespace(value))
+            // Split by quotation marks
+            string[] parts = value.Split('"');
+            for (int i = 0; i < parts.Length; i++)
             {
-                // Escape trailing backslashes
-                if (value.EndsWith("\\")) value += "\\";
+                // Count slashes preceeding each quotation mark
+                string slashesTrimmed = parts[i].TrimEnd('\\');
+                int slashesCount = parts[i].Length - slashesTrimmed.Length;
 
-                // ToDo: Handle multiple consecutive backslashes
+                result.Append(parts[i]);
 
-                // Encapsulate within quotation marks
-                value = "\"" + value + "\"";
+                if (i < parts.Length - 1)
+                { // Not last part
+                    for (int j = 0; j < slashesCount; j++) result.Append('\\'); // Double number of slashes
+                    result.Append("\\\""); // Escaped quotation mark
+                }
+                else if (containsWhitespace)
+                { // Last part if there are whitespaces
+                    for (int j = 0; j < slashesCount; j++) result.Append('\\'); // Double number of slashes
+                    result.Append('"'); // Non-escaped quotation mark
+                }
             }
-            return value;
+
+            return result.ToString();
         }
 
         /// <summary>
-        /// Combines multiple strings into one for use as a command-line argument using <see cref="EscapeArgument"/>.
+        /// Combines multiple strings into one for use as a Windows command-line argument using <see cref="EscapeArgument"/>.
         /// </summary>
         /// <param name="parts">The strings to be combines.</param>
+        /// <remarks>
+        /// This coressponds to Windows' handling of command-line arguments as specified in:
+        /// http://msdn.microsoft.com/library/17w5ykft
+        /// </remarks>
         public static string ConcatenateEscapeArgument(IEnumerable<string> parts)
         {
             #region Sanity checks
@@ -349,7 +371,7 @@ namespace Common.Utils
             bool first = true;
             foreach (string part in parts)
             {
-                // No separator before first or after last line
+                // No separator before first or after last part
                 if (first) first = false;
                 else output.Append(' ');
 
