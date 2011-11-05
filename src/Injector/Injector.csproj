@@ -55,6 +55,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="Executor.Bindings.cs" />
+    <Compile Include="Executor.CommandLine.cs" />
     <Compile Include="Feeds\Domain.cs" />
     <Compile Include="Feeds\FeedManager.cs" />
     <Compile Include="Feeds\FeedManagerBase.cs" />
@@ -76,6 +78,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="runenv.cli.cs" />
     <Compile Include="SilentHandler.cs" />
     <Compile Include="Solver\Requirements.cs" />
     <Compile Include="Solver\SelectionCandidate.cs" />
@@ -128,6 +131,9 @@
     <None Include="Feeds\TrustDB.xsd">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="runenv.cli.template" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">

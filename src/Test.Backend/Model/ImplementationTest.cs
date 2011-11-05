@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Collections.Generic;
 using System.Globalization;
 using NUnit.Framework;
 
@@ -38,24 +39,21 @@ namespace ZeroInstall.Model
                 Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")},
                 Main = "executable", DocDir = "doc", Stability = Stability.Developer,
                 Bindings = {EnvironmentBindingTest.CreateTestBinding()},
-                RetrievalMethods = {ArchiveTest.CreateTestArchive(), new Recipe {Steps = {ArchiveTest.CreateTestArchive()}}}
+                RetrievalMethods = {ArchiveTest.CreateTestArchive(), new Recipe {Steps = {ArchiveTest.CreateTestArchive()}}},
+                Commands = {CommandTest.CreateTestCommand1()}
             };
         }
         #endregion
 
         /// <summary>
-        /// Ensures that the class can be correctly cloned.
+        /// Ensures that <see cref="Element.GetCommand"/> correctly retreives commands.
         /// </summary>
         [Test]
-        public void TestClone()
+        public void TestGetCommand()
         {
-            var implementation1 = CreateTestImplementation();
-            var implementation2 = implementation1.CloneImplementation();
-
-            // Ensure data stayed the same
-            Assert.AreEqual(implementation1, implementation2, "Cloned objects should be equal.");
-            Assert.AreEqual(implementation1.GetHashCode(), implementation2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(implementation1, implementation2), "Cloning should not return the same reference.");
+            var implementation = CreateTestImplementation();
+            Assert.AreEqual(implementation.Commands[0], implementation.GetCommand(Command.NameRun));
+            Assert.Throws<KeyNotFoundException>(() => implementation.GetCommand("invalid"));
         }
 
         /// <summary>
@@ -86,6 +84,21 @@ namespace ZeroInstall.Model
             implementation.Simplify();
             Assert.AreEqual("main", implementation.GetCommand(Command.NameRun).Path);
             Assert.AreEqual("test", implementation.GetCommand(Command.NameTest).Path);
+        }
+
+        /// <summary>
+        /// Ensures that the class can be correctly cloned.
+        /// </summary>
+        [Test]
+        public void TestClone()
+        {
+            var implementation1 = CreateTestImplementation();
+            var implementation2 = implementation1.CloneImplementation();
+
+            // Ensure data stayed the same
+            Assert.AreEqual(implementation1, implementation2, "Cloned objects should be equal.");
+            Assert.AreEqual(implementation1.GetHashCode(), implementation2.GetHashCode(), "Cloned objects' hashes should be equal.");
+            Assert.IsFalse(ReferenceEquals(implementation1, implementation2), "Cloning should not return the same reference.");
         }
     }
 }

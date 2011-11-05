@@ -45,6 +45,22 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
+        /// Creates a fictive test <see cref="Command"/> using <see cref="Command.NameTest"/>.
+        /// </summary>
+        public static Command CreateTestCommand1Test()
+        {
+            return new Command
+            {
+                Name = Command.NameTest,
+                Path = "dir 1/test1", Arguments = {"--test1"},
+                Runner = new Runner
+                {
+                    Interface = "http://0install.de/feeds/test/test2.xml", Arguments = {"runner argument"}
+                }
+            };
+        }
+
+        /// <summary>
         /// Creates a fictive test <see cref="Command"/>.
         /// </summary>
         public static Command CreateTestCommand2()
@@ -57,7 +73,8 @@ namespace ZeroInstall.Model
                     {
                         new Dependency
                         {
-                            Interface = "http://0install.de/feeds/test/test1.xml", Bindings = {new EnvironmentBinding {Name = "TEST1_PATH_COMMAND_DEP"}}
+                            Interface = "http://0install.de/feeds/test/test1.xml",
+                            Bindings = {new EnvironmentBinding {Name = "TEST1_PATH_COMMAND_DEP"}}
                         }
                     }
             };

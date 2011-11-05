@@ -88,20 +88,20 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Illegal character in &lt;executable&gt; binding name..
+        /// </summary>
+        internal static string IllegalCharInExecutableBinding {
+            get {
+                return ResourceManager.GetString("IllegalCharInExecutableBinding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No interface was specified..
         /// </summary>
         internal static string MissingInterfaceID {
             get {
                 return ResourceManager.GetString("MissingInterfaceID", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No commands in the implementation..
-        /// </summary>
-        internal static string NoCommands {
-            get {
-                return ResourceManager.GetString("NoCommands", resourceCulture);
             }
         }
         

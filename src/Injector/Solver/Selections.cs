@@ -46,6 +46,13 @@ namespace ZeroInstall.Injector.Solver
         [XmlAttribute("interface")]
         public string InterfaceID { get; set; }
 
+        /// <summary>
+        /// The name of the <see cref="Command"/> in the interface to be started.
+        /// </summary>
+        [Description("The name of the command in the interface to be started.")]
+        [XmlAttribute("command")]
+        public string Command { get; set; }
+
         // Preserve order
         private readonly C5.LinkedList<ImplementationSelection> _implementations = new C5.LinkedList<ImplementationSelection>();
 

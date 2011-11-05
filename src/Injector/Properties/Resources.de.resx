@@ -126,11 +126,11 @@
   <data name="FileNotFound" xml:space="preserve">
     <value>Datei nicht gefunden: {0}</value>
   </data>
+  <data name="IllegalCharInExecutableBinding" xml:space="preserve">
+    <value>Ungültiges Zeichen im &lt;executable&gt; Binding Namen.</value>
+  </data>
   <data name="MissingInterfaceID" xml:space="preserve">
     <value>Es wurde kein Interface angegeben.</value>
-  </data>
-  <data name="NoCommands" xml:space="preserve">
-    <value>Keine Commands in der Implementierung.</value>
   </data>
   <data name="NoImplementationsPassed" xml:space="preserve">
     <value>Es muss mindestens eine Implementierung übergeben werden.</value>

@@ -33,7 +33,7 @@ namespace ZeroInstall.Injector
     /// Executes a set of <see cref="ImplementationSelection"/>s as a program using dependency injection.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public class Executor
+    public partial class Executor
     {
         #region Properties
         /// <summary>
@@ -87,30 +87,41 @@ namespace ZeroInstall.Injector
         /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Model.Implementation"/>s is not cached yet.</exception>
         /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
+        /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
         public ProcessStartInfo GetStartInfo(params string[] arguments)
         {
             #region Sanity checks
             if (arguments == null) throw new ArgumentNullException("arguments");
             #endregion
 
-            // Accumulate bindings in process environment
-            var startInfo = new ProcessStartInfo {ErrorDialog = false, UseShellExecute = false};
-            foreach (var implementation in Selections.Implementations)
-            {
-                // Apply bindings implementations use to find themselves and their dependencies
-                ApplyBindings(implementation, implementation, startInfo);
-                ApplyDependencyBindings(implementation, startInfo);
-            }
+            // Apply implementation bindings
+            var startInfo = GetStartInfo();
 
             var firstImplementation = Selections.Implementations.First;
             if (!string.IsNullOrEmpty(Main)) ApplyMain(ref firstImplementation);
 
             // Recursivley build command-line (applying additional bindings)
-            var commandLine = GetCommandLine(firstImplementation, startInfo);
+            var commandLine = GetCommandLine(firstImplementation, Selections.Command, startInfo);
             if (!string.IsNullOrEmpty(Wrapper)) commandLine.InsertAll(0, WindowsUtils.SplitArgs(Wrapper)); // Add wrapper in front
             commandLine.AddAll(arguments); // Append user arguments
-            ApplyCommandLine(startInfo, commandLine);
 
+            // Split and apply command-lines for executable bindings (delayed until here because there may be variable expanding)
+            foreach (var pending in _runEnvPendings)
+            {
+                var split = SplitCommandLine(pending.CommandLine, startInfo.EnvironmentVariables);
+                startInfo.EnvironmentVariables.Add("0install-runenv-file-" + pending.Name, split.FileName);
+                startInfo.EnvironmentVariables.Add("0install-runenv-args-" + pending.Name, split.Arguments);
+            }
+            _runEnvPendings.Clear();
+
+            // Split and apply main command-line
+            {
+                var split = SplitCommandLine(commandLine, startInfo.EnvironmentVariables);
+                startInfo.FileName = split.FileName;
+                startInfo.Arguments = split.Arguments;
+            }
             return startInfo;
         }
 
@@ -122,7 +133,9 @@ namespace ZeroInstall.Injector
         /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Model.Implementation"/>s is not cached yet.</exception>
         /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
-        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
+        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched or if a problem occurred while creating a hard link.</exception>
         public Process Start(params string[] arguments)
         {
             #region Sanity checks
@@ -133,192 +146,7 @@ namespace ZeroInstall.Injector
         }
         #endregion
 
-        #region Bindings
-        /// <summary>
-        /// Applies <see cref="Binding"/>s to make a set of <see cref="Dependency"/>s available.
-        /// </summary>
-        /// <param name="dependencyContainer">The list of <see cref="Dependency"/>s to follow.</param>
-        /// <param name="startInfo">The process launch environment to apply the <see cref="Binding"/>s to.</param>
-        /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if an <see cref="Implementation"/> is not cached yet.</exception>
-        private void ApplyDependencyBindings(IDependencyContainer dependencyContainer, ProcessStartInfo startInfo)
-        {
-            foreach (var dependency in dependencyContainer.Dependencies)
-                ApplyBindings(dependency, Selections[dependency.Interface], startInfo);
-        }
-
-        /// <summary>
-        /// Applies all <see cref="Binding"/>s listed in a specific <see cref="IBindingContainer"/>.
-        /// </summary>
-        /// <param name="bindingContainer">The list of <see cref="Binding"/>s to be performed.</param>
-        /// <param name="implementation">The implementation to be made available via the <see cref="Binding"/>s.</param>
-        /// <param name="startInfo">The process launch environment to apply the <see cref="Binding"/>s to.</param>
-        /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
-        private void ApplyBindings(IBindingContainer bindingContainer, ImplementationSelection implementation, ProcessStartInfo startInfo)
-        {
-            if (bindingContainer.Bindings.IsEmpty) return;
-
-            // Don't use bindings for PackageImplementations
-            if (!string.IsNullOrEmpty(implementation.Package)) return;
-
-            string implementationDirectory = GetImplementationPath(implementation);
-
-            foreach (var binding in bindingContainer.Bindings)
-            {
-                var environmentBinding = binding as EnvironmentBinding;
-                if (environmentBinding != null) ApplyEnvironmentBinding(environmentBinding, implementationDirectory, startInfo);
-                //else
-                //{
-                //    var overlayBinding = binding as OverlayBinding;
-                //    if (overlayBinding != null) ApplyOverlayBinding(startInfo, implementationDirectory, overlayBinding);
-                //}
-            }
-        }
-
-        /// <summary>
-        /// Applies an <see cref="EnvironmentBinding"/> to the <see cref="ProcessStartInfo"/>.
-        /// </summary>
-        /// <param name="binding">The binding to apply.</param>
-        /// <param name="implementationDirectory">The implementation to be made available via the <see cref="EnvironmentBinding"/>.</param>
-        /// <param name="startInfo">The process launch environment to apply the <see cref="Binding"/> to.</param>
-        private static void ApplyEnvironmentBinding(EnvironmentBinding binding, string implementationDirectory, ProcessStartInfo startInfo)
-        {
-            var environmentVariables = startInfo.EnvironmentVariables;
-
-            string newValue = string.IsNullOrEmpty(binding.Value)
-                // A path inside the implementation
-                ? Path.Combine(implementationDirectory, FileUtils.UnifySlashes(binding.Insert ?? ""))
-                // A static value
-                : binding.Value;
-
-            // Set the default value if the variable is not already set on the system
-            if (!environmentVariables.ContainsKey(binding.Name)) environmentVariables.Add(binding.Name, binding.Default);
-
-            string previousValue = environmentVariables[binding.Name];
-            string separator = (string.IsNullOrEmpty(binding.Separator) ? Path.PathSeparator.ToString() : binding.Separator);
-
-            switch (binding.Mode)
-            {
-                default:
-                case EnvironmentMode.Prepend:
-                    environmentVariables[binding.Name] = string.IsNullOrEmpty(previousValue)
-                        // No exisiting value, just set new one
-                        ? newValue
-                        // Prepend new value to existing one seperated by path separator
-                        : newValue + separator + environmentVariables[binding.Name];
-                    break;
-
-                case EnvironmentMode.Append:
-                    environmentVariables[binding.Name] = string.IsNullOrEmpty(previousValue)
-                        // No exisiting value, just set new one
-                        ? newValue
-                        // Append new value to existing one seperated by path separator
-                        : environmentVariables[binding.Name] + separator + newValue;
-                    break;
-
-                case EnvironmentMode.Replace:
-                    // Overwrite any existing value
-                    environmentVariables[binding.Name] = newValue;
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Applies a <see cref="WorkingDir"/> change to the <see cref="ProcessStartInfo"/>.
-        /// </summary>
-        /// <param name="workingDir">The <see cref="WorkingDir"/> to apply.</param>
-        /// <param name="implementation">The implementation to be made available via the <see cref="WorkingDir"/> change.</param>
-        /// <param name="startInfo">The process launch environment to apply the <see cref="WorkingDir"/> change to.</param>
-        /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
-        /// <exception cref="CommandException">Thrown if the <paramref name="workingDir"/> has an invalid path or another working directory has already been set.</exception>
-        /// <remarks>This method can only be called successfully once per <see cref="GetStartInfo"/>.</remarks>
-        private void ApplyWorkingDir(WorkingDir workingDir, ImplementationSelection implementation, ProcessStartInfo startInfo)
-        {
-            string source = FileUtils.UnifySlashes(workingDir.Source) ?? "";
-            if (Path.IsPathRooted(source) || source.Contains(".." + Path.DirectorySeparatorChar)) throw new CommandException(Resources.WorkingDirInvalidPath);
-
-            // Only allow working directory to be changed once
-            if (!string.IsNullOrEmpty(startInfo.WorkingDirectory)) throw new CommandException(Resources.WokringDirDuplicate);
-
-            startInfo.WorkingDirectory = Path.Combine(GetImplementationPath(implementation), source);
-        }
-        #endregion
-
-        #region Command-line
-        /// <summary>
-        /// Replaces the <see cref="Command"/> of the first <see cref="Implementation"/> with the binary specified in <see cref="Main"/>.
-        /// </summary>
-        private void ApplyMain(ref ImplementationSelection firstImplementation)
-        {
-            // Clone the first implementation so the command can replaced without affecting Selections
-            firstImplementation = firstImplementation.CloneImplementation();
-            var firstCommand = firstImplementation.Commands.First;
-
-            string mainPath = FileUtils.UnifySlashes(Main);
-            firstCommand.Path = (mainPath[0] == Path.DirectorySeparatorChar)
-                // Relative to implementation root
-                ? mainPath.TrimStart(Path.DirectorySeparatorChar)
-                // Relative to original command
-                : Path.Combine(Path.GetDirectoryName(firstCommand.Path) ?? "", mainPath);
-            firstCommand.Arguments.Clear();
-        }
-
-        /// <summary>
-        /// Determines the command-line needed to execute an <see cref="ImplementationSelection"/>. Recursivley handles <see cref="Runner"/>s.
-        /// </summary>
-        /// <param name="implementation">The implementation to launch.</param>
-        /// <param name="startInfo">The process launch environment to apply additional <see cref="Binding"/> to.</param>
-        /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
-        private C5.LinkedList<string> GetCommandLine(ImplementationSelection implementation, ProcessStartInfo startInfo)
-        {
-            #region Sanity checks
-            if (implementation == null) throw new ArgumentNullException("implementation");
-            if (startInfo == null) throw new ArgumentNullException("startInfo");
-            if (implementation.Commands.IsEmpty) throw new ArgumentException(Resources.NoImplementationsPassed, "implementation");
-            #endregion
-
-            var command = implementation.Commands.First;
-
-            // Apply bindings implementations use to find themselves and their dependencies
-            ApplyBindings(command, implementation, startInfo);
-            if (command.WorkingDir != null) ApplyWorkingDir(command.WorkingDir, implementation, startInfo);
-            ApplyDependencyBindings(command, startInfo);
-
-            C5.LinkedList<string> commandLine;
-            var runner = command.Runner;
-            if (runner == null) commandLine = new C5.LinkedList<string>();
-            else
-            {
-                commandLine = GetCommandLine(Selections[runner.Interface], startInfo);
-                commandLine.AddAll(runner.Arguments);
-            }
-
-            // The command's path (relative to the interface)
-            if (!string.IsNullOrEmpty(command.Path)) commandLine.Add(GetCommandPath(implementation));
-            commandLine.AddAll(command.Arguments);
-
-            return commandLine;
-        }
-
-        /// <summary>
-        /// Applies a command-line to a process launch environment, expanding Unix-style environment variables.
-        /// </summary>
-        /// <param name="startInfo">The process launch environment to apply the command-line to.</param>
-        /// <param name="commandLine">The command-line elements to apply.</param>
-        private static void ApplyCommandLine(ProcessStartInfo startInfo, C5.IList<string> commandLine)
-        {
-            startInfo.FileName = commandLine.First;
-            commandLine.RemoveFirst();
-
-            var commandLineArray = commandLine.ToArray();
-            for (int i = 0; i < commandLineArray.Length; i++)
-                commandLineArray[i] = StringUtils.ExpandUnixVariables(commandLineArray[i], startInfo.EnvironmentVariables);
-
-            startInfo.Arguments = StringUtils.ConcatenateEscapeArgument(commandLineArray);
-        }
-        #endregion
-
-        #region Path helpers
+        #region Path
         /// <summary>
         /// Locates an implementation on the disk (usually in an <see cref="IStore"/>).
         /// </summary>
@@ -332,19 +160,6 @@ namespace ZeroInstall.Injector
             #endregion
 
             return (string.IsNullOrEmpty(implementation.LocalPath) ? Store.GetPath(implementation.ManifestDigest) : implementation.LocalPath);
-        }
-
-        /// <summary>
-        /// Gets the fully qualified path of a <see cref="Command"/> used to start an implementation.
-        /// </summary>
-        private string GetCommandPath(ImplementationSelection implementation)
-        {
-            string path = FileUtils.UnifySlashes(implementation.Commands.First.Path);
-
-            // Fully qualified paths are used by package/native implementatinos
-            if (Path.IsPathRooted(path)) return path;
-
-            return Path.Combine(GetImplementationPath(implementation), path);
         }
         #endregion
     }

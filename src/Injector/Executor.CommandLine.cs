@@ -1,0 +1,133 @@
+﻿/*
+ * Copyright 2010-2011 Bastian Eicher
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using Common.Utils;
+using ZeroInstall.Model;
+using ZeroInstall.Injector.Solver;
+using ZeroInstall.Store.Implementation;
+
+namespace ZeroInstall.Injector
+{
+    public partial class Executor
+    {
+        #region Structs
+        /// <summary>
+        /// Represents a command-line split into a file name and arguments part.
+        /// </summary>
+        private struct CommandLineSplit
+        {
+            public readonly string FileName;
+
+            public readonly string Arguments;
+
+            public CommandLineSplit(string fileName, string arguments)
+            {
+                FileName = fileName;
+                Arguments = arguments;
+            }
+        }
+        #endregion
+
+        #region Main
+        /// <summary>
+        /// Replaces the <see cref="Command"/> of the first <see cref="Implementation"/> with the binary specified in <see cref="Main"/>.
+        /// </summary>
+        private void ApplyMain(ref ImplementationSelection firstImplementation)
+        {
+            // Clone the first implementation so the command can replaced without affecting Selections
+            firstImplementation = firstImplementation.CloneImplementation();
+            var firstCommand = firstImplementation.Commands.First;
+
+            string mainPath = FileUtils.UnifySlashes(Main);
+            firstCommand.Path = (mainPath[0] == Path.DirectorySeparatorChar)
+                // Relative to implementation root
+                ? mainPath.TrimStart(Path.DirectorySeparatorChar)
+                // Relative to original command
+                : Path.Combine(Path.GetDirectoryName(firstCommand.Path) ?? "", mainPath);
+            firstCommand.Arguments.Clear();
+        }
+        #endregion
+
+        #region Get command-line
+        /// <summary>
+        /// Determines the command-line needed to execute an <see cref="ImplementationSelection"/>. Recursivley handles <see cref="Runner"/>s.
+        /// </summary>
+        /// <param name="implementation">The implementation to launch.</param>
+        /// <param name="commandName">The name of the <see cref="Command"/> within the <paramref name="implementation"/> to launch.</param>
+        /// <param name="startInfo">The process launch environment to apply additional <see cref="Binding"/> to.</param>
+        /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if an <see cref="Implementation"/> is not cached yet.</exception>
+        /// <exception cref="CommandException">Thrown if a <see cref="Command"/> contained invalid data.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
+        /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
+        private C5.LinkedList<string> GetCommandLine(ImplementationSelection implementation, string commandName, ProcessStartInfo startInfo)
+        {
+            #region Sanity checks
+            if (implementation == null) throw new ArgumentNullException("implementation");
+            if (startInfo == null) throw new ArgumentNullException("startInfo");
+            #endregion
+
+            Command command = implementation.GetCommand(string.IsNullOrEmpty(commandName) ? Command.NameRun : commandName);
+
+            // Apply bindings implementations use to find themselves and their dependencies
+            ApplyBindings(command, implementation, startInfo);
+            if (command.WorkingDir != null) ApplyWorkingDir(command.WorkingDir, implementation, startInfo);
+            ApplyDependencyBindings(command, startInfo);
+
+            C5.LinkedList<string> commandLine;
+            var runner = command.Runner;
+            if (runner == null) commandLine = new C5.LinkedList<string>();
+            else
+            {
+                commandLine = GetCommandLine(Selections[runner.Interface], null, startInfo);
+                commandLine.AddAll(runner.Arguments);
+            }
+
+            if (!string.IsNullOrEmpty(command.Path))
+            {
+                string path = FileUtils.UnifySlashes(command.Path);
+
+                // Fully qualified paths are used by package/native implementations, usually relative to the implementation
+                commandLine.Add(Path.IsPathRooted(path) ? path : Path.Combine(GetImplementationPath(implementation), path));
+            }
+            commandLine.AddAll(command.Arguments);
+
+            return commandLine;
+        }
+        #endregion
+
+        #region Split command-line
+        /// <summary>
+        /// Splits a command-line into a file name and an arguments part. Expands any Unix-style environment variables.
+        /// </summary>
+        /// <param name="commandLine">The command-line to split.</param>
+        /// <param name="environmentVariables">A list of environment variables available for expansion.</param>
+        private static CommandLineSplit SplitCommandLine(C5.IList<string> commandLine, StringDictionary environmentVariables)
+        {
+            commandLine = commandLine.Map(entry => StringUtils.ExpandUnixVariables(entry, environmentVariables));
+            return new CommandLineSplit(commandLine.First, StringUtils.ConcatenateEscapeArgument(commandLine.View(1, commandLine.Count - 1)));
+        }
+        #endregion
+    }
+}
