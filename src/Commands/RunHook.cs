@@ -169,7 +169,7 @@ namespace ZeroInstall.Commands
 
                 entries.Add(new RelaunchEntry(
                     entryPoint.BinaryName,
-                    entryPoint.Names.GetBestLanguage(CultureInfo.CurrentCulture),
+                    entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture),
                     "--command=" + StringUtils.EscapeArgument(entryPoint.Command) + " " + escapedTarget,
                     entryPoint.NeedsTerminal,
                     GetIconPath(entryPoint.Command)));

@@ -50,7 +50,7 @@ namespace Common.Utils
             #endregion
 
             string appPath = Path.Combine(Locations.InstallBase, assembly + ".exe");
-            if (!File.Exists(appPath)) throw new FileNotFoundException(string.Format(CultureInfo.CurrentCulture, Resources.UnableToLocateAssembly, assembly), appPath);
+            if (!File.Exists(appPath)) throw new FileNotFoundException(string.Format(Resources.UnableToLocateAssembly, assembly), appPath);
 
             // Only Windows can directly launch .NET executables, other platforms must run through Mono
             return Process.Start(WindowsUtils.IsWindows

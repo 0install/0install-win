@@ -89,7 +89,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             using (var capabilitiesKey = Registry.LocalMachine.CreateSubKey(CapabilityPrefix + appRegistration.CapabilityRegPath))
             {
                 capabilitiesKey.SetValue(RegValueAppName, target.Feed.Name ?? "");
-                capabilitiesKey.SetValue(RegValueAppDescription, target.Feed.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture) ?? "");
+                capabilitiesKey.SetValue(RegValueAppDescription, target.Feed.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture) ?? "");
 
                 // Set icon if available
                 try

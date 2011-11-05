@@ -96,7 +96,7 @@ namespace ZeroInstall.DesktopIntegration
                 // Add icons for additional entry points
                 foreach (var entryPoint in feed.EntryPoints)
                 {
-                    string entryPointName = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentCulture);
+                    string entryPointName = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture);
                     if (!string.IsNullOrEmpty(entryPoint.Command) && !string.IsNullOrEmpty(entryPointName))
                     {
                         accessPointsToAdd.AddLast(new MenuEntry

@@ -231,7 +231,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             if (capability is Capabilities.UrlProtocol) registryKey.SetValue(UrlProtocol.ProtocolIndicator, "");
 
-            string description = capability.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture);
+            string description = capability.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture);
             if (description != null) registryKey.SetValue("", description);
 
             // Write verb command information
@@ -241,7 +241,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 {
                     using (var verbKey = shellKey.CreateSubKey(verb.Name))
                     {
-                        string verbDescription = verb.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture);
+                        string verbDescription = verb.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture);
                         if (verbDescription != null) verbKey.SetValue("", verbDescription);
                         if (verb.Extended) verbKey.SetValue(RegValueExtended, "");
 

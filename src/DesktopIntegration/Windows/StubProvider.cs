@@ -74,7 +74,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             // Load the template code and insert variables
             string code = GetEmbeddedResource("Stub.template").Replace("[EXE]", needsTerminal ? "0install.exe" : "0install-win.exe");
             code = code.Replace("[ARGUMENTS]", EscapeForCode(args));
-            code = code.Replace("[TITLE]", EscapeForCode(target.Feed.GetName(CultureInfo.CurrentCulture, command)));
+            code = code.Replace("[TITLE]", EscapeForCode(target.Feed.GetName(CultureInfo.CurrentUICulture, command)));
 
             // Configure the compiler
             var compilerParameters = new CompilerParameters

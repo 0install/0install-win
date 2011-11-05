@@ -98,7 +98,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 handlerKey.SetValue(RegValueProgID, FileType.RegKeyPrefix + autoPlay.ProgID);
                 handlerKey.SetValue(RegValueVerb, autoPlay.Verb.Name);
                 handlerKey.SetValue(RegValueProvider, autoPlay.Provider);
-                handlerKey.SetValue(RegValueDescription, autoPlay.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture) ?? autoPlay.Verb.Name);
+                handlerKey.SetValue(RegValueDescription, autoPlay.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture) ?? autoPlay.Verb.Name);
 
                 // Set specific icon if available, fall back to referencing the icon embedded in the stub EXE
                 string iconPath;

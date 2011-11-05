@@ -73,7 +73,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
             using (var verbKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + (contextMenu.AllObjects ? RegKeyClassesAllPrefix : RegKeyClassesFilesPrefix) + @"\shell\" + contextMenu.Verb.Name))
             {
-                string description = contextMenu.Verb.Descriptions.GetBestLanguage(CultureInfo.CurrentCulture);
+                string description = contextMenu.Verb.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture);
                 if (description != null) verbKey.SetValue("", description);
                 if (contextMenu.Verb.Extended) verbKey.SetValue(FileType.RegValueExtended, "");
 

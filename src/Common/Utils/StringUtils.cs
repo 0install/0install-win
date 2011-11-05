@@ -312,10 +312,10 @@ namespace Common.Utils
         }
         #endregion
 
-        #region Arguments escpaing
+        #region Arguments escaping
         /// <summary>
         /// Escapes a string for use as a command-line argument, making sure it is encapsulated within <code>"</code> if it contains whitespace characters.
-        /// </summary>s
+        /// </summary>
         public static string EscapeArgument(string value)
         {
             if (value == null) return null;
@@ -347,7 +347,7 @@ namespace Common.Utils
 
             var output = new StringBuilder();
             bool first = true;
-            foreach (var part in parts)
+            foreach (string part in parts)
             {
                 // No separator before first or after last line
                 if (first) first = false;
