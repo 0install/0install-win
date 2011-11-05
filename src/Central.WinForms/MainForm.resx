@@ -122,7 +122,7 @@
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="buttonSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+    <value>Bottom, Left</value>
   </data>
   <data name="buttonSync.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>

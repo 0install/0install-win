@@ -97,7 +97,7 @@
             this.buttonRun.ShowSplit = true;
             this.buttonRun.Size = new System.Drawing.Size(70, 23);
             this.buttonRun.SplitMenuStrip = this.contextMenuRun;
-            this.buttonRun.TabIndex = 4;
+            this.buttonRun.TabIndex = 3;
             this.buttonRun.Text = "Run";
             this.buttonRun.UseVisualStyleBackColor = true;
             this.buttonRun.Click += new System.EventHandler(this.buttonRun_Click);
@@ -148,7 +148,7 @@
             this.buttonConf.ShowSplit = true;
             this.buttonConf.Size = new System.Drawing.Size(70, 23);
             this.buttonConf.SplitMenuStrip = this.contextMenuManage;
-            this.buttonConf.TabIndex = 6;
+            this.buttonConf.TabIndex = 5;
             this.buttonConf.Text = "Conf";
             this.buttonConf.UseVisualStyleBackColor = true;
             this.buttonConf.Visible = false;
@@ -178,7 +178,7 @@
             this.buttonAdd.ShowSplit = true;
             this.buttonAdd.Size = new System.Drawing.Size(70, 23);
             this.buttonAdd.SplitMenuStrip = this.contextMenuAdd;
-            this.buttonAdd.TabIndex = 5;
+            this.buttonAdd.TabIndex = 4;
             this.buttonAdd.Text = "Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
@@ -204,7 +204,7 @@
             this.linkLabelDetails.Location = new System.Drawing.Point(278, 37);
             this.linkLabelDetails.Name = "linkLabelDetails";
             this.linkLabelDetails.Size = new System.Drawing.Size(40, 13);
-            this.linkLabelDetails.TabIndex = 2;
+            this.linkLabelDetails.TabIndex = 6;
             this.linkLabelDetails.TabStop = true;
             this.linkLabelDetails.Text = "More...";
             this.linkLabelDetails.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelDetails_LinkClicked);
@@ -216,7 +216,7 @@
             this.trackingProgressBar.Location = new System.Drawing.Point(63, 32);
             this.trackingProgressBar.Name = "trackingProgressBar";
             this.trackingProgressBar.Size = new System.Drawing.Size(255, 18);
-            this.trackingProgressBar.TabIndex = 3;
+            this.trackingProgressBar.TabIndex = 2;
             this.trackingProgressBar.Visible = false;
             // 
             // iconDownloadWorker
