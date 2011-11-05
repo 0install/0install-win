@@ -154,7 +154,9 @@
             // appListWatcher
             // 
             this.appListWatcher.EnableRaisingEvents = true;
-            this.appListWatcher.NotifyFilter = System.IO.NotifyFilters.CreationTime | System.IO.NotifyFilters.FileName | System.IO.NotifyFilters.LastWrite | System.IO.NotifyFilters.Size;
+            this.appListWatcher.NotifyFilter = ((System.IO.NotifyFilters)((((System.IO.NotifyFilters.FileName | System.IO.NotifyFilters.Size) 
+            | System.IO.NotifyFilters.LastWrite) 
+            | System.IO.NotifyFilters.CreationTime)));
             this.appListWatcher.SynchronizingObject = this;
             this.appListWatcher.Changed += new System.IO.FileSystemEventHandler(this.appListWatcher_Changed);
             // 

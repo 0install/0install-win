@@ -64,6 +64,10 @@ namespace ZeroInstall.Central.WinForms
                 {
                     Log.Error("Failed to set up task links:\n" + ex.Message);
                 }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Log.Error("Failed to set up task links:\n" + ex.Message);
+                }
                 #endregion
             };
 
@@ -79,7 +83,14 @@ namespace ZeroInstall.Central.WinForms
             string appListPath = AppList.GetDefaultPath(false);
             appListWatcher.Path = Path.GetDirectoryName(appListPath);
             appListWatcher.Filter = Path.GetFileName(appListPath);
-            
+
+            FormClosing += delegate
+            {
+                Visible = false;
+                while (selfUpdateWorker.IsBusy || catalogWorker.IsBusy)
+                    Application.DoEvents();
+            };
+
             Shown += delegate
             {
                 SelfUpdateCheckAsync();
@@ -105,13 +116,7 @@ namespace ZeroInstall.Central.WinForms
             string topDir = Path.GetFileName(Locations.InstallBase) ?? Locations.InstallBase;
             if ((topDir.StartsWith("sha") && topDir.Contains("="))) return;
 
-            FormClosing += delegate
-            {
-                Visible = false;
-                while (selfUpdateWorker.IsBusy)
-                    Application.DoEvents();
-            };
-            selfUpdateWorker.RunWorkerAsync();
+            if (!selfUpdateWorker.IsBusy) selfUpdateWorker.RunWorkerAsync();
         }
 
         private void selfUpdateWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -176,8 +181,6 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         private void LoadAppListAsnyc()
         {
-            // ToDo: Make async
-
             var feedCache = FeedCacheProvider.CreateDefault();
             var newAppList = AppList.Load(AppList.GetDefaultPath(false));
 
@@ -235,17 +238,24 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         private void LoadCatalogAsync()
         {
+            // Prevent multiple concurrent refreshes
+            if (catalogWorker.IsBusy) return;
+            buttonRefreshCatalog.Enabled = false;
+
             catalogWorker.RunWorkerAsync();
         }
 
         private void catalogWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var mergedCatalog = new Catalog();
-
+            // ToDo: Merge data from custom sources and cache data
             try
             {
-                // ToDo: Merge data from multiple catalogs and cache data
-                mergedCatalog = Catalog.Load(new MemoryStream(new WebClient().DownloadData("http://0install.de/catalog/")));
+                var catalog = Catalog.Load(new MemoryStream(new WebClient().DownloadData("http://0install.de/catalog/")));
+
+                // Copy the catalog feeds to a hashed list for faster comparisons
+                var catalogFeeds = new C5.HashedLinkedList<Feed>();
+                catalogFeeds.AddAll(catalog.Feeds);
+                e.Result = catalogFeeds;
             }
                 #region Error handling
             catch (WebException ex)
@@ -254,10 +264,6 @@ namespace ZeroInstall.Central.WinForms
             }
             #endregion
 
-            // Copy the catalog feeds to a hashed list for faster comparisons
-            var catalogFeeds = new C5.HashedLinkedList<Feed>();
-            catalogFeeds.AddAll(mergedCatalog.Feeds);
-            e.Result = catalogFeeds;
         }
 
         private void catalogWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -288,6 +294,19 @@ namespace ZeroInstall.Central.WinForms
                 removedFeed => catalogList.RemoveTile(removedFeed.UriString));
             catalogList.ColorTiles();
             _currentCatalogFeeds = newCatalogFeeds;
+
+            buttonRefreshCatalog.Enabled = true;
+        }
+
+        /// <summary>
+        /// Temporarily adds a custom feed to <see cref="catalogList"/>.
+        /// </summary>
+        /// <param name="interfaceID">The URI of the feed to be launched.</param>
+        private void AddCustomFeed(string interfaceID)
+        {
+            LaunchHelperAssembly(CommandsExe, "add-app " + StringUtils.EscapeArgument(interfaceID));
+
+            tabControlApps.SelectTab(tabPageAppList);
         }
         #endregion
 
@@ -316,12 +335,10 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonOtherApp_Click(object sender, EventArgs e)
         {
-            // ToDo: Show selection dialog
-
             string interfaceID = InputBox.Show(null, "Zero Install", Resources.EnterInterfaceUrl);
             if (string.IsNullOrEmpty(interfaceID)) return;
 
-            LaunchFeed(interfaceID);
+            AddCustomFeed(interfaceID);
         }
 
         private void buttonCacheManagement_Click(object sender, EventArgs e)
@@ -346,10 +363,10 @@ namespace ZeroInstall.Central.WinForms
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 var files = e.Data.GetData(DataFormats.FileDrop) as string[];
-                LaunchFeed(EnumerableUtils.GetFirst(files));
+                AddCustomFeed(EnumerableUtils.GetFirst(files));
             }
             else if (e.Data.GetDataPresent(DataFormats.Text))
-                LaunchFeed((string)e.Data.GetData(DataFormats.Text));
+                AddCustomFeed((string)e.Data.GetData(DataFormats.Text));
         }
 
         private void MainForm_DragEnter(object sender, DragEventArgs e)
@@ -412,15 +429,6 @@ namespace ZeroInstall.Central.WinForms
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }
             #endregion
-        }
-
-        /// <summary>
-        /// Attempts to launch a feed and closes the main window.
-        /// </summary>
-        /// <param name="feedUri">The URI of the feed to be launched.</param>
-        private void LaunchFeed(string feedUri)
-        {
-            LaunchHelperAssembly(CommandsExe, "run --gui --no-wait " + StringUtils.EscapeArgument(feedUri));
         }
         #endregion
     }

@@ -250,7 +250,7 @@
     <value>1</value>
   </data>
   <data name="buttonOtherApp.Text" xml:space="preserve">
-    <value>&amp;Other application</value>
+    <value>Add &amp;other application</value>
   </data>
   <data name="&gt;&gt;buttonOtherApp.Name" xml:space="preserve">
     <value>buttonOtherApp</value>
