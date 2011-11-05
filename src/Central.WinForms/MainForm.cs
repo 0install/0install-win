@@ -94,7 +94,7 @@ namespace ZeroInstall.Central.WinForms
             Shown += delegate
             {
                 SelfUpdateCheckAsync();
-                LoadAppListAsnyc();
+                LoadAppListAsync();
                 LoadCatalogAsync();
 
                 appListWatcher.EnableRaisingEvents = true;
@@ -179,10 +179,11 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Loads the "my applications" list and displays it, loading additional data from feeds in the background.
         /// </summary>
-        private void LoadAppListAsnyc()
+        private void LoadAppListAsync()
         {
-            var feedCache = FeedCacheProvider.CreateDefault();
             var newAppList = AppList.Load(AppList.GetDefaultPath(false));
+
+            var feedsToLoad = new Dictionary<AppTile, string>();
 
             // Update the displayed AppList based on changes detected between the current and the new AppList
             EnumerableUtils.Merge(
@@ -194,7 +195,7 @@ namespace ZeroInstall.Central.WinForms
                     {
                         var tile = appList.AddTile(addedEntry.InterfaceID, addedEntry.Name);
                         tile.InAppList = true;
-                        tile.SetFeed(feedCache.GetFeed(addedEntry.InterfaceID));
+                        feedsToLoad.Add(tile, addedEntry.InterfaceID);
 
                         // Update "added" status of tile in catalog list
                         var catalogTile = catalogList.GetTile(addedEntry.InterfaceID);
@@ -220,11 +221,30 @@ namespace ZeroInstall.Central.WinForms
                     if (catalogTile != null) catalogTile.InAppList = false;
                 });
             _currentAppList = newAppList;
+
+            feedLoadWorker.RunWorkerAsync(feedsToLoad);
+        }
+
+        private void feedLoadWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var policy = Policy.CreateDefault(new SilentHandler());
+
+            var feedsToLoad = (IDictionary<AppTile, string>)e.Argument;
+            foreach (var pair in feedsToLoad)
+            {
+                // Load and parse the feed
+                bool stale;
+                var feed = policy.FeedManager.GetFeed(pair.Value, policy, out stale);
+                var tile = pair.Key;
+
+                // Send it to the UI thread
+                Invoke((SimpleEventHandler)(() => tile.SetFeed(feed)));
+            }
         }
 
         private void appListWatcher_Changed(object sender, FileSystemEventArgs e)
         {
-            LoadAppListAsnyc();
+            LoadAppListAsync();
         }
         #endregion
 
@@ -323,11 +343,6 @@ namespace ZeroInstall.Central.WinForms
         private void buttonSync_Click(object sender, EventArgs e)
         {
             LaunchHelperAssembly(CommandsExe, "sync");
-        }
-
-        private void buttonRefreshAppList_Click(object sender, EventArgs e)
-        {
-            LoadAppListAsnyc();
         }
 
         private void buttonRefreshCatalog_Click(object sender, EventArgs e)

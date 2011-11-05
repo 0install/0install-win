@@ -32,7 +32,6 @@
             this.tabControlApps = new System.Windows.Forms.TabControl();
             this.tabPageAppList = new System.Windows.Forms.TabPage();
             this.buttonSync = new System.Windows.Forms.Button();
-            this.buttonRefreshAppList = new System.Windows.Forms.Button();
             this.appList = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
             this.buttonRefreshCatalog = new System.Windows.Forms.Button();
@@ -46,6 +45,7 @@
             this.catalogWorker = new System.ComponentModel.BackgroundWorker();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.appListWatcher = new System.IO.FileSystemWatcher();
+            this.feedLoadWorker = new System.ComponentModel.BackgroundWorker();
             this.tabControlApps.SuspendLayout();
             this.tabPageAppList.SuspendLayout();
             this.tabPageCatalog.SuspendLayout();
@@ -64,7 +64,6 @@
             // tabPageAppList
             // 
             this.tabPageAppList.Controls.Add(this.buttonSync);
-            this.tabPageAppList.Controls.Add(this.buttonRefreshAppList);
             this.tabPageAppList.Controls.Add(this.appList);
             resources.ApplyResources(this.tabPageAppList, "tabPageAppList");
             this.tabPageAppList.Name = "tabPageAppList";
@@ -76,13 +75,6 @@
             this.buttonSync.Name = "buttonSync";
             this.buttonSync.UseVisualStyleBackColor = true;
             this.buttonSync.Click += new System.EventHandler(this.buttonSync_Click);
-            // 
-            // buttonRefreshAppList
-            // 
-            resources.ApplyResources(this.buttonRefreshAppList, "buttonRefreshAppList");
-            this.buttonRefreshAppList.Name = "buttonRefreshAppList";
-            this.buttonRefreshAppList.UseVisualStyleBackColor = true;
-            this.buttonRefreshAppList.Click += new System.EventHandler(this.buttonRefreshAppList_Click);
             // 
             // appList
             // 
@@ -169,6 +161,10 @@
             this.appListWatcher.SynchronizingObject = this;
             this.appListWatcher.Changed += new System.IO.FileSystemEventHandler(this.appListWatcher_Changed);
             // 
+            // feedLoadWorker
+            // 
+            this.feedLoadWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.feedLoadWorker_DoWork);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -208,9 +204,9 @@
         private System.ComponentModel.BackgroundWorker catalogWorker;
         private System.Windows.Forms.PictureBox pictureBoxLogo;
         private System.Windows.Forms.Button buttonRefreshCatalog;
-        private System.Windows.Forms.Button buttonRefreshAppList;
         private System.IO.FileSystemWatcher appListWatcher;
         private System.Windows.Forms.Button buttonSync;
+        private System.ComponentModel.BackgroundWorker feedLoadWorker;
 
     }
 }
