@@ -219,7 +219,6 @@ namespace ZeroInstall.Central.WinForms
                     var catalogTile = catalogList.GetTile(removedEntry.InterfaceID);
                     if (catalogTile != null) catalogTile.InAppList = false;
                 });
-            appList.ColorTiles();
             _currentAppList = newAppList;
         }
 
@@ -263,7 +262,6 @@ namespace ZeroInstall.Central.WinForms
                 Log.Warn("Unable to load application catalog:\n" + ex.Message);
             }
             #endregion
-
         }
 
         private void catalogWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -292,7 +290,6 @@ namespace ZeroInstall.Central.WinForms
                     #endregion
                 },
                 removedFeed => catalogList.RemoveTile(removedFeed.UriString));
-            catalogList.ColorTiles();
             _currentCatalogFeeds = newCatalogFeeds;
 
             buttonRefreshCatalog.Enabled = true;

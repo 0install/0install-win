@@ -20,6 +20,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Common.Collections;
+using Common.Controls;
+using Common.Utils;
 using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Central.WinForms
@@ -38,6 +40,9 @@ namespace ZeroInstall.Central.WinForms
 
         /// <summary>Maps interface IDs to <see cref="AppTile"/>s.</summary>
         private readonly C5.IDictionary<string, AppTile> _tileDictionary = new C5.HashDictionary<string, AppTile>();
+
+        /// <summary><see langword="true"/> if the last tile used <see cref="TileColorLight"/>; <see langword="false"/> if the last tile used <see cref="TileColorDark"/>.</summary>
+        private bool _lastTileLight;
         #endregion
 
         #region Properties
@@ -79,19 +84,29 @@ namespace ZeroInstall.Central.WinForms
 
             SuspendLayout();
 
+            var textSearch = new HintTextBox
+            {
+                Dock = DockStyle.Top, Height = 20,
+                HintText = "Search", ShowClearButton = true,
+                TabIndex = 0
+            };
+            textSearch.TextChanged += delegate { FilterTiles(textSearch.Text); };
+
             _flowLayout = new FlowLayoutPanel
             {
-                Location = new Point(0, 0), Margin = Padding.Empty,
-                Size = Size.Empty,
-                FlowDirection = FlowDirection.TopDown,
+                Location = new Point(0, 0), Size = Size.Empty, Margin = Padding.Empty,
+                FlowDirection = FlowDirection.TopDown
             };
             _scrollPanel = new Panel
             {
-                Location = new Point(0, 0), Margin = Padding.Empty,
-                Dock = DockStyle.Fill,
-                AutoScroll = true, Controls = {_flowLayout}
+                Dock = DockStyle.Fill, Margin = Padding.Empty,
+                AutoScroll = true, Controls = {_flowLayout},
+                TabIndex = 1
             };
+
+            // Must add scroll panel first for docking to work correctly
             Controls.Add(_scrollPanel);
+            Controls.Add(textSearch);
 
             Resize += delegate
             {
@@ -123,7 +138,13 @@ namespace ZeroInstall.Central.WinForms
             if (_tileDictionary.Contains(interfaceID)) throw new C5.DuplicateNotAllowedException();
             #endregion
 
-            var tile = new AppTile(interfaceID, appName, IconCache) {Width = _flowLayout.Width};
+            var tile = new AppTile(interfaceID, appName, IconCache)
+            {
+                Width = _flowLayout.Width,
+                // Alternate between light and dark tiles
+                BackColor = _lastTileLight ? TileColorDark : TileColorLight
+            };
+            _lastTileLight = !_lastTileLight;
 
             _flowLayout.Height += tile.Height;
             _flowLayout.Controls.Add(tile);
@@ -160,6 +181,8 @@ namespace ZeroInstall.Central.WinForms
             _flowLayout.Height -= tile.Height;
 
             _tileDictionary.Remove(tile.InterfaceID);
+
+            RecolorTiles();
         }
 
         /// <summary>
@@ -185,19 +208,50 @@ namespace ZeroInstall.Central.WinForms
             _flowLayout.Height = 0;
 
             _tileDictionary.Clear();
+            _lastTileLight = false;
+        }
+        #endregion
+
+        #region Helpers
+        /// <summary>
+        /// Applies a search filter to the list of tiles.
+        /// </summary>
+        /// <param name="filter">A case-insensitive string to search for.</param>
+        private void FilterTiles(string filter)
+        {
+            bool needsRecolor = false;
+            foreach (var tile in _tileDictionary.Values)
+            {
+                // Check if new filter changes visibility
+                bool shouldBeVisible = StringUtils.Contains(tile.AppName, filter);
+                if (tile.Visible != shouldBeVisible)
+                {
+                    // Update list length
+                    if (shouldBeVisible) _flowLayout.Height += tile.Height;
+                    else _flowLayout.Height -= tile.Height;
+
+                    tile.Visible = shouldBeVisible;
+                    needsRecolor = true;
+                }
+            }
+
+            if (needsRecolor) RecolorTiles();
         }
 
         /// <summary>
-        /// Colors all application tiles in the list. Should be called after one or more tiles were added or removed.
+        /// Colors all application tiles in the list. Should be called after one or more tiles were removed.
         /// </summary>
-        public void ColorTiles()
+        private void RecolorTiles()
         {
-            bool dark = false;
+            _lastTileLight = false;
+
             foreach (var tile in EnumerableUtils.OfType<AppTile>(_flowLayout.Controls))
             {
+                if (!tile.Visible) continue;
+
                 // Alternate between light and dark tiles
-                tile.BackColor = dark ? TileColorDark : TileColorLight;
-                dark = !dark;
+                tile.BackColor = _lastTileLight ? TileColorDark : TileColorLight;
+                _lastTileLight = !_lastTileLight;
             }
         }
         #endregion

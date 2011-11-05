@@ -54,6 +54,11 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         public string InterfaceID { get; private set; }
 
+        /// <summary>
+        /// The name of the application this tile represents.
+        /// </summary>
+        public string AppName { get { return labelName.Text; } }
+
         private bool _inAppList;
 
         /// <summary>
