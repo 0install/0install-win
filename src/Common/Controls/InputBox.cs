@@ -59,7 +59,8 @@ namespace Common.Controls
             {
                 Text = title,
                 labelPrompt = {Text = prompt.Replace("\n", Environment.NewLine)},
-                textInput = {Text = defaultText, UseSystemPasswordChar = password}
+                textInput = {Text = defaultText, UseSystemPasswordChar = password},
+                ShowInTaskbar = (owner == null)
             })
                 return (inputBox.ShowDialog(owner) == DialogResult.OK) ? inputBox.textInput.Text : null;
         }

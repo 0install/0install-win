@@ -423,7 +423,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonAddOtherApp_Click(object sender, EventArgs e)
         {
-            string interfaceID = InputBox.Show(null, "Zero Install", Resources.EnterInterfaceUrl);
+            string interfaceID = InputBox.Show(this, "Zero Install", Resources.EnterInterfaceUrl);
             if (string.IsNullOrEmpty(interfaceID)) return;
 
             AddCustomFeed(interfaceID);
