@@ -120,6 +120,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
+  <data name="Change" xml:space="preserve">
+    <value>Ändern</value>
+  </data>
   <data name="EnterFeedUrl" xml:space="preserve">
     <value>Bitte geben Sie die URL der neuen Quelle von Implementierungen für dieses Interface an:</value>
   </data>
@@ -131,9 +134,6 @@
   </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Portable Modus</value>
-  </data>
-  <data name="Properties" xml:space="preserve">
-    <value>Eigenschaften</value>
   </data>
   <data name="PropertiesFor" xml:space="preserve">
     <value>Eigenschaften für {0}</value>

@@ -1220,6 +1220,12 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="EnterFeedUrl" xml:space="preserve">
+    <value>Please enter the URL of the new source of implementations for this interface:</value>
+  </data>
   <data name="Hide" xml:space="preserve">
     <value>Hide</value>
   </data>
@@ -1228,9 +1234,6 @@
   </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Portable mode</value>
-  </data>
-  <data name="Properties" xml:space="preserve">
-    <value>Properties</value>
   </data>
   <data name="PropertiesFor" xml:space="preserve">
     <value>Properties for {0}</value>
@@ -1243,8 +1246,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
-  </data>
-  <data name="EnterFeedUrl" xml:space="preserve">
-    <value>Please enter the URL of the new source of implementations for this interface:</value>
   </data>
 </root>

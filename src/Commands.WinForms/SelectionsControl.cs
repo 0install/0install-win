@@ -132,14 +132,14 @@ namespace ZeroInstall.Commands.WinForms
                 string interfaceID = _selections.Implementations[i].InterfaceID;
 
                 // Setup link label for modifying interface preferences
-                var linkLabel = new LinkLabel {Text = Resources.Properties, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft};
+                var linkLabel = new LinkLabel {Text = Resources.Change, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft};
                 linkLabel.LinkClicked += delegate { if (InterfaceDialog.Show(this, interfaceID, _feedCache)) ReSolve(solveCallback, waitHandle); };
                 _auditLinks.AddLast(linkLabel);
                 tableLayout.Controls.Add(linkLabel, 2, i);
             }
 
-            buttonContinue.Visible = true;
-            buttonContinue.Focus();
+            buttonDone.Visible = true;
+            buttonDone.Focus();
         }
 
         /// <summary>
@@ -219,12 +219,12 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region Buttons
-        private void buttonContinue_Click(object sender, EventArgs e)
+        private void buttonDone_Click(object sender, EventArgs e)
         {
             // Remove all auditing-related controls
             foreach (var control in _auditLinks)
                 tableLayout.Controls.Remove(control);
-            buttonContinue.Visible = false;
+            buttonDone.Visible = false;
 
             // Signal the waiting thread auditing is complete
             if (_waitHandle != null) _waitHandle.Set();
