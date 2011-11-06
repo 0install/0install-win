@@ -98,15 +98,10 @@ namespace ZeroInstall.DesktopIntegration
             if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
-            var toReapply = new List<AccessPoint>(appEntry.AccessPoints.Entries);
+            // Temporarily remove capability-based access points but remember them for later reapplication
+            var toReapply = new List<AccessPoint>();
             if (appEntry.AccessPoints != null)
-            {
-                foreach (var accessPoint in appEntry.AccessPoints.Entries)
-                {
-                    if (accessPoint is DefaultAccessPoint || accessPoint is CapabilityRegistration)
-                        toReapply.Add(accessPoint);
-                }
-            }
+                toReapply.AddRange(appEntry.AccessPoints.Entries.Filter(accessPoint => accessPoint is DefaultAccessPoint || accessPoint is CapabilityRegistration));
             RemoveAccessPointsHelper(appEntry, toReapply);
 
             // Update metadata and capabilities
@@ -114,6 +109,7 @@ namespace ZeroInstall.DesktopIntegration
             appEntry.CapabilityLists.Clear();
             appEntry.CapabilityLists.AddAll(feed.CapabilityLists.Map(list => list.CloneCapabilityList()));
 
+            // Reapply removed access points dumping any that have become incompatible
             foreach (var accessPoint in toReapply)
             {
                 try
@@ -154,6 +150,7 @@ namespace ZeroInstall.DesktopIntegration
 
             if (appEntry.AccessPoints == null) appEntry.AccessPoints = new AccessPointList();
 
+            // ReSharper disable PossibleMultipleEnumeration
             CheckForConflicts(appEntry, accessPoints);
 
             EnumerableUtils.ApplyWithRollback(accessPoints,
@@ -169,6 +166,7 @@ namespace ZeroInstall.DesktopIntegration
             foreach (var accessPoint in accessPoints)
                 appEntry.AccessPoints.Entries.UpdateOrAdd(accessPoint); // Replace pre-existing entries
             appEntry.Timestamp = DateTime.UtcNow;
+            // ReSharper restore PossibleMultipleEnumeration
         }
 
         /// <summary>
@@ -189,12 +187,14 @@ namespace ZeroInstall.DesktopIntegration
 
             if (appEntry.AccessPoints == null) return;
 
+            // ReSharper disable PossibleMultipleEnumeration
             foreach (var accessPoint in accessPoints)
                 accessPoint.Unapply(appEntry, SystemWide);
 
             // Remove the access points from the AppList
             appEntry.AccessPoints.Entries.RemoveAll(accessPoints);
             appEntry.Timestamp = DateTime.UtcNow;
+            // ReSharper restore PossibleMultipleEnumeration
         }
 
         /// <summary>
