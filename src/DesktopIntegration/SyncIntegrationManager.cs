@@ -19,6 +19,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Cache;
+using System.Threading;
 using Common;
 using Common.Collections;
 using Common.Storage;
@@ -135,12 +137,15 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             var appListUri = new Uri(_syncServer, new Uri("app-list", UriKind.Relative));
-            var webClient = new WebClient {Credentials = new NetworkCredential(_username, _password)};
+            var webClient = new WebClient
+            {
+                Credentials = new NetworkCredential(_username, _password),
+                CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)
+            };
 
             // Download and merge the current AppList from the server (unless the server is to be reset)
             var appListData = (resetMode == SyncResetMode.Server)
                 ? new byte[0]
-                // ToDo: Use ITask to allow for cancellation
                 : webClient.DownloadData(appListUri);
 
             if (appListData.Length > 0)
@@ -178,8 +183,28 @@ namespace ZeroInstall.DesktopIntegration
             {
                 var memoryStream = new MemoryStream();
                 XmlStorage.ToZip(memoryStream, AppList, _cryptoKey, null);
-                // ToDo: Use ITask to allow for cancellation
-                webClient.UploadData(appListUri, "PUT", memoryStream.ToArray());
+
+                // Prevent race conditions by only allowing replacement of older data
+                if (resetMode == SyncResetMode.None) webClient.Headers[HttpRequestHeader.IfMatch] = '"' + (webClient.ResponseHeaders[HttpResponseHeader.ETag] ?? "*") + '"';
+                try
+                {
+                    webClient.UploadData(appListUri, "PUT", memoryStream.ToArray());
+                }
+                    #region Error handling
+                catch (WebException ex)
+                {
+                    if (ex.Status == WebExceptionStatus.ProtocolError)
+                    {
+                        var response = ex.Response as HttpWebResponse;
+                        if (response != null && response.StatusCode == HttpStatusCode.PreconditionFailed)
+                        { // Precondition failure indicates a race condition
+                            Thread.Sleep(new Random().Next(250, 1500)); // Wait for a random interval
+                            Sync(resetMode, feedRetreiver, handler); // Then retry sync
+                        }
+                        else throw;
+                    }
+                }
+                #endregion
             }
 
             // Save reference point for future syncs
@@ -227,7 +252,7 @@ namespace ZeroInstall.DesktopIntegration
                 AppList.Entries.Add(newAppEntry);
 
                 // Add and apply the access points
-                AddAccessPointsHelper(newAppEntry, feedRetreiver(appEntry.InterfaceID), appEntry.AccessPoints.Entries);
+                if (appEntry.AccessPoints != null) AddAccessPointsHelper(newAppEntry, feedRetreiver(appEntry.InterfaceID), appEntry.AccessPoints.Entries);
             }
         }
         #endregion
