@@ -184,7 +184,29 @@ namespace ZeroInstall.Central.WinForms
             // Prevent multiple concurrent refreshes
             if (appListWorker.IsBusy) return;
 
-            var newAppList = AppList.Load(AppList.GetDefaultPath(false));
+            AppList newAppList;
+            try { newAppList = AppList.Load(AppList.GetDefaultPath(false)); }
+            #region Error handling
+            catch (FileNotFoundException)
+            {
+                newAppList = new AppList();
+            }
+            catch (IOException ex)
+            {
+                Log.Warn("Unable to load AppList XML:\n" + ex.Message);
+                newAppList = new AppList();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Warn("Unable to load AppList XML:\n" + ex.Message);
+                newAppList = new AppList();
+            }
+            catch(InvalidDataException ex)
+            {
+                Log.Warn("Unable to load AppList XML:\n" + ex.Message);
+                newAppList = new AppList();
+            }
+            #endregion
 
             var feedsToLoad = new Dictionary<AppTile, string>();
 
