@@ -120,11 +120,26 @@
   <data name="buttonRun.Text" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="buttonSelectVersion.Text" xml:space="preserve">
+    <value>&amp;Version auswählen</value>
+  </data>
+  <data name="buttonSelectComponent.Text" xml:space="preserve">
+    <value>&amp;Komponente auswählen</value>
+  </data>
+  <data name="buttonUpdate.Text" xml:space="preserve">
+    <value>&amp;Aktualisieren</value>
+  </data>
   <data name="buttonConf.Text" xml:space="preserve">
     <value>Konfig</value>
   </data>
+  <data name="buttonRemove.Text" xml:space="preserve">
+    <value>&amp;Entfernen</value>
+  </data>
   <data name="buttonAdd.Text" xml:space="preserve">
     <value>Hinzuf.</value>
+  </data>
+  <data name="buttonIntegrate.Text" xml:space="preserve">
+    <value>&amp;Integrieren</value>
   </data>
   <data name="linkLabelDetails.Text" xml:space="preserve">
     <value>Mehr...</value>

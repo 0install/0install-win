@@ -83,18 +83,18 @@
             // 
             // contextMenuRun
             // 
-            resources.ApplyResources(this.contextMenuRun, "contextMenuRun");
             this.contextMenuRun.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonSelectVersion,
             this.buttonSelectComponent,
             this.runMenuSeperator,
             this.buttonUpdate});
             this.contextMenuRun.Name = "contextMenuRun";
+            resources.ApplyResources(this.contextMenuRun, "contextMenuRun");
             // 
             // buttonSelectVersion
             // 
-            resources.ApplyResources(this.buttonSelectVersion, "buttonSelectVersion");
             this.buttonSelectVersion.Name = "buttonSelectVersion";
+            resources.ApplyResources(this.buttonSelectVersion, "buttonSelectVersion");
             this.buttonSelectVersion.Click += new System.EventHandler(this.buttonSelectVersion_Click);
             // 
             // buttonSelectComponent
@@ -105,13 +105,13 @@
             // 
             // runMenuSeperator
             // 
-            resources.ApplyResources(this.runMenuSeperator, "runMenuSeperator");
             this.runMenuSeperator.Name = "runMenuSeperator";
+            resources.ApplyResources(this.runMenuSeperator, "runMenuSeperator");
             // 
             // buttonUpdate
             // 
-            resources.ApplyResources(this.buttonUpdate, "buttonUpdate");
             this.buttonUpdate.Name = "buttonUpdate";
+            resources.ApplyResources(this.buttonUpdate, "buttonUpdate");
             this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
             // 
             // buttonConf
@@ -126,15 +126,15 @@
             // 
             // contextMenuManage
             // 
-            resources.ApplyResources(this.contextMenuManage, "contextMenuManage");
             this.contextMenuManage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonRemove});
             this.contextMenuManage.Name = "contextMenuManage";
+            resources.ApplyResources(this.contextMenuManage, "contextMenuManage");
             // 
             // buttonRemove
             // 
-            resources.ApplyResources(this.buttonRemove, "buttonRemove");
             this.buttonRemove.Name = "buttonRemove";
+            resources.ApplyResources(this.buttonRemove, "buttonRemove");
             this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
             // 
             // buttonAdd
@@ -149,15 +149,15 @@
             // 
             // contextMenuAdd
             // 
-            resources.ApplyResources(this.contextMenuAdd, "contextMenuAdd");
             this.contextMenuAdd.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonIntegrate});
             this.contextMenuAdd.Name = "contextMenuAdd";
+            resources.ApplyResources(this.contextMenuAdd, "contextMenuAdd");
             // 
             // buttonIntegrate
             // 
-            resources.ApplyResources(this.buttonIntegrate, "buttonIntegrate");
             this.buttonIntegrate.Name = "buttonIntegrate";
+            resources.ApplyResources(this.buttonIntegrate, "buttonIntegrate");
             this.buttonIntegrate.Click += new System.EventHandler(this.buttonIntegrate_Click);
             // 
             // linkLabelDetails
