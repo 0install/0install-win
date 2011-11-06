@@ -93,7 +93,7 @@ namespace ZeroInstall.Central.WinForms
                 HintText = "Search", ShowClearButton = true,
                 TabIndex = 0
             };
-            _textSearch.TextChanged += delegate { FilterTiles(); };
+            _textSearch.TextChanged += delegate { RefilterTiles(); };
 
             _flowLayout = new FlowLayoutPanel
             {
@@ -141,19 +141,20 @@ namespace ZeroInstall.Central.WinForms
             if (_tileDictionary.Contains(interfaceID)) throw new C5.DuplicateNotAllowedException();
             #endregion
 
-            var tile = new AppTile(interfaceID, appName, IconCache)
+            var tile = new AppTile(interfaceID, appName, IconCache) {Width = _flowLayout.Width};
+
+            if (StringUtils.Contains(appName, _textSearch.Text))
             {
-                Width = _flowLayout.Width,
+                _flowLayout.Height += tile.Height;
+
                 // Alternate between light and dark tiles
-                BackColor = _lastTileLight ? TileColorDark : TileColorLight
-            };
-            _lastTileLight = !_lastTileLight;
+                tile.BackColor = _lastTileLight ? TileColorDark : TileColorLight;
+                _lastTileLight = !_lastTileLight;
+            }
+            else tile.Visible = false;
 
-            _flowLayout.Height += tile.Height;
             _flowLayout.Controls.Add(tile);
-
             _tileDictionary.Add(interfaceID, tile);
-            FilterTiles();
             return tile;
         }
 
@@ -218,9 +219,9 @@ namespace ZeroInstall.Central.WinForms
 
         #region Helpers
         /// <summary>
-        /// Applies a search filter to the list of tiles.
+        /// Applies the search filter to the list of tiles. Should be called after the filter was changed.
         /// </summary>
-        private void FilterTiles()
+        private void RefilterTiles()
         {
             bool needsRecolor = false;
             foreach (var tile in _tileDictionary.Values)
