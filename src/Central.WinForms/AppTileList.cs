@@ -22,6 +22,7 @@ using System.Windows.Forms;
 using Common.Collections;
 using Common.Controls;
 using Common.Utils;
+using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Central.WinForms
@@ -90,7 +91,7 @@ namespace ZeroInstall.Central.WinForms
             _textSearch = new HintTextBox
             {
                 Dock = DockStyle.Top, Height = 20,
-                HintText = "Search", ShowClearButton = true,
+                HintText = Resources.Search, ShowClearButton = true,
                 TabIndex = 0
             };
             _textSearch.TextChanged += delegate { RefilterTiles(); };

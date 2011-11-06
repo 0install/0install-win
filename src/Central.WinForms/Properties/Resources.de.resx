@@ -123,6 +123,9 @@
   <data name="FailedToRun" xml:space="preserve">
     <value>Konnte {0} nicht starten.</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Suche</value>
+  </data>
   <data name="SelfUpdateAvailable" xml:space="preserve">
     <value>Ein Update auf Zero Install v{0} ist verfügbar. Jetzt installieren? (empfohlen)</value>
   </data>

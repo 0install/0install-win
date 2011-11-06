@@ -129,7 +129,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 337</value>
+    <value>3, 334</value>
   </data>
   <data name="buttonSync.Size" type="System.Drawing.Size, System.Drawing">
     <value>71, 23</value>
@@ -160,7 +160,7 @@
     <value>3, 3</value>
   </data>
   <data name="appList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>481, 328</value>
+    <value>481, 325</value>
   </data>
   <data name="appList.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -211,7 +211,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonRefreshCatalog.Location" type="System.Drawing.Point, System.Drawing">
-    <value>408, 337</value>
+    <value>405, 334</value>
   </data>
   <data name="buttonRefreshCatalog.Size" type="System.Drawing.Size, System.Drawing">
     <value>82, 23</value>
@@ -241,7 +241,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonAddOtherApp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 337</value>
+    <value>3, 334</value>
   </data>
   <data name="buttonAddOtherApp.Size" type="System.Drawing.Size, System.Drawing">
     <value>167, 23</value>
@@ -271,7 +271,7 @@
     <value>3, 3</value>
   </data>
   <data name="catalogList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>481, 328</value>
+    <value>481, 325</value>
   </data>
   <data name="catalogList.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
