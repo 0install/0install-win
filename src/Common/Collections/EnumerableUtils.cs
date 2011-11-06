@@ -224,19 +224,19 @@ namespace Common.Collections
             if (removed == null) throw new ArgumentNullException("removed");
             #endregion
 
-            foreach (var theirs in theirsList)
-            {
-                if (!mineList.Contains(theirs))
-                { // Entry in theirsList, but not in mineList
-                    added(theirs);
-                }
-            }
-
             foreach (var mine in mineList)
             {
                 if (!theirsList.Contains(mine))
                 { // Entry in mineList, but not in theirsList
                     removed(mine);
+                }
+            }
+
+            foreach (var theirs in theirsList)
+            {
+                if (!mineList.Contains(theirs))
+                { // Entry in theirsList, but not in mineList
+                    added(theirs);
                 }
             }
         }

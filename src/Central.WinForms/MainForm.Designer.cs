@@ -45,7 +45,7 @@
             this.catalogWorker = new System.ComponentModel.BackgroundWorker();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.appListWatcher = new System.IO.FileSystemWatcher();
-            this.feedLoadWorker = new System.ComponentModel.BackgroundWorker();
+            this.appListWorker = new System.ComponentModel.BackgroundWorker();
             this.tabControlApps.SuspendLayout();
             this.tabPageAppList.SuspendLayout();
             this.tabPageCatalog.SuspendLayout();
@@ -161,9 +161,9 @@
             this.appListWatcher.SynchronizingObject = this;
             this.appListWatcher.Changed += new System.IO.FileSystemEventHandler(this.appListWatcher_Changed);
             // 
-            // feedLoadWorker
+            // appListWorker
             // 
-            this.feedLoadWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.feedLoadWorker_DoWork);
+            this.appListWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.feedLoadWorker_DoWork);
             // 
             // MainForm
             // 
@@ -206,7 +206,7 @@
         private System.Windows.Forms.Button buttonRefreshCatalog;
         private System.IO.FileSystemWatcher appListWatcher;
         private System.Windows.Forms.Button buttonSync;
-        private System.ComponentModel.BackgroundWorker feedLoadWorker;
+        private System.ComponentModel.BackgroundWorker appListWorker;
 
     }
 }

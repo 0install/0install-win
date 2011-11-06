@@ -87,7 +87,7 @@ namespace ZeroInstall.Central.WinForms
             FormClosing += delegate
             {
                 Visible = false;
-                while (selfUpdateWorker.IsBusy || catalogWorker.IsBusy)
+                while (selfUpdateWorker.IsBusy || appListWorker.IsBusy || catalogWorker.IsBusy)
                     Application.DoEvents();
             };
 
@@ -181,6 +181,9 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         private void LoadAppListAsync()
         {
+            // Prevent multiple concurrent refreshes
+            if (appListWorker.IsBusy) return;
+
             var newAppList = AppList.Load(AppList.GetDefaultPath(false));
 
             var feedsToLoad = new Dictionary<AppTile, string>();
@@ -222,7 +225,7 @@ namespace ZeroInstall.Central.WinForms
                 });
             _currentAppList = newAppList;
 
-            feedLoadWorker.RunWorkerAsync(feedsToLoad);
+            appListWorker.RunWorkerAsync(feedsToLoad);
         }
 
         private void feedLoadWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -233,18 +236,54 @@ namespace ZeroInstall.Central.WinForms
             foreach (var pair in feedsToLoad)
             {
                 // Load and parse the feed
-                bool stale;
-                var feed = policy.FeedManager.GetFeed(pair.Value, policy, out stale);
-                var tile = pair.Key;
+                Feed feed;
+                try
+                {
+                    bool stale;
+                    feed = policy.FeedManager.GetFeed(pair.Value, policy, out stale);
+                }
+                    #region Error handling
+                catch (UserCancelException)
+                {
+                    continue;
+                }
+                catch (InvalidInterfaceIDException ex)
+                {
+                    Log.Warn("Unable to load feed for AppList entry '" + pair.Value + "':\n" + ex.Message);
+                    continue;
+                }
+                catch (IOException ex)
+                {
+                    Log.Warn("Unable to load feed for AppList entry '" + pair.Value + "':\n" + ex.Message);
+                    continue;
+                }
+                catch (WebException ex)
+                {
+                    Log.Warn("Unable to load feed for AppList entry '" + pair.Value + "':\n" + ex.Message);
+                    continue;
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Log.Warn("Unable to load feed for AppList entry '" + pair.Value + "':\n" + ex.Message);
+                    continue;
+                }
+                catch (SignatureException ex)
+                {
+                    Log.Warn("Unable to load feed for AppList entry '" + pair.Value + "':\n" + ex.Message);
+                    continue;
+                }
+                #endregion
 
                 // Send it to the UI thread
+                var tile = pair.Key;
                 Invoke((SimpleEventHandler)(() => tile.SetFeed(feed)));
             }
         }
 
         private void appListWatcher_Changed(object sender, FileSystemEventArgs e)
         {
-            LoadAppListAsync();
+            if (e.ChangeType != WatcherChangeTypes.Deleted && e.FullPath == AppList.GetDefaultPath(false))
+                LoadAppListAsync();
         }
         #endregion
 
