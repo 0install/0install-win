@@ -32,6 +32,9 @@ namespace ZeroInstall.Central.WinForms
     public sealed class AppTileList : UserControl
     {
         #region Variables
+        /// <summary>Allows the user to search/filter the <see cref="AppTile"/>s.</summary>
+        private readonly HintTextBox _textSearch;
+
         /// <summary>Displays <see cref="AppTile"/>s in top-bottom list.</summary>
         private readonly FlowLayoutPanel _flowLayout;
 
@@ -84,13 +87,13 @@ namespace ZeroInstall.Central.WinForms
 
             SuspendLayout();
 
-            var textSearch = new HintTextBox
+            _textSearch = new HintTextBox
             {
                 Dock = DockStyle.Top, Height = 20,
                 HintText = "Search", ShowClearButton = true,
                 TabIndex = 0
             };
-            textSearch.TextChanged += delegate { FilterTiles(textSearch.Text); };
+            _textSearch.TextChanged += delegate { FilterTiles(); };
 
             _flowLayout = new FlowLayoutPanel
             {
@@ -106,7 +109,7 @@ namespace ZeroInstall.Central.WinForms
 
             // Must add scroll panel first for docking to work correctly
             Controls.Add(_scrollPanel);
-            Controls.Add(textSearch);
+            Controls.Add(_textSearch);
 
             Resize += delegate
             {
@@ -150,6 +153,7 @@ namespace ZeroInstall.Central.WinForms
             _flowLayout.Controls.Add(tile);
 
             _tileDictionary.Add(interfaceID, tile);
+            FilterTiles();
             return tile;
         }
 
@@ -216,14 +220,13 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Applies a search filter to the list of tiles.
         /// </summary>
-        /// <param name="filter">A case-insensitive string to search for.</param>
-        private void FilterTiles(string filter)
+        private void FilterTiles()
         {
             bool needsRecolor = false;
             foreach (var tile in _tileDictionary.Values)
             {
                 // Check if new filter changes visibility
-                bool shouldBeVisible = StringUtils.Contains(tile.AppName, filter);
+                bool shouldBeVisible = StringUtils.Contains(tile.AppName, _textSearch.Text);
                 if (tile.Visible != shouldBeVisible)
                 {
                     // Update list length
