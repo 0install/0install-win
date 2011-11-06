@@ -102,8 +102,9 @@ namespace ZeroInstall.Commands.WinForms
             WindowsUtils.SetForegroundWindow(this);
 
             checkBoxAutoUpdate.Checked = _appEntry.AutoUpdate;
-            if (_appEntry.AccessPoints != null)
-                checkBoxCapabilities.Checked |= !EnumerableUtils.IsEmpty(EnumerableUtils.OfType<AccessPoints.CapabilityRegistration>(_appEntry.AccessPoints.Entries));
+
+            // If there are no access points yet default to capability registration, otherwise set value depending on existance of specific access point type
+            checkBoxCapabilities.Checked = (_appEntry.AccessPoints == null) || !EnumerableUtils.IsEmpty(EnumerableUtils.OfType<AccessPoints.CapabilityRegistration>(_appEntry.AccessPoints.Entries));
 
             var defaultProgramBinding = new BindingList<DefaultProgramModel>();
             var fileTypeBinding = new BindingList<FileTypeModel>();
