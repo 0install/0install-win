@@ -68,6 +68,15 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please configure sync settings first..
+        /// </summary>
+        internal static string ConfigSyncFirst {
+            get {
+                return ResourceManager.GetString("ConfigSyncFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter the URL of a Zero Install interface here:.
         /// </summary>
         internal static string EnterInterfaceUrl {

@@ -97,6 +97,9 @@ namespace ZeroInstall.Central.WinForms
                 LoadAppListAsync();
                 LoadCatalogAsync();
 
+                // Show "new apps" list if "my apps" list is empty
+                if (_currentAppList.Entries.IsEmpty) tabControlApps.SelectedTab = tabPageCatalog;
+
                 appListWatcher.EnableRaisingEvents = true;
             };
         }
@@ -403,7 +406,14 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonSync_Click(object sender, EventArgs e)
         {
-            LaunchHelperAssembly(CommandsExe, "sync");
+            var config = Config.Load();
+            if (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey))
+            {
+                // ToDo: More friendly sync setup
+                Msg.Inform(this, Resources.ConfigSyncFirst, MsgSeverity.Warn);
+                LaunchHelperAssembly(CommandsExe, "config");
+            }
+            else LaunchHelperAssembly(CommandsExe, "sync");
         }
 
         private void buttonRefreshCatalog_Click(object sender, EventArgs e)
