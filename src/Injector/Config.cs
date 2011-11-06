@@ -57,7 +57,7 @@ namespace ZeroInstall.Injector
     {
         #region Variables
         /// <summary>Provides meta-data for loading and saving settings properties.</summary>
-        private readonly C5.HashDictionary<string, PropertyPointer<string>> _metaData;
+        private readonly C5.IDictionary<string, PropertyPointer<string>> _metaData;
 
         /// <summary>Singleton used for reading and writing INI files.</summary>
         private static readonly FileIniDataParser _iniParse = new FileIniDataParser();
@@ -192,7 +192,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         public Config()
         {
-            _metaData = new C5.HashDictionary<string, PropertyPointer<string>>
+            _metaData = new C5.TreeDictionary<string, PropertyPointer<string>>
             {
                 {"help_with_testing", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => HelpWithTesting, value => HelpWithTesting = value, false))},
                 {"freshness", PropertyPointer.GetTimespanConverter(new PropertyPointer<TimeSpan>(() => Freshness, value => Freshness = value, _defaultFreshness))},

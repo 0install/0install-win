@@ -292,7 +292,7 @@ namespace ZeroInstall.Injector
         /// <param name="startInfo">The process launch environment to apply the <see cref="WorkingDir"/> change to.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
         /// <exception cref="CommandException">Thrown if the <paramref name="workingDir"/> has an invalid path or another working directory has already been set.</exception>
-        /// <remarks>This method can only be called successfully once per <see cref="GetStartInfo"/>.</remarks>
+        /// <remarks>This method can only be called successfully once per <see cref="GetStartInfo()"/>.</remarks>
         private void ApplyWorkingDir(WorkingDir workingDir, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
             string source = FileUtils.UnifySlashes(workingDir.Source) ?? "";
