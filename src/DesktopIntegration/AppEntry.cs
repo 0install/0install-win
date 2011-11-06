@@ -94,7 +94,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <remarks>This value is ignored by clone and equality methods.</remarks>
         [Browsable(false)]
         [XmlAttribute("timestamp"), DefaultValue(0)]
-        public long TimestampUnix { get { return FileUtils.ToUnixTime(Timestamp); } }
+        public long TimestampUnix { get { return FileUtils.ToUnixTime(Timestamp); } set { Timestamp = FileUtils.FromUnixTime(value); } }
         #endregion
 
         //--------------------//
