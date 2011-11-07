@@ -198,11 +198,13 @@ namespace ZeroInstall.DesktopIntegration
                         var response = ex.Response as HttpWebResponse;
                         if (response != null && response.StatusCode == HttpStatusCode.PreconditionFailed)
                         { // Precondition failure indicates a race condition
-                            Thread.Sleep(new Random().Next(250, 1500)); // Wait for a random interval
-                            Sync(resetMode, feedRetreiver, handler); // Then retry sync
+                            Thread.Sleep(new Random().Next(250, 1500)); // Wait for a randomized interval...
+                            Sync(resetMode, feedRetreiver, handler); // ... then retry sync
+                            return;
                         }
-                        else throw;
                     }
+
+                    throw;
                 }
                 #endregion
             }
