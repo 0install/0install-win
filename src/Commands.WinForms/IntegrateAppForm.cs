@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
@@ -24,8 +25,9 @@ using Common;
 using Common.Collections;
 using Common.Controls;
 using Common.Utils;
-using ZeroInstall.Commands.WinForms.CapabilityModels;
+using ZeroInstall.Commands.WinForms.AccessPointModels;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Model;
 using AccessPoints = ZeroInstall.DesktopIntegration.AccessPoints;
 using Capabilities = ZeroInstall.Model.Capabilities;
@@ -149,12 +151,33 @@ namespace ZeroInstall.Commands.WinForms
                 }
             }
 
+            
+            var entryPointsToStringWrapper = new C5.ArrayList<ToStringWrapper<EntryPoint>>(_feed.EntryPoints.Count + 1);
+            foreach (var entryPoint in _feed.EntryPoints)
+            {
+                entryPointsToStringWrapper.Add(new EntryPointWrapper(entryPoint));
+            }
+            // if there is no entry point create on from the feed
+            if (!_feed.EntryPoints.Exists(entryPoint => entryPoint.Command == Command.NameRun))
+            {
+                entryPointsToStringWrapper.Add(new EntryPointWrapper(GenerateEntryPointFromFeed(_feed)));
+            }
+
+            comboBoxEntryPoints.Items.AddRange(entryPointsToStringWrapper.ToArray());
+            comboBoxEntryPoints.SelectedIndex = 0;
+
             // Apply data to DataGrids in bulk for better performance
             dataGridViewFileType.DataSource = fileTypeBinding;
             dataGridViewUrlProtocols.DataSource = urlProtocolBinding;
             dataGridViewDefaultPrograms.DataSource = defaultProgramBinding;
             dataGridViewContextMenu.DataSource = contextMenuBinding;
+
+            // remove empty tabs
             if (!_integrationManager.SystemWide) tabControlCapabilities.TabPages.Remove(tabPageDefaultPrograms);
+            if (fileTypeBinding.Count == 0) tabControlCapabilities.TabPages.Remove(tabPageFileTypes);
+            if (urlProtocolBinding.Count == 0) tabControlCapabilities.TabPages.Remove(tabPageUrlProtocol);
+            if (defaultProgramBinding.Count == 0) tabControlCapabilities.TabPages.Remove(tabPageDefaultPrograms);
+            if (contextMenuBinding.Count == 0) tabControlCapabilities.TabPages.Remove(tabPageContextMenu);
         }
 
         /// <summary>
@@ -228,15 +251,6 @@ namespace ZeroInstall.Commands.WinForms
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }
             #endregion
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
-            {
-                // TODO: zeigt den absoluten Pfad zum startmenü an. nur den relativen anzeigen.
-                textBox1.Text = folderBrowserDialog1.SelectedPath;
-            }
         }
     }
 }
