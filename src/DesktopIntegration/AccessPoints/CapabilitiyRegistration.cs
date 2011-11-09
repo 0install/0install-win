@@ -51,8 +51,9 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             var idList = new LinkedList<string>();
-            foreach (var capabilityList in appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
+            foreach (var capabilityList in appEntry.CapabilityLists)
             {
+                if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
                 foreach (var capability in capabilityList.Entries)
                 {
                     foreach (var conflictID in capability.ConflictIDs)
@@ -76,8 +77,10 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             // Register all applicable capabilities
             var target = new InterfaceFeed(appEntry.InterfaceID, feed);
-            foreach (var capabilityList in appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
+            foreach (var capabilityList in appEntry.CapabilityLists)
             {
+                if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
+
                 // Note: Enumerating only once and using nested if-clauses to determine types would be more efficient but less maintainable
                 foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(capabilityList.Entries))
                     Windows.FileType.Register(target, fileType, false, systemWide, handler);
@@ -109,8 +112,10 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (!WindowsUtils.IsWindows) return;
 
             // Unregister all applicable capabilities
-            foreach (var capabilityList in appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
+            foreach (var capabilityList in appEntry.CapabilityLists)
             {
+                if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
+
                 // Note: Enumerating only once and using nested if-clauses to determine types would be more efficient but less maintainable
                 foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(capabilityList.Entries))
                     Windows.FileType.Unregister(fileType, false, systemWide);

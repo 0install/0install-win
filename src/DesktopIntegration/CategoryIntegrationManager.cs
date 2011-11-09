@@ -76,8 +76,9 @@ namespace ZeroInstall.DesktopIntegration
             if (defaults)
             {
                 // Add AccessPoints for all suitable Capabilities
-                foreach (var capabilityList in appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
+                foreach (var capabilityList in appEntry.CapabilityLists)
                 {
+                    if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
                     foreach (var capability in EnumerableUtils.OfType<Capabilities.DefaultCapability>(capabilityList.Entries))
                     {
                         if (capability.WindowsSystemWideOnly && !SystemWide && WindowsUtils.IsWindows) continue;
@@ -180,8 +181,9 @@ namespace ZeroInstall.DesktopIntegration
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            foreach (var capabilityList in appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
+            foreach (var capabilityList in appEntry.CapabilityLists)
             {
+                if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
                 foreach (var defaultProgram in EnumerableUtils.OfType<Capabilities.DefaultProgram>(capabilityList.Entries))
                     Windows.DefaultProgram.ToggleIconsVisible(defaultProgram, iconsVisible);
             }

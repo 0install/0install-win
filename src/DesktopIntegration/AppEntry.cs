@@ -109,8 +109,9 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="KeyNotFoundException">Thrown if no capability matching <paramref name="id"/> and <typeparamref name="T"/> was found.</exception>
         public T GetCapability<T>(string id) where T : Capability
         {
-            foreach (var capabilityList in _capabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
+            foreach (var capabilityList in _capabilityLists)
             {
+                if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
                 foreach (var capability in capabilityList.Entries)
                 {
                     var specificCapability = capability as T;

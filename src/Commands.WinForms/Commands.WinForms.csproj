@@ -81,9 +81,6 @@
       <DependentUpon>IntegrateAppForm.cs</DependentUpon>
     </Compile>
     <Compile Include="AccessPointModels\FileTypeModel.cs" />
-    <Compile Include="IntegrateAppForm.Helpers.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="InterfaceDialog.cs">
       <SubType>Form</SubType>
     </Compile>

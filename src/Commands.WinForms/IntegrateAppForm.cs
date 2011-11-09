@@ -20,14 +20,12 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Net;
-using System.Windows.Forms;
 using Common;
 using Common.Collections;
 using Common.Controls;
 using Common.Utils;
 using ZeroInstall.Commands.WinForms.AccessPointModels;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Model;
 using AccessPoints = ZeroInstall.DesktopIntegration.AccessPoints;
 using Capabilities = ZeroInstall.Model.Capabilities;
@@ -39,6 +37,25 @@ namespace ZeroInstall.Commands.WinForms
     /// </summary>
     public partial class IntegrateAppForm : OKCancelDialog
     {
+        #region Inner classes
+        private class EntryPointWrapper : ToStringWrapper<EntryPoint>
+        {
+            public EntryPointWrapper(EntryPoint entryPoint) : base(entryPoint, () => entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture))
+            {}
+
+            public static EntryPointWrapper FromFeed(Feed feed)
+            {
+                var entryPoint = new EntryPoint {Command = Command.NameRun, Names = {feed.Name}};
+                entryPoint.Descriptions.AddAll(feed.Descriptions);
+                entryPoint.Icons.AddAll(feed.Icons);
+                entryPoint.NeedsTerminal = feed.NeedsTerminal;
+                entryPoint.Summaries.AddAll(feed.Summaries);
+
+                return new EntryPointWrapper(entryPoint);
+            }
+        }
+        #endregion
+
         #region Variables
         /// <summary>
         /// The integration manager used to apply selected integration options.
@@ -105,16 +122,29 @@ namespace ZeroInstall.Commands.WinForms
 
             checkBoxAutoUpdate.Checked = _appEntry.AutoUpdate;
 
-            // If there are no access points yet default to capability registration, otherwise set value depending on existance of specific access point type
-            checkBoxCapabilities.Checked = (_appEntry.AccessPoints == null) || !EnumerableUtils.IsEmpty(EnumerableUtils.OfType<AccessPoints.CapabilityRegistration>(_appEntry.AccessPoints.Entries));
+            if (_appEntry.AccessPoints == null)
+            { // Set usefull defaults for first integration
+                checkBoxCapabilities.Checked = true;
+                // ToDo: Create MenuEntrys for EntryPoints
+            }
+            else checkBoxCapabilities.Checked = !EnumerableUtils.IsEmpty(EnumerableUtils.OfType<AccessPoints.CapabilityRegistration>(_appEntry.AccessPoints.Entries));
+
+            var entryPointsToStringWrapper = _feed.EntryPoints.Map(entryPoint => new EntryPointWrapper(entryPoint));
+
+            // Make sure there is always an entry point for the main command
+            if (!_feed.EntryPoints.Exists(entryPoint => entryPoint.Command == Command.NameRun))
+                entryPointsToStringWrapper.Add(EntryPointWrapper.FromFeed(_feed));
+            comboBoxEntryPoints.Items.AddRange(entryPointsToStringWrapper.ToArray());
 
             var defaultProgramBinding = new BindingList<DefaultProgramModel>();
             var fileTypeBinding = new BindingList<FileTypeModel>();
             var urlProtocolBinding = new BindingList<UrlProtocolModel>();
             var contextMenuBinding = new BindingList<ContextMenuModel>();
 
-            foreach (Capabilities.CapabilityList capabilityList in _appEntry.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
+            foreach (Capabilities.CapabilityList capabilityList in _appEntry.CapabilityLists)
             {
+                if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
+
                 // file types
                 foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(capabilityList.Entries))
                 {
@@ -150,21 +180,6 @@ namespace ZeroInstall.Commands.WinForms
                     }
                 }
             }
-
-            
-            var entryPointsToStringWrapper = new C5.ArrayList<ToStringWrapper<EntryPoint>>(_feed.EntryPoints.Count + 1);
-            foreach (var entryPoint in _feed.EntryPoints)
-            {
-                entryPointsToStringWrapper.Add(new EntryPointWrapper(entryPoint));
-            }
-            // if there is no entry point create on from the feed
-            if (!_feed.EntryPoints.Exists(entryPoint => entryPoint.Command == Command.NameRun))
-            {
-                entryPointsToStringWrapper.Add(new EntryPointWrapper(GenerateEntryPointFromFeed(_feed)));
-            }
-
-            comboBoxEntryPoints.Items.AddRange(entryPointsToStringWrapper.ToArray());
-            comboBoxEntryPoints.SelectedIndex = 0;
 
             // Apply data to DataGrids in bulk for better performance
             dataGridViewFileType.DataSource = fileTypeBinding;

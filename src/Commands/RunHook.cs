@@ -120,8 +120,9 @@ namespace ZeroInstall.Commands
             }
 
             // Redirect Windows SPAD commands to Zero Install
-            foreach (var capabilityList in _target.Feed.CapabilityLists.FindAll(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
+            foreach (var capabilityList in _target.Feed.CapabilityLists)
             {
+                if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
                 foreach (var defaultProgram in EnumerableUtils.OfType<Model.Capabilities.DefaultProgram>(capabilityList.Entries))
                 {
                     if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.Reinstall))

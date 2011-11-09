@@ -99,13 +99,13 @@
             // tabControlCapabilities
             // 
             this.tabControlCapabilities.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlCapabilities.Controls.Add(this.tabPageStartMenu);
             this.tabControlCapabilities.Controls.Add(this.tabPageFileTypes);
             this.tabControlCapabilities.Controls.Add(this.tabPageUrlProtocol);
             this.tabControlCapabilities.Controls.Add(this.tabPageDefaultPrograms);
             this.tabControlCapabilities.Controls.Add(this.tabPageContextMenu);
-            this.tabControlCapabilities.Controls.Add(this.tabPageStartMenu);
             this.tabControlCapabilities.Location = new System.Drawing.Point(12, 35);
             this.tabControlCapabilities.Name = "tabControlCapabilities";
             this.tabControlCapabilities.SelectedIndex = 0;
@@ -242,7 +242,7 @@
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewUrlProtocols.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridViewUrlProtocols.RowHeadersVisible = false;
-            this.dataGridViewUrlProtocols.Size = new System.Drawing.Size(462, 292);
+            this.dataGridViewUrlProtocols.Size = new System.Drawing.Size(436, 185);
             this.dataGridViewUrlProtocols.TabIndex = 1;
             // 
             // dataGridViewUrlProtocolsCheckBoxUse
@@ -322,7 +322,7 @@
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewDefaultPrograms.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridViewDefaultPrograms.RowHeadersVisible = false;
-            this.dataGridViewDefaultPrograms.Size = new System.Drawing.Size(462, 292);
+            this.dataGridViewDefaultPrograms.Size = new System.Drawing.Size(436, 185);
             this.dataGridViewDefaultPrograms.TabIndex = 5;
             // 
             // dataGridViewDefaultProgramsCheckBoxUse
@@ -438,9 +438,9 @@
             // 
             // buttonStartMenuAdd
             // 
-            this.buttonStartMenuAdd.Location = new System.Drawing.Point(182, 162);
+            this.buttonStartMenuAdd.Location = new System.Drawing.Point(182, 164);
             this.buttonStartMenuAdd.Name = "buttonStartMenuAdd";
-            this.buttonStartMenuAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonStartMenuAdd.Size = new System.Drawing.Size(75, 21);
             this.buttonStartMenuAdd.TabIndex = 14;
             this.buttonStartMenuAdd.Text = "Add";
             this.buttonStartMenuAdd.UseVisualStyleBackColor = true;
