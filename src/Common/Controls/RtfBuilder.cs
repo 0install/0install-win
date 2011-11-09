@@ -61,7 +61,7 @@ namespace Common.Controls
         /// <inheritdoc/>
         public override string ToString()
         {
-            const string rtfHeader = "{\\rtf1\r\n{\\colortbl ;\\red0\\green0\\blue0;\\red0\\green0\\blue255;\\red0\\green255\\blue0;\\red255\\gree255\\blue0;\\red255\\gree106\\blue0;\\red255\\gree0\\blue0;}\r\n";
+            const string rtfHeader = "{\\rtf1\r\n{\\colortbl ;\\red0\\green0\\blue0;\\red0\\green0\\blue255;\\red0\\green255\\blue0;\\red255\\green255\\blue0;\\red255\\green106\\blue0;\\red255\\green0\\blue0;}\r\n";
             const string rtfFooter = "}";
             return rtfHeader + _builder + rtfFooter;
         }
