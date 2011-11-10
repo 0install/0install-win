@@ -24,7 +24,7 @@ namespace ZeroInstall.Commands.WinForms.AccessPointModels
     /// <summary>
     /// Intermediate wrapper to present <see cref="DefaultCapability"/>s to the user interface.
     /// </summary>
-    internal abstract class CapabilityModel : AccessPointModel
+    internal abstract class CapabilityModel
     {
         #region Properties
         /// <summary>
@@ -32,6 +32,23 @@ namespace ZeroInstall.Commands.WinForms.AccessPointModels
         /// </summary>
         [Browsable(false)]
         public DefaultCapability Capability { get; private set; }
+
+        /// <summary>
+        /// Stores whether the <see cref="CapabilityModel.Capability" /> was already used or not.
+        /// </summary>
+        private readonly bool _wasUsed;
+
+        /// <summary>
+        /// Indicates whether the <see cref="CapabilityModel.Capability" /> shall be used or not.
+        /// </summary>
+        // ReSharper disable MemberCanBePrivate.Global
+        public bool Use { get; set; }
+
+        /// <summary>
+        /// Indicates whether the <see cref="Use" /> of the <see cref="CapabilityModel.Capability" /> has been changed.
+        /// </summary>
+        [Browsable(false)]
+        public bool Changed { get { return _wasUsed != Use; } }
         #endregion
 
         /// <summary>
@@ -39,13 +56,14 @@ namespace ZeroInstall.Commands.WinForms.AccessPointModels
         /// </summary>
         /// <param name="capability">That shall be wrapped.</param>
         /// <param name="used">Indicates whether the <see cref="Capability" /> was already used.</param>
-        protected CapabilityModel(DefaultCapability capability, bool used) : base(used)
+        protected CapabilityModel(DefaultCapability capability, bool used)
         {
             #region Sanity Checks
             if (capability == null) throw new ArgumentNullException("capability");
             #endregion
 
             Capability = capability;
+            _wasUsed = Use = used;
         }
     }
 }

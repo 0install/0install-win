@@ -60,12 +60,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessPointModels\AccessPointModel.cs" />
     <Compile Include="AccessPointModels\CapabilityModel.cs" />
     <Compile Include="AccessPointModels\ContextMenuModel.cs" />
     <Compile Include="AccessPointModels\DefaultProgramModel.cs" />
     <Compile Include="AccessPointModels\IconCapabilityModel.cs" />
-    <Compile Include="AccessPointModels\MenuEntryAccessPoint.cs" />
     <Compile Include="AccessPointModels\UrlProtocolModel.cs" />
     <Compile Include="ConfigForm.cs">
       <SubType>Form</SubType>

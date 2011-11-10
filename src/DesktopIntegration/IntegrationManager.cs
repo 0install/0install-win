@@ -30,7 +30,7 @@ namespace ZeroInstall.DesktopIntegration
     /// Manages an <see cref="AppList"/> and desktop integration via <see cref="AccessPoint"/>s.
     /// </summary>
     /// <remarks>
-    /// To prevent raceconditions there may only be one desktop integration class active at any given time.
+    /// To prevent raceconditions there may only be one desktop integration class instance active at any given time.
     /// This class aquires a mutex upon calling its constructor and releases it upon calling <see cref="Dispose()"/>.
     /// </remarks>
     public partial class IntegrationManager : IIntegrationManager, IDisposable

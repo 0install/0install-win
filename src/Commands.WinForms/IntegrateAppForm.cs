@@ -134,7 +134,7 @@ namespace ZeroInstall.Commands.WinForms
             // Make sure there is always an entry point for the main command
             if (!_feed.EntryPoints.Exists(entryPoint => entryPoint.Command == Command.NameRun))
                 entryPointsToStringWrapper.Add(EntryPointWrapper.FromFeed(_feed));
-            comboBoxEntryPoints.Items.AddRange(entryPointsToStringWrapper.ToArray());
+            comboBoxEntryPointsStartMenu.Items.AddRange(entryPointsToStringWrapper.ToArray());
 
             var defaultProgramBinding = new BindingList<DefaultProgramModel>();
             var fileTypeBinding = new BindingList<FileTypeModel>();
@@ -190,7 +190,7 @@ namespace ZeroInstall.Commands.WinForms
             // remove empty tabs
             if (!_integrationManager.SystemWide) tabControlCapabilities.TabPages.Remove(tabPageDefaultPrograms);
             if (fileTypeBinding.Count == 0) tabControlCapabilities.TabPages.Remove(tabPageFileTypes);
-            if (urlProtocolBinding.Count == 0) tabControlCapabilities.TabPages.Remove(tabPageUrlProtocol);
+            if (urlProtocolBinding.Count == 0) tabControlCapabilities.TabPages.Remove(tabPageUrlProtocols);
             if (defaultProgramBinding.Count == 0) tabControlCapabilities.TabPages.Remove(tabPageDefaultPrograms);
             if (contextMenuBinding.Count == 0) tabControlCapabilities.TabPages.Remove(tabPageContextMenu);
         }
