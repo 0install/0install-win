@@ -16,10 +16,12 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Windows.Forms;
 using Common;
 using Common.Collections;
 using Common.Controls;
@@ -37,25 +39,6 @@ namespace ZeroInstall.Commands.WinForms
     /// </summary>
     public partial class IntegrateAppForm : OKCancelDialog
     {
-        #region Inner classes
-        private class EntryPointWrapper : ToStringWrapper<EntryPoint>
-        {
-            public EntryPointWrapper(EntryPoint entryPoint) : base(entryPoint, () => entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture))
-            {}
-
-            public static EntryPointWrapper FromFeed(Feed feed)
-            {
-                var entryPoint = new EntryPoint {Command = Command.NameRun, Names = {feed.Name}};
-                entryPoint.Descriptions.AddAll(feed.Descriptions);
-                entryPoint.Icons.AddAll(feed.Icons);
-                entryPoint.NeedsTerminal = feed.NeedsTerminal;
-                entryPoint.Summaries.AddAll(feed.Summaries);
-
-                return new EntryPointWrapper(entryPoint);
-            }
-        }
-        #endregion
-
         #region Variables
         /// <summary>
         /// The integration manager used to apply selected integration options.
@@ -76,8 +59,19 @@ namespace ZeroInstall.Commands.WinForms
         /// List of the <see cref="CapabilityModel"/>s handled by this form.
         /// </summary>
         private readonly C5.LinkedList<CapabilityModel> _capabilityModels = new C5.LinkedList<CapabilityModel>();
+
+        /// <summary>
+        /// A list of <see cref="AccessPoints.MenuEntry"/>s as displayed by the <see cref="dataGridStartMenu"/>.
+        /// </summary>
+        private readonly BindingList<AccessPoints.MenuEntry> _startMenuBinding = new BindingList<AccessPoints.MenuEntry>();
+        
+        /// <summary>
+        /// A list of <see cref="AccessPoints.DesktopIcon"/>s as displayed by the <see cref="dataGridDesktop"/>.
+        /// </summary>
+        private readonly BindingList<AccessPoints.DesktopIcon> _desktopBinding = new BindingList<AccessPoints.DesktopIcon>();
         #endregion
 
+        #region Constructor
         /// <summary>
         /// Creates an instance of the form.
         /// </summary>
@@ -92,7 +86,9 @@ namespace ZeroInstall.Commands.WinForms
             _appEntry = appEntry;
             _feed = feed;
         }
+        #endregion
 
+        #region Static access
         /// <summary>
         /// Displays the form as a modal dialog.
         /// </summary>
@@ -110,36 +106,65 @@ namespace ZeroInstall.Commands.WinForms
             using (var form = new IntegrateAppForm(integrationManager, appEntry, feed))
                 form.ShowDialog();
         }
+        #endregion
+
+        //--------------------//
 
         /// <summary>
         /// Loads the <see cref="Capabilities.Capability"/>s of <see cref="_appEntry"/> into the controls of this form.
         /// </summary>
-        /// <param name="sender">not used.</param>
-        /// <param name="e">not used.</param>
         private void IntegrateAppForm_Load(object sender, EventArgs e)
         {
             WindowsUtils.SetForegroundWindow(this);
 
             checkBoxAutoUpdate.Checked = _appEntry.AutoUpdate;
-
-            if (_appEntry.AccessPoints == null)
-            { // Set usefull defaults for first integration
-                checkBoxCapabilities.Checked = true;
-                // ToDo: Create MenuEntrys for EntryPoints
-            }
-            else checkBoxCapabilities.Checked = !EnumerableUtils.IsEmpty(EnumerableUtils.OfType<AccessPoints.CapabilityRegistration>(_appEntry.AccessPoints.Entries));
-
-            var entryPointsToStringWrapper = _feed.EntryPoints.Map(entryPoint => new EntryPointWrapper(entryPoint));
-
-            // Make sure there is always an entry point for the main command
-            if (!_feed.EntryPoints.Exists(entryPoint => entryPoint.Command == Command.NameRun))
-                entryPointsToStringWrapper.Add(EntryPointWrapper.FromFeed(_feed));
-            comboBoxEntryPointsStartMenu.Items.AddRange(entryPointsToStringWrapper.ToArray());
+            checkBoxCapabilities.Visible = !_appEntry.CapabilityLists.IsEmpty;
 
             var defaultProgramBinding = new BindingList<DefaultProgramModel>();
             var fileTypeBinding = new BindingList<FileTypeModel>();
             var urlProtocolBinding = new BindingList<UrlProtocolModel>();
             var contextMenuBinding = new BindingList<ContextMenuModel>();
+
+            var commands = _feed.EntryPoints.Map(entryPoint => entryPoint.Command);
+            commands.Remove(Command.NameRun);
+            commands.Insert(0, "");
+            var commandsArray = commands.ToArray();
+            dataGridStartMenuColumnCommand.Items.AddRange(commandsArray);
+            dataGridDesktopColumnCommand.Items.AddRange(commandsArray);
+
+            if (_appEntry.AccessPoints == null)
+            { // Set useful defaults for first integration
+                checkBoxCapabilities.Checked = checkBoxCapabilities.Visible;
+
+                // Add icons for main entry point
+                _desktopBinding.Add(new AccessPoints.DesktopIcon {Name = _appEntry.Name});
+                if (_feed.EntryPoints.IsEmpty)
+                    _startMenuBinding.Add(new AccessPoints.MenuEntry {Name = _appEntry.Name, Category = _appEntry.Name});
+
+                // Add icons for additional entry points
+                foreach (var entryPoint in _feed.EntryPoints)
+                {
+                    string entryPointName = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture);
+                    if (!string.IsNullOrEmpty(entryPoint.Command) && !string.IsNullOrEmpty(entryPointName))
+                    {
+                        _startMenuBinding.Add(new AccessPoints.MenuEntry
+                        {
+                            Name = entryPointName,
+                            Category = _appEntry.Name,
+                            // Don't explicitly write the "run" command 
+                            Command = (entryPoint.Command == Command.NameRun ? null : entryPoint.Command)
+                        });
+                    }
+                }
+            }
+            else
+            {
+                checkBoxCapabilities.Checked = !EnumerableUtils.IsEmpty(EnumerableUtils.OfType<AccessPoints.CapabilityRegistration>(_appEntry.AccessPoints.Entries));
+                foreach (var entry in EnumerableUtils.OfType<AccessPoints.MenuEntry>(_appEntry.AccessPoints.Entries))
+                    _startMenuBinding.Add((AccessPoints.MenuEntry)entry.CloneAccessPoint());
+                foreach (var entry in EnumerableUtils.OfType<AccessPoints.DesktopIcon>(_appEntry.AccessPoints.Entries))
+                    _desktopBinding.Add((AccessPoints.DesktopIcon)entry.CloneAccessPoint());
+            }
 
             foreach (Capabilities.CapabilityList capabilityList in _appEntry.CapabilityLists)
             {
@@ -182,12 +207,14 @@ namespace ZeroInstall.Commands.WinForms
             }
 
             // Apply data to DataGrids in bulk for better performance
-            dataGridViewFileType.DataSource = fileTypeBinding;
-            dataGridViewUrlProtocols.DataSource = urlProtocolBinding;
-            dataGridViewDefaultPrograms.DataSource = defaultProgramBinding;
-            dataGridViewContextMenu.DataSource = contextMenuBinding;
+            dataGridStartMenu.DataSource = _startMenuBinding;
+            dataGridDesktop.DataSource = _desktopBinding;
+            dataGridFileType.DataSource = fileTypeBinding;
+            dataGridUrlProtocols.DataSource = urlProtocolBinding;
+            dataGridDefaultPrograms.DataSource = defaultProgramBinding;
+            dataGridContextMenu.DataSource = contextMenuBinding;
 
-            // remove empty tabs
+            // Remove empty and inapplicable tabs
             if (!_integrationManager.SystemWide) tabControlCapabilities.TabPages.Remove(tabPageDefaultPrograms);
             if (fileTypeBinding.Count == 0) tabControlCapabilities.TabPages.Remove(tabPageFileTypes);
             if (urlProtocolBinding.Count == 0) tabControlCapabilities.TabPages.Remove(tabPageUrlProtocols);
@@ -223,6 +250,19 @@ namespace ZeroInstall.Commands.WinForms
             var toAdd = new C5.LinkedList<AccessPoints.AccessPoint>();
             var toRemove = new C5.LinkedList<AccessPoints.AccessPoint>();
 
+            _appEntry.AutoUpdate = checkBoxAutoUpdate.Checked;
+            (checkBoxCapabilities.Checked ? toAdd : toRemove).Add(new AccessPoints.CapabilityRegistration());
+
+            var currentMenuEntries = new List<AccessPoints.MenuEntry>();
+            var currenDesktopicons = new List<AccessPoints.DesktopIcon>();
+            if (_appEntry.AccessPoints != null)
+            {
+                currentMenuEntries.AddRange(EnumerableUtils.OfType<AccessPoints.MenuEntry>(_appEntry.AccessPoints.Entries));
+                currenDesktopicons.AddRange(EnumerableUtils.OfType<AccessPoints.DesktopIcon>(_appEntry.AccessPoints.Entries));
+            }
+            EnumerableUtils.Merge(_startMenuBinding, currentMenuEntries, menuEntry => toAdd.Add(menuEntry), menuEntry => toRemove.Add(menuEntry));
+            EnumerableUtils.Merge(_desktopBinding, currenDesktopicons, desktopIcons => toAdd.Add(desktopIcons), desktopIcons => toRemove.Add(desktopIcons));
+
             foreach (var capabilityModel in _capabilityModels)
             {
                 if (capabilityModel.Changed)
@@ -232,9 +272,6 @@ namespace ZeroInstall.Commands.WinForms
                     else toRemove.Add(accessPoint);
                 }
             }
-
-            _appEntry.AutoUpdate = checkBoxAutoUpdate.Checked;
-            (checkBoxCapabilities.Checked ? toAdd : toRemove).Add(new AccessPoints.CapabilityRegistration());
 
             try
             {
@@ -266,6 +303,18 @@ namespace ZeroInstall.Commands.WinForms
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }
             #endregion
+        }
+
+        private void dataGridStartMenu_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridStartMenuColumnRemove.Index)
+                _startMenuBinding.RemoveAt(e.RowIndex);
+        }
+
+        private void dataGridDesktop_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridDesktopColumnRemove.Index)
+                _desktopBinding.RemoveAt(e.RowIndex);
         }
     }
 }
