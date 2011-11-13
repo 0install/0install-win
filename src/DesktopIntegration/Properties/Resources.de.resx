@@ -120,9 +120,6 @@
   <data name="AccessPointConflict" xml:space="preserve">
     <value>Der Access Point '{0}' für die Anwendung '{1}' steht im Konflikt mit dem neuen Access Point '{2}' für die Anwendung '{3}'.</value>
   </data>
-  <data name="AliasNameInvalidChars" xml:space="preserve">
-    <value>Der Aliasname '{0}' enthält ungültige Zeichen.</value>
-  </data>
   <data name="AppAlreadyInList" xml:space="preserve">
     <value>Die Anwendung '{0}' ist bereits in der Anwendungsliste.</value>
   </data>
@@ -131,6 +128,9 @@
   </data>
   <data name="IntegrationMutex" xml:space="preserve">
     <value>Sie können immer nur eine Desktopintegrations-Operation auf einmal durchführen.</value>
+  </data>
+  <data name="NameInvalidChars" xml:space="preserve">
+    <value>Der Name '{0}' enthält ungültige Zeichen.</value>
   </data>
   <data name="ProblemLoading" xml:space="preserve">
     <value>Es gab ein Problem beim Laden von '{0}'.</value>

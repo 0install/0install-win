@@ -59,7 +59,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             #endregion
 
             if (aliasName.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
-                throw new IOException(string.Format(Resources.AliasNameInvalidChars, aliasName));
+                throw new IOException(string.Format(Resources.NameInvalidChars, aliasName));
 
             string stubDirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "aliases");
             string stubFilePath = Path.Combine(stubDirPath, aliasName + ".exe");

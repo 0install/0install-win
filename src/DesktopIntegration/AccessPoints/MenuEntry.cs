@@ -23,6 +23,7 @@ using System.Xml.Serialization;
 using Common.Tasks;
 using Common.Utils;
 using Microsoft.Win32;
+using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
@@ -65,6 +66,9 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <summary>The file path for the Windows shortcut file.</summary>
         private string GetWindowsShortcutPath(bool systemWide)
         {
+            if (Name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
+                throw new IOException(string.Format(Resources.NameInvalidChars, Name));
+
             return Path.Combine(GetWindowsCategoryPath(systemWide), Name + ".lnk");
         }
 
@@ -109,11 +113,11 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Conversion
         /// <summary>
-        /// Returns the access point in the form "MenuEntry". Not safe for parsing!
+        /// Returns the access point in the form "MenuEntry: Name". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("MenuEntry");
+            return string.Format("MenuEntry: {0}", Name);
         }
         #endregion
 

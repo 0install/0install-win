@@ -22,6 +22,7 @@ using System.Xml.Serialization;
 using Common.Tasks;
 using Common.Utils;
 using Microsoft.Win32;
+using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
@@ -44,6 +45,9 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         private string GetWindowsShortcutPath(bool systemWide)
         {
+            if (Name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
+                throw new IOException(string.Format(Resources.NameInvalidChars, Name));
+
             string desktopDir = systemWide
                 ? Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "Common Desktop", "").ToString()
                 : Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
@@ -81,11 +85,11 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Conversion
         /// <summary>
-        /// Returns the access point in the form "DesktopIcon". Not safe for parsing!
+        /// Returns the access point in the form "DesktopIcon: Name". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("DesktopIcon");
+            return string.Format("DesktopIcon: {0}", Name);
         }
         #endregion
 
