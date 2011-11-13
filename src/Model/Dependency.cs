@@ -24,7 +24,9 @@ namespace ZeroInstall.Model
 {
 
     #region Enumerations
-    /// <seealso cref="Dependency.Importance"/>
+    /// <summary>
+    /// Describes how important a dependency is (i.e. whether ignoring it is an option).
+    /// </summary>
     public enum Importance
     {
         /// <summary>A version of the <see cref="Dependency"/> must be selected.</summary>
