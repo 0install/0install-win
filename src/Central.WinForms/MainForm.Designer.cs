@@ -37,7 +37,7 @@
             this.buttonRefreshCatalog = new System.Windows.Forms.Button();
             this.buttonAddOtherApp = new System.Windows.Forms.Button();
             this.catalogList = new ZeroInstall.Central.WinForms.AppTileList();
-            this.buttonConfiguration = new System.Windows.Forms.Button();
+            this.buttonOptions = new System.Windows.Forms.Button();
             this.buttonCacheManagement = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
             this.labelVersion = new System.Windows.Forms.Label();
@@ -109,12 +109,12 @@
             resources.ApplyResources(this.catalogList, "catalogList");
             this.catalogList.Name = "catalogList";
             // 
-            // buttonConfiguration
+            // buttonOptions
             // 
-            resources.ApplyResources(this.buttonConfiguration, "buttonConfiguration");
-            this.buttonConfiguration.Name = "buttonConfiguration";
-            this.buttonConfiguration.UseVisualStyleBackColor = true;
-            this.buttonConfiguration.Click += new System.EventHandler(this.buttonConfiguration_Click);
+            resources.ApplyResources(this.buttonOptions, "buttonOptions");
+            this.buttonOptions.Name = "buttonOptions";
+            this.buttonOptions.UseVisualStyleBackColor = true;
+            this.buttonOptions.Click += new System.EventHandler(this.buttonOptions_Click);
             // 
             // buttonCacheManagement
             // 
@@ -171,7 +171,7 @@
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             resources.ApplyResources(this, "$this");
             this.Controls.Add(this.pictureBoxLogo);
-            this.Controls.Add(this.buttonConfiguration);
+            this.Controls.Add(this.buttonOptions);
             this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.buttonCacheManagement);
             this.Controls.Add(this.buttonHelp);
@@ -197,7 +197,7 @@
         private System.Windows.Forms.Button buttonAddOtherApp;
         private System.Windows.Forms.Button buttonCacheManagement;
         private System.Windows.Forms.Label labelVersion;
-        private System.Windows.Forms.Button buttonConfiguration;
+        private System.Windows.Forms.Button buttonOptions;
         private System.ComponentModel.BackgroundWorker selfUpdateWorker;
         private AppTileList appList;
         private AppTileList catalogList;

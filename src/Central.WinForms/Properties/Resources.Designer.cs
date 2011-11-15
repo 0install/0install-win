@@ -68,7 +68,7 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please configure sync settings first..
+        ///   Looks up a localized string similar to Please configure sync options first..
         /// </summary>
         internal static string ConfigSyncFirst {
             get {

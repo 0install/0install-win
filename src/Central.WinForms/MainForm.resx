@@ -336,44 +336,44 @@
   <data name="&gt;&gt;tabControlApps.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="buttonConfiguration.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="buttonOptions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
-  <data name="buttonConfiguration.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="buttonOptions.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonConfiguration.Location" type="System.Drawing.Point, System.Drawing">
-    <value>139, 467</value>
+  <data name="buttonOptions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 467</value>
   </data>
-  <data name="buttonConfiguration.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 23</value>
+  <data name="buttonOptions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 23</value>
   </data>
-  <data name="buttonConfiguration.TabIndex" type="System.Int32, mscorlib">
+  <data name="buttonOptions.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="buttonConfiguration.Text" xml:space="preserve">
-    <value>C&amp;onfiguration</value>
+  <data name="buttonOptions.Text" xml:space="preserve">
+    <value>&amp;Options</value>
   </data>
-  <data name="&gt;&gt;buttonConfiguration.Name" xml:space="preserve">
-    <value>buttonConfiguration</value>
+  <data name="&gt;&gt;buttonOptions.Name" xml:space="preserve">
+    <value>buttonOptions</value>
   </data>
-  <data name="&gt;&gt;buttonConfiguration.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonOptions.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonConfiguration.Parent" xml:space="preserve">
+  <data name="&gt;&gt;buttonOptions.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;buttonConfiguration.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonOptions.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="buttonCacheManagement.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
+    <value>Bottom, Right</value>
   </data>
   <data name="buttonCacheManagement.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="buttonCacheManagement.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 467</value>
+    <value>310, 467</value>
   </data>
   <data name="buttonCacheManagement.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 23</value>

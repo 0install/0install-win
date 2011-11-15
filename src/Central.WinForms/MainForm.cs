@@ -53,8 +53,8 @@ namespace ZeroInstall.Central.WinForms
             {
                 Program.ConfigureTaskbar(this, Text, null, null);
 
-                var cacheLink = new ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, StoreExe + ".exe"), null);
-                var configLink = new ShellLink(buttonConfiguration.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, CommandsExe + ".exe"), "config");
+                var cacheLink = new ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Program.StoreExe + ".exe"), null);
+                var configLink = new ShellLink(buttonOptions.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Program.CommandsExe + ".exe"), "config");
                 try
                 {
                     WindowsUtils.AddTaskLinks(Program.AppUserModelID, new[] {cacheLink, configLink});
@@ -383,26 +383,15 @@ namespace ZeroInstall.Central.WinForms
         //--------------------//
 
         #region Buttons
-        /// <summary>
-        /// The EXE name (without the file ending) for the Windows Commands binary.
-        /// </summary>
-        private const string CommandsExe = "0install-win";
-
-        /// <summary>
-        /// The EXE name (without the file ending) for the Windows Store Management binary.
-        /// </summary>
-        private const string StoreExe = "0store-win";
-
         private void buttonSync_Click(object sender, EventArgs e)
         {
             var config = Config.Load();
             if (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey))
             {
-                // ToDo: More friendly sync setup
                 Msg.Inform(this, Resources.ConfigSyncFirst, MsgSeverity.Warn);
-                LaunchHelperAssembly(CommandsExe, "config");
+                new OptionsDialog().ShowDialog(this);
             }
-            else LaunchHelperAssembly(CommandsExe, "sync");
+            else LaunchHelperAssembly(Program.CommandsExe, "sync");
         }
 
         private void buttonRefreshCatalog_Click(object sender, EventArgs e)
@@ -418,14 +407,14 @@ namespace ZeroInstall.Central.WinForms
             AddCustomInterface(interfaceID);
         }
 
-        private void buttonCacheManagement_Click(object sender, EventArgs e)
+        private void buttonOptions_Click(object sender, EventArgs e)
         {
-            LaunchHelperAssembly(StoreExe, null);
+            new OptionsDialog().ShowDialog(this);
         }
 
-        private void buttonConfiguration_Click(object sender, EventArgs e)
+        private void buttonCacheManagement_Click(object sender, EventArgs e)
         {
-            LaunchHelperAssembly(CommandsExe, "config");
+            LaunchHelperAssembly(Program.StoreExe, null);
         }
 
         private void buttonHelp_Click(object sender, EventArgs e)
@@ -461,7 +450,7 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="interfaceID">The URI of the interface to be added.</param>
         private void AddCustomInterface(string interfaceID)
         {
-            LaunchHelperAssembly(CommandsExe, "add-app " + StringUtils.EscapeArgument(interfaceID));
+            LaunchHelperAssembly(Program.CommandsExe, "add-app " + StringUtils.EscapeArgument(interfaceID));
             tabControlApps.SelectTab(tabPageAppList);
         }
 

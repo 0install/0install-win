@@ -129,8 +129,8 @@
   <data name="tabPageCatalog.Text" xml:space="preserve">
     <value>Neue Anwendungen</value>
   </data>
-  <data name="buttonConfiguration.Text" xml:space="preserve">
-    <value>K&amp;onfiguration</value>
+  <data name="buttonOptions.Text" xml:space="preserve">
+    <value>&amp;Einstellungen</value>
   </data>
   <data name="buttonCacheManagement.Text" xml:space="preserve">
     <value>&amp;Cache Verwaltung</value>

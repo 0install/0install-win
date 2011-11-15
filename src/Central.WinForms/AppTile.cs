@@ -198,12 +198,12 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonRun_Click(object sender, EventArgs e)
         {
-            LaunchHelperAssembly("0install-win", "run --no-wait " + StringUtils.EscapeArgument(InterfaceID));
+            LaunchHelperAssembly(Program.CommandsExe, "run --no-wait " + StringUtils.EscapeArgument(InterfaceID));
         }
 
         private void buttonSelectVersion_Click(object sender, EventArgs e)
         {
-            LaunchHelperAssembly("0install-win", "run --no-wait --gui " + StringUtils.EscapeArgument(InterfaceID));
+            LaunchHelperAssembly(Program.CommandsExe, "run --no-wait --gui " + StringUtils.EscapeArgument(InterfaceID));
         }
 
         private void buttonSelectComponent_Click(object sender, EventArgs e)
@@ -213,27 +213,27 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
-            LaunchHelperAssembly("0install-win", "update " + StringUtils.EscapeArgument(InterfaceID));
+            LaunchHelperAssembly(Program.CommandsExe, "update " + StringUtils.EscapeArgument(InterfaceID));
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            LaunchHelperAssembly("0install-win", "add-app " + StringUtils.EscapeArgument(InterfaceID));
+            LaunchHelperAssembly(Program.CommandsExe, "add-app " + StringUtils.EscapeArgument(InterfaceID));
         }
 
         private void buttonIntegrate_Click(object sender, EventArgs e)
         {
-            LaunchHelperAssembly("0install-win", "integrate-app " + StringUtils.EscapeArgument(InterfaceID));
+            LaunchHelperAssembly(Program.CommandsExe, "integrate-app " + StringUtils.EscapeArgument(InterfaceID));
         }
 
         private void buttonConf_Click(object sender, EventArgs e)
         {
-            LaunchHelperAssembly("0install-win", "integrate-app " + StringUtils.EscapeArgument(InterfaceID));
+            LaunchHelperAssembly(Program.CommandsExe, "integrate-app " + StringUtils.EscapeArgument(InterfaceID));
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
-            LaunchHelperAssembly("0install-win", "remove-app " + StringUtils.EscapeArgument(InterfaceID));
+            LaunchHelperAssembly(Program.CommandsExe, "remove-app " + StringUtils.EscapeArgument(InterfaceID));
         }
         #endregion
 
