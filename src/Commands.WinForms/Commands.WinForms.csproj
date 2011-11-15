@@ -60,11 +60,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessPointModels\CapabilityModel.cs" />
-    <Compile Include="AccessPointModels\ContextMenuModel.cs" />
-    <Compile Include="AccessPointModels\DefaultProgramModel.cs" />
-    <Compile Include="AccessPointModels\IconCapabilityModel.cs" />
-    <Compile Include="AccessPointModels\UrlProtocolModel.cs" />
+    <Compile Include="CapabilityModels\CapabilityModel.cs" />
+    <Compile Include="CapabilityModels\ContextMenuModel.cs" />
+    <Compile Include="CapabilityModels\DefaultProgramModel.cs" />
+    <Compile Include="CapabilityModels\IconCapabilityModel.cs" />
+    <Compile Include="CapabilityModels\UrlProtocolModel.cs" />
     <Compile Include="ConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,7 +78,7 @@
     <Compile Include="IntegrateAppForm.Designer.cs">
       <DependentUpon>IntegrateAppForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AccessPointModels\FileTypeModel.cs" />
+    <Compile Include="CapabilityModels\FileTypeModel.cs" />
     <Compile Include="InterfaceDialog.cs">
       <SubType>Form</SubType>
     </Compile>

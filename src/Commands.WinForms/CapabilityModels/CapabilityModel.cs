@@ -34,25 +34,21 @@ namespace ZeroInstall.Commands.WinForms.CapabilityModels
         public DefaultCapability Capability { get; private set; }
 
         /// <summary>
-        /// Indicates whether the <see cref="Capability" /> shall be used or not.
+        /// Stores whether the <see cref="CapabilityModel.Capability" /> was already used or not.
+        /// </summary>
+        private readonly bool _wasUsed;
+
+        /// <summary>
+        /// Indicates whether the <see cref="CapabilityModel.Capability" /> shall be used or not.
         /// </summary>
         // ReSharper disable MemberCanBePrivate.Global
         public bool Use { get; set; }
 
-        // ReSharper restore MemberCanBePrivate.Global
-
         /// <summary>
-        /// Indicates whether the <see cref="Use" /> of the <see cref="Capability" /> has been changed.
+        /// Indicates whether the <see cref="Use" /> of the <see cref="CapabilityModel.Capability" /> has been changed.
         /// </summary>
         [Browsable(false)]
         public bool Changed { get { return _wasUsed != Use; } }
-        #endregion
-
-        #region Variables
-        /// <summary>
-        /// Stores whether the <see cref="Capability" /> was already used or not.
-        /// </summary>
-        private readonly bool _wasUsed;
         #endregion
 
         /// <summary>
