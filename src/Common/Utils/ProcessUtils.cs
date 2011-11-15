@@ -23,7 +23,6 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using Common.Properties;
 using Common.Storage;

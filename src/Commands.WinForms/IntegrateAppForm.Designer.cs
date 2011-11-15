@@ -732,6 +732,7 @@
             this.MinimumSize = new System.Drawing.Size(300, 230);
             this.Name = "IntegrateAppForm";
             this.ShowIcon = true;
+            this.ShowInTaskbar = true;
             this.Text = "Integrate application";
             this.Load += new System.EventHandler(this.IntegrateAppForm_Load);
             this.Controls.SetChildIndex(this.checkBoxCapabilities, 0);
