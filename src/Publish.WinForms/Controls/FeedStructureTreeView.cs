@@ -22,7 +22,7 @@ using System.Windows.Forms;
 using Common;
 using Common.Undo;
 using ZeroInstall.Model;
-using ZeroInstall.Publish.WinForms.FeedStructure;
+using ZeroInstall.Publish.WinForms.Dialogs;
 using Binding = ZeroInstall.Model.Binding;
 
 namespace ZeroInstall.Publish.WinForms.Controls

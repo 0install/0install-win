@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Simon E. Silva Lauinger
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -15,19 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Windows.Forms;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Publish.WinForms.FeedStructure
+namespace ZeroInstall.Publish.WinForms.Dialogs
 {
-    public partial class ManifestDigestDialog : Form
+    /// <summary>
+    /// A source that provides newly calculated <see cref="Model.ManifestDigest"/>s.
+    /// </summary>
+    public interface IDigestProvider
     {
-        public ManifestDigestDialog(ManifestDigest manifestDigest)
-        {
-            InitializeComponent();
-            hintTextBoxSha1Old.Text = manifestDigest.Sha1Old;
-            hintTextBoxSha1New.Text = manifestDigest.Sha1New;
-            hintTextBoxSha256.Text = manifestDigest.Sha256;
-        }
+        /// <summary>
+        /// The newly calculated <see cref="Model.ManifestDigest"/>.
+        /// </summary>
+        ManifestDigest ManifestDigest { get; }
     }
 }

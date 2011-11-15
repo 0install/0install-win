@@ -112,49 +112,49 @@
     <Compile Include="FeedManager.Designer.cs">
       <DependentUpon>FeedManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="FeedStructure\CommandDialog.cs">
+    <Compile Include="Dialogs\CommandDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FeedStructure\CommandDialog.Designer.cs">
+    <Compile Include="Dialogs\CommandDialog.Designer.cs">
       <DependentUpon>CommandDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="FeedStructure\ExecutableInPathDialog.cs">
+    <Compile Include="Dialogs\ExecutableInPathDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FeedStructure\ExecutableInPathDialog.Designer.cs">
+    <Compile Include="Dialogs\ExecutableInPathDialog.Designer.cs">
       <DependentUpon>ExecutableInPathDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="FeedStructure\ExecutableInVarDialog.cs">
+    <Compile Include="Dialogs\ExecutableInVarDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FeedStructure\ExecutableInVarDialog.Designer.cs">
+    <Compile Include="Dialogs\ExecutableInVarDialog.Designer.cs">
       <DependentUpon>ExecutableInVarDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="FeedStructure\RunnerDialog.cs">
+    <Compile Include="Dialogs\RunnerDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FeedStructure\RunnerDialog.Designer.cs">
+    <Compile Include="Dialogs\RunnerDialog.Designer.cs">
       <DependentUpon>RunnerDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="FeedStructure\IDigestProvider.cs" />
+    <Compile Include="Dialogs\IDigestProvider.cs" />
     <Compile Include="ManifestUtils.cs" />
-    <Compile Include="FeedStructure\ArchiveDialog.cs">
+    <Compile Include="Dialogs\ArchiveDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FeedStructure\ArchiveDialog.Designer.cs">
+    <Compile Include="Dialogs\ArchiveDialog.Designer.cs">
       <DependentUpon>ArchiveDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlHelpers.cs" />
-    <Compile Include="FeedStructure\DependencyDialog.cs">
+    <Compile Include="Dialogs\DependencyDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FeedStructure\DependencyDialog.Designer.cs">
+    <Compile Include="Dialogs\DependencyDialog.Designer.cs">
       <DependentUpon>DependencyDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="FeedStructure\EnvironmentBindingDialog.cs">
+    <Compile Include="Dialogs\EnvironmentBindingDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FeedStructure\EnvironmentBindingDialog.Designer.cs">
+    <Compile Include="Dialogs\EnvironmentBindingDialog.Designer.cs">
       <DependentUpon>EnvironmentBindingDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\FeedReferenceControl.cs">
@@ -163,22 +163,22 @@
     <Compile Include="Controls\FeedReferenceControl.Designer.cs">
       <DependentUpon>FeedReferenceControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="FeedStructure\ManifestDigestDialog.cs">
+    <Compile Include="Dialogs\ManifestDigestDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FeedStructure\ManifestDigestDialog.Designer.cs">
+    <Compile Include="Dialogs\ManifestDigestDialog.Designer.cs">
       <DependentUpon>ManifestDigestDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="FeedStructure\ImplementationDialog.cs">
+    <Compile Include="Dialogs\ImplementationDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FeedStructure\ImplementationDialog.Designer.cs">
+    <Compile Include="Dialogs\ImplementationDialog.Designer.cs">
       <DependentUpon>ImplementationDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="FeedStructure\WorkingDirDialog.cs">
+    <Compile Include="Dialogs\WorkingDirDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FeedStructure\WorkingDirDialog.Designer.cs">
+    <Compile Include="Dialogs\WorkingDirDialog.Designer.cs">
       <DependentUpon>WorkingDirDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
@@ -188,16 +188,16 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FeedStructure\OverlayBindingDialog.cs">
+    <Compile Include="Dialogs\OverlayBindingDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FeedStructure\OverlayBindingDialog.Designer.cs">
+    <Compile Include="Dialogs\OverlayBindingDialog.Designer.cs">
       <DependentUpon>OverlayBindingDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="FeedStructure\PackageImplementationDialog.cs">
+    <Compile Include="Dialogs\PackageImplementationDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FeedStructure\PackageImplementationDialog.Designer.cs">
+    <Compile Include="Dialogs\PackageImplementationDialog.Designer.cs">
       <DependentUpon>PackageImplementationDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="MassSignForm.cs">
@@ -208,10 +208,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FeedStructure\RecipeDialog.cs">
+    <Compile Include="Dialogs\RecipeDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FeedStructure\RecipeDialog.Designer.cs">
+    <Compile Include="Dialogs\RecipeDialog.Designer.cs">
       <DependentUpon>RecipeDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\TargetBaseControl.cs">
@@ -220,10 +220,10 @@
     <Compile Include="Controls\TargetBaseControl.Designer.cs">
       <DependentUpon>TargetBaseControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="FeedStructure\GroupDialog.cs">
+    <Compile Include="Dialogs\GroupDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FeedStructure\GroupDialog.Designer.cs">
+    <Compile Include="Dialogs\GroupDialog.Designer.cs">
       <DependentUpon>GroupDialog.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Controls\ArchiveControl.resx">
@@ -250,47 +250,47 @@
     <EmbeddedResource Include="FeedManager.resx">
       <DependentUpon>FeedManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FeedStructure\ArchiveDialog.resx">
+    <EmbeddedResource Include="Dialogs\ArchiveDialog.resx">
       <DependentUpon>ArchiveDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FeedStructure\CommandDialog.resx">
+    <EmbeddedResource Include="Dialogs\CommandDialog.resx">
       <DependentUpon>CommandDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FeedStructure\ExecutableInPathDialog.resx">
+    <EmbeddedResource Include="Dialogs\ExecutableInPathDialog.resx">
       <DependentUpon>ExecutableInPathDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FeedStructure\ExecutableInVarDialog.resx">
+    <EmbeddedResource Include="Dialogs\ExecutableInVarDialog.resx">
       <DependentUpon>ExecutableInVarDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FeedStructure\DependencyDialog.resx">
+    <EmbeddedResource Include="Dialogs\DependencyDialog.resx">
       <DependentUpon>DependencyDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FeedStructure\EnvironmentBindingDialog.resx">
+    <EmbeddedResource Include="Dialogs\EnvironmentBindingDialog.resx">
       <DependentUpon>EnvironmentBindingDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\FeedReferenceControl.resx">
       <DependentUpon>FeedReferenceControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FeedStructure\ManifestDigestDialog.resx">
+    <EmbeddedResource Include="Dialogs\ManifestDigestDialog.resx">
       <DependentUpon>ManifestDigestDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FeedStructure\ImplementationDialog.resx">
+    <EmbeddedResource Include="Dialogs\ImplementationDialog.resx">
       <DependentUpon>ImplementationDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FeedStructure\RunnerDialog.resx">
+    <EmbeddedResource Include="Dialogs\RunnerDialog.resx">
       <DependentUpon>RunnerDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FeedStructure\WorkingDirDialog.resx">
+    <EmbeddedResource Include="Dialogs\WorkingDirDialog.resx">
       <DependentUpon>WorkingDirDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FeedStructure\OverlayBindingDialog.resx">
+    <EmbeddedResource Include="Dialogs\OverlayBindingDialog.resx">
       <DependentUpon>OverlayBindingDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FeedStructure\PackageImplementationDialog.resx">
+    <EmbeddedResource Include="Dialogs\PackageImplementationDialog.resx">
       <DependentUpon>PackageImplementationDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MassSignForm.resx">
@@ -309,13 +309,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="FeedStructure\RecipeDialog.resx">
+    <EmbeddedResource Include="Dialogs\RecipeDialog.resx">
       <DependentUpon>RecipeDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TargetBaseControl.resx">
       <DependentUpon>TargetBaseControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FeedStructure\GroupDialog.resx">
+    <EmbeddedResource Include="Dialogs\GroupDialog.resx">
       <DependentUpon>GroupDialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

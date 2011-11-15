@@ -21,7 +21,7 @@ using Common.Controls;
 using ZeroInstall.Model;
 using Constraint = ZeroInstall.Model.Constraint;
 
-namespace ZeroInstall.Publish.WinForms.FeedStructure
+namespace ZeroInstall.Publish.WinForms.Dialogs
 {
     public partial class DependencyDialog : OKCancelDialog
     {

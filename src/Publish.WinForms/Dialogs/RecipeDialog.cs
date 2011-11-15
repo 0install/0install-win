@@ -26,7 +26,7 @@ using Common.Storage;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.WinForms.Controls;
 
-namespace ZeroInstall.Publish.WinForms.FeedStructure
+namespace ZeroInstall.Publish.WinForms.Dialogs
 {
     public partial class RecipeDialog : OKCancelDialog, IDigestProvider
     {

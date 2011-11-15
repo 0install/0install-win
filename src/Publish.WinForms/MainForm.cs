@@ -26,7 +26,7 @@ using Common.Controls;
 using Common.Undo;
 using Common.Utils;
 using ZeroInstall.Model;
-using ZeroInstall.Publish.WinForms.FeedStructure;
+using ZeroInstall.Publish.WinForms.Dialogs;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Publish.WinForms.Controls;
 using Binding = ZeroInstall.Model.Binding;

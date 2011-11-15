@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2011 Bastian Eicher
+ * Copyright 2010 Simon E. Silva Lauinger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -19,35 +19,32 @@ using System;
 using Common.Controls;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Publish.WinForms.FeedStructure
+namespace ZeroInstall.Publish.WinForms.Dialogs
 {
-    public partial class ExecutableInPathDialog : OKCancelDialog
+    public partial class WorkingDirDialog : OKCancelDialog
     {
         #region Properties
         /// <summary>
-        /// The <see cref="ExecutableInPath" /> to be displayed and modified by this form.
+        /// The <see cref="WorkingDir"/> to shown and edited by this form.
         /// </summary>
-        private ExecutableInPath _executableBinding = new ExecutableInPath();
+        private WorkingDir _workingDir = new WorkingDir();
 
         /// <summary>
-        /// The <see cref="ExecutableInPath" /> to be displayed and modified by this form. If <see langword="null"/>, the form resets.
+        /// The <see cref="WorkingDir"/> to show and edit by this form.
         /// </summary>
-        public ExecutableInPath ExecutableInPath
+        public WorkingDir WorkingDir
         {
-            get { return _executableBinding; }
+            get { return _workingDir; }
             set
             {
-                _executableBinding = value ?? new ExecutableInPath();
+                _workingDir = value ?? new WorkingDir();
                 UpdateControl();
             }
         }
         #endregion
 
         #region Initialization
-        /// <summary>
-        /// Creates a new <see cref="ExecutableInPathDialog"/> object.
-        /// </summary>
-        public ExecutableInPathDialog()
+        public WorkingDirDialog()
         {
             InitializeComponent();
         }
@@ -59,31 +56,30 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         private void ClearControl()
         {
-            hintTextBoxName.Text = String.Empty;
-            hintTextBoxCommand.Text = String.Empty;
+            hintTextBoxSource.Text = string.Empty;
         }
 
         /// <summary>
-        /// Clear all controls in this form and set their values from <see cref="_executableBinding"/>.
+        /// Clear all controls in this form and set their values from <see cref="WorkingDir"/>.
         /// </summary>
         private void UpdateControl()
         {
             ClearControl();
-            if (!String.IsNullOrEmpty(_executableBinding.Name)) hintTextBoxName.Text = _executableBinding.Name;
-            if (!String.IsNullOrEmpty(_executableBinding.Command)) hintTextBoxCommand.Text = _executableBinding.Command;
+
+            hintTextBoxSource.Text = WorkingDir.Source;
         }
         #endregion
 
         #region Dialog buttons
         /// <summary>
-        /// Saves the values from the filled controls to <see cref="_executableBinding"/> and closes the window.
+        /// Saves the values from the filled controls to <see cref="WorkingDir"/> and closes the window.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
         private void ButtonOkClick(object sender, EventArgs e)
         {
-            _executableBinding.Name = (!String.IsNullOrEmpty(hintTextBoxName.Text)) ? hintTextBoxName.Text : null;
-            _executableBinding.Command = (!String.IsNullOrEmpty(hintTextBoxCommand.Text)) ? hintTextBoxCommand.Text : null;
+            string workingDir = hintTextBoxSource.Text;
+            WorkingDir.Source = string.IsNullOrEmpty(workingDir) ? "." : workingDir;
         }
         #endregion
     }

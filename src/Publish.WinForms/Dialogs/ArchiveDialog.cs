@@ -18,7 +18,7 @@
 using Common.Controls;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Publish.WinForms.FeedStructure
+namespace ZeroInstall.Publish.WinForms.Dialogs
 {
     /// <summary>
     /// Form to create a new <see cref="Archive"/> object.

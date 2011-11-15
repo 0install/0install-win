@@ -1,4 +1,4 @@
-﻿namespace ZeroInstall.Publish.WinForms.FeedStructure
+﻿namespace ZeroInstall.Publish.WinForms.Dialogs
 {
     partial class RunnerDialog
     {

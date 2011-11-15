@@ -19,7 +19,7 @@ using System;
 using Common.Controls;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Publish.WinForms.FeedStructure
+namespace ZeroInstall.Publish.WinForms.Dialogs
 {
     public partial class EnvironmentBindingDialog : OKCancelDialog
     {
