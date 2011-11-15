@@ -47,7 +47,7 @@ namespace Common.Controls
         /// <param name="prompt">The prompt to display.</param>
         /// <param name="defaultText">The default text to show pre-entered in the input field.</param>
         /// <param name="password">Shall the input characters be hidden as a password?</param>
-        /// <returns>The text the user entered if he pressed OK; otherwise <see langword="null"/>.</returns>
+        /// <returns>The text the user entered if she pressed OK; otherwise <see langword="null"/>.</returns>
         public static string Show(IWin32Window owner, string title, string prompt, string defaultText, bool password)
         {
             #region Sanity checks
@@ -72,7 +72,7 @@ namespace Common.Controls
         /// <param name="title">The window title to use.</param>
         /// <param name="prompt">The prompt to display.</param>
         /// <param name="defaultText">The default text to show pre-entered in the input field.</param>
-        /// <returns>The text the user entered if he pressed OK; otherwise <see langword="null"/>.</returns>
+        /// <returns>The text the user entered if she pressed OK; otherwise <see langword="null"/>.</returns>
         public static string Show(IWin32Window owner, string title, string prompt, string defaultText)
         {
             return Show(owner, title, prompt, defaultText, false);
@@ -84,7 +84,7 @@ namespace Common.Controls
         /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
         /// <param name="title">The window title to use.</param>
         /// <param name="prompt">The prompt to display.</param>
-        /// <returns>The text the user entered if he pressed OK; otherwise <see langword="null"/>.</returns>
+        /// <returns>The text the user entered if she pressed OK; otherwise <see langword="null"/>.</returns>
         public static string Show(IWin32Window owner, string title, string prompt)
         {
             return Show(owner, title, prompt, "");

@@ -228,9 +228,9 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Returns the <see cref="Command"/> with a specific name.
         /// </summary>
-        /// <param name="name">The <see cref="Command.Name"/> to look for. Well-known names are <see cref="Command.NameRun"/>, <see cref="Command.NameTest"/> and <see cref="Command.NameCompile"/>.</param>
+        /// <param name="name">The <see cref="Command.Name"/> to look for.</param>
         /// <exception cref="KeyNotFoundException">Thrown if no matching <see cref="Command"/> was found.</exception>
-        /// <remarks>Should only be called after <see cref="Simplify"/> has been called, otherwise nested <see cref="Implementation"/>s will be missed.</remarks>
+        /// <remarks>Should only be called after <see cref="Simplify"/> has been called, otherwise nested <see cref="Implementation"/>s will not be considered.</remarks>
         public Command GetCommand(string name)
         {
             foreach (var command in Commands)
