@@ -30,6 +30,7 @@
         {
             this.buttonAdvanced = new System.Windows.Forms.Button();
             this.groupBoxSync = new System.Windows.Forms.GroupBox();
+            this.linkSyncAccount = new System.Windows.Forms.LinkLabel();
             this.linkSyncRegister = new System.Windows.Forms.LinkLabel();
             this.buttonSyncCryptoKey = new System.Windows.Forms.Button();
             this.textBoxSyncCryptoKey = new System.Windows.Forms.TextBox();
@@ -65,6 +66,7 @@
             // 
             this.groupBoxSync.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxSync.Controls.Add(this.linkSyncAccount);
             this.groupBoxSync.Controls.Add(this.linkSyncRegister);
             this.groupBoxSync.Controls.Add(this.buttonSyncCryptoKey);
             this.groupBoxSync.Controls.Add(this.textBoxSyncCryptoKey);
@@ -80,15 +82,27 @@
             this.groupBoxSync.TabStop = false;
             this.groupBoxSync.Text = "Synchronization";
             // 
+            // linkSyncAccount
+            // 
+            this.linkSyncAccount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkSyncAccount.AutoSize = true;
+            this.linkSyncAccount.Location = new System.Drawing.Point(143, 68);
+            this.linkSyncAccount.Name = "linkSyncAccount";
+            this.linkSyncAccount.Size = new System.Drawing.Size(88, 13);
+            this.linkSyncAccount.TabIndex = 6;
+            this.linkSyncAccount.TabStop = true;
+            this.linkSyncAccount.Text = "Manage account";
+            this.linkSyncAccount.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkSyncAccount_LinkClicked);
+            // 
             // linkSyncRegister
             // 
             this.linkSyncRegister.AutoSize = true;
             this.linkSyncRegister.Location = new System.Drawing.Point(69, 68);
             this.linkSyncRegister.Name = "linkSyncRegister";
-            this.linkSyncRegister.Size = new System.Drawing.Size(71, 13);
+            this.linkSyncRegister.Size = new System.Drawing.Size(46, 13);
             this.linkSyncRegister.TabIndex = 5;
             this.linkSyncRegister.TabStop = true;
-            this.linkSyncRegister.Text = "New account";
+            this.linkSyncRegister.Text = "Register";
             this.linkSyncRegister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkSyncRegister_LinkClicked);
             // 
             // buttonSyncCryptoKey
@@ -97,7 +111,7 @@
             this.buttonSyncCryptoKey.Location = new System.Drawing.Point(212, 93);
             this.buttonSyncCryptoKey.Name = "buttonSyncCryptoKey";
             this.buttonSyncCryptoKey.Size = new System.Drawing.Size(19, 20);
-            this.buttonSyncCryptoKey.TabIndex = 8;
+            this.buttonSyncCryptoKey.TabIndex = 9;
             this.buttonSyncCryptoKey.Text = "?";
             this.buttonSyncCryptoKey.UseVisualStyleBackColor = true;
             this.buttonSyncCryptoKey.Click += new System.EventHandler(this.buttonSyncCryptoKey_Click);
@@ -109,7 +123,7 @@
             this.textBoxSyncCryptoKey.Location = new System.Drawing.Point(72, 93);
             this.textBoxSyncCryptoKey.Name = "textBoxSyncCryptoKey";
             this.textBoxSyncCryptoKey.Size = new System.Drawing.Size(134, 20);
-            this.textBoxSyncCryptoKey.TabIndex = 7;
+            this.textBoxSyncCryptoKey.TabIndex = 8;
             this.textBoxSyncCryptoKey.UseSystemPasswordChar = true;
             // 
             // labelSyncCryptoKey
@@ -118,7 +132,7 @@
             this.labelSyncCryptoKey.Location = new System.Drawing.Point(6, 96);
             this.labelSyncCryptoKey.Name = "labelSyncCryptoKey";
             this.labelSyncCryptoKey.Size = new System.Drawing.Size(60, 13);
-            this.labelSyncCryptoKey.TabIndex = 6;
+            this.labelSyncCryptoKey.TabIndex = 7;
             this.labelSyncCryptoKey.Text = "&Crypto key:";
             // 
             // textBoxSyncPassword
@@ -190,5 +204,6 @@
         private System.Windows.Forms.Label labelSyncPassword;
         private System.Windows.Forms.TextBox textBoxSyncUsername;
         private System.Windows.Forms.Label labelSyncUsername;
+        private System.Windows.Forms.LinkLabel linkSyncAccount;
     }
 }

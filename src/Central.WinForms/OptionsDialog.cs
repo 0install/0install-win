@@ -71,6 +71,11 @@ namespace ZeroInstall.Central.WinForms
             OpenInBrowser("http://0install.de/sync/register");
         }
 
+        private void linkSyncAccount_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+        {
+            OpenInBrowser("http://0install.de/sync/account");
+        }
+
         private void buttonSyncCryptoKey_Click(object sender, EventArgs e)
         {
             Msg.Inform(this, "The crypto key is used to encrypt your data locally before transmitting it to the server.\nKeep this key safe and use something different for your password. This way nobody can access your data, even if your connection or the server were to be compromised.", MsgSeverity.Info);
