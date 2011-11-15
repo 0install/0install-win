@@ -15,37 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Windows.Forms;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    public partial class RunnerForm : DependencyForm
+    public partial class ManifestDigestDialog : Form
     {
-        public Runner Runner
-        {
-            get { return Dependency as Runner; }
-            set
-            {
-                Dependency = value;
-
-                textCommand.Text = value.Command;
-
-                argumentsControl.Arguments.Clear();
-                argumentsControl.Arguments.AddAll(value.Arguments);
-            }
-        }
-
-        public RunnerForm()
+        public ManifestDigestDialog(ManifestDigest manifestDigest)
         {
             InitializeComponent();
-        }
-
-        private void buttonOK_Click(object sender, System.EventArgs e)
-        {
-            Runner.Command = string.IsNullOrEmpty(textCommand.Text) ? null : textCommand.Text;
-
-            Runner.Arguments.Clear();
-            Runner.Arguments.AddAll(argumentsControl.Arguments);
+            hintTextBoxSha1Old.Text = manifestDigest.Sha1Old;
+            hintTextBoxSha1New.Text = manifestDigest.Sha1New;
+            hintTextBoxSha256.Text = manifestDigest.Sha256;
         }
     }
 }

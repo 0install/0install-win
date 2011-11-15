@@ -115,22 +115,22 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void InitializeFeedStructureButtons()
         {
-            SetupFeedStructureHooks<IElementContainer, Element, Implementation>(btnAddImplementation, implementation => new ImplementationForm {Implementation = implementation}, container => container.Elements);
-            SetupFeedStructureHooks<IElementContainer, Element, PackageImplementation>(btnAddPackageImplementation, implementation => new PackageImplementationForm {PackageImplementation = implementation}, container => container.Elements);
-            SetupFeedStructureHooks<IElementContainer, Element, Group>(btnAddGroup, group => new GroupForm {Group = group}, container => container.Elements);
+            SetupFeedStructureHooks<IElementContainer, Element, Implementation>(btnAddImplementation, implementation => new ImplementationDialog {Implementation = implementation}, container => container.Elements);
+            SetupFeedStructureHooks<IElementContainer, Element, PackageImplementation>(btnAddPackageImplementation, implementation => new PackageImplementationDialog {PackageImplementation = implementation}, container => container.Elements);
+            SetupFeedStructureHooks<IElementContainer, Element, Group>(btnAddGroup, group => new GroupDialog {Group = group}, container => container.Elements);
 
-            SetupFeedStructureHooks<IBindingContainer, Binding, EnvironmentBinding>(btnAddEnvironmentBinding, binding => new EnvironmentBindingForm {EnvironmentBinding = binding}, container => container.Bindings);
-            SetupFeedStructureHooks<IBindingContainer, Binding, OverlayBinding>(btnAddOverlayBinding, binding => new OverlayBindingForm { OverlayBinding = binding }, container => container.Bindings);
-            SetupFeedStructureHooks<IBindingContainer, Binding, ExecutableInVar>(btnAddExecutableInVar, binding => new ExecutableInVarForm { ExecutableInVar = binding }, container => container.Bindings);
-            SetupFeedStructureHooks<IBindingContainer, Binding, ExecutableInPath>(btnAddExecutableInPath, binding => new ExecutableInPathForm { ExecutableInPath = binding }, container => container.Bindings);
+            SetupFeedStructureHooks<IBindingContainer, Binding, EnvironmentBinding>(btnAddEnvironmentBinding, binding => new EnvironmentBindingDialog {EnvironmentBinding = binding}, container => container.Bindings);
+            SetupFeedStructureHooks<IBindingContainer, Binding, OverlayBinding>(btnAddOverlayBinding, binding => new OverlayBindingDialog { OverlayBinding = binding }, container => container.Bindings);
+            SetupFeedStructureHooks<IBindingContainer, Binding, ExecutableInVar>(btnAddExecutableInVar, binding => new ExecutableInVarDialog { ExecutableInVar = binding }, container => container.Bindings);
+            SetupFeedStructureHooks<IBindingContainer, Binding, ExecutableInPath>(btnAddExecutableInPath, binding => new ExecutableInPathDialog { ExecutableInPath = binding }, container => container.Bindings);
 
-            SetupFeedStructureHooks<IDependencyContainer, Dependency, Dependency>(btnAddDependency, dependency => new DependencyForm {Dependency = dependency}, container => container.Dependencies);
+            SetupFeedStructureHooks<IDependencyContainer, Dependency, Dependency>(btnAddDependency, dependency => new DependencyDialog {Dependency = dependency}, container => container.Dependencies);
 
-            SetupFeedStructureHooks<Element, Command, Command>(btnAddCommand, command => new CommandForm {Command = command}, element => element.Commands);
-            SetupFeedStructureHooks<Command, Runner, Runner>(btnAddRunner, runner => new RunnerForm {Runner = runner}, command => new PropertyPointer<Runner>(() => command.Runner, newValue => command.Runner = newValue));
+            SetupFeedStructureHooks<Element, Command, Command>(btnAddCommand, command => new CommandDialog {Command = command}, element => element.Commands);
+            SetupFeedStructureHooks<Command, Runner, Runner>(btnAddRunner, runner => new RunnerDialog {Runner = runner}, command => new PropertyPointer<Runner>(() => command.Runner, newValue => command.Runner = newValue));
 
-            SetupFeedStructureHooks<Implementation, RetrievalMethod, Archive>(btnAddArchive, archive => new ArchiveForm {Archive = archive}, implementation => implementation.RetrievalMethods);
-            SetupFeedStructureHooks<Implementation, RetrievalMethod, Recipe>(btnAddRecipe, recipe => new RecipeForm {Recipe = recipe}, implementation => implementation.RetrievalMethods);
+            SetupFeedStructureHooks<Implementation, RetrievalMethod, Archive>(btnAddArchive, archive => new ArchiveDialog {Archive = archive}, implementation => implementation.RetrievalMethods);
+            SetupFeedStructureHooks<Implementation, RetrievalMethod, Recipe>(btnAddRecipe, recipe => new RecipeDialog {Recipe = recipe}, implementation => implementation.RetrievalMethods);
         }
 
         /// <summary>

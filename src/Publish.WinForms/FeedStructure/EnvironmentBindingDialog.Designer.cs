@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    partial class EnvironmentBindingForm
+    partial class EnvironmentBindingDialog
     {
         /// <summary> 
         /// Required designer variable.
@@ -153,7 +153,7 @@
             this.labelSeparator.TabIndex = 6;
             this.labelSeparator.Text = "Separator";
             // 
-            // EnvironmentBindingForm
+            // EnvironmentBindingDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -168,8 +168,7 @@
             this.Controls.Add(this.labelInsert);
             this.Controls.Add(this.hintTextBoxInsert);
             this.Controls.Add(this.labelName);
-            this.Name = "EnvironmentBindingForm";
-            this.ShowInTaskbar = false;
+            this.Name = "EnvironmentBindingDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit environment binding";
             this.Controls.SetChildIndex(this.labelName, 0);

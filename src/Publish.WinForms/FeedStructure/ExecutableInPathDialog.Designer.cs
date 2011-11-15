@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    partial class ExecutableInPathForm
+    partial class ExecutableInPathDialog
     {
         /// <summary> 
         /// Required designer variable.
@@ -81,7 +81,7 @@
             this.hintTextBoxCommand.Size = new System.Drawing.Size(297, 20);
             this.hintTextBoxCommand.TabIndex = 3;
             // 
-            // ExecutableInPathForm
+            // ExecutableInPathDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -90,8 +90,7 @@
             this.Controls.Add(this.labelCommand);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.hintTextBoxName);
-            this.Name = "ExecutableInPathForm";
-            this.ShowInTaskbar = false;
+            this.Name = "ExecutableInPathDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit executable in PATH binding";
             this.Controls.SetChildIndex(this.hintTextBoxName, 0);

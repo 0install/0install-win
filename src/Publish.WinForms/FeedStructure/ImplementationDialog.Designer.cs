@@ -2,7 +2,7 @@
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    partial class GroupForm
+    partial class ImplementationDialog
     {
         /// <summary> 
         /// Required designer variable.
@@ -32,74 +32,112 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         {
             this.labelStability = new System.Windows.Forms.Label();
             this.comboBoxStability = new System.Windows.Forms.ComboBox();
+            this.hintTextBoxDocDir = new Common.Controls.HintTextBox();
             this.labelDocDir = new System.Windows.Forms.Label();
+            this.hintTextBoxSelfTest = new Common.Controls.HintTextBox();
             this.labelSelfTest = new System.Windows.Forms.Label();
+            this.hintTextBoxMain = new Common.Controls.HintTextBox();
+            this.hintTextBoxVersion = new Common.Controls.HintTextBox();
             this.labelMain = new System.Windows.Forms.Label();
             this.comboBoxLicense = new System.Windows.Forms.ComboBox();
             this.labelLicense = new System.Windows.Forms.Label();
             this.dateTimePickerRelease = new System.Windows.Forms.DateTimePicker();
             this.labelReleased = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
-            this.hintTextBoxDocDir = new Common.Controls.HintTextBox();
-            this.hintTextBoxSelfTest = new Common.Controls.HintTextBox();
-            this.hintTextBoxMain = new Common.Controls.HintTextBox();
-            this.hintTextBoxVersion = new Common.Controls.HintTextBox();
+            this.labelLocalPath = new System.Windows.Forms.Label();
+            this.hintTextBoxLocalPath = new Common.Controls.HintTextBox();
             this.targetBaseControl = new ZeroInstall.Publish.WinForms.Controls.TargetBaseControl();
-            this.checkBoxEnableSettingDate = new System.Windows.Forms.CheckBox();
+            this.hintTextBoxID = new Common.Controls.HintTextBox();
+            this.labelID = new System.Windows.Forms.Label();
+            this.checkBoxSettingDateEnable = new System.Windows.Forms.CheckBox();
+            this.buttonShowManifestDigest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(448, 290);
+            this.buttonOK.Location = new System.Drawing.Point(362, 341);
             this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(529, 290);
+            this.buttonCancel.Location = new System.Drawing.Point(443, 341);
             // 
             // labelStability
             // 
             this.labelStability.AutoSize = true;
-            this.labelStability.Location = new System.Drawing.Point(489, 47);
+            this.labelStability.Location = new System.Drawing.Point(406, 9);
             this.labelStability.Name = "labelStability";
             this.labelStability.Size = new System.Drawing.Size(43, 13);
-            this.labelStability.TabIndex = 8;
+            this.labelStability.TabIndex = 4;
             this.labelStability.Text = "Stability";
             // 
             // comboBoxStability
             // 
             this.comboBoxStability.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStability.FormattingEnabled = true;
-            this.comboBoxStability.Location = new System.Drawing.Point(492, 63);
+            this.comboBoxStability.Location = new System.Drawing.Point(409, 25);
             this.comboBoxStability.Name = "comboBoxStability";
-            this.comboBoxStability.Size = new System.Drawing.Size(112, 21);
-            this.comboBoxStability.TabIndex = 9;
+            this.comboBoxStability.Size = new System.Drawing.Size(109, 21);
+            this.comboBoxStability.TabIndex = 5;
+            // 
+            // hintTextBoxDocDir
+            // 
+            this.hintTextBoxDocDir.HintText = "";
+            this.hintTextBoxDocDir.Location = new System.Drawing.Point(271, 103);
+            this.hintTextBoxDocDir.Name = "hintTextBoxDocDir";
+            this.hintTextBoxDocDir.Size = new System.Drawing.Size(247, 20);
+            this.hintTextBoxDocDir.TabIndex = 11;
             // 
             // labelDocDir
             // 
             this.labelDocDir.AutoSize = true;
-            this.labelDocDir.Location = new System.Drawing.Point(12, 87);
+            this.labelDocDir.Location = new System.Drawing.Point(268, 87);
             this.labelDocDir.Name = "labelDocDir";
             this.labelDocDir.Size = new System.Drawing.Size(122, 13);
             this.labelDocDir.TabIndex = 10;
             this.labelDocDir.Text = "Documentation directory";
             // 
+            // hintTextBoxSelfTest
+            // 
+            this.hintTextBoxSelfTest.HintText = "";
+            this.hintTextBoxSelfTest.Location = new System.Drawing.Point(15, 142);
+            this.hintTextBoxSelfTest.Name = "hintTextBoxSelfTest";
+            this.hintTextBoxSelfTest.Size = new System.Drawing.Size(249, 20);
+            this.hintTextBoxSelfTest.TabIndex = 13;
+            // 
             // labelSelfTest
             // 
             this.labelSelfTest.AutoSize = true;
-            this.labelSelfTest.Location = new System.Drawing.Point(307, 87);
+            this.labelSelfTest.Location = new System.Drawing.Point(13, 126);
             this.labelSelfTest.Name = "labelSelfTest";
             this.labelSelfTest.Size = new System.Drawing.Size(45, 13);
             this.labelSelfTest.TabIndex = 12;
             this.labelSelfTest.Text = "Self-test";
             // 
+            // hintTextBoxMain
+            // 
+            this.hintTextBoxMain.HintText = "";
+            this.hintTextBoxMain.Location = new System.Drawing.Point(15, 103);
+            this.hintTextBoxMain.Name = "hintTextBoxMain";
+            this.hintTextBoxMain.Size = new System.Drawing.Size(249, 20);
+            this.hintTextBoxMain.TabIndex = 9;
+            // 
+            // hintTextBoxVersion
+            // 
+            this.hintTextBoxVersion.HintText = "";
+            this.hintTextBoxVersion.Location = new System.Drawing.Point(15, 25);
+            this.hintTextBoxVersion.Name = "hintTextBoxVersion";
+            this.hintTextBoxVersion.Size = new System.Drawing.Size(122, 20);
+            this.hintTextBoxVersion.TabIndex = 1;
+            this.hintTextBoxVersion.TextChanged += new System.EventHandler(this.HintTextBoxVersionTextChanged);
+            // 
             // labelMain
             // 
             this.labelMain.AutoSize = true;
-            this.labelMain.Location = new System.Drawing.Point(12, 48);
+            this.labelMain.Location = new System.Drawing.Point(13, 87);
             this.labelMain.Name = "labelMain";
             this.labelMain.Size = new System.Drawing.Size(46, 13);
-            this.labelMain.TabIndex = 6;
+            this.labelMain.TabIndex = 8;
             this.labelMain.Text = "Main file";
             // 
             // comboBoxLicense
@@ -170,33 +208,33 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             "WTFPL v2 (Do What The Fuck You Want To Public License)",
             "zlib/libpng License",
             "ZPL (Zope Public License)"});
-            this.comboBoxLicense.Location = new System.Drawing.Point(336, 25);
+            this.comboBoxLicense.Location = new System.Drawing.Point(15, 63);
             this.comboBoxLicense.Name = "comboBoxLicense";
-            this.comboBoxLicense.Size = new System.Drawing.Size(268, 21);
+            this.comboBoxLicense.Size = new System.Drawing.Size(249, 21);
             this.comboBoxLicense.Sorted = true;
-            this.comboBoxLicense.TabIndex = 5;
+            this.comboBoxLicense.TabIndex = 7;
             // 
             // labelLicense
             // 
             this.labelLicense.AutoSize = true;
-            this.labelLicense.Location = new System.Drawing.Point(333, 9);
+            this.labelLicense.Location = new System.Drawing.Point(12, 48);
             this.labelLicense.Name = "labelLicense";
             this.labelLicense.Size = new System.Drawing.Size(44, 13);
-            this.labelLicense.TabIndex = 4;
+            this.labelLicense.TabIndex = 6;
             this.labelLicense.Text = "License";
             // 
             // dateTimePickerRelease
             // 
             this.dateTimePickerRelease.Enabled = false;
-            this.dateTimePickerRelease.Location = new System.Drawing.Point(151, 25);
+            this.dateTimePickerRelease.Location = new System.Drawing.Point(164, 25);
             this.dateTimePickerRelease.Name = "dateTimePickerRelease";
-            this.dateTimePickerRelease.Size = new System.Drawing.Size(179, 20);
+            this.dateTimePickerRelease.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerRelease.TabIndex = 3;
             // 
             // labelReleased
             // 
             this.labelReleased.AutoSize = true;
-            this.labelReleased.Location = new System.Drawing.Point(127, 9);
+            this.labelReleased.Location = new System.Drawing.Point(140, 9);
             this.labelReleased.Name = "labelReleased";
             this.labelReleased.Size = new System.Drawing.Size(70, 13);
             this.labelReleased.TabIndex = 2;
@@ -211,67 +249,80 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             this.labelVersion.TabIndex = 0;
             this.labelVersion.Text = "Version";
             // 
-            // hintTextBoxDocDir
+            // labelLocalPath
             // 
-            this.hintTextBoxDocDir.HintText = "Relative path of a directory inside the implementation";
-            this.hintTextBoxDocDir.Location = new System.Drawing.Point(15, 103);
-            this.hintTextBoxDocDir.Name = "hintTextBoxDocDir";
-            this.hintTextBoxDocDir.Size = new System.Drawing.Size(289, 20);
-            this.hintTextBoxDocDir.TabIndex = 11;
-            this.hintTextBoxDocDir.TextChanged += new System.EventHandler(this.HintTextBoxDocDirTextChanged);
+            this.labelLocalPath.AutoSize = true;
+            this.labelLocalPath.Location = new System.Drawing.Point(268, 126);
+            this.labelLocalPath.Name = "labelLocalPath";
+            this.labelLocalPath.Size = new System.Drawing.Size(57, 13);
+            this.labelLocalPath.TabIndex = 14;
+            this.labelLocalPath.Text = "Local path";
             // 
-            // hintTextBoxSelfTest
+            // hintTextBoxLocalPath
             // 
-            this.hintTextBoxSelfTest.HintText = "Relative path of an executable inside the implementation";
-            this.hintTextBoxSelfTest.Location = new System.Drawing.Point(310, 103);
-            this.hintTextBoxSelfTest.Name = "hintTextBoxSelfTest";
-            this.hintTextBoxSelfTest.Size = new System.Drawing.Size(294, 20);
-            this.hintTextBoxSelfTest.TabIndex = 13;
-            this.hintTextBoxSelfTest.TextChanged += new System.EventHandler(this.HintTextBoxSelfTestTextChanged);
-            // 
-            // hintTextBoxMain
-            // 
-            this.hintTextBoxMain.HintText = "Relative path of an executable inside the implementation";
-            this.hintTextBoxMain.Location = new System.Drawing.Point(15, 64);
-            this.hintTextBoxMain.Name = "hintTextBoxMain";
-            this.hintTextBoxMain.Size = new System.Drawing.Size(471, 20);
-            this.hintTextBoxMain.TabIndex = 7;
-            this.hintTextBoxMain.TextChanged += new System.EventHandler(this.HintTextBoxMainTextChanged);
-            // 
-            // hintTextBoxVersion
-            // 
-            this.hintTextBoxVersion.HintText = "";
-            this.hintTextBoxVersion.Location = new System.Drawing.Point(15, 25);
-            this.hintTextBoxVersion.Name = "hintTextBoxVersion";
-            this.hintTextBoxVersion.Size = new System.Drawing.Size(109, 20);
-            this.hintTextBoxVersion.TabIndex = 1;
-            this.hintTextBoxVersion.TextChanged += new System.EventHandler(this.HintTextBoxVersionTextChanged);
+            this.hintTextBoxLocalPath.HintText = "";
+            this.hintTextBoxLocalPath.Location = new System.Drawing.Point(271, 142);
+            this.hintTextBoxLocalPath.Name = "hintTextBoxLocalPath";
+            this.hintTextBoxLocalPath.Size = new System.Drawing.Size(247, 20);
+            this.hintTextBoxLocalPath.TabIndex = 15;
             // 
             // targetBaseControl
             // 
             this.targetBaseControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.targetBaseControl.Location = new System.Drawing.Point(15, 129);
+            this.targetBaseControl.Location = new System.Drawing.Point(16, 168);
             this.targetBaseControl.Name = "targetBaseControl";
-            this.targetBaseControl.Size = new System.Drawing.Size(589, 128);
-            this.targetBaseControl.TabIndex = 14;
+            this.targetBaseControl.Size = new System.Drawing.Size(502, 128);
+            this.targetBaseControl.TabIndex = 16;
             // 
-            // checkBoxEnableSettingDate
+            // hintTextBoxID
             // 
-            this.checkBoxEnableSettingDate.AutoSize = true;
-            this.checkBoxEnableSettingDate.Location = new System.Drawing.Point(130, 28);
-            this.checkBoxEnableSettingDate.Name = "checkBoxEnableSettingDate";
-            this.checkBoxEnableSettingDate.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxEnableSettingDate.TabIndex = 1002;
-            this.checkBoxEnableSettingDate.UseVisualStyleBackColor = true;
-            this.checkBoxEnableSettingDate.CheckedChanged += new System.EventHandler(this.CheckBoxEnableSettingDateCheckedChanged);
+            this.hintTextBoxID.HintText = "";
+            this.hintTextBoxID.Location = new System.Drawing.Point(270, 63);
+            this.hintTextBoxID.Name = "hintTextBoxID";
+            this.hintTextBoxID.Size = new System.Drawing.Size(248, 20);
+            this.hintTextBoxID.TabIndex = 1002;
             // 
-            // GroupForm
+            // labelID
+            // 
+            this.labelID.AutoSize = true;
+            this.labelID.Location = new System.Drawing.Point(268, 47);
+            this.labelID.Name = "labelID";
+            this.labelID.Size = new System.Drawing.Size(18, 13);
+            this.labelID.TabIndex = 1003;
+            this.labelID.Text = "ID";
+            // 
+            // checkBoxSettingDateEnable
+            // 
+            this.checkBoxSettingDateEnable.AutoSize = true;
+            this.checkBoxSettingDateEnable.Location = new System.Drawing.Point(143, 28);
+            this.checkBoxSettingDateEnable.Name = "checkBoxSettingDateEnable";
+            this.checkBoxSettingDateEnable.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxSettingDateEnable.TabIndex = 1004;
+            this.checkBoxSettingDateEnable.UseVisualStyleBackColor = true;
+            this.checkBoxSettingDateEnable.CheckedChanged += new System.EventHandler(this.CheckBoxSettingDateEnableCheckedChanged);
+            // 
+            // buttonShowManifestDigest
+            // 
+            this.buttonShowManifestDigest.Location = new System.Drawing.Point(16, 302);
+            this.buttonShowManifestDigest.Name = "buttonShowManifestDigest";
+            this.buttonShowManifestDigest.Size = new System.Drawing.Size(128, 23);
+            this.buttonShowManifestDigest.TabIndex = 1005;
+            this.buttonShowManifestDigest.Text = "Show Manifest Digests";
+            this.buttonShowManifestDigest.UseVisualStyleBackColor = true;
+            this.buttonShowManifestDigest.Click += new System.EventHandler(this.ButtonShowManifestDigestClick);
+            // 
+            // ImplementationDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(620, 325);
-            this.Controls.Add(this.checkBoxEnableSettingDate);
+            this.ClientSize = new System.Drawing.Size(530, 376);
+            this.Controls.Add(this.buttonShowManifestDigest);
+            this.Controls.Add(this.checkBoxSettingDateEnable);
+            this.Controls.Add(this.labelID);
+            this.Controls.Add(this.hintTextBoxID);
+            this.Controls.Add(this.hintTextBoxLocalPath);
+            this.Controls.Add(this.labelLocalPath);
             this.Controls.Add(this.labelStability);
             this.Controls.Add(this.comboBoxStability);
             this.Controls.Add(this.hintTextBoxDocDir);
@@ -287,10 +338,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             this.Controls.Add(this.dateTimePickerRelease);
             this.Controls.Add(this.labelReleased);
             this.Controls.Add(this.labelVersion);
-            this.Name = "GroupForm";
-            this.ShowInTaskbar = false;
+            this.Name = "ImplementationDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Edit group";
+            this.Text = "Edit implementation";
             this.Controls.SetChildIndex(this.labelVersion, 0);
             this.Controls.SetChildIndex(this.labelReleased, 0);
             this.Controls.SetChildIndex(this.dateTimePickerRelease, 0);
@@ -304,11 +354,16 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             this.Controls.SetChildIndex(this.hintTextBoxSelfTest, 0);
             this.Controls.SetChildIndex(this.labelDocDir, 0);
             this.Controls.SetChildIndex(this.hintTextBoxDocDir, 0);
-            this.Controls.SetChildIndex(this.buttonOK, 0);
             this.Controls.SetChildIndex(this.comboBoxStability, 0);
-            this.Controls.SetChildIndex(this.buttonCancel, 0);
             this.Controls.SetChildIndex(this.labelStability, 0);
-            this.Controls.SetChildIndex(this.checkBoxEnableSettingDate, 0);
+            this.Controls.SetChildIndex(this.buttonOK, 0);
+            this.Controls.SetChildIndex(this.labelLocalPath, 0);
+            this.Controls.SetChildIndex(this.buttonCancel, 0);
+            this.Controls.SetChildIndex(this.hintTextBoxLocalPath, 0);
+            this.Controls.SetChildIndex(this.hintTextBoxID, 0);
+            this.Controls.SetChildIndex(this.labelID, 0);
+            this.Controls.SetChildIndex(this.checkBoxSettingDateEnable, 0);
+            this.Controls.SetChildIndex(this.buttonShowManifestDigest, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -331,6 +386,11 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         private System.Windows.Forms.DateTimePicker dateTimePickerRelease;
         private System.Windows.Forms.Label labelReleased;
         private System.Windows.Forms.Label labelVersion;
-        private System.Windows.Forms.CheckBox checkBoxEnableSettingDate;
+        private System.Windows.Forms.Label labelLocalPath;
+        private Common.Controls.HintTextBox hintTextBoxLocalPath;
+        private Common.Controls.HintTextBox hintTextBoxID;
+        private System.Windows.Forms.Label labelID;
+        private System.Windows.Forms.CheckBox checkBoxSettingDateEnable;
+        private System.Windows.Forms.Button buttonShowManifestDigest;
     }
 }

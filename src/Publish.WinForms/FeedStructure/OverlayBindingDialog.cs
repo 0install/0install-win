@@ -23,7 +23,7 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    public partial class OverlayBindingForm : OKCancelDialog
+    public partial class OverlayBindingDialog : OKCancelDialog
     {
         #region Properties
         /// <summary>
@@ -47,9 +47,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 
         #region Initialization
         /// <summary>
-        /// Creates a new <see cref="OverlayBindingForm"/> object.
+        /// Creates a new <see cref="OverlayBindingDialog"/> object.
         /// </summary>
-        public OverlayBindingForm()
+        public OverlayBindingDialog()
         {
             InitializeComponent();
         }

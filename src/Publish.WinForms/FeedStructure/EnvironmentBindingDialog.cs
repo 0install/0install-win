@@ -21,7 +21,7 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    public partial class EnvironmentBindingForm : OKCancelDialog
+    public partial class EnvironmentBindingDialog : OKCancelDialog
     {
         #region Properties
         private EnvironmentBinding _environmentBinding = new EnvironmentBinding();
@@ -39,9 +39,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 
         #region Initialization
         /// <summary>
-        /// Creates a new <see cref="EnvironmentBindingForm"/> object.
+        /// Creates a new <see cref="EnvironmentBindingDialog"/> object.
         /// </summary>
-        public EnvironmentBindingForm()
+        public EnvironmentBindingDialog()
         {
             InitializeComponent();
             InitializeComboBoxMode();

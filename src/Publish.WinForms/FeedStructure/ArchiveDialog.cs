@@ -25,7 +25,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
     /// The OK button is only enabled if the user set all controls of this form with right
     /// values.
     /// </summary>
-    public partial class ArchiveForm : OKCancelDialog, IDigestProvider
+    public partial class ArchiveDialog : OKCancelDialog, IDigestProvider
     {
         #region Properties
         /// <summary>
@@ -45,7 +45,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         #endregion
 
         #region Initialization
-        public ArchiveForm()
+        public ArchiveDialog()
         {
             InitializeComponent();
             archiveControl.NoValidArchive += delegate { buttonOK.Enabled = false; };

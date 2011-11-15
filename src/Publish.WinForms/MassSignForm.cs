@@ -30,7 +30,7 @@ namespace ZeroInstall.Publish.WinForms
     /// <summary>
     /// A dialog for signing multiple <see cref="Feed"/>s with a single <see cref="OpenPgpSecretKey"/>.
     /// </summary>
-    public partial class MassSignDialog : OKCancelDialog
+    public partial class MassSignForm : OKCancelDialog
     {
         #region Variables
         private readonly IEnumerable<FileInfo> _files;
@@ -41,7 +41,7 @@ namespace ZeroInstall.Publish.WinForms
         /// Creates a new mass signing dialog.
         /// </summary>
         /// <param name="files">The <see cref="Feed"/> files to be signed.</param>
-        private MassSignDialog(IEnumerable<FileInfo> files)
+        private MassSignForm(IEnumerable<FileInfo> files)
         {
             InitializeComponent();
 
@@ -69,7 +69,7 @@ namespace ZeroInstall.Publish.WinForms
             if (files == null) throw new ArgumentNullException("files");
             #endregion
 
-            using (var dialog = new MassSignDialog(files))
+            using (var dialog = new MassSignForm(files))
                 dialog.ShowDialog();
         }
         #endregion

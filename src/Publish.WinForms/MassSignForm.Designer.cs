@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Publish.WinForms
 {
-    partial class MassSignDialog
+    partial class MassSignForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MassSignDialog));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MassSignForm));
             this.labelSecretKey = new System.Windows.Forms.Label();
             this.comboBoxSecretKey = new System.Windows.Forms.ComboBox();
             this.labelPassword = new System.Windows.Forms.Label();
@@ -124,6 +124,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MassSignDialog";
             this.ShowIcon = true;
+            this.ShowInTaskbar = true;
             this.Text = "Zero Install - Feed signing";
             this.Load += new System.EventHandler(this.MassSignDialog_Load);
             this.Controls.SetChildIndex(this.listBoxFiles, 0);

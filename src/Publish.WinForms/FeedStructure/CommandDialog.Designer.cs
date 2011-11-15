@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    partial class CommandForm
+    partial class CommandDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -151,7 +151,7 @@
             this.hintTextBoxSource.Size = new System.Drawing.Size(346, 20);
             this.hintTextBoxSource.TabIndex = 2;
             // 
-            // CommandForm
+            // CommandDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -162,8 +162,7 @@
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.textBoxPath);
             this.Controls.Add(this.labelPath);
-            this.Name = "CommandForm";
-            this.ShowInTaskbar = false;
+            this.Name = "CommandDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Command";
             this.Controls.SetChildIndex(this.labelPath, 0);

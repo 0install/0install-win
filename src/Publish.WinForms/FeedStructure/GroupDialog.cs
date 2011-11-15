@@ -23,7 +23,7 @@ using System.IO;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    public partial class GroupForm : OKCancelDialog
+    public partial class GroupDialog : OKCancelDialog
     {
         #region Properties
         /// <summary>
@@ -48,9 +48,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 
         #region Initialization
         /// <summary>
-        /// Creates a new <see cref="GroupForm"/> object.
+        /// Creates a new <see cref="GroupDialog"/> object.
         /// </summary>
-        public GroupForm()
+        public GroupDialog()
         {
             InitializeComponent();
             InitializeComboBoxStability();

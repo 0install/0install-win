@@ -22,7 +22,7 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    public partial class ImplementationForm : OKCancelDialog
+    public partial class ImplementationDialog : OKCancelDialog
     {
         #region Properties
         /// <summary>
@@ -47,9 +47,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 
         #region Initialization
         /// <summary>
-        /// Creates a new <see cref="ImplementationForm"/> object.
+        /// Creates a new <see cref="ImplementationDialog"/> object.
         /// </summary>
-        public ImplementationForm()
+        public ImplementationDialog()
         {
             InitializeComponent();
             InitializeComboBoxStability();
@@ -128,7 +128,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         #region Buttons
         private void ButtonShowManifestDigestClick(object sender, EventArgs e)
         {
-            using (var dialog = new ManifestDigestForm(_implementation.ManifestDigest))
+            using (var dialog = new ManifestDigestDialog(_implementation.ManifestDigest))
                 dialog.ShowDialog();
         }
         #endregion

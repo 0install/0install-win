@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    partial class RunnerForm
+    partial class RunnerDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -94,7 +94,7 @@
             this.argumentsControl.Size = new System.Drawing.Size(285, 133);
             this.argumentsControl.TabIndex = 0;
             // 
-            // RunnerForm
+            // RunnerDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -102,7 +102,7 @@
             this.Controls.Add(this.labelCommand);
             this.Controls.Add(this.textCommand);
             this.Controls.Add(this.groupBoxArguments);
-            this.Name = "RunnerForm";
+            this.Name = "RunnerDialog";
             this.Text = "Edit runner";
             this.Controls.SetChildIndex(this.comboBoxImportance, 0);
             this.Controls.SetChildIndex(this.labelImportance, 0);

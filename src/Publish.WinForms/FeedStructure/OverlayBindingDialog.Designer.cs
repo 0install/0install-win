@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    partial class OverlayBindingForm
+    partial class OverlayBindingDialog
     {
         /// <summary> 
         /// Required designer variable.
@@ -83,7 +83,7 @@
             this.hintTextBoxMountPoint.TabIndex = 3;
             this.hintTextBoxMountPoint.TextChanged += new System.EventHandler(this.HintTextBoxMountPointTextChanged);
             // 
-            // OverlayBindingForm
+            // OverlayBindingDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -92,8 +92,7 @@
             this.Controls.Add(this.labelMountPoint);
             this.Controls.Add(this.labelSrc);
             this.Controls.Add(this.hintTextBoxSrc);
-            this.Name = "OverlayBindingForm";
-            this.ShowInTaskbar = false;
+            this.Name = "OverlayBindingDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit overlay binding";
             this.Controls.SetChildIndex(this.hintTextBoxSrc, 0);

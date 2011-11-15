@@ -23,7 +23,7 @@ using System.IO;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    public partial class PackageImplementationForm : OKCancelDialog
+    public partial class PackageImplementationDialog : OKCancelDialog
     {
         #region Properties
         /// <summary>
@@ -46,7 +46,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         #endregion
 
         #region Initialization
-        public PackageImplementationForm()
+        public PackageImplementationDialog()
         {
             InitializeComponent();
         }

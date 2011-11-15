@@ -23,7 +23,7 @@ using Constraint = ZeroInstall.Model.Constraint;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    public partial class DependencyForm : OKCancelDialog
+    public partial class DependencyDialog : OKCancelDialog
     {
         #region Properties
         private Dependency _dependency = new Dependency();
@@ -40,7 +40,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         #endregion
 
         # region Initialzation
-        public DependencyForm()
+        public DependencyDialog()
         {
             InitializeComponent();
 

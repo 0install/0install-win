@@ -66,22 +66,22 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         private void SetupNodeDoubleClickHooks()
         {
-            SetNodeDoubleClickHook<IElementContainer, Element, Implementation>(implementation => new ImplementationForm {Implementation = implementation}, container => container.Elements);
-            SetNodeDoubleClickHook<IElementContainer, Element, PackageImplementation>(implementation => new PackageImplementationForm {PackageImplementation = implementation}, container => container.Elements);
-            SetNodeDoubleClickHook<IElementContainer, Element, Group>(group => new GroupForm {Group = group}, container => container.Elements);
+            SetNodeDoubleClickHook<IElementContainer, Element, Implementation>(implementation => new ImplementationDialog {Implementation = implementation}, container => container.Elements);
+            SetNodeDoubleClickHook<IElementContainer, Element, PackageImplementation>(implementation => new PackageImplementationDialog {PackageImplementation = implementation}, container => container.Elements);
+            SetNodeDoubleClickHook<IElementContainer, Element, Group>(group => new GroupDialog {Group = group}, container => container.Elements);
 
-            SetNodeDoubleClickHook<IBindingContainer, Binding, EnvironmentBinding>(binding => new EnvironmentBindingForm {EnvironmentBinding = binding}, container => container.Bindings);
-            SetNodeDoubleClickHook<IBindingContainer, Binding, OverlayBinding>(binding => new OverlayBindingForm { OverlayBinding = binding }, container => container.Bindings);
-            SetNodeDoubleClickHook<IBindingContainer, Binding, ExecutableInVar>(binding => new ExecutableInVarForm { ExecutableInVar = binding }, container => container.Bindings);
-            SetNodeDoubleClickHook<IBindingContainer, Binding, ExecutableInPath>(binding => new ExecutableInPathForm { ExecutableInPath = binding }, container => container.Bindings);
+            SetNodeDoubleClickHook<IBindingContainer, Binding, EnvironmentBinding>(binding => new EnvironmentBindingDialog {EnvironmentBinding = binding}, container => container.Bindings);
+            SetNodeDoubleClickHook<IBindingContainer, Binding, OverlayBinding>(binding => new OverlayBindingDialog { OverlayBinding = binding }, container => container.Bindings);
+            SetNodeDoubleClickHook<IBindingContainer, Binding, ExecutableInVar>(binding => new ExecutableInVarDialog { ExecutableInVar = binding }, container => container.Bindings);
+            SetNodeDoubleClickHook<IBindingContainer, Binding, ExecutableInPath>(binding => new ExecutableInPathDialog { ExecutableInPath = binding }, container => container.Bindings);
 
-            SetNodeDoubleClickHook<IDependencyContainer, Dependency, Dependency>(dependency => new DependencyForm {Dependency = dependency}, container => container.Dependencies);
+            SetNodeDoubleClickHook<IDependencyContainer, Dependency, Dependency>(dependency => new DependencyDialog {Dependency = dependency}, container => container.Dependencies);
 
-            SetNodeDoubleClickHook<Element, Command, Command>(command => new CommandForm {Command = command}, element => element.Commands);
-            SetNodeDoubleClickHook<Command, Runner, Runner>(runner => new RunnerForm {Runner = runner}, command => new PropertyPointer<Runner>(() => command.Runner, newValue => command.Runner = newValue));
+            SetNodeDoubleClickHook<Element, Command, Command>(command => new CommandDialog {Command = command}, element => element.Commands);
+            SetNodeDoubleClickHook<Command, Runner, Runner>(runner => new RunnerDialog {Runner = runner}, command => new PropertyPointer<Runner>(() => command.Runner, newValue => command.Runner = newValue));
 
-            SetNodeDoubleClickHook<Implementation, RetrievalMethod, Archive>(archive => new ArchiveForm {Archive = archive}, implementation => implementation.RetrievalMethods);
-            SetNodeDoubleClickHook<Implementation, RetrievalMethod, Recipe>(recipe => new RecipeForm {Recipe = recipe}, implementation => implementation.RetrievalMethods);
+            SetNodeDoubleClickHook<Implementation, RetrievalMethod, Archive>(archive => new ArchiveDialog {Archive = archive}, implementation => implementation.RetrievalMethods);
+            SetNodeDoubleClickHook<Implementation, RetrievalMethod, Recipe>(recipe => new RecipeDialog {Recipe = recipe}, implementation => implementation.RetrievalMethods);
         }
 
         private void WireControlEvents()

@@ -20,7 +20,7 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    public partial class CommandForm : OKCancelDialog
+    public partial class CommandDialog : OKCancelDialog
     {
         #region Properties
         /// <summary>
@@ -46,7 +46,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <summary>
         /// Initializes the form.
         /// </summary>
-        public CommandForm()
+        public CommandDialog()
         {
             InitializeComponent();
         }

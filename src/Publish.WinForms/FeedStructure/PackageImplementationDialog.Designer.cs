@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    partial class PackageImplementationForm
+    partial class PackageImplementationDialog
     {
         /// <summary> 
         /// Required designer variable.
@@ -236,7 +236,7 @@
             this.labelLicense.TabIndex = 4;
             this.labelLicense.Text = "License";
             // 
-            // PackageImplementationForm
+            // PackageImplementationDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -251,8 +251,7 @@
             this.Controls.Add(this.checkedListBoxDistribution);
             this.Controls.Add(this.hintTextBoxPackage);
             this.Controls.Add(this.labelPackage);
-            this.Name = "PackageImplementationForm";
-            this.ShowInTaskbar = false;
+            this.Name = "PackageImplementationDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit package implementation";
             this.Controls.SetChildIndex(this.labelPackage, 0);

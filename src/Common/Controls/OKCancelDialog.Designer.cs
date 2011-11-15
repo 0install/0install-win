@@ -62,6 +62,7 @@
             this.MinimizeBox = false;
             this.Name = "OKCancelDialog";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.ResumeLayout(false);
 
         }

@@ -21,7 +21,7 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    public partial class ExecutableInPathForm : OKCancelDialog
+    public partial class ExecutableInPathDialog : OKCancelDialog
     {
         #region Properties
         /// <summary>
@@ -45,9 +45,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 
         #region Initialization
         /// <summary>
-        /// Creates a new <see cref="ExecutableInPathForm"/> object.
+        /// Creates a new <see cref="ExecutableInPathDialog"/> object.
         /// </summary>
-        public ExecutableInPathForm()
+        public ExecutableInPathDialog()
         {
             InitializeComponent();
         }

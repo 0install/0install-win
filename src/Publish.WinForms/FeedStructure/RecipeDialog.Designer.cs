@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    partial class RecipeForm
+    partial class RecipeDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -76,15 +76,14 @@
             this.buttonCreateRecipe.UseVisualStyleBackColor = true;
             this.buttonCreateRecipe.Click += new System.EventHandler(this.ButtonCreateRecipeClick);
             // 
-            // RecipeForm
+            // RecipeDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(303, 538);
             this.Controls.Add(this.buttonCreateRecipe);
             this.Controls.Add(this.tabControlRecipe);
-            this.Name = "RecipeForm";
-            this.ShowInTaskbar = false;
+            this.Name = "RecipeDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit recipe archives";
             this.Controls.SetChildIndex(this.tabControlRecipe, 0);

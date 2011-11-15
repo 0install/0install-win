@@ -28,7 +28,7 @@ using ZeroInstall.Publish.WinForms.Controls;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    public partial class RecipeForm : OKCancelDialog, IDigestProvider
+    public partial class RecipeDialog : OKCancelDialog, IDigestProvider
     {
         #region Variables
         /// <summary>
@@ -53,14 +53,14 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         }
 
         /// <summary>
-        /// <see cref="ManifestDigest"/> of <see cref="RecipeForm.Recipe"/>.
+        /// <see cref="ManifestDigest"/> of <see cref="RecipeDialog.Recipe"/>.
         /// </summary>
         public ManifestDigest ManifestDigest { get; private set; }
         #endregion
 
         #region Constructor
         /// <inheritdoc/>
-        public RecipeForm()
+        public RecipeDialog()
         {
             InitializeComponent();
             InsertArchiveTab(0);

@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    partial class ManifestDigestForm
+    partial class ManifestDigestDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -108,7 +108,7 @@
             this.hintTextBoxSha256.Size = new System.Drawing.Size(403, 20);
             this.hintTextBoxSha256.TabIndex = 6;
             // 
-            // ManifestDigestForm
+            // ManifestDigestDialog
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -125,7 +125,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "ManifestDigestForm";
+            this.Name = "ManifestDigestDialog";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

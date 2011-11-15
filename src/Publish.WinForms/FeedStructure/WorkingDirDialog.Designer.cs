@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    partial class WorkingDirForm
+    partial class WorkingDirDialog
     {
         /// <summary> 
         /// Required designer variable.
@@ -58,15 +58,14 @@
             this.hintTextBoxSource.Size = new System.Drawing.Size(260, 20);
             this.hintTextBoxSource.TabIndex = 1;
             // 
-            // WorkingDirForm
+            // WorkingDirDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 107);
             this.Controls.Add(this.labelSource);
             this.Controls.Add(this.hintTextBoxSource);
-            this.Name = "WorkingDirForm";
-            this.ShowInTaskbar = false;
+            this.Name = "WorkingDirDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Controls.SetChildIndex(this.hintTextBoxSource, 0);
             this.Controls.SetChildIndex(this.labelSource, 0);

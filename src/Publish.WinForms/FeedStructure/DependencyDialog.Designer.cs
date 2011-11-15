@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    partial class DependencyForm
+    partial class DependencyDialog
     {
         /// <summary> 
         /// Required designer variable.
@@ -191,7 +191,7 @@
             this.comboBoxImportance.Size = new System.Drawing.Size(112, 21);
             this.comboBoxImportance.TabIndex = 13;
             // 
-            // DependencyForm
+            // DependencyDialog
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -211,8 +211,7 @@
             this.Controls.Add(this.labelUse);
             this.Controls.Add(this.labelInterface);
             this.Controls.Add(this.hintTextBoxInterface);
-            this.Name = "DependencyForm";
-            this.ShowInTaskbar = false;
+            this.Name = "DependencyDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit dependency";
             this.Controls.SetChildIndex(this.hintTextBoxInterface, 0);

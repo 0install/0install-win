@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    partial class ArchiveForm
+    partial class ArchiveDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -50,14 +50,13 @@
             this.archiveControl.Size = new System.Drawing.Size(257, 395);
             this.archiveControl.TabIndex = 1002;
             // 
-            // ArchiveForm
+            // ArchiveDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(282, 481);
             this.Controls.Add(this.archiveControl);
-            this.Name = "ArchiveForm";
-            this.ShowInTaskbar = false;
+            this.Name = "ArchiveDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit archive";
             this.Controls.SetChildIndex(this.buttonCancel, 0);
