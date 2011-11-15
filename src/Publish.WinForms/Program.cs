@@ -73,7 +73,7 @@ namespace ZeroInstall.Publish.WinForms
                 //}
                 //else
                 {
-                    MassSignDialog.Show(files);
+                    MassSignForm.Show(files);
                 }
             }
         }
