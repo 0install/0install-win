@@ -150,7 +150,8 @@ namespace ZeroInstall.Central.WinForms
             try
             {
                 string path = _iconCache.GetIcon((Uri)e.Argument, _handler);
-                e.Result = Image.FromFile(path);
+                using (var stream = File.OpenRead(path))
+                    e.Result = Image.FromStream(stream);
             }
                 #region Error handling
             catch (UserCancelException)
