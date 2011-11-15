@@ -212,7 +212,6 @@
             this.Controls.Add(this.labelInterface);
             this.Controls.Add(this.hintTextBoxInterface);
             this.Name = "DependencyDialog";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit dependency";
             this.Controls.SetChildIndex(this.hintTextBoxInterface, 0);
             this.Controls.SetChildIndex(this.labelInterface, 0);

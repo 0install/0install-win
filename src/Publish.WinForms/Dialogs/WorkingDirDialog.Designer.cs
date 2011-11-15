@@ -66,7 +66,6 @@
             this.Controls.Add(this.labelSource);
             this.Controls.Add(this.hintTextBoxSource);
             this.Name = "WorkingDirDialog";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Controls.SetChildIndex(this.hintTextBoxSource, 0);
             this.Controls.SetChildIndex(this.labelSource, 0);
             this.Controls.SetChildIndex(this.buttonOK, 0);

@@ -163,7 +163,6 @@
             this.Controls.Add(this.textBoxPath);
             this.Controls.Add(this.labelPath);
             this.Name = "CommandDialog";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Command";
             this.Controls.SetChildIndex(this.labelPath, 0);
             this.Controls.SetChildIndex(this.textBoxPath, 0);

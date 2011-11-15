@@ -84,7 +84,6 @@
             this.Controls.Add(this.buttonCreateRecipe);
             this.Controls.Add(this.tabControlRecipe);
             this.Name = "RecipeDialog";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit recipe archives";
             this.Controls.SetChildIndex(this.tabControlRecipe, 0);
             this.Controls.SetChildIndex(this.buttonCreateRecipe, 0);

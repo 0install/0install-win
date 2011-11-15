@@ -36,11 +36,6 @@
             this.labelStability = new System.Windows.Forms.Label();
             this.comboBoxStability = new System.Windows.Forms.ComboBox();
             this.dataGridVersions = new System.Windows.Forms.DataGridView();
-            this.tabPageFeeds = new System.Windows.Forms.TabPage();
-            this.buttonRemoveFeed = new System.Windows.Forms.Button();
-            this.buttonAddFeed = new System.Windows.Forms.Button();
-            this.listBoxFeeds = new System.Windows.Forms.ListBox();
-            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.dataColumnVersion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataColumnReleased = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataColumnStability = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,6 +43,11 @@
             this.dataColumnArchitecture = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataColumnNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataColumnSource = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPageFeeds = new System.Windows.Forms.TabPage();
+            this.buttonRemoveFeed = new System.Windows.Forms.Button();
+            this.buttonAddFeed = new System.Windows.Forms.Button();
+            this.listBoxFeeds = new System.Windows.Forms.ListBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl.SuspendLayout();
             this.tabPageVersions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVersions)).BeginInit();
@@ -57,13 +57,11 @@
             // buttonOK
             // 
             resources.ApplyResources(this.buttonOK, "buttonOK");
-            this.toolTip.SetToolTip(this.buttonOK, resources.GetString("buttonOK.ToolTip"));
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // buttonCancel
             // 
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
-            this.toolTip.SetToolTip(this.buttonCancel, resources.GetString("buttonCancel.ToolTip"));
             // 
             // tabControl
             // 
@@ -72,17 +70,15 @@
             this.tabControl.Controls.Add(this.tabPageFeeds);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.toolTip.SetToolTip(this.tabControl, resources.GetString("tabControl.ToolTip"));
             // 
             // tabPageVersions
             // 
-            resources.ApplyResources(this.tabPageVersions, "tabPageVersions");
             this.tabPageVersions.Controls.Add(this.checkBoxShowAllVersions);
             this.tabPageVersions.Controls.Add(this.labelStability);
             this.tabPageVersions.Controls.Add(this.comboBoxStability);
             this.tabPageVersions.Controls.Add(this.dataGridVersions);
+            resources.ApplyResources(this.tabPageVersions, "tabPageVersions");
             this.tabPageVersions.Name = "tabPageVersions";
-            this.toolTip.SetToolTip(this.tabPageVersions, resources.GetString("tabPageVersions.ToolTip"));
             this.tabPageVersions.UseVisualStyleBackColor = true;
             // 
             // checkBoxShowAllVersions
@@ -97,21 +93,20 @@
             // 
             resources.ApplyResources(this.labelStability, "labelStability");
             this.labelStability.Name = "labelStability";
-            this.toolTip.SetToolTip(this.labelStability, resources.GetString("labelStability.ToolTip"));
             // 
             // comboBoxStability
             // 
-            resources.ApplyResources(this.comboBoxStability, "comboBoxStability");
             this.comboBoxStability.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStability.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxStability, "comboBoxStability");
             this.comboBoxStability.Name = "comboBoxStability";
             this.toolTip.SetToolTip(this.comboBoxStability, resources.GetString("comboBoxStability.ToolTip"));
             // 
             // dataGridVersions
             // 
-            resources.ApplyResources(this.dataGridVersions, "dataGridVersions");
             this.dataGridVersions.AllowUserToAddRows = false;
             this.dataGridVersions.AllowUserToDeleteRows = false;
+            resources.ApplyResources(this.dataGridVersions, "dataGridVersions");
             this.dataGridVersions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridVersions.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataColumnVersion,
@@ -122,47 +117,6 @@
             this.dataColumnNotes,
             this.dataColumnSource});
             this.dataGridVersions.Name = "dataGridVersions";
-            this.toolTip.SetToolTip(this.dataGridVersions, resources.GetString("dataGridVersions.ToolTip"));
-            // 
-            // tabPageFeeds
-            // 
-            resources.ApplyResources(this.tabPageFeeds, "tabPageFeeds");
-            this.tabPageFeeds.Controls.Add(this.buttonRemoveFeed);
-            this.tabPageFeeds.Controls.Add(this.buttonAddFeed);
-            this.tabPageFeeds.Controls.Add(this.listBoxFeeds);
-            this.tabPageFeeds.Name = "tabPageFeeds";
-            this.toolTip.SetToolTip(this.tabPageFeeds, resources.GetString("tabPageFeeds.ToolTip"));
-            this.tabPageFeeds.UseVisualStyleBackColor = true;
-            // 
-            // buttonRemoveFeed
-            // 
-            resources.ApplyResources(this.buttonRemoveFeed, "buttonRemoveFeed");
-            this.buttonRemoveFeed.Name = "buttonRemoveFeed";
-            this.toolTip.SetToolTip(this.buttonRemoveFeed, resources.GetString("buttonRemoveFeed.ToolTip"));
-            this.buttonRemoveFeed.UseVisualStyleBackColor = true;
-            this.buttonRemoveFeed.Click += new System.EventHandler(this.buttonRemoveFeed_Click);
-            // 
-            // buttonAddFeed
-            // 
-            resources.ApplyResources(this.buttonAddFeed, "buttonAddFeed");
-            this.buttonAddFeed.Name = "buttonAddFeed";
-            this.toolTip.SetToolTip(this.buttonAddFeed, resources.GetString("buttonAddFeed.ToolTip"));
-            this.buttonAddFeed.UseVisualStyleBackColor = true;
-            this.buttonAddFeed.Click += new System.EventHandler(this.buttonAddFeed_Click);
-            // 
-            // listBoxFeeds
-            // 
-            resources.ApplyResources(this.listBoxFeeds, "listBoxFeeds");
-            this.listBoxFeeds.AllowDrop = true;
-            this.listBoxFeeds.DisplayMember = "Source";
-            this.listBoxFeeds.FormattingEnabled = true;
-            this.listBoxFeeds.Name = "listBoxFeeds";
-            this.listBoxFeeds.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.toolTip.SetToolTip(this.listBoxFeeds, resources.GetString("listBoxFeeds.ToolTip"));
-            this.listBoxFeeds.ValueMember = "Source";
-            this.listBoxFeeds.SelectedIndexChanged += new System.EventHandler(this.listBoxFeeds_SelectedIndexChanged);
-            this.listBoxFeeds.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBoxFeeds_DragDrop);
-            this.listBoxFeeds.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBoxFeeds_DragEnter);
             // 
             // dataColumnVersion
             // 
@@ -220,6 +174,44 @@
             this.dataColumnSource.Name = "dataColumnSource";
             this.dataColumnSource.ReadOnly = true;
             // 
+            // tabPageFeeds
+            // 
+            this.tabPageFeeds.Controls.Add(this.buttonRemoveFeed);
+            this.tabPageFeeds.Controls.Add(this.buttonAddFeed);
+            this.tabPageFeeds.Controls.Add(this.listBoxFeeds);
+            resources.ApplyResources(this.tabPageFeeds, "tabPageFeeds");
+            this.tabPageFeeds.Name = "tabPageFeeds";
+            this.tabPageFeeds.UseVisualStyleBackColor = true;
+            // 
+            // buttonRemoveFeed
+            // 
+            resources.ApplyResources(this.buttonRemoveFeed, "buttonRemoveFeed");
+            this.buttonRemoveFeed.Name = "buttonRemoveFeed";
+            this.toolTip.SetToolTip(this.buttonRemoveFeed, resources.GetString("buttonRemoveFeed.ToolTip"));
+            this.buttonRemoveFeed.UseVisualStyleBackColor = true;
+            this.buttonRemoveFeed.Click += new System.EventHandler(this.buttonRemoveFeed_Click);
+            // 
+            // buttonAddFeed
+            // 
+            resources.ApplyResources(this.buttonAddFeed, "buttonAddFeed");
+            this.buttonAddFeed.Name = "buttonAddFeed";
+            this.toolTip.SetToolTip(this.buttonAddFeed, resources.GetString("buttonAddFeed.ToolTip"));
+            this.buttonAddFeed.UseVisualStyleBackColor = true;
+            this.buttonAddFeed.Click += new System.EventHandler(this.buttonAddFeed_Click);
+            // 
+            // listBoxFeeds
+            // 
+            this.listBoxFeeds.AllowDrop = true;
+            resources.ApplyResources(this.listBoxFeeds, "listBoxFeeds");
+            this.listBoxFeeds.DisplayMember = "Source";
+            this.listBoxFeeds.FormattingEnabled = true;
+            this.listBoxFeeds.Name = "listBoxFeeds";
+            this.listBoxFeeds.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.listBoxFeeds.ValueMember = "Source";
+            this.listBoxFeeds.SelectedIndexChanged += new System.EventHandler(this.listBoxFeeds_SelectedIndexChanged);
+            this.listBoxFeeds.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBoxFeeds_DragDrop);
+            this.listBoxFeeds.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBoxFeeds_DragEnter);
+            // 
             // InterfaceDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -227,10 +219,7 @@
             this.Controls.Add(this.tabControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.MaximizeBox = true;
-            this.MinimizeBox = true;
             this.Name = "InterfaceDialog";
-            this.ShowInTaskbar = false;
-            this.toolTip.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Load += new System.EventHandler(this.InterfaceDialog_Load);
             this.Controls.SetChildIndex(this.tabControl, 0);
             this.Controls.SetChildIndex(this.buttonOK, 0);

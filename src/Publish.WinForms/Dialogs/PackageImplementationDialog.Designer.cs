@@ -252,7 +252,6 @@
             this.Controls.Add(this.hintTextBoxPackage);
             this.Controls.Add(this.labelPackage);
             this.Name = "PackageImplementationDialog";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit package implementation";
             this.Controls.SetChildIndex(this.labelPackage, 0);
             this.Controls.SetChildIndex(this.hintTextBoxPackage, 0);

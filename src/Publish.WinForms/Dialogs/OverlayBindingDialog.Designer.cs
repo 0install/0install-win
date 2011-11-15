@@ -93,7 +93,6 @@
             this.Controls.Add(this.labelSrc);
             this.Controls.Add(this.hintTextBoxSrc);
             this.Name = "OverlayBindingDialog";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit overlay binding";
             this.Controls.SetChildIndex(this.hintTextBoxSrc, 0);
             this.Controls.SetChildIndex(this.labelSrc, 0);

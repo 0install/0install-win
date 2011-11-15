@@ -91,7 +91,6 @@
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.hintTextBoxName);
             this.Name = "ExecutableInPathDialog";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit executable in PATH binding";
             this.Controls.SetChildIndex(this.hintTextBoxName, 0);
             this.Controls.SetChildIndex(this.labelName, 0);

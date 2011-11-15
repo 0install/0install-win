@@ -729,6 +729,8 @@
             this.Controls.Add(this.checkBoxCapabilities);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = true;
+            this.MinimizeBox = true;
             this.MinimumSize = new System.Drawing.Size(300, 230);
             this.Name = "IntegrateAppForm";
             this.ShowIcon = true;

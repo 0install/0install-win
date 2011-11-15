@@ -57,7 +57,6 @@
             this.ClientSize = new System.Drawing.Size(282, 481);
             this.Controls.Add(this.archiveControl);
             this.Name = "ArchiveDialog";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit archive";
             this.Controls.SetChildIndex(this.buttonCancel, 0);
             this.Controls.SetChildIndex(this.archiveControl, 0);

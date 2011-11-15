@@ -75,7 +75,7 @@
             this.labelSolving.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelSolving.Location = new System.Drawing.Point(8, 18);
             this.labelSolving.Name = "labelSolving";
-            this.labelSolving.Size = new System.Drawing.Size(72, 20);
+            this.labelSolving.Size = new System.Drawing.Size(70, 20);
             this.labelSolving.TabIndex = 0;
             this.labelSolving.Text = "(Solving)";
             // 
