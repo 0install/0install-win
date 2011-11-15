@@ -36,14 +36,6 @@
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
-            // buttonOK
-            // 
-            resources.ApplyResources(this.buttonOK, "buttonOK");
-            // 
-            // buttonCancel
-            // 
-            resources.ApplyResources(this.buttonCancel, "buttonCancel");
-            // 
             // propertyGrid
             // 
             resources.ApplyResources(this.propertyGrid, "propertyGrid");
@@ -54,15 +46,15 @@
             // 
             // contextMenu
             // 
-            resources.ApplyResources(this.contextMenu, "contextMenu");
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.resetValueMenuItem});
             this.contextMenu.Name = "contextMenu";
+            resources.ApplyResources(this.contextMenu, "contextMenu");
             // 
             // resetValueMenuItem
             // 
-            resources.ApplyResources(this.resetValueMenuItem, "resetValueMenuItem");
             this.resetValueMenuItem.Name = "resetValueMenuItem";
+            resources.ApplyResources(this.resetValueMenuItem, "resetValueMenuItem");
             this.resetValueMenuItem.Click += new System.EventHandler(this.resetValueMenuItem_Click);
             // 
             // ConfigForm
@@ -72,6 +64,8 @@
             this.Controls.Add(this.propertyGrid);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Name = "ConfigForm";
+            this.ShowIcon = true;
+            this.ShowInTaskbar = true;
             this.Controls.SetChildIndex(this.propertyGrid, 0);
             this.Controls.SetChildIndex(this.buttonOK, 0);
             this.Controls.SetChildIndex(this.buttonCancel, 0);
