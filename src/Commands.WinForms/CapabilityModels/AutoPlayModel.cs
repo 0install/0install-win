@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2011 Simon E. Silva Lauinger
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,27 +15,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Globalization;
+using Common.Utils;
 using ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.Commands.WinForms.CapabilityModels
 {
     /// <summary>
-    /// The specialized <see cref="CapabilityModel"/> adds a property for the description of an <see cref="IconCapability" />.
+    /// The specialized <see cref="IconCapabilityModel"/> adds a property for the concatenation of all <see cref="AutoPlay.Events"/> of an <see cref="AutoPlay"/>.
     /// </summary>
-    internal class IconCapabilityModel : CapabilityModel
+    internal class AutoPlayModel : IconCapabilityModel
     {
-        private readonly IconCapability _iconCapability;
+        private readonly AutoPlay _autoPlay;
 
         /// <summary>
-        /// Returns the description of the <see cref="IconCapability" /> dependend on <see cref="CultureInfo.CurrentUICulture" />.
+        /// All <see cref="AutoPlay.Events"/> concatenated with ", ".
         /// </summary>
-        public string Description { get { return _iconCapability.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture); } }
+        public string Events { get { return StringUtils.Concatenate(_autoPlay.Events.Map(@event => @event.Name), ", "); } }
 
         /// <inheritdoc />
-        protected IconCapabilityModel(IconCapability capability, bool used) : base(capability, used)
+        public AutoPlayModel(AutoPlay capability, bool used) : base(capability, used)
         {
-            _iconCapability = capability;
+            _autoPlay = capability;
         }
     }
 }

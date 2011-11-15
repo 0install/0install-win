@@ -64,7 +64,7 @@ namespace ZeroInstall.Commands.WinForms
         /// A list of <see cref="AccessPoints.MenuEntry"/>s as displayed by the <see cref="dataGridStartMenu"/>.
         /// </summary>
         private readonly BindingList<AccessPoints.MenuEntry> _menuEntries = new BindingList<AccessPoints.MenuEntry>();
-        
+
         /// <summary>
         /// A list of <see cref="AccessPoints.DesktopIcon"/>s as displayed by the <see cref="dataGridDesktop"/>.
         /// </summary>
@@ -179,10 +179,11 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private void SetupDefaultAccessPoints()
         {
-            var defaultProgramBinding = new BindingList<DefaultProgramModel>();
-            var fileTypeBinding = new BindingList<FileTypeModel>();
-            var urlProtocolBinding = new BindingList<UrlProtocolModel>();
+            var fileTypesBinding = new BindingList<FileTypeModel>();
+            var urlProtocolsBinding = new BindingList<UrlProtocolModel>();
+            var autoPlayBinding = new BindingList<AutoPlayModel>();
             var contextMenuBinding = new BindingList<ContextMenuModel>();
+            var defaultProgramBinding = new BindingList<DefaultProgramModel>();
 
             foreach (var capabilityList in _appEntry.CapabilityLists)
             {
@@ -192,7 +193,7 @@ namespace ZeroInstall.Commands.WinForms
                 foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(capabilityList.Entries))
                 {
                     var model = new FileTypeModel(fileType, IsCapabillityUsed<AccessPoints.FileType>(fileType));
-                    fileTypeBinding.Add(model);
+                    fileTypesBinding.Add(model);
                     _capabilityModels.Add(model);
                 }
 
@@ -200,7 +201,15 @@ namespace ZeroInstall.Commands.WinForms
                 foreach (var urlProtocol in EnumerableUtils.OfType<Capabilities.UrlProtocol>(capabilityList.Entries))
                 {
                     var model = new UrlProtocolModel(urlProtocol, IsCapabillityUsed<AccessPoints.UrlProtocol>(urlProtocol));
-                    urlProtocolBinding.Add(model);
+                    urlProtocolsBinding.Add(model);
+                    _capabilityModels.Add(model);
+                }
+
+                // AutoPlay
+                foreach (var autoPlay in EnumerableUtils.OfType<Capabilities.AutoPlay>(capabilityList.Entries))
+                {
+                    var model = new AutoPlayModel(autoPlay, IsCapabillityUsed<AccessPoints.AutoPlay>(autoPlay));
+                    autoPlayBinding.Add(model);
                     _capabilityModels.Add(model);
                 }
 
@@ -224,18 +233,17 @@ namespace ZeroInstall.Commands.WinForms
                 }
             }
 
-            // Apply data to DataGrids in bulk for better performance
-            dataGridFileType.DataSource = fileTypeBinding;
-            dataGridUrlProtocols.DataSource = urlProtocolBinding;
-            dataGridDefaultPrograms.DataSource = defaultProgramBinding;
-            dataGridContextMenu.DataSource = contextMenuBinding;
-
-            // Remove empty and inapplicable tabs
-            if (!_integrationManager.SystemWide) tabControlCapabilities.TabPages.Remove(tabPageDefaultPrograms);
-            if (fileTypeBinding.Count == 0) tabControlCapabilities.TabPages.Remove(tabPageFileTypes);
-            if (urlProtocolBinding.Count == 0) tabControlCapabilities.TabPages.Remove(tabPageUrlProtocols);
-            if (defaultProgramBinding.Count == 0) tabControlCapabilities.TabPages.Remove(tabPageDefaultPrograms);
-            if (contextMenuBinding.Count == 0) tabControlCapabilities.TabPages.Remove(tabPageContextMenu);
+            // Apply data to DataGrids in bulk for better performance (remove empty tabs)
+            if (fileTypesBinding.Count != 0) dataGridFileType.DataSource = fileTypesBinding;
+            else tabControl.TabPages.Remove(tabPageFileTypes);
+            if (urlProtocolsBinding.Count != 0) dataGridUrlProtocols.DataSource = urlProtocolsBinding;
+            else tabControl.TabPages.Remove(tabPageUrlProtocols);
+            if (autoPlayBinding.Count != 0) dataGridAutoPlay.DataSource = autoPlayBinding;
+            else tabControl.TabPages.Remove(tabPageAutoPlay);
+            if (contextMenuBinding.Count != 0) dataGridContextMenu.DataSource = contextMenuBinding;
+            else tabControl.TabPages.Remove(tabPageContextMenu);
+            if (defaultProgramBinding.Count != 0 && _integrationManager.SystemWide) dataGridDefaultPrograms.DataSource = defaultProgramBinding;
+            else tabControl.TabPages.Remove(tabPageDefaultPrograms);
         }
 
         /// <summary>

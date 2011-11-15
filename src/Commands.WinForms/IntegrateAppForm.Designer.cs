@@ -46,41 +46,49 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IntegrateAppForm));
-            this.tabControlCapabilities = new System.Windows.Forms.TabControl();
+            this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageStartMenu = new System.Windows.Forms.TabPage();
             this.dataGridStartMenu = new System.Windows.Forms.DataGridView();
-            this.tabPageDesktop = new System.Windows.Forms.TabPage();
-            this.dataGridDesktop = new System.Windows.Forms.DataGridView();
-            this.tabPageFileTypes = new System.Windows.Forms.TabPage();
-            this.dataGridFileType = new System.Windows.Forms.DataGridView();
-            this.dataGridFileTypeColumnUse = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridFileTypeColumnDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridFileTypeColumnExtensions = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabPageUrlProtocols = new System.Windows.Forms.TabPage();
-            this.dataGridUrlProtocols = new System.Windows.Forms.DataGridView();
-            this.dataGridUrlProtocolColumnUrlProtocols = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridUrlProtocolColumnDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridUrlProtocolColumnProtocols = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabPageDefaultPrograms = new System.Windows.Forms.TabPage();
-            this.dataGridDefaultPrograms = new System.Windows.Forms.DataGridView();
-            this.dataGridDefaultProgramsColumnUse = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridDefaultProgramsColumnDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridDefaultProgramsColumnService = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabPageContextMenu = new System.Windows.Forms.TabPage();
-            this.dataGridContextMenu = new System.Windows.Forms.DataGridView();
-            this.dataGridContextMenuColumnUse = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridContextMenuColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.checkBoxCapabilities = new System.Windows.Forms.CheckBox();
-            this.checkBoxAutoUpdate = new System.Windows.Forms.CheckBox();
             this.dataGridStartMenuColumnRemove = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridStartMenuColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridStartMenuColumnCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridStartMenuColumnCommand = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.tabPageDesktop = new System.Windows.Forms.TabPage();
+            this.dataGridDesktop = new System.Windows.Forms.DataGridView();
             this.dataGridDesktopColumnRemove = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridDesktopColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridDesktopColumnCommand = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.tabControlCapabilities.SuspendLayout();
+            this.tabPageFileTypes = new System.Windows.Forms.TabPage();
+            this.dataGridFileType = new System.Windows.Forms.DataGridView();
+            this.dataGridFileTypeColumnDefault = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridFileTypeColumnDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridFileTypeColumnExtensions = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPageUrlProtocols = new System.Windows.Forms.TabPage();
+            this.dataGridUrlProtocols = new System.Windows.Forms.DataGridView();
+            this.dataGridUrlProtocolsColumnDefault = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridUrlProtocolsColumnDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridUrlProtocolsColumnProtocols = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPageAutoPlay = new System.Windows.Forms.TabPage();
+            this.dataGridAutoPlay = new System.Windows.Forms.DataGridView();
+            this.dataGridAutoPlayColumnDefault = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridAutoPlayColumnDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridAutoPlayColumnEvents = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPageContextMenu = new System.Windows.Forms.TabPage();
+            this.dataGridContextMenu = new System.Windows.Forms.DataGridView();
+            this.dataGridContextMenuColumnDefault = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridContextMenuColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPageDefaultPrograms = new System.Windows.Forms.TabPage();
+            this.dataGridDefaultPrograms = new System.Windows.Forms.DataGridView();
+            this.dataGridDefaultProgramsColumnDefault = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridDefaultProgramsColumnDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridDefaultProgramsColumnService = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.checkBoxCapabilities = new System.Windows.Forms.CheckBox();
+            this.checkBoxAutoUpdate = new System.Windows.Forms.CheckBox();
+            this.tabControl.SuspendLayout();
             this.tabPageStartMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStartMenu)).BeginInit();
             this.tabPageDesktop.SuspendLayout();
@@ -89,10 +97,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFileType)).BeginInit();
             this.tabPageUrlProtocols.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridUrlProtocols)).BeginInit();
-            this.tabPageDefaultPrograms.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridDefaultPrograms)).BeginInit();
+            this.tabPageAutoPlay.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridAutoPlay)).BeginInit();
             this.tabPageContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridContextMenu)).BeginInit();
+            this.tabPageDefaultPrograms.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridDefaultPrograms)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -104,22 +114,23 @@
             // 
             this.buttonCancel.Location = new System.Drawing.Point(387, 258);
             // 
-            // tabControlCapabilities
+            // tabControl
             // 
-            this.tabControlCapabilities.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControlCapabilities.Controls.Add(this.tabPageStartMenu);
-            this.tabControlCapabilities.Controls.Add(this.tabPageDesktop);
-            this.tabControlCapabilities.Controls.Add(this.tabPageFileTypes);
-            this.tabControlCapabilities.Controls.Add(this.tabPageUrlProtocols);
-            this.tabControlCapabilities.Controls.Add(this.tabPageDefaultPrograms);
-            this.tabControlCapabilities.Controls.Add(this.tabPageContextMenu);
-            this.tabControlCapabilities.Location = new System.Drawing.Point(12, 35);
-            this.tabControlCapabilities.Name = "tabControlCapabilities";
-            this.tabControlCapabilities.SelectedIndex = 0;
-            this.tabControlCapabilities.Size = new System.Drawing.Size(450, 217);
-            this.tabControlCapabilities.TabIndex = 2;
+            this.tabControl.Controls.Add(this.tabPageStartMenu);
+            this.tabControl.Controls.Add(this.tabPageDesktop);
+            this.tabControl.Controls.Add(this.tabPageFileTypes);
+            this.tabControl.Controls.Add(this.tabPageUrlProtocols);
+            this.tabControl.Controls.Add(this.tabPageAutoPlay);
+            this.tabControl.Controls.Add(this.tabPageContextMenu);
+            this.tabControl.Controls.Add(this.tabPageDefaultPrograms);
+            this.tabControl.Location = new System.Drawing.Point(12, 35);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(450, 217);
+            this.tabControl.TabIndex = 2;
             // 
             // tabPageStartMenu
             // 
@@ -172,6 +183,42 @@
             this.dataGridStartMenu.TabIndex = 0;
             this.dataGridStartMenu.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridStartMenu_CellContentClick);
             // 
+            // dataGridStartMenuColumnRemove
+            // 
+            this.dataGridStartMenuColumnRemove.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.dataGridStartMenuColumnRemove.HeaderText = "Remove";
+            this.dataGridStartMenuColumnRemove.Name = "dataGridStartMenuColumnRemove";
+            this.dataGridStartMenuColumnRemove.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridStartMenuColumnRemove.Text = "X";
+            this.dataGridStartMenuColumnRemove.UseColumnTextForButtonValue = true;
+            this.dataGridStartMenuColumnRemove.Width = 53;
+            // 
+            // dataGridStartMenuColumnName
+            // 
+            this.dataGridStartMenuColumnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridStartMenuColumnName.DataPropertyName = "Name";
+            this.dataGridStartMenuColumnName.FillWeight = 40F;
+            this.dataGridStartMenuColumnName.HeaderText = "Name";
+            this.dataGridStartMenuColumnName.Name = "dataGridStartMenuColumnName";
+            // 
+            // dataGridStartMenuColumnCategory
+            // 
+            this.dataGridStartMenuColumnCategory.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridStartMenuColumnCategory.DataPropertyName = "Category";
+            this.dataGridStartMenuColumnCategory.FillWeight = 40F;
+            this.dataGridStartMenuColumnCategory.HeaderText = "Category";
+            this.dataGridStartMenuColumnCategory.Name = "dataGridStartMenuColumnCategory";
+            // 
+            // dataGridStartMenuColumnCommand
+            // 
+            this.dataGridStartMenuColumnCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridStartMenuColumnCommand.DataPropertyName = "Command";
+            this.dataGridStartMenuColumnCommand.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.dataGridStartMenuColumnCommand.FillWeight = 20F;
+            this.dataGridStartMenuColumnCommand.HeaderText = "Command";
+            this.dataGridStartMenuColumnCommand.Name = "dataGridStartMenuColumnCommand";
+            this.dataGridStartMenuColumnCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
             // tabPageDesktop
             // 
             this.tabPageDesktop.Controls.Add(this.dataGridDesktop);
@@ -222,6 +269,34 @@
             this.dataGridDesktop.TabIndex = 0;
             this.dataGridDesktop.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridDesktop_CellContentClick);
             // 
+            // dataGridDesktopColumnRemove
+            // 
+            this.dataGridDesktopColumnRemove.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.dataGridDesktopColumnRemove.HeaderText = "Remove";
+            this.dataGridDesktopColumnRemove.Name = "dataGridDesktopColumnRemove";
+            this.dataGridDesktopColumnRemove.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridDesktopColumnRemove.Text = "X";
+            this.dataGridDesktopColumnRemove.UseColumnTextForButtonValue = true;
+            this.dataGridDesktopColumnRemove.Width = 53;
+            // 
+            // dataGridDesktopColumnName
+            // 
+            this.dataGridDesktopColumnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridDesktopColumnName.DataPropertyName = "Name";
+            this.dataGridDesktopColumnName.FillWeight = 70F;
+            this.dataGridDesktopColumnName.HeaderText = "Name";
+            this.dataGridDesktopColumnName.Name = "dataGridDesktopColumnName";
+            // 
+            // dataGridDesktopColumnCommand
+            // 
+            this.dataGridDesktopColumnCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridDesktopColumnCommand.DataPropertyName = "Command";
+            this.dataGridDesktopColumnCommand.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.dataGridDesktopColumnCommand.FillWeight = 30F;
+            this.dataGridDesktopColumnCommand.HeaderText = "Command";
+            this.dataGridDesktopColumnCommand.Name = "dataGridDesktopColumnCommand";
+            this.dataGridDesktopColumnCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
             // tabPageFileTypes
             // 
             this.tabPageFileTypes.Controls.Add(this.dataGridFileType);
@@ -249,7 +324,7 @@
             this.dataGridFileType.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridFileType.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridFileType.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridFileTypeColumnUse,
+            this.dataGridFileTypeColumnDefault,
             this.dataGridFileTypeColumnDescription,
             this.dataGridFileTypeColumnExtensions});
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -275,23 +350,24 @@
             this.dataGridFileType.Size = new System.Drawing.Size(436, 185);
             this.dataGridFileType.TabIndex = 0;
             // 
-            // dataGridFileTypeColumnUse
+            // dataGridFileTypeColumnDefault
             // 
-            this.dataGridFileTypeColumnUse.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridFileTypeColumnUse.DataPropertyName = "Use";
-            this.dataGridFileTypeColumnUse.HeaderText = "Default";
-            this.dataGridFileTypeColumnUse.Name = "dataGridFileTypeColumnUse";
-            this.dataGridFileTypeColumnUse.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridFileTypeColumnUse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridFileTypeColumnUse.Width = 51;
+            this.dataGridFileTypeColumnDefault.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.dataGridFileTypeColumnDefault.DataPropertyName = "Use";
+            this.dataGridFileTypeColumnDefault.HeaderText = "Default";
+            this.dataGridFileTypeColumnDefault.Name = "dataGridFileTypeColumnDefault";
+            this.dataGridFileTypeColumnDefault.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridFileTypeColumnDefault.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridFileTypeColumnDefault.Width = 66;
             // 
             // dataGridFileTypeColumnDescription
             // 
             this.dataGridFileTypeColumnDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridFileTypeColumnDescription.DataPropertyName = "BestDescription";
+            this.dataGridFileTypeColumnDescription.DataPropertyName = "Description";
             this.dataGridFileTypeColumnDescription.HeaderText = "Description";
             this.dataGridFileTypeColumnDescription.Name = "dataGridFileTypeColumnDescription";
             this.dataGridFileTypeColumnDescription.ReadOnly = true;
+            this.dataGridFileTypeColumnDescription.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // dataGridFileTypeColumnExtensions
             // 
@@ -300,6 +376,7 @@
             this.dataGridFileTypeColumnExtensions.HeaderText = "Extensions";
             this.dataGridFileTypeColumnExtensions.Name = "dataGridFileTypeColumnExtensions";
             this.dataGridFileTypeColumnExtensions.ReadOnly = true;
+            this.dataGridFileTypeColumnExtensions.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridFileTypeColumnExtensions.Width = 83;
             // 
             // tabPageUrlProtocols
@@ -329,9 +406,9 @@
             this.dataGridUrlProtocols.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridUrlProtocols.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridUrlProtocols.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridUrlProtocolColumnUrlProtocols,
-            this.dataGridUrlProtocolColumnDescription,
-            this.dataGridUrlProtocolColumnProtocols});
+            this.dataGridUrlProtocolsColumnDefault,
+            this.dataGridUrlProtocolsColumnDescription,
+            this.dataGridUrlProtocolsColumnProtocols});
             dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -355,50 +432,52 @@
             this.dataGridUrlProtocols.Size = new System.Drawing.Size(436, 185);
             this.dataGridUrlProtocols.TabIndex = 0;
             // 
-            // dataGridUrlProtocolColumnUrlProtocols
+            // dataGridUrlProtocolsColumnDefault
             // 
-            this.dataGridUrlProtocolColumnUrlProtocols.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridUrlProtocolColumnUrlProtocols.DataPropertyName = "Use";
-            this.dataGridUrlProtocolColumnUrlProtocols.HeaderText = "Default";
-            this.dataGridUrlProtocolColumnUrlProtocols.Name = "dataGridUrlProtocolColumnUrlProtocols";
-            this.dataGridUrlProtocolColumnUrlProtocols.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridUrlProtocolColumnUrlProtocols.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridUrlProtocolColumnUrlProtocols.Width = 51;
+            this.dataGridUrlProtocolsColumnDefault.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.dataGridUrlProtocolsColumnDefault.DataPropertyName = "Use";
+            this.dataGridUrlProtocolsColumnDefault.HeaderText = "Default";
+            this.dataGridUrlProtocolsColumnDefault.Name = "dataGridUrlProtocolsColumnDefault";
+            this.dataGridUrlProtocolsColumnDefault.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridUrlProtocolsColumnDefault.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridUrlProtocolsColumnDefault.Width = 66;
             // 
-            // dataGridUrlProtocolColumnDescription
+            // dataGridUrlProtocolsColumnDescription
             // 
-            this.dataGridUrlProtocolColumnDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridUrlProtocolColumnDescription.DataPropertyName = "BestDescription";
-            this.dataGridUrlProtocolColumnDescription.HeaderText = "Description";
-            this.dataGridUrlProtocolColumnDescription.Name = "dataGridUrlProtocolColumnDescription";
-            this.dataGridUrlProtocolColumnDescription.ReadOnly = true;
+            this.dataGridUrlProtocolsColumnDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridUrlProtocolsColumnDescription.DataPropertyName = "Description";
+            this.dataGridUrlProtocolsColumnDescription.HeaderText = "Description";
+            this.dataGridUrlProtocolsColumnDescription.Name = "dataGridUrlProtocolsColumnDescription";
+            this.dataGridUrlProtocolsColumnDescription.ReadOnly = true;
+            this.dataGridUrlProtocolsColumnDescription.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
-            // dataGridUrlProtocolColumnProtocols
+            // dataGridUrlProtocolsColumnProtocols
             // 
-            this.dataGridUrlProtocolColumnProtocols.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridUrlProtocolColumnProtocols.DataPropertyName = "KnownPrefixes";
-            this.dataGridUrlProtocolColumnProtocols.HeaderText = "Protocols";
-            this.dataGridUrlProtocolColumnProtocols.Name = "dataGridUrlProtocolColumnProtocols";
-            this.dataGridUrlProtocolColumnProtocols.ReadOnly = true;
-            this.dataGridUrlProtocolColumnProtocols.Width = 76;
+            this.dataGridUrlProtocolsColumnProtocols.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridUrlProtocolsColumnProtocols.DataPropertyName = "KnownPrefixes";
+            this.dataGridUrlProtocolsColumnProtocols.HeaderText = "Protocols";
+            this.dataGridUrlProtocolsColumnProtocols.Name = "dataGridUrlProtocolsColumnProtocols";
+            this.dataGridUrlProtocolsColumnProtocols.ReadOnly = true;
+            this.dataGridUrlProtocolsColumnProtocols.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridUrlProtocolsColumnProtocols.Width = 76;
             // 
-            // tabPageDefaultPrograms
+            // tabPageAutoPlay
             // 
-            this.tabPageDefaultPrograms.Controls.Add(this.dataGridDefaultPrograms);
-            this.tabPageDefaultPrograms.Location = new System.Drawing.Point(4, 22);
-            this.tabPageDefaultPrograms.Name = "tabPageDefaultPrograms";
-            this.tabPageDefaultPrograms.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDefaultPrograms.Size = new System.Drawing.Size(442, 191);
-            this.tabPageDefaultPrograms.TabIndex = 2;
-            this.tabPageDefaultPrograms.Text = "Default programs";
-            this.tabPageDefaultPrograms.UseVisualStyleBackColor = true;
+            this.tabPageAutoPlay.Controls.Add(this.dataGridAutoPlay);
+            this.tabPageAutoPlay.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAutoPlay.Name = "tabPageAutoPlay";
+            this.tabPageAutoPlay.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAutoPlay.Size = new System.Drawing.Size(442, 191);
+            this.tabPageAutoPlay.TabIndex = 6;
+            this.tabPageAutoPlay.Text = "AutoPlay";
+            this.tabPageAutoPlay.UseVisualStyleBackColor = true;
             // 
-            // dataGridDefaultPrograms
+            // dataGridAutoPlay
             // 
-            this.dataGridDefaultPrograms.AllowUserToAddRows = false;
-            this.dataGridDefaultPrograms.AllowUserToDeleteRows = false;
-            this.dataGridDefaultPrograms.AllowUserToOrderColumns = true;
-            this.dataGridDefaultPrograms.AllowUserToResizeRows = false;
+            this.dataGridAutoPlay.AllowUserToAddRows = false;
+            this.dataGridAutoPlay.AllowUserToDeleteRows = false;
+            this.dataGridAutoPlay.AllowUserToOrderColumns = true;
+            this.dataGridAutoPlay.AllowUserToResizeRows = false;
             dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -406,12 +485,12 @@
             dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridDefaultPrograms.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
-            this.dataGridDefaultPrograms.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridDefaultPrograms.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridDefaultProgramsColumnUse,
-            this.dataGridDefaultProgramsColumnDescription,
-            this.dataGridDefaultProgramsColumnService});
+            this.dataGridAutoPlay.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            this.dataGridAutoPlay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridAutoPlay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridAutoPlayColumnDefault,
+            this.dataGridAutoPlayColumnDescription,
+            this.dataGridAutoPlayColumnEvents});
             dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -419,10 +498,10 @@
             dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridDefaultPrograms.DefaultCellStyle = dataGridViewCellStyle14;
-            this.dataGridDefaultPrograms.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridDefaultPrograms.Location = new System.Drawing.Point(3, 3);
-            this.dataGridDefaultPrograms.Name = "dataGridDefaultPrograms";
+            this.dataGridAutoPlay.DefaultCellStyle = dataGridViewCellStyle14;
+            this.dataGridAutoPlay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridAutoPlay.Location = new System.Drawing.Point(3, 3);
+            this.dataGridAutoPlay.Name = "dataGridAutoPlay";
             dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -430,37 +509,39 @@
             dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridDefaultPrograms.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
-            this.dataGridDefaultPrograms.RowHeadersVisible = false;
-            this.dataGridDefaultPrograms.Size = new System.Drawing.Size(436, 185);
-            this.dataGridDefaultPrograms.TabIndex = 0;
+            this.dataGridAutoPlay.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
+            this.dataGridAutoPlay.RowHeadersVisible = false;
+            this.dataGridAutoPlay.Size = new System.Drawing.Size(436, 185);
+            this.dataGridAutoPlay.TabIndex = 1;
             // 
-            // dataGridDefaultProgramsColumnUse
+            // dataGridAutoPlayColumnDefault
             // 
-            this.dataGridDefaultProgramsColumnUse.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridDefaultProgramsColumnUse.DataPropertyName = "Use";
-            this.dataGridDefaultProgramsColumnUse.HeaderText = "Default";
-            this.dataGridDefaultProgramsColumnUse.Name = "dataGridDefaultProgramsColumnUse";
-            this.dataGridDefaultProgramsColumnUse.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridDefaultProgramsColumnUse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridDefaultProgramsColumnUse.Width = 51;
+            this.dataGridAutoPlayColumnDefault.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.dataGridAutoPlayColumnDefault.DataPropertyName = "Use";
+            this.dataGridAutoPlayColumnDefault.HeaderText = "Default";
+            this.dataGridAutoPlayColumnDefault.Name = "dataGridAutoPlayColumnDefault";
+            this.dataGridAutoPlayColumnDefault.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridAutoPlayColumnDefault.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridAutoPlayColumnDefault.Width = 66;
             // 
-            // dataGridDefaultProgramsColumnDescription
+            // dataGridAutoPlayColumnDescription
             // 
-            this.dataGridDefaultProgramsColumnDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridDefaultProgramsColumnDescription.DataPropertyName = "BestDescription";
-            this.dataGridDefaultProgramsColumnDescription.HeaderText = "Description";
-            this.dataGridDefaultProgramsColumnDescription.Name = "dataGridDefaultProgramsColumnDescription";
-            this.dataGridDefaultProgramsColumnDescription.ReadOnly = true;
+            this.dataGridAutoPlayColumnDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridAutoPlayColumnDescription.DataPropertyName = "Description";
+            this.dataGridAutoPlayColumnDescription.HeaderText = "Description";
+            this.dataGridAutoPlayColumnDescription.Name = "dataGridAutoPlayColumnDescription";
+            this.dataGridAutoPlayColumnDescription.ReadOnly = true;
+            this.dataGridAutoPlayColumnDescription.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
-            // dataGridDefaultProgramsColumnService
+            // dataGridAutoPlayColumnEvents
             // 
-            this.dataGridDefaultProgramsColumnService.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridDefaultProgramsColumnService.DataPropertyName = "Service";
-            this.dataGridDefaultProgramsColumnService.HeaderText = "Service";
-            this.dataGridDefaultProgramsColumnService.Name = "dataGridDefaultProgramsColumnService";
-            this.dataGridDefaultProgramsColumnService.ReadOnly = true;
-            this.dataGridDefaultProgramsColumnService.Width = 68;
+            this.dataGridAutoPlayColumnEvents.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridAutoPlayColumnEvents.DataPropertyName = "Events";
+            this.dataGridAutoPlayColumnEvents.HeaderText = "Events";
+            this.dataGridAutoPlayColumnEvents.Name = "dataGridAutoPlayColumnEvents";
+            this.dataGridAutoPlayColumnEvents.ReadOnly = true;
+            this.dataGridAutoPlayColumnEvents.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridAutoPlayColumnEvents.Width = 65;
             // 
             // tabPageContextMenu
             // 
@@ -489,7 +570,7 @@
             this.dataGridContextMenu.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.dataGridContextMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridContextMenu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridContextMenuColumnUse,
+            this.dataGridContextMenuColumnDefault,
             this.dataGridContextMenuColumnName});
             dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
@@ -514,16 +595,16 @@
             this.dataGridContextMenu.Size = new System.Drawing.Size(436, 185);
             this.dataGridContextMenu.TabIndex = 0;
             // 
-            // dataGridContextMenuColumnUse
+            // dataGridContextMenuColumnDefault
             // 
-            this.dataGridContextMenuColumnUse.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.dataGridContextMenuColumnUse.DataPropertyName = "Use";
-            this.dataGridContextMenuColumnUse.Frozen = true;
-            this.dataGridContextMenuColumnUse.HeaderText = "Default";
-            this.dataGridContextMenuColumnUse.Name = "dataGridContextMenuColumnUse";
-            this.dataGridContextMenuColumnUse.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridContextMenuColumnUse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridContextMenuColumnUse.Width = 51;
+            this.dataGridContextMenuColumnDefault.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.dataGridContextMenuColumnDefault.DataPropertyName = "Use";
+            this.dataGridContextMenuColumnDefault.Frozen = true;
+            this.dataGridContextMenuColumnDefault.HeaderText = "Default";
+            this.dataGridContextMenuColumnDefault.Name = "dataGridContextMenuColumnDefault";
+            this.dataGridContextMenuColumnDefault.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridContextMenuColumnDefault.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridContextMenuColumnDefault.Width = 66;
             // 
             // dataGridContextMenuColumnName
             // 
@@ -532,6 +613,89 @@
             this.dataGridContextMenuColumnName.HeaderText = "Entry name";
             this.dataGridContextMenuColumnName.Name = "dataGridContextMenuColumnName";
             this.dataGridContextMenuColumnName.ReadOnly = true;
+            this.dataGridContextMenuColumnName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // tabPageDefaultPrograms
+            // 
+            this.tabPageDefaultPrograms.Controls.Add(this.dataGridDefaultPrograms);
+            this.tabPageDefaultPrograms.Location = new System.Drawing.Point(4, 22);
+            this.tabPageDefaultPrograms.Name = "tabPageDefaultPrograms";
+            this.tabPageDefaultPrograms.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageDefaultPrograms.Size = new System.Drawing.Size(442, 191);
+            this.tabPageDefaultPrograms.TabIndex = 2;
+            this.tabPageDefaultPrograms.Text = "Default programs";
+            this.tabPageDefaultPrograms.UseVisualStyleBackColor = true;
+            // 
+            // dataGridDefaultPrograms
+            // 
+            this.dataGridDefaultPrograms.AllowUserToAddRows = false;
+            this.dataGridDefaultPrograms.AllowUserToDeleteRows = false;
+            this.dataGridDefaultPrograms.AllowUserToOrderColumns = true;
+            this.dataGridDefaultPrograms.AllowUserToResizeRows = false;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridDefaultPrograms.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            this.dataGridDefaultPrograms.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridDefaultPrograms.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridDefaultProgramsColumnDefault,
+            this.dataGridDefaultProgramsColumnDescription,
+            this.dataGridDefaultProgramsColumnService});
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridDefaultPrograms.DefaultCellStyle = dataGridViewCellStyle20;
+            this.dataGridDefaultPrograms.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridDefaultPrograms.Location = new System.Drawing.Point(3, 3);
+            this.dataGridDefaultPrograms.Name = "dataGridDefaultPrograms";
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridDefaultPrograms.RowHeadersDefaultCellStyle = dataGridViewCellStyle21;
+            this.dataGridDefaultPrograms.RowHeadersVisible = false;
+            this.dataGridDefaultPrograms.Size = new System.Drawing.Size(436, 185);
+            this.dataGridDefaultPrograms.TabIndex = 0;
+            // 
+            // dataGridDefaultProgramsColumnDefault
+            // 
+            this.dataGridDefaultProgramsColumnDefault.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.dataGridDefaultProgramsColumnDefault.DataPropertyName = "Use";
+            this.dataGridDefaultProgramsColumnDefault.HeaderText = "Default";
+            this.dataGridDefaultProgramsColumnDefault.Name = "dataGridDefaultProgramsColumnDefault";
+            this.dataGridDefaultProgramsColumnDefault.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridDefaultProgramsColumnDefault.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridDefaultProgramsColumnDefault.Width = 66;
+            // 
+            // dataGridDefaultProgramsColumnDescription
+            // 
+            this.dataGridDefaultProgramsColumnDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridDefaultProgramsColumnDescription.DataPropertyName = "Description";
+            this.dataGridDefaultProgramsColumnDescription.HeaderText = "Description";
+            this.dataGridDefaultProgramsColumnDescription.Name = "dataGridDefaultProgramsColumnDescription";
+            this.dataGridDefaultProgramsColumnDescription.ReadOnly = true;
+            this.dataGridDefaultProgramsColumnDescription.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // dataGridDefaultProgramsColumnService
+            // 
+            this.dataGridDefaultProgramsColumnService.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridDefaultProgramsColumnService.DataPropertyName = "Service";
+            this.dataGridDefaultProgramsColumnService.HeaderText = "Service";
+            this.dataGridDefaultProgramsColumnService.Name = "dataGridDefaultProgramsColumnService";
+            this.dataGridDefaultProgramsColumnService.ReadOnly = true;
+            this.dataGridDefaultProgramsColumnService.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridDefaultProgramsColumnService.Width = 68;
             // 
             // checkBoxCapabilities
             // 
@@ -554,87 +718,27 @@
             this.checkBoxAutoUpdate.Text = "&Auto Update";
             this.checkBoxAutoUpdate.UseVisualStyleBackColor = true;
             // 
-            // dataGridStartMenuColumnRemove
-            // 
-            this.dataGridStartMenuColumnRemove.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridStartMenuColumnRemove.HeaderText = "Remove";
-            this.dataGridStartMenuColumnRemove.Name = "dataGridStartMenuColumnRemove";
-            this.dataGridStartMenuColumnRemove.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridStartMenuColumnRemove.Text = "X";
-            this.dataGridStartMenuColumnRemove.UseColumnTextForButtonValue = true;
-            this.dataGridStartMenuColumnRemove.Width = 53;
-            // 
-            // dataGridStartMenuColumnName
-            // 
-            this.dataGridStartMenuColumnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridStartMenuColumnName.DataPropertyName = "Name";
-            this.dataGridStartMenuColumnName.HeaderText = "Name";
-            this.dataGridStartMenuColumnName.Name = "dataGridStartMenuColumnName";
-            // 
-            // dataGridStartMenuColumnCategory
-            // 
-            this.dataGridStartMenuColumnCategory.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridStartMenuColumnCategory.DataPropertyName = "Category";
-            this.dataGridStartMenuColumnCategory.HeaderText = "Category";
-            this.dataGridStartMenuColumnCategory.Name = "dataGridStartMenuColumnCategory";
-            // 
-            // dataGridStartMenuColumnCommand
-            // 
-            this.dataGridStartMenuColumnCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridStartMenuColumnCommand.DataPropertyName = "Command";
-            this.dataGridStartMenuColumnCommand.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.dataGridStartMenuColumnCommand.HeaderText = "Command";
-            this.dataGridStartMenuColumnCommand.Name = "dataGridStartMenuColumnCommand";
-            this.dataGridStartMenuColumnCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridStartMenuColumnCommand.Width = 60;
-            // 
-            // dataGridDesktopColumnRemove
-            // 
-            this.dataGridDesktopColumnRemove.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridDesktopColumnRemove.HeaderText = "Remove";
-            this.dataGridDesktopColumnRemove.Name = "dataGridDesktopColumnRemove";
-            this.dataGridDesktopColumnRemove.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridDesktopColumnRemove.Text = "X";
-            this.dataGridDesktopColumnRemove.UseColumnTextForButtonValue = true;
-            this.dataGridDesktopColumnRemove.Width = 53;
-            // 
-            // dataGridDesktopColumnName
-            // 
-            this.dataGridDesktopColumnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridDesktopColumnName.DataPropertyName = "Name";
-            this.dataGridDesktopColumnName.HeaderText = "Name";
-            this.dataGridDesktopColumnName.Name = "dataGridDesktopColumnName";
-            // 
-            // dataGridDesktopColumnCommand
-            // 
-            this.dataGridDesktopColumnCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridDesktopColumnCommand.DataPropertyName = "Command";
-            this.dataGridDesktopColumnCommand.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.dataGridDesktopColumnCommand.HeaderText = "Command";
-            this.dataGridDesktopColumnCommand.Name = "dataGridDesktopColumnCommand";
-            this.dataGridDesktopColumnCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridDesktopColumnCommand.Width = 60;
-            // 
             // IntegrateAppForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(474, 293);
-            this.Controls.Add(this.tabControlCapabilities);
+            this.Controls.Add(this.tabControl);
             this.Controls.Add(this.checkBoxAutoUpdate);
             this.Controls.Add(this.checkBoxCapabilities);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(300, 230);
             this.Name = "IntegrateAppForm";
             this.ShowIcon = true;
             this.Text = "Integrate application";
             this.Load += new System.EventHandler(this.IntegrateAppForm_Load);
             this.Controls.SetChildIndex(this.checkBoxCapabilities, 0);
             this.Controls.SetChildIndex(this.checkBoxAutoUpdate, 0);
-            this.Controls.SetChildIndex(this.tabControlCapabilities, 0);
+            this.Controls.SetChildIndex(this.tabControl, 0);
             this.Controls.SetChildIndex(this.buttonOK, 0);
             this.Controls.SetChildIndex(this.buttonCancel, 0);
-            this.tabControlCapabilities.ResumeLayout(false);
+            this.tabControl.ResumeLayout(false);
             this.tabPageStartMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStartMenu)).EndInit();
             this.tabPageDesktop.ResumeLayout(false);
@@ -643,10 +747,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFileType)).EndInit();
             this.tabPageUrlProtocols.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridUrlProtocols)).EndInit();
-            this.tabPageDefaultPrograms.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridDefaultPrograms)).EndInit();
+            this.tabPageAutoPlay.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridAutoPlay)).EndInit();
             this.tabPageContextMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridContextMenu)).EndInit();
+            this.tabPageDefaultPrograms.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridDefaultPrograms)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -654,7 +760,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControlCapabilities;
+        private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPageFileTypes;
         private System.Windows.Forms.TabPage tabPageUrlProtocols;
         private System.Windows.Forms.DataGridView dataGridFileType;
@@ -669,23 +775,28 @@
         private System.Windows.Forms.DataGridView dataGridStartMenu;
         private System.Windows.Forms.TabPage tabPageDesktop;
         private System.Windows.Forms.DataGridView dataGridDesktop;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridFileTypeColumnUse;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridFileTypeColumnDescription;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridFileTypeColumnExtensions;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridUrlProtocolColumnUrlProtocols;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridUrlProtocolColumnDescription;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridUrlProtocolColumnProtocols;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridDefaultProgramsColumnUse;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridDefaultProgramsColumnDescription;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridDefaultProgramsColumnService;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridContextMenuColumnUse;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridContextMenuColumnName;
+        private System.Windows.Forms.TabPage tabPageAutoPlay;
+        private System.Windows.Forms.DataGridView dataGridAutoPlay;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridDesktopColumnRemove;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridDesktopColumnName;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridDesktopColumnCommand;
         private System.Windows.Forms.DataGridViewButtonColumn dataGridStartMenuColumnRemove;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridStartMenuColumnName;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridStartMenuColumnCategory;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridStartMenuColumnCommand;
-        private System.Windows.Forms.DataGridViewButtonColumn dataGridDesktopColumnRemove;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridDesktopColumnName;
-        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridDesktopColumnCommand;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridFileTypeColumnDefault;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridFileTypeColumnDescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridFileTypeColumnExtensions;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridUrlProtocolsColumnDefault;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridUrlProtocolsColumnDescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridUrlProtocolsColumnProtocols;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridAutoPlayColumnDefault;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridAutoPlayColumnDescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridAutoPlayColumnEvents;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridContextMenuColumnDefault;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridContextMenuColumnName;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridDefaultProgramsColumnDefault;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridDefaultProgramsColumnDescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridDefaultProgramsColumnService;
     }
 }
