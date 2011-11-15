@@ -378,17 +378,6 @@ namespace ZeroInstall.Central.WinForms
 
             buttonRefreshCatalog.Enabled = true;
         }
-
-        /// <summary>
-        /// Temporarily adds a custom feed to <see cref="catalogList"/>.
-        /// </summary>
-        /// <param name="interfaceID">The URI of the feed to be launched.</param>
-        private void AddCustomFeed(string interfaceID)
-        {
-            LaunchHelperAssembly(CommandsExe, "add-app " + StringUtils.EscapeArgument(interfaceID));
-
-            tabControlApps.SelectTab(tabPageAppList);
-        }
         #endregion
 
         //--------------------//
@@ -426,7 +415,7 @@ namespace ZeroInstall.Central.WinForms
             string interfaceID = InputBox.Show(this, "Zero Install", Resources.EnterInterfaceUrl);
             if (string.IsNullOrEmpty(interfaceID)) return;
 
-            AddCustomFeed(interfaceID);
+            AddCustomInterface(interfaceID);
         }
 
         private void buttonCacheManagement_Click(object sender, EventArgs e)
@@ -451,10 +440,10 @@ namespace ZeroInstall.Central.WinForms
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 var files = e.Data.GetData(DataFormats.FileDrop) as string[];
-                AddCustomFeed(EnumerableUtils.GetFirst(files));
+                AddCustomInterface(EnumerableUtils.GetFirst(files));
             }
             else if (e.Data.GetDataPresent(DataFormats.Text))
-                AddCustomFeed((string)e.Data.GetData(DataFormats.Text));
+                AddCustomInterface((string)e.Data.GetData(DataFormats.Text));
         }
 
         private void MainForm_DragEnter(object sender, DragEventArgs e)
@@ -466,6 +455,16 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region Helpers
+        /// <summary>
+        /// Adds a custom interface to <see cref="catalogList"/>.
+        /// </summary>
+        /// <param name="interfaceID">The URI of the interface to be added.</param>
+        private void AddCustomInterface(string interfaceID)
+        {
+            LaunchHelperAssembly(CommandsExe, "add-app " + StringUtils.EscapeArgument(interfaceID));
+            tabControlApps.SelectTab(tabPageAppList);
+        }
+
         /// <summary>
         /// Attempts to launch a .NET helper assembly in the application's base directory. Displays friendly error messages if something goes wrong.
         /// </summary>

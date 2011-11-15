@@ -226,9 +226,6 @@ namespace ZeroInstall.DesktopIntegration
                     }
                 }
             }
-
-            // ToDo: Check for system conflicts
-            // ToDo: Check for inner conflicts
         }
         #endregion
 
