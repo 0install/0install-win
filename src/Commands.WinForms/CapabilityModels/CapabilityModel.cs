@@ -22,7 +22,7 @@ using ZeroInstall.Model.Capabilities;
 namespace ZeroInstall.Commands.WinForms.CapabilityModels
 {
     /// <summary>
-    /// Intermediate wrapper to present <see cref="DefaultCapability"/>s to the user interface.
+    /// Wraps a <see cref="DefaultCapability"/> for data binding.
     /// </summary>
     internal abstract class CapabilityModel
     {

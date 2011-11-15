@@ -21,7 +21,7 @@ using ZeroInstall.Model.Capabilities;
 namespace ZeroInstall.Commands.WinForms.CapabilityModels
 {
     /// <summary>
-    /// The specialized <see cref="CapabilityModel"/> adds a property for the description of an <see cref="IconCapability" />.
+    /// Wraps an <see cref="IconCapability"/> for data binding.
     /// </summary>
     internal class IconCapabilityModel : CapabilityModel
     {

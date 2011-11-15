@@ -20,7 +20,7 @@ using ZeroInstall.Model.Capabilities;
 namespace ZeroInstall.Commands.WinForms.CapabilityModels
 {
     /// <summary>
-    /// The specialized <see cref="CapabilityModel"/> adds a property for the name of <see cref="ContextMenu.Verb"/>.
+    /// Wraps a <see cref="ContextMenu"/> for data binding.
     /// </summary>
     internal class ContextMenuModel : CapabilityModel
     {

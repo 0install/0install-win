@@ -21,7 +21,7 @@ using ZeroInstall.Model.Capabilities;
 namespace ZeroInstall.Commands.WinForms.CapabilityModels
 {
     /// <summary>
-    /// The specialized <see cref="IconCapabilityModel"/> adds a property for the concatenation of all <see cref="FileType.Extensions"/> of an <see cref="FileType"/>.
+    /// Wraps a <see cref="FileType"/> for data binding.
     /// </summary>
     internal class FileTypeModel : IconCapabilityModel
     {

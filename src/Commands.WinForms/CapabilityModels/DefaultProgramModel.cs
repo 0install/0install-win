@@ -20,7 +20,7 @@ using ZeroInstall.Model.Capabilities;
 namespace ZeroInstall.Commands.WinForms.CapabilityModels
 {
     /// <summary>
-    /// The specialized <see cref="IconCapabilityModel"/> adds a property that returns <see cref="DefaultProgram.Service"/>.
+    /// Wraps a <see cref="DefaultProgram"/> for data binding.
     /// </summary>
     internal class DefaultProgramModel : IconCapabilityModel
     {

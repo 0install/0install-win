@@ -21,7 +21,7 @@ using ZeroInstall.Model.Capabilities;
 namespace ZeroInstall.Commands.WinForms.CapabilityModels
 {
     /// <summary>
-    /// The specialized <see cref="IconCapabilityModel"/> adds a property for the concatenation of all <see cref="AutoPlay.Events"/> of an <see cref="AutoPlay"/>.
+    /// Wraps a <see cref="AutoPlay"/> for data binding.
     /// </summary>
     internal class AutoPlayModel : IconCapabilityModel
     {
@@ -30,7 +30,7 @@ namespace ZeroInstall.Commands.WinForms.CapabilityModels
         /// <summary>
         /// All <see cref="AutoPlay.Events"/> concatenated with ", ".
         /// </summary>
-        public string Events { get { return StringUtils.Concatenate(_autoPlay.Events.Map(@event => @event.Name), ", "); } }
+        public string Events { get { return StringUtils.Concatenate(_autoPlay.Events.Map(ev => ev.Name), ", "); } }
 
         /// <inheritdoc />
         public AutoPlayModel(AutoPlay capability, bool used) : base(capability, used)

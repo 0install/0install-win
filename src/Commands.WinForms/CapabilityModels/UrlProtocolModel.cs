@@ -21,7 +21,7 @@ using ZeroInstall.Model.Capabilities;
 namespace ZeroInstall.Commands.WinForms.CapabilityModels
 {
     /// <summary>
-    /// The specialized <see cref="IconCapabilityModel"/> adds a property for the concatenation of all <see cref="UrlProtocol.KnownPrefixes"/> of an <see cref="UrlProtocol"/>.
+    /// Wraps a <see cref="UrlProtocol"/> for data binding.
     /// </summary>
     internal class UrlProtocolModel : IconCapabilityModel
     {
