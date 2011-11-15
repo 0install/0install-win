@@ -196,17 +196,17 @@ namespace ZeroInstall.Central.WinForms
             }
             catch (IOException ex)
             {
-                Log.Warn("Unable to load AppList XML:\n" + ex.Message);
+                Log.Warn("Unable to load application list XML:\n" + ex.Message);
                 newAppList = new AppList();
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Warn("Unable to load AppList XML:\n" + ex.Message);
+                Log.Warn("Unable to load application list XML:\n" + ex.Message);
                 newAppList = new AppList();
             }
             catch(InvalidDataException ex)
             {
-                Log.Warn("Unable to load AppList XML:\n" + ex.Message);
+                Log.Warn("Unable to load application list XML:\n" + ex.Message);
                 newAppList = new AppList();
             }
             #endregion
@@ -236,7 +236,7 @@ namespace ZeroInstall.Central.WinForms
                     }
                     catch (C5.DuplicateNotAllowedException)
                     {
-                        Log.Warn("Ignoring duplicate AppList entry for: " + addedEntry.InterfaceID);
+                        Log.Warn("Ignoring duplicate application list entry for: " + addedEntry.InterfaceID);
                     }
                     #endregion
                 },
@@ -274,27 +274,27 @@ namespace ZeroInstall.Central.WinForms
                 }
                 catch (InvalidInterfaceIDException ex)
                 {
-                    Log.Warn("Unable to load feed for AppList entry '" + pair.Value + "':\n" + ex.Message);
+                    Log.Warn("Unable to load feed for application list entry '" + pair.Value + "':\n" + ex.Message);
                     continue;
                 }
                 catch (IOException ex)
                 {
-                    Log.Warn("Unable to load feed for AppList entry '" + pair.Value + "':\n" + ex.Message);
+                    Log.Warn("Unable to load feed for application list entry '" + pair.Value + "':\n" + ex.Message);
                     continue;
                 }
                 catch (WebException ex)
                 {
-                    Log.Warn("Unable to load feed for AppList entry '" + pair.Value + "':\n" + ex.Message);
+                    Log.Warn("Unable to load feed for application list entry '" + pair.Value + "':\n" + ex.Message);
                     continue;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    Log.Warn("Unable to load feed for AppList entry '" + pair.Value + "':\n" + ex.Message);
+                    Log.Warn("Unable to load feed for application list entry '" + pair.Value + "':\n" + ex.Message);
                     continue;
                 }
                 catch (SignatureException ex)
                 {
-                    Log.Warn("Unable to load feed for AppList entry '" + pair.Value + "':\n" + ex.Message);
+                    Log.Warn("Unable to load feed for application list entry '" + pair.Value + "':\n" + ex.Message);
                     continue;
                 }
                 #endregion
@@ -369,7 +369,7 @@ namespace ZeroInstall.Central.WinForms
                         #region Error handling
                     catch (C5.DuplicateNotAllowedException)
                     {
-                        Log.Warn("Ignoring duplicate AppList entry for: " + addedFeed.Uri);
+                        Log.Warn("Ignoring duplicate application list entry for: " + addedFeed.Uri);
                     }
                     #endregion
                 },

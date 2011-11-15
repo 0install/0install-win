@@ -50,6 +50,10 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, bool systemWide, ITaskHandler handler)
         {
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            #endregion
+
             // Trigger exceptions in case invalid capabilities are references
             appEntry.GetCapability<Capabilities.FileType>(Capability);
         }
@@ -57,6 +61,10 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override void Unapply(AppEntry appEntry, bool systemWide)
         {
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            #endregion
+
             // Trigger exceptions in case invalid capabilities are references
             appEntry.GetCapability<Capabilities.FileType>(Capability);
         }

@@ -58,7 +58,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// List of the <see cref="CapabilityModel"/>s handled by this form.
         /// </summary>
-        private readonly C5.LinkedList<CapabilityModel> _capabilityModels = new C5.LinkedList<CapabilityModel>();
+        private readonly ICollection<CapabilityModel> _capabilityModels = new LinkedList<CapabilityModel>();
 
         /// <summary>
         /// A list of <see cref="AccessPoints.MenuEntry"/>s as displayed by the <see cref="dataGridStartMenu"/>.

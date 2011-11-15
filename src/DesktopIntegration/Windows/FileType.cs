@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -38,12 +39,15 @@ namespace ZeroInstall.DesktopIntegration.Windows
         internal const string RegKeyPrefix = "ZeroInstall.";
 
         /// <summary>Prepended before any registry purpose flags. Purpose flags indicate what a registry key was created for and whether it is still required.</summary>
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
         public const string PurposeFlagPrefix = "ZeroInstall.";
 
         /// <summary>Indicates a registry key is required by a capability.</summary>
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
         public const string PurposeFlagCapability = PurposeFlagPrefix + "Capability";
 
         /// <summary>Indicates a registry key is required by an access point.</summary>
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
         public const string PurposeFlagAccessPoint = PurposeFlagPrefix + "AccessPoint";
 
         /// <summary>The HKCU/HKLM registry key backing HKCR.</summary>
