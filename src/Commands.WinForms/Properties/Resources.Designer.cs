@@ -97,6 +97,15 @@ namespace ZeroInstall.Commands.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Integrate {0}.
+        /// </summary>
+        internal static string Integrate {
+            get {
+                return ResourceManager.GetString("Integrate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         internal static string No {

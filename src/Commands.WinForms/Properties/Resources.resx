@@ -1229,6 +1229,9 @@
   <data name="Hide" xml:space="preserve">
     <value>Hide</value>
   </data>
+  <data name="Integrate" xml:space="preserve">
+    <value>Integrate {0}</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>

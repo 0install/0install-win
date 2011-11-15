@@ -27,6 +27,7 @@ using Common.Collections;
 using Common.Controls;
 using Common.Utils;
 using ZeroInstall.Commands.WinForms.CapabilityModels;
+using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
 using AccessPoints = ZeroInstall.DesktopIntegration.AccessPoints;
@@ -104,7 +105,10 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             using (var form = new IntegrateAppForm(integrationManager, appEntry, feed))
+            {
+                form.Text = string.Format(Resources.Integrate, appEntry.Name);
                 form.ShowDialog();
+            }
         }
         #endregion
 
