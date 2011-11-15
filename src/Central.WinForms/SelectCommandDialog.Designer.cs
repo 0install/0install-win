@@ -82,6 +82,7 @@
             this.Controls.Add(this.labelDescription);
             this.Controls.Add(this.textBoxArgs);
             this.Controls.Add(this.labelArgs);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Name = "SelectCommandDialog";
             this.Load += new System.EventHandler(this.SelectCommandDialog_Load);
             this.Controls.SetChildIndex(this.buttonOK, 0);

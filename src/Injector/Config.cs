@@ -174,7 +174,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// The local key used to encrypt data before sending it to the <see cref="SyncServer"/>.
         /// </summary>
-        [DefaultValue(""), PasswordPropertyText(true), DisplayName("Sync crypto"), Description("The local key used to encrypt data before sending it to the Sync server.")]
+        [DefaultValue(""), PasswordPropertyText(true), DisplayName("Sync crypto key"), Description("The local key used to encrypt data before sending it to the Sync server.")]
         public string SyncCryptoKey { get { return _syncCryptoKey; } set { _syncCryptoKey = value; } }
 
         private bool _allowApiHooking;
