@@ -117,31 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonRun.Text" xml:space="preserve">
-    <value>Start</value>
+  <data name="labelArgs.Text" xml:space="preserve">
+    <value>&amp;Argumente:</value>
   </data>
-  <data name="buttonSelectVersion.Text" xml:space="preserve">
-    <value>&amp;Version auswählen</value>
+  <data name="labelCommand.Text" xml:space="preserve">
+    <value>&amp;Kommando:</value>
   </data>
-  <data name="buttonSelectCommand.Text" xml:space="preserve">
-    <value>&amp;Kommando auswählen</value>
-  </data>
-  <data name="buttonUpdate.Text" xml:space="preserve">
-    <value>&amp;Aktualisieren</value>
-  </data>
-  <data name="buttonConf.Text" xml:space="preserve">
-    <value>Konfig</value>
-  </data>
-  <data name="buttonRemove.Text" xml:space="preserve">
-    <value>&amp;Entfernen</value>
-  </data>
-  <data name="buttonAdd.Text" xml:space="preserve">
-    <value>Hinzuf.</value>
-  </data>
-  <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>&amp;Integrieren</value>
-  </data>
-  <data name="linkLabelDetails.Text" xml:space="preserve">
-    <value>Mehr...</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Kommand auswählen</value>
   </data>
 </root>

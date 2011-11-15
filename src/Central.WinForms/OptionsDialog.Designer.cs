@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.buttonAdvanced = new System.Windows.Forms.Button();
+            this.groupBoxSync = new System.Windows.Forms.GroupBox();
             this.SuspendLayout();
             // 
             // buttonAdvanced
@@ -41,15 +42,25 @@
             this.buttonAdvanced.UseVisualStyleBackColor = true;
             this.buttonAdvanced.Click += new System.EventHandler(this.buttonAdvanced_Click);
             // 
-            // OptionsForm
+            // groupBoxSync
+            // 
+            this.groupBoxSync.Location = new System.Drawing.Point(12, 12);
+            this.groupBoxSync.Name = "groupBoxSync";
+            this.groupBoxSync.Size = new System.Drawing.Size(200, 100);
+            this.groupBoxSync.TabIndex = 1003;
+            this.groupBoxSync.TabStop = false;
+            this.groupBoxSync.Text = "Sync";
+            // 
+            // OptionsDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.Controls.Add(this.buttonAdvanced);
-            this.Name = "OptionsForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Controls.Add(this.groupBoxSync);
+            this.Name = "OptionsDialog";
             this.Text = "Options";
+            this.Controls.SetChildIndex(this.groupBoxSync, 0);
             this.Controls.SetChildIndex(this.buttonAdvanced, 0);
             this.Controls.SetChildIndex(this.buttonOK, 0);
             this.Controls.SetChildIndex(this.buttonCancel, 0);
@@ -60,5 +71,6 @@
         #endregion
 
         private System.Windows.Forms.Button buttonAdvanced;
+        private System.Windows.Forms.GroupBox groupBoxSync;
     }
 }

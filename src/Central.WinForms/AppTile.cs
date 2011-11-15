@@ -46,6 +46,9 @@ namespace ZeroInstall.Central.WinForms
 
         /// <summary>The icon cache used to retreive icons specified in <see cref="Feed"/>; may be <see langword="null"/>.</summary>
         private readonly IIconCache _iconCache;
+
+        /// <summary>A <see cref="Feed"/> additional metadata for the application was retreived from.</summary>
+        private Feed _feed;
         #endregion
 
         #region Properties
@@ -114,7 +117,7 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Extracts relevant application metadata such as summaries and icons from a <see cref="Feed"/>.
         /// </summary>
-        /// <param name="feed">A <see cref="Feed"/> to retreive additional metadata for the application; may be <see langword="null"/>.</param>
+        /// <param name="feed">A <see cref="Feed"/> to retreive additional metadata for the application from; may be <see langword="null"/>.</param>
         /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
         public void SetFeed(Feed feed)
@@ -123,6 +126,8 @@ namespace ZeroInstall.Central.WinForms
             if (feed == null) throw new ArgumentNullException("feed");
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
+
+            _feed = feed;
 
             // Get application summary from feed
             labelSummary.Text = feed.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture);
@@ -206,9 +211,11 @@ namespace ZeroInstall.Central.WinForms
             LaunchHelperAssembly(Program.CommandsExe, "run --no-wait --gui " + StringUtils.EscapeArgument(InterfaceID));
         }
 
-        private void buttonSelectComponent_Click(object sender, EventArgs e)
+        private void buttonSelectCommmand_Click(object sender, EventArgs e)
         {
-            // ToDo: List entry points
+            string args;
+            string command = SelectCommandDialog.Show(this, _feed, out args);
+            if(command != null) LaunchHelperAssembly(Program.CommandsExe, "run --no-wait --command=" + StringUtils.EscapeArgument(command) + " " + StringUtils.EscapeArgument(InterfaceID) + " " + args);
         }
 
         private void buttonUpdate_Click(object sender, EventArgs e)

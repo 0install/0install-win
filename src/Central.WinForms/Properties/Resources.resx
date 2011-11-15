@@ -147,4 +147,7 @@ Ignore update for now</value>
     <value>Yes
 Install update</value>
   </data>
+  <data name="SelectCommand" xml:space="preserve">
+    <value>Select command for {0}</value>
+  </data>
 </root>

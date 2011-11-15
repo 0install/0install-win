@@ -70,6 +70,12 @@
     <Compile Include="AppTileList.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="SelectCommandDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectCommandDialog.Designer.cs">
+      <DependentUpon>SelectCommandDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +125,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.de.resx">
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectCommandDialog.de.resx">
+      <DependentUpon>SelectCommandDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectCommandDialog.resx">
+      <DependentUpon>SelectCommandDialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

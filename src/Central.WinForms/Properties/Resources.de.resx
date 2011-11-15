@@ -129,6 +129,9 @@
   <data name="Search" xml:space="preserve">
     <value>Suche</value>
   </data>
+  <data name="SelectCommand" xml:space="preserve">
+    <value>Kommando für {0} auswählen</value>
+  </data>
   <data name="SelfUpdateAvailable" xml:space="preserve">
     <value>Ein Update auf Zero Install v{0} ist verfügbar. Jetzt installieren? (empfohlen)</value>
   </data>

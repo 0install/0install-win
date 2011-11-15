@@ -36,7 +36,7 @@
             this.buttonRun = new Common.Controls.SplitButton();
             this.contextMenuRun = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonSelectVersion = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonSelectComponent = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonSelectCommand = new System.Windows.Forms.ToolStripMenuItem();
             this.runMenuSeperator = new System.Windows.Forms.ToolStripSeparator();
             this.buttonUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonConf = new Common.Controls.SplitButton();
@@ -85,7 +85,7 @@
             // 
             this.contextMenuRun.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonSelectVersion,
-            this.buttonSelectComponent,
+            this.buttonSelectCommand,
             this.runMenuSeperator,
             this.buttonUpdate});
             this.contextMenuRun.Name = "contextMenuRun";
@@ -97,11 +97,11 @@
             resources.ApplyResources(this.buttonSelectVersion, "buttonSelectVersion");
             this.buttonSelectVersion.Click += new System.EventHandler(this.buttonSelectVersion_Click);
             // 
-            // buttonSelectComponent
+            // buttonSelectCommand
             // 
-            resources.ApplyResources(this.buttonSelectComponent, "buttonSelectComponent");
-            this.buttonSelectComponent.Name = "buttonSelectComponent";
-            this.buttonSelectComponent.Click += new System.EventHandler(this.buttonSelectComponent_Click);
+            this.buttonSelectCommand.Name = "buttonSelectCommand";
+            resources.ApplyResources(this.buttonSelectCommand, "buttonSelectCommand");
+            this.buttonSelectCommand.Click += new System.EventHandler(this.buttonSelectCommmand_Click);
             // 
             // runMenuSeperator
             // 
@@ -216,7 +216,7 @@
         private System.ComponentModel.BackgroundWorker iconDownloadWorker;
         private System.Windows.Forms.ContextMenuStrip contextMenuRun;
         private System.Windows.Forms.ToolStripMenuItem buttonSelectVersion;
-        private System.Windows.Forms.ToolStripMenuItem buttonSelectComponent;
+        private System.Windows.Forms.ToolStripMenuItem buttonSelectCommand;
         private System.Windows.Forms.ToolStripSeparator runMenuSeperator;
         private System.Windows.Forms.ToolStripMenuItem buttonUpdate;
         private System.Windows.Forms.ContextMenuStrip contextMenuAdd;

@@ -111,6 +111,15 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select command for {0}.
+        /// </summary>
+        internal static string SelectCommand {
+            get {
+                return ResourceManager.GetString("SelectCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An update to Zero Install v{0} is available. Install now? (recommended).
         /// </summary>
         internal static string SelfUpdateAvailable {

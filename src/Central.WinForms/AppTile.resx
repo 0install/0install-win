@@ -214,31 +214,28 @@
     <value>333, 17</value>
   </metadata>
   <data name="buttonSelectVersion.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 22</value>
+    <value>163, 22</value>
   </data>
   <data name="buttonSelectVersion.Text" xml:space="preserve">
     <value>Select &amp;version</value>
   </data>
-  <data name="buttonSelectComponent.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="buttonSelectCommand.Size" type="System.Drawing.Size, System.Drawing">
+    <value>163, 22</value>
   </data>
-  <data name="buttonSelectComponent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 22</value>
-  </data>
-  <data name="buttonSelectComponent.Text" xml:space="preserve">
-    <value>Select &amp;component</value>
+  <data name="buttonSelectCommand.Text" xml:space="preserve">
+    <value>Select &amp;command</value>
   </data>
   <data name="runMenuSeperator.Size" type="System.Drawing.Size, System.Drawing">
-    <value>167, 6</value>
+    <value>160, 6</value>
   </data>
   <data name="buttonUpdate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 22</value>
+    <value>163, 22</value>
   </data>
   <data name="buttonUpdate.Text" xml:space="preserve">
     <value>&amp;Update</value>
   </data>
   <data name="contextMenuRun.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 98</value>
+    <value>164, 98</value>
   </data>
   <data name="&gt;&gt;contextMenuRun.Name" xml:space="preserve">
     <value>contextMenuRun</value>
@@ -450,10 +447,10 @@
   <data name="&gt;&gt;buttonSelectVersion.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonSelectComponent.Name" xml:space="preserve">
-    <value>buttonSelectComponent</value>
+  <data name="&gt;&gt;buttonSelectCommand.Name" xml:space="preserve">
+    <value>buttonSelectCommand</value>
   </data>
-  <data name="&gt;&gt;buttonSelectComponent.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonSelectCommand.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;runMenuSeperator.Name" xml:space="preserve">
