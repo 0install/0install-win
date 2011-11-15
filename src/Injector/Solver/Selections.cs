@@ -280,7 +280,7 @@ namespace ZeroInstall.Injector.Solver
         /// <returns>The cloned <see cref="Selections"/>.</returns>
         public Selections CloneSelections()
         {
-            var newSelections = new Selections {InterfaceID = InterfaceID};
+            var newSelections = new Selections {InterfaceID = InterfaceID, Command = Command};
             foreach (var implementation in Implementations) newSelections.Implementations.Add(implementation.CloneImplementation());
             return newSelections;
         }
@@ -301,7 +301,7 @@ namespace ZeroInstall.Injector.Solver
         {
             if (other == null) return false;
 
-            return (InterfaceID == other.InterfaceID) && Implementations.SequencedEquals(other.Implementations);
+            return (InterfaceID == other.InterfaceID) && (Command == other.Command) && Implementations.SequencedEquals(other.Implementations);
         }
 
         /// <inheritdoc/>
@@ -318,6 +318,7 @@ namespace ZeroInstall.Injector.Solver
             unchecked
             {
                 int result = (InterfaceID != null ? InterfaceID.GetHashCode() : 0);
+                if (Command != null) result = (result * 397) ^ Command.GetHashCode();
                 result = (result * 397) ^ Implementations.GetSequencedHashCode();
                 return result;
             }

@@ -38,7 +38,7 @@ namespace ZeroInstall.Injector.Solver
         {
             return new Selections
             {
-                InterfaceID = "http://0install.de/feeds/test/test1.xml", Command = Command.NameRun,
+                InterfaceID = "http://0install.de/feeds/test/test1.xml", Command = "command-name",
                 Implementations = {ImplementationSelectionTest.CreateTestImplementation1(), ImplementationSelectionTest.CreateTestImplementation2()}
             };
         }
