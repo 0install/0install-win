@@ -68,7 +68,7 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please configure sync options first..
+        ///   Looks up a localized string similar to Please configure synchronization options first..
         /// </summary>
         internal static string ConfigSyncFirst {
             get {
@@ -98,6 +98,24 @@ namespace ZeroInstall.Central.WinForms.Properties {
             get {
                 object obj = ResourceManager.GetObject("Logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was a problem loading the options..
+        /// </summary>
+        internal static string ProblemLoadingOptions {
+            get {
+                return ResourceManager.GetString("ProblemLoadingOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was a problem saving the options..
+        /// </summary>
+        internal static string ProblemSavingOptions {
+            get {
+                return ResourceManager.GetString("ProblemSavingOptions", resourceCulture);
             }
         }
         

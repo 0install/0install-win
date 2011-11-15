@@ -17,11 +17,13 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using Common;
 using Common.Controls;
 using Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
+using ZeroInstall.Injector;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -32,6 +34,76 @@ namespace ZeroInstall.Central.WinForms
             InitializeComponent();
         }
 
+        private void OptionsDialog_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                // Fill fields with data from config
+                var config = Config.Load();
+                textBoxSyncUsername.Text = config.SyncServerUsername;
+                textBoxSyncPassword.Text = config.SyncServerPassword;
+                textBoxSyncCryptoKey.Text = config.SyncCryptoKey;
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
+            }
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
+            }
+            #endregion
+        }
+
+        private void buttonAdvanced_Click(object sender, EventArgs e)
+        {
+            LaunchHelperAssembly(Program.CommandsExe, "config");
+            Close();
+        }
+
+        private void linkSyncRegister_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+        {
+            OpenInBrowser("http://0install.de/sync/register");
+        }
+
+        private void buttonSyncCryptoKey_Click(object sender, EventArgs e)
+        {
+            Msg.Inform(this, "The crypto key is used to encrypt your data locally before transmitting it to the server.\nKeep this key safe and use something different for your password. This way nobody can access your data, even if your connection or the server were to be compromised.", MsgSeverity.Info);
+        }
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Write data from fields back to config
+                var config = Config.Load();
+                config.SyncServerUsername = textBoxSyncUsername.Text;
+                config.SyncServerPassword = textBoxSyncPassword.Text;
+                config.SyncCryptoKey = textBoxSyncCryptoKey.Text;
+                config.Save();
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(this, Resources.ProblemSavingOptions + "\n" + ex.Message, MsgSeverity.Error);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, Resources.ProblemSavingOptions + "\n" + ex.Message, MsgSeverity.Error);
+            }
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(this, Resources.ProblemSavingOptions + "\n" + ex.Message, MsgSeverity.Error);
+            }
+            #endregion
+        }
+
+        #region Helpers
         /// <summary>
         /// Attempts to launch a .NET helper assembly in the application's base directory. Displays friendly error messages if something goes wrong.
         /// </summary>
@@ -59,10 +131,31 @@ namespace ZeroInstall.Central.WinForms
             #endregion
         }
 
-        private void buttonAdvanced_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Opens a URL in the system's default browser.
+        /// </summary>
+        /// <param name="url">The URL to open.</param>
+        private void OpenInBrowser(string url)
         {
-            LaunchHelperAssembly(Program.CommandsExe, "config");
-            Close();
+            #region Sanity checks
+            if (string.IsNullOrEmpty(url)) throw new ArgumentNullException("url");
+            #endregion
+
+            try
+            {
+                Process.Start(url);
+            }
+                #region Error handling
+            catch (FileNotFoundException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (Win32Exception ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
         }
+        #endregion
     }
 }
