@@ -266,12 +266,10 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Integrates all <see cref="Capabilities.Capability"/>s chosen by the user.
         /// </summary>
-        /// <param name="sender">not used.</param>
-        /// <param name="e">not used.</param>
         private void buttonOK_Click(object sender, EventArgs e)
         {
             // Hide so that the underlying progress tracker is visible
-            Hide();
+            Visible = false;
 
             var toAdd = new C5.LinkedList<AccessPoints.AccessPoint>();
             var toRemove = new C5.LinkedList<AccessPoints.AccessPoint>();
@@ -289,29 +287,45 @@ namespace ZeroInstall.Commands.WinForms
             }
                 #region Error handling
             catch (UserCancelException)
-            {}
+            {
+                Visible = true; // Allow user to fix input
+                return;
+            }
             catch (InvalidDataException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                Visible = true; // Allow user to fix input
+                return;
             }
             catch (WebException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                Visible = true; // Allow user to fix input
+                return;
             }
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                Visible = true; // Allow user to fix input
+                return;
             }
             catch (UnauthorizedAccessException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                Visible = true; // Allow user to fix input
+                return;
             }
             catch (InvalidOperationException ex)
             {
                 // ToDo: More comprehensive conflict handling
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                Visible = true; // Allow user to fix input
+                return;
             }
             #endregion
+
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         /// <summary>

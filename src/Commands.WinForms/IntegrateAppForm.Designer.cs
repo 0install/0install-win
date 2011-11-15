@@ -107,6 +107,7 @@
             // 
             // buttonOK
             // 
+            this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.None;
             this.buttonOK.Location = new System.Drawing.Point(306, 258);
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
