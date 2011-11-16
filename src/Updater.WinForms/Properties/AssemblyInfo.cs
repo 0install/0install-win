@@ -8,14 +8,7 @@ using System.Security.Permissions;
 [assembly: AssemblyTitle("Zero Install Updater WinForms GUI")]
 [assembly: AssemblyDescription("A GUI for updating existing Zero Install installations.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("0install.de")]
-[assembly: AssemblyProduct("Zero Install")]
 [assembly: AssemblyCopyright("Copyright 2010-2011 Bastian Eicher")]
-[assembly: NeutralResourcesLanguage("en")]
-
-// Version information
-[assembly: AssemblyVersion("1.0.5")]
-[assembly: AssemblyFileVersion("1.0.5")]
 
 // Security settings
 [assembly: FileIOPermission(SecurityAction.RequestMinimum, Unrestricted = true)]

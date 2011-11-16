@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Executor.Bindings.cs" />
     <Compile Include="Executor.CommandLine.cs" />

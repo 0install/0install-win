@@ -64,6 +64,7 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfo.Tools.cs" />
     <Compile Include="Controls\ArchiveControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

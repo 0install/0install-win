@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="CapabilityModels\AutoPlayModel.cs" />
     <Compile Include="CapabilityModels\CapabilityModel.cs" />
     <Compile Include="CapabilityModels\ContextMenuModel.cs" />

@@ -76,6 +76,7 @@
     <Reference Include="Mono.Posix" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="MainWindow.cs" />
     <Compile Include="gtk-gui\MainWindow.cs" />

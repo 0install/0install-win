@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfo.Tools.cs" />
     <Compile Include="CaptureDir.AppRegistration.cs" />
     <Compile Include="CaptureDir.AutoPlay.cs" />
     <Compile Include="CaptureDir.Commands.cs" />

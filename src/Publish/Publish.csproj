@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfo.Tools.cs" />
     <Compile Include="Commands\FeedCommand.cs" />
     <Compile Include="FeedEditing.cs" />
     <Compile Include="FeedUtils.cs" />

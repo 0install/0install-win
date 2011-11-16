@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="AddAlias.cs" />
     <Compile Include="AddApp.cs" />
     <Compile Include="AddFeed.cs" />

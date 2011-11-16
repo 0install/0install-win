@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="ImplementationFetch.cs" />
     <Compile Include="RetrievalMethodRanker.cs" />
     <Compile Include="FetcherProvider.cs" />

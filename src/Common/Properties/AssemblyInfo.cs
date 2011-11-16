@@ -7,14 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Common functions")]
 [assembly: AssemblyDescription("Generic utility classes, interfaces, WinForms controls, etc. that are applicable to a wide range of different applications.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("0install.de")]
-[assembly: AssemblyProduct("Helper functions")]
 [assembly: AssemblyCopyright("Copyright 2006-2011 Bastian Eicher")]
-[assembly: NeutralResourcesLanguage("en")]
-
-// Always default version
-[assembly: AssemblyVersion("1.1.2")]
-[assembly: AssemblyFileVersion("1.1.2")]
 
 // Security settings
 [assembly: CLSCompliant(true)]

@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="Architecture.cs" />
     <Compile Include="Capabilities\AppRegistration.cs" />
     <Compile Include="Capabilities\AutoPlayEvent.cs" />

@@ -7,14 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Zero Install Capture Library")]
 [assembly: AssemblyDescription("Shared code for system state capturing tools (build feeds from installation snapshots).")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("0install.de")]
-[assembly: AssemblyProduct("Zero Install")]
 [assembly: AssemblyCopyright("Copyright 2011 Bastian Eicher")]
-[assembly: NeutralResourcesLanguage("en")]
-
-// Version information
-[assembly: AssemblyVersion("1.1.2")]
-[assembly: AssemblyFileVersion("1.1.2")]
 
 // Security settings
 [assembly: CLSCompliant(true)]

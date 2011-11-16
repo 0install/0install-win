@@ -7,14 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Zero Install Central Library")]
 [assembly: AssemblyDescription("Contains helper code for applications that wish to provide a general-purpose Zero Install GUI.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("0install.de")]
-[assembly: AssemblyProduct("Zero Install")]
 [assembly: AssemblyCopyright("Copyright 2010-2011 Bastian Eicher")]
-[assembly: NeutralResourcesLanguage("en")]
-
-// Version information
-[assembly: AssemblyVersion("1.1.2")]
-[assembly: AssemblyFileVersion("1.1.2")]
 
 // Security settings
 [assembly: CLSCompliant(true)]

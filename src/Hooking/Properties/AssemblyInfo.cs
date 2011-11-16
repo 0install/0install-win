@@ -7,14 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Zero Install Desktop Integration Hooking Library")]
 [assembly: AssemblyDescription("This library is injected into other processes in order to hook system API calls (ensuring proper desktop integration).")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("0install.de")]
-[assembly: AssemblyProduct("Zero Install")]
 [assembly: AssemblyCopyright("Copyright 2010-2011 Bastian Eicher")]
-[assembly: NeutralResourcesLanguage("en")]
-
-// Version information
-[assembly: AssemblyVersion("1.1.1")]
-[assembly: AssemblyFileVersion("1.1.1")]
 
 // Security settings
 [assembly: CLSCompliant(false)]
