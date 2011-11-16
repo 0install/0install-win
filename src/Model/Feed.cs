@@ -231,14 +231,12 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Strips the feed down to the bare minimum metadata removing specific <see cref="Implementation"/>s.
+        /// Strips the feed down to the application metadata removing specific <see cref="Implementation"/>s.
         /// </summary>
         public void Strip()
         {
             // ToDo: Extract supported architectures
             Elements.Clear();
-
-            EntryPoints.Clear();
 
             // ToDo: Extract supported file types
             CapabilityLists.Clear();
