@@ -447,6 +447,7 @@ namespace ZeroInstall.Model
             feed.Categories.AddAll(Categories);
             feed.Icons.AddAll(Icons);
             foreach (var element in Elements) feed.Elements.Add(element.CloneElement());
+            foreach (var entryPoint in EntryPoints) feed.EntryPoints.Add(entryPoint.CloneEntryPoint());
             foreach (var capabilityList in CapabilityLists) feed.CapabilityLists.Add(capabilityList.CloneCapabilityList());
 
             return feed;
@@ -489,6 +490,7 @@ namespace ZeroInstall.Model
             if (!Categories.SequencedEquals(other.Categories)) return false;
             if (!Icons.SequencedEquals(other.Icons)) return false;
             if (!Elements.SequencedEquals(other.Elements)) return false;
+            if (!EntryPoints.SequencedEquals(other.EntryPoints)) return false;
             if (!CapabilityLists.SequencedEquals(other.CapabilityLists)) return false;
             return true;
         }
@@ -517,6 +519,7 @@ namespace ZeroInstall.Model
                 result = (result * 397) ^ Categories.GetSequencedHashCode();
                 result = (result * 397) ^ Icons.GetSequencedHashCode();
                 result = (result * 397) ^ Elements.GetSequencedHashCode();
+                result = (result * 397) ^ EntryPoints.GetSequencedHashCode();
                 result = (result * 397) ^ CapabilityLists.GetSequencedHashCode();
                 return result;
             }

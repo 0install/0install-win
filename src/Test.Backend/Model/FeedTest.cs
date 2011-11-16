@@ -206,7 +206,6 @@ namespace ZeroInstall.Model
             feed.Strip();
 
             CollectionAssert.IsEmpty(feed.Elements);
-            CollectionAssert.IsEmpty(feed.EntryPoints);
             CollectionAssert.IsEmpty(feed.CapabilityLists);
             CollectionAssert.IsEmpty(feed.UnknownAttributes);
             CollectionAssert.IsEmpty(feed.UnknownElements);
