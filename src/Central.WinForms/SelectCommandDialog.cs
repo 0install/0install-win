@@ -106,7 +106,7 @@ namespace ZeroInstall.Central.WinForms
         {
             // Display entry point description
             var entryPoint = comboBoxCommand.SelectedItem as EntryPointWrapper;
-            if (entryPoint != null) labelDescription.Text = entryPoint.Element.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture);
+            if (entryPoint != null) labelSummary.Text = entryPoint.Element.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture);
         }
         #endregion
     }

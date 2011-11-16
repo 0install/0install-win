@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectCommandDialog));
             this.comboBoxCommand = new System.Windows.Forms.ComboBox();
-            this.labelDescription = new System.Windows.Forms.Label();
+            this.labelSummary = new System.Windows.Forms.Label();
             this.textBoxArgs = new System.Windows.Forms.TextBox();
             this.labelArgs = new System.Windows.Forms.Label();
             this.labelCommand = new System.Windows.Forms.Label();
@@ -53,10 +53,10 @@
             this.comboBoxCommand.Name = "comboBoxCommand";
             this.comboBoxCommand.SelectedIndexChanged += new System.EventHandler(this.comboBoxCommand_SelectedIndexChanged);
             // 
-            // labelDescription
+            // labelSummary
             // 
-            resources.ApplyResources(this.labelDescription, "labelDescription");
-            this.labelDescription.Name = "labelDescription";
+            resources.ApplyResources(this.labelSummary, "labelSummary");
+            this.labelSummary.Name = "labelSummary";
             // 
             // textBoxArgs
             // 
@@ -79,7 +79,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.labelCommand);
             this.Controls.Add(this.comboBoxCommand);
-            this.Controls.Add(this.labelDescription);
+            this.Controls.Add(this.labelSummary);
             this.Controls.Add(this.textBoxArgs);
             this.Controls.Add(this.labelArgs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
@@ -88,7 +88,7 @@
             this.Controls.SetChildIndex(this.buttonOK, 0);
             this.Controls.SetChildIndex(this.labelArgs, 0);
             this.Controls.SetChildIndex(this.textBoxArgs, 0);
-            this.Controls.SetChildIndex(this.labelDescription, 0);
+            this.Controls.SetChildIndex(this.labelSummary, 0);
             this.Controls.SetChildIndex(this.comboBoxCommand, 0);
             this.Controls.SetChildIndex(this.buttonCancel, 0);
             this.Controls.SetChildIndex(this.labelCommand, 0);
@@ -100,7 +100,7 @@
         #endregion
 
         private System.Windows.Forms.ComboBox comboBoxCommand;
-        private System.Windows.Forms.Label labelDescription;
+        private System.Windows.Forms.Label labelSummary;
         private System.Windows.Forms.TextBox textBoxArgs;
         private System.Windows.Forms.Label labelArgs;
         private System.Windows.Forms.Label labelCommand;
