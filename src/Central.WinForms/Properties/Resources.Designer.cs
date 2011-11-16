@@ -165,5 +165,15 @@ namespace ZeroInstall.Central.WinForms.Properties {
                 return ResourceManager.GetString("SelfUpdateYes", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The crypto key is used to encrypt your data locally before transmitting it to the server.
+        ///Keep this key secret and use something different for your password. This way nobody can access your data, even if your connection or the server were to be compromised..
+        /// </summary>
+        internal static string SyncCryptoKeyDescription {
+            get {
+                return ResourceManager.GetString("SyncCryptoKeyDescription", resourceCulture);
+            }
+        }
     }
 }

@@ -156,4 +156,8 @@ Ignore update for now</value>
     <value>Yes
 Install update</value>
   </data>
+  <data name="SyncCryptoKeyDescription" xml:space="preserve">
+    <value>The crypto key is used to encrypt your data locally before transmitting it to the server.
+Keep this key secret and use something different for your password. This way nobody can access your data, even if your connection or the server were to be compromised.</value>
+  </data>
 </root>

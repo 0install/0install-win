@@ -84,9 +84,8 @@
             // 
             // linkSyncAccount
             // 
-            this.linkSyncAccount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linkSyncAccount.AutoSize = true;
-            this.linkSyncAccount.Location = new System.Drawing.Point(143, 68);
+            this.linkSyncAccount.Location = new System.Drawing.Point(121, 68);
             this.linkSyncAccount.Name = "linkSyncAccount";
             this.linkSyncAccount.Size = new System.Drawing.Size(88, 13);
             this.linkSyncAccount.TabIndex = 6;

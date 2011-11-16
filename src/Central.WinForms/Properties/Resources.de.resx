@@ -149,4 +149,8 @@ Update vorerst ignorieren</value>
     <value>Ja
 Update installieren</value>
   </data>
+  <data name="SyncCryptoKeyDescription" xml:space="preserve">
+    <value>Der Crypto-Schlüssel wird verwendet, um Ihre Daten lokal zu verschlüsseln, bevor sie an den Server übermittelt werden.
+Halten Sie diesen Schlüssel geheim und verwenden Sie etwas anderes für Ihr Passwort. Auf diese Weise kann niemand auf Ihre Daten zugreifen, selbst wenn Ihre Verbindung oder der Server kompromittiert werden.</value>
+  </data>
 </root>

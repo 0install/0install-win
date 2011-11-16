@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Windows.Forms;
 using Common;
 using Common.Controls;
 using Common.Utils;
@@ -66,19 +67,53 @@ namespace ZeroInstall.Central.WinForms
             Close();
         }
 
-        private void linkSyncRegister_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+        private void linkSyncRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            OpenInBrowser("http://0install.de/sync/register");
+            try
+            {
+                OpenInBrowser(Config.Load().SyncServer + "register");
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
+            }
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
+            }
+            #endregion
         }
 
-        private void linkSyncAccount_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+        private void linkSyncAccount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            OpenInBrowser("http://0install.de/sync/account");
+            try
+            {
+                OpenInBrowser(Config.Load().SyncServer + "account");
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
+            }
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
+            }
+            #endregion
         }
 
         private void buttonSyncCryptoKey_Click(object sender, EventArgs e)
         {
-            Msg.Inform(this, "The crypto key is used to encrypt your data locally before transmitting it to the server.\nKeep this key safe and use something different for your password. This way nobody can access your data, even if your connection or the server were to be compromised.", MsgSeverity.Info);
+            Msg.Inform(this, Resources.SyncCryptoKeyDescription, MsgSeverity.Info);
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
