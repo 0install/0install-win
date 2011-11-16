@@ -26,7 +26,6 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
-using System.Threading;
 using System.Windows.Forms;
 using Common.Properties;
 using Common.Storage;
@@ -78,21 +77,15 @@ namespace Common.Controls
 
         #region Static access
         /// <summary>
-        /// Runs a delegate, catching and reporting any unhandled exceptions that occur inside.
+        /// Runs a delegate, catching and reporting any unhandled exceptions that occur while it is executing.
         /// </summary>
         /// <param name="run">The delegate to run.</param>
         /// <param name="uploadUri">The URI to upload error reports to.</param>
-        /// <returns><see langword="true"/> if <paramref name="run"/> was executed successfully; <see langword="false"/> if an exception was caught.</returns>
+        /// <returns><see langword="true"/> if <paramref name="run"/> executed without throwing exceptions; <see langword="false"/> if an exception was caught.</returns>
         /// <remarks>
-        ///   <para>
-        ///     If an exception is caught on a <see cref="System.Windows.Forms"/> thread any remaining <see cref="Form"/>s are closed in the hopes this will end <paramref name="run"/>.
-        ///     Such exceptions can only be reported once the <see cref="System.Windows.Forms"/> message loop has ended.
-        ///   </para>
-        ///   <para>
-        ///     If an exception is caught on a background thread any remaing <see cref="System.Windows.Forms"/> threads will continue to execute until the error has been reported.
-        ///     Then the entire process is terminated.
-        ///   </para>
+        /// If an exception is caught on an additional thread any remaining threads will continue to execute until the error has been reported. Then the entire process will be terminated.
         /// </remarks>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "We want to report unhandled exceptions of any type")]
         [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "If the actual exception is unknown the generic top-level Exception is the most appropriate")]
         public static bool RunAppMonitored(SimpleEventHandler run, Uri uploadUri)
         {
@@ -101,47 +94,27 @@ namespace Common.Controls
             if (uploadUri == null) throw new ArgumentNullException("uploadUri");
             #endregion
 
-            // Catch exceptions in WinForms threads
-            Exception delayedException = null;
-            ThreadExceptionEventHandler winFormsHandler = delegate(object sender, ThreadExceptionEventArgs e)
-            {
-                // Can only report exception after the message loop has terminated
-                delayedException = e.Exception;
-
-                // Cause the message loop to end by closing all forms
-                while (Application.OpenForms.Count > 0)
-                    Application.OpenForms[0].Close();
-            };
-
-            // Catch exceptions in background threads
-            UnhandledExceptionEventHandler backgroundHandler = delegate(object sender, UnhandledExceptionEventArgs e)
+            // Catch exceptions on additional threads
+            UnhandledExceptionEventHandler exceptionHandler = delegate(object sender, UnhandledExceptionEventArgs e)
             {
                 Report((e.ExceptionObject as Exception) ?? new Exception("Unknown error"), uploadUri);
 
-                // Normally a background exception would only kill a single thread, but we want the whole application to end to be on the safe side
+                // Kill any remaining threads
                 Process.GetCurrentProcess().Kill();
             };
 
-            // Activate WinForms exception handling
+            AppDomain.CurrentDomain.UnhandledException += exceptionHandler;
             try
             {
-                Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+                run();
             }
-            catch (InvalidOperationException)
-            {}
-
-            Application.ThreadException += winFormsHandler;
-            AppDomain.CurrentDomain.UnhandledException += backgroundHandler;
-            run();
-            AppDomain.CurrentDomain.UnhandledException -= backgroundHandler;
-            Application.ThreadException -= winFormsHandler;
-
-            // Report exceptions from WinForms threads
-            if (delayedException != null)
+            // Catch exceptions on the main thread
+            catch (Exception ex)
             {
-                Report(delayedException, uploadUri);
+                Report(ex, uploadUri);
                 return false;
             }
+            AppDomain.CurrentDomain.UnhandledException -= exceptionHandler;
 
             return true;
         }
