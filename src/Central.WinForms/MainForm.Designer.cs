@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControlApps = new System.Windows.Forms.TabControl();
             this.tabPageAppList = new System.Windows.Forms.TabPage();
@@ -46,6 +47,7 @@
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.appListWatcher = new System.IO.FileSystemWatcher();
             this.appListWorker = new System.ComponentModel.BackgroundWorker();
+            this.appListTimer = new System.Windows.Forms.Timer(this.components);
             this.tabControlApps.SuspendLayout();
             this.tabPageAppList.SuspendLayout();
             this.tabPageCatalog.SuspendLayout();
@@ -165,6 +167,12 @@
             // 
             this.appListWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.feedLoadWorker_DoWork);
             // 
+            // appListTimer
+            // 
+            this.appListTimer.Enabled = true;
+            this.appListTimer.Interval = 2500;
+            this.appListTimer.Tick += new System.EventHandler(this.appListTimer_Tick);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -207,6 +215,7 @@
         private System.IO.FileSystemWatcher appListWatcher;
         private System.Windows.Forms.Button buttonSync;
         private System.ComponentModel.BackgroundWorker appListWorker;
+        private System.Windows.Forms.Timer appListTimer;
 
     }
 }

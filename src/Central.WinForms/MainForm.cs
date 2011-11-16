@@ -310,6 +310,11 @@ namespace ZeroInstall.Central.WinForms
             if (e.ChangeType != WatcherChangeTypes.Deleted && e.FullPath == AppList.GetDefaultPath(false))
                 LoadAppListAsync();
         }
+
+        private void appListTimer_Tick(object sender, EventArgs e)
+        {
+            LoadAppListAsync();
+        }
         #endregion
 
         #region Catalog
