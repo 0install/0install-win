@@ -139,9 +139,10 @@ namespace ZeroInstall.Commands.WinForms
         /// <inheritdoc/>
         public void DisableProgressUI()
         {
-            // If GUI doesn't even exist cancel, otherwise wait until it's ready
+            // If GUI does not exist or was closed cancel, otherwise wait until it is ready
             if (_form == null) return;
             _guiReady.WaitOne();
+            if (!_form.IsHandleCreated) return;
 
             _form.Invoke((SimpleEventHandler)(() => { _form.Enabled = false; }));
         }
@@ -149,9 +150,10 @@ namespace ZeroInstall.Commands.WinForms
         /// <inheritdoc/>
         public void CloseProgressUI()
         {
-            // If GUI doesn't even exist cancel, otherwise wait until it's ready
+            // If GUI does not exist or was closed cancel, otherwise wait until it is ready
             if (_form == null) return;
             _guiReady.WaitOne();
+            if (!_form.IsHandleCreated) return;
 
             _form.Invoke((SimpleEventHandler)_form.HideTrayIcon);
             _form = null;
@@ -168,9 +170,10 @@ namespace ZeroInstall.Commands.WinForms
             if (string.IsNullOrEmpty(question)) throw new ArgumentNullException("question");
             #endregion
 
-            // If GUI doesn't even exist cancel, otherwise wait until it's ready
-            if (_form == null) return false;
+            // If GUI does not exist or was closed cancel, otherwise wait until it is ready
+            if (_form ==  null) return false;
             _guiReady.WaitOne();
+            if (!_form.IsHandleCreated) return false;
 
             // Handle events coming from a non-UI thread, block caller until user has answered
             bool result = false;
@@ -206,11 +209,12 @@ namespace ZeroInstall.Commands.WinForms
             if (feedCache == null) throw new ArgumentNullException("feedCache");
             #endregion
 
-            // If GUI doesn't even exist cancel, otherwise wait until it's ready
+            // If GUI does exist cancel, otherwise wait until it is ready
             if (_form == null) return;
             _guiReady.WaitOne();
+            if (!_form.IsHandleCreated) return;
 
-            _form.Invoke(new SimpleEventHandler(() => _form.ShowSelections(selections, feedCache)));
+            // If GUI does not exist or was closed cancel, otherwise wait until it is ready
         }
 
         /// <inheritdoc/>
@@ -220,9 +224,10 @@ namespace ZeroInstall.Commands.WinForms
             if (solveCallback == null) throw new ArgumentNullException("solveCallback");
             #endregion
 
-            // If GUI doesn't even exist cancel, otherwise wait until it's ready
+            // If GUI does not exist or was closed cancel, otherwise wait until it is ready
             if (_form == null) return;
             _guiReady.WaitOne();
+            if (!_form.IsHandleCreated) return;
 
             // Show selection auditing screen and then asynchronously wait until its done
             _form.Invoke(new SimpleEventHandler(() => _form.BeginAuditSelections(solveCallback, _auditWaitHandle)));
