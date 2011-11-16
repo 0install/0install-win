@@ -45,7 +45,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         private string GetWindowsShortcutPath(bool systemWide)
         {
-            if (Name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
+            if (string.IsNullOrEmpty(Name) || Name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
                 throw new IOException(string.Format(Resources.NameInvalidChars, Name));
 
             string desktopDir = systemWide

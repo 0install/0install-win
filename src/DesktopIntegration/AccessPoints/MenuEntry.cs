@@ -66,7 +66,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <summary>The file path for the Windows shortcut file.</summary>
         private string GetWindowsShortcutPath(bool systemWide)
         {
-            if (Name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
+            if (string.IsNullOrEmpty(Name) || Name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
                 throw new IOException(string.Format(Resources.NameInvalidChars, Name));
 
             return Path.Combine(GetWindowsCategoryPath(systemWide), Name + ".lnk");
