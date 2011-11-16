@@ -215,7 +215,7 @@ namespace ZeroInstall.Central.WinForms
         private void buttonSelectCommmand_Click(object sender, EventArgs e)
         {
             string args;
-            string command = SelectCommandDialog.Show(this, _feed, out args);
+            string command = SelectCommandDialog.ShowDialog(this, _feed, out args);
             if(command != null) LaunchHelperAssembly(Program.CommandsExe, "run --no-wait --command=" + StringUtils.EscapeArgument(command) + " " + StringUtils.EscapeArgument(InterfaceID) + " " + args);
         }
 

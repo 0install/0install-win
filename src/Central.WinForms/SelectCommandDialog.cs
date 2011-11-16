@@ -56,7 +56,7 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="feed">The <see cref="Feed"/> containing <see cref="EntryPoint"/>s with information about available <see cref="Command"/>s.</param>
         /// <param name="args">Returns additional command-line arguments specified by the user.</param>
         /// <returns>The <see cref="EntryPoint.Command"/> the user selected if she pressed OK; otherwise <see langword="null"/>.</returns>
-        public static string Show(IWin32Window owner, Feed feed, out string args)
+        public static string ShowDialog(IWin32Window owner, Feed feed, out string args)
         {
             #region Sanity checks
             if (feed == null) throw new ArgumentNullException("feed");
