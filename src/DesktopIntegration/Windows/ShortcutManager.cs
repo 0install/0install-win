@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Model;
@@ -55,7 +56,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             var entryPoint = target.Feed.GetEntryPoint(command ?? Command.NameRun);
             bool needsTerminal = target.Feed.NeedsTerminal || (entryPoint != null && entryPoint.NeedsTerminal);
-            shortcut.TargetPath = needsTerminal ? "0install.exe" : "0install-win.exe";
+            shortcut.TargetPath = Path.Combine(Locations.InstallBase, needsTerminal ? "0install.exe" : "0install-win.exe");
 
             string arguments = "run ";
             if (!needsTerminal) arguments += "--no-wait ";

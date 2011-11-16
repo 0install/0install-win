@@ -72,7 +72,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             bool needsTerminal = target.Feed.NeedsTerminal || (entryPoint != null && entryPoint.NeedsTerminal);
 
             // Load the template code and insert variables
-            string code = GetEmbeddedResource("Stub.template").Replace("[EXE]", needsTerminal ? "0install.exe" : "0install-win.exe");
+            string code = GetEmbeddedResource("Stub.template").Replace("[EXE]",  Path.Combine(Locations.InstallBase, needsTerminal ? "0install.exe" : "0install-win.exe"));
             code = code.Replace("[ARGUMENTS]", EscapeForCode(args));
             code = code.Replace("[TITLE]", EscapeForCode(target.Feed.GetName(CultureInfo.CurrentUICulture, command)));
 
