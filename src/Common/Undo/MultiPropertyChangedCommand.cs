@@ -31,6 +31,7 @@ namespace Common.Undo
     /// <summary>
     /// An undo command that handles multiple changed properties - usually used with a <see cref="PropertyGrid"/>.
     /// </summary>
+    /// <seealso cref="MultiPropertyTracker"/>
     public class MultiPropertyChangedCommand : PreExecutedCommand
     {
         #region Variables
@@ -67,12 +68,12 @@ namespace Common.Undo
         /// Initializes the command after the property was first changed.
         /// </summary>
         /// <param name="targets">The objects the <see cref="PropertyGrid.SelectedObject"/> is target at.</param>
-        /// <param name="e">The event data from the <see cref="PropertyGrid.PropertyValueChanged"/>.</param>
+        /// <param name="gridItem">The grid item representing the property being changed.</param>
         /// <param name="oldValues">The property's old values.</param>
         [SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "The arguments are passed on to a different overload of the constructor")]
         [SuppressMessage("Microsoft.Security", "CA2109:ReviewVisibleEventHandlers", Justification = "This is simply a comfort wrapper for extracting values from the event arguments")]
-        public MultiPropertyChangedCommand(object[] targets, PropertyValueChangedEventArgs e, object[] oldValues)
-            : this(targets, e.ChangedItem.PropertyDescriptor, oldValues, e.ChangedItem.Value)
+        public MultiPropertyChangedCommand(object[] targets, GridItem gridItem, object[] oldValues)
+            : this(targets, gridItem.PropertyDescriptor, oldValues, gridItem.Value)
         {}
         #endregion
 
