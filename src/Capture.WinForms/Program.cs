@@ -41,7 +41,7 @@ namespace ZeroInstall.Capture.WinForms
 #if DEBUG
             Application.Run(new MainForm());
 #else
-            ErrorReportForm.RunAppMonitored(() => Application.Run(new MainForm()), new Uri("http://0install.de/error-report/"));
+            ErrorReportForm.RunMonitored(() => Application.Run(new MainForm()), new Uri("http://0install.de/error-report/"));
 #endif
         }
     }

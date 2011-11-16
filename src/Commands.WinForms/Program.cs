@@ -76,7 +76,7 @@ namespace ZeroInstall.Commands.WinForms
             if (args.Length == 0) args = new[] {"--help"};
 
 #if !DEBUG
-            ErrorReportForm.RunAppMonitored(delegate
+            ErrorReportForm.RunMonitored(delegate
 #endif
             {
                 var handler = new GuiHandler();

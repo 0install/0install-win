@@ -45,7 +45,7 @@ namespace ZeroInstall.Publish.WinForms
 #if DEBUG
             Run(args);
 #else
-            ErrorReportForm.RunAppMonitored(() => Run(args), new Uri("http://0install.de/error-report/"));
+            ErrorReportForm.RunMonitored(() => Run(args), new Uri("http://0install.de/error-report/"));
 #endif
         }
 

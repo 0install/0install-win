@@ -22,7 +22,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
@@ -81,13 +80,12 @@ namespace Common.Controls
         /// </summary>
         /// <param name="run">The delegate to run.</param>
         /// <param name="uploadUri">The URI to upload error reports to.</param>
-        /// <returns><see langword="true"/> if <paramref name="run"/> executed without throwing exceptions; <see langword="false"/> if an exception was caught.</returns>
         /// <remarks>
         /// If an exception is caught on an additional thread any remaining threads will continue to execute until the error has been reported. Then the entire process will be terminated.
         /// </remarks>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "We want to report unhandled exceptions of any type")]
         [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "If the actual exception is unknown the generic top-level Exception is the most appropriate")]
-        public static bool RunAppMonitored(SimpleEventHandler run, Uri uploadUri)
+        public static void RunMonitored(SimpleEventHandler run, Uri uploadUri)
         {
             #region Sanity checks
             if (run == null) throw new ArgumentNullException("run");
@@ -108,15 +106,12 @@ namespace Common.Controls
             {
                 run();
             }
-            // Catch exceptions on the main thread
             catch (Exception ex)
             {
+                // Catch exceptions on the main thread
                 Report(ex, uploadUri);
-                return false;
             }
             AppDomain.CurrentDomain.UnhandledException -= exceptionHandler;
-
-            return true;
         }
 
         /// <summary>

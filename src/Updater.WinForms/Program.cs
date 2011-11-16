@@ -71,7 +71,7 @@ namespace ZeroInstall.Updater.WinForms
 #if DEBUG
             Application.Run(new MainForm(updateProcess, rerun));
 #else
-            ErrorReportForm.RunAppMonitored(() => Application.Run(new MainForm(updateProcess, rerun)), new Uri("http://0install.de/error-report/"));
+            ErrorReportForm.RunMonitored(() => Application.Run(new MainForm(updateProcess, rerun)), new Uri("http://0install.de/error-report/"));
 #endif
         }
     }
