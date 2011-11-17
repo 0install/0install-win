@@ -26,6 +26,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
+using System.Threading;
 using System.Windows.Forms;
 using Common.Properties;
 using Common.Storage;
@@ -82,7 +83,7 @@ namespace Common.Controls
         /// <param name="run">The delegate to run.</param>
         /// <param name="uploadUri">The URI to upload error reports to.</param>
         /// <remarks>
-        /// If an exception is caught on an additional thread any remaining threads will continue to execute until the error has been reported. Then the entire process will be terminated.
+        /// If an exception is caught any remaining threads will continue to execute until the error has been reported. Then the entire process will be terminated.
         /// </remarks>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "We want to report unhandled exceptions of any type")]
         [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "If the actual exception is unknown the generic top-level Exception is the most appropriate")]
@@ -97,29 +98,43 @@ namespace Common.Controls
             UnhandledExceptionEventHandler exceptionHandler = delegate(object sender, UnhandledExceptionEventArgs e)
             {
                 Report((e.ExceptionObject as Exception) ?? new Exception("Unknown error"), uploadUri);
-
-                // Kill any remaining threads
                 Process.GetCurrentProcess().Kill();
             };
 
+            // Catch exceptions on WinForms threads sooner (otherwise they might upset intermediate native code)
+            ThreadExceptionEventHandler winFormsHandler = delegate(object sender, ThreadExceptionEventArgs e)
+            {
+                Report(e.Exception ?? new Exception("Unknown error"), uploadUri);
+                Process.GetCurrentProcess().Kill();
+            };
+            try
+            {
+                Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            }
+            catch (InvalidOperationException)
+            {}
+
+            Application.ThreadException += winFormsHandler;
             AppDomain.CurrentDomain.UnhandledException += exceptionHandler;
             try
             {
                 run();
             }
             catch (Exception ex)
-            {
-                // Catch exceptions on the main thread
+            { // Catch exceptions on the main thread
                 Report(ex, uploadUri);
+                Process.GetCurrentProcess().Kill();
             }
             AppDomain.CurrentDomain.UnhandledException -= exceptionHandler;
+            Application.ThreadException -= winFormsHandler;
         }
 
         /// <summary>
-        /// Runs a new message loop to display the error reporting form.
+        /// Displays the error reporting form.
         /// </summary>
         /// <param name="ex">The exception to report.</param>
         /// <param name="uploadUri">The URI to upload error reports to.</param>
+        /// <remarks>Modal to all windows on the current thread. Creates a new message loop if none exists.</remarks>
         public static void Report(Exception ex, Uri uploadUri)
         {
             var form = new ErrorReportForm(ex, uploadUri);
