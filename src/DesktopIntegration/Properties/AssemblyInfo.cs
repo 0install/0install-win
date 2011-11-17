@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Zero Install Desktop Integration Library")]
 [assembly: AssemblyDescription("Provides methods for integrating applications with desktop environments (creating menu entries, monitoring system changes, etc.).")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCopyright("Copyright 2010-2011 Bastian Eicher")]
+[assembly: NeutralResourcesLanguage("en")]
 
 // Security settings
 [assembly: CLSCompliant(true)]

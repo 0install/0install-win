@@ -8,7 +8,7 @@ using System.Security.Permissions;
 [assembly: AssemblyTitle("Zero Install Command CLI")]
 [assembly: AssemblyDescription("A command-line interface for Zero Install, for installing and launching applications, managing caches, etc.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCopyright("Copyright 2010-2011 Bastian Eicher")]
+[assembly: NeutralResourcesLanguage("en")]
 
 // Security settings
 [assembly: FileIOPermission(SecurityAction.RequestMinimum, Unrestricted = true)]

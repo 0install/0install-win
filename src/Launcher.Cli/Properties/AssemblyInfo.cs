@@ -8,7 +8,7 @@ using System.Security.Permissions;
 [assembly: AssemblyTitle("Zero Install Launcher CLI")]
 [assembly: AssemblyDescription("A shorcut for '0install run'.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCopyright("Copyright 2010-2011 Bastian Eicher")]
+[assembly: NeutralResourcesLanguage("en")]
 
 // Security settings
 [assembly: FileIOPermission(SecurityAction.RequestMinimum, Unrestricted = true)]

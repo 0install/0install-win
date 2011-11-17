@@ -1,12 +1,9 @@
-﻿using System;
-using System.Reflection;
-using System.Resources;
-using System.Runtime.InteropServices;
+﻿using System.Reflection;
 
 // Assembly info
 [assembly: AssemblyCompany("0install.de")]
 [assembly: AssemblyProduct("Zero Install")]
-[assembly: NeutralResourcesLanguage("en")]
+[assembly: AssemblyCopyright("Copyright Bastian Eicher et al. 2010-2011")]
 
 // Version information (Updater)
 [assembly: AssemblyVersion("1.0.5")]

@@ -8,7 +8,7 @@ using System.Security.Permissions;
 [assembly: AssemblyTitle("Zero Install Store Management CLI")]
 [assembly: AssemblyDescription("Manages caches of Zero Install implementations via the command-line.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCopyright("Copyright 2010-2011 Bastian Eicher")]
+[assembly: NeutralResourcesLanguage("en")]
 
 // Security settings
 [assembly: FileIOPermission(SecurityAction.RequestMinimum, Unrestricted = true)]

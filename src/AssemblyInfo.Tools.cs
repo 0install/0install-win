@@ -1,11 +1,10 @@
 ﻿using System.Reflection;
-using System.Resources;
 
 // Assembly info
 [assembly: AssemblyCompany("0install.de")]
 [assembly: AssemblyProduct("Zero Install")]
-[assembly: NeutralResourcesLanguage("en")]
+[assembly: AssemblyCopyright("Copyright Bastian Eicher, Simon E. Silva Lauinger 2010-2011")]
 
-// Version information (Tools)
-[assembly: AssemblyVersion("1.1.2")]
-[assembly: AssemblyFileVersion("1.1.2")]
+// Version information
+[assembly: AssemblyVersion("1.0.0")]
+[assembly: AssemblyFileVersion("1.0.0")]

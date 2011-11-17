@@ -8,7 +8,7 @@ using System.Security.Permissions;
 [assembly: AssemblyTitle("Zero Install Alias CLI")]
 [assembly: AssemblyDescription("A shortcut for '0install add-alias'.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCopyright("Copyright © Bastian Eicher 2010-2011")]
+[assembly: NeutralResourcesLanguage("en")]
 
 // Security settings
 [assembly: FileIOPermission(SecurityAction.RequestMinimum, Unrestricted = true)]
