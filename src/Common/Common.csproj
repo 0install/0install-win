@@ -131,6 +131,7 @@
     <Compile Include="Undo\PropertyChangedCommand.cs" />
     <Compile Include="Undo\SimpleCommand.cs" />
     <Compile Include="Undo\MultiPropertyChangedCommand.cs" />
+    <Compile Include="Undo\MultiPropertyTracker.cs" />
     <Compile Include="Undo\FirstExecuteCommand.cs" />
     <Compile Include="Undo\SetValueCommand.cs" />
     <Compile Include="Undo\AddToCollection.cs" />
