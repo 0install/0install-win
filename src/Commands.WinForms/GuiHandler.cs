@@ -209,12 +209,12 @@ namespace ZeroInstall.Commands.WinForms
             if (feedCache == null) throw new ArgumentNullException("feedCache");
             #endregion
 
-            // If GUI does exist cancel, otherwise wait until it is ready
+            // If GUI does not exist or was closed cancel, otherwise wait until it is ready
             if (_form == null) return;
             _guiReady.WaitOne();
             if (!_form.IsHandleCreated) return;
 
-            // If GUI does not exist or was closed cancel, otherwise wait until it is ready
+            _form.Invoke(new SimpleEventHandler(() => _form.ShowSelections(selections, feedCache))); 
         }
 
         /// <inheritdoc/>
