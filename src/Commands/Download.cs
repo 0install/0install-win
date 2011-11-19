@@ -150,9 +150,10 @@ namespace ZeroInstall.Commands
                 if (Canceled) throw new UserCancelException();
                 throw;
             }
-            _currentFetchRequest = null;
+            lock (_fetcherCancelLock)
+                _currentFetchRequest = null;
 
-            if (Canceled) throw new UserCancelException(); // ToDo: Remove once implementation fetching can be canceled
+            if (Canceled) throw new UserCancelException(); // ToDo: Remove once fetcher has a cancelable synchronous run method
         }
         #endregion
 

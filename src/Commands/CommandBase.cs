@@ -185,7 +185,7 @@ namespace ZeroInstall.Commands
 
         #region Cancel
         /// <summary>
-        /// Cancels the <see cref="Execute"/> session.
+        /// Can be called from a different thread to cancel the current <see cref="Execute"/> session.
         /// </summary>
         public virtual void Cancel()
         {

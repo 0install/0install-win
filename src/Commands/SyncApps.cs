@@ -16,11 +16,11 @@
  */
 
 using System;
+using Common;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
-using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -37,6 +37,7 @@ namespace ZeroInstall.Commands
 
         #region Variables
         private SyncResetMode _syncResetMode = SyncResetMode.None;
+        private SyncIntegrationManager _syncManager;
         #endregion
 
         #region Properties
@@ -80,19 +81,48 @@ namespace ZeroInstall.Commands
 
             if (AdditionalArgs.Count > 0) throw new OptionException(Resources.TooManyArguments, "");
 
-            Policy.Handler.ShowProgressUI(Cancel);
-
-            Converter<string, Feed> feedRetreiver = delegate(string interfaceID)
+            using (_syncManager = new SyncIntegrationManager(SystemWide, Policy.Config.SyncServer, Policy.Config.SyncServerUsername, Policy.Config.SyncServerPassword, Policy.Config.SyncCryptoKey, Policy.Handler))
             {
-                bool stale;
-                return Policy.FeedManager.GetFeed(interfaceID, Policy, out stale);
-            };
-            using (var syncManager = new SyncIntegrationManager(SystemWide, Policy.Config.SyncServer, Policy.Config.SyncServerUsername, Policy.Config.SyncServerPassword, Policy.Config.SyncCryptoKey, Policy.Handler))
-                syncManager.Sync(_syncResetMode, feedRetreiver, Policy.Handler);
+                Policy.Handler.ShowProgressUI(Cancel);
+                Sync();
+            }
 
             // Show a "sync complete" message (but not in batch mode, since it is too unimportant)
             if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, Resources.DesktopIntegrationSyncDone);
             return 0;
+        }
+        #endregion
+
+        #region Helpers
+        /// <summary>
+        /// Performs the synchronization.
+        /// </summary>
+        private void Sync()
+        {
+            try
+            {
+                _syncManager.Sync(_syncResetMode, interfaceID =>
+                {
+                    bool stale;
+                    return Policy.FeedManager.GetFeed(interfaceID, Policy, out stale);
+                }, Policy.Handler);
+            }
+            catch
+            {
+                // Suppress any left-over errors if the user canceled anyway
+                if (Canceled) throw new UserCancelException();
+                throw;
+            }
+        }
+        #endregion
+
+        #region Cancel
+        /// <inheritdoc/>
+        public override void Cancel()
+        {
+            base.Cancel();
+
+            _syncManager.Cancel();
         }
         #endregion
     }

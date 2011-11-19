@@ -79,6 +79,9 @@ namespace ZeroInstall.DesktopIntegration
 
         /// <summary>The storage location of the <see cref="AppList"/> file.</summary>
         private readonly AppList _appListLastSync;
+
+        /// <summary>Indicate that <see cref="Cancel"/> has been called.</summary>
+        private volatile bool Canceled;
         #endregion
 
         #region Constructor
@@ -143,9 +146,11 @@ namespace ZeroInstall.DesktopIntegration
                 CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)
             };
 
+            Retry:
             // Download and merge the current AppList from the server (unless the server is to be reset)
             var appListData = (resetMode == SyncResetMode.Server)
                 ? new byte[0]
+                // ToDo: Allow cancel
                 : webClient.DownloadData(appListUri);
 
             if (appListData.Length > 0)
@@ -163,6 +168,7 @@ namespace ZeroInstall.DesktopIntegration
                 }
                 #endregion
 
+                if (Canceled) throw new UserCancelException();
                 try
                 {
                     MergeData(serverList, (resetMode == SyncResetMode.Client), feedRetreiver, handler);
@@ -176,6 +182,7 @@ namespace ZeroInstall.DesktopIntegration
                 #endregion
 
                 Complete();
+                if (Canceled) throw new UserCancelException();
             }
 
             // Upload the encrypted AppList back to the server (unless the client was reset)
@@ -185,9 +192,11 @@ namespace ZeroInstall.DesktopIntegration
                 XmlStorage.ToZip(memoryStream, AppList, _cryptoKey, null);
 
                 // Prevent race conditions by only allowing replacement of older data
-                if (resetMode == SyncResetMode.None) webClient.Headers[HttpRequestHeader.IfMatch] = '"' + (webClient.ResponseHeaders[HttpResponseHeader.ETag] ?? "*") + '"';
+                if (resetMode == SyncResetMode.None && !string.IsNullOrEmpty(webClient.ResponseHeaders[HttpResponseHeader.ETag]))
+                    webClient.Headers[HttpRequestHeader.IfMatch] = '"' + webClient.ResponseHeaders[HttpResponseHeader.ETag] + '"';
                 try
                 {
+                    // ToDo: Allow cancel
                     webClient.UploadData(appListUri, "PUT", memoryStream.ToArray());
                 }
                     #region Error handling
@@ -198,9 +207,10 @@ namespace ZeroInstall.DesktopIntegration
                         var response = ex.Response as HttpWebResponse;
                         if (response != null && response.StatusCode == HttpStatusCode.PreconditionFailed)
                         { // Precondition failure indicates a race condition
-                            Thread.Sleep(new Random().Next(250, 1500)); // Wait for a randomized interval...
-                            Sync(resetMode, feedRetreiver, handler); // ... then retry sync
-                            return;
+                            // Wait for a randomized interval before retrying
+                            Thread.Sleep(new Random().Next(250, 1500));
+                            if (Canceled) throw new UserCancelException();
+                            goto Retry;
                         }
                     }
 
@@ -211,6 +221,7 @@ namespace ZeroInstall.DesktopIntegration
 
             // Save reference point for future syncs
             AppList.Save(AppListPath + AppListLastSyncSuffix);
+            if (Canceled) throw new UserCancelException();
         }
         #endregion
 
@@ -256,6 +267,16 @@ namespace ZeroInstall.DesktopIntegration
                 // Add and apply the access points
                 if (appEntry.AccessPoints != null) AddAccessPointsHelper(newAppEntry, feedRetreiver(appEntry.InterfaceID), appEntry.AccessPoints.Entries);
             }
+        }
+        #endregion
+
+        #region Cancel
+        /// <summary>
+        /// Can be called from a different thread to cancel the current <see cref="Sync"/> session.
+        /// </summary>
+        public virtual void Cancel()
+        {
+            Canceled = true;
         }
         #endregion
     }
