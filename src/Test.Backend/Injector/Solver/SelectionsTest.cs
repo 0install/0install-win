@@ -41,7 +41,6 @@ namespace ZeroInstall.Injector.Solver
                 InterfaceID = "http://0install.de/feeds/test/test1.xml", Command = Command.NameRun,
                 Implementations =
                     {
-                        new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}, // Should be ignored by Executor
                         ImplementationSelectionTest.CreateTestImplementation1(),
                         ImplementationSelectionTest.CreateTestImplementation2()
                     }

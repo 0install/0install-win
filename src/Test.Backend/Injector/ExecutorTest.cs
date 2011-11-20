@@ -77,7 +77,7 @@ namespace ZeroInstall.Injector
             Assert.Throws<ArgumentException>(() => new Executor(new Selections(), TestStore), "Empty selections should be rejected");
 
             var selections = SelectionsTest.CreateTestSelections();
-            selections.Implementations[2].Commands[0].WorkingDir = new WorkingDir();
+            selections.Implementations[1].Commands[0].WorkingDir = new WorkingDir();
             _storeMock.SetReturnValue("GetPath", "test path");
             var executor = new Executor(selections, TestStore);
             Assert.Throws<CommandException>(() => executor.GetStartInfo(), "Multiple WorkingDir changes should be rejected");
@@ -137,6 +137,7 @@ namespace ZeroInstall.Injector
         public void TestGetStartInfo()
         {
             var selections = SelectionsTest.CreateTestSelections();
+            selections.Implementations.InsertFirst(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
             PrepareStoreMock(selections, false);
 
@@ -170,6 +171,7 @@ namespace ZeroInstall.Injector
             if (!WindowsUtils.IsWindows) throw new InconclusiveException("Wrapper command-line parsing relies on a Win32 API and therefore will not work on non-Windows platforms");
 
             var selections = SelectionsTest.CreateTestSelections();
+            selections.Implementations.InsertFirst(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
             PrepareStoreMock(selections, false);
 
@@ -200,6 +202,7 @@ namespace ZeroInstall.Injector
         public void TestGetStartInfoMainRelative()
         {
             var selections = SelectionsTest.CreateTestSelections();
+            selections.Implementations.InsertFirst(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
             PrepareStoreMock(selections, false);
 
@@ -230,6 +233,7 @@ namespace ZeroInstall.Injector
         public void TestGetStartInfoMainAbsolute()
         {
             var selections = SelectionsTest.CreateTestSelections();
+            selections.Implementations.InsertFirst(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
             PrepareStoreMock(selections, false);
 
@@ -260,6 +264,7 @@ namespace ZeroInstall.Injector
         public void TestGetStartInfoPathlessCommand()
         {
             var selections = SelectionsTest.CreateTestSelections();
+            selections.Implementations.InsertFirst(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
             selections.Implementations[1].Commands[0].Path = null;
 
             PrepareStoreMock(selections, true);
