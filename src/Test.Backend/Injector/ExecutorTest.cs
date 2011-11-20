@@ -57,7 +57,7 @@ namespace ZeroInstall.Injector
             Locations.IsPortable = true;
         }
 
-        //[TearDown]
+        [TearDown]
         public void TearDown()
         {
             // Ensure no method calls were left out
