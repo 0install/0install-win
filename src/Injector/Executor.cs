@@ -44,7 +44,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Used to locate the selected <see cref="Model.Implementation"/>s.
         /// </summary>
-        private IStore Store { get; set; }
+        public IStore Store { get; private set; }
 
         /// <summary>
         /// An alternative executable to to run from the main <see cref="Model.Implementation"/> instead of <see cref="Element.Main"/>. May not contain command-line arguments! Whitespaces do not need to be escaped.
@@ -99,11 +99,12 @@ namespace ZeroInstall.Injector
             // Apply implementation bindings
             var startInfo = GetStartInfo();
 
-            var firstImplementation = Selections.Implementations.First;
-            if (!string.IsNullOrEmpty(Main)) ApplyMain(ref firstImplementation);
+            // Get the actual implementation to be started (and replace its binary if the user wanted that)
+            var mainImplementation = Selections.MainImplementation;
+            if (!string.IsNullOrEmpty(Main)) ApplyMain(ref mainImplementation);
 
             // Recursivley build command-line (applying additional bindings)
-            var commandLine = GetCommandLine(firstImplementation, Selections.Command, startInfo);
+            var commandLine = GetCommandLine(mainImplementation, Selections.Command, startInfo);
             if (!string.IsNullOrEmpty(Wrapper)) commandLine.InsertAll(0, WindowsUtils.SplitArgs(Wrapper)); // Add wrapper in front
             commandLine.AddAll(arguments); // Append user arguments
 

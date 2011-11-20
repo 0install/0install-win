@@ -61,11 +61,14 @@ namespace ZeroInstall.Injector.Solver
         /// </summary>
         [Description("A list of implementations chosen in this selection.")]
         [XmlElement("selection")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
-            public C5.LinkedList<ImplementationSelection> Implementations
-        {
-            get { return _implementations; }
-        }
+        public C5.LinkedList<ImplementationSelection> Implementations { get { return _implementations; } }
+
+        /// <summary>
+        /// The main implementation in the selection (the actual program to launch). Identified by <see cref="InterfaceID"/>.
+        /// </summary>
+        /// <exception cref="KeyNotFoundException">Thrown if no <see cref="ImplementationSelection"/> matching <see cref="InterfaceID"/>/> was found in <see cref="Implementations"/>.</exception>
+        [XmlIgnore]
+        public ImplementationSelection MainImplementation { get { return this[InterfaceID]; } }
         #endregion
 
         //--------------------//

@@ -71,9 +71,9 @@ namespace ZeroInstall.Commands
             bool stale;
             _target = new InterfaceFeed(interfaceID, policy.FeedManager.GetFeed(interfaceID, policy, out stale));
 
-            var mainImplementationSelection = executor.Selections.Implementations.Last;
-            _implementationDir = executor.GetImplementationPath(mainImplementationSelection);
-            _mainImplementation = _target.Feed.GetImplementation(mainImplementationSelection.ID);
+            var mainImplementation = executor.Selections.MainImplementation;
+            _implementationDir = executor.GetImplementationPath(mainImplementation);
+            _mainImplementation = _target.Feed.GetImplementation(mainImplementation.ID);
 
             _registryFilter = GetRegistryFilter();
             _relaunchControl = GetRelaunchControl();
