@@ -3,7 +3,7 @@
 // Assembly info
 [assembly: AssemblyCompany("0install.de")]
 [assembly: AssemblyProduct("Zero Install")]
-[assembly: AssemblyCopyright("Copyright Bastian Eicher et al. 2010-2011")]
+[assembly: AssemblyCopyright("Copyright 2010-2011 Bastian Eicher et al.")]
 
 // Version information
 [assembly: AssemblyVersion("1.4")]
