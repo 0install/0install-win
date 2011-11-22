@@ -31,7 +31,7 @@ namespace ZeroInstall.Injector.Feeds
     /// Contains test methods for <see cref="FeedManager"/>.
     /// </summary>
     [TestFixture]
-    internal class FeedManagerTest
+    public class FeedManagerTest
     {
         private DynamicMock _cacheMock;
         private DynamicMock _openPgpMock;

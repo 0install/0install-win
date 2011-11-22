@@ -93,7 +93,7 @@ namespace ZeroInstall.Store.Implementation.Archive
     }
 
     [TestFixture]
-    internal class TarExtractorTestCornerCases
+    public class TarExtractorTestCornerCases
     {
         private TemporaryDirectory _sandbox;
 

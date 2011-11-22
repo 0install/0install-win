@@ -25,7 +25,7 @@ namespace ZeroInstall.Publish.WinForms
     /// Contains test methods for <see cref="ControlHelpers"/>.
     /// </summary>
     [TestFixture]
-    internal class ControlHelpersTest
+    public class ControlHelpersTest
     {
         /// <summary>
         /// Test methode ControlHelpers.IsEmpty(Archive toCheck).

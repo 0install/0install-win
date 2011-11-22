@@ -151,7 +151,7 @@ namespace ZeroInstall.Store.Implementation.Archive
     }
 
     [TestFixture]
-    internal class ZipExtractorTestCornerCases
+    public class ZipExtractorTestCornerCases
     {
         private TemporaryDirectory _sandbox;
 
