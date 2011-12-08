@@ -47,11 +47,8 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory was not permitted.</exception>
         private static IEnumerable<IStore> GetStores()
         {
-            string[] customPaths = GetCustomImplementationDirs();
-            IEnumerable<string> paths = (customPaths.Length != 0 ? customPaths : Locations.GetCacheDirPath("0install.net", "implementations"));
-
             var stores = new C5.LinkedList<IStore>();
-            foreach (var path in paths)
+            foreach (var path in GetImplementationDirs())
             {
                 try
                 {
@@ -81,14 +78,14 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="IOException">Thrown if there was a problem accessing a configuration file or one of the stores.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to a configuration file was not permitted.</exception>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reads data from a config file with no caching")]
-        private static string[] GetCustomImplementationDirs()
+        private static IEnumerable<string> GetImplementationDirs()
         {
             // Always add the user cache to have a reliable fallback location for storage
-            var paths = new C5.LinkedList<string> {Locations.GetUserCacheDirPath("0install.net", "implementations")};
+            yield return Locations.GetCacheDirPath("0install.net", "implementations");
 
+            // ToDo: Add default shared location if the configs are empty
             foreach (string configFile in Locations.GetLoadConfigPaths("0install.net", true, "injector", "implementation-dirs"))
             {
-                // Read file lines using UTF-8 with BOM
                 foreach (string line in File.ReadAllLines(configFile, Encoding.UTF8))
                 {
                     if (line.StartsWith("#") || string.IsNullOrEmpty(line)) continue;
@@ -97,7 +94,7 @@ namespace ZeroInstall.Store.Implementation
                     try
                     {
                         if (!Path.IsPathRooted(path))
-                        {
+                        { // Allow relative paths only for portable installations
                             if (Locations.IsPortable) path = Path.Combine(Locations.PortableBase, path);
                             else throw new IOException(string.Format(Resources.NonRootedPathInConfig, path, configFile));
                         }
@@ -110,10 +107,9 @@ namespace ZeroInstall.Store.Implementation
                     }
                     #endregion
 
-                    paths.Add(path);
+                    yield return path;
                 }
             }
-            return paths.ToArray();
         }
     }
 }

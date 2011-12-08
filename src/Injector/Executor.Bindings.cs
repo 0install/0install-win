@@ -21,7 +21,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using Common.Collections;
 using Common.Storage;
 using Common.Streams;
 using Common.Utils;
@@ -249,11 +248,11 @@ namespace ZeroInstall.Injector
                 throw new CommandException(Resources.IllegalCharInExecutableBinding);
 
             // ToDo: Add different binaries for Windows GUI apps and for Linux
-            string templatePath = Path.Combine(EnumerableUtils.GetFirst(Locations.GetCacheDirPath("0install.net", "injector", "executables")), "runenv.cli.template");
+            string templatePath = Path.Combine(Locations.GetCacheDirPath("0install.net", "injector", "executables"), "runenv.cli.template");
             if (!File.Exists(templatePath))
                 WriteOutEmbeddedResource("runenv.cli.template", templatePath);
 
-            string deployedPath = FileUtils.PathCombine(EnumerableUtils.GetFirst(Locations.GetCacheDirPath("0install.net", "injector", "executables", name)), name);
+            string deployedPath = FileUtils.PathCombine(Locations.GetCacheDirPath("0install.net", "injector", "executables", name), name);
             if (WindowsUtils.IsWindows) deployedPath += ".exe";
 
             if (WindowsUtils.IsWindowsNT) WindowsUtils.CreateHardLink(deployedPath, templatePath);

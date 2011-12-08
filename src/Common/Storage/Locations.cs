@@ -86,7 +86,7 @@ namespace Common.Storage
         public static string HomeDir { get { return Environment.GetFolderPath(Environment.SpecialFolder.Personal); } }
 
         /// <summary>
-        /// The directory to store per-user settings that can roam across different machines.
+        /// The directory to store per-user settings (can roam across different machines).
         /// </summary>
         /// <remarks>On Windows this is <c>%appdata%</c>, on Linux it usually is <c>~/.config</c>.</remarks>
         public static string UserConfigDir
@@ -111,7 +111,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// The directory to store per-user data files that do not roam across different machines.
+        /// The directory to store per-user data files (should not roam across different machines).
         /// </summary>
         /// <remarks>On Windows this is <c>%localappdata%</c>, on Linux it usually is <c>~/.local/share</c>.</remarks>
         public static string UserDataDir
@@ -136,10 +136,10 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// The directory to store per-user cache data that does not roam across different machines.
+        /// The directory to store per-user non-essential data (should not roam across different machines).
         /// </summary>
         /// <remarks>On Windows this is <c>%localappdata%</c>, on Linux it usually is <c>~/.cache</c>.</remarks>
-        public static string UserCacheDir
+        public static string CacheDir
         {
             get
             {
@@ -163,7 +163,7 @@ namespace Common.Storage
 
         #region System-wide directories
         /// <summary>
-        /// The directories to store system-wide settings that can roam across different machines.
+        /// The directories to store system-wide settings (can roam across different machines).
         /// </summary>
         /// <returns>Directories separated by <see cref="Path.PathSeparator"/> sorted by decreasing importance.</returns>
         /// <remarks>On Windows this is <c>CommonApplicationData</c>, on Linux it usually is <c>/etc/xdg</c>.</remarks>
@@ -189,7 +189,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// The directories to store system-wide data files that do not roam across different machines.
+        /// The directories to store system-wide data files (should not roam across different machines).
         /// </summary>
         /// <returns>Directories separated by <see cref="Path.PathSeparator"/> sorted by decreasing importance.</returns>
         /// <remarks>On Windows this is <c>CommonApplicationData</c>, on Linux it usually is <c>/usr/local/share:/usr/share</c>.</remarks>
@@ -213,32 +213,6 @@ namespace Common.Storage
                 }
             }
         }
-
-        /// <summary>
-        /// The directories to store system-wide cache data that does not roam across different machines.
-        /// </summary>
-        /// <returns>Directories separated by <see cref="Path.PathSeparator"/> sorted by decreasing importance.</returns>
-        /// <remarks>On Windows this is <c>CommonApplicationData</c>, on Linux it usually is <c>/var/cache</c>.</remarks>
-        public static string SystemCacheDirs
-        {
-            get
-            {
-                switch (Environment.OSVersion.Platform)
-                {
-                    case PlatformID.MacOSX:
-                        // ToDo: Use MacOS X-specific locations instead of POSIX subsytem
-
-                    case PlatformID.Unix:
-                        // Unoffical extension of the XDG specification
-                        return GetEnvironmentVariable("XDG_CACHE_DIRS", "/var/cache");
-
-                    default:
-                    case PlatformID.Win32Windows:
-                    case PlatformID.Win32NT:
-                        return Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-                }
-            }
-        }
         #endregion
 
         #endregion
@@ -247,7 +221,7 @@ namespace Common.Storage
 
         #region Paths
         /// <summary>
-        /// Returns a path for storing a configuration resource that can roam across different machines.
+        /// Returns a path for storing a configuration resource (can roam across different machines).
         /// </summary>
         /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
         /// <param name="isFile"><see langword="true"/> if the last part of <paramref name="resource"/> refers to a file instead of a directory.</param>
@@ -286,7 +260,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Returns a list of paths for loading a configuration resource that can roam across different machines.
+        /// Returns a list of paths for loading a configuration resource (can roam across different machines).
         /// </summary>
         /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
         /// <param name="isFile"><see langword="true"/> if the last part of <paramref name="resource"/> refers to a file instead of a directory.</param>
@@ -348,7 +322,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Returns a path for storing a data resource that does not roam across different machines.
+        /// Returns a path for storing a data resource (should not roam across different machines).
         /// </summary>
         /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
         /// <param name="isFile"><see langword="true"/> if the last part of <paramref name="resource"/> refers to a file instead of a directory.</param>
@@ -387,7 +361,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Returns a list of paths for loading a data resource that does not roam across different machines.
+        /// Returns a list of paths for loading a data resource (should not roam across different machines).
         /// </summary>
         /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
         /// <param name="isFile"><see langword="true"/> if the last part of <paramref name="resource"/> refers to a file instead of a directory.</param>
@@ -451,14 +425,14 @@ namespace Common.Storage
 
         #region Directories
         /// <summary>
-        /// Returns a path for a cache directory that does not roam across different machines.
+        /// Returns a path for a cache directory (should not roam across different machines).
         /// </summary>
         /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
         /// <param name="resource">The directory name of the resource to be stored.</param>
         /// <returns>A fully qualified directory path. The directory is guaranteed to already exist.</returns>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        public static string GetUserCacheDirPath(string appName, params string[] resource)
+        public static string GetCacheDirPath(string appName, params string[] resource)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
@@ -471,13 +445,13 @@ namespace Common.Storage
             {
                 path = _isPortable
                     ? FileUtils.PathCombine(_portableBase, "cache", resourceCombined)
-                    : FileUtils.PathCombine(UserCacheDir, appName, resourceCombined);
+                    : FileUtils.PathCombine(CacheDir, appName, resourceCombined);
             }
                 #region Error handling
             catch (ArgumentException ex)
             {
                 // Wrap exception to add context information
-                throw new IOException(string.Format(Resources.InvalidConfigDir, UserDataDir) + "\n" + ex.Message, ex);
+                throw new IOException(string.Format(Resources.InvalidConfigDir, CacheDir) + "\n" + ex.Message, ex);
             }
             #endregion
 
@@ -485,72 +459,6 @@ namespace Common.Storage
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
             return path;
-        }
-
-        /// <summary>
-        /// Returns a list of paths for cache directories that do not roam across different machines.
-        /// </summary>
-        /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
-        /// <param name="resource">The directory name of the resource to be stored.</param>
-        /// <returns>
-        /// A list of fully qualified directory path sorted by decreasing importance.
-        /// This list will always reflect the current state in the filesystem and can not be modified! It is never empty.
-        /// At least the first directory is usually writable.
-        /// </returns>
-        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        public static IEnumerable<string> GetCacheDirPath(string appName, params string[] resource)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
-            if (resource == null) throw new ArgumentNullException("resource");
-            #endregion
-
-            string resourceCombined = FileUtils.PathCombine(resource);
-            string path;
-            if (_isPortable)
-            {
-                // Create in portable base directory
-                path = FileUtils.PathCombine(_portableBase, "cache", resourceCombined);
-                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-                yield return path;
-            }
-            else
-            {
-                // Create in user profile
-                try
-                {
-                    path = FileUtils.PathCombine(UserCacheDir, appName, resourceCombined);
-                }
-                    #region Error handling
-                catch (ArgumentException ex)
-                {
-                    // Wrap exception to add context information
-                    throw new IOException(string.Format(Resources.InvalidConfigDir, UserCacheDir) + "\n" + ex.Message, ex);
-                }
-                #endregion
-
-                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-                yield return path;
-
-                // Check in system directories
-                foreach (var dirPath in SystemCacheDirs.Split(Path.PathSeparator))
-                {
-                    try
-                    {
-                        path = FileUtils.PathCombine(dirPath, appName, resourceCombined);
-                    }
-                        #region Error handling
-                    catch (ArgumentException ex)
-                    {
-                        // Wrap exception to add context information
-                        throw new IOException(string.Format(Resources.InvalidConfigDir, dirPath) + "\n" + ex.Message, ex);
-                    }
-                    #endregion
-
-                    if (Directory.Exists(path)) yield return path;
-                }
-            }
         }
 
         /// <summary>

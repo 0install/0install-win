@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Feeds
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         public static IIconCache CreateDefault()
         {
-            return new DiskIconCache(Locations.GetUserCacheDirPath("0install.net", "interface_icons"));
+            return new DiskIconCache(Locations.GetCacheDirPath("0install.net", "interface_icons"));
         }
     }
 }
