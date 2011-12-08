@@ -59,12 +59,8 @@ namespace ZeroInstall.Central.WinForms
                 {
                     WindowsUtils.AddTaskLinks(Program.AppUserModelID, new[] {cacheLink, configLink});
                 }
-                    #region Sanity checks
-                catch (IOException ex)
-                {
-                    Log.Error("Failed to set up task links:\n" + ex.Message);
-                }
-                catch (UnauthorizedAccessException ex)
+                    #region Error handling
+                catch (Exception ex)
                 {
                     Log.Error("Failed to set up task links:\n" + ex.Message);
                 }
@@ -188,8 +184,11 @@ namespace ZeroInstall.Central.WinForms
             if (appListWorker.IsBusy) return;
 
             AppList newAppList;
-            try { newAppList = AppList.Load(AppList.GetDefaultPath(false)); }
-            #region Error handling
+            try
+            {
+                newAppList = AppList.Load(AppList.GetDefaultPath(false));
+            }
+                #region Error handling
             catch (FileNotFoundException)
             {
                 newAppList = new AppList();
@@ -204,7 +203,7 @@ namespace ZeroInstall.Central.WinForms
                 Log.Warn("Unable to load application list XML:\n" + ex.Message);
                 newAppList = new AppList();
             }
-            catch(InvalidDataException ex)
+            catch (InvalidDataException ex)
             {
                 Log.Warn("Unable to load application list XML:\n" + ex.Message);
                 newAppList = new AppList();
@@ -355,7 +354,8 @@ namespace ZeroInstall.Central.WinForms
 
         private void catalogWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            var newCatalogFeeds = (ICollection<Feed>)e.Result;
+            var newCatalogFeeds = e.Result as ICollection<Feed>;
+            if (newCatalogFeeds == null) return;
 
             // Update the displayed catalog list based on changes detected between the current and the new catalog
             EnumerableUtils.Merge(
