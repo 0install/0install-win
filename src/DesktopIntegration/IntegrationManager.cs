@@ -133,15 +133,15 @@ namespace ZeroInstall.DesktopIntegration
             {
                 RemoveAppHelper(appEntry);
             }
-                #region Error handling
             catch (KeyNotFoundException ex)
             {
                 // Wrap exception since only certain exception types are allowed
                 throw new InvalidDataException(ex.Message, ex);
             }
-            #endregion
-
-            Complete();
+            finally
+            {
+                Complete();
+            }
         }
 
         /// <inheritdoc/>
@@ -156,15 +156,15 @@ namespace ZeroInstall.DesktopIntegration
             {
                 UpdateAppHelper(appEntry, feed);
             }
-                #region Error handling
             catch (KeyNotFoundException ex)
             {
                 // Wrap exception since only certain exception types are allowed
                 throw new InvalidDataException(ex.Message, ex);
             }
-            #endregion
-
-            Complete();
+            finally
+            {
+                Complete();
+            }
         }
         #endregion
 
@@ -182,15 +182,15 @@ namespace ZeroInstall.DesktopIntegration
             {
                 AddAccessPointsHelper(appEntry, feed, accessPoints);
             }
-                #region Error handling
             catch (KeyNotFoundException ex)
             {
                 // Wrap exception since only certain exception types are allowed
                 throw new InvalidDataException(ex.Message, ex);
             }
-            #endregion
-
-            Complete();
+            finally
+            {
+                Complete();
+            }
         }
 
         /// <inheritdoc/>
@@ -205,15 +205,15 @@ namespace ZeroInstall.DesktopIntegration
             {
                 RemoveAccessPointsHelper(appEntry, accessPoints);
             }
-                #region Error handling
             catch (KeyNotFoundException ex)
             {
                 // Wrap exception since only certain exception types are allowed
                 throw new InvalidDataException(ex.Message, ex);
             }
-            #endregion
-
-            Complete();
+            finally
+            {
+                Complete();
+            }
         }
         #endregion
 

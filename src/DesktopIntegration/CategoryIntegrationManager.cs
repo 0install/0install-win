@@ -114,17 +114,17 @@ namespace ZeroInstall.DesktopIntegration
             try
             {
                 AddAccessPointsHelper(appEntry, feed, accessPointsToAdd);
+                if (icons && SystemWide) ToggleIconsVisible(appEntry, true);
             }
-                #region Error handling
             catch (KeyNotFoundException ex)
             {
                 // Wrap exception since only certain exception types are allowed
                 throw new InvalidDataException(ex.Message, ex);
             }
-            #endregion
-
-            if (icons && SystemWide) ToggleIconsVisible(appEntry, true);
-            Complete();
+            finally
+            {
+                Complete();
+            }
         }
         #endregion
 
@@ -154,17 +154,17 @@ namespace ZeroInstall.DesktopIntegration
             try
             {
                 RemoveAccessPointsHelper(appEntry, accessPointsToRemove);
+                if (icons && SystemWide) ToggleIconsVisible(appEntry, false);
             }
-                #region Error handling
             catch (KeyNotFoundException ex)
             {
                 // Wrap exception since only certain exception types are allowed
                 throw new InvalidDataException(ex.Message, ex);
             }
-            #endregion
-
-            if (icons && SystemWide) ToggleIconsVisible(appEntry, false);
-            Complete();
+            finally
+            {
+                Complete();
+            }
         }
         #endregion
 

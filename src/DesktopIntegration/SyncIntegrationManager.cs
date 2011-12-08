@@ -173,15 +173,16 @@ namespace ZeroInstall.DesktopIntegration
                 {
                     MergeData(serverList, (resetMode == SyncResetMode.Client), feedRetreiver, handler);
                 }
-                    #region Error handling
                 catch (KeyNotFoundException ex)
                 {
                     // Wrap exception since only certain exception types are allowed
                     throw new InvalidDataException(ex.Message, ex);
                 }
-                #endregion
+                finally
+                {
+                    Complete();
+                }
 
-                Complete();
                 if (Canceled) throw new UserCancelException();
             }
 
