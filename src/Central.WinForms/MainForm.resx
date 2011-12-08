@@ -169,7 +169,7 @@
     <value>appList</value>
   </data>
   <data name="&gt;&gt;appList.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.1.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.4.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;appList.Parent" xml:space="preserve">
     <value>tabPageAppList</value>
@@ -280,7 +280,7 @@
     <value>catalogList</value>
   </data>
   <data name="&gt;&gt;catalogList.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.1.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.4.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;catalogList.Parent" xml:space="preserve">
     <value>tabPageCatalog</value>
@@ -349,7 +349,7 @@
     <value>90, 23</value>
   </data>
   <data name="buttonOptions.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="buttonOptions.Text" xml:space="preserve">
     <value>&amp;Options</value>
@@ -379,7 +379,7 @@
     <value>120, 23</value>
   </data>
   <data name="buttonCacheManagement.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="buttonCacheManagement.Text" xml:space="preserve">
     <value>&amp;Cache management</value>

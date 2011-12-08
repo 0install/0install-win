@@ -196,7 +196,7 @@ namespace ZeroInstall.Injector.Solver
                 if (searchStore.Contains(implementation.ManifestDigest)) continue;
 
                 // If not, get download information for the implementation by checking the original feed
-                Feed feed = feedCache.GetFeed(implementation.FromFeed ?? implementation.InterfaceID);
+                var feed = feedCache.GetFeed(implementation.FromFeed ?? implementation.InterfaceID);
                 var downloadableImplementation = feed.GetImplementation(implementation.ID);
                 if (downloadableImplementation != null) notCached.Add(downloadableImplementation);
             }

@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿// This file contains shared assembly information for all tool projects (feed editor, etc.)
+
+using System.Reflection;
 
 // Assembly info
 [assembly: AssemblyCompany("0install.de")]
