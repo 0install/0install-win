@@ -15,6 +15,8 @@ rd /s /q src\_ReSharper.ZeroInstall_VS2010 > NUL 2>&1
 copy "src\ZeroInstall_VS2010.6.0.ReSharper.user.Backup" "src\ZeroInstall_VS2010.6.0.ReSharper.user" > NUL
 
 rem Clear object caches
+attrib -h src\*.suo > NUL 2>&1
+del src\*.suo > NUL 2>&1
 del src\*.cache > NUL 2>&1
 rd /s /q src\Alias.Cli\obj > NUL 2>&1
 rd /s /q src\Central\obj > NUL 2>&1
@@ -49,20 +51,6 @@ rd /s /q src\Capture.WinForms\obj > NUL 2>&1
 rd /s /q src\Updater\obj > NUL 2>&1
 rd /s /q src\Updater.WinForms\obj > NUL 2>&1
 rd /s /q src\Modeling\obj > NUL 2>&1
-
-rem Restore VS2010 solution user options (temporarily unhide for copying)
-attrib -h "src\ZeroInstall_VS2010.suo.Backup" > NUL 2>&1
-attrib -h "src\ZeroInstall_VS2010.suo" > NUL 2>&1
-copy "src\ZeroInstall_VS2010.suo.Backup" "src\ZeroInstall_VS2010.suo" > NUL 2>&1
-attrib +h "src\ZeroInstall_VS2010.suo.Backup" > NUL 2>&1
-attrib +h "src\ZeroInstall_VS2010.suo" > NUL 2>&1
-
-rem Restore VCE2010 solution user options (temporarily unhide for copying)
-attrib -h "src\ZeroInstall_VCE2010.suo.Backup" > NUL 2>&1
-attrib -h "src\ZeroInstall_VCE2010.suo" > NUL 2>&1
-copy "src\ZeroInstall_VCE2010.suo.Backup" "src\ZeroInstall_VCE2010.suo" > NUL 2>&1
-attrib +h "src\ZeroInstall_VCE2010.suo.Backup" > NUL 2>&1
-attrib +h "src\ZeroInstall_VCE2010.suo" > NUL 2>&1
 
 rem Remove MonoDevelop user preferences
 del "src\*.userprefs" > NUL 2>&1

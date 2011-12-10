@@ -30,7 +30,6 @@ Windows:
 Note: Please read setup/readme.txt aswell for information about required tools.
 
 "cleanup.cmd" will delete any temporary files created by the build process or Visual Studio.
-Note: It is recommended that you run this script once before opening the Visual Studio project for the first time.
 
 Open "UnitTests.nunit" with the NUnit GUI (http://nunit.org/) to run the unit tests.
 Note: You must perform a Debug build first (using Visual Studio or src/build.cmd) before you can run the unit tests.
