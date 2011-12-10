@@ -31,7 +31,7 @@ namespace Common.Undo
     public abstract class SimpleCommand : IUndoCommand
     {
         #region Variables
-        private bool _actionPerformed;
+        private bool _undoAvailable;
         #endregion
 
         //--------------------//
@@ -43,12 +43,12 @@ namespace Common.Undo
         public void Execute()
         {
             // We cannot perform the action repeatedly in a row
-            if (_actionPerformed) throw new InvalidOperationException(Resources.RedoNotAvailable);
+            if (_undoAvailable) throw new InvalidOperationException(Resources.RedoNotAvailable);
 
             OnExecute();
 
             // Ready for undo, don't redo
-            _actionPerformed = true;
+            _undoAvailable = true;
         }
 
         /// <summary>
@@ -64,12 +64,12 @@ namespace Common.Undo
         public virtual void Undo()
         {
             // If the action has not been performed yet, we cannnot undo it
-            if (!_actionPerformed) throw new InvalidOperationException(Resources.UndoNotAvailable);
+            if (!_undoAvailable) throw new InvalidOperationException(Resources.UndoNotAvailable);
 
             OnUndo();
 
             // As if the action had never happened
-            _actionPerformed = false;
+            _undoAvailable = false;
         }
 
         /// <summary>
