@@ -56,7 +56,10 @@ namespace Common.Utils
 
             string temp = parts[0];
             for (int i = 1; i < parts.Length; i++)
-                temp = Path.Combine(temp, parts[i]);
+            {
+                if (parts[i] != null)
+                    temp = Path.Combine(temp, parts[i]);
+            }
             return temp;
         }
         #endregion
@@ -461,7 +464,7 @@ namespace Common.Utils
         /// <param name="path">The path of the file to check.</param>
         /// <param name="target">Returns the target the symbolic link points to if it exists.</param>
         /// <return><see lang="true"/> if <paramref name="path"/> points to a symbolic link; <see lang="false"/> otherwise.</return>
-        /// <remarks>Will return <see langword="false"/> for non-existing files. Will always return <see langword="false"/> on non-Unix-like systems.</remarks>
+        /// <remarks>Will return <see langword="false"/> for non-existing files. Will always return <see langword="false"/> on non-Unixoid systems.</remarks>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to query the file's properties.</exception>
         public static bool IsSymlink(string path, out string target)
         {
@@ -489,11 +492,11 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Creates a new Unix symbolic link. Only works on Unix-like systems!
+        /// Creates a new Unix symbolic link. Only works on Unixoid systems!
         /// </summary>
         /// <param name="path">The path of the file to create.</param>
         /// <param name="target">The target the symbolic link shall point to relative to <paramref name="path"/>.</param>
-        /// <exception cref="PlatformNotSupportedException">Thrown if this method is called on a non-Unix-like system.</exception>
+        /// <exception cref="PlatformNotSupportedException">Thrown if this method is called on a non-Unixoid system.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to create the symbolic link.</exception>
         public static void CreateSymlink(string path, string target)
         {
@@ -523,7 +526,7 @@ namespace Common.Utils
         /// Checks whether a file is marked as Unix-executable.
         /// </summary>
         /// <return><see lang="true"/> if <paramref name="path"/> points to an executable; <see lang="false"/> otherwise.</return>
-        /// <remarks>Will return <see langword="false"/> for non-existing files. Will always return <see langword="false"/> on non-Unix-like systems.</remarks>
+        /// <remarks>Will return <see langword="false"/> for non-existing files. Will always return <see langword="false"/> on non-Unixoid systems.</remarks>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to query the file's properties.</exception>
         public static bool IsExecutable(string path)
         {
@@ -546,12 +549,12 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Marks a file as Unix-executable or not Unix-executable. Only works on Unix-like systems!
+        /// Marks a file as Unix-executable or not Unix-executable. Only works on Unixoid systems!
         /// </summary>
         /// <param name="path">The file to mark as executable or not executable.</param>
         /// <param name="executable"><see lang="true"/> to mark the file as executable, <see lang="true"/> to mark it as not executable.</param>
         /// <exception cref="FileNotFoundException">Thrown if <paramref name="path"/> points to a file that does not exist or cannot be accessed.</exception>
-        /// <exception cref="PlatformNotSupportedException">Thrown if this method is called on a non-Unix-like system.</exception>
+        /// <exception cref="PlatformNotSupportedException">Thrown if this method is called on a non-Unixoid system.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to change the file's properties.</exception>
         public static void SetExecutable(string path, bool executable)
         {
