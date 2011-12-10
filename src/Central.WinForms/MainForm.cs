@@ -91,6 +91,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 SelfUpdateCheckAsync();
                 LoadAppListAsync();
+                LoadCatalogCached();
                 LoadCatalogAsync();
 
                 // Show "new apps" list if "my apps" list is empty
@@ -318,7 +319,43 @@ namespace ZeroInstall.Central.WinForms
 
         #region Catalog
         /// <summary>Stores the data currently displayed in <see cref="catalogList"/>. Used for comparison/merging when updating the list.</summary>
-        private ICollection<Feed> _currentCatalogFeeds = new List<Feed>();
+        private Catalog _currentCatalog = new Catalog();
+
+        /// <summary>
+        /// Loads a cached version of the "new applications" catalog from the disk.
+        /// </summary>
+        private void LoadCatalogCached()
+        {
+            try
+            {
+                _currentCatalog = Catalog.Load(Path.Combine(Locations.GetCacheDirPath("0install.net"), "catalog.xml"));
+            }
+                #region Error handling
+            catch (FileNotFoundException)
+            {
+                return;
+            }
+            catch (IOException ex)
+            {
+                Log.Warn("Unable to load cached application catalog from disk:\n" + ex.Message);
+                return;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Warn("Unable to load cached application catalog from disk:\n" + ex.Message);
+            }
+            catch (InvalidDataException ex)
+            {
+                Log.Warn("Unable to parse cached application catalog:\n" + ex.Message);
+            }
+            #endregion
+
+            foreach (var feed in _currentCatalog.Feeds)
+            {
+                var tile = catalogList.AddTile(feed.UriString, feed.Name);
+                tile.SetFeed(feed);
+            }
+        }
 
         /// <summary>
         /// Loads the "new applications" catalog in the background and displays it.
@@ -334,52 +371,63 @@ namespace ZeroInstall.Central.WinForms
 
         private void catalogWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            // ToDo: Merge data from custom sources and cache data
             try
             {
+                // ToDo: Merge multiple catalogs from custom sources
                 var catalog = Catalog.Load(new MemoryStream(new WebClient().DownloadData("http://0install.de/catalog/")));
+                catalog.Save(Path.Combine(Locations.GetCacheDirPath("0install.net"), "catalog.xml"));
 
-                // Copy the catalog feeds to a hashed list for faster comparisons
-                var catalogFeeds = new C5.HashedLinkedList<Feed>();
-                catalogFeeds.AddAll(catalog.Feeds);
-                e.Result = catalogFeeds;
+                e.Result = catalog;
             }
                 #region Error handling
             catch (WebException ex)
             {
-                Log.Warn("Unable to load application catalog:\n" + ex.Message);
+                Log.Warn("Unable to download application catalog:\n" + ex.Message);
+            }
+            catch (IOException ex)
+            {
+                Log.Warn("Unable to cache downloaded application catalog:\n" + ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Warn("Unable to cache downloaded application catalog:\n" + ex.Message);
+            }
+            catch (InvalidDataException ex)
+            {
+                Log.Warn("Unable to parse downloaded application catalog:\n" + ex.Message);
             }
             #endregion
         }
 
         private void catalogWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            var newCatalogFeeds = e.Result as ICollection<Feed>;
-            if (newCatalogFeeds == null) return;
-
-            // Update the displayed catalog list based on changes detected between the current and the new catalog
-            EnumerableUtils.Merge(
-                newCatalogFeeds, _currentCatalogFeeds,
-                addedFeed =>
-                {
-                    if (string.IsNullOrEmpty(addedFeed.UriString) || addedFeed.Name == null) return;
-                    try
+            var newCatalog = e.Result as Catalog;
+            if (newCatalog != null)
+            {
+                // Update the displayed catalog list based on changes detected between the current and the new catalog
+                EnumerableUtils.Merge(
+                    newCatalog.Feeds, _currentCatalog.Feeds,
+                    addedFeed =>
                     {
-                        var tile = catalogList.AddTile(addedFeed.UriString, addedFeed.Name);
-                        tile.SetFeed(addedFeed);
+                        if (string.IsNullOrEmpty(addedFeed.UriString) || addedFeed.Name == null) return;
+                        try
+                        {
+                            var tile = catalogList.AddTile(addedFeed.UriString, addedFeed.Name);
+                            tile.SetFeed(addedFeed);
 
-                        // Update "added" status of tile
-                        tile.InAppList = _currentAppList.ContainsEntry(addedFeed.UriString);
-                    }
-                        #region Error handling
-                    catch (C5.DuplicateNotAllowedException)
-                    {
-                        Log.Warn("Ignoring duplicate application list entry for: " + addedFeed.Uri);
-                    }
-                    #endregion
-                },
-                removedFeed => catalogList.RemoveTile(removedFeed.UriString));
-            _currentCatalogFeeds = newCatalogFeeds;
+                            // Update "added" status of tile
+                            tile.InAppList = _currentAppList.ContainsEntry(addedFeed.UriString);
+                        }
+                            #region Error handling
+                        catch (C5.DuplicateNotAllowedException)
+                        {
+                            Log.Warn("Ignoring duplicate application list entry for: " + addedFeed.Uri);
+                        }
+                        #endregion
+                    },
+                    removedFeed => catalogList.RemoveTile(removedFeed.UriString));
+                _currentCatalog = newCatalog;
+            }
 
             buttonRefreshCatalog.Enabled = true;
         }
