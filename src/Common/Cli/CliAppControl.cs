@@ -86,31 +86,39 @@ namespace Common.Cli
 
             // Asynchronously buffer all StandardOutput data
             var outputBuffer = new StringBuilder();
-            // No locking since the data will only be read at the end
-            process.OutputDataReceived += (sender, e) => outputBuffer.AppendLine(e.Data);
+            var outputReadThread = new Thread(() =>
+            {
+                while (!process.StandardOutput.EndOfStream)
+                {
+                    // No locking since the data will only be read at the end
+                    outputBuffer.AppendLine(process.StandardOutput.ReadLine());
+                }
+            }) {IsBackground = true};
+            outputReadThread.Start();
 
             // Asynchronously buffer all StandardError messages
             var errorList = new Queue<string>();
-            // Locking for thread-safe producer-consumer-behaviour
-            process.ErrorDataReceived += (sender, e) =>
+            var errorReadThread = new Thread(() =>
             {
-                if (e.Data != null)
-                    lock (errorList) errorList.Enqueue(e.Data);
-            };
+                while (!process.StandardError.EndOfStream)
+                {
+                    // Locking for thread-safe producer-consumer-behaviour
+                    var data = process.StandardError.ReadLine();
+                    if (!string.IsNullOrEmpty(data))
+                        lock (errorList) errorList.Enqueue(data);
+                }
+            }) {IsBackground = true};
+            errorReadThread.Start();
 
-            // Start async read threads
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-
-            // Use callback to input data
+            // Use callback to send data into external process
             if (inputCallback != null) inputCallback(process.StandardInput);
 
-            if (errorHandler == null) process.WaitForExit();
-            else
+            // Start handling messages to StandardError
+            if (errorHandler != null)
             {
                 do
                 {
-                    // Handle messages to StandardError synchronously
+                    // Locking for thread-safe producer-consumer-behaviour
                     lock (errorList)
                     {
                         while (errorList.Count > 0)
@@ -121,25 +129,24 @@ namespace Common.Cli
                     }
                 } while (!process.WaitForExit(50));
             }
+            else process.WaitForExit();
 
-            // HACK: Some extra time to finish any pending async operations
-            Thread.Sleep(100);
+            // Finish any pending async operations
+            outputReadThread.Join();
+            errorReadThread.Join();
 
+            // Handle any left over StandardError messages
             if (errorHandler != null)
             {
-                lock (errorList)
+                while (errorList.Count > 0)
                 {
-                    while (errorList.Count > 0)
-                    {
-                        string result = errorHandler(errorList.Dequeue());
-                        if (!string.IsNullOrEmpty(result)) process.StandardInput.WriteLine(result);
-                    }
+                    string result = errorHandler(errorList.Dequeue());
+                    if (!string.IsNullOrEmpty(result)) process.StandardInput.WriteLine(result);
                 }
             }
 
             if (errorList.Count > 0)
                 throw new UnhandledErrorsException(StringUtils.Concatenate(errorList, "\n"));
-
             return outputBuffer.ToString();
         }
         #endregion
