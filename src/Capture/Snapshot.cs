@@ -329,6 +329,7 @@ namespace ZeroInstall.Capture
         /// </summary>
         /// <param name="stream">The stream to load from.</param>
         /// <returns>The loaded <see cref="Snapshot"/>.</returns>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the binary data.</exception>
         public static Snapshot Load(Stream stream)
         {
             #region Sanity checks

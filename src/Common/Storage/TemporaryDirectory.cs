@@ -63,7 +63,7 @@ namespace Common.Storage
         {
             if (Directory.Exists(Path))
             {
-                // Write protection might prevent a directory from being deleted (especially on Unix-like sysmtes)
+                // Write protection might prevent a directory from being deleted (especially on Unixoid systems)
                 try
                 {
                     FileUtils.DisableWriteProtection(Path);

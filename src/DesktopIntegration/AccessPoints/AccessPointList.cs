@@ -75,6 +75,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// </summary>
         /// <param name="stream">The stream to load from.</param>
         /// <returns>The loaded <see cref="AccessPointList"/>.</returns>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static AccessPointList Load(Stream stream)
         {
             #region Sanity checks

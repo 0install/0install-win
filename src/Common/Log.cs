@@ -125,10 +125,9 @@ namespace Common
                 return;
             }
 
-            // Check if the log file has exceeded 1MB
+            // Clear cache file once it reaches 1MB
             if (file.Length > 1024 * 1024)
             {
-                // In this case we just kill it and create a new one
                 file.Close();
                 file = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
             }

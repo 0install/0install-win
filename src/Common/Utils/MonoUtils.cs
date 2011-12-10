@@ -27,13 +27,13 @@ using Mono.Unix;
 namespace Common.Utils
 {
     /// <summary>
-    /// Provides helper methods for Unix-specific features of the Mono library. Make sure you are running a Unix-like system before calling any methods in this class!
+    /// Provides helper methods for Unix-specific features of the Mono library. Make sure you are running a Unixoid system before calling any methods in this class!
     /// </summary>
     public static class MonoUtils
     {
         #region OS
         /// <summary>
-        /// <see langword="true"/> if the current operating system is a Unix-like system (e.g. Linux or MacOS X).
+        /// <see langword="true"/> if the current operating system is a Unixoid system (e.g. Linux or MacOS X).
         /// </summary>
         public static bool IsUnix { get { return Environment.OSVersion.Platform == PlatformID.Unix || Environment.OSVersion.Platform == PlatformID.MacOSX; } }
         #endregion

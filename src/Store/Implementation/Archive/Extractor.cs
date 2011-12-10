@@ -283,7 +283,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                     // Write link data as a normal file
                     File.WriteAllText(filePath, target);
 
-                    // Non-Unix-like OSes (e.g. Windows) can't store the symlink flag directly in the filesystem; remember in a text-file instead
+                    // Non-Unixoid OSes (e.g. Windows) can't store the symlink flag directly in the filesystem; remember in a text-file instead
                     FlagUtils.SetExternalFlag(Path.Combine(TargetDir, ".symlink"), relativePath);
                     break;
             }
@@ -365,7 +365,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                 case PlatformID.Win32Windows:
                 case PlatformID.Win32NT:
                 default:
-                    // Non-Unix-like OSes (e.g. Windows) can't store the executable flag directly in the filesystem; remember in a text-file instead
+                    // Non-Unixoid OSes (e.g. Windows) can't store the executable flag directly in the filesystem; remember in a text-file instead
                     FlagUtils.SetExternalFlag(Path.Combine(TargetDir, ".xbit"), relativePath);
                     break;
             }
@@ -391,7 +391,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                 case PlatformID.Win32Windows:
                 case PlatformID.Win32NT:
                 default:
-                    // Non-Unix-like OSes (e.g. Windows) can't store the executable flag directly in the filesystem; remember in a text-file instead
+                    // Non-Unixoid OSes (e.g. Windows) can't store the executable flag directly in the filesystem; remember in a text-file instead
                     FlagUtils.RemoveExternalFlag(Path.Combine(TargetDir, ".xbit"), relativePath);
                     break;
             }

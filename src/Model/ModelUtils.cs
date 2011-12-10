@@ -113,7 +113,7 @@ namespace ZeroInstall.Model
             // Encode slash as #
             result = result.Replace("%2f", "#");
 
-            // Do not encode : on Unix-like systems
+            // Do not encode : on Unixoid systems
             if (MonoUtils.IsUnix) result = result.Replace("%3a", ":");
 
             return result;
