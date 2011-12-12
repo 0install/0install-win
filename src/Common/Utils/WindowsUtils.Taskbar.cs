@@ -229,7 +229,7 @@ namespace Common.Utils
 
         [ComImport, Guid("56FDF344-FD6D-11d0-958A-006097C9A090"), ClassInterface(ClassInterfaceType.None)]
         private class CTaskbarList
-        { }
+        {}
 
         [ComImport, Guid("6332DEBF-87B5-4670-90C0-5E57B408A49E"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         private interface ICustomDestinationList
@@ -283,7 +283,7 @@ namespace Common.Utils
 
         [ComImport, Guid("2D3468C1-36A7-43B6-AC24-D3F02FD9607A"), ClassInterfaceAttribute(ClassInterfaceType.None)]
         private class CEnumerableObjectCollection
-        { }
+        {}
 
         [ComImport, Guid("000214F9-0000-0000-C000-000000000046"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         private interface IShellLinkW
@@ -310,13 +310,17 @@ namespace Common.Utils
 
         [ComImport, Guid("00021401-0000-0000-C000-000000000046"), ClassInterface(ClassInterfaceType.None)]
         private class CShellLink
-        { }
+        {}
 
-        private static readonly ITaskbarList4 _taskbarList = (ITaskbarList4)new CTaskbarList();
+        private static readonly ITaskbarList4 _taskbarList;
 
         static WindowsUtils()
         {
-            _taskbarList.HrInit();
+            if (WindowsUtils.IsWindows7)
+            {
+                _taskbarList = (ITaskbarList4)new CTaskbarList();
+                _taskbarList.HrInit();
+            }
         }
         #endregion
 
@@ -335,7 +339,7 @@ namespace Common.Utils
                     _taskbarList.SetProgressState(handle, state);
             }
             catch
-            { }
+            {}
         }
 
         /// <summary>
@@ -354,7 +358,7 @@ namespace Common.Utils
                     _taskbarList.SetProgressValue(handle, Convert.ToUInt32(currentValue), Convert.ToUInt32(maximumValue));
             }
             catch
-            { }
+            {}
         }
 
         /// <summary>
@@ -388,7 +392,7 @@ namespace Common.Utils
                 Marshal.ReleaseComObject(propertyStore);
             }
             catch
-            { }
+            {}
         }
 
         /// <summary>
@@ -424,7 +428,7 @@ namespace Common.Utils
                 customDestinationList.CommitList();
             }
             catch
-            { }
+            {}
         }
 
         /// <summary>
