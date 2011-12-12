@@ -378,7 +378,7 @@ namespace ZeroInstall.Injector
             catch (ParsingException ex)
             {
                 // Wrap exception since only certain exception types are allowed
-                throw new InvalidDataException(ex.Message, ex);
+                throw new InvalidDataException(ex.Message);
             }
             #endregion
 
@@ -396,7 +396,7 @@ namespace ZeroInstall.Injector
                     {
                         property.Value.Value = property.Value.NeedsEncoding ? StringUtils.Base64Decode(global[key]) : global[key];
                     }
-                        #region Error 
+                        #region Error handling
                     catch (FormatException ex)
                     {
                         // Wrap exception to add context information
