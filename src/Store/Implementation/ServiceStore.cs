@@ -145,27 +145,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add archive
         /// <inheritdoc />
-        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, ITaskHandler handler)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
-            if (handler == null) throw new ArgumentNullException("handler");
-            #endregion
-
-            try
-            {
-                _serviceProxy.AddArchive(archiveInfo, manifestDigest, handler);
-            }
-                #region Error handling
-            catch (RemotingException ex)
-            {
-                throw new UnauthorizedAccessException(Resources.StoreServiceCommunicationProblem, ex);
-            }
-            #endregion
-        }
-
-        /// <inheritdoc />
-        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
+        public void AddArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
@@ -174,7 +154,7 @@ namespace ZeroInstall.Store.Implementation
 
             try
             {
-                _serviceProxy.AddMultipleArchives(archiveInfos, manifestDigest, handler);
+                _serviceProxy.AddArchives(archiveInfos, manifestDigest, handler);
             }
                 #region Error handling
             catch (RemotingException ex)

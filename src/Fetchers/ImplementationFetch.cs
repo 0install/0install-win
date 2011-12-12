@@ -115,7 +115,7 @@ namespace ZeroInstall.Fetchers
 
             try
             {
-                _fetcherInstance.Store.AddArchive(tempArchiveInfo, _digest, new HookTaskHandler(handler, task => _currentTask = task));
+                _fetcherInstance.Store.AddArchives(new [] {tempArchiveInfo}, _digest, new HookTaskHandler(handler, task => _currentTask = task));
             }
             catch (ImplementationAlreadyInStoreException)
             {}
@@ -152,7 +152,7 @@ namespace ZeroInstall.Fetchers
             }
             try
             {
-                _fetcherInstance.Store.AddMultipleArchives(archives, _digest, new HookTaskHandler(handler, task => _currentTask = task));
+                _fetcherInstance.Store.AddArchives(archives, _digest, new HookTaskHandler(handler, task => _currentTask = task));
             }
             catch (ImplementationAlreadyInStoreException)
             {}

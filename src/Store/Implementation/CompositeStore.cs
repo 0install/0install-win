@@ -159,42 +159,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add archive
         /// <inheritdoc />
-        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, ITaskHandler handler)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
-            if (handler == null) throw new ArgumentNullException("handler");
-            #endregion
-
-            // Find the last store the implementation can be added to (some might be write-protected)
-            Exception innerException = null;
-            foreach (IStore store in _stores.Backwards())
-            {
-                try
-                {
-                    // Try to add implementation to this store
-                    store.AddArchive(archiveInfo, manifestDigest, handler);
-                    return;
-                }
-                    #region Error handling
-                catch (IOException ex)
-                {
-                    innerException = ex; // Remember the last error
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    innerException = ex; // Remember the last error
-                }
-                #endregion
-            }
-
-            // If we reach this, the implementation couldn't be added to any store
-            if (innerException != null) Log.Error(innerException.Message);
-            throw new IOException(Resources.UnableToAddImplementionToStore, innerException);
-        }
-
-        /// <inheritdoc />
-        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
+        public void AddArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
@@ -208,7 +173,7 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     // Try to add implementation to this store
-                    store.AddMultipleArchives(archiveInfos, manifestDigest, handler);
+                    store.AddArchives(archiveInfos, manifestDigest, handler);
                     return;
                 }
                     #region Error handling

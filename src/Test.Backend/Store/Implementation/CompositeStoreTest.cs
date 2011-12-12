@@ -161,51 +161,27 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add archive
         [Test]
-        public void TestAddArchiveFirst()
+        public void TestAddArchivesFirst()
         {
-            _mock2.Expect("AddArchive", _archive1, _digest1, _handler);
-            _mock1.ExpectNoCall("AddArchive"); // Only add once
-            TestStore.AddArchive(_archive1, _digest1, _handler);
+            _mock2.Expect("AddArchives", _archives, _digest1, _handler);
+            _mock1.ExpectNoCall("AddArchives"); // Only add once
+            TestStore.AddArchives(_archives, _digest1, _handler);
         }
 
         [Test]
-        public void TestAddArchiveSecond()
+        public void TestAddArchivesSecond()
         {
-            _mock2.ExpectAndThrow("AddArchive", new IOException(), _archive1, _digest1, _handler);
-            _mock1.Expect("AddArchive", _archive1, _digest1, _handler);
-            TestStore.AddArchive(_archive1, _digest1, _handler);
+            _mock2.ExpectAndThrow("AddArchives", new IOException(), _archives, _digest1, _handler);
+            _mock1.Expect("AddArchives", _archives, _digest1, _handler);
+            TestStore.AddArchives(_archives, _digest1, _handler);
         }
 
         [Test]
-        public void TestAddArchiveFail()
+        public void TestAddArchivesFail()
         {
-            _mock2.ExpectAndThrow("AddArchive", new IOException(), _archive1, _digest1, _handler);
-            _mock1.ExpectAndThrow("AddArchive", new IOException(), _archive1, _digest1, _handler);
-            Assert.Throws<IOException>(() => TestStore.AddArchive(_archive1, _digest1, _handler), "Should pass through fatal exceptions");
-        }
-
-        [Test]
-        public void TestAddMultipleArchivesFirst()
-        {
-            _mock2.Expect("AddMultipleArchives", _archives, _digest1, _handler);
-            _mock1.ExpectNoCall("AddMultipleArchives"); // Only add once
-            TestStore.AddMultipleArchives(_archives, _digest1, _handler);
-        }
-
-        [Test]
-        public void TestAddMultipleArchivesSecond()
-        {
-            _mock2.ExpectAndThrow("AddMultipleArchives", new IOException(), _archives, _digest1, _handler);
-            _mock1.Expect("AddMultipleArchives", _archives, _digest1, _handler);
-            TestStore.AddMultipleArchives(_archives, _digest1, _handler);
-        }
-
-        [Test]
-        public void TestAddMultipleArchivesFail()
-        {
-            _mock2.ExpectAndThrow("AddMultipleArchives", new IOException(), _archives, _digest1, _handler);
-            _mock1.ExpectAndThrow("AddMultipleArchives", new IOException(), _archives, _digest1, _handler);
-            Assert.Throws<IOException>(() => TestStore.AddMultipleArchives(_archives, _digest1, _handler), "Should pass through fatal exceptions");
+            _mock2.ExpectAndThrow("AddArchives", new IOException(), _archives, _digest1, _handler);
+            _mock1.ExpectAndThrow("AddArchives", new IOException(), _archives, _digest1, _handler);
+            Assert.Throws<IOException>(() => TestStore.AddArchives(_archives, _digest1, _handler), "Should pass through fatal exceptions");
         }
         #endregion
 

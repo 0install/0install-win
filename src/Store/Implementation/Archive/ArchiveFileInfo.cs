@@ -22,8 +22,7 @@ namespace ZeroInstall.Store.Implementation.Archive
     /// <summary>
     /// A parameter structure containing information about a requested archive extraction.
     /// </summary>
-    /// <see cref="IStore.AddArchive"/>
-    /// <see cref="IStore.AddMultipleArchives"/>
+    /// <see cref="IStore.AddArchives"/>
     [Serializable]
     public struct ArchiveFileInfo
     {

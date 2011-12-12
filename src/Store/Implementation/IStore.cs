@@ -73,21 +73,6 @@ namespace ZeroInstall.Store.Implementation
         void AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler);
 
         /// <summary>
-        /// Extracts an archive containing the files of an implementation into the store if it matches the provided <see cref="ManifestDigest"/>.
-        /// </summary>
-        /// <param name="archiveInfo">Parameter object providing the information to extract the archive.</param>
-        /// <param name="manifestDigest">The digest the implementation is supposed to match.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
-        /// <exception cref="NotSupportedException">Thrown if the archive type is unknown or not supported.</exception>
-        /// <exception cref="IOException">Thrown if the archive cannot be extracted.</exception>
-        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Model.Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the archive or write access to the store is not permitted.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if the archive content doesn't match the <paramref name="manifestDigest"/>.</exception>
-        void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, ITaskHandler handler);
-
-        /// <summary>
         /// Extracts multiple archives, that together contain the files of an implementation, into the same folder, compares that folder's manifest to <paramref name="manifestDigest"/> and adds it to the store.
         /// </summary>
         /// <param name="archiveInfos">Multiple parameter objects providing the information to extract each archive.</param>
@@ -100,7 +85,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Model.Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to one of the archives or write access to the store is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the archives content doesn't match the <paramref name="manifestDigest"/>.</exception>
-        void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler);
+        void AddArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler);
 
         /// <summary>
         /// Removes a specific implementation from the cache.

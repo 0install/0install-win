@@ -114,19 +114,20 @@ namespace ZeroInstall.Store.Implementation
             string source = Path.Combine(DirectoryPath, tempID);
             string target = Path.Combine(DirectoryPath, expectedDigestValue);
 
-            if (Directory.Exists(target)) throw new ImplementationAlreadyInStoreException(expectedDigest);
-
             // Calculate the actual digest, compare it with the expected one and create a manifest file
             VerifyDirectory(source, expectedDigest, handler).Save(Path.Combine(source, ".manifest"));
+
+            if (Directory.Exists(target)) throw new ImplementationAlreadyInStoreException(expectedDigest);
 
             // Move directory to final store destination
             try
             {
                 Directory.Move(source, target);
             }
-            catch (IOException)
+            catch (IOException ex)
             {
-                if (Directory.Exists(target)) throw new ImplementationAlreadyInStoreException(expectedDigest);
+                // ToDo: Make language independent
+                if (ex.Message.Contains("already exists")) throw new ImplementationAlreadyInStoreException(expectedDigest);
                 throw;
             }
 
@@ -171,23 +172,7 @@ namespace ZeroInstall.Store.Implementation
             string expectedDigestValue = expectedDigest.BestDigest;
             string actualDigestValue = actualManifest.CalculateDigest();
             if (actualDigestValue != expectedDigestValue)
-            {
-                Manifest expectedManifest = null;
-                try
-                {
-                    expectedManifest = Manifest.Load(Path.Combine(directory, ".manifest"), ManifestFormat.FromPrefix(expectedDigest.BestPrefix));
-                }
-                    #region Error handling
-                catch (FormatException)
-                {}
-                catch (IOException)
-                {}
-                catch (UnauthorizedAccessException)
-                {}
-                #endregion
-
-                throw new DigestMismatchException(expectedDigestValue, expectedManifest, actualDigestValue, actualManifest);
-            }
+                throw new DigestMismatchException(expectedDigestValue, null, actualDigestValue, actualManifest);
 
             return actualManifest;
         }
@@ -269,7 +254,8 @@ namespace ZeroInstall.Store.Implementation
                     #region Error handling
                 catch (IOException ex)
                 {
-                    // Wrap too generic exceptions thrown
+                    // Wrap too generic exceptions
+                    // ToDo: Make language independent
                     if (ex.Message.StartsWith("Access") && ex.Message.EndsWith("is denied.")) throw new UnauthorizedAccessException(ex.Message, ex);
 
                     // Pass other exceptions through
@@ -292,54 +278,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add archive
         /// <inheritdoc />
-        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, ITaskHandler handler)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
-            if (handler == null) throw new ArgumentNullException("handler");
-            #endregion
-
-            if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
-
-            // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
-            var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
-            using (var extractor = Extractor.CreateExtractor(archiveInfo.MimeType, archiveInfo.Path, archiveInfo.StartOffset, tempDir))
-            {
-                extractor.SubDir = archiveInfo.SubDir;
-
-                try
-                {
-                    // Defer task to handler
-                    try
-                    {
-                        handler.RunTask(extractor, manifestDigest);
-                    }
-                        #region Error handling
-                    catch (IOException ex)
-                    {
-                        // Wrap too generic exceptions thrown
-                        if (ex.Message.StartsWith("Access") && ex.Message.EndsWith("is denied.")) throw new UnauthorizedAccessException(ex.Message, ex);
-
-                        // Pass other exceptions through
-                        throw;
-                    }
-                    #endregion
-
-                    VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);
-                }
-                    #region Error handling
-                catch (Exception)
-                {
-                    // Remove temporary directory before passing exception on
-                    if (Directory.Exists(tempDir)) Directory.Delete(tempDir, true);
-                    throw;
-                }
-                #endregion
-            }
-        }
-
-        /// <inheritdoc />
-        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
+        public void AddArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");

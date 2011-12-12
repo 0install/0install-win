@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using System.Threading;
 using Common.Collections;
 using Common.Utils;
 using Common.Storage;
@@ -81,11 +82,10 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldAllowToAddFolder()
         {
             var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new SilentHandler()));
-            var store = _store;
-            store.AddDirectory(_packageDir, digest, new SilentHandler());
+            _store.AddDirectory(_packageDir, digest, new SilentHandler());
 
-            Assert.IsTrue(store.Contains(digest), "After adding, Store must contain the added package");
-            CollectionAssert.AreEqual(new[] {digest}, store.ListAll(), "After adding, Store must show the added package in the complete list");
+            Assert.IsTrue(_store.Contains(digest), "After adding, Store must contain the added package");
+            CollectionAssert.AreEqual(new[] {digest}, _store.ListAll(), "After adding, Store must show the added package in the complete list");
         }
 
         [Test]
@@ -107,11 +107,10 @@ namespace ZeroInstall.Store.Implementation
         {
             var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new SilentHandler()));
 
-            var store = _store;
-            store.AddDirectory(_packageDir, digest, new SilentHandler());
-            Assert.IsTrue(store.Contains(digest), "After adding, Store must contain the added package");
-            store.Remove(digest, new SilentHandler());
-            Assert.IsFalse(store.Contains(digest), "After remove, Store may no longer contain the added package");
+            _store.AddDirectory(_packageDir, digest, new SilentHandler());
+            Assert.IsTrue(_store.Contains(digest), "After adding, Store must contain the added package");
+            _store.Remove(digest, new SilentHandler());
+            Assert.IsFalse(_store.Contains(digest), "After remove, Store may no longer contain the added package");
         }
 
         [Test]
@@ -139,17 +138,52 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldDetectDamagedImplementations()
         {
             var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha1New, new SilentHandler()));
-            var store = _store;
-            store.AddDirectory(_packageDir, digest, new SilentHandler());
+            _store.AddDirectory(_packageDir, digest, new SilentHandler());
 
             // After correctly adding a directory, the store should be valid
             CollectionAssert.IsEmpty(_store.Audit(new SilentHandler()));
 
             // A contaminated store should be detected
             Directory.CreateDirectory(Path.Combine(_tempDir.Path, "sha1new=abc"));
-            DigestMismatchException problem = EnumerableUtils.GetFirst(store.Audit(new SilentHandler()));
+            DigestMismatchException problem = EnumerableUtils.GetFirst(_store.Audit(new SilentHandler()));
             Assert.AreEqual("sha1new=abc", problem.ExpectedHash);
             Assert.AreEqual("sha1new=da39a3ee5e6b4b0d3255bfef95601890afd80709", problem.ActualHash);
+        }
+
+        //[Test]
+        public void StressTest()
+        {
+            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new SilentHandler()));
+
+            Exception exception = null;
+            var threads = new Thread[100];
+            for (int i = 0; i < threads.Length; i++)
+            {
+                threads[i] = new Thread(delegate()
+                {
+                    try
+                    {
+                        _store.AddDirectory(_packageDir, digest, new SilentHandler());
+                        _store.Remove(digest, new SilentHandler());
+                    }
+                    catch (ImplementationAlreadyInStoreException)
+                    {}
+                    catch (ImplementationNotFoundException)
+                    {}
+                    catch (Exception ex)
+                    {
+                        exception = ex;
+                    }
+                });
+                threads[i].Start();
+            }
+
+            for (int i = 0; i < threads.Length; i++)
+                threads[i].Join();
+            if (exception != null)
+                Assert.Fail(exception.ToString());
+
+            Assert.IsFalse(_store.Contains(digest));
         }
     }
 }
