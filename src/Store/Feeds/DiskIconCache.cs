@@ -156,7 +156,6 @@ namespace ZeroInstall.Store.Feeds
 
             lock (_lock)
             {
-                if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.IconNotInCache, iconUrl, path));
                 File.Delete(path);
             }
         }

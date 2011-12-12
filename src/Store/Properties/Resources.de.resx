@@ -146,9 +146,6 @@ Tatsächlicher Wert: {1}</value>
   <data name="GeneratingManifest" xml:space="preserve">
     <value>Generiere {0} Manifest ({1})</value>
   </data>
-  <data name="IconNotInCache" xml:space="preserve">
-    <value>'{0}' konnte nicht im Icon Cache gefunden werden. Nach folgender Datei wurde gesucht: {1}</value>
-  </data>
   <data name="IllegalFileType" xml:space="preserve">
     <value>Die Datei '{0}' ist weder ein symbolischer Link noch eine reguläre Datei.</value>
   </data>

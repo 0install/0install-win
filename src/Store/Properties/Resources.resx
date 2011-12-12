@@ -146,9 +146,6 @@ Actual value: {1}</value>
   <data name="GeneratingManifest" xml:space="preserve">
     <value>Generating {0} manifest ({1})</value>
   </data>
-  <data name="IconNotInCache" xml:space="preserve">
-    <value>'{0}' could not be located in the icon cache. Looked for file at: {1}</value>
-  </data>
   <data name="IllegalFileType" xml:space="preserve">
     <value>The file '{0}' is neither a symbolic link nor a regular file.</value>
   </data>

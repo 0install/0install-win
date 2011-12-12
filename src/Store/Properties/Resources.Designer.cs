@@ -144,15 +144,6 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{0}&apos; could not be located in the icon cache. Looked for file at: {1}.
-        /// </summary>
-        internal static string IconNotInCache {
-            get {
-                return ResourceManager.GetString("IconNotInCache", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The file &apos;{0}&apos; is neither a symbolic link nor a regular file..
         /// </summary>
         internal static string IllegalFileType {
