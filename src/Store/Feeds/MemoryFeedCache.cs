@@ -35,7 +35,7 @@ namespace ZeroInstall.Store.Feeds
         /// <summary>The underlying cache used for authorative storage of <see cref="Feed"/>s.</summary>
         private readonly IFeedCache _backingCache;
 
-        /// <summary>ToDo</summary>
+        /// <summary>The in-memory cache for storing parsed <see cref="Feed"/>s.</summary>
         private readonly Dictionary<string, Feed> _feedDictionary = new Dictionary<string, Feed>();
         #endregion
 
@@ -81,15 +81,18 @@ namespace ZeroInstall.Store.Feeds
             ModelUtils.ValidateInterfaceID(feedID);
             #endregion
 
-            if (!_feedDictionary.ContainsKey(feedID))
-            { // Add to memory cache if missing
-                Feed feed = _backingCache.GetFeed(feedID);
-                _feedDictionary.Add(feedID, feed);
-                return feed;
-            }
+            lock (_feedDictionary)
+            {
+                if (!_feedDictionary.ContainsKey(feedID))
+                { // Add to memory cache if missing
+                    Feed feed = _backingCache.GetFeed(feedID);
+                    _feedDictionary.Add(feedID, feed);
+                    return feed;
+                }
 
-            // Get from memory cache
-            return _feedDictionary[feedID];
+                // Get from memory cache
+                return _feedDictionary[feedID];
+            }
         }
 
         /// <inheritdoc/>
@@ -112,13 +115,14 @@ namespace ZeroInstall.Store.Feeds
             // Add to underlying cache
             _backingCache.Add(feedID, stream);
 
-            // Remove old version from memory cache
-            _feedDictionary.Remove(feedID);
-
-            // Add to memory cache
+            // Add to memory cache (replacing existing old versions)
             var feed = Feed.Load(stream);
             feed.Simplify();
-            _feedDictionary.Add(feedID, feed);
+            lock (_feedDictionary)
+            {
+                _feedDictionary.Remove(feedID);
+                _feedDictionary.Add(feedID, feed);
+            }
         }
         #endregion
 
@@ -131,8 +135,11 @@ namespace ZeroInstall.Store.Feeds
             ModelUtils.ValidateInterfaceID(feedID);
             #endregion
 
-            // Remove from memory cache
-            _feedDictionary.Remove(feedID);
+            lock (_feedDictionary)
+            {
+                // Remove from memory cache
+                _feedDictionary.Remove(feedID);
+            }
 
             // Remove from underlying cache
             _backingCache.Remove(feedID);
