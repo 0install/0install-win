@@ -297,10 +297,8 @@ namespace ZeroInstall.Injector
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the config data.</exception>
         public static Config Load(string path)
         {
-            var iniData = _iniParse.LoadFile(path, true);
-            var config = new Config {_iniData = iniData};
-
-            FromIniToConfig(iniData, config);
+            var config = new Config();
+            config.ReadFromIniFile(path);
             return config;
         }
 
@@ -320,11 +318,7 @@ namespace ZeroInstall.Injector
             // Accumulate values from all files
             var config = new Config();
             foreach (var path in paths)
-            {
-                // Keep original INI data from last parsed file
-                config._iniData = _iniParse.LoadFile(path, true);
-                FromIniToConfig(config._iniData, config);
-            }
+                config.ReadFromIniFile(path);
             return config;
         }
 
@@ -336,8 +330,7 @@ namespace ZeroInstall.Injector
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void Save(string path)
         {
-            if (_iniData == null) _iniData = new IniData();
-            FromConfigToIni(this, _iniData);
+            TransferToIni();
 
             // Make sure the containing directory exists
             string directory = Path.GetDirectoryName(Path.GetFullPath(path));
@@ -373,14 +366,26 @@ namespace ZeroInstall.Injector
 
         #region Serialization
         /// <summary>
-        /// Transfers parsed <see cref="IniData"/> to <see cref="Config"/> properties using <see cref="_metaData"/>.
+        /// Reads data from an INI file on the disk and transfers it to properties using <see cref="_metaData"/>.
         /// </summary>
-        private static void FromIniToConfig(IniData iniData, Config config)
+        private void ReadFromIniFile(string path)
         {
-            if (!iniData.Sections.ContainsSection("global")) return;
+            try
+            {
+                _iniData = _iniParse.LoadFile(path, true);
+            }
+                #region Error handling
+            catch (ParsingException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new InvalidDataException(ex.Message, ex);
+            }
+            #endregion
 
-            var global = iniData["global"];
-            foreach (var property in config._metaData)
+            if (!_iniData.Sections.ContainsSection("global")) return;
+
+            var global = _iniData["global"];
+            foreach (var property in _metaData)
             {
                 string key = property.Key;
                 if (property.Value.NeedsEncoding) key += "_base64";
@@ -391,12 +396,7 @@ namespace ZeroInstall.Injector
                     {
                         property.Value.Value = property.Value.NeedsEncoding ? StringUtils.Base64Decode(global[key]) : global[key];
                     }
-                        #region Error handling
-                    catch (ParsingException ex)
-                    {
-                        // Wrap exception to add context information
-                        throw new InvalidDataException(string.Format(Resources.ProblemLoadingConfig, property.Key), ex);
-                    }
+                        #region Error 
                     catch (FormatException ex)
                     {
                         // Wrap exception to add context information
@@ -409,27 +409,28 @@ namespace ZeroInstall.Injector
             // Migrate passwords/keys that are not base64-encoded yet
             if (global.ContainsKey("sync_server_pw"))
             {
-                config.SyncServerPassword = global["sync_server_pw"];
+                SyncServerPassword = global["sync_server_pw"];
                 global.RemoveKey("sync_server_pw");
             }
             if (global.ContainsKey("sync_crypto_key"))
             {
-                config.SyncCryptoKey = global["sync_crypto_key"];
+                SyncCryptoKey = global["sync_crypto_key"];
                 global.RemoveKey("sync_crypto_key");
             }
         }
 
         /// <summary>
-        /// Transfers <see cref="Config"/> properties to <see cref="IniData"/> using <see cref="_metaData"/>.
+        /// Transfers data from properties to <see cref="_iniData"/> using <see cref="_metaData"/>.
         /// </summary>
-        private static void FromConfigToIni(Config config, IniData iniData)
+        private void TransferToIni()
         {
-            iniData.Sections.RemoveSection("__global__section__"); // Throw away section-less data
+            if (_iniData == null) _iniData = new IniData();
+            _iniData.Sections.RemoveSection("__global__section__"); // Throw away section-less data
 
-            if (!iniData.Sections.ContainsSection("global")) iniData.Sections.AddSection("global");
-            var global = iniData["global"];
+            if (!_iniData.Sections.ContainsSection("global")) _iniData.Sections.AddSection("global");
+            var global = _iniData["global"];
 
-            foreach (var property in config._metaData)
+            foreach (var property in _metaData)
             {
                 string key = property.Key;
                 if (property.Value.NeedsEncoding) key += "_base64";
