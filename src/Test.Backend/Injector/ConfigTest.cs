@@ -98,7 +98,7 @@ namespace ZeroInstall.Injector
         [Test]
         public void TestRetainUnknownProperties()
         {
-            const string testIniData = "[global]\r\ntest = test\r\n\r\n";
+            string testIniData = "[global]" + Environment.NewLine + "test = test" + Environment.NewLine + Environment.NewLine;
 
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
