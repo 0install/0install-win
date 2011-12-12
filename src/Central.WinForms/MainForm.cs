@@ -254,7 +254,7 @@ namespace ZeroInstall.Central.WinForms
             appListWorker.RunWorkerAsync(feedsToLoad);
         }
 
-        private void feedLoadWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void appListWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             var policy = Policy.CreateDefault(new SilentHandler());
 

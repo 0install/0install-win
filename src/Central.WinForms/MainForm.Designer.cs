@@ -165,7 +165,7 @@
             // 
             // appListWorker
             // 
-            this.appListWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.feedLoadWorker_DoWork);
+            this.appListWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.appListWorker_DoWork);
             // 
             // appListTimer
             // 
