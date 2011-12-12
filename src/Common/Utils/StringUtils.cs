@@ -382,6 +382,25 @@ namespace Common.Utils
         }
         #endregion
 
+        #region Base 64
+        /// <summary> 
+        /// Encodes a string as UTF-8 in base 64.
+        /// </summary>
+        public static string Base64Encode(string value)
+        {
+            return value == null ? null : Convert.ToBase64String(Encoding.UTF8.GetBytes(value));
+        }
+
+        /// <summary>
+        /// Decodes a UTF-8 in base 64 string.
+        /// </summary>
+        /// <exception cref="FormatException">Thrown if <paramref name="value"/> is not a valid base 64 string.</exception>
+        public static string Base64Decode(string value)
+        {
+            return value == null ? null : Encoding.UTF8.GetString(Convert.FromBase64String(value));
+        }
+        #endregion
+
         #region Hash
         /// <summary>
         /// Computes the hash value of a string encoded as UTF-8.

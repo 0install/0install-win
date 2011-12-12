@@ -148,7 +148,7 @@
     <value>The value is not a valid domain name.</value>
   </data>
   <data name="ProblemLoadingConfig" xml:space="preserve">
-    <value>There was a problem loading configuration values from '{0}'.</value>
+    <value>There was a problem loading configuration value '{0}'.</value>
   </data>
   <data name="ReplayAttack" xml:space="preserve">
     <value>New feed's modification time is before old version!

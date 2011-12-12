@@ -203,8 +203,8 @@ namespace ZeroInstall.Injector
                 {"self_update_id", new PropertyPointer<string>(() => SelfUpdateID, value => SelfUpdateID = value, DefaultSelfUpdateID)},
                 {"sync_server", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => SyncServer, value => SyncServer = value, new Uri(DefaultSyncServer)))},
                 {"sync_server_user", new PropertyPointer<string>(() => SyncServerUsername, value => SyncServerUsername = value, "")},
-                {"sync_server_pw", new PropertyPointer<string>(() => SyncServerPassword, value => SyncServerPassword = value, "")},
-                {"sync_crypto_key", new PropertyPointer<string>(() => SyncCryptoKey, value => SyncCryptoKey = value, "")},
+                {"sync_server_pw", new PropertyPointer<string>(() => SyncServerPassword, value => SyncServerPassword = value, "", true)},
+                {"sync_crypto_key", new PropertyPointer<string>(() => SyncCryptoKey, value => SyncCryptoKey = value, "", true)},
                 {"allow_api_hooking", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => AllowApiHooking, value => AllowApiHooking = value, false))},
             };
         }
@@ -321,22 +321,9 @@ namespace ZeroInstall.Injector
             var config = new Config();
             foreach (var path in paths)
             {
-                try
-                {
-                    FromIniToConfig(_iniParse.LoadFile(path, true), config);
-                }
-                    #region Error handling
-                catch (ParsingException ex)
-                {
-                    // Wrap exception to add context information
-                    throw new InvalidDataException(string.Format(Resources.ProblemLoadingConfig, path) + "\n" + ex.Message, ex);
-                }
-                catch (FormatException ex)
-                {
-                    // Wrap exception to add context information
-                    throw new InvalidDataException(string.Format(Resources.ProblemLoadingConfig, path) + "\n" + ex.Message, ex);
-                }
-                #endregion
+                // Keep original INI data from last parsed file
+                config._iniData = _iniParse.LoadFile(path, true);
+                FromIniToConfig(config._iniData, config);
             }
             return config;
         }
@@ -395,8 +382,40 @@ namespace ZeroInstall.Injector
             var global = iniData["global"];
             foreach (var property in config._metaData)
             {
-                if (global.ContainsKey(property.Key))
-                    property.Value.Value = global[property.Key];
+                string key = property.Key;
+                if (property.Value.NeedsEncoding) key += "_base64";
+
+                if (global.ContainsKey(key))
+                {
+                    try
+                    {
+                        property.Value.Value = property.Value.NeedsEncoding ? StringUtils.Base64Decode(global[key]) : global[key];
+                    }
+                        #region Error handling
+                    catch (ParsingException ex)
+                    {
+                        // Wrap exception to add context information
+                        throw new InvalidDataException(string.Format(Resources.ProblemLoadingConfig, property.Key), ex);
+                    }
+                    catch (FormatException ex)
+                    {
+                        // Wrap exception to add context information
+                        throw new InvalidDataException(string.Format(Resources.ProblemLoadingConfig, property.Key), ex);
+                    }
+                    #endregion
+                }
+            }
+
+            // Migrate passwords/keys that are not base64-encoded yet
+            if (global.ContainsKey("sync_server_pw"))
+            {
+                config.SyncServerPassword = global["sync_server_pw"];
+                global.RemoveKey("sync_server_pw");
+            }
+            if (global.ContainsKey("sync_crypto_key"))
+            {
+                config.SyncCryptoKey = global["sync_crypto_key"];
+                global.RemoveKey("sync_crypto_key");
             }
         }
 
@@ -405,15 +424,20 @@ namespace ZeroInstall.Injector
         /// </summary>
         private static void FromConfigToIni(Config config, IniData iniData)
         {
+            iniData.Sections.RemoveSection("__global__section__"); // Throw away section-less data
+
             if (!iniData.Sections.ContainsSection("global")) iniData.Sections.AddSection("global");
             var global = iniData["global"];
 
             foreach (var property in config._metaData)
             {
+                string key = property.Key;
+                if (property.Value.NeedsEncoding) key += "_base64";
+
                 // Remove the old value and only set the new one if it isn't the default value
-                global.RemoveKey(property.Key);
+                global.RemoveKey(key);
                 if (!Equals(property.Value.DefaultValue, property.Value.Value))
-                    global.AddKey(property.Key, property.Value.Value);
+                    global.AddKey(key, property.Value.NeedsEncoding ? StringUtils.Base64Encode(property.Value.Value) : property.Value.Value);
             }
         }
         #endregion
@@ -451,7 +475,7 @@ namespace ZeroInstall.Injector
         {
             var builder = new StringBuilder();
             foreach (var property in _metaData)
-                builder.AppendLine(property.Key + " = " + property.Value.Value);
+                builder.AppendLine(property.Key + " = " + (property.Value.NeedsEncoding ? "***" : property.Value.Value));
             return builder.ToString();
         }
         #endregion

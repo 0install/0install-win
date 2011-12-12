@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.IO;
 using Common.Storage;
 using NUnit.Framework;
 
@@ -89,6 +90,22 @@ namespace ZeroInstall.Injector
             config.SetOption("freshness", "10");
             Assert.AreEqual(TimeSpan.FromSeconds(10), config.Freshness);
             Assert.AreEqual("10", config.GetOption("freshness"));
+        }
+
+        /// <summary>
+        /// Ensures <see cref="Config.Save(string)"/> preserves unknown properties loaded in <see cref="Config.Load(string)"/>.
+        /// </summary>
+        [Test]
+        public void TestRetainUnknownProperties()
+        {
+            const string testIniData = "[global]\r\ntest = test\r\n\r\n";
+
+            using (var tempFile = new TemporaryFile("0install-unit-tests"))
+            {
+                File.WriteAllText(tempFile.Path, testIniData);
+                Config.Load(tempFile.Path).Save(tempFile.Path);
+                Assert.AreEqual(testIniData, File.ReadAllText(tempFile.Path));
+            }
         }
     }
 }

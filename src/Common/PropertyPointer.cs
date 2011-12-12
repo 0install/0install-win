@@ -45,13 +45,21 @@ namespace Common
         /// </summary>
         public T DefaultValue { get { return _defaultValue; } }
 
+        private readonly bool _needsEncoding;
+
+        /// <summary>
+        /// Indicates that this property needs to be encoded (e.g. as base64) before it can be stored in a file.
+        /// </summary>
+        public bool NeedsEncoding { get { return _needsEncoding; } }
+
         /// <summary>
         /// Creates a property pointer.
         /// </summary>
         /// <param name="getValue">A delegate that returns the current value.</param>
         /// <param name="setValue">A delegate that sets the valuel.</param>
         /// <param name="defaultValue">The default value of the property</param>
-        public PropertyPointer(SimpleResult<T> getValue, Action<T> setValue, T defaultValue)
+        /// <param name="needsEncoding">Indicates that this property needs to be encoded (e.g. as base64) before it can be stored in a file.</param>
+        public PropertyPointer(SimpleResult<T> getValue, Action<T> setValue, T defaultValue, bool needsEncoding)
         {
             #region Sanity checks
             if (getValue == null) throw new ArgumentNullException("getValue");
@@ -61,6 +69,7 @@ namespace Common
             _getValue = getValue;
             _setValue = setValue;
             _defaultValue = defaultValue;
+            _needsEncoding = needsEncoding;
         }
 
         /// <summary>
@@ -68,7 +77,18 @@ namespace Common
         /// </summary>
         /// <param name="getValue">A delegate that returns the current value.</param>
         /// <param name="setValue">A delegate that sets the valuel.</param>
-        public PropertyPointer(SimpleResult<T> getValue, Action<T> setValue) : this(getValue, setValue, default(T))
+        /// <param name="defaultValue">The default value of the property</param>
+        public PropertyPointer(SimpleResult<T> getValue, Action<T> setValue, T defaultValue)
+            : this(getValue, setValue, defaultValue, false)
+        {}
+
+        /// <summary>
+        /// Creates a property pointer.
+        /// </summary>
+        /// <param name="getValue">A delegate that returns the current value.</param>
+        /// <param name="setValue">A delegate that sets the valuel.</param>
+        public PropertyPointer(SimpleResult<T> getValue, Action<T> setValue)
+            : this(getValue, setValue, default(T))
         {}
     }
 
