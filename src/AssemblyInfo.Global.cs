@@ -8,5 +8,5 @@ using System.Reflection;
 [assembly: AssemblyCopyright("Copyright 2010-2011 Bastian Eicher et al.")]
 
 // Version information
-[assembly: AssemblyVersion("1.4.1")]
-[assembly: AssemblyFileVersion("1.4.1")]
+[assembly: AssemblyVersion("1.4.2")]
+[assembly: AssemblyFileVersion("1.4.2")]
