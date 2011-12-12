@@ -27,10 +27,14 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Feeds
 {
     /// <summary>
-    /// Provides access to a disk-based cache of <see cref="Icon"/>s that were downloaded via HTTP(S).
+    /// Provides access to a disk-based cache of icon files that were downloaded via HTTP(S).
     /// </summary>
     public sealed class DiskIconCache : IIconCache
     {
+        #region Variables
+        private readonly object _lock = new object();
+        #endregion
+
         #region Properties
         /// <summary>
         /// The directory containing the cached <see cref="Icon"/>s.
@@ -95,8 +99,6 @@ namespace ZeroInstall.Store.Feeds
         #endregion
 
         #region Get
-        private readonly object _downloadLock = new object();
-
         /// <inheritdoc/>
         public string GetIcon(Uri iconUrl, ITaskHandler handler)
         {
@@ -110,7 +112,7 @@ namespace ZeroInstall.Store.Feeds
             // Download missing icons
             if (!File.Exists(path))
             { // Only allow one icon download at a time
-                lock (_downloadLock)
+                lock (_lock)
                 { // Perform double-check (inside and outside lock) to prevent race-conditions
                     if (!File.Exists(path))
                         DownloadFile(iconUrl, path, handler);
@@ -119,7 +121,7 @@ namespace ZeroInstall.Store.Feeds
 
             return path;
         }
-        
+
         /// <summary>
         /// Downloads <paramref name="source"/> to <paramref name="target"/> using a temporary intermediate file to make the process atomic.
         /// </summary>
@@ -152,8 +154,11 @@ namespace ZeroInstall.Store.Feeds
 
             string path = Path.Combine(DirectoryPath, ModelUtils.Escape(iconUrl.ToString()));
 
-            if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.IconNotInCache, iconUrl, path));
-            File.Delete(path);
+            lock (_lock)
+            {
+                if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.IconNotInCache, iconUrl, path));
+                File.Delete(path);
+            }
         }
         #endregion
     }

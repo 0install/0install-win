@@ -8,8 +8,9 @@ using Common.Tasks;
 namespace ZeroInstall.Store.Feeds
 {
     /// <summary>
-    /// Provides access to a cache of icons that were downloaded via HTTP(S).
+    /// Provides access to a cache of icon files that were downloaded via HTTP(S).
     /// </summary>
+    /// <remarks>All methods are thread-safe.</remarks>
     public interface IIconCache
     {
         /// <summary>
