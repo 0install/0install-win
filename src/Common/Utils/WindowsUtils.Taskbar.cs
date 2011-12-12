@@ -7,104 +7,107 @@ using System.Text;
 
 namespace Common.Utils
 {
-    #region Enumerations
-    /// <summary>
-    /// Represents the thumbnail progress bar state.
-    /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1027:MarkEnumsWithFlags", Justification = "These enum values are mutually exclusive and not meant to be ORed like flags")]
-    public enum TaskbarProgressBarState
-    {
-        /// <summary>
-        /// No progress is displayed.
-        /// </summary>
-        NoProgress = 0,
-
-        /// <summary>
-        /// The progress is indeterminate (marquee).
-        /// </summary>
-        Indeterminate = 0x1,
-
-        /// <summary>
-        /// Normal progress is displayed.
-        /// </summary>
-        Normal = 0x2,
-
-        /// <summary>
-        /// An error occurred (red).
-        /// </summary>
-        Error = 0x4,
-
-        /// <summary>
-        /// The operation is paused (yellow).
-        /// </summary>
-        Paused = 0x8
-    }
-
-    /// <summary>
-    /// Represents a shell link targeting a file.
-    /// </summary>
-    public struct ShellLink
-    {
-        /// <summary>The title/name of the task link.</summary>
-        public readonly string Title;
-
-        /// <summary>The target path the link shall point to.</summary>
-        public readonly string Path;
-
-        /// <summary>Additional arguments for <see cref="Title"/>; may be <see langword="null"/>.</summary>
-        public readonly string Arguments;
-
-        /// <summary>The path of the icon for the link.</summary>
-        public readonly string IconPath;
-
-        /// <summary>The resouce index within the file specified by <see cref="IconPath"/>.</summary>
-        public readonly int IconIndex;
-
-        /// <summary>
-        /// Creates a new shell link structure.
-        /// </summary>
-        /// <param name="title">The title/name of the task link.</param>
-        /// <param name="path">The target path the link shall point to and to get the icon from.</param>
-        /// <param name="arguments">Additional arguments for <paramref name="title"/>; may be <see langword="null"/>.</param>
-        public ShellLink(string title, string path, string arguments)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(title)) throw new ArgumentNullException("title");
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            #endregion
-
-            Title = title;
-            IconPath = Path = path;
-            Arguments = arguments;
-            IconIndex = 0;
-        }
-
-        /// <summary>
-        /// Creates a new shell link structure
-        /// </summary>
-        /// <param name="title">The title/name of the task link.</param>
-        /// <param name="path">The target path the link shall point to.</param>
-        /// <param name="arguments">Additional arguments for <paramref name="title"/>; may be <see langword="null"/>.</param>
-        /// <param name="iconPath">The path of the icon for the link.</param>
-        /// <param name="iconIndex">The resouce index within the file specified by <paramref name="iconPath"/>.</param>
-        public ShellLink(string title, string path, string arguments, string iconPath, int iconIndex)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(title)) throw new ArgumentNullException("title");
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            #endregion
-
-            Title = title;
-            Path = path;
-            Arguments = arguments;
-            IconPath = iconPath;
-            IconIndex = iconIndex;
-        }
-    }
-    #endregion
-
     static partial class WindowsUtils
     {
+
+        #region Enumerations
+        /// <summary>
+        /// Represents the thumbnail progress bar state.
+        /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1027:MarkEnumsWithFlags", Justification = "These enum values are mutually exclusive and not meant to be ORed like flags")]
+        public enum TaskbarProgressBarState
+        {
+            /// <summary>
+            /// No progress is displayed.
+            /// </summary>
+            NoProgress = 0,
+
+            /// <summary>
+            /// The progress is indeterminate (marquee).
+            /// </summary>
+            Indeterminate = 0x1,
+
+            /// <summary>
+            /// Normal progress is displayed.
+            /// </summary>
+            Normal = 0x2,
+
+            /// <summary>
+            /// An error occurred (red).
+            /// </summary>
+            Error = 0x4,
+
+            /// <summary>
+            /// The operation is paused (yellow).
+            /// </summary>
+            Paused = 0x8
+        }
+        #endregion
+
+        #region Structs
+        /// <summary>
+        /// Represents a shell link targeting a file.
+        /// </summary>
+        public struct ShellLink
+        {
+            /// <summary>The title/name of the task link.</summary>
+            public readonly string Title;
+
+            /// <summary>The target path the link shall point to.</summary>
+            public readonly string Path;
+
+            /// <summary>Additional arguments for <see cref="Title"/>; may be <see langword="null"/>.</summary>
+            public readonly string Arguments;
+
+            /// <summary>The path of the icon for the link.</summary>
+            public readonly string IconPath;
+
+            /// <summary>The resouce index within the file specified by <see cref="IconPath"/>.</summary>
+            public readonly int IconIndex;
+
+            /// <summary>
+            /// Creates a new shell link structure.
+            /// </summary>
+            /// <param name="title">The title/name of the task link.</param>
+            /// <param name="path">The target path the link shall point to and to get the icon from.</param>
+            /// <param name="arguments">Additional arguments for <paramref name="title"/>; may be <see langword="null"/>.</param>
+            public ShellLink(string title, string path, string arguments)
+            {
+                #region Sanity checks
+                if (string.IsNullOrEmpty(title)) throw new ArgumentNullException("title");
+                if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+                #endregion
+
+                Title = title;
+                IconPath = Path = path;
+                Arguments = arguments;
+                IconIndex = 0;
+            }
+
+            /// <summary>
+            /// Creates a new shell link structure
+            /// </summary>
+            /// <param name="title">The title/name of the task link.</param>
+            /// <param name="path">The target path the link shall point to.</param>
+            /// <param name="arguments">Additional arguments for <paramref name="title"/>; may be <see langword="null"/>.</param>
+            /// <param name="iconPath">The path of the icon for the link.</param>
+            /// <param name="iconIndex">The resouce index within the file specified by <paramref name="iconPath"/>.</param>
+            public ShellLink(string title, string path, string arguments, string iconPath, int iconIndex)
+            {
+                #region Sanity checks
+                if (string.IsNullOrEmpty(title)) throw new ArgumentNullException("title");
+                if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+                #endregion
+
+                Title = title;
+                Path = path;
+                Arguments = arguments;
+                IconPath = iconPath;
+                IconIndex = iconIndex;
+            }
+        }
+        #endregion
+
         #region Enumerations
         private enum ThumbnailMask
         {
