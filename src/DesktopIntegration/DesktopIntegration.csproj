@@ -120,7 +120,7 @@
     <Compile Include="Windows\FileType.cs" />
     <Compile Include="Windows\IconProvider.cs" />
     <Compile Include="Windows\ShortcutManager.cs" />
-    <Compile Include="Windows\StubProvider.cs" />
+    <Compile Include="Windows\StubBuilder.cs" />
     <Compile Include="Windows\AppAlias.cs" />
     <Compile Include="Windows\AutoPlay.cs" />
     <Compile Include="Windows\ComServer.cs" />

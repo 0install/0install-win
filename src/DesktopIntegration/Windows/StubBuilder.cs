@@ -37,7 +37,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
     /// <summary>
     /// Utility class for building stub EXEs that execute "0install" commands. Provides persistent local paths.
     /// </summary>
-    public static class StubProvider
+    public static class StubBuilder
     {
         #region Build
         /// <summary>
@@ -127,8 +127,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         private static string GetEmbeddedResource(string name)
         {
-            var assembly = Assembly.GetAssembly(typeof(StubProvider));
-            using (var stream = assembly.GetManifestResourceStream(typeof(StubProvider), name))
+            var assembly = Assembly.GetAssembly(typeof(StubBuilder));
+            using (var stream = assembly.GetManifestResourceStream(typeof(StubBuilder), name))
                 return StreamUtils.ReadToString(stream);
         }
         #endregion

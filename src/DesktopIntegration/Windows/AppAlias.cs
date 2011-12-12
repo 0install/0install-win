@@ -64,7 +64,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string stubDirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "aliases");
             string stubFilePath = Path.Combine(stubDirPath, aliasName + ".exe");
 
-            StubProvider.BuildRunStub(stubFilePath, target, command, handler);
+            StubBuilder.BuildRunStub(stubFilePath, target, command, handler);
             AddToPath(stubDirPath, systemWide);
             AddToAppPaths(aliasName + ".exe", stubFilePath, systemWide);
         }

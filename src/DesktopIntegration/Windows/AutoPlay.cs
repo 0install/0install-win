@@ -108,7 +108,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 }
                 catch (KeyNotFoundException)
                 {
-                    iconPath = StubProvider.GetRunStub(target, null, systemWide, handler);
+                    iconPath = StubBuilder.GetRunStub(target, null, systemWide, handler);
                 }
                 handlerKey.SetValue(RegValueIcon, iconPath + ",0");
             }
