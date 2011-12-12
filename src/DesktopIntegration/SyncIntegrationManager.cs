@@ -183,11 +183,8 @@ namespace ZeroInstall.DesktopIntegration
                 catch (ZipException ex)
                 {
                     // Wrap exception to add context information
-                    throw new InvalidDataException(
-                        ex.Message == "Invalid password"
-                            ? Resources.SyncCryptoKeyInvalid
-                            : Resources.SyncServerDataDamaged,
-                        ex);
+                    if (ex.Message == "Invalid password") throw new InvalidDataException(Resources.SyncCryptoKeyInvalid);
+                    throw new InvalidDataException(Resources.SyncServerDataDamaged, ex);
                 }
                 catch (InvalidDataException ex)
                 {
