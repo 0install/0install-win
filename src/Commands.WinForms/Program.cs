@@ -69,6 +69,7 @@ namespace ZeroInstall.Commands.WinForms
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
             Log.Info("Zero Install Command Windows GUI started with: " + StringUtils.ConcatenateEscapeArgument(args));
 
@@ -76,166 +77,158 @@ namespace ZeroInstall.Commands.WinForms
             if (args == null) args = new string[0];
             if (args.Length == 0) args = new[] {"--help"};
 
-#if !DEBUG
-            ErrorReportForm.RunMonitored(delegate
-#endif
+            var handler = new GuiHandler();
+            CommandBase command;
+            try
             {
-                var handler = new GuiHandler();
-                CommandBase command;
-                try
-                {
-                    command = CommandFactory.CreateAndParse(args, handler);
+                command = CommandFactory.CreateAndParse(args, handler);
 
-                    // Inform the handler about the name of the action being performed
-                    handler.ActionTitle = command.ActionTitle;
-                }
-                    #region Error handling
-                catch (UserCancelException)
-                {
-                    // This is reached if --help, --version or similar was used
-                    return;
-                }
-                catch (OptionException ex)
-                {
-                    Msg.Inform(null, ex.Message + "\n" + string.Format(Resources.TryHelp, ExeName), MsgSeverity.Warn);
-                    return;
-                }
-                catch (IOException ex)
-                {
-                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                    return;
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                    return;
-                }
-                catch (InvalidDataException ex)
-                {
-                    Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Warn);
-                    return;
-                }
-                catch (InvalidInterfaceIDException ex)
-                {
-                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                    return;
-                }
-                #endregion
-
-                #region Collect log entries for error messages
-                var errorLog = new RtfBuilder();
-                Log.NewEntry += delegate(LogSeverity severity, string message)
-                {
-                    switch (severity)
-                    {
-                        case LogSeverity.Info:
-                            errorLog.AppendPar(message, RtfColor.Blue);
-                            break;
-                        case LogSeverity.Warn:
-                            errorLog.AppendPar(message, RtfColor.Orange);
-                            break;
-                        case LogSeverity.Error:
-                            errorLog.AppendPar(message, RtfColor.Red);
-                            break;
-                        default:
-                            errorLog.AppendPar(message, RtfColor.Black);
-                            break;
-                    }
-                };
-                #endregion
-
-                try
-                {
-                    command.Execute();
-                }
-                    #region Error handling
-                catch (UserCancelException)
-                {}
-                catch (OptionException ex)
-                {
-                    handler.DisableProgressUI();
-                    Msg.Inform(null, ex.Message + "\n" + string.Format(Resources.TryHelp, ExeName), MsgSeverity.Error);
-                }
-                catch (WebException ex)
-                {
-                    handler.DisableProgressUI();
-                    ErrorBox.Show(ex.Message, errorLog.ToString());
-                }
-                catch (NotSupportedException ex)
-                {
-                    handler.DisableProgressUI();
-                    ErrorBox.Show(ex.Message, errorLog.ToString());
-                }
-                catch (IOException ex)
-                {
-                    handler.DisableProgressUI();
-                    ErrorBox.Show(ex.Message, errorLog.ToString());
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    handler.DisableProgressUI();
-                    ErrorBox.Show(ex.Message, errorLog.ToString());
-                }
-                catch (InvalidDataException ex)
-                {
-                    handler.DisableProgressUI();
-                    // Complete XML errors are too long for the headline, so split it into the log
-                    if (ex.InnerException != null) Log.Error(ex.InnerException.Message);
-                    ErrorBox.Show(ex.Message, errorLog.ToString());
-                }
-                catch (SignatureException ex)
-                {
-                    handler.DisableProgressUI();
-                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                }
-                catch (InvalidInterfaceIDException ex)
-                {
-                    handler.DisableProgressUI();
-                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                }
-                catch (DigestMismatchException ex)
-                {
-                    handler.DisableProgressUI();
-                    ErrorBox.Show(ex.Message, errorLog + Environment.NewLine + Environment.NewLine + "Manifest:" + ex.ActualManifest);
-                }
-                catch (SolverException ex)
-                {
-                    handler.DisableProgressUI();
-                    // Solver error message are often too long for the headline, so split it into the log
-                    Log.Error(StringUtils.GetRightPartAtFirstOccurrence(ex.Message, Environment.NewLine + Environment.NewLine));
-                    ErrorBox.Show(StringUtils.GetLeftPartAtFirstOccurrence(ex.Message, Environment.NewLine + Environment.NewLine), errorLog.ToString());
-                }
-                catch (ImplementationNotFoundException ex)
-                {
-                    handler.DisableProgressUI();
-                    ErrorBox.Show(ex.Message, errorLog.ToString());
-                }
-                catch (CommandException ex)
-                {
-                    handler.DisableProgressUI();
-                    ErrorBox.Show(ex.Message, errorLog.ToString());
-                }
-                catch (Win32Exception ex)
-                {
-                    handler.DisableProgressUI();
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                }
-                catch (BadImageFormatException ex)
-                {
-                    handler.DisableProgressUI();
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                }
-                    #endregion
-
-                finally
-                {
-                    // Always close GUI in the end
-                    handler.CloseProgressUI();
-                }
+                // Inform the handler about the name of the action being performed
+                handler.ActionTitle = command.ActionTitle;
             }
-#if !DEBUG
-            , new Uri("http://0install.de/error-report/"));
-#endif
+                #region Error handling
+            catch (UserCancelException)
+            {
+                // This is reached if --help, --version or similar was used
+                return;
+            }
+            catch (OptionException ex)
+            {
+                Msg.Inform(null, ex.Message + "\n" + string.Format(Resources.TryHelp, ExeName), MsgSeverity.Warn);
+                return;
+            }
+            catch (IOException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                return;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                return;
+            }
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Warn);
+                return;
+            }
+            catch (InvalidInterfaceIDException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                return;
+            }
+            #endregion
+
+            #region Collect log entries for error messages
+            var errorLog = new RtfBuilder();
+            Log.NewEntry += delegate(LogSeverity severity, string message)
+            {
+                switch (severity)
+                {
+                    case LogSeverity.Info:
+                        errorLog.AppendPar(message, RtfColor.Blue);
+                        break;
+                    case LogSeverity.Warn:
+                        errorLog.AppendPar(message, RtfColor.Orange);
+                        break;
+                    case LogSeverity.Error:
+                        errorLog.AppendPar(message, RtfColor.Red);
+                        break;
+                    default:
+                        errorLog.AppendPar(message, RtfColor.Black);
+                        break;
+                }
+            };
+            #endregion
+
+            try
+            {
+                command.Execute();
+            }
+                #region Error handling
+            catch (UserCancelException)
+            {}
+            catch (OptionException ex)
+            {
+                handler.DisableProgressUI();
+                Msg.Inform(null, ex.Message + "\n" + string.Format(Resources.TryHelp, ExeName), MsgSeverity.Error);
+            }
+            catch (WebException ex)
+            {
+                handler.DisableProgressUI();
+                ErrorBox.Show(ex.Message, errorLog.ToString());
+            }
+            catch (NotSupportedException ex)
+            {
+                handler.DisableProgressUI();
+                ErrorBox.Show(ex.Message, errorLog.ToString());
+            }
+            catch (IOException ex)
+            {
+                handler.DisableProgressUI();
+                ErrorBox.Show(ex.Message, errorLog.ToString());
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                handler.DisableProgressUI();
+                ErrorBox.Show(ex.Message, errorLog.ToString());
+            }
+            catch (InvalidDataException ex)
+            {
+                handler.DisableProgressUI();
+                // Complete XML errors are too long for the headline, so split it into the log
+                if (ex.InnerException != null) Log.Error(ex.InnerException.Message);
+                ErrorBox.Show(ex.Message, errorLog.ToString());
+            }
+            catch (SignatureException ex)
+            {
+                handler.DisableProgressUI();
+                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+            }
+            catch (InvalidInterfaceIDException ex)
+            {
+                handler.DisableProgressUI();
+                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+            }
+            catch (DigestMismatchException ex)
+            {
+                handler.DisableProgressUI();
+                ErrorBox.Show(ex.Message, errorLog + Environment.NewLine + Environment.NewLine + "Manifest:" + ex.ActualManifest);
+            }
+            catch (SolverException ex)
+            {
+                handler.DisableProgressUI();
+                // Solver error message are often too long for the headline, so split it into the log
+                Log.Error(StringUtils.GetRightPartAtFirstOccurrence(ex.Message, Environment.NewLine + Environment.NewLine));
+                ErrorBox.Show(StringUtils.GetLeftPartAtFirstOccurrence(ex.Message, Environment.NewLine + Environment.NewLine), errorLog.ToString());
+            }
+            catch (ImplementationNotFoundException ex)
+            {
+                handler.DisableProgressUI();
+                ErrorBox.Show(ex.Message, errorLog.ToString());
+            }
+            catch (CommandException ex)
+            {
+                handler.DisableProgressUI();
+                ErrorBox.Show(ex.Message, errorLog.ToString());
+            }
+            catch (Win32Exception ex)
+            {
+                handler.DisableProgressUI();
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+            }
+            catch (BadImageFormatException ex)
+            {
+                handler.DisableProgressUI();
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+            }
+                #endregion
+
+            finally
+            {
+                // Always close GUI in the end
+                handler.CloseProgressUI();
+            }
         }
 
         /// <summary>

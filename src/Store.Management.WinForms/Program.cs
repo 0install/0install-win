@@ -20,12 +20,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security.Cryptography;
 using System.Windows.Forms;
+using Common.Controls;
 using Common.Storage;
 using Common.Utils;
-
-#if !DEBUG
-using Common.Controls;
-#endif
 
 namespace ZeroInstall.Store.Management.WinForms
 {
@@ -62,12 +59,10 @@ namespace ZeroInstall.Store.Management.WinForms
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
-#if DEBUG
             Application.Run(new MainForm());
-#else
-            ErrorReportForm.RunMonitored(() => Application.Run(new MainForm()), new Uri("http://0install.de/error-report/"));
-#endif
+
         }
 
         /// <summary>

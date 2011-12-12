@@ -21,10 +21,7 @@ using System.IO;
 using System.Windows.Forms;
 using Common;
 using Common.Cli;
-
-#if !DEBUG
 using Common.Controls;
-#endif
 
 namespace ZeroInstall.Publish.WinForms
 {
@@ -41,12 +38,9 @@ namespace ZeroInstall.Publish.WinForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
-#if DEBUG
             Run(args);
-#else
-            ErrorReportForm.RunMonitored(() => Run(args), new Uri("http://0install.de/error-report/"));
-#endif
         }
 
         private static void Run(string[] args)

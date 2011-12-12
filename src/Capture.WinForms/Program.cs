@@ -17,10 +17,7 @@
 
 using System;
 using System.Windows.Forms;
-
-#if !DEBUG
 using Common.Controls;
-#endif
 
 namespace ZeroInstall.Capture.WinForms
 {
@@ -37,12 +34,9 @@ namespace ZeroInstall.Capture.WinForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
-#if DEBUG
             Application.Run(new MainForm());
-#else
-            ErrorReportForm.RunMonitored(() => Application.Run(new MainForm()), new Uri("http://0install.de/error-report/"));
-#endif
         }
     }
 }

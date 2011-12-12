@@ -21,13 +21,10 @@ using System.IO;
 using System.Security;
 using System.Security.Cryptography;
 using System.Windows.Forms;
+using Common.Controls;
 using Common.Storage;
 using Common.Utils;
 using Microsoft.Win32;
-
-#if !DEBUG
-using Common.Controls;
-#endif
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -64,6 +61,7 @@ namespace ZeroInstall.Central.WinForms
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
             // Store installation location in registry to allow other applications to locate Zero Install
             if (!Locations.IsPortable && WindowsUtils.IsWindows && WindowsUtils.IsAdministrator)
@@ -79,11 +77,7 @@ namespace ZeroInstall.Central.WinForms
                 #endregion
             }
 
-#if DEBUG
             Application.Run(new MainForm());
-#else
-            ErrorReportForm.RunMonitored(() => Application.Run(new MainForm()), new Uri("http://0install.de/error-report/"));
-#endif
         }
 
         /// <summary>

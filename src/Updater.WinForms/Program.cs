@@ -20,11 +20,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using Common;
-using ZeroInstall.Updater.WinForms.Properties;
-
-#if !DEBUG
 using Common.Controls;
-#endif
+using ZeroInstall.Updater.WinForms.Properties;
 
 namespace ZeroInstall.Updater.WinForms
 {
@@ -41,6 +38,7 @@ namespace ZeroInstall.Updater.WinForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
             if (args == null) args = new string[0];
             if (args.Length < 3 || args.Length > 4)
@@ -69,11 +67,7 @@ namespace ZeroInstall.Updater.WinForms
 
             bool rerun = ((ICollection<string>)args).Contains("--rerun");
 
-#if DEBUG
             Application.Run(new MainForm(updateProcess, rerun));
-#else
-            ErrorReportForm.RunMonitored(() => Application.Run(new MainForm(updateProcess, rerun)), new Uri("http://0install.de/error-report/"));
-#endif
         }
     }
 }

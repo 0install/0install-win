@@ -363,9 +363,7 @@ namespace Common.Utils
         /// </remarks>
         public static string ConcatenateEscapeArgument(IEnumerable<string> parts)
         {
-            #region Sanity checks
-            if (parts == null) throw new ArgumentNullException("parts");
-            #endregion
+            if (parts == null) return null;
 
             var output = new StringBuilder();
             bool first = true;

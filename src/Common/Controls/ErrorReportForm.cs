@@ -77,32 +77,36 @@ namespace Common.Controls
         #endregion
 
         #region Static access
+        private static readonly object _monitoringLock = new object();
+
         /// <summary>
-        /// Runs a delegate, catching and reporting any unhandled exceptions that occur while it is executing.
+        /// Sets up hooks that catch and report any unhandled exceptions.
         /// </summary>
-        /// <param name="run">The delegate to run.</param>
         /// <param name="uploadUri">The URI to upload error reports to.</param>
         /// <remarks>
         /// If an exception is caught any remaining threads will continue to execute until the error has been reported. Then the entire process will be terminated.
         /// </remarks>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "We want to report unhandled exceptions of any type")]
         [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "If the actual exception is unknown the generic top-level Exception is the most appropriate")]
-        public static void RunMonitored(SimpleEventHandler run, Uri uploadUri)
+        [Conditional("ERROR_REPORT")]
+        public static void SetupMonitoring(Uri uploadUri)
         {
             #region Sanity checks
-            if (run == null) throw new ArgumentNullException("run");
             if (uploadUri == null) throw new ArgumentNullException("uploadUri");
             #endregion
 
-            // Catch exceptions on additional threads
-            UnhandledExceptionEventHandler exceptionHandler = delegate(object sender, UnhandledExceptionEventArgs e)
+            // Only execute this code once per process
+            if (!Monitor.TryEnter(_monitoringLock)) return;
+
+            // Catch exceptions on normal threads
+            AppDomain.CurrentDomain.UnhandledException += delegate(object sender, UnhandledExceptionEventArgs e)
             {
                 Report((e.ExceptionObject as Exception) ?? new Exception("Unknown error"), uploadUri);
                 Process.GetCurrentProcess().Kill();
             };
 
             // Catch exceptions on WinForms threads sooner (otherwise they might upset intermediate native code)
-            ThreadExceptionEventHandler winFormsHandler = delegate(object sender, ThreadExceptionEventArgs e)
+            Application.ThreadException += delegate(object sender, ThreadExceptionEventArgs e)
             {
                 Report(e.Exception ?? new Exception("Unknown error"), uploadUri);
                 Process.GetCurrentProcess().Kill();
@@ -113,20 +117,6 @@ namespace Common.Controls
             }
             catch (InvalidOperationException)
             {}
-
-            Application.ThreadException += winFormsHandler;
-            AppDomain.CurrentDomain.UnhandledException += exceptionHandler;
-            try
-            {
-                run();
-            }
-            catch (Exception ex)
-            { // Catch exceptions on the main thread
-                Report(ex, uploadUri);
-                Process.GetCurrentProcess().Kill();
-            }
-            AppDomain.CurrentDomain.UnhandledException -= exceptionHandler;
-            Application.ThreadException -= winFormsHandler;
         }
 
         /// <summary>
