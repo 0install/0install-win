@@ -128,7 +128,7 @@ Please edit the newly created 'feed.xml' to fit your needs.</value>
     <value>Missing arguments. Try {0} --help</value>
   </data>
   <data name="OptionFiles" xml:space="preserve">
-    <value>Collect installation files in addition to registry data and use them to create a first implemention. Only applicable to the "collect" operation.</value>
+    <value>Collect installation files in addition to registry data and use them to create a first implementation. Only applicable to the "collect" operation.</value>
   </data>
   <data name="OptionForce" xml:space="preserve">
     <value>Ignore warnings and perform the operation anyway.</value>

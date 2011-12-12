@@ -478,7 +478,7 @@
     <value>1</value>
   </data>
   <data name="buttonRemove.Text" xml:space="preserve">
-    <value>&amp;Remove</value>
+    <value>Re&amp;move</value>
   </data>
   <data name="&gt;&gt;buttonRemove.Name" xml:space="preserve">
     <value>buttonRemove</value>

@@ -77,6 +77,10 @@ namespace ZeroInstall.Publish.WinForms
         /// <returns>A Description of a <see langword="Enum"/>.</returns>
         public static string GetEnumDescription(Enum toGetDescriptionFrom)
         {
+            #region Sanity checks
+            if (toGetDescriptionFrom == null) throw new ArgumentNullException("toGetDescriptionFrom");
+            #endregion
+
             FieldInfo fi = toGetDescriptionFrom.GetType().GetField(toGetDescriptionFrom.ToString());
 
             var attributes =

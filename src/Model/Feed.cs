@@ -304,7 +304,7 @@ namespace ZeroInstall.Model
         /// <param name="language">The language to look for; use <see cref="CultureInfo.InvariantCulture"/> for none.</param>
         /// <param name="command">The name of the command the name should represent; may be <see langword="null"/>.</param>
         /// <returns>The best matching name that was found.</returns>
-        public string GetName(CultureInfo language, string command)
+        public string GetBestName(CultureInfo language, string command)
         {
             if (string.IsNullOrEmpty(command)) command = Command.NameRun;
 
@@ -324,7 +324,7 @@ namespace ZeroInstall.Model
         /// <param name="language">The language to look for; use <see cref="CultureInfo.InvariantCulture"/> for none.</param>
         /// <param name="command">The name of the command the summary should represent; may be <see langword="null"/>.</param>
         /// <returns>The best matching summary that was found; <see langword="null"/> if no matching summary was found.</returns>
-        public string GetSummary(CultureInfo language, string command)
+        public string GetBestSummary(CultureInfo language, string command)
         {
             if (string.IsNullOrEmpty(command)) command = Command.NameRun;
 

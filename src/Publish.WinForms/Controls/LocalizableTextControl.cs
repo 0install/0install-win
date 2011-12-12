@@ -76,7 +76,14 @@ namespace ZeroInstall.Publish.WinForms.Controls
                     : languageWithMarker);
             }
 
-            set { comboBoxLanguages.SelectedItem = (comboBoxLanguages.Items.Contains(value.IetfLanguageTag)) ? value.IetfLanguageTag : UsingLanguageMarker + value.IetfLanguageTag; }
+            set
+            {
+                #region Sanity checks
+                if (value == null) throw new ArgumentNullException("value");
+                #endregion
+
+                comboBoxLanguages.SelectedItem = (comboBoxLanguages.Items.Contains(value.IetfLanguageTag)) ? value.IetfLanguageTag : UsingLanguageMarker + value.IetfLanguageTag;
+            }
         }
         #endregion
 

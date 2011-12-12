@@ -61,6 +61,12 @@ namespace ZeroInstall.Hooking
         /// <param name="relaunchControl">Stores information about how commands within an implementation can be relaunched. Used for Windows 7 taskbar pinning.</param>
         public EntryPoint(RemoteHooking.IContext inContext, string implentationDir, RegistryFilter registryFilter, RelaunchControl relaunchControl)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(implentationDir)) throw new ArgumentNullException("implentationDir");
+            if (registryFilter == null) throw new ArgumentNullException("registryFilter");
+            if (relaunchControl == null) throw new ArgumentNullException("relaunchControl");
+            #endregion
+
             _implementationDir = implentationDir;
             _registryFilter = registryFilter;
             _relaunchControl = relaunchControl;
@@ -88,7 +94,7 @@ namespace ZeroInstall.Hooking
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
-                string errorLogFile = Path.Combine(Path.GetTempPath(), "ZeroInstall.Hooking.errorlog.txt");
+                string errorLogFile = Path.Combine(Path.GetTempPath(), "Zero Install Hooking Error Log.txt");
                 File.WriteAllText(errorLogFile, ex.ToString());
                 EventLog.WriteEntry("Zero Install", ex.ToString(), EventLogEntryType.Error);
                 return;

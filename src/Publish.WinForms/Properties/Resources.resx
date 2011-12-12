@@ -121,7 +121,7 @@
     <value>(auto detect)</value>
   </data>
   <data name="ImageFormatNotSupported" xml:space="preserve">
-    <value>The image format is not supported by ZeroInstall.</value>
+    <value>The image format is not supported by Zero Install.</value>
   </data>
   <data name="Downloading_image_for_preview" xml:space="preserve">
     <value>Downloading image for preview...</value>
@@ -130,7 +130,7 @@
     <value>The feed has not the right format.</value>
   </data>
   <data name="DiscardChanges" xml:space="preserve">
-    <value>&amp;Discared
+    <value>&amp;Discard
 Discard unsaved changes</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">

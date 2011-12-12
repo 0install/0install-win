@@ -174,7 +174,7 @@ Supported algorithms: {0}</value>
     <value>To hard-link duplicate files together to save space:
 0store optimise [CACHE]
 
-This reads in all the manifest files in the cache directoy and looks for duplicates (files with the same permissions, modification time and digest). When it finds a pair, it deletes one file and replaces it (atomically) with a hard-link to the other.
+This reads in all the manifest files in the cache directory and looks for duplicates (files with the same permissions, modification time and digest). When it finds a pair, it deletes one file and replaces it (atomically) with a hard-link to the other.
 
 Implementations using the old 'sha1' algorithm are not optimised.</value>
   </data>

@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System;
 using System.Windows.Forms;
 
 namespace Common.Undo
@@ -44,6 +45,10 @@ namespace Common.Undo
         /// <param name="propertyGrid">The property grid being tracked.</param>
         public MultiPropertyTracker(PropertyGrid propertyGrid)
         {
+            #region Sanity checks
+            if (propertyGrid == null) throw new ArgumentNullException("propertyGrid");
+            #endregion
+
             _propertyGrid = propertyGrid;
             propertyGrid.SelectedGridItemChanged += SelectionChanged;
         }

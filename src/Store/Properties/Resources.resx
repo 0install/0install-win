@@ -212,7 +212,7 @@ Specified in the configuration file '{1}'.</value>
   <data name="StoreServiceCommunicationProblem" xml:space="preserve">
     <value>Unable to establish connection with StoreService.</value>
   </data>
-  <data name="UnableToAddImplementionToStore" xml:space="preserve">
+  <data name="UnableToAddImplementationToStore" xml:space="preserve">
     <value>Unable to add implementation to a store.</value>
   </data>
   <data name="UnableToFindSecretKey" xml:space="preserve">

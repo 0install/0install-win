@@ -26,6 +26,7 @@ namespace ZeroInstall.Model.Capabilities
     /// <summary>
     /// Describes the mapping of an action/verb (e.g. open, edit) to a <see cref="Model.Command"/>.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlType("verb", Namespace = Capability.XmlNamespace)]
     public sealed class Verb : XmlUnknown, ICloneable, IEquatable<Verb>
     {
@@ -155,7 +156,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(Verb) && Equals((Verb)obj);
+            return obj is Verb && Equals((Verb)obj);
         }
 
         /// <inheritdoc/>

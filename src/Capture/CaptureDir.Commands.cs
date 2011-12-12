@@ -119,7 +119,7 @@ namespace ZeroInstall.Capture
         {
             #region Sanity checks
             if (typeKey == null) throw new ArgumentNullException("typeKey");
-            if (string.IsNullOrEmpty(verbName)) throw new ArgumentNullException("verb");
+            if (string.IsNullOrEmpty(verbName)) throw new ArgumentNullException("verbName");
             if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 

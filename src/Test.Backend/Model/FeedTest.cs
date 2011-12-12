@@ -267,27 +267,27 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Ensures that <see cref="Feed.GetName"/> correctly finds best matching names for <see cref="Command"/>s/<see cref="EntryPoint"/>s.
+        /// Ensures that <see cref="Feed.GetBestName"/> correctly finds best matching names for <see cref="Command"/>s/<see cref="EntryPoint"/>s.
         /// </summary>
         [Test]
         public void TestGetName()
         {
             var feed = CreateTestFeed();
 
-            Assert.AreEqual("Entry name", feed.GetName(CultureInfo.InvariantCulture, Command.NameRun));
-            Assert.AreEqual(feed.Name, feed.GetName(CultureInfo.InvariantCulture, "unknown"));
+            Assert.AreEqual("Entry name", feed.GetBestName(CultureInfo.InvariantCulture, Command.NameRun));
+            Assert.AreEqual(feed.Name, feed.GetBestName(CultureInfo.InvariantCulture, "unknown"));
         }
 
         /// <summary>
-        /// Ensures that <see cref="Feed.GetSummary"/> correctly finds best matching summaries for <see cref="Command"/>s/<see cref="EntryPoint"/>s.
+        /// Ensures that <see cref="Feed.GetBestSummary"/> correctly finds best matching summaries for <see cref="Command"/>s/<see cref="EntryPoint"/>s.
         /// </summary>
         [Test]
         public void TestGetSummary()
         {
             var feed = CreateTestFeed();
 
-            Assert.AreEqual("Entry summary", feed.GetSummary(CultureInfo.InvariantCulture, Command.NameRun));
-            Assert.AreEqual("Default summary", feed.GetSummary(CultureInfo.InvariantCulture, "unknown"));
+            Assert.AreEqual("Entry summary", feed.GetBestSummary(CultureInfo.InvariantCulture, Command.NameRun));
+            Assert.AreEqual("Default summary", feed.GetBestSummary(CultureInfo.InvariantCulture, "unknown"));
         }
 
         /// <summary>

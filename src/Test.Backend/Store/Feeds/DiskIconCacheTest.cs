@@ -105,7 +105,7 @@ namespace ZeroInstall.Store.Feeds
             const string iconData = "test";
             using (var server = new MicroServer(new MemoryStream()))
             {
-                // Write a file to the cache directoy, mark it as outdated, use an unreachable/invalid URI
+                // Write a file to the cache directory, mark it as outdated, use an unreachable/invalid URI
                 string prePath = Path.Combine(_tempDir.Path, ModelUtils.Escape(server.FileUri + "-invalid"));
                 File.WriteAllText(prePath, iconData);
                 File.SetLastWriteTimeUtc(prePath, new DateTime(1980, 1, 1));

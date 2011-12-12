@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -46,6 +47,7 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Initializes the main GUI.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "WindowsUtils.AddTaskLinks throws unpredictable exceptions and its successful execution is not critical.")]
         public MainForm()
         {
             InitializeComponent();

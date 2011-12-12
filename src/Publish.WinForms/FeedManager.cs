@@ -258,11 +258,11 @@ namespace ZeroInstall.Publish.WinForms
                 string passphraseMessage = String.Format(wrongPassphrase
                     ? Resources.WrongPassphrase
                     : Resources.AskForPassphrase, _feedEditing.Feed.SecretKey.UserID);
-                string passphrase = InputBox.Show(null, Resources.AskForPassphraseTitle, passphraseMessage, String.Empty, true);
+                string passphrase = InputBox.Show(null, Resources.AskForPassphraseTitle, passphraseMessage, string.Empty, true);
 
                 if (passphrase == null) return false;
 
-                if ((passphrase != string.Empty) && IsPassphraseCorrect(_feedEditing.Feed.SecretKey.UserID, passphrase))
+                if (!string.IsNullOrEmpty(passphrase) && IsPassphraseCorrect(_feedEditing.Feed.SecretKey.UserID, passphrase))
                 {
                     _signingKeyPassphrase = passphrase;
                     return true;

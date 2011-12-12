@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Common;
 using Common.Cli;
@@ -40,11 +41,13 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Is raised when the availability of the <see cref="Undo"/> operation has changed.
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "Cannot rename System.Action<T>.")]
         public event Action<bool> UndoEnabled;
 
         /// <summary>
         /// Is raised when the availability of the <see cref="Redo"/> operation has changed.
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "Cannot rename System.Action<T>.")]
         public event Action<bool> RedoEnabled;
 
         private void OnUpdate()

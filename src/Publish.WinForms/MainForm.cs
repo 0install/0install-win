@@ -335,7 +335,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void InitializeComboBoxGpg()
         {
-            feedEditorToolStrip.SecretKeyValues = GetGnuPGSecretKeys();
+            feedEditorToolStrip.SetSecretKeyValues(GetGnuPGSecretKeys());
         }
 
         /// <summary>
@@ -591,7 +591,7 @@ namespace ZeroInstall.Publish.WinForms
 
                 // Normalize unselected or default entry to null
                 string selectedValue = (comboBox.SelectedItem ?? "").ToString();
-                if (selectedValue == "") selectedValue = null;
+                if (string.IsNullOrEmpty(selectedValue)) selectedValue = null;
 
                 if (selectedValue == pointer.Value) return;
 

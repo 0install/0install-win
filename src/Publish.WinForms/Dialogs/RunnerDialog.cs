@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms.Dialogs
@@ -26,6 +27,10 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
             get { return Dependency as Runner; }
             set
             {
+                #region Sanity checks
+                if (value == null) throw new ArgumentNullException("value");
+                #endregion
+
                 Dependency = value;
 
                 textCommand.Text = value.Command;

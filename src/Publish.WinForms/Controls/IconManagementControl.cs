@@ -20,8 +20,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Net;
-using System.Security;
 using System.Windows.Forms;
 using Common.Utils;
 using ZeroInstall.Publish.WinForms.Properties;
@@ -121,11 +121,18 @@ namespace ZeroInstall.Publish.WinForms.Controls
             {
                 icon = GetImageFromUrl(uriTextBoxIconUrl.Uri);
             }
-            catch (Exception exception)
+                #region Error handling
+            catch (WebException ex)
             {
-                ChangeTextOfMessageLabel(exception.Message, Color.Red);
+                ChangeTextOfMessageLabel(ex.Message, Color.Red);
                 return;
             }
+            catch (InvalidDataException ex)
+            {
+                ChangeTextOfMessageLabel(ex.Message, Color.Red);
+                return;
+            }
+            #endregion
 
             if (!_supportedImageFormats.Contains(icon.RawFormat))
             {
@@ -146,12 +153,22 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// </summary>
         /// <param name="url">To an <see cref="Image"/>.</param>
         /// <returns>The downloaded <see cref="Image"/>.</returns>
-        /// <exception cref="SecurityException">The caller does not have permission to connect to the requested URI or a URI that the request is redirected to.</exception>
+        /// <exception cref="WebException">The image file could not be downloaded.</exception>
+        /// <exception cref="InvalidDataException">The downloaded data is not a valid image files</exception>
         private static Image GetImageFromUrl(Uri url)
         {
-            //TODO Exeptions dokumentieren
             var imageStream = WebRequest.Create(url).GetResponse().GetResponseStream();
-            return Image.FromStream(imageStream);
+            try
+            {
+                return Image.FromStream(imageStream);
+            }
+                #region Sanity checks
+            catch (ArgumentException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new InvalidDataException(ex.Message, ex);
+            }
+            #endregion
         }
 
         private void ChangeTextOfMessageLabel(string textForLabel, Color colorForLabel)

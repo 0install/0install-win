@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 using Common;
 using ZeroInstall.Model;
@@ -65,6 +66,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <summary>
         /// Raised when the user selected an other <see cref="OpenPgpSecretKey"/>.
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "Cannot rename System.Action<T>.")]
         public event Action<OpenPgpSecretKey> SecretKeyChanged;
         #endregion
 
@@ -88,39 +90,35 @@ namespace ZeroInstall.Publish.WinForms.Controls
         }
 
         /// <summary>
-        /// The <see cref="OpenPgpSecretKey"/>s the user can select from.
+        /// Sets the <see cref="OpenPgpSecretKey"/>s the user can select from.
         /// </summary>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public IEnumerable<OpenPgpSecretKey> SecretKeyValues
+        public void SetSecretKeyValues(IEnumerable<OpenPgpSecretKey> keys)
         {
-            set
-            {
-                #region Sanity checks
-                if (value == null) throw new ArgumentNullException("value");
-                #endregion
+            #region Sanity checks
+            if (keys == null) throw new ArgumentNullException("keys");
+            #endregion
 
-                comboBoxGnuPG.BeginUpdate();
+            comboBoxGnuPG.BeginUpdate();
 
-                comboBoxGnuPG.Items.Clear();
-                comboBoxGnuPG.Items.Add("");
-                foreach (var openPgpSecretKey in value)
-                    comboBoxGnuPG.Items.Add(openPgpSecretKey);
+            comboBoxGnuPG.Items.Clear();
+            comboBoxGnuPG.Items.Add("");
+            foreach (var openPgpSecretKey in keys)
+                comboBoxGnuPG.Items.Add(openPgpSecretKey);
 
-                comboBoxGnuPG.EndUpdate();
-            }
+            comboBoxGnuPG.EndUpdate();
         }
 
         /// <summary>
         /// Enables or disables the undo <see cref="Button"/>.
         /// </summary>
         [DefaultValue(false)]
-        public bool UndoEnabled { set { buttonUndo.Enabled = value; } }
+        public bool UndoEnabled { get { return buttonUndo.Enabled; } set { buttonUndo.Enabled = value; } }
 
         /// <summary>
         /// Enables or disables the redo <see cref="Button"/>.
         /// </summary>
         [DefaultValue(false)]
-        public bool RedoEnabled { set { buttonRedo.Enabled = value; } }
+        public bool RedoEnabled { get { return buttonRedo.Enabled; } set { buttonRedo.Enabled = value; } }
         #endregion
 
         #region Constructor

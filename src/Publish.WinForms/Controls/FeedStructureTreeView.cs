@@ -50,6 +50,10 @@ namespace ZeroInstall.Publish.WinForms.Controls
         #region Contructor
         public FeedStructureTreeView(IContainer container)
         {
+            #region Sanity checks
+            if (container == null) throw new ArgumentNullException("container");
+            #endregion
+
             container.Add(this);
 
             InitializeComponent();
@@ -71,9 +75,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
             SetNodeDoubleClickHook<IElementContainer, Element, Group>(group => new GroupDialog {Group = group}, container => container.Elements);
 
             SetNodeDoubleClickHook<IBindingContainer, Binding, EnvironmentBinding>(binding => new EnvironmentBindingDialog {EnvironmentBinding = binding}, container => container.Bindings);
-            SetNodeDoubleClickHook<IBindingContainer, Binding, OverlayBinding>(binding => new OverlayBindingDialog { OverlayBinding = binding }, container => container.Bindings);
-            SetNodeDoubleClickHook<IBindingContainer, Binding, ExecutableInVar>(binding => new ExecutableInVarDialog { ExecutableInVar = binding }, container => container.Bindings);
-            SetNodeDoubleClickHook<IBindingContainer, Binding, ExecutableInPath>(binding => new ExecutableInPathDialog { ExecutableInPath = binding }, container => container.Bindings);
+            SetNodeDoubleClickHook<IBindingContainer, Binding, OverlayBinding>(binding => new OverlayBindingDialog {OverlayBinding = binding}, container => container.Bindings);
+            SetNodeDoubleClickHook<IBindingContainer, Binding, ExecutableInVar>(binding => new ExecutableInVarDialog {ExecutableInVar = binding}, container => container.Bindings);
+            SetNodeDoubleClickHook<IBindingContainer, Binding, ExecutableInPath>(binding => new ExecutableInPathDialog {ExecutableInPath = binding}, container => container.Bindings);
 
             SetNodeDoubleClickHook<IDependencyContainer, Dependency, Dependency>(dependency => new DependencyDialog {Dependency = dependency}, container => container.Dependencies);
 

@@ -54,7 +54,8 @@ namespace ZeroInstall.Launcher.Cli
 #endif
 
             // Automatically show help for missing args
-            if (args.Length == 0) args = new[] {"--help"};
+            if (args == null) args = new string[0];
+            if (args.Length == 0) args = new[] { "--help" };
 
             // Redirect to GUI version of 0install if --gui argument is specified
             if (Array.Exists(args, arg => arg == "--gui"))

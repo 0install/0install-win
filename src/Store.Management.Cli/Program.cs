@@ -82,6 +82,7 @@ namespace ZeroInstall.Store.Management.Cli
 #endif
 
             // Automatically show help for missing args
+            if (args == null) args = new string[0];
             if (args.Length == 0) args = new[] {"--help"};
 
             IList<string> restArgs;

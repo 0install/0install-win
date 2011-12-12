@@ -17,6 +17,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security;
 using System.Security.Cryptography;
@@ -147,6 +148,7 @@ namespace ZeroInstall.Updater
         /// <summary>
         /// Indicates whether the <see cref="Target"/> was installed with Inno Setup.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations", Justification = "Registry exceptions are passed through.")]
         public bool IsInnoSetup
         {
             get
@@ -154,8 +156,8 @@ namespace ZeroInstall.Updater
                 try
                 {
                     // Check if the target path is the same as the Inno Setup installation directory
-                    var installationDirectoy = Registry.GetValue(InnoSetupRegKey, "Inno Setup: App Path", "") as string;
-                    return (installationDirectoy == Target);
+                    var installationDirectory = Registry.GetValue(InnoSetupRegKey, "Inno Setup: App Path", "") as string;
+                    return (installationDirectory == Target);
                 }
                     #region Error handling
                 catch (SecurityException ex)

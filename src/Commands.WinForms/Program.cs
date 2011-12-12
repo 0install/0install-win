@@ -73,6 +73,7 @@ namespace ZeroInstall.Commands.WinForms
             Log.Info("Zero Install Command Windows GUI started with: " + StringUtils.ConcatenateEscapeArgument(args));
 
             // Automatically show help for missing args
+            if (args == null) args = new string[0];
             if (args.Length == 0) args = new[] {"--help"};
 
 #if !DEBUG
