@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Threading;
 using System.Windows.Forms;
 using Common;
 using Common.Collections;
@@ -53,11 +54,11 @@ namespace ZeroInstall.Central.WinForms
             {
                 Program.ConfigureTaskbar(this, Text, null, null);
 
-                var cacheLink = new ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Program.StoreExe + ".exe"), null);
-                var configLink = new ShellLink(buttonOptions.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Program.CommandsExe + ".exe"), "config");
+                var syncLink = new ShellLink(buttonSync.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), "sync");
+                var cacheLink = new ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Store.Management.WinForms.Program.ExeName + ".exe"), null);
                 try
                 {
-                    WindowsUtils.AddTaskLinks(Program.AppUserModelID, new[] {cacheLink, configLink});
+                    WindowsUtils.AddTaskLinks(Program.AppUserModelID, new[] {syncLink, cacheLink});
                 }
                     #region Error handling
                 catch (Exception ex)
@@ -90,7 +91,7 @@ namespace ZeroInstall.Central.WinForms
             Shown += delegate
             {
                 SelfUpdateCheckAsync();
-                LoadAppListAsync();
+                LoadAppList();
                 LoadCatalogCached();
                 LoadCatalogAsync();
 
@@ -179,7 +180,7 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Loads the "my applications" list and displays it, loading additional data from feeds in the background.
         /// </summary>
-        private void LoadAppListAsync()
+        private void LoadAppList()
         {
             // Prevent multiple concurrent refreshes
             if (appListWorker.IsBusy) return;
@@ -308,12 +309,12 @@ namespace ZeroInstall.Central.WinForms
         private void appListWatcher_Changed(object sender, FileSystemEventArgs e)
         {
             if (e.ChangeType != WatcherChangeTypes.Deleted && e.FullPath == AppList.GetDefaultPath(false))
-                LoadAppListAsync();
+                LoadAppList();
         }
 
         private void appListTimer_Tick(object sender, EventArgs e)
         {
-            LoadAppListAsync();
+            LoadAppList();
         }
         #endregion
 
@@ -354,6 +355,9 @@ namespace ZeroInstall.Central.WinForms
             {
                 var tile = catalogList.AddTile(feed.UriString, feed.Name);
                 tile.SetFeed(feed);
+
+                // Update "added" status of tile
+                tile.InAppList = _currentAppList.ContainsEntry(feed.UriString);
             }
         }
 
@@ -444,7 +448,7 @@ namespace ZeroInstall.Central.WinForms
                 Msg.Inform(this, Resources.ConfigSyncFirst, MsgSeverity.Warn);
                 new OptionsDialog().ShowDialog(this);
             }
-            else LaunchHelperAssembly(Program.CommandsExe, "sync");
+            else new Thread(() => Commands.WinForms.Program.Main(new[] {"sync"})).Start();
         }
 
         private void buttonRefreshCatalog_Click(object sender, EventArgs e)
@@ -467,7 +471,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonCacheManagement_Click(object sender, EventArgs e)
         {
-            LaunchHelperAssembly(Program.StoreExe, null);
+            new Thread(() => Store.Management.WinForms.Program.Main(new string[0])).Start();
         }
 
         private void buttonHelp_Click(object sender, EventArgs e)
@@ -503,35 +507,8 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="interfaceID">The URI of the interface to be added.</param>
         private void AddCustomInterface(string interfaceID)
         {
-            LaunchHelperAssembly(Program.CommandsExe, "add-app " + StringUtils.EscapeArgument(interfaceID));
+            new Thread(() => Commands.WinForms.Program.Main(new[] {"add-app", interfaceID})).Start();
             tabControlApps.SelectTab(tabPageAppList);
-        }
-
-        /// <summary>
-        /// Attempts to launch a .NET helper assembly in the application's base directory. Displays friendly error messages if something goes wrong.
-        /// </summary>
-        /// <param name="assembly">The name of the assembly to launch (without the file extension).</param>
-        /// <param name="arguments">The command-line arguments to pass to the assembly.</param>
-        private void LaunchHelperAssembly(string assembly, string arguments)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(assembly)) throw new ArgumentNullException("assembly");
-            #endregion
-
-            try
-            {
-                ProcessUtils.LaunchHelperAssembly(assembly, arguments);
-            }
-                #region Error handling
-            catch (FileNotFoundException ex)
-            {
-                Msg.Inform(this, string.Format(Resources.FailedToRun + "\n" + ex.Message, assembly), MsgSeverity.Error);
-            }
-            catch (Win32Exception ex)
-            {
-                Msg.Inform(this, string.Format(Resources.FailedToRun + "\n" + ex.Message, assembly), MsgSeverity.Error);
-            }
-            #endregion
         }
 
         /// <summary>

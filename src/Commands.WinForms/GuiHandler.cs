@@ -156,8 +156,8 @@ namespace ZeroInstall.Commands.WinForms
             if (!_form.IsHandleCreated) return;
 
             _form.Invoke((SimpleEventHandler)_form.HideTrayIcon);
+            _form.Invoke((SimpleEventHandler)Application.ExitThread);
             _form = null;
-            Application.Exit();
             _guiReady.Reset();
         }
         #endregion

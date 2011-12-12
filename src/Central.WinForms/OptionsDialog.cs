@@ -19,10 +19,10 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
-using Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Injector;
 
@@ -37,36 +37,10 @@ namespace ZeroInstall.Central.WinForms
 
         private void OptionsDialog_Load(object sender, EventArgs e)
         {
-            try
-            {
-                // Fill fields with data from config
-                var config = Config.Load();
-                textBoxSyncUsername.Text = config.SyncServerUsername;
-                textBoxSyncPassword.Text = config.SyncServerPassword;
-                textBoxSyncCryptoKey.Text = config.SyncCryptoKey;
-            }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
-            }
-            catch (InvalidDataException ex)
-            {
-                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
-            }
-            #endregion
+            LoadConfig();
         }
 
-        private void buttonAdvanced_Click(object sender, EventArgs e)
-        {
-            LaunchHelperAssembly(Program.CommandsExe, "config");
-            Close();
-        }
-
+        #region Sync
         private void linkSyncRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
@@ -115,8 +89,47 @@ namespace ZeroInstall.Central.WinForms
         {
             Msg.Inform(this, Resources.SyncCryptoKeyDescription, MsgSeverity.Info);
         }
+        #endregion
+
+        private void buttonAdvanced_Click(object sender, EventArgs e)
+        {
+            new Thread(() => Commands.WinForms.Program.Main(new[] {"config"})).Start();
+            Close();
+        }
 
         private void buttonOK_Click(object sender, EventArgs e)
+        {
+            SaveConfig();
+        }
+
+        #region Data access
+        private void LoadConfig()
+        {
+            try
+            {
+                // Fill fields with data from config
+                var config = Config.Load();
+                textBoxSyncUsername.Text = config.SyncServerUsername;
+                textBoxSyncPassword.Text = config.SyncServerPassword;
+                textBoxSyncCryptoKey.Text = config.SyncCryptoKey;
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
+            }
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
+            }
+            #endregion
+        }
+
+        private void SaveConfig()
         {
             try
             {
@@ -142,35 +155,9 @@ namespace ZeroInstall.Central.WinForms
             }
             #endregion
         }
+        #endregion
 
         #region Helpers
-        /// <summary>
-        /// Attempts to launch a .NET helper assembly in the application's base directory. Displays friendly error messages if something goes wrong.
-        /// </summary>
-        /// <param name="assembly">The name of the assembly to launch (without the file extension).</param>
-        /// <param name="arguments">The command-line arguments to pass to the assembly.</param>
-        private void LaunchHelperAssembly(string assembly, string arguments)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(assembly)) throw new ArgumentNullException("assembly");
-            #endregion
-
-            try
-            {
-                ProcessUtils.LaunchHelperAssembly(assembly, arguments);
-            }
-                #region Error handling
-            catch (FileNotFoundException ex)
-            {
-                Msg.Inform(this, string.Format(Resources.FailedToRun + "\n" + ex.Message, assembly), MsgSeverity.Error);
-            }
-            catch (Win32Exception ex)
-            {
-                Msg.Inform(this, string.Format(Resources.FailedToRun + "\n" + ex.Message, assembly), MsgSeverity.Error);
-            }
-            #endregion
-        }
-
         /// <summary>
         /// Opens a URL in the system's default browser.
         /// </summary>

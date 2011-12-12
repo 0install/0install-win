@@ -143,6 +143,10 @@
       <Project>{47DF9A89-30C2-40B8-8DAC-363E4A4BD6B5}</Project>
       <Name>Central</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Commands.WinForms\Commands.WinForms.csproj">
+      <Project>{7A7F9AC4-5C3A-42D7-B3C3-0577300CA797}</Project>
+      <Name>Commands.WinForms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
       <Name>Common</Name>
@@ -162,6 +166,10 @@
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
       <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store.Management.WinForms\Store.Management.WinForms.csproj">
+      <Project>{77A13B71-EF52-41C1-BB96-5337E37C4C65}</Project>
+      <Name>Store.Management.WinForms</Name>
     </ProjectReference>
     <ProjectReference Include="..\Store\Store.csproj">
       <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>

@@ -23,6 +23,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Threading;
 using System.Windows.Forms;
 using Common;
 using Common.Tasks;
@@ -204,75 +205,65 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonRun_Click(object sender, EventArgs e)
         {
-            LaunchHelperAssembly(Program.CommandsExe, "run --no-wait " + StringUtils.EscapeArgument(InterfaceID));
+            new Thread(() => Commands.WinForms.Program.Main(new[] {"run", "--no-wait", InterfaceID})).Start();
         }
 
         private void buttonSelectVersion_Click(object sender, EventArgs e)
         {
-            LaunchHelperAssembly(Program.CommandsExe, "run --no-wait --gui " + StringUtils.EscapeArgument(InterfaceID));
+            new Thread(() => Commands.WinForms.Program.Main(new[] {"run", "--no-wait", "--gui", InterfaceID})).Start();
         }
 
         private void buttonSelectCommmand_Click(object sender, EventArgs e)
         {
             string args;
             string command = SelectCommandDialog.ShowDialog(this, _feed, out args);
-            if(command != null) LaunchHelperAssembly(Program.CommandsExe, "run --no-wait --command=" + StringUtils.EscapeArgument(command) + " " + StringUtils.EscapeArgument(InterfaceID) + " " + args);
+            if (command != null)
+            {
+                try
+                {
+                    // Cannot use in-process method here because the "args" string needs to be parsed as multiple arguments instead of one
+                    ProcessUtils.LaunchHelperAssembly(Commands.WinForms.Program.ExeName, "run --no-wait --command=" + StringUtils.EscapeArgument(command) + " " + StringUtils.EscapeArgument(InterfaceID) + " " + args);
+                }
+                    #region Error handling
+                catch (FileNotFoundException ex)
+                {
+                    Msg.Inform(this, string.Format(Resources.FailedToRun + "\n" + ex.Message, Commands.WinForms.Program.ExeName), MsgSeverity.Error);
+                }
+                catch (Win32Exception ex)
+                {
+                    Msg.Inform(this, string.Format(Resources.FailedToRun + "\n" + ex.Message, Commands.WinForms.Program.ExeName), MsgSeverity.Error);
+                }
+                #endregion
+            }
         }
 
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
-            LaunchHelperAssembly(Program.CommandsExe, "update " + StringUtils.EscapeArgument(InterfaceID));
+            new Thread(() => Commands.WinForms.Program.Main(new[] {"updatei", InterfaceID})).Start();
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            LaunchHelperAssembly(Program.CommandsExe, "add-app " + StringUtils.EscapeArgument(InterfaceID));
+            new Thread(() => Commands.WinForms.Program.Main(new[] {"add-app", InterfaceID})).Start();
         }
 
         private void buttonIntegrate_Click(object sender, EventArgs e)
         {
-            LaunchHelperAssembly(Program.CommandsExe, "integrate-app " + StringUtils.EscapeArgument(InterfaceID));
+            new Thread(() => Commands.WinForms.Program.Main(new[] {"integrate-app", InterfaceID})).Start();
         }
 
         private void buttonConf_Click(object sender, EventArgs e)
         {
-            LaunchHelperAssembly(Program.CommandsExe, "integrate-app " + StringUtils.EscapeArgument(InterfaceID));
+            new Thread(() => Commands.WinForms.Program.Main(new[] {"integrate-app", InterfaceID})).Start();
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
-            LaunchHelperAssembly(Program.CommandsExe, "remove-app " + StringUtils.EscapeArgument(InterfaceID));
+            new Thread(() => Commands.WinForms.Program.Main(new[] {"remove-app", InterfaceID})).Start();
         }
         #endregion
 
         #region Helpers
-        /// <summary>
-        /// Attempts to launch a .NET helper assembly in the application's base directory. Displays friendly error messages if something goes wrong.
-        /// </summary>
-        /// <param name="assembly">The name of the assembly to launch (without the file extension).</param>
-        /// <param name="arguments">The command-line arguments to pass to the assembly.</param>
-        private void LaunchHelperAssembly(string assembly, string arguments)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(assembly)) throw new ArgumentNullException("assembly");
-            #endregion
-
-            try
-            {
-                ProcessUtils.LaunchHelperAssembly(assembly, arguments);
-            }
-                #region Error handling
-            catch (FileNotFoundException ex)
-            {
-                Msg.Inform(this, string.Format(Resources.FailedToRun + "\n" + ex.Message, assembly), MsgSeverity.Error);
-            }
-            catch (Win32Exception ex)
-            {
-                Msg.Inform(this, string.Format(Resources.FailedToRun + "\n" + ex.Message, assembly), MsgSeverity.Error);
-            }
-            #endregion
-        }
-
         /// <summary>
         /// Opens a URL in the system's default browser.
         /// </summary>

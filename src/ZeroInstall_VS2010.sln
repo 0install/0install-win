@@ -4,10 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{C6323B35-FD0B-49FB-83BB-D084DC6697DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Central.WinForms", "Central.WinForms\Central.WinForms.csproj", "{9519DC06-0A9F-4179-B9BC-B4E901A0DA30}"
-	ProjectSection(ProjectDependencies) = postProject
-		{F52544A4-EC24-11DF-8FA3-0F04E0D72085} = {F52544A4-EC24-11DF-8FA3-0F04E0D72085}
-		{7A7F9AC4-5C3A-42D7-B3C3-0577300CA797} = {7A7F9AC4-5C3A-42D7-B3C3-0577300CA797}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Central", "Central\Central.csproj", "{47DF9A89-30C2-40B8-8DAC-363E4A4BD6B5}"
 EndProject

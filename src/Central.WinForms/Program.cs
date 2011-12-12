@@ -47,16 +47,6 @@ namespace ZeroInstall.Central.WinForms
         public static readonly string AppUserModelID = "ZeroInstall." + StringUtils.Hash(Locations.InstallBase, SHA256.Create()) + ".Central";
 
         /// <summary>
-        /// The EXE name (without the file ending) for the Windows Commands binary.
-        /// </summary>
-        internal const string CommandsExe = "0install-win";
-
-        /// <summary>
-        /// The EXE name (without the file ending) for the Windows Store Management binary.
-        /// </summary>
-        internal const string StoreExe = "0store-win";
-
-        /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
