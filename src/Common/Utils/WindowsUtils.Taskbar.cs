@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -9,7 +8,6 @@ namespace Common.Utils
 {
     static partial class WindowsUtils
     {
-
         #region Enumerations
         /// <summary>
         /// Represents the thumbnail progress bar state.
@@ -149,12 +147,18 @@ namespace Common.Utils
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
         private struct ThumbnailButton
         {
-            [MarshalAs(UnmanagedType.U4)] private ThumbnailMask dwMask;
+            [MarshalAs(UnmanagedType.U4)]
+            private ThumbnailMask dwMask;
+
             private uint iId;
             private uint iBitmap;
             private IntPtr hIcon;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)] private string szTip;
-            [MarshalAs(UnmanagedType.U4)] private ThumbnailFlags dwFlags;
+
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
+            private string szTip;
+
+            [MarshalAs(UnmanagedType.U4)]
+            private ThumbnailFlags dwFlags;
         }
         #endregion
 
@@ -224,19 +228,25 @@ namespace Common.Utils
         }
 
         [ComImport, Guid("56FDF344-FD6D-11d0-958A-006097C9A090"), ClassInterface(ClassInterfaceType.None)]
-        private class CTaskbarList {}
+        private class CTaskbarList
+        { }
 
         [ComImport, Guid("6332DEBF-87B5-4670-90C0-5E57B408A49E"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         private interface ICustomDestinationList
         {
             void SetAppID([MarshalAs(UnmanagedType.LPWStr)] string pszAppID);
+
             [PreserveSig]
             uint BeginList(out uint cMaxSlots, ref Guid riid, [Out, MarshalAs(UnmanagedType.Interface)] out object ppvObject);
+
             [PreserveSig]
             uint AppendCategory([MarshalAs(UnmanagedType.LPWStr)] string pszCategory, [MarshalAs(UnmanagedType.Interface)] IObjectArray poa);
+
             void AppendKnownCategory([MarshalAs(UnmanagedType.I4)] KnownDestinationCategory category);
+
             [PreserveSig]
             uint AddUserTasks([MarshalAs(UnmanagedType.Interface)] IObjectArray poa);
+
             void CommitList();
             void GetRemovedDestinations(ref Guid riid, [Out, MarshalAs(UnmanagedType.Interface)] out object ppvObject);
             void DeleteList([MarshalAs(UnmanagedType.LPWStr)] string pszAppID);
@@ -244,7 +254,8 @@ namespace Common.Utils
         }
 
         [ComImport, Guid("77F10CF0-3DB5-4966-B520-B7C54FD35ED6"), ClassInterface(ClassInterfaceType.None)]
-        private class CDestinationList {}
+        private class CDestinationList
+        {}
 
         [ComImport, Guid("92CA9DCD-5622-4BBA-A805-5E9F541BD8C9"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         private interface IObjectArray
@@ -259,6 +270,7 @@ namespace Common.Utils
             // IObjectArray
             [PreserveSig]
             void GetCount(out uint cObjects);
+
             [PreserveSig]
             void GetAt(uint iIndex, ref Guid riid, [Out, MarshalAs(UnmanagedType.Interface)] out object ppvObject);
 
@@ -270,7 +282,8 @@ namespace Common.Utils
         }
 
         [ComImport, Guid("2D3468C1-36A7-43B6-AC24-D3F02FD9607A"), ClassInterfaceAttribute(ClassInterfaceType.None)]
-        private class CEnumerableObjectCollection {}
+        private class CEnumerableObjectCollection
+        { }
 
         [ComImport, Guid("000214F9-0000-0000-C000-000000000046"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         private interface IShellLinkW
@@ -296,33 +309,14 @@ namespace Common.Utils
         }
 
         [ComImport, Guid("00021401-0000-0000-C000-000000000046"), ClassInterface(ClassInterfaceType.None)]
-        private class CShellLink { }
-        #endregion
+        private class CShellLink
+        { }
 
-        #region Taskbar Singleton
-        private static readonly object _syncLock = new object();
-        private static ITaskbarList4 _taskbarList;
-        /// <summary>
-        /// Singleton COM object for taskbar operations.
-        /// </summary>
-        private static ITaskbarList4 TaskbarList
+        private static readonly ITaskbarList4 _taskbarList = (ITaskbarList4)new CTaskbarList();
+
+        static WindowsUtils()
         {
-            get
-            {
-                if (_taskbarList == null)
-                {
-                    lock (_syncLock)
-                    {
-                        if (_taskbarList == null)
-                        {
-                            _taskbarList = (ITaskbarList4)new CTaskbarList();
-                            _taskbarList.HrInit();
-                        }
-                    }
-                }
-
-                return _taskbarList;
-            }
+            _taskbarList.HrInit();
         }
         #endregion
 
@@ -331,10 +325,17 @@ namespace Common.Utils
         /// </summary>
         /// <param name="handle">The handle of the window whose taskbar button contains the progress indicator.</param>
         /// <param name="state">The state of the progress indicator.</param>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "COM calls throw unpredictable exceptions and this methods successful execution is not critical.")]
         public static void SetProgressState(IntPtr handle, TaskbarProgressBarState state)
         {
             if (!IsWindows7) return;
-            TaskbarList.SetProgressState(handle, state);
+            try
+            {
+                lock (_taskbarList)
+                    _taskbarList.SetProgressState(handle, state);
+            }
+            catch
+            { }
         }
 
         /// <summary>
@@ -343,10 +344,17 @@ namespace Common.Utils
         /// <param name="handle">The handle of the window whose taskbar button contains the progress indicator.</param>
         /// <param name="currentValue">The current value of the progress indicator.</param>
         /// <param name="maximumValue">The value <paramref name="currentValue"/> will have when the operation is complete.</param>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "COM calls throw unpredictable exceptions and this methods successful execution is not critical.")]
         public static void SetProgressValue(IntPtr handle, int currentValue, int maximumValue)
         {
             if (!IsWindows7) return;
-            TaskbarList.SetProgressValue(handle, Convert.ToUInt32(currentValue), Convert.ToUInt32(maximumValue));
+            try
+            {
+                lock (_taskbarList)
+                    _taskbarList.SetProgressValue(handle, Convert.ToUInt32(currentValue), Convert.ToUInt32(maximumValue));
+            }
+            catch
+            { }
         }
 
         /// <summary>
@@ -358,6 +366,7 @@ namespace Common.Utils
         /// <param name="relaunchIcon">The icon to use for pinning this specific window to the taskbar (written as Path,ResourceIndex); may be <see langword="null"/>.</param>
         /// <param name="relaunchName">The user-friendly name to associate with <paramref name="relaunchCommand"/>; may be <see langword="null"/>.</param>
         /// <remarks>The application ID is used to group related windows in the taskbar.</remarks>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "COM calls throw unpredictable exceptions and this methods successful execution is not critical.")]
         public static void SetWindowAppID(IntPtr hwnd, string appID, string relaunchCommand, string relaunchIcon, string relaunchName)
         {
             #region Sanity checks
@@ -366,15 +375,56 @@ namespace Common.Utils
 
             if (!IsWindows7) return;
 
-            IPropertyStore propertyStore = GetWindowPropertyStore(hwnd);
+            try
+            {
+                IPropertyStore propertyStore = GetWindowPropertyStore(hwnd);
 
-            var stringFormat = new Guid("{9F4C2855-9F79-4B39-A8D0-E1D42DE1D5F3}");
-            SetPropertyValue(propertyStore, new PropertyKey(stringFormat, 5), appID);
-            if (!string.IsNullOrEmpty(relaunchCommand)) SetPropertyValue(propertyStore, new PropertyKey(stringFormat, 2), relaunchCommand);
-            if (!string.IsNullOrEmpty(relaunchIcon)) SetPropertyValue(propertyStore, new PropertyKey(stringFormat, 3), relaunchIcon);
-            if (!string.IsNullOrEmpty(relaunchName)) SetPropertyValue(propertyStore, new PropertyKey(stringFormat, 4), relaunchName);
+                var stringFormat = new Guid("{9F4C2855-9F79-4B39-A8D0-E1D42DE1D5F3}");
+                SetPropertyValue(propertyStore, new PropertyKey(stringFormat, 5), appID);
+                if (!string.IsNullOrEmpty(relaunchCommand)) SetPropertyValue(propertyStore, new PropertyKey(stringFormat, 2), relaunchCommand);
+                if (!string.IsNullOrEmpty(relaunchIcon)) SetPropertyValue(propertyStore, new PropertyKey(stringFormat, 3), relaunchIcon);
+                if (!string.IsNullOrEmpty(relaunchName)) SetPropertyValue(propertyStore, new PropertyKey(stringFormat, 4), relaunchName);
 
-            Marshal.ReleaseComObject(propertyStore);
+                Marshal.ReleaseComObject(propertyStore);
+            }
+            catch
+            { }
+        }
+
+        /// <summary>
+        /// Adds user-task links to the taskbar jumplist. Any existing task links are removed.
+        /// </summary>
+        /// <param name="appID">The application ID of the jumplist to add the task to.</param>
+        /// <param name="links">The links to add to the jumplist.</param>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "COM calls throw unpredictable exceptions and this methods successful execution is not critical.")]
+        public static void AddTaskLinks(string appID, IEnumerable<ShellLink> links)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(appID)) throw new ArgumentNullException("appID");
+            if (links == null) throw new ArgumentNullException("links");
+            #endregion
+
+            if (!IsWindows7) return;
+
+            try
+            {
+                var customDestinationList = (ICustomDestinationList)new CDestinationList();
+                customDestinationList.SetAppID(appID);
+
+                var objectArray = new Guid("92CA9DCD-5622-4BBA-A805-5E9F541BD8C9");
+                object removedItems;
+                uint maxSlots;
+                customDestinationList.BeginList(out maxSlots, ref objectArray, out removedItems);
+
+                var taskContent = (IObjectCollection)new CEnumerableObjectCollection();
+                foreach (var shellLink in links)
+                    taskContent.AddObject(ConvertShellLink(shellLink));
+
+                customDestinationList.AddUserTasks((IObjectArray)taskContent);
+                customDestinationList.CommitList();
+            }
+            catch
+            { }
         }
 
         /// <summary>
@@ -395,37 +445,6 @@ namespace Common.Utils
             nativePropertyStore.Commit();
 
             return nativeShellLink;
-        }
-
-        /// <summary>
-        /// Adds user-task links to the taskbar jumplist. Any existing task links are removed.
-        /// </summary>
-        /// <param name="appID">The application ID of the jumplist to add the task to.</param>
-        /// <param name="links">The links to add to the jumplist.</param>
-        /// <exception cref="Exception">Thrown if a task link could not be created.</exception>
-        public static void AddTaskLinks(string appID, IEnumerable<ShellLink> links)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(appID)) throw new ArgumentNullException("appID");
-            if (links == null) throw new ArgumentNullException("links");
-            #endregion
-
-            if (!IsWindows7) return;
-
-            var customDestinationList = (ICustomDestinationList)new CDestinationList();
-            customDestinationList.SetAppID(appID);
-
-            var objectArray = new Guid("92CA9DCD-5622-4BBA-A805-5E9F541BD8C9");
-            object removedItems;
-            uint maxSlots;
-            customDestinationList.BeginList(out maxSlots, ref objectArray, out removedItems);
-
-            var taskContent = (IObjectCollection)new CEnumerableObjectCollection();
-            foreach (var shellLink in links)
-                taskContent.AddObject(ConvertShellLink(shellLink));
-
-            customDestinationList.AddUserTasks((IObjectArray)taskContent);
-            customDestinationList.CommitList();
         }
     }
 }

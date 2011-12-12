@@ -47,7 +47,6 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Initializes the main GUI.
         /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "WindowsUtils.AddTaskLinks throws unpredictable exceptions and its successful execution is not critical.")]
         public MainForm()
         {
             InitializeComponent();
@@ -58,16 +57,7 @@ namespace ZeroInstall.Central.WinForms
 
                 var syncLink = new WindowsUtils.ShellLink(buttonSync.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), "sync");
                 var cacheLink = new WindowsUtils.ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Store.Management.WinForms.Program.ExeName + ".exe"), null);
-                try
-                {
-                    WindowsUtils.AddTaskLinks(Program.AppUserModelID, new[] {syncLink, cacheLink});
-                }
-                    #region Error handling
-                catch (Exception ex)
-                {
-                    Log.Error("Failed to set up task links:\n" + ex.Message);
-                }
-                #endregion
+                WindowsUtils.AddTaskLinks(Program.AppUserModelID, new[] {syncLink, cacheLink});
             };
 
             Load += delegate
