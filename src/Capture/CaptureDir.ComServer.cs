@@ -30,17 +30,17 @@ namespace ZeroInstall.Capture
         /// Collects data about registered COM servers.
         /// </summary>
         /// <param name="classIDs">A list of COM class IDs.</param>
-        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
+        /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static void CollectComServers(IEnumerable<string> classIDs, CommandProvider commandProvider, CapabilityList capabilities)
+        private static void CollectComServers(IEnumerable<string> classIDs, CommandMapper commandMapper, CapabilityList capabilities)
         {
             #region Sanity checks
             if (classIDs == null) throw new ArgumentNullException("classIDs");
             if (capabilities == null) throw new ArgumentNullException("capabilities");
-            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
+            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
             // ToDo: Implement

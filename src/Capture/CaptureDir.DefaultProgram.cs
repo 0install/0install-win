@@ -35,18 +35,18 @@ namespace ZeroInstall.Capture
         /// Collects data about default programs indicated by a snapshot diff.
         /// </summary>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
-        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
+        /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <param name="appName">Is set to the name of the application as displayed to the user; unchanged if the name was not found.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static void CollectDefaultPrograms(Snapshot snapshotDiff, CommandProvider commandProvider, CapabilityList capabilities, ref string appName)
+        private static void CollectDefaultPrograms(Snapshot snapshotDiff, CommandMapper commandMapper, CapabilityList capabilities, ref string appName)
         {
             #region Sanity checks
             if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
             if (capabilities == null) throw new ArgumentNullException("capabilities");
-            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
+            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
             // Ambiguity warnings
@@ -70,8 +70,8 @@ namespace ZeroInstall.Capture
                         ID = client,
                         Service = service
                     };
-                    defaultProgram.Verbs.AddAll(GetVerbs(clientKey, commandProvider));
-                    defaultProgram.InstallCommands = GetInstallCommands(clientKey, commandProvider.InstallationDir);
+                    defaultProgram.Verbs.AddAll(GetVerbs(clientKey, commandMapper));
+                    defaultProgram.InstallCommands = GetInstallCommands(clientKey, commandMapper.InstallationDir);
                     capabilities.Entries.Add(defaultProgram);
                 }
             }

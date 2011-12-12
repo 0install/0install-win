@@ -33,28 +33,28 @@ namespace ZeroInstall.Capture
         /// Collects data about AutoPlay handlers indicated by a snapshot diff.
         /// </summary>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
-        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
+        /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static void CollectAutoPlays(Snapshot snapshotDiff, CommandProvider commandProvider, CapabilityList capabilities)
+        private static void CollectAutoPlays(Snapshot snapshotDiff, CommandMapper commandMapper, CapabilityList capabilities)
         {
             #region Sanity checks
             if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
             if (capabilities == null) throw new ArgumentNullException("capabilities");
-            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
+            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
             foreach (string handler in snapshotDiff.AutoPlayHandlersUser)
             {
-                var autoPlay = GetAutoPlay(handler, Registry.CurrentUser, snapshotDiff.AutoPlayAssocsUser, commandProvider);
+                var autoPlay = GetAutoPlay(handler, Registry.CurrentUser, snapshotDiff.AutoPlayAssocsUser, commandMapper);
                 if (autoPlay != null) capabilities.Entries.Add(autoPlay);
             }
 
             foreach (string handler in snapshotDiff.AutoPlayHandlersMachine)
             {
-                var autoPlay = GetAutoPlay(handler, Registry.LocalMachine, snapshotDiff.AutoPlayAssocsMachine, commandProvider);
+                var autoPlay = GetAutoPlay(handler, Registry.LocalMachine, snapshotDiff.AutoPlayAssocsMachine, commandMapper);
                 if (autoPlay != null) capabilities.Entries.Add(autoPlay);
             }
         }
@@ -65,17 +65,17 @@ namespace ZeroInstall.Capture
         /// <param name="handler">The internal name of the AutoPlay handler.</param>
         /// <param name="hive">The registry hive to search in (usually HKCU or HKLM).</param>
         /// <param name="autoPlayAssocs">A list of associations of an AutoPlay events with an AutoPlay handlers</param>
-        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
+        /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static Capability GetAutoPlay(string handler, RegistryKey hive, IEnumerable<ComparableTuple<string>> autoPlayAssocs, CommandProvider commandProvider)
+        private static Capability GetAutoPlay(string handler, RegistryKey hive, IEnumerable<ComparableTuple<string>> autoPlayAssocs, CommandMapper commandMapper)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
             if (hive == null) throw new ArgumentNullException("hive");
             if (autoPlayAssocs == null) throw new ArgumentNullException("autoPlayAssocs");
-            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
+            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
             using (var handlerKey = hive.OpenSubKey(Windows.AutoPlay.RegKeyHandlers + @"\" + handler))
@@ -93,7 +93,7 @@ namespace ZeroInstall.Capture
                         Provider = handlerKey.GetValue(Windows.AutoPlay.RegValueProvider, "").ToString(),
                         Descriptions = {handlerKey.GetValue(Windows.AutoPlay.RegValueDescription, "").ToString()},
                         ProgID = progID,
-                        Verb = GetVerb(progIDKey, commandProvider, verbName)
+                        Verb = GetVerb(progIDKey, commandMapper, verbName)
                     };
 
                     foreach (var autoPlayAssoc in autoPlayAssocs)

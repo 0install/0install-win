@@ -22,13 +22,13 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Capture
 {
     /// <summary>
-    /// Contains test methods for <see cref="CommandProvider"/>.
+    /// Contains test methods for <see cref="CommandMapper"/>.
     /// </summary>
     [TestFixture]
-    public class CommandProviderTest
+    public class CommandMapperTest
     {
         /// <summary>
-        /// Ensures <see cref="CommandProvider.GetCommand"/> correctly finds the best possible <see cref="Command"/> matches for command-lines;
+        /// Ensures <see cref="CommandMapper.GetCommand"/> correctly finds the best possible <see cref="Command"/> matches for command-lines;
         /// </summary>
         [Test]
         public void TestGetCommand()
@@ -36,7 +36,7 @@ namespace ZeroInstall.Capture
             var commandNoArgs = new Command {Name = "no-args", Path = "entry.exe"};
             var commandArgs1 = new Command {Name = "args1", Path = "entry.exe", Arguments = {"--arg1", "long argument"}};
             var commandArgs2 = new Command {Name = "args2", Path = "entry.exe", Arguments = {"--arg2", "long argument"}};
-            var provider = new CommandProvider("installation directory", new[] {commandNoArgs, commandArgs1, commandArgs2});
+            var provider = new CommandMapper("installation directory", new[] {commandNoArgs, commandArgs1, commandArgs2});
 
             string additionalArgs;
 

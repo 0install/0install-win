@@ -90,19 +90,19 @@ namespace ZeroInstall.Capture
         /// Retreives data about multiple verbs (executable commands) from the registry.
         /// </summary>
         /// <param name="typeKey">The registry key containing information about the file type / protocol the verbs belong to.</param>
-        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
+        /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <returns>A list of detected <see cref="Verb"/>.</returns>
-        private static IEnumerable<Verb> GetVerbs(RegistryKey typeKey, CommandProvider commandProvider)
+        private static IEnumerable<Verb> GetVerbs(RegistryKey typeKey, CommandMapper commandMapper)
         {
             #region Sanity checks
             if (typeKey == null) throw new ArgumentNullException("typeKey");
-            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
+            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
             var verbs = new List<Verb>();
             foreach (string verbName in RegUtils.GetSubKeyNames(typeKey, "shell"))
             {
-                var verb = GetVerb(typeKey, commandProvider, verbName);
+                var verb = GetVerb(typeKey, commandMapper, verbName);
                 if (verb != null) verbs.Add(verb);
             }
             return verbs;
@@ -112,15 +112,15 @@ namespace ZeroInstall.Capture
         /// Retreives data about a verb (an executable command) from the registry.
         /// </summary>
         /// <param name="typeKey">The registry key containing information about the file type / protocol the verb belongs to.</param>
-        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
+        /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <param name="verbName">The internal name of the verb.</param>
         /// <returns>The detected <see cref="Verb"/> or an empty <see cref="Verb"/> if no match was found.</returns>
-        private static Verb GetVerb(RegistryKey typeKey, CommandProvider commandProvider, string verbName)
+        private static Verb GetVerb(RegistryKey typeKey, CommandMapper commandMapper, string verbName)
         {
             #region Sanity checks
             if (typeKey == null) throw new ArgumentNullException("typeKey");
             if (string.IsNullOrEmpty(verbName)) throw new ArgumentNullException("verb");
-            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
+            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
             using (var verbKey = typeKey.OpenSubKey(@"shell\" + verbName))
@@ -136,7 +136,7 @@ namespace ZeroInstall.Capture
                 }
 
                 string additionalArgs;
-                var command = commandProvider.GetCommand(commandLine, out additionalArgs);
+                var command = commandMapper.GetCommand(commandLine, out additionalArgs);
                 if (command == null) return null;
                 string commandName = command.Name;
 

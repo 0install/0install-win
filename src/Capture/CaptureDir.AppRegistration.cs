@@ -33,19 +33,19 @@ namespace ZeroInstall.Capture
         /// Retreives data about registered applications aindicated by a snapshot diff.
         /// </summary>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
-        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
+        /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <param name="appName">Is set to the name of the application as displayed to the user; unchanged if the name was not found.</param>
         /// <param name="appDescription">Is set to a user-friendly description of the application; unchanged if the name was not found.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static AppRegistration GetAppRegistration(Snapshot snapshotDiff, CommandProvider commandProvider, CapabilityList capabilities, ref string appName, ref string appDescription)
+        private static AppRegistration GetAppRegistration(Snapshot snapshotDiff, CommandMapper commandMapper, CapabilityList capabilities, ref string appName, ref string appDescription)
         {
             #region Sanity checks
             if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
             if (capabilities == null) throw new ArgumentNullException("capabilities");
-            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
+            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
             // Ambiguity warnings
@@ -72,7 +72,7 @@ namespace ZeroInstall.Capture
                 if (string.IsNullOrEmpty(appName)) appName = capsKey.GetValue(Windows.AppRegistration.RegValueAppName, "").ToString();
                 if (string.IsNullOrEmpty(appDescription)) appDescription = capsKey.GetValue(Windows.AppRegistration.RegValueAppDescription, "").ToString();
 
-                CollectProtocolAssocsEx(capsKey, commandProvider, capabilities);
+                CollectProtocolAssocsEx(capsKey, commandMapper, capabilities);
                 CollectFileAssocsEx(capsKey, capabilities);
                 // Note: Contenders for StartMenu entries are detected elsewhere
 
@@ -90,16 +90,16 @@ namespace ZeroInstall.Capture
         /// Collects data about URL protocol handlers indicated by registered application capabilities.
         /// </summary>
         /// <param name="capsKey">A registry key containing capability information for a registered application.</param>
-        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
+        /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static void CollectProtocolAssocsEx(RegistryKey capsKey, CommandProvider commandProvider, CapabilityList capabilities)
+        private static void CollectProtocolAssocsEx(RegistryKey capsKey, CommandMapper commandMapper, CapabilityList capabilities)
         {
             #region Sanity checks
             if (capsKey == null) throw new ArgumentNullException("capsKey");
-            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
+            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             if (capabilities == null) throw new ArgumentNullException("capabilities");
             #endregion
 
@@ -122,7 +122,7 @@ namespace ZeroInstall.Capture
                             KnownPrefixes = {new KnownProtocolPrefix {Value = protocol}}
                         };
 
-                        capability.Verbs.AddAll(GetVerbs(progIDKey, commandProvider));
+                        capability.Verbs.AddAll(GetVerbs(progIDKey, commandMapper));
                         capabilities.Entries.Add(capability);
                     }
                 }

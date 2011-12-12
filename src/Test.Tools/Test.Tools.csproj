@@ -89,7 +89,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Capture\CommandProviderTest.cs" />
+    <Compile Include="Capture\CommandMapperTest.cs" />
     <Compile Include="Publish\WinForms\ControlHelpersTest.cs" />
   </ItemGroup>
   <ItemGroup>

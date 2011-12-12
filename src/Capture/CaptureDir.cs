@@ -119,22 +119,22 @@ namespace ZeroInstall.Capture
             var capabilities = new CapabilityList {Architecture = new Architecture(OS.Windows, Cpu.All)};
             try
             {
-                var commandProvider = new CommandProvider(installationDir, commands);
+                var commandMapper = new CommandMapper(installationDir, commands);
 
-                CollectDefaultPrograms(snapshotDiff, commandProvider, capabilities, ref appName);
+                CollectDefaultPrograms(snapshotDiff, commandMapper, capabilities, ref appName);
 
-                var appRegistration = GetAppRegistration(snapshotDiff, commandProvider, capabilities, ref appName, ref appDescription);
+                var appRegistration = GetAppRegistration(snapshotDiff, commandMapper, capabilities, ref appName, ref appDescription);
                 capabilities.Entries.Add(appRegistration);
                 if (appRegistration == null)
                 { // Only collect URL protocols if there wasn't already an application registration that covered them
-                    CollectProtocolAssocs(snapshotDiff.ProtocolAssocs, commandProvider, capabilities);
+                    CollectProtocolAssocs(snapshotDiff.ProtocolAssocs, commandMapper, capabilities);
                 }
 
-                CollectFileTypes(snapshotDiff, commandProvider, capabilities);
-                CollectContextMenus(snapshotDiff, commandProvider, capabilities);
-                CollectAutoPlays(snapshotDiff, commandProvider, capabilities);
-                CollectComServers(snapshotDiff.ClassIDs, commandProvider, capabilities);
-                CollectGames(snapshotDiff.Games, commandProvider, capabilities);
+                CollectFileTypes(snapshotDiff, commandMapper, capabilities);
+                CollectContextMenus(snapshotDiff, commandMapper, capabilities);
+                CollectAutoPlays(snapshotDiff, commandMapper, capabilities);
+                CollectComServers(snapshotDiff.ClassIDs, commandMapper, capabilities);
+                CollectGames(snapshotDiff.Games, commandMapper, capabilities);
             }
                 #region Error handling
             catch (SecurityException ex)

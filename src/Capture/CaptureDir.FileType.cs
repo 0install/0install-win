@@ -31,23 +31,23 @@ namespace ZeroInstall.Capture
         /// Collects data about file types and also URL protocol handlers indicated by a snapshot diff.
         /// </summary>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
-        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
+        /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static void CollectFileTypes(Snapshot snapshotDiff, CommandProvider commandProvider, CapabilityList capabilities)
+        private static void CollectFileTypes(Snapshot snapshotDiff, CommandMapper commandMapper, CapabilityList capabilities)
         {
             #region Sanity checks
             if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
             if (capabilities == null) throw new ArgumentNullException("capabilities");
-            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
+            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
             foreach (string progID in snapshotDiff.ProgIDs)
             {
                 if (string.IsNullOrEmpty(progID)) continue;
-                var fileType = GetFileType(progID, snapshotDiff, commandProvider);
+                var fileType = GetFileType(progID, snapshotDiff, commandMapper);
                 if (fileType != null) capabilities.Entries.Add(fileType);
             }
         }
@@ -57,17 +57,17 @@ namespace ZeroInstall.Capture
         /// </summary>
         /// <param name="progID">The programatic identifier of the file type.</param>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
-        /// <param name="commandProvider">Provides best-match command-line to <see cref="Command"/> mapping.</param>
+        /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <returns>Data about the file type or <see paramref="null"/> if no file type for this <paramref name="progID"/> was detected.</returns>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
-        private static VerbCapability GetFileType(string progID, Snapshot snapshotDiff, CommandProvider commandProvider)
+        private static VerbCapability GetFileType(string progID, Snapshot snapshotDiff, CommandMapper commandMapper)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(progID)) throw new ArgumentNullException("progID");
             if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
-            if (commandProvider == null) throw new ArgumentNullException("commandProvider");
+            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
             using (var progIDKey = Registry.ClassesRoot.OpenSubKey(progID))
@@ -111,7 +111,7 @@ namespace ZeroInstall.Capture
                 if (string.IsNullOrEmpty(description)) description = progIDKey.GetValue("", "").ToString();
                 capability.Descriptions.Add(description);
 
-                capability.Verbs.AddAll(GetVerbs(progIDKey, commandProvider));
+                capability.Verbs.AddAll(GetVerbs(progIDKey, commandMapper));
 
                 // Only return capabilities that have verbs associated with them
                 if (capability.Verbs.IsEmpty) return null;

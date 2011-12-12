@@ -27,7 +27,7 @@ namespace ZeroInstall.Capture
     /// <summary>
     /// Maps command-lines to the best matching <see cref="Command"/>.
     /// </summary>
-    public class CommandProvider
+    public class CommandMapper
     {
         #region Private structs
         /// <summary>
@@ -72,7 +72,7 @@ namespace ZeroInstall.Capture
         /// </summary>
         /// <param name="installationDir">The fully qualified path to the installation directory.</param>
         /// <param name="commmands">A list of all known-commands available within the installation directory.</param>
-        public CommandProvider(string installationDir, IEnumerable<Command> commmands)
+        public CommandMapper(string installationDir, IEnumerable<Command> commmands)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(installationDir)) throw new ArgumentNullException("installationDir");
