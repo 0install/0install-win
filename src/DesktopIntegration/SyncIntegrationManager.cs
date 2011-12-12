@@ -27,6 +27,7 @@ using Common.Storage;
 using Common.Tasks;
 using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
@@ -81,7 +82,7 @@ namespace ZeroInstall.DesktopIntegration
         private readonly AppList _appListLastSync;
 
         /// <summary>Indicate that <see cref="Cancel"/> has been called.</summary>
-        private volatile bool Canceled;
+        private volatile bool _canceled;
         #endregion
 
         #region Constructor
@@ -147,11 +148,29 @@ namespace ZeroInstall.DesktopIntegration
             };
 
             Retry:
-            // Download and merge the current AppList from the server (unless the server is to be reset)
-            var appListData = (resetMode == SyncResetMode.Server)
-                ? new byte[0]
-                // ToDo: Allow cancel
-                : webClient.DownloadData(appListUri);
+            byte[] appListData;
+            try
+            {
+                // Download and merge the current AppList from the server (unless the server is to be reset)
+                appListData = (resetMode == SyncResetMode.Server)
+                    ? new byte[0]
+                    // ToDo: Allow cancel
+                    : webClient.DownloadData(appListUri);
+            }
+                #region Error handling
+            catch (WebException ex)
+            {
+                // Wrap exception to add context information
+                if (ex.Status == WebExceptionStatus.ProtocolError)
+                {
+                    var response = ex.Response as HttpWebResponse;
+                    if (response != null && response.StatusCode == HttpStatusCode.Unauthorized)
+                        throw new WebException(Resources.SyncCredentialsInvalid, ex);
+                }
+
+                throw;
+            }
+            #endregion
 
             if (appListData.Length > 0)
             {
@@ -163,12 +182,21 @@ namespace ZeroInstall.DesktopIntegration
                     #region Error handling
                 catch (ZipException ex)
                 {
-                    // Wrap exception since only certain exception types are allowed
-                    throw new InvalidDataException(ex.Message, ex);
+                    // Wrap exception to add context information
+                    throw new InvalidDataException(
+                        ex.Message == "Invalid password"
+                            ? Resources.SyncCryptoKeyInvalid
+                            : Resources.SyncServerDataDamaged,
+                        ex);
+                }
+                catch (InvalidDataException ex)
+                {
+                    // Wrap exception to add context information
+                    throw new InvalidDataException(Resources.SyncServerDataDamaged, ex);
                 }
                 #endregion
 
-                if (Canceled) throw new UserCancelException();
+                if (_canceled) throw new UserCancelException();
                 try
                 {
                     MergeData(serverList, (resetMode == SyncResetMode.Client), feedRetreiver, handler);
@@ -183,7 +211,7 @@ namespace ZeroInstall.DesktopIntegration
                     Complete();
                 }
 
-                if (Canceled) throw new UserCancelException();
+                if (_canceled) throw new UserCancelException();
             }
 
             // Upload the encrypted AppList back to the server (unless the client was reset)
@@ -210,7 +238,7 @@ namespace ZeroInstall.DesktopIntegration
                         { // Precondition failure indicates a race condition
                             // Wait for a randomized interval before retrying
                             Thread.Sleep(new Random().Next(250, 1500));
-                            if (Canceled) throw new UserCancelException();
+                            if (_canceled) throw new UserCancelException();
                             goto Retry;
                         }
                     }
@@ -222,7 +250,7 @@ namespace ZeroInstall.DesktopIntegration
 
             // Save reference point for future syncs
             AppList.Save(AppListPath + AppListLastSyncSuffix);
-            if (Canceled) throw new UserCancelException();
+            if (_canceled) throw new UserCancelException();
         }
         #endregion
 
@@ -275,9 +303,9 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Can be called from a different thread to cancel the current <see cref="Sync"/> session.
         /// </summary>
-        public virtual void Cancel()
+        public void Cancel()
         {
-            Canceled = true;
+            _canceled = true;
         }
         #endregion
     }

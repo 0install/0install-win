@@ -124,6 +124,35 @@ namespace ZeroInstall.DesktopIntegration.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The username and/or password you entered for the Sync server are incorrect. Please check your Synchronization Options..
+        /// </summary>
+        internal static string SyncCredentialsInvalid {
+            get {
+                return ResourceManager.GetString("SyncCredentialsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Cypto key you entered for the Sync server is incorrect. Please check your Synchronization Options.
+        ///You can change the Crypto key used on the server by running &apos;0install sync --reset=server&apos;..
+        /// </summary>
+        internal static string SyncCryptoKeyInvalid {
+            get {
+                return ResourceManager.GetString("SyncCryptoKeyInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The data currently stored on the Sync server is damaged.
+        ///You can replace the data stored on the server by running &apos;0install sync --reset=server&apos;..
+        /// </summary>
+        internal static string SyncServerDataDamaged {
+            get {
+                return ResourceManager.GetString("SyncServerDataDamaged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to find {0} with the ID &apos;{1}&apos;..
         /// </summary>
         internal static string UnableToFindTypeID {
