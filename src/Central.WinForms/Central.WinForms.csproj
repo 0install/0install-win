@@ -105,6 +105,7 @@
   <ItemGroup>
     <EmbeddedResource Include="AppTile.de.resx">
       <DependentUpon>AppTile.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="AppTile.resx">
       <DependentUpon>AppTile.cs</DependentUpon>
