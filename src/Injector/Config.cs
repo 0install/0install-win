@@ -391,8 +391,7 @@ namespace ZeroInstall.Injector
                     // Wrap exception since only certain exception types are allowed
                     throw new InvalidDataException(ex.Message);
                 }
-
-                Log.Info("Sucessfully handled race condition while loading config");
+                Log.Info("Successfully handled race condition while loading config");
             }
             #endregion
 
