@@ -122,6 +122,8 @@ namespace ZeroInstall.DesktopIntegration
         //--------------------//
 
         #region Sync
+        private static readonly Random _random = new Random();
+
         /// <summary>
         /// Synchronize the <see cref="AppList"/> with the sync server and (un)apply <see cref="AccessPoint"/>s accordingly.
         /// </summary>
@@ -234,7 +236,7 @@ namespace ZeroInstall.DesktopIntegration
                         if (response != null && response.StatusCode == HttpStatusCode.PreconditionFailed)
                         { // Precondition failure indicates a race condition
                             // Wait for a randomized interval before retrying
-                            Thread.Sleep(new Random().Next(250, 1500));
+                            Thread.Sleep(_random.Next(250, 1500));
                             if (_canceled) throw new UserCancelException();
                             goto Retry;
                         }
