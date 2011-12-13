@@ -122,7 +122,6 @@ namespace ZeroInstall.Store.Feeds
         public void TestRemove()
         {
             _cache.Remove(new Uri("http://0install.de/feeds/images/test1.png"));
-            Assert.Throws<KeyNotFoundException>(() => _cache.Remove(new Uri("http://0install.de/feeds/images/test1.png")));
             Assert.IsFalse(_cache.Contains(new Uri("http://0install.de/feeds/images/test1.png")));
             Assert.IsTrue(_cache.Contains(new Uri("http://0install.de/feeds/images/test2.png")));
         }
