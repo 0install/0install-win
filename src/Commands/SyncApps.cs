@@ -87,8 +87,6 @@ namespace ZeroInstall.Commands
                 Sync();
             }
 
-            // Show a "sync complete" message (but not in batch mode, since it is too unimportant)
-            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, Resources.DesktopIntegrationSyncDone);
             return 0;
         }
         #endregion

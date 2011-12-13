@@ -94,7 +94,7 @@
       <Method Name="CommandBase" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAgAAAAQAkgAAQAgAIACAAEBAAAAAAAAAAAAABEBAA=</HashCode>
+      <HashCode>AAAgAAAAQAkgAAQAgAIACAAEBAIAAAAAAAAAAABEBAA=</HashCode>
       <FileName>CommandBase.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -126,7 +126,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.AddApp">
-    <Position X="18" Y="8.5" Width="1.5" />
+    <Position X="18" Y="9" Width="1.5" />
     <Members>
       <Method Name="AddApp" Hidden="true" />
     </Members>
@@ -136,17 +136,17 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.IntegrateApp">
-    <Position X="19.75" Y="8.5" Width="2" />
+    <Position X="19.75" Y="9" Width="2" />
     <Members>
       <Method Name="IntegrateApp" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAgAAQAAAAAAIQAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <HashCode>AAACAAAAAAAgAAQAAAAAAIQAAAAAAgAQABAABAAAAAE=</HashCode>
       <FileName>IntegrateApp.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.RemoveApp">
-    <Position X="22" Y="8.5" Width="1.5" />
+    <Position X="22" Y="9" Width="1.5" />
     <Members>
       <Method Name="RemoveApp" Hidden="true" />
     </Members>
@@ -181,7 +181,7 @@
       <Method Name="AddAlias" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAIAAAAAAAgAAUAAAAAAAQEBAAAAAEAAAAEAAAAAAA=</HashCode>
+      <HashCode>AAAIAAAAAAAgAAUAAAAAAAQEBAAAAgEAAAAEAAAAAAA=</HashCode>
       <FileName>AddAlias.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -191,14 +191,14 @@
       <Method Name="SyncApps" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEBAAAAAACAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAQAAgAASAAAAAAAQEBAAAAQACAAAAAAAAAAA=</HashCode>
       <FileName>SyncApps.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.CliHandler">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAEAAAAEgMAAIAAAAAAAAAAAABAAAAAAAhgA=</HashCode>
+      <HashCode>AQAAAAAAAEAAAAEgMAAIAAAAAAAAAAAARAAAAAACggA=</HashCode>
       <FileName>CliHandler.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />

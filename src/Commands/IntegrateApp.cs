@@ -100,7 +100,10 @@ namespace ZeroInstall.Commands
 
             // If the user only wants to remove stuff avoid fetching the feed
             if (_addCategories.IsEmpty && _importLists.IsEmpty && !_removeCategories.IsEmpty)
-                return RemoveOnly(integrationManager, interfaceID);
+            {
+                RemoveOnly(integrationManager, interfaceID);
+                return 0;
+            }
 
             var feed = GetFeed(interfaceID);
             var appEntry = GetAppEntry(integrationManager, interfaceID, feed);
@@ -112,27 +115,22 @@ namespace ZeroInstall.Commands
                 return 0;
             }
 
-            return RemoveAndAdd(integrationManager, feed, appEntry);
+            RemoveAndAdd(integrationManager, feed, appEntry);
+            return 0;
         }
 
         /// <summary>
         /// Applies the <see cref="_removeCategories"/> specified by the user.
         /// </summary>
-        /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        private int RemoveOnly(ICategoryIntegrationManager integrationManager, string interfaceID)
+        private void RemoveOnly(ICategoryIntegrationManager integrationManager, string interfaceID)
         {
             integrationManager.RemoveAccessPointCategories(integrationManager.AppList.GetEntry(interfaceID), _removeCategories);
-
-            // Show a "integration complete" message without application name (but not in batch mode, since it is too unimportant)
-            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, interfaceID));
-            return 0;
         }
 
         /// <summary>
         /// Applies the <see cref="_removeCategories"/> and <see cref="_addCategories"/> specified by the user.
         /// </summary>
-        /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        private int RemoveAndAdd(ICategoryIntegrationManager integrationManager, Feed feed, AppEntry appEntry)
+        private void RemoveAndAdd(ICategoryIntegrationManager integrationManager, Feed feed, AppEntry appEntry)
         {
             if (!_removeCategories.IsEmpty)
                 integrationManager.RemoveAccessPointCategories(appEntry, _removeCategories);
@@ -152,10 +150,6 @@ namespace ZeroInstall.Commands
                 throw new NotSupportedException(ex.Message, ex);
             }
             #endregion
-
-            // Show a "integration complete" message without application name (but not in batch mode, since it is too unimportant)
-            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.DesktopIntegrationDone, appEntry.Name));
-            return 0;
         }
         #endregion
 

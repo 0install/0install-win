@@ -67,8 +67,6 @@ namespace ZeroInstall.Commands
                 return 0;
             }
 
-            // Show a "done" message (but not in batch mode, since it is too unimportant));
-            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, string.Format(Resources.AppListAdded, appEntry.Name));
             return 0;
         }
         #endregion

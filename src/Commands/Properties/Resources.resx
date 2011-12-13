@@ -163,12 +163,6 @@ You may have to close and reopen your terminal for this to become effective.</va
   <data name="AppList" xml:space="preserve">
     <value>Application list</value>
   </data>
-  <data name="AppListAdded" xml:space="preserve">
-    <value>'{0}' was added to the application list.</value>
-  </data>
-  <data name="AppListRemoved" xml:space="preserve">
-    <value>'{0}' was removed from the application list.</value>
-  </data>
   <data name="AskUpdateCapabilities" xml:space="preserve">
     <value>Do you wish to update any existing desktop integration to reflect this?
 If you select 'Yes' potentially incompatible integrations will be removed.
@@ -236,12 +230,6 @@ If you select 'No' Zero Install will continue to use the old capabilities.</valu
   </data>
   <data name="DesktopIntegration" xml:space="preserve">
     <value>Desktop integration</value>
-  </data>
-  <data name="DesktopIntegrationDone" xml:space="preserve">
-    <value>The requested changes to the desktop integration for '{0}' have been completed.</value>
-  </data>
-  <data name="DesktopIntegrationSyncDone" xml:space="preserve">
-    <value>Synchronized application list with server.</value>
   </data>
   <data name="DownloadComplete" xml:space="preserve">
     <value>Download complete</value>

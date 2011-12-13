@@ -163,12 +163,6 @@ Sie müssen eventuell ihr Terminal schließen und wieder öffnen damit dies wirk
   <data name="AppList" xml:space="preserve">
     <value>Anwendungsliste</value>
   </data>
-  <data name="AppListAdded" xml:space="preserve">
-    <value>'{0}' wurde der Anwendungsliste hinzugefügt.</value>
-  </data>
-  <data name="AppListRemoved" xml:space="preserve">
-    <value>'{0}' wurde von der Anwendungsliste entfernt.</value>
-  </data>
   <data name="AskUpdateCapabilities" xml:space="preserve">
     <value>Möchten Sie die bestehende Desktopintegration daran anpassen?
 Wenn Sie 'Ja' wählen werden möglicherweise nicht mehr kompatible Integrationen entfernt.
@@ -236,12 +230,6 @@ Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.
   </data>
   <data name="DesktopIntegration" xml:space="preserve">
     <value>Desktopintegration</value>
-  </data>
-  <data name="DesktopIntegrationDone" xml:space="preserve">
-    <value>Die angeforderten Änderungen an der Desktopintegration für '{0}' sind abgeschlossen.</value>
-  </data>
-  <data name="DesktopIntegrationSyncDone" xml:space="preserve">
-    <value>Anwendungsliste mit Server synchronisiert.</value>
   </data>
   <data name="DownloadComplete" xml:space="preserve">
     <value>Download abgeschlossen</value>
