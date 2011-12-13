@@ -73,13 +73,6 @@ namespace ZeroInstall.Central.WinForms
             appListWatcher.Path = Path.GetDirectoryName(appListPath);
             appListWatcher.Filter = Path.GetFileName(appListPath);
 
-            FormClosing += delegate
-            {
-                Visible = false;
-                while (selfUpdateWorker.IsBusy || appListWorker.IsBusy || catalogWorker.IsBusy)
-                    Application.DoEvents();
-            };
-
             Shown += delegate
             {
                 SelfUpdateCheckAsync();
@@ -91,6 +84,19 @@ namespace ZeroInstall.Central.WinForms
                 if (_currentAppList.Entries.IsEmpty) tabControlApps.SelectedTab = tabPageCatalog;
 
                 appListWatcher.EnableRaisingEvents = true;
+            };
+
+            FormClosing += delegate
+            {
+                Visible = false;
+                while (selfUpdateWorker.IsBusy || appListWorker.IsBusy || catalogWorker.IsBusy)
+                    Application.DoEvents();
+            };
+
+            MouseWheel += delegate(object sender, MouseEventArgs e)
+            {
+                if (tabControlApps.SelectedTab == tabPageAppList) appList.PerformScroll(e.Delta);
+                else if (tabControlApps.SelectedTab == tabPageCatalog) catalogList.PerformScroll(e.Delta);
             };
         }
         #endregion

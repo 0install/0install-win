@@ -216,6 +216,15 @@ namespace ZeroInstall.Central.WinForms
             _tileDictionary.Clear();
             _lastTileLight = false;
         }
+
+        /// <summary>
+        /// Scrolls the list by a specified <paramref name="delta"/>.
+        /// </summary>
+        public void PerformScroll(int delta)
+        {
+            // AutoScrollPosition are inverted by WinForms when set
+            _scrollPanel.AutoScrollPosition = new Point(-_scrollPanel.AutoScrollPosition.X, -(_scrollPanel.AutoScrollPosition.Y + delta));
+        }
         #endregion
 
         #region Helpers
