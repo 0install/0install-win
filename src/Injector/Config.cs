@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.IO;
 using System.Text;
+using System.Threading;
 using Common;
 using Common.Storage;
 using Common.Utils;
@@ -365,6 +366,8 @@ namespace ZeroInstall.Injector
         #endregion
 
         #region Serialization
+        private static readonly Random _random = new Random();
+
         /// <summary>
         /// Reads data from an INI file on the disk and transfers it to properties using <see cref="_metaData"/>.
         /// </summary>
@@ -375,10 +378,21 @@ namespace ZeroInstall.Injector
                 _iniData = _iniParse.LoadFile(path, true);
             }
                 #region Error handling
-            catch (ParsingException ex)
+            catch (ParsingException)
             {
-                // Wrap exception since only certain exception types are allowed
-                throw new InvalidDataException(ex.Message);
+                // Wait a moment and then retry in case it was just a race condition
+                Thread.Sleep(_random.Next(250, 750));
+                try
+                {
+                    _iniData = _iniParse.LoadFile(path, true);
+                }
+                catch (ParsingException ex)
+                {
+                    // Wrap exception since only certain exception types are allowed
+                    throw new InvalidDataException(ex.Message);
+                }
+
+                Log.Info("Sucessfully handled race condition while loading config");
             }
             #endregion
 
