@@ -239,7 +239,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
-            new Thread(() => Commands.WinForms.Program.Main(new[] {"updatei", InterfaceID})).Start();
+            new Thread(() => Commands.WinForms.Program.Main(new[] {"update", InterfaceID})).Start();
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
