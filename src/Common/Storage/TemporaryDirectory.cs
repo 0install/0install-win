@@ -61,6 +61,7 @@ namespace Common.Storage
         /// </summary>
         public void Dispose()
         {
+#if FS_SECURITY
             if (Directory.Exists(Path))
             {
                 // Write protection might prevent a directory from being deleted (especially on Unixoid systems)
@@ -75,6 +76,9 @@ namespace Common.Storage
 
                 Directory.Delete(Path, true);
             }
+#else
+            if (Directory.Exists(Path)) Directory.Delete(Path, true);
+#endif
         }
         #endregion
     }

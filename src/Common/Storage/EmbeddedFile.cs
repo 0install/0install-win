@@ -21,17 +21,13 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 
 namespace Common.Storage
 {
     /// <summary>
     /// Information about an additional file to be stored along side an ZIP archive using <see cref="XmlStorage"/> or <see cref="BinaryStorage"/>.
     /// </summary>
-    /// <seealso cref="XmlStorage.FromZip{T}(Stream,string,IEnumerable{EmbeddedFile})"/>
-    /// <seealso cref="BinaryStorage.FromZip{T}(Stream,string,IEnumerable{EmbeddedFile})"/>
     public struct EmbeddedFile
     {
         #region Variables

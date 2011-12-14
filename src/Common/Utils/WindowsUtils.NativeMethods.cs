@@ -49,6 +49,44 @@ namespace Common.Utils
             // Foreground window
             [DllImport("user32", SetLastError = true)]
             public static extern bool SetForegroundWindow(IntPtr hWnd);
+
+
+#if SLIMDX
+            // Window messages
+            [DllImport("user32", CharSet = CharSet.Auto)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool PeekMessage(out WinMessage msg, IntPtr hWnd, uint messageFilterMin, uint messageFilterMax, uint flags);
+
+            [DllImport("user32", CharSet = CharSet.Auto)]
+            public static extern short GetAsyncKeyState(uint key);
+
+            [DllImport("user32", CharSet = CharSet.Auto)]
+            public static extern int GetCaretBlinkTime();
+
+
+            // Performance counters
+            [DllImport("kernel32")]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool QueryPerformanceFrequency(out long lpFrequency);
+
+            [DllImport("kernel32")]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool QueryPerformanceCounter(out long lpCounter);
+
+
+            // Touch
+            [DllImport("user32")]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool RegisterTouchWindow(IntPtr hWnd, uint ulFlags);
+
+            [DllImport("user32")]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool GetTouchInputInfo(IntPtr hTouchInput, int cInputs, [In, Out] TouchInput[] pInputs, int cbSize);
+
+            [DllImport("user32")]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern void CloseTouchInputHandle(IntPtr lParam);
+#endif
         }
 
         [SuppressUnmanagedCodeSecurity]
@@ -97,6 +135,19 @@ namespace Common.Utils
 
             [DllImport("kernel32", CharSet = CharSet.Unicode, SetLastError = true)]
             public static extern bool CreateSymbolicLink(string lpSymlinkFileName, string lpTargetFileName, int dwFlags);
+
+
+#if SLIMDX
+// ReSharper disable MemberHidesStaticFromOuterClass
+            // Window messages
+            [DllImport("user32", CharSet = CharSet.Auto)]
+            public static extern IntPtr SetCapture(IntPtr handle);
+
+            [DllImport("user32", CharSet = CharSet.Auto)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool ReleaseCapture();
+// ReSharper restore MemberHidesStaticFromOuterClass
+#endif
         }
     }
 }

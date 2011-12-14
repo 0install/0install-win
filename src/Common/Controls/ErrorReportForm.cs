@@ -80,13 +80,10 @@ namespace Common.Controls
         private static readonly object _monitoringLock = new object();
 
         /// <summary>
-        /// Sets up hooks that catch and report any unhandled exceptions.
+        /// Sets up hooks that catch and report any unhandled exceptions. Calling this more than once has no effect.
         /// </summary>
         /// <param name="uploadUri">The URI to upload error reports to.</param>
-        /// <remarks>
-        /// If an exception is caught any remaining threads will continue to execute until the error has been reported. Then the entire process will be terminated.
-        /// </remarks>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "We want to report unhandled exceptions of any type")]
+        /// <remarks>If an exception is caught any remaining threads will continue to execute until the error has been reported. Then the entire process will be terminated.</remarks>
         [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "If the actual exception is unknown the generic top-level Exception is the most appropriate")]
         [Conditional("ERROR_REPORT")]
         public static void SetupMonitoring(Uri uploadUri)
@@ -101,6 +98,10 @@ namespace Common.Controls
             // Catch exceptions on normal threads
             AppDomain.CurrentDomain.UnhandledException += delegate(object sender, UnhandledExceptionEventArgs e)
             {
+                // Prevent any further user interaction with the crashing application
+                foreach (Form form in Application.OpenForms)
+                    form.Invoke((SimpleEventHandler)form.Hide);
+
                 Report((e.ExceptionObject as Exception) ?? new Exception("Unknown error"), uploadUri);
                 Process.GetCurrentProcess().Kill();
             };
@@ -108,6 +109,10 @@ namespace Common.Controls
             // Catch exceptions on WinForms threads sooner (otherwise they might upset intermediate native code)
             Application.ThreadException += delegate(object sender, ThreadExceptionEventArgs e)
             {
+                // Prevent any further user interaction with the crashing application
+                foreach (Form form in Application.OpenForms)
+                    form.Invoke((SimpleEventHandler)form.Hide);
+
                 Report(e.Exception ?? new Exception("Unknown error"), uploadUri);
                 Process.GetCurrentProcess().Kill();
             };
