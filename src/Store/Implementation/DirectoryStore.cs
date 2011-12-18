@@ -89,6 +89,8 @@ namespace ZeroInstall.Store.Implementation
         //--------------------//
 
         #region Verify and add
+        private readonly object _renameLock = new object();
+
         /// <summary>
         /// Verifies the <see cref="ManifestDigest"/> of a directory temporarily stored inside the cache and moves it to the final location if it passes.
         /// </summary>
@@ -117,18 +119,21 @@ namespace ZeroInstall.Store.Implementation
             // Calculate the actual digest, compare it with the expected one and create a manifest file
             VerifyDirectory(source, expectedDigest, handler).Save(Path.Combine(source, ".manifest"));
 
-            if (Directory.Exists(target)) throw new ImplementationAlreadyInStoreException(expectedDigest);
+            lock (_renameLock) // Prevent race-conditions when adding the same digest twice
+            {
+                if (Directory.Exists(target)) throw new ImplementationAlreadyInStoreException(expectedDigest);
 
-            // Move directory to final store destination
-            try
-            {
-                Directory.Move(source, target);
-            }
-            catch (IOException ex)
-            {
-                // ToDo: Make language independent
-                if (ex.Message.Contains("already exists")) throw new ImplementationAlreadyInStoreException(expectedDigest);
-                throw;
+                // Move directory to final store destination
+                try
+                {
+                    Directory.Move(source, target);
+                }
+                catch (IOException ex)
+                {
+                    // ToDo: Make language independent
+                    if (ex.Message.Contains("already exists")) throw new ImplementationAlreadyInStoreException(expectedDigest);
+                    throw;
+                }
             }
 
             // Prevent any further changes to the directory
@@ -136,6 +141,7 @@ namespace ZeroInstall.Store.Implementation
             {
                 FileUtils.EnableWriteProtection(target);
             }
+                #region Error handling
             catch (IOException)
             {
                 Log.Warn("Unable to enable write protection for " + target);
@@ -144,6 +150,7 @@ namespace ZeroInstall.Store.Implementation
             {
                 Log.Warn("Unable to enable write protection for " + target);
             }
+            #endregion
         }
         #endregion
 
@@ -243,7 +250,7 @@ namespace ZeroInstall.Store.Implementation
 
             if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
 
-            var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
+            string tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
             try
             {
                 // Copy the source directory inside the cache so it can be validated safely (no manipulation of directory while validating)
@@ -288,7 +295,7 @@ namespace ZeroInstall.Store.Implementation
             if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
 
             // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
-            var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
+            string tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
 
             try
             {
@@ -337,7 +344,7 @@ namespace ZeroInstall.Store.Implementation
                             FileUtils.DisableWriteProtection(path);
 
                             // Move the directory to be deleted to a temporary directory to ensure the removal operation is atomic
-                            var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
+                            string tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
                             Directory.Move(path, tempDir);
 
                             Directory.Delete(tempDir, true);

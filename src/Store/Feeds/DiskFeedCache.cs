@@ -173,13 +173,42 @@ namespace ZeroInstall.Store.Feeds
 
             try
             {
-                StreamUtils.WriteToFile(stream, Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)));
+                WriteToFile(stream, Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)));
             }
             catch (PathTooLongException)
             {
                 // Contract too long file paths using a hash of the feed ID
-                StreamUtils.WriteToFile(stream, Path.Combine(DirectoryPath, StringUtils.Hash(feedID, SHA256.Create())));
+                WriteToFile(stream, Path.Combine(DirectoryPath, StringUtils.Hash(feedID, SHA256.Create())));
             }
+        }
+
+        private readonly object _replaceLock = new object();
+
+        /// <summary>
+        /// Writes the entire content of a stream to file atomically.
+        /// </summary>
+        /// <param name="stream">The stream to read from.</param>
+        /// <param name="path">The file to write to.</param>
+        private void WriteToFile(Stream stream, string path)
+        {
+            string tempPath = path + "." + Path.GetRandomFileName() + ".new";
+            try
+            {
+                // Write to temporary file first
+                using (var fileStream = File.OpenWrite(tempPath))
+                    StreamUtils.Copy(stream, fileStream, 4096);
+                lock (_replaceLock) // Prevent race-conditions when adding the same feed twice
+                    FileUtils.Replace(tempPath, path);
+            }
+                #region Error handling
+            catch
+            {
+                // Clean up failed transactions
+                if (File.Exists(tempPath)) File.Delete(tempPath);
+
+                throw;
+            }
+            #endregion
         }
         #endregion
 
