@@ -337,17 +337,18 @@ namespace ZeroInstall.Injector
             string directory = Path.GetDirectoryName(Path.GetFullPath(path));
             if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory)) Directory.CreateDirectory(directory);
 
+            string tempPath = path + "." + Path.GetRandomFileName() + ".new";
             try
             {
                 // Write to temporary file first
-                _iniParse.SaveFile(path + ".new", _iniData);
-                FileUtils.Replace(path + ".new", path);
+                _iniParse.SaveFile(tempPath, _iniData);
+                FileUtils.Replace(tempPath, path);
             }
                 #region Error handling
             catch (Exception)
             {
                 // Clean up failed transactions
-                if (File.Exists(path + ".new")) File.Delete(path + ".new");
+                if (File.Exists(tempPath)) File.Delete(tempPath);
                 throw;
             }
             #endregion

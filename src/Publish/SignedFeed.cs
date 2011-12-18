@@ -95,21 +95,22 @@ namespace ZeroInstall.Publish
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
+            string tempPath = path + "." + Path.GetRandomFileName() + ".new";
             try
             {
                 // Write to temporary file first
-                Feed.Save(path + ".new");
+                Feed.Save(tempPath);
 
-                FeedUtils.AddStylesheet(path + ".new");
-                if (SecretKey != null) FeedUtils.SignFeed(path + ".new", SecretKey, passphrase);
+                FeedUtils.AddStylesheet(tempPath);
+                if (SecretKey != null) FeedUtils.SignFeed(tempPath, SecretKey, passphrase);
 
-                FileUtils.Replace(path + ".new", path);
+                FileUtils.Replace(tempPath, path);
             }
                 #region Error handling
             catch (Exception)
             {
                 // Clean up failed transactions
-                if (File.Exists(path + ".new")) File.Delete(path + ".new");
+                if (File.Exists(tempPath)) File.Delete(tempPath);
                 throw;
             }
             #endregion

@@ -172,18 +172,19 @@ namespace Common.Storage
             string directory = Path.GetDirectoryName(Path.GetFullPath(path));
             if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory)) Directory.CreateDirectory(directory);
 
+            string tempPath = path + "." + Path.GetRandomFileName() + ".new";
             try
             {
                 // Write to temporary file first
-                using (var fileStream = File.Create(path + ".new"))
+                using (var fileStream = File.Create(tempPath))
                     Save(fileStream, data);
-                FileUtils.Replace(path + ".new", path);
+                FileUtils.Replace(tempPath, path);
             }
                 #region Error handling
             catch (Exception)
             {
                 // Clean up failed transactions
-                if (File.Exists(path + ".new")) File.Delete(path + ".new");
+                if (File.Exists(tempPath)) File.Delete(tempPath);
                 throw;
             }
             #endregion
