@@ -23,6 +23,7 @@
 using System;
 using System.IO;
 using System.Text;
+using Common.Utils;
 
 namespace Common.Streams
 {
@@ -103,6 +104,32 @@ namespace Common.Streams
             stream.Position = 0;
             var reader = new StreamReader(stream, new UTF8Encoding(false));
             return reader.ReadToEnd();
+        }
+
+        /// <summary>
+        /// Writes the entire content of a stream to file atomically.
+        /// </summary>
+        /// <param name="stream">The stream to read from.</param>
+        /// <param name="path">The file to write to.</param>
+        public static void WriteToFile(Stream stream, string path)
+        {
+            string tempPath = path + "." + Path.GetRandomFileName() + ".new";
+            try
+            {
+                // Write to temporary file first
+                using (var fileStream = File.OpenWrite(tempPath))
+                    Copy(stream, fileStream, 4096);
+                FileUtils.Replace(tempPath, path);
+            }
+                #region Error handling
+            catch
+            {
+                // Clean up failed transactions
+                if (File.Exists(tempPath)) File.Delete(tempPath);
+
+                throw;
+            }
+            #endregion
         }
     }
 }

@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
 using Common.Streams;
 using Common.Utils;
 using ZeroInstall.Model;
@@ -78,8 +79,11 @@ namespace ZeroInstall.Store.Feeds
                 return false;
             }
 
-            // Local files are passed through directly
-            return File.Exists(feedID) || File.Exists(Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)));
+            return File.Exists(Path.Combine(DirectoryPath, ModelUtils.Escape(feedID))) ||
+                // Too long file paths may have been contracted using a hash of the feed ID
+                File.Exists(Path.Combine(DirectoryPath, StringUtils.Hash(feedID, SHA256.Create()))) ||
+                    // Local files are passed through directly
+                    File.Exists(feedID);
         }
         #endregion
 
@@ -114,11 +118,7 @@ namespace ZeroInstall.Store.Feeds
             ModelUtils.ValidateInterfaceID(feedID);
             #endregion
 
-            // Assume invalid URIs are local paths
-            string path = (ModelUtils.IsValidUri(feedID) ? Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)) : feedID);
-            if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedID, path));
-
-            var feed = Feed.Load(path);
+            var feed = Feed.Load(GetPath(feedID));
             feed.Simplify();
             return feed;
         }
@@ -132,11 +132,32 @@ namespace ZeroInstall.Store.Feeds
             if (openPgp == null) throw new ArgumentNullException("openPgp");
             #endregion
 
-            // Assume invalid URIs are local paths
-            string path = (ModelUtils.IsValidUri(feedID) ? Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)) : feedID);
-            if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedID, path));
+            return FeedUtils.GetSignatures(openPgp, File.ReadAllBytes(GetPath(feedID)));
+        }
 
-            return FeedUtils.GetSignatures(openPgp, File.ReadAllBytes(path));
+        /// <summary>
+        /// Determines the file path used to store a feed with a particular ID.
+        /// </summary>
+        /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="feedID"/> was not found in the cache.</exception>
+        private string GetPath(string feedID)
+        {
+            if (ModelUtils.IsValidUri(feedID))
+            {
+                string path = Path.Combine(DirectoryPath, ModelUtils.Escape(feedID));
+                if (File.Exists(path)) return path;
+                else
+                {
+                    // Too long file paths may have been contracted using a hash of the feed ID
+                    string altPath = Path.Combine(DirectoryPath, StringUtils.Hash(feedID, SHA256.Create()));
+                    if (File.Exists(altPath)) return altPath;
+
+                    throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedID, path));
+                }
+            }
+            else
+            { // Assume invalid URIs are local paths
+                return feedID;
+            }
         }
         #endregion
 
@@ -150,21 +171,14 @@ namespace ZeroInstall.Store.Feeds
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            string path = Path.Combine(DirectoryPath, ModelUtils.Escape(feedID));
-
             try
             {
-                // Perform atomic replace
-                using (var fileStream = File.OpenWrite(path + ".new"))
-                    StreamUtils.Copy(stream, fileStream, 4096);
-                FileUtils.Replace(path + ".new", path);
+                StreamUtils.WriteToFile(stream, Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)));
             }
-            catch
+            catch (PathTooLongException)
             {
-                // Don't leave partial downloads in the cache
-                if (File.Exists(path + ".new")) File.Delete(path + ".new");
-
-                throw;
+                // Contract too long file paths using a hash of the feed ID
+                StreamUtils.WriteToFile(stream, Path.Combine(DirectoryPath, StringUtils.Hash(feedID, SHA256.Create())));
             }
         }
         #endregion
@@ -178,10 +192,19 @@ namespace ZeroInstall.Store.Feeds
             ModelUtils.ValidateInterfaceID(feedID);
             #endregion
 
-            string path = Path.Combine(DirectoryPath, ModelUtils.Escape(feedID));
-
-            if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedID, path));
-            File.Delete(path);
+            // Delete from both regular and contracted path
+            try
+            {
+                File.Delete(Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)));
+            }
+            catch (PathTooLongException)
+            {}
+            try
+            {
+                File.Delete(Path.Combine(DirectoryPath, StringUtils.Hash(feedID, SHA256.Create())));
+            }
+            catch (PathTooLongException)
+            {}
         }
         #endregion
     }

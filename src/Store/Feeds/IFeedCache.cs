@@ -72,11 +72,10 @@ namespace ZeroInstall.Store.Feeds
         void Add(string feedID, Stream stream);
 
         /// <summary>
-        /// Removes a specific <see cref="Feed"/> from this cache.
+        /// Removes a specific <see cref="Feed"/> from this cache. No exception is thrown if the specified <see cref="Feed"/> is not in the cache.
         /// </summary>
         /// <param name="feedID">The canonical ID used to identify the feed.</param>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
-        /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="feedID"/> was not found in the cache.</exception>
         /// <exception cref="IOException">Thrown if the feed could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the cache is not permitted.</exception>
         void Remove(string feedID);

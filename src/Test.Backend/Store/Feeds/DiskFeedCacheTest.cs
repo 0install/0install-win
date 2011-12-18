@@ -16,9 +16,10 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using Common.Storage;
+using Common.Utils;
 using NUnit.Framework;
 using NUnit.Mocks;
 using ZeroInstall.Model;
@@ -133,9 +134,39 @@ namespace ZeroInstall.Store.Feeds
         public void TestRemove()
         {
             _cache.Remove("http://0install.de/feeds/test/test1.xml");
-            Assert.Throws<KeyNotFoundException>(() => _cache.Remove("http://0install.de/feeds/test/test1.xml"));
+            Assert.DoesNotThrow(() => _cache.Remove("http://0install.de/feeds/test/test1.xml"));
             Assert.IsFalse(_cache.Contains("http://0install.de/feeds/test/test1.xml"));
             Assert.IsTrue(_cache.Contains("http://0install.de/feeds/test/test2.xml"));
+        }
+
+        /// <summary>
+        /// Ensures <see cref="DiskFeedCache"/> can handle feed URIs longer than the OSes maximum supported file path length.
+        /// </summary>
+        [Test]
+        public void TestTooLongFilename()
+        {
+            if (!WindowsUtils.IsWindows) throw new InconclusiveException("Windows systems have a specific upper limit to file path lengths");
+
+            var longHttpUrlBuilder = new StringBuilder(255);
+            for (int i = 0; i < 255; i++)
+                longHttpUrlBuilder.Append("x");
+
+            var feed = FeedTest.CreateTestFeed();
+            feed.Uri = new Uri("http://0install.de/feeds/test-" + longHttpUrlBuilder);
+
+            using (var feedStream = new MemoryStream())
+            {
+                feed.Save(feedStream);
+                feedStream.Position = 0;
+                _cache.Add(feed.Uri.ToString(), feedStream);
+
+                feed.Simplify();
+                Assert.AreEqual(feed, _cache.GetFeed(feed.Uri.ToString()));
+            }
+
+            Assert.IsTrue(_cache.Contains(feed.Uri.ToString()));
+            _cache.Remove(feed.Uri.ToString());
+            Assert.IsFalse(_cache.Contains(feed.Uri.ToString()));
         }
     }
 }
