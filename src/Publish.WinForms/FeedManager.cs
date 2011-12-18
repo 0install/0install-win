@@ -255,10 +255,10 @@ namespace ZeroInstall.Publish.WinForms
             bool wrongPassphrase = false;
             while (true)
             {
-                string passphraseMessage = String.Format(wrongPassphrase
+                string passphraseMessage = string.Format(wrongPassphrase
                     ? Resources.WrongPassphrase
                     : Resources.AskForPassphrase, _feedEditing.Feed.SecretKey.UserID);
-                string passphrase = InputBox.Show(null, Resources.AskForPassphraseTitle, passphraseMessage, string.Empty, true);
+                string passphrase = InputBox.Show(null, Resources.AskForPassphraseTitle, passphraseMessage, "", true);
 
                 if (passphrase == null) return false;
 

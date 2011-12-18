@@ -59,8 +59,8 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         /// </summary>
         private void ClearControl()
         {
-            hintTextBoxName.Text = String.Empty;
-            hintTextBoxCommand.Text = String.Empty;
+            hintTextBoxName.Text = "";
+            hintTextBoxCommand.Text = "";
         }
 
         /// <summary>
@@ -69,8 +69,8 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         private void UpdateControl()
         {
             ClearControl();
-            if (!String.IsNullOrEmpty(_executableBinding.Name)) hintTextBoxName.Text = _executableBinding.Name;
-            if (!String.IsNullOrEmpty(_executableBinding.Command)) hintTextBoxCommand.Text = _executableBinding.Command;
+            if (!string.IsNullOrEmpty(_executableBinding.Name)) hintTextBoxName.Text = _executableBinding.Name;
+            if (!string.IsNullOrEmpty(_executableBinding.Command)) hintTextBoxCommand.Text = _executableBinding.Command;
         }
         #endregion
 
@@ -82,8 +82,8 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         /// <param name="e">Not used.</param>
         private void ButtonOkClick(object sender, EventArgs e)
         {
-            _executableBinding.Name = (!String.IsNullOrEmpty(hintTextBoxName.Text)) ? hintTextBoxName.Text : null;
-            _executableBinding.Command = (!String.IsNullOrEmpty(hintTextBoxCommand.Text)) ? hintTextBoxCommand.Text : null;
+            _executableBinding.Name = (!string.IsNullOrEmpty(hintTextBoxName.Text)) ? hintTextBoxName.Text : null;
+            _executableBinding.Command = (!string.IsNullOrEmpty(hintTextBoxCommand.Text)) ? hintTextBoxCommand.Text : null;
         }
         #endregion
     }

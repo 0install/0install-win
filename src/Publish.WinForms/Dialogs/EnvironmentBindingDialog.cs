@@ -77,7 +77,7 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         private void UpdateControl()
         {
             ClearControl();
-            if (!String.IsNullOrEmpty(_environmentBinding.Name))
+            if (!string.IsNullOrEmpty(_environmentBinding.Name))
             {
                 comboBoxName.Items.Add(_environmentBinding.Name);
                 comboBoxName.SelectedItem = _environmentBinding.Name;

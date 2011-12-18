@@ -77,7 +77,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             {
                 if (string.IsNullOrEmpty(textBoxArgument.Text)) return;
                 listBoxArguments.Items.Add(textBoxArgument.Text);
-                textBoxArgument.Text = string.Empty;
+                textBoxArgument.Text = "";
             };
             // removes selected item from listBox
             buttonRemoveArgument.Click += (sender, eventArgs) =>
@@ -109,7 +109,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// </summary>
         private void ClearControl()
         {
-            textBoxArgument.Text = string.Empty;
+            textBoxArgument.Text = "";
             listBoxArguments.Items.Clear();
         }
 

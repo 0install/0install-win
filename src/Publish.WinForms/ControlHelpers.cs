@@ -48,13 +48,13 @@ namespace ZeroInstall.Publish.WinForms
         public static bool CompareManifestDigests(ManifestDigest manifestDigest1, ManifestDigest manifestDigest2)
         {
             if (IsEmpty(manifestDigest1) || IsEmpty(manifestDigest2)) return false;
-            if (!String.IsNullOrEmpty(manifestDigest1.Sha256) && !String.IsNullOrEmpty(manifestDigest2.Sha256))
+            if (!string.IsNullOrEmpty(manifestDigest1.Sha256) && !string.IsNullOrEmpty(manifestDigest2.Sha256))
                 if (manifestDigest1.Sha256 != manifestDigest2.Sha256) return false;
 
-            if (!String.IsNullOrEmpty(manifestDigest1.Sha1New) && !String.IsNullOrEmpty(manifestDigest2.Sha1New))
+            if (!string.IsNullOrEmpty(manifestDigest1.Sha1New) && !string.IsNullOrEmpty(manifestDigest2.Sha1New))
                 if (manifestDigest1.Sha1New != manifestDigest2.Sha1New) return false;
 
-            if (!String.IsNullOrEmpty(manifestDigest1.Sha1Old) && !String.IsNullOrEmpty(manifestDigest2.Sha1Old))
+            if (!string.IsNullOrEmpty(manifestDigest1.Sha1Old) && !string.IsNullOrEmpty(manifestDigest2.Sha1Old))
                 if (manifestDigest1.Sha1Old != manifestDigest2.Sha1Old) return false;
             return true;
         }
@@ -66,8 +66,8 @@ namespace ZeroInstall.Publish.WinForms
         /// <returns><see langword="true"/>, if no hash was setted, else <see langword="false"/></returns>
         public static bool IsEmpty(ManifestDigest toCheck)
         {
-            return String.IsNullOrEmpty(toCheck.Sha1New) && String.IsNullOrEmpty(toCheck.Sha1Old) &&
-                String.IsNullOrEmpty(toCheck.Sha256);
+            return string.IsNullOrEmpty(toCheck.Sha1New) && string.IsNullOrEmpty(toCheck.Sha1Old) &&
+                string.IsNullOrEmpty(toCheck.Sha256);
         }
 
         /// <summary>

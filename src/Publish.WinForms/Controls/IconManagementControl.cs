@@ -94,7 +94,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void ClearControls()
         {
             _icons.Clear();
-            uriTextBoxIconUrl.Text = string.Empty;
+            uriTextBoxIconUrl.Text = "";
             pictureBoxPreview.Image = null;
             comboBoxIconType.SelectedIndex = 0;
         }
@@ -140,7 +140,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 return;
             }
 
-            ChangeTextOfMessageLabel(string.Empty, Color.Green);
+            ChangeTextOfMessageLabel("", Color.Green);
 
             if (comboBoxIconType.Text == Resources.AutoDetect)
                 comboBoxIconType.SelectedItem = icon.RawFormat;

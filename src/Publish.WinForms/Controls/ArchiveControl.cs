@@ -181,9 +181,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void ClearControlValues()
         {
             comboBoxArchiveFormat.SelectedIndex = 0;
-            hintTextBoxStartOffset.Text = String.Empty;
-            uriTextBoxArchiveUrl.Text = String.Empty;
-            hintTextBoxLocalArchive.Text = String.Empty;
+            hintTextBoxStartOffset.Text = "";
+            uriTextBoxArchiveUrl.Text = "";
+            hintTextBoxLocalArchive.Text = "";
             treeViewSubDirectory.Nodes[0].Nodes.Clear();
         }
 
@@ -192,7 +192,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             ClearControlValues();
 
             // set comboBoxArchiveFormat
-            if (!String.IsNullOrEmpty(_archive.MimeType))
+            if (!string.IsNullOrEmpty(_archive.MimeType))
             {
                 ArchiveMimeType mimeType;
                 if (ArchiveMimeType.TryCreateFromDescription(_archive.MimeType, out mimeType))
@@ -202,10 +202,10 @@ namespace ZeroInstall.Publish.WinForms.Controls
             }
             // set other hintTextBoxes
             if (_archive.StartOffset != default(long)) hintTextBoxStartOffset.Text = _archive.StartOffset.ToString();
-            if (!String.IsNullOrEmpty(_archive.LocationString)) uriTextBoxArchiveUrl.Text = _archive.LocationString;
+            if (!string.IsNullOrEmpty(_archive.LocationString)) uriTextBoxArchiveUrl.Text = _archive.LocationString;
 
             // build treeViewSubDirectory
-            if (String.IsNullOrEmpty(_archive.Extract)) return;
+            if (string.IsNullOrEmpty(_archive.Extract)) return;
             var splittedPath = new LinkedList<string>(_archive.Extract.Split('/'));
             splittedPath.RemoveFirst();
             var currentNode = treeViewSubDirectory.Nodes[0];
@@ -318,7 +318,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 }
                 else if (!_supportedMimeTypes.Contains(archiveMimeType.MimeType))
                 {
-                    errorMessage = String.Format("The extraction of the {0} format is not" +
+                    errorMessage = string.Format("The extraction of the {0} format is not" +
                         " yet supported. Please extract the file yourself (e.g with 7zip) and" +
                             " set the path to the extracted archive in the \"Locale archive\"" +
                                 " text box.\nATTENTION: DO THIS ONLY AND REALLY ONLY, IF THE FILES" +
@@ -438,7 +438,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <returns>The number containing in <paramref name="startOffset"/> if >= 0 , -1 else </returns>
         private static long GetValidStartOffset(string startOffset)
         {
-            if (String.IsNullOrEmpty(startOffset)) return 0;
+            if (string.IsNullOrEmpty(startOffset)) return 0;
 
             long parsedStartOffset;
             if (!long.TryParse(startOffset, out parsedStartOffset)) return -1;
@@ -573,7 +573,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         private void SetAllowedStartOffsetState()
         {
-            if (!String.IsNullOrEmpty(hintTextBoxLocalArchive.Text)) buttonExtractArchive.Enabled = true;
+            if (!string.IsNullOrEmpty(hintTextBoxLocalArchive.Text)) buttonExtractArchive.Enabled = true;
             ExtractedArchivePath = null;
             ManifestDigest = new ManifestDigest();
             if (NoValidArchive != null) NoValidArchive();

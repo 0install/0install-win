@@ -58,12 +58,12 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         /// </summary>
         private void ClearFormControls()
         {
-            textBoxName.Text = string.Empty;
-            textBoxPath.Text = string.Empty;
+            textBoxName.Text = "";
+            textBoxPath.Text = "";
             argumentsControl.Arguments.Clear();
             checkBoxWorkingDir.Checked = false;
             hintTextBoxSource.Enabled = false;
-            hintTextBoxSource.Text = string.Empty;
+            hintTextBoxSource.Text = "";
         }
 
         /// <summary>

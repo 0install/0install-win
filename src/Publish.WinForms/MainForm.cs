@@ -581,7 +581,7 @@ namespace ZeroInstall.Publish.WinForms
             Populate += delegate
             {
                 comboBox.CausesValidation = false;
-                comboBox.SelectedItem = pointer.Value ?? string.Empty;
+                comboBox.SelectedItem = pointer.Value ?? "";
                 comboBox.CausesValidation = true;
             };
 
@@ -922,7 +922,7 @@ namespace ZeroInstall.Publish.WinForms
             var selectedFeedReferenceIndex = listBoxExternalFeeds.SelectedIndex;
             var feedReference = feedReferenceControl.FeedReference.CloneFeedPreferences();
             if (selectedFeedReferenceIndex < 0) return;
-            if (String.IsNullOrEmpty(feedReference.Source)) return;
+            if (string.IsNullOrEmpty(feedReference.Source)) return;
             listBoxExternalFeeds.Items[selectedFeedReferenceIndex] = feedReference;
         }
         #endregion

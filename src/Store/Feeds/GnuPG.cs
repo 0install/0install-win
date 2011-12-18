@@ -123,7 +123,7 @@ namespace ZeroInstall.Store.Feeds
             #endregion
 
             string arguments = "--batch --no-secmem-warning --armor --export";
-            if (!String.IsNullOrEmpty(keySpecifier)) arguments += " --local-user " + StringUtils.EscapeArgument(keySpecifier);
+            if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --local-user " + StringUtils.EscapeArgument(keySpecifier);
 
             return Execute(arguments, null, ErrorHandlerException);
         }
@@ -134,17 +134,17 @@ namespace ZeroInstall.Store.Feeds
         public void DetachSign(string path, string keySpecifier, string passphrase)
         {
             #region Sanity checks
-            if (String.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             if (!File.Exists(path)) throw new FileNotFoundException(Resources.FileToSignNotFound, path);
             if (string.IsNullOrEmpty(keySpecifier)) throw new ArgumentNullException("keySpecifier");
             if (passphrase == null) throw new ArgumentNullException("passphrase");
             #endregion
 
             string arguments = "--batch --no-secmem-warning --passphrase-fd 0";
-            if (!String.IsNullOrEmpty(keySpecifier)) arguments += " --local-user \"" + keySpecifier.Replace("\"", "\\\"") + "\"";
+            if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --local-user \"" + keySpecifier.Replace("\"", "\\\"") + "\"";
             arguments += " --detach-sign \"" + path.Replace("\"", "\\\")" + "\"");
 
-            if (String.IsNullOrEmpty(passphrase)) passphrase = "\n";
+            if (string.IsNullOrEmpty(passphrase)) passphrase = "\n";
             Execute(arguments, writer => writer.WriteLine(passphrase), ErrorHandlerException);
         }
         #endregion

@@ -59,10 +59,10 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         private void ClearControl()
         {
             comboBoxLicense.SelectedText = "GPL v3 (GNU General Public License)";
-            hintTextBoxMain.Text = String.Empty;
-            hintTextBoxDocDir.Text = String.Empty;
-            hintTextBoxPackage.Text = String.Empty;
-            hintTextBoxMain.Text = String.Empty;
+            hintTextBoxMain.Text = "";
+            hintTextBoxDocDir.Text = "";
+            hintTextBoxPackage.Text = "";
+            hintTextBoxMain.Text = "";
             checkedListBoxDistribution.ClearSelected();
         }
 
@@ -72,11 +72,11 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         private void UpdateControl()
         {
             ClearControl();
-            if (!String.IsNullOrEmpty(_packageImplementation.License)) comboBoxLicense.Text = _packageImplementation.License;
-            if (!String.IsNullOrEmpty(_packageImplementation.Main)) hintTextBoxMain.Text = _packageImplementation.Main;
-            if (!String.IsNullOrEmpty(_packageImplementation.DocDir)) hintTextBoxDocDir.Text = _packageImplementation.DocDir;
-            if (!String.IsNullOrEmpty(_packageImplementation.Package)) hintTextBoxPackage.Text = _packageImplementation.Package;
-            if (!String.IsNullOrEmpty(hintTextBoxMain.Text)) hintTextBoxMain.Text = _packageImplementation.Main;
+            if (!string.IsNullOrEmpty(_packageImplementation.License)) comboBoxLicense.Text = _packageImplementation.License;
+            if (!string.IsNullOrEmpty(_packageImplementation.Main)) hintTextBoxMain.Text = _packageImplementation.Main;
+            if (!string.IsNullOrEmpty(_packageImplementation.DocDir)) hintTextBoxDocDir.Text = _packageImplementation.DocDir;
+            if (!string.IsNullOrEmpty(_packageImplementation.Package)) hintTextBoxPackage.Text = _packageImplementation.Package;
+            if (!string.IsNullOrEmpty(hintTextBoxMain.Text)) hintTextBoxMain.Text = _packageImplementation.Main;
             foreach (var distribution in _packageImplementation.Distributions)
             {
                 if (!checkedListBoxDistribution.Items.Contains(distribution)) continue;
@@ -117,8 +117,8 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         private void ButtonOkClick(object sender, EventArgs e)
         {
             _packageImplementation.Main = (Path.IsPathRooted(hintTextBoxMain.Text)) ? hintTextBoxMain.Text : null;
-            _packageImplementation.Package = (!String.IsNullOrEmpty(hintTextBoxPackage.Text)) ? hintTextBoxPackage.Text : null;
-            _packageImplementation.License = (!String.IsNullOrEmpty(comboBoxLicense.Text)) ? comboBoxLicense.Text : null;
+            _packageImplementation.Package = (!string.IsNullOrEmpty(hintTextBoxPackage.Text)) ? hintTextBoxPackage.Text : null;
+            _packageImplementation.License = (!string.IsNullOrEmpty(comboBoxLicense.Text)) ? comboBoxLicense.Text : null;
             _packageImplementation.DocDir = (!Path.IsPathRooted(hintTextBoxDocDir.Text)) ? hintTextBoxDocDir.Text : null;
             _packageImplementation.Distributions.Clear();
             foreach (String checkedItem in checkedListBoxDistribution.CheckedItems)

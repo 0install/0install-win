@@ -61,8 +61,8 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         /// </summary>
         private void ClearControl()
         {
-            hintTextBoxSrc.Text = String.Empty;
-            hintTextBoxMountPoint.Text = String.Empty;
+            hintTextBoxSrc.Text = "";
+            hintTextBoxMountPoint.Text = "";
         }
 
         /// <summary>
@@ -71,8 +71,8 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         private void UpdateControl()
         {
             ClearControl();
-            if (!String.IsNullOrEmpty(_overlayBinding.Source)) hintTextBoxSrc.Text = _overlayBinding.Source;
-            if (!String.IsNullOrEmpty(_overlayBinding.MountPoint)) hintTextBoxMountPoint.Text = _overlayBinding.MountPoint;
+            if (!string.IsNullOrEmpty(_overlayBinding.Source)) hintTextBoxSrc.Text = _overlayBinding.Source;
+            if (!string.IsNullOrEmpty(_overlayBinding.MountPoint)) hintTextBoxMountPoint.Text = _overlayBinding.MountPoint;
         }
         #endregion
 
@@ -107,8 +107,8 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         /// <param name="e">Not used.</param>
         private void ButtonOkClick(object sender, EventArgs e)
         {
-            _overlayBinding.Source = (!String.IsNullOrEmpty(hintTextBoxSrc.Text)) ? hintTextBoxSrc.Text : null;
-            _overlayBinding.MountPoint = (!String.IsNullOrEmpty(hintTextBoxMountPoint.Text)) ? hintTextBoxMountPoint.Text : null;
+            _overlayBinding.Source = (!string.IsNullOrEmpty(hintTextBoxSrc.Text)) ? hintTextBoxSrc.Text : null;
+            _overlayBinding.MountPoint = (!string.IsNullOrEmpty(hintTextBoxMountPoint.Text)) ? hintTextBoxMountPoint.Text : null;
         }
         #endregion
     }

@@ -73,12 +73,12 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         /// </summary>
         private void ClearFormControls()
         {
-            hintTextBoxVersion.Text = String.Empty;
+            hintTextBoxVersion.Text = "";
             dateTimePickerRelease.Value = DateTime.Now;
-            comboBoxLicense.Text = String.Empty;
-            hintTextBoxMain.Text = String.Empty;
-            hintTextBoxSelfTest.Text = String.Empty;
-            hintTextBoxDocDir.Text = String.Empty;
+            comboBoxLicense.Text = "";
+            hintTextBoxMain.Text = "";
+            hintTextBoxSelfTest.Text = "";
+            hintTextBoxDocDir.Text = "";
             comboBoxStability.SelectedItem = Stability.Unset;
             targetBaseControl.TargetBase = null;
         }
@@ -95,10 +95,10 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
                 checkBoxEnableSettingDate.Checked = true;
                 dateTimePickerRelease.Value = _group.Released;
             }
-            if (!String.IsNullOrEmpty(_group.License)) comboBoxLicense.Text = _group.License;
-            if (!String.IsNullOrEmpty(_group.Main)) hintTextBoxMain.Text = _group.Main;
-            if (!String.IsNullOrEmpty(_group.SelfTest)) hintTextBoxSelfTest.Text = _group.SelfTest;
-            if (!String.IsNullOrEmpty(_group.DocDir)) hintTextBoxDocDir.Text = _group.DocDir;
+            if (!string.IsNullOrEmpty(_group.License)) comboBoxLicense.Text = _group.License;
+            if (!string.IsNullOrEmpty(_group.Main)) hintTextBoxMain.Text = _group.Main;
+            if (!string.IsNullOrEmpty(_group.SelfTest)) hintTextBoxSelfTest.Text = _group.SelfTest;
+            if (!string.IsNullOrEmpty(_group.DocDir)) hintTextBoxDocDir.Text = _group.DocDir;
             if (_group.Stability != default(Stability)) comboBoxStability.SelectedItem = _group.Stability;
             targetBaseControl.TargetBase = _group.CloneGroup();
         }
@@ -169,7 +169,7 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
 
             if (ImplementationVersion.TryCreate(hintTextBoxVersion.Text, out implementationVersion)) _group.Version = implementationVersion;
             _group.Released = checkBoxEnableSettingDate.Checked ? dateTimePickerRelease.Value : default(DateTime);
-            if (!String.IsNullOrEmpty(comboBoxLicense.Text)) _group.License = comboBoxLicense.Text;
+            if (!string.IsNullOrEmpty(comboBoxLicense.Text)) _group.License = comboBoxLicense.Text;
             if (!Path.IsPathRooted(hintTextBoxMain.Text)) _group.Main = hintTextBoxMain.Text;
             if (!Path.IsPathRooted(hintTextBoxSelfTest.Text)) _group.SelfTest = hintTextBoxSelfTest.Text;
             if (!Path.IsPathRooted(hintTextBoxDocDir.Text)) _group.DocDir = hintTextBoxDocDir.Text;

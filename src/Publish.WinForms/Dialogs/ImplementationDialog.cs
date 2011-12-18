@@ -72,15 +72,15 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         /// </summary>
         private void ClearFormControls()
         {
-            hintTextBoxVersion.Text = string.Empty;
+            hintTextBoxVersion.Text = "";
             dateTimePickerRelease.Value = DateTime.Now;
             comboBoxStability.SelectedItem = Stability.Unset;
-            comboBoxLicense.Text = String.Empty;
-            hintTextBoxID.Text = String.Empty;
-            hintTextBoxMain.Text = String.Empty;
-            hintTextBoxDocDir.Text = String.Empty;
-            hintTextBoxSelfTest.Text = String.Empty;
-            hintTextBoxLocalPath.Text = String.Empty;
+            comboBoxLicense.Text = "";
+            hintTextBoxID.Text = "";
+            hintTextBoxMain.Text = "";
+            hintTextBoxDocDir.Text = "";
+            hintTextBoxSelfTest.Text = "";
+            hintTextBoxLocalPath.Text = "";
             targetBaseControl.TargetBase = null;
         }
 
@@ -90,19 +90,19 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         private void UpdateFormControls()
         {
             ClearFormControls();
-            if (!String.IsNullOrEmpty(_implementation.VersionString)) hintTextBoxVersion.Text = _implementation.VersionString;
+            if (!string.IsNullOrEmpty(_implementation.VersionString)) hintTextBoxVersion.Text = _implementation.VersionString;
             if (_implementation.Released != default(DateTime))
             {
                 checkBoxSettingDateEnable.Checked = true;
                 dateTimePickerRelease.Value = _implementation.Released;
             }
             if (_implementation.Stability != default(Stability)) comboBoxStability.SelectedItem = _implementation.Stability;
-            if (!String.IsNullOrEmpty(_implementation.License)) comboBoxLicense.Text = _implementation.License;
-            if (!String.IsNullOrEmpty(_implementation.ID)) hintTextBoxID.Text = _implementation.ID;
-            if (!String.IsNullOrEmpty(_implementation.Main)) hintTextBoxMain.Text = _implementation.Main;
-            if (!String.IsNullOrEmpty(_implementation.DocDir)) hintTextBoxDocDir.Text = _implementation.DocDir;
-            if (!String.IsNullOrEmpty(_implementation.SelfTest)) hintTextBoxSelfTest.Text = _implementation.SelfTest;
-            if (!String.IsNullOrEmpty(_implementation.LocalPath)) hintTextBoxLocalPath.Text = _implementation.LocalPath;
+            if (!string.IsNullOrEmpty(_implementation.License)) comboBoxLicense.Text = _implementation.License;
+            if (!string.IsNullOrEmpty(_implementation.ID)) hintTextBoxID.Text = _implementation.ID;
+            if (!string.IsNullOrEmpty(_implementation.Main)) hintTextBoxMain.Text = _implementation.Main;
+            if (!string.IsNullOrEmpty(_implementation.DocDir)) hintTextBoxDocDir.Text = _implementation.DocDir;
+            if (!string.IsNullOrEmpty(_implementation.SelfTest)) hintTextBoxSelfTest.Text = _implementation.SelfTest;
+            if (!string.IsNullOrEmpty(_implementation.LocalPath)) hintTextBoxLocalPath.Text = _implementation.LocalPath;
             targetBaseControl.TargetBase = _implementation.CloneImplementation();
         }
         #endregion
@@ -146,12 +146,12 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
             _implementation.Version = (ImplementationVersion.TryCreate(hintTextBoxVersion.Text, out version)) ? version : null;
             _implementation.Released = checkBoxSettingDateEnable.Checked ? dateTimePickerRelease.Value : default(DateTime);
             _implementation.Stability = (Stability)comboBoxStability.SelectedItem;
-            _implementation.License = (!String.IsNullOrEmpty(comboBoxLicense.Text)) ? comboBoxLicense.Text : null;
-            _implementation.ID = (!String.IsNullOrEmpty(hintTextBoxID.Text)) ? hintTextBoxID.Text : null;
-            _implementation.Main = (!String.IsNullOrEmpty(hintTextBoxMain.Text)) ? hintTextBoxMain.Text : null;
-            _implementation.DocDir = (!String.IsNullOrEmpty(hintTextBoxDocDir.Text)) ? hintTextBoxDocDir.Text : null;
-            _implementation.SelfTest = (!String.IsNullOrEmpty(hintTextBoxSelfTest.Text)) ? hintTextBoxSelfTest.Text : null;
-            _implementation.LocalPath = (!String.IsNullOrEmpty(hintTextBoxLocalPath.Text)) ? hintTextBoxLocalPath.Text : null;
+            _implementation.License = (!string.IsNullOrEmpty(comboBoxLicense.Text)) ? comboBoxLicense.Text : null;
+            _implementation.ID = (!string.IsNullOrEmpty(hintTextBoxID.Text)) ? hintTextBoxID.Text : null;
+            _implementation.Main = (!string.IsNullOrEmpty(hintTextBoxMain.Text)) ? hintTextBoxMain.Text : null;
+            _implementation.DocDir = (!string.IsNullOrEmpty(hintTextBoxDocDir.Text)) ? hintTextBoxDocDir.Text : null;
+            _implementation.SelfTest = (!string.IsNullOrEmpty(hintTextBoxSelfTest.Text)) ? hintTextBoxSelfTest.Text : null;
+            _implementation.LocalPath = (!string.IsNullOrEmpty(hintTextBoxLocalPath.Text)) ? hintTextBoxLocalPath.Text : null;
             foreach (var language in targetBaseControl.TargetBase.Languages)
                 _implementation.Languages.Add(language);
             _implementation.Architecture = targetBaseControl.TargetBase.Architecture;

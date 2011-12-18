@@ -154,8 +154,8 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         {
             if (listBoxConstraints.SelectedItem == null) return;
             var selectedItem = (Constraint)listBoxConstraints.SelectedItem;
-            hintTextBoxBefore.Text = selectedItem.BeforeVersionString ?? String.Empty;
-            hintTextBoxNotBefore.Text = selectedItem.NotBeforeVersionString ?? String.Empty;
+            hintTextBoxBefore.Text = selectedItem.BeforeVersionString ?? "";
+            hintTextBoxNotBefore.Text = selectedItem.NotBeforeVersionString ?? "";
         }
         #endregion
 

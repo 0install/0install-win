@@ -56,7 +56,7 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         /// </summary>
         private void ClearControl()
         {
-            hintTextBoxSource.Text = string.Empty;
+            hintTextBoxSource.Text = "";
         }
 
         /// <summary>

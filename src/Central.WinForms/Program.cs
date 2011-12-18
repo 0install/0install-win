@@ -95,7 +95,7 @@ namespace ZeroInstall.Central.WinForms
             #endregion
 
             string appUserModelID = AppUserModelID;
-            if (!String.IsNullOrEmpty(subCommand)) appUserModelID += "." + subCommand;
+            if (!string.IsNullOrEmpty(subCommand)) appUserModelID += "." + subCommand;
             string exePath = Path.Combine(Locations.InstallBase, ExeName + ".exe");
             WindowsUtils.SetWindowAppID(form.Handle, appUserModelID, StringUtils.EscapeArgument(exePath) + " " + arguments, exePath, name);
         }
