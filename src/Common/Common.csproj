@@ -231,6 +231,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Values\Future.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\ErrorBox.resx">
