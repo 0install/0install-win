@@ -29,6 +29,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
     public partial class TargetBaseControl : UserControl
     {
         #region Properties
+
+        private bool _enableComboBoxCpuSelectedIndexChanged = true;
+        private bool _enableComboBoxOsSelectedIndexChanged = true;
         private TargetBase _targetBase;
 
         /// <summary>
@@ -44,9 +47,11 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 UpdateControls();
             }
         }
+
         #endregion
 
         # region Initialization
+
         public TargetBaseControl()
         {
             InitializeComponent();
@@ -61,7 +66,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void InitializeComboBoxLanguage()
         {
             // load the possible languages in listBoxLanguages
-            foreach (var language in CultureInfo.GetCultures(CultureTypes.FrameworkCultures))
+            foreach (CultureInfo language in CultureInfo.GetCultures(CultureTypes.FrameworkCultures))
                 comboBoxLanguage.Items.Add(language);
             comboBoxLanguage.SelectedItem = CultureInfo.CurrentCulture;
         }
@@ -71,9 +76,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// </summary>
         private void InitializeOS()
         {
-            foreach (var os in Enum.GetValues(typeof(OS)))
+            foreach (object os in Enum.GetValues(typeof (OS)))
                 comboBoxOS.Items.Add(os);
-            comboBoxOS.SelectedIndex = (int)OS.All;
+            comboBoxOS.SelectedIndex = (int) OS.All;
         }
 
         /// <summary>
@@ -81,21 +86,29 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// </summary>
         private void InitializeCpu()
         {
-            foreach (var cpu in Enum.GetValues(typeof(Cpu)))
+            foreach (object cpu in Enum.GetValues(typeof (Cpu)))
                 comboBoxCpu.Items.Add(cpu);
-            comboBoxCpu.SelectedIndex = (int)Cpu.All;
+            comboBoxCpu.SelectedIndex = (int) Cpu.All;
         }
+
         #endregion
 
         #region Control management methodes
+
         /// <summary>
         /// Set the controls values to the standard values if _targetBase is null.
         /// </summary>
         private void ClearControls()
         {
             listBoxLanguages.Items.Clear();
+
+            _enableComboBoxOsSelectedIndexChanged = false;
             comboBoxOS.SelectedItem = OS.All;
+            _enableComboBoxOsSelectedIndexChanged = true;
+
+            _enableComboBoxCpuSelectedIndexChanged = false;
             comboBoxCpu.SelectedItem = Cpu.All;
+            _enableComboBoxCpuSelectedIndexChanged = true;
         }
 
         private void UpdateControls()
@@ -105,13 +118,21 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
             // add languages to the list box
             UpdateLanguages();
+
             // select right values for OS and CPU in the combo boxes
+            _enableComboBoxOsSelectedIndexChanged = false;
             comboBoxOS.SelectedItem = _targetBase.Architecture.OS;
+            _enableComboBoxOsSelectedIndexChanged = true;
+
+            _enableComboBoxCpuSelectedIndexChanged = false;
             comboBoxCpu.SelectedItem = _targetBase.Architecture.Cpu;
+            _enableComboBoxCpuSelectedIndexChanged = true;
         }
+
         #endregion
 
         #region Language methodes
+
         /// <summary>
         /// Clear <see cref="listBoxLanguages"/> and write the languages from <see cref="_targetBase" /> into it.
         /// </summary>
@@ -120,7 +141,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             listBoxLanguages.Items.Clear();
             if (_targetBase == null) return;
             listBoxLanguages.BeginUpdate();
-            foreach (var language in _targetBase.Languages)
+            foreach (CultureInfo language in _targetBase.Languages)
                 listBoxLanguages.Items.Add(language);
             listBoxLanguages.EndUpdate();
         }
@@ -144,7 +165,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void BtnLanguageAddClick(object sender, EventArgs e)
         {
             if (_targetBase == null) return;
-            var selectedCulture = (CultureInfo)comboBoxLanguage.SelectedItem;
+            var selectedCulture = (CultureInfo) comboBoxLanguage.SelectedItem;
             _targetBase.Languages.Add(selectedCulture);
             UpdateLanguages();
         }
@@ -158,7 +179,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void BtnLanguageRemoveClick(object sender, EventArgs e)
         {
             if (_targetBase == null) return;
-            var selectedCulture = (CultureInfo)listBoxLanguages.SelectedItem;
+            var selectedCulture = (CultureInfo) listBoxLanguages.SelectedItem;
             if (selectedCulture == null) return;
             _targetBase.Languages.Remove(selectedCulture);
             UpdateLanguages();
@@ -176,26 +197,31 @@ namespace ZeroInstall.Publish.WinForms.Controls
             _targetBase.Languages.Clear();
             UpdateLanguages();
         }
+
         #endregion
 
         #region OS and Cpu methodes
+
         /// <summary>
         /// Updates "_targetBase.Architecture.OS".
         /// </summary>
-        private void comboBoxOS_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxOsSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_targetBase == null || comboBoxOS.SelectedItem == null) return;
-            _targetBase.Architecture = new Architecture((OS)comboBoxOS.SelectedItem, _targetBase.Architecture.Cpu);
+            if (!_enableComboBoxOsSelectedIndexChanged || _targetBase == null || comboBoxOS.SelectedItem == null)
+                return;
+            _targetBase.Architecture = new Architecture((OS) comboBoxOS.SelectedItem, _targetBase.Architecture.Cpu);
         }
 
         /// <summary>
         /// Updates "_targetBase.Architecture.Cpu".
         /// </summary>
-        private void comboBoxCpu_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxCpuSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_targetBase == null || comboBoxCpu.SelectedItem == null) return;
-            _targetBase.Architecture = new Architecture(_targetBase.Architecture.OS, (Cpu)comboBoxCpu.SelectedItem);
+            if (!_enableComboBoxCpuSelectedIndexChanged || _targetBase == null || comboBoxCpu.SelectedItem == null)
+                return;
+            _targetBase.Architecture = new Architecture(_targetBase.Architecture.OS, (Cpu) comboBoxCpu.SelectedItem);
         }
+
         #endregion
     }
 }
