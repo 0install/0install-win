@@ -22,7 +22,7 @@
 
 using System.Threading;
 
-namespace Common.Values
+namespace Common
 {
     /// <summary>
     /// Implicitly represents the result of an asynchronous operation.
@@ -31,6 +31,7 @@ namespace Common.Values
     public class Future<T>
     {
         private readonly Thread _thread;
+        private SimpleResult<T> _operation;
         private T _result;
 
         /// <summary>
@@ -39,12 +40,18 @@ namespace Common.Values
         /// <param name="operation">The operation returning a result.</param>
         public Future(SimpleResult<T> operation)
         {
-            _thread = new Thread(() => _result = operation());
+            _operation = operation;
+            _thread = new Thread(delegate()
+            {
+                _result = _operation();
+                _operation = null; // Release input data memory as soon as calculation is complete
+            })
+            {IsBackground = true};
             _thread.Start();
         }
 
         /// <summary>
-        /// Waits for the asynchronous to complete and returns the result.
+        /// Waits for the asynchronous operation to complete and returns the result.
         /// </summary>
         public static implicit operator T(Future<T> future)
         {

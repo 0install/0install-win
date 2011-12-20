@@ -65,6 +65,7 @@
     <Compile Include="Compression\ArchiveUtils.cs" />
     <Compile Include="Controls\TrackingLabelTest.cs" />
     <Compile Include="Controls\TrackingProgressBarTest.cs" />
+    <Compile Include="FutureTest.cs" />
     <Compile Include="Net\DownloadFileTest.cs" />
     <Compile Include="Net\MicroServer.cs" />
     <Compile Include="Tasks\ForEachTaskTest.cs" />
@@ -81,7 +82,6 @@
     <Compile Include="Streams\OffsetStreamTest.cs" />
     <Compile Include="Streams\CircularBufferStreamTest.cs" />
     <Compile Include="Storage\XmlStorageTest.cs" />
-    <Compile Include="Values\FutureTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

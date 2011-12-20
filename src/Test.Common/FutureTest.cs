@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2006-2011 Bastian Eicher, Simon E. Silva Lauinger
+ * Copyright 2006-2011 Bastian Eicher
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,9 +20,10 @@
  * THE SOFTWARE.
  */
 
+using System;
 using NUnit.Framework;
 
-namespace Common.Values
+namespace Common
 {
     /// <summary>
     /// Contains test methods for <see cref="Future{T}"/>.
@@ -33,9 +34,9 @@ namespace Common.Values
         [Test]
         public void TestCast()
         {
-            var future = new Future<string>(() => "ferz");
-            string result = future;
-            Assert.AreEqual("ferz", result);
+            var future = new Future<double>(() => Math.Pow(2, 10));
+            double result = future;
+            Assert.AreEqual(1024, result);
         }
     }
 }

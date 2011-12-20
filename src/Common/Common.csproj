@@ -74,6 +74,7 @@
     <Compile Include="UpdateHelper.cs" />
     <Compile Include="UserCancelException.cs" />
     <Compile Include="INamed.cs" />
+    <Compile Include="Future.cs" />
     <Compile Include="Tasks\TaskState.cs" />
     <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Tasks\SimpleTask.cs" />
@@ -231,7 +232,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Values\Future.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\ErrorBox.resx">
