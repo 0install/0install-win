@@ -44,42 +44,62 @@ public class RunEnv
 
     #region StringUtils
     /// <summary>
-    /// Escapes a string for use as a command-line argument, making sure it is encapsulated within <code>"</code> if it contains whitespace characters.
-    /// </summary>s
+    /// Escapes a string for use as a Windows command-line argument, making sure it is encapsulated within <code>"</code> if it contains whitespace characters.
+    /// </summary>
+    /// <remarks>
+    /// This coressponds to Windows' handling of command-line arguments as specified in:
+    /// http://msdn.microsoft.com/library/17w5ykft
+    /// </remarks>
     private static string EscapeArgument(string value)
     {
         if (value == null) return null;
 
-        value = value.Replace("\"", "\\\""); // Escape quotation marks
+        // Add leading quotation mark if there are whitespaces
+        bool containsWhitespace = ContainsWhitespace(value);
+        StringBuilder result = containsWhitespace ? new StringBuilder("\"", value.Length + 2) : new StringBuilder(value.Length);
 
-        if (value.Contains(" ") || value.Contains("\t") || value.Contains("\n") || value.Contains("\r"))
+        // Split by quotation marks
+        string[] parts = value.Split('"');
+        for (int i = 0; i < parts.Length; i++)
         {
-            // Escape trailing backslashes
-            if (value.EndsWith("\\")) value += "\\";
+            // Count slashes preceeding each quotation mark
+            string slashesTrimmed = parts[i].TrimEnd('\\');
+            int slashesCount = parts[i].Length - slashesTrimmed.Length;
 
-            // ToDo: Handle multiple consecutive backslashes
+            result.Append(parts[i]);
 
-            // Encapsulate within quotation marks
-            value = "\"" + value + "\"";
+            if (i < parts.Length - 1)
+            { // Not last part
+                for (int j = 0; j < slashesCount; j++) result.Append('\\'); // Double number of slashes
+                result.Append("\\\""); // Escaped quotation mark
+            }
+            else if (containsWhitespace)
+            { // Last part if there are whitespaces
+                for (int j = 0; j < slashesCount; j++) result.Append('\\'); // Double number of slashes
+                result.Append('"'); // Non-escaped quotation mark
+            }
         }
-        return value;
+
+        return result.ToString();
     }
 
     /// <summary>
-    /// Combines multiple strings into one for use as a command-line argument using <see cref="EscapeArgument"/>.
+    /// Combines multiple strings into one for use as a Windows command-line argument using <see cref="EscapeArgument"/>.
     /// </summary>
     /// <param name="parts">The strings to be combines.</param>
+    /// <remarks>
+    /// This coressponds to Windows' handling of command-line arguments as specified in:
+    /// http://msdn.microsoft.com/library/17w5ykft
+    /// </remarks>
     private static string ConcatenateEscapeArgument(IEnumerable<string> parts)
     {
-        #region Sanity checks
-        if (parts == null) throw new ArgumentNullException("parts");
-        #endregion
+        if (parts == null) return null;
 
         StringBuilder output = new StringBuilder();
         bool first = true;
         foreach (string part in parts)
         {
-            // No separator before first or after last line
+            // No separator before first or after last part
             if (first) first = false;
             else output.Append(' ');
 
@@ -87,6 +107,14 @@ public class RunEnv
         }
 
         return output.ToString();
+    }
+
+    /// <summary>
+    /// Checks whether a string contains any whitespace characters
+    /// </summary>
+    private static bool ContainsWhitespace(string text)
+    {
+        return text.Contains(" ") || text.Contains("\t") || text.Contains("\n") || text.Contains("\r");
     }
     #endregion
 }

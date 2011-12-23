@@ -97,7 +97,6 @@ namespace ZeroInstall.Fetchers
             if (fetchRequest == null) throw new ArgumentNullException("fetchRequest");
             #endregion
 
-            // ToDo: Make asynchronous
             foreach (var implementation in fetchRequest.Implementations)
             {
                 // Check if the process has been canceled

@@ -119,7 +119,6 @@ namespace ZeroInstall.Injector.Solver
             if (!string.IsNullOrEmpty(CommandName)) builder.Append("--command=" + StringUtils.EscapeArgument(CommandName) + " ");
             if (Architecture.OS != OS.All) builder.Append("--os=" + Architecture.OSString + " ");
             if (Architecture.Cpu != Cpu.All) builder.Append("--cpu=" + Architecture.CpuString + " ");
-            // ToDo: Add Languages support
             if (NotBeforeVersion != null) builder.Append("--not-before=" + NotBeforeVersion + " ");
             if (BeforeVersion != null) builder.Append("--before=" + BeforeVersion + " ");
             builder.Append(StringUtils.EscapeArgument(InterfaceID));

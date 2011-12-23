@@ -119,7 +119,6 @@ namespace ZeroInstall.Store.Management.WinForms
                         AddWithIncrement(nodes, implementationNode);
                     }
                         #region Error handling
-                        // ToDo: Display less intrusive messages
                     catch (FormatException ex)
                     {
                         Msg.Inform(this, string.Format("Problem processing the manifest file for '{0}'.\n" + ex.Message, digest), MsgSeverity.Error);
@@ -256,7 +255,6 @@ namespace ZeroInstall.Store.Management.WinForms
             }
             catch (DigestMismatchException ex)
             {
-                // ToDo: Display manifest diff
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
                 // ToDo: Provide option for deleting
                 return;

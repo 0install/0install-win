@@ -218,12 +218,12 @@ namespace ZeroInstall.Commands.WinForms
 
                 var feedPreferences = feedEntry.Value;
 
+                // ToDo: Get selection candidates from Solver
                 foreach (var element in feed.Elements)
                 {
                     var implementation = element as Implementation;
                     if (implementation == null) continue;
 
-                    // ToDo: Respect architecture overrides in requirements
                     var candidate = new SelectionCandidate(feedID, implementation, feedPreferences.GetImplementationPreferences(implementation.ID));
                     if (checkBoxShowAllVersions.Checked || candidate.IsCompatible)
                         candidates.Add(candidate);

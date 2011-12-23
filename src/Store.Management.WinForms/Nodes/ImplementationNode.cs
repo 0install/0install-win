@@ -147,7 +147,6 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                     }
                     catch (DigestMismatchException ex)
                     {
-                        // ToDo: Display manifest diff
                         Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
                         // ToDo: Provide option for deleting
                         return;

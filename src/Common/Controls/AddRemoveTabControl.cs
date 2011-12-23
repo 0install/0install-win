@@ -159,8 +159,6 @@ namespace Common.Controls
 
             base.OnSelecting(e);
         }
-
-        //TODO On double mouse click remove selected tab.
         #endregion
 
         #region Insert/Remove new tab page

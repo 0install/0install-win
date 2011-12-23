@@ -112,7 +112,6 @@ namespace ZeroInstall.Injector.Solver
         /// </summary>
         private string GetNotes()
         {
-            // ToDo: More notes
             if (_implementation.Architecture.Cpu == Cpu.Source) return Resources.SelectionCandidateNoteSource;
             if (!_implementation.Architecture.IsCompatible(Model.Architecture.CurrentSystem)) return Resources.SelectionCandidateNoteIncompatibleSystem;
             return "None";
