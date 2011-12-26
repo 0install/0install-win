@@ -22,9 +22,9 @@ using ZeroInstall.Store.Feeds;
 namespace ZeroInstall.Injector.Feeds
 {
     /// <summary>
-    /// A common base class for feed managers. Implements properties, cloning and equating. Does not implement <see cref="GetFeed"/>.
+    /// A common base class for feed managers. Implements properties, cloning and equating. Does not implement <see cref="GetFeed"/> and <see cref="ImportFeed"/>.
     /// </summary>
-    public class FeedManagerBase : IFeedManager, IEquatable<FeedManagerBase>, ICloneable
+    public abstract class FeedManagerBase : IFeedManager, IEquatable<FeedManagerBase>, ICloneable
     {
         #region Properties
         /// <inheritdoc/>
@@ -59,10 +59,12 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Get feed
         /// <inheritdoc/>
-        public virtual Feed GetFeed(string feedID, Policy policy, out bool stale)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract Feed GetFeed(string feedID, Policy policy, out bool stale);
+        #endregion
+
+        #region Import feed
+        /// <inheritdoc/>
+        public abstract void ImportFeed(string path, Policy policy);
         #endregion
 
         #region Clone
@@ -70,10 +72,7 @@ namespace ZeroInstall.Injector.Feeds
         /// Creates a shallow copy of this feed manager.
         /// </summary>
         /// <returns>The new copy of the feed manager.</returns>
-        public virtual IFeedManager CloneFeedManager()
-        {
-            return new FeedManagerBase(Cache, OpenPgp) {Refresh = Refresh};
-        }
+        public abstract IFeedManager CloneFeedManager();
 
         /// <summary>
         /// Creates a shallow copy of this feed manager.

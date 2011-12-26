@@ -61,6 +61,16 @@ namespace ZeroInstall.Injector.Feeds
         Feed GetFeed(string feedID, Policy policy, out bool stale);
 
         /// <summary>
+        /// Import a feed from a local file into the <see cref="Cache"/>, as if it had been downloaded from the network. Verifies the feed's signature.
+        /// </summary>
+        /// <param name="path">The path of the feed file to be imported.</param>
+        /// <param name="policy">Combines UI access, configuration and resources used to solve dependencies and download implementations.</param>
+        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if access to the feed file or the cache is not permitted.</exception>
+        /// <exception cref="SignatureException">Thrown if the signature data of the feed file could not be handled.</exception>
+        void ImportFeed(string path, Policy policy);
+        
+        /// <summary>
         /// Creates a shallow copy of this feed manager.
         /// </summary>
         /// <returns>The new copy of the feed manager.</returns>

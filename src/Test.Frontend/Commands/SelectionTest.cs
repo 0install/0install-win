@@ -58,18 +58,6 @@ namespace ZeroInstall.Commands
             }
         }
 
-        [Test(Description = "Ensures invalid feed IDs are correctly detected and handled.")]
-        public void TestInvalidFeedID()
-        {
-            // ToDo
-        }
-
-        [Test(Description = "Ensures invalid feeds are correctly detected and handled.")]
-        public void TestInvalidFeed()
-        {
-            // ToDo
-        }
-
         [Test(Description = "Ensures calling with no arguments raises an exception.")]
         public void TestNoArgs()
         {

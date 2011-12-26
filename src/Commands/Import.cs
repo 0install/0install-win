@@ -16,6 +16,7 @@
  */
 
 using System;
+using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 
@@ -55,9 +56,14 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
+            #region Sanity checks
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
+            if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs.First)) throw new OptionException(Resources.MissingArguments, "");
+            if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
+            #endregion
 
-            // ToDo: Implement
+            //Policy.FeedManager.ImportFeed(AdditionalArgs.First, Policy);
+            //return 0;
 
             Policy.Handler.Output("Not implemented", "This feature is not implemented yet.");
             return 1;

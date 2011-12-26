@@ -38,8 +38,7 @@ namespace ZeroInstall.Injector.Feeds
         /// </summary>
         /// <param name="cache">The disk-based cache to store downloaded <see cref="Feed"/>s.</param>
         /// <param name="openPgp">The OpenPGP-compatible system used to validate new <see cref="Feed"/>s signatures.</param>
-        public FeedManager(IFeedCache cache, IOpenPgp openPgp)
-            : base(cache, openPgp)
+        public FeedManager(IFeedCache cache, IOpenPgp openPgp) : base(cache, openPgp)
         {}
         #endregion
 
@@ -178,6 +177,14 @@ namespace ZeroInstall.Injector.Feeds
             {
                 // Solver exceptions do not matter, since we only want the feed to get cached and do not care about selections
             }
+        }
+        #endregion
+
+        #region Import feed
+        /// <inheritdoc/>
+        public override void ImportFeed(string path, Policy policy)
+        {
+            throw new NotImplementedException();
         }
         #endregion
 
