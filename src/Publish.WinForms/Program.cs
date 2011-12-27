@@ -61,14 +61,14 @@ namespace ZeroInstall.Publish.WinForms
                 }
                 #endregion
 
-                //if (files.Count == 1)
-                //{
-                //    // ToDo: Open file for editing
-                //}
-                //else
+                if (files.Count == 1)
                 {
-                    MassSignForm.Show(files);
+                    var filesEnumerator = files.GetEnumerator();
+                    filesEnumerator.MoveNext();
+                    Application.Run(new MainForm(filesEnumerator.Current));
                 }
+                else
+                    MassSignForm.Show(files);
             }
         }
     }

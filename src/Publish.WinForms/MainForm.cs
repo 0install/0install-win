@@ -88,6 +88,15 @@ namespace ZeroInstall.Publish.WinForms
             InitializeEditingHooks();
         }
 
+        public MainForm(FileInfo toOpen) : this()
+        {
+            _feedEditing = FeedEditing.Load(toOpen.FullName);
+
+            InitializeEditingHooks();
+            feedEditorToolStrip.SelectedSecretKey = _feedEditing.Feed.SecretKey;
+            OnUpdate();
+        }
+
         /// <summary>
         /// Initializes settings of the form components which can't be setted by the property grid.
         /// </summary>
@@ -120,9 +129,9 @@ namespace ZeroInstall.Publish.WinForms
             SetupFeedStructureHooks<IElementContainer, Element, Group>(btnAddGroup, group => new GroupDialog {Group = group}, container => container.Elements);
 
             SetupFeedStructureHooks<IBindingContainer, Binding, EnvironmentBinding>(btnAddEnvironmentBinding, binding => new EnvironmentBindingDialog {EnvironmentBinding = binding}, container => container.Bindings);
-            SetupFeedStructureHooks<IBindingContainer, Binding, OverlayBinding>(btnAddOverlayBinding, binding => new OverlayBindingDialog { OverlayBinding = binding }, container => container.Bindings);
-            SetupFeedStructureHooks<IBindingContainer, Binding, ExecutableInVar>(btnAddExecutableInVar, binding => new ExecutableInVarDialog { ExecutableInVar = binding }, container => container.Bindings);
-            SetupFeedStructureHooks<IBindingContainer, Binding, ExecutableInPath>(btnAddExecutableInPath, binding => new ExecutableInPathDialog { ExecutableInPath = binding }, container => container.Bindings);
+            SetupFeedStructureHooks<IBindingContainer, Binding, OverlayBinding>(btnAddOverlayBinding, binding => new OverlayBindingDialog {OverlayBinding = binding}, container => container.Bindings);
+            SetupFeedStructureHooks<IBindingContainer, Binding, ExecutableInVar>(btnAddExecutableInVar, binding => new ExecutableInVarDialog {ExecutableInVar = binding}, container => container.Bindings);
+            SetupFeedStructureHooks<IBindingContainer, Binding, ExecutableInPath>(btnAddExecutableInPath, binding => new ExecutableInPathDialog {ExecutableInPath = binding}, container => container.Bindings);
 
             SetupFeedStructureHooks<IDependencyContainer, Dependency, Dependency>(btnAddDependency, dependency => new DependencyDialog {Dependency = dependency}, container => container.Dependencies);
 
@@ -964,6 +973,8 @@ namespace ZeroInstall.Publish.WinForms
         }
         #endregion
 
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {}
         #endregion
 
         #endregion
