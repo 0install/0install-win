@@ -25,7 +25,7 @@ using System.IO;
 using System.Security.Cryptography;
 using Common.Storage;
 using NUnit.Framework;
-using NUnit.Mocks;
+using Moq;
 
 namespace Common.Utils
 {
@@ -256,7 +256,7 @@ namespace Common.Utils
 
         #region Directory walking
         // Interfaces used for mocking delegates
-        private interface IActionSimulator<T>
+        public interface IActionSimulator<in T>
         {
             void Invoke(T obj);
         }
@@ -272,15 +272,15 @@ namespace Common.Utils
                 File.WriteAllText(filePath, "");
 
                 // Set up delegate mocks
-                var dirCallbackMock = new DynamicMock(typeof(IActionSimulator<string>));
-                dirCallbackMock.Expect("Invoke", tempDir.Path);
-                dirCallbackMock.Expect("Invoke", subDirPath);
-                var dirCallback = (IActionSimulator<string>)dirCallbackMock.MockInstance;
-                var fileCallbackMock = new DynamicMock(typeof(IActionSimulator<string>));
-                fileCallbackMock.Expect("Invoke", filePath);
-                var fileCallback = (IActionSimulator<string>)fileCallbackMock.MockInstance;
+                var dirCallbackMock = new Mock<IActionSimulator<string>>(MockBehavior.Strict);
+                dirCallbackMock.Setup(x => x.Invoke(tempDir.Path));
+                dirCallbackMock.Setup(x => x.Invoke(subDirPath));
+                var fileCallbackMock = new Mock<IActionSimulator<string>>(MockBehavior.Strict);
+                fileCallbackMock.Setup(x => x.Invoke(filePath));
 
-                FileUtils.WalkDirectory(new DirectoryInfo(tempDir.Path), subDir => dirCallback.Invoke(subDir.FullName), file => fileCallback.Invoke(file.FullName));
+                FileUtils.WalkDirectory(new DirectoryInfo(tempDir.Path),
+                    subDir => dirCallbackMock.Object.Invoke(subDir.FullName),
+                    file => fileCallbackMock.Object.Invoke(file.FullName));
 
                 dirCallbackMock.Verify();
                 fileCallbackMock.Verify();

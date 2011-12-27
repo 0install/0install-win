@@ -22,7 +22,7 @@ using Common.Storage;
 using Common.Streams;
 using Common.Tasks;
 using NUnit.Framework;
-using NUnit.Mocks;
+using Moq;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 
@@ -268,9 +268,9 @@ namespace ZeroInstall.Store.Implementation
             string packageDir = DirectoryStoreTest.CreateArtificialPackage();
             try
             {
-                var handlerMock = new DynamicMock("MockHandler", typeof(ITaskHandler));
-                handlerMock.Expect("RunTask");
-                Manifest.Generate(packageDir, ManifestFormat.Sha256, (ITaskHandler)handlerMock.MockInstance, null);
+                var handlerMock = new Mock<ITaskHandler>(MockBehavior.Strict);
+                handlerMock.Setup(x => x.RunTask(It.IsAny<ITask>(), It.IsAny<string>()));
+                Manifest.Generate(packageDir, ManifestFormat.Sha256, handlerMock.Object, null);
                 handlerMock.Verify();
             }
             finally

@@ -18,7 +18,7 @@
 using System;
 using System.IO;
 using NUnit.Framework;
-using NUnit.Mocks;
+using Moq;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Feeds
@@ -29,15 +29,15 @@ namespace ZeroInstall.Store.Feeds
     [TestFixture]
     public class MemoryFeedCacheTest
     {
-        private DynamicMock _cacheMock;
+        private Mock<IFeedCache> _backingCacheMock;
         private MemoryFeedCache _cache;
         private Feed _feed;
 
         [SetUp]
         public void SetUp()
         {
-            _cacheMock = new DynamicMock("MockCache", typeof(IFeedCache));
-            _cache = new MemoryFeedCache((IFeedCache)_cacheMock.MockInstance);
+            _backingCacheMock = new Mock<IFeedCache>(MockBehavior.Strict);
+            _cache = new MemoryFeedCache(_backingCacheMock.Object);
 
             // Create a dummy feed
             _feed = FeedTest.CreateTestFeed();
@@ -47,16 +47,16 @@ namespace ZeroInstall.Store.Feeds
         [TearDown]
         public void TearDown()
         {
-            _cacheMock.Verify();
+            _backingCacheMock.Verify();
         }
 
         [Test]
         public void TestContains()
         {
             // Expect simple pass-through
-            _cacheMock.ExpectAndReturn("Contains", true, "http://0install.de/feeds/test/test1.xml");
-            _cacheMock.ExpectAndReturn("Contains", true, "http://0install.de/feeds/test/test2.xml");
-            _cacheMock.ExpectAndReturn("Contains", false, "http://0install.de/feeds/test/test3.xml");
+            _backingCacheMock.Setup(x => x.Contains("http://0install.de/feeds/test/test1.xml")).Returns(true);
+            _backingCacheMock.Setup(x => x.Contains("http://0install.de/feeds/test/test2.xml")).Returns(true);
+            _backingCacheMock.Setup(x => x.Contains("http://0install.de/feeds/test/test3.xml")).Returns(false);
             Assert.IsTrue(_cache.Contains("http://0install.de/feeds/test/test1.xml"));
             Assert.IsTrue(_cache.Contains("http://0install.de/feeds/test/test2.xml"));
             Assert.IsFalse(_cache.Contains("http://0install.de/feeds/test/test3.xml"));
@@ -67,7 +67,7 @@ namespace ZeroInstall.Store.Feeds
         {
             // Expect simple pass-through
             var feeds = new[] {"http://0install.de/feeds/test/test1.xml", "http://0install.de/feeds/test/test2.xml"};
-            _cacheMock.ExpectAndReturn("ListAll", feeds);
+            _backingCacheMock.Setup(x => x.ListAll()).Returns(feeds);
             CollectionAssert.AreEqual(feeds, _cache.ListAll());
         }
 
@@ -75,7 +75,7 @@ namespace ZeroInstall.Store.Feeds
         public void TestGetFeed()
         {
             // Expect pass-through on first access
-            _cacheMock.ExpectAndReturn("GetFeed", _feed, "http://0install.de/feeds/test/test1.xml");
+            _backingCacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test1.xml")).Returns(_feed);
             Feed firstAccess = _cache.GetFeed("http://0install.de/feeds/test/test1.xml");
             Assert.AreEqual(_feed, firstAccess);
 
@@ -88,15 +88,13 @@ namespace ZeroInstall.Store.Feeds
         public void TestGetSignautes()
         {
             var result = new OpenPgpSignature[0];
-            var openPgpMock = new DynamicMock(typeof(IOpenPgp));
-            var openPgp = (IOpenPgp)openPgpMock.MockInstance;
+            var openPgp = new Mock<IOpenPgp>().Object;
 
             // Expect pass-through
-            _cacheMock.ExpectAndReturn("GetSignatures", result, "http://0install.de/feeds/test/test1.xml", openPgp);
+            _backingCacheMock.Setup(x => x.GetSignatures("http://0install.de/feeds/test/test1.xml", openPgp)).Returns(result);
             var signatures = _cache.GetSignatures("http://0install.de/feeds/test/test1.xml", openPgp);
 
             CollectionAssert.AreEqual(signatures, result);
-            openPgpMock.Verify();
         }
 
         [Test]
@@ -108,7 +106,7 @@ namespace ZeroInstall.Store.Feeds
                 feedStream.Position = 0;
 
                 // Expect pass-through on adding
-                _cacheMock.Expect("Add", "http://0install.de/feeds/test/test1.xml", feedStream);
+                _backingCacheMock.Setup(x => x.Add("http://0install.de/feeds/test/test1.xml", feedStream));
                 _cache.Add("http://0install.de/feeds/test/test1.xml", feedStream);
             }
 
@@ -125,7 +123,7 @@ namespace ZeroInstall.Store.Feeds
                 feedStream.Position = 0;
 
                 // Expect pass-through on adding
-                _cacheMock.Expect("Add", "http://0install.de/feeds/test/test1.xml", feedStream);
+                _backingCacheMock.Setup(x => x.Add("http://0install.de/feeds/test/test1.xml", feedStream));
                 _cache.Add("http://0install.de/feeds/test/test1.xml", feedStream);
             }
 
@@ -141,7 +139,7 @@ namespace ZeroInstall.Store.Feeds
                 feedStream.Position = 0;
 
                 // Expect pass-through on adding
-                _cacheMock.Expect("Add", "http://0install.de/feeds/test/test1.xml", feedStream);
+                _backingCacheMock.Setup(x => x.Add("http://0install.de/feeds/test/test1.xml", feedStream));
                 _cache.Add("http://0install.de/feeds/test/test1.xml", feedStream);
             }
 
@@ -153,11 +151,11 @@ namespace ZeroInstall.Store.Feeds
             Assert.AreSame(firstAccess, secondAccess, "Cache should return identical reference on multiple GetFeed() calls");
 
             // Expect pass-through on remove
-            _cacheMock.Expect("Remove", "http://0install.de/feeds/test/test1.xml");
+            _backingCacheMock.Setup(x => x.Remove("http://0install.de/feeds/test/test1.xml"));
             _cache.Remove("http://0install.de/feeds/test/test1.xml");
 
             // Expect pass-through after remove
-            _cacheMock.ExpectAndReturn("GetFeed", _feed, "http://0install.de/feeds/test/test1.xml");
+            _backingCacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test1.xml")).Returns(_feed);
             Assert.AreEqual(_feed, _cache.GetFeed("http://0install.de/feeds/test/test1.xml"));
         }
     }

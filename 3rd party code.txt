@@ -2,11 +2,17 @@ NUnit 2.5.10
 http://www.nunit.org/
 Modified zlib license: nunit.license.txt
 Source unmodified
-Pre-compiled managed DLLs: nunit.framework.dll, nunit.mocks.dll
+Pre-compiled managed DLL: nunit.framework.dll
+
+Moq 4.0.10827
+http://code.google.com/p/moq/
+BSD license: http://www.opensource.org/licenses/bsd-license.php
+Source unmodified
+Pre-compiled managed DLL: nunit.framework.dll
 
 NDesk.Options 0.2.1
 http://ndesk.org/Options
-MIT License: http://www.opensource.org/licenses/mit-license.php
+MIT license: http://www.opensource.org/licenses/mit-license.php
 Source unmodified
 Self-compiled managed DLL: NDesk.Options.dll
 
@@ -36,7 +42,7 @@ Pre-compiled managed DLL: C5.dll
 
 INI File Parser v1.7
 http://code.google.com/p/ini-parser/
-MIT License: http://www.opensource.org/licenses/mit-license.php
+MIT license: http://www.opensource.org/licenses/mit-license.php
 Source unmodified
 Pre-compiled managed DLL: INIFileParser.dll
 

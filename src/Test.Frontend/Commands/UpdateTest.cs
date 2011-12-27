@@ -17,7 +17,9 @@
 
 using System;
 using Common.Storage;
+using Moq;
 using NUnit.Framework;
+using ZeroInstall.Fetchers;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ImplementationSelection = ZeroInstall.Injector.Solver.ImplementationSelection;
@@ -50,15 +52,16 @@ namespace ZeroInstall.Commands
 
             Policy.FeedManager.Refresh = true;
 
-            SolverMock.ExpectAndReturn("Solve", selectionsOld, requirements, noRefreshPolicy, false); // No refresh Solve()
-            SolverMock.ExpectAndReturn("Solve", selectionsNew, requirements, Policy, false); // Refresh Solve()
-            CacheMock.ExpectAndReturn("GetFeed", FeedTest.CreateTestFeed(), new Uri("http://0install.de/feeds/test/sub1.xml")); // Get feeds from cache to determine uncached implementations
-            CacheMock.ExpectAndReturn("GetFeed", FeedTest.CreateTestFeed(), new Uri("http://0install.de/feeds/test/sub2.xml"));
-            CacheMock.ExpectAndReturn("GetFeed", FeedTest.CreateTestFeed(), new Uri("http://0install.de/feeds/test/sub3.xml"));
+            bool stale;
+            SolverMock.Setup(x => x.Solve(requirements, noRefreshPolicy, out stale)).Returns(selectionsOld); // No refresh Solve()
+            SolverMock.Setup(x => x.Solve(requirements, Policy, out stale)).Returns(selectionsNew); // Refresh Solve()
+            CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub1.xml")).Returns(FeedTest.CreateTestFeed());
+            CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(FeedTest.CreateTestFeed());
+            CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub3.xml")).Returns(FeedTest.CreateTestFeed());
 
             // Download uncached implementations
-            FetcherMock.Expect("Start");
-            FetcherMock.Expect("Join");
+            FetcherMock.Setup(x => x.Start(It.IsAny<FetchRequest>())).Verifiable();
+            FetcherMock.Setup(x => x.Join(It.IsAny<FetchRequest>())).Verifiable();
 
             var args = new[] {"http://0install.de/feeds/test/test1.xml", "--command=command name", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0"};
             AssertParseExecuteResult(args, selectionsNew, "http://0install.de/feeds/test/test2.xml: 1.0 -> 2.0" + Environment.NewLine + "http://0install.de/feeds/test/sub3.xml: new -> 0.1", 0);

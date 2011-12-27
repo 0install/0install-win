@@ -18,7 +18,7 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using NUnit.Mocks;
+using Moq;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Feeds;
@@ -76,11 +76,11 @@ namespace ZeroInstall.Commands
         /// <summary>The content of the last <see cref="MockHandler.Output"/> call.</summary>
         private string _output;
 
-        protected DynamicMock CacheMock { get; private set; }
-        protected DynamicMock OpenPgpMock { get; private set; }
-        protected DynamicMock SolverMock { get; private set; }
-        protected DynamicMock StoreMock { get; private set; }
-        protected DynamicMock FetcherMock { get; private set; }
+        private MockRepository _mockRepository;
+
+        protected Mock<IFeedCache> CacheMock { get; private set; }
+        protected Mock<ISolver> SolverMock { get; private set; }
+        protected Mock<IFetcher> FetcherMock { get; private set; }
         protected Policy Policy { get; private set; }
 
         /// <summary>The command to be tested.</summary>
@@ -91,7 +91,7 @@ namespace ZeroInstall.Commands
         protected abstract CommandBase GetCommand();
 
         [SetUp]
-        public virtual void SetUp()
+        public void SetUp()
         {
             _selections = null;
             _output = null;
@@ -99,26 +99,22 @@ namespace ZeroInstall.Commands
             // Store values passed to callback methods in fields
             _handler = new MockHandler(selections => _selections = selections, information => _output = information);
 
-            CacheMock = new DynamicMock("MockCache", typeof(IFeedCache));
-            OpenPgpMock = new DynamicMock("MockOpenPgp", typeof(IOpenPgp));
-            SolverMock = new DynamicMock("SolverMock", typeof(ISolver));
-            StoreMock = new DynamicMock("MockStore", typeof(IStore));
-            FetcherMock = new DynamicMock("MockFetcher", typeof(IFetcher));
-            FetcherMock.SetReturnValue("get_Store", StoreMock.MockInstance);
-
-            Policy = new Policy(new Config(), new FeedManagerMock((IFeedCache)CacheMock.MockInstance, (IOpenPgp)OpenPgpMock.MockInstance), (IFetcher)FetcherMock.MockInstance, (ISolver)SolverMock.MockInstance, _handler);
+            _mockRepository = new MockRepository(MockBehavior.Strict);
+            CacheMock = _mockRepository.Create<IFeedCache>();
+            SolverMock = _mockRepository.Create<ISolver>();
+            FetcherMock = _mockRepository.Create<IFetcher>(MockBehavior.Loose);
+            FetcherMock.Setup(x => x.Store).Returns(new Mock<IStore>().Object);
+            Policy = new Policy(new Config(),
+                new FeedManagerMock(CacheMock.Object, new Mock<IOpenPgp>().Object),
+                FetcherMock.Object, SolverMock.Object, _handler);
 
             Command = GetCommand();
         }
 
         [TearDown]
-        public virtual void TearDown()
+        public void TearDown()
         {
-            CacheMock.Verify();
-            OpenPgpMock.Verify();
-            SolverMock.Verify();
-            StoreMock.Verify();
-            FetcherMock.Verify();
+            _mockRepository.Verify();
         }
 
         /// <summary>

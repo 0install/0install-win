@@ -15,9 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using NUnit.Framework;
-using NUnit.Mocks;
+using Moq;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
@@ -78,26 +77,28 @@ namespace ZeroInstall.Injector.Solver
         [Test(Description = "Ensures that Selections.ListUncachedImplementations() correctly finds Implementations not cached in a store")]
         public void TestListUncachedImplementations()
         {
-            var cacheMock = new DynamicMock("MockCache", typeof(IFeedCache));
-            var storeMock = new DynamicMock("StoreCache", typeof(IStore));
-
             var feed = FeedTest.CreateTestFeed();
             var selections = CreateTestSelections();
             selections.Implementations.Add(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"});
 
             // Return the generated feed and an empty one (close enough to a point to PackageImplementations)
-            cacheMock.ExpectAndReturn("GetFeed", feed, new Uri("http://0install.de/feeds/test/sub1.xml"));
-            cacheMock.ExpectAndReturn("GetFeed", new Feed(), new Uri("http://0install.de/feeds/test/dummy.xml"));
+            var cacheMock = new Mock<IFeedCache>(MockBehavior.Strict);
+            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub1.xml")).Returns(feed);
+            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/dummy.xml")).Returns(new Feed());
 
             // Pretend the first implementation isn't cached, the second is and the third isn't
-            storeMock.ExpectAndReturn("Contains", false, selections.Implementations[0].ManifestDigest);
-            storeMock.ExpectAndReturn("Contains", true, selections.Implementations[1].ManifestDigest);
-            storeMock.ExpectAndReturn("Contains", false, default(ManifestDigest));
+            var storeMock = new Mock<IStore>(MockBehavior.Strict);
+            storeMock.Setup(x => x.Contains(selections.Implementations[0].ManifestDigest)).Returns(false);
+            storeMock.Setup(x => x.Contains(selections.Implementations[1].ManifestDigest)).Returns(true);
+            storeMock.Setup(x => x.Contains(default(ManifestDigest))).Returns(false);
 
-            var implementations = selections.ListUncachedImplementations((IStore)storeMock.MockInstance, (IFeedCache)cacheMock.MockInstance);
+            var implementations = selections.ListUncachedImplementations(storeMock.Object, cacheMock.Object);
 
             // Only the first implementation should be listed as uncached
             CollectionAssert.AreEquivalent(new[] {feed.Elements[0]}, implementations);
+
+            cacheMock.Verify();
+            storeMock.Verify();
         }
     }
 }

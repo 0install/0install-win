@@ -21,7 +21,7 @@ using System.Text;
 using Common.Storage;
 using Common.Utils;
 using NUnit.Framework;
-using NUnit.Mocks;
+using Moq;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Feeds
@@ -104,13 +104,10 @@ namespace ZeroInstall.Store.Feeds
         public void TestGetSignatures()
         {
             var result = new OpenPgpSignature[0];
-            var openPgpMock = new DynamicMock(typeof(IOpenPgp));
-            var openPgp = (IOpenPgp)openPgpMock.MockInstance;
 
-            var signatures = _cache.GetSignatures("http://0install.de/feeds/test/test1.xml", openPgp);
+            var signatures = _cache.GetSignatures("http://0install.de/feeds/test/test1.xml", new Mock<IOpenPgp>().Object);
 
             CollectionAssert.AreEqual(signatures, result);
-            openPgpMock.Verify();
         }
 
         [Test]

@@ -17,7 +17,7 @@
 
 using Common.Storage;
 using NUnit.Framework;
-using NUnit.Mocks;
+using Moq;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Model;
@@ -49,9 +49,8 @@ namespace ZeroInstall.Injector.Solver
                 CreateTestFeed().Save(tempFile.Path);
 
                 bool staleFeeds;
-                var feedManager = (IFeedManager)new DynamicMock(typeof(IFeedManager)).MockInstance;
-                var fetcher = (IFetcher)new DynamicMock(typeof(IFetcher)).MockInstance;
-                var policy = new Policy(new Config(), feedManager, fetcher, _solver, new SilentHandler());
+                var policy = new Policy(new Config(), new Mock<IFeedManager>().Object, new Mock<IFetcher>().Object, _solver, new SilentHandler());
+
                 Selections selections = _solver.Solve(new Requirements {InterfaceID = tempFile.Path}, policy, out staleFeeds);
                 Assert.IsFalse(staleFeeds, "Local feed files should never be considered stale");
 

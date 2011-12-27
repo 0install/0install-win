@@ -21,7 +21,7 @@ using System.IO;
 using Common.Storage;
 using Common.Utils;
 using NUnit.Framework;
-using NUnit.Mocks;
+using Moq;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
@@ -39,18 +39,11 @@ namespace ZeroInstall.Injector
         #endregion
 
         #region Shared
-        private DynamicMock _storeMock;
-
-        private IStore TestStore { get { return (IStore)_storeMock.MockInstance; } }
-
         private TemporaryDirectory _tempDir;
 
         [SetUp]
         public void SetUp()
         {
-            // Prepare mock objects that will be injected with methods in the tests
-            _storeMock = new DynamicMock("MockStore", typeof(IStore));
-
             // Don't store generated executables settings in real user profile
             _tempDir = new TemporaryDirectory("0install-unit-tests");
             Locations.PortableBase = _tempDir.Path;
@@ -60,9 +53,6 @@ namespace ZeroInstall.Injector
         [TearDown]
         public void TearDown()
         {
-            // Ensure no method calls were left out
-            _storeMock.Verify();
-
             Locations.PortableBase = Locations.InstallBase;
             _tempDir.Dispose();
         }
@@ -74,35 +64,23 @@ namespace ZeroInstall.Injector
         [Test]
         public void TestExceptions()
         {
-            Assert.Throws<ArgumentException>(() => new Executor(new Selections(), TestStore), "Empty selections should be rejected");
+            Assert.Throws<ArgumentException>(() => new Executor(new Selections(), new Mock<IStore>().Object), "Empty selections should be rejected");
 
             var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations[1].Commands[0].WorkingDir = new WorkingDir();
-            _storeMock.SetReturnValue("GetPath", "test path");
-            var executor = new Executor(selections, TestStore);
+
+            var storeMock = new Mock<IStore>(MockBehavior.Loose);
+            storeMock.Setup(x => x.GetPath(It.IsAny<ManifestDigest>())).Returns("test path");
+            var executor = new Executor(selections, storeMock.Object);
             Assert.Throws<CommandException>(() => executor.GetStartInfo(), "Multiple WorkingDir changes should be rejected");
         }
 
-        private void PrepareStoreMock(Selections selections, bool emptyInnerCommand)
+        private IStore GetMockStore(Selections selections)
         {
-            _storeMock.ExpectAndReturn("GetPath", Test1Path, selections.Implementations[1].ManifestDigest); // Self-binding for first implementation
-            _storeMock.ExpectAndReturn("GetPath", Test2Path, selections.Implementations[2].ManifestDigest); // Binding for dependency from first to second implementation
-            _storeMock.ExpectAndReturn("GetPath", Test2Path, selections.Implementations[2].ManifestDigest); // Self-binding for second implementation
-
-            // Binding for dependency from second to first implementation as executable
-            for (int i = 0; i < 2; i++)
-            { // For ExecutableInVar and ExecutableInPath
-                _storeMock.ExpectAndReturn("GetPath", Test1Path, selections.Implementations[1].ManifestDigest); // Binding for command dependency from second to first implementation
-                _storeMock.ExpectAndReturn("GetPath", Test2Path, selections.Implementations[2].ManifestDigest); // Second/outer/runner command for command-line
-                _storeMock.ExpectAndReturn("GetPath", Test1Path, selections.Implementations[1].ManifestDigest); // First/inner command for command-line
-            }
-
-            _storeMock.ExpectAndReturn("GetPath", Test1Path, selections.Implementations[1].ManifestDigest); // Self-binding for first command
-            _storeMock.ExpectAndReturn("GetPath", Test1Path, selections.Implementations[1].ManifestDigest); // Working dir for first/inner command
-            _storeMock.ExpectAndReturn("GetPath", Test1Path, selections.Implementations[1].ManifestDigest); // Binding for command dependency from second to first implementation
-            _storeMock.ExpectAndReturn("GetPath", Test2Path, selections.Implementations[2].ManifestDigest); // Second/outer/runner command for command-line
-            if (!emptyInnerCommand)
-                _storeMock.ExpectAndReturn("GetPath", Test1Path, selections.Implementations[1].ManifestDigest); // First/inner command for command-line
+            var storeMock = new Mock<IStore>(MockBehavior.Loose);
+            storeMock.Setup(x => x.GetPath(selections.Implementations[1].ManifestDigest)).Returns(Test1Path);
+            storeMock.Setup(x => x.GetPath(selections.Implementations[2].ManifestDigest)).Returns(Test2Path);
+            return storeMock.Object;
         }
 
         private static void CheckEnvironment(ProcessStartInfo startInfo, Selections selections)
@@ -139,9 +117,7 @@ namespace ZeroInstall.Injector
             var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations.InsertFirst(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
-            PrepareStoreMock(selections, false);
-
-            var executor = new Executor(selections, TestStore);
+            var executor = new Executor(selections, GetMockStore(selections));
             var startInfo = executor.GetStartInfo("--custom");
             Assert.AreEqual(
                 Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
@@ -173,9 +149,7 @@ namespace ZeroInstall.Injector
             var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations.InsertFirst(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
-            PrepareStoreMock(selections, false);
-
-            var executor = new Executor(selections, TestStore) {Wrapper = "wrapper --wrapper"};
+            var executor = new Executor(selections, GetMockStore(selections)) {Wrapper = "wrapper --wrapper"};
             var startInfo = executor.GetStartInfo("--custom");
             Assert.AreEqual("wrapper", startInfo.FileName);
             Assert.AreEqual(
@@ -204,9 +178,7 @@ namespace ZeroInstall.Injector
             var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations.InsertFirst(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
-            PrepareStoreMock(selections, false);
-
-            var executor = new Executor(selections, TestStore) {Main = "main"};
+            var executor = new Executor(selections, GetMockStore(selections)) {Main = "main"};
             var startInfo = executor.GetStartInfo("--custom");
             Assert.AreEqual(
                 Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
@@ -235,9 +207,7 @@ namespace ZeroInstall.Injector
             var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations.InsertFirst(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
-            PrepareStoreMock(selections, false);
-
-            var executor = new Executor(selections, TestStore) {Main = "/main"};
+            var executor = new Executor(selections, GetMockStore(selections)) {Main = "/main"};
             var startInfo = executor.GetStartInfo("--custom");
             Assert.AreEqual(
                 Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
@@ -267,9 +237,7 @@ namespace ZeroInstall.Injector
             selections.Implementations.InsertFirst(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
             selections.Implementations[1].Commands[0].Path = null;
 
-            PrepareStoreMock(selections, true);
-
-            var executor = new Executor(selections, TestStore);
+            var executor = new Executor(selections, GetMockStore(selections));
             var startInfo = executor.GetStartInfo("--custom");
             Assert.AreEqual(
                 Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),

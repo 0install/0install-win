@@ -19,7 +19,7 @@ using System;
 using System.IO;
 using Common.Storage;
 using NUnit.Framework;
-using NUnit.Mocks;
+using Moq;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
@@ -33,8 +33,8 @@ namespace ZeroInstall.Injector.Feeds
     [TestFixture]
     public class FeedManagerTest
     {
-        private DynamicMock _cacheMock;
-        private DynamicMock _openPgpMock;
+        private Mock<IFeedCache> _cacheMock;
+        private Mock<IOpenPgp> _openPgpMock;
 
         private FeedManager _feedManager;
         private Policy _policy;
@@ -42,13 +42,10 @@ namespace ZeroInstall.Injector.Feeds
         [SetUp]
         public void SetUp()
         {
-            _cacheMock = new DynamicMock("MockFeedCache", typeof(IFeedCache));
-            _openPgpMock = new DynamicMock("MockOpenPgp", typeof(IOpenPgp));
-            _feedManager = new FeedManager((IFeedCache)_cacheMock.MockInstance, (IOpenPgp)_openPgpMock.MockInstance);
-
-            var fetcher = (IFetcher)new DynamicMock("MockFetcher", typeof(IFetcher)).MockInstance;
-            var solver = (ISolver)new DynamicMock("MockSolver", typeof(ISolver)).MockInstance;
-            _policy = new Policy(new Config(), _feedManager, fetcher, solver, new SilentHandler());
+            _cacheMock = new Mock<IFeedCache>(MockBehavior.Strict);
+            _openPgpMock = new Mock<IOpenPgp>(MockBehavior.Strict);
+            _feedManager = new FeedManager(_cacheMock.Object, _openPgpMock.Object);
+            _policy = new Policy(new Config(), _feedManager, new Mock<IFetcher>().Object, new Mock<ISolver>().Object, new SilentHandler());
         }
 
         [TearDown]
@@ -65,7 +62,7 @@ namespace ZeroInstall.Injector.Feeds
 
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-                _cacheMock.ExpectAndReturn("GetFeed", feed, tempFile.Path);
+                _cacheMock.Setup(x => x.GetFeed(tempFile.Path)).Returns(feed);
 
                 bool stale;
                 Assert.AreSame(feed, _feedManager.GetFeed(tempFile.Path, _policy, out stale));
@@ -85,8 +82,8 @@ namespace ZeroInstall.Injector.Feeds
         {
             var feed = new Feed();
 
-            _cacheMock.ExpectAndReturn("Contains", true, "http://0install.de/feeds/test/test1.xml");
-            _cacheMock.ExpectAndReturn("GetFeed", feed, "http://0install.de/feeds/test/test1.xml");
+            _cacheMock.Setup(x => x.Contains("http://0install.de/feeds/test/test1.xml")).Returns(true);
+            _cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test1.xml")).Returns(feed);
 
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
             {
@@ -108,8 +105,8 @@ namespace ZeroInstall.Injector.Feeds
         {
             var feed = new Feed();
 
-            _cacheMock.ExpectAndReturn("Contains", true, "http://0install.de/feeds/test/test1.xml");
-            _cacheMock.ExpectAndReturn("GetFeed", feed, "http://0install.de/feeds/test/test1.xml");
+            _cacheMock.Setup(x => x.Contains("http://0install.de/feeds/test/test1.xml")).Returns(true);
+            _cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test1.xml")).Returns(feed);
 
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
             {

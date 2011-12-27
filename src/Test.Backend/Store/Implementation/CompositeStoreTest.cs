@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.IO;
 using Common.Tasks;
 using NUnit.Framework;
-using NUnit.Mocks;
+using Moq;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation.Archive;
@@ -41,27 +41,25 @@ namespace ZeroInstall.Store.Implementation
         private static readonly IEnumerable<ArchiveFileInfo> _archives = new[] {_archive1, _archive2};
         private static readonly ITaskHandler _handler = new SilentHandler();
 
-        private DynamicMock _mock1, _mock2;
-
-        /// <summary>
-        /// A <see cref="CompositeStore"/> composed of <see cref="_mock1"/> and <see cref="_mock2"/>.
-        /// </summary>
-        private CompositeStore TestStore { get { return new CompositeStore((IStore)_mock1.MockInstance, (IStore)_mock2.MockInstance); } }
+        private Mock<IStore> _mockStore1, _mockStore2;
+        private CompositeStore _testStore;
 
         [SetUp]
         public void SetUp()
         {
             // Prepare mock objects that will be injected with methods in the tests
-            _mock1 = new DynamicMock("MockStore1", typeof(IStore));
-            _mock2 = new DynamicMock("MockStore2", typeof(IStore));
+            _mockStore1 = new Mock<IStore>(MockBehavior.Strict);
+            _mockStore2 = new Mock<IStore>(MockBehavior.Strict);
+
+            _testStore = new CompositeStore(_mockStore1.Object, _mockStore2.Object);
         }
 
         [TearDown]
         public void TearDown()
         {
             // Ensure no method calls were left out
-            _mock1.Verify();
-            _mock2.Verify();
+            _mockStore1.Verify();
+            _mockStore2.Verify();
         }
         #endregion
 
@@ -69,9 +67,9 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestListAll()
         {
-            _mock1.ExpectAndReturn("ListAll", new[] {_digest1});
-            _mock2.ExpectAndReturn("ListAll", new[] {_digest2});
-            CollectionAssert.AreEquivalent(new[] {_digest1, _digest2}, TestStore.ListAll(), "Should combine results from all stores");
+            _mockStore1.Setup(x => x.ListAll()).Returns(new[] {_digest1});
+            _mockStore2.Setup(x => x.ListAll()).Returns(new[] {_digest2});
+            CollectionAssert.AreEquivalent(new[] {_digest1, _digest2}, _testStore.ListAll(), "Should combine results from all stores");
         }
         #endregion
 
@@ -79,25 +77,24 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestContainsFirst()
         {
-            _mock1.ExpectAndReturn("Contains", false, _digest1);
-            _mock2.ExpectAndReturn("Contains", true, _digest1);
-            Assert.IsTrue(TestStore.Contains(_digest1));
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(true);
+            Assert.IsTrue(_testStore.Contains(_digest1));
         }
 
         [Test]
         public void TestContainsSecond()
         {
-            _mock1.ExpectAndReturn("Contains", true, _digest1);
-            _mock2.ExpectNoCall("Contains"); // Don't waste further time once a hit was found
-            Assert.IsTrue(TestStore.Contains(_digest1));
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(true);
+            Assert.IsTrue(_testStore.Contains(_digest1));
         }
 
         [Test]
         public void TestContainsFalse()
         {
-            _mock1.ExpectAndReturn("Contains", false, _digest1);
-            _mock2.ExpectAndReturn("Contains", false, _digest1);
-            Assert.IsFalse(TestStore.Contains(_digest1));
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false);
+            Assert.IsFalse(_testStore.Contains(_digest1));
         }
         #endregion
 
@@ -105,31 +102,26 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestGetPathFirst()
         {
-            _mock1.ExpectAndReturn("Contains", true, _digest1);
-            _mock1.ExpectAndReturn("GetPath", "path", _digest1);
-            _mock2.ExpectNoCall("Contains"); // Don't waste further time once a hit was found
-            _mock2.ExpectNoCall("GetPath");
-            Assert.AreEqual("path", TestStore.GetPath(_digest1), "Should get path from first mock");
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(true);
+            _mockStore1.Setup(x => x.GetPath(_digest1)).Returns("path");
+            Assert.AreEqual("path", _testStore.GetPath(_digest1), "Should get path from first mock");
         }
 
         [Test]
         public void TestGetPathSecond()
         {
-            _mock1.ExpectAndReturn("Contains", false, _digest1);
-            _mock1.ExpectNoCall("GetPath");
-            _mock2.ExpectAndReturn("Contains", true, _digest1);
-            _mock2.ExpectAndReturn("GetPath", "path", _digest1);
-            Assert.AreEqual("path", TestStore.GetPath(_digest1), "Should get path from second mock");
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(true);
+            _mockStore2.Setup(x => x.GetPath(_digest1)).Returns("path");
+            Assert.AreEqual("path", _testStore.GetPath(_digest1), "Should get path from second mock");
         }
 
         [Test]
         public void TestGetPathFail()
         {
-            _mock1.ExpectAndReturn("Contains", false, _digest1);
-            _mock1.ExpectNoCall("GetPath");
-            _mock2.ExpectAndReturn("Contains", false, _digest1);
-            _mock2.ExpectNoCall("GetPath");
-            Assert.Throws<ImplementationNotFoundException>(() => TestStore.GetPath(_digest1), "Should pass through fatal exceptions");
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false);
+            Assert.Throws<ImplementationNotFoundException>(() => _testStore.GetPath(_digest1), "Should pass through fatal exceptions");
         }
         #endregion
 
@@ -137,25 +129,24 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestAddDirectoryFirst()
         {
-            _mock2.Expect("AddDirectory", "path", _digest1, _handler);
-            _mock1.ExpectNoCall("AddDirectory"); // Only add once
-            TestStore.AddDirectory("path", _digest1, _handler);
+            _mockStore2.Setup(x => x.AddDirectory("path", _digest1, _handler));
+            _testStore.AddDirectory("path", _digest1, _handler);
         }
 
         [Test]
         public void TestAddDirectorySecond()
         {
-            _mock2.ExpectAndThrow("AddDirectory", new IOException(), "path", _digest1, _handler);
-            _mock1.Expect("AddDirectory", "path", _digest1, _handler);
-            TestStore.AddDirectory("path", _digest1, _handler);
+            _mockStore2.Setup(x => x.AddDirectory("path", _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
+            _mockStore1.Setup(x => x.AddDirectory("path", _digest1, _handler));
+            _testStore.AddDirectory("path", _digest1, _handler);
         }
 
         [Test]
         public void TestAddDirectoryFail()
         {
-            _mock2.ExpectAndThrow("AddDirectory", new IOException(), "path", _digest1, _handler);
-            _mock1.ExpectAndThrow("AddDirectory", new IOException(), "path", _digest1, _handler);
-            Assert.Throws<IOException>(() => TestStore.AddDirectory("path", _digest1, _handler), "Should pass through fatal exceptions");
+            _mockStore2.Setup(x => x.AddDirectory("path", _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
+            _mockStore1.Setup(x => x.AddDirectory("path", _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
+            Assert.Throws<IOException>(() => _testStore.AddDirectory("path", _digest1, _handler), "Should pass through fatal exceptions");
         }
         #endregion
 
@@ -163,25 +154,24 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestAddArchivesFirst()
         {
-            _mock2.Expect("AddArchives", _archives, _digest1, _handler);
-            _mock1.ExpectNoCall("AddArchives"); // Only add once
-            TestStore.AddArchives(_archives, _digest1, _handler);
+            _mockStore2.Setup(x => x.AddArchives(_archives, _digest1, _handler));
+            _testStore.AddArchives(_archives, _digest1, _handler);
         }
 
         [Test]
         public void TestAddArchivesSecond()
         {
-            _mock2.ExpectAndThrow("AddArchives", new IOException(), _archives, _digest1, _handler);
-            _mock1.Expect("AddArchives", _archives, _digest1, _handler);
-            TestStore.AddArchives(_archives, _digest1, _handler);
+            _mockStore2.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
+            _mockStore1.Setup(x => x.AddArchives(_archives, _digest1, _handler));
+            _testStore.AddArchives(_archives, _digest1, _handler);
         }
 
         [Test]
         public void TestAddArchivesFail()
         {
-            _mock2.ExpectAndThrow("AddArchives", new IOException(), _archives, _digest1, _handler);
-            _mock1.ExpectAndThrow("AddArchives", new IOException(), _archives, _digest1, _handler);
-            Assert.Throws<IOException>(() => TestStore.AddArchives(_archives, _digest1, _handler), "Should pass through fatal exceptions");
+            _mockStore2.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
+            _mockStore1.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
+            Assert.Throws<IOException>(() => _testStore.AddArchives(_archives, _digest1, _handler), "Should pass through fatal exceptions");
         }
         #endregion
 
@@ -189,31 +179,28 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestRemoveBoth()
         {
-            _mock1.ExpectAndReturn("Contains", true, _digest1);
-            _mock1.Expect("Remove");
-            _mock2.ExpectAndReturn("Contains", true, _digest1);
-            _mock2.Expect("Remove");
-            TestStore.Remove(_digest1, _handler);
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(true);
+            _mockStore1.Setup(x => x.Remove(_digest1, _handler));
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(true);
+            _mockStore2.Setup(x => x.Remove(_digest1, _handler));
+            _testStore.Remove(_digest1, _handler);
         }
 
         [Test]
         public void TestRemoveSecond()
         {
-            _mock1.ExpectAndReturn("Contains", false, _digest1);
-            _mock1.ExpectNoCall("Remove");
-            _mock2.ExpectAndReturn("Contains", true, _digest1);
-            _mock2.Expect("Remove");
-            TestStore.Remove(_digest1, _handler);
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(true);
+            _mockStore2.Setup(x => x.Remove(_digest1, _handler));
+            _testStore.Remove(_digest1, _handler);
         }
 
         [Test]
         public void TestRemoveFail()
         {
-            _mock1.ExpectAndReturn("Contains", false, _digest1);
-            _mock1.ExpectNoCall("Remove");
-            _mock2.ExpectAndReturn("Contains", false, _digest1);
-            _mock2.ExpectNoCall("Remove");
-            Assert.Throws<ImplementationNotFoundException>(() => TestStore.Remove(_digest1, _handler), "Should report if none of the stores contained the implementation");
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false);
+            Assert.Throws<ImplementationNotFoundException>(() => _testStore.Remove(_digest1, _handler), "Should report if none of the stores contained the implementation");
         }
         #endregion
 
@@ -221,9 +208,9 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestOptimise()
         {
-            _mock1.ExpectAndThrow("Optimise", new IOException(), _handler);
-            _mock2.Expect("Optimise", _handler);
-            Assert.DoesNotThrow(() => TestStore.Optimise(_handler), "Exceptions should be caught and logged");
+            _mockStore1.Setup(x => x.Optimise(_handler)).Throws(new IOException("Fake IO exception for testing"));
+            _mockStore2.Setup(x => x.Optimise(_handler));
+            Assert.DoesNotThrow(() => _testStore.Optimise(_handler), "Exceptions should be caught and logged");
         }
         #endregion
 
@@ -231,9 +218,9 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestVerify()
         {
-            _mock1.Expect("Verify", _digest1, _handler);
-            _mock2.Expect("Verify", _digest1, _handler);
-            TestStore.Verify(_digest1, _handler);
+            _mockStore1.Setup(x => x.Verify(_digest1, _handler));
+            _mockStore2.Setup(x => x.Verify(_digest1, _handler));
+            _testStore.Verify(_digest1, _handler);
         }
         #endregion
 
@@ -243,11 +230,11 @@ namespace ZeroInstall.Store.Implementation
         {
             var problem1 = new DigestMismatchException("Problem 1");
             var problem2 = new DigestMismatchException("Problem 2");
-            _mock1.ExpectAndReturn("Audit", new[] {problem1}, _handler);
-            _mock2.ExpectAndReturn("Audit", new[] {problem2}, _handler);
+            _mockStore1.Setup(x => x.Audit(_handler)).Returns(new[] {problem1});
+            _mockStore2.Setup(x => x.Audit(_handler)).Returns(new[] {problem2});
 
             // Copy the result into a list to force the enumerator to run through
-            var problems = new List<DigestMismatchException>(TestStore.Audit(_handler));
+            var problems = new List<DigestMismatchException>(_testStore.Audit(_handler));
             CollectionAssert.AreEquivalent(new[] {problem1, problem2}, problems, "Should combine results from all stores");
         }
 
@@ -255,11 +242,11 @@ namespace ZeroInstall.Store.Implementation
         public void TestAuditPartial()
         {
             var problem = new DigestMismatchException("Problem 1");
-            _mock1.ExpectAndReturn("Audit", null, _handler);
-            _mock2.ExpectAndReturn("Audit", new[] {problem}, _handler);
+            _mockStore1.Setup(x => x.Audit(_handler)).Returns(() => null);
+            _mockStore2.Setup(x => x.Audit(_handler)).Returns(new[] {problem});
 
             // Copy the result into a list to force the enumerator to run through
-            var problems = new List<DigestMismatchException>(TestStore.Audit(_handler));
+            var problems = new List<DigestMismatchException>(_testStore.Audit(_handler));
             CollectionAssert.AreEquivalent(new[] {problem}, problems, "Should combine results from all stores");
         }
         #endregion

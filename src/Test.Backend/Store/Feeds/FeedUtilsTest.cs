@@ -19,7 +19,7 @@ using System;
 using System.IO;
 using System.Text;
 using NUnit.Framework;
-using NUnit.Mocks;
+using Moq;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Feeds
@@ -40,13 +40,13 @@ namespace ZeroInstall.Store.Feeds
             var feed3 = FeedTest.CreateTestFeed();
             feed3.Uri = new Uri("http://0install.de/feeds/test/test3.xml");
 
-            var cacheMock = new DynamicMock("MockCache", typeof(IFeedCache));
-            cacheMock.ExpectAndReturn("ListAll", new[] {"http://0install.de/feeds/test/test1.xml", "http://0install.de/feeds/test/test2.xml", "http://0install.de/feeds/test/test3.xml"});
-            cacheMock.ExpectAndReturn("GetFeed", feed1, "http://0install.de/feeds/test/test1.xml");
-            cacheMock.ExpectAndThrow("GetFeed", new IOException("Fake IO exception for testing"), "http://0install.de/feeds/test/test2.xml");
-            cacheMock.ExpectAndReturn("GetFeed", feed3, "http://0install.de/feeds/test/test3.xml");
+            var cacheMock = new Mock<IFeedCache>(MockBehavior.Strict);
+            cacheMock.Setup(x => x.ListAll()).Returns(new[] {"http://0install.de/feeds/test/test1.xml", "http://0install.de/feeds/test/test2.xml", "http://0install.de/feeds/test/test3.xml"});
+            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test1.xml")).Returns(feed1);
+            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test2.xml")).Throws(new IOException("Fake IO exception for testing"));
+            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test3.xml")).Returns(feed3);
 
-            CollectionAssert.AreEqual(new[] {feed1, feed3}, FeedUtils.GetFeeds((IFeedCache)cacheMock.MockInstance));
+            CollectionAssert.AreEqual(new[] {feed1, feed3}, FeedUtils.GetFeeds(cacheMock.Object));
         }
 
         private const string FeedText = "Feed data\n";
@@ -62,12 +62,12 @@ namespace ZeroInstall.Store.Feeds
         [Test]
         public void TestGetSignatures()
         {
-            var openPgpMock = new DynamicMock(typeof(IOpenPgp));
+            var openPgpMock = new Mock<IOpenPgp>(MockBehavior.Strict);
             var result = new OpenPgpSignature[] {new ValidSignature("123", new DateTime(2000, 1, 1))};
-            openPgpMock.ExpectAndReturn("Verify", result, _feedBytes, _signatureBytes);
+            openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(result);
 
             string input = FeedText + SignatureBlockStart + _signatureBase64 + SignatureBlockEnd;
-            CollectionAssert.AreEqual(result, FeedUtils.GetSignatures((IOpenPgp)openPgpMock.MockInstance, Encoding.UTF8.GetBytes(input)));
+            CollectionAssert.AreEqual(result, FeedUtils.GetSignatures(openPgpMock.Object, Encoding.UTF8.GetBytes(input)));
 
             openPgpMock.Verify();
         }
@@ -79,7 +79,7 @@ namespace ZeroInstall.Store.Feeds
         public void TestGetSignaturesMissingNewLine()
         {
             string input = "Feed without newline" + SignatureBlockStart + _signatureBase64 + SignatureBlockEnd;
-            Assert.Throws<SignatureException>(() => FeedUtils.GetSignatures((IOpenPgp)new DynamicMock(typeof(IOpenPgp)).MockInstance, Encoding.UTF8.GetBytes(input)));
+            Assert.Throws<SignatureException>(() => FeedUtils.GetSignatures(new Mock<IOpenPgp>().Object, Encoding.UTF8.GetBytes(input)));
         }
 
         /// <summary>
@@ -88,8 +88,8 @@ namespace ZeroInstall.Store.Feeds
         [Test]
         public void TestGetSignaturesInvalidChars()
         {
-            string input = FeedText + SignatureBlockStart + "*!?#" + SignatureBlockEnd;
-            Assert.Throws<SignatureException>(() => FeedUtils.GetSignatures((IOpenPgp)new DynamicMock(typeof(IOpenPgp)).MockInstance, Encoding.UTF8.GetBytes(input)));
+            const string input = FeedText + SignatureBlockStart + "*!?#" + SignatureBlockEnd;
+            Assert.Throws<SignatureException>(() => FeedUtils.GetSignatures(new Mock<IOpenPgp>().Object, Encoding.UTF8.GetBytes(input)));
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace ZeroInstall.Store.Feeds
         public void TestGetSignaturesMissingEnd()
         {
             string input = FeedText + SignatureBlockStart + _signatureBase64;
-            Assert.Throws<SignatureException>(() => FeedUtils.GetSignatures((IOpenPgp)new DynamicMock(typeof(IOpenPgp)).MockInstance, Encoding.UTF8.GetBytes(input)));
+            Assert.Throws<SignatureException>(() => FeedUtils.GetSignatures(new Mock<IOpenPgp>().Object, Encoding.UTF8.GetBytes(input)));
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace ZeroInstall.Store.Feeds
         public void TestGetSignaturesDataAfterSignature()
         {
             string input = FeedText + SignatureBlockStart + _signatureBase64 + SignatureBlockEnd + "more data";
-            Assert.Throws<SignatureException>(() => FeedUtils.GetSignatures((IOpenPgp)new DynamicMock(typeof(IOpenPgp)).MockInstance, Encoding.UTF8.GetBytes(input)));
+            Assert.Throws<SignatureException>(() => FeedUtils.GetSignatures(new Mock<IOpenPgp>().Object, Encoding.UTF8.GetBytes(input)));
         }
     }
 }
