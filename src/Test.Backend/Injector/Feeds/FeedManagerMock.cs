@@ -60,17 +60,6 @@ namespace ZeroInstall.Injector.Feeds
 
         //--------------------//
 
-        #region Clone
-        /// <summary>
-        /// Creates a shallow copy of this feed manager.
-        /// </summary>
-        /// <returns>The new copy of thefeed manager</returns>
-        public override IFeedManager CloneFeedManager()
-        {
-            return new FeedManagerMock(Cache, OpenPgp) {Refresh = Refresh};
-        }
-        #endregion
-
         #region Equality
         /// <inheritdoc/>
         public bool Equals(FeedManagerMock other)

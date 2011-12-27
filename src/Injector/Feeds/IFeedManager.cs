@@ -27,7 +27,7 @@ namespace ZeroInstall.Injector.Feeds
     /// <summary>
     /// Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.
     /// </summary>
-    public interface IFeedManager
+    public interface IFeedManager : ICloneable
     {
         /// <summary>
         /// The cache to retreive <see cref="Feed"/>s from and store downloaded <see cref="Feed"/>s to.
@@ -40,7 +40,7 @@ namespace ZeroInstall.Injector.Feeds
         IOpenPgp OpenPgp { get; }
 
         /// <summary>
-        /// Set to <see langword="true"/> to update already cached <see cref="Feed"/>s. 
+        /// Set to <see langword="true"/> to re-download <see cref="Feed"/>s even if they are already in the <see cref="Cache"/>.
         /// </summary>
         bool Refresh { get; set; }
 
