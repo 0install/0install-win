@@ -273,10 +273,10 @@ namespace Common.Utils
 
                 // Set up delegate mocks
                 var dirCallbackMock = new Mock<IActionSimulator<string>>(MockBehavior.Strict);
-                dirCallbackMock.Setup(x => x.Invoke(tempDir.Path));
-                dirCallbackMock.Setup(x => x.Invoke(subDirPath));
+                dirCallbackMock.Setup(x => x.Invoke(tempDir.Path)).Verifiable();
+                dirCallbackMock.Setup(x => x.Invoke(subDirPath)).Verifiable();
                 var fileCallbackMock = new Mock<IActionSimulator<string>>(MockBehavior.Strict);
-                fileCallbackMock.Setup(x => x.Invoke(filePath));
+                fileCallbackMock.Setup(x => x.Invoke(filePath)).Verifiable();
 
                 FileUtils.WalkDirectory(new DirectoryInfo(tempDir.Path),
                     subDir => dirCallbackMock.Object.Invoke(subDir.FullName),

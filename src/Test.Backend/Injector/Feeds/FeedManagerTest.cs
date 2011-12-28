@@ -62,7 +62,7 @@ namespace ZeroInstall.Injector.Feeds
 
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-                _cacheMock.Setup(x => x.GetFeed(tempFile.Path)).Returns(feed);
+                _cacheMock.Setup(x => x.GetFeed(tempFile.Path)).Returns(feed).Verifiable();
 
                 bool stale;
                 Assert.AreSame(feed, _feedManager.GetFeed(tempFile.Path, _policy, out stale));
@@ -82,8 +82,8 @@ namespace ZeroInstall.Injector.Feeds
         {
             var feed = new Feed();
 
-            _cacheMock.Setup(x => x.Contains("http://0install.de/feeds/test/test1.xml")).Returns(true);
-            _cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test1.xml")).Returns(feed);
+            _cacheMock.Setup(x => x.Contains("http://0install.de/feeds/test/test1.xml")).Returns(true).Verifiable();
+            _cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test1.xml")).Returns(feed).Verifiable();
 
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
             {
@@ -105,8 +105,8 @@ namespace ZeroInstall.Injector.Feeds
         {
             var feed = new Feed();
 
-            _cacheMock.Setup(x => x.Contains("http://0install.de/feeds/test/test1.xml")).Returns(true);
-            _cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test1.xml")).Returns(feed);
+            _cacheMock.Setup(x => x.Contains("http://0install.de/feeds/test/test1.xml")).Returns(true).Verifiable();
+            _cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test1.xml")).Returns(feed).Verifiable();
 
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
             {

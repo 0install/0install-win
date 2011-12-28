@@ -269,7 +269,7 @@ namespace ZeroInstall.Store.Implementation
             try
             {
                 var handlerMock = new Mock<ITaskHandler>(MockBehavior.Strict);
-                handlerMock.Setup(x => x.RunTask(It.IsAny<ITask>(), It.IsAny<string>()));
+                handlerMock.Setup(x => x.RunTask(It.IsAny<ITask>(), It.IsAny<string>())).Verifiable();
                 Manifest.Generate(packageDir, ManifestFormat.Sha256, handlerMock.Object, null);
                 handlerMock.Verify();
             }

@@ -53,8 +53,8 @@ namespace ZeroInstall.Commands
             Policy.FeedManager.Refresh = true;
 
             bool stale;
-            SolverMock.Setup(x => x.Solve(requirements, noRefreshPolicy, out stale)).Returns(selectionsOld); // No refresh Solve()
-            SolverMock.Setup(x => x.Solve(requirements, Policy, out stale)).Returns(selectionsNew); // Refresh Solve()
+            SolverMock.Setup(x => x.Solve(requirements, noRefreshPolicy, out stale)).Returns(selectionsOld).Verifiable(); // No refresh Solve()
+            SolverMock.Setup(x => x.Solve(requirements, Policy, out stale)).Returns(selectionsNew).Verifiable(); // Refresh Solve()
             CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub1.xml")).Returns(FeedTest.CreateTestFeed());
             CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(FeedTest.CreateTestFeed());
             CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub3.xml")).Returns(FeedTest.CreateTestFeed());

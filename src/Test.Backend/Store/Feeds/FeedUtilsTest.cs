@@ -41,10 +41,10 @@ namespace ZeroInstall.Store.Feeds
             feed3.Uri = new Uri("http://0install.de/feeds/test/test3.xml");
 
             var cacheMock = new Mock<IFeedCache>(MockBehavior.Strict);
-            cacheMock.Setup(x => x.ListAll()).Returns(new[] {"http://0install.de/feeds/test/test1.xml", "http://0install.de/feeds/test/test2.xml", "http://0install.de/feeds/test/test3.xml"});
-            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test1.xml")).Returns(feed1);
-            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test2.xml")).Throws(new IOException("Fake IO exception for testing"));
-            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test3.xml")).Returns(feed3);
+            cacheMock.Setup(x => x.ListAll()).Returns(new[] {"http://0install.de/feeds/test/test1.xml", "http://0install.de/feeds/test/test2.xml", "http://0install.de/feeds/test/test3.xml"}).Verifiable();
+            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test1.xml")).Returns(feed1).Verifiable();
+            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test2.xml")).Throws(new IOException("Fake IO exception for testing")).Verifiable();
+            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test3.xml")).Returns(feed3).Verifiable();
 
             CollectionAssert.AreEqual(new[] {feed1, feed3}, FeedUtils.GetFeeds(cacheMock.Object));
         }
@@ -64,7 +64,7 @@ namespace ZeroInstall.Store.Feeds
         {
             var openPgpMock = new Mock<IOpenPgp>(MockBehavior.Strict);
             var result = new OpenPgpSignature[] {new ValidSignature("123", new DateTime(2000, 1, 1))};
-            openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(result);
+            openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(result).Verifiable();
 
             string input = FeedText + SignatureBlockStart + _signatureBase64 + SignatureBlockEnd;
             CollectionAssert.AreEqual(result, FeedUtils.GetSignatures(openPgpMock.Object, Encoding.UTF8.GetBytes(input)));

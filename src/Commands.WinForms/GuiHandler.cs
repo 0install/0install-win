@@ -36,7 +36,7 @@ namespace ZeroInstall.Commands.WinForms
     /// Uses <see cref="System.Windows.Forms"/> to inform the user about the progress of tasks and ask the user questions.
     /// </summary>
     /// <remarks>
-    /// This class is heavily multi-threaded. The UI is prepared in the background with a low priority to allow simultaneous continuation of computation.
+    /// This class is heavily multi-threaded. The UI is prepared in a background thread to allow simultaneous continuation of computation.
     /// Any calls relying on the UI being reading will block automatically.
     /// </remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Disposal is handled sufficiently by GC in this case")]
@@ -44,8 +44,12 @@ namespace ZeroInstall.Commands.WinForms
     {
         #region Variables
         private ProgressForm _form;
+        private Thread _guiThread;
 
-        /// <summary>A barrier that blocks threads until the <see cref="_form"/>'s handle is ready.</summary>
+        /// <summary>A barrier that blocks threads until the <see cref="_form"/> is to be shown.</summary>
+        private readonly EventWaitHandle _guiStart = new EventWaitHandle(false, EventResetMode.ManualReset);
+
+        /// <summary>A barrier that blocks threads until the <see cref="_form"/> is ready.</summary>
         private readonly EventWaitHandle _guiReady = new EventWaitHandle(false, EventResetMode.ManualReset);
 
         /// <summary>A wait handle used by <see cref="AuditSelections"/> to be signaled once the user is satisfied with the <see cref="Selections"/>.</summary>
@@ -99,41 +103,29 @@ namespace ZeroInstall.Commands.WinForms
             if (cancelCallback == null) throw new ArgumentNullException("cancelCallback");
             #endregion
 
-            // Can only show GUI once
-            if (_form != null) return;
-
-            // For cancellation execute the original cancel delegate and also stop any running selections auditing
-            _form = new ProgressForm(delegate
+            _guiThread = new Thread(delegate()
             {
-                cancelCallback();
-                _auditWaitHandle.Set();
+                // Prepare the form
+                _form = new ProgressForm(
+                    // For cancellation execute the original cancel delegate and also stop any running selections auditing
+                    cancelCallback + (() => _auditWaitHandle.Set()));
+                _form.Initialize();
+                if (ActionTitle != null) _form.Text = ActionTitle;
+                if (Locations.IsPortable) _form.Text += " - " + Resources.PortableMode;
+
+                // Wait until the form is actually to become visible
+                _guiStart.WaitOne();
+
+                // Show the tray icon or the form
+                if (Batch) _form.ShowTrayIcon(ActionTitle, ToolTipIcon.None);
+                else _form.Show();
+
+                // Start the message loop and set the wait handle as soon as it is running
+                Application.Idle += delegate { _guiReady.Set(); };
+                Application.Run();
             });
-
-            // Initialize GUI with a low priority
-            var thread = new Thread(GuiThread) {Priority = ThreadPriority.Lowest};
-            thread.SetApartmentState(ApartmentState.STA); // Make COM work
-            thread.Start();
-        }
-
-        /// <summary>
-        /// Runs a message pump for the GUI.
-        /// </summary>
-        private void GuiThread()
-        {
-            _form.Initialize();
-            if (ActionTitle != null) _form.Text = ActionTitle;
-            if (Locations.IsPortable) _form.Text += " - " + Resources.PortableMode;
-
-            // Restore normal priority as soon as the GUI becomes visible
-            _form.Shown += delegate { Thread.CurrentThread.Priority = ThreadPriority.Normal; };
-
-            // Show the tray icon or the form
-            if (Batch) _form.ShowTrayIcon(ActionTitle, ToolTipIcon.None);
-            else _form.Show();
-
-            // Start the message loop and set the wait handle as soon as it is running
-            Application.Idle += delegate { _guiReady.Set(); };
-            Application.Run();
+            _guiThread.SetApartmentState(ApartmentState.STA); // Make COM work
+            _guiThread.Start();
         }
 
         /// <inheritdoc/>
@@ -171,7 +163,7 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             // If GUI does not exist or was closed cancel, otherwise wait until it is ready
-            if (_form ==  null) return false;
+            if (_form == null) return false;
             _guiReady.WaitOne();
             if (!_form.IsHandleCreated) return false;
 
@@ -214,7 +206,7 @@ namespace ZeroInstall.Commands.WinForms
             _guiReady.WaitOne();
             if (!_form.IsHandleCreated) return;
 
-            _form.Invoke(new SimpleEventHandler(() => _form.ShowSelections(selections, feedCache))); 
+            _form.Invoke(new SimpleEventHandler(() => _form.ShowSelections(selections, feedCache)));
         }
 
         /// <inheritdoc/>

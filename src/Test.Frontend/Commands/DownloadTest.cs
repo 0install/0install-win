@@ -59,8 +59,8 @@ namespace ZeroInstall.Commands
             Command.Parse(args);
 
             bool stale;
-            SolverMock.Setup(x => x.Solve(requirements, Policy, out stale)).Returns(selections); // First Solve()
-            SolverMock.Setup(x => x.Solve(requirements, refreshPolicy, out stale)).Returns(selections); // Refresh Solve() because there are uncached implementations
+            SolverMock.Setup(x => x.Solve(requirements, Policy, out stale)).Returns(selections).Verifiable(); // First Solve()
+            SolverMock.Setup(x => x.Solve(requirements, refreshPolicy, out stale)).Returns(selections).Verifiable(); // Refresh Solve() because there are uncached implementations
             CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub1.xml")).Returns(testFeed1);
             CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(testFeed2);
 
