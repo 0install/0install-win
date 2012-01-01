@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using Common.Storage;
@@ -70,7 +71,7 @@ namespace ZeroInstall.Injector
         /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
         /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
-        private ProcessStartInfo GetStartInfo()
+        private ProcessStartInfo BuildStartInfo()
         {
             var startInfo = new ProcessStartInfo {ErrorDialog = false, UseShellExecute = false};
             foreach (var implementation in Selections.Implementations)
@@ -156,7 +157,7 @@ namespace ZeroInstall.Injector
         {
             var environmentVariables = startInfo.EnvironmentVariables;
 
-            string newValue = string.IsNullOrEmpty(binding.Value)
+            string newValue = (binding.Value == "")
                 // A path inside the implementation
                 ? Path.Combine(GetImplementationPath(implementation), FileUtils.UnifySlashes(binding.Insert ?? ""))
                 // A static value
@@ -166,7 +167,7 @@ namespace ZeroInstall.Injector
             if (!environmentVariables.ContainsKey(binding.Name)) environmentVariables.Add(binding.Name, binding.Default);
 
             string previousValue = environmentVariables[binding.Name];
-            string separator = (string.IsNullOrEmpty(binding.Separator) ? Path.PathSeparator.ToString() : binding.Separator);
+            string separator = (string.IsNullOrEmpty(binding.Separator) ? Path.PathSeparator.ToString(CultureInfo.InvariantCulture) : binding.Separator);
 
             switch (binding.Mode)
             {
@@ -291,7 +292,7 @@ namespace ZeroInstall.Injector
         /// <param name="startInfo">The process launch environment to apply the <see cref="WorkingDir"/> change to.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
         /// <exception cref="CommandException">Thrown if the <paramref name="workingDir"/> has an invalid path or another working directory has already been set.</exception>
-        /// <remarks>This method can only be called successfully once per <see cref="GetStartInfo()"/>.</remarks>
+        /// <remarks>This method can only be called successfully once per <see cref="BuildStartInfo()"/>.</remarks>
         private void ApplyWorkingDir(WorkingDir workingDir, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
             string source = FileUtils.UnifySlashes(workingDir.Source) ?? "";

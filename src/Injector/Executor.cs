@@ -97,7 +97,7 @@ namespace ZeroInstall.Injector
             #endregion
 
             // Apply implementation bindings
-            var startInfo = GetStartInfo();
+            var startInfo = BuildStartInfo();
 
             // Get the actual implementation to be started (and replace its binary if the user wanted that)
             var mainImplementation = Selections.MainImplementation;
