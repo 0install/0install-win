@@ -365,7 +365,8 @@ namespace ZeroInstall.Central.WinForms
         {
             // Prevent multiple concurrent refreshes
             if (catalogWorker.IsBusy) return;
-            buttonRefreshCatalog.Enabled = false;
+            buttonRefreshCatalog.Visible = false;
+            labelLoadingCatalog.Visible = true;
 
             catalogWorker.RunWorkerAsync();
         }
@@ -430,7 +431,8 @@ namespace ZeroInstall.Central.WinForms
                 _currentCatalog = newCatalog;
             }
 
-            buttonRefreshCatalog.Enabled = true;
+            buttonRefreshCatalog.Visible = true;
+            labelLoadingCatalog.Visible = false;
         }
         #endregion
 

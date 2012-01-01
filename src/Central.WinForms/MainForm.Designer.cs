@@ -35,6 +35,7 @@
             this.buttonSync = new System.Windows.Forms.Button();
             this.appList = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
+            this.labelLoadingCatalog = new System.Windows.Forms.Label();
             this.buttonRefreshCatalog = new System.Windows.Forms.Button();
             this.buttonAddOtherApp = new System.Windows.Forms.Button();
             this.catalogList = new ZeroInstall.Central.WinForms.AppTileList();
@@ -85,12 +86,18 @@
             // 
             // tabPageCatalog
             // 
+            this.tabPageCatalog.Controls.Add(this.labelLoadingCatalog);
             this.tabPageCatalog.Controls.Add(this.buttonRefreshCatalog);
             this.tabPageCatalog.Controls.Add(this.buttonAddOtherApp);
             this.tabPageCatalog.Controls.Add(this.catalogList);
             resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
             this.tabPageCatalog.Name = "tabPageCatalog";
             this.tabPageCatalog.UseVisualStyleBackColor = true;
+            // 
+            // labelLoadingCatalog
+            // 
+            resources.ApplyResources(this.labelLoadingCatalog, "labelLoadingCatalog");
+            this.labelLoadingCatalog.Name = "labelLoadingCatalog";
             // 
             // buttonRefreshCatalog
             // 
@@ -190,6 +197,7 @@
             this.tabControlApps.ResumeLayout(false);
             this.tabPageAppList.ResumeLayout(false);
             this.tabPageCatalog.ResumeLayout(false);
+            this.tabPageCatalog.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.appListWatcher)).EndInit();
             this.ResumeLayout(false);
@@ -216,6 +224,7 @@
         private System.Windows.Forms.Button buttonSync;
         private System.ComponentModel.BackgroundWorker appListWorker;
         private System.Windows.Forms.Timer appListTimer;
+        private System.Windows.Forms.Label labelLoadingCatalog;
 
     }
 }
