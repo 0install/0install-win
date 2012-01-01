@@ -36,7 +36,8 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         private class EntryPointWrapper : ToStringWrapper<EntryPoint>
         {
-            public EntryPointWrapper(EntryPoint entryPoint) : base(entryPoint, () => entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture))
+            public EntryPointWrapper(EntryPoint entryPoint) :
+                base(entryPoint, () => entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture) ?? entryPoint.Command)
             {}
         }
         #endregion
@@ -71,6 +72,10 @@ namespace ZeroInstall.Central.WinForms
                 // Wrap entry points so that their ToString methods return localized names
                 foreach (var entryPoint in feed.EntryPoints)
                     dialog.comboBoxCommand.Items.Add(new EntryPointWrapper(entryPoint));
+
+                // Add default command as a fallback
+                if (dialog.comboBoxCommand.Items.Count == 0)
+                    dialog.comboBoxCommand.Items.Add(Command.NameRun);
 
                 if (dialog.ShowDialog(owner) == DialogResult.OK)
                 {
