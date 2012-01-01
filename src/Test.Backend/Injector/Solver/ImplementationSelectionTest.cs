@@ -43,7 +43,8 @@ namespace ZeroInstall.Injector.Solver
                 Bindings =
                     {
                         new EnvironmentBinding {Name = "TEST1_PATH_SELF", Default = "default", Mode = EnvironmentMode.Append},
-                        new EnvironmentBinding {Name = "TEST1_VALUE", Value = "test1", Mode = EnvironmentMode.Replace}
+                        new EnvironmentBinding {Name = "TEST1_VALUE", Value = "test1", Mode = EnvironmentMode.Replace},
+                        new EnvironmentBinding {Name = "TEST1_EMPTY", Value = "", Mode = EnvironmentMode.Append}
                     },
                 Dependencies =
                     {

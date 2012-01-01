@@ -157,11 +157,11 @@ namespace ZeroInstall.Injector
         {
             var environmentVariables = startInfo.EnvironmentVariables;
 
-            string newValue = (binding.Value == "")
-                // A path inside the implementation
-                ? Path.Combine(GetImplementationPath(implementation), FileUtils.UnifySlashes(binding.Insert ?? ""))
+            string newValue =
                 // A static value
-                : binding.Value;
+                binding.Value
+                    // A path inside the implementation
+                    ?? Path.Combine(GetImplementationPath(implementation), FileUtils.UnifySlashes(binding.Insert ?? ""));
 
             // Set the default value if the variable is not already set on the system
             if (!environmentVariables.ContainsKey(binding.Name)) environmentVariables.Add(binding.Name, binding.Default);

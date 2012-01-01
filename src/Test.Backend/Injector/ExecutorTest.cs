@@ -83,10 +83,11 @@ namespace ZeroInstall.Injector
             return storeMock.Object;
         }
 
-        private static void CheckEnvironment(ProcessStartInfo startInfo, Selections selections)
+        private static void VerifyEnvironment(ProcessStartInfo startInfo, Selections selections)
         {
             Assert.AreEqual("default" + Path.PathSeparator + Test1Path, startInfo.EnvironmentVariables["TEST1_PATH_SELF"], "Should append implementation path");
             Assert.AreEqual("test1", startInfo.EnvironmentVariables["TEST1_VALUE"], "Should directly set value");
+            Assert.IsTrue(startInfo.EnvironmentVariables.ContainsKey("TEST1_EMPTY"), "Should set empty environment variables");
             Assert.AreEqual(Test2Path + Path.PathSeparator + "default", startInfo.EnvironmentVariables["TEST2_PATH_SELF"], "Should prepend implementation path");
             Assert.AreEqual("test2", startInfo.EnvironmentVariables["TEST2_VALUE"], "Should directly set value");
             Assert.AreEqual("default" + Path.PathSeparator + Path.Combine(Test2Path, "sub"), startInfo.EnvironmentVariables["TEST2_PATH_SUB_DEP"], "Should append implementation sub-path");
@@ -135,7 +136,7 @@ namespace ZeroInstall.Injector
                 startInfo.Arguments,
                 "Should combine core and additional runner arguments with application implementation directory, command path and arguments");
 
-            CheckEnvironment(startInfo, selections);
+            VerifyEnvironment(startInfo, selections);
         }
 
         /// <summary>
@@ -166,7 +167,7 @@ namespace ZeroInstall.Injector
                 startInfo.Arguments,
                 "Should combine wrapper arguments, runner and application");
 
-            CheckEnvironment(startInfo, selections);
+            VerifyEnvironment(startInfo, selections);
         }
 
         /// <summary>
@@ -195,7 +196,7 @@ namespace ZeroInstall.Injector
                 startInfo.Arguments,
                 "Should combine core and additional runner arguments with application implementation directory, command directory and main binary override");
 
-            CheckEnvironment(startInfo, selections);
+            VerifyEnvironment(startInfo, selections);
         }
 
         /// <summary>
@@ -224,7 +225,7 @@ namespace ZeroInstall.Injector
                 startInfo.Arguments,
                 "Should combine core and additional runner arguments with application implementation directory and main binary override");
 
-            CheckEnvironment(startInfo, selections);
+            VerifyEnvironment(startInfo, selections);
         }
 
         /// <summary>
@@ -252,7 +253,7 @@ namespace ZeroInstall.Injector
                 }),
                 startInfo.Arguments);
 
-            CheckEnvironment(startInfo, selections);
+            VerifyEnvironment(startInfo, selections);
         }
     }
 }
