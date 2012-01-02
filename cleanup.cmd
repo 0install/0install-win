@@ -12,7 +12,6 @@ del build\Documentation\*.log > NUL 2>&1
 
 rem Clear ReSharper's cache
 rd /s /q src\_ReSharper.ZeroInstall_VS2010 > NUL 2>&1
-copy "src\ZeroInstall_VS2010.6.1.ReSharper.user.Backup" "src\ZeroInstall_VS2010.6.1.ReSharper.user" > NUL
 
 rem Clear object caches
 attrib -h src\*.suo > NUL 2>&1
