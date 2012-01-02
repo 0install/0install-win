@@ -50,7 +50,7 @@ namespace Common
             Element = element;
             _toString = toString;
         }
-        
+
         /// <inheritdoc/>
         public override string ToString()
         {

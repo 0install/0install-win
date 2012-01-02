@@ -25,10 +25,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security.Cryptography;
 using Common.Properties;
-
 #if FS_SECURITY
 using System.Security.AccessControl;
 using System.Security.Principal;
+
 #endif
 
 namespace Common.Utils
@@ -311,6 +311,7 @@ namespace Common.Utils
         #endregion
 
 #if FS_SECURITY
+
         #region Permssions
         /// <summary>
         /// Uses the best means the current platform provides to prevent further write access to a directory (read-only attribute, ACLs, Unix octals, etc.).
@@ -583,6 +584,7 @@ namespace Common.Utils
             #endregion
         }
         #endregion
+
 #endif
     }
 }

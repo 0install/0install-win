@@ -62,7 +62,6 @@ namespace ZeroInstall.Store.Management.WinForms
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
             Application.Run(new MainForm());
-
         }
 
         /// <summary>

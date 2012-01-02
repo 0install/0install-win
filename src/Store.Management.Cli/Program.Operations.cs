@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Management.Cli
             string subDir = (args.Count == 4) ? args[3] : null;
 
             if (Directory.Exists(path)) _store.AddDirectory(path, manifestDigest, handler);
-            else if (File.Exists(path)) _store.AddArchives(new [] {new ArchiveFileInfo {Path = path, SubDir = subDir}}, manifestDigest, handler);
+            else if (File.Exists(path)) _store.AddArchives(new[] {new ArchiveFileInfo {Path = path, SubDir = subDir}}, manifestDigest, handler);
             else
             {
                 Log.Error(string.Format(Resources.NoSuchFileOrDirectory, path));

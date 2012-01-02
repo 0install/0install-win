@@ -67,8 +67,8 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestListAll()
         {
-            _mockStore1.Setup(x => x.ListAll()).Returns(new[] { _digest1 }).Verifiable();
-            _mockStore2.Setup(x => x.ListAll()).Returns(new[] { _digest2 }).Verifiable();
+            _mockStore1.Setup(x => x.ListAll()).Returns(new[] {_digest1}).Verifiable();
+            _mockStore2.Setup(x => x.ListAll()).Returns(new[] {_digest2}).Verifiable();
             CollectionAssert.AreEquivalent(new[] {_digest1, _digest2}, _testStore.ListAll(), "Should combine results from all stores");
         }
         #endregion
@@ -230,8 +230,8 @@ namespace ZeroInstall.Store.Implementation
         {
             var problem1 = new DigestMismatchException("Problem 1");
             var problem2 = new DigestMismatchException("Problem 2");
-            _mockStore1.Setup(x => x.Audit(_handler)).Returns(new[] { problem1 }).Verifiable();
-            _mockStore2.Setup(x => x.Audit(_handler)).Returns(new[] { problem2 }).Verifiable();
+            _mockStore1.Setup(x => x.Audit(_handler)).Returns(new[] {problem1}).Verifiable();
+            _mockStore2.Setup(x => x.Audit(_handler)).Returns(new[] {problem2}).Verifiable();
 
             // Copy the result into a list to force the enumerator to run through
             var problems = new List<DigestMismatchException>(_testStore.Audit(_handler));
@@ -243,7 +243,7 @@ namespace ZeroInstall.Store.Implementation
         {
             var problem = new DigestMismatchException("Problem 1");
             _mockStore1.Setup(x => x.Audit(_handler)).Returns(() => null).Verifiable();
-            _mockStore2.Setup(x => x.Audit(_handler)).Returns(new[] { problem }).Verifiable();
+            _mockStore2.Setup(x => x.Audit(_handler)).Returns(new[] {problem}).Verifiable();
 
             // Copy the result into a list to force the enumerator to run through
             var problems = new List<DigestMismatchException>(_testStore.Audit(_handler));

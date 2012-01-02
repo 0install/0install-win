@@ -271,6 +271,6 @@ namespace Common.Utils
             if (!IsWindowsVista) throw new NotSupportedException(Resources.OnlyAvailableOnWindows);
             if (!UnsafeNativeMethods.CreateSymbolicLink(source, target, Directory.Exists(target) ? 1 : 0)) throw new Win32Exception();
         }
-        #endregion 
+        #endregion
     }
 }

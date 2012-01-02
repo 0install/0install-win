@@ -66,7 +66,7 @@ namespace ZeroInstall.Publish.Cli
         {
             // Automatically show help for missing args
             if (args == null) args = new string[0];
-            if (args.Length == 0) args = new[] { "--help" };
+            if (args.Length == 0) args = new[] {"--help"};
 
             ParseResults results;
             try

@@ -69,7 +69,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the feed file or the cache is not permitted.</exception>
         /// <exception cref="SignatureException">Thrown if the signature data of the feed file could not be handled.</exception>
         void ImportFeed(string path, Policy policy);
-        
+
         /// <summary>
         /// Creates a shallow copy of this feed manager.
         /// </summary>
