@@ -49,7 +49,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <remarks>
         ///   <para>Calling this method multiple times or without calling <see cref="ShowProgressUI"/> first is safe and has no effect.</para>
-        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
+        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>
         /// </remarks>
         void DisableProgressUI();
 
@@ -58,7 +58,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <remarks>
         ///   <para>Calling this method multiple times or without calling <see cref="ShowProgressUI"/> first is safe and has no effect.</para>
-        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
+        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>
         /// </remarks>
         void CloseProgressUI();
 
@@ -71,7 +71,7 @@ namespace ZeroInstall.Injector
         /// <exception cref="UserCancelException">Thrown if the user selected 'Cancel'.</exception>
         /// <remarks>
         ///   <para>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</para>
-        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
+        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>
         /// </remarks>
         bool AskQuestion(string question, string batchInformation);
 
@@ -83,7 +83,7 @@ namespace ZeroInstall.Injector
         /// <param name="feedCache">The feed cache used to retreive feeds for additional information about imlementations.</param>
         /// <remarks>
         ///   <para>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</para>
-        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
+        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>
         /// </remarks>
         void ShowSelections(Selections selections, IFeedCache feedCache);
 
@@ -94,7 +94,7 @@ namespace ZeroInstall.Injector
         /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
         /// <remarks>
         ///   <para>Only call this between <see cref="ShowSelections"/> and <see cref="CloseProgressUI"/>.</para>
-        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
+        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>
         /// </remarks>
         void AuditSelections(SimpleResult<Selections> solveCallback);
 
@@ -105,7 +105,7 @@ namespace ZeroInstall.Injector
         /// <param name="information">The information to display.</param>
         /// <remarks>
         ///   <para>This may trigger <see cref="DisableProgressUI"/> as a side effect. Use <see cref="AskQuestion"/>, <see cref="Log"/> or exceptions to avoid this.</para>
-        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
+        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>
         /// </remarks>
         void Output(string title, string information);
 
