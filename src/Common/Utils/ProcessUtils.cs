@@ -58,6 +58,10 @@ namespace Common.Utils
                 : new ProcessStartInfo("mono", "\"" + appPath + "\" " + arguments));
         }
 
+        /// <summary>
+        /// Starts executing a delegate in a new thread suitable for <see cref="System.Windows.Forms"/>.
+        /// </summary>
+        /// <param name="execute">The delegate to execute.</param>
         public static void RunAsync(ThreadStart execute)
         {
             var thread = new Thread(execute);
