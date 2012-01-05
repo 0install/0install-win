@@ -40,27 +40,29 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="path">The location to place the shorcut at.</param>
         /// <param name="target">The target the shortcut shall point to.</param>
-        /// <param name="command"></param>
-        /// <param name="systemWide"></param>
-        /// <param name="handler"></param>
+        /// <param name="command">The command within <paramref name="target"/> the shorcut shall point to; may be <see langword="null"/>.</param>
+        /// <param name="systemWide">Create the shortcut system-wide instead of just for the current user.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         public static void CreateShortcut(string path, InterfaceFeed target, string command, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
+            if (string.IsNullOrEmpty(command)) command = Command.NameRun;
+
 #if !MONO
             if (File.Exists(path)) File.Delete(path);
 
             var shortcut = (IWshRuntimeLibrary.IWshShortcut)_wshShell.CreateShortcut(path);
 
-            var entryPoint = target.Feed.GetEntryPoint(command ?? Command.NameRun);
+            var entryPoint = target.Feed.GetEntryPoint(command);
             bool needsTerminal = target.Feed.NeedsTerminal || (entryPoint != null && entryPoint.NeedsTerminal);
             shortcut.TargetPath = Path.Combine(Locations.InstallBase, needsTerminal ? "0install.exe" : "0install-win.exe");
 
             string arguments = "run ";
             if (!needsTerminal) arguments += "--no-wait ";
-            if (!string.IsNullOrEmpty(command)) arguments += "--command=" + StringUtils.EscapeArgument(command) + " ";
+            if (command != Command.NameRun) arguments += "--command=" + StringUtils.EscapeArgument(command) + " ";
             arguments += StringUtils.EscapeArgument(target.InterfaceID);
             shortcut.Arguments = arguments;
 

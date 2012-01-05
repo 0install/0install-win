@@ -136,18 +136,19 @@ namespace ZeroInstall.Commands.WinForms
         private void SetupCommandAccessPoints()
         {
             var commands = _feed.EntryPoints.Map(entryPoint => entryPoint.Command);
-            commands.Remove(Command.NameRun);
-            commands.Insert(0, "");
+            commands.UpdateOrAdd(Command.NameRun);
             var commandsArray = commands.ToArray();
+            // ReSharper disable CoVariantArrayConversion
             dataGridStartMenuColumnCommand.Items.AddRange(commandsArray);
             dataGridDesktopColumnCommand.Items.AddRange(commandsArray);
+            // ReSharper restore CoVariantArrayConversion
 
             if (_appEntry.AccessPoints == null)
             { // Set useful defaults for first integration
                 // Add icons for main entry point
-                _desktopIcons.Add(new AccessPoints.DesktopIcon {Name = _appEntry.Name});
+                _desktopIcons.Add(new AccessPoints.DesktopIcon {Name = _appEntry.Name, Command = Command.NameRun});
                 if (_feed.EntryPoints.IsEmpty)
-                    _menuEntries.Add(new AccessPoints.MenuEntry {Name = _appEntry.Name, Category = _appEntry.Name});
+                    _menuEntries.Add(new AccessPoints.MenuEntry {Name = _appEntry.Name, Category = _appEntry.Name, Command = Command.NameRun});
 
                 // Add icons for additional entry points
                 foreach (var entryPoint in _feed.EntryPoints)
@@ -159,8 +160,7 @@ namespace ZeroInstall.Commands.WinForms
                         {
                             Name = entryPointName,
                             Category = _appEntry.Name,
-                            // Don't explicitly write the "run" command 
-                            Command = (entryPoint.Command == Command.NameRun ? null : entryPoint.Command)
+                            Command = entryPoint.Command
                         });
                     }
                 }
