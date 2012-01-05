@@ -95,7 +95,7 @@ namespace ZeroInstall.Capture
             }
 
             // Sort backwards to make sure the most specific matches are selected first
-            _commmands.Sort((tuple1, tuple2) => tuple2.CommandLine.CompareTo(tuple2.CommandLine));
+            _commmands.Sort((tuple1, tuple2) => string.CompareOrdinal(tuple2.CommandLine, tuple1.CommandLine));
         }
 
         private static CommandTuple GetCommandTuple(string installationDir, Command command, bool escapePath)
@@ -111,6 +111,7 @@ namespace ZeroInstall.Capture
 
         //--------------------//
 
+        #region Access
         /// <summary>
         /// Tries to find the best-match <see cref="Command"/> for a command-line.
         /// </summary>
@@ -136,5 +137,6 @@ namespace ZeroInstall.Capture
             additionalArgs = null;
             return null;
         }
+        #endregion
     }
 }

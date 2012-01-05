@@ -205,8 +205,8 @@ namespace ZeroInstall.Capture
                     Command = command.Name,
                     // Trim away leading directories and trailing file ending
                     BinaryName = StringUtils.GetLeftPartAtLastOccurrence(StringUtils.GetRightPartAtLastOccurrence(command.Path, '/'), '.'),
-                    // Trim away leading namespaces
-                    Names = {StringUtils.GetRightPartAtLastOccurrence(command.Name, '.')}
+                    // Use app-name or sub-command name (trimming away leading namespaces)
+                    Names = {(command.Name == Command.NameRun) ? appName : StringUtils.GetRightPartAtLastOccurrence(command.Name, '.')}
                 });
             }
             return feed;
