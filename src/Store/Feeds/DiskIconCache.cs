@@ -127,7 +127,9 @@ namespace ZeroInstall.Store.Feeds
         /// </summary>
         private static void DownloadFile(Uri source, string target, ITaskHandler handler)
         {
-            string tempPath = target + "." + Path.GetRandomFileName() + ".tmp";
+            // Prepend random string to prevent ListAll from catching temporary files
+            string tempPath = "new." + Path.GetRandomFileName() + "." + target;
+
             try
             {
                 // Perform atomic download and replace
