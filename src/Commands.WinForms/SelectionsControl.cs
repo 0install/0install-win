@@ -198,6 +198,7 @@ namespace ZeroInstall.Commands.WinForms
                     {
                         // Create a new tracking control if none exists
                         trackingControl = new TrackingControl {Dock = DockStyle.Fill};
+                        trackingControl.CreateGraphics(); // Ensure control initialization even in tray icon mode
                         _trackingControls.Add(implementation.ManifestDigest, trackingControl);
                         tableLayout.Controls.Add(trackingControl, 2, i);
                     }

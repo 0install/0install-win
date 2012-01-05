@@ -230,6 +230,7 @@ namespace ZeroInstall.Commands.WinForms
             if (!_form.IsHandleCreated) return;
 
             // Show selection auditing screen and then asynchronously wait until its done
+            _form.Invoke((SimpleEventHandler)_form.Show); // Leave tray icon mode
             _form.Invoke(new SimpleEventHandler(() => _form.BeginAuditSelections(solveCallback, _auditWaitHandle)));
             _auditWaitHandle.WaitOne();
         }
