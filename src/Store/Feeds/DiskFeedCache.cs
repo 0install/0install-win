@@ -191,8 +191,8 @@ namespace ZeroInstall.Store.Feeds
         /// <param name="path">The file to write to.</param>
         private void WriteToFile(Stream stream, string path)
         {
-            // Prepend random string to prevent ListAll from catching temporary files
-            string tempPath = "new." + Path.GetRandomFileName() + "." + path;
+            // Prepend random string to file name to prevent ListAll from catching temporary files
+            string tempPath = Path.GetDirectoryName(path) + Path.DirectorySeparatorChar + "new." + Path.GetRandomFileName() + "." + Path.GetFileName(path);
 
             try
             {
