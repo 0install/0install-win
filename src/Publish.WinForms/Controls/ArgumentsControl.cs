@@ -116,7 +116,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void UpdateControl()
         {
             listBoxArguments.Items.Clear();
+            // ReSharper disable CoVariantArrayConversion
             listBoxArguments.Items.AddRange(_arguments.ToArray());
+            // ReSharper restore CoVariantArrayConversion
         }
         #endregion
 

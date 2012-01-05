@@ -336,7 +336,9 @@ namespace ZeroInstall.Publish.WinForms
 
         private void InitializeComboBoxMinInjectorVersion()
         {
+            // ReSharper disable CoVariantArrayConversion
             comboBoxMinInjectorVersion.Items.AddRange(_supportedInjectorVersions);
+            // ReSharper restore CoVariantArrayConversion
         }
 
         /// <summary>
@@ -973,8 +975,6 @@ namespace ZeroInstall.Publish.WinForms
         }
         #endregion
 
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {}
         #endregion
 
         #endregion

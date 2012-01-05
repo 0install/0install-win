@@ -72,7 +72,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void InitializeComboBoxIconTypes()
         {
             comboBoxIconType.Items.Add(Resources.AutoDetect);
+            // ReSharper disable CoVariantArrayConversion
             comboBoxIconType.Items.AddRange(_supportedImageFormats.ToArray());
+            // ReSharper restore CoVariantArrayConversion
             comboBoxIconType.SelectedIndex = 0;
         }
 
@@ -160,7 +162,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             var imageStream = WebRequest.Create(url).GetResponse().GetResponseStream();
             try
             {
-                return Image.FromStream(imageStream);
+                return (imageStream == null) ? null : Image.FromStream(imageStream);
             }
                 #region Sanity checks
             catch (ArgumentException ex)
