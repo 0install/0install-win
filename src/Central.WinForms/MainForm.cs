@@ -21,7 +21,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Threading;
 using System.Windows.Forms;
 using Common;
 using Common.Collections;
@@ -447,7 +446,7 @@ namespace ZeroInstall.Central.WinForms
                 Msg.Inform(this, Resources.ConfigSyncFirst, MsgSeverity.Warn);
                 new OptionsDialog().ShowDialog(this);
             }
-            else new Thread(() => Commands.WinForms.Program.Main(new[] {"sync"})).Start();
+            else ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] { "sync" }));
         }
 
         private void buttonRefreshCatalog_Click(object sender, EventArgs e)
@@ -470,7 +469,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonCacheManagement_Click(object sender, EventArgs e)
         {
-            new Thread(() => Store.Management.WinForms.Program.Main(new string[0])).Start();
+            ProcessUtils.RunAsync(() => Store.Management.WinForms.Program.Main(new string[0]));
         }
 
         private void buttonHelp_Click(object sender, EventArgs e)
@@ -506,7 +505,7 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="interfaceID">The URI of the interface to be added.</param>
         private void AddCustomInterface(string interfaceID)
         {
-            new Thread(() => Commands.WinForms.Program.Main(new[] {"add-app", interfaceID})).Start();
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"add-app", interfaceID}));
             tabControlApps.SelectTab(tabPageAppList);
         }
 

@@ -19,10 +19,10 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
+using Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Injector;
 
@@ -93,7 +93,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonAdvanced_Click(object sender, EventArgs e)
         {
-            new Thread(() => Commands.WinForms.Program.Main(new[] {"config"})).Start();
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"config"}));
             Close();
         }
 

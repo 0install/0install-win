@@ -23,7 +23,6 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Net;
-using System.Threading;
 using System.Windows.Forms;
 using Common;
 using Common.Tasks;
@@ -205,12 +204,12 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonRun_Click(object sender, EventArgs e)
         {
-            new Thread(() => Commands.WinForms.Program.Main(new[] {"run", "--no-wait", InterfaceID})).Start();
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"run", "--no-wait", InterfaceID}));
         }
 
         private void buttonSelectVersion_Click(object sender, EventArgs e)
         {
-            new Thread(() => Commands.WinForms.Program.Main(new[] {"run", "--no-wait", "--gui", InterfaceID})).Start();
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"run", "--no-wait", "--gui", InterfaceID}));
         }
 
         private void buttonSelectCommmand_Click(object sender, EventArgs e)
@@ -239,27 +238,27 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
-            new Thread(() => Commands.WinForms.Program.Main(new[] {"update", InterfaceID})).Start();
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"update", InterfaceID}));
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            new Thread(() => Commands.WinForms.Program.Main(new[] {"add-app", InterfaceID})).Start();
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"add-app", InterfaceID}));
         }
 
         private void buttonIntegrate_Click(object sender, EventArgs e)
         {
-            new Thread(() => Commands.WinForms.Program.Main(new[] {"integrate-app", InterfaceID})).Start();
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"integrate-app", InterfaceID}));
         }
 
         private void buttonConf_Click(object sender, EventArgs e)
         {
-            new Thread(() => Commands.WinForms.Program.Main(new[] {"integrate-app", InterfaceID})).Start();
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"integrate-app", InterfaceID}));
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
-            new Thread(() => Commands.WinForms.Program.Main(new[] {"remove-app", InterfaceID})).Start();
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"remove-app", InterfaceID}));
         }
         #endregion
 

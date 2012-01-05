@@ -24,6 +24,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using Common.Properties;
 using Common.Storage;
 
@@ -55,6 +56,13 @@ namespace Common.Utils
             return Process.Start(WindowsUtils.IsWindows
                 ? new ProcessStartInfo(appPath, arguments)
                 : new ProcessStartInfo("mono", "\"" + appPath + "\" " + arguments));
+        }
+
+        public static void RunAsync(ThreadStart execute)
+        {
+            var thread = new Thread(execute);
+            thread.SetApartmentState(ApartmentState.STA); // Make COM work
+            thread.Start();
         }
     }
 }
