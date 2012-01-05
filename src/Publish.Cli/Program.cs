@@ -135,6 +135,11 @@ namespace ZeroInstall.Publish.Cli
                 Log.Error(ex.Message);
                 return (int)ErrorLevel.IOError;
             }
+            catch (NotSupportedException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.IOError;
+            }
             #endregion
         }
         #endregion
@@ -241,6 +246,7 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="KeyNotFoundException">Thrown if an OpenPGP key could not be found.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
+        /// <exception cref="NotSupportedException">Thrown if a MIME type doesn't belong to a known and supported archive type.</exception>
         private static ErrorLevel Execute(ParseResults options)
         {
             switch (options.Mode)
