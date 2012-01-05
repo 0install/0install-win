@@ -145,23 +145,28 @@ namespace ZeroInstall.Commands.WinForms
 
             if (_appEntry.AccessPoints == null)
             { // Set useful defaults for first integration
-                // Add icons for main entry point
                 _desktopIcons.Add(new AccessPoints.DesktopIcon {Name = _appEntry.Name, Command = Command.NameRun});
-                if (_feed.EntryPoints.IsEmpty)
-                    _menuEntries.Add(new AccessPoints.MenuEntry {Name = _appEntry.Name, Category = _appEntry.Name, Command = Command.NameRun});
 
-                // Add icons for additional entry points
-                foreach (var entryPoint in _feed.EntryPoints)
-                {
-                    string entryPointName = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture);
-                    if (!string.IsNullOrEmpty(entryPoint.Command) && !string.IsNullOrEmpty(entryPointName))
+                string category = EnumerableUtils.GetFirst(_feed.Categories);
+                if (_feed.EntryPoints.IsEmpty)
+                { // Only one entry point
+                    _menuEntries.Add(new AccessPoints.MenuEntry {Name = _appEntry.Name, Category = category, Command = Command.NameRun});
+                }
+                else
+                { // Multiple entry points
+                    foreach (var entryPoint in _feed.EntryPoints)
                     {
-                        _menuEntries.Add(new AccessPoints.MenuEntry
+                        string entryPointName = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture);
+                        if (!string.IsNullOrEmpty(entryPoint.Command) && !string.IsNullOrEmpty(entryPointName))
                         {
-                            Name = entryPointName,
-                            Category = _appEntry.Name,
-                            Command = entryPoint.Command
-                        });
+                            _menuEntries.Add(new AccessPoints.MenuEntry
+                            {
+                                Name = entryPointName,
+                                // Group all entry points in a single folder
+                                Category = string.IsNullOrEmpty(category) ? _appEntry.Name : category + Path.DirectorySeparatorChar + _appEntry.Name,
+                                Command = entryPoint.Command
+                            });
+                        }
                     }
                 }
             }
@@ -286,8 +291,8 @@ namespace ZeroInstall.Commands.WinForms
 
             try
             {
-                _integrationManager.RemoveAccessPoints(_appEntry, toRemove);
-                _integrationManager.AddAccessPoints(_appEntry, _feed, toAdd);
+                if (!toRemove.IsEmpty) _integrationManager.RemoveAccessPoints(_appEntry, toRemove);
+                if (!toAdd.IsEmpty) _integrationManager.AddAccessPoints(_appEntry, _feed, toAdd);
             }
                 #region Error handling
             catch (UserCancelException)

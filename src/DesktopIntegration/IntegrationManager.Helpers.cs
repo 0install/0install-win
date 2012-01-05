@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Threading;
 using Common;
 using Common.Collections;
 using Common.Utils;
@@ -237,7 +238,16 @@ namespace ZeroInstall.DesktopIntegration
         {
             WindowsUtils.NotifyAssocChanged();
 
-            AppList.Save(AppListPath);
+            try
+            {
+                AppList.Save(AppListPath);
+            }
+            catch (IOException)
+            {
+                // Bypass race conditions where another thread is reading an old version of the list while we are trying to write a new one
+                Thread.Sleep(1000);
+                AppList.Save(AppListPath);
+            }
         }
         #endregion
     }

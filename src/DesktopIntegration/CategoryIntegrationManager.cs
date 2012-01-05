@@ -89,24 +89,28 @@ namespace ZeroInstall.DesktopIntegration
             }
             if (icons)
             {
-                // Add icons for main entry point
-                accessPointsToAdd.AddLast(new DesktopIcon {Name = appEntry.Name});
-                if (feed.EntryPoints.IsEmpty)
-                    accessPointsToAdd.AddLast(new MenuEntry {Name = appEntry.Name, Category = appEntry.Name});
+                accessPointsToAdd.AddLast(new DesktopIcon {Name = appEntry.Name, Command = Command.NameRun});
 
-                // Add icons for additional entry points
-                foreach (var entryPoint in feed.EntryPoints)
-                {
-                    string entryPointName = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture);
-                    if (!string.IsNullOrEmpty(entryPoint.Command) && !string.IsNullOrEmpty(entryPointName))
+                string category = EnumerableUtils.GetFirst(feed.Categories);
+                if (feed.EntryPoints.IsEmpty)
+                { // Only one entry point
+                    accessPointsToAdd.AddLast(new MenuEntry {Name = appEntry.Name, Category = category, Command = Command.NameRun});
+                }
+                else
+                { // Multiple entry points
+                    foreach (var entryPoint in feed.EntryPoints)
                     {
-                        accessPointsToAdd.AddLast(new MenuEntry
+                        string entryPointName = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture);
+                        if (!string.IsNullOrEmpty(entryPoint.Command) && !string.IsNullOrEmpty(entryPointName))
                         {
-                            Name = entryPointName,
-                            Category = appEntry.Name,
-                            // Don't explicitly write the "run" command 
-                            Command = (entryPoint.Command == Command.NameRun ? null : entryPoint.Command)
-                        });
+                            accessPointsToAdd.AddLast(new MenuEntry
+                            {
+                                Name = entryPointName,
+                                // Group all entry points in a single folder
+                                Category = string.IsNullOrEmpty(category) ? appEntry.Name : category + Path.DirectorySeparatorChar + appEntry.Name,
+                                Command = entryPoint.Command
+                            });
+                        }
                     }
                 }
             }
