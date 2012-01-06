@@ -77,10 +77,7 @@ namespace ZeroInstall.Commands
         #endregion
 
         #region Constructor
-        /// <summary>
-        /// Creates a new command.
-        /// </summary>
-        /// <param name="policy">Combines UI access, preferences and resources used to solve dependencies and download implementations.</param>
+        /// <inheritdoc/>
         public Selection(Policy policy) : base(policy)
         {
             Options.Add("batch", Resources.OptionBatch, unused => Policy.Handler.Batch = true);

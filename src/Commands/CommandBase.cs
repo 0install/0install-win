@@ -60,12 +60,10 @@ namespace ZeroInstall.Commands
         #endregion
 
         #region Properties
-        private readonly Policy _policy;
-
         /// <summary>
         /// Combines UI access, preferences and resources used to solve dependencies and download implementations.
         /// </summary>
-        public Policy Policy { get { return _policy; } }
+        public Policy Policy { get; private set; }
 
         /// <summary>
         /// A short description of what this command does.
@@ -119,10 +117,10 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Creates a new command.
         /// </summary>
-        /// <param name="policy">Combines UI access, preferences and resources used to solve dependencies and download implementations.</param>
+        /// <param name="policy">Provides additional class dependencies.</param>
         protected CommandBase(Policy policy)
         {
-            _policy = policy;
+            Policy = policy;
 
             Options.Add("?|h|help", Resources.OptionHelp, unused =>
             {

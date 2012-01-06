@@ -18,7 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Common.Collections;
+using System.Linq;
 using Common.Net;
 using Common.Tasks;
 using ZeroInstall.Injector;
@@ -424,7 +424,7 @@ namespace ZeroInstall.Fetchers
             {
                 // Clean up temp files
                 File.Delete(theCompleteArchive.Location.ToString());
-                foreach (var archive in EnumerableUtils.OfType<Archive>(theRecipe.Steps))
+                foreach (var archive in theRecipe.Steps.OfType<Archive>())
                     File.Delete(archive.Location.ToString());
             }
             Assert.AreEqual(downloaded, theCompleteArchive.Location);

@@ -17,8 +17,8 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
-using Common.Collections;
 using Common.Utils;
 using Common.Storage;
 using NUnit.Framework;
@@ -145,7 +145,7 @@ namespace ZeroInstall.Store.Implementation
 
             // A contaminated store should be detected
             Directory.CreateDirectory(Path.Combine(_tempDir.Path, "sha1new=abc"));
-            DigestMismatchException problem = EnumerableUtils.GetFirst(_store.Audit(new SilentHandler()));
+            DigestMismatchException problem = _store.Audit(new SilentHandler()).First();
             Assert.AreEqual("sha1new=abc", problem.ExpectedHash);
             Assert.AreEqual("sha1new=da39a3ee5e6b4b0d3255bfef95601890afd80709", problem.ActualHash);
         }

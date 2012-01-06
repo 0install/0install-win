@@ -162,24 +162,6 @@ namespace Common.Storage
             }
             #endregion
         }
-
-        /// <summary>
-        /// Returns an object as a binary string.
-        /// </summary>
-        /// <typeparam name="T">The type of object to be saved in a binary stream.</typeparam>
-        /// <param name="data">The object to be stored.</param>
-        /// <returns>A string containing the binary code.</returns>
-        public static string ToString<T>(T data)
-        {
-            using (var stream = new MemoryStream())
-            {
-                Save(stream, data);
-
-                stream.Position = 0;
-                var reader = new StreamReader(stream);
-                return reader.ReadToEnd();
-            }
-        }
         #endregion
 
         //--------------------//

@@ -103,6 +103,7 @@
     <Compile Include="Model\EnvironmentBindingTest.cs" />
     <Compile Include="Model\ExecutableInPathTest.cs" />
     <Compile Include="Model\ExecutableInVarTest.cs" />
+    <Compile Include="Model\FeedExtensions.cs" />
     <Compile Include="Model\FeedReferenceTest.cs" />
     <Compile Include="Model\FeedTest.cs" />
     <Compile Include="Model\ImplementationTest.cs" />

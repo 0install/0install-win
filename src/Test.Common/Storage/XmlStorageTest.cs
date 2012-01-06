@@ -41,7 +41,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Ensures <see cref="XmlStorage.Save{T}(string,T,System.Reflection.MemberInfo[])"/> and <see cref="XmlStorage.Load{T}(string,System.Reflection.MemberInfo[])"/> work correctly.
+        /// Ensures <see cref="XmlStorage.Save{T}(System.IO.Stream,T)"/> and <see cref="XmlStorage.Load{T}(System.IO.Stream)"/> work correctly.
         /// </summary>
         [Test]
         public void TestFile()
@@ -60,58 +60,50 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Ensures <see cref="XmlStorage.ToZip{T}(Stream,T,string,System.Collections.Generic.IEnumerable{Common.Storage.EmbeddedFile},System.Reflection.MemberInfo[])"/> and <see cref="XmlStorage.FromZip{T}(Stream,string,System.Collections.Generic.IEnumerable{Common.Storage.EmbeddedFile},System.Reflection.MemberInfo[])"/> work correctly with no password.
+        /// Ensures <see cref="XmlStorage.ToZip{T}(System.IO.Stream,T,string,System.Collections.Generic.IEnumerable{Common.Storage.EmbeddedFile})"/> and <see cref="XmlStorage.FromZip{T}(System.IO.Stream,string,System.Collections.Generic.IEnumerable{Common.Storage.EmbeddedFile})"/> work correctly with no password.
         /// </summary>
         [Test]
         public void TestZipNoPassword()
         {
-            TestData testData1, testData2;
-            using (var tempStream = new MemoryStream())
-            {
-                // Write and read file
-                testData1 = new TestData {Data = "Hello"};
-                XmlStorage.ToZip(tempStream, testData1, null, new EmbeddedFile[0]);
-                tempStream.Seek(0, SeekOrigin.Begin);
-                testData2 = XmlStorage.FromZip<TestData>(tempStream, null, new EmbeddedFile[0]);
-            }
+            // Write and read file
+            var testData1 = new TestData {Data = "Hello"};
+            var tempStream = new MemoryStream();
+            XmlStorage.ToZip(tempStream, testData1, null, new EmbeddedFile[0]);
+            tempStream.Seek(0, SeekOrigin.Begin);
+            var testData2 = XmlStorage.FromZip<TestData>(tempStream, null, new EmbeddedFile[0]);
 
             // Ensure data stayed the same
             Assert.AreEqual(testData1.Data, testData2.Data);
         }
 
         /// <summary>
-        /// Ensures <see cref="XmlStorage.ToZip{T}(Stream,T,string,System.Collections.Generic.IEnumerable{Common.Storage.EmbeddedFile},System.Reflection.MemberInfo[])"/> and <see cref="XmlStorage.FromZip{T}(Stream,string,System.Collections.Generic.IEnumerable{Common.Storage.EmbeddedFile},System.Reflection.MemberInfo[])"/> work correctly with a password.
+        /// Ensures <see cref="XmlStorage.ToZip{T}(System.IO.Stream,T,string,System.Collections.Generic.IEnumerable{Common.Storage.EmbeddedFile})"/> and <see cref="XmlStorage.FromZip{T}(System.IO.Stream,string,System.Collections.Generic.IEnumerable{Common.Storage.EmbeddedFile})"/> work correctly with a password.
         /// </summary>
         [Test]
         public void TestZipPassword()
         {
-            TestData testData1, testData2;
-            using (var tempStream = new MemoryStream())
-            {
-                // Write and read file
-                testData1 = new TestData {Data = "Hello"};
-                XmlStorage.ToZip(tempStream, testData1, "Test password", new EmbeddedFile[0]);
-                tempStream.Seek(0, SeekOrigin.Begin);
-                testData2 = XmlStorage.FromZip<TestData>(tempStream, "Test password", new EmbeddedFile[0]);
-            }
+            // Write and read file
+            var testData1 = new TestData {Data = "Hello"};
+            var tempStream = new MemoryStream();
+            XmlStorage.ToZip(tempStream, testData1, "Test password", new EmbeddedFile[0]);
+            tempStream.Seek(0, SeekOrigin.Begin);
+            var testData2 = XmlStorage.FromZip<TestData>(tempStream, "Test password", new EmbeddedFile[0]);
 
             // Ensure data stayed the same
             Assert.AreEqual(testData1.Data, testData2.Data);
         }
 
         /// <summary>
-        /// Ensures <see cref="XmlStorage.FromZip{T}(Stream,string,System.Collections.Generic.IEnumerable{Common.Storage.EmbeddedFile},System.Reflection.MemberInfo[])"/> correctly detects incorrect passwords.
+        /// Ensures <see cref="XmlStorage.FromZip{T}(System.IO.Stream,string,System.Collections.Generic.IEnumerable{Common.Storage.EmbeddedFile})"/> correctly detects incorrect passwords.
         /// </summary>
         [Test]
         public void TestIncorrectPassword()
         {
-            using (var tempStream = new MemoryStream())
-            {
-                var testData = new TestData {Data = "Hello"};
-                XmlStorage.ToZip(tempStream, testData, "Correct password", new EmbeddedFile[0]);
-                tempStream.Seek(0, SeekOrigin.Begin);
-                Assert.Throws<ZipException>(() => XmlStorage.FromZip<TestData>(tempStream, "Wront password", new EmbeddedFile[0]));
-            }
+            var tempStream = new MemoryStream();
+            var testData = new TestData {Data = "Hello"};
+            XmlStorage.ToZip(tempStream, testData, "Correct password", new EmbeddedFile[0]);
+            tempStream.Seek(0, SeekOrigin.Begin);
+            Assert.Throws<ZipException>(() => XmlStorage.FromZip<TestData>(tempStream, "Wront password", new EmbeddedFile[0]));
         }
 
         /// <summary>

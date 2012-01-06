@@ -34,29 +34,24 @@ namespace ZeroInstall.Central
         /// <summary>
         /// Checks if updates for Zero Install itself are available.
         /// </summary>
-        /// <param name="policy">Combines UI access, preferences and resources used to solve dependencies and download implementations.</param>
         /// <returns>The version number of the newest available update; <see langword="null"/> if no update is available.</returns>
         /// <exception cref="UserCancelException">Thrown if the user canceled the operation.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if an operation failed due to insufficient rights.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
-        public static ImplementationVersion CheckSelfUpdate(Policy policy)
+        public static ImplementationVersion CheckSelfUpdate()
         {
-            #region Sanity checks
-            if (policy == null) throw new ArgumentNullException("policy");
-            #endregion
-
+            var policy = Policy.CreateDefault(new SilentHandler());
             if (policy.Config.NetworkUse == NetworkLevel.Offline) return null;
-
             policy.FeedManager.Refresh = true;
-            var requirements = new Requirements {InterfaceID = policy.Config.SelfUpdateID, CommandName = "update"};
 
             // Run solver
-            var currentVersion = new ImplementationVersion(AppInfo.Version);
             bool staleFeeds;
+            var requirements = new Requirements {InterfaceID = policy.Config.SelfUpdateID, CommandName = "update"};
             var selections = policy.Solver.Solve(requirements, policy, out staleFeeds);
 
             // Report version of current update if it is newer than the already installed version
+            var currentVersion = new ImplementationVersion(AppInfo.Version);
             var newVersion = selections.Implementations[0].Version;
             return (newVersion > currentVersion) ? newVersion : null;
         }

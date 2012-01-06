@@ -60,7 +60,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Hooks into the creation of new processes on the current thread to inject API hooks.
         /// </summary>
-        /// <param name="policy">Combines UI access, configuration and resources used to solve dependencies and download implementations.</param>
+        /// <param name="policy">Provides additional class dependencies.</param>
         /// <param name="executor">The executor used to launch the new process.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if the main implementation is not cached (possibly because it is installed natively).</exception>
         public RunHook(Policy policy, Executor executor)

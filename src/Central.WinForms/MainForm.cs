@@ -30,6 +30,7 @@ using Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
+using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
@@ -120,7 +121,7 @@ namespace ZeroInstall.Central.WinForms
         {
             try
             {
-                e.Result = UpdateUtils.CheckSelfUpdate(Policy.CreateDefault(new SilentHandler()));
+                e.Result = UpdateUtils.CheckSelfUpdate();
             }
                 #region Error handling
             catch (UserCancelException)
@@ -446,7 +447,7 @@ namespace ZeroInstall.Central.WinForms
                 Msg.Inform(this, Resources.ConfigSyncFirst, MsgSeverity.Warn);
                 new OptionsDialog().ShowDialog(this);
             }
-            else ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] { "sync" }));
+            else ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"sync"}));
         }
 
         private void buttonRefreshCatalog_Click(object sender, EventArgs e)
