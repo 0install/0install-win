@@ -16,9 +16,11 @@
  */
 
 using System;
+using System.IO;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -62,11 +64,8 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
             #endregion
 
-            //Policy.FeedManager.ImportFeed(AdditionalArgs.First, Policy);
-            //return 0;
-
-            Policy.Handler.Output("Not implemented", "This feature is not implemented yet.");
-            return 1;
+            Policy.FeedManager.ImportFeed(Feed.Load(AdditionalArgs.First).Uri, File.ReadAllBytes(AdditionalArgs.First), Policy);
+            return 0;
         }
         #endregion
     }

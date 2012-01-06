@@ -116,15 +116,10 @@ namespace ZeroInstall.Store.Feeds
             var feed = FeedTest.CreateTestFeed();
             feed.Uri = new Uri("http://0install.de/feeds/test/test3.xml");
 
-            using (var feedStream = new MemoryStream())
-            {
-                feed.Save(feedStream);
-                feedStream.Position = 0;
-                _cache.Add(feed.Uri.ToString(), feedStream);
+            _cache.Add(feed.Uri.ToString(), feed.ToArray());
 
-                feed.Simplify();
-                Assert.AreEqual(feed, _cache.GetFeed(feed.Uri.ToString()));
-            }
+            feed.Simplify();
+            Assert.AreEqual(feed, _cache.GetFeed(feed.Uri.ToString()));
         }
 
         [Test]
@@ -151,15 +146,10 @@ namespace ZeroInstall.Store.Feeds
             var feed = FeedTest.CreateTestFeed();
             feed.Uri = new Uri("http://0install.de/feeds/test-" + longHttpUrlBuilder);
 
-            using (var feedStream = new MemoryStream())
-            {
-                feed.Save(feedStream);
-                feedStream.Position = 0;
-                _cache.Add(feed.Uri.ToString(), feedStream);
+            _cache.Add(feed.Uri.ToString(), feed.ToArray());
 
-                feed.Simplify();
-                Assert.AreEqual(feed, _cache.GetFeed(feed.Uri.ToString()));
-            }
+            feed.Simplify();
+            Assert.AreEqual(feed, _cache.GetFeed(feed.Uri.ToString()));
 
             Assert.IsTrue(_cache.Contains(feed.Uri.ToString()));
             _cache.Remove(feed.Uri.ToString());

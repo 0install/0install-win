@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
-using Common.Streams;
 using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
@@ -163,33 +162,33 @@ namespace ZeroInstall.Store.Feeds
 
         #region Add
         /// <inheritdoc/>
-        public void Add(string feedID, Stream stream)
+        public void Add(string feedID, byte[] data)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
             ModelUtils.ValidateInterfaceID(feedID);
-            if (stream == null) throw new ArgumentNullException("stream");
+            if (data == null) throw new ArgumentNullException("data");
             #endregion
 
             try
             {
-                WriteToFile(stream, Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)));
+                WriteToFile(data, Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)));
             }
             catch (PathTooLongException)
             {
                 // Contract too long file paths using a hash of the feed ID
-                WriteToFile(stream, Path.Combine(DirectoryPath, StringUtils.Hash(feedID, SHA256.Create())));
+                WriteToFile(data, Path.Combine(DirectoryPath, StringUtils.Hash(feedID, SHA256.Create())));
             }
         }
 
         private readonly object _replaceLock = new object();
 
         /// <summary>
-        /// Writes the entire content of a stream to file atomically.
+        /// Writes the entire content of a byte array to file atomically.
         /// </summary>
-        /// <param name="stream">The stream to read from.</param>
+        /// <param name="data">The data to write.</param>
         /// <param name="path">The file to write to.</param>
-        private void WriteToFile(Stream stream, string path)
+        private void WriteToFile(byte[] data, string path)
         {
             // Prepend random string to file name to prevent ListAll from catching temporary files
             string tempPath = Path.GetDirectoryName(path) + Path.DirectorySeparatorChar + "new." + Path.GetRandomFileName() + "." + Path.GetFileName(path);
@@ -197,8 +196,7 @@ namespace ZeroInstall.Store.Feeds
             try
             {
                 // Write to temporary file first
-                using (var fileStream = File.OpenWrite(tempPath))
-                    StreamUtils.Copy(stream, fileStream, 4096);
+                File.WriteAllBytes(tempPath, data);
                 lock (_replaceLock) // Prevent race-conditions when adding the same feed twice
                     FileUtils.Replace(tempPath, path);
             }

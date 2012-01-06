@@ -33,27 +33,35 @@ namespace ZeroInstall.Injector.Feeds
     [TestFixture]
     public class FeedManagerTest
     {
+        #region Shared
         private Mock<IFeedCache> _cacheMock;
         private Mock<IOpenPgp> _openPgpMock;
-
-        private FeedManager _feedManager;
         private Policy _policy;
+
+        private LocationsRedirect _redirect;
 
         [SetUp]
         public void SetUp()
         {
             _cacheMock = new Mock<IFeedCache>(MockBehavior.Strict);
             _openPgpMock = new Mock<IOpenPgp>(MockBehavior.Strict);
-            _feedManager = new FeedManager(_cacheMock.Object, _openPgpMock.Object);
-            _policy = new Policy(new Config(), _feedManager, new Mock<IFetcher>().Object, new Mock<ISolver>().Object, new SilentHandler());
+            _policy = new Policy(
+                new Config(), new FeedManager(_cacheMock.Object),
+                new Mock<IFetcher>().Object, _openPgpMock.Object, new Mock<ISolver>().Object, new SilentHandler());
+
+            // Don't store generated executables settings in real user profile
+            _redirect = new LocationsRedirect("0install-unit-tests");
         }
 
         [TearDown]
         public void TearDown()
         {
+            _redirect.Dispose();
+
             _cacheMock.Verify();
             _openPgpMock.Verify();
         }
+        #endregion
 
         [Test(Description = "Ensures local feed files are loaded correctly.")]
         public void TestLocal()
@@ -62,10 +70,12 @@ namespace ZeroInstall.Injector.Feeds
 
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
+                // ReSharper disable AccessToDisposedClosure
                 _cacheMock.Setup(x => x.GetFeed(tempFile.Path)).Returns(feed).Verifiable();
+                // ReSharper restore AccessToDisposedClosure
 
                 bool stale;
-                Assert.AreSame(feed, _feedManager.GetFeed(tempFile.Path, _policy, out stale));
+                Assert.AreSame(feed, _policy.FeedManager.GetFeed(tempFile.Path, _policy, out stale));
                 Assert.IsFalse(stale);
             }
         }
@@ -74,7 +84,7 @@ namespace ZeroInstall.Injector.Feeds
         public void TestLocalMissing()
         {
             bool stale;
-            Assert.Throws<FileNotFoundException>(() => _feedManager.GetFeed("invalid-" + Path.GetRandomFileName(), _policy, out stale));
+            Assert.Throws<FileNotFoundException>(() => _policy.FeedManager.GetFeed("invalid-" + Path.GetRandomFileName(), _policy, out stale));
         }
 
         [Test(Description = "Ensures cached feeds that are not stale are returned correctly.")]
@@ -85,19 +95,11 @@ namespace ZeroInstall.Injector.Feeds
             _cacheMock.Setup(x => x.Contains("http://0install.de/feeds/test/test1.xml")).Returns(true).Verifiable();
             _cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test1.xml")).Returns(feed).Verifiable();
 
-            using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
-            {
-                // Don't store test settings in real user profile
-                Locations.PortableBase = tempDir.Path;
-                Locations.IsPortable = true;
-                new FeedPreferences {LastChecked = DateTime.UtcNow}.SaveFor("http://0install.de/feeds/test/test1.xml");
+            new FeedPreferences {LastChecked = DateTime.UtcNow}.SaveFor("http://0install.de/feeds/test/test1.xml");
 
-                bool stale;
-                Assert.AreSame(feed, _feedManager.GetFeed("http://0install.de/feeds/test/test1.xml", _policy, out stale));
-                Assert.IsFalse(stale);
-
-                Locations.PortableBase = Locations.InstallBase;
-            }
+            bool stale;
+            Assert.AreSame(feed, _policy.FeedManager.GetFeed("http://0install.de/feeds/test/test1.xml", _policy, out stale));
+            Assert.IsFalse(stale);
         }
 
         [Test(Description = "Ensures cached feeds that are stale are returned correctly.")]
@@ -108,34 +110,42 @@ namespace ZeroInstall.Injector.Feeds
             _cacheMock.Setup(x => x.Contains("http://0install.de/feeds/test/test1.xml")).Returns(true).Verifiable();
             _cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test1.xml")).Returns(feed).Verifiable();
 
-            using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
-            {
-                // Don't store test settings in real user profile
-                Locations.PortableBase = tempDir.Path;
-                Locations.IsPortable = true;
-                new FeedPreferences {LastChecked = DateTime.UtcNow - _policy.Config.Freshness}.SaveFor("http://0install.de/feeds/test/test1.xml");
+            new FeedPreferences {LastChecked = DateTime.UtcNow - _policy.Config.Freshness}.SaveFor("http://0install.de/feeds/test/test1.xml");
 
-                bool stale;
-                Assert.AreSame(feed, _feedManager.GetFeed("http://0install.de/feeds/test/test1.xml", _policy, out stale));
-                Assert.IsTrue(stale);
-
-                Locations.PortableBase = Locations.InstallBase;
-            }
+            bool stale;
+            Assert.AreSame(feed, _policy.FeedManager.GetFeed("http://0install.de/feeds/test/test1.xml", _policy, out stale));
+            Assert.IsTrue(stale);
         }
 
-        //[Test(Description = "Ensures missing feeds are downloaded correctly.")]
-        public void TestDownload()
+        [Test(Description = "Ensures feeds without signatures are rejected.")]
+        public void TestImportFeedMissingSignature()
         {
-            using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
+            var feed = FeedTest.CreateTestFeed();
+            Assert.Throws<SignatureException>(() => _policy.FeedManager.ImportFeed(feed.Uri, feed.ToArray(), _policy));
+        }
+
+        [Test(Description = "Ensures feeds with incorrect URIs are rejected.")]
+        public void TestImportFeedIncorrectUri()
+        {
+            var stream = new MemoryStream();
+            FeedTest.CreateTestFeed().Save(stream);
+            var feedData = stream.ToArray();
+            var signature = new byte[] {1, 2, 3};
+
+            // Add the Base64 encoded signature to the end of the stream
+            using (var writer = new StreamWriter(stream, FeedUtils.Encoding) {NewLine = "\n"})
             {
-                // Don't store test settings in real user profile
-                Locations.PortableBase = tempDir.Path;
-                Locations.IsPortable = true;
-
-                // ToDo
-
-                Locations.PortableBase = Locations.InstallBase;
+                writer.Write(FeedUtils.SignatureBlockStart);
+                writer.WriteLine(Convert.ToBase64String(signature));
+                writer.Write(FeedUtils.SignatureBlockEnd);
             }
+
+            var trustDB = new TrustDB();
+            trustDB.TrustKey("fingerprint", new Domain("invalid"));
+            trustDB.Save();
+            _openPgpMock.Setup(x => x.Verify(feedData, signature)).Returns(new[] {new ValidSignature("fingerprint", new DateTime(2000, 1, 1))}).Verifiable();
+
+            Assert.Throws<InvalidInterfaceIDException>(() => _policy.FeedManager.ImportFeed(new Uri("http://invalid/"), stream.ToArray(), _policy));
         }
     }
 }

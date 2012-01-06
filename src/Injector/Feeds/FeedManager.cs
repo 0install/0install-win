@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using Common;
+using Common.Collections;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
@@ -37,8 +38,7 @@ namespace ZeroInstall.Injector.Feeds
         /// Creates a new cache based on the given path to a cache directory.
         /// </summary>
         /// <param name="cache">The disk-based cache to store downloaded <see cref="Feed"/>s.</param>
-        /// <param name="openPgp">The OpenPGP-compatible system used to validate new <see cref="Feed"/>s signatures.</param>
-        public FeedManager(IFeedCache cache, IOpenPgp openPgp) : base(cache, openPgp)
+        public FeedManager(IFeedCache cache) : base(cache)
         {}
         #endregion
 
@@ -120,7 +120,7 @@ namespace ZeroInstall.Injector.Feeds
         /// Loads a <see cref="Feed"/> from the <see cref="FeedManagerBase.Cache"/>.
         /// </summary>
         /// <param name="feedID">The ID used to identify the feed. Must be an HTTP(S) URL.</param>
-        /// <param name="policy">Combines UI access, configuration and resources used to solve dependencies and download implementations.</param>
+        /// <param name="policy">Provides additional class dependencies.</param>
         /// <param name="stale">Indicates that the returned <see cref="Feed"/> should be updated.</param>
         /// <returns>The parsed <see cref="Feed"/> object.</returns>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
@@ -157,21 +157,21 @@ namespace ZeroInstall.Injector.Feeds
         /// <summary>
         /// Downloads a <see cref="Feed"/> into the <see cref="FeedManagerBase.Cache"/> validating its signatures.
         /// </summary>
-        /// <param name="feedUrl">The URL of the feed to download.</param>
-        /// <param name="policy">Combines UI access, configuration and resources used to solve dependencies and download implementations.</param>
+        /// <param name="url">The URL of download the feed from.</param>
+        /// <param name="policy">Provides additional class dependencies.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedUrl"/> is an invalid interface ID.</exception>
-        /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="feedUrl"/> was not found in the cache.</exception>
+        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="url"/> is an invalid interface ID.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="url"/> was not found in the cache.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
-        private void DownloadFeed(Uri feedUrl, Policy policy)
+        private void DownloadFeed(Uri url, Policy policy)
         {
-            // HACK: Use the external solver to download feeds to the cache
+            // ToDo: Use ImportFeed()
             bool stale;
             try
             {
-                policy.Solver.Solve(new Requirements {InterfaceID = feedUrl.ToString()}, policy, out stale);
+                policy.Solver.Solve(new Requirements {InterfaceID = url.ToString()}, policy, out stale);
             }
             catch (SolverException)
             {
@@ -182,9 +182,39 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Import feed
         /// <inheritdoc/>
-        public override void ImportFeed(string path, Policy policy)
+        public override void ImportFeed(Uri uri, byte[] data, Policy policy)
         {
-            throw new NotImplementedException();
+            #region Sanity checks
+            if (uri == null) throw new ArgumentNullException("uri");
+            if (data == null) throw new ArgumentNullException("data");
+            if (policy == null) throw new ArgumentNullException("policy");
+            #endregion
+
+            var trustDB = TrustDB.LoadSafe();
+            var domain = new Domain(uri.Host);
+            var signatures = FeedUtils.GetSignatures(policy.OpenPgp, data);
+
+            // ToDo: Allow adding of new keys
+            bool trusted = false;
+            foreach (var validSignature in EnumerableUtils.OfType<ValidSignature>(signatures))
+            {
+                if (trustDB.IsTrusted(validSignature.Fingerprint, domain))
+                {
+                    trusted = true;
+                    break;
+                }
+            }
+            if (!trusted) throw new SignatureException("No trusted signatures.");
+
+            // ToDo: Detect invalid URIs and Replay attacks
+
+            if (Feed.Load(new MemoryStream(data)).Uri != uri) throw new InvalidInterfaceIDException("Interface URI in feed file does not match.");
+
+            Cache.Add(uri.ToString(), data);
+
+            var preferences = FeedPreferences.LoadForSafe(uri.ToString());
+            preferences.LastChecked = DateTime.UtcNow;
+            preferences.SaveFor(uri.ToString());
         }
         #endregion
 

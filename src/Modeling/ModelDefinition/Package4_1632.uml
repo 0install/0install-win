@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="29e04c8c-1ee6-4427-99c8-299385b66825"
   name="Feeds"
@@ -2031,16 +2031,10 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="1caf81cc-c0c3-4bb5-98b6-e8e387b78b41"
+                  Id="61141d59-2675-4e8c-ba0a-426ec379c767"
                   name="feedID"
                   direction="In"
                   isUnique="false">
-                  <referencesInternal>
-                    <reference
-                      Id="799ca06a-4744-4520-a96b-afadb9a91b02"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=FeedCache Member=(Name=Add OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=path"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <type_NamedElement>
                     <primitiveTypeMoniker
                       Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
@@ -2051,8 +2045,8 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="b874fcab-a4b8-402c-bd86-c5bd9f085df1"
-                  name="path"
+                  Id="4a22a248-a2bd-4fc4-a131-1cfda80def70"
+                  name="data"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
@@ -2567,7 +2561,7 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="00c88f17-90a0-4be2-a2c3-5b039a3864e1"
+                  Id="429cd779-7275-4cb1-8462-1d7a2e5ed0ce"
                   name="feedID"
                   direction="In"
                   isUnique="false">
@@ -2581,8 +2575,8 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="f908277f-89c0-4c67-b2bb-862436af1920"
-                  name="stream"
+                  Id="54d038e0-539f-47b8-bb2c-a00b78cecc80"
+                  name="data"
                   direction="In"
                   isUnique="false" />
               </operationHasOwnedParameters>
@@ -3276,16 +3270,10 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="be736203-71db-4b46-932d-563aa05dd373"
+                  Id="2ea16097-c942-4951-bf08-c55b1b738887"
                   name="feedID"
                   direction="In"
                   isUnique="false">
-                  <referencesInternal>
-                    <reference
-                      Id="ed617ba8-b6e7-4161-8e28-3a3836a94297"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=MemoryFeedCache Member=(Name=Add OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=feedID"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <type_NamedElement>
                     <primitiveTypeMoniker
                       Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
@@ -3296,17 +3284,10 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="6f2660c9-391a-436b-a41b-cd81d1b61716"
-                  name="path"
+                  Id="b29c7ecf-c4cf-4065-989b-94088a19a820"
+                  name="data"
                   direction="In"
-                  isUnique="false">
-                  <referencesInternal>
-                    <reference
-                      Id="e6524eca-a29a-4d6c-917a-5523fcd068f5"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feeds Type=MemoryFeedCache Member=(Name=Add OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=path"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                </parameter>
+                  isUnique="false" />
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>

@@ -79,6 +79,7 @@ namespace ZeroInstall.Commands
         private MockRepository _mockRepository;
 
         protected Mock<IFeedCache> CacheMock { get; private set; }
+        protected Mock<IOpenPgp> OpenPgpMock { get; private set; }
         protected Mock<ISolver> SolverMock { get; private set; }
         protected Mock<IFetcher> FetcherMock { get; private set; }
         protected Policy Policy { get; private set; }
@@ -101,12 +102,13 @@ namespace ZeroInstall.Commands
 
             _mockRepository = new MockRepository(MockBehavior.Strict);
             CacheMock = _mockRepository.Create<IFeedCache>();
+            OpenPgpMock = _mockRepository.Create<IOpenPgp>();
             SolverMock = _mockRepository.Create<ISolver>();
             FetcherMock = _mockRepository.Create<IFetcher>(MockBehavior.Loose);
             FetcherMock.Setup(x => x.Store).Returns(new Mock<IStore>().Object);
-            Policy = new Policy(new Config(),
-                new FeedManagerMock(CacheMock.Object, new Mock<IOpenPgp>().Object),
-                FetcherMock.Object, SolverMock.Object, _handler);
+            Policy = new Policy(
+                new Config(), new FeedManagerMock(CacheMock.Object),
+                FetcherMock.Object, OpenPgpMock.Object, SolverMock.Object, _handler);
 
             Command = GetCommand();
         }

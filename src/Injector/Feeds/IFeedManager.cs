@@ -35,11 +35,6 @@ namespace ZeroInstall.Injector.Feeds
         IFeedCache Cache { get; }
 
         /// <summary>
-        /// The OpenPGP-compatible system used to validate new <see cref="Feed"/>s signatures.
-        /// </summary>
-        IOpenPgp OpenPgp { get; }
-
-        /// <summary>
         /// Set to <see langword="true"/> to re-download <see cref="Feed"/>s even if they are already in the <see cref="Cache"/>.
         /// </summary>
         bool Refresh { get; set; }
@@ -48,7 +43,7 @@ namespace ZeroInstall.Injector.Feeds
         /// Returns a specific <see cref="Feed"/>.
         /// </summary>
         /// <param name="feedID">The canonical ID used to identify the feed.</param>
-        /// <param name="policy">Combines UI access, configuration and resources used to solve dependencies and download implementations.</param>
+        /// <param name="policy">Provides additional class dependencies.</param>
         /// <param name="stale">Indicates that the returned <see cref="Feed"/> should be updated.</param>
         /// <returns>The parsed <see cref="Feed"/> object.</returns>
         /// <remarks><see cref="Feed"/>s are always served from the <see cref="Cache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
@@ -61,14 +56,16 @@ namespace ZeroInstall.Injector.Feeds
         Feed GetFeed(string feedID, Policy policy, out bool stale);
 
         /// <summary>
-        /// Import a feed from a local file into the <see cref="Cache"/>, as if it had been downloaded from the network. Verifies the feed's signature.
+        /// Imports a remote <see cref="Feed"/> into the <see cref="Cache"/> after verifying its signature.
         /// </summary>
-        /// <param name="path">The path of the feed file to be imported.</param>
-        /// <param name="policy">Combines UI access, configuration and resources used to solve dependencies and download implementations.</param>
+        /// <param name="uri">The URI the feed originally came from.</param>
+        /// <param name="data">The data of the feed.</param>
+        /// <param name="policy">Provides additional class dependencies.</param>
+        /// <exception cref="InvalidInterfaceIDException">Thrown if <see cref="data"/> list the same URI as <paramref name="uri"/>.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the feed file or the cache is not permitted.</exception>
-        /// <exception cref="SignatureException">Thrown if the signature data of the feed file could not be handled.</exception>
-        void ImportFeed(string path, Policy policy);
+        /// <exception cref="SignatureException">Thrown if the signature data of the feed file could not be handled or if no signatures were trusted.</exception>
+        void ImportFeed(Uri uri, byte[] data, Policy policy);
 
         /// <summary>
         /// Creates a shallow copy of this feed manager.

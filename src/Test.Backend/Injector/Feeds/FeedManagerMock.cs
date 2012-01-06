@@ -31,8 +31,7 @@ namespace ZeroInstall.Injector.Feeds
         /// Creates a new cache based on the given path to a cache directory.
         /// </summary>
         /// <param name="cache">The disk-based cache to store downloaded <see cref="Feed"/>s.</param>
-        /// <param name="openPgp">The OpenPGP-compatible system used to validate new <see cref="Feed"/>s signatures.</param>
-        public FeedManagerMock(IFeedCache cache, IOpenPgp openPgp) : base(cache, openPgp)
+        public FeedManagerMock(IFeedCache cache) : base(cache)
         {}
         #endregion
 
@@ -52,7 +51,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <summary>
         /// Always throws <see cref="NotImplementedException"/>.
         /// </summary>
-        public override void ImportFeed(string path, Policy policy)
+        public override void ImportFeed(Uri uri, byte[] data, Policy policy)
         {
             throw new NotImplementedException();
         }

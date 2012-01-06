@@ -29,7 +29,7 @@ namespace ZeroInstall.Injector
     /// <summary>
     /// Combines UI access, configuration and resources used to solve dependencies and download implementations.
     /// </summary>
-    /// <remarks>This class primarily serves to simplify the initialization process and to reduce the number of arguments that need to be passed into methods.</remarks>
+    /// <remarks>This class serves to simplify finding class dependencies and to reduce the number of arguments that need to be passed into <see cref="IFeedManager"/> and <see cref="ISolver"/> methods.</remarks>
     [SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces")]
     [Serializable]
     public class Policy : IEquatable<Policy>, ICloneable
@@ -49,6 +49,11 @@ namespace ZeroInstall.Injector
         /// Used to download missing <see cref="Model.Implementation"/>s.
         /// </summary>
         public IFetcher Fetcher { get; private set; }
+
+        /// <summary>
+        /// The OpenPGP-compatible system used to validate new <see cref="Feed"/>s signatures.
+        /// </summary>
+        public IOpenPgp OpenPgp { get; private set; }
 
         /// <summary>
         /// Chooses a set of <see cref="Model.Implementation"/>s to satisfy the requirements of a program and its user. 
@@ -74,22 +79,25 @@ namespace ZeroInstall.Injector
         /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
         /// <param name="feedManager">The source used to request <see cref="Feed"/>s.</param>
         /// <param name="fetcher">Used to download missing <see cref="Model.Implementation"/>s.</param>
+        /// <param name="openPgp">The OpenPGP-compatible system used to validate new <see cref="Feed"/>s signatures.</param>
         /// <param name="solver">Chooses a set of <see cref="Model.Implementation"/>s to satisfy the requirements of a program and its user.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be about download and IO tasks.</param>
         /// <seealso cref="CreateDefault"/>
-        public Policy(Config config, IFeedManager feedManager, IFetcher fetcher, ISolver solver, IHandler handler)
+        public Policy(Config config, IFeedManager feedManager, IFetcher fetcher, IOpenPgp openPgp, ISolver solver, IHandler handler)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");
             if (feedManager == null) throw new ArgumentNullException("feedManager");
-            if (solver == null) throw new ArgumentNullException("solver");
             if (fetcher == null) throw new ArgumentNullException("fetcher");
+            if (openPgp == null) throw new ArgumentNullException("openPgp");
+            if (solver == null) throw new ArgumentNullException("solver");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             Config = config;
             FeedManager = feedManager;
             Fetcher = fetcher;
+            OpenPgp = openPgp;
             Solver = solver;
             Handler = handler;
         }
@@ -105,7 +113,9 @@ namespace ZeroInstall.Injector
         /// <exception cref="InvalidDataException">Thrown if a configuration file is damaged.</exception>
         public static Policy CreateDefault(IHandler handler)
         {
-            return new Policy(Config.Load(), new FeedManager(FeedCacheProvider.CreateDefault(), OpenPgpProvider.Default), FetcherProvider.CreateDefault(), SolverProvider.Default, handler);
+            return new Policy(
+                Config.Load(), new FeedManager(FeedCacheProvider.CreateDefault()),
+                FetcherProvider.CreateDefault(), OpenPgpProvider.Default, SolverProvider.Default, handler);
         }
         #endregion
 
@@ -116,17 +126,19 @@ namespace ZeroInstall.Injector
         /// Creates a semi-deep copy of this <see cref="Policy"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Policy"/>.</returns>
-        /// <remarks><see cref="Config"/> and <see cref="FeedManager"/> are cloned, <see cref="Solver"/>, <see cref="Fetcher"/> and <see cref="Handler"/> are not.</remarks>
+        /// <remarks><see cref="Config"/> and <see cref="FeedManager"/> are cloned, <see cref="Fetcher"/>, <see cref="OpenPgp"/>, <see cref="Solver"/> and <see cref="Handler"/> are not.</remarks>
         public Policy ClonePolicy()
         {
-            return new Policy(Config.CloneConfig(), FeedManager.CloneFeedManager(), Fetcher, Solver, Handler);
+            return new Policy(
+                Config.CloneConfig(), FeedManager.CloneFeedManager(),
+                Fetcher, OpenPgp, Solver, Handler);
         }
 
         /// <summary>
         /// Creates a semi-deep copy of this <see cref="Policy"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Policy"/>.</returns>
-        /// <remarks><see cref="Config"/> and <see cref="FeedManager"/> are cloned, <see cref="Fetcher"/> and <see cref="Handler"/> are not.</remarks>
+        /// <remarks><see cref="Config"/> and <see cref="FeedManager"/> are cloned, <see cref="Fetcher"/>, <see cref="OpenPgp"/>, <see cref="Solver"/> and <see cref="Handler"/> are not.</remarks>
         public object Clone()
         {
             return ClonePolicy();

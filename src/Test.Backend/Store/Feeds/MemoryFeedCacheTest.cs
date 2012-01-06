@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.IO;
 using NUnit.Framework;
 using Moq;
 using ZeroInstall.Model;
@@ -100,15 +99,11 @@ namespace ZeroInstall.Store.Feeds
         [Test]
         public void TestAdd()
         {
-            using (var feedStream = new MemoryStream())
-            {
-                _feed.Save(feedStream);
-                feedStream.Position = 0;
+            var feedData1 = _feed.ToArray();
 
-                // Expect pass-through on adding
-                _backingCacheMock.Setup(x => x.Add("http://0install.de/feeds/test/test1.xml", feedStream)).Verifiable();
-                _cache.Add("http://0install.de/feeds/test/test1.xml", feedStream);
-            }
+            // Expect pass-through on adding
+            _backingCacheMock.Setup(x => x.Add("http://0install.de/feeds/test/test1.xml", feedData1)).Verifiable();
+            _cache.Add("http://0install.de/feeds/test/test1.xml", feedData1);
 
             // Expect no pass-through due to caching on .Add()
             _feed.Simplify();
@@ -117,15 +112,11 @@ namespace ZeroInstall.Store.Feeds
             Feed secondAccess = _cache.GetFeed("http://0install.de/feeds/test/test1.xml");
             Assert.AreSame(firstAccess, secondAccess, "Cache should return identical reference on multiple GetFeed() calls");
 
-            using (var feedStream = new MemoryStream())
-            {
-                _feed.Save(feedStream);
-                feedStream.Position = 0;
+            var feedData2 = _feed.ToArray();
 
-                // Expect pass-through on adding
-                _backingCacheMock.Setup(x => x.Add("http://0install.de/feeds/test/test1.xml", feedStream)).Verifiable();
-                _cache.Add("http://0install.de/feeds/test/test1.xml", feedStream);
-            }
+            // Expect pass-through on adding
+            _backingCacheMock.Setup(x => x.Add("http://0install.de/feeds/test/test1.xml", feedData2)).Verifiable();
+            _cache.Add("http://0install.de/feeds/test/test1.xml", feedData2);
 
             Assert.AreNotSame(firstAccess, _cache.GetFeed("http://0install.de/feeds/test/test1.xml"), "Adding again should overwrite cache entry");
         }
@@ -133,15 +124,11 @@ namespace ZeroInstall.Store.Feeds
         [Test]
         public void TestRemove()
         {
-            using (var feedStream = new MemoryStream())
-            {
-                _feed.Save(feedStream);
-                feedStream.Position = 0;
+            var feedData = _feed.ToArray();
 
-                // Expect pass-through on adding
-                _backingCacheMock.Setup(x => x.Add("http://0install.de/feeds/test/test1.xml", feedStream)).Verifiable();
-                _cache.Add("http://0install.de/feeds/test/test1.xml", feedStream);
-            }
+            // Expect pass-through on adding
+            _backingCacheMock.Setup(x => x.Add("http://0install.de/feeds/test/test1.xml", feedData)).Verifiable();
+            _cache.Add("http://0install.de/feeds/test/test1.xml", feedData);
 
             // Expect no pass-through due to caching on .Add()
             _feed.Simplify();

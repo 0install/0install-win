@@ -31,9 +31,6 @@ namespace ZeroInstall.Injector.Feeds
         public IFeedCache Cache { get; private set; }
 
         /// <inheritdoc/>
-        public IOpenPgp OpenPgp { get; private set; }
-
-        /// <inheritdoc/>
         public bool Refresh { get; set; }
         #endregion
 
@@ -42,16 +39,13 @@ namespace ZeroInstall.Injector.Feeds
         /// Creates a new cache based on the given path to a cache directory.
         /// </summary>
         /// <param name="cache">The disk-based cache to store downloaded <see cref="Feed"/>s.</param>
-        /// <param name="openPgp">The OpenPGP-compatible system used to validate new <see cref="Feed"/>s signatures.</param>
-        public FeedManagerBase(IFeedCache cache, IOpenPgp openPgp)
+        protected FeedManagerBase(IFeedCache cache)
         {
             #region Sanity checks
             if (cache == null) throw new ArgumentNullException("cache");
-            if (openPgp == null) throw new ArgumentNullException("openPgp");
             #endregion
 
             Cache = cache;
-            OpenPgp = openPgp;
         }
         #endregion
 
@@ -64,7 +58,7 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Import feed
         /// <inheritdoc/>
-        public abstract void ImportFeed(string path, Policy policy);
+        public abstract void ImportFeed(Uri uri, byte[] data, Policy policy);
         #endregion
 
         #region Clone
@@ -93,7 +87,7 @@ namespace ZeroInstall.Injector.Feeds
         {
             if (other == null) return false;
 
-            return Refresh == other.Refresh && Equals(other.Cache, Cache) && Equals(other.OpenPgp, OpenPgp);
+            return Refresh == other.Refresh && Equals(other.Cache, Cache);
         }
 
         /// <inheritdoc/>
@@ -111,7 +105,6 @@ namespace ZeroInstall.Injector.Feeds
             {
                 int result = Refresh.GetHashCode();
                 result = (result * 397) ^ Cache.GetHashCode();
-                result = (result * 397) ^ OpenPgp.GetHashCode();
                 return result;
             }
         }

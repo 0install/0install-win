@@ -21,6 +21,7 @@ using Moq;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Injector.Solver
 {
@@ -30,10 +31,27 @@ namespace ZeroInstall.Injector.Solver
     public abstract class SolverTest
     {
         private readonly ISolver _solver;
+        private Mock<IFeedCache> _cacheMock;
+        private Policy _policy;
 
         protected SolverTest(ISolver solver)
         {
             _solver = solver;
+        }
+
+        [SetUp]
+        public void SetUp()
+        {
+            _cacheMock = new Mock<IFeedCache>(MockBehavior.Strict);
+            _policy = new Policy(
+                new Config(), new FeedManager(_cacheMock.Object),
+                new Mock<IFetcher>().Object, new Mock<IOpenPgp>().Object, _solver, new SilentHandler());
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _cacheMock.Verify();
         }
 
         private static Feed CreateTestFeed()
@@ -49,9 +67,8 @@ namespace ZeroInstall.Injector.Solver
                 CreateTestFeed().Save(tempFile.Path);
 
                 bool staleFeeds;
-                var policy = new Policy(new Config(), new Mock<IFeedManager>().Object, new Mock<IFetcher>().Object, _solver, new SilentHandler());
 
-                Selections selections = _solver.Solve(new Requirements {InterfaceID = tempFile.Path}, policy, out staleFeeds);
+                Selections selections = _solver.Solve(new Requirements {InterfaceID = tempFile.Path}, _policy, out staleFeeds);
                 Assert.IsFalse(staleFeeds, "Local feed files should never be considered stale");
 
                 Assert.AreEqual(tempFile.Path, selections.InterfaceID);

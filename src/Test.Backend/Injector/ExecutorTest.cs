@@ -39,22 +39,19 @@ namespace ZeroInstall.Injector
         #endregion
 
         #region Shared
-        private TemporaryDirectory _tempDir;
+        private LocationsRedirect _redirect;
 
         [SetUp]
         public void SetUp()
         {
             // Don't store generated executables settings in real user profile
-            _tempDir = new TemporaryDirectory("0install-unit-tests");
-            Locations.PortableBase = _tempDir.Path;
-            Locations.IsPortable = true;
+            _redirect = new LocationsRedirect("0install-unit-tests");
         }
 
         [TearDown]
         public void TearDown()
         {
-            Locations.PortableBase = Locations.InstallBase;
-            _tempDir.Dispose();
+            _redirect.Dispose();
         }
         #endregion
 

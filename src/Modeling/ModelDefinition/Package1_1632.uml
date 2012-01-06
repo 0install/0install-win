@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="c2ca15a1-edba-444e-b0b3-566e1cd782d0"
   name="Injector"
@@ -350,6 +350,58 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
+          <association
+            Id="3481706b-2bec-4ae3-8dd8-2f7cd6dd5c7a"
+            isDerived="false"
+            sourceEndRoleName="Policy"
+            targetEndRoleName="OpenPgp"
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="1f5177ee-45e7-46a2-8294-ccae92c4fa5e"
+              LastKnownName="IOpenPgp"
+              LastKnownLocation="Package4_1632.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="f1e3b7ac-a145-44b0-8d6c-efdfdc0809c2"
+                  name="Policy"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="0a36cfad-2fff-4b9c-bcc2-2d260acaf513"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="b6b936b3-b632-48da-bd15-f610ce360f26"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="feb230fa-69ce-4d15-aff8-756b8515183c"
+                  name="OpenPgp"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
         </targetEnds>
         <ownedAttributesInternal>
           <property
@@ -555,7 +607,7 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="2df45f90-402a-49fe-817b-f98fc4bac8ed"
+                  Id="8c8164d7-60d1-4f10-975b-82865d84fc16"
                   name="config"
                   direction="In"
                   isUnique="false">
@@ -569,7 +621,7 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="27b7bc89-261a-4815-9450-91bb49afc123"
+                  Id="43eb26e0-4eb4-4cd3-a34d-a727021f2c34"
                   name="feedManager"
                   direction="In"
                   isUnique="false">
@@ -583,7 +635,7 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="94dd090f-54df-4bf9-a453-262c4ca58db2"
+                  Id="f0a0fabd-b475-4e93-9218-93d6b35fce2c"
                   name="fetcher"
                   direction="In"
                   isUnique="false">
@@ -597,9 +649,24 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="6e199826-d334-4c7f-a483-be7e03f91cc0"
+                  Id="74afd209-0d5a-4c04-a1e7-2b09f62f6e7f"
+                  name="openPgp"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="1f5177ee-45e7-46a2-8294-ccae92c4fa5e"
+                      LastKnownName="IOpenPgp"
+                      LastKnownLocation="Package4_1632.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="05e05c11-123a-4222-9b19-0a76acdfb506"
                   name="solver"
-                  direction="In">
+                  direction="In"
+                  isUnique="false">
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="ee7df2f8-02c8-484d-99f9-7cc78a5e0e28"
@@ -610,9 +677,10 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="06bd0284-b181-48b9-baee-e80c4c7b7ed5"
+                  Id="e2bd2152-0b16-4400-8cf7-4788a4e4af2e"
                   name="handler"
-                  direction="In">
+                  direction="In"
+                  isUnique="false">
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="7df0078e-51a1-47cb-a0b2-2dba92bc646d"
@@ -5233,6 +5301,26 @@
           </operation>
         </ownedOperationsInternal>
       </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="3ca83512-a8da-47f2-9acc-a98aad810635"
+        name="TrustDB" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="b50c2ab8-f75f-47e7-b01b-eced2048fbb8"
+        name="FeedManager" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="86e7b1d2-2da6-4fa0-bb91-df150367a24d"
+        name="IFetcher" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="609be0ee-8b21-4955-b73d-bf11e57e6c58"
+        name="ISolver" />
     </packageHasNamedElement>
   </packagedElements>
 </package>

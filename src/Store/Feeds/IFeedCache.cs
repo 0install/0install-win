@@ -61,15 +61,15 @@ namespace ZeroInstall.Store.Feeds
         IEnumerable<OpenPgpSignature> GetSignatures(string feedID, IOpenPgp openPgp);
 
         /// <summary>
-        /// Adds a new <see cref="Feed"/> file to the cache. Only do this after the feed source has been verified and trusted and replay attacks filtered!
+        /// Adds a new <see cref="Feed"/> to the cache. Only do this after the feed source has been verified and trusted and replay attacks filtered!
         /// </summary>
         /// <param name="feedID">The canonical ID used to identify the feed.</param>
-        /// <param name="stream">A stream containing the data of the feed to be added.</param>
+        /// <param name="data">The data of the feed to be added.</param>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while writing the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the cache is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the feed file could not be parsed.</exception>
-        void Add(string feedID, Stream stream);
+        void Add(string feedID, byte[] data);
 
         /// <summary>
         /// Removes a specific <see cref="Feed"/> from this cache. No exception is thrown if the specified <see cref="Feed"/> is not in the cache.

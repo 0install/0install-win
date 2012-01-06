@@ -22,13 +22,6 @@
         <Point X="3.25" Y="2.346" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="Handler" Type="ZeroInstall.Injector.IHandler" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="0.812" Y="4.747" />
-        <Point X="0.812" Y="6.846" />
-        <Point X="3.25" Y="6.846" />
-      </Path>
-    </AssociationLine>
     <AssociationLine Name="OpenPgp" Type="ZeroInstall.Store.Feeds.IOpenPgp" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="1.562" Y="4.747" />
@@ -43,42 +36,29 @@
         <Point X="3.25" Y="6.031" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="TrustDB" Type="ZeroInstall.Injector.Feeds.TrustDB" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="Handler" Type="ZeroInstall.Injector.IHandler" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="1.125" Y="3" />
-        <Point X="1.125" Y="1.531" />
-        <Point X="3.25" Y="1.531" />
+        <Point X="0.812" Y="4.747" />
+        <Point X="0.812" Y="6.846" />
+        <Point X="3.25" Y="6.846" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAQAAAAgAIAAAAgAAAAAAIAAQAAIgAAoAAAAAAABA=</HashCode>
+      <HashCode>AAAAQAAAAgAIAAAAgAAAAAAIAAQAAIgAAgAAAAAAABA=</HashCode>
       <FileName>Policy.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Config" />
       <Property Name="FeedManager" />
       <Property Name="Fetcher" />
-      <Property Name="Handler" />
       <Property Name="OpenPgp" />
       <Property Name="Solver" />
-      <Property Name="TrustDB" />
+      <Property Name="Handler" />
     </ShowAsAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Injector.Executor" Collapsed="true">
     <Position X="7.75" Y="0.5" Width="1.5" />
-    <NestedTypes>
-      <Struct Name="ZeroInstall.Injector.Executor.RunEnvPending" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Executor.Bindings.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Struct>
-      <Struct Name="ZeroInstall.Injector.Executor.CommandLineSplit" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Executor.CommandLine.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Struct>
-    </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAAAQICIACBACAACAAIAACAggAAAEAAABhAABQAAIQA=</HashCode>
       <FileName>Executor.Bindings.cs</FileName>

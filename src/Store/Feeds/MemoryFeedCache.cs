@@ -104,19 +104,19 @@ namespace ZeroInstall.Store.Feeds
 
         #region Add
         /// <inheritdoc/>
-        public void Add(string feedID, Stream stream)
+        public void Add(string feedID, byte[] data)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
             ModelUtils.ValidateInterfaceID(feedID);
-            if (stream == null) throw new ArgumentNullException("stream");
+            if (data == null) throw new ArgumentNullException("data");
             #endregion
 
             // Add to underlying cache
-            _backingCache.Add(feedID, stream);
+            _backingCache.Add(feedID, data);
 
             // Add to memory cache (replacing existing old versions)
-            var feed = Feed.Load(stream);
+            var feed = Feed.Load(new MemoryStream(data));
             feed.Simplify();
             lock (_feedDictionary)
             {
