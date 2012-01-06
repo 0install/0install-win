@@ -55,16 +55,14 @@ namespace ZeroInstall.Commands
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
             #endregion
 
-            AppEntry appEntry;
             try
             {
-                appEntry = integrationManager.AddApp(interfaceID, GetFeed(interfaceID));
+                integrationManager.AddApp(interfaceID, GetFeed(interfaceID));
             }
             catch (InvalidOperationException ex)
             {
                 // Show a "nothing to do" message (but not in batch mode, since it is too unimportant));
                 if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, ex.Message);
-                return 0;
             }
 
             return 0;

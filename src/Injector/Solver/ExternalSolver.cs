@@ -71,7 +71,7 @@ namespace ZeroInstall.Injector.Solver
         /// Generates a list of arguments to be passed on to the solver script.
         /// </summary>
         /// <param name="requirements">A set of requirements/restrictions imposed by the user on the implementation selection process.</param>
-        /// <param name="policy">Combines UI access, preferences and resources used to solve dependencies and download implementations.</param>
+        /// <param name="policy">Provides additional class dependencies.</param>
         /// <returns>An empty string or a list of arguments terminated by a space.</returns>
         private static string GetSolverArguments(Requirements requirements, Policy policy)
         {

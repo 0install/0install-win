@@ -31,7 +31,7 @@ namespace ZeroInstall.Injector.Solver
         /// Solves the dependencies for a specific feed.
         /// </summary>
         /// <param name="requirements">A set of requirements/restrictions imposed by the user on the implementation selection process.</param>
-        /// <param name="policy">Combines UI access, preferences and resources used to solve dependencies and download implementations.</param>
+        /// <param name="policy">Provides additional class dependencies.</param>
         /// <param name="staleFeeds">Indicates that one or more of the <see cref="Model.Feed"/>s used by the solver should be updated.</param>
         /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
         /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>

@@ -75,7 +75,7 @@ namespace ZeroInstall.Injector.Feeds
         public void TestClone()
         {
             var trust1 = CreateTestTrust();
-            var trust2 = trust1.CloneTrust();
+            var trust2 = trust1.CloneTrustDB();
 
             // Ensure data stayed the same
             Assert.AreEqual(trust1, trust2, "Cloned objects should be equal.");

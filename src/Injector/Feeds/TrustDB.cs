@@ -166,7 +166,7 @@ namespace ZeroInstall.Injector.Feeds
         /// Creates a deep copy of this <see cref="TrustDB"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="TrustDB"/>.</returns>
-        public TrustDB CloneTrust()
+        public TrustDB CloneTrustDB()
         {
             var trust = new TrustDB();
             foreach (var key in Keys) trust.Keys.Add(key.CloneKey());
@@ -180,7 +180,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <returns>The new copy of the <see cref="TrustDB"/>.</returns>
         public object Clone()
         {
-            return CloneTrust();
+            return CloneTrustDB();
         }
         #endregion
 
