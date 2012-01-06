@@ -93,6 +93,7 @@
     <Compile Include="Solver\ExternalSolverControlNative.cs" />
     <Compile Include="Solver\ExternalSolverControlBundled.cs" />
     <Compile Include="Solver\ExternalSolverErrorParser.cs" />
+    <None Include="Solver\ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -14,28 +14,22 @@
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
-    <AssociationLine Name="Summaries" Type="Common.Collections.LocalizableString" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="Summaries" Type="Common.Collections.LocalizableString" FixedFromPoint="true">
       <Path>
-        <Point X="4.844" Y="4.559" />
-        <Point X="4.844" Y="4.875" />
-        <Point X="6.25" Y="4.875" />
+        <Point X="5.25" Y="5.125" />
+        <Point X="6.75" Y="5.125" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.185" Y="0.037" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="Descriptions" Type="Common.Collections.LocalizableString" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="4.5" Y="4.559" />
-        <Point X="4.5" Y="5.188" />
-        <Point X="6.25" Y="5.188" />
-      </Path>
+    <AssociationLine Name="Descriptions" Type="Common.Collections.LocalizableString">
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.329" Y="0.06" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAohIAQBCAgQGkEhABQAAQAAIUAEIGASAgAAAAAADI=</HashCode>
+      <HashCode>AJAolIAQBDAgQHkEhABQgARAAIUAEICASAgAAAAIADI=</HashCode>
       <FileName>Feed.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -117,7 +111,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Common.Collections.LocalizableString" Collapsed="true">
-    <Position X="6.25" Y="4.75" Width="1.5" />
+    <Position X="6.75" Y="4.75" Width="1.5" />
     <TypeIdentifier />
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -130,7 +124,7 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAQAAAAAAAAQEgAIAAAAAQAAAAIAAAAAAAAAAAiA=</HashCode>
+      <HashCode>AAAAAQAAAAAAAAQEgAMAAAAAQAAAAKAAAAAAAAAAAiA=</HashCode>
       <FileName>Icon.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />

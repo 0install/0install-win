@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Model.Binding">
-    <Position X="3.75" Y="3.5" Width="1.5" />
+    <Position X="3.75" Y="4" Width="1.5" />
     <Members>
       <Method Name="Clone" Hidden="true" />
     </Members>
@@ -27,7 +27,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>ABEAAAAAAAAAAAAEgABAAABAAAAEAJAAAEAAAAAAABA=</HashCode>
+      <HashCode>ABEAAAAAAAAAAAAEgABAAABIAAAEAJAAAEAAAAAAABA=</HashCode>
       <FileName>Dependency.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -37,14 +37,14 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Model.EnvironmentBinding">
-    <Position X="4.75" Y="5.25" Width="1.75" />
+    <Position X="4.75" Y="5.75" Width="1.75" />
     <Members>
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAAEgAAAIAQAAAAAAIAAAAAgEAAAAAA=</HashCode>
+      <HashCode>AAAAAEAAAIAAAAAEgAAAIAQAAAAAAJAAAAAgEAAAAAA=</HashCode>
       <FileName>EnvironmentBinding.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -53,7 +53,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Model.OverlayBinding">
-    <Position X="2.75" Y="5.25" Width="1.75" />
+    <Position X="2.75" Y="5.75" Width="1.75" />
     <Members>
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
@@ -81,9 +81,9 @@
       <FileName>Element.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="Commands" />
       <Property Name="Dependencies" />
       <Property Name="Bindings" />
+      <Property Name="Commands" />
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -120,7 +120,7 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAIKEgAAAAAQAAABAAIAAYAAEQACAABA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAIKEgAAAAARAAABAAIAAYEAEQACAABA=</HashCode>
       <FileName>Command.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -134,12 +134,13 @@
   <Class Name="ZeroInstall.Model.Runner" Collapsed="true">
     <Position X="3.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAAAAAAAAAAAAAEgAAAAAAAAAAAAIABYAAAAAAAAAA=</HashCode>
+      <HashCode>ABAAAAAAAAAAAAAEgAAABAAAAAAAAIABYAAAAAAAAAA=</HashCode>
       <FileName>Runner.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Enum Name="ZeroInstall.Model.EnvironmentMode">
-    <Position X="7.5" Y="5.25" Width="1.75" />
+    <Position X="7.5" Y="5.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAQAAAAAAAAAAACA=</HashCode>
       <FileName>EnvironmentBinding.cs</FileName>

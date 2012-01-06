@@ -1,55 +1,91 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Injector.Policy">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="3" Width="1.5" />
     <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
       <Method Name="Policy" Hidden="true" />
     </Members>
-    <AssociationLine Name="AdditionalStore" Type="ZeroInstall.Store.Implementation.IStore" FixedFromPoint="true">
+    <AssociationLine Name="Config" Type="ZeroInstall.Injector.Config" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="2" Y="0.937" />
-        <Point X="3.5" Y="0.937" />
+        <Point X="0.812" Y="3" />
+        <Point X="0.812" Y="0.781" />
+        <Point X="3.25" Y="0.781" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="FeedManager" Type="ZeroInstall.Injector.Feeds.IFeedManager" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.5" Y="3" />
+        <Point X="1.5" Y="2.346" />
+        <Point X="3.25" Y="2.346" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Handler" Type="ZeroInstall.Injector.IHandler" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="0.812" Y="4.747" />
+        <Point X="0.812" Y="6.846" />
+        <Point X="3.25" Y="6.846" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="OpenPgp" Type="ZeroInstall.Store.Feeds.IOpenPgp" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.562" Y="4.747" />
+        <Point X="1.562" Y="5.371" />
+        <Point X="3.25" Y="5.371" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Solver" Type="ZeroInstall.Injector.Solver.ISolver" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.188" Y="4.747" />
+        <Point X="1.188" Y="6.031" />
+        <Point X="3.25" Y="6.031" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="TrustDB" Type="ZeroInstall.Injector.Feeds.TrustDB" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.125" Y="3" />
+        <Point X="1.125" Y="1.531" />
+        <Point X="3.25" Y="1.531" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>CAAAQAAAAAAAAAAAAAAAAAAIAAQAAAAAAgAAAAAAAEA=</HashCode>
+      <HashCode>AAAAQAAAAgAIAAAAgAAAAAAIAAQAAIgAAoAAAAAAABA=</HashCode>
       <FileName>Policy.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="AdditionalStore" />
-      <Property Name="SearchStore" />
+      <Property Name="Config" />
+      <Property Name="FeedManager" />
+      <Property Name="Fetcher" />
+      <Property Name="Handler" />
+      <Property Name="OpenPgp" />
+      <Property Name="Solver" />
+      <Property Name="TrustDB" />
     </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.Injector.Executor">
-    <Position X="7.5" Y="0.5" Width="2.25" />
-    <AssociationLine Name="_selections" Type="ZeroInstall.Injector.Solver.Selections">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.128" Y="0.069" />
-      </MemberNameLabel>
-    </AssociationLine>
+  <Class Name="ZeroInstall.Injector.Executor" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Struct Name="ZeroInstall.Injector.Executor.RunEnvPending" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Executor.Bindings.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="ZeroInstall.Injector.Executor.CommandLineSplit" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Executor.CommandLine.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAQAAICAAEAgACAAIAAAAgAAACAAAAgAAABAAAIAA=</HashCode>
-      <FileName>Executor.cs</FileName>
+      <HashCode>AAAAQICIACBACAACAAIAACAggAAAEAAABhAABQAAIQA=</HashCode>
+      <FileName>Executor.Bindings.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="_selections" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="ZeroInstall.Fetchers.Fetcher" Collapsed="true">
-    <Position X="3.5" Y="2" Width="1.5" />
-    <AssociationLine Name="Store" Type="ZeroInstall.Store.Implementation.IStore">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.614" Y="0.268" />
-      </MemberNameLabel>
-    </AssociationLine>
-    <TypeIdentifier />
-    <ShowAsAssociation>
-      <Property Name="Store" />
-    </ShowAsAssociation>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Injector.Solver.Selections">
-    <Position X="11" Y="0.5" Width="2" />
+    <Position X="7.75" Y="1.5" Width="2" />
     <Members>
       <Method Name="Clone" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
@@ -59,17 +95,16 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AQAAgogCAAAQAAAAmAAAAQAAAAEAAIAAAAAAABAAABA=</HashCode>
+      <HashCode>AQAAwIgCgAAQAQAAmAAABQAAAAAAAIAAAAAAAQAAABA=</HashCode>
       <FileName>Solver\Selections.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Implementations" />
-      <Property Name="Commands" />
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Injector.Solver.ImplementationSelection" BaseTypeListCollapsed="true">
-    <Position X="14.5" Y="0.5" Width="2" />
+    <Position X="11.25" Y="2.5" Width="2" />
     <Members>
       <Field Name="_distributions" Hidden="true" />
       <Property Name="DistributionsString" Hidden="true" />
@@ -78,21 +113,13 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAACAAAAEACEoAAQAAAABRAAAJAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAACAAAAEACEoAAQAAAABRACAJAAAAAAAAAAAAA=</HashCode>
       <FileName>Solver\ImplementationSelection.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.Injector.Solver.ExternalSolver" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="4.75" Y="3.5" Width="1.25" />
-    <TypeIdentifier>
-      <HashCode>ACAAAAAIAAAAAIAAACABAAQIAAQAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Solver\ExternalSolver.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="ZeroInstall.Injector.Solver.SolverProvider">
-    <Position X="3" Y="3.25" Width="1.5" />
+  <Class Name="ZeroInstall.Injector.Solver.SolverProvider" Collapsed="true">
+    <Position X="5.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Solver\SolverProvider.cs</FileName>
@@ -101,49 +128,91 @@
       <Property Name="Default" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="ZeroInstall.Model.Command">
-    <Position X="11" Y="4" Width="1.5" />
+  <Class Name="ZeroInstall.Injector.Config" Collapsed="true">
+    <Position X="3.25" Y="0.5" Width="1.5" />
     <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
-    <TypeIdentifier />
+    <TypeIdentifier>
+      <HashCode>AVAAwIC4gAAUICCGgAwAgIAAJgQAgIAACDADgAgICJE=</HashCode>
+      <FileName>Config.cs</FileName>
+    </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.Injector.Solver.Requirements">
-    <Position X="5.75" Y="0.5" Width="1.5" />
+  <Class Name="ZeroInstall.Injector.Feeds.TrustDB" Collapsed="true">
+    <Position X="3.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAACCAIAAAwABAAAQAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
-      <FileName>Solver\Requirements.cs</FileName>
+      <HashCode>AAAQgIAQAAACAgABiAEAAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
+      <FileName>Feeds\TrustDB.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Injector.SilentHandler" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAEAAAAEAMAAIAAAAAAAAAAAARAAAAAACgAA=</HashCode>
+      <FileName>SilentHandler.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Feeds.OpenPgpProvider" Collapsed="true">
+    <Position X="5.75" Y="5" Width="1.5" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="Default" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ZeroInstall.Fetchers.FetcherProvider">
+    <Position X="3.25" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ZeroInstall.Store.Implementation.StoreProvider">
+    <Position X="5.75" Y="3" Width="1.5" />
+    <TypeIdentifier />
   </Class>
   <Interface Name="ZeroInstall.Injector.Solver.ISolver" Collapsed="true">
-    <Position X="0.5" Y="3.25" Width="1.5" />
+    <Position X="3.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Solver\ISolver.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="ZeroInstall.Store.Implementation.IStore" Collapsed="true">
-    <Position X="3.5" Y="0.75" Width="1.5" />
+    <Position X="5.75" Y="4.25" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="ZeroInstall.Injector.IHandler" Collapsed="true">
-    <Position X="3" Y="4.75" Width="1.25" />
+    <Position X="3.25" Y="6.5" Width="1.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <HashCode>AQAAAAAAAEAAAAEAMAAIAAAAAAAAAAAARAAAAAACgAA=</HashCode>
       <FileName>IHandler.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="ZeroInstall.Fetchers.IFetchHandler" Collapsed="true">
-    <Position X="4.75" Y="4.75" Width="1.25" />
+  <Interface Name="ZeroInstall.Injector.Feeds.IFeedManager" Collapsed="true">
+    <Position X="3.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAABAAAAQAAAAAAAAAAIEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Feeds\IFeedManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Cache" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="ZeroInstall.Fetchers.IFetcher" Collapsed="true">
+    <Position X="3.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="Store" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="ZeroInstall.Store.Feeds.IOpenPgp" Collapsed="true">
+    <Position X="3.25" Y="5" Width="1.5" />
     <TypeIdentifier />
   </Interface>
-  <Interface Name="ZeroInstall.Injector.Feeds.IFeedHandler" Collapsed="true">
-    <Position X="1.25" Y="4.75" Width="1.25" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
-      <FileName>Feeds\IFeedHandler.cs</FileName>
-    </TypeIdentifier>
+  <Interface Name="ZeroInstall.Store.Feeds.IFeedCache" Collapsed="true">
+    <Position X="5.75" Y="2" Width="1.5" />
+    <TypeIdentifier />
   </Interface>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
