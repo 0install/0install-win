@@ -90,7 +90,11 @@ namespace ZeroInstall.Publish
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the feed file is not permitted.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        /// <remarks>The feed file is not parsed before signing. Invalid XML files would be signed as well. Old feed signatures are not removed.</remarks>
+        /// <remarks>
+        /// The feed file is not parsed before signing; invalid XML files are signed as well.
+        /// The existing file must end with a line break.
+        /// Old feed signatures are not removed.
+        /// </remarks>
         public static void SignFeed(string path, OpenPgpSecretKey secretKey, string passphrase, IOpenPgp openPgp)
         {
             #region Sanity checks

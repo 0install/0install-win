@@ -46,7 +46,7 @@ namespace Common.Storage
         /// Loads an object from an XML file.
         /// </summary>
         /// <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
-        /// <param name="stream">The XML file to be loaded.</param>
+        /// <param name="stream">The stream to read the encoded XML data from.</param>
         /// <returns>The loaded object.</returns>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
@@ -74,7 +74,7 @@ namespace Common.Storage
         /// Loads an object from an XML file.
         /// </summary>
         /// <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
-        /// <param name="path">The XML file to be loaded.</param>
+        /// <param name="path">The path of the file to load.</param>
         /// <returns>The loaded object.</returns>
         /// <exception cref="IOException">Thrown if a problem occurred while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
@@ -122,10 +122,10 @@ namespace Common.Storage
 
         #region Save plain
         /// <summary>
-        /// Saves an object in an XML stream.
+        /// Saves an object in an XML stream ending with a line break.
         /// </summary>
         /// <typeparam name="T">The type of object to be saved in an XML stream.</typeparam>
-        /// <param name="stream">The XML file to be written.</param>
+        /// <param name="stream">The stream to write the encoded XML data to.</param>
         /// <param name="data">The object to be stored.</param>
         public static void Save<T>(Stream stream, T data)
         {
@@ -149,20 +149,20 @@ namespace Common.Storage
                 serializer.Serialize(xmlWriter, data, ns);
             }
 
-            // End file with newline
+            // End file with line break
             if (xmlWriter.Settings != null)
             {
-                var newline = xmlWriter.Settings.Encoding.GetBytes(xmlWriter.Settings.NewLineChars);
-                stream.Write(newline, 0, newline.Length);
+                var newLine = xmlWriter.Settings.Encoding.GetBytes(xmlWriter.Settings.NewLineChars);
+                stream.Write(newLine, 0, newLine.Length);
             }
         }
 
         /// <summary>
-        /// Saves an object in an XML file.
+        /// Saves an object in an XML file ending with a line break.
         /// </summary>
         /// <remarks>This method performs an atomic write operation when possible.</remarks>
         /// <typeparam name="T">The type of object to be saved in an XML stream.</typeparam>
-        /// <param name="path">The XML file to be written.</param>
+        /// <param name="path">The path of the file to write.</param>
         /// <param name="data">The object to be stored.</param>
         /// <exception cref="IOException">Thrown if a problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
@@ -195,7 +195,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Returns an object as an XML string.
+        /// Returns an object as an XML string ending with a line break.
         /// </summary>
         /// <typeparam name="T">The type of object to be saved in an XML stream.</typeparam>
         /// <param name="data">The object to be stored.</param>
@@ -215,7 +215,7 @@ namespace Common.Storage
 
         #region Stylesheet
         /// <summary>
-        /// Adds an XSL stylesheet instruction to an XML file.
+        /// Adds an XSL stylesheet instruction to an existing XML file.
         /// </summary>
         /// <param name="path">The XML file to add the stylesheet instruction to.</param>
         /// <param name="stylesheetFile">The file name of the stylesheet to reference.</param>
@@ -242,8 +242,8 @@ namespace Common.Storage
             {
                 dom.WriteTo(xmlWriter);
 
-                // End file with newline
-                xmlWriter.WriteWhitespace("\n");
+                // End file with line break
+                if (xmlWriter.Settings != null) xmlWriter.WriteWhitespace(xmlWriter.Settings.NewLineChars);
             }
         }
         #endregion
@@ -255,7 +255,7 @@ namespace Common.Storage
         /// Loads an object from an XML file embedded in a ZIP archive.
         /// </summary>
         /// <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
-        /// <param name="stream">The ZIP archive to be loaded.</param>
+        /// <param name="stream">The ZIP archive to load.</param>
         /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption.</param>
         /// <param name="additionalFiles">Additional files stored alongside the XML file in the ZIP archive to be read; may be <see langword="null"/>.</param>
         /// <returns>The loaded object.</returns>
@@ -310,7 +310,7 @@ namespace Common.Storage
         /// Loads an object from an XML file embedded in a ZIP archive.
         /// </summary>
         /// <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
-        /// <param name="path">The ZIP archive to be loaded.</param>
+        /// <param name="path">The ZIP archive to load.</param>
         /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption.</param>
         /// <param name="additionalFiles">Additional files stored alongside the XML file in the ZIP archive to be read; may be <see langword="null"/>.</param>
         /// <returns>The loaded object.</returns>
