@@ -19,6 +19,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
+using Common;
 using Common.Storage;
 using ZeroInstall.Model;
 
@@ -135,6 +136,40 @@ namespace ZeroInstall.Injector.Feeds
         public static TrustDB Load()
         {
             return Load(Locations.GetSaveConfigPath("0install.net", true, "injector", "trustdb.xml"));
+        }
+
+        /// <summary>
+        /// Tries to load the <see cref="TrustDB"/> from its default location. Automatically falls back to defaults on errors.
+        /// </summary>
+        /// <returns>The loaded <see cref="TrustDB"/>.</returns>
+        public static TrustDB LoadSafe()
+        {
+            try
+            {
+                return Load();
+            }
+                #region Error handling
+            catch (FileNotFoundException)
+            {
+                Log.Info("Creating new trust DB.");
+                return new TrustDB();
+            }
+            catch (IOException ex)
+            {
+                Log.Error("Error loading trust DB. Reverting to default values.\n" + ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
+                return new TrustDB();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Error("Error loading trust DB. Reverting to default values.\n" + ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
+                return new TrustDB();
+            }
+            catch (InvalidDataException ex)
+            {
+                Log.Error("Error loading trust DB. Reverting to default values.\n" + ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
+                return new TrustDB();
+            }
+            #endregion
         }
 
         /// <summary>
