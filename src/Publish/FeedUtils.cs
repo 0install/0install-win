@@ -84,13 +84,14 @@ namespace ZeroInstall.Publish
         /// <param name="path">The feed file to sign.</param>
         /// <param name="secretKey">The secret key to use for signing the file.</param>
         /// <param name="passphrase">The passphrase to use to unlock the key.</param>
+        /// <param name="openPgp">The OpenPGP-compatible system used to create a signatures.</param>
         /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the feed file is not permitted.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         /// <remarks>The feed file is not parsed before signing. Invalid XML files would be signed as well. Old feed signatures are not removed.</remarks>
-        public static void SignFeed(string path, OpenPgpSecretKey secretKey, string passphrase)
+        public static void SignFeed(string path, OpenPgpSecretKey secretKey, string passphrase, IOpenPgp openPgp)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -98,25 +99,21 @@ namespace ZeroInstall.Publish
             if (secretKey == null) throw new ArgumentNullException("secretKey");
             #endregion
 
-            var pgp = OpenPgpProvider.Default;
-
             // Delete any pre-exisiting signature file
             string signatureFile = path + ".sig";
             if (File.Exists(signatureFile)) File.Delete(signatureFile);
 
             // Create a new signature file, parse it as Base64 and then delete it again
-            pgp.DetachSign(path, secretKey.Fingerprint, passphrase);
+            openPgp.DetachSign(path, secretKey.Fingerprint, passphrase);
             string base64Signature = Convert.ToBase64String(File.ReadAllBytes(signatureFile));
             File.Delete(signatureFile);
 
-            // Add the Bas64 encoded signature to the end of the file in an XML comment
-            using (var sw = new StreamWriter(path, true) {NewLine = "\n"})
+            // Add the Base64 encoded signature to the end of the file
+            using (var writer = new StreamWriter(path, true, Store.Feeds.FeedUtils.Encoding) {NewLine = "\n"})
             {
-                sw.WriteLine("<!-- Base64 Signature");
-                sw.WriteLine(base64Signature);
-                sw.WriteLine();
-                sw.Write("-->");
-                sw.WriteLine();
+                writer.Write(Store.Feeds.FeedUtils.SignatureBlockStart);
+                writer.WriteLine(base64Signature);
+                writer.Write(Store.Feeds.FeedUtils.SignatureBlockEnd);
             }
 
             // Export the user's public key
@@ -124,7 +121,7 @@ namespace ZeroInstall.Publish
             if (feedDir != null)
             {
                 string publicKeyFile = Path.Combine(feedDir, secretKey.KeyID + ".gpg");
-                File.WriteAllText(publicKeyFile, pgp.GetPublicKey(secretKey.Fingerprint), Encoding.ASCII);
+                File.WriteAllText(publicKeyFile, openPgp.GetPublicKey(secretKey.Fingerprint), Encoding.ASCII);
             }
         }
 
@@ -132,14 +129,13 @@ namespace ZeroInstall.Publish
         /// Determines the key used to sign a feed. Only uses the first signature if more than one is present.
         /// </summary>
         /// <param name="path">The feed file to check for signatures.</param>
+        /// <param name="openPgp">The OpenPGP-compatible system used to validate the signatures.</param>
         /// <returns>The key used to sign the feed; <see langword="null"/> if the feed was not signed.</returns>
         /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched or the feed file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the feed file is not permitted.</exception>
-        public static OpenPgpSecretKey GetKey(string path)
+        public static OpenPgpSecretKey GetKey(string path, IOpenPgp openPgp)
         {
-            var openPgp = OpenPgpProvider.Default;
-
             try
             {
                 var signatures = Store.Feeds.FeedUtils.GetSignatures(openPgp, File.ReadAllBytes(path));

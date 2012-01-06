@@ -70,6 +70,7 @@ namespace ZeroInstall.Store.Feeds
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
+        /// <remarks>The detached signature is stored in a file named <paramref name="path"/> with ".sig" appended.</remarks>
         void DetachSign(string path, string keySpecifier, string passphrase);
 
         /// <summary>

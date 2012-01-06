@@ -83,6 +83,10 @@
       <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
       <Name>Store</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Test.Backend\Test.Backend.csproj">
+      <Project>{06237727-AEA0-4E42-85C0-C0886F425352}</Project>
+      <Name>Test.Backend</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Test.Common\Test.Common.csproj">
       <Project>{CA9D6092-4365-4385-9700-9570A98EF09D}</Project>
       <Name>Test.Common</Name>
@@ -90,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Capture\CommandMapperTest.cs" />
+    <Compile Include="Publish\FeedUtilsTest.cs" />
     <Compile Include="Publish\WinForms\ControlHelpersTest.cs" />
   </ItemGroup>
   <ItemGroup>

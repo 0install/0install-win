@@ -76,7 +76,7 @@ namespace ZeroInstall.Publish
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            return new SignedFeed(Feed.Load(path), FeedUtils.GetKey(path));
+            return new SignedFeed(Feed.Load(path), FeedUtils.GetKey(path, OpenPgpProvider.Default));
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace ZeroInstall.Publish
                 Feed.Save(tempPath);
 
                 FeedUtils.AddStylesheet(tempPath);
-                if (SecretKey != null) FeedUtils.SignFeed(tempPath, SecretKey, passphrase);
+                if (SecretKey != null) FeedUtils.SignFeed(tempPath, SecretKey, passphrase, OpenPgpProvider.Default);
 
                 FileUtils.Replace(tempPath, path);
             }

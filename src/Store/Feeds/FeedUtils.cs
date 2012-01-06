@@ -72,17 +72,24 @@ namespace ZeroInstall.Store.Feeds
         #endregion
 
         #region Signatures
-        /// <summary>The encoding used when looking for signature blocks in feed files.</summary>
-        private static readonly Encoding _encoding = Encoding.UTF8;
+        /// <summary>
+        /// The string signifying the start of a signature block.
+        /// </summary>
+        public const string SignatureBlockStart = "<!-- Base64 Signature\n";
 
-        /// <summary>The string signifying the start of a signature block.</summary>
-        private const string SignatureBlockStart = "<!-- Base64 Signature\n";
+        /// <summary>
+        /// The string signifying the end of a signature block.
+        /// </summary>
+        public const string SignatureBlockEnd = "\n-->\n";
 
-        /// <summary><see cref="SignatureBlockStart"/> encoded with <see cref="_encoding"/>.</summary>
-        private static readonly byte[] _signatureBlocktartBytes = _encoding.GetBytes(SignatureBlockStart);
+        /// <summary>
+        /// The encoding used when looking for signature blocks in feed files.
+        /// </summary>
+        public static readonly Encoding Encoding = Encoding.UTF8;
 
-        /// <summary>The string signifying the end of a signature block.</summary>
-        private const string SignatureBlockEnd = "\n-->\n";
+        /// <summary>
+        /// <see cref="SignatureBlockStart"/> encoded with <see cref="Encoding"/>.</summary>
+        private static readonly byte[] _signatureBlockStartEncoded = Encoding.GetBytes(SignatureBlockStart);
 
         /// <summary>
         /// Determines which signatures a feed is signed with.
@@ -131,9 +138,9 @@ namespace ZeroInstall.Store.Feeds
             for (int currentFeedDataIndex = 0; currentFeedDataIndex < feedData.Length; currentFeedDataIndex++)
             {
                 bool validStartingPoint = true;
-                for (int i = 0, j = currentFeedDataIndex; j < feedData.Length && i < _signatureBlocktartBytes.Length; i++, j++)
+                for (int i = 0, j = currentFeedDataIndex; j < feedData.Length && i < _signatureBlockStartEncoded.Length; i++, j++)
                 {
-                    if (feedData[j] == _signatureBlocktartBytes[i]) continue;
+                    if (feedData[j] == _signatureBlockStartEncoded[i]) continue;
 
                     validStartingPoint = false;
                     break;
@@ -153,7 +160,7 @@ namespace ZeroInstall.Store.Feeds
         /// <exception cref="SignatureException">Thrown if the signature block does not start on a new line.</exception>
         private static byte[] IsolateFeed(byte[] feedData, int signatureStartIndex)
         {
-            if (signatureStartIndex <= 0 || feedData[signatureStartIndex - 1] != _encoding.GetBytes("\n")[0])
+            if (signatureStartIndex <= 0 || feedData[signatureStartIndex - 1] != Encoding.GetBytes("\n")[0])
                 throw new SignatureException(Resources.XmlSignatureMissingNewLine);
 
             var feed = new byte[signatureStartIndex];
@@ -171,7 +178,7 @@ namespace ZeroInstall.Store.Feeds
         private static byte[] IsolateAndDecodeSignature(byte[] feedData, int signatureStartIndex)
         {
             // Isolate and decode signature string
-            var signatureString = _encoding.GetString(feedData, signatureStartIndex, feedData.Length - signatureStartIndex);
+            var signatureString = Encoding.GetString(feedData, signatureStartIndex, feedData.Length - signatureStartIndex);
             if (!signatureString.EndsWith(SignatureBlockEnd)) throw new SignatureException(Resources.XmlSignatureInvalidEnd);
 
             // Concatenate Base64 lines and decode

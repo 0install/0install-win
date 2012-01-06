@@ -150,7 +150,11 @@ namespace Common.Storage
             }
 
             // End file with newline
-            xmlWriter.WriteWhitespace("\n");
+            if (xmlWriter.Settings != null)
+            {
+                var newline = xmlWriter.Settings.Encoding.GetBytes(xmlWriter.Settings.NewLineChars);
+                stream.Write(newline, 0, newline.Length);
+            }
         }
 
         /// <summary>
