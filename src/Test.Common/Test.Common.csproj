@@ -68,6 +68,7 @@
     <Compile Include="FutureTest.cs" />
     <Compile Include="Net\DownloadFileTest.cs" />
     <Compile Include="Net\MicroServer.cs" />
+    <Compile Include="Storage\LocationsRedirect.cs" />
     <Compile Include="Tasks\ForEachTaskTest.cs" />
     <Compile Include="Tasks\MockTask.cs" />
     <Compile Include="Tasks\SimpleTaskTest.cs" />

@@ -55,6 +55,8 @@ namespace Common
         /// </summary>
         public static implicit operator T(Future<T> future)
         {
+            if (future == null) return default(T);
+
             future._thread.Join();
             return future._result;
         }

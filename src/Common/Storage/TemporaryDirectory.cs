@@ -27,9 +27,9 @@ using Common.Utils;
 namespace Common.Storage
 {
     /// <summary>
-    /// Disposable class to create a temporary folder and delete it again when disposed.
+    /// Disposable class to create a temporary directory and delete it again when disposed.
     /// </summary>
-    public sealed class TemporaryDirectory : IDisposable
+    public class TemporaryDirectory : IDisposable
     {
         #region Properties
         /// <summary>
@@ -57,10 +57,19 @@ namespace Common.Storage
 
         #region Dispose
         /// <summary>
-        /// Deletes the temporary folder.
+        /// Deletes the temporary directory.
         /// </summary>
         public void Dispose()
         {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            // Do not trigger via GC
+            if (!disposing) return;
+
 #if FS_SECURITY
             if (Directory.Exists(Path))
             {

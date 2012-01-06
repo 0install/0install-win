@@ -314,6 +314,7 @@ namespace Common.Utils
 
         private static readonly ITaskbarList4 _taskbarList;
 
+        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static WindowsUtils()
         {
             if (WindowsUtils.IsWindows7)

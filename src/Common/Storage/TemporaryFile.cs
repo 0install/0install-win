@@ -29,7 +29,7 @@ namespace Common.Storage
     /// <summary>
     /// Disposable class to create a temporary file and delete it again when disposed.
     /// </summary>
-    public sealed class TemporaryFile : IDisposable
+    public class TemporaryFile : IDisposable
     {
         #region Properties
         /// <summary>
@@ -58,10 +58,19 @@ namespace Common.Storage
 
         #region Dispose
         /// <summary>
-        /// Deletes the temporary folder.
+        /// Deletes the temporary file.
         /// </summary>
         public void Dispose()
         {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            // Do not trigger via GC
+            if (!disposing) return;
+
             if (File.Exists(Path)) File.Delete(Path);
         }
         #endregion
