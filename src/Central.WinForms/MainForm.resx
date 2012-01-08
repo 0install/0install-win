@@ -117,428 +117,113 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="tabControlApps.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="buttonSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonSync.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 334</value>
-  </data>
-  <data name="buttonSync.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 23</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonSync.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="buttonSync.Text" xml:space="preserve">
-    <value>&amp;Sync</value>
-  </data>
-  <data name="&gt;&gt;buttonSync.Name" xml:space="preserve">
-    <value>buttonSync</value>
-  </data>
-  <data name="&gt;&gt;buttonSync.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonSync.Parent" xml:space="preserve">
-    <value>tabPageAppList</value>
-  </data>
-  <data name="&gt;&gt;buttonSync.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="appList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="appList.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="appList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>481, 325</value>
-  </data>
-  <data name="appList.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;appList.Name" xml:space="preserve">
-    <value>appList</value>
-  </data>
-  <data name="&gt;&gt;appList.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.4.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
-  </data>
-  <data name="&gt;&gt;appList.Parent" xml:space="preserve">
-    <value>tabPageAppList</value>
-  </data>
-  <data name="&gt;&gt;appList.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tabPageAppList.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tabPageAppList.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPageAppList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>490, 360</value>
-  </data>
-  <data name="tabPageAppList.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPageAppList.Text" xml:space="preserve">
-    <value>My applications</value>
-  </data>
-  <data name="&gt;&gt;tabPageAppList.Name" xml:space="preserve">
-    <value>tabPageAppList</value>
-  </data>
-  <data name="&gt;&gt;tabPageAppList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageAppList.Parent" xml:space="preserve">
-    <value>tabControlApps</value>
-  </data>
-  <data name="&gt;&gt;tabPageAppList.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="labelLoadingCatalog.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="labelLoadingCatalog.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelLoadingCatalog.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 9.75pt</value>
-  </data>
-  <data name="labelLoadingCatalog.Location" type="System.Drawing.Point, System.Drawing">
-    <value>300, 337</value>
-  </data>
-  <data name="labelLoadingCatalog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 16</value>
-  </data>
-  <data name="labelLoadingCatalog.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="labelLoadingCatalog.Text" xml:space="preserve">
-    <value>Loading catalog from server...</value>
-  </data>
-  <data name="labelLoadingCatalog.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;labelLoadingCatalog.Name" xml:space="preserve">
-    <value>labelLoadingCatalog</value>
-  </data>
-  <data name="&gt;&gt;labelLoadingCatalog.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelLoadingCatalog.Parent" xml:space="preserve">
-    <value>tabPageCatalog</value>
-  </data>
-  <data name="&gt;&gt;labelLoadingCatalog.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonRefreshCatalog.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="buttonRefreshCatalog.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonRefreshCatalog.Location" type="System.Drawing.Point, System.Drawing">
-    <value>405, 334</value>
-  </data>
-  <data name="buttonRefreshCatalog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 23</value>
-  </data>
-  <data name="buttonRefreshCatalog.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="buttonRefreshCatalog.Text" xml:space="preserve">
-    <value>&amp;Refresh</value>
-  </data>
-  <data name="&gt;&gt;buttonRefreshCatalog.Name" xml:space="preserve">
-    <value>buttonRefreshCatalog</value>
-  </data>
-  <data name="&gt;&gt;buttonRefreshCatalog.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;buttonRefreshCatalog.Parent" xml:space="preserve">
     <value>tabPageCatalog</value>
   </data>
-  <data name="&gt;&gt;buttonRefreshCatalog.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="buttonAddOtherApp.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonAddOtherApp.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonAddOtherApp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 334</value>
-  </data>
-  <data name="buttonAddOtherApp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>167, 23</value>
-  </data>
-  <data name="buttonAddOtherApp.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="buttonAddOtherApp.Text" xml:space="preserve">
-    <value>&amp;Add other application</value>
-  </data>
-  <data name="&gt;&gt;buttonAddOtherApp.Name" xml:space="preserve">
-    <value>buttonAddOtherApp</value>
-  </data>
-  <data name="&gt;&gt;buttonAddOtherApp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAddOtherApp.Parent" xml:space="preserve">
-    <value>tabPageCatalog</value>
-  </data>
-  <data name="&gt;&gt;buttonAddOtherApp.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="catalogList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="catalogList.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="catalogList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>481, 325</value>
-  </data>
-  <data name="catalogList.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;catalogList.Name" xml:space="preserve">
-    <value>catalogList</value>
-  </data>
-  <data name="&gt;&gt;catalogList.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.4.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
-  </data>
-  <data name="&gt;&gt;catalogList.Parent" xml:space="preserve">
-    <value>tabPageCatalog</value>
-  </data>
-  <data name="&gt;&gt;catalogList.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="tabPageCatalog.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tabPageCatalog.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPageCatalog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>490, 360</value>
-  </data>
-  <data name="tabPageCatalog.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tabPageCatalog.Text" xml:space="preserve">
-    <value>New applications</value>
+  <data name="&gt;&gt;selfUpdateWorker.Type" xml:space="preserve">
+    <value>System.ComponentModel.BackgroundWorker, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabPageCatalog.Name" xml:space="preserve">
     <value>tabPageCatalog</value>
   </data>
-  <data name="&gt;&gt;tabPageCatalog.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageCatalog.Parent" xml:space="preserve">
-    <value>tabControlApps</value>
-  </data>
-  <data name="&gt;&gt;tabPageCatalog.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tabControlApps.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 75</value>
-  </data>
-  <data name="tabControlApps.Size" type="System.Drawing.Size, System.Drawing">
-    <value>498, 386</value>
-  </data>
-  <data name="tabControlApps.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="&gt;&gt;buttonHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabControlApps.Name" xml:space="preserve">
     <value>tabControlApps</value>
   </data>
-  <data name="&gt;&gt;tabControlApps.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>436, 467</value>
   </data>
-  <data name="&gt;&gt;tabControlApps.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;tabControlApps.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="buttonOptions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
   <data name="buttonOptions.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonOptions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 467</value>
+  <data name="&gt;&gt;catalogList.Parent" xml:space="preserve">
+    <value>tabPageCatalog</value>
   </data>
-  <data name="buttonOptions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 23</value>
+  <data name="tabControlApps.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 75</value>
   </data>
-  <data name="buttonOptions.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="buttonOptions.Text" xml:space="preserve">
-    <value>&amp;Options</value>
-  </data>
-  <data name="&gt;&gt;buttonOptions.Name" xml:space="preserve">
-    <value>buttonOptions</value>
+  <data name="tabPageAppList.Size" type="System.Drawing.Size, System.Drawing">
+    <value>490, 360</value>
   </data>
   <data name="&gt;&gt;buttonOptions.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonOptions.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonOptions.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="buttonCacheManagement.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="buttonCacheManagement.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonCacheManagement.Location" type="System.Drawing.Point, System.Drawing">
-    <value>310, 467</value>
-  </data>
-  <data name="buttonCacheManagement.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 23</value>
-  </data>
-  <data name="buttonCacheManagement.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="buttonCacheManagement.Text" xml:space="preserve">
-    <value>&amp;Cache management</value>
-  </data>
-  <data name="&gt;&gt;buttonCacheManagement.Name" xml:space="preserve">
-    <value>buttonCacheManagement</value>
-  </data>
-  <data name="&gt;&gt;buttonCacheManagement.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonCacheManagement.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonCacheManagement.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="buttonHelp.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="buttonHelp.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonHelp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>436, 467</value>
-  </data>
-  <data name="buttonHelp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="buttonHelp.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="buttonHelp.Text" xml:space="preserve">
-    <value>&amp;Help</value>
-  </data>
-  <data name="&gt;&gt;buttonHelp.Name" xml:space="preserve">
-    <value>buttonHelp</value>
-  </data>
-  <data name="&gt;&gt;buttonHelp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonHelp.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonHelp.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="labelVersion.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="labelVersion.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelVersion.Location" type="System.Drawing.Point, System.Drawing">
-    <value>320, 493</value>
+  <data name="&gt;&gt;tabPageAppList.Name" xml:space="preserve">
+    <value>tabPageAppList</value>
   </data>
   <data name="labelVersion.Size" type="System.Drawing.Size, System.Drawing">
     <value>200, 20</value>
   </data>
-  <data name="labelVersion.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+  <data name="&gt;&gt;appListWatcher.Name" xml:space="preserve">
+    <value>appListWatcher</value>
   </data>
-  <data name="labelVersion.Text" xml:space="preserve">
-    <value>(Version)</value>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>MainForm</value>
   </data>
-  <data name="labelVersion.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;labelVersion.Name" xml:space="preserve">
-    <value>labelVersion</value>
-  </data>
-  <data name="&gt;&gt;labelVersion.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelVersion.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;labelVersion.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <metadata name="selfUpdateWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>148, 17</value>
-  </metadata>
-  <metadata name="catalogWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="pictureBoxLogo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="pictureBoxLogo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="buttonCacheManagement.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="pictureBoxLogo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 10</value>
+  <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 10, 10, 10</value>
   </data>
-  <data name="pictureBoxLogo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="pictureBoxLogo.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;labelLoadingCatalog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="pictureBoxLogo.Size" type="System.Drawing.Size, System.Drawing">
     <value>327, 57</value>
   </data>
-  <data name="pictureBoxLogo.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+  <data name="pictureBoxLogo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
-  <data name="&gt;&gt;pictureBoxLogo.Name" xml:space="preserve">
-    <value>pictureBoxLogo</value>
+  <data name="&gt;&gt;buttonAddOtherApp.Name" xml:space="preserve">
+    <value>buttonAddOtherApp</value>
+  </data>
+  <data name="&gt;&gt;buttonOptions.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelVersion.Text" xml:space="preserve">
+    <value>(Version)</value>
   </data>
   <data name="&gt;&gt;pictureBoxLogo.Type" xml:space="preserve">
     <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;pictureBoxLogo.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="labelLoadingCatalog.Location" type="System.Drawing.Point, System.Drawing">
+    <value>300, 337</value>
   </data>
-  <data name="&gt;&gt;pictureBoxLogo.ZOrder" xml:space="preserve">
+  <data name="$this.Text" xml:space="preserve">
+    <value>Zero Install</value>
+  </data>
+  <data name="&gt;&gt;tabPageAppList.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="appListWatcher.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>298, 17</value>
-  </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>524, 512</value>
+  <data name="buttonOptions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="&gt;&gt;appListTimer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonCacheManagement.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 23</value>
+  </data>
+  <data name="&gt;&gt;buttonOptions.Name" xml:space="preserve">
+    <value>buttonOptions</value>
+  </data>
+  <data name="tabControlApps.Size" type="System.Drawing.Size, System.Drawing">
+    <value>498, 386</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -919,59 +604,377 @@
         rEGAAKxBAACsQYABrEHAAaxB8AOsQfgHrEH8B6xB8AOsQeAHrEHgf6xB//+sQQ==
 </value>
   </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+  <data name="&gt;&gt;labelLoadingCatalog.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>375, 350</value>
+  <data name="&gt;&gt;buttonCacheManagement.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 10, 10, 10</value>
+  <data name="tabPageCatalog.Text" xml:space="preserve">
+    <value>New applications</value>
   </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterScreen</value>
+  <data name="catalogList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Zero Install</value>
+  <data name="buttonRefreshCatalog.Text" xml:space="preserve">
+    <value>&amp;Refresh list</value>
   </data>
-  <data name="&gt;&gt;selfUpdateWorker.Name" xml:space="preserve">
-    <value>selfUpdateWorker</value>
+  <data name="appList.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
   </data>
-  <data name="&gt;&gt;selfUpdateWorker.Type" xml:space="preserve">
-    <value>System.ComponentModel.BackgroundWorker, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="catalogList.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
   </data>
-  <data name="&gt;&gt;catalogWorker.Name" xml:space="preserve">
-    <value>catalogWorker</value>
+  <data name="pictureBoxLogo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;catalogWorker.Type" xml:space="preserve">
-    <value>System.ComponentModel.BackgroundWorker, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;tabControlApps.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;appListWatcher.Name" xml:space="preserve">
-    <value>appListWatcher</value>
+  <data name="buttonOptions.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="&gt;&gt;appListWatcher.Type" xml:space="preserve">
-    <value>System.IO.FileSystemWatcher, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="buttonRefreshCatalog.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="&gt;&gt;appListWorker.Name" xml:space="preserve">
-    <value>appListWorker</value>
+  <data name="buttonCacheManagement.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;tabPageAppList.Parent" xml:space="preserve">
+    <value>tabControlApps</value>
+  </data>
+  <data name="buttonAddOtherApp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>320, 334</value>
   </data>
   <data name="&gt;&gt;appListWorker.Type" xml:space="preserve">
     <value>System.ComponentModel.BackgroundWorker, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="buttonAddOtherApp.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;tabControlApps.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonRefreshCatalog.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;tabPageAppList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAddOtherApp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="&gt;&gt;appListWorker.Name" xml:space="preserve">
+    <value>appListWorker</value>
+  </data>
+  <data name="buttonAddOtherApp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>167, 23</value>
+  </data>
+  <data name="pictureBoxLogo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>99, 10</value>
+  </data>
+  <data name="&gt;&gt;tabPageCatalog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelVersion.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageCatalog.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="pictureBoxLogo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="&gt;&gt;tabPageCatalog.Parent" xml:space="preserve">
+    <value>tabControlApps</value>
+  </data>
+  <data name="tabPageAppList.Text" xml:space="preserve">
+    <value>My applications</value>
+  </data>
+  <data name="buttonHelp.Text" xml:space="preserve">
+    <value>&amp;Help</value>
+  </data>
+  <data name="buttonCacheManagement.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;appList.Parent" xml:space="preserve">
+    <value>tabPageAppList</value>
+  </data>
+  <data name="labelLoadingCatalog.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="labelVersion.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 334</value>
+  </data>
+  <data name="buttonCacheManagement.Text" xml:space="preserve">
+    <value>&amp;Cache management</value>
+  </data>
+  <data name="buttonSync.Size" type="System.Drawing.Size, System.Drawing">
+    <value>71, 23</value>
+  </data>
+  <data name="&gt;&gt;buttonHelp.Name" xml:space="preserve">
+    <value>buttonHelp</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>375, 350</value>
+  </data>
+  <data name="labelLoadingCatalog.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;buttonSync.Parent" xml:space="preserve">
+    <value>tabPageAppList</value>
+  </data>
+  <data name="buttonSync.Text" xml:space="preserve">
+    <value>&amp;Sync</value>
+  </data>
+  <data name="&gt;&gt;selfUpdateWorker.Name" xml:space="preserve">
+    <value>selfUpdateWorker</value>
+  </data>
+  <data name="labelLoadingCatalog.Text" xml:space="preserve">
+    <value>Loading catalog from server...</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxLogo.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
+  </data>
+  <data name="&gt;&gt;labelVersion.Name" xml:space="preserve">
+    <value>labelVersion</value>
+  </data>
+  <data name="&gt;&gt;appList.Type" xml:space="preserve">
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.4.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+  </data>
+  <data name="tabControlApps.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;labelLoadingCatalog.Name" xml:space="preserve">
+    <value>labelLoadingCatalog</value>
+  </data>
+  <data name="tabPageAppList.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="buttonOptions.Text" xml:space="preserve">
+    <value>&amp;Options</value>
+  </data>
+  <data name="buttonRefreshCatalog.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 23</value>
+  </data>
+  <data name="tabPageCatalog.Size" type="System.Drawing.Size, System.Drawing">
+    <value>490, 360</value>
+  </data>
+  <data name="tabPageCatalog.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="&gt;&gt;catalogWorker.Type" xml:space="preserve">
+    <value>System.ComponentModel.BackgroundWorker, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="appList.Size" type="System.Drawing.Size, System.Drawing">
+    <value>481, 325</value>
+  </data>
+  <data name="&gt;&gt;appListWatcher.Type" xml:space="preserve">
+    <value>System.IO.FileSystemWatcher, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonOptions.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;appList.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="buttonSync.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;buttonRefreshCatalog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="appList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="tabPageCatalog.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="labelLoadingCatalog.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="labelLoadingCatalog.Size" type="System.Drawing.Size, System.Drawing">
+    <value>184, 16</value>
+  </data>
+  <data name="&gt;&gt;labelLoadingCatalog.Parent" xml:space="preserve">
+    <value>tabPageCatalog</value>
+  </data>
+  <data name="buttonHelp.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;labelVersion.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="buttonRefreshCatalog.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelLoadingCatalog.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelLoadingCatalog.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="labelVersion.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
+  </data>
+  <data name="buttonRefreshCatalog.Location" type="System.Drawing.Point, System.Drawing">
+    <value>382, 334</value>
+  </data>
+  <data name="&gt;&gt;catalogList.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="appList.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonOptions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 467</value>
+  </data>
+  <data name="&gt;&gt;buttonSync.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelVersion.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonAddOtherApp.Parent" xml:space="preserve">
+    <value>tabPageAppList</value>
+  </data>
+  <data name="&gt;&gt;buttonSync.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;catalogList.Name" xml:space="preserve">
+    <value>catalogList</value>
+  </data>
+  <data name="tabPageAppList.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;buttonCacheManagement.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="catalogList.Size" type="System.Drawing.Size, System.Drawing">
+    <value>481, 325</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxLogo.Name" xml:space="preserve">
+    <value>pictureBoxLogo</value>
+  </data>
+  <data name="&gt;&gt;buttonHelp.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonHelp.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="buttonHelp.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonSync.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="&gt;&gt;appListTimer.Name" xml:space="preserve">
     <value>appListTimer</value>
   </data>
-  <data name="&gt;&gt;appListTimer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;appList.Name" xml:space="preserve">
+    <value>appList</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>MainForm</value>
+  <data name="tabPageAppList.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;catalogList.Type" xml:space="preserve">
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.4.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
+  <data name="&gt;&gt;buttonCacheManagement.Name" xml:space="preserve">
+    <value>buttonCacheManagement</value>
+  </data>
+  <data name="&gt;&gt;tabControlApps.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="labelVersion.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="labelVersion.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxLogo.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonSync.Name" xml:space="preserve">
+    <value>buttonSync</value>
+  </data>
+  <data name="labelVersion.Location" type="System.Drawing.Point, System.Drawing">
+    <value>320, 493</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>524, 512</value>
+  </data>
+  <data name="&gt;&gt;buttonRefreshCatalog.Name" xml:space="preserve">
+    <value>buttonRefreshCatalog</value>
+  </data>
+  <data name="buttonAddOtherApp.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonAddOtherApp.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="buttonOptions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 23</value>
+  </data>
+  <data name="catalogList.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;buttonAddOtherApp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="buttonRefreshCatalog.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="tabControlApps.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="tabPageCatalog.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="buttonCacheManagement.Location" type="System.Drawing.Point, System.Drawing">
+    <value>310, 467</value>
+  </data>
+  <data name="&gt;&gt;buttonCacheManagement.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="buttonHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;catalogWorker.Name" xml:space="preserve">
+    <value>catalogWorker</value>
+  </data>
+  <data name="buttonAddOtherApp.Text" xml:space="preserve">
+    <value>&amp;Add other application</value>
+  </data>
+  <data name="buttonHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <metadata name="appListWatcher.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>298, 17</value>
+  </metadata>
   <metadata name="appListWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>434, 17</value>
+  </metadata>
+  <metadata name="selfUpdateWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>148, 17</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>de</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="catalogWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
   </metadata>
   <metadata name="appListTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>565, 17</value>

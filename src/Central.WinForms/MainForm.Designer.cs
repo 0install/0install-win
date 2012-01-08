@@ -32,12 +32,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControlApps = new System.Windows.Forms.TabControl();
             this.tabPageAppList = new System.Windows.Forms.TabPage();
+            this.buttonAddOtherApp = new System.Windows.Forms.Button();
             this.buttonSync = new System.Windows.Forms.Button();
             this.appList = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
             this.labelLoadingCatalog = new System.Windows.Forms.Label();
             this.buttonRefreshCatalog = new System.Windows.Forms.Button();
-            this.buttonAddOtherApp = new System.Windows.Forms.Button();
             this.catalogList = new ZeroInstall.Central.WinForms.AppTileList();
             this.buttonOptions = new System.Windows.Forms.Button();
             this.buttonCacheManagement = new System.Windows.Forms.Button();
@@ -66,11 +66,18 @@
             // 
             // tabPageAppList
             // 
+            resources.ApplyResources(this.tabPageAppList, "tabPageAppList");
+            this.tabPageAppList.Controls.Add(this.buttonAddOtherApp);
             this.tabPageAppList.Controls.Add(this.buttonSync);
             this.tabPageAppList.Controls.Add(this.appList);
-            resources.ApplyResources(this.tabPageAppList, "tabPageAppList");
             this.tabPageAppList.Name = "tabPageAppList";
             this.tabPageAppList.UseVisualStyleBackColor = true;
+            // 
+            // buttonAddOtherApp
+            // 
+            resources.ApplyResources(this.buttonAddOtherApp, "buttonAddOtherApp");
+            this.buttonAddOtherApp.Name = "buttonAddOtherApp";
+            this.buttonAddOtherApp.UseVisualStyleBackColor = true;
             // 
             // buttonSync
             // 
@@ -86,11 +93,10 @@
             // 
             // tabPageCatalog
             // 
+            resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
             this.tabPageCatalog.Controls.Add(this.labelLoadingCatalog);
             this.tabPageCatalog.Controls.Add(this.buttonRefreshCatalog);
-            this.tabPageCatalog.Controls.Add(this.buttonAddOtherApp);
             this.tabPageCatalog.Controls.Add(this.catalogList);
-            resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
             this.tabPageCatalog.Name = "tabPageCatalog";
             this.tabPageCatalog.UseVisualStyleBackColor = true;
             // 
@@ -105,13 +111,6 @@
             this.buttonRefreshCatalog.Name = "buttonRefreshCatalog";
             this.buttonRefreshCatalog.UseVisualStyleBackColor = true;
             this.buttonRefreshCatalog.Click += new System.EventHandler(this.buttonRefreshCatalog_Click);
-            // 
-            // buttonAddOtherApp
-            // 
-            resources.ApplyResources(this.buttonAddOtherApp, "buttonAddOtherApp");
-            this.buttonAddOtherApp.Name = "buttonAddOtherApp";
-            this.buttonAddOtherApp.UseVisualStyleBackColor = true;
-            this.buttonAddOtherApp.Click += new System.EventHandler(this.buttonAddOtherApp_Click);
             // 
             // catalogList
             // 
@@ -182,9 +181,9 @@
             // 
             // MainForm
             // 
+            resources.ApplyResources(this, "$this");
             this.AllowDrop = true;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            resources.ApplyResources(this, "$this");
             this.Controls.Add(this.pictureBoxLogo);
             this.Controls.Add(this.buttonOptions);
             this.Controls.Add(this.labelVersion);
@@ -210,7 +209,6 @@
         private System.Windows.Forms.TabPage tabPageAppList;
         private System.Windows.Forms.TabPage tabPageCatalog;
         private System.Windows.Forms.Button buttonHelp;
-        private System.Windows.Forms.Button buttonAddOtherApp;
         private System.Windows.Forms.Button buttonCacheManagement;
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Button buttonOptions;
@@ -225,6 +223,7 @@
         private System.ComponentModel.BackgroundWorker appListWorker;
         private System.Windows.Forms.Timer appListTimer;
         private System.Windows.Forms.Label labelLoadingCatalog;
+        private System.Windows.Forms.Button buttonAddOtherApp;
 
     }
 }

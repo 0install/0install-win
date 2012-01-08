@@ -47,7 +47,7 @@ namespace Common.Tasks
         /// </summary>
         /// <remarks>
         ///   <para>This event is raised from a background thread. Wrap via <see cref="Control.Invoke(System.Delegate)"/> to update UI elements.</para>
-        ///   <para>The event handling blocks the thread, therefore observers should handle the event quickly.</para>
+        ///   <para>Handling this blocks the task, therefore observers should handle the event quickly.</para>
         /// </remarks>
         event TaskEventHandler StateChanged;
 
@@ -56,7 +56,7 @@ namespace Common.Tasks
         /// </summary>
         /// <remarks>
         ///   <para>This event is raised from a background thread. Wrap via <see cref="Control.Invoke(System.Delegate)"/> to update UI elements.</para>
-        ///   <para>The event handling blocks the thread, therefore observers should handle the event quickly.</para>
+        ///   <para>Handling this blocks the task, therefore observers should handle the event quickly.</para>
         /// </remarks>
         event TaskEventHandler ProgressChanged;
         #endregion

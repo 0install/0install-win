@@ -131,7 +131,7 @@
     <value>Lade Katalog vom Server...</value>
   </data>
   <data name="buttonRefreshCatalog.Text" xml:space="preserve">
-    <value>&amp;Aktualisieren</value>
+    <value>Liste &amp;aktualisieren</value>
   </data>
   <data name="buttonAddOtherApp.Text" xml:space="preserve">
     <value>&amp;Anderes Programm hinzufügen</value>
