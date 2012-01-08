@@ -95,6 +95,7 @@ namespace ZeroInstall.Model
             return group;
         }
 
+        /// <inheritdoc/>
         public override Element Clone()
         {
             return CloneGroup();

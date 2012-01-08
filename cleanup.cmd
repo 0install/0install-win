@@ -13,9 +13,10 @@ del build\Documentation\*.log > NUL 2>&1
 rem Clear ReSharper's cache
 rd /s /q src\_ReSharper.ZeroInstall_VS2010 > NUL 2>&1
 
-rem Clear object caches
+rem Clear caches and per-user preferences
 attrib -h src\*.suo > NUL 2>&1
 del src\*.suo > NUL 2>&1
+del src\*.user > NUL 2>&1
 del src\*.cache > NUL 2>&1
 rd /s /q src\Alias.Cli\obj > NUL 2>&1
 rd /s /q src\Central\obj > NUL 2>&1
