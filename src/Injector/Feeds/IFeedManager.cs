@@ -18,7 +18,6 @@
 using System;
 using System.IO;
 using System.Net;
-using Common;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 
@@ -47,7 +46,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <param name="stale">Indicates that the returned <see cref="Feed"/> should be updated.</param>
         /// <returns>The parsed <see cref="Feed"/> object.</returns>
         /// <remarks><see cref="Feed"/>s are always served from the <see cref="Cache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
@@ -61,7 +60,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <param name="uri">The URI the feed originally came from.</param>
         /// <param name="data">The data of the feed.</param>
         /// <param name="policy">Provides additional class dependencies.</param>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if <see cref="data"/> list the same URI as <paramref name="uri"/>.</exception>
+        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="data"/> list the same URI as <paramref name="uri"/>.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the feed file or the cache is not permitted.</exception>
         /// <exception cref="SignatureException">Thrown if the signature data of the feed file could not be handled or if no signatures were trusted.</exception>

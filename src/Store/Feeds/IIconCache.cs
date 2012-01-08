@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using Common;
 using Common.Tasks;
 
 namespace ZeroInstall.Store.Feeds
@@ -37,7 +36,7 @@ namespace ZeroInstall.Store.Feeds
         /// <param name="iconUrl">The location of the icon. Must be an HTTP(S) URL.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about icon downloading.</param>
         /// <returns>The parsed icon object. Do not modify this object! It may be a reference to an in-memory cache entry.</returns>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while adding the icon to the cache.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading the icon.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the cache is not permitted.</exception>

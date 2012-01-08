@@ -21,7 +21,6 @@ using System.IO;
 using System.Net;
 using System.Net.Cache;
 using System.Threading;
-using Common;
 using Common.Collections;
 using Common.Storage;
 using Common.Tasks;
@@ -130,7 +129,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="resetMode">Controls how synchronization data is reset.</param>
         /// <param name="feedRetreiver">Callback method used to retreive additional <see cref="Feed"/>s on demand.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as uploads and downloads.</param>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data or if the specified crypto key was wrong.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
@@ -195,7 +194,7 @@ namespace ZeroInstall.DesktopIntegration
                 }
                 #endregion
 
-                if (_canceled) throw new UserCancelException();
+                if (_canceled) throw new OperationCanceledException();
                 try
                 {
                     MergeData(serverList, (resetMode == SyncResetMode.Client), feedRetreiver, handler);
@@ -210,7 +209,7 @@ namespace ZeroInstall.DesktopIntegration
                     Complete();
                 }
 
-                if (_canceled) throw new UserCancelException();
+                if (_canceled) throw new OperationCanceledException();
             }
 
             // Upload the encrypted AppList back to the server (unless the client was reset)
@@ -237,7 +236,7 @@ namespace ZeroInstall.DesktopIntegration
                         { // Precondition failure indicates a race condition
                             // Wait for a randomized interval before retrying
                             Thread.Sleep(_random.Next(250, 1500));
-                            if (_canceled) throw new UserCancelException();
+                            if (_canceled) throw new OperationCanceledException();
                             goto Retry;
                         }
                     }
@@ -249,7 +248,7 @@ namespace ZeroInstall.DesktopIntegration
 
             // Save reference point for future syncs
             AppList.Save(AppListPath + AppListLastSyncSuffix);
-            if (_canceled) throw new UserCancelException();
+            if (_canceled) throw new OperationCanceledException();
         }
         #endregion
 
@@ -261,7 +260,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="resetClient">Set to <see langword="true"/> to completly replace the contents of <see cref="IntegrationManager.AppList"/> with <paramref name="newData"/> instead of merging the two.</param>
         /// <param name="feedRetreiver">Callback method used to retreive additional <see cref="Feed"/>s on demand.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to a <see cref="Capabilities.Capability"/> is invalid.</exception>
         /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Capabilities.Capability"/>s is invalid.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>

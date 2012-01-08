@@ -22,7 +22,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
 using System.Reflection;
-using Common;
 using Common.Storage;
 using Common.Streams;
 using Common.Utils;
@@ -125,12 +124,12 @@ namespace ZeroInstall.Commands
             Options.Add("?|h|help", Resources.OptionHelp, unused =>
             {
                 Policy.Handler.Output(Resources.CommandLineArguments, HelpText);
-                throw new UserCancelException(); // Don't handle any of the other arguments
+                throw new OperationCanceledException(); // Don't handle any of the other arguments
             });
             Options.Add("V|version", Resources.OptionVersion, unused =>
             {
                 Policy.Handler.Output(Resources.VersionInformation, AppInfo.Name + " " + AppInfo.Version + (Locations.IsPortable ? " - " + Resources.PortableMode : "") + Environment.NewLine + AppInfo.Copyright + Environment.NewLine + Resources.LicenseInfo);
-                throw new UserCancelException(); // Don't handle any of the other arguments
+                throw new OperationCanceledException(); // Don't handle any of the other arguments
             });
             Options.Add("v|verbose", Resources.OptionVerbose, unused => Policy.Verbosity++);
         }
@@ -143,7 +142,7 @@ namespace ZeroInstall.Commands
         /// Parses command-line arguments and stores the result in the command.
         /// </summary>
         /// <param name="args">The command-line arguments to be parsed.</param>
-        /// <exception cref="UserCancelException">Thrown if the user asked to see help information, version information, etc..</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user asked to see help information, version information, etc..</exception>
         /// <exception cref="OptionException">Thrown if <paramref name="args"/> contains unknown options.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
@@ -161,7 +160,7 @@ namespace ZeroInstall.Commands
         /// Executes the commands specified by the command-line arguments.
         /// </summary>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
         /// <exception cref="OptionException">Thrown if the number of arguments passed in on the command-line is incorrect.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="NotSupportedException">Thrown if a file format, protocal, etc. is unknown or not supported.</exception>
@@ -239,7 +238,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="feedID">The canonical ID used to identify the feed.</param>
         /// <returns>The parsed <see cref="Feed"/> object.</returns>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
@@ -249,13 +248,13 @@ namespace ZeroInstall.Commands
         {
             bool stale;
             Feed feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
-            if (Canceled) throw new UserCancelException();
+            if (Canceled) throw new OperationCanceledException();
 
             // Refresh if stale instead of spawning background updater like 'run'
             if (stale)
             {
                 feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
-                if (Canceled) throw new UserCancelException();
+                if (Canceled) throw new OperationCanceledException();
             }
 
             return feed;

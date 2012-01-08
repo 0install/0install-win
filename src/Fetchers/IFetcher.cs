@@ -18,7 +18,6 @@
 using System;
 using System.IO;
 using System.Net;
-using Common;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 
@@ -44,7 +43,7 @@ namespace ZeroInstall.Fetchers
         /// Blocks until the execution of a request started by <see cref="Start"/> is complete.
         /// </summary>
         /// <param name="fetchRequest">The request to wait for.</param>
-        /// <exception cref="UserCancelException">Thrown if a download or IO task was canceled from another thread.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if a download or IO task was canceled from another thread.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="NotSupportedException">Thrown if a file format, protocal, etc. is unknown or not supported.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted.</exception>

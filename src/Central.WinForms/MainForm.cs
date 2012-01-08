@@ -30,7 +30,6 @@ using Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
-using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
@@ -124,7 +123,7 @@ namespace ZeroInstall.Central.WinForms
                 e.Result = UpdateUtils.CheckSelfUpdate();
             }
                 #region Error handling
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {}
             catch (IOException ex)
             {
@@ -266,7 +265,7 @@ namespace ZeroInstall.Central.WinForms
                     feed = policy.FeedManager.GetFeed(pair.Value, policy, out stale);
                 }
                     #region Error handling
-                catch (UserCancelException)
+                catch (OperationCanceledException)
                 {
                     continue;
                 }

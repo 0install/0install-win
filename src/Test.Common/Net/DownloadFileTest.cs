@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -112,7 +113,7 @@ namespace Common.Net
                 {
                     download.RunSync();
                 }
-                catch (UserCancelException)
+                catch (OperationCanceledException)
                 {
                     exceptionThrown = true;
                 }

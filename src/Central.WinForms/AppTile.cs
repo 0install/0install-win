@@ -154,7 +154,7 @@ namespace ZeroInstall.Central.WinForms
                     e.Result = Image.FromStream(stream);
             }
                 #region Error handling
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {}
             catch (WebException ex)
             {

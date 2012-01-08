@@ -120,7 +120,7 @@ namespace Common.Tasks
 
                 default:
                     State = TaskState.Ready;
-                    throw new UserCancelException();
+                    throw new OperationCanceledException();
             }
         }
 

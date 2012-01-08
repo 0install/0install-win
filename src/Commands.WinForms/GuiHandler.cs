@@ -192,7 +192,7 @@ namespace ZeroInstall.Commands.WinForms
                             result = false;
                             break;
                         default:
-                            throw new UserCancelException();
+                            throw new OperationCanceledException();
                     }
                 }
             }));

@@ -54,7 +54,7 @@ namespace Common.Tasks
         /// <summary>The background thread used for executing the task. Sub-classes must initalize this member.</summary>
         private readonly Thread _thread;
 
-        /// <summary>The code to be executed by the task. May throw <see cref="WebException"/>, <see cref="IOException"/> or <see cref="UserCancelException"/>.</summary>
+        /// <summary>The code to be executed by the task. May throw <see cref="WebException"/>, <see cref="IOException"/> or <see cref="OperationCanceledException"/>.</summary>
         private readonly SimpleEventHandler _work;
         #endregion
 
@@ -88,7 +88,7 @@ namespace Common.Tasks
         /// Creates a new simple task.
         /// </summary>
         /// <param name="name">A name describing the task in human-readable form.</param>
-        /// <param name="work">The code to be executed by the task. May throw <see cref="WebException"/>, <see cref="IOException"/> or <see cref="UserCancelException"/>.</param>
+        /// <param name="work">The code to be executed by the task. May throw <see cref="WebException"/>, <see cref="IOException"/> or <see cref="OperationCanceledException"/>.</param>
         public SimpleTask(string name, SimpleEventHandler work)
         {
             #region Sanity checks
@@ -139,7 +139,7 @@ namespace Common.Tasks
                 ErrorMessage = ex.Message;
                 throw;
             }
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {
                 State = TaskState.Ready;
                 throw;
@@ -190,7 +190,7 @@ namespace Common.Tasks
                 ErrorMessage = ex.Message;
                 return;
             }
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {
                 State = TaskState.Ready;
                 return;

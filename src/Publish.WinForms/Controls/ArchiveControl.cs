@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
@@ -201,7 +202,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
                     comboBoxArchiveFormat.SelectedIndex = 0;
             }
             // set other hintTextBoxes
-            if (_archive.StartOffset != default(long)) hintTextBoxStartOffset.Text = _archive.StartOffset.ToString();
+            if (_archive.StartOffset != default(long)) hintTextBoxStartOffset.Text = _archive.StartOffset.ToString(CultureInfo.InvariantCulture);
             if (!string.IsNullOrEmpty(_archive.LocationString)) uriTextBoxArchiveUrl.Text = _archive.LocationString;
 
             // build treeViewSubDirectory
@@ -249,7 +250,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 SetArchiveUrlChosenState();
                 return;
             }
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {
                 File.Delete(absoluteFilePath);
                 SetArchiveUrlChosenState();
@@ -394,7 +395,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
                     TrackingDialog.Run(this, extractor, null);
             }
                 #region Error handling
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {
                 return;
             }
@@ -417,7 +418,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 SetManifestDigestProperty();
             }
                 #region Error handling
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {
                 return;
             }
@@ -529,7 +530,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
                     ManifestDigest = ManifestUtils.CreateDigest(this, combinedPath);
                 }
                     #region Error handling
-                catch (UserCancelException)
+                catch (OperationCanceledException)
                 {
                     return;
                 }

@@ -142,7 +142,7 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
                     ManifestDigest = ManifestUtils.CreateDigest(this, tempDir.Path);
                 }
                     #region Error handling
-                catch (UserCancelException)
+                catch (OperationCanceledException)
                 {
                     return;
                 }

@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.IO;
 using System.Windows.Forms;
-using Common;
 using Common.Controls;
 using Common.Tasks;
 using ZeroInstall.Model;
@@ -36,7 +36,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="owner">The parent window any displayed progress windows are modal to.</param>
         /// <param name="path">The path of the directory to analyze.</param>
         /// <returns>The combined <see cref="ManifestDigest"/> structure.</returns>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
         /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
         public static ManifestDigest CreateDigest(IWin32Window owner, string path)
         {

@@ -17,7 +17,6 @@
 
 using System;
 using System.IO;
-using Common;
 
 namespace ZeroInstall.Injector.Solver
 {
@@ -35,7 +34,7 @@ namespace ZeroInstall.Injector.Solver
         /// <param name="staleFeeds">Indicates that one or more of the <see cref="Model.Feed"/>s used by the solver should be updated.</param>
         /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
         /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="requirements"/> is incomplete.</exception>
         /// <exception cref="IOException">Thrown if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>

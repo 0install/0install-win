@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using Common;
 using Common.Collections;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Injector.Solver;
@@ -159,7 +158,7 @@ namespace ZeroInstall.Injector.Feeds
         /// </summary>
         /// <param name="url">The URL of download the feed from.</param>
         /// <param name="policy">Provides additional class dependencies.</param>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="url"/> is an invalid interface ID.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="url"/> was not found in the cache.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>

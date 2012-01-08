@@ -18,7 +18,6 @@
 using System;
 using System.IO;
 using System.Net;
-using Common;
 using Common.Tasks;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
@@ -42,7 +41,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="comServer">The COM server to be registered.</param>
         /// <param name="systemWide">Register the COM server system-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>

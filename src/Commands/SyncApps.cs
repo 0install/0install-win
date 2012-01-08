@@ -16,7 +16,6 @@
  */
 
 using System;
-using Common;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
@@ -108,7 +107,7 @@ namespace ZeroInstall.Commands
             catch
             {
                 // Suppress any left-over errors if the user canceled anyway
-                if (Canceled) throw new UserCancelException();
+                if (Canceled) throw new OperationCanceledException();
                 throw;
             }
         }

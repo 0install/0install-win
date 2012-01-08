@@ -65,7 +65,7 @@ namespace ZeroInstall.Alias.Cli
                 command.Parse(args);
             }
                 #region Error handling
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {
                 // This is reached if --help, --version or similar was used
                 return 0;
@@ -102,7 +102,7 @@ namespace ZeroInstall.Alias.Cli
                 return command.Execute();
             }
                 #region Error handling
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {
                 return 1;
             }

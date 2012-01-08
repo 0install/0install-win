@@ -134,7 +134,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="appEntry">The application being integrated.</param>
         /// <param name="feed">The feed providing additional metadata, icons, etc. for the application.</param>
         /// <param name="accessPoints">The access points to apply.</param>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to a <see cref="Capabilities.Capability"/> is invalid.</exception>
         /// <exception cref="InvalidOperationException">Thrown if one or more of the <paramref name="accessPoints"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="IntegrationManager.AppList"/>.</exception>
         /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="ZeroInstall.Model.Capabilities.Capability"/>s is invalid.</exception>

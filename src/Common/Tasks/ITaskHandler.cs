@@ -37,7 +37,7 @@ namespace Common.Tasks
         /// </summary>
         /// <param name="task">The task to be run. (<see cref="ITask.RunSync"/> or equivalent is called on it.)</param>
         /// <param name="tag">An object used to associate the <paramref name="task"/> with a specific process; may be <see langword="null"/>.</param>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
         /// <exception cref="WebException">Thrown if the task ended with <see cref="TaskState.WebError"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown if <see cref="ITask.State"/> is not <see cref="TaskState.Ready"/>.</exception>

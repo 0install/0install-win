@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using Common;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 
@@ -100,7 +99,7 @@ namespace ZeroInstall.Fetchers
             foreach (var implementation in fetchRequest.Implementations)
             {
                 // Check if the process has been canceled
-                if (!_currentFetchProcess.ContainsKey(fetchRequest)) throw new UserCancelException();
+                if (!_currentFetchProcess.ContainsKey(fetchRequest)) throw new OperationCanceledException();
 
                 var fetchProcess = CreateFetch(implementation);
                 _currentFetchProcess[fetchRequest] = fetchProcess; // Store current step for cancellation

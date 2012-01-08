@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using Common;
 using Common.Collections;
 using Common.Storage;
 using Common.Utils;
@@ -142,7 +141,7 @@ namespace ZeroInstall.Commands
         {
             Policy.Handler.ShowProgressUI(Cancel);
 
-            if (Canceled) throw new UserCancelException();
+            if (Canceled) throw new OperationCanceledException();
 
             AppEntry appEntry = GetAppEntry(integrationManager, interfaceID);
 

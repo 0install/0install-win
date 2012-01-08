@@ -112,7 +112,7 @@ namespace ZeroInstall.Commands
                 ProcessUtils.LaunchHelperAssembly("0install-win", "update --batch " + Requirements.ToCommandLineArgs());
             }
 
-            if (Canceled) throw new UserCancelException();
+            if (Canceled) throw new OperationCanceledException();
             return LaunchImplementation();
         }
         #endregion

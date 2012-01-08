@@ -131,7 +131,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                         Msg.Inform(Parent, Resources.ImplementationOK, MsgSeverity.Info);
                     }
                         #region Error handling
-                    catch (UserCancelException)
+                    catch (OperationCanceledException)
                     {
                         return;
                     }

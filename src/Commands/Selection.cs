@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using Common;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -215,7 +214,7 @@ namespace ZeroInstall.Commands
         /// Runs <see cref="ISolver.Solve"/> (unless <see cref="SelectionsDocument"/> is <see langword="true"/>) and stores the result in <see cref="Selections"/>.
         /// </summary>
         /// <returns>The same result as stored in <see cref="Selections"/>.</returns>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
         /// <exception cref="IOException">Thrown if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
         protected virtual Selections Solve()
@@ -230,11 +229,11 @@ namespace ZeroInstall.Commands
             catch
             {
                 // Suppress any left-over errors if the user canceled anyway
-                if (Canceled) throw new UserCancelException();
+                if (Canceled) throw new OperationCanceledException();
                 throw;
             }
 
-            if (Canceled) throw new UserCancelException();
+            if (Canceled) throw new OperationCanceledException();
             return Selections;
         }
 
@@ -249,7 +248,7 @@ namespace ZeroInstall.Commands
             if (ShowSelectionsUI && !SelectionsDocument)
                 Policy.Handler.AuditSelections(Solve);
 
-            if (Canceled) throw new UserCancelException();
+            if (Canceled) throw new OperationCanceledException();
         }
 
         /// <summary>

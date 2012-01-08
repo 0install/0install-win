@@ -172,7 +172,7 @@ namespace ZeroInstall.Publish
         /// <param name="store">Adds the downloaded archive to the default <see cref="IStore"/> when set to <see langword="true"/>.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <returns>A newly created <see cref="Implementation"/> containing one <see cref="Archive"/>.</returns>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if there was a problem extracting the archive.</exception>
         /// <exception cref="WebException">Thrown if there was a problem downloading the archive.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to temporary files was not permitted.</exception>

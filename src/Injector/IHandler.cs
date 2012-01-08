@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using Common;
 using Common.Tasks;
 using ZeroInstall.DesktopIntegration;
@@ -68,7 +69,7 @@ namespace ZeroInstall.Injector
         /// <param name="question">The question and comprehensive information to help the user make an informed decision.</param>
         /// <param name="batchInformation">Information to be displayed if the question was automatically answered with 'No' because <see cref="Batch"/> was set to <see langword="true"/>.</param>
         /// <returns><see langword="true"/> if the user answered with 'Yes'; <see langword="false"/> if the user answered with 'No'.</returns>
-        /// <exception cref="UserCancelException">Thrown if the user selected 'Cancel'.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user selected 'Cancel'.</exception>
         /// <remarks>
         ///   <para>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</para>
         ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>

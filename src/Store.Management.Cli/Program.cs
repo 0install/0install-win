@@ -91,7 +91,7 @@ namespace ZeroInstall.Store.Management.Cli
                 restArgs = ParseArgs(args);
             }
                 #region Error handling
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {
                 return (int)ErrorLevel.OK;
             }
@@ -110,7 +110,7 @@ namespace ZeroInstall.Store.Management.Cli
                 return (int)ExecuteArgs(restArgs, new CliTaskHandler());
             }
                 #region Error handling
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {
                 return (int)ErrorLevel.UserCanceled;
             }
@@ -159,7 +159,7 @@ namespace ZeroInstall.Store.Management.Cli
         /// </summary>
         /// <param name="args">The command-line arguments to be parsed.</param>
         /// <returns>Any unparsed commands left over.</returns>
-        /// <exception cref="UserCancelException">Thrown if the user asked to see help information, version information, etc..</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user asked to see help information, version information, etc..</exception>
         /// <exception cref="OptionException">Thrown if <paramref name="args"/> contains unknown options.</exception>
         private static IList<string> ParseArgs(IEnumerable<string> args)
         {
@@ -175,7 +175,7 @@ namespace ZeroInstall.Store.Management.Cli
                     "V|version", Resources.OptionVersion, unused =>
                     {
                         Console.WriteLine(AppInfo.Name + " " + AppInfo.Version + (Locations.IsPortable ? " - " + Resources.PortableMode : "") + Environment.NewLine + AppInfo.Copyright + Environment.NewLine + Resources.LicenseInfo);
-                        throw new UserCancelException(); // Don't handle any of the other arguments
+                        throw new OperationCanceledException(); // Don't handle any of the other arguments
                     }
                     },
                 // Documentation
@@ -183,7 +183,7 @@ namespace ZeroInstall.Store.Management.Cli
                     "man", Resources.OptionMan, unused =>
                     {
                         PrintManual();
-                        throw new UserCancelException(); // Don't handle any of the other arguments
+                        throw new OperationCanceledException(); // Don't handle any of the other arguments
                     }
                     },
             };
@@ -197,7 +197,7 @@ namespace ZeroInstall.Store.Management.Cli
                 options.WriteOptionDescriptions(Console.Out);
 
                 // Don't handle any of the other arguments
-                throw new UserCancelException();
+                throw new OperationCanceledException();
             });
             #endregion
 
@@ -236,7 +236,7 @@ namespace ZeroInstall.Store.Management.Cli
         /// <param name="args">The command-line arguments that were not parsed as options.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
         /// <returns>The error level to return when the process ends.</returns>
-        /// <exception cref="UserCancelException">Thrown if an IO task was canceled.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if an IO task was canceled.</exception>
         /// <exception cref="ArgumentException">Thrown if the number of arguments passed in <paramref name="args"/> is incorrect.</exception>
         /// <exception cref="NotSupportedException">Thrown if the archive type is unknown or not supported.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>

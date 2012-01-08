@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Common;
 using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation.Archive;
@@ -64,7 +63,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="path">The directory containing the implementation.</param>
         /// <param name="manifestDigest">The digest the implementation is supposed to match.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="IOException">Thrown if <paramref name="path"/> cannot be moved or the digest cannot be calculated.</exception>
         /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Model.Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
@@ -78,7 +77,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="archiveInfos">Multiple parameter objects providing the information to extract each archive.</param>
         /// <param name="manifestDigest">The digest the implementation is supposed to match.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="NotSupportedException">Thrown if an archive type is unknown or not supported.</exception>
         /// <exception cref="IOException">Thrown if one of the archives cannot be extracted.</exception>
@@ -102,7 +101,7 @@ namespace ZeroInstall.Store.Implementation
         /// Reads in all the manifest files in the store and looks for duplicates (files with the same permissions, modification time and digest). When it finds a pair, it deletes one and replaces it with a hard-link to the other.
         /// </summary>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if two files could not be hard-linked together.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if a damaged implementation is encountered while optimizing.</exception>
@@ -114,7 +113,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="manifestDigest">The digest of the implementation to be verified.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> indicates no known hash methods.</exception>
         /// <exception cref="IOException">Thrown if the entry's directory could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the entry's directory is not permitted.</exception>
@@ -131,7 +130,7 @@ namespace ZeroInstall.Store.Implementation
         /// -or-<br/>
         /// <see langword="null"/> if the store does not support auditing.
         /// </returns>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a directory in the store could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
         IEnumerable<DigestMismatchException> Audit(ITaskHandler handler);

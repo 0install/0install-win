@@ -89,7 +89,7 @@ namespace ZeroInstall.Publish.WinForms
                 SignFiles(comboBoxSecretKey.SelectedItem as OpenPgpSecretKey, textPassword.Text);
             }
                 #region Sanity checks
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {}
             catch (IOException ex)
             {

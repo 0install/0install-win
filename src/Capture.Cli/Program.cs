@@ -74,7 +74,7 @@ namespace ZeroInstall.Capture.Cli
                 results = ParseArgs(args);
             }
                 #region Error handling
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {
                 // This is reached if --help, --version or similar was used
                 return (int)ErrorLevel.OK;
@@ -91,7 +91,7 @@ namespace ZeroInstall.Capture.Cli
                 return (int)Execute(results);
             }
                 #region Error hanlding
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {
                 return (int)ErrorLevel.UserCanceled;
             }
@@ -130,7 +130,7 @@ namespace ZeroInstall.Capture.Cli
         /// </summary>
         /// <param name="args">The command-line arguments to be parsed.</param>
         /// <returns>The options detected by the parsing process.</returns>
-        /// <exception cref="UserCancelException">Thrown if the user asked to see help information, version information, etc..</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user asked to see help information, version information, etc..</exception>
         /// <exception cref="OptionException">Thrown if <paramref name="args"/> contains unknown options.</exception>
         public static ParseResults ParseArgs(IEnumerable<string> args)
         {
@@ -150,7 +150,7 @@ namespace ZeroInstall.Capture.Cli
                     {
                         var assembly = Assembly.GetEntryAssembly().GetName();
                         Console.WriteLine(@"Zero Install Capture CLI v{0}", assembly.Version);
-                        throw new UserCancelException();
+                        throw new OperationCanceledException();
                     }
                     },
                 {"f|force", Resources.OptionForce, unused => parseResults.Force = true},
@@ -187,7 +187,7 @@ namespace ZeroInstall.Capture.Cli
                 Console.WriteLine(Resources.Options);
                 options.WriteOptionDescriptions(Console.Out);
 
-                throw new UserCancelException();
+                throw new OperationCanceledException();
             });
             #endregion
 
@@ -237,7 +237,7 @@ namespace ZeroInstall.Capture.Cli
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
         /// <returns>The error code to end the process with.</returns>
-        /// <exception cref="UserCancelException">Thrown if the user cancelled the operation.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user cancelled the operation.</exception>
         private static ErrorLevel Execute(ParseResults results)
         {
             switch (results.Command)

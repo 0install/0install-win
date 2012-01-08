@@ -71,7 +71,7 @@ namespace ZeroInstall.Commands.Cli
                 command = CommandFactory.CreateAndParse(args, handler);
             }
                 #region Error handling
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {
                 // This is reached if --help, --version or similar was used
                 return 0;
@@ -108,7 +108,7 @@ namespace ZeroInstall.Commands.Cli
                 return command.Execute();
             }
                 #region Error handling
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {
                 return 1;
             }

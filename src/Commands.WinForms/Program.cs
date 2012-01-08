@@ -87,7 +87,7 @@ namespace ZeroInstall.Commands.WinForms
                 handler.ActionTitle = command.ActionTitle;
             }
                 #region Error handling
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {
                 // This is reached if --help, --version or similar was used
                 return;
@@ -146,7 +146,7 @@ namespace ZeroInstall.Commands.WinForms
                 command.Execute();
             }
                 #region Error handling
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {}
             catch (OptionException ex)
             {

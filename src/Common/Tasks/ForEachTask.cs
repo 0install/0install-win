@@ -61,7 +61,7 @@ namespace Common.Tasks
         /// <summary>A list of objects to execute work for. Cancellation is possible between two elements.</summary>
         private readonly IEnumerable<T> _target;
 
-        /// <summary>The code to be executed once per element in <see cref="_target"/>. May throw <see cref="WebException"/>, <see cref="IOException"/> or <see cref="UserCancelException"/>.</summary>
+        /// <summary>The code to be executed once per element in <see cref="_target"/>. May throw <see cref="WebException"/>, <see cref="IOException"/> or <see cref="OperationCanceledException"/>.</summary>
         private readonly Action<T> _work;
         #endregion
 
@@ -96,7 +96,7 @@ namespace Common.Tasks
         /// </summary>
         /// <param name="name">A name describing the task in human-readable form.</param>
         /// <param name="target">A list of objects to execute work for. Cancellation is possible between two elements.</param>
-        /// <param name="work">The code to be executed once per element in <paramref name="target"/>. May throw <see cref="WebException"/>, <see cref="IOException"/> or <see cref="UserCancelException"/>.</param>
+        /// <param name="work">The code to be executed once per element in <paramref name="target"/>. May throw <see cref="WebException"/>, <see cref="IOException"/> or <see cref="OperationCanceledException"/>.</param>
         public ForEachTask(string name, IEnumerable<T> target, Action<T> work)
         {
             #region Sanity checks
@@ -153,7 +153,7 @@ namespace Common.Tasks
                 ErrorMessage = ex.Message;
                 throw;
             }
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {
                 State = TaskState.Ready;
                 throw;
@@ -213,7 +213,7 @@ namespace Common.Tasks
                 ErrorMessage = ex.Message;
                 return;
             }
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {
                 State = TaskState.Ready;
                 return;

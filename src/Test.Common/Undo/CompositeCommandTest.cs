@@ -81,10 +81,10 @@ namespace Common.Undo
             {
                 new MockCommand(() => executeCalls.Add(0), () => undoCalls.Add(0)),
                 new MockCommand(() => executeCalls.Add(1), () => undoCalls.Add(1)),
-                new MockCommand(() => { throw new UserCancelException(); }, () => undoCalls.Add(2))
+                new MockCommand(() => { throw new OperationCanceledException(); }, () => undoCalls.Add(2))
             });
 
-            Assert.Throws<UserCancelException>(command.Execute, "Exceptions should be passed through after rollback");
+            Assert.Throws<OperationCanceledException>(command.Execute, "Exceptions should be passed through after rollback");
             CollectionAssert.AreEqual(new[] {0, 1}, executeCalls, "After an exception the rest of the commands should not be executed");
             CollectionAssert.AreEqual(new[] {1, 0}, undoCalls, "After an exception all successful executions should be undone");
         }
@@ -96,7 +96,7 @@ namespace Common.Undo
             var undoCalls = new List<int>(3);
             var command = new CompositeCommand(new IUndoCommand[]
             {
-                new MockCommand(() => executeCalls.Add(0), () => { throw new UserCancelException(); }),
+                new MockCommand(() => executeCalls.Add(0), () => { throw new OperationCanceledException(); }),
                 new MockCommand(() => executeCalls.Add(1), () => undoCalls.Add(1)),
                 new MockCommand(() => executeCalls.Add(2), () => undoCalls.Add(2))
             });
@@ -105,7 +105,7 @@ namespace Common.Undo
             CollectionAssert.AreEqual(new[] {0, 1, 2}, executeCalls, "Child commands should be executed in ascending order");
 
             executeCalls.Clear();
-            Assert.Throws<UserCancelException>(command.Undo, "Exceptions should be passed through after rollback");
+            Assert.Throws<OperationCanceledException>(command.Undo, "Exceptions should be passed through after rollback");
             CollectionAssert.AreEqual(new[] {2, 1}, undoCalls, "After an exception the rest of the undoes should not be performed");
             CollectionAssert.AreEqual(new[] {1, 2}, executeCalls, "After an exception all successful undoes should be re-executed");
         }

@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Common;
 using Common.Collections;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -135,7 +134,7 @@ namespace ZeroInstall.Commands
             // Make sure cancellation doesn't fall within a blind spot between check and Fetcher start
             lock (_fetcherCancelLock)
             {
-                if (Canceled) throw new UserCancelException();
+                if (Canceled) throw new OperationCanceledException();
                 _currentFetchRequest = new FetchRequest(UncachedImplementations, Policy.Handler);
                 Policy.Fetcher.Start(_currentFetchRequest);
             }
@@ -147,13 +146,13 @@ namespace ZeroInstall.Commands
             catch
             {
                 // Suppress any left-over errors if the user canceled anyway
-                if (Canceled) throw new UserCancelException();
+                if (Canceled) throw new OperationCanceledException();
                 throw;
             }
             lock (_fetcherCancelLock)
                 _currentFetchRequest = null;
 
-            if (Canceled) throw new UserCancelException(); // ToDo: Remove once fetcher has a cancelable synchronous run method
+            if (Canceled) throw new OperationCanceledException(); // ToDo: Remove once fetcher has a cancelable synchronous run method
         }
         #endregion
 

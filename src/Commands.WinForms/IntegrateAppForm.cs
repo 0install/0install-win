@@ -295,7 +295,7 @@ namespace ZeroInstall.Commands.WinForms
                 if (!toAdd.IsEmpty) _integrationManager.AddAccessPoints(_appEntry, _feed, toAdd);
             }
                 #region Error handling
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {
                 Visible = true; // Allow user to fix input
                 return;

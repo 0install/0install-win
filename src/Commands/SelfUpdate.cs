@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using Common;
 using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
@@ -113,7 +112,7 @@ namespace ZeroInstall.Commands
 
             DownloadUncachedImplementations();
 
-            if (Canceled) throw new UserCancelException();
+            if (Canceled) throw new OperationCanceledException();
             return LaunchImplementation();
         }
         #endregion

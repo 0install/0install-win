@@ -74,7 +74,7 @@ namespace ZeroInstall.Publish.Cli
                 results = ParseArgs(args);
             }
                 #region Error handling
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {
                 // This is reached if --help, --version or similar was used
                 return 0;
@@ -91,7 +91,7 @@ namespace ZeroInstall.Publish.Cli
                 return (int)Execute(results);
             }
                 #region Error hanlding
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {
                 return (int)ErrorLevel.UserCanceled;
             }
@@ -150,7 +150,7 @@ namespace ZeroInstall.Publish.Cli
         /// </summary>
         /// <param name="args">The command-line arguments to be parsed.</param>
         /// <returns>The options detected by the parsing process.</returns>
-        /// <exception cref="UserCancelException">Thrown if the user asked to see help information, version information, etc..</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user asked to see help information, version information, etc..</exception>
         /// <exception cref="OptionException">Thrown if <paramref name="args"/> contains unknown options.</exception>
         public static ParseResults ParseArgs(IEnumerable<string> args)
         {
@@ -169,7 +169,7 @@ namespace ZeroInstall.Publish.Cli
                     "V|version", Resources.OptionVersion, unused =>
                     {
                         Console.WriteLine(AppInfo.Name + " " + AppInfo.Version + Environment.NewLine + AppInfo.Copyright + Environment.NewLine + Resources.LicenseInfo);
-                        throw new UserCancelException(); // Don't handle any of the other arguments
+                        throw new OperationCanceledException(); // Don't handle any of the other arguments
                     }
                     },
                 // Mode selection
@@ -200,7 +200,7 @@ namespace ZeroInstall.Publish.Cli
                 options.WriteOptionDescriptions(Console.Out);
 
                 // Don't handle any of the other arguments
-                throw new UserCancelException();
+                throw new OperationCanceledException();
             });
             #endregion
 
@@ -237,7 +237,7 @@ namespace ZeroInstall.Publish.Cli
         /// </summary>
         /// <param name="options">The parser results to be executed.</param>
         /// <returns>The error code to end the process with.</returns>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the operation.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the operation.</exception>
         /// <exception cref="OptionException">Thrown if the specified feed file paths were invalid.</exception>
         /// <exception cref="InvalidDataException">Thrown if a feed file is damaged.</exception>
         /// <exception cref="FileNotFoundException">Thrown if a feed file could not be found.</exception>

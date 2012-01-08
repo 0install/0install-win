@@ -239,7 +239,7 @@ namespace ZeroInstall.Store.Management.WinForms
                     entry.Verify(this);
             }
                 #region Error handling
-            catch (UserCancelException)
+            catch (OperationCanceledException)
             {
                 return;
             }

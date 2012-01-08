@@ -101,7 +101,7 @@ namespace Common.Controls
         /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
         /// <param name="task">The trackable task to execute and display.</param>
         /// <param name="icon">The icon for the dialog to display in the task bar; may be <see langword="null"/>.</param>
-        /// <exception cref="UserCancelException">Thrown if the user clicked the "Cancel" button.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user clicked the "Cancel" button.</exception>
         /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
         /// <exception cref="WebException">Thrown if the task ended with <see cref="TaskState.WebError"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown if <see cref="ITask.State"/> is not <see cref="TaskState.Ready"/>.</exception>
@@ -128,7 +128,7 @@ namespace Common.Controls
                 case TaskState.IOError:
                     throw new IOException(task.ErrorMessage);
                 default:
-                    throw new UserCancelException();
+                    throw new OperationCanceledException();
             }
         }
         #endregion

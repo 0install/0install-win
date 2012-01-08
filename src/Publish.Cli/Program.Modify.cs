@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Common;
 using Common.Collections;
 using Common.Compression;
 using Common.Net;
@@ -39,7 +38,7 @@ namespace ZeroInstall.Publish.Cli
         /// </summary>
         /// <param name="feed">The feed to modify.</param>
         /// <param name="options">The modifications to apply.</param>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the operation.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the operation.</exception>
         /// <exception cref="IOException">Thrown if there is a problem access a temporary file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a temporary file is not permitted.</exception>
         private static void HandleModify(Feed feed, ParseResults options)

@@ -72,7 +72,6 @@
     <Compile Include="Msg.cs" />
     <Compile Include="ToStringWrapper.cs" />
     <Compile Include="UpdateHelper.cs" />
-    <Compile Include="UserCancelException.cs" />
     <Compile Include="INamed.cs" />
     <Compile Include="Future.cs" />
     <Compile Include="Tasks\TaskState.cs" />
