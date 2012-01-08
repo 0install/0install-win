@@ -72,7 +72,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(InterfaceReference) && Equals((InterfaceReference)obj);
+            return obj is InterfaceReference && Equals((InterfaceReference)obj);
         }
 
         /// <inheritdoc/>
@@ -90,18 +90,14 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="InterfaceReference"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="InterfaceReference"/>.</returns>
-        public InterfaceReference CloneReference()
+        public InterfaceReference Clone()
         {
             return new InterfaceReference {Target = Target};
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="InterfaceReference"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="InterfaceReference"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneReference();
+            return Clone();
         }
         #endregion
     }

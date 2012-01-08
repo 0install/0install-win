@@ -179,21 +179,17 @@ namespace ZeroInstall.Injector.Feeds
         /// Creates a deep copy of this <see cref="InterfacePreferences"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="InterfacePreferences"/>.</returns>
-        public InterfacePreferences CloneInterfacePreferences()
+        public InterfacePreferences Clone()
         {
             var feed = new InterfacePreferences {Uri = Uri, StabilityPolicy = StabilityPolicy};
-            foreach (var feedReference in Feeds) feed.Feeds.Add(feedReference.CloneFeedPreferences());
+            foreach (var feedReference in Feeds) feed.Feeds.Add(feedReference.Clone());
 
             return feed;
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="InterfacePreferences"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="InterfacePreferences"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneInterfacePreferences();
+            return Clone();
         }
         #endregion
 

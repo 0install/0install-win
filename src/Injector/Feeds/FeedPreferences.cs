@@ -198,21 +198,17 @@ namespace ZeroInstall.Injector.Feeds
         /// Creates a deep copy of this <see cref="FeedPreferences"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="FeedPreferences"/>.</returns>
-        public FeedPreferences CloneFeedPreferences()
+        public FeedPreferences Clone()
         {
             var feedPreferences = new FeedPreferences {LastChecked = LastChecked};
-            foreach (var implementation in Implementations) feedPreferences.Implementations.Add(implementation.CloneImplementationPreferences());
+            foreach (var implementation in Implementations) feedPreferences.Implementations.Add(implementation.Clone());
 
             return feedPreferences;
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="FeedPreferences"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="FeedPreferences"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneFeedPreferences();
+            return Clone();
         }
         #endregion
 

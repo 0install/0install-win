@@ -61,7 +61,7 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="ExecutableInPath"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="ExecutableInPath"/>.</returns>
-        public override Binding CloneBinding()
+        public override Binding Clone()
         {
             return new ExecutableInPath {Name = Name, Command = Command};
         }

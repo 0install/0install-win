@@ -90,7 +90,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Clone
         /// <inheritdoc/>
-        public override AccessPoint CloneAccessPoint()
+        public override AccessPoint Clone()
         {
             return new ContextMenu {Capability = Capability};
         }

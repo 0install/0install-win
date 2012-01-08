@@ -94,7 +94,7 @@ namespace ZeroInstall.Model
         public void TestClone()
         {
             var catalog1 = CreateTestCatalog();
-            var catalog2 = catalog1.CloneCatalog();
+            var catalog2 = catalog1.Clone();
 
             // Ensure data stayed the same
             Assert.AreEqual(catalog1, catalog2, "Cloned objects should be equal.");

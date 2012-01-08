@@ -90,18 +90,14 @@ namespace ZeroInstall.Model
         /// Creates a copy of this <see cref="Constraint"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Constraint"/>.</returns>
-        public Constraint CloneConstraint()
+        public Constraint Clone()
         {
             return new Constraint {NotBeforeVersion = NotBeforeVersion, BeforeVersion = BeforeVersion};
         }
 
-        /// <summary>
-        /// Creates a copy of this <see cref="Constraint"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="Constraint"/> casted to a generic <see cref="object"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneConstraint();
+            return Clone();
         }
         #endregion
 

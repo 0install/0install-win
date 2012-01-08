@@ -288,7 +288,7 @@ namespace ZeroInstall.DesktopIntegration
                 // Clone the AppEntry without the access points
                 var newAppEntry = new AppEntry {InterfaceID = appEntry.InterfaceID, Name = appEntry.Name, AutoUpdate = appEntry.AutoUpdate, Timestamp = DateTime.UtcNow};
                 foreach (var capabilityList in appEntry.CapabilityLists)
-                    newAppEntry.CapabilityLists.Add(capabilityList.CloneCapabilityList());
+                    newAppEntry.CapabilityLists.Add(capabilityList.Clone());
                 AppList.Entries.Add(newAppEntry);
 
                 // Add and apply the access points

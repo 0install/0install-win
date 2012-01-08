@@ -26,7 +26,7 @@ namespace ZeroInstall.Injector.Feeds
     /// <summary>
     /// Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.
     /// </summary>
-    public interface IFeedManager : ICloneable
+    public interface IFeedManager
     {
         /// <summary>
         /// The cache to retreive <see cref="Feed"/>s from and store downloaded <see cref="Feed"/>s to.
@@ -70,6 +70,6 @@ namespace ZeroInstall.Injector.Feeds
         /// Creates a shallow copy of this feed manager.
         /// </summary>
         /// <returns>The new copy of the feed manager.</returns>
-        IFeedManager CloneFeedManager();
+        IFeedManager Clone();
     }
 }

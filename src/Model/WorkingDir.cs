@@ -55,18 +55,14 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="WorkingDir"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="WorkingDir"/>.</returns>
-        public WorkingDir CloneWorkingDir()
+        public WorkingDir Clone()
         {
             return new WorkingDir {Source = Source};
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="WorkingDir"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="WorkingDir"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneWorkingDir();
+            return Clone();
         }
         #endregion
 

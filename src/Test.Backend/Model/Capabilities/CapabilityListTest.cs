@@ -76,7 +76,7 @@ namespace ZeroInstall.Model.Capabilities
         public void TestClone()
         {
             var capabilityList1 = CreateTestCapabilityList();
-            var capabilityList2 = capabilityList1.CloneCapabilityList();
+            var capabilityList2 = capabilityList1.Clone();
 
             // Ensure data stayed the same
             Assert.AreEqual(capabilityList1, capabilityList2, "Cloned objects should be equal.");

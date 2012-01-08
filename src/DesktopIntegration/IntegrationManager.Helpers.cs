@@ -55,7 +55,7 @@ namespace ZeroInstall.DesktopIntegration
 
             // Get basic metadata and copy of capabilities from feed
             var appEntry = new AppEntry {InterfaceID = interfaceID, Name = feed.Name, Timestamp = DateTime.UtcNow};
-            appEntry.CapabilityLists.AddAll(feed.CapabilityLists.Map(list => list.CloneCapabilityList()));
+            appEntry.CapabilityLists.AddAll(feed.CapabilityLists.Map(list => list.Clone()));
 
             AppList.Entries.Add(appEntry);
             return appEntry;
@@ -108,7 +108,7 @@ namespace ZeroInstall.DesktopIntegration
             // Update metadata and capabilities
             appEntry.Name = feed.Name;
             appEntry.CapabilityLists.Clear();
-            appEntry.CapabilityLists.AddAll(feed.CapabilityLists.Map(list => list.CloneCapabilityList()));
+            appEntry.CapabilityLists.AddAll(feed.CapabilityLists.Map(list => list.Clone()));
 
             // Reapply removed access points dumping any that have become incompatible
             foreach (var accessPoint in toReapply)

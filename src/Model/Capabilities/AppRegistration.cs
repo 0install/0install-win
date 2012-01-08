@@ -66,7 +66,7 @@ namespace ZeroInstall.Model.Capabilities
 
         #region Clone
         /// <inheritdoc/>
-        public override Capability CloneCapability()
+        public override Capability Clone()
         {
             return new AppRegistration {ID = ID, CapabilityRegPath = CapabilityRegPath, X64 = X64};
         }

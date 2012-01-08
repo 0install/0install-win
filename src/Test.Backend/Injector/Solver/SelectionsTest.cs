@@ -66,7 +66,7 @@ namespace ZeroInstall.Injector.Solver
         public void TestClone()
         {
             var selections1 = CreateTestSelections();
-            var selections2 = selections1.CloneSelections();
+            var selections2 = selections1.Clone();
 
             // Ensure data stayed the same
             Assert.AreEqual(selections1, selections2, "Cloned objects should be equal.");

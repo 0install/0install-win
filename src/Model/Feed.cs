@@ -438,29 +438,25 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="Feed"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Feed"/>.</returns>
-        public Feed CloneFeed()
+        public Feed Clone()
         {
             var feed = new Feed {MinInjectorVersion = MinInjectorVersion, Uri = Uri, Name = Name, Homepage = Homepage, NeedsTerminal = NeedsTerminal};
-            foreach (var feedReference in Feeds) feed.Feeds.Add(feedReference.CloneFeedPreferences());
-            foreach (var interfaceReference in FeedFor) feed.FeedFor.Add(interfaceReference.CloneReference());
-            foreach (var summary in Summaries) feed.Summaries.Add(summary.CloneString());
-            foreach (var description in Descriptions) feed.Descriptions.Add(description.CloneString());
+            foreach (var feedReference in Feeds) feed.Feeds.Add(feedReference.Clone());
+            foreach (var interfaceReference in FeedFor) feed.FeedFor.Add(interfaceReference.Clone());
+            foreach (var summary in Summaries) feed.Summaries.Add(summary.Clone());
+            foreach (var description in Descriptions) feed.Descriptions.Add(description.Clone());
             feed.Categories.AddAll(Categories);
             feed.Icons.AddAll(Icons);
-            foreach (var element in Elements) feed.Elements.Add(element.CloneElement());
-            foreach (var entryPoint in EntryPoints) feed.EntryPoints.Add(entryPoint.CloneEntryPoint());
-            foreach (var capabilityList in CapabilityLists) feed.CapabilityLists.Add(capabilityList.CloneCapabilityList());
+            foreach (var element in Elements) feed.Elements.Add(element.Clone());
+            foreach (var entryPoint in EntryPoints) feed.EntryPoints.Add(entryPoint.Clone());
+            foreach (var capabilityList in CapabilityLists) feed.CapabilityLists.Add(capabilityList.Clone());
 
             return feed;
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="Feed"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="Feed"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneFeed();
+            return Clone();
         }
         #endregion
 

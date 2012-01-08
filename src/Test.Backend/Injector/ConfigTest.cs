@@ -42,7 +42,7 @@ namespace ZeroInstall.Injector
         public void TestClone()
         {
             var config1 = CreateTestConfig();
-            var config2 = config1.CloneConfig();
+            var config2 = config1.Clone();
 
             // Ensure data stayed the same
             Assert.AreEqual(config1, config2, "Cloned objects should be equal.");

@@ -80,7 +80,7 @@ namespace ZeroInstall.Model
             var implementation = new Implementation();
             CloneFromTo(this, implementation);
             foreach (var method in RetrievalMethods)
-                implementation.RetrievalMethods.Add(method.CloneRetrievalMethod());
+                implementation.RetrievalMethods.Add(method.Clone());
 
             return implementation;
         }
@@ -89,7 +89,7 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="Implementation"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Implementation"/>.</returns>
-        public override Element CloneElement()
+        public override Element Clone()
         {
             return CloneImplementation();
         }

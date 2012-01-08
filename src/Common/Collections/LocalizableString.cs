@@ -142,7 +142,7 @@ namespace Common.Collections
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(LocalizableString) && Equals((LocalizableString)obj);
+            return obj is LocalizableString && Equals((LocalizableString)obj);
         }
 
         /// <inheritdoc/>
@@ -160,18 +160,14 @@ namespace Common.Collections
         /// Creates a plain copy of this string.
         /// </summary>
         /// <returns>The cloned string.</returns>
-        public LocalizableString CloneString()
+        public LocalizableString Clone()
         {
             return new LocalizableString(Value, Language);
         }
 
-        /// <summary>
-        /// Creates a plain copy of this string.
-        /// </summary>
-        /// <returns>The cloned string casted to a generic <see cref="object"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneString();
+            return Clone();
         }
         #endregion
     }

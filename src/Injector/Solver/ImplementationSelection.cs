@@ -160,7 +160,7 @@ namespace ZeroInstall.Injector.Solver
         /// Creates a deep copy of this <see cref="ImplementationSelection"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="ImplementationSelection"/>.</returns>
-        public override Element CloneElement()
+        public override Element Clone()
         {
             return CloneImplementation();
         }

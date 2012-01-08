@@ -197,7 +197,7 @@ namespace Common.Collections
         {
             var newDict = new LocalizableStringCollection();
             foreach (LocalizableString entry in this)
-                newDict.Add(entry.CloneString());
+                newDict.Add(entry.Clone());
 
             return newDict;
         }

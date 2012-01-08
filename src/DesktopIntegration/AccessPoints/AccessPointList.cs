@@ -121,21 +121,17 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// Creates a deep copy of this <see cref="AccessPointList"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="AccessPointList"/>.</returns>
-        public AccessPointList CloneAccessPointList()
+        public AccessPointList Clone()
         {
             var accessPointList = new AccessPointList();
-            foreach (var entry in Entries) accessPointList.Entries.Add(entry.CloneAccessPoint());
+            foreach (var entry in Entries) accessPointList.Entries.Add(entry.Clone());
 
             return accessPointList;
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="AccessPointList"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="AccessPointList"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneAccessPointList();
+            return Clone();
         }
         #endregion
 

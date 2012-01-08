@@ -246,15 +246,11 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="Element"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Element"/>.</returns>
-        public abstract Element CloneElement();
+        public abstract Element Clone();
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="Element"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="Element"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneElement();
+            return Clone();
         }
 
         /// <summary>
@@ -276,9 +272,9 @@ namespace ZeroInstall.Model
             to.Main = from.Main;
             to.SelfTest = from.SelfTest;
             to.DocDir = from.DocDir;
-            foreach (var command in from.Commands) to.Commands.Add(command.CloneCommand());
-            foreach (var dependency in from.Dependencies) to.Dependencies.Add(dependency.CloneDependency());
-            foreach (var binding in from.Bindings) to.Bindings.Add(binding.CloneBinding());
+            foreach (var command in from.Commands) to.Commands.Add(command.Clone());
+            foreach (var dependency in from.Dependencies) to.Dependencies.Add(dependency.Clone());
+            foreach (var binding in from.Bindings) to.Bindings.Add(binding.Clone());
         }
         #endregion
 

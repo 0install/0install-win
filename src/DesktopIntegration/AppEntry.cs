@@ -139,22 +139,18 @@ namespace ZeroInstall.DesktopIntegration
         /// Creates a deep copy of this <see cref="AppEntry"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="AppEntry"/>.</returns>
-        public AppEntry CloneEntry()
+        public AppEntry Clone()
         {
             var appList = new AppEntry {Name = Name, InterfaceID = InterfaceID};
-            if (AccessPoints != null) appList.AccessPoints = AccessPoints.CloneAccessPointList();
-            foreach (var list in CapabilityLists) appList.CapabilityLists.Add(list.CloneCapabilityList());
+            if (AccessPoints != null) appList.AccessPoints = AccessPoints.Clone();
+            foreach (var list in CapabilityLists) appList.CapabilityLists.Add(list.Clone());
 
             return appList;
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="AppEntry"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="AppEntry"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneEntry();
+            return Clone();
         }
         #endregion
 

@@ -42,7 +42,7 @@ namespace ZeroInstall.Model
         public void TestClone()
         {
             var binding1 = CreateTestBinding();
-            var binding2 = binding1.CloneBinding();
+            var binding2 = binding1.Clone();
 
             // Ensure data stayed the same
             Assert.AreEqual(binding1, binding2, "Cloned objects should be equal.");

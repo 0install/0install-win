@@ -88,7 +88,7 @@ namespace ZeroInstall.Model
         public void TestClone()
         {
             var command1 = CreateTestCommand1();
-            var command2 = command1.CloneCommand();
+            var command2 = command1.Clone();
 
             // Ensure data stayed the same
             Assert.AreEqual(command1, command2, "Cloned objects should be equal.");
@@ -103,7 +103,7 @@ namespace ZeroInstall.Model
         public void TestEquals()
         {
             var command1 = CreateTestCommand1();
-            var command2 = command1.CloneCommand();
+            var command2 = command1.Clone();
             command2.Bindings.Add(new EnvironmentBinding());
 
             // Ensure data stayed the same

@@ -113,21 +113,17 @@ namespace ZeroInstall.Model.Capabilities
         /// Creates a deep copy of this <see cref="CapabilityList"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="CapabilityList"/>.</returns>
-        public CapabilityList CloneCapabilityList()
+        public CapabilityList Clone()
         {
             var capabilityList = new CapabilityList {Architecture = Architecture};
-            foreach (var entry in Entries) capabilityList.Entries.Add(entry.CloneCapability());
+            foreach (var entry in Entries) capabilityList.Entries.Add(entry.Clone());
 
             return capabilityList;
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="CapabilityList"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="CapabilityList"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneCapabilityList();
+            return Clone();
         }
         #endregion
 

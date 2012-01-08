@@ -58,20 +58,16 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="FeedReference"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="FeedReference"/>.</returns>
-        public FeedReference CloneFeedPreferences()
+        public FeedReference Clone()
         {
             var feedRereference = new FeedReference {Source = Source};
             CloneFromTo(this, feedRereference);
             return feedRereference;
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="FeedReference"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="FeedReference"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneFeedPreferences();
+            return Clone();
         }
         #endregion
 
@@ -89,7 +85,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(FeedReference) && Equals((FeedReference)obj);
+            return obj is FeedReference && Equals((FeedReference)obj);
         }
 
         /// <inheritdoc/>

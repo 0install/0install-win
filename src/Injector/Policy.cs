@@ -127,21 +127,16 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <returns>The new copy of the <see cref="Policy"/>.</returns>
         /// <remarks><see cref="Config"/> and <see cref="FeedManager"/> are cloned, <see cref="Fetcher"/>, <see cref="OpenPgp"/>, <see cref="Solver"/> and <see cref="Handler"/> are not.</remarks>
-        public Policy ClonePolicy()
+        public Policy Clone()
         {
             return new Policy(
-                Config.CloneConfig(), FeedManager.CloneFeedManager(),
+                Config.Clone(), FeedManager.Clone(),
                 Fetcher, OpenPgp, Solver, Handler);
         }
 
-        /// <summary>
-        /// Creates a semi-deep copy of this <see cref="Policy"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="Policy"/>.</returns>
-        /// <remarks><see cref="Config"/> and <see cref="FeedManager"/> are cloned, <see cref="Fetcher"/>, <see cref="OpenPgp"/>, <see cref="Solver"/> and <see cref="Handler"/> are not.</remarks>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return ClonePolicy();
+            return Clone();
         }
         #endregion
 

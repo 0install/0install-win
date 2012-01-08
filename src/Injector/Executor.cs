@@ -71,7 +71,7 @@ namespace ZeroInstall.Injector
             if (selections.Implementations.IsEmpty) throw new ArgumentException(Resources.NoImplementationsPassed, "selections");
             #endregion
 
-            Selections = selections.CloneSelections();
+            Selections = selections.Clone();
             Store = store;
         }
         #endregion

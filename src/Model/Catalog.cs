@@ -152,21 +152,17 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="Catalog"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Catalog"/>.</returns>
-        public Catalog CloneCatalog()
+        public Catalog Clone()
         {
             var catalog = new Catalog();
-            foreach (var feed in Feeds) catalog.Feeds.Add(feed.CloneFeed());
+            foreach (var feed in Feeds) catalog.Feeds.Add(feed.Clone());
 
             return catalog;
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="Catalog"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="Catalog"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneCatalog();
+            return Clone();
         }
         #endregion
 

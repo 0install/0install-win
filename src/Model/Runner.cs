@@ -72,8 +72,8 @@ namespace ZeroInstall.Model
         public Runner CloneRunner()
         {
             var runner = new Runner {Interface = Interface, Use = Use, Command = Command};
-            foreach (var binding in Bindings) runner.Bindings.Add(binding.CloneBinding());
-            foreach (var constraint in Constraints) runner.Constraints.Add(constraint.CloneConstraint());
+            foreach (var binding in Bindings) runner.Bindings.Add(binding.Clone());
+            foreach (var constraint in Constraints) runner.Constraints.Add(constraint.Clone());
             foreach (var argument in Arguments) runner.Arguments.Add(argument);
 
             return runner;
@@ -83,7 +83,7 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="Runner"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Runner"/>.</returns>
-        public override Dependency CloneDependency()
+        public override Dependency Clone()
         {
             return CloneRunner();
         }

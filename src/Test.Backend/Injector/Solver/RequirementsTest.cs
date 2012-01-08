@@ -60,7 +60,7 @@ namespace ZeroInstall.Injector.Solver
             var requirements1 = CreateTestRequirements();
             requirements1.Languages.Add(new CultureInfo("de"));
             requirements1.Languages.Add(new CultureInfo("en"));
-            var requirements2 = requirements1.CloneRequirements();
+            var requirements2 = requirements1.Clone();
 
             // Ensure data stayed the same
             Assert.AreEqual(requirements1, requirements2, "Cloned objects should be equal.");

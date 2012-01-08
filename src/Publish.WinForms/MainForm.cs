@@ -892,7 +892,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void BtnExtFeedsAddClick(object sender, EventArgs e)
         {
-            var feedReference = feedReferenceControl.FeedReference.CloneFeedPreferences();
+            var feedReference = feedReferenceControl.FeedReference.Clone();
             if (string.IsNullOrEmpty(feedReference.Source)) return;
             foreach (FeedReference feedReferenceFromListBox in listBoxExternalFeeds.Items)
                 if (feedReference.Equals(feedReferenceFromListBox)) return;
@@ -920,7 +920,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             var selectedItem = (FeedReference)listBoxExternalFeeds.SelectedItem;
             if (selectedItem == null) return;
-            feedReferenceControl.FeedReference = selectedItem.CloneFeedPreferences();
+            feedReferenceControl.FeedReference = selectedItem.Clone();
         }
 
         /// <summary>
@@ -931,7 +931,7 @@ namespace ZeroInstall.Publish.WinForms
         private void BtnExtFeedUpdateClick(object sender, EventArgs e)
         {
             var selectedFeedReferenceIndex = listBoxExternalFeeds.SelectedIndex;
-            var feedReference = feedReferenceControl.FeedReference.CloneFeedPreferences();
+            var feedReference = feedReferenceControl.FeedReference.Clone();
             if (selectedFeedReferenceIndex < 0) return;
             if (string.IsNullOrEmpty(feedReference.Source)) return;
             listBoxExternalFeeds.Items[selectedFeedReferenceIndex] = feedReference;

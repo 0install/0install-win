@@ -148,7 +148,7 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="PackageImplementation"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="PackageImplementation"/>.</returns>
-        public override Element CloneElement()
+        public override Element Clone()
         {
             return CloneImplementation();
         }

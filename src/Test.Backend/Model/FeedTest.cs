@@ -164,7 +164,7 @@ namespace ZeroInstall.Model
         public void TestClone()
         {
             var feed1 = CreateTestFeed();
-            var feed2 = feed1.CloneFeed();
+            var feed2 = feed1.Clone();
 
             // Ensure data stayed the same
             Assert.AreEqual(feed1, feed2, "Cloned objects should be equal.");

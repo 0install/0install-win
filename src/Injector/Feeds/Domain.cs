@@ -80,18 +80,14 @@ namespace ZeroInstall.Injector.Feeds
         /// Creates a deep copy of this <see cref="Domain"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Domain"/>.</returns>
-        public Domain CloneDomain()
+        public Domain Clone()
         {
             return new Domain {Value = Value};
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="Domain"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="Domain"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneDomain();
+            return Clone();
         }
         #endregion
 

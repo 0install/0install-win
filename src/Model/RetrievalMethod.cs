@@ -37,15 +37,11 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="RetrievalMethod"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="RetrievalMethod"/>.</returns>
-        public abstract RetrievalMethod CloneRetrievalMethod();
+        public abstract RetrievalMethod Clone();
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="RetrievalMethod"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="RetrievalMethod"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneRetrievalMethod();
+            return Clone();
         }
     }
 }

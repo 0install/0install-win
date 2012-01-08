@@ -35,7 +35,7 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="RecipeStep"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="RecipeStep"/>.</returns>
-        public override RetrievalMethod CloneRetrievalMethod()
+        public override RetrievalMethod Clone()
         {
             return CloneRecipeStep();
         }

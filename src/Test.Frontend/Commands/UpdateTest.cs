@@ -47,7 +47,7 @@ namespace ZeroInstall.Commands
             selectionsNew.Implementations[1].Version = new ImplementationVersion("2.0");
             selectionsNew.Implementations.Add(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/sub3.xml", Version = new ImplementationVersion("0.1")});
 
-            var noRefreshPolicy = Policy.ClonePolicy();
+            var noRefreshPolicy = Policy.Clone();
             noRefreshPolicy.FeedManager.Refresh = false;
 
             Policy.FeedManager.Refresh = true;

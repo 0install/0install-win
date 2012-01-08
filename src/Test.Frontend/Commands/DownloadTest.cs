@@ -52,7 +52,7 @@ namespace ZeroInstall.Commands
                 Elements = {testImplementation2}
             };
 
-            var refreshPolicy = Policy.ClonePolicy();
+            var refreshPolicy = Policy.Clone();
             refreshPolicy.FeedManager.Refresh = true;
 
             var args = new[] {"http://0install.de/feeds/test/test1.xml", "--command=command name", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0"};

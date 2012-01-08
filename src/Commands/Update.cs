@@ -76,7 +76,7 @@ namespace ZeroInstall.Commands
             try
             {
                 // Run solver with refresh forced off to get the old values
-                var noRefreshPolicy = Policy.ClonePolicy();
+                var noRefreshPolicy = Policy.Clone();
                 noRefreshPolicy.FeedManager.Refresh = false;
                 _oldSelections = Policy.Solver.Solve(Requirements, noRefreshPolicy, out StaleFeeds);
 

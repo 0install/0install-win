@@ -29,7 +29,7 @@ namespace ZeroInstall.Model
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlType("command", Namespace = Feed.XmlNamespace)]
-    public sealed class Command : XmlUnknown, IArgsContainer, IBindingContainer, IDependencyContainer, ICloneable, IEquatable<Command>
+    public class Command : XmlUnknown, IArgsContainer, IBindingContainer, IDependencyContainer, ICloneable, IEquatable<Command>
     {
         #region Constants
         /// <summary>
@@ -126,25 +126,21 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="Command"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Command"/>.</returns>
-        public Command CloneCommand()
+        public Command Clone()
         {
             var newCommand = new Command {Name = Name, Path = Path};
             foreach (var argument in Arguments) newCommand.Arguments.Add(argument);
-            foreach (var binding in Bindings) newCommand.Bindings.Add(binding.CloneBinding());
-            if (WorkingDir != null) newCommand.WorkingDir = WorkingDir.CloneWorkingDir();
-            foreach (var dependency in Dependencies) newCommand.Dependencies.Add(dependency.CloneDependency());
+            foreach (var binding in Bindings) newCommand.Bindings.Add(binding.Clone());
+            if (WorkingDir != null) newCommand.WorkingDir = WorkingDir.Clone();
+            foreach (var dependency in Dependencies) newCommand.Dependencies.Add(dependency.Clone());
             if (Runner != null) newCommand.Runner = Runner.CloneRunner();
 
             return newCommand;
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="Command"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="Command"/> casted to a generic <see cref="object"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneCommand();
+            return Clone();
         }
         #endregion
 

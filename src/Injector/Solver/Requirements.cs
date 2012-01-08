@@ -82,7 +82,7 @@ namespace ZeroInstall.Injector.Solver
         /// Creates a deep copy of this <see cref="Requirements"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Requirements"/>.</returns>
-        public Requirements CloneRequirements()
+        public Requirements Clone()
         {
             var requirements = new Requirements {InterfaceID = InterfaceID, CommandName = CommandName, Architecture = Architecture, NotBeforeVersion = NotBeforeVersion, BeforeVersion = BeforeVersion};
             requirements._languages.AddAll(_languages);
@@ -90,13 +90,9 @@ namespace ZeroInstall.Injector.Solver
             return requirements;
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="Requirements"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="Requirements"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneRequirements();
+            return Clone();
         }
         #endregion
 

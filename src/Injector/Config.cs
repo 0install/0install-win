@@ -464,7 +464,7 @@ namespace ZeroInstall.Injector
         /// Creates a deep copy of this <see cref="Config"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Config"/>.</returns>
-        public Config CloneConfig()
+        public Config Clone()
         {
             var newConfig = new Config();
             foreach (var property in _metaData)
@@ -472,13 +472,9 @@ namespace ZeroInstall.Injector
             return newConfig;
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="Config"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="Config"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneConfig();
+            return Clone();
         }
         #endregion
 

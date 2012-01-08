@@ -72,7 +72,7 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="OverlayBinding"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="OverlayBinding"/>.</returns>
-        public override Binding CloneBinding()
+        public override Binding Clone()
         {
             return new OverlayBinding {Source = Source, MountPoint = MountPoint};
         }

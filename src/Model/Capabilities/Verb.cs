@@ -124,21 +124,17 @@ namespace ZeroInstall.Model.Capabilities
         /// Creates a deep copy of this <see cref="Verb"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Verb"/>.</returns>
-        public Verb CloneVerb()
+        public Verb Clone()
         {
             var newVerb = new Verb {Name = Name, Command = Command, Arguments = Arguments, Extended = Extended};
-            foreach (var description in Descriptions) newVerb.Descriptions.Add(description.CloneString());
+            foreach (var description in Descriptions) newVerb.Descriptions.Add(description.Clone());
 
             return newVerb;
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="Verb"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="Verb"/> casted to a generic <see cref="object"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneVerb();
+            return Clone();
         }
         #endregion
 

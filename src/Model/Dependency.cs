@@ -109,22 +109,18 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="Dependency"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Dependency"/>.</returns>
-        public virtual Dependency CloneDependency()
+        public virtual Dependency Clone()
         {
             var dependency = new Dependency {Interface = Interface, Importance = Importance, Use = Use};
-            foreach (var binding in Bindings) dependency.Bindings.Add(binding.CloneBinding());
-            foreach (var constraint in Constraints) dependency.Constraints.Add(constraint.CloneConstraint());
+            foreach (var binding in Bindings) dependency.Bindings.Add(binding.Clone());
+            foreach (var constraint in Constraints) dependency.Constraints.Add(constraint.Clone());
 
             return dependency;
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="Dependency"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="Dependency"/> casted to a generic <see cref="object"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneDependency();
+            return Clone();
         }
         #endregion
 

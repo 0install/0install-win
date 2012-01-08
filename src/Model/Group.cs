@@ -90,16 +90,12 @@ namespace ZeroInstall.Model
             var group = new Group();
             CloneFromTo(this, group);
             foreach (var element in Elements)
-                group.Elements.Add(element.CloneElement());
+                group.Elements.Add(element.Clone());
 
             return group;
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="Group"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="Group"/>.</returns>
-        public override Element CloneElement()
+        public override Element Clone()
         {
             return CloneGroup();
         }

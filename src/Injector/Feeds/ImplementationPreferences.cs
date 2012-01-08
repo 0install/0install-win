@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using ZeroInstall.Model;
@@ -25,7 +26,7 @@ namespace ZeroInstall.Injector.Feeds
     /// Stores user-specific preferences for an <see cref="Model.Implementation"/>.
     /// </summary>
     [XmlType("implementation-preferences", Namespace = Feed.XmlNamespace)]
-    public sealed class ImplementationPreferences : XmlUnknown
+    public sealed class ImplementationPreferences : XmlUnknown, ICloneable
     {
         #region Properties
         /// <summary>
@@ -59,20 +60,16 @@ namespace ZeroInstall.Injector.Feeds
         /// Creates a deep copy of this <see cref="ImplementationPreferences"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="ImplementationPreferences"/>.</returns>
-        public ImplementationPreferences CloneImplementationPreferences()
+        public ImplementationPreferences Clone()
         {
             var feedPreferences = new ImplementationPreferences {ID = ID, UserStability = UserStability};
 
             return feedPreferences;
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="ImplementationPreferences"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="ImplementationPreferences"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneImplementationPreferences();
+            return Clone();
         }
         #endregion
 

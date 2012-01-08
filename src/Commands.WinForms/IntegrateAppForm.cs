@@ -173,9 +173,9 @@ namespace ZeroInstall.Commands.WinForms
             else
             { // Determine currently existing items
                 foreach (var entry in EnumerableUtils.OfType<AccessPoints.MenuEntry>(_appEntry.AccessPoints.Entries))
-                    _menuEntries.Add((AccessPoints.MenuEntry)entry.CloneAccessPoint());
+                    _menuEntries.Add((AccessPoints.MenuEntry)entry.Clone());
                 foreach (var entry in EnumerableUtils.OfType<AccessPoints.DesktopIcon>(_appEntry.AccessPoints.Entries))
-                    _desktopIcons.Add((AccessPoints.DesktopIcon)entry.CloneAccessPoint());
+                    _desktopIcons.Add((AccessPoints.DesktopIcon)entry.Clone());
             }
 
             // Apply data to DataGrids in bulk for better performance

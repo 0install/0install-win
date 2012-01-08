@@ -86,11 +86,11 @@ namespace ZeroInstall.Model.Capabilities
 
         #region Clone
         /// <inheritdoc/>
-        public override Capability CloneCapability()
+        public override Capability Clone()
         {
-            var capability = new AutoPlay {ID = ID, Provider = Provider, ProgID = ProgID, Verb = Verb.CloneVerb()};
+            var capability = new AutoPlay {ID = ID, Provider = Provider, ProgID = ProgID, Verb = Verb.Clone()};
             capability.Icons.AddAll(Icons);
-            foreach (var description in Descriptions) capability.Descriptions.Add(description.CloneString());
+            foreach (var description in Descriptions) capability.Descriptions.Add(description.Clone());
             capability.Events.AddAll(Events);
             return capability;
         }

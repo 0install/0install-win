@@ -114,7 +114,7 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="EnvironmentBinding"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="EnvironmentBinding"/>.</returns>
-        public override Binding CloneBinding()
+        public override Binding Clone()
         {
             return new EnvironmentBinding {Name = Name, Value = Value, Insert = Insert, Mode = Mode, Separator = Separator, Default = Default};
         }

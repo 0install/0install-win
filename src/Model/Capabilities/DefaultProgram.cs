@@ -109,12 +109,12 @@ namespace ZeroInstall.Model.Capabilities
 
         #region Clone
         /// <inheritdoc/>
-        public override Capability CloneCapability()
+        public override Capability Clone()
         {
             var capability = new DefaultProgram {ID = ID, Service = Service};
-            foreach (var description in Descriptions) capability.Descriptions.Add(description.CloneString());
+            foreach (var description in Descriptions) capability.Descriptions.Add(description.Clone());
             capability.Icons.AddAll(Icons);
-            foreach (var verb in Verbs) capability.Verbs.Add(verb.CloneVerb());
+            foreach (var verb in Verbs) capability.Verbs.Add(verb.Clone());
             return capability;
         }
         #endregion

@@ -114,24 +114,20 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="EntryPoint"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="EntryPoint"/>.</returns>
-        public EntryPoint CloneEntryPoint()
+        public EntryPoint Clone()
         {
             var newEntryPoint = new EntryPoint {Command = Command, BinaryName = BinaryName, NeedsTerminal = NeedsTerminal};
-            foreach (var name in Names) newEntryPoint.Names.Add(name.CloneString());
-            foreach (var summary in Summaries) newEntryPoint.Summaries.Add(summary.CloneString());
-            foreach (var description in Descriptions) newEntryPoint.Descriptions.Add(description.CloneString());
+            foreach (var name in Names) newEntryPoint.Names.Add(name.Clone());
+            foreach (var summary in Summaries) newEntryPoint.Summaries.Add(summary.Clone());
+            foreach (var description in Descriptions) newEntryPoint.Descriptions.Add(description.Clone());
             newEntryPoint.Icons.AddAll(Icons);
 
             return newEntryPoint;
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="EntryPoint"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="EntryPoint"/> casted to a generic <see cref="object"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneEntryPoint();
+            return Clone();
         }
         #endregion
 

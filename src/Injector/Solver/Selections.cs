@@ -281,20 +281,16 @@ namespace ZeroInstall.Injector.Solver
         /// Creates a deep copy of this <see cref="Selections"/>
         /// </summary>
         /// <returns>The cloned <see cref="Selections"/>.</returns>
-        public Selections CloneSelections()
+        public Selections Clone()
         {
             var newSelections = new Selections {InterfaceID = InterfaceID, Command = Command};
             foreach (var implementation in Implementations) newSelections.Implementations.Add(implementation.CloneImplementation());
             return newSelections;
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="Selections"/>
-        /// </summary>
-        /// <returns>The cloned <see cref="Selections"/> casted to a generic <see cref="object"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneSelections();
+            return Clone();
         }
         #endregion
 

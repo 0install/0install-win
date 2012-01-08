@@ -63,7 +63,7 @@ namespace ZeroInstall.Injector.Feeds
         public void TestClone()
         {
             var preferences1 = CreateTestFeedPreferences();
-            var preferences2 = preferences1.CloneFeedPreferences();
+            var preferences2 = preferences1.Clone();
 
             // Ensure data stayed the same
             Assert.AreEqual(preferences1, preferences2, "Cloned objects should be equal.");

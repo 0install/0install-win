@@ -152,7 +152,7 @@ namespace ZeroInstall.DesktopIntegration
 
         private static void TestClone(AppList appList)
         {
-            var appList2 = appList.CloneAppList();
+            var appList2 = appList.Clone();
 
             // Ensure data stayed the same
             Assert.AreEqual(appList, appList2, "Cloned objects should be equal.");

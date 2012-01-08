@@ -64,21 +64,17 @@ namespace ZeroInstall.Injector.Feeds
         /// Creates a deep copy of this <see cref="Key"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Key"/>.</returns>
-        public Key CloneKey()
+        public Key Clone()
         {
             var key = new Key {Fingerprint = Fingerprint};
-            foreach (var domain in Domains) key.Domains.Add(domain.CloneDomain());
+            foreach (var domain in Domains) key.Domains.Add(domain.Clone());
 
             return key;
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="Key"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="Key"/>.</returns>
-        public object Clone()
+        object ICloneable.Clone()
         {
-            return CloneKey();
+            return Clone();
         }
         #endregion
 
