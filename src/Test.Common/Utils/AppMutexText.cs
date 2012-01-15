@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System.IO;
 using NUnit.Framework;
 
 namespace Common.Utils
@@ -38,12 +39,13 @@ namespace Common.Utils
         {
             if (!WindowsUtils.IsWindowsNT) throw new InconclusiveException("AppMutexes are only available on the Windows NT platform.");
 
-            Assert.IsFalse(AppMutex.Probe("unit-test-123"));
+            string mutexName = "unit-tests-" + Path.GetRandomFileName();
+            Assert.IsFalse(AppMutex.Probe(mutexName));
             AppMutex mutex;
-            AppMutex.Create("unit-test-123", out mutex);
-            Assert.IsTrue(AppMutex.Probe("unit-test-123"));
+            AppMutex.Create(mutexName, out mutex);
+            Assert.IsTrue(AppMutex.Probe(mutexName));
             mutex.Close();
-            Assert.IsFalse(AppMutex.Probe("unit-test-123"));
+            Assert.IsFalse(AppMutex.Probe(mutexName));
         }
     }
 }
