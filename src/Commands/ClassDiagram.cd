@@ -94,7 +94,7 @@
       <Method Name="CommandBase" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAgAAAAQAkgAAQAgAIACAAEBAIAAAAAAAAAAABEBAA=</HashCode>
+      <HashCode>AAAgAAAAQAkgAAQAgAIAAAAEBAIAAAAAAAAAAABEBAA=</HashCode>
       <FileName>CommandBase.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -221,6 +221,13 @@
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAgAAQAAAAAAQQEBAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SelfUpdate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.RepairApps">
+    <Position X="21.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RepairApps.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

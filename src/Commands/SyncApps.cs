@@ -98,11 +98,7 @@ namespace ZeroInstall.Commands
         {
             try
             {
-                _syncManager.Sync(_syncResetMode, interfaceID =>
-                {
-                    bool stale;
-                    return Policy.FeedManager.GetFeed(interfaceID, Policy, out stale);
-                }, Policy.Handler);
+                _syncManager.Sync(_syncResetMode, GetFeed, Policy.Handler);
             }
             catch
             {

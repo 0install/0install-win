@@ -90,5 +90,11 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         void RemoveAccessPoints(AppEntry appEntry, IEnumerable<AccessPoint> accessPoints);
+
+        /// <summary>
+        /// Reapplies all already listed <see cref="AccessPoint"/>s.
+        /// </summary>
+        /// <param name="feedRetreiver">Callback method used to retreive additional <see cref="Feed"/>s on demand.</param>
+        void Repair(Converter<string, Feed> feedRetreiver);
     }
 }

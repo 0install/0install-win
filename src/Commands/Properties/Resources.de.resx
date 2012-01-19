@@ -213,6 +213,9 @@ Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.
   <data name="DescriptionRemoveFeed" xml:space="preserve">
     <value>Entfernt einen Feed. Dies ist das Gegenstück zu 'add-feed'.</value>
   </data>
+  <data name="DescriptionRepairApps" xml:space="preserve">
+    <value>Integriere alle Anwendungen aus der Anwendungsliste erneut in die Desktopumgebung.</value>
+  </data>
   <data name="DescriptionRun" xml:space="preserve">
     <value>Dies verhält sich ähnlich wie '0install download', mit dem Zusatz, dass das Programm gestartet wird nachdem sichergestellt ist dass es im Cache ist. Gibt den Exit-Status 1 zurück wenn der herunterladen Schritt fehlschlägt. Ansonsten wird der Exit-Status des gestarteten Programms zurückgegeben.</value>
   </data>

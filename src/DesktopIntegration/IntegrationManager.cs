@@ -215,6 +215,33 @@ namespace ZeroInstall.DesktopIntegration
                 Complete();
             }
         }
+
+        /// <inheritdoc/>
+        public void Repair(Converter<string, Feed> feedRetreiver)
+        {
+            #region Sanity checks
+            if (feedRetreiver == null) throw new ArgumentNullException("feedRetreiver");
+            #endregion
+
+            try
+            {
+                foreach (var appEntry in AppList.Entries)
+                {
+                    var toReAdd = new List<AccessPoint>();
+                    if (appEntry.AccessPoints != null) toReAdd.AddRange(appEntry.AccessPoints.Entries);
+                    AddAccessPointsHelper(appEntry, feedRetreiver(appEntry.InterfaceID), toReAdd);
+                }
+            }
+            catch (KeyNotFoundException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new InvalidDataException(ex.Message, ex);
+            }
+            finally
+            {
+                Complete();
+            }
+        }
         #endregion
 
         //--------------------//

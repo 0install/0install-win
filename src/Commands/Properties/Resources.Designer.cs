@@ -343,6 +343,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reintegrate all applications in the application list into the desktop environment..
+        /// </summary>
+        internal static string DescriptionRepairApps {
+            get {
+                return ResourceManager.GetString("DescriptionRepairApps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This behaves similarly to &apos;0install download&apos;, except that it also runs the program after ensuring it is in the cache. Returns an exit status of 1 if the download step failed. Otherwise, the exit status will be the exit status of the program being run..
         /// </summary>
         internal static string DescriptionRun {

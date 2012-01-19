@@ -213,6 +213,9 @@ If you select 'No' Zero Install will continue to use the old capabilities.</valu
   <data name="DescriptionRemoveFeed" xml:space="preserve">
     <value>Un-register a feed, reversing the effect of 'add-feed'. </value>
   </data>
+  <data name="DescriptionRepairApps" xml:space="preserve">
+    <value>Reintegrate all applications in the application list into the desktop environment.</value>
+  </data>
   <data name="DescriptionRun" xml:space="preserve">
     <value>This behaves similarly to '0install download', except that it also runs the program after ensuring it is in the cache. Returns an exit status of 1 if the download step failed. Otherwise, the exit status will be the exit status of the program being run.</value>
   </data>

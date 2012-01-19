@@ -18,6 +18,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -134,9 +135,6 @@ namespace ZeroInstall.DesktopIntegration.Windows
         #endregion
 
         #region Get
-        /// <summary>How long to keep reusing existing stubs before rebuilding them.</summary>
-        private static readonly TimeSpan _freshness = new TimeSpan(1, 0, 0, 0); // 1 day
-
         /// <summary>
         /// Uses <see cref="BuildRunStub"/> to build a stub EXE in a well-known location. Future calls with the same arguments will return the same EXE without rebuilding it.
         /// </summary>
@@ -166,8 +164,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             if (File.Exists(exePath))
             { // Existing stub, ...
-                if ((DateTime.UtcNow - File.GetLastWriteTimeUtc(exePath)) > _freshness)
-                { // Stale, try to rebuild
+                // ToDo: Find better rebuild discriminator
+                if (File.GetLastWriteTime(exePath) < Process.GetCurrentProcess().StartTime)
+                { // Built before current process, try to rebuild
                     try
                     {
                         File.Delete(exePath);
@@ -189,7 +188,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     return exePath;
                 }
                 else
-                { // Fresh, keep existing
+                { // Built during (probably by) current process, keep existing
                     return exePath;
                 }
             }
