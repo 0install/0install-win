@@ -243,22 +243,35 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"add-app", InterfaceID}));
-        }
-
-        private void buttonIntegrate_Click(object sender, EventArgs e)
-        {
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"integrate-app", InterfaceID}));
+            // Disable button while operation is running
+            buttonAdd.Enabled = false;
+            ProcessUtils.RunAsync(delegate
+            {
+                Commands.WinForms.Program.Main(new[] {"add-app", InterfaceID});
+                Invoke((SimpleEventHandler)(() => buttonAdd.Enabled = true));
+            });
         }
 
         private void buttonConf_Click(object sender, EventArgs e)
         {
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"integrate-app", InterfaceID}));
+            // Disable button while operation is running
+            buttonConf.Enabled = false;
+            ProcessUtils.RunAsync(delegate
+            {
+                Commands.WinForms.Program.Main(new[] { "integrate-app", InterfaceID });
+                Invoke((SimpleEventHandler)(() => buttonConf.Enabled = true));
+            });
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"remove-app", InterfaceID}));
+            // Disable button while operation is running
+            buttonConf.Enabled = false;
+            ProcessUtils.RunAsync(delegate
+            {
+                Commands.WinForms.Program.Main(new[] { "remove-app", InterfaceID });
+                Invoke((SimpleEventHandler)(() => buttonConf.Enabled = true));
+            });
         }
         #endregion
 

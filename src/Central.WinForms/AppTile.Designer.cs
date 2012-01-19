@@ -42,16 +42,13 @@
             this.buttonConf = new Common.Controls.SplitButton();
             this.contextMenuManage = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonRemove = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonAdd = new Common.Controls.SplitButton();
-            this.contextMenuAdd = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.buttonIntegrate = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonAdd = new System.Windows.Forms.Button();
             this.linkLabelDetails = new System.Windows.Forms.LinkLabel();
             this.trackingProgressBar = new Common.Controls.TrackingProgressBar();
             this.iconDownloadWorker = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).BeginInit();
             this.contextMenuRun.SuspendLayout();
             this.contextMenuManage.SuspendLayout();
-            this.contextMenuAdd.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBoxIcon
@@ -140,25 +137,9 @@
             // buttonAdd
             // 
             resources.ApplyResources(this.buttonAdd, "buttonAdd");
-            this.buttonAdd.ContextMenuStrip = this.contextMenuAdd;
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.ShowSplit = true;
-            this.buttonAdd.SplitMenuStrip = this.contextMenuAdd;
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
-            // 
-            // contextMenuAdd
-            // 
-            this.contextMenuAdd.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.buttonIntegrate});
-            this.contextMenuAdd.Name = "contextMenuAdd";
-            resources.ApplyResources(this.contextMenuAdd, "contextMenuAdd");
-            // 
-            // buttonIntegrate
-            // 
-            this.buttonIntegrate.Name = "buttonIntegrate";
-            resources.ApplyResources(this.buttonIntegrate, "buttonIntegrate");
-            this.buttonIntegrate.Click += new System.EventHandler(this.buttonIntegrate_Click);
             // 
             // linkLabelDetails
             // 
@@ -195,7 +176,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).EndInit();
             this.contextMenuRun.ResumeLayout(false);
             this.contextMenuManage.ResumeLayout(false);
-            this.contextMenuAdd.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,7 +188,7 @@
         private System.Windows.Forms.Label labelSummary;
         private Common.Controls.SplitButton buttonRun;
         private Common.Controls.SplitButton buttonConf;
-        private Common.Controls.SplitButton buttonAdd;
+        private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.ContextMenuStrip contextMenuManage;
         private System.Windows.Forms.ToolStripMenuItem buttonRemove;
         private System.Windows.Forms.LinkLabel linkLabelDetails;
@@ -219,7 +199,5 @@
         private System.Windows.Forms.ToolStripMenuItem buttonSelectCommand;
         private System.Windows.Forms.ToolStripSeparator runMenuSeperator;
         private System.Windows.Forms.ToolStripMenuItem buttonUpdate;
-        private System.Windows.Forms.ContextMenuStrip contextMenuAdd;
-        private System.Windows.Forms.ToolStripMenuItem buttonIntegrate;
     }
 }
