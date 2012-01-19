@@ -188,7 +188,7 @@ namespace ZeroInstall.Publish.Cli
                 {"x|xmlsign", Resources.OptionXmlSign, unused => parseResults.XmlSign = true},
                 {"u|unsign", Resources.OptionUnsign, unused => parseResults.Unsign = true},
                 {"k|key=", Resources.OptionKey, user => parseResults.Key = user},
-                {"gpg-passphrase=", Resources.OptionGnuPGPassphrase, user => parseResults.OpenPgpPassphrase = user},
+                {"gpg-passphrase=", Resources.OptionGnuPGPassphrase, passphrase => parseResults.OpenPgpPassphrase = passphrase},
             };
             #endregion
 
@@ -262,7 +262,7 @@ namespace ZeroInstall.Publish.Cli
                     {
                         var feed = SignedFeed.Load(file.FullName);
                         HandleModify(feed.Feed, options);
-                        SaveFeed(feed, file.FullName, options);
+                        SaveFeed(feed, file.FullName, ref options);
                     }
                     return ErrorLevel.OK;
 
@@ -303,7 +303,7 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="KeyNotFoundException">Thrown if an OpenPGP key could not be found.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        private static void SaveFeed(SignedFeed feed, string path, ParseResults options)
+        private static void SaveFeed(SignedFeed feed, string path, ref ParseResults options)
         {
             if (options.Unsign)
             {
