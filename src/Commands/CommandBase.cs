@@ -253,6 +253,7 @@ namespace ZeroInstall.Commands
             // Refresh if stale instead of spawning background updater like 'run'
             if (stale)
             {
+                Policy.FeedManager.Refresh = true;
                 feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
                 if (Canceled) throw new OperationCanceledException();
             }
