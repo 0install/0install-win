@@ -122,7 +122,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             _form.Initialize();
             if (ActionTitle != null) _form.Text = ActionTitle;
-            if (Locations.IsPortable) _form.Text += " - " + Resources.PortableMode;
+            if (Locations.IsPortable) _form.Text += @" - " + Resources.PortableMode;
 
             // Restore normal priority as soon as the GUI becomes visible
             _form.Shown += delegate { Thread.CurrentThread.Priority = ThreadPriority.Normal; };
@@ -265,8 +265,21 @@ namespace ZeroInstall.Commands.WinForms
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
             #endregion
 
-            DisableProgressUI();
-            IntegrateAppForm.ShowDialog(integrationManager, appEntry, feed);
+            // If GUI does not exist or was closed cancel, otherwise wait until it is ready
+            if (_form == null) return;
+            _guiReady.WaitOne();
+            if (!_form.IsHandleCreated) return;
+
+            var integrationForm = new IntegrateAppForm(integrationManager, appEntry, feed);
+            integrationForm.VisibleChanged += delegate
+            { // The integration dialog and progress form take turns in being visible
+                _form.Invoke((SimpleEventHandler)delegate
+                {
+                    _form.Visible = !integrationForm.Visible;
+                    if (integrationForm.Visible) _form.HideTrayIcon();
+                });
+            };
+            integrationForm.ShowDialog();
         }
 
         /// <inheritdoc/>

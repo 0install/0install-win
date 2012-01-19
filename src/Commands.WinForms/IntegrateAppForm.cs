@@ -38,7 +38,7 @@ namespace ZeroInstall.Commands.WinForms
     /// <summary>
     /// A dialog form used for displaying and applying desktop integration options for applications.
     /// </summary>
-    public partial class IntegrateAppForm : OKCancelDialog
+    public sealed partial class IntegrateAppForm : OKCancelDialog
     {
         #region Variables
         /// <summary>
@@ -79,24 +79,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="integrationManager">The integration manager used to apply selected integration options.</param>
         /// <param name="appEntry">The application being integrated.</param>
         /// <param name="feed">The feed providing additional metadata, icons, etc. for the application.</param>
-        private IntegrateAppForm(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed)
-        {
-            InitializeComponent();
-
-            _integrationManager = integrationManager;
-            _appEntry = appEntry;
-            _feed = feed;
-        }
-        #endregion
-
-        #region Static access
-        /// <summary>
-        /// Displays the form as a modal dialog.
-        /// </summary>
-        /// <param name="integrationManager">The integration manager used to apply selected integration options.</param>
-        /// <param name="appEntry">The application being integrated.</param>
-        /// <param name="feed">The feed providing additional metadata, icons, etc. for the application.</param>
-        public static void ShowDialog(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed)
+        public IntegrateAppForm(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed)
         {
             #region Sanity checks
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
@@ -104,11 +87,13 @@ namespace ZeroInstall.Commands.WinForms
             if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
-            using (var form = new IntegrateAppForm(integrationManager, appEntry, feed))
-            {
-                form.Text = string.Format(Resources.Integrate, appEntry.Name);
-                form.ShowDialog();
-            }
+            InitializeComponent();
+
+            _integrationManager = integrationManager;
+            _appEntry = appEntry;
+            _feed = feed;
+
+            Text = string.Format(Resources.Integrate, appEntry.Name);
         }
         #endregion
 

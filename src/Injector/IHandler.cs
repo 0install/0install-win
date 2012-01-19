@@ -116,7 +116,10 @@ namespace ZeroInstall.Injector
         /// <param name="integrationManager">The integration manager used to apply selected integration options.</param>
         /// <param name="appEntry">The application being integrated.</param>
         /// <param name="feed">The feed providing additional metadata, icons, etc. for the application.</param>
-        /// <remarks>This may trigger <see cref="DisableProgressUI"/> as a side effect.</remarks>
+        /// <remarks>
+        ///   <para>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</para>
+        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>
+        /// </remarks>
         void ShowIntegrateApp(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed);
 
         /// <summary>
