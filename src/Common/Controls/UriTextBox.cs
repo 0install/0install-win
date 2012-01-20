@@ -128,7 +128,7 @@ namespace Common.Controls
             if (dragEventArgs.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 var files = dragEventArgs.Data.GetData(DataFormats.FileDrop) as string[];
-                return EnumerableUtils.GetFirst(files);
+                return EnumerableUtils.First(files);
             }
             if (dragEventArgs.Data.GetDataPresent(DataFormats.Text))
                 return (string)dragEventArgs.Data.GetData(DataFormats.Text);

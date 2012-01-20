@@ -132,7 +132,7 @@ namespace ZeroInstall.Commands.WinForms
             { // Set useful defaults for first integration
                 _desktopIcons.Add(new AccessPoints.DesktopIcon {Name = _appEntry.Name, Command = Command.NameRun});
 
-                string category = EnumerableUtils.GetFirst(_feed.Categories);
+                string category = EnumerableUtils.First(_feed.Categories);
                 if (_feed.EntryPoints.IsEmpty)
                 { // Only one entry point
                     _menuEntries.Add(new AccessPoints.MenuEntry {Name = _appEntry.Name, Category = category, Command = Command.NameRun});

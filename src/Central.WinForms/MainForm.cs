@@ -484,7 +484,7 @@ namespace ZeroInstall.Central.WinForms
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 var files = e.Data.GetData(DataFormats.FileDrop) as string[];
-                AddCustomInterface(EnumerableUtils.GetFirst(files));
+                AddCustomInterface(EnumerableUtils.First(files));
             }
             else if (e.Data.GetDataPresent(DataFormats.Text))
                 AddCustomInterface((string)e.Data.GetData(DataFormats.Text));

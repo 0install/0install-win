@@ -187,7 +187,7 @@ namespace ZeroInstall.Store.Management.Cli
                 catch (ArgumentException)
                 {
                     // Default to the best available algorithm
-                    format = EnumerableUtils.GetFirst(ManifestFormat.Recommended);
+                    format = EnumerableUtils.First(ManifestFormat.Recommended);
                 }
             }
 

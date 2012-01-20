@@ -38,12 +38,31 @@ namespace Common.Collections
         /// </summary>
         /// <param name="collection">The collection to get the first element from; may be <see langword="null"/>.</param>
         /// <returns>The first element of <paramref name="collection"/> or <see langword="null"/> if <paramref name="collection"/> is empty or <see langword="null"/>.</returns>
-        public static T GetFirst<T>(IEnumerable<T> collection) where T : class
+        public static T First<T>(IEnumerable<T> collection) where T : class
         {
             if (collection == null) return null;
 
             using (var enumerator = collection.GetEnumerator())
                 return enumerator.MoveNext() ? enumerator.Current : null;
+        }
+
+        /// <summary>
+        /// Returns the first element of an enumerable collection that matches a certain condition.
+        /// </summary>
+        /// <param name="collection">The collection to get the element from; may be <see langword="null"/>.</param>
+        /// <param name="condition">The condition the element must match.</param>
+        /// <returns>The first element of <paramref name="collection"/> matching the <paramref name="condition"/> or <see langword="null"/> if no matching one was found.</returns>
+        public static T First<T>(IEnumerable<T> collection, Predicate<T> condition) where T : class
+        {
+            #region Sanity checks
+            if (condition == null) throw new ArgumentNullException("condition");
+            #endregion
+
+            if (collection == null) return null;
+
+            foreach (var entry in collection)
+                if (condition(entry)) return entry;
+            return null;
         }
         #endregion
 

@@ -91,7 +91,7 @@ namespace ZeroInstall.DesktopIntegration
             {
                 accessPointsToAdd.AddLast(new DesktopIcon {Name = appEntry.Name, Command = Command.NameRun});
 
-                string category = EnumerableUtils.GetFirst(feed.Categories);
+                string category = EnumerableUtils.First(feed.Categories);
                 if (feed.EntryPoints.IsEmpty)
                 { // Only one entry point
                     accessPointsToAdd.AddLast(new MenuEntry {Name = appEntry.Name, Category = category, Command = Command.NameRun});

@@ -103,7 +103,7 @@ namespace ZeroInstall.Injector.Feeds
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             #endregion
 
-            var path = EnumerableUtils.GetFirst(Locations.GetLoadConfigPaths("0install.net", true, "injector", "interfaces", ModelUtils.PrettyEscape(interfaceID)));
+            var path = EnumerableUtils.First(Locations.GetLoadConfigPaths("0install.net", true, "injector", "interfaces", ModelUtils.PrettyEscape(interfaceID)));
             if (string.IsNullOrEmpty(path)) return new InterfacePreferences();
 
             return XmlStorage.Load<InterfacePreferences>(path);

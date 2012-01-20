@@ -143,7 +143,7 @@ namespace ZeroInstall.Publish
             try
             {
                 var signatures = Store.Feeds.FeedUtils.GetSignatures(openPgp, File.ReadAllBytes(path));
-                var validSignature = EnumerableUtils.GetFirst(EnumerableUtils.OfType<ValidSignature>(signatures));
+                var validSignature = EnumerableUtils.First(EnumerableUtils.OfType<ValidSignature>(signatures));
                 if (validSignature != null) return openPgp.GetSecretKey(validSignature.Fingerprint);
             }
                 #region Error handling

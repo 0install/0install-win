@@ -122,7 +122,7 @@ namespace ZeroInstall.Injector.Feeds
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
             #endregion
 
-            var path = EnumerableUtils.GetFirst(Locations.GetLoadConfigPaths("0install.net", true, "injector", "feeds", ModelUtils.PrettyEscape(feedID)));
+            var path = EnumerableUtils.First(Locations.GetLoadConfigPaths("0install.net", true, "injector", "feeds", ModelUtils.PrettyEscape(feedID)));
             if (string.IsNullOrEmpty(path)) return new FeedPreferences();
 
             return XmlStorage.Load<FeedPreferences>(path);

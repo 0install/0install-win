@@ -33,13 +33,24 @@ namespace Common.Collections
     public class EnumerableUtilsTest
     {
         /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.GetFirst{T}"/> correctly returns the first element of a collection or <see langword="null"/> if it is empty.
+        /// Ensures that <see cref="EnumerableUtils.First{T}(System.Collections.Generic.IEnumerable{T})"/> correctly returns the first element of a collection or <see langword="null"/> if it is empty.
         /// </summary>
         [Test]
-        public void TestGetFirst()
+        public void TestFirst()
         {
-            Assert.AreEqual("first", EnumerableUtils.GetFirst(new[] {"first", "second"}));
-            Assert.IsNull(EnumerableUtils.GetFirst(new string[0]));
+            Assert.AreEqual("first", EnumerableUtils.First(new[] {"first", "second"}));
+            Assert.IsNull(EnumerableUtils.First((IEnumerable<string>)null));
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="EnumerableUtils.First{T}(System.Collections.Generic.IEnumerable{T},System.Predicate{T})"/> correctly returns the first matching element of a collection.
+        /// </summary>
+        [Test]
+        public void TestFirstThat()
+        {
+            Assert.AreEqual("second", EnumerableUtils.First(new[] {"first", "second", "third"}, s => s.StartsWith("s")));
+            Assert.IsNull(EnumerableUtils.First(new[] {"first", "second", "third"}, s => s.StartsWith("x")));
+            Assert.IsNull(EnumerableUtils.First((IEnumerable<string>)null, s => s.StartsWith("x")));
         }
 
         /// <summary>
@@ -139,7 +150,7 @@ namespace Common.Collections
         #endregion
 
         /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.Merge{T}(IEnumerable{T},IEnumerable{T},Action{T},Action{T})"/> correctly detects added and removed elements.
+        /// Ensures that <see cref="EnumerableUtils.Merge{T}(System.Collections.Generic.ICollection{T},System.Collections.Generic.ICollection{T},System.Action{T},System.Action{T})"/> correctly detects added and removed elements.
         /// </summary>
         [Test]
         public void TestMergeSimple()
@@ -156,7 +167,7 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.Merge{T}(IEnumerable{T},IEnumerable{T},Action{T},Action{T})"/> correctly detects unchanged lists.
+        /// Ensures that <see cref="EnumerableUtils.Merge{T}(System.Collections.Generic.ICollection{T},System.Collections.Generic.IEnumerable{T},System.Collections.Generic.IEnumerable{T},System.Action{T},System.Action{T})"/> correctly detects unchanged lists.
         /// </summary>
         [Test]
         public void TestMergeEquals()
@@ -169,7 +180,7 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.Merge{T}(IEnumerable{T},IEnumerable{T},Action{T},Action{T})"/> correctly detects added and removed elements.
+        /// Ensures that <see cref="EnumerableUtils.Merge{T}(System.Collections.Generic.ICollection{T},System.Collections.Generic.IEnumerable{T},System.Collections.Generic.IEnumerable{T},System.Action{T},System.Action{T})"/> correctly detects added and removed elements.
         /// </summary>
         [Test]
         public void TestMergeAddAndRemove()
@@ -187,7 +198,7 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.Merge{T}(IEnumerable{T},IEnumerable{T},Action{T},Action{T})"/> correctly modified elements.
+        /// Ensures that <see cref="EnumerableUtils.Merge{T}(System.Collections.Generic.ICollection{T},System.Collections.Generic.IEnumerable{T},System.Collections.Generic.IEnumerable{T},System.Action{T},System.Action{T})"/> correctly modified elements.
         /// </summary>
         [Test]
         public void TestMergeModify()
