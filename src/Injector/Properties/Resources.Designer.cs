@@ -79,6 +79,33 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The feed &apos;{0}&apos; was not signed with any trusted keys..
+        /// </summary>
+        internal static string FeedNoTrustedSignatures {
+            get {
+                return ResourceManager.GetString("FeedNoTrustedSignatures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The &lt;interface&gt; uri attribute (&apos;{0}&apos;) does not match the URL the feed was downloaded from (&apos;{1}&apos;)..
+        /// </summary>
+        internal static string FeedUriMismatch {
+            get {
+                return ResourceManager.GetString("FeedUriMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The &lt;interface&gt; uri attribute missing. Should be &apos;{0}&apos;..
+        /// </summary>
+        internal static string FeedUriMissing {
+            get {
+                return ResourceManager.GetString("FeedUriMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File not found: {0}.
         /// </summary>
         internal static string FileNotFound {
@@ -160,7 +187,7 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New feed&apos;s modification time is before old version!
+        ///   Looks up a localized string similar to A possible replay attack was detected. The new feed&apos;s modification time is before old version.
         ///Feed ID: {0}
         ///Old time: {1}
         ///New time: {2}.

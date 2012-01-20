@@ -21,7 +21,6 @@ using System.IO;
 using System.Net;
 using Common.Collections;
 using ZeroInstall.Injector.Properties;
-using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 
@@ -153,6 +152,8 @@ namespace ZeroInstall.Injector.Feeds
         #endregion
 
         #region Download
+        private readonly WebClient _webClient = new WebClient();
+
         /// <summary>
         /// Downloads a <see cref="Feed"/> into the <see cref="FeedManagerBase.Cache"/> validating its signatures.
         /// </summary>
@@ -166,16 +167,8 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
         private void DownloadFeed(Uri url, Policy policy)
         {
-            // ToDo: Use ImportFeed()
-            bool stale;
-            try
-            {
-                policy.Solver.Solve(new Requirements {InterfaceID = url.ToString()}, policy, out stale);
-            }
-            catch (SolverException)
-            {
-                // Solver exceptions do not matter, since we only want the feed to get cached and do not care about selections
-            }
+            // ToDo: Add mirror support
+            ImportFeed(url, _webClient.DownloadData(url), policy);
         }
         #endregion
 
@@ -189,31 +182,81 @@ namespace ZeroInstall.Injector.Feeds
             if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
-            var trustDB = TrustDB.LoadSafe();
-            var domain = new Domain(uri.Host);
-            var signatures = FeedUtils.GetSignatures(policy.OpenPgp, data);
+            var newSignature = CheckFeedTrust(uri, data, policy);
+            DetectAttacks(uri, data, policy, newSignature);
 
-            // ToDo: Allow adding of new keys
-            bool trusted = false;
-            foreach (var validSignature in EnumerableUtils.OfType<ValidSignature>(signatures))
-            {
-                if (trustDB.IsTrusted(validSignature.Fingerprint, domain))
-                {
-                    trusted = true;
-                    break;
-                }
-            }
-            if (!trusted) throw new SignatureException("No trusted signatures.");
-
-            // ToDo: Detect invalid URIs and Replay attacks
-
-            if (Feed.Load(new MemoryStream(data)).Uri != uri) throw new InvalidInterfaceIDException("Interface URI in feed file does not match.");
-
+            // Add to cache and remember time
             Cache.Add(uri.ToString(), data);
-
             var preferences = FeedPreferences.LoadForSafe(uri.ToString());
             preferences.LastChecked = DateTime.UtcNow;
             preferences.SaveFor(uri.ToString());
+        }
+
+        /// <summary>
+        /// Checks whether a remote <see cref="Feed"/> has a a valid and trusted signature. Downloads missing GPG keys for verification and interactivley asks the user to trust new keys.
+        /// </summary>
+        /// <param name="uri">The URI the feed originally came from.</param>
+        /// <param name="data">The data of the feed.</param>
+        /// <param name="policy">Provides additional class dependencies.</param>
+        /// <exception cref="SignatureException">Thrown if no trusted signature was found.</exception>
+        private ValidSignature CheckFeedTrust(Uri uri, byte[] data, Policy policy)
+        {
+            var trustDB = TrustDB.LoadSafe();
+            var domain = new Domain(uri.Host);
+            KeyImported:
+            var signatures = FeedUtils.GetSignatures(policy.OpenPgp, data);
+
+            // Try to find already trusted key
+            var validSignatures = EnumerableUtils.OfType<ValidSignature>(signatures);
+            var trustedSignature = EnumerableUtils.First(validSignatures, sig => trustDB.IsTrusted(sig.Fingerprint, domain));
+            if (trustedSignature != null) return trustedSignature;
+
+            // Try to find valid key and ask user to trust it
+            trustedSignature = EnumerableUtils.First(validSignatures, sig => policy.Handler.AskQuestion("Trust?", Resources.UntrustedKeys));
+            if (trustedSignature != null)
+            {
+                trustDB.TrustKey(trustedSignature.Fingerprint, domain);
+                trustDB.Save();
+                return trustedSignature;
+            }
+
+            // Download missing key file
+            var missingKey = EnumerableUtils.First(EnumerableUtils.OfType<MissingKeySignature>(signatures));
+            if (missingKey != null)
+            {
+                policy.OpenPgp.ImportKey(_webClient.DownloadData(new Uri(uri, missingKey.KeyID)));
+                goto KeyImported;
+            }
+
+            throw new SignatureException(string.Format(Resources.FeedNoTrustedSignatures, uri));
+        }
+
+        /// <summary>
+        /// Detects attacks such as feed substitution or replay attacks.
+        /// </summary>
+        /// <param name="uri">The URI the feed originally came from.</param>
+        /// <param name="data">The data of the feed.</param>
+        /// <param name="policy">Provides additional class dependencies.</param>
+        /// <param name="signature">The first trusted signature for the feed.</param>
+        /// <exception cref="InvalidInterfaceIDException">Thrown if feed substitution or another interface URI-related problem was detected.</exception>
+        /// <exception cref="ReplayAttackException">Thrown if a replay attack was detected.</exception>
+        private void DetectAttacks(Uri uri, byte[] data, Policy policy, ValidSignature signature)
+        {
+            // Detect feed substitution 
+            var feed = Feed.Load(new MemoryStream(data));
+            if (feed.Uri == null) throw new InvalidInterfaceIDException(string.Format(Resources.FeedUriMissing, uri));
+            if (feed.Uri != uri) throw new InvalidInterfaceIDException(string.Format(Resources.FeedUriMismatch, feed.Uri, uri));
+
+            // Detect replay attacks
+            try
+            {
+                var oldSignature = EnumerableUtils.First(EnumerableUtils.OfType<ValidSignature>(Cache.GetSignatures(uri.ToString(), policy.OpenPgp)));
+                if (oldSignature != null && signature.Timestamp < oldSignature.Timestamp) throw new ReplayAttackException(uri, oldSignature.Timestamp, signature.Timestamp);
+            }
+            catch (KeyNotFoundException)
+            {
+                // No existing feed to be replaced
+            }
         }
         #endregion
 

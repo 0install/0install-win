@@ -123,6 +123,15 @@
   <data name="FeedNotCachedOffline" xml:space="preserve">
     <value>The feed '{0}' is not cached and Zero Install is currently in off-line mode.</value>
   </data>
+  <data name="FeedNoTrustedSignatures" xml:space="preserve">
+    <value>The feed '{0}' was not signed with any trusted keys.</value>
+  </data>
+  <data name="FeedUriMismatch" xml:space="preserve">
+    <value>The &lt;interface&gt; uri attribute ('{0}') does not match the URL the feed was downloaded from ('{1}').</value>
+  </data>
+  <data name="FeedUriMissing" xml:space="preserve">
+    <value>The &lt;interface&gt; uri attribute missing. Should be '{0}'.</value>
+  </data>
   <data name="FileNotFound" xml:space="preserve">
     <value>File not found: {0}</value>
   </data>
@@ -151,7 +160,7 @@
     <value>There was a problem loading configuration value '{0}'.</value>
   </data>
   <data name="ReplayAttack" xml:space="preserve">
-    <value>New feed's modification time is before old version!
+    <value>A possible replay attack was detected. The new feed's modification time is before old version.
 Feed ID: {0}
 Old time: {1}
 New time: {2}</value>
