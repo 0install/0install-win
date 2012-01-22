@@ -151,6 +151,9 @@ Do you want to trust this key to sign feeds from '{3}'?
   <data name="NoImplementationsPassed" xml:space="preserve">
     <value>At least one implementation must be passed.</value>
   </data>
+  <data name="NoKeyInfoServerData" xml:space="preserve">
+    <value>The key information server was unable to provide any additional information about this key.</value>
+  </data>
   <data name="NoSelectedVersion" xml:space="preserve">
     <value>No selected version</value>
   </data>

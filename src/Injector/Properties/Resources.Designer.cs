@@ -155,6 +155,15 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The key information server was unable to provide any additional information about this key..
+        /// </summary>
+        internal static string NoKeyInfoServerData {
+            get {
+                return ResourceManager.GetString("NoKeyInfoServerData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No selected version.
         /// </summary>
         internal static string NoSelectedVersion {

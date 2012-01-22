@@ -66,6 +66,7 @@ namespace ZeroInstall.Injector.Feeds
 
             _cacheMock.Verify();
             _openPgpMock.Verify();
+            _handlerMock.Verify();
         }
         #endregion
 
@@ -155,7 +156,7 @@ namespace ZeroInstall.Injector.Feeds
                 _policy.Config.AutoApproveKeys = false;
 
                 // Ensure key information is relayed and then reject new key
-                _handlerMock.Setup(x => x.AskQuestion(It.IsRegex("Key information"), It.IsAny<string>())).Returns(false);
+                _handlerMock.Setup(x => x.AskQuestion(It.IsRegex("Key information"), It.IsAny<string>())).Returns(false).Verifiable();
 
                 Assert.Throws<SignatureException>(() => _policy.FeedManager.ImportFeed(feed.Uri, data, _policy));
                 Assert.IsFalse(TrustDB.LoadSafe().IsTrusted("fingerprint", new Domain(feed.Uri.Host)));
@@ -177,7 +178,7 @@ namespace ZeroInstall.Injector.Feeds
                 _cacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString(), _policy.OpenPgp)).Throws<KeyNotFoundException>().Verifiable();
 
                 // Ensure key information is relayed and then accept new key
-                _handlerMock.Setup(x => x.AskQuestion(It.IsRegex("Key information"), It.IsAny<string>())).Returns(true);
+                _handlerMock.Setup(x => x.AskQuestion(It.IsRegex("Key information"), It.IsAny<string>())).Returns(true).Verifiable();
 
                 _cacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
                 _policy.FeedManager.ImportFeed(feed.Uri, data, _policy);
@@ -198,6 +199,29 @@ namespace ZeroInstall.Injector.Feeds
 
                 // No previous feed
                 _cacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString(), _policy.OpenPgp)).Throws<KeyNotFoundException>().Verifiable();
+
+                _cacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
+                _policy.FeedManager.ImportFeed(feed.Uri, data, _policy);
+                Assert.IsTrue(TrustDB.LoadSafe().IsTrusted("fingerprint", new Domain(feed.Uri.Host)));
+            }
+        }
+
+        [Test(Description = "Ensures feeds signed with keys with no key information server data are handled correctly.")]
+        public void TestImportNoKeyInfo()
+        {
+            var feed = FeedTest.CreateTestFeed();
+            var data = SignFeed(feed, false);
+
+            using (var keyInfoServer = new MicroServer("key/other_fingerprint", StreamUtils.CreateFromString("invalid"))) // Cause an error 404
+            {
+                _policy.Config.KeyInfoServer = keyInfoServer.ServerUri;
+                _policy.Config.AutoApproveKeys = true; // Should not do anything if the key info server does not recognize the key
+
+                // No previous feed
+                _cacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString(), _policy.OpenPgp)).Throws<KeyNotFoundException>().Verifiable();
+
+                // Ensure key information is relayed and then accept new key
+                _handlerMock.Setup(x => x.AskQuestion(It.IsAny<string>(), It.IsAny<string>())).Returns(true).Verifiable();
 
                 _cacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
                 _policy.FeedManager.ImportFeed(feed.Uri, data, _policy);

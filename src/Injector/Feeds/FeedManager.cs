@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Xml;
+using Common;
 using Common.Collections;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
@@ -153,8 +154,6 @@ namespace ZeroInstall.Injector.Feeds
         #endregion
 
         #region Download
-        private readonly WebClient _webClient = new WebClient();
-
         /// <summary>
         /// Downloads a <see cref="Feed"/> into the <see cref="FeedManagerBase.Cache"/> validating its signatures.
         /// </summary>
@@ -169,7 +168,8 @@ namespace ZeroInstall.Injector.Feeds
         private void DownloadFeed(Uri url, Policy policy)
         {
             // ToDo: Add mirror support
-            ImportFeed(url, _webClient.DownloadData(url), policy);
+            using (var webClient = new WebClient())
+                ImportFeed(url, webClient.DownloadData(url), policy);
         }
         #endregion
 
@@ -200,7 +200,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <param name="data">The data of the feed.</param>
         /// <param name="policy">Provides additional class dependencies.</param>
         /// <exception cref="SignatureException">Thrown if no trusted signature was found.</exception>
-        private ValidSignature CheckFeedTrust(Uri uri, byte[] data, Policy policy)
+        private static ValidSignature CheckFeedTrust(Uri uri, byte[] data, Policy policy)
         {
             var domain = new Domain(uri.Host);
             KeyImported:
@@ -215,15 +215,10 @@ namespace ZeroInstall.Injector.Feeds
             // Try to find valid key and ask user to approve it
             trustedSignature = EnumerableUtils.First(validSignatures, sig =>
             {
-                var xmlReader = XmlReader.Create(policy.Config.KeyInfoServer + "key/" + sig.Fingerprint);
-                xmlReader.ReadToFollowing("item");
-                if (policy.Config.AutoApproveKeys)
-                {
-                    xmlReader.MoveToAttribute("vote");
-                    if (xmlReader.Value == "good") return true;
-                }
-                xmlReader.MoveToContent();
-                return policy.Handler.AskQuestion(string.Format(Resources.AskKeyTrust, uri, sig.Fingerprint, xmlReader.ReadString(), domain), Resources.UntrustedKeys);
+                bool goodVote;
+                var keyInformation = GetKeyInformation(sig.Fingerprint, out goodVote, policy) ?? Resources.NoKeyInfoServerData;
+                return (policy.Config.AutoApproveKeys && goodVote) ||
+                    policy.Handler.AskQuestion(string.Format(Resources.AskKeyTrust, uri, sig.Fingerprint, keyInformation, domain), Resources.UntrustedKeys);
             });
             if (trustedSignature != null)
             {
@@ -238,11 +233,50 @@ namespace ZeroInstall.Injector.Feeds
             var missingKey = EnumerableUtils.First(EnumerableUtils.OfType<MissingKeySignature>(signatures));
             if (missingKey != null)
             {
-                policy.OpenPgp.ImportKey(_webClient.DownloadData(new Uri(uri, missingKey.KeyID + ".gpg")));
+                using (var webClient = new WebClient())
+                    policy.OpenPgp.ImportKey(webClient.DownloadData(new Uri(uri, missingKey.KeyID + ".gpg")));
                 goto KeyImported; // Re-evaluate signatures after importing new key material
             }
 
             throw new SignatureException(string.Format(Resources.FeedNoTrustedSignatures, uri));
+        }
+
+        /// <summary>
+        /// retrieves information about a OpenPGP key from the <see cref="Config.KeyInfoServer"/>.
+        /// </summary>
+        /// <param name="fingerprint">The fingerprint of the key to check.</param>
+        /// <param name="goodVote">Returns <see langword="true"/> if the server indicated that the key is trustworthy.</param>
+        /// <param name="policy">Provides additional class dependencies.</param>
+        /// <returns>Human-readable information about the key or <see langword="null"/> if the server failed to provide a response.</returns>
+        private static string GetKeyInformation(string fingerprint, out bool goodVote, Policy policy)
+        {
+            try
+            {
+                var xmlReader = XmlReader.Create(policy.Config.KeyInfoServer + "key/" + fingerprint);
+                if (!xmlReader.ReadToFollowing("item"))
+                {
+                    goodVote = false;
+                    return null;
+                }
+
+                goodVote = xmlReader.MoveToAttribute("vote") && (xmlReader.Value == "good");
+                xmlReader.MoveToContent();
+                return xmlReader.ReadString();
+            }
+                #region Error handling
+            catch (XmlException ex)
+            {
+                Log.Error("Unable to parse key information for: " + fingerprint + "\n" + ex.Message);
+                goodVote = false;
+                return null;
+            }
+            catch (WebException ex)
+            {
+                Log.Error("Unable to retrieve key information for: " + fingerprint + "\n" + ex.Message);
+                goodVote = false;
+                return null;
+            }
+            #endregion
         }
 
         /// <summary>
