@@ -166,7 +166,7 @@ namespace ZeroInstall.Injector.Solver
         /// Returns a list of any selected downloadable <see cref="ImplementationBase"/>s that are missing from an <see cref="IStore"/>.
         /// </summary>
         /// <param name="searchStore">The locations to search for cached <see cref="Implementation"/>s.</param>
-        /// <param name="feedCache">The cache to retreive <see cref="Model.Feed"/>s from.</param>
+        /// <param name="feedCache">The cache to retrieve <see cref="Model.Feed"/>s from.</param>
         /// <returns>An object that allows the main <see cref="ImplementationBase"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
         /// <remarks>Feed files may be downloaded, no implementations are downloaded.</remarks>
         /// <exception cref="KeyNotFoundException">Thrown if the requested feed was not found in the cache.</exception>

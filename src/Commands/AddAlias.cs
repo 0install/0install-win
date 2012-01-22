@@ -167,7 +167,7 @@ namespace ZeroInstall.Commands
 
         #region Helpers
         /// <summary>
-        /// Retreives a specific <see cref="AppAlias"/>.
+        /// Retrieves a specific <see cref="AppAlias"/>.
         /// </summary>
         /// <param name="appList">The list of <see cref="AppEntry"/>s to search.</param>
         /// <param name="aliasName">The name of the alias to search for.</param>

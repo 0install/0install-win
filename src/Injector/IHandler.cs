@@ -81,7 +81,7 @@ namespace ZeroInstall.Injector
         /// Returns immediately. Will be ignored by non-GUI intefaces.
         /// </summary>
         /// <param name="selections">The <see cref="Selections"/> as provided by the <see cref="ISolver"/>.</param>
-        /// <param name="feedCache">The feed cache used to retreive feeds for additional information about imlementations.</param>
+        /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about imlementations.</param>
         /// <remarks>
         ///   <para>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</para>
         ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>

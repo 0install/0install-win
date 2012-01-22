@@ -99,9 +99,9 @@ namespace Common.Utils
         #endregion
         
         /// <summary>
-        /// Retreives the property store for a window.
+        /// Retrieves the property store for a window.
         /// </summary>
-        /// <param name="hwnd">A handle to the window to retreive the property store for.</param>
+        /// <param name="hwnd">A handle to the window to retrieve the property store for.</param>
         private static IPropertyStore GetWindowPropertyStore(IntPtr hwnd)
         {
             IPropertyStore propStore;

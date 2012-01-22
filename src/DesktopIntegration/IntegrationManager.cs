@@ -217,10 +217,10 @@ namespace ZeroInstall.DesktopIntegration
         }
 
         /// <inheritdoc/>
-        public void Repair(Converter<string, Feed> feedRetreiver)
+        public void Repair(Converter<string, Feed> feedRetriever)
         {
             #region Sanity checks
-            if (feedRetreiver == null) throw new ArgumentNullException("feedRetreiver");
+            if (feedRetriever == null) throw new ArgumentNullException("feedRetriever");
             #endregion
 
             try
@@ -229,7 +229,7 @@ namespace ZeroInstall.DesktopIntegration
                 {
                     var toReAdd = new List<AccessPoint>();
                     if (appEntry.AccessPoints != null) toReAdd.AddRange(appEntry.AccessPoints.Entries);
-                    AddAccessPointsHelper(appEntry, feedRetreiver(appEntry.InterfaceID), toReAdd);
+                    AddAccessPointsHelper(appEntry, feedRetriever(appEntry.InterfaceID), toReAdd);
                 }
             }
             catch (KeyNotFoundException ex)

@@ -82,7 +82,7 @@ namespace ZeroInstall.Commands.WinForms
         /// Returns immediately.
         /// </summary>
         /// <param name="selections">The <see cref="Selections"/> as provided by the <see cref="ISolver"/>.</param>
-        /// <param name="feedCache">The feed cache used to retreive feeds for additional information about imlementations.</param>
+        /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about imlementations.</param>
         /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
         public void ShowSelections(Selections selections, IFeedCache feedCache)

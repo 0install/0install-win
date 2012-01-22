@@ -68,7 +68,7 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Access
         /// <summary>
-        /// Retreives an existing entry from <see cref="Implementations"/> by ID or creates a new one if no appropriate one exists.
+        /// Retrieves an existing entry from <see cref="Implementations"/> by ID or creates a new one if no appropriate one exists.
         /// </summary>
         /// <param name="id">The <see cref="ImplementationPreferences.ID"/> to search for.</param>
         /// <returns>The found or newly created <see cref="ImplementationPreferences"/>.</returns>

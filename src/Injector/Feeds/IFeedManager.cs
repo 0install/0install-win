@@ -29,7 +29,7 @@ namespace ZeroInstall.Injector.Feeds
     public interface IFeedManager
     {
         /// <summary>
-        /// The cache to retreive <see cref="Feed"/>s from and store downloaded <see cref="Feed"/>s to.
+        /// The cache to retrieve <see cref="Feed"/>s from and store downloaded <see cref="Feed"/>s to.
         /// </summary>
         IFeedCache Cache { get; }
 

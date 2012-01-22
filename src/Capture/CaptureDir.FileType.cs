@@ -53,7 +53,7 @@ namespace ZeroInstall.Capture
         }
 
         /// <summary>
-        /// Retreives data about a specific file type or URL protocol from a snapshot diff.
+        /// Retrieves data about a specific file type or URL protocol from a snapshot diff.
         /// </summary>
         /// <param name="progID">The programatic identifier of the file type.</param>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>

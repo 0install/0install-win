@@ -30,7 +30,7 @@ namespace ZeroInstall.Capture
     public partial class CaptureDir
     {
         /// <summary>
-        /// Retreives data about registered applications aindicated by a snapshot diff.
+        /// Retrieves data about registered applications aindicated by a snapshot diff.
         /// </summary>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
         /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>

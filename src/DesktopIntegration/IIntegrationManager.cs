@@ -94,7 +94,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Reapplies all already listed <see cref="AccessPoint"/>s.
         /// </summary>
-        /// <param name="feedRetreiver">Callback method used to retreive additional <see cref="Feed"/>s on demand.</param>
-        void Repair(Converter<string, Feed> feedRetreiver);
+        /// <param name="feedRetriever">Callback method used to retrieve additional <see cref="Feed"/>s on demand.</param>
+        void Repair(Converter<string, Feed> feedRetriever);
     }
 }

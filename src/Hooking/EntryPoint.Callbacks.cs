@@ -148,7 +148,7 @@ namespace ZeroInstall.Hooking
         /// <summary>
         /// Applies filter operations to string buffers for registry set/write operations.
         /// </summary>
-        /// <param name="dataPointer">A pointer to a buffer containing the data retreived from the registry.</param>
+        /// <param name="dataPointer">A pointer to a buffer containing the data retrieved from the registry.</param>
         /// <param name="dataLength">The length of the data in the buffer specified by <paramref name="dataPointer"/>.</param>
         /// <param name="unicode"><see langword="true"/> for Unicode-strings; <see langword="false"/> for ANSI-strings.</param>
         /// <returns>

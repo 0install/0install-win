@@ -87,7 +87,7 @@ namespace ZeroInstall.Capture
         }
 
         /// <summary>
-        /// Retreives data about multiple verbs (executable commands) from the registry.
+        /// Retrieves data about multiple verbs (executable commands) from the registry.
         /// </summary>
         /// <param name="typeKey">The registry key containing information about the file type / protocol the verbs belong to.</param>
         /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
@@ -109,7 +109,7 @@ namespace ZeroInstall.Capture
         }
 
         /// <summary>
-        /// Retreives data about a verb (an executable command) from the registry.
+        /// Retrieves data about a verb (an executable command) from the registry.
         /// </summary>
         /// <param name="typeKey">The registry key containing information about the file type / protocol the verb belongs to.</param>
         /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>

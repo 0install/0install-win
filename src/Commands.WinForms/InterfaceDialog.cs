@@ -39,7 +39,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>The interface to modify the preferences for.</summary>
         private readonly string _interfaceID;
 
-        /// <summary>The feed cache used to retreive <see cref="Feed"/>s for additional information about imlementations.</summary>
+        /// <summary>The feed cache used to retrieve <see cref="Feed"/>s for additional information about imlementations.</summary>
         private readonly IFeedCache _feedCache;
 
         /// <summary>The interface preferences being modified.</summary>
@@ -54,7 +54,7 @@ namespace ZeroInstall.Commands.WinForms
         /// Creates a new interface dialog.
         /// </summary>
         /// <param name="interfaceID">The interface to modify the preferences for.</param>
-        /// <param name="feedCache">The feed cache used to retreive feeds for additional information about imlementations.</param>
+        /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about imlementations.</param>
         private InterfaceDialog(string interfaceID, IFeedCache feedCache)
         {
             #region Sanity checks
@@ -89,7 +89,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
         /// <param name="interfaceID">The interface to modify the preferences for.</param>
-        /// <param name="feedCache">The feed cache used to retreive feeds for additional information about imlementations.</param>
+        /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about imlementations.</param>
         /// <returns><see langword="true"/> if the preferences where modified; <see langword="false"/> if everything remained unchanged.</returns>
         public static bool Show(IWin32Window owner, string interfaceID, IFeedCache feedCache)
         {

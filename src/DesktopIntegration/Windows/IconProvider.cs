@@ -36,9 +36,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         private static readonly TimeSpan _freshness = new TimeSpan(0, 20, 0); // 20 minutes
 
         /// <summary>
-        /// Retreives a Windows icon via the <see cref="IIconCache"/> and stores a permanent copy of it.
+        /// Retrieves a Windows icon via the <see cref="IIconCache"/> and stores a permanent copy of it.
         /// </summary>
-        /// <param name="icon">The icon to retreive.</param>
+        /// <param name="icon">The icon to retrieve.</param>
         /// <param name="systemWide">Apply the configuration system-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <returns>The path to the icon file.</returns>

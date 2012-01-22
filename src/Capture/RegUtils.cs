@@ -13,7 +13,7 @@ namespace ZeroInstall.Capture
     {
         #region Registry
         /// <summary>
-        /// Retreives the names of all values within a specific subkey of a registry root.
+        /// Retrieves the names of all values within a specific subkey of a registry root.
         /// </summary>
         /// <param name="root">The root key to look within.</param>
         /// <param name="key">The path of the subkey below <paramref name="root"/>.</param>
@@ -30,7 +30,7 @@ namespace ZeroInstall.Capture
         }
 
         /// <summary>
-        /// Retreives the names of all subkeys within a specific subkey of a registry root.
+        /// Retrieves the names of all subkeys within a specific subkey of a registry root.
         /// </summary>
         /// <param name="root">The root key to look within.</param>
         /// <param name="key">The path of the subkey below <paramref name="root"/>.</param>

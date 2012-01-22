@@ -79,7 +79,7 @@ namespace ZeroInstall.Capture
 
         #region Install commands
         /// <summary>
-        /// Retreives commands the application registered for use by Windows' "Set Program Access and Defaults".
+        /// Retrieves commands the application registered for use by Windows' "Set Program Access and Defaults".
         /// </summary>
         /// <param name="clientKey">The registry key containing the application's registration data.</param>
         /// <param name="installationDir">The fully qualified path to the installation directory.</param>

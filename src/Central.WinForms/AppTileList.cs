@@ -51,9 +51,9 @@ namespace ZeroInstall.Central.WinForms
 
         #region Properties
         /// <summary>
-        /// The icon cache used by newly created <see cref="AppTile"/>s to retreive application icons.
+        /// The icon cache used by newly created <see cref="AppTile"/>s to retrieve application icons.
         /// </summary>
-        [Category("Data"), Description("The icon cache used by newly created AppTiles to retreive application icons.")]
+        [Category("Data"), Description("The icon cache used by newly created AppTiles to retrieve application icons.")]
         [DefaultValue(null)]
         public IIconCache IconCache { get; set; }
 
@@ -160,9 +160,9 @@ namespace ZeroInstall.Central.WinForms
         }
 
         /// <summary>
-        /// Retreives a specific application tile from the list.
+        /// Retrieves a specific application tile from the list.
         /// </summary>
-        /// <param name="interfaceID">The interface ID of the application the tile to retreive represents.</param>
+        /// <param name="interfaceID">The interface ID of the application the tile to retrieve represents.</param>
         /// <returns>The requested <see cref="AppTile"/>; <see langword="null"/> if no matching entry was found.</returns>
         public AppTile GetTile(string interfaceID)
         {

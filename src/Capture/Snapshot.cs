@@ -150,7 +150,7 @@ namespace ZeroInstall.Capture
         }
 
         /// <summary>
-        /// Retreives a list of service associations from the registry.
+        /// Retrieves a list of service associations from the registry.
         /// </summary>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
@@ -172,7 +172,7 @@ namespace ZeroInstall.Capture
         }
 
         /// <summary>
-        /// Retreives a list of file assocations and programatic indentifiers the registry.
+        /// Retrieves a list of file assocations and programatic indentifiers the registry.
         /// </summary>
         private static void GetFileAssocData(out ComparableTuple<string>[] fileAssocs, out string[] progIDs)
         {
@@ -201,7 +201,7 @@ namespace ZeroInstall.Capture
         }
 
         /// <summary>
-        /// Retreives a list of protocol associations for well-known protocols (e.g. HTTP, FTP, ...).
+        /// Retrieves a list of protocol associations for well-known protocols (e.g. HTTP, FTP, ...).
         /// </summary>
         private static ComparableTuple<string>[] GetProtocolAssoc()
         {
@@ -215,7 +215,7 @@ namespace ZeroInstall.Capture
         }
 
         /// <summary>
-        /// Retreives a list of AutoPlay associations from the registry.
+        /// Retrieves a list of AutoPlay associations from the registry.
         /// </summary>
         /// <param name="hive">The registry hive to search in (usually HKCU or HKLM).</param>
         /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>

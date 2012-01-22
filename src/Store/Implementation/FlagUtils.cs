@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Implementation
     {
         #region Read
         /// <summary>
-        /// Retreives a list of files for which an external flag is set.
+        /// Retrieves a list of files for which an external flag is set.
         /// </summary>
         /// <param name="name">The name of the flag type to search for (<code>.xbit</code> or <code>.symlink</code>).</param>
         /// <param name="target">The target directory to start the search from (will go upwards through directory levels one-by-one, thus may deliver "too many" results).</param>

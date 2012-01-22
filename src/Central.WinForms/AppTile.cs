@@ -44,10 +44,10 @@ namespace ZeroInstall.Central.WinForms
         #region Variables
         private static readonly IHandler _handler = new SilentHandler();
 
-        /// <summary>The icon cache used to retreive icons specified in <see cref="Feed"/>; may be <see langword="null"/>.</summary>
+        /// <summary>The icon cache used to retrieve icons specified in <see cref="Feed"/>; may be <see langword="null"/>.</summary>
         private readonly IIconCache _iconCache;
 
-        /// <summary>A <see cref="Feed"/> additional metadata for the application was retreived from.</summary>
+        /// <summary>A <see cref="Feed"/> additional metadata for the application was retrieved from.</summary>
         private Feed _feed;
         #endregion
 
@@ -94,7 +94,7 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         /// <param name="interfaceID">The interface ID of the application this tile represents.</param>
         /// <param name="appName">The name of the application this tile represents.</param>
-        /// <param name="iconCache">The icon cache used to retreive icons specified in <see cref="Feed"/>; may be <see langword="null"/>.</param>
+        /// <param name="iconCache">The icon cache used to retrieve icons specified in <see cref="Feed"/>; may be <see langword="null"/>.</param>
         public AppTile(string interfaceID, string appName, IIconCache iconCache)
         {
             #region Sanity checks
@@ -117,7 +117,7 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Extracts relevant application metadata such as summaries and icons from a <see cref="Feed"/>.
         /// </summary>
-        /// <param name="feed">A <see cref="Feed"/> to retreive additional metadata for the application from; may be <see langword="null"/>.</param>
+        /// <param name="feed">A <see cref="Feed"/> to retrieve additional metadata for the application from; may be <see langword="null"/>.</param>
         /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
         public void SetFeed(Feed feed)

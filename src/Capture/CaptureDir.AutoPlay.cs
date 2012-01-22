@@ -60,7 +60,7 @@ namespace ZeroInstall.Capture
         }
 
         /// <summary>
-        /// Retreives data about a AutoPlay handler type from a snapshot diff.
+        /// Retrieves data about a AutoPlay handler type from a snapshot diff.
         /// </summary>
         /// <param name="handler">The internal name of the AutoPlay handler.</param>
         /// <param name="hive">The registry hive to search in (usually HKCU or HKLM).</param>

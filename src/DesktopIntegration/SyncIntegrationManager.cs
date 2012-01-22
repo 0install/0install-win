@@ -127,17 +127,17 @@ namespace ZeroInstall.DesktopIntegration
         /// Synchronize the <see cref="AppList"/> with the sync server and (un)apply <see cref="AccessPoint"/>s accordingly.
         /// </summary>
         /// <param name="resetMode">Controls how synchronization data is reset.</param>
-        /// <param name="feedRetreiver">Callback method used to retreive additional <see cref="Feed"/>s on demand.</param>
+        /// <param name="feedRetriever">Callback method used to retrieve additional <see cref="Feed"/>s on demand.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as uploads and downloads.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data or if the specified crypto key was wrong.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public void Sync(SyncResetMode resetMode, Converter<string, Feed> feedRetreiver, ITaskHandler handler)
+        public void Sync(SyncResetMode resetMode, Converter<string, Feed> feedRetriever, ITaskHandler handler)
         {
             #region Sanity checks
-            if (feedRetreiver == null) throw new ArgumentNullException("feedRetreiver");
+            if (feedRetriever == null) throw new ArgumentNullException("feedRetriever");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
@@ -197,7 +197,7 @@ namespace ZeroInstall.DesktopIntegration
                 if (_canceled) throw new OperationCanceledException();
                 try
                 {
-                    MergeData(serverList, (resetMode == SyncResetMode.Client), feedRetreiver, handler);
+                    MergeData(serverList, (resetMode == SyncResetMode.Client), feedRetriever, handler);
                 }
                 catch (KeyNotFoundException ex)
                 {
@@ -258,7 +258,7 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="newData">The new <see cref="AppList"/> to merge in.</param>
         /// <param name="resetClient">Set to <see langword="true"/> to completly replace the contents of <see cref="IntegrationManager.AppList"/> with <paramref name="newData"/> instead of merging the two.</param>
-        /// <param name="feedRetreiver">Callback method used to retreive additional <see cref="Feed"/>s on demand.</param>
+        /// <param name="feedRetriever">Callback method used to retrieve additional <see cref="Feed"/>s on demand.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to a <see cref="Capabilities.Capability"/> is invalid.</exception>
@@ -268,11 +268,11 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <remarks>Performs a three-way merge using <see cref="_appListLastSync"/> as base.</remarks>
-        private void MergeData(AppList newData, bool resetClient, Converter<string, Feed> feedRetreiver, ITaskHandler handler)
+        private void MergeData(AppList newData, bool resetClient, Converter<string, Feed> feedRetriever, ITaskHandler handler)
         {
             #region Sanity checks
             if (newData == null) throw new ArgumentNullException("newData");
-            if (feedRetreiver == null) throw new ArgumentNullException("feedRetreiver");
+            if (feedRetriever == null) throw new ArgumentNullException("feedRetriever");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
@@ -292,7 +292,7 @@ namespace ZeroInstall.DesktopIntegration
                 AppList.Entries.Add(newAppEntry);
 
                 // Add and apply the access points
-                if (appEntry.AccessPoints != null) AddAccessPointsHelper(newAppEntry, feedRetreiver(appEntry.InterfaceID), appEntry.AccessPoints.Entries);
+                if (appEntry.AccessPoints != null) AddAccessPointsHelper(newAppEntry, feedRetriever(appEntry.InterfaceID), appEntry.AccessPoints.Entries);
             }
         }
         #endregion

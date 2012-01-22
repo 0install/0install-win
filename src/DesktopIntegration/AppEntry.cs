@@ -101,7 +101,7 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Access
         /// <summary>
-        /// Retreives the first <see cref="Capability"/> that matches a specific type and ID and is compatible with <see cref="Architecture.CurrentSystem"/>.
+        /// Retrieves the first <see cref="Capability"/> that matches a specific type and ID and is compatible with <see cref="Architecture.CurrentSystem"/>.
         /// </summary>
         /// <typeparam name="T">The capability type to match.</typeparam>
         /// <param name="id">The <see cref="Capability.ID"/> to match.</param>

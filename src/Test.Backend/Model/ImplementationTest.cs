@@ -46,7 +46,7 @@ namespace ZeroInstall.Model
         #endregion
 
         /// <summary>
-        /// Ensures that <see cref="Element.GetCommand"/> correctly retreives commands.
+        /// Ensures that <see cref="Element.GetCommand"/> correctly retrieves commands.
         /// </summary>
         [Test]
         public void TestGetCommand()
