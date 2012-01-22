@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Common.Net;
 using Common.Storage;
 using NUnit.Framework;
 using Moq;
@@ -126,6 +127,8 @@ namespace ZeroInstall.Injector.Feeds
         {
             var feed = FeedTest.CreateTestFeed();
             var data = SignFeed(feed, false);
+
+            // Pre-trust signature key
             var trustDB = new TrustDB();
             trustDB.TrustKey("fingerprint", new Domain(feed.Uri.Host));
             trustDB.Save();
@@ -161,8 +164,26 @@ namespace ZeroInstall.Injector.Feeds
         [Test(Description = "Ensures feeds signed with new keys are correctly imported.")]
         public void TestImportNewKey()
         {
-            // ToDo
-            throw new InconclusiveException("Test not implemented yet");
+            // Provide PGP key file via HTTP
+            var keyData = new byte[] {1, 2, 3, 4, 5};
+            using (var keyServer = new MicroServer("id.gpg", new MemoryStream(keyData)))
+            {
+                var feed = FeedTest.CreateTestFeed();
+                feed.Uri = new Uri(keyServer.FileUri, "feed.xml"); // Make feed URI relative to key file location
+                var data = SignFeed(feed, true);
+                _openPgpMock.Setup(x => x.ImportKey(keyData));
+
+                // Pre-trust signature key
+                var trustDB = new TrustDB();
+                trustDB.TrustKey("fingerprint", new Domain(feed.Uri.Host));
+                trustDB.Save();
+
+                // No previous feed
+                _cacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString(), _policy.OpenPgp)).Throws<KeyNotFoundException>().Verifiable();
+
+                _cacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
+                _policy.FeedManager.ImportFeed(feed.Uri, data, _policy);
+            }
         }
 
         [Test(Description = "Ensures feeds without signatures are rejected.")]
@@ -177,6 +198,8 @@ namespace ZeroInstall.Injector.Feeds
         {
             var feed = FeedTest.CreateTestFeed();
             var data = SignFeed(feed, false);
+
+            // Pre-trust signature key
             var trustDB = new TrustDB();
             trustDB.TrustKey("fingerprint", new Domain("invalid"));
             trustDB.Save();
@@ -189,6 +212,8 @@ namespace ZeroInstall.Injector.Feeds
         {
             var feed = FeedTest.CreateTestFeed();
             var data = SignFeed(feed, false);
+            
+            // Pre-trust signature key
             var trustDB = new TrustDB();
             trustDB.TrustKey("fingerprint", new Domain(feed.Uri.Host));
             trustDB.Save();
@@ -203,9 +228,9 @@ namespace ZeroInstall.Injector.Feeds
         /// Generates a byte array containing a feed and a mock signature. Configures <see cref="_openPgpMock"/> to validate this signature.
         /// </summary>
         /// <param name="feed">The feed to "sign".</param>
-        /// <param name="missing">Make <see cref="_openPgpMock"/> report that the key file for the signature is missing and needs to be downloaded.</param>
+        /// <param name="missingFirst">Make <see cref="_openPgpMock"/> report that the key file for the signature is missing and needs to be downloaded the first time it is queried and then that it is valid.</param>
         /// <returns>A byte array containing the serialized <paramref name="feed"/> and its mock signature.</returns>
-        private byte[] SignFeed(Feed feed, bool missing)
+        private byte[] SignFeed(Feed feed, bool missingFirst)
         {
             var stream = new MemoryStream();
             feed.Save(stream);
@@ -218,12 +243,17 @@ namespace ZeroInstall.Injector.Feeds
             writer.WriteLine(Convert.ToBase64String(signature));
             writer.Write(FeedUtils.SignatureBlockEnd);
 
-            _openPgpMock.Setup(x => x.Verify(feedData, signature)).Returns(new[]
+            if (missingFirst)
             {
-                missing
-                    ? (OpenPgpSignature)new MissingKeySignature("id")
-                    : new ValidSignature("fingerprint", new DateTime(2000, 1, 1))
-            }).Verifiable();
+                _openPgpMock.SetupSequence(x => x.Verify(feedData, signature)).
+                    Returns(new[] {new MissingKeySignature("id")}).
+                    Returns(new[] {new ValidSignature("fingerprint", new DateTime(2000, 1, 1))});
+            }
+            else
+            {
+                _openPgpMock.Setup(x => x.Verify(feedData, signature)).
+                    Returns(new[] {new ValidSignature("fingerprint", new DateTime(2000, 1, 1))}).Verifiable();
+            }
 
             return stream.ToArray(); // Feed data with signature
         }
