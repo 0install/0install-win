@@ -108,7 +108,7 @@ namespace ZeroInstall.Fetchers
 
         internal static Archive HostArchiveOnMicroServer(Archive archive, out MicroServer server)
         {
-            server = new MicroServer(File.OpenRead(archive.LocationString));
+            server = new MicroServer("archive.zip", File.OpenRead(archive.LocationString));
             var hostedArchive = (Archive)archive.Clone();
             hostedArchive.Location = server.FileUri;
             return hostedArchive;
@@ -271,8 +271,8 @@ namespace ZeroInstall.Fetchers
             part1.GeneratePackageArchive("part1.zip");
             part2.GeneratePackageArchive("part2.zip");
 
-            using (var server1 = new MicroServer(File.OpenRead("part1.zip")))
-            using (var server2 = new MicroServer(File.OpenRead("part2.zip")))
+            using (var server1 = new MicroServer("part1.zip", File.OpenRead("part1.zip")))
+            using (var server2 = new MicroServer("part2.zip", File.OpenRead("part2.zip")))
             {
                 var archive1 = new Archive
                 {
@@ -311,7 +311,7 @@ namespace ZeroInstall.Fetchers
             var package = FetcherTesting.PreparePackageBuilder();
             package.GeneratePackageArchive("archive.zip");
 
-            using (var server = new MicroServer(File.OpenRead("archive.zip")))
+            using (var server = new MicroServer("archive.zip", File.OpenRead("archive.zip")))
             {
                 var archive = new Archive
                 {
@@ -341,7 +341,7 @@ namespace ZeroInstall.Fetchers
 
         private static Implementation SynthesizeImplementation(string archiveFile, int offset, ManifestDigest digest, out MicroServer server)
         {
-            server = new MicroServer(File.OpenRead(archiveFile));
+            server = new MicroServer("archive.zip", File.OpenRead(archiveFile));
 
             var archive = new Archive
             {

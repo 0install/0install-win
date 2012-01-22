@@ -88,7 +88,7 @@ namespace ZeroInstall.Store.Feeds
         public void TestGetIconDownload()
         {
             const string iconData = "test";
-            using (var server = new MicroServer(StreamUtils.CreateFromString(iconData)))
+            using (var server = new MicroServer("icon.png", StreamUtils.CreateFromString(iconData)))
             {
                 string path = _cache.GetIcon(server.FileUri, new SilentTaskHandler());
                 Assert.AreEqual(iconData, File.ReadAllText(path));
@@ -102,7 +102,7 @@ namespace ZeroInstall.Store.Feeds
         public void TestGetIconDownloadFail()
         {
             const string iconData = "test";
-            using (var server = new MicroServer(new MemoryStream()))
+            using (var server = new MicroServer("empty", new MemoryStream()))
             {
                 // Write a file to the cache directory, mark it as outdated, use an unreachable/invalid URI
                 string prePath = Path.Combine(_tempDir.Path, ModelUtils.Escape(server.FileUri + "-invalid"));

@@ -48,6 +48,7 @@ namespace Common.Net
 
         private HttpListener _listener;
         private readonly Thread _listenerThread;
+        private readonly string _fileName;
         private readonly Stream _fileContent;
         #endregion
 
@@ -70,11 +71,12 @@ namespace Common.Net
         /// Starts a HTTP webserver that listens on a random port.
         /// </summary>
         /// <param name="fileContent">The content of the file to serve. This stream will be closed when <see cref="Dispose"/> is called.</param>
-        public MicroServer(Stream fileContent)
+        public MicroServer(string fileName, Stream fileContent)
         {
+            _fileName = fileName;
             _fileContent = fileContent;
 
-            FileUri = new Uri(StartListening() + "file");
+            FileUri = new Uri(StartListening() + fileName);
 
             _listenerThread = new Thread(Listen);
             _listenerThread.Start();
@@ -131,15 +133,14 @@ namespace Common.Net
         /// </summary>
         private void Listen()
         {
-            HttpListenerContext context;
             while (_listener.IsListening)
             {
                 try
                 {
-                    context = _listener.GetContext();
+                    HttpListenerContext context = _listener.GetContext();
 
                     // Only return one specific file
-                    if (context.Request.RawUrl == "/file")
+                    if (context.Request.RawUrl == "/" + _fileName)
                     {
                         // Delay finishing the file transfer if Slow-mode is active
                         if (Slow) Thread.Sleep(10000);

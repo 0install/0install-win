@@ -45,7 +45,7 @@ namespace ZeroInstall.Store.Implementation
         }
         #endregion
 
-        [Test(Description = " Ensures that GetSortedDirectoryEntries() correctly sorts and lists filesystem entries.")]
+        [Test(Description = "Ensures that GetSortedDirectoryEntries() correctly sorts and lists filesystem entries.")]
         public void TestGetSortedDirectoryEntries()
         {
             // Create a test directory to analyze

@@ -44,7 +44,7 @@ namespace Common.Net
         [SetUp]
         public void SetUp()
         {
-            _server = new MicroServer(StreamUtils.CreateFromString(TestFileContent));
+            _server = new MicroServer("file", StreamUtils.CreateFromString(TestFileContent));
 
             _tempFile = new TemporaryFile("unit-tests");
         }
@@ -57,7 +57,7 @@ namespace Common.Net
             _tempFile.Dispose();
         }
 
-        [Test(Description = " Downloads a small file using RunSync().")]
+        [Test(Description = "Downloads a small file using RunSync().")]
         public void TestRunSync()
         {
             // Download the file
