@@ -117,6 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AskKeyTrust" xml:space="preserve">
+    <value>Feed: {0}
+Valid signature from: {1}
+{2}
+Do you want to trust this key to sign feeds from '{3}'?
+</value>
+  </data>
   <data name="ExternalSolverOutputErrror" xml:space="preserve">
     <value>The output of the external solver could not be processed.</value>
   </data>

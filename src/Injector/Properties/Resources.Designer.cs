@@ -61,6 +61,19 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Feed: {0}
+        ///Valid signature from: {1}
+        ///{2}
+        ///Do you want to trust this key to sign feeds from &apos;{3}&apos;?
+        ///.
+        /// </summary>
+        internal static string AskKeyTrust {
+            get {
+                return ResourceManager.GetString("AskKeyTrust", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The output of the external solver could not be processed..
         /// </summary>
         internal static string ExternalSolverOutputErrror {

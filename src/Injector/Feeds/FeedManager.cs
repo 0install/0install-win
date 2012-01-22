@@ -19,8 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using Common;
-using Common.Cli;
+using System.Xml;
 using Common.Collections;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
@@ -195,7 +194,7 @@ namespace ZeroInstall.Injector.Feeds
         }
 
         /// <summary>
-        /// Checks whether a remote <see cref="Feed"/> has a a valid and trusted signature. Downloads missing GPG keys for verification and interactivley asks the user to trust new keys.
+        /// Checks whether a remote <see cref="Feed"/> has a a valid and trusted signature. Downloads missing GPG keys for verification and interactivley asks the user to approve new keys.
         /// </summary>
         /// <param name="uri">The URI the feed originally came from.</param>
         /// <param name="data">The data of the feed.</param>
@@ -203,9 +202,9 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="SignatureException">Thrown if no trusted signature was found.</exception>
         private ValidSignature CheckFeedTrust(Uri uri, byte[] data, Policy policy)
         {
-            var trustDB = TrustDB.LoadSafe();
             var domain = new Domain(uri.Host);
             KeyImported:
+            var trustDB = TrustDB.LoadSafe();
             var signatures = FeedUtils.GetSignatures(policy.OpenPgp, data);
 
             // Try to find already trusted key
@@ -213,12 +212,25 @@ namespace ZeroInstall.Injector.Feeds
             var trustedSignature = EnumerableUtils.First(validSignatures, sig => trustDB.IsTrusted(sig.Fingerprint, domain));
             if (trustedSignature != null) return trustedSignature;
 
-            // Try to find valid key and ask user to trust it
-            trustedSignature = EnumerableUtils.First(validSignatures, sig => CheckSignatureTrust(sig, policy));
+            // Try to find valid key and ask user to approve it
+            trustedSignature = EnumerableUtils.First(validSignatures, sig =>
+            {
+                var xmlReader = XmlReader.Create(policy.Config.KeyInfoServer + "key/" + sig.Fingerprint);
+                xmlReader.ReadToFollowing("item");
+                if (policy.Config.AutoApproveKeys)
+                {
+                    xmlReader.MoveToAttribute("vote");
+                    if (xmlReader.Value == "good") return true;
+                }
+                xmlReader.MoveToContent();
+                return policy.Handler.AskQuestion(string.Format(Resources.AskKeyTrust, uri, sig.Fingerprint, xmlReader.ReadString(), domain), Resources.UntrustedKeys);
+            });
             if (trustedSignature != null)
             {
+                // Add newly approved key to trust database
                 trustDB.TrustKey(trustedSignature.Fingerprint, domain);
                 trustDB.Save();
+
                 return trustedSignature;
             }
 
@@ -226,35 +238,11 @@ namespace ZeroInstall.Injector.Feeds
             var missingKey = EnumerableUtils.First(EnumerableUtils.OfType<MissingKeySignature>(signatures));
             if (missingKey != null)
             {
-                try
-                {
-                    policy.OpenPgp.ImportKey(_webClient.DownloadData(new Uri(uri, missingKey.KeyID + ".gpg")));
-                    goto KeyImported;
-                }
-                    #region Error handling
-                catch (WebException ex)
-                {
-                    Log.Error("Failed to download key file for " + missingKey.KeyID + "\n" + ex.Message);
-                }
-                catch (UnhandledErrorsException ex)
-                {
-                    Log.Error("Failed to import key file for " + missingKey.KeyID + "\n" + ex.Message);
-                }
-                #endregion
+                policy.OpenPgp.ImportKey(_webClient.DownloadData(new Uri(uri, missingKey.KeyID + ".gpg")));
+                goto KeyImported; // Re-evaluate signatures after importing new key material
             }
 
             throw new SignatureException(string.Format(Resources.FeedNoTrustedSignatures, uri));
-        }
-
-        /// <summary>
-        /// Checks whether a specific signature is deemed as trusted. May automatically trust new signatures or ask the user, based on the current <see cref="Config"/>.
-        /// </summary>
-        /// <param name="signature">The signature to check.</param>
-        /// <param name="policy">Provides additional class dependencies.</param>
-        private bool CheckSignatureTrust(ValidSignature signature, Policy policy)
-        {
-            // ToDo: Communicate with key server
-            return policy.Handler.AskQuestion("Trust?", Resources.UntrustedKeys);
         }
 
         /// <summary>

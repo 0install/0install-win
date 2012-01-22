@@ -54,6 +54,11 @@ namespace Common.Net
 
         #region Properties
         /// <summary>
+        /// The URL under which the server root can be reached. Usually you should use <see cref="FileUri"/> instead.
+        /// </summary>
+        public Uri ServerUri { get; private set; }
+
+        /// <summary>
         /// The complete URL under which the server provides its file.
         /// </summary>
         public Uri FileUri { get; private set; }
@@ -76,7 +81,8 @@ namespace Common.Net
             _fileName = fileName;
             _fileContent = fileContent;
 
-            FileUri = new Uri(StartListening() + fileName);
+            ServerUri = new Uri(StartListening());
+            FileUri = new Uri(ServerUri, fileName);
 
             _listenerThread = new Thread(Listen);
             _listenerThread.Start();
