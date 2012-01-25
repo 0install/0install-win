@@ -78,6 +78,7 @@
             resources.ApplyResources(this.buttonAddOtherApp, "buttonAddOtherApp");
             this.buttonAddOtherApp.Name = "buttonAddOtherApp";
             this.buttonAddOtherApp.UseVisualStyleBackColor = true;
+            this.buttonAddOtherApp.Click += new System.EventHandler(this.buttonAddOtherApp_Click);
             // 
             // buttonSync
             // 
