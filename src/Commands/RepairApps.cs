@@ -60,7 +60,7 @@ namespace ZeroInstall.Commands
 
             if (SystemWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
 
-            Policy.Handler.ShowProgressUI(Cancel);
+            Policy.Handler.ShowProgressUI();
             using (var integrationManager = new IntegrationManager(SystemWide, Policy.Handler))
                 integrationManager.Repair(GetFeed);
             return 0;

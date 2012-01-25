@@ -165,8 +165,7 @@ namespace ZeroInstall.Fetchers
             try
             {
                 var request = new FetchRequest(new List<Implementation> {implementation}, new SilentHandler());
-                _fetcher.Start(request);
-                _fetcher.Join(request);
+                _fetcher.RunSync(request);
             }
             finally
             {
@@ -190,8 +189,7 @@ namespace ZeroInstall.Fetchers
             try
             {
                 var request = new FetchRequest(new List<Implementation> {implementation}, new SilentHandler());
-                _fetcher.Start(request);
-                _fetcher.Join(request);
+                _fetcher.RunSync(request);
             }
             finally
             {
@@ -246,8 +244,7 @@ namespace ZeroInstall.Fetchers
             try
             {
                 var request = new FetchRequest(new List<Implementation> {implementation}, new SilentHandler());
-                _fetcher.Start(request);
-                _fetcher.Join(request);
+                _fetcher.RunSync(request);
             }
             finally
             {
@@ -299,8 +296,7 @@ namespace ZeroInstall.Fetchers
                     RetrievalMethods = {recipe}
                 };
                 var request = new FetchRequest(new List<Implementation> {implementation}, new SilentHandler());
-                _fetcher.Start(request);
-                Assert.DoesNotThrow(() => _fetcher.Join(request));
+                Assert.DoesNotThrow(() => _fetcher.RunSync(request));
                 Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
             }
         }
@@ -333,8 +329,7 @@ namespace ZeroInstall.Fetchers
                 };
 
                 var request = new FetchRequest(new List<Implementation> {implementation}, new SilentHandler());
-                _fetcher.Start(request);
-                _fetcher.Join(request);
+                _fetcher.RunSync(request);
                 Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
             }
         }
@@ -415,8 +410,7 @@ namespace ZeroInstall.Fetchers
             try
             {
                 var request = new FetchRequest(new List<Implementation> {implementation}, new SilentHandler());
-                fetcher.Start(request);
-                fetcher.Join(request);
+                fetcher.RunSync(request);
             }
             catch (MockException)
             {}
@@ -458,8 +452,7 @@ namespace ZeroInstall.Fetchers
             try
             {
                 var request = new FetchRequest(new List<Implementation> {implementation}, new SilentHandler());
-                fetcher.Start(request);
-                fetcher.Join(request);
+                fetcher.RunSync(request);
             }
             catch (MockException)
             {}

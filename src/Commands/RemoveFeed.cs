@@ -65,7 +65,7 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments, "");
             #endregion
 
-            Policy.Handler.ShowProgressUI(Cancel);
+            Policy.Handler.ShowProgressUI();
 
             string feedID;
             IEnumerable<string> interfaces;

@@ -54,6 +54,7 @@ namespace ZeroInstall.Injector.Solver
             staleFeeds = result.Contains("<!-- STALE_FEEDS -->");
 
             // Parse StandardOutput data as XML
+            policy.Handler.CancellationToken.ThrowIfCancellationRequested();
             try
             {
                 return Selections.LoadFromString(result);

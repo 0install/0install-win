@@ -53,6 +53,11 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region Properties
+        private readonly CancellationToken _cancellationToken = new CancellationToken();
+
+        /// <inheritdoc/>
+        public CancellationToken CancellationToken { get { return _cancellationToken; } }
+
         /// <summary>
         /// A short title describing what the command being executed does.
         /// </summary>
@@ -71,8 +76,12 @@ namespace ZeroInstall.Commands.WinForms
         /// <inheritdoc />
         public void RunTask(ITask task, object tag)
         {
+            // If GUI does not exist or was closed cancel, otherwise wait until it is ready
+            if (_form == null) return;
             _guiReady.WaitOne();
+            if (!_form.IsHandleCreated) return;
 
+            // ToDo: Fix cancellation raceconditions
             if (tag is ManifestDigest)
             {
                 // Handle events coming from a non-UI thread, don't block caller
@@ -87,25 +96,20 @@ namespace ZeroInstall.Commands.WinForms
                 }
             }
 
-            task.RunSync();
+            task.RunSync(_cancellationToken);
         }
         #endregion
 
         #region UI control
         /// <inheritdoc/>
-        public void ShowProgressUI(SimpleEventHandler cancelCallback)
+        public void ShowProgressUI()
         {
-            #region Sanity checks
-            if (cancelCallback == null) throw new ArgumentNullException("cancelCallback");
-            #endregion
-
             // Can only show GUI once
             if (_form != null) return;
 
-            // For cancellation execute the original cancel delegate and also stop any running selections auditing
             _form = new ProgressForm(delegate
-            {
-                cancelCallback();
+            { // Cancel callback
+                _cancellationToken.RequestCancellation();
                 _auditWaitHandle.Set();
             });
 

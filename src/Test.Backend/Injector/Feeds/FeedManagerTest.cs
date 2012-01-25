@@ -21,6 +21,7 @@ using System.IO;
 using Common.Net;
 using Common.Storage;
 using Common.Streams;
+using Common.Tasks;
 using NUnit.Framework;
 using Moq;
 using ZeroInstall.Fetchers;
@@ -50,6 +51,7 @@ namespace ZeroInstall.Injector.Feeds
             _cacheMock = new Mock<IFeedCache>(MockBehavior.Strict);
             _openPgpMock = new Mock<IOpenPgp>(MockBehavior.Strict);
             _handlerMock = new Mock<IHandler>(MockBehavior.Loose);
+            _handlerMock.Setup(x => x.CancellationToken).Returns(new CancellationToken());
             _policy = new Policy(
                 new Config(), new FeedManager(_cacheMock.Object),
                 new Mock<IFetcher>().Object, _openPgpMock.Object, new Mock<ISolver>().Object,

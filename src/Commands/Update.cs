@@ -71,7 +71,7 @@ namespace ZeroInstall.Commands
             if (SelectionsDocument) throw new NotSupportedException(Resources.NoSelectionsDocumentUpdate);
             #endregion
 
-            Policy.Handler.ShowProgressUI(Cancel);
+            Policy.Handler.ShowProgressUI();
 
             try
             {

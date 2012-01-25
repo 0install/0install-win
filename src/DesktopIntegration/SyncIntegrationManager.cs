@@ -79,9 +79,6 @@ namespace ZeroInstall.DesktopIntegration
 
         /// <summary>The storage location of the <see cref="AppList"/> file.</summary>
         private readonly AppList _appListLastSync;
-
-        /// <summary>Indicate that <see cref="Cancel"/> has been called.</summary>
-        private volatile bool _canceled;
         #endregion
 
         #region Constructor
@@ -194,7 +191,7 @@ namespace ZeroInstall.DesktopIntegration
                 }
                 #endregion
 
-                if (_canceled) throw new OperationCanceledException();
+                handler.CancellationToken.ThrowIfCancellationRequested();
                 try
                 {
                     MergeData(serverList, (resetMode == SyncResetMode.Client), feedRetriever, handler);
@@ -209,7 +206,7 @@ namespace ZeroInstall.DesktopIntegration
                     Complete();
                 }
 
-                if (_canceled) throw new OperationCanceledException();
+                handler.CancellationToken.ThrowIfCancellationRequested();
             }
 
             // Upload the encrypted AppList back to the server (unless the client was reset)
@@ -236,7 +233,7 @@ namespace ZeroInstall.DesktopIntegration
                         { // Precondition failure indicates a race condition
                             // Wait for a randomized interval before retrying
                             Thread.Sleep(_random.Next(250, 1500));
-                            if (_canceled) throw new OperationCanceledException();
+                            handler.CancellationToken.ThrowIfCancellationRequested();
                             goto Retry;
                         }
                     }
@@ -248,7 +245,7 @@ namespace ZeroInstall.DesktopIntegration
 
             // Save reference point for future syncs
             AppList.Save(AppListPath + AppListLastSyncSuffix);
-            if (_canceled) throw new OperationCanceledException();
+            handler.CancellationToken.ThrowIfCancellationRequested();
         }
         #endregion
 
@@ -294,16 +291,6 @@ namespace ZeroInstall.DesktopIntegration
                 // Add and apply the access points
                 if (appEntry.AccessPoints != null) AddAccessPointsHelper(newAppEntry, feedRetriever(appEntry.InterfaceID), appEntry.AccessPoints.Entries);
             }
-        }
-        #endregion
-
-        #region Cancel
-        /// <summary>
-        /// Can be called from a different thread to cancel the current <see cref="Sync"/> session.
-        /// </summary>
-        public void Cancel()
-        {
-            _canceled = true;
         }
         #endregion
     }

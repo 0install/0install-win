@@ -34,29 +34,12 @@ namespace ZeroInstall.Commands
     /// </summary>
     public class CliHandler : CliTaskHandler, IHandler
     {
-        #region Task tracking
-        /// <summary>The currently running generic task (if any).</summary>
-        private volatile ITask _genericTask;
-
-        /// <inheritdoc/>
-        public override void RunTask(ITask task, object tag)
-        {
-            // Track generic tasks when they start running
-            if (tag == null) _genericTask = task;
-
-            base.RunTask(task, tag);
-
-            // Since the CliTaskHandler only runs one task at a time, this is safe
-            _genericTask = null;
-        }
-
         /// <inheritdoc />
         public bool Batch { get; set; }
-        #endregion
 
         #region UI control
         /// <inheritdoc/>
-        public void ShowProgressUI(SimpleEventHandler cancelCallback)
+        public void ShowProgressUI()
         {
             // Handle Ctrl+C
             try
@@ -64,12 +47,7 @@ namespace ZeroInstall.Commands
                 Console.TreatControlCAsInput = false;
                 Console.CancelKeyPress += delegate(object sender, ConsoleCancelEventArgs e)
                 {
-                    // Cancel generic tasks
-                    var genericTask = _genericTask;
-                    if (genericTask != null && genericTask.CanCancel) genericTask.Cancel();
-
-                    cancelCallback();
-
+                    CancellationToken.RequestCancellation();
                     e.Cancel = true;
                 };
             }

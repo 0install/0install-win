@@ -45,12 +45,6 @@ namespace ZeroInstall.Commands
 
         /// <summary><see cref="Implementation"/>s referenced in <see cref="Selection.Selections"/> that are not available in the <see cref="Fetcher.Store"/>.</summary>
         protected IEnumerable<Implementation> UncachedImplementations;
-
-        /// <summary>Synchronization handle to prevent race conditions with <see cref="IFetcher"/> canceling.</summary>
-        private readonly object _fetcherCancelLock = new object();
-
-        /// <summary>The <see cref="FetchRequest"/> currently being executed.</summary>
-        private FetchRequest _currentFetchRequest;
         #endregion
 
         #region Properties
@@ -80,7 +74,7 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
             #endregion
 
-            Policy.Handler.ShowProgressUI(Cancel);
+            Policy.Handler.ShowProgressUI();
 
             Solve();
 
@@ -131,40 +125,15 @@ namespace ZeroInstall.Commands
         /// <remarks>Makes sure <see cref="ISolver"/> ran with up-to-date feeds before downloading any implementations.</remarks>
         protected void DownloadUncachedImplementations()
         {
-            // Make sure cancellation doesn't fall within a blind spot between check and Fetcher start
-            lock (_fetcherCancelLock)
-            {
-                if (Canceled) throw new OperationCanceledException();
-                _currentFetchRequest = new FetchRequest(UncachedImplementations, Policy.Handler);
-                Policy.Fetcher.Start(_currentFetchRequest);
-            }
-
             try
             {
-                Policy.Fetcher.Join(_currentFetchRequest);
+                Policy.Fetcher.RunSync(new FetchRequest(UncachedImplementations, Policy.Handler));
             }
             catch
             {
                 // Suppress any left-over errors if the user canceled anyway
-                if (Canceled) throw new OperationCanceledException();
+                Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
                 throw;
-            }
-            lock (_fetcherCancelLock)
-                _currentFetchRequest = null;
-
-            if (Canceled) throw new OperationCanceledException(); // ToDo: Remove once fetcher has a cancelable synchronous run method
-        }
-        #endregion
-
-        #region Cancel
-        /// <inheritdoc/>
-        public override void Cancel()
-        {
-            base.Cancel();
-
-            lock (_fetcherCancelLock)
-            {
-                if (_currentFetchRequest != null) Policy.Fetcher.Cancel(_currentFetchRequest);
             }
         }
         #endregion

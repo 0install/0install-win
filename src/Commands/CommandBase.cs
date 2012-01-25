@@ -53,9 +53,6 @@ namespace ZeroInstall.Commands
 
         /// <summary>Feeds to add, terms to search for, etc.</summary>
         protected readonly C5.IList<string> AdditionalArgs = new C5.ArrayList<string>();
-
-        /// <summary>Indicate that <see cref="Cancel"/> has been called.</summary>
-        protected volatile bool Canceled;
         #endregion
 
         #region Properties
@@ -180,16 +177,6 @@ namespace ZeroInstall.Commands
         public abstract int Execute();
         #endregion
 
-        #region Cancel
-        /// <summary>
-        /// Can be called from a different thread to cancel the current <see cref="Execute"/> session.
-        /// </summary>
-        public virtual void Cancel()
-        {
-            Canceled = true;
-        }
-        #endregion
-
         #region Helpers
         /// <summary>
         /// Converts an interface or feed ID to its canonical representation.
@@ -247,15 +234,32 @@ namespace ZeroInstall.Commands
         protected Feed GetFeed(string feedID)
         {
             bool stale;
-            Feed feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
-            if (Canceled) throw new OperationCanceledException();
+            Feed feed;
+            try
+            {
+                feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
+            }
+            catch
+            {
+                // Suppress any left-over errors if the user canceled anyway
+                Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+                throw;
+            }
 
             // Refresh if stale instead of spawning background updater like 'run'
             if (stale)
             {
                 Policy.FeedManager.Refresh = true;
-                feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
-                if (Canceled) throw new OperationCanceledException();
+                try
+                {
+                    feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
+                }
+                catch
+                {
+                    // Suppress any left-over errors if the user canceled anyway
+                    Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+                    throw;
+                }
             }
 
             return feed;

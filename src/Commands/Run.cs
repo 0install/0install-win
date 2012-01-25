@@ -91,7 +91,7 @@ namespace ZeroInstall.Commands
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
             #endregion
 
-            Policy.Handler.ShowProgressUI(Cancel);
+            Policy.Handler.ShowProgressUI();
 
             Solve();
 
@@ -112,7 +112,7 @@ namespace ZeroInstall.Commands
                 ProcessUtils.LaunchHelperAssembly("0install-win", "update --batch " + Requirements.ToCommandLineArgs());
             }
 
-            if (Canceled) throw new OperationCanceledException();
+            Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
             return LaunchImplementation();
         }
         #endregion

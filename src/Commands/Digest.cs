@@ -109,7 +109,7 @@ namespace ZeroInstall.Commands
                     throw new OptionException(Resources.TooManyArguments, "");
             }
 
-            Policy.Handler.ShowProgressUI(() => { });
+            Policy.Handler.ShowProgressUI();
 
             Manifest manifest;
             if (Directory.Exists(path))
@@ -133,7 +133,7 @@ namespace ZeroInstall.Commands
             }
             else throw new FileNotFoundException(string.Format(Resources.FileOrDirNotFound, path));
 
-            Policy.Handler.Output("Manifest Digest", manifest.CalculateDigest());
+            Policy.Handler.Output("Manifest digest", manifest.CalculateDigest());
             return 0;
         }
         #endregion

@@ -100,10 +100,12 @@ namespace Common.Tasks
 
         #region Control
         /// <inheritdoc/>
-        public void RunSync()
+        public void RunSync(CancellationToken cancellationToken)
         {
+            if (cancellationToken != null) cancellationToken.CancellationRequested += Cancel;
             Start();
             Join();
+            if (cancellationToken != null) cancellationToken.CancellationRequested -= Cancel;
 
             switch (State)
             {

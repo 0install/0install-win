@@ -58,7 +58,7 @@ namespace ZeroInstall.Commands
 
             if (SystemWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
 
-            Policy.Handler.ShowProgressUI(Cancel);
+            Policy.Handler.ShowProgressUI();
             string interfaceID = GetCanonicalID(AdditionalArgs[0]);
             using (var integrationManager = new CategoryIntegrationManager(SystemWide, Policy.Handler))
                 return ExecuteHelper(integrationManager, interfaceID);

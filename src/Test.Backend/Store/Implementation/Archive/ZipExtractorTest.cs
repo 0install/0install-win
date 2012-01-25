@@ -73,7 +73,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         {
             using (var archive = TestData.GetTestZipArchiveStream())
             using (var extractor = Extractor.CreateExtractor("application/zip", archive, _sandbox.Path))
-                extractor.RunSync();
+                extractor.RunSync(null);
 
             Assert.IsTrue(File.Exists(Path.Combine(_sandbox.Path, "subdir1/regular")), "Should extract file 'regular'");
             Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc(Path.Combine(_sandbox.Path, "subdir1/regular")), "Correct last write time for file 'regular' should be set");
@@ -86,7 +86,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         public void ExtractionIntoFolder()
         {
             using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), _sandbox.Path))
-                extractor.RunSync();
+                extractor.RunSync(null);
 
             Assert.IsTrue(Directory.Exists(_sandbox.Path));
             var comparer = new CompareHierarchyToExtractedFolder(_sandbox.Path);
@@ -95,16 +95,16 @@ namespace ZeroInstall.Store.Implementation.Archive
 
         private class CompareHierarchyToExtractedFolder : HierarchyVisitor
         {
-            private string folder;
+            private readonly string _folder;
 
             public CompareHierarchyToExtractedFolder(string folderToCompare)
             {
-                folder = folderToCompare;
+                _folder = folderToCompare;
             }
 
             public override void VisitFile(FileEntry entry)
             {
-                string extractedPosition = Path.Combine(folder, entry.RelativePath);
+                string extractedPosition = Path.Combine(_folder, entry.RelativePath);
                 Assert.IsTrue(File.Exists(extractedPosition), "File " + extractedPosition + " does not exist.");
                 byte[] fileData = File.ReadAllBytes(extractedPosition);
                 Assert.AreEqual(entry.Content, fileData, "Different content in file " + extractedPosition);
@@ -112,7 +112,7 @@ namespace ZeroInstall.Store.Implementation.Archive
 
             public override void VisitFolder(FolderEntry entry)
             {
-                string extractedPosition = Path.Combine(folder, entry.RelativePath);
+                string extractedPosition = Path.Combine(_folder, entry.RelativePath);
                 Assert.IsTrue(Directory.Exists(extractedPosition), "Directory " + extractedPosition + " does not exist.");
                 VisitChildren(entry);
             }
@@ -124,7 +124,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), _sandbox.Path))
             {
                 extractor.SubDir = "folder1";
-                extractor.RunSync();
+                extractor.RunSync(null);
             }
 
             Assert.IsTrue(Directory.Exists(Path.Combine(_sandbox.Path, "nestedFolder")));
@@ -140,7 +140,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             File.WriteAllText(Path.Combine(_sandbox.Path, "file1"), "Wrong content");
             File.WriteAllText(Path.Combine(_sandbox.Path, "file0"), "This file should not be touched");
             using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), _sandbox.Path))
-                extractor.RunSync();
+                extractor.RunSync(null);
 
             Assert.IsTrue(File.Exists(Path.Combine(_sandbox.Path, "file0")), "Extractor cleaned directory.");
             string file0Content = File.ReadAllText(Path.Combine(_sandbox.Path, "file0"));
@@ -172,7 +172,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         {
             using (var archive = TestData.GetTestZipArchiveStream())
             using (var extractor = new ZipExtractor(archive, _sandbox.Path))
-                extractor.RunSync();
+                extractor.RunSync(null);
 
             if (MonoUtils.IsUnix)
                 Assert.IsTrue(FileUtils.IsExecutable(Path.Combine(_sandbox.Path, "subdir2/executable")), "File 'executable' should be marked as exectuable");
@@ -188,7 +188,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         {
             using (var archive = TestData.GetTestZipArchiveStream())
             using (var extractor = new ZipExtractor(archive, _sandbox.Path))
-                extractor.RunSync();
+                extractor.RunSync(null);
 
             string target;
             if (MonoUtils.IsUnix)
@@ -213,7 +213,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                 builder.GeneratePackageArchive(archiveStream);
                 archiveStream.Seek(0, SeekOrigin.Begin);
                 var extractor = new ZipExtractor(archiveStream, _sandbox.Path);
-                Assert.Throws<IOException>(extractor.RunSync, "ZipExtractor must not accept archives with '..' as entry");
+                Assert.Throws<IOException>(() => extractor.RunSync(null), "ZipExtractor must not accept archives with '..' as entry");
                 archiveStream.Dispose();
             }
         }
@@ -231,7 +231,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                 var extractor = new ZipExtractor(archiveStream, _sandbox.Path);
 
                 const string message = "ZipExtractor should correctly extract empty files in an archive";
-                Assert.DoesNotThrow(extractor.RunSync);
+                Assert.DoesNotThrow(() => extractor.RunSync(null));
                 Assert.IsTrue(File.Exists(Path.Combine(_sandbox.Path, "emptyFile")), message);
                 Assert.AreEqual(new byte[] {}, File.ReadAllBytes(Path.Combine(_sandbox.Path, "emptyFile")), message);
             }

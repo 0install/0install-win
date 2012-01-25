@@ -110,15 +110,16 @@ namespace Common.Tasks
 
         #region Control
         /// <summary>
-        /// Runs the task synchronously to the current thread.
+        /// Runs the task synchronous to the current thread.
         /// Similar to calling <see cref="Start"/>, <see cref="Join"/> and then checking <see cref="State"/> and <see cref="ErrorMessage"/>.
         /// </summary>
+        /// <param name="cancellationToken">Signaled when the user wishes to cancel the task execution.</param>
         /// <exception cref="OperationCanceledException">Thrown if the task was canceled from another thread.</exception>
         /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
         /// <exception cref="WebException">Thrown if the task ended with <see cref="TaskState.WebError"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown if <see cref="State"/> is not <see cref="TaskState.Ready"/>.</exception>
         /// <remarks>Even though the task runs synchronously it may be still executed on a separate thread so it can be canceled from other threads.</remarks>
-        void RunSync();
+        void RunSync(CancellationToken cancellationToken);
 
         /// <summary>
         /// Starts executing the task in a background thread.
@@ -135,7 +136,7 @@ namespace Common.Tasks
         /// <summary>
         /// Stops executing the task.
         /// </summary>
-        /// <remarks>Calling this on a not running task will have no effect.</remarks>
+        /// <remarks>Calling this on a not running task has no effect.</remarks>
         void Cancel();
         #endregion
     }

@@ -35,7 +35,7 @@ namespace ZeroInstall.Injector
         public bool Batch { get { return true; } set { } }
 
         /// <inheritdoc/>
-        public void ShowProgressUI(SimpleEventHandler cancelCallback)
+        public void ShowProgressUI()
         {
             // No UI, so nothing to do
         }

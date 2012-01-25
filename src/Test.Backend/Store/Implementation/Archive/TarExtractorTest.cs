@@ -82,7 +82,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         private void TestExtract(string mimeType, Stream archive)
         {
             using (var extractor = Extractor.CreateExtractor(mimeType, archive, _sandbox.Path))
-                extractor.RunSync();
+                extractor.RunSync(null);
 
             Assert.IsTrue(File.Exists("subdir1/regular"), "Should extract file 'regular'");
             Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc("subdir1/regular"), "Correct last write time for file 'regular' should be set");
@@ -117,7 +117,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         {
             using (var archive = TestData.GetTestTarArchiveStream())
             using (var extractor = new TarExtractor(archive, _sandbox.Path))
-                extractor.RunSync();
+                extractor.RunSync(null);
 
             if (MonoUtils.IsUnix)
                 Assert.IsTrue(FileUtils.IsExecutable(Path.Combine(_sandbox.Path, "subdir2/executable")), "File 'executable' should be marked as exectuable");
@@ -136,7 +136,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         {
             using (var archive = TestData.GetTestTarArchiveStream())
             using (var extractor = new TarExtractor(archive, _sandbox.Path))
-                extractor.RunSync();
+                extractor.RunSync(null);
 
             string target;
             if (MonoUtils.IsUnix)

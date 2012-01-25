@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 
@@ -27,14 +26,6 @@ namespace ZeroInstall.Fetchers
     /// </summary>
     public class Fetcher : MarshalByRefObject, IFetcher
     {
-        #region Variables
-        /// <summary>
-        /// Associates the current <see cref="ImplementationFetch"/> to each running <see cref="FetchRequest"/>.
-        /// A key is added as soon as <see cref="Start"/> is called (initial value <see langword="null"/>) and remains until <see cref="Join"/> is called.
-        /// </summary>
-        private readonly Dictionary<FetchRequest, ImplementationFetch> _currentFetchProcess = new Dictionary<FetchRequest, ImplementationFetch>();
-        #endregion
-
         #region Properties
         private IStore _store;
 
@@ -75,22 +66,9 @@ namespace ZeroInstall.Fetchers
             return new ImplementationFetch(this, implementation);
         }
 
-        #region Start
-        /// <inheritdoc/>
-        public void Start(FetchRequest fetchRequest)
-        {
-            #region Sanity checks
-            if (fetchRequest == null) throw new ArgumentNullException("fetchRequest");
-            #endregion
-
-            // ToDo: Make asynchronous
-            _currentFetchProcess.Add(fetchRequest, null);
-        }
-        #endregion
-
         #region Join
         /// <inheritdoc/>
-        public void Join(FetchRequest fetchRequest)
+        public void RunSync(FetchRequest fetchRequest)
         {
             #region Sanity checks
             if (fetchRequest == null) throw new ArgumentNullException("fetchRequest");
@@ -98,35 +76,10 @@ namespace ZeroInstall.Fetchers
 
             foreach (var implementation in fetchRequest.Implementations)
             {
-                // Check if the process has been canceled
-                if (!_currentFetchProcess.ContainsKey(fetchRequest)) throw new OperationCanceledException();
-
                 var fetchProcess = CreateFetch(implementation);
-                _currentFetchProcess[fetchRequest] = fetchProcess; // Store current step for cancellation
                 fetchProcess.Execute(fetchRequest.Handler);
                 if (!fetchProcess.Completed) throw fetchProcess.Problems.Last;
             }
-            _currentFetchProcess.Remove(fetchRequest);
-        }
-        #endregion
-
-        #region Cancel
-        /// <inheritdoc/>
-        public void Cancel(FetchRequest fetchRequest)
-        {
-            #region Sanity checks
-            if (fetchRequest == null) throw new ArgumentNullException("fetchRequest");
-            #endregion
-
-            // Check if the request is running
-            ImplementationFetch fetchProcess;
-            if (!_currentFetchProcess.TryGetValue(fetchRequest, out fetchProcess)) return;
-
-            // Cancel the current task
-            if (fetchProcess != null) fetchProcess.Cancel();
-
-            // Prevent any further tasks form being started
-            _currentFetchProcess.Remove(fetchRequest);
         }
         #endregion
     }

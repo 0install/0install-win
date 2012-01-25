@@ -139,9 +139,7 @@ namespace ZeroInstall.Commands
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
         private int CreateAlias(IIntegrationManager integrationManager, string aliasName, string interfaceID, string command)
         {
-            Policy.Handler.ShowProgressUI(Cancel);
-
-            if (Canceled) throw new OperationCanceledException();
+            Policy.Handler.ShowProgressUI();
 
             AppEntry appEntry = GetAppEntry(integrationManager, interfaceID);
 

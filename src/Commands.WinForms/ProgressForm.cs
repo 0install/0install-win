@@ -129,7 +129,6 @@ namespace ZeroInstall.Commands.WinForms
         /// Registers a generic <see cref="ITask"/> for tracking. Should only be one running at a time.
         /// </summary>
         /// <param name="task">The task to be tracked. May or may not alreay be running.</param>
-        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
         public void TrackTask(ITask task)
         {
@@ -161,7 +160,6 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="task">The task to be tracked. May or may not alreay be running.</param>
         /// <param name="tag">A digest used to associate the <paramref name="task"/> with a specific implementation.</param>
-        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
         public void TrackTask(ITask task, ManifestDigest tag)
         {
@@ -248,18 +246,10 @@ namespace ZeroInstall.Commands.WinForms
             Hide();
             HideTrayIcon();
 
-            // Cancel generic tasks
-            var genericTask = trackingControl.Task;
-            if (genericTask != null && genericTask.CanCancel)
-            {
-                // Note: Must perform cancellation on a separate thread because it might send messages back to the GUI thread (which therefor must not be blocked)
-                new Thread(genericTask.Cancel).Start();
-            }
-
             // Stop tracking selction tasks
             if (IsHandleCreated) selectionsControl.StopTracking();
 
-            // Note: Must perform cancellation on a separate thread because it might send messages back to the GUI thread (which therefor must not be blocked)
+            // Note: Must perform cancellation on a separate thread because it might send messages back to the GUI thread (which therefore must not be blocked)
             new Thread(() => _cancelCallback()).Start();
         }
         #endregion

@@ -73,6 +73,8 @@ namespace ZeroInstall.Injector.Solver
             if (line == null) throw new ArgumentNullException("line");
             #endregion
 
+            _handler.CancellationToken.ThrowIfCancellationRequested();
+
             var lineMode = IdentifyErrorMode(ref line);
 
             // Restore non-ASCII characters

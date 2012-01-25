@@ -66,8 +66,7 @@ namespace ZeroInstall.Commands
 
             // Download uncached implementations
             var request = new FetchRequest(new[] {testImplementation1, testImplementation2}, Policy.Handler);
-            FetcherMock.Setup(x => x.Start(request)).Verifiable();
-            FetcherMock.Setup(x => x.Join(request)).Verifiable();
+            FetcherMock.Setup(x => x.RunSync(request)).Verifiable();
 
             Assert.AreEqual(0, Command.Execute());
         }

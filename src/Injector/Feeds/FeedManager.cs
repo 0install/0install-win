@@ -167,9 +167,11 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
         private void DownloadFeed(Uri url, Policy policy)
         {
+            // ToDo: Add better cancellation support
             // ToDo: Add mirror support
             using (var webClient = new WebClient())
                 ImportFeed(url, webClient.DownloadData(url), policy);
+            policy.Handler.CancellationToken.ThrowIfCancellationRequested();
         }
         #endregion
 
@@ -235,6 +237,7 @@ namespace ZeroInstall.Injector.Feeds
             {
                 using (var webClient = new WebClient())
                     policy.OpenPgp.ImportKey(webClient.DownloadData(new Uri(uri, missingKey.KeyID + ".gpg")));
+                policy.Handler.CancellationToken.ThrowIfCancellationRequested();
                 goto KeyImported; // Re-evaluate signatures after importing new key material
             }
 
@@ -252,7 +255,9 @@ namespace ZeroInstall.Injector.Feeds
         {
             try
             {
+                // ToDo: Add better cancellation support
                 var xmlReader = XmlReader.Create(policy.Config.KeyInfoServer + "key/" + fingerprint);
+                policy.Handler.CancellationToken.ThrowIfCancellationRequested();
                 if (!xmlReader.ReadToFollowing("item"))
                 {
                     goodVote = false;

@@ -68,6 +68,7 @@
     <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="PropertyPointer.cs" />
+    <Compile Include="Tasks\CancellationToken.cs" />
     <Compile Include="TimedLogEvent.cs" />
     <Compile Include="Msg.cs" />
     <Compile Include="ToStringWrapper.cs" />
@@ -84,7 +85,6 @@
     <Compile Include="Tasks\SilentTaskHandler.cs" />
     <Compile Include="Tasks\CliTaskHandler.cs" />
     <Compile Include="Tasks\GuiTaskHandler.cs" />
-    <Compile Include="Tasks\HookTaskHandler.cs" />
     <Compile Include="Compression\ArchiveUtils.cs" />
     <Compile Include="Compression\LzmaUtils.cs" />
     <Compile Include="Net\DownloadFile.cs" />

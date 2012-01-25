@@ -41,9 +41,8 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Prepares any UI elements necessary to track the progress of <see cref="ITask"/>s.
         /// </summary>
-        /// <param name="cancelCallback">To be called when the user wishes to cancel the current process.</param>
         /// <remarks>Do not call this from a background thread!</remarks>
-        void ShowProgressUI(SimpleEventHandler cancelCallback);
+        void ShowProgressUI();
 
         /// <summary>
         /// Disables any UI element created by <see cref="ShowProgressUI"/> but still leaves it visible.

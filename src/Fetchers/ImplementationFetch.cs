@@ -41,7 +41,6 @@ namespace ZeroInstall.Fetchers
         private readonly ManifestDigest _digest;
         internal bool Completed;
         internal readonly C5.IList<Exception> Problems = new C5.LinkedList<Exception>();
-        private ITask _currentTask;
 
         public ImplementationFetch(Fetcher fetcher, Implementation implementation)
         {
@@ -60,12 +59,6 @@ namespace ZeroInstall.Fetchers
         public void Execute(ITaskHandler handler)
         {
             TryRetrievalMethods(handler);
-        }
-
-        public void Cancel()
-        {
-            // ToDo: Handle canceling when task hasn't been started yet
-            if (_currentTask != null && _currentTask.CanCancel) _currentTask.Cancel();
         }
 
         private void TryRetrievalMethods(ITaskHandler handler)
@@ -115,7 +108,7 @@ namespace ZeroInstall.Fetchers
 
             try
             {
-                _fetcherInstance.Store.AddArchives(new[] {tempArchiveInfo}, _digest, new HookTaskHandler(handler, task => _currentTask = task));
+                _fetcherInstance.Store.AddArchives(new[] {tempArchiveInfo}, _digest, handler);
             }
             catch (ImplementationAlreadyInStoreException)
             {}
@@ -152,7 +145,7 @@ namespace ZeroInstall.Fetchers
             }
             try
             {
-                _fetcherInstance.Store.AddArchives(archives, _digest, new HookTaskHandler(handler, task => _currentTask = task));
+                _fetcherInstance.Store.AddArchives(archives, _digest, handler);
             }
             catch (ImplementationAlreadyInStoreException)
             {}
@@ -175,7 +168,6 @@ namespace ZeroInstall.Fetchers
             try
             {
                 // Defer task to handler
-                _currentTask = downloadFile;
                 handler.RunTask(downloadFile, _digest);
             }
             catch

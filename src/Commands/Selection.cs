@@ -193,7 +193,7 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
             #endregion
 
-            Policy.Handler.ShowProgressUI(Cancel);
+            Policy.Handler.ShowProgressUI();
             Solve();
             SelectionsUI();
 
@@ -229,11 +229,11 @@ namespace ZeroInstall.Commands
             catch
             {
                 // Suppress any left-over errors if the user canceled anyway
-                if (Canceled) throw new OperationCanceledException();
+                Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
                 throw;
             }
 
-            if (Canceled) throw new OperationCanceledException();
+            Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
             return Selections;
         }
 
@@ -248,7 +248,7 @@ namespace ZeroInstall.Commands
             if (ShowSelectionsUI && !SelectionsDocument)
                 Policy.Handler.AuditSelections(Solve);
 
-            if (Canceled) throw new OperationCanceledException();
+            Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
         }
 
         /// <summary>

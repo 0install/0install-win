@@ -130,8 +130,10 @@ namespace Common.Tasks
         }
 
         /// <inheritdoc/>
-        public void RunSync()
+        public void RunSync(CancellationToken cancellationToken)
         {
+            if (cancellationToken != null) cancellationToken.CancellationRequested += Cancel;
+
             try
             {
                 foreach (var element in _target)

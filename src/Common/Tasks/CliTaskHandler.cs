@@ -30,11 +30,16 @@ namespace Common.Tasks
     /// </summary>
     public class CliTaskHandler : MarshalByRefObject, ITaskHandler
     {
+        private readonly CancellationToken _cancellationToken = new CancellationToken();
+
+        /// <inheritdoc/>
+        public CancellationToken CancellationToken { get { return _cancellationToken; } }
+
         /// <summary>Synchronization object used to prevent multiple concurrent <see cref="ITask"/>s.</summary>
         private readonly object _taskLock = new object();
 
         /// <inheritdoc />
-        public virtual void RunTask(ITask task, object tag)
+        public void RunTask(ITask task, object tag)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
@@ -44,7 +49,7 @@ namespace Common.Tasks
             {
                 Log.Info(task.Name + "...");
                 using (new TrackingProgressBar(task))
-                    task.RunSync();
+                    task.RunSync(_cancellationToken);
             }
         }
     }

@@ -95,8 +95,7 @@ namespace ZeroInstall.Commands
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
             #endregion
 
-            Policy.Handler.ShowProgressUI(Cancel);
-
+            Policy.Handler.ShowProgressUI();
             Solve();
             SelectionsUI();
 
@@ -112,7 +111,7 @@ namespace ZeroInstall.Commands
 
             DownloadUncachedImplementations();
 
-            if (Canceled) throw new OperationCanceledException();
+            Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
             return LaunchImplementation();
         }
         #endregion

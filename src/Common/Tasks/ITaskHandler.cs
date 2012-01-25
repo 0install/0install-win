@@ -33,7 +33,12 @@ namespace Common.Tasks
     public interface ITaskHandler
     {
         /// <summary>
-        /// Runs (and potentially tracks) an <see cref="ITask"/>. Returns once the task has been completed.
+        /// Signaled when the user wishes to cancel the current process.
+        /// </summary>
+        CancellationToken CancellationToken { get; }
+
+        /// <summary>
+        /// Runs and tracks an <see cref="ITask"/>. Returns once the task has been completed.
         /// </summary>
         /// <param name="task">The task to be run. (<see cref="ITask.RunSync"/> or equivalent is called on it.)</param>
         /// <param name="tag">An object used to associate the <paramref name="task"/> with a specific process; may be <see langword="null"/>.</param>

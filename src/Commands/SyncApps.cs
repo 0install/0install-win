@@ -82,7 +82,7 @@ namespace ZeroInstall.Commands
 
             using (_syncManager = new SyncIntegrationManager(SystemWide, Policy.Config.SyncServer, Policy.Config.SyncServerUsername, Policy.Config.SyncServerPassword, Policy.Config.SyncCryptoKey, Policy.Handler))
             {
-                Policy.Handler.ShowProgressUI(Cancel);
+                Policy.Handler.ShowProgressUI();
                 Sync();
             }
 
@@ -103,19 +103,9 @@ namespace ZeroInstall.Commands
             catch
             {
                 // Suppress any left-over errors if the user canceled anyway
-                if (Canceled) throw new OperationCanceledException();
+                Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
                 throw;
             }
-        }
-        #endregion
-
-        #region Cancel
-        /// <inheritdoc/>
-        public override void Cancel()
-        {
-            base.Cancel();
-
-            _syncManager.Cancel();
         }
         #endregion
     }

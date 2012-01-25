@@ -64,6 +64,7 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
             #endregion
 
+            Policy.Handler.ShowProgressUI();
             Policy.FeedManager.ImportFeed(Feed.Load(AdditionalArgs.First).Uri, File.ReadAllBytes(AdditionalArgs.First), Policy);
             return 0;
         }

@@ -120,7 +120,7 @@ namespace Common.Tasks
         }
 
         /// <inheritdoc/>
-        public void RunSync()
+        public void RunSync(CancellationToken cancellationToken)
         {
             try
             {

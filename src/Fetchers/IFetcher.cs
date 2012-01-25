@@ -34,28 +34,15 @@ namespace ZeroInstall.Fetchers
         IStore Store { get; set; }
 
         /// <summary>
-        /// Starts executing a request. <see cref="Join"/> must be called to complete the process!
+        /// Executes a download request and blocks until it is complete.
         /// </summary>
-        /// <param name="fetchRequest">The request to be executed.</param>
-        void Start(FetchRequest fetchRequest);
-
-        /// <summary>
-        /// Blocks until the execution of a request started by <see cref="Start"/> is complete.
-        /// </summary>
-        /// <param name="fetchRequest">The request to wait for.</param>
+        /// <param name="fetchRequest">The request to execute.</param>
         /// <exception cref="OperationCanceledException">Thrown if a download or IO task was canceled from another thread.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="NotSupportedException">Thrown if a file format, protocal, etc. is unknown or not supported.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="Fetcher.Store"/> is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown an <see cref="Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
-        void Join(FetchRequest fetchRequest);
-
-        /// <summary>
-        /// Cancels the execution of a request started by <see cref="Start"/>.
-        /// </summary>
-        /// <param name="fetchRequest">The request to be canceled.</param>
-        /// <remarks>Multiple calls or calls for non-running <see cref="FetchRequest"/>s have no effect.</remarks>
-        void Cancel(FetchRequest fetchRequest);
+        void RunSync(FetchRequest fetchRequest);
     }
 }

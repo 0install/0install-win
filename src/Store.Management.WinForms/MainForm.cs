@@ -276,10 +276,10 @@ namespace ZeroInstall.Store.Management.WinForms
         #endregion
 
         #region Handler
-        /// <summary>
-        /// Not used.
-        /// </summary>
-        public bool Batch { get; set; }
+        private readonly CancellationToken _cancellationToken = new CancellationToken();
+
+        /// <inheritdoc/>
+        public CancellationToken CancellationToken { get { return _cancellationToken; } }
 
         /// <inheritdoc/>
         public void RunTask(ITask task, object tag)
