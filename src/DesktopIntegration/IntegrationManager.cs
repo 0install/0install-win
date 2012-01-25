@@ -98,7 +98,7 @@ namespace ZeroInstall.DesktopIntegration
         {
             // Prevent multiple concurrent desktop integration operations
             _mutex = new Mutex(true, systemWide ? @"Global\" + MutexName : MutexName);
-            if (!_mutex.WaitOne(1000))
+            if (!_mutex.WaitOne(1000, false))
             {
                 _mutex = null; // Don't try to release mutex if it wasn't acquired
                 throw new UnauthorizedAccessException(Resources.IntegrationMutex);
