@@ -124,7 +124,7 @@ namespace ZeroInstall.DesktopIntegration.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The username and/or password you entered for the Sync server are incorrect. Please check your Synchronization Options..
+        ///   Looks up a localized string similar to The user name and/or password you entered for the Sync server are incorrect. Please check your Synchronization Options..
         /// </summary>
         internal static string SyncCredentialsInvalid {
             get {
@@ -133,7 +133,7 @@ namespace ZeroInstall.DesktopIntegration.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Cypto key you entered for the Sync server is incorrect. Please check your Synchronization Options.
+        ///   Looks up a localized string similar to The Crypto key you entered for the Sync server is incorrect. Please check your Synchronization Options.
         ///You can change the Crypto key used on the server by running &apos;0install sync --reset=server&apos;..
         /// </summary>
         internal static string SyncCryptoKeyInvalid {
