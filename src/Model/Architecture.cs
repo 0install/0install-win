@@ -102,7 +102,7 @@ namespace ZeroInstall.Model
         [XmlEnum("ppc64")]
         Ppc64,
 
-        /// <summary>This is a source release and therefor architecture-independent.</summary>
+        /// <summary>This is a source release and therefore architecture-independent.</summary>
         [XmlEnum("src")]
         Source,
 

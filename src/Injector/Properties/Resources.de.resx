@@ -119,8 +119,8 @@
   </resheader>
   <data name="AskKeyTrust" xml:space="preserve">
     <value>Feed: {0}
-Gültige Signatur von: {1}
-{2}
+- Gültige Signatur von {1}
+- {2}
 Möchten Sie diesem Key zum Signieren von Feeds von '{3}' vertrauen?
 </value>
   </data>

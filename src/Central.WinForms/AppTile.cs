@@ -258,7 +258,7 @@ namespace ZeroInstall.Central.WinForms
             buttonConf.Enabled = false;
             ProcessUtils.RunAsync(delegate
             {
-                Commands.WinForms.Program.Main(new[] { "integrate-app", InterfaceID });
+                Commands.WinForms.Program.Main(new[] {"integrate-app", InterfaceID});
                 Invoke((SimpleEventHandler)(() => buttonConf.Enabled = true));
             });
         }
@@ -269,7 +269,7 @@ namespace ZeroInstall.Central.WinForms
             buttonConf.Enabled = false;
             ProcessUtils.RunAsync(delegate
             {
-                Commands.WinForms.Program.Main(new[] { "remove-app", InterfaceID });
+                Commands.WinForms.Program.Main(new[] {"remove-app", InterfaceID});
                 Invoke((SimpleEventHandler)(() => buttonConf.Enabled = true));
             });
         }

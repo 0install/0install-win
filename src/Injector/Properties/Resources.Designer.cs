@@ -62,8 +62,8 @@ namespace ZeroInstall.Injector.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Feed: {0}
-        ///Valid signature from: {1}
-        ///{2}
+        ///- Valid signature from {1}
+        ///- {2}
         ///Do you want to trust this key to sign feeds from &apos;{3}&apos;?
         ///.
         /// </summary>

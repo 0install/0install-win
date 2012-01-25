@@ -81,7 +81,7 @@ namespace Common.Controls
 
                 if (task.CanCancel)
                 {
-                    // Note: Must perform cancellation on a separate thread because it might send messages back to the GUI thread (which therefor must not be blocked)
+                    // Note: Must perform cancellation on a separate thread because it might send messages back to the GUI thread (which therefore must not be blocked)
                     new Thread(() =>
                     {
                         task.Cancel();
