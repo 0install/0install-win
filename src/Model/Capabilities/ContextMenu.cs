@@ -91,7 +91,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(ContextMenu) && Equals((ContextMenu)obj);
+            return obj is ContextMenu && Equals((ContextMenu)obj);
         }
 
         /// <inheritdoc/>

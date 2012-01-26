@@ -81,18 +81,18 @@ namespace ZeroInstall.Publish.WinForms
             if (toGetDescriptionFrom == null) throw new ArgumentNullException("toGetDescriptionFrom");
             #endregion
 
+            // ReSharper disable SpecifyACultureInStringConversionExplicitly
             FieldInfo fi = toGetDescriptionFrom.GetType().GetField(toGetDescriptionFrom.ToString());
+            // ReSharper restore SpecifyACultureInStringConversionExplicitly
 
             var attributes =
                 (DescriptionAttribute[])fi.GetCustomAttributes(
                     typeof(DescriptionAttribute),
                     false);
 
-            if (attributes != null &&
-                attributes.Length > 0)
-                return attributes[0].Description;
-            else
-                return toGetDescriptionFrom.ToString();
+            // ReSharper disable SpecifyACultureInStringConversionExplicitly
+            return attributes.Length > 0 ? attributes[0].Description : toGetDescriptionFrom.ToString();
+            // ReSharper restore SpecifyACultureInStringConversionExplicitly
         }
     }
 }

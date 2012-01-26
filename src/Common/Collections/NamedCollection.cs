@@ -86,7 +86,7 @@ namespace Common.Collections
         {
             var items = Items as List<T>;
             if (items != null)
-                items.Sort((x, y) => x.Name.CompareTo(y.Name));
+                items.Sort((x, y) => string.CompareOrdinal(x.Name, y.Name));
         }
         #endregion
 

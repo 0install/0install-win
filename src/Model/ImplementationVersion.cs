@@ -135,7 +135,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(ImplementationVersion) && Equals((ImplementationVersion)obj);
+            return obj is ImplementationVersion && Equals((ImplementationVersion)obj);
         }
 
         /// <inheritdoc/>

@@ -92,7 +92,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(OverlayBinding) && Equals((OverlayBinding)obj);
+            return obj is OverlayBinding && Equals((OverlayBinding)obj);
         }
 
         /// <inheritdoc/>

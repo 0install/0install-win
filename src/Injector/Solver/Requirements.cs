@@ -150,7 +150,7 @@ namespace ZeroInstall.Injector.Solver
         {
             unchecked
             {
-                int result = (_interfaceID != null ? _interfaceID.GetHashCode() : 0);
+                int result = (InterfaceID != null ? InterfaceID.GetHashCode() : 0);
                 result = (result * 397) ^ (CommandName != null ? CommandName.GetHashCode() : 0);
                 result = (result * 397) ^ Architecture.GetHashCode();
                 result = (result * 397) ^ _languages.GetSequencedHashCode();

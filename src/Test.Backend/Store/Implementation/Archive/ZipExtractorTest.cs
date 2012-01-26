@@ -137,8 +137,8 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test]
         public void TestExtractOverwritingExistingItems()
         {
-            File.WriteAllText(Path.Combine(_sandbox.Path, "file1"), "Wrong content");
-            File.WriteAllText(Path.Combine(_sandbox.Path, "file0"), "This file should not be touched");
+            File.WriteAllText(Path.Combine(_sandbox.Path, "file1"), @"Wrong content");
+            File.WriteAllText(Path.Combine(_sandbox.Path, "file0"), @"This file should not be touched");
             using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), _sandbox.Path))
                 extractor.RunSync(null);
 

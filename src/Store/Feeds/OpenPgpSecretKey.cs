@@ -171,7 +171,7 @@ namespace ZeroInstall.Store.Feeds
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(OpenPgpSecretKey) && Equals((OpenPgpSecretKey)obj);
+            return obj is OpenPgpSecretKey && Equals((OpenPgpSecretKey)obj);
         }
 
         /// <inheritdoc/>

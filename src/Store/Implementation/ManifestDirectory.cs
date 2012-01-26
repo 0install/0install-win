@@ -145,7 +145,7 @@ namespace ZeroInstall.Store.Implementation
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(ManifestDirectory) && Equals((ManifestDirectory)obj);
+            return obj is ManifestDirectory && Equals((ManifestDirectory)obj);
         }
 
         /// <inheritdoc/>

@@ -114,7 +114,7 @@ namespace ZeroInstall.Injector.Feeds
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            return obj.GetType() == typeof(Domain) && Equals((Domain)obj);
+            return obj is Domain && Equals((Domain)obj);
         }
 
         /// <inheritdoc/>

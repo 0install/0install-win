@@ -109,7 +109,7 @@ namespace ZeroInstall.Model.Capabilities
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            return obj.GetType() == typeof(InstallCommands) && Equals((InstallCommands)obj);
+            return obj is InstallCommands && Equals((InstallCommands)obj);
         }
 
         /// <inheritdoc/>

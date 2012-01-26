@@ -168,7 +168,7 @@ namespace ZeroInstall.Publish.Cli
                 {
                     "V|version", Resources.OptionVersion, unused =>
                     {
-                        Console.WriteLine(AppInfo.Name + " " + AppInfo.Version + Environment.NewLine + AppInfo.Copyright + Environment.NewLine + Resources.LicenseInfo);
+                        Console.WriteLine(AppInfo.Name + ' ' + AppInfo.Version + Environment.NewLine + AppInfo.Copyright + Environment.NewLine + Resources.LicenseInfo);
                         throw new OperationCanceledException(); // Don't handle any of the other arguments
                     }
                     },
@@ -227,7 +227,7 @@ namespace ZeroInstall.Publish.Cli
         private static void PrintUsage()
         {
             var usages = new[] {Resources.UsageFeed};
-            Console.WriteLine(Resources.Usage + "\t" + StringUtils.Concatenate(usages, Environment.NewLine + "\t") + "\n");
+            Console.WriteLine(Resources.Usage + '\t' + StringUtils.Concatenate(usages, Environment.NewLine + '\t') + '\n');
         }
         #endregion
 

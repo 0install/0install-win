@@ -49,7 +49,7 @@ namespace ZeroInstall.Commands.WinForms
 
             using (var form = new ConfigForm(config))
             {
-                if (Locations.IsPortable) form.Text += " - " + Resources.PortableMode;
+                if (Locations.IsPortable) form.Text += @" - " + Resources.PortableMode;
                 return form.ShowDialog();
             }
         }

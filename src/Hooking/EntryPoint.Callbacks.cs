@@ -90,10 +90,9 @@ namespace ZeroInstall.Hooking
         {
             RegistryValueKind valueType;
             uint dataLength = 0;
-            uint result;
 
             // Determine necessary buffer size and value type
-            result = UnsafeNativeMethods.RegQueryValueExW(hKey, valueName, IntPtr.Zero, out valueType, IntPtr.Zero, ref dataLength);
+            uint result = UnsafeNativeMethods.RegQueryValueExW(hKey, valueName, IntPtr.Zero, out valueType, IntPtr.Zero, ref dataLength);
             if (result != 0 || dataLength == 0 || valueType != RegistryValueKind.String) return null;
 
             // Read string data to buffer

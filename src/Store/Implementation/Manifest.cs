@@ -46,10 +46,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// A list of all elements in the tree this manifest represents.
         /// </summary>
-        // ReSharper disable ReturnTypeCanBeEnumerable.Global
         public IList<ManifestNode> Nodes { get { return _nodes; } }
-
-        // ReSharper restore ReturnTypeCanBeEnumerable.Global
 
         private long _totalSize = -1;
 
@@ -324,7 +321,7 @@ namespace ZeroInstall.Store.Implementation
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(Manifest) && Equals(obj as Manifest);
+            return obj is Manifest && Equals(obj as Manifest);
         }
 
         /// <inheritdoc/>

@@ -507,7 +507,7 @@ namespace ZeroInstall.Injector
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(Config) && Equals((Config)obj);
+            return obj is Config && Equals((Config)obj);
         }
 
         /// <inheritdoc/>
@@ -518,10 +518,12 @@ namespace ZeroInstall.Injector
                 int result = 397;
                 foreach (var property in _metaData)
                 {
+                    // ReSharper disable NonReadonlyFieldInGetHashCode
                     if (property.Value.Value != null)
                     { // Use a commutative folding function (addition) since the order in a hash map is non-deterministic
                         result += property.Value.Value.GetHashCode();
                     }
+                    // ReSharper restore NonReadonlyFieldInGetHashCode
                 }
                 return result;
             }

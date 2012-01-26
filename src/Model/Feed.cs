@@ -497,7 +497,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(Feed) && Equals((Feed)obj);
+            return obj is Feed && Equals((Feed)obj);
         }
 
         /// <inheritdoc/>

@@ -83,7 +83,7 @@ namespace ZeroInstall.Hooking
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            return obj.GetType() == typeof(RegistryFilterRule) && Equals((RegistryFilterRule)obj);
+            return obj is RegistryFilterRule && Equals((RegistryFilterRule)obj);
         }
 
         /// <inheritdoc/>
@@ -115,8 +115,8 @@ namespace ZeroInstall.Hooking
         public int CompareTo(RegistryFilterRule other)
         {
             // Compare by ProcessValue first, then by RegistryValue if that was equal
-            int processCompare = ProcessValue.CompareTo(other.ProcessValue);
-            return (processCompare == 0) ? RegistryValue.CompareTo(other.RegistryValue) : processCompare;
+            int processCompare = string.CompareOrdinal(ProcessValue, other.ProcessValue);
+            return (processCompare == 0) ? string.CompareOrdinal(RegistryValue, other.RegistryValue) : processCompare;
         }
 
         /// <inheritdoc/>

@@ -89,7 +89,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(UrlProtocol) && Equals((UrlProtocol)obj);
+            return obj is UrlProtocol && Equals((UrlProtocol)obj);
         }
 
         /// <inheritdoc/>

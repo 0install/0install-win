@@ -97,7 +97,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(DottedList) && Equals((DottedList)obj);
+            return obj is DottedList && Equals((DottedList)obj);
         }
 
         /// <inheritdoc/>

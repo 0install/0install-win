@@ -118,7 +118,7 @@ namespace ZeroInstall.Store.Implementation
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(ManifestSymlink) && Equals((ManifestSymlink)obj);
+            return obj is ManifestSymlink && Equals((ManifestSymlink)obj);
         }
 
         /// <inheritdoc/>

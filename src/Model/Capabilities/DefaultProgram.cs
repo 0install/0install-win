@@ -133,7 +133,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(DefaultProgram) && Equals((DefaultProgram)obj);
+            return obj is DefaultProgram && Equals((DefaultProgram)obj);
         }
 
         /// <inheritdoc/>

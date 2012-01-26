@@ -132,24 +132,19 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                     }
                         #region Error handling
                     catch (OperationCanceledException)
-                    {
-                        return;
-                    }
+                    {}
                     catch (IOException ex)
                     {
                         Msg.Inform(Parent, ex.Message, MsgSeverity.Warn);
-                        return;
                     }
                     catch (UnauthorizedAccessException ex)
                     {
                         Msg.Inform(Parent, ex.Message, MsgSeverity.Warn);
-                        return;
                     }
                     catch (DigestMismatchException ex)
                     {
                         Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
                         // ToDo: Provide option for deleting
-                        return;
                     }
                     #endregion
                 }),

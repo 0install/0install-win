@@ -140,8 +140,7 @@ namespace Common.Controls
             get
             {
                 // Use the array cache when possible
-                if (_checkedEntriesArrayCache == null) _checkedEntriesArrayCache = _checkedEntries.ToArray();
-                return _checkedEntriesArrayCache;
+                return _checkedEntriesArrayCache ?? (_checkedEntriesArrayCache = _checkedEntries.ToArray());
             }
         }
 

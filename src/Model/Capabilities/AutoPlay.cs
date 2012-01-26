@@ -112,7 +112,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(AutoPlay) && Equals((AutoPlay)obj);
+            return obj is AutoPlay && Equals((AutoPlay)obj);
         }
 
         /// <inheritdoc/>

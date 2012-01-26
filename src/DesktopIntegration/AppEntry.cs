@@ -172,7 +172,7 @@ namespace ZeroInstall.DesktopIntegration
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(AppEntry) && Equals((AppEntry)obj);
+            return obj is AppEntry && Equals((AppEntry)obj);
         }
 
         /// <inheritdoc/>

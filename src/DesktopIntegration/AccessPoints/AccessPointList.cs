@@ -160,7 +160,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(AccessPointList) && Equals((AccessPointList)obj);
+            return obj is AccessPointList && Equals((AccessPointList)obj);
         }
 
         /// <inheritdoc/>

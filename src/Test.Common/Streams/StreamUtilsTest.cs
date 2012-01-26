@@ -36,7 +36,7 @@ namespace Common.Streams
         [Test]
         public void TestString()
         {
-            string test = "Test";
+            const string test = "Test";
             using (var stream = StreamUtils.CreateFromString(test))
                 Assert.AreEqual(test, StreamUtils.ReadToString(stream));
         }

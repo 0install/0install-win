@@ -143,8 +143,8 @@ namespace Common.Utils
             if (text == null) throw new ArgumentNullException("text");
             #endregion
 
-            if (text.Contains(characterToBeRemoved.ToString()))
-                text = text.Replace(characterToBeRemoved.ToString(), "");
+            if (text.Contains(characterToBeRemoved.ToString(CultureInfo.InvariantCulture)))
+                text = text.Replace(characterToBeRemoved.ToString(CultureInfo.InvariantCulture), "");
         }
         #endregion
 
@@ -264,7 +264,7 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(str)) throw new ArgumentNullException("str");
             #endregion
 
-            int index = sourceText.IndexOf(str);
+            int index = sourceText.IndexOf(str, StringComparison.Ordinal);
             return index == -1 ? sourceText : sourceText.Substring(0, index);
         }
 
@@ -278,7 +278,7 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(str)) throw new ArgumentNullException("str");
             #endregion
 
-            int index = sourceText.IndexOf(str);
+            int index = sourceText.IndexOf(str, StringComparison.Ordinal);
             return index == -1 ? "" : sourceText.Substring(index + str.Length);
         }
 
@@ -292,7 +292,7 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(str)) throw new ArgumentNullException("str");
             #endregion
 
-            int index = sourceText.LastIndexOf(str);
+            int index = sourceText.LastIndexOf(str, StringComparison.Ordinal);
             return index == -1 ? sourceText : sourceText.Substring(0, index);
         }
 
@@ -306,7 +306,7 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(str)) throw new ArgumentNullException("str");
             #endregion
 
-            int index = sourceText.LastIndexOf(str);
+            int index = sourceText.LastIndexOf(str, StringComparison.Ordinal);
 
             return index == -1 ? "" : sourceText.Substring(index + str.Length);
         }

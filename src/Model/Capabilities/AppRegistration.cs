@@ -87,7 +87,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(AppRegistration) && Equals((AppRegistration)obj);
+            return obj is AppRegistration && Equals((AppRegistration)obj);
         }
 
         /// <inheritdoc/>

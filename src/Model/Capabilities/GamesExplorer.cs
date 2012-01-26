@@ -73,7 +73,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(GamesExplorer) && Equals((GamesExplorer)obj);
+            return obj is GamesExplorer && Equals((GamesExplorer)obj);
         }
 
         /// <inheritdoc/>

@@ -178,8 +178,8 @@ namespace ZeroInstall.Store.Implementation
                 threads[i].Start();
             }
 
-            for (int i = 0; i < threads.Length; i++)
-                threads[i].Join();
+            foreach (var thread in threads)
+                thread.Join();
             if (exception != null)
                 Assert.Fail(exception.ToString());
 

@@ -142,6 +142,7 @@ namespace ZeroInstall.Store.Implementation
             }
         }
 
+        // ReSharper disable AssignNullToNotNullAttribute
         [Test]
         public void ShouldListNormalWindowsExeWithFlagF()
         {
@@ -261,6 +262,8 @@ namespace ZeroInstall.Store.Implementation
                 }
             }
         }
+
+        // ReSharper restore AssignNullToNotNullAttribute
 
         [Test]
         public void ShouldCallProgressCallback()

@@ -214,10 +214,12 @@ namespace ZeroInstall.Commands
         [StructLayout(LayoutKind.Sequential)]
         private struct ProcessInformation
         {
+            // ReSharper disable FieldCanBeMadeReadOnly.Local
             public IntPtr hProcess;
             public IntPtr hThread;
             public int dwProcessId;
             public int dwThreadId;
+            // ReSharper restore FieldCanBeMadeReadOnly.Local
         }
 
         private static class UnsafeNativeMethods

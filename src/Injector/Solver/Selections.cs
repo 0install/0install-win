@@ -308,7 +308,7 @@ namespace ZeroInstall.Injector.Solver
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(Selections) && Equals((Selections)obj);
+            return obj is Selections && Equals((Selections)obj);
         }
 
         /// <inheritdoc/>

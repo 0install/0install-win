@@ -193,7 +193,7 @@ namespace ZeroInstall.Store.Feeds
         /// <summary>
         /// The code that refers to a description of the error.
         /// </summary>
-        private readonly int ErrorCode;
+        public readonly int ErrorCode;
         #endregion
 
         #region Constructor

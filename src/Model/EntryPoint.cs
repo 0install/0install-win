@@ -146,7 +146,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(EntryPoint) && Equals((EntryPoint)obj);
+            return obj is EntryPoint && Equals((EntryPoint)obj);
         }
 
         /// <inheritdoc/>

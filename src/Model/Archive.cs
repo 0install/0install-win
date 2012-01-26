@@ -132,7 +132,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(Archive) && Equals((Archive)obj);
+            return obj is Archive && Equals((Archive)obj);
         }
 
         /// <inheritdoc/>

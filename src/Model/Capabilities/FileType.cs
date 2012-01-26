@@ -89,7 +89,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(FileType) && Equals((FileType)obj);
+            return obj is FileType && Equals((FileType)obj);
         }
 
         /// <inheritdoc/>

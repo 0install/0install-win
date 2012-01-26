@@ -116,9 +116,9 @@ namespace ZeroInstall.Fetchers
 
             Ranking result = null;
 
-            if (subject.GetType() == typeof(Archive))
+            if (subject is Archive)
                 result = new ArchiveRanking((Archive)subject);
-            else if (subject.GetType() == typeof(Recipe))
+            else if (subject is Recipe)
                 result = new RecipeRanking((Recipe)subject);
             else
                 Debug.Fail("subject (RetrievalMethod) has unknown type");

@@ -36,7 +36,9 @@ namespace ZeroInstall.Store.Implementation
         {
             using (var flagDir = new TemporaryDirectory("0isntall-unit-tests"))
             {
+                // ReSharper disable LocalizableElement
                 File.WriteAllText(Path.Combine(flagDir.Path, ".xbit"), "/dir1/file1\n/dir2/file2\n");
+                // ReSharper restore LocalizableElement
 
                 var expectedResult = new[] {FileUtils.PathCombine(flagDir.Path, "dir1", "file1"), FileUtils.PathCombine(flagDir.Path, "dir2", "file2")};
 
@@ -69,7 +71,9 @@ namespace ZeroInstall.Store.Implementation
         {
             using (var flagFile = new TemporaryFile("0isntall-unit-tests"))
             {
+                // ReSharper disable LocalizableElement
                 File.WriteAllText(flagFile.Path, "/dir1/file1\n/dir2/file2\n");
+                // ReSharper restore LocalizableElement
 
                 FlagUtils.RemoveExternalFlag(flagFile.Path, Path.Combine("dir1", "file1"));
                 Assert.AreEqual("/dir2/file2\n", File.ReadAllText(flagFile.Path));

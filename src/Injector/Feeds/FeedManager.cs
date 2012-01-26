@@ -211,7 +211,9 @@ namespace ZeroInstall.Injector.Feeds
 
             // Try to find already trusted key
             var validSignatures = EnumerableUtils.OfType<ValidSignature>(signatures);
+            // ReSharper disable AccessToModifiedClosure
             var trustedSignature = EnumerableUtils.First(validSignatures, sig => trustDB.IsTrusted(sig.Fingerprint, domain));
+            // ReSharper restore AccessToModifiedClosure
             if (trustedSignature != null) return trustedSignature;
 
             // Try to find valid key and ask user to approve it

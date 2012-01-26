@@ -153,7 +153,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(CapabilityList) && Equals((CapabilityList)obj);
+            return obj is CapabilityList && Equals((CapabilityList)obj);
         }
 
         /// <inheritdoc/>

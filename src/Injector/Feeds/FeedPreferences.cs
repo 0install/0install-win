@@ -238,7 +238,7 @@ namespace ZeroInstall.Injector.Feeds
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(FeedPreferences) && Equals((FeedPreferences)obj);
+            return obj is FeedPreferences && Equals((FeedPreferences)obj);
         }
 
         /// <inheritdoc/>

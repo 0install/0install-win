@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Globalization;
 
 namespace Common
 {
@@ -107,9 +108,9 @@ namespace Common
             #endregion
 
             return new PropertyPointer<string>(
-                () => pointer.Value.ToString(),
+                () => pointer.Value.ToString(CultureInfo.InvariantCulture),
                 value => pointer.Value = bool.Parse(value),
-                pointer.DefaultValue.ToString());
+                pointer.DefaultValue.ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>
@@ -122,9 +123,9 @@ namespace Common
             #endregion
 
             return new PropertyPointer<string>(
-                () => pointer.Value.ToString(),
+                () => pointer.Value.ToString(CultureInfo.InvariantCulture),
                 value => pointer.Value = int.Parse(value),
-                pointer.DefaultValue.ToString());
+                pointer.DefaultValue.ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>
@@ -137,9 +138,9 @@ namespace Common
             #endregion
 
             return new PropertyPointer<string>(
-                () => ((int)pointer.Value.TotalSeconds).ToString(),
+                () => ((int)pointer.Value.TotalSeconds).ToString(CultureInfo.InvariantCulture),
                 value => pointer.Value = TimeSpan.FromSeconds(int.Parse(value)),
-                ((int)pointer.DefaultValue.TotalSeconds).ToString());
+                ((int)pointer.DefaultValue.TotalSeconds).ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>

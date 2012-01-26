@@ -129,20 +129,20 @@ namespace Common.Cli
 
             // Draw start of progress bar
             Console.CursorLeft = 0;
-            Console.Error.Write(@"[");
+            Console.Error.Write('[');
 
             // Draw filled part
             Console.ForegroundColor = ConsoleColor.DarkGray;
             for (int i = 0; i < Value; i++)
-                Console.Error.Write(@"=");
+                Console.Error.Write('=');
             Console.ResetColor();
 
             // Draw end of progress bar
             Console.CursorLeft = Maximum + 1;
-            Console.Error.Write(@"]");
+            Console.Error.Write(']');
 
             // Write status
-            Console.Error.Write(@" ");
+            Console.Error.Write(' ');
             switch (State)
             {
                 case TaskState.Header:

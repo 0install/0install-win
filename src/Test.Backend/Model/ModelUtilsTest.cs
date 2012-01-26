@@ -60,8 +60,10 @@ namespace ZeroInstall.Model
                 @"http://0install.de",
                 @"relative"
             };
+            // ReSharper disable AccessToModifiedClosure
             foreach (var id in invalidIDs)
                 Assert.Throws<InvalidInterfaceIDException>(() => ModelUtils.ValidateInterfaceID(id), "Should reject " + id);
+            // ReSharper restore AccessToModifiedClosure
 
             // Test valid URLs
             var validIDs = new[]
@@ -70,8 +72,10 @@ namespace ZeroInstall.Model
                 @"https://0install.de/",
                 Path.GetFullPath(@"absolute")
             };
+            // ReSharper disable AccessToModifiedClosure
             foreach (var id in validIDs)
                 Assert.DoesNotThrow(() => ModelUtils.ValidateInterfaceID(id), "Should accept " + id);
+            // ReSharper restore AccessToModifiedClosure
         }
 
         [Test]

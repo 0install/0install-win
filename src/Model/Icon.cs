@@ -121,7 +121,7 @@ namespace ZeroInstall.Model
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            return obj.GetType() == typeof(Icon) && Equals((Icon)obj);
+            return obj is Icon && Equals((Icon)obj);
         }
 
         /// <inheritdoc/>

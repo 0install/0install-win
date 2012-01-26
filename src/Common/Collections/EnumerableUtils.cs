@@ -140,18 +140,12 @@ namespace Common.Collections
             int newCounter = 0;
             while (newCounter < newArray.Length)
             {
-                T oldElement;
                 T newElement = newArray[newCounter];
-                int comparison;
-                if (oldCounter < oldArray.Length)
-                { // In-range, compare elements
-                    oldElement = oldArray[oldCounter];
-                    comparison = comparer.Compare(oldElement, newElement);
-                }
-                else
-                { // Out-of-range, add all remaining new elements
-                    comparison = 1;
-                }
+                int comparison = (oldCounter < oldArray.Length)
+                    // In-range, compare elements
+                    ? comparer.Compare(oldArray[oldCounter], newElement)
+                    // Out-of-range, add all remaining new elements
+                    : 1;
 
                 if (comparison == 0)
                 { // old == new

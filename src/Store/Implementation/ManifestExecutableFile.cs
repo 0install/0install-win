@@ -92,7 +92,7 @@ namespace ZeroInstall.Store.Implementation
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(ManifestExecutableFile) && Equals((ManifestExecutableFile)obj);
+            return obj is ManifestExecutableFile && Equals((ManifestExecutableFile)obj);
         }
 
         /// <inheritdoc/>

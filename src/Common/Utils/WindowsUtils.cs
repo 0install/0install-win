@@ -217,6 +217,7 @@ namespace Common.Utils
         #endregion
 
         #region Shell
+        // ReSharper disable InconsistentNaming
         /// <summary>
         /// Informs the Windows shell that changes were made to the file association data in the registry.
         /// </summary>
@@ -243,6 +244,8 @@ namespace Common.Utils
             UIntPtr result;
             UnsafeNativeMethods.SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, UIntPtr.Zero, "Environment", SMTO_ABORTIFHUNG, 5000, out result);
         }
+
+        // ReSharper restore InconsistentNaming
         #endregion
 
         #region Filesystem

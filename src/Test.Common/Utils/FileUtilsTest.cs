@@ -210,7 +210,7 @@ namespace Common.Utils
             string tempPath = FileUtils.GetTempDirectory("unit-tests");
             string subdir1 = Path.Combine(tempPath, "subdir");
             Directory.CreateDirectory(subdir1);
-            File.WriteAllText(Path.Combine(subdir1, "file"), "A");
+            File.WriteAllText(Path.Combine(subdir1, "file"), @"A");
             File.SetLastWriteTimeUtc(Path.Combine(subdir1, "file"), new DateTime(2000, 1, 1));
             Directory.SetLastWriteTimeUtc(subdir1, new DateTime(2000, 1, 1));
             return tempPath;
@@ -229,8 +229,8 @@ namespace Common.Utils
                 string sourcePath = Path.Combine(tempDir.Path, "source");
                 string targetPath = Path.Combine(tempDir.Path, "target");
 
-                File.WriteAllText(sourcePath, "source");
-                File.WriteAllText(targetPath, "target");
+                File.WriteAllText(sourcePath, @"source");
+                File.WriteAllText(targetPath, @"target");
                 FileUtils.Replace(sourcePath, targetPath);
                 Assert.AreEqual("source", File.ReadAllText(targetPath));
             }
@@ -247,7 +247,7 @@ namespace Common.Utils
                 string sourcePath = Path.Combine(tempDir.Path, "source");
                 string targetPath = Path.Combine(tempDir.Path, "target");
 
-                File.WriteAllText(sourcePath, "source");
+                File.WriteAllText(sourcePath, @"source");
                 FileUtils.Replace(sourcePath, targetPath);
                 Assert.AreEqual("source", File.ReadAllText(targetPath));
             }
@@ -273,7 +273,9 @@ namespace Common.Utils
 
                 // Set up delegate mocks
                 var dirCallbackMock = new Mock<IActionSimulator<string>>(MockBehavior.Strict);
+                // ReSharper disable AccessToDisposedClosure
                 dirCallbackMock.Setup(x => x.Invoke(tempDir.Path)).Verifiable();
+                // ReSharper restore AccessToDisposedClosure
                 dirCallbackMock.Setup(x => x.Invoke(subDirPath)).Verifiable();
                 var fileCallbackMock = new Mock<IActionSimulator<string>>(MockBehavior.Strict);
                 fileCallbackMock.Setup(x => x.Invoke(filePath)).Verifiable();

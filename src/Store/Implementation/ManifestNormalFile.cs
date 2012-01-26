@@ -92,7 +92,7 @@ namespace ZeroInstall.Store.Implementation
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(ManifestNormalFile) && Equals((ManifestNormalFile)obj);
+            return obj is ManifestNormalFile && Equals((ManifestNormalFile)obj);
         }
 
         /// <inheritdoc/>

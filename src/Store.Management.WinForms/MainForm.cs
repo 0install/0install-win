@@ -60,7 +60,7 @@ namespace ZeroInstall.Store.Management.WinForms
         #region Load
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (Locations.IsPortable) Text += " - " + Resources.PortableMode;
+            if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
 
             RefreshList();
         }

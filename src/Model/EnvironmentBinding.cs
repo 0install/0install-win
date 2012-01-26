@@ -134,7 +134,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(EnvironmentBinding) && Equals((EnvironmentBinding)obj);
+            return obj is EnvironmentBinding && Equals((EnvironmentBinding)obj);
         }
 
         /// <inheritdoc/>

@@ -245,7 +245,7 @@ namespace ZeroInstall.Injector
         /// <remarks>A run-environment executable executes a command-line specified in an environment variable based on its own name.</remarks>
         private static string DeployRunEnvExecutable(string name)
         {
-            if (Array.Exists(Path.GetInvalidFileNameChars(), invalidChar => name.Contains(invalidChar.ToString())))
+            if (Array.Exists(Path.GetInvalidFileNameChars(), invalidChar => name.Contains(invalidChar.ToString(CultureInfo.InvariantCulture))))
                 throw new CommandException(Resources.IllegalCharInExecutableBinding);
 
             // ToDo: Add different binaries for Windows GUI apps and for Linux

@@ -244,6 +244,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\IconManagementControl.resx">
       <DependentUpon>IconManagementControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\LocalizableTextControl.resx">
       <DependentUpon>LocalizableTextControl.cs</DependentUpon>

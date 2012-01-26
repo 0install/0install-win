@@ -113,7 +113,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(Recipe) && Equals((Recipe)obj);
+            return obj is Recipe && Equals((Recipe)obj);
         }
 
         /// <inheritdoc/>

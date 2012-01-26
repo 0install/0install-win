@@ -45,7 +45,7 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
             InitializeComponent();
         }
 
-        private void buttonOK_Click(object sender, System.EventArgs e)
+        private void buttonOK_Click(object sender, EventArgs e)
         {
             Runner.Command = string.IsNullOrEmpty(textCommand.Text) ? null : textCommand.Text;
 

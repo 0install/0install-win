@@ -52,8 +52,10 @@ namespace Common.Collections
         public ComparableTuple(T key, T value)
         {
             #region Sanity checks
+            // ReSharper disable CompareNonConstrainedGenericWithNull
             if (key == null) throw new ArgumentNullException("key");
             if (value == null) throw new ArgumentNullException("value");
+            // ReSharper restore CompareNonConstrainedGenericWithNull
             #endregion
 
             Key = key;
@@ -84,7 +86,7 @@ namespace Common.Collections
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            return obj.GetType() == typeof(ComparableTuple<T>) && Equals((ComparableTuple<T>)obj);
+            return obj is ComparableTuple<T> && Equals((ComparableTuple<T>)obj);
         }
 
         /// <inheritdoc/>

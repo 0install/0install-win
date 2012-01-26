@@ -253,7 +253,7 @@ namespace ZeroInstall.Model
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            return obj.GetType() == typeof(ManifestDigest) && Equals((ManifestDigest)obj);
+            return obj is ManifestDigest && Equals((ManifestDigest)obj);
         }
 
         /// <inheritdoc/>
@@ -275,7 +275,7 @@ namespace ZeroInstall.Model
             if (Equals(other)) return 0;
 
             // Sort based on the best digest algorithm available
-            int distance = BestDigest.CompareTo(other.BestDigest);
+            int distance = string.CompareOrdinal(BestDigest, other.BestDigest);
 
             // Only return 0 for true equality
             if (distance == 0) distance = 1;

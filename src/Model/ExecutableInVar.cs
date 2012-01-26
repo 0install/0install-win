@@ -81,7 +81,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(ExecutableInVar) && Equals((ExecutableInVar)obj);
+            return obj is ExecutableInVar && Equals((ExecutableInVar)obj);
         }
 
         /// <inheritdoc/>

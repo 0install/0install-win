@@ -140,7 +140,9 @@ namespace Common.Net
                     lock (StateLock) State = TaskState.Header;
 
                     // Start the server request, allowing for cancellation
+                    // ReSharper disable AssignNullToNotNullAttribute
                     var responseRequest = request.BeginGetResponse(null, null);
+                    // ReSharper restore AssignNullToNotNullAttribute
                     while (!responseRequest.AsyncWaitHandle.WaitOne(100, false))
                         if (_cancelRequest) return;
 

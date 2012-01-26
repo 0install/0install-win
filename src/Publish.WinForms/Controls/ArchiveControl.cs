@@ -531,13 +531,10 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 }
                     #region Error handling
                 catch (OperationCanceledException)
-                {
-                    return;
-                }
+                {}
                 catch (IOException ex)
                 {
                     Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                    return;
                 }
                 #endregion
             }

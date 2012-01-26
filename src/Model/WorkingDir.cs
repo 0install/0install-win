@@ -80,7 +80,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(WorkingDir) && Equals((WorkingDir)obj);
+            return obj is WorkingDir && Equals((WorkingDir)obj);
         }
 
         /// <inheritdoc/>

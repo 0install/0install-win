@@ -155,7 +155,9 @@ namespace ZeroInstall.Model
         private static string EnumToString(Enum value)
         {
             Type type = value.GetType();
+            // ReSharper disable SpecifyACultureInStringConversionExplicitly
             FieldInfo fieldInfo = type.GetField(value.ToString());
+            // ReSharper restore SpecifyACultureInStringConversionExplicitly
 
             // Get the XmlEnum attributes
             var attribs = (XmlEnumAttribute[])fieldInfo.GetCustomAttributes(typeof(XmlEnumAttribute), false);
@@ -410,7 +412,7 @@ namespace ZeroInstall.Model
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            return obj.GetType() == typeof(Architecture) && Equals((Architecture)obj);
+            return obj is Architecture && Equals((Architecture)obj);
         }
 
         /// <inheritdoc/>
