@@ -259,7 +259,7 @@ namespace ZeroInstall.Commands.WinForms
             }
 
             // Apply data to DataGrids in bulk for better performance (remove empty tabs)
-            if (fileTypesBinding.Count != 0) dataGridFileType.DataSource = fileTypesBinding;
+            if (fileTypesBinding.Count != 0) dataGridFileTypes.DataSource = fileTypesBinding;
             else tabControl.TabPages.Remove(tabPageFileTypes);
             if (urlProtocolsBinding.Count != 0) dataGridUrlProtocols.DataSource = urlProtocolsBinding;
             else tabControl.TabPages.Remove(tabPageUrlProtocols);

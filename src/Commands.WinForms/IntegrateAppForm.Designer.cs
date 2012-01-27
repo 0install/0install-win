@@ -39,11 +39,15 @@
             this.dataGridDesktop = new System.Windows.Forms.DataGridView();
             this.dataGridDesktopColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridDesktopColumnCommand = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.tabPageAliases = new System.Windows.Forms.TabPage();
+            this.dataGridAliases = new System.Windows.Forms.DataGridView();
+            this.dataGridAliasesColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridAliasesColumnCommand = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tabPageFileTypes = new System.Windows.Forms.TabPage();
-            this.dataGridFileType = new System.Windows.Forms.DataGridView();
-            this.dataGridFileTypeColumnDefault = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridFileTypeColumnDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridFileTypeColumnExtensions = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridFileTypes = new System.Windows.Forms.DataGridView();
+            this.dataGridFileTypesColumnDefault = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridFileTypesColumnDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridFileTypesColumnExtensions = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageUrlProtocols = new System.Windows.Forms.TabPage();
             this.dataGridUrlProtocols = new System.Windows.Forms.DataGridView();
             this.dataGridUrlProtocolsColumnDefault = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -65,17 +69,15 @@
             this.dataGridDefaultProgramsColumnService = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.checkBoxCapabilities = new System.Windows.Forms.CheckBox();
             this.checkBoxAutoUpdate = new System.Windows.Forms.CheckBox();
-            this.tabPageAliases = new System.Windows.Forms.TabPage();
-            this.dataGridAliases = new System.Windows.Forms.DataGridView();
-            this.dataGridAliasesColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridAliasesColumnCommand = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tabControl.SuspendLayout();
             this.tabPageStartMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStartMenu)).BeginInit();
             this.tabPageDesktop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridDesktop)).BeginInit();
+            this.tabPageAliases.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridAliases)).BeginInit();
             this.tabPageFileTypes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridFileType)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridFileTypes)).BeginInit();
             this.tabPageUrlProtocols.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridUrlProtocols)).BeginInit();
             this.tabPageAutoPlay.SuspendLayout();
@@ -84,8 +86,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridContextMenu)).BeginInit();
             this.tabPageDefaultPrograms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridDefaultPrograms)).BeginInit();
-            this.tabPageAliases.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridAliases)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -208,9 +208,50 @@
             this.dataGridDesktopColumnCommand.Name = "dataGridDesktopColumnCommand";
             this.dataGridDesktopColumnCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
+            // tabPageAliases
+            // 
+            this.tabPageAliases.Controls.Add(this.dataGridAliases);
+            this.tabPageAliases.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAliases.Name = "tabPageAliases";
+            this.tabPageAliases.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAliases.Size = new System.Drawing.Size(442, 191);
+            this.tabPageAliases.TabIndex = 7;
+            this.tabPageAliases.Text = "Aliases";
+            this.tabPageAliases.UseVisualStyleBackColor = true;
+            // 
+            // dataGridAliases
+            // 
+            this.dataGridAliases.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridAliases.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridAliasesColumnName,
+            this.dataGridAliasesColumnCommand});
+            this.dataGridAliases.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridAliases.Location = new System.Drawing.Point(3, 3);
+            this.dataGridAliases.Name = "dataGridAliases";
+            this.dataGridAliases.Size = new System.Drawing.Size(436, 185);
+            this.dataGridAliases.TabIndex = 1;
+            // 
+            // dataGridAliasesColumnName
+            // 
+            this.dataGridAliasesColumnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridAliasesColumnName.DataPropertyName = "Name";
+            this.dataGridAliasesColumnName.FillWeight = 70F;
+            this.dataGridAliasesColumnName.HeaderText = "Name";
+            this.dataGridAliasesColumnName.Name = "dataGridAliasesColumnName";
+            // 
+            // dataGridAliasesColumnCommand
+            // 
+            this.dataGridAliasesColumnCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridAliasesColumnCommand.DataPropertyName = "Command";
+            this.dataGridAliasesColumnCommand.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.dataGridAliasesColumnCommand.FillWeight = 30F;
+            this.dataGridAliasesColumnCommand.HeaderText = "Command";
+            this.dataGridAliasesColumnCommand.Name = "dataGridAliasesColumnCommand";
+            this.dataGridAliasesColumnCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
             // tabPageFileTypes
             // 
-            this.tabPageFileTypes.Controls.Add(this.dataGridFileType);
+            this.tabPageFileTypes.Controls.Add(this.dataGridFileTypes);
             this.tabPageFileTypes.Location = new System.Drawing.Point(4, 22);
             this.tabPageFileTypes.Name = "tabPageFileTypes";
             this.tabPageFileTypes.Padding = new System.Windows.Forms.Padding(3);
@@ -219,51 +260,51 @@
             this.tabPageFileTypes.Text = "File types";
             this.tabPageFileTypes.UseVisualStyleBackColor = true;
             // 
-            // dataGridFileType
+            // dataGridFileTypes
             // 
-            this.dataGridFileType.AllowUserToAddRows = false;
-            this.dataGridFileType.AllowUserToDeleteRows = false;
-            this.dataGridFileType.AllowUserToResizeRows = false;
-            this.dataGridFileType.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridFileType.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridFileTypeColumnDefault,
-            this.dataGridFileTypeColumnDescription,
-            this.dataGridFileTypeColumnExtensions});
-            this.dataGridFileType.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridFileType.Location = new System.Drawing.Point(3, 3);
-            this.dataGridFileType.Name = "dataGridFileType";
-            this.dataGridFileType.RowHeadersVisible = false;
-            this.dataGridFileType.Size = new System.Drawing.Size(436, 185);
-            this.dataGridFileType.TabIndex = 0;
+            this.dataGridFileTypes.AllowUserToAddRows = false;
+            this.dataGridFileTypes.AllowUserToDeleteRows = false;
+            this.dataGridFileTypes.AllowUserToResizeRows = false;
+            this.dataGridFileTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridFileTypes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridFileTypesColumnDefault,
+            this.dataGridFileTypesColumnDescription,
+            this.dataGridFileTypesColumnExtensions});
+            this.dataGridFileTypes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridFileTypes.Location = new System.Drawing.Point(3, 3);
+            this.dataGridFileTypes.Name = "dataGridFileTypes";
+            this.dataGridFileTypes.RowHeadersVisible = false;
+            this.dataGridFileTypes.Size = new System.Drawing.Size(436, 185);
+            this.dataGridFileTypes.TabIndex = 0;
             // 
-            // dataGridFileTypeColumnDefault
+            // dataGridFileTypesColumnDefault
             // 
-            this.dataGridFileTypeColumnDefault.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.dataGridFileTypeColumnDefault.DataPropertyName = "Use";
-            this.dataGridFileTypeColumnDefault.HeaderText = "Default";
-            this.dataGridFileTypeColumnDefault.Name = "dataGridFileTypeColumnDefault";
-            this.dataGridFileTypeColumnDefault.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridFileTypeColumnDefault.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridFileTypeColumnDefault.Width = 66;
+            this.dataGridFileTypesColumnDefault.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.dataGridFileTypesColumnDefault.DataPropertyName = "Use";
+            this.dataGridFileTypesColumnDefault.HeaderText = "Default";
+            this.dataGridFileTypesColumnDefault.Name = "dataGridFileTypesColumnDefault";
+            this.dataGridFileTypesColumnDefault.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridFileTypesColumnDefault.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridFileTypesColumnDefault.Width = 66;
             // 
-            // dataGridFileTypeColumnDescription
+            // dataGridFileTypesColumnDescription
             // 
-            this.dataGridFileTypeColumnDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridFileTypeColumnDescription.DataPropertyName = "Description";
-            this.dataGridFileTypeColumnDescription.HeaderText = "Description";
-            this.dataGridFileTypeColumnDescription.Name = "dataGridFileTypeColumnDescription";
-            this.dataGridFileTypeColumnDescription.ReadOnly = true;
-            this.dataGridFileTypeColumnDescription.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridFileTypesColumnDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridFileTypesColumnDescription.DataPropertyName = "Description";
+            this.dataGridFileTypesColumnDescription.HeaderText = "Description";
+            this.dataGridFileTypesColumnDescription.Name = "dataGridFileTypesColumnDescription";
+            this.dataGridFileTypesColumnDescription.ReadOnly = true;
+            this.dataGridFileTypesColumnDescription.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
-            // dataGridFileTypeColumnExtensions
+            // dataGridFileTypesColumnExtensions
             // 
-            this.dataGridFileTypeColumnExtensions.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridFileTypeColumnExtensions.DataPropertyName = "Extensions";
-            this.dataGridFileTypeColumnExtensions.HeaderText = "Extensions";
-            this.dataGridFileTypeColumnExtensions.Name = "dataGridFileTypeColumnExtensions";
-            this.dataGridFileTypeColumnExtensions.ReadOnly = true;
-            this.dataGridFileTypeColumnExtensions.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridFileTypeColumnExtensions.Width = 83;
+            this.dataGridFileTypesColumnExtensions.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridFileTypesColumnExtensions.DataPropertyName = "Extensions";
+            this.dataGridFileTypesColumnExtensions.HeaderText = "Extensions";
+            this.dataGridFileTypesColumnExtensions.Name = "dataGridFileTypesColumnExtensions";
+            this.dataGridFileTypesColumnExtensions.ReadOnly = true;
+            this.dataGridFileTypesColumnExtensions.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridFileTypesColumnExtensions.Width = 83;
             // 
             // tabPageUrlProtocols
             // 
@@ -504,47 +545,6 @@
             this.checkBoxAutoUpdate.Text = "&Auto Update";
             this.checkBoxAutoUpdate.UseVisualStyleBackColor = true;
             // 
-            // tabPageAliases
-            // 
-            this.tabPageAliases.Controls.Add(this.dataGridAliases);
-            this.tabPageAliases.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAliases.Name = "tabPageAliases";
-            this.tabPageAliases.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAliases.Size = new System.Drawing.Size(442, 191);
-            this.tabPageAliases.TabIndex = 7;
-            this.tabPageAliases.Text = "Aliases";
-            this.tabPageAliases.UseVisualStyleBackColor = true;
-            // 
-            // dataGridAliases
-            // 
-            this.dataGridAliases.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridAliases.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridAliasesColumnName,
-            this.dataGridAliasesColumnCommand});
-            this.dataGridAliases.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridAliases.Location = new System.Drawing.Point(3, 3);
-            this.dataGridAliases.Name = "dataGridAliases";
-            this.dataGridAliases.Size = new System.Drawing.Size(436, 185);
-            this.dataGridAliases.TabIndex = 1;
-            // 
-            // dataGridAliasesColumnName
-            // 
-            this.dataGridAliasesColumnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridAliasesColumnName.DataPropertyName = "Name";
-            this.dataGridAliasesColumnName.FillWeight = 70F;
-            this.dataGridAliasesColumnName.HeaderText = "Name";
-            this.dataGridAliasesColumnName.Name = "dataGridAliasesColumnName";
-            // 
-            // dataGridAliasesColumnCommand
-            // 
-            this.dataGridAliasesColumnCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridAliasesColumnCommand.DataPropertyName = "Command";
-            this.dataGridAliasesColumnCommand.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.dataGridAliasesColumnCommand.FillWeight = 30F;
-            this.dataGridAliasesColumnCommand.HeaderText = "Command";
-            this.dataGridAliasesColumnCommand.Name = "dataGridAliasesColumnCommand";
-            this.dataGridAliasesColumnCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
             // IntegrateAppForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -573,8 +573,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStartMenu)).EndInit();
             this.tabPageDesktop.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridDesktop)).EndInit();
+            this.tabPageAliases.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridAliases)).EndInit();
             this.tabPageFileTypes.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridFileType)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridFileTypes)).EndInit();
             this.tabPageUrlProtocols.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridUrlProtocols)).EndInit();
             this.tabPageAutoPlay.ResumeLayout(false);
@@ -583,8 +585,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridContextMenu)).EndInit();
             this.tabPageDefaultPrograms.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridDefaultPrograms)).EndInit();
-            this.tabPageAliases.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridAliases)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -595,7 +595,7 @@
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPageFileTypes;
         private System.Windows.Forms.TabPage tabPageUrlProtocols;
-        private System.Windows.Forms.DataGridView dataGridFileType;
+        private System.Windows.Forms.DataGridView dataGridFileTypes;
         private System.Windows.Forms.DataGridView dataGridUrlProtocols;
         private System.Windows.Forms.TabPage tabPageDefaultPrograms;
         private System.Windows.Forms.TabPage tabPageStartMenu;
@@ -609,9 +609,6 @@
         private System.Windows.Forms.DataGridView dataGridDesktop;
         private System.Windows.Forms.TabPage tabPageAutoPlay;
         private System.Windows.Forms.DataGridView dataGridAutoPlay;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridFileTypeColumnDefault;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridFileTypeColumnDescription;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridFileTypeColumnExtensions;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridUrlProtocolsColumnDefault;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridUrlProtocolsColumnDescription;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridUrlProtocolsColumnProtocols;
@@ -632,5 +629,8 @@
         private System.Windows.Forms.DataGridView dataGridAliases;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridAliasesColumnName;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridAliasesColumnCommand;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridFileTypesColumnDefault;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridFileTypesColumnDescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridFileTypesColumnExtensions;
     }
 }
