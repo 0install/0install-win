@@ -395,5 +395,42 @@ namespace ZeroInstall.Commands.WinForms
             }
         }
         #endregion
+
+        #region Select all checkboxes
+        private void checkBoxFileTypesAll_CheckedChanged(object sender, EventArgs e)
+        {
+            SetAllLastColumn(dataGridFileTypes, checkBoxFileTypesAll.Checked);
+        }
+
+        private void checkBoxUrlProtocolsAll_CheckedChanged(object sender, EventArgs e)
+        {
+            SetAllLastColumn(dataGridUrlProtocols, checkBoxUrlProtocolsAll.Checked);
+        }
+
+        private void checkBoxAutoPlayAll_CheckedChanged(object sender, EventArgs e)
+        {
+            SetAllLastColumn(dataGridAutoPlay, checkBoxAutoPlayAll.Checked);
+        }
+
+        private void checkBoxContextMenuAll_CheckedChanged(object sender, EventArgs e)
+        {
+            SetAllLastColumn(dataGridContextMenu, checkBoxContextMenuAll.Checked);
+        }
+
+        private void checkBoxDefaultProgramsAll_CheckedChanged(object sender, EventArgs e)
+        {
+            SetAllLastColumn(dataGridDefaultPrograms, checkBoxDefaultProgramsAll.Checked);
+        }
+
+        private void SetAllLastColumn(DataGridView dataGrid, bool value)
+        {
+            int lastColumn = dataGrid.Columns.Count - 1;
+
+            dataGrid.BeginEdit(false);
+            for (int i = 0; i < dataGrid.RowCount; i++)
+                dataGrid[lastColumn, i].Value = value;
+            dataGrid.EndEdit();
+        }
+        #endregion
     }
 }
