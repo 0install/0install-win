@@ -79,24 +79,23 @@ namespace ZeroInstall.Commands.WinForms
             // If GUI does not exist or was closed cancel, otherwise wait until it is ready
             if (_form == null) return;
             _guiReady.WaitOne();
-            if (!_form.IsHandleCreated) return;
 
-            // ToDo: Fix cancellation raceconditions
             if (tag is ManifestDigest)
             {
                 // Handle events coming from a non-UI thread, don't block caller
-                _form.BeginInvoke(new SimpleEventHandler(() => _form.TrackTask(task, (ManifestDigest)tag)));
+                _form.BeginInvoke(new SimpleEventHandler(() => { if (_form.IsHandleCreated) _form.TrackTask(task, (ManifestDigest)tag); }));
             }
             else
             {
                 lock (_genericTaskLock) // Prevent multiple concurrent generic tasks
                 {
                     // Handle events coming from a non-UI thread, don't block caller
-                    _form.BeginInvoke(new SimpleEventHandler(() => _form.TrackTask(task)));
+                    _form.BeginInvoke(new SimpleEventHandler(() => { if (_form.IsHandleCreated) _form.TrackTask(task); }));
                 }
             }
 
-            task.RunSync(_cancellationToken);
+            if (!CancellationToken.IsCancellationRequested)
+                task.RunSync(_cancellationToken);
         }
         #endregion
 
@@ -146,9 +145,8 @@ namespace ZeroInstall.Commands.WinForms
             // If GUI does not exist or was closed cancel, otherwise wait until it is ready
             if (_form == null) return;
             _guiReady.WaitOne();
-            if (!_form.IsHandleCreated) return;
 
-            _form.Invoke((SimpleEventHandler)(() => { _form.Enabled = false; }));
+            _form.Invoke((SimpleEventHandler)(() => { if (_form.IsHandleCreated) _form.Enabled = false; }));
         }
 
         /// <inheritdoc/>
@@ -159,7 +157,7 @@ namespace ZeroInstall.Commands.WinForms
             _guiReady.WaitOne();
             if (!_form.IsHandleCreated) return;
 
-            _form.Invoke((SimpleEventHandler)_form.HideTrayIcon);
+            _form.Invoke((SimpleEventHandler)(() => { if (_form.IsHandleCreated) _form.HideTrayIcon(); }));
             _form.Invoke((SimpleEventHandler)Application.ExitThread);
             _form = null;
             _guiReady.Reset();
@@ -177,12 +175,13 @@ namespace ZeroInstall.Commands.WinForms
             // If GUI does not exist or was closed cancel, otherwise wait until it is ready
             if (_form == null) return false;
             _guiReady.WaitOne();
-            if (!_form.IsHandleCreated) return false;
 
             // Handle events coming from a non-UI thread, block caller until user has answered
             bool result = false;
             _form.Invoke(new SimpleEventHandler(delegate
             {
+                if (!_form.IsHandleCreated) return;
+
                 // Auto-deny unknown keys and inform via tray icon when in batch mode
                 if (Batch) _form.ShowTrayIcon(batchInformation, ToolTipIcon.Warning);
                 else
@@ -218,7 +217,7 @@ namespace ZeroInstall.Commands.WinForms
             _guiReady.WaitOne();
             if (!_form.IsHandleCreated) return;
 
-            _form.Invoke(new SimpleEventHandler(() => _form.ShowSelections(selections, feedCache)));
+            _form.Invoke((SimpleEventHandler)(() => { if (_form.IsHandleCreated) _form.ShowSelections(selections, feedCache); }));
         }
 
         /// <inheritdoc/>
@@ -234,7 +233,7 @@ namespace ZeroInstall.Commands.WinForms
             if (!_form.IsHandleCreated) return;
 
             // Show selection auditing screen and then asynchronously wait until its done
-            _form.Invoke((SimpleEventHandler)_form.Show); // Leave tray icon mode
+            _form.Invoke((SimpleEventHandler)(() => { if (_form.IsHandleCreated) _form.Show(); })); // Leave tray icon mode
             _form.Invoke(new SimpleEventHandler(() => _form.BeginAuditSelections(solveCallback, _auditWaitHandle)));
             _auditWaitHandle.WaitOne();
         }
