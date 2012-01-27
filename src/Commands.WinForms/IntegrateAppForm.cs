@@ -358,19 +358,5 @@ namespace ZeroInstall.Commands.WinForms
             }
         }
         #endregion
-
-        #region DataGrids
-        private void dataGridStartMenu_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == dataGridStartMenuColumnRemove.Index)
-                _menuEntries.RemoveAt(e.RowIndex);
-        }
-
-        private void dataGridDesktop_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == dataGridDesktopColumnRemove.Index)
-                _desktopIcons.RemoveAt(e.RowIndex);
-        }
-        #endregion
     }
 }
