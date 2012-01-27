@@ -70,6 +70,11 @@ namespace ZeroInstall.Commands.WinForms
         /// A list of <see cref="AccessPoints.DesktopIcon"/>s as displayed by the <see cref="dataGridDesktop"/>.
         /// </summary>
         private readonly BindingList<AccessPoints.DesktopIcon> _desktopIcons = new BindingList<AccessPoints.DesktopIcon>();
+
+        /// <summary>
+        /// A list of <see cref="AccessPoints.AppAlias"/>es as displayed by the <see cref="dataGridAliases"/>.
+        /// </summary>
+        private readonly BindingList<AccessPoints.AppAlias> _aliases = new BindingList<AccessPoints.AppAlias>();
         #endregion
 
         #region Constructor
@@ -126,23 +131,41 @@ namespace ZeroInstall.Commands.WinForms
             // ReSharper disable CoVariantArrayConversion
             dataGridStartMenuColumnCommand.Items.AddRange(commandsArray);
             dataGridDesktopColumnCommand.Items.AddRange(commandsArray);
+            dataGridAliasesColumnCommand.Items.AddRange(commandsArray);
             // ReSharper restore CoVariantArrayConversion
 
-            if (_appEntry.AccessPoints == null)
-            { // Set useful defaults for first integration
-                _desktopIcons.Add(new AccessPoints.DesktopIcon {Name = _appEntry.Name, Command = Command.NameRun});
+            if (_appEntry.AccessPoints == null) AddDefaultCommandAccessPoints();
+            else ReadCommandAccessPoints();
 
-                string category = EnumerableUtils.First(_feed.Categories);
-                if (_feed.EntryPoints.IsEmpty)
-                { // Only one entry point
-                    _menuEntries.Add(new AccessPoints.MenuEntry {Name = _appEntry.Name, Category = category, Command = Command.NameRun});
-                }
-                else
-                { // Multiple entry points
-                    foreach (var entryPoint in _feed.EntryPoints)
+            // Apply data to DataGrids in bulk for better performance
+            dataGridStartMenu.DataSource = _menuEntries;
+            dataGridDesktop.DataSource = _desktopIcons;
+            dataGridAliases.DataSource = _aliases;
+        }
+
+        /// <summary>
+        /// Creates default <see cref="AccessPoints.CommandAccessPoint"/>s as a usuefull basis for the first integration.
+        /// </summary>
+        private void AddDefaultCommandAccessPoints()
+        {
+            string category = EnumerableUtils.First(_feed.Categories);
+            if (_feed.EntryPoints.IsEmpty)
+            { // Only one entry point
+                _menuEntries.Add(new AccessPoints.MenuEntry {Name = _appEntry.Name, Category = category, Command = Command.NameRun});
+
+                // Try to guess reasonable alias name of command-line applications
+                if (_feed.NeedsTerminal)
+                    _aliases.Add(new AccessPoints.AppAlias {Name = _appEntry.Name.Replace(' ', '_').ToLower(), Command = Command.NameRun});
+            }
+            else
+            { // Multiple entry points
+                foreach (var entryPoint in _feed.EntryPoints)
+                {
+                    if (!string.IsNullOrEmpty(entryPoint.Command))
                     {
                         string entryPointName = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture);
-                        if (!string.IsNullOrEmpty(entryPoint.Command) && !string.IsNullOrEmpty(entryPointName))
+
+                        if (!string.IsNullOrEmpty(entryPointName))
                         {
                             _menuEntries.Add(new AccessPoints.MenuEntry
                             {
@@ -152,20 +175,28 @@ namespace ZeroInstall.Commands.WinForms
                                 Command = entryPoint.Command
                             });
                         }
+
+                        if (_feed.NeedsTerminal || entryPoint.NeedsTerminal)
+                            _aliases.Add(new AccessPoints.AppAlias {Name = entryPoint.BinaryName ?? entryPoint.Command, Command = entryPoint.Command});
                     }
                 }
             }
-            else
-            { // Determine currently existing items
-                foreach (var entry in EnumerableUtils.OfType<AccessPoints.MenuEntry>(_appEntry.AccessPoints.Entries))
-                    _menuEntries.Add((AccessPoints.MenuEntry)entry.Clone());
-                foreach (var entry in EnumerableUtils.OfType<AccessPoints.DesktopIcon>(_appEntry.AccessPoints.Entries))
-                    _desktopIcons.Add((AccessPoints.DesktopIcon)entry.Clone());
-            }
 
-            // Apply data to DataGrids in bulk for better performance
-            dataGridStartMenu.DataSource = _menuEntries;
-            dataGridDesktop.DataSource = _desktopIcons;
+            _desktopIcons.Add(new AccessPoints.DesktopIcon {Name = _appEntry.Name, Command = Command.NameRun});
+        }
+
+        /// <summary>
+        /// Determines the existing <see cref="AccessPoints.CommandAccessPoint"/>s.
+        /// </summary>
+        private void ReadCommandAccessPoints()
+        {
+            // Add clones to DataGrids so that user modifications can still be canceled
+            foreach (var entry in EnumerableUtils.OfType<AccessPoints.MenuEntry>(_appEntry.AccessPoints.Entries))
+                _menuEntries.Add((AccessPoints.MenuEntry)entry.Clone());
+            foreach (var entry in EnumerableUtils.OfType<AccessPoints.DesktopIcon>(_appEntry.AccessPoints.Entries))
+                _desktopIcons.Add((AccessPoints.DesktopIcon)entry.Clone());
+            foreach (var entry in EnumerableUtils.OfType<AccessPoints.AppAlias>(_appEntry.AccessPoints.Entries))
+                _aliases.Add((AccessPoints.AppAlias)entry.Clone());
         }
 
         /// <summary>
@@ -329,15 +360,21 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="toRemove">List to add <see cref="AccessPoints.AccessPoint"/>s to be removed to.</param>
         private void HandleCommandAccessPoints(C5.IExtensible<AccessPoints.AccessPoint> toAdd, C5.IExtensible<AccessPoints.AccessPoint> toRemove)
         {
+            // Build lists with current integration state
             var currentMenuEntries = new List<AccessPoints.MenuEntry>();
-            var currenDesktopicons = new List<AccessPoints.DesktopIcon>();
+            var currenDesktopIcons = new List<AccessPoints.DesktopIcon>();
+            var currenAliases = new List<AccessPoints.AppAlias>();
             if (_appEntry.AccessPoints != null)
             {
                 currentMenuEntries.AddRange(EnumerableUtils.OfType<AccessPoints.MenuEntry>(_appEntry.AccessPoints.Entries));
-                currenDesktopicons.AddRange(EnumerableUtils.OfType<AccessPoints.DesktopIcon>(_appEntry.AccessPoints.Entries));
+                currenDesktopIcons.AddRange(EnumerableUtils.OfType<AccessPoints.DesktopIcon>(_appEntry.AccessPoints.Entries));
+                currenAliases.AddRange(EnumerableUtils.OfType<AccessPoints.AppAlias>(_appEntry.AccessPoints.Entries));
             }
+
+            // Determine differences between current and desired state
             EnumerableUtils.Merge(_menuEntries, currentMenuEntries, menuEntry => toAdd.Add(menuEntry), menuEntry => toRemove.Add(menuEntry));
-            EnumerableUtils.Merge(_desktopIcons, currenDesktopicons, desktopIcons => toAdd.Add(desktopIcons), desktopIcons => toRemove.Add(desktopIcons));
+            EnumerableUtils.Merge(_desktopIcons, currenDesktopIcons, desktopIcon => toAdd.Add(desktopIcon), desktopIcon => toRemove.Add(desktopIcon));
+            EnumerableUtils.Merge(_aliases, currenAliases, alias => toAdd.Add(alias), alias => toRemove.Add(alias));
         }
 
         /// <summary>

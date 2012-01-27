@@ -65,6 +65,10 @@
             this.dataGridDefaultProgramsColumnService = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.checkBoxCapabilities = new System.Windows.Forms.CheckBox();
             this.checkBoxAutoUpdate = new System.Windows.Forms.CheckBox();
+            this.tabPageAliases = new System.Windows.Forms.TabPage();
+            this.dataGridAliases = new System.Windows.Forms.DataGridView();
+            this.dataGridAliasesColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridAliasesColumnCommand = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tabControl.SuspendLayout();
             this.tabPageStartMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStartMenu)).BeginInit();
@@ -80,6 +84,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridContextMenu)).BeginInit();
             this.tabPageDefaultPrograms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridDefaultPrograms)).BeginInit();
+            this.tabPageAliases.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridAliases)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -99,6 +105,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.tabPageStartMenu);
             this.tabControl.Controls.Add(this.tabPageDesktop);
+            this.tabControl.Controls.Add(this.tabPageAliases);
             this.tabControl.Controls.Add(this.tabPageFileTypes);
             this.tabControl.Controls.Add(this.tabPageUrlProtocols);
             this.tabControl.Controls.Add(this.tabPageAutoPlay);
@@ -497,6 +504,47 @@
             this.checkBoxAutoUpdate.Text = "&Auto Update";
             this.checkBoxAutoUpdate.UseVisualStyleBackColor = true;
             // 
+            // tabPageAliases
+            // 
+            this.tabPageAliases.Controls.Add(this.dataGridAliases);
+            this.tabPageAliases.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAliases.Name = "tabPageAliases";
+            this.tabPageAliases.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAliases.Size = new System.Drawing.Size(442, 191);
+            this.tabPageAliases.TabIndex = 7;
+            this.tabPageAliases.Text = "Aliases";
+            this.tabPageAliases.UseVisualStyleBackColor = true;
+            // 
+            // dataGridAliases
+            // 
+            this.dataGridAliases.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridAliases.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridAliasesColumnName,
+            this.dataGridAliasesColumnCommand});
+            this.dataGridAliases.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridAliases.Location = new System.Drawing.Point(3, 3);
+            this.dataGridAliases.Name = "dataGridAliases";
+            this.dataGridAliases.Size = new System.Drawing.Size(436, 185);
+            this.dataGridAliases.TabIndex = 1;
+            // 
+            // dataGridAliasesColumnName
+            // 
+            this.dataGridAliasesColumnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridAliasesColumnName.DataPropertyName = "Name";
+            this.dataGridAliasesColumnName.FillWeight = 70F;
+            this.dataGridAliasesColumnName.HeaderText = "Name";
+            this.dataGridAliasesColumnName.Name = "dataGridAliasesColumnName";
+            // 
+            // dataGridAliasesColumnCommand
+            // 
+            this.dataGridAliasesColumnCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridAliasesColumnCommand.DataPropertyName = "Command";
+            this.dataGridAliasesColumnCommand.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.dataGridAliasesColumnCommand.FillWeight = 30F;
+            this.dataGridAliasesColumnCommand.HeaderText = "Command";
+            this.dataGridAliasesColumnCommand.Name = "dataGridAliasesColumnCommand";
+            this.dataGridAliasesColumnCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
             // IntegrateAppForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -535,6 +583,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridContextMenu)).EndInit();
             this.tabPageDefaultPrograms.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridDefaultPrograms)).EndInit();
+            this.tabPageAliases.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridAliases)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -578,5 +628,9 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridStartMenuColumnCommand;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridDesktopColumnName;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridDesktopColumnCommand;
+        private System.Windows.Forms.TabPage tabPageAliases;
+        private System.Windows.Forms.DataGridView dataGridAliases;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridAliasesColumnName;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridAliasesColumnCommand;
     }
 }
