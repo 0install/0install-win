@@ -81,9 +81,7 @@ namespace ZeroInstall.Central.WinForms
 
                 _inAppList = value;
 
-                // Toggle button visibility
-                buttonAdd.Enabled = buttonAdd.Visible = !value;
-                buttonConf.Enabled = buttonConf.Visible = value;
+                UpdateButtons();
             }
         }
         #endregion
@@ -197,6 +195,17 @@ namespace ZeroInstall.Central.WinForms
         //--------------------//
 
         #region Buttons
+        /// <summary>
+        /// Updates the visibility of buttons based on the <see cref="InAppList"/> state.
+        /// </summary>
+        private void UpdateButtons()
+        {
+
+            buttonAdd.Enabled = buttonAdd.Visible = !_inAppList;
+            buttonRemove.Enabled = buttonRemove.Visible = _inAppList;
+            buttonIntegrate.Enabled = buttonIntegrate.Visible = _inAppList;
+        }
+
         private void linkLabelDetails_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             OpenInBrowser(InterfaceID);
@@ -248,29 +257,29 @@ namespace ZeroInstall.Central.WinForms
             ProcessUtils.RunAsync(delegate
             {
                 Commands.WinForms.Program.Main(new[] {"add-app", InterfaceID});
-                Invoke((SimpleEventHandler)(() => buttonAdd.Enabled = true));
+                Invoke((SimpleEventHandler)UpdateButtons);
             });
         }
 
-        private void buttonConf_Click(object sender, EventArgs e)
+        private void buttonIntegrate_Click(object sender, EventArgs e)
         {
-            // Disable button while operation is running
-            buttonConf.Enabled = false;
+            // Disable buttons while operation is running
+            buttonRemove.Enabled = buttonIntegrate.Enabled = false;
             ProcessUtils.RunAsync(delegate
             {
                 Commands.WinForms.Program.Main(new[] {"integrate-app", InterfaceID});
-                Invoke((SimpleEventHandler)(() => buttonConf.Enabled = true));
+                Invoke((SimpleEventHandler)UpdateButtons);
             });
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
-            // Disable button while operation is running
-            buttonConf.Enabled = false;
+            // Disable buttons while operation is running
+            buttonRemove.Enabled = buttonIntegrate.Enabled = false;
             ProcessUtils.RunAsync(delegate
             {
                 Commands.WinForms.Program.Main(new[] {"remove-app", InterfaceID});
-                Invoke((SimpleEventHandler)(() => buttonConf.Enabled = true));
+                Invoke((SimpleEventHandler)UpdateButtons);
             });
         }
         #endregion

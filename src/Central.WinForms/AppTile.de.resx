@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonRun.Text" xml:space="preserve">
-    <value>Start</value>
+  <data name="pictureBoxIcon.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelName.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelSummary.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="buttonSelectVersion.Text" xml:space="preserve">
     <value>&amp;Version auswählen</value>
@@ -129,19 +135,31 @@
   <data name="buttonUpdate.Text" xml:space="preserve">
     <value>&amp;Aktualisieren</value>
   </data>
-  <data name="buttonConf.Text" xml:space="preserve">
-    <value>Konfig</value>
+  <data name="contextMenuRun.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="buttonRemove.Text" xml:space="preserve">
-    <value>&amp;Entfernen</value>
+  <data name="buttonRun.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="buttonAdd.Text" xml:space="preserve">
-    <value>Hinzuf.</value>
-  </data>
-  <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>&amp;Integrieren</value>
+  <data name="buttonAdd.ToolTip" xml:space="preserve">
+    <value>Zu "Meine Anwendungen" hinzufügen</value>
   </data>
   <data name="linkLabelDetails.Text" xml:space="preserve">
     <value>Mehr...</value>
+  </data>
+  <data name="linkLabelDetails.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="trackingProgressBar.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonRemove.ToolTip" xml:space="preserve">
+    <value>Aus "Meine Anwendungen" entferne</value>
+  </data>
+  <data name="buttonIntegrate.ToolTip" xml:space="preserve">
+    <value>In das Betriebsystem integrieren</value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>

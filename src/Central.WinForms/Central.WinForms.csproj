@@ -99,6 +99,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
+    <None Include="Resources\SetupButton.png" />
+    <None Include="Resources\RemoveButton.png" />
+    <None Include="Resources\AddButton.png" />
     <None Include="Resources\App.png" />
     <None Include="Resources\Logo.png" />
   </ItemGroup>

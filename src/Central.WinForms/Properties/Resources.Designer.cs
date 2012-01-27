@@ -60,6 +60,13 @@ namespace ZeroInstall.Central.WinForms.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap AddButton {
+            get {
+                object obj = ResourceManager.GetObject("AddButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap App {
             get {
                 object obj = ResourceManager.GetObject("App", resourceCulture);
@@ -119,6 +126,13 @@ namespace ZeroInstall.Central.WinForms.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap RemoveButton {
+            get {
+                object obj = ResourceManager.GetObject("RemoveButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
@@ -163,6 +177,13 @@ namespace ZeroInstall.Central.WinForms.Properties {
         internal static string SelfUpdateYes {
             get {
                 return ResourceManager.GetString("SelfUpdateYes", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap SetupButton {
+            get {
+                object obj = ResourceManager.GetObject("SetupButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
