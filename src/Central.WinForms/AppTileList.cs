@@ -184,7 +184,7 @@ namespace ZeroInstall.Central.WinForms
             #endregion
 
             _flowLayout.Controls.Remove(tile);
-            _flowLayout.Height -= tile.Height;
+            if (tile.Visible) _flowLayout.Height -= tile.Height;
 
             _tileDictionary.Remove(tile.InterfaceID);
 
