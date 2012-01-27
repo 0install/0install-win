@@ -7,7 +7,7 @@ namespace Common.Tasks
     /// </summary>
     public sealed class CancellationToken
     {
-        private bool _isCancellationRequested;
+        private volatile bool _isCancellationRequested;
 
         /// <summary>
         /// Indicates whether <see cref="RequestCancellation"/> has been called.

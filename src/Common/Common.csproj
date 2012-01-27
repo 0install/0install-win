@@ -68,13 +68,13 @@
     <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="PropertyPointer.cs" />
-    <Compile Include="Tasks\CancellationToken.cs" />
     <Compile Include="TimedLogEvent.cs" />
     <Compile Include="Msg.cs" />
     <Compile Include="ToStringWrapper.cs" />
     <Compile Include="UpdateHelper.cs" />
     <Compile Include="INamed.cs" />
     <Compile Include="Future.cs" />
+    <Compile Include="Tasks\CancellationToken.cs" />
     <Compile Include="Tasks\TaskState.cs" />
     <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Tasks\SimpleTask.cs" />
