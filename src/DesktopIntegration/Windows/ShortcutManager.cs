@@ -31,10 +31,6 @@ namespace ZeroInstall.DesktopIntegration.Windows
     /// </summary>
     public static class ShortcutManager
     {
-#if !MONO
-        private static readonly IWshRuntimeLibrary.WshShellClass _wshShell = new IWshRuntimeLibrary.WshShellClass();
-#endif
-
         /// <summary>
         /// Creates a new Windows shortcut.
         /// </summary>
@@ -54,7 +50,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
 #if !MONO
             if (File.Exists(path)) File.Delete(path);
 
-            var shortcut = (IWshRuntimeLibrary.IWshShortcut)_wshShell.CreateShortcut(path);
+            var wshShell = new IWshRuntimeLibrary.WshShellClass();
+            var shortcut = (IWshRuntimeLibrary.IWshShortcut)wshShell.CreateShortcut(path);
 
             var entryPoint = target.Feed.GetEntryPoint(command);
             bool needsTerminal = target.Feed.NeedsTerminal || (entryPoint != null && entryPoint.NeedsTerminal);
