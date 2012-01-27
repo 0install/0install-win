@@ -276,10 +276,11 @@ namespace ZeroInstall.Commands.WinForms
 
             var integrationForm = new IntegrateAppForm(integrationManager, appEntry, feed);
             integrationForm.VisibleChanged += delegate
-            { // The integration dialog and progress form take turns in being visible
+            { // The IntegrateAppForm and ProgressForm take turns in being visible
                 _form.Invoke((SimpleEventHandler)delegate
                 {
-                    _form.Visible = !integrationForm.Visible;
+                    // Prevent ProgressForm from flashing up again when the user cancels
+                    _form.Visible = !integrationForm.Visible && (integrationForm.DialogResult != DialogResult.Cancel);
                     if (integrationForm.Visible) _form.HideTrayIcon();
                 });
             };
