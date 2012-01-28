@@ -16,13 +16,15 @@
  */
 
 using System;
+using System.Net;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Injector.Feeds
 {
     /// <summary>
-    /// A common base class for feed managers. Implements properties, cloning and equating. Does not implement <see cref="GetFeed"/> and <see cref="ImportFeed"/>.
+    /// A common base class for feed managers. Implements properties, cloning and equating.
+    /// Does not implement <see cref="GetFeed(string,ZeroInstall.Injector.Policy)"/> and <see cref="ImportFeed"/>.
     /// </summary>
     public abstract class FeedManagerBase : IFeedManager, IEquatable<FeedManagerBase>, ICloneable
     {
@@ -54,6 +56,30 @@ namespace ZeroInstall.Injector.Feeds
         #region Get feed
         /// <inheritdoc/>
         public abstract Feed GetFeed(string feedID, Policy policy, out bool stale);
+
+        /// <inheritdoc/>
+        public Feed GetFeed(string feedID, Policy policy)
+        {
+            bool stale;
+            var feed = GetFeed(feedID, policy, out stale);
+
+            // Detect outdated feed
+            if (stale && !Refresh)
+            {
+                Refresh = true;
+                try
+                {
+                    feed = GetFeed(feedID, policy, out stale);
+                }
+                catch (WebException)
+                {
+                    // Ignore missing internet connection and just keep outdated feed for now
+                }
+                Refresh = false;
+            }
+
+            return feed;
+        }
         #endregion
 
         #region Import feed

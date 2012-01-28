@@ -68,8 +68,7 @@ namespace ZeroInstall.Commands
             _policy = policy;
 
             string interfaceID = executor.Selections.InterfaceID;
-            bool stale;
-            _target = new InterfaceFeed(interfaceID, policy.FeedManager.GetFeed(interfaceID, policy, out stale));
+            _target = new InterfaceFeed(interfaceID, policy.FeedManager.GetFeed(interfaceID, policy));
 
             var mainImplementation = executor.Selections.MainImplementation;
             _implementationDir = executor.GetImplementationPath(mainImplementation);

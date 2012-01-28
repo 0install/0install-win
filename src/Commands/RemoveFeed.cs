@@ -78,7 +78,7 @@ namespace ZeroInstall.Commands
             { // Determine interfaces from feed content
                 feedID = GetCanonicalID(AdditionalArgs[0]);
 
-                interfaces = GetFeed(feedID).FeedFor.Map(reference => reference.Target.ToString());
+                interfaces = Policy.FeedManager.GetFeed(feedID, Policy).FeedFor.Map(reference => reference.Target.ToString());
             }
 
             // Remove feed from interface preference fies

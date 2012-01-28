@@ -75,7 +75,7 @@ namespace ZeroInstall.Commands
 
             string feedID = GetCanonicalID(AdditionalArgs[0]);
 
-            var feed = GetFeed(feedID);
+            var feed = Policy.FeedManager.GetFeed(feedID, Policy);
             if (feed.FeedFor.IsEmpty)
             {
                 Policy.Handler.Output(Resources.FeedManagement, string.Format(Resources.MissingFeedFor, feedID));

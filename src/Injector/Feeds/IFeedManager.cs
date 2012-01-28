@@ -55,6 +55,21 @@ namespace ZeroInstall.Injector.Feeds
         Feed GetFeed(string feedID, Policy policy, out bool stale);
 
         /// <summary>
+        /// Returns a specific <see cref="Feed"/> and automatically tries to update an existing one if it has become stale.
+        /// </summary>
+        /// <param name="feedID">The canonical ID used to identify the feed.</param>
+        /// <param name="policy">Provides additional class dependencies.</param>
+        /// <returns>The parsed <see cref="Feed"/> object.</returns>
+        /// <remarks><see cref="Feed"/>s are always served from the <see cref="Cache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
+        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
+        /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
+        /// <exception cref="SignatureException">Thrown if the signature data of a feed file could not be handled.</exception>
+        Feed GetFeed(string feedID, Policy policy);
+
+        /// <summary>
         /// Imports a remote <see cref="Feed"/> into the <see cref="Cache"/> after verifying its signature.
         /// </summary>
         /// <param name="uri">The URI the feed originally came from.</param>

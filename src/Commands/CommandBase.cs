@@ -219,51 +219,6 @@ namespace ZeroInstall.Commands
                 #endregion
             }
         }
-
-        /// <summary>
-        /// Returns a specific <see cref="Feed"/>, automatically refreshing if it is stale.
-        /// </summary>
-        /// <param name="feedID">The canonical ID used to identify the feed.</param>
-        /// <returns>The parsed <see cref="Feed"/> object.</returns>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
-        /// <exception cref="SignatureException">Thrown if the signature data of a feed file could not be handled.</exception>
-        protected Feed GetFeed(string feedID)
-        {
-            bool stale;
-            Feed feed;
-            try
-            {
-                feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
-            }
-            catch
-            {
-                // Suppress any left-over errors if the user canceled anyway
-                Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
-                throw;
-            }
-
-            // Refresh if stale instead of spawning background updater like 'run'
-            if (stale)
-            {
-                Policy.FeedManager.Refresh = true;
-                try
-                {
-                    feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
-                }
-                catch
-                {
-                    // Suppress any left-over errors if the user canceled anyway
-                    Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
-                    throw;
-                }
-            }
-
-            return feed;
-        }
         #endregion
     }
 }

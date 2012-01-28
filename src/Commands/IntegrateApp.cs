@@ -105,7 +105,7 @@ namespace ZeroInstall.Commands
                 return 0;
             }
 
-            var feed = GetFeed(interfaceID);
+            var feed = Policy.FeedManager.GetFeed(interfaceID, Policy);
             var appEntry = GetAppEntry(integrationManager, interfaceID, feed);
 
             // If the user specified no specific integration options show an interactive UI

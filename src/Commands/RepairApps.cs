@@ -62,7 +62,7 @@ namespace ZeroInstall.Commands
 
             Policy.Handler.ShowProgressUI();
             using (var integrationManager = new IntegrationManager(SystemWide, Policy.Handler))
-                integrationManager.Repair(GetFeed);
+                integrationManager.Repair(feedID => Policy.FeedManager.GetFeed(feedID, Policy));
             return 0;
         }
         #endregion

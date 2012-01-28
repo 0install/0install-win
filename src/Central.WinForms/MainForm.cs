@@ -261,8 +261,7 @@ namespace ZeroInstall.Central.WinForms
                 Feed feed;
                 try
                 {
-                    bool stale;
-                    feed = policy.FeedManager.GetFeed(pair.Value, policy, out stale);
+                    feed = policy.FeedManager.GetFeed(pair.Value, policy);
                 }
                     #region Error handling
                 catch (OperationCanceledException)

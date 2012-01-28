@@ -147,7 +147,7 @@ namespace ZeroInstall.Commands
             var alias = new AppAlias {Name = aliasName, Command = command};
             try
             {
-                integrationManager.AddAccessPoints(appEntry, GetFeed(interfaceID), new AccessPoint[] {alias});
+                integrationManager.AddAccessPoints(appEntry, Policy.FeedManager.GetFeed(interfaceID, Policy), new AccessPoint[] {alias});
             }
                 #region Error handling
             catch (InvalidOperationException ex)
@@ -202,7 +202,7 @@ namespace ZeroInstall.Commands
             catch (KeyNotFoundException)
             {
                 // Automatically add missing AppEntry
-                return integrationManager.AddApp(interfaceID, GetFeed(interfaceID));
+                return integrationManager.AddApp(interfaceID, Policy.FeedManager.GetFeed(interfaceID, Policy));
             }
         }
         #endregion

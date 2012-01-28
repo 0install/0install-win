@@ -57,7 +57,7 @@ namespace ZeroInstall.Commands
 
             try
             {
-                integrationManager.AddApp(interfaceID, GetFeed(interfaceID));
+                integrationManager.AddApp(interfaceID, Policy.FeedManager.GetFeed(interfaceID, Policy));
             }
             catch (InvalidOperationException ex)
             {
