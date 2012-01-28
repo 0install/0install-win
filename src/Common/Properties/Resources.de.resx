@@ -123,6 +123,9 @@
   <data name="ArgMustBeGreaterThanZero" xml:space="preserve">
     <value>Das Argument muss größer als Null sein.</value>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Zurück</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Abbrechen</value>
   </data>

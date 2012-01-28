@@ -85,6 +85,11 @@ namespace Common.Controls
         /// </summary>
         [DefaultValue(false), Description("When set to true only URIs starting with \"http:\" or \"https:\" will be considered valid."), Category("Behavior")]
         public bool HttpOnly { get; set; }
+
+        /// <summary>
+        /// Indicates whether the currently entered text is a valid URI.
+        /// </summary>
+        public bool IsValid { get { return ValidateUri(Text); } }
         #endregion
 
         #region Constructor
