@@ -75,6 +75,16 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove &apos;{0}&apos; from your application list?
+        ///This will also remove any desktop integration applied for this appliaction..
+        /// </summary>
+        internal static string AppRemoveConfirm {
+            get {
+                return ResourceManager.GetString("AppRemoveConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please configure synchronization options first..
         /// </summary>
         internal static string ConfigSyncFirst {
@@ -105,6 +115,16 @@ namespace ZeroInstall.Central.WinForms.Properties {
             get {
                 object obj = ResourceManager.GetObject("Logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No
+        ///Keep the application.
+        /// </summary>
+        internal static string NoKeepApp {
+            get {
+                return ResourceManager.GetString("NoKeepApp", resourceCulture);
             }
         }
         
@@ -194,6 +214,16 @@ namespace ZeroInstall.Central.WinForms.Properties {
         internal static string SyncCryptoKeyDescription {
             get {
                 return ResourceManager.GetString("SyncCryptoKeyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes
+        ///Remove the application.
+        /// </summary>
+        internal static string YesRemoveApp {
+            get {
+                return ResourceManager.GetString("YesRemoveApp", resourceCulture);
             }
         }
     }

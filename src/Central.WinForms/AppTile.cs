@@ -200,10 +200,9 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         private void UpdateButtons()
         {
-
             buttonAdd.Enabled = buttonAdd.Visible = !_inAppList;
             buttonRemove.Enabled = buttonRemove.Visible = _inAppList;
-            buttonIntegrate.Enabled = buttonIntegrate.Visible = _inAppList;
+            buttonIntegrate.Enabled = _inAppList;
         }
 
         private void linkLabelDetails_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -254,10 +253,11 @@ namespace ZeroInstall.Central.WinForms
         {
             // Disable button while operation is running
             buttonAdd.Enabled = false;
+
             ProcessUtils.RunAsync(delegate
             {
                 Commands.WinForms.Program.Main(new[] {"add-app", InterfaceID});
-                Invoke((SimpleEventHandler)UpdateButtons);
+                Invoke((SimpleEventHandler)UpdateButtons); // Restore buttons
             });
         }
 
@@ -265,21 +265,25 @@ namespace ZeroInstall.Central.WinForms
         {
             // Disable buttons while operation is running
             buttonRemove.Enabled = buttonIntegrate.Enabled = false;
+
             ProcessUtils.RunAsync(delegate
             {
                 Commands.WinForms.Program.Main(new[] {"integrate-app", InterfaceID});
-                Invoke((SimpleEventHandler)UpdateButtons);
+                Invoke((SimpleEventHandler)UpdateButtons); // Restore buttons
             });
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
+            if (!Msg.YesNo(this, string.Format(Resources.AppRemoveConfirm, AppName), MsgSeverity.Warn, Resources.YesRemoveApp, Resources.NoKeepApp)) return;
+            
             // Disable buttons while operation is running
             buttonRemove.Enabled = buttonIntegrate.Enabled = false;
+
             ProcessUtils.RunAsync(delegate
             {
                 Commands.WinForms.Program.Main(new[] {"remove-app", InterfaceID});
-                Invoke((SimpleEventHandler)UpdateButtons);
+                Invoke((SimpleEventHandler)UpdateButtons); // Restore buttons
             });
         }
         #endregion

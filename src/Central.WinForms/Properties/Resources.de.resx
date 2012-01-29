@@ -117,6 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppRemoveConfirm" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie '{0}' aus Ihrer Anwendungsliste entfernen möchten?
+Dabei werden auch alle Desktopintegrationen für die Anwendung entfernt.</value>
+  </data>
   <data name="ConfigSyncFirst" xml:space="preserve">
     <value>Bitte konfigurieren Sie zuerst die Synchronisations-Einstellungen.</value>
   </data>
@@ -125,6 +129,10 @@
   </data>
   <data name="FailedToRun" xml:space="preserve">
     <value>Konnte {0} nicht starten.</value>
+  </data>
+  <data name="NoKeepApp" xml:space="preserve">
+    <value>Nein
+Anwendung behalten</value>
   </data>
   <data name="ProblemLoadingOptions" xml:space="preserve">
     <value>Es gab ein Problem beim Laden der Einstellungen.</value>
@@ -152,5 +160,9 @@ Update installieren</value>
   <data name="SyncCryptoKeyDescription" xml:space="preserve">
     <value>Der Crypto-Schlüssel wird verwendet, um Ihre Daten lokal zu verschlüsseln, bevor sie an den Server übermittelt werden.
 Halten Sie diesen Schlüssel geheim und verwenden Sie etwas anderes für Ihr Passwort. Auf diese Weise kann niemand auf Ihre Daten zugreifen, selbst wenn Ihre Verbindung oder der Server kompromittiert werden.</value>
+  </data>
+  <data name="YesRemoveApp" xml:space="preserve">
+    <value>Ja
+Anwendung entfernen</value>
   </data>
 </root>

@@ -133,6 +133,10 @@
   <data name="SetupButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SetupButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="AppRemoveConfirm" xml:space="preserve">
+    <value>Are you sure you want to remove '{0}' from your application list?
+This will also remove any desktop integration applied for this appliaction.</value>
+  </data>
   <data name="ConfigSyncFirst" xml:space="preserve">
     <value>Please configure synchronization options first.</value>
   </data>
@@ -141,6 +145,10 @@
   </data>
   <data name="FailedToRun" xml:space="preserve">
     <value>Failed to run {0}.</value>
+  </data>
+  <data name="NoKeepApp" xml:space="preserve">
+    <value>No
+Keep the application</value>
   </data>
   <data name="ProblemLoadingOptions" xml:space="preserve">
     <value>There was a problem loading the options.</value>
@@ -168,5 +176,9 @@ Install update</value>
   <data name="SyncCryptoKeyDescription" xml:space="preserve">
     <value>The crypto key is used to encrypt your data locally before transmitting it to the server.
 Keep this key secret and use something different for your password. This way nobody can access your data, even if your connection or the server were to be compromised.</value>
+  </data>
+  <data name="YesRemoveApp" xml:space="preserve">
+    <value>Yes
+Remove the application</value>
   </data>
 </root>

@@ -35,8 +35,8 @@
             this.labelSummary = new System.Windows.Forms.Label();
             this.buttonRun = new Common.Controls.SplitButton();
             this.contextMenuRun = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.buttonSelectVersion = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSelectCommand = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonSelectVersion = new System.Windows.Forms.ToolStripMenuItem();
             this.runMenuSeperator = new System.Windows.Forms.ToolStripSeparator();
             this.buttonUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonAdd = new System.Windows.Forms.Button();
@@ -87,17 +87,17 @@
             this.contextMenuRun.Name = "contextMenuRun";
             resources.ApplyResources(this.contextMenuRun, "contextMenuRun");
             // 
-            // buttonSelectVersion
-            // 
-            this.buttonSelectVersion.Name = "buttonSelectVersion";
-            resources.ApplyResources(this.buttonSelectVersion, "buttonSelectVersion");
-            this.buttonSelectVersion.Click += new System.EventHandler(this.buttonSelectVersion_Click);
-            // 
             // buttonSelectCommand
             // 
             this.buttonSelectCommand.Name = "buttonSelectCommand";
             resources.ApplyResources(this.buttonSelectCommand, "buttonSelectCommand");
             this.buttonSelectCommand.Click += new System.EventHandler(this.buttonSelectCommmand_Click);
+            // 
+            // buttonSelectVersion
+            // 
+            this.buttonSelectVersion.Name = "buttonSelectVersion";
+            resources.ApplyResources(this.buttonSelectVersion, "buttonSelectVersion");
+            this.buttonSelectVersion.Click += new System.EventHandler(this.buttonSelectVersion_Click);
             // 
             // runMenuSeperator
             // 
@@ -162,10 +162,10 @@
             this.Controls.Add(this.linkLabelDetails);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.labelSummary);
-            this.Controls.Add(this.buttonRemove);
-            this.Controls.Add(this.buttonIntegrate);
             this.Controls.Add(this.pictureBoxIcon);
+            this.Controls.Add(this.buttonRemove);
             this.Controls.Add(this.buttonAdd);
+            this.Controls.Add(this.buttonIntegrate);
             this.Controls.Add(this.buttonRun);
             this.MaximumSize = new System.Drawing.Size(4096, 60);
             this.MinimumSize = new System.Drawing.Size(220, 60);
