@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Windows.Forms;
 using Common;
 
@@ -29,7 +30,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             InitializeComponent();
         }
 
-        private void buttonDone_Click(object sender, System.EventArgs e)
+        private void buttonDone_Click(object sender, EventArgs e)
         {
             Done();
         }

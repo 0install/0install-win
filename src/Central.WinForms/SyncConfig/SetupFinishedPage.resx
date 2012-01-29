@@ -126,7 +126,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonDone.Location" type="System.Drawing.Point, System.Drawing">
-    <value>165, 189</value>
+    <value>39, 158</value>
   </data>
   <data name="buttonDone.Size" type="System.Drawing.Size, System.Drawing">
     <value>140, 35</value>

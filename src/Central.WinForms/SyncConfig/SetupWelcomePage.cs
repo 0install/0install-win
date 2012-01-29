@@ -27,9 +27,16 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         public SetupWelcomePage()
         {
             InitializeComponent();
+        }
 
-            buttonUsedBeforeYes.Click += delegate { UsedBeforeSelected(true); };
-            buttonUsedBeforeNo.Click += delegate { UsedBeforeSelected(false); };
+        private void buttonUsedBeforeYes_Click(object sender, EventArgs e)
+        {
+            UsedBeforeSelected(true);
+        }
+
+        private void buttonUsedBeforeNo_Click(object sender, EventArgs e)
+        {
+            UsedBeforeSelected(false);
         }
     }
 }

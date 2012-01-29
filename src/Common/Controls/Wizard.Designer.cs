@@ -45,13 +45,13 @@
             // buttonBack
             // 
             this.buttonBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBack.Enabled = false;
             this.buttonBack.Location = new System.Drawing.Point(302, 313);
             this.buttonBack.Name = "buttonBack";
             this.buttonBack.Size = new System.Drawing.Size(75, 23);
             this.buttonBack.TabIndex = 1;
             this.buttonBack.Text = "(Back)";
             this.buttonBack.UseVisualStyleBackColor = true;
+            this.buttonBack.Visible = false;
             this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
             // 
             // buttonCancel

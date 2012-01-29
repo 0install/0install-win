@@ -56,12 +56,14 @@
             resources.ApplyResources(this.buttonUsedBeforeYes, "buttonUsedBeforeYes");
             this.buttonUsedBeforeYes.Name = "buttonUsedBeforeYes";
             this.buttonUsedBeforeYes.UseVisualStyleBackColor = true;
+            this.buttonUsedBeforeYes.Click += new System.EventHandler(this.buttonUsedBeforeYes_Click);
             // 
             // buttonUsedBeforeNo
             // 
             resources.ApplyResources(this.buttonUsedBeforeNo, "buttonUsedBeforeNo");
             this.buttonUsedBeforeNo.Name = "buttonUsedBeforeNo";
             this.buttonUsedBeforeNo.UseVisualStyleBackColor = true;
+            this.buttonUsedBeforeNo.Click += new System.EventHandler(this.buttonUsedBeforeNo_Click);
             // 
             // SetupWelcomePage
             // 

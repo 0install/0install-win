@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -38,7 +39,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             OpenInBrowser(Config.DefaultSyncServer + "register");
         }
 
-        private void buttonContinue_Click(object sender, System.EventArgs e)
+        private void buttonContinue_Click(object sender, EventArgs e)
         {
             Continue();
         }

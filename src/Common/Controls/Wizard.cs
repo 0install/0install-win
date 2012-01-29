@@ -36,7 +36,7 @@ namespace Common.Controls
             panelPage.Controls.Add(page);
             PageStack.Push(page);
 
-            buttonBack.Enabled = (PageStack.Count > 1);
+            buttonBack.Visible = (PageStack.Count > 1);
             page.Focus();
         }
 
@@ -48,7 +48,7 @@ namespace Common.Controls
             panelPage.Controls.Remove(PageStack.Pop());
             panelPage.Controls.Add(PageStack.Peek());
 
-            buttonBack.Enabled = (PageStack.Count > 1);
+            buttonBack.Visible = (PageStack.Count > 1);
             PageStack.Peek().Focus();
         }
 
