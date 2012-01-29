@@ -22,7 +22,7 @@ namespace Common.Controls
         {
             InitializeComponent();
 
-            buttonBack.Text = @"<- "+ Resources.Back;
+            buttonBack.Text = @"<- " + Resources.Back;
             buttonCancel.Text = Resources.Cancel;
         }
 
@@ -37,6 +37,7 @@ namespace Common.Controls
             PageStack.Push(page);
 
             buttonBack.Enabled = (PageStack.Count > 1);
+            page.Focus();
         }
 
         /// <summary>
@@ -48,6 +49,7 @@ namespace Common.Controls
             panelPage.Controls.Add(PageStack.Peek());
 
             buttonBack.Enabled = (PageStack.Count > 1);
+            PageStack.Peek().Focus();
         }
 
         private void buttonBack_Click(object sender, EventArgs e)

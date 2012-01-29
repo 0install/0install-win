@@ -142,12 +142,12 @@
     <value>The user name and/or password you entered for the Sync server are incorrect. Please check your Synchronization Options.</value>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
-    <value>The Crypto key you entered for the Sync server is incorrect. Please check your Synchronization Options.
-You can change the Crypto key used on the server by running '0install sync --reset=server'.</value>
+    <value>The Crypto key you entered for Sync is incorrect. Please check your Synchronization Options.
+You can change the Crypto key used on the server by running the Reset wizard or '0install sync --reset=server'.</value>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>The data currently stored on the Sync server is damaged.
-You can replace the data stored on the server by running '0install sync --reset=server'.</value>
+You can replace the data stored on the server by running the Reset wizard or '0install sync --reset=server'.</value>
   </data>
   <data name="UnableToFindTypeID" xml:space="preserve">
     <value>Unable to find {0} with the ID '{1}'.</value>

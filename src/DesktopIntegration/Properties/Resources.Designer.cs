@@ -133,8 +133,8 @@ namespace ZeroInstall.DesktopIntegration.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Crypto key you entered for the Sync server is incorrect. Please check your Synchronization Options.
-        ///You can change the Crypto key used on the server by running &apos;0install sync --reset=server&apos;..
+        ///   Looks up a localized string similar to The Crypto key you entered for Sync is incorrect. Please check your Synchronization Options.
+        ///You can change the Crypto key used on the server by running the Reset wizard or &apos;0install sync --reset=server&apos;..
         /// </summary>
         internal static string SyncCryptoKeyInvalid {
             get {
@@ -144,7 +144,7 @@ namespace ZeroInstall.DesktopIntegration.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to The data currently stored on the Sync server is damaged.
-        ///You can replace the data stored on the server by running &apos;0install sync --reset=server&apos;..
+        ///You can replace the data stored on the server by running the Reset wizard or &apos;0install sync --reset=server&apos;..
         /// </summary>
         internal static string SyncServerDataDamaged {
             get {

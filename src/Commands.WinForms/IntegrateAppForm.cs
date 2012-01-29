@@ -134,7 +134,7 @@ namespace ZeroInstall.Commands.WinForms
             dataGridAliasesColumnCommand.Items.AddRange(commandsArray);
             // ReSharper restore CoVariantArrayConversion
 
-            if (_appEntry.AccessPoints == null) AddDefaultCommandAccessPoints();
+            if (_appEntry.AccessPoints == null) SuggestCommandAccessPoints();
             else ReadCommandAccessPoints();
 
             // Apply data to DataGrids in bulk for better performance
@@ -146,7 +146,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Creates default <see cref="AccessPoints.CommandAccessPoint"/>s as a usuefull basis for the first integration.
         /// </summary>
-        private void AddDefaultCommandAccessPoints()
+        private void SuggestCommandAccessPoints()
         {
             string category = EnumerableUtils.First(_feed.Categories);
             if (_feed.EntryPoints.IsEmpty)
@@ -165,16 +165,13 @@ namespace ZeroInstall.Commands.WinForms
                     {
                         string entryPointName = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture);
 
-                        if (!string.IsNullOrEmpty(entryPointName))
+                        _menuEntries.Add(new AccessPoints.MenuEntry
                         {
-                            _menuEntries.Add(new AccessPoints.MenuEntry
-                            {
-                                Name = entryPointName,
-                                // Group all entry points in a single folder
-                                Category = string.IsNullOrEmpty(category) ? _appEntry.Name : category + Path.DirectorySeparatorChar + _appEntry.Name,
-                                Command = entryPoint.Command
-                            });
-                        }
+                            Name = entryPointName ?? _appEntry.Name + " " + entryPoint.Command,
+                            // Group all entry points in a single folder
+                            Category = string.IsNullOrEmpty(category) ? _appEntry.Name : category + Path.DirectorySeparatorChar + _appEntry.Name,
+                            Command = entryPoint.Command
+                        });
 
                         if (_feed.NeedsTerminal || entryPoint.NeedsTerminal)
                             _aliases.Add(new AccessPoints.AppAlias {Name = entryPoint.BinaryName ?? entryPoint.Command, Command = entryPoint.Command});

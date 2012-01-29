@@ -295,10 +295,6 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="url">The URL to open.</param>
         private void OpenInBrowser(string url)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(url)) throw new ArgumentNullException("url");
-            #endregion
-
             try
             {
                 Process.Start(url);

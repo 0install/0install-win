@@ -101,6 +101,7 @@ namespace ZeroInstall.DesktopIntegration
             if (syncServer == null) throw new ArgumentNullException("syncServer");
             #endregion
 
+            if (!syncServer.ToString().EndsWith("/")) syncServer = new Uri(syncServer + "/"); // Ensure the server URI references a directory
             _syncServer = syncServer;
             _username = username;
             _password = password;
@@ -139,108 +140,109 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             var appListUri = new Uri(_syncServer, new Uri("app-list", UriKind.Relative));
-            var webClient = new WebClient
+            using (var webClient = new WebClient
             {
                 Credentials = new NetworkCredential(_username, _password),
                 CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)
-            };
-
-            Retry:
-            byte[] appListData;
-            try
+            })
             {
-                // Download and merge the current AppList from the server (unless the server is to be reset)
-                appListData = (resetMode == SyncResetMode.Server)
-                    ? new byte[0]
-                    // ToDo: Allow cancel
-                    : webClient.DownloadData(appListUri);
-            }
-                #region Error handling
-            catch (WebException ex)
-            {
-                // Wrap exception to add context information
-                if (ex.Status == WebExceptionStatus.ProtocolError)
-                {
-                    var response = ex.Response as HttpWebResponse;
-                    if (response != null && response.StatusCode == HttpStatusCode.Unauthorized)
-                        throw new WebException(Resources.SyncCredentialsInvalid, ex);
-                }
-
-                throw;
-            }
-            #endregion
-
-            if (appListData.Length > 0)
-            {
-                AppList serverList;
+                Retry:
+                byte[] appListData;
                 try
                 {
-                    serverList = XmlStorage.FromZip<AppList>(new MemoryStream(appListData), _cryptoKey, null);
-                }
-                    #region Error handling
-                catch (ZipException ex)
-                {
-                    // Wrap exception to add context information
-                    if (ex.Message == "Invalid password") throw new InvalidDataException(Resources.SyncCryptoKeyInvalid);
-                    throw new InvalidDataException(Resources.SyncServerDataDamaged, ex);
-                }
-                catch (InvalidDataException ex)
-                {
-                    // Wrap exception to add context information
-                    throw new InvalidDataException(Resources.SyncServerDataDamaged, ex);
-                }
-                #endregion
-
-                handler.CancellationToken.ThrowIfCancellationRequested();
-                try
-                {
-                    MergeData(serverList, (resetMode == SyncResetMode.Client), feedRetriever, handler);
-                }
-                catch (KeyNotFoundException ex)
-                {
-                    // Wrap exception since only certain exception types are allowed
-                    throw new InvalidDataException(ex.Message, ex);
-                }
-                finally
-                {
-                    Complete();
-                }
-
-                handler.CancellationToken.ThrowIfCancellationRequested();
-            }
-
-            // Upload the encrypted AppList back to the server (unless the client was reset)
-            if (resetMode != SyncResetMode.Client)
-            {
-                var memoryStream = new MemoryStream();
-                XmlStorage.ToZip(memoryStream, AppList, _cryptoKey, null);
-
-                // Prevent race conditions by only allowing replacement of older data
-                if (resetMode == SyncResetMode.None && !string.IsNullOrEmpty(webClient.ResponseHeaders[HttpResponseHeader.ETag]))
-                    webClient.Headers[HttpRequestHeader.IfMatch] = '"' + webClient.ResponseHeaders[HttpResponseHeader.ETag] + '"';
-                try
-                {
-                    // ToDo: Allow cancel
-                    webClient.UploadData(appListUri, "PUT", memoryStream.ToArray());
+                    // Download and merge the current AppList from the server (unless the server is to be reset)
+                    appListData = (resetMode == SyncResetMode.Server)
+                        ? new byte[0]
+                        // ToDo: Allow cancel
+                        : webClient.DownloadData(appListUri);
                 }
                     #region Error handling
                 catch (WebException ex)
                 {
+                    // Wrap exception to add context information
                     if (ex.Status == WebExceptionStatus.ProtocolError)
                     {
                         var response = ex.Response as HttpWebResponse;
-                        if (response != null && response.StatusCode == HttpStatusCode.PreconditionFailed)
-                        { // Precondition failure indicates a race condition
-                            // Wait for a randomized interval before retrying
-                            Thread.Sleep(_random.Next(250, 1500));
-                            handler.CancellationToken.ThrowIfCancellationRequested();
-                            goto Retry;
-                        }
+                        if (response != null && response.StatusCode == HttpStatusCode.Unauthorized)
+                            throw new WebException(Resources.SyncCredentialsInvalid, ex);
                     }
 
                     throw;
                 }
                 #endregion
+
+                if (appListData.Length > 0)
+                {
+                    AppList serverList;
+                    try
+                    {
+                        serverList = XmlStorage.FromZip<AppList>(new MemoryStream(appListData), _cryptoKey, null);
+                    }
+                        #region Error handling
+                    catch (ZipException ex)
+                    {
+                        // Wrap exception to add context information
+                        if (ex.Message == "Invalid password") throw new InvalidDataException(Resources.SyncCryptoKeyInvalid);
+                        throw new InvalidDataException(Resources.SyncServerDataDamaged, ex);
+                    }
+                    catch (InvalidDataException ex)
+                    {
+                        // Wrap exception to add context information
+                        throw new InvalidDataException(Resources.SyncServerDataDamaged, ex);
+                    }
+                    #endregion
+
+                    handler.CancellationToken.ThrowIfCancellationRequested();
+                    try
+                    {
+                        MergeData(serverList, (resetMode == SyncResetMode.Client), feedRetriever, handler);
+                    }
+                    catch (KeyNotFoundException ex)
+                    {
+                        // Wrap exception since only certain exception types are allowed
+                        throw new InvalidDataException(ex.Message, ex);
+                    }
+                    finally
+                    {
+                        Complete();
+                    }
+
+                    handler.CancellationToken.ThrowIfCancellationRequested();
+                }
+
+                // Upload the encrypted AppList back to the server (unless the client was reset)
+                if (resetMode != SyncResetMode.Client)
+                {
+                    var memoryStream = new MemoryStream();
+                    XmlStorage.ToZip(memoryStream, AppList, _cryptoKey, null);
+
+                    // Prevent race conditions by only allowing replacement of older data
+                    if (resetMode == SyncResetMode.None && !string.IsNullOrEmpty(webClient.ResponseHeaders[HttpResponseHeader.ETag]))
+                        webClient.Headers[HttpRequestHeader.IfMatch] = '"' + webClient.ResponseHeaders[HttpResponseHeader.ETag] + '"';
+                    try
+                    {
+                        // ToDo: Allow cancel
+                        webClient.UploadData(appListUri, "PUT", memoryStream.ToArray());
+                    }
+                        #region Error handling
+                    catch (WebException ex)
+                    {
+                        if (ex.Status == WebExceptionStatus.ProtocolError)
+                        {
+                            var response = ex.Response as HttpWebResponse;
+                            if (response != null && response.StatusCode == HttpStatusCode.PreconditionFailed)
+                            { // Precondition failure indicates a race condition
+                                // Wait for a randomized interval before retrying
+                                Thread.Sleep(_random.Next(250, 1500));
+                                handler.CancellationToken.ThrowIfCancellationRequested();
+                                goto Retry;
+                            }
+                        }
+
+                        throw;
+                    }
+                    #endregion
+                }
             }
 
             // Save reference point for future syncs

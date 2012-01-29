@@ -104,7 +104,11 @@ namespace ZeroInstall.Injector
             }
         }
 
-        private const string DefaultFeedMirror = "http://roscidus.com/0mirror";
+        /// <summary>
+        /// The default value for <see cref="FeedMirror"/>.
+        /// </summary>
+        public const string DefaultFeedMirror = "http://roscidus.com/0mirror";
+
         private Uri _feedMirror = new Uri(DefaultFeedMirror);
 
         /// <summary>
@@ -113,7 +117,11 @@ namespace ZeroInstall.Injector
         [DefaultValue(typeof(Uri), DefaultFeedMirror), DisplayName("Feed mirror"), Description("The base URL of a mirror site for keys and feeds.")]
         public Uri FeedMirror { get { return _feedMirror; } set { _feedMirror = value; } }
 
-        private const string DefaultKeyInfoServer = "https://keylookup.appspot.com";
+        /// <summary>
+        /// The default value for <see cref="KeyInfoServer"/>.
+        /// </summary>
+        public const string DefaultKeyInfoServer = "https://keylookup.appspot.com";
+
         private Uri _keyInfoServer = new Uri(DefaultKeyInfoServer);
 
         /// <summary>
@@ -130,7 +138,11 @@ namespace ZeroInstall.Injector
         [DefaultValue(true), DisplayName("Auto approve keys"), Description("Automatically approve keys known by the key info server and seen the first time a feed is fetched.")]
         public bool AutoApproveKeys { get { return _autoApproveKeys; } set { _autoApproveKeys = value; } }
 
-        private const string DefaultSelfUpdateID = "http://0install.de/feeds/ZeroInstall.xml";
+        /// <summary>
+        /// The default value for <see cref="SelfUpdateID"/>.
+        /// </summary>
+        public const string DefaultSelfUpdateID = "http://0install.de/feeds/ZeroInstall.xml";
+
         private string _selfUpdateID = DefaultSelfUpdateID;
 
         /// <summary>
@@ -139,7 +151,11 @@ namespace ZeroInstall.Injector
         [DefaultValue(DefaultSelfUpdateID), DisplayName("Self-update ID"), Description("The ID used by the solver to search for updates for Zero Install itself.")]
         public string SelfUpdateID { get { return _selfUpdateID; } set { _selfUpdateID = value; } }
 
-        private const string DefaultSyncServer = "https://0install.de/sync/";
+        /// <summary>
+        /// The default value for <see cref="SyncServer"/>.
+        /// </summary>
+        public const string DefaultSyncServer = "https://0install.de/sync/";
+
         private Uri _syncServer = new Uri(DefaultSyncServer);
 
         /// <summary>
