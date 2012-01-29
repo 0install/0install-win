@@ -442,8 +442,7 @@ namespace ZeroInstall.Central.WinForms
             var config = Config.Load();
             if (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey))
             {
-                Msg.Inform(this, Resources.ConfigSyncFirst, MsgSeverity.Warn);
-                new OptionsDialog().ShowDialog(this);
+                new SyncConfig.SetupWizard().ShowDialog(this);
             }
             else ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"sync"}));
         }
@@ -514,10 +513,6 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="url">The URL to open.</param>
         private void OpenInBrowser(string url)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(url)) throw new ArgumentNullException("url");
-            #endregion
-
             try
             {
                 Process.Start(url);

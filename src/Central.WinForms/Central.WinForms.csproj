@@ -56,6 +56,9 @@
     <Reference Include="C5">
       <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="NDesk.Options">
       <HintPath>..\..\lib\NDesk.Options.dll</HintPath>
     </Reference>
@@ -96,6 +99,61 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="SyncConfig\CredentialsPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SyncConfig\CredentialsPage.Designer.cs">
+      <DependentUpon>CredentialsPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SyncConfig\ExistingCryptoKeyPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SyncConfig\ExistingCryptoKeyPage.Designer.cs">
+      <DependentUpon>ExistingCryptoKeyPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SyncConfig\SetupFinishedPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SyncConfig\SetupFinishedPage.Designer.cs">
+      <DependentUpon>SetupFinishedPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SyncConfig\NewCryptoKeyPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SyncConfig\NewCryptoKeyPage.Designer.cs">
+      <DependentUpon>NewCryptoKeyPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SyncConfig\SetupWelcomePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SyncConfig\SetupWelcomePage.Designer.cs">
+      <DependentUpon>SetupWelcomePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SyncConfig\RegisterPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SyncConfig\RegisterPage.Designer.cs">
+      <DependentUpon>RegisterPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SyncConfig\ResetWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SyncConfig\ResetWizard.Designer.cs">
+      <DependentUpon>ResetWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SyncConfig\ServerPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SyncConfig\ServerPage.Designer.cs">
+      <DependentUpon>ServerPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SyncConfig\SetupWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SyncConfig\SetupWizard.Designer.cs">
+      <DependentUpon>SetupWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SyncConfig\SyncCredentials.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
@@ -136,6 +194,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SelectCommandDialog.resx">
       <DependentUpon>SelectCommandDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyncConfig\CredentialsPage.resx">
+      <DependentUpon>CredentialsPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyncConfig\ExistingCryptoKeyPage.resx">
+      <DependentUpon>ExistingCryptoKeyPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyncConfig\SetupFinishedPage.resx">
+      <DependentUpon>SetupFinishedPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyncConfig\NewCryptoKeyPage.resx">
+      <DependentUpon>NewCryptoKeyPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyncConfig\SetupWelcomePage.resx">
+      <DependentUpon>SetupWelcomePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyncConfig\RegisterPage.resx">
+      <DependentUpon>RegisterPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyncConfig\ServerPage.resx">
+      <DependentUpon>ServerPage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

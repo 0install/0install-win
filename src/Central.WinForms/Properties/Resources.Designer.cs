@@ -85,11 +85,11 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please configure synchronization options first..
+        ///   Looks up a localized string similar to Do you want to continue and solve this problem later?.
         /// </summary>
-        internal static string ConfigSyncFirst {
+        internal static string ContinueAndSolveLater {
             get {
-                return ResourceManager.GetString("ConfigSyncFirst", resourceCulture);
+                return ResourceManager.GetString("ContinueAndSolveLater", resourceCulture);
             }
         }
         
@@ -125,6 +125,16 @@ namespace ZeroInstall.Central.WinForms.Properties {
         internal static string NoKeepApp {
             get {
                 return ResourceManager.GetString("NoKeepApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No
+        ///Return to input.
+        /// </summary>
+        internal static string NoWizardReturn {
+            get {
+                return ResourceManager.GetString("NoWizardReturn", resourceCulture);
             }
         }
         
@@ -208,12 +218,51 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The user name and/or password you entered are incorrect..
+        /// </summary>
+        internal static string SyncCredentialsInvalid {
+            get {
+                return ResourceManager.GetString("SyncCredentialsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The crypto key is used to encrypt your data locally before transmitting it to the server.
-        ///Keep this key secret and use something different for your password. This way nobody can access your data, even if your connection or the server were to be compromised..
+        ///Keep this key secret and use something different for your password. This way nobody can access your data, even if the server were to be compromised..
         /// </summary>
         internal static string SyncCryptoKeyDescription {
             get {
                 return ResourceManager.GetString("SyncCryptoKeyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Crypto key you entered is incorrect.
+        ///You can reset the Crypto key later by running the Reset wizard..
+        /// </summary>
+        internal static string SyncCryptoKeyInvalid {
+            get {
+                return ResourceManager.GetString("SyncCryptoKeyInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The data currently stored on the Sync server is damaged.
+        ///You can replace the data stored on the server later by running the Reset wizard..
+        /// </summary>
+        internal static string SyncServerDataDamaged {
+            get {
+                return ResourceManager.GetString("SyncServerDataDamaged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to use an unencrypted connection to a Sync server?
+        ///Encrypted connections use an https:// prefix..
+        /// </summary>
+        internal static string UnencryptedSyncServer {
+            get {
+                return ResourceManager.GetString("UnencryptedSyncServer", resourceCulture);
             }
         }
         
@@ -224,6 +273,16 @@ namespace ZeroInstall.Central.WinForms.Properties {
         internal static string YesRemoveApp {
             get {
                 return ResourceManager.GetString("YesRemoveApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes
+        ///Continue wizard.
+        /// </summary>
+        internal static string YesWizardContinue {
+            get {
+                return ResourceManager.GetString("YesWizardContinue", resourceCulture);
             }
         }
     }

@@ -33,7 +33,6 @@
             this.tabControlApps = new System.Windows.Forms.TabControl();
             this.tabPageAppList = new System.Windows.Forms.TabPage();
             this.buttonAddOtherApp = new System.Windows.Forms.Button();
-            this.buttonSync = new System.Windows.Forms.Button();
             this.appList = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
             this.labelLoadingCatalog = new System.Windows.Forms.Label();
@@ -49,6 +48,7 @@
             this.appListWatcher = new System.IO.FileSystemWatcher();
             this.appListWorker = new System.ComponentModel.BackgroundWorker();
             this.appListTimer = new System.Windows.Forms.Timer(this.components);
+            this.buttonSync = new System.Windows.Forms.Button();
             this.tabControlApps.SuspendLayout();
             this.tabPageAppList.SuspendLayout();
             this.tabPageCatalog.SuspendLayout();
@@ -66,10 +66,9 @@
             // 
             // tabPageAppList
             // 
-            resources.ApplyResources(this.tabPageAppList, "tabPageAppList");
             this.tabPageAppList.Controls.Add(this.buttonAddOtherApp);
-            this.tabPageAppList.Controls.Add(this.buttonSync);
             this.tabPageAppList.Controls.Add(this.appList);
+            resources.ApplyResources(this.tabPageAppList, "tabPageAppList");
             this.tabPageAppList.Name = "tabPageAppList";
             this.tabPageAppList.UseVisualStyleBackColor = true;
             // 
@@ -80,13 +79,6 @@
             this.buttonAddOtherApp.UseVisualStyleBackColor = true;
             this.buttonAddOtherApp.Click += new System.EventHandler(this.buttonAddOtherApp_Click);
             // 
-            // buttonSync
-            // 
-            resources.ApplyResources(this.buttonSync, "buttonSync");
-            this.buttonSync.Name = "buttonSync";
-            this.buttonSync.UseVisualStyleBackColor = true;
-            this.buttonSync.Click += new System.EventHandler(this.buttonSync_Click);
-            // 
             // appList
             // 
             resources.ApplyResources(this.appList, "appList");
@@ -94,10 +86,10 @@
             // 
             // tabPageCatalog
             // 
-            resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
             this.tabPageCatalog.Controls.Add(this.labelLoadingCatalog);
             this.tabPageCatalog.Controls.Add(this.buttonRefreshCatalog);
             this.tabPageCatalog.Controls.Add(this.catalogList);
+            resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
             this.tabPageCatalog.Name = "tabPageCatalog";
             this.tabPageCatalog.UseVisualStyleBackColor = true;
             // 
@@ -180,11 +172,19 @@
             this.appListTimer.Interval = 2500;
             this.appListTimer.Tick += new System.EventHandler(this.appListTimer_Tick);
             // 
+            // buttonSync
+            // 
+            resources.ApplyResources(this.buttonSync, "buttonSync");
+            this.buttonSync.Name = "buttonSync";
+            this.buttonSync.UseVisualStyleBackColor = true;
+            this.buttonSync.Click += new System.EventHandler(this.buttonSync_Click);
+            // 
             // MainForm
             // 
-            resources.ApplyResources(this, "$this");
             this.AllowDrop = true;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.buttonSync);
             this.Controls.Add(this.pictureBoxLogo);
             this.Controls.Add(this.buttonOptions);
             this.Controls.Add(this.labelVersion);
@@ -220,11 +220,11 @@
         private System.Windows.Forms.PictureBox pictureBoxLogo;
         private System.Windows.Forms.Button buttonRefreshCatalog;
         private System.IO.FileSystemWatcher appListWatcher;
-        private System.Windows.Forms.Button buttonSync;
         private System.ComponentModel.BackgroundWorker appListWorker;
         private System.Windows.Forms.Timer appListTimer;
         private System.Windows.Forms.Label labelLoadingCatalog;
         private System.Windows.Forms.Button buttonAddOtherApp;
+        private System.Windows.Forms.Button buttonSync;
 
     }
 }

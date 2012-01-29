@@ -30,6 +30,7 @@ namespace ZeroInstall.Central.WinForms
 {
     public partial class OptionsDialog : OKCancelDialog
     {
+        #region Startup
         public OptionsDialog()
         {
             InitializeComponent();
@@ -39,68 +40,7 @@ namespace ZeroInstall.Central.WinForms
         {
             LoadConfig();
         }
-
-        #region Sync
-        private void linkSyncRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            try
-            {
-                OpenInBrowser(Config.Load().SyncServer + "register");
-            }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
-            }
-            catch (InvalidDataException ex)
-            {
-                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
-            }
-            #endregion
-        }
-
-        private void linkSyncAccount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            try
-            {
-                OpenInBrowser(Config.Load().SyncServer + "account");
-            }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
-            }
-            catch (InvalidDataException ex)
-            {
-                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
-            }
-            #endregion
-        }
-
-        private void buttonSyncCryptoKey_Click(object sender, EventArgs e)
-        {
-            Msg.Inform(this, Resources.SyncCryptoKeyDescription, MsgSeverity.Info);
-        }
         #endregion
-
-        private void buttonAdvanced_Click(object sender, EventArgs e)
-        {
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"config"}));
-            Close();
-        }
-
-        private void buttonOK_Click(object sender, EventArgs e)
-        {
-            SaveConfig();
-        }
 
         #region Data access
         private void LoadConfig()
@@ -109,11 +49,12 @@ namespace ZeroInstall.Central.WinForms
             {
                 // Fill fields with data from config
                 var config = Config.Load();
+                textBoxSyncServer.Uri = config.SyncServer;
                 textBoxSyncUsername.Text = config.SyncServerUsername;
                 textBoxSyncPassword.Text = config.SyncServerPassword;
                 textBoxSyncCryptoKey.Text = config.SyncCryptoKey;
             }
-                #region Error handling
+            #region Error handling
             catch (IOException ex)
             {
                 Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
@@ -135,12 +76,13 @@ namespace ZeroInstall.Central.WinForms
             {
                 // Write data from fields back to config
                 var config = Config.Load();
+                config.SyncServer = textBoxSyncServer.Uri;
                 config.SyncServerUsername = textBoxSyncUsername.Text;
                 config.SyncServerPassword = textBoxSyncPassword.Text;
                 config.SyncCryptoKey = textBoxSyncCryptoKey.Text;
                 config.Save();
             }
-                #region Error handling
+            #region Error handling
             catch (IOException ex)
             {
                 Msg.Inform(this, Resources.ProblemSavingOptions + "\n" + ex.Message, MsgSeverity.Error);
@@ -157,6 +99,49 @@ namespace ZeroInstall.Central.WinForms
         }
         #endregion
 
+        #region Sync
+        private void linkSyncAccount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                string syncServer = textBoxSyncServer.Text;
+                if (!syncServer.EndsWith("/")) syncServer += "/"; // Ensure the server URI references a directory
+                OpenInBrowser(syncServer + "account");
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
+            }
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
+            }
+            #endregion
+        }
+
+        private void buttonSyncCryptoKey_Click(object sender, EventArgs e)
+        {
+            Msg.Inform(this, Resources.SyncCryptoKeyDescription, MsgSeverity.Info);
+        }
+
+        private void buttonSyncSetupWizard_Click(object sender, EventArgs e)
+        {
+            new SyncConfig.SetupWizard().ShowDialog(this);
+            LoadConfig();
+        }
+
+        private void buttonSyncReset_Click(object sender, EventArgs e)
+        {
+            new SyncConfig.ResetWizard().ShowDialog(this);
+            LoadConfig();
+        }
+        #endregion
+
         #region Helpers
         /// <summary>
         /// Opens a URL in the system's default browser.
@@ -164,10 +149,6 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="url">The URL to open.</param>
         private void OpenInBrowser(string url)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(url)) throw new ArgumentNullException("url");
-            #endregion
-
             try
             {
                 Process.Start(url);
@@ -184,5 +165,16 @@ namespace ZeroInstall.Central.WinForms
             #endregion
         }
         #endregion
+
+        private void buttonAdvanced_Click(object sender, EventArgs e)
+        {
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"config"}));
+            Close();
+        }
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            SaveConfig();
+        }
     }
 }

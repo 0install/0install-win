@@ -117,4 +117,421 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonOK.Location" type="System.Drawing.Point, System.Drawing">
+    <value>93, 211</value>
+  </data>
+  <data name="&gt;&gt;buttonOK.Name" xml:space="preserve">
+    <value>buttonOK</value>
+  </data>
+  <data name="&gt;&gt;buttonOK.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonOK.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonOK.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>174, 211</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
+    <value>buttonCancel</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonAdvanced.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonAdvanced.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 211</value>
+  </data>
+  <data name="buttonAdvanced.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonAdvanced.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="buttonAdvanced.Text" xml:space="preserve">
+    <value>&amp;Advanced</value>
+  </data>
+  <data name="&gt;&gt;buttonAdvanced.Name" xml:space="preserve">
+    <value>buttonAdvanced</value>
+  </data>
+  <data name="&gt;&gt;buttonAdvanced.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAdvanced.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonAdvanced.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="groupBoxSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="buttonSyncReset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>136, 154</value>
+  </data>
+  <data name="buttonSyncReset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 23</value>
+  </data>
+  <data name="buttonSyncReset.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="buttonSyncReset.Text" xml:space="preserve">
+    <value>&amp;Reset</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncReset.Name" xml:space="preserve">
+    <value>buttonSyncReset</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncReset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncReset.Parent" xml:space="preserve">
+    <value>groupBoxSync</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncReset.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="buttonSyncSetupWizard.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 154</value>
+  </data>
+  <data name="buttonSyncSetupWizard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 23</value>
+  </data>
+  <data name="buttonSyncSetupWizard.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="buttonSyncSetupWizard.Text" xml:space="preserve">
+    <value>Setup &amp;wizard</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncSetupWizard.Name" xml:space="preserve">
+    <value>buttonSyncSetupWizard</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncSetupWizard.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncSetupWizard.Parent" xml:space="preserve">
+    <value>groupBoxSync</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncSetupWizard.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="linkSyncAccount.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkSyncAccount.Location" type="System.Drawing.Point, System.Drawing">
+    <value>69, 94</value>
+  </data>
+  <data name="linkSyncAccount.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 13</value>
+  </data>
+  <data name="linkSyncAccount.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="linkSyncAccount.Text" xml:space="preserve">
+    <value>Manage account</value>
+  </data>
+  <data name="&gt;&gt;linkSyncAccount.Name" xml:space="preserve">
+    <value>linkSyncAccount</value>
+  </data>
+  <data name="&gt;&gt;linkSyncAccount.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkSyncAccount.Parent" xml:space="preserve">
+    <value>groupBoxSync</value>
+  </data>
+  <data name="&gt;&gt;linkSyncAccount.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="buttonSyncCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="buttonSyncCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>212, 119</value>
+  </data>
+  <data name="buttonSyncCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>19, 20</value>
+  </data>
+  <data name="buttonSyncCryptoKey.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="buttonSyncCryptoKey.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncCryptoKey.Name" xml:space="preserve">
+    <value>buttonSyncCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncCryptoKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncCryptoKey.Parent" xml:space="preserve">
+    <value>groupBoxSync</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncCryptoKey.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="textBoxSyncCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxSyncCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>72, 119</value>
+  </data>
+  <data name="textBoxSyncCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>134, 20</value>
+  </data>
+  <data name="textBoxSyncCryptoKey.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncCryptoKey.Name" xml:space="preserve">
+    <value>textBoxSyncCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncCryptoKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncCryptoKey.Parent" xml:space="preserve">
+    <value>groupBoxSync</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncCryptoKey.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="labelSyncCryptoKey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelSyncCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 122</value>
+  </data>
+  <data name="labelSyncCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 13</value>
+  </data>
+  <data name="labelSyncCryptoKey.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="labelSyncCryptoKey.Text" xml:space="preserve">
+    <value>&amp;Crypto key:</value>
+  </data>
+  <data name="&gt;&gt;labelSyncCryptoKey.Name" xml:space="preserve">
+    <value>labelSyncCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;labelSyncCryptoKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelSyncCryptoKey.Parent" xml:space="preserve">
+    <value>groupBoxSync</value>
+  </data>
+  <data name="&gt;&gt;labelSyncCryptoKey.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="textBoxSyncPassword.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxSyncPassword.Location" type="System.Drawing.Point, System.Drawing">
+    <value>72, 71</value>
+  </data>
+  <data name="textBoxSyncPassword.Size" type="System.Drawing.Size, System.Drawing">
+    <value>159, 20</value>
+  </data>
+  <data name="textBoxSyncPassword.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncPassword.Name" xml:space="preserve">
+    <value>textBoxSyncPassword</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncPassword.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncPassword.Parent" xml:space="preserve">
+    <value>groupBoxSync</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncPassword.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="labelSyncPassword.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelSyncPassword.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 74</value>
+  </data>
+  <data name="labelSyncPassword.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 13</value>
+  </data>
+  <data name="labelSyncPassword.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="labelSyncPassword.Text" xml:space="preserve">
+    <value>&amp;Password:</value>
+  </data>
+  <data name="&gt;&gt;labelSyncPassword.Name" xml:space="preserve">
+    <value>labelSyncPassword</value>
+  </data>
+  <data name="&gt;&gt;labelSyncPassword.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelSyncPassword.Parent" xml:space="preserve">
+    <value>groupBoxSync</value>
+  </data>
+  <data name="&gt;&gt;labelSyncPassword.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="textBoxSyncServer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxSyncServer.HintText" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="textBoxSyncServer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>72, 19</value>
+  </data>
+  <data name="textBoxSyncServer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>159, 20</value>
+  </data>
+  <data name="textBoxSyncServer.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncServer.Name" xml:space="preserve">
+    <value>textBoxSyncServer</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncServer.Type" xml:space="preserve">
+    <value>Common.Controls.UriTextBox, Common, Version=1.5.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncServer.Parent" xml:space="preserve">
+    <value>groupBoxSync</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncServer.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="labelServer.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelServer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelServer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 22</value>
+  </data>
+  <data name="labelServer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>41, 13</value>
+  </data>
+  <data name="labelServer.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelServer.Text" xml:space="preserve">
+    <value>&amp;Server:</value>
+  </data>
+  <data name="&gt;&gt;labelServer.Name" xml:space="preserve">
+    <value>labelServer</value>
+  </data>
+  <data name="&gt;&gt;labelServer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelServer.Parent" xml:space="preserve">
+    <value>groupBoxSync</value>
+  </data>
+  <data name="&gt;&gt;labelServer.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="textBoxSyncUsername.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxSyncUsername.Location" type="System.Drawing.Point, System.Drawing">
+    <value>72, 45</value>
+  </data>
+  <data name="textBoxSyncUsername.Size" type="System.Drawing.Size, System.Drawing">
+    <value>159, 20</value>
+  </data>
+  <data name="textBoxSyncUsername.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncUsername.Name" xml:space="preserve">
+    <value>textBoxSyncUsername</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncUsername.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncUsername.Parent" xml:space="preserve">
+    <value>groupBoxSync</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncUsername.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="labelSyncUsername.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelSyncUsername.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 48</value>
+  </data>
+  <data name="labelSyncUsername.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 13</value>
+  </data>
+  <data name="labelSyncUsername.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="labelSyncUsername.Text" xml:space="preserve">
+    <value>&amp;Username:</value>
+  </data>
+  <data name="&gt;&gt;labelSyncUsername.Name" xml:space="preserve">
+    <value>labelSyncUsername</value>
+  </data>
+  <data name="&gt;&gt;labelSyncUsername.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelSyncUsername.Parent" xml:space="preserve">
+    <value>groupBoxSync</value>
+  </data>
+  <data name="&gt;&gt;labelSyncUsername.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="groupBoxSync.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 12</value>
+  </data>
+  <data name="groupBoxSync.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 187</value>
+  </data>
+  <data name="groupBoxSync.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="groupBoxSync.Text" xml:space="preserve">
+    <value>Synchronization</value>
+  </data>
+  <data name="&gt;&gt;groupBoxSync.Name" xml:space="preserve">
+    <value>groupBoxSync</value>
+  </data>
+  <data name="&gt;&gt;groupBoxSync.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxSync.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBoxSync.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>261, 246</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>OptionsDialog</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>Common.Controls.OKCancelDialog, Common, Version=1.5.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+  </data>
 </root>
