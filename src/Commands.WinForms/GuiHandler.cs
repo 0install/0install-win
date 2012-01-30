@@ -147,6 +147,7 @@ namespace ZeroInstall.Commands.WinForms
             _guiReady.WaitOne();
 
             _form.Invoke((SimpleEventHandler)(() => { if (_form.IsHandleCreated) _form.Enabled = false; }));
+            // ToDo: Disable tray icon
         }
 
         /// <inheritdoc/>
@@ -186,7 +187,7 @@ namespace ZeroInstall.Commands.WinForms
                 if (Batch) _form.ShowTrayIcon(batchInformation, ToolTipIcon.Warning);
                 else
                 {
-                    switch (Msg.YesNoCancel(_form, question, MsgSeverity.Info, Resources.Yes, Resources.No))
+                    switch (Msg.YesNoCancel(_form, question, MsgSeverity.Info))
                     {
                         case DialogResult.Yes:
                             result = true;

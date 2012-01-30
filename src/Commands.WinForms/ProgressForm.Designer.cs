@@ -37,7 +37,7 @@
             this.progressBarSolving = new System.Windows.Forms.ProgressBar();
             this.selectionsControl = new ZeroInstall.Commands.WinForms.SelectionsControl();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.trackingControl = new ZeroInstall.Commands.WinForms.TrackingControl();
+            this.trackingControl = new Common.Controls.TrackingControl();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -141,7 +141,7 @@
         private System.Windows.Forms.Label labelSolving;
         private System.Windows.Forms.ProgressBar progressBarSolving;
         private System.Windows.Forms.ToolTip toolTip;
-        private TrackingControl trackingControl;
+        private Common.Controls.TrackingControl trackingControl;
 
     }
 }

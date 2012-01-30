@@ -44,5 +44,11 @@ namespace Common.Tasks
         {
             if (_isCancellationRequested) throw new OperationCanceledException();
         }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return "CancellationToken {IsCancellationRequested=" + IsCancellationRequested + "}";
+        }
     }
 }

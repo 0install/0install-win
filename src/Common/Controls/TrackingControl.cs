@@ -18,10 +18,9 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using Common.Controls;
 using Common.Tasks;
 
-namespace ZeroInstall.Commands.WinForms
+namespace Common.Controls
 {
     /// <summary>
     /// Combines a <see cref="TrackingProgressBar"/> and a <see cref="TrackingLabel"/>.

@@ -23,6 +23,7 @@
 using System;
 using System.Globalization;
 using System.Windows.Forms;
+using Common.Properties;
 using TaskDialog;
 
 namespace Common
@@ -235,6 +236,17 @@ namespace Common
 
             return (ShowMesageBox(owner, text, severity, MessageBoxButtons.YesNo) == DialogResult.Yes);
         }
+
+        /// <summary>
+        /// Asks the user to choose between two options (yes/no) using a <see cref="MessageBox"/> or <see cref="TaskDialog"/>.
+        /// </summary>
+        /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
+        /// <param name="text">The message to be displayed; must not be <see langword="null"/>.</param>
+        /// <param name="severity">How severe/important the message is.</param>
+        public static bool YesNo(IWin32Window owner, string text, MsgSeverity severity)
+        {
+            return YesNo(owner, text, severity, Resources.Yes, Resources.No);
+        }
         #endregion
 
         #region Yes/No/Cancel
@@ -305,6 +317,20 @@ namespace Common
             }
 
             return ShowMesageBox(owner, text, severity, MessageBoxButtons.YesNoCancel);
+        }
+
+        /// <summary>
+        /// Asks the user to choose between three options (yes/no/cancel) using a <see cref="MessageBox"/> or <see cref="TaskDialog"/>.
+        /// </summary>
+        /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
+        /// <param name="text">The message to be displayed; must not be <see langword="null"/>.</param>
+        /// <param name="severity">How severe/important the message is.</param>
+        /// <returns><see cref="DialogResult.Yes"/> if Yes was chosen,
+        /// <see cref="DialogResult.No"/> if No was chosen,
+        /// <see cref="DialogResult.Cancel"/> otherwise.</returns>
+        public static DialogResult YesNoCancel(IWin32Window owner, string text, MsgSeverity severity)
+        {
+            return YesNoCancel(owner, text, severity, Resources.Yes, Resources.No);
         }
         #endregion
 

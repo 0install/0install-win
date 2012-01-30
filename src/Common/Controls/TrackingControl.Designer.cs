@@ -1,4 +1,4 @@
-﻿namespace ZeroInstall.Commands.WinForms
+﻿namespace Common.Controls
 {
     partial class TrackingControl
     {

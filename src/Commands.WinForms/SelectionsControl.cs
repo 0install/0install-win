@@ -22,6 +22,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using Common;
+using Common.Controls;
 using Common.Tasks;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Injector.Feeds;

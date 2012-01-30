@@ -106,12 +106,6 @@
     <Compile Include="SelectionsControl.Designer.cs">
       <DependentUpon>SelectionsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="TrackingControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="TrackingControl.Designer.cs">
-      <DependentUpon>TrackingControl.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />

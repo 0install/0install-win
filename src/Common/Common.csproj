@@ -173,6 +173,12 @@
     <Compile Include="Controls\TrackingProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\TrackingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TrackingControl.Designer.cs">
+      <DependentUpon>TrackingControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TrackingDialog.cs">
       <SubType>Form</SubType>
     </Compile>

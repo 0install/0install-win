@@ -106,15 +106,6 @@ namespace ZeroInstall.Commands.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No.
-        /// </summary>
-        internal static string No {
-            get {
-                return ResourceManager.GetString("No", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Portable mode.
         /// </summary>
         internal static string PortableMode {
@@ -154,15 +145,6 @@ namespace ZeroInstall.Commands.WinForms.Properties {
         internal static string TryHelp {
             get {
                 return ResourceManager.GetString("TryHelp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Yes.
-        /// </summary>
-        internal static string Yes {
-            get {
-                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }
