@@ -276,7 +276,7 @@ namespace ZeroInstall.Central.WinForms
         private void buttonRemove_Click(object sender, EventArgs e)
         {
             if (!Msg.YesNo(this, string.Format(Resources.AppRemoveConfirm, AppName), MsgSeverity.Warn, Resources.YesRemoveApp, Resources.NoKeepApp)) return;
-            
+
             // Disable buttons while operation is running
             buttonRemove.Enabled = buttonIntegrate.Enabled = false;
 

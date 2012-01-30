@@ -43,7 +43,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         {
             Parent.Parent.Enabled = buttonChange.Visible = textBoxCryptoKey.Enabled = false;
             ShowProgressUI();
-            
+
             resetWorker.RunWorkerAsync(textBoxCryptoKey.Text);
         }
 

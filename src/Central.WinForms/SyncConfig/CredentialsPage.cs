@@ -74,7 +74,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             {
                 request.GetResponse();
             }
-            #region Error handling
+                #region Error handling
             catch (WebException ex)
             {
                 // Wrap exception to add context information
