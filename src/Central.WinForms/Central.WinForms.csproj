@@ -105,6 +105,12 @@
     <Compile Include="SyncConfig\ChangeCryptoKeyPage.Designer.cs">
       <DependentUpon>ChangeCryptoKeyPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="SyncConfig\ResetServerFinishedPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SyncConfig\ResetServerFinishedPage.Designer.cs">
+      <DependentUpon>ResetServerFinishedPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="SyncConfig\HandlerPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -123,11 +129,11 @@
     <Compile Include="SyncConfig\CryptoKeyChangedPage.Designer.cs">
       <DependentUpon>CryptoKeyChangedPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="SyncConfig\ResetFinishedPage.cs">
+    <Compile Include="SyncConfig\ResetClientFinishedPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SyncConfig\ResetFinishedPage.Designer.cs">
-      <DependentUpon>ResetFinishedPage.cs</DependentUpon>
+    <Compile Include="SyncConfig\ResetClientFinishedPage.Designer.cs">
+      <DependentUpon>ResetClientFinishedPage.cs</DependentUpon>
     </Compile>
     <Compile Include="SyncConfig\ResetClientPage.cs">
       <SubType>UserControl</SubType>
@@ -247,6 +253,9 @@
       <DependentUpon>ChangeCryptoKeyPage.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="SyncConfig\ResetServerFinishedPage.resx">
+      <DependentUpon>ResetServerFinishedPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SyncConfig\ResetCryptoKeyPage.resx">
       <DependentUpon>ResetCryptoKeyPage.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -255,8 +264,8 @@
       <DependentUpon>CryptoKeyChangedPage.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncConfig\ResetFinishedPage.resx">
-      <DependentUpon>ResetFinishedPage.cs</DependentUpon>
+    <EmbeddedResource Include="SyncConfig\ResetClientFinishedPage.resx">
+      <DependentUpon>ResetClientFinishedPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SyncConfig\ResetClientPage.resx">
       <DependentUpon>ResetClientPage.cs</DependentUpon>

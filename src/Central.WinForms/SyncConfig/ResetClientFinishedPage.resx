@@ -166,7 +166,7 @@
     <value>1</value>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>The reset operation is complete. You can now continue using Zero Install Sync.</value>
+    <value>The local application list has been reset. You can now continue using Zero Install Sync.</value>
   </data>
   <data name="&gt;&gt;labelInfo.Name" xml:space="preserve">
     <value>labelInfo</value>
@@ -226,7 +226,7 @@
     <value>470, 300</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>ResetFinishedPage</value>
+    <value>ResetClientFinishedPage</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

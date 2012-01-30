@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Central.WinForms.SyncConfig
 {
-    partial class ResetFinishedPage
+    partial class ResetClientFinishedPage
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ResetFinishedPage));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ResetClientFinishedPage));
             this.buttonDone = new System.Windows.Forms.Button();
             this.labelInfo = new System.Windows.Forms.Label();
             this.labelTitle = new System.Windows.Forms.Label();
@@ -51,14 +51,14 @@
             resources.ApplyResources(this.labelTitle, "labelTitle");
             this.labelTitle.Name = "labelTitle";
             // 
-            // ResetFinishedPage
+            // ResetClientFinishedPage
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonDone);
             this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.labelTitle);
-            this.Name = "ResetFinishedPage";
+            this.Name = "ResetClientFinishedPage";
             this.ResumeLayout(false);
 
         }

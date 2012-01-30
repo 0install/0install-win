@@ -130,13 +130,13 @@
     <value>NoControl</value>
   </data>
   <data name="buttonChange.Location" type="System.Drawing.Point, System.Drawing">
-    <value>39, 105</value>
+    <value>39, 96</value>
   </data>
   <data name="buttonChange.Size" type="System.Drawing.Size, System.Drawing">
     <value>140, 35</value>
   </data>
   <data name="buttonChange.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="buttonChange.Text" xml:space="preserve">
     <value>&amp;Change key</value>
@@ -151,7 +151,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonChange.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="textBoxCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -160,13 +160,13 @@
     <value>Microsoft Sans Serif, 12pt</value>
   </data>
   <data name="textBoxCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>160, 73</value>
+    <value>160, 64</value>
   </data>
   <data name="textBoxCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>211, 26</value>
   </data>
   <data name="textBoxCryptoKey.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;textBoxCryptoKey.Name" xml:space="preserve">
     <value>textBoxCryptoKey</value>
@@ -178,7 +178,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxCryptoKey.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="labelCryptoKey.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -190,13 +190,13 @@
     <value>NoControl</value>
   </data>
   <data name="labelCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>35, 76</value>
+    <value>35, 67</value>
   </data>
   <data name="labelCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>119, 20</value>
   </data>
   <data name="labelCryptoKey.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
     <value>New crypto &amp;key:</value>
@@ -211,7 +211,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelCryptoKey.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="labelTitle.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -247,11 +247,41 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelTitle.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <metadata name="resetWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="labelInfo2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <data name="labelInfo2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelInfo2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>35, 144</value>
+  </data>
+  <data name="labelInfo2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>400, 60</value>
+  </data>
+  <data name="labelInfo2.TabIndex" type="System.Int32, mscorlib">
+    <value>1001</value>
+  </data>
+  <data name="labelInfo2.Text" xml:space="preserve">
+    <value>You should not run Zero Install Sync on other computers while this process is running.</value>
+  </data>
+  <data name="&gt;&gt;labelInfo2.Name" xml:space="preserve">
+    <value>labelInfo2</value>
+  </data>
+  <data name="&gt;&gt;labelInfo2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelInfo2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelInfo2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

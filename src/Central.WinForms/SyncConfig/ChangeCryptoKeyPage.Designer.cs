@@ -34,6 +34,7 @@
             this.labelCryptoKey = new System.Windows.Forms.Label();
             this.labelTitle = new System.Windows.Forms.Label();
             this.resetWorker = new System.ComponentModel.BackgroundWorker();
+            this.labelInfo2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonChange
@@ -64,9 +65,15 @@
             this.resetWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.resetWorker_DoWork);
             this.resetWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.resetWorker_RunWorkerCompleted);
             // 
+            // labelInfo2
+            // 
+            resources.ApplyResources(this.labelInfo2, "labelInfo2");
+            this.labelInfo2.Name = "labelInfo2";
+            // 
             // ChangeCryptoKeyPage
             // 
             resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.labelInfo2);
             this.Controls.Add(this.buttonChange);
             this.Controls.Add(this.textBoxCryptoKey);
             this.Controls.Add(this.labelCryptoKey);
@@ -76,6 +83,7 @@
             this.Controls.SetChildIndex(this.labelCryptoKey, 0);
             this.Controls.SetChildIndex(this.textBoxCryptoKey, 0);
             this.Controls.SetChildIndex(this.buttonChange, 0);
+            this.Controls.SetChildIndex(this.labelInfo2, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -88,5 +96,6 @@
         private System.Windows.Forms.Label labelCryptoKey;
         private System.Windows.Forms.Label labelTitle;
         private System.ComponentModel.BackgroundWorker resetWorker;
+        private System.Windows.Forms.Label labelInfo2;
     }
 }

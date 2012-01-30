@@ -21,11 +21,11 @@ using Common;
 
 namespace ZeroInstall.Central.WinForms.SyncConfig
 {
-    internal partial class ResetFinishedPage : UserControl
+    internal partial class ResetServerFinishedPage : UserControl
     {
         public event SimpleEventHandler Done;
 
-        public ResetFinishedPage()
+        public ResetServerFinishedPage()
         {
             InitializeComponent();
         }
