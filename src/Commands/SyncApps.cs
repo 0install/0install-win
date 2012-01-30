@@ -98,7 +98,7 @@ namespace ZeroInstall.Commands
         {
             try
             {
-                _syncManager.Sync(_syncResetMode, feedID => Policy.FeedManager.GetFeed(feedID, Policy), Policy.Handler);
+                _syncManager.Sync(_syncResetMode, feedID => Policy.FeedManager.GetFeed(feedID, Policy));
             }
             catch
             {

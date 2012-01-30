@@ -55,13 +55,12 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Add
         /// <inheritdoc/>
-        public void AddAccessPointCategories(AppEntry appEntry, Feed feed, ICollection<string> categories, ITaskHandler handler)
+        public void AddAccessPointCategories(AppEntry appEntry, Feed feed, ICollection<string> categories)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             if (feed == null) throw new ArgumentNullException("feed");
             if (categories == null) throw new ArgumentNullException("categories");
-            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             // Parse categories list

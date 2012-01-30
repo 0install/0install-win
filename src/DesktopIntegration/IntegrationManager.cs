@@ -47,7 +47,7 @@ namespace ZeroInstall.DesktopIntegration
         protected readonly string AppListPath;
 
         /// <summary>A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</summary>
-        private readonly ITaskHandler _handler;
+        protected readonly ITaskHandler Handler;
 
         /// <summary>Prevents multiple processes from performing desktop integration operations simultaneously.</summary>
         private readonly Mutex _mutex;
@@ -75,7 +75,7 @@ namespace ZeroInstall.DesktopIntegration
         {
             SystemWide = systemWide;
             AppListPath = appListPath;
-            _handler = handler;
+            Handler = handler;
 
             if (File.Exists(AppListPath)) AppList = AppList.Load(AppListPath);
             else

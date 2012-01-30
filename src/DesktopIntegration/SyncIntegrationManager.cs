@@ -126,17 +126,15 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="resetMode">Controls how synchronization data is reset.</param>
         /// <param name="feedRetriever">Callback method used to retrieve additional <see cref="Feed"/>s on demand.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as uploads and downloads.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data or if the specified crypto key was wrong.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public void Sync(SyncResetMode resetMode, Converter<string, Feed> feedRetriever, ITaskHandler handler)
+        public void Sync(SyncResetMode resetMode, Converter<string, Feed> feedRetriever)
         {
             #region Sanity checks
             if (feedRetriever == null) throw new ArgumentNullException("feedRetriever");
-            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             var appListUri = new Uri(_syncServer, new Uri("app-list", UriKind.Relative));
@@ -192,10 +190,10 @@ namespace ZeroInstall.DesktopIntegration
                     }
                     #endregion
 
-                    handler.CancellationToken.ThrowIfCancellationRequested();
+                    Handler.CancellationToken.ThrowIfCancellationRequested();
                     try
                     {
-                        MergeData(serverList, (resetMode == SyncResetMode.Client), feedRetriever, handler);
+                        MergeData(serverList, (resetMode == SyncResetMode.Client), feedRetriever, Handler);
                     }
                     catch (KeyNotFoundException ex)
                     {
@@ -207,7 +205,7 @@ namespace ZeroInstall.DesktopIntegration
                         Complete();
                     }
 
-                    handler.CancellationToken.ThrowIfCancellationRequested();
+                    Handler.CancellationToken.ThrowIfCancellationRequested();
                 }
 
                 // Upload the encrypted AppList back to the server (unless the client was reset)
@@ -234,7 +232,7 @@ namespace ZeroInstall.DesktopIntegration
                             { // Precondition failure indicates a race condition
                                 // Wait for a randomized interval before retrying
                                 Thread.Sleep(_random.Next(250, 1500));
-                                handler.CancellationToken.ThrowIfCancellationRequested();
+                                Handler.CancellationToken.ThrowIfCancellationRequested();
                                 goto Retry;
                             }
                         }
@@ -247,7 +245,7 @@ namespace ZeroInstall.DesktopIntegration
 
             // Save reference point for future syncs
             AppList.Save(AppListPath + AppListLastSyncSuffix);
-            handler.CancellationToken.ThrowIfCancellationRequested();
+            Handler.CancellationToken.ThrowIfCancellationRequested();
         }
         #endregion
 

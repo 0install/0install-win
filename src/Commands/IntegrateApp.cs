@@ -138,7 +138,7 @@ namespace ZeroInstall.Commands
             try
             {
                 if (!_addCategories.IsEmpty)
-                    integrationManager.AddAccessPointCategories(appEntry, feed, _addCategories, Policy.Handler);
+                    integrationManager.AddAccessPointCategories(appEntry, feed, _addCategories);
 
                 foreach (string path in _importLists)
                     integrationManager.AddAccessPoints(appEntry, feed, AccessPointList.Load(path).Entries);

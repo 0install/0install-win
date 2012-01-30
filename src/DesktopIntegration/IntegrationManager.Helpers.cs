@@ -155,7 +155,7 @@ namespace ZeroInstall.DesktopIntegration
             CheckForConflicts(appEntry, accessPoints);
 
             EnumerableUtils.ApplyWithRollback(accessPoints,
-                accessPoint => accessPoint.Apply(appEntry, feed, SystemWide, _handler),
+                accessPoint => accessPoint.Apply(appEntry, feed, SystemWide, Handler),
                 accessPoint =>
                 {
                     // Don't perform rollback if the access point was already applied previously and this was only a refresh
