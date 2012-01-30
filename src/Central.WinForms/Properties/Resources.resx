@@ -135,7 +135,7 @@
   </data>
   <data name="AppRemoveConfirm" xml:space="preserve">
     <value>Are you sure you want to remove '{0}' from your application list?
-This will also remove any desktop integration applied for this appliaction.</value>
+This will also remove any desktop integration applied for this application.</value>
   </data>
   <data name="EnterInterfaceUrl" xml:space="preserve">
     <value>Please enter the URL of a Zero Install interface here:</value>
@@ -175,7 +175,7 @@ Ignore update for now</value>
 Install update</value>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
-    <value>The user name and/or password you entered are incorrect.</value>
+    <value>The username and/or password you entered are incorrect.</value>
   </data>
   <data name="SyncCryptoKeyDescription" xml:space="preserve">
     <value>The crypto key is used to encrypt your data locally before transmitting it to the server.

@@ -124,7 +124,7 @@ namespace ZeroInstall.DesktopIntegration.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The user name and/or password you entered for the Sync server are incorrect. Please check your Synchronization Options..
+        ///   Looks up a localized string similar to The username and/or password you entered for the Sync server are incorrect. Please check your Synchronization Options..
         /// </summary>
         internal static string SyncCredentialsInvalid {
             get {

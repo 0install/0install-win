@@ -69,7 +69,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             else Msg.Inform(this, e.Error.Message, MsgSeverity.Error);
         }
 
-        private void CheckServer(Uri syncServer)
+        private static void CheckServer(Uri syncServer)
         {
             if (!syncServer.ToString().EndsWith("/")) syncServer = new Uri(syncServer + "/"); // Ensure the server URI references a directory
 

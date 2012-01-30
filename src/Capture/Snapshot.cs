@@ -56,7 +56,7 @@ namespace ZeroInstall.Capture
         /// <summary>A list of COM class IDs.</summary>
         public string[] ClassIDs;
 
-        /// <summary>A list of appliactions registered as candidates for default programs.</summary>
+        /// <summary>A list of applications registered as candidates for default programs.</summary>
         public string[] RegisteredApplications;
 
         /// <summary>A list of simple context menu entries for all file types.</summary>

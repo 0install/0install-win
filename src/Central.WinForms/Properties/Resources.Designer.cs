@@ -76,7 +76,7 @@ namespace ZeroInstall.Central.WinForms.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to remove &apos;{0}&apos; from your application list?
-        ///This will also remove any desktop integration applied for this appliaction..
+        ///This will also remove any desktop integration applied for this application..
         /// </summary>
         internal static string AppRemoveConfirm {
             get {
@@ -209,7 +209,7 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The user name and/or password you entered are incorrect..
+        ///   Looks up a localized string similar to The username and/or password you entered are incorrect..
         /// </summary>
         internal static string SyncCredentialsInvalid {
             get {
