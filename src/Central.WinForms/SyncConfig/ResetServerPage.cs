@@ -16,12 +16,14 @@
  */
 
 using System;
-using System.Windows.Forms;
+using System.ComponentModel;
 using Common;
+using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Injector;
 
 namespace ZeroInstall.Central.WinForms.SyncConfig
 {
-    internal partial class ResetServerPage : UserControl
+    internal partial class ResetServerPage : HandlerPage
     {
         public event SimpleEventHandler Continue;
 
@@ -32,9 +34,26 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
 
         private void buttonReset_Click(object sender, EventArgs e)
         {
-            // ToDo
+            Parent.Parent.Enabled = buttonReset.Visible = false;
+            ShowProgressUI();
 
-            Continue();
+            resetWorker.RunWorkerAsync();
+        }
+
+        private void resetWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var policy = Policy.CreateDefault(this);
+            using (var sync = new SyncIntegrationManager(false, policy.Config.SyncServer, policy.Config.SyncServerUsername, policy.Config.SyncServerPassword, policy.Config.SyncCryptoKey, policy.Handler))
+                sync.Sync(SyncResetMode.Server, feedID => policy.FeedManager.GetFeed(feedID, policy));
+        }
+
+        private void resetWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            CloseProgressUI();
+            Parent.Parent.Enabled = buttonReset.Visible = true;
+
+            if (e.Error == null) Continue();
+            else Msg.Inform(this, e.Error.Message, MsgSeverity.Error);
         }
     }
 }

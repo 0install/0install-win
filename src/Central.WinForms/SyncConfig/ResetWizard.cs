@@ -42,7 +42,11 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
                 SyncCredentials = new SyncCredentials(config.SyncServerUsername, config.SyncServerPassword)
             };
             var changeCryptoKeyPage = new ChangeCryptoKeyPage();
-            var resetCryptoKeyPage = new ResetCryptoKeyPage();
+            var resetCryptoKeyPage = new ResetCryptoKeyPage
+            {
+                SyncServer = config.SyncServer,
+                SyncCredentials = new SyncCredentials(config.SyncServerUsername, config.SyncServerPassword)
+            };
             var cryptoKeyChangedPaged = new CryptoKeyChangedPage();
             var resetServerPage = new ResetServerPage();
             var resetClientPage = new ResetClientPage();

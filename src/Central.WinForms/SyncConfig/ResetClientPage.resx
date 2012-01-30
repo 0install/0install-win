@@ -148,7 +148,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelInfo.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="labelTitle.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -184,7 +184,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelTitle.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="buttonReset.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -193,13 +193,13 @@
     <value>NoControl</value>
   </data>
   <data name="buttonReset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>39, 206</value>
+    <value>39, 157</value>
   </data>
   <data name="buttonReset.Size" type="System.Drawing.Size, System.Drawing">
     <value>170, 35</value>
   </data>
   <data name="buttonReset.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="buttonReset.Text" xml:space="preserve">
     <value>&amp;Reset data</value>
@@ -216,49 +216,25 @@
   <data name="&gt;&gt;buttonReset.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="labelInfo2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="labelInfo2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelInfo2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>35, 134</value>
-  </data>
-  <data name="labelInfo2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>400, 60</value>
-  </data>
-  <data name="labelInfo2.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="labelInfo2.Text" xml:space="preserve">
-    <value>You should run 'Sync' if possible before continuing to ensure your local data is up-to-date.</value>
-  </data>
-  <data name="&gt;&gt;labelInfo2.Name" xml:space="preserve">
-    <value>labelInfo2</value>
-  </data>
-  <data name="&gt;&gt;labelInfo2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelInfo2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;labelInfo2.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
+  <metadata name="resetWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>
-  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>470, 300</value>
+  <data name="&gt;&gt;resetWorker.Name" xml:space="preserve">
+    <value>resetWorker</value>
+  </data>
+  <data name="&gt;&gt;resetWorker.Type" xml:space="preserve">
+    <value>System.ComponentModel.BackgroundWorker, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>ResetClientPage</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>ZeroInstall.Central.WinForms.SyncConfig.HandlerPage, ZeroInstall, Version=1.5.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
 </root>

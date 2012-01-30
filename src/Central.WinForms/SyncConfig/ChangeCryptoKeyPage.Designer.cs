@@ -29,18 +29,19 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangeCryptoKeyPage));
-            this.buttonContinue = new System.Windows.Forms.Button();
+            this.buttonChange = new System.Windows.Forms.Button();
             this.textBoxCryptoKey = new System.Windows.Forms.TextBox();
-            this.labelUsername = new System.Windows.Forms.Label();
+            this.labelCryptoKey = new System.Windows.Forms.Label();
             this.labelTitle = new System.Windows.Forms.Label();
+            this.resetWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
-            // buttonContinue
+            // buttonChange
             // 
-            resources.ApplyResources(this.buttonContinue, "buttonContinue");
-            this.buttonContinue.Name = "buttonContinue";
-            this.buttonContinue.UseVisualStyleBackColor = true;
-            this.buttonContinue.Click += new System.EventHandler(this.buttonOK_Click);
+            resources.ApplyResources(this.buttonChange, "buttonChange");
+            this.buttonChange.Name = "buttonChange";
+            this.buttonChange.UseVisualStyleBackColor = true;
+            this.buttonChange.Click += new System.EventHandler(this.buttonChange_Click);
             // 
             // textBoxCryptoKey
             // 
@@ -48,25 +49,33 @@
             this.textBoxCryptoKey.Name = "textBoxCryptoKey";
             this.textBoxCryptoKey.TextChanged += new System.EventHandler(this.textBoxCryptoKey_TextChanged);
             // 
-            // labelUsername
+            // labelCryptoKey
             // 
-            resources.ApplyResources(this.labelUsername, "labelUsername");
-            this.labelUsername.Name = "labelUsername";
+            resources.ApplyResources(this.labelCryptoKey, "labelCryptoKey");
+            this.labelCryptoKey.Name = "labelCryptoKey";
             // 
             // labelTitle
             // 
             resources.ApplyResources(this.labelTitle, "labelTitle");
             this.labelTitle.Name = "labelTitle";
             // 
+            // resetWorker
+            // 
+            this.resetWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.resetWorker_DoWork);
+            this.resetWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.resetWorker_RunWorkerCompleted);
+            // 
             // ChangeCryptoKeyPage
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonContinue);
+            this.Controls.Add(this.buttonChange);
             this.Controls.Add(this.textBoxCryptoKey);
-            this.Controls.Add(this.labelUsername);
+            this.Controls.Add(this.labelCryptoKey);
             this.Controls.Add(this.labelTitle);
             this.Name = "ChangeCryptoKeyPage";
+            this.Controls.SetChildIndex(this.labelTitle, 0);
+            this.Controls.SetChildIndex(this.labelCryptoKey, 0);
+            this.Controls.SetChildIndex(this.textBoxCryptoKey, 0);
+            this.Controls.SetChildIndex(this.buttonChange, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -74,9 +83,10 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonContinue;
+        private System.Windows.Forms.Button buttonChange;
         private System.Windows.Forms.TextBox textBoxCryptoKey;
-        private System.Windows.Forms.Label labelUsername;
+        private System.Windows.Forms.Label labelCryptoKey;
         private System.Windows.Forms.Label labelTitle;
+        private System.ComponentModel.BackgroundWorker resetWorker;
     }
 }

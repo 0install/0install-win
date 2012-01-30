@@ -16,11 +16,14 @@
  */
 
 using System;
-using System.Windows.Forms;
+using System.ComponentModel;
+using Common;
+using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Injector;
 
 namespace ZeroInstall.Central.WinForms.SyncConfig
 {
-    internal partial class ChangeCryptoKeyPage : UserControl
+    internal partial class ChangeCryptoKeyPage : HandlerPage
     {
         public string OldKey;
 
@@ -33,13 +36,34 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
 
         private void textBoxCryptoKey_TextChanged(object sender, EventArgs e)
         {
-            buttonContinue.Enabled = !string.IsNullOrEmpty(textBoxCryptoKey.Text);
+            buttonChange.Enabled = !string.IsNullOrEmpty(textBoxCryptoKey.Text);
         }
 
-        private void buttonOK_Click(object sender, EventArgs e)
+        private void buttonChange_Click(object sender, EventArgs e)
         {
-            // ToDo
-            Continue(textBoxCryptoKey.Text);
+            Parent.Parent.Enabled = buttonChange.Visible = textBoxCryptoKey.Enabled = false;
+            ShowProgressUI();
+            
+            resetWorker.RunWorkerAsync(textBoxCryptoKey.Text);
+        }
+
+        private void resetWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var newKey = (string)e.Argument;
+            var policy = Policy.CreateDefault(this);
+            using (var sync = new SyncIntegrationManager(false, policy.Config.SyncServer, policy.Config.SyncServerUsername, policy.Config.SyncServerPassword, OldKey, policy.Handler))
+                sync.Sync(SyncResetMode.None, feedID => policy.FeedManager.GetFeed(feedID, policy));
+            using (var sync = new SyncIntegrationManager(false, policy.Config.SyncServer, policy.Config.SyncServerUsername, policy.Config.SyncServerPassword, newKey, policy.Handler))
+                sync.Sync(SyncResetMode.Server, feedID => policy.FeedManager.GetFeed(feedID, policy));
+        }
+
+        private void resetWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            CloseProgressUI();
+            Parent.Parent.Enabled = buttonChange.Visible = textBoxCryptoKey.Enabled = true;
+
+            if (e.Error == null) Continue(textBoxCryptoKey.Text);
+            else Msg.Inform(this, e.Error.Message, MsgSeverity.Error);
         }
     }
 }

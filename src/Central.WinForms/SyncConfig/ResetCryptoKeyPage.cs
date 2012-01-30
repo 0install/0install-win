@@ -16,12 +16,18 @@
  */
 
 using System;
-using System.Windows.Forms;
+using System.ComponentModel;
+using Common;
+using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Injector;
 
 namespace ZeroInstall.Central.WinForms.SyncConfig
 {
-    internal partial class ResetCryptoKeyPage : UserControl
+    internal partial class ResetCryptoKeyPage : HandlerPage
     {
+        public Uri SyncServer;
+        public SyncCredentials SyncCredentials;
+
         public event Action<string> Continue;
 
         public ResetCryptoKeyPage()
@@ -31,14 +37,32 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
 
         private void textBoxCryptoKey_TextChanged(object sender, EventArgs e)
         {
-            buttonContinue.Enabled = !string.IsNullOrEmpty(textBoxCryptoKey.Text);
+            buttonReset.Enabled = !string.IsNullOrEmpty(textBoxCryptoKey.Text);
         }
 
-        private void buttonOK_Click(object sender, EventArgs e)
+        private void buttonReset_Click(object sender, EventArgs e)
         {
-            // ToDo
+            Parent.Parent.Enabled = buttonReset.Visible = false;
+            ShowProgressUI();
 
-            Continue(textBoxCryptoKey.Text);
+            resetWorker.RunWorkerAsync(textBoxCryptoKey.Text);
+        }
+
+        private void resetWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var newKey = (string)e.Argument;
+            var policy = Policy.CreateDefault(this);
+            using (var sync = new SyncIntegrationManager(false, SyncServer, SyncCredentials.Username, SyncCredentials.Password, newKey, policy.Handler))
+                sync.Sync(SyncResetMode.Server, feedID => policy.FeedManager.GetFeed(feedID, policy));
+        }
+
+        private void resetWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            CloseProgressUI();
+            Parent.Parent.Enabled = buttonReset.Visible = true;
+
+            if (e.Error == null) Continue(textBoxCryptoKey.Text);
+            else Msg.Inform(this, e.Error.Message, MsgSeverity.Error);
         }
     }
 }

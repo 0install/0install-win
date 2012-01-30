@@ -105,6 +105,12 @@
     <Compile Include="SyncConfig\ChangeCryptoKeyPage.Designer.cs">
       <DependentUpon>ChangeCryptoKeyPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="SyncConfig\HandlerPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SyncConfig\HandlerPage.Designer.cs">
+      <DependentUpon>HandlerPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="SyncConfig\ResetCryptoKeyPage.cs">
       <SubType>UserControl</SubType>
     </Compile>

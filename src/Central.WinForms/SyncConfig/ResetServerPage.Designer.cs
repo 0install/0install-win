@@ -32,7 +32,7 @@
             this.labelInfo = new System.Windows.Forms.Label();
             this.labelTitle = new System.Windows.Forms.Label();
             this.buttonReset = new System.Windows.Forms.Button();
-            this.labelInfo2 = new System.Windows.Forms.Label();
+            this.resetWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // labelInfo
@@ -52,20 +52,21 @@
             this.buttonReset.UseVisualStyleBackColor = true;
             this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
             // 
-            // labelInfo2
+            // resetWorker
             // 
-            resources.ApplyResources(this.labelInfo2, "labelInfo2");
-            this.labelInfo2.Name = "labelInfo2";
+            this.resetWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.resetWorker_DoWork);
+            this.resetWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.resetWorker_RunWorkerCompleted);
             // 
             // ResetServerPage
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonReset);
-            this.Controls.Add(this.labelInfo2);
             this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.labelTitle);
             this.Name = "ResetServerPage";
+            this.Controls.SetChildIndex(this.labelTitle, 0);
+            this.Controls.SetChildIndex(this.labelInfo, 0);
+            this.Controls.SetChildIndex(this.buttonReset, 0);
             this.ResumeLayout(false);
 
         }
@@ -75,6 +76,6 @@
         private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Button buttonReset;
-        private System.Windows.Forms.Label labelInfo2;
+        private System.ComponentModel.BackgroundWorker resetWorker;
     }
 }
