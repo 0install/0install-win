@@ -99,6 +99,48 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="SyncConfig\ChangeCryptoKeyPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SyncConfig\ChangeCryptoKeyPage.Designer.cs">
+      <DependentUpon>ChangeCryptoKeyPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SyncConfig\ResetCryptoKeyPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SyncConfig\ResetCryptoKeyPage.Designer.cs">
+      <DependentUpon>ResetCryptoKeyPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SyncConfig\CryptoKeyChangedPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SyncConfig\CryptoKeyChangedPage.Designer.cs">
+      <DependentUpon>CryptoKeyChangedPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SyncConfig\ResetFinishedPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SyncConfig\ResetFinishedPage.Designer.cs">
+      <DependentUpon>ResetFinishedPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SyncConfig\ResetClientPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SyncConfig\ResetClientPage.Designer.cs">
+      <DependentUpon>ResetClientPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SyncConfig\ResetServerPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SyncConfig\ResetServerPage.Designer.cs">
+      <DependentUpon>ResetServerPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SyncConfig\ResetWelcomePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SyncConfig\ResetWelcomePage.Designer.cs">
+      <DependentUpon>ResetWelcomePage.cs</DependentUpon>
+    </Compile>
     <Compile Include="SyncConfig\CredentialsPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -194,6 +236,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SelectCommandDialog.resx">
       <DependentUpon>SelectCommandDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyncConfig\ChangeCryptoKeyPage.resx">
+      <DependentUpon>ChangeCryptoKeyPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyncConfig\ResetCryptoKeyPage.resx">
+      <DependentUpon>ResetCryptoKeyPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyncConfig\CryptoKeyChangedPage.resx">
+      <DependentUpon>CryptoKeyChangedPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyncConfig\ResetFinishedPage.resx">
+      <DependentUpon>ResetFinishedPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyncConfig\ResetClientPage.resx">
+      <DependentUpon>ResetClientPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyncConfig\ResetServerPage.resx">
+      <DependentUpon>ResetServerPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyncConfig\ResetWelcomePage.resx">
+      <DependentUpon>ResetWelcomePage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SyncConfig\CredentialsPage.resx">
       <DependentUpon>CredentialsPage.cs</DependentUpon>

@@ -43,6 +43,8 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             var registerPage = new RegisterPage();
             var credentialsPage = new CredentialsPage();
             var existingCryptoKeyPage = new ExistingCryptoKeyPage();
+            var resetCryptoKeyPage = new ResetCryptoKeyPage();
+            var cryptoKeyChangedPage = new CryptoKeyChangedPage();
             var newCryptoKeyPage = new NewCryptoKeyPage();
             var finishedPage = new SetupFinishedPage();
 
@@ -70,13 +72,23 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
                 if (usedBefore) PushPage(existingCryptoKeyPage);
                 else PushPage(newCryptoKeyPage);
             };
-            Action<string> cryptoKeyHandler = delegate(string key)
+            existingCryptoKeyPage.Continue += delegate(string key)
             {
                 cryptoKey = key;
                 PushPage(finishedPage);
             };
-            existingCryptoKeyPage.Continue += cryptoKeyHandler;
-            newCryptoKeyPage.Continue += cryptoKeyHandler;
+            existingCryptoKeyPage.ResetKey += () => PushPage(resetCryptoKeyPage);
+            resetCryptoKeyPage.Continue += delegate(string key)
+            {
+                cryptoKey = key;
+                PushPage(cryptoKeyChangedPage);
+            };
+            cryptoKeyChangedPage.OK += () => PushPage(finishedPage);
+            newCryptoKeyPage.Continue += delegate(string key)
+            {
+                cryptoKey = key;
+                PushPage(finishedPage);
+            };
             finishedPage.Done += delegate
             {
                 var config = Config.Load();

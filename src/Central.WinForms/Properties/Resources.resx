@@ -137,9 +137,6 @@
     <value>Are you sure you want to remove '{0}' from your application list?
 This will also remove any desktop integration applied for this appliaction.</value>
   </data>
-  <data name="ContinueAndSolveLater" xml:space="preserve">
-    <value>Do you want to continue and solve this problem later?</value>
-  </data>
   <data name="EnterInterfaceUrl" xml:space="preserve">
     <value>Please enter the URL of a Zero Install interface here:</value>
   </data>

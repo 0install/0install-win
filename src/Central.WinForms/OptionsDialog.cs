@@ -54,7 +54,7 @@ namespace ZeroInstall.Central.WinForms
                 textBoxSyncPassword.Text = config.SyncServerPassword;
                 textBoxSyncCryptoKey.Text = config.SyncCryptoKey;
             }
-            #region Error handling
+                #region Error handling
             catch (IOException ex)
             {
                 Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
@@ -82,7 +82,7 @@ namespace ZeroInstall.Central.WinForms
                 config.SyncCryptoKey = textBoxSyncCryptoKey.Text;
                 config.Save();
             }
-            #region Error handling
+                #region Error handling
             catch (IOException ex)
             {
                 Msg.Inform(this, Resources.ProblemSavingOptions + "\n" + ex.Message, MsgSeverity.Error);
@@ -100,6 +100,12 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region Sync
+        private void textBoxSync_TextChanged(object sender, EventArgs e)
+        {
+            buttonSyncReset.Enabled = !string.IsNullOrEmpty(textBoxSyncServer.Text) && textBoxSyncServer.IsValid &&
+                !string.IsNullOrEmpty(textBoxSyncUsername.Text) && !string.IsNullOrEmpty(textBoxSyncPassword.Text);
+        }
+
         private void linkSyncAccount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
@@ -129,7 +135,7 @@ namespace ZeroInstall.Central.WinForms
             Msg.Inform(this, Resources.SyncCryptoKeyDescription, MsgSeverity.Info);
         }
 
-        private void buttonSyncSetupWizard_Click(object sender, EventArgs e)
+        private void buttonSyncSetup_Click(object sender, EventArgs e)
         {
             new SyncConfig.SetupWizard().ShowDialog(this);
             LoadConfig();
@@ -137,6 +143,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonSyncReset_Click(object sender, EventArgs e)
         {
+            SaveConfig();
             new SyncConfig.ResetWizard().ShowDialog(this);
             LoadConfig();
         }

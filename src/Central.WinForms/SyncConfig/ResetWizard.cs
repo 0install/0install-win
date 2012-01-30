@@ -29,6 +29,58 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         public ResetWizard()
         {
             InitializeComponent();
+
+            // State variables
+            string cryptoKey = null;
+
+            // Wizard pages
+            var welcomePage = new ResetWelcomePage();
+            var config = Config.Load();
+            var existingCryptoKeyPage = new ExistingCryptoKeyPage
+            {
+                SyncServer = config.SyncServer,
+                SyncCredentials = new SyncCredentials(config.SyncServerUsername, config.SyncServerPassword)
+            };
+            var changeCryptoKeyPage = new ChangeCryptoKeyPage();
+            var resetCryptoKeyPage = new ResetCryptoKeyPage();
+            var cryptoKeyChangedPaged = new CryptoKeyChangedPage();
+            var resetServerPage = new ResetServerPage();
+            var resetClientPage = new ResetClientPage();
+            var resetFinishedPage = new ResetFinishedPage();
+
+            // Page flows
+            welcomePage.ChangeCryptoKey += () => PushPage(existingCryptoKeyPage);
+            welcomePage.ResetServer += () => PushPage(resetServerPage);
+            welcomePage.ResetClient += () => PushPage(resetClientPage);
+            existingCryptoKeyPage.Continue += delegate(string oldKey)
+            {
+                changeCryptoKeyPage.OldKey = oldKey;
+                PushPage(changeCryptoKeyPage);
+            };
+            existingCryptoKeyPage.ResetKey += () => PushPage(resetCryptoKeyPage);
+            changeCryptoKeyPage.Continue += delegate(string newKey)
+            {
+                cryptoKey = newKey;
+                PushPage(cryptoKeyChangedPaged);
+            };
+            resetCryptoKeyPage.Continue += delegate(string newKey)
+            {
+                cryptoKey = newKey;
+                PushPage(cryptoKeyChangedPaged);
+            };
+            cryptoKeyChangedPaged.OK += delegate
+            {
+                config = Config.Load();
+                config.SyncCryptoKey = cryptoKey;
+                config.Save();
+                Close();
+            };
+            resetServerPage.Continue += () => PushPage(resetFinishedPage);
+            resetClientPage.Continue += () => PushPage(resetFinishedPage);
+            resetFinishedPage.Done += Close;
+
+            // Load first page
+            PushPage(welcomePage);
         }
     }
 }

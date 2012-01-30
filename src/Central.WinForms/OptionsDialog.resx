@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonOK.Location" type="System.Drawing.Point, System.Drawing">
-    <value>93, 211</value>
+    <value>92, 211</value>
   </data>
   <data name="&gt;&gt;buttonOK.Name" xml:space="preserve">
     <value>buttonOK</value>
@@ -134,7 +134,7 @@
     <value>1</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>174, 211</value>
+    <value>173, 211</value>
   </data>
   <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
     <value>buttonCancel</value>
@@ -180,11 +180,17 @@
   <data name="groupBoxSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <data name="buttonSyncReset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="buttonSyncReset.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="buttonSyncReset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>136, 154</value>
+    <value>121, 154</value>
   </data>
   <data name="buttonSyncReset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 23</value>
+    <value>109, 23</value>
   </data>
   <data name="buttonSyncReset.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -204,28 +210,28 @@
   <data name="&gt;&gt;buttonSyncReset.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="buttonSyncSetupWizard.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="buttonSyncSetup.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 154</value>
   </data>
-  <data name="buttonSyncSetupWizard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 23</value>
+  <data name="buttonSyncSetup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 23</value>
   </data>
-  <data name="buttonSyncSetupWizard.TabIndex" type="System.Int32, mscorlib">
+  <data name="buttonSyncSetup.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
   </data>
-  <data name="buttonSyncSetupWizard.Text" xml:space="preserve">
-    <value>Setup &amp;wizard</value>
+  <data name="buttonSyncSetup.Text" xml:space="preserve">
+    <value>Setup</value>
   </data>
-  <data name="&gt;&gt;buttonSyncSetupWizard.Name" xml:space="preserve">
-    <value>buttonSyncSetupWizard</value>
+  <data name="&gt;&gt;buttonSyncSetup.Name" xml:space="preserve">
+    <value>buttonSyncSetup</value>
   </data>
-  <data name="&gt;&gt;buttonSyncSetupWizard.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonSyncSetup.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonSyncSetupWizard.Parent" xml:space="preserve">
+  <data name="&gt;&gt;buttonSyncSetup.Parent" xml:space="preserve">
     <value>groupBoxSync</value>
   </data>
-  <data name="&gt;&gt;buttonSyncSetupWizard.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonSyncSetup.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="linkSyncAccount.AutoSize" type="System.Boolean, mscorlib">
@@ -259,7 +265,7 @@
     <value>Top, Right</value>
   </data>
   <data name="buttonSyncCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>212, 119</value>
+    <value>211, 119</value>
   </data>
   <data name="buttonSyncCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>19, 20</value>
@@ -289,7 +295,7 @@
     <value>72, 119</value>
   </data>
   <data name="textBoxSyncCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>134, 20</value>
+    <value>133, 20</value>
   </data>
   <data name="textBoxSyncCryptoKey.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -340,7 +346,7 @@
     <value>72, 71</value>
   </data>
   <data name="textBoxSyncPassword.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 20</value>
+    <value>158, 20</value>
   </data>
   <data name="textBoxSyncPassword.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -394,7 +400,7 @@
     <value>72, 19</value>
   </data>
   <data name="textBoxSyncServer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 20</value>
+    <value>158, 20</value>
   </data>
   <data name="textBoxSyncServer.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -448,7 +454,7 @@
     <value>72, 45</value>
   </data>
   <data name="textBoxSyncUsername.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 20</value>
+    <value>158, 20</value>
   </data>
   <data name="textBoxSyncUsername.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -496,7 +502,7 @@
     <value>12, 12</value>
   </data>
   <data name="groupBoxSync.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 187</value>
+    <value>236, 187</value>
   </data>
   <data name="groupBoxSync.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -523,7 +529,10 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>261, 246</value>
+    <value>260, 246</value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Options</value>

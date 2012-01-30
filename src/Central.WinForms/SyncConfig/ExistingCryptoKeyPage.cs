@@ -26,6 +26,7 @@ using Common.Storage;
 using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Injector;
 
 namespace ZeroInstall.Central.WinForms.SyncConfig
 {
@@ -35,10 +36,12 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         public SyncCredentials SyncCredentials;
 
         public event Action<string> Continue;
+        public event SimpleEventHandler ResetKey;
 
         public ExistingCryptoKeyPage()
         {
             InitializeComponent();
+            textBoxCryptoKey.Text = Config.Load().SyncCryptoKey;
         }
 
         private void textBoxCryptoKey_TextChanged(object sender, EventArgs e)
@@ -52,6 +55,11 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             keyCheckWorker.RunWorkerAsync(textBoxCryptoKey.Text);
         }
 
+        private void buttonReset_Click(object sender, EventArgs e)
+        {
+            ResetKey();
+        }
+
         private void keyCheckWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             CheckCryptoKey(SyncServer, SyncCredentials, (string)e.Argument);
@@ -61,11 +69,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         {
             Parent.Parent.Enabled = true;
             if (e.Error == null) Continue(textBoxCryptoKey.Text);
-            else
-            {
-                if (Msg.YesNo(this, e.Error.Message + "\n" + Resources.ContinueAndSolveLater, MsgSeverity.Warn, Resources.YesWizardContinue, Resources.NoWizardReturn))
-                    Continue(textBoxCryptoKey.Text);
-            }
+            else Msg.Inform(this, e.Error.Message, MsgSeverity.Warn);
         }
 
         private static void CheckCryptoKey(Uri syncServer, SyncCredentials syncCredentials, string key)

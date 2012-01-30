@@ -32,7 +32,7 @@
             this.buttonAdvanced = new System.Windows.Forms.Button();
             this.groupBoxSync = new System.Windows.Forms.GroupBox();
             this.buttonSyncReset = new System.Windows.Forms.Button();
-            this.buttonSyncSetupWizard = new System.Windows.Forms.Button();
+            this.buttonSyncSetup = new System.Windows.Forms.Button();
             this.linkSyncAccount = new System.Windows.Forms.LinkLabel();
             this.buttonSyncCryptoKey = new System.Windows.Forms.Button();
             this.textBoxSyncCryptoKey = new System.Windows.Forms.TextBox();
@@ -66,7 +66,7 @@
             // 
             resources.ApplyResources(this.groupBoxSync, "groupBoxSync");
             this.groupBoxSync.Controls.Add(this.buttonSyncReset);
-            this.groupBoxSync.Controls.Add(this.buttonSyncSetupWizard);
+            this.groupBoxSync.Controls.Add(this.buttonSyncSetup);
             this.groupBoxSync.Controls.Add(this.linkSyncAccount);
             this.groupBoxSync.Controls.Add(this.buttonSyncCryptoKey);
             this.groupBoxSync.Controls.Add(this.textBoxSyncCryptoKey);
@@ -87,12 +87,12 @@
             this.buttonSyncReset.UseVisualStyleBackColor = true;
             this.buttonSyncReset.Click += new System.EventHandler(this.buttonSyncReset_Click);
             // 
-            // buttonSyncSetupWizard
+            // buttonSyncSetup
             // 
-            resources.ApplyResources(this.buttonSyncSetupWizard, "buttonSyncSetupWizard");
-            this.buttonSyncSetupWizard.Name = "buttonSyncSetupWizard";
-            this.buttonSyncSetupWizard.UseVisualStyleBackColor = true;
-            this.buttonSyncSetupWizard.Click += new System.EventHandler(this.buttonSyncSetupWizard_Click);
+            resources.ApplyResources(this.buttonSyncSetup, "buttonSyncSetup");
+            this.buttonSyncSetup.Name = "buttonSyncSetup";
+            this.buttonSyncSetup.UseVisualStyleBackColor = true;
+            this.buttonSyncSetup.Click += new System.EventHandler(this.buttonSyncSetup_Click);
             // 
             // linkSyncAccount
             // 
@@ -124,6 +124,7 @@
             resources.ApplyResources(this.textBoxSyncPassword, "textBoxSyncPassword");
             this.textBoxSyncPassword.Name = "textBoxSyncPassword";
             this.textBoxSyncPassword.UseSystemPasswordChar = true;
+            this.textBoxSyncPassword.TextChanged += new System.EventHandler(this.textBoxSync_TextChanged);
             // 
             // labelSyncPassword
             // 
@@ -136,6 +137,7 @@
             resources.ApplyResources(this.textBoxSyncServer, "textBoxSyncServer");
             this.textBoxSyncServer.HttpOnly = true;
             this.textBoxSyncServer.Name = "textBoxSyncServer";
+            this.textBoxSyncServer.TextChanged += new System.EventHandler(this.textBoxSync_TextChanged);
             // 
             // labelServer
             // 
@@ -146,6 +148,7 @@
             // 
             resources.ApplyResources(this.textBoxSyncUsername, "textBoxSyncUsername");
             this.textBoxSyncUsername.Name = "textBoxSyncUsername";
+            this.textBoxSyncUsername.TextChanged += new System.EventHandler(this.textBoxSync_TextChanged);
             // 
             // labelSyncUsername
             // 
@@ -183,7 +186,7 @@
         private System.Windows.Forms.Label labelSyncUsername;
         private System.Windows.Forms.LinkLabel linkSyncAccount;
         private System.Windows.Forms.Button buttonSyncReset;
-        private System.Windows.Forms.Button buttonSyncSetupWizard;
+        private System.Windows.Forms.Button buttonSyncSetup;
         private Common.Controls.UriTextBox textBoxSyncServer;
         private System.Windows.Forms.Label labelServer;
     }

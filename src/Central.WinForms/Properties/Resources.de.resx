@@ -121,9 +121,6 @@
     <value>Sind Sie sicher, dass Sie '{0}' aus Ihrer Anwendungsliste entfernen möchten?
 Dabei werden auch alle Desktopintegrationen für die Anwendung entfernt.</value>
   </data>
-  <data name="ContinueAndSolveLater" xml:space="preserve">
-    <value>Möchten Sie fortfahren und das Problem später beheben?</value>
-  </data>
   <data name="EnterInterfaceUrl" xml:space="preserve">
     <value>Bitte geben Sie die URL eines Zero Install Interface hier ein:</value>
   </data>
