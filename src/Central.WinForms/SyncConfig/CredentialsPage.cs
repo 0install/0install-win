@@ -38,10 +38,10 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
 
         private void textBox_TextChanged(object sender, EventArgs e)
         {
-            buttonOK.Enabled = !string.IsNullOrEmpty(textBoxUsername.Text) && !string.IsNullOrEmpty(textBoxPassword.Text);
+            buttonContinue.Enabled = !string.IsNullOrEmpty(textBoxUsername.Text) && !string.IsNullOrEmpty(textBoxPassword.Text);
         }
 
-        private void buttonOK_Click(object sender, EventArgs e)
+        private void buttonContinue_Click(object sender, EventArgs e)
         {
             Parent.Parent.Enabled = false;
             credentialsCheckWorker.RunWorkerAsync(new SyncCredentials(textBoxUsername.Text, textBoxPassword.Text));

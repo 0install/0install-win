@@ -196,7 +196,7 @@
     <value>2</value>
   </data>
   <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
-    <value>I want to change my crypto key</value>
+    <value>I want to &amp;change my crypto key</value>
   </data>
   <data name="&gt;&gt;buttonChangeCryptoKey.Name" xml:space="preserve">
     <value>buttonChangeCryptoKey</value>
@@ -226,7 +226,7 @@
     <value>3</value>
   </data>
   <data name="buttonResetServer.Text" xml:space="preserve">
-    <value>The data stored on the server is damaged</value>
+    <value>The data stored on the &amp;server is damaged</value>
   </data>
   <data name="&gt;&gt;buttonResetServer.Name" xml:space="preserve">
     <value>buttonResetServer</value>
@@ -256,7 +256,7 @@
     <value>4</value>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
-    <value>I want to replace my local data</value>
+    <value>I want to replace my &amp;local data</value>
   </data>
   <data name="&gt;&gt;buttonResetClient.Name" xml:space="preserve">
     <value>buttonResetClient</value>

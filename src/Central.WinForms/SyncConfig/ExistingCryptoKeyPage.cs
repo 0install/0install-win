@@ -46,10 +46,10 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
 
         private void textBoxCryptoKey_TextChanged(object sender, EventArgs e)
         {
-            buttonOK.Enabled = !string.IsNullOrEmpty(textBoxCryptoKey.Text);
+            buttonContinue.Enabled = !string.IsNullOrEmpty(textBoxCryptoKey.Text);
         }
 
-        private void buttonOK_Click(object sender, EventArgs e)
+        private void buttonContinue_Click(object sender, EventArgs e)
         {
             Parent.Parent.Enabled = false;
             keyCheckWorker.RunWorkerAsync(textBoxCryptoKey.Text);

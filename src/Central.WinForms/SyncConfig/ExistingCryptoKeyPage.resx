@@ -118,39 +118,39 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonOK.Enabled" type="System.Boolean, mscorlib">
+  <data name="buttonContinue.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonOK.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="buttonContinue.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonOK.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="buttonContinue.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonOK.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="buttonContinue.Location" type="System.Drawing.Point, System.Drawing">
     <value>39, 149</value>
   </data>
-  <data name="buttonOK.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="buttonContinue.Size" type="System.Drawing.Size, System.Drawing">
     <value>140, 35</value>
   </data>
-  <data name="buttonOK.TabIndex" type="System.Int32, mscorlib">
+  <data name="buttonContinue.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
-  <data name="buttonOK.Text" xml:space="preserve">
-    <value>OK</value>
+  <data name="buttonContinue.Text" xml:space="preserve">
+    <value>&amp;Continue</value>
   </data>
-  <data name="&gt;&gt;buttonOK.Name" xml:space="preserve">
-    <value>buttonOK</value>
+  <data name="&gt;&gt;buttonContinue.Name" xml:space="preserve">
+    <value>buttonContinue</value>
   </data>
-  <data name="&gt;&gt;buttonOK.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonContinue.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonOK.Parent" xml:space="preserve">
+  <data name="&gt;&gt;buttonContinue.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;buttonOK.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonContinue.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="textBoxCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -180,37 +180,37 @@
   <data name="&gt;&gt;textBoxCryptoKey.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="labelUsername.AutoSize" type="System.Boolean, mscorlib">
+  <data name="labelCryptoKey.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="labelUsername.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="labelCryptoKey.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
   </data>
-  <data name="labelUsername.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="labelCryptoKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="labelUsername.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="labelCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
     <value>35, 120</value>
   </data>
-  <data name="labelUsername.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="labelCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 20</value>
   </data>
-  <data name="labelUsername.TabIndex" type="System.Int32, mscorlib">
+  <data name="labelCryptoKey.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="labelUsername.Text" xml:space="preserve">
-    <value>&amp;Crypto key:</value>
+  <data name="labelCryptoKey.Text" xml:space="preserve">
+    <value>Crypto &amp;key:</value>
   </data>
-  <data name="&gt;&gt;labelUsername.Name" xml:space="preserve">
-    <value>labelUsername</value>
+  <data name="&gt;&gt;labelCryptoKey.Name" xml:space="preserve">
+    <value>labelCryptoKey</value>
   </data>
-  <data name="&gt;&gt;labelUsername.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelCryptoKey.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;labelUsername.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelCryptoKey.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;labelUsername.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelCryptoKey.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="labelInfo.Font" type="System.Drawing.Font, System.Drawing">
@@ -298,7 +298,7 @@
     <value>4</value>
   </data>
   <data name="buttonReset.Text" xml:space="preserve">
-    <value>I don't remember the key</value>
+    <value>I don't &amp;remember the key</value>
   </data>
   <data name="&gt;&gt;buttonReset.Name" xml:space="preserve">
     <value>buttonReset</value>

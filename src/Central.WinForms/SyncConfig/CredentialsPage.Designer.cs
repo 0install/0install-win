@@ -41,7 +41,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             this.labelPassword = new System.Windows.Forms.Label();
             this.textBoxUsername = new System.Windows.Forms.TextBox();
             this.labelUsername = new System.Windows.Forms.Label();
-            this.buttonOK = new System.Windows.Forms.Button();
+            this.buttonContinue = new System.Windows.Forms.Button();
             this.credentialsCheckWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
@@ -78,12 +78,12 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             resources.ApplyResources(this.labelUsername, "labelUsername");
             this.labelUsername.Name = "labelUsername";
             // 
-            // buttonOK
+            // buttonContinue
             // 
-            resources.ApplyResources(this.buttonOK, "buttonOK");
-            this.buttonOK.Name = "buttonOK";
-            this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            resources.ApplyResources(this.buttonContinue, "buttonContinue");
+            this.buttonContinue.Name = "buttonContinue";
+            this.buttonContinue.UseVisualStyleBackColor = true;
+            this.buttonContinue.Click += new System.EventHandler(this.buttonContinue_Click);
             // 
             // credentialsCheckWorker
             // 
@@ -92,7 +92,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             // 
             // CredentialsPage
             // 
-            this.Controls.Add(this.buttonOK);
+            this.Controls.Add(this.buttonContinue);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.labelPassword);
             this.Controls.Add(this.textBoxUsername);
@@ -114,7 +114,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         private Label labelPassword;
         private TextBox textBoxUsername;
         private Label labelUsername;
-        private Button buttonOK;
+        private Button buttonContinue;
         private BackgroundWorker credentialsCheckWorker;
     }
 }

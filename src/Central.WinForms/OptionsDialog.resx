@@ -220,7 +220,7 @@
     <value>10</value>
   </data>
   <data name="buttonSyncSetup.Text" xml:space="preserve">
-    <value>Setup</value>
+    <value>Se&amp;tup</value>
   </data>
   <data name="&gt;&gt;buttonSyncSetup.Name" xml:space="preserve">
     <value>buttonSyncSetup</value>
@@ -530,9 +530,6 @@
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>260, 246</value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Options</value>
