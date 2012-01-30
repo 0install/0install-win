@@ -163,10 +163,10 @@
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.labelSummary);
             this.Controls.Add(this.pictureBoxIcon);
+            this.Controls.Add(this.buttonRun);
             this.Controls.Add(this.buttonRemove);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.buttonIntegrate);
-            this.Controls.Add(this.buttonRun);
             this.MaximumSize = new System.Drawing.Size(4096, 60);
             this.MinimumSize = new System.Drawing.Size(220, 60);
             this.Name = "AppTile";

@@ -214,7 +214,7 @@
     <value>333, 17</value>
   </metadata>
   <data name="contextMenuRun.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 98</value>
+    <value>164, 76</value>
   </data>
   <data name="&gt;&gt;contextMenuRun.Name" xml:space="preserve">
     <value>contextMenuRun</value>
@@ -247,7 +247,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonRun.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>6</value>
   </data>
   <data name="buttonSelectCommand.Size" type="System.Drawing.Size, System.Drawing">
     <value>163, 22</value>
@@ -270,9 +270,6 @@
   <data name="buttonUpdate.Text" xml:space="preserve">
     <value>&amp;Update</value>
   </data>
-  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>478, 17</value>
-  </metadata>
   <data name="buttonAdd.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
@@ -283,14 +280,17 @@
     <value>NoControl</value>
   </data>
   <data name="buttonAdd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>330, 32</value>
+    <value>363, 32</value>
   </data>
   <data name="buttonAdd.Size" type="System.Drawing.Size, System.Drawing">
     <value>31, 25</value>
   </data>
   <data name="buttonAdd.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>6</value>
   </data>
+  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>478, 17</value>
+  </metadata>
   <data name="buttonAdd.ToolTip" xml:space="preserve">
     <value>Add to my applications</value>
   </data>
@@ -304,7 +304,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonAdd.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="linkLabelDetails.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -379,13 +379,13 @@
     <value>NoControl</value>
   </data>
   <data name="buttonRemove.Location" type="System.Drawing.Point, System.Drawing">
-    <value>330, 32</value>
+    <value>363, 32</value>
   </data>
   <data name="buttonRemove.Size" type="System.Drawing.Size, System.Drawing">
     <value>31, 25</value>
   </data>
   <data name="buttonRemove.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="buttonRemove.ToolTip" xml:space="preserve">
     <value>Remove from my applications</value>
@@ -403,7 +403,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonRemove.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="buttonIntegrate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -418,17 +418,14 @@
     <value>NoControl</value>
   </data>
   <data name="buttonIntegrate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>363, 32</value>
+    <value>330, 31</value>
   </data>
   <data name="buttonIntegrate.Size" type="System.Drawing.Size, System.Drawing">
     <value>31, 25</value>
   </data>
   <data name="buttonIntegrate.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>5</value>
   </data>
-  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>478, 17</value>
-  </metadata>
   <data name="buttonIntegrate.ToolTip" xml:space="preserve">
     <value>Integrate into operating system</value>
   </data>
@@ -442,7 +439,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonIntegrate.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
