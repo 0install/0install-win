@@ -65,7 +65,11 @@ namespace ZeroInstall.Commands
             #endregion
 
             Policy.Handler.ShowProgressUI();
-            Policy.FeedManager.ImportFeed(Feed.Load(AdditionalArgs.First).Uri, File.ReadAllBytes(AdditionalArgs.First), Policy);
+            Policy.FeedManager.ImportFeed(
+                Feed.Load(AdditionalArgs.First).Uri,
+                new Uri(AdditionalArgs.First),
+                File.ReadAllBytes(AdditionalArgs.First),
+                Policy);
             return 0;
         }
         #endregion

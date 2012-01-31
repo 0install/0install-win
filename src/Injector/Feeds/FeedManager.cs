@@ -167,17 +167,37 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
         private void DownloadFeed(Uri url, Policy policy)
         {
-            // ToDo: Add better cancellation support
-            // ToDo: Add mirror support
+            // ToDo: Add tracking and better cancellation support
+            policy.Handler.CancellationToken.ThrowIfCancellationRequested();
             using (var webClient = new WebClient())
-                ImportFeed(url, webClient.DownloadData(url), policy);
+            {
+                try
+                {
+                    ImportFeed(url, null, webClient.DownloadData(url), policy);
+                    policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+                }
+                catch (WebException ex)
+                {
+                    if (url.Host == "localhost" || url.Host == "127.0.0.1") throw;
+                    policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+                    Log.Warn("Error while downloading feed '" + url + "':\n" + ex.Message + "\nSwitching to mirror.");
+
+                    var mirrorUrl = new Uri(policy.Config.FeedMirror, string.Format(
+                        "feeds/{0}/{1}/{2}/latest.xml",
+                        url.Scheme,
+                        url.Host,
+                        string.Concat(url.Segments).TrimStart('/').Replace("/", "%23")));
+                    ImportFeed(url, mirrorUrl, webClient.DownloadData(mirrorUrl), policy);
+                    policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+                }
+            }
             policy.Handler.CancellationToken.ThrowIfCancellationRequested();
         }
         #endregion
 
         #region Import feed
         /// <inheritdoc/>
-        public override void ImportFeed(Uri uri, byte[] data, Policy policy)
+        public override void ImportFeed(Uri uri, Uri mirrorUri, byte[] data, Policy policy)
         {
             #region Sanity checks
             if (uri == null) throw new ArgumentNullException("uri");
@@ -185,7 +205,7 @@ namespace ZeroInstall.Injector.Feeds
             if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
-            var newSignature = CheckFeedTrust(uri, data, policy);
+            var newSignature = CheckFeedTrust(uri, mirrorUri, data, policy);
             DetectAttacks(uri, data, policy, newSignature);
 
             // Add to cache and remember time
@@ -199,10 +219,11 @@ namespace ZeroInstall.Injector.Feeds
         /// Checks whether a remote <see cref="Feed"/> has a a valid and trusted signature. Downloads missing GPG keys for verification and interactivley asks the user to approve new keys.
         /// </summary>
         /// <param name="uri">The URI the feed originally came from.</param>
+        /// <param name="mirrorUri">The URI or local file path the feed was actually loaded from; <see langword="null"/> if it is identical to <paramref name="uri"/>.</param>
         /// <param name="data">The data of the feed.</param>
         /// <param name="policy">Provides additional class dependencies.</param>
         /// <exception cref="SignatureException">Thrown if no trusted signature was found.</exception>
-        private static ValidSignature CheckFeedTrust(Uri uri, byte[] data, Policy policy)
+        private static ValidSignature CheckFeedTrust(Uri uri, Uri mirrorUri, byte[] data, Policy policy)
         {
             var domain = new Domain(uri.Host);
             KeyImported:
@@ -237,9 +258,19 @@ namespace ZeroInstall.Injector.Feeds
             var missingKey = EnumerableUtils.First(EnumerableUtils.OfType<MissingKeySignature>(signatures));
             if (missingKey != null)
             {
-                using (var webClient = new WebClient())
-                    policy.OpenPgp.ImportKey(webClient.DownloadData(new Uri(uri, missingKey.KeyID + ".gpg")));
+                var keyUri = new Uri(mirrorUri ?? uri, missingKey.KeyID + ".gpg");
+                byte[] keyData;
+                if (keyUri.IsFile)
+                { // Load key file from local file
+                    keyData = File.ReadAllBytes(keyUri.LocalPath);
+                }
+                else
+                { // Load key file from server
+                    using (var webClient = new WebClient())
+                        keyData = webClient.DownloadData(keyUri);
+                }
                 policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+                policy.OpenPgp.ImportKey(keyData);
                 goto KeyImported; // Re-evaluate signatures after importing new key material
             }
 

@@ -126,6 +126,31 @@ namespace ZeroInstall.Injector.Feeds
             Assert.IsTrue(stale);
         }
 
+        [Test]
+        public void TestDownloadMirror()
+        {
+            var feed = FeedTest.CreateTestFeed();
+            feed.Uri = new Uri("http://invalid/directory/feed.xml");
+            var data = SignFeed(feed, false);
+
+            // Pre-trust signature key
+            var trustDB = new TrustDB();
+            trustDB.TrustKey("fingerprint", new Domain(feed.Uri.Host));
+            trustDB.Save();
+
+            // No previous feed
+            _cacheMock.Setup(x => x.Contains(feed.Uri.ToString())).Returns(false).Verifiable();
+            _cacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString(), _policy.OpenPgp)).Throws<KeyNotFoundException>().Verifiable();
+
+            _cacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
+            _cacheMock.Setup(x => x.GetFeed(feed.Uri.ToString())).Returns(feed).Verifiable();
+            using (var mirrorServer = new MicroServer("feeds/http/invalid/directory%23feed.xml/latest.xml", new MemoryStream(data)))
+            {
+                _policy.Config.FeedMirror = mirrorServer.ServerUri;
+                Assert.AreEqual(feed, _policy.FeedManager.GetFeed(feed.Uri.ToString(), _policy));
+            }
+        }
+
         [Test(Description = "Ensures valid feeds are correctly imported.")]
         public void TestImportFeed()
         {
@@ -141,7 +166,7 @@ namespace ZeroInstall.Injector.Feeds
             _cacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString(), _policy.OpenPgp)).Throws<KeyNotFoundException>().Verifiable();
 
             _cacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
-            _policy.FeedManager.ImportFeed(feed.Uri, data, _policy);
+            _policy.FeedManager.ImportFeed(feed.Uri, null, data, _policy);
         }
 
         private const string KeyInfoResponse = @"<?xml version='1.0'?><key-lookup><item vote=""good"">Key information</item></key-lookup>";
@@ -160,7 +185,7 @@ namespace ZeroInstall.Injector.Feeds
                 // Ensure key information is relayed and then reject new key
                 _handlerMock.Setup(x => x.AskQuestion(It.IsRegex("Key information"), It.IsAny<string>())).Returns(false).Verifiable();
 
-                Assert.Throws<SignatureException>(() => _policy.FeedManager.ImportFeed(feed.Uri, data, _policy));
+                Assert.Throws<SignatureException>(() => _policy.FeedManager.ImportFeed(feed.Uri, null, data, _policy));
                 Assert.IsFalse(TrustDB.LoadSafe().IsTrusted("fingerprint", new Domain(feed.Uri.Host)));
             }
         }
@@ -183,7 +208,7 @@ namespace ZeroInstall.Injector.Feeds
                 _handlerMock.Setup(x => x.AskQuestion(It.IsRegex("Key information"), It.IsAny<string>())).Returns(true).Verifiable();
 
                 _cacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
-                _policy.FeedManager.ImportFeed(feed.Uri, data, _policy);
+                _policy.FeedManager.ImportFeed(feed.Uri, null, data, _policy);
                 Assert.IsTrue(TrustDB.LoadSafe().IsTrusted("fingerprint", new Domain(feed.Uri.Host)));
             }
         }
@@ -203,7 +228,7 @@ namespace ZeroInstall.Injector.Feeds
                 _cacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString(), _policy.OpenPgp)).Throws<KeyNotFoundException>().Verifiable();
 
                 _cacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
-                _policy.FeedManager.ImportFeed(feed.Uri, data, _policy);
+                _policy.FeedManager.ImportFeed(feed.Uri, null, data, _policy);
                 Assert.IsTrue(TrustDB.LoadSafe().IsTrusted("fingerprint", new Domain(feed.Uri.Host)));
             }
         }
@@ -226,7 +251,7 @@ namespace ZeroInstall.Injector.Feeds
                 _handlerMock.Setup(x => x.AskQuestion(It.IsAny<string>(), It.IsAny<string>())).Returns(true).Verifiable();
 
                 _cacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
-                _policy.FeedManager.ImportFeed(feed.Uri, data, _policy);
+                _policy.FeedManager.ImportFeed(feed.Uri, null, data, _policy);
                 Assert.IsTrue(TrustDB.LoadSafe().IsTrusted("fingerprint", new Domain(feed.Uri.Host)));
             }
         }
@@ -236,31 +261,29 @@ namespace ZeroInstall.Injector.Feeds
         {
             // Provide PGP key file via HTTP
             var keyData = new byte[] {1, 2, 3, 4, 5};
+
+            var feed = FeedTest.CreateTestFeed();
+            var data = SignFeed(feed, true);
+            _openPgpMock.Setup(x => x.ImportKey(keyData));
+
+            // Pre-trust signature key
+            var trustDB = new TrustDB();
+            trustDB.TrustKey("fingerprint", new Domain(feed.Uri.Host));
+            trustDB.Save();
+
+            // No previous feed
+            _cacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString(), _policy.OpenPgp)).Throws<KeyNotFoundException>().Verifiable();
+
+            _cacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
             using (var keyServer = new MicroServer("id.gpg", new MemoryStream(keyData)))
-            {
-                var feed = FeedTest.CreateTestFeed();
-                feed.Uri = new Uri(keyServer.FileUri, "feed.xml"); // Make feed URI relative to key file location
-                var data = SignFeed(feed, true);
-                _openPgpMock.Setup(x => x.ImportKey(keyData));
-
-                // Pre-trust signature key
-                var trustDB = new TrustDB();
-                trustDB.TrustKey("fingerprint", new Domain(feed.Uri.Host));
-                trustDB.Save();
-
-                // No previous feed
-                _cacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString(), _policy.OpenPgp)).Throws<KeyNotFoundException>().Verifiable();
-
-                _cacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
-                _policy.FeedManager.ImportFeed(feed.Uri, data, _policy);
-            }
+                _policy.FeedManager.ImportFeed(feed.Uri, keyServer.FileUri, data, _policy);
         }
 
         [Test(Description = "Ensures feeds without signatures are rejected.")]
         public void TestImportFeedMissingSignature()
         {
             var feed = FeedTest.CreateTestFeed();
-            Assert.Throws<SignatureException>(() => _policy.FeedManager.ImportFeed(feed.Uri, feed.ToArray(), _policy));
+            Assert.Throws<SignatureException>(() => _policy.FeedManager.ImportFeed(feed.Uri, null, feed.ToArray(), _policy));
         }
 
         [Test(Description = "Ensures feeds with incorrect URIs are rejected.")]
@@ -274,7 +297,7 @@ namespace ZeroInstall.Injector.Feeds
             trustDB.TrustKey("fingerprint", new Domain("invalid"));
             trustDB.Save();
 
-            Assert.Throws<InvalidInterfaceIDException>(() => _policy.FeedManager.ImportFeed(new Uri("http://invalid/"), data, _policy));
+            Assert.Throws<InvalidInterfaceIDException>(() => _policy.FeedManager.ImportFeed(new Uri("http://invalid/"), null, data, _policy));
         }
 
         [Test(Description = "Ensures replay attacks are detected.")]
@@ -291,7 +314,7 @@ namespace ZeroInstall.Injector.Feeds
             // Newer signautre present => replay attack
             _cacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString(), _policy.OpenPgp)).Returns(new[] {new ValidSignature("fingerprint", new DateTime(2002, 1, 1))}).Verifiable();
 
-            Assert.Throws<ReplayAttackException>(() => _policy.FeedManager.ImportFeed(feed.Uri, data, _policy));
+            Assert.Throws<ReplayAttackException>(() => _policy.FeedManager.ImportFeed(feed.Uri, null, data, _policy));
         }
 
         /// <summary>

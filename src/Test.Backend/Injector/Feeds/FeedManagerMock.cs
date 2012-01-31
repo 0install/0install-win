@@ -51,7 +51,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <summary>
         /// Always throws <see cref="NotImplementedException"/>.
         /// </summary>
-        public override void ImportFeed(Uri uri, byte[] data, Policy policy)
+        public override void ImportFeed(Uri uri, Uri mirrorUri, byte[] data, Policy policy)
         {
             throw new NotImplementedException();
         }

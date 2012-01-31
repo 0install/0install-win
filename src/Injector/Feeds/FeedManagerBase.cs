@@ -84,7 +84,7 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Import feed
         /// <inheritdoc/>
-        public abstract void ImportFeed(Uri uri, byte[] data, Policy policy);
+        public abstract void ImportFeed(Uri uri, Uri mirrorUri, byte[] data, Policy policy);
         #endregion
 
         #region Clone

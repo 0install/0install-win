@@ -73,13 +73,14 @@ namespace ZeroInstall.Injector.Feeds
         /// Imports a remote <see cref="Feed"/> into the <see cref="Cache"/> after verifying its signature.
         /// </summary>
         /// <param name="uri">The URI the feed originally came from.</param>
+        /// <param name="mirrorUri">The URI or local file path the feed was actually loaded from; <see langword="null"/> if it is identical to <paramref name="uri"/>.</param>
         /// <param name="data">The data of the feed.</param>
         /// <param name="policy">Provides additional class dependencies.</param>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="data"/> list the same URI as <paramref name="uri"/>.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the feed file or the cache is not permitted.</exception>
         /// <exception cref="SignatureException">Thrown if the signature data of the feed file could not be handled or if no signatures were trusted.</exception>
-        void ImportFeed(Uri uri, byte[] data, Policy policy);
+        void ImportFeed(Uri uri, Uri mirrorUri, byte[] data, Policy policy);
 
         /// <summary>
         /// Creates a shallow copy of this feed manager.
