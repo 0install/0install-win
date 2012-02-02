@@ -225,11 +225,34 @@ namespace ZeroInstall.Injector.Feeds
                 _policy.Config.AutoApproveKeys = true;
 
                 // No previous feed
+                _cacheMock.Setup(x => x.Contains(feed.Uri.ToString())).Returns(false).Verifiable();
                 _cacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString(), _policy.OpenPgp)).Throws<KeyNotFoundException>().Verifiable();
 
                 _cacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
                 _policy.FeedManager.ImportFeed(feed.Uri, null, data, _policy);
                 Assert.IsTrue(TrustDB.LoadSafe().IsTrusted("fingerprint", new Domain(feed.Uri.Host)));
+            }
+        }
+
+        [Test(Description = "Ensures feeds signed with changed keys do not get trusted automatically.")]
+        public void TestImportNoAutoTrustChangedKey()
+        {
+            var feed = FeedTest.CreateTestFeed();
+            var data = SignFeed(feed, false);
+
+            using (var keyInfoServer = new MicroServer("key/fingerprint", StreamUtils.CreateFromString(KeyInfoResponse)))
+            {
+                _policy.Config.KeyInfoServer = keyInfoServer.ServerUri;
+                _policy.Config.AutoApproveKeys = true;
+
+                // Previous feed already in cache
+                _cacheMock.Setup(x => x.Contains(feed.Uri.ToString())).Returns(true).Verifiable();
+
+                // Ensure key information is relayed and then reject new key
+                _handlerMock.Setup(x => x.AskQuestion(It.IsRegex("Key information"), It.IsAny<string>())).Returns(false).Verifiable();
+
+                Assert.Throws<SignatureException>(() => _policy.FeedManager.ImportFeed(feed.Uri, null, data, _policy));
+                Assert.IsFalse(TrustDB.LoadSafe().IsTrusted("fingerprint", new Domain(feed.Uri.Host)));
             }
         }
 

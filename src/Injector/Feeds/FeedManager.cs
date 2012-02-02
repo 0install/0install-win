@@ -223,7 +223,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <param name="data">The data of the feed.</param>
         /// <param name="policy">Provides additional class dependencies.</param>
         /// <exception cref="SignatureException">Thrown if no trusted signature was found.</exception>
-        private static ValidSignature CheckFeedTrust(Uri uri, Uri mirrorUri, byte[] data, Policy policy)
+        private ValidSignature CheckFeedTrust(Uri uri, Uri mirrorUri, byte[] data, Policy policy)
         {
             var domain = new Domain(uri.Host);
             KeyImported:
@@ -242,7 +242,10 @@ namespace ZeroInstall.Injector.Feeds
             {
                 bool goodVote;
                 var keyInformation = GetKeyInformation(sig.Fingerprint, out goodVote, policy) ?? Resources.NoKeyInfoServerData;
-                return (policy.Config.AutoApproveKeys && goodVote) ||
+
+                // Automatically trust key if known and voted good by key server and if feed is seen for the first time
+                return (policy.Config.AutoApproveKeys && goodVote && !Cache.Contains(uri.ToString())) ||
+                    // Otherwise ask user
                     policy.Handler.AskQuestion(string.Format(Resources.AskKeyTrust, uri, sig.Fingerprint, keyInformation, domain), Resources.UntrustedKeys);
             });
             if (trustedSignature != null)
