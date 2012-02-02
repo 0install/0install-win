@@ -17,7 +17,6 @@
 
 using System;
 using System.Xml.Serialization;
-using ZeroInstall.Injector.Properties;
 
 namespace ZeroInstall.Injector.Feeds
 {
@@ -28,25 +27,11 @@ namespace ZeroInstall.Injector.Feeds
     public struct Domain : ICloneable, IEquatable<Domain>
     {
         #region Properties
-        private string _value;
-
         /// <summary>
         /// A valid domain name (not a full <see cref="Uri"/>!).
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown if the value is not a DNS-style hostname.</exception>
         [XmlAttribute("value")]
-        public string Value
-        {
-            get { return _value; }
-            set
-            {
-                #region Sanity checks
-                if (Uri.CheckHostName(value) != UriHostNameType.Dns) throw new ArgumentException(Resources.NotValidDomain, "value");
-                #endregion
-
-                _value = value;
-            }
-        }
+        public string Value { get; set; }
         #endregion
 
         #region Constructor
@@ -54,14 +39,9 @@ namespace ZeroInstall.Injector.Feeds
         /// Creates a new domain entry.
         /// </summary>
         /// <param name="value">A valid domain name (not a full <see cref="Uri"/>!).</param>
-        /// <exception cref="ArgumentException">Thrown if the value is not a DNS-style hostname.</exception>
-        public Domain(string value)
+        public Domain(string value) : this()
         {
-            #region Sanity checks
-            if (Uri.CheckHostName(value) != UriHostNameType.Dns) throw new ArgumentException(Resources.NotValidDomain, "value");
-            #endregion
-
-            _value = value;
+            Value = value;
         }
         #endregion
 
@@ -82,7 +62,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <returns>The new copy of the <see cref="Domain"/>.</returns>
         public Domain Clone()
         {
-            return new Domain {Value = Value};
+            return new Domain(Value);
         }
 
         object ICloneable.Clone()

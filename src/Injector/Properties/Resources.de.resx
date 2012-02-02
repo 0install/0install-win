@@ -163,9 +163,6 @@ Möchten Sie diesem Key zum Signieren von Feeds von '{3}' vertrauen?
   <data name="NotInterfaceID" xml:space="preserve">
     <value>Das Interface '{0}' fängt nicht mit 'http:' an und ist auch existiert auch nicht als Datei '{1}'.</value>
   </data>
-  <data name="NotValidDomain" xml:space="preserve">
-    <value>Der Wert ist kein gültiger Domainname.</value>
-  </data>
   <data name="ProblemLoadingConfig" xml:space="preserve">
     <value>Es gab ein Problem beim Laden des Konfigurationswerts '{0}'.</value>
   </data>

@@ -191,15 +191,6 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The value is not a valid domain name..
-        /// </summary>
-        internal static string NotValidDomain {
-            get {
-                return ResourceManager.GetString("NotValidDomain", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to There was a problem loading configuration value &apos;{0}&apos;..
         /// </summary>
         internal static string ProblemLoadingConfig {

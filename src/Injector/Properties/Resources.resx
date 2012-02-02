@@ -163,9 +163,6 @@ Do you want to trust this key to sign feeds from '{3}'?
   <data name="NotInterfaceID" xml:space="preserve">
     <value>The interface '{0}' doesn't start with 'http:' and doesn't exist as a file '{1}' either.</value>
   </data>
-  <data name="NotValidDomain" xml:space="preserve">
-    <value>The value is not a valid domain name.</value>
-  </data>
   <data name="ProblemLoadingConfig" xml:space="preserve">
     <value>There was a problem loading configuration value '{0}'.</value>
   </data>
