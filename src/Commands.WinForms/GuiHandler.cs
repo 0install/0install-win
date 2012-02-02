@@ -147,7 +147,6 @@ namespace ZeroInstall.Commands.WinForms
             _guiReady.WaitOne();
 
             _form.Invoke((SimpleEventHandler)(() => { if (_form.IsHandleCreated) _form.Enabled = false; }));
-            // ToDo: Disable tray icon
         }
 
         /// <inheritdoc/>
