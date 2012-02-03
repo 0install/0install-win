@@ -69,28 +69,28 @@ namespace ZeroInstall.Injector
         #endregion
 
         #region Properties
-        /// <summary>
-        /// Always prefer the newest versions, even if they havent been marked as <see cref="Model.Stability.Stable"/> yet.
-        /// </summary>
-        [DefaultValue(false), DisplayName("Help with testing"), Description("Always prefer the newest versions, even if they havent been marked as stable yet.")]
-        public bool HelpWithTesting { get; set; }
-
         private static readonly TimeSpan _defaultFreshness = new TimeSpan(7, 0, 0, 0, 0); // 7 days
         private TimeSpan _freshness = _defaultFreshness;
 
         /// <summary>
         /// The maximum age a cached <see cref="Model.Feed"/> may have until it is considered stale (needs to be updated).
         /// </summary>
-        [DefaultValue(typeof(TimeSpan), "7.00:00:00"), DisplayName("Freshness"), Description("The maximum age a cached feed may have until it is considered stale (needs to be updated).")]
+        [DefaultValue(typeof(TimeSpan), "7.00:00:00"), Category("Policy"), DisplayName("Freshness"), Description("The maximum age a cached feed may have until it is considered stale (needs to be updated).")]
         [EditorAttribute(typeof(TimeSpanEditor), typeof(UITypeEditor))]
         public TimeSpan Freshness { get { return _freshness; } set { _freshness = value; } }
+
+        /// <summary>
+        /// Always prefer the newest versions, even if they havent been marked as <see cref="Model.Stability.Stable"/> yet.
+        /// </summary>
+        [DefaultValue(false), Category("Policy"), DisplayName("Help with testing"), Description("Always prefer the newest versions, even if they havent been marked as stable yet.")]
+        public bool HelpWithTesting { get; set; }
 
         private NetworkLevel _networkLevel = NetworkLevel.Full;
 
         /// <summary>
         /// Controls how liberally network access is attempted.
         /// </summary>
-        [DefaultValue(typeof(NetworkLevel), "Full"), DisplayName("Network use"), Description("Controls how liberally network access is attempted.")]
+        [DefaultValue(typeof(NetworkLevel), "Full"), Category("Policy"), DisplayName("Network use"), Description("Controls how liberally network access is attempted.")]
         public NetworkLevel NetworkUse
         {
             get { return _networkLevel; }
@@ -104,6 +104,22 @@ namespace ZeroInstall.Injector
             }
         }
 
+        private bool _autoApproveKeys = true;
+
+        /// <summary>
+        /// Automatically approve keys known by the <see cref="KeyInfoServer"/> and seen the first time a feed is fetched.
+        /// </summary>
+        [DefaultValue(true), Category("Policy"), DisplayName("Auto approve keys"), Description("Automatically approve keys known by the key info server and seen the first time a feed is fetched.")]
+        public bool AutoApproveKeys { get { return _autoApproveKeys; } set { _autoApproveKeys = value; } }
+
+        private bool _allowApiHooking;
+
+        /// <summary>
+        /// Controls whether Zero Install may install hooks for operating sytem APIs to improve desktop integration.
+        /// </summary>
+        [DefaultValue(false), Category("Policy"), DisplayName("Allow API hooking"), Description("Controls whether Zero Install may install hooks for operating sytem APIs to improve desktop integration.")]
+        public bool AllowApiHooking { get { return _allowApiHooking; } set { _allowApiHooking = value; } }
+
         /// <summary>
         /// The default value for <see cref="FeedMirror"/>.
         /// </summary>
@@ -114,7 +130,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// The base URL of a mirror site for keys and feeds.
         /// </summary>
-        [DefaultValue(typeof(Uri), DefaultFeedMirror), DisplayName("Feed mirror"), Description("The base URL of a mirror site for keys and feeds.")]
+        [DefaultValue(typeof(Uri), DefaultFeedMirror), Category("Sources"), DisplayName("Feed mirror"), Description("The base URL of a mirror site for keys and feeds.")]
         public Uri FeedMirror { get { return _feedMirror; } set { _feedMirror = value; } }
 
         /// <summary>
@@ -127,16 +143,8 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// The base URL of a key information server.
         /// </summary>
-        [DefaultValue(typeof(Uri), DefaultKeyInfoServer), DisplayName("Key info server"), Description("The base URL of a key information server.")]
+        [DefaultValue(typeof(Uri), DefaultKeyInfoServer), Category("Sources"), DisplayName("Key info server"), Description("The base URL of a key information server.")]
         public Uri KeyInfoServer { get { return _keyInfoServer; } set { _keyInfoServer = value; } }
-
-        private bool _autoApproveKeys = true;
-
-        /// <summary>
-        /// Automatically approve keys known by the <see cref="KeyInfoServer"/> and seen the first time a feed is fetched.
-        /// </summary>
-        [DefaultValue(true), DisplayName("Auto approve keys"), Description("Automatically approve keys known by the key info server and seen the first time a feed is fetched.")]
-        public bool AutoApproveKeys { get { return _autoApproveKeys; } set { _autoApproveKeys = value; } }
 
         /// <summary>
         /// The default value for <see cref="SelfUpdateID"/>.
@@ -148,7 +156,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// The ID used by the solver to search for updates for Zero Install itself.
         /// </summary>
-        [DefaultValue(DefaultSelfUpdateID), DisplayName("Self-update ID"), Description("The ID used by the solver to search for updates for Zero Install itself.")]
+        [DefaultValue(DefaultSelfUpdateID), Category("Sources"), DisplayName("Self-update ID"), Description("The ID used by the solver to search for updates for Zero Install itself.")]
         public string SelfUpdateID { get { return _selfUpdateID; } set { _selfUpdateID = value; } }
 
         /// <summary>
@@ -163,7 +171,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <seealso cref="SyncServerUsername"/>
         /// <seealso cref="SyncServerPassword"/>
-        [DefaultValue(typeof(Uri), DefaultSyncServer), DisplayName("Sync server"), Description("The base URL of the sync server.")]
+        [DefaultValue(typeof(Uri), DefaultSyncServer), Category("Sync"), DisplayName("Server"), Description("The base URL of the sync server.")]
         public Uri SyncServer { get { return _syncServer; } set { _syncServer = value; } }
 
         private string _syncServerUsername = "";
@@ -173,7 +181,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <seealso cref="SyncServer"/>
         /// <seealso cref="SyncServerPassword"/>
-        [DefaultValue(""), DisplayName("Sync server username"), Description("The username to authenticate with against the Sync server.")]
+        [DefaultValue(""), Category("Sync"), DisplayName("Username"), Description("The username to authenticate with against the Sync server.")]
         public string SyncServerUsername { get { return _syncServerUsername; } set { _syncServerUsername = value; } }
 
         private string _syncServerPassword = "";
@@ -183,7 +191,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <seealso cref="SyncServer"/>
         /// <seealso cref="SyncServerUsername"/>
-        [DefaultValue(""), PasswordPropertyText(true), DisplayName("Sync server password"), Description("The password to authenticate with against the Sync server.")]
+        [DefaultValue(""), PasswordPropertyText(true), Category("Sync"), DisplayName("Password"), Description("The password to authenticate with against the Sync server.")]
         public string SyncServerPassword { get { return _syncServerPassword; } set { _syncServerPassword = value; } }
 
         private string _syncCryptoKey = "";
@@ -191,16 +199,8 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// The local key used to encrypt data before sending it to the <see cref="SyncServer"/>.
         /// </summary>
-        [DefaultValue(""), PasswordPropertyText(true), DisplayName("Sync crypto key"), Description("The local key used to encrypt data before sending it to the Sync server.")]
+        [DefaultValue(""), PasswordPropertyText(true), Category("Sync"), DisplayName("Crypto key"), Description("The local key used to encrypt data before sending it to the Sync server.")]
         public string SyncCryptoKey { get { return _syncCryptoKey; } set { _syncCryptoKey = value; } }
-
-        private bool _allowApiHooking;
-
-        /// <summary>
-        /// Controls whether Zero Install may install hooks for operating sytem APIs to improve desktop integration.
-        /// </summary>
-        [DefaultValue(false), DisplayName("Allow API hooking"), Description("Controls whether Zero Install may install hooks for operating sytem APIs to improve desktop integration.")]
-        public bool AllowApiHooking { get { return _allowApiHooking; } set { _allowApiHooking = value; } }
         #endregion
 
         #region Constructor
@@ -211,18 +211,18 @@ namespace ZeroInstall.Injector
         {
             _metaData = new C5.TreeDictionary<string, PropertyPointer<string>>
             {
-                {"help_with_testing", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => HelpWithTesting, value => HelpWithTesting = value, false))},
                 {"freshness", PropertyPointer.GetTimespanConverter(new PropertyPointer<TimeSpan>(() => Freshness, value => Freshness = value, _defaultFreshness))},
+                {"help_with_testing", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => HelpWithTesting, value => HelpWithTesting = value, false))},
                 {"network_use", GetNetworkUseConverter()},
+                {"auto_approve_keys", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => AutoApproveKeys, value => AutoApproveKeys = value, true))},
+                {"allow_api_hooking", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => AllowApiHooking, value => AllowApiHooking = value, false))},
                 {"feed_mirror", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => FeedMirror, value => FeedMirror = value, new Uri(DefaultFeedMirror)))},
                 {"key_info_server", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => KeyInfoServer, value => KeyInfoServer = value, new Uri(DefaultKeyInfoServer)))},
-                {"auto_approve_keys", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => AutoApproveKeys, value => AutoApproveKeys = value, true))},
                 {"self_update_id", new PropertyPointer<string>(() => SelfUpdateID, value => SelfUpdateID = value, DefaultSelfUpdateID)},
                 {"sync_server", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => SyncServer, value => SyncServer = value, new Uri(DefaultSyncServer)))},
                 {"sync_server_user", new PropertyPointer<string>(() => SyncServerUsername, value => SyncServerUsername = value, "")},
                 {"sync_server_pw", new PropertyPointer<string>(() => SyncServerPassword, value => SyncServerPassword = value, "", true)},
                 {"sync_crypto_key", new PropertyPointer<string>(() => SyncCryptoKey, value => SyncCryptoKey = value, "", true)},
-                {"allow_api_hooking", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => AllowApiHooking, value => AllowApiHooking = value, false))},
             };
         }
 

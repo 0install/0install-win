@@ -41,7 +41,7 @@
             resources.ApplyResources(this.propertyGrid, "propertyGrid");
             this.propertyGrid.ContextMenuStrip = this.contextMenu;
             this.propertyGrid.Name = "propertyGrid";
-            this.propertyGrid.PropertySort = System.Windows.Forms.PropertySort.NoSort;
+            this.propertyGrid.PropertySort = System.Windows.Forms.PropertySort.Categorized;
             this.propertyGrid.ToolbarVisible = false;
             // 
             // contextMenu
