@@ -85,6 +85,21 @@ namespace ZeroInstall.Store.Implementation
             }
             #endregion
         }
+
+        /// <inheritdoc />
+        public IEnumerable<string> ListAllTemp()
+        {
+            try
+            {
+                return _serviceProxy.ListAllTemp();
+            }
+                #region Error handling
+            catch (RemotingException ex)
+            {
+                throw new UnauthorizedAccessException(Resources.StoreServiceCommunicationProblem, ex);
+            }
+            #endregion
+        }
         #endregion
 
         #region Contains
@@ -94,6 +109,21 @@ namespace ZeroInstall.Store.Implementation
             try
             {
                 return _serviceProxy.Contains(manifestDigest);
+            }
+                #region Error handling
+            catch (RemotingException)
+            {
+                return false;
+            }
+            #endregion
+        }
+
+        /// <inheritdoc />
+        public bool Contains(string directory)
+        {
+            try
+            {
+                return _serviceProxy.Contains(directory);
             }
                 #region Error handling
             catch (RemotingException)
@@ -184,6 +214,26 @@ namespace ZeroInstall.Store.Implementation
             }
             #endregion
         }
+
+        /// <inheritdoc />
+        public void Remove(string directory, ITaskHandler handler)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(directory)) throw new ArgumentNullException("directory");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
+            try
+            {
+                _serviceProxy.Remove(directory, handler);
+            }
+                #region Error handling
+            catch (RemotingException ex)
+            {
+                throw new UnauthorizedAccessException(Resources.StoreServiceCommunicationProblem, ex);
+            }
+            #endregion
+        }
         #endregion
 
         #region Optimise
@@ -208,6 +258,18 @@ namespace ZeroInstall.Store.Implementation
         {
             // Auditing should use direct access via a DirectoryStore instead
             return null;
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Conversion
+        /// <summary>
+        /// Returns the Store in the form "ServiceStorey: ServiceProxy". Not safe for parsing!
+        /// </summary>
+        public override string ToString()
+        {
+            return "ServiceStorey: " + _serviceProxy;
         }
         #endregion
     }

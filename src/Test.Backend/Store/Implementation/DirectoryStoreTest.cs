@@ -114,6 +114,15 @@ namespace ZeroInstall.Store.Implementation
         }
 
         [Test]
+        public void ShouldAllowToRemoveTemp()
+        {
+            Directory.CreateDirectory(Path.Combine(_store.DirectoryPath, "temp"));
+            Assert.IsTrue(_store.Contains("temp"), "After adding, Store must list the temp directory");
+            _store.Remove("temp", new SilentHandler());
+            Assert.IsFalse(_store.Contains("temp"), "After remove, Store may no longer list the temp directory");
+        }
+
+        [Test]
         public void ShouldThrowOnAddWithEmptyDigest()
         {
             Assert.Throws(typeof(ArgumentException), () => _store.AddDirectory(_packageDir, new ManifestDigest(), new SilentHandler()));

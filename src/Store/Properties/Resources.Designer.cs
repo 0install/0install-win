@@ -79,6 +79,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting directory {0}.
+        /// </summary>
+        internal static string DeletingDirectory {
+            get {
+                return ResourceManager.GetString("DeletingDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deleting implementation {0}.
         /// </summary>
         internal static string DeletingImplementation {

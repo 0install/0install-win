@@ -78,6 +78,7 @@ namespace ZeroInstall.Store.Management.WinForms
             {
                 var nodes = new NamedCollection<StoreNode>();
 
+                // List feeds/interfaces
                 var feedCache = FeedCacheProvider.CreateDefault();
                 var feeds = FeedUtils.GetFeeds(feedCache);
                 foreach (Feed feed in feeds)
@@ -104,6 +105,7 @@ namespace ZeroInstall.Store.Management.WinForms
                 }
                 #endregion
 
+                // List implementations
                 foreach (var digest in store.ListAll())
                 {
                     try
@@ -133,6 +135,10 @@ namespace ZeroInstall.Store.Management.WinForms
                     }
                     #endregion
                 }
+
+                // List temporary directories
+                foreach (string directory in store.ListAllTemp())
+                    AddWithIncrement(nodes, new TempDirectoryNode(store, directory, this));
 
                 _treeView.Entries = nodes;
                 _treeView.SelectedEntry = null;

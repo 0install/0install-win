@@ -38,6 +38,13 @@ namespace ZeroInstall.Store.Implementation
         IEnumerable<ManifestDigest> ListAll();
 
         /// <summary>
+        /// Returns a list of temporary directories currently in the store.
+        /// </summary>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
+        /// <returns>A list of directory names in C-sorted order (ordinal comparison, increasing).</returns>
+        IEnumerable<string> ListAllTemp();
+
+        /// <summary>
         /// Determines whether the store contains a local copy of an implementation identified by a specific <see cref="Model.ManifestDigest"/>.
         /// </summary>
         /// <param name="manifestDigest">The digest of the implementation to check for.</param>
@@ -47,6 +54,17 @@ namespace ZeroInstall.Store.Implementation
         /// </returns>
         /// <remarks>If read access to the store is not permitted, no exception is thrown.</remarks>
         bool Contains(ManifestDigest manifestDigest);
+
+        /// <summary>
+        /// Determines whether the store contains a specific directory.
+        /// </summary>
+        /// <param name="directory">The name of the directory to check for.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified directory is located in the store;
+        ///   <see langword="false"/> if the specified directory is not located in the store or if read access to the store is not permitted.
+        /// </returns>
+        /// <remarks>If read access to the store is not permitted, no exception is thrown.</remarks>
+        bool Contains(string directory);
 
         /// <summary>
         /// Determines the local path of an implementation with a given <see cref="ManifestDigest"/>.
@@ -96,6 +114,17 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="IOException">Thrown if the implementation could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
         void Remove(ManifestDigest manifestDigest, ITaskHandler handler);
+
+        /// <summary>
+        /// Removes a specific directory from the cache.
+        /// Only use this to remove temporary directories. Use <see cref="Remove(ZeroInstall.Model.ManifestDigest,Common.Tasks.ITaskHandler)"/> instead if possible.
+        /// </summary>
+        /// <param name="directory">The name of the directory to be removed.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
+        /// <exception cref="DirectoryNotFoundException">Thrown if no directory called <paramref name="directory"/> could be found in the store.</exception>
+        /// <exception cref="IOException">Thrown if the directory could not be deleted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
+        void Remove(string directory, ITaskHandler handler);
 
         /// <summary>
         /// Reads in all the manifest files in the store and looks for duplicates (files with the same permissions, modification time and digest). When it finds a pair, it deletes one and replaces it with a hard-link to the other.

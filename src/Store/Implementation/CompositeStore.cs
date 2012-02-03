@@ -32,7 +32,7 @@ namespace ZeroInstall.Store.Implementation
     /// </summary>
     /// <remarks>
     ///   <para>When adding new <see cref="Model.Implementation"/>s the last child <see cref="IStore"/> that doesn't throw an <see cref="UnauthorizedAccessException"/> is used.</para>
-    ///   <para>When when retrieving existing <see cref="Model.Implementation"/>s the first child <see cref="IStore"/> that returns <see langword="true"/> for <see cref="IStore.Contains"/> is used.</para>
+    ///   <para>When when retrieving existing <see cref="Model.Implementation"/>s the first child <see cref="IStore"/> that returns <see langword="true"/> for <see cref="IStore.Contains(ZeroInstall.Model.ManifestDigest)"/> is used.</para>
     /// </remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public class CompositeStore : MarshalByRefObject, IStore
@@ -88,6 +88,26 @@ namespace ZeroInstall.Store.Implementation
 
             return result;
         }
+
+        /// <inheritdoc />
+        public IEnumerable<string> ListAllTemp()
+        {
+            // Merge the lists from all contained stores, eliminating duplicates
+            var result = new C5.TreeSet<string>();
+            foreach (IStore store in _stores)
+            {
+                try
+                {
+                    result.AddSorted(store.ListAllTemp());
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    // Ignore authorization errors, since listing is not a critical task
+                }
+            }
+
+            return result;
+        }
         #endregion
 
         #region Contains
@@ -98,6 +118,19 @@ namespace ZeroInstall.Store.Implementation
             {
                 // Check if any store contains the implementation
                 if (store.Contains(manifestDigest)) return true;
+            }
+
+            // If we reach this, none of the stores contains the implementation
+            return false;
+        }
+
+        /// <inheritdoc />
+        public bool Contains(string directory)
+        {
+            foreach (IStore store in _stores)
+            {
+                // Check if any store contains the implementation
+                if (store.Contains(directory)) return true;
             }
 
             // If we reach this, none of the stores contains the implementation
@@ -173,7 +206,9 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     // Try to add implementation to this store
+                    // ReSharper disable PossibleMultipleEnumeration
                     store.AddArchives(archiveInfos, manifestDigest, handler);
+                    // ReSharper restore PossibleMultipleEnumeration
                     return;
                 }
                     #region Error handling
@@ -204,7 +239,7 @@ namespace ZeroInstall.Store.Implementation
             bool removed = false;
             foreach (IStore store in _stores)
             {
-                // Remove from every that contains the implementation
+                // Remove from every store that contains the implementation
                 if (store.Contains(manifestDigest))
                 {
                     store.Remove(manifestDigest, handler);
@@ -212,6 +247,27 @@ namespace ZeroInstall.Store.Implementation
                 }
             }
             if (!removed) throw new ImplementationNotFoundException(manifestDigest);
+        }
+
+        /// <inheritdoc />
+        public void Remove(string directory, ITaskHandler handler)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(directory)) throw new ArgumentNullException("directory");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
+            bool removed = false;
+            foreach (IStore store in _stores)
+            {
+                // Remove from store every that contains the implementation
+                if (store.Contains(directory))
+                {
+                    store.Remove(directory, handler);
+                    removed = true;
+                }
+            }
+            if (!removed) throw new DirectoryNotFoundException();
         }
         #endregion
 
@@ -277,6 +333,18 @@ namespace ZeroInstall.Store.Implementation
                         yield return problem;
                 }
             }
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Conversion
+        /// <summary>
+        /// Returns the Store in the form "CompositeStore: # of children". Not safe for parsing!
+        /// </summary>
+        public override string ToString()
+        {
+            return "CompositeStore: " + _stores.Count + " children";
         }
         #endregion
     }

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Store.Implementation.DigestMismatchException">
-    <Position X="6.75" Y="8.25" Width="2" />
+    <Position X="6.75" Y="8.5" Width="2" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
@@ -13,13 +13,13 @@
   <Class Name="ZeroInstall.Store.Implementation.DirectoryStore" BaseTypeListCollapsed="true">
     <Position X="1.75" Y="3.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>wAAAAAIAAIAABQAAgEBABAAAAAACAIAAAAAAAAAUAAA=</HashCode>
+      <HashCode>gAAAAAIIAIAABQAEgEBABAAAgAACAIACAAAAAAAQAAA=</HashCode>
       <FileName>Implementation\DirectoryStore.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.ImplementationNotFoundException">
-    <Position X="0.5" Y="8.25" Width="2.75" />
+    <Position X="0.5" Y="9" Width="2.75" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
@@ -31,7 +31,7 @@
   <Class Name="ZeroInstall.Store.Implementation.ServiceStore" BaseTypeListCollapsed="true">
     <Position X="3.75" Y="3.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>wAAAAAIAAoBAAQAAAEAABAAAAAACAAAAAAAAAAAUAAA=</HashCode>
+      <HashCode>gAAAAAIIAoBAAQAEAEAABAAAgAACAAAAAAAAAAAQAAA=</HashCode>
       <FileName>Implementation\ServiceStore.cs</FileName>
       <NewMemberFileName>Implementation\DirectoryStore.cs</NewMemberFileName>
     </TypeIdentifier>
@@ -43,23 +43,20 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAABAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAABAAAACAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Implementation\StoreProvider.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.CompositeStore" BaseTypeListCollapsed="true">
     <Position X="5.75" Y="3.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>wAAAAAIAAIAAAwAAAEAABAAAAAACAAAAAAAAAQAUAAA=</HashCode>
+      <HashCode>gAAAAAIIAIAAAQAEAEAABAAAgAACAAAAAAAAAAAQAAA=</HashCode>
       <FileName>Implementation\CompositeStore.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Stores" />
-    </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.ImplementationAlreadyInStoreException">
-    <Position X="3.5" Y="8.25" Width="3" />
+    <Position X="3.5" Y="9" Width="3" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
@@ -71,7 +68,7 @@
   <Interface Name="ZeroInstall.Store.Implementation.IStore">
     <Position X="3.75" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>wAAAAAIAAIAAAQAAAEAABAAAAAACAAAAAAAAAAAUAAA=</HashCode>
+      <HashCode>gAAAAAIIAIAAAQAAAEAABAAAgAACAAAAAAAAAAAQAAA=</HashCode>
       <FileName>Implementation\IStore.cs</FileName>
     </TypeIdentifier>
   </Interface>

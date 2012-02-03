@@ -197,17 +197,23 @@ namespace ZeroInstall.Store.Implementation
             // Turn into a C-sorted list
             Array.Sort(directories, StringComparer.Ordinal);
 
-            var result = new List<ManifestDigest>();
+            // Convert directory names to manifest digests
+            return Array.ConvertAll(directories, directory => new ManifestDigest(Path.GetFileName(directory)));
+        }
+
+        /// <inheritdoc />
+        public IEnumerable<string> ListAllTemp()
+        {
+            // Find all directories
+            string[] directories = Directory.GetDirectories(DirectoryPath);
+
+            // Turn into a C-sorted list
+            Array.Sort(directories, StringComparer.Ordinal);
+
+            // Filter non-temporary directories
+            var result = new List<string>();
             for (int i = 0; i < directories.Length; i++)
-            {
-                directories[i] = Path.GetFileName(directories[i]);
-
-                // Exclude (temporary) dot-directories
-                if (directories[i].StartsWith(".")) continue;
-
-                result.Add(new ManifestDigest(directories[i]));
-            }
-
+                if (!directories[i].Contains("=")) result.Add(Path.GetFileName(directories[i]));
             return result;
         }
         #endregion
@@ -221,6 +227,12 @@ namespace ZeroInstall.Store.Implementation
                 if (Directory.Exists(Path.Combine(DirectoryPath, digest))) return true;
 
             return false;
+        }
+
+        /// <inheritdoc />
+        public bool Contains(string directory)
+        {
+            return Directory.Exists(Path.Combine(DirectoryPath, directory));
         }
         #endregion
 
@@ -356,8 +368,38 @@ namespace ZeroInstall.Store.Implementation
                             throw new IOException(ex.Message, ex);
                         }
                         #endregion
-                    }),
-                manifestDigest);
+                    }), manifestDigest);
+        }
+
+        /// <inheritdoc />
+        public void Remove(string directory, ITaskHandler handler)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(directory)) throw new ArgumentNullException("directory");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
+            string path = Path.Combine(DirectoryPath, directory);
+            if (!Directory.Exists(path)) throw new DirectoryNotFoundException();
+
+            // Defer deleting to handler
+            handler.RunTask(
+                new SimpleTask(string.Format(Resources.DeletingDirectory, directory),
+                    delegate
+                    {
+                        try
+                        {
+                            FileUtils.DisableWriteProtection(path);
+                            Directory.Delete(path, true);
+                        }
+                            #region Error handling
+                        catch (UnauthorizedAccessException ex)
+                        {
+                            // Wrap exception since only certain exception types are allowed in tasks
+                            throw new IOException(ex.Message, ex);
+                        }
+                        #endregion
+                    }), null);
         }
         #endregion
 
@@ -412,6 +454,16 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         //--------------------//
+
+        #region Conversion
+        /// <summary>
+        /// Returns the Store in the form "DirectoryStore: DirectoryPath". Not safe for parsing!
+        /// </summary>
+        public override string ToString()
+        {
+            return "DirectoryStore: " + DirectoryPath;
+        }
+        #endregion
 
         #region Equality
         /// <inheritdoc/>

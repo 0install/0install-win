@@ -141,6 +141,12 @@
   <data name="Remove" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="TemporaryDirectories" xml:space="preserve">
+    <value>Temporary directories</value>
+  </data>
+  <data name="UnknownInterface" xml:space="preserve">
+    <value>Unknown interface</value>
+  </data>
   <data name="Verify" xml:space="preserve">
     <value>Verify</value>
   </data>

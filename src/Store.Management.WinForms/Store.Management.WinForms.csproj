@@ -79,6 +79,7 @@
     <Compile Include="Nodes\ImplementationNode.cs" />
     <Compile Include="Nodes\OrphanedImplementationNode.cs" />
     <Compile Include="Nodes\OwnedImplementationNode.cs" />
+    <Compile Include="Nodes\TempDirectoryNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />

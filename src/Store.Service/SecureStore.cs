@@ -31,9 +31,9 @@ namespace ZeroInstall.Store.Service
     /// Provides a background service to add new entries to a store that requires elevated privileges to write.
     /// </summary>
     /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
-    public sealed class SecureStore : MarshalByRefObject, IStore
+    public class SecureStore : MarshalByRefObject, IStore
     {
-        #region Properties
+        #region Variables
         /// <summary>
         /// The directory containing the cached <see cref="Model.Implementation"/>s.
         /// </summary>
@@ -78,11 +78,23 @@ namespace ZeroInstall.Store.Service
         {
             throw new NotImplementedException();
         }
+
+        /// <inheritdoc />
+        public IEnumerable<string> ListAllTemp()
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
         #region Contains
         /// <inheritdoc />
         public bool Contains(ManifestDigest manifestDigest)
+        {
+            throw new NotImplementedException();
+        }
+        
+        /// <inheritdoc />
+        public bool Contains(string directory)
         {
             throw new NotImplementedException();
         }
@@ -132,6 +144,17 @@ namespace ZeroInstall.Store.Service
 
             throw new NotImplementedException();
         }
+
+        /// <inheritdoc />
+        public void Remove(string directory, ITaskHandler handler)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(directory)) throw new ArgumentNullException("directory");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
+            throw new NotImplementedException();
+        }
         #endregion
 
         #region Optimise
@@ -168,6 +191,42 @@ namespace ZeroInstall.Store.Service
 
             // ToDo: Implemenet
             return null;
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Conversion
+        /// <summary>
+        /// Returns the Store in the form "SecureStore: DirectoryPath". Not safe for parsing!
+        /// </summary>
+        public override string ToString()
+        {
+            return "SecureStore: " + DirectoryPath;
+        }
+        #endregion
+
+        #region Equality
+        /// <inheritdoc/>
+        public bool Equals(SecureStore other)
+        {
+            if (other == null) return false;
+
+            return DirectoryPath == other.DirectoryPath;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == typeof(SecureStore) && Equals((SecureStore)obj);
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return (DirectoryPath != null ? DirectoryPath.GetHashCode() : 0);
         }
         #endregion
     }

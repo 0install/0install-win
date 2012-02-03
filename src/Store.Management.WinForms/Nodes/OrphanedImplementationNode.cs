@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Management.WinForms.Properties;
 
 namespace ZeroInstall.Store.Management.WinForms.Nodes
 {
@@ -29,7 +30,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
     {
         #region Properties
         /// <inheritdoc/>
-        public override string Name { get { return "Unknown#" + Digest + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
+        public override string Name { get { return Resources.UnknownInterface + "#" + Digest + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
         #endregion
 
         #region Constructor
