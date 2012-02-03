@@ -409,7 +409,7 @@
     <value>textBoxSyncServer</value>
   </data>
   <data name="&gt;&gt;textBoxSyncServer.Type" xml:space="preserve">
-    <value>Common.Controls.UriTextBox, Common, Version=1.5.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>Common.Controls.UriTextBox, Common, Version=1.5.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;textBoxSyncServer.Parent" xml:space="preserve">
     <value>groupBoxSync</value>
@@ -508,7 +508,7 @@
     <value>0</value>
   </data>
   <data name="groupBoxSync.Text" xml:space="preserve">
-    <value>Synchronization</value>
+    <value>Sync</value>
   </data>
   <data name="&gt;&gt;groupBoxSync.Name" xml:space="preserve">
     <value>groupBoxSync</value>
@@ -538,6 +538,6 @@
     <value>OptionsDialog</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>Common.Controls.OKCancelDialog, Common, Version=1.5.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>Common.Controls.OKCancelDialog, Common, Version=1.5.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
 </root>
