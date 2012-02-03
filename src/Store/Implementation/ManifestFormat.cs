@@ -74,9 +74,9 @@ namespace ZeroInstall.Store.Implementation
 
         #region Abstract properties
         /// <summary>
-        /// The hashing algorithm used for <see cref="ManifestFileBase.Hash"/> and the <see cref="Manifest"/> hash itself.
+        /// Retreives a new instance of the hashing algorithm used for <see cref="ManifestFileBase.Hash"/> and the <see cref="Manifest"/> hash itself.
         /// </summary>
-        public abstract HashAlgorithm HashAlgorithm { get; }
+        public abstract HashAlgorithm GetHashAlgorithm();
 
         /// <summary>
         /// The prefix used to identify the format (e.g. "sha256").
@@ -171,8 +171,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         private class Sha1OldFormat : OldFormat
         {
-            private static readonly HashAlgorithm _algorithm = SHA1.Create();
-            public override HashAlgorithm HashAlgorithm { get { return _algorithm; } }
+            public override HashAlgorithm GetHashAlgorithm() { return SHA1.Create(); }
 
             public override string Prefix { get { return "sha1"; } }
         }
@@ -238,8 +237,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         private class Sha1NewFormat : NewFormat
         {
-            private static readonly HashAlgorithm _algorithm = SHA1.Create();
-            public override HashAlgorithm HashAlgorithm { get { return _algorithm; } }
+            public override HashAlgorithm GetHashAlgorithm() { return SHA1.Create(); }
 
             public override string Prefix { get { return "sha1new"; } }
         }
@@ -249,8 +247,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         private class Sha256Format : NewFormat
         {
-            private static readonly HashAlgorithm _algorithm = SHA256.Create();
-            public override HashAlgorithm HashAlgorithm { get { return _algorithm; } }
+            public override HashAlgorithm GetHashAlgorithm() { return SHA256.Create(); }
 
             public override string Prefix { get { return "sha256"; } }
         }

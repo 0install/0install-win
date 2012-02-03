@@ -116,7 +116,7 @@ namespace ZeroInstall.Store.Implementation
                 Save(stream);
 
             // Caclulate the hash of the completed manifest file
-            return Format.Prefix + "=" + FileUtils.ComputeHash(path, Format.HashAlgorithm);
+            return Format.Prefix + "=" + FileUtils.ComputeHash(path, Format.GetHashAlgorithm());
         }
 
         /// <summary>
@@ -278,7 +278,7 @@ namespace ZeroInstall.Store.Implementation
                 Save(stream);
 
                 stream.Position = 0;
-                return Format.Prefix + "=" + FileUtils.ComputeHash(stream, Format.HashAlgorithm);
+                return Format.Prefix + "=" + FileUtils.ComputeHash(stream, Format.GetHashAlgorithm());
             }
         }
         #endregion

@@ -159,7 +159,7 @@ namespace ZeroInstall.Store.Implementation
             Assert.AreEqual("sha1new=da39a3ee5e6b4b0d3255bfef95601890afd80709", problem.ActualHash);
         }
 
-        //[Test]
+        [Test]
         public void StressTest()
         {
             var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new SilentHandler()));

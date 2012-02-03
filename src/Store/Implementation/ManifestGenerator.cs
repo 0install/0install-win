@@ -122,7 +122,7 @@ namespace ZeroInstall.Store.Implementation
                         // Don't include manifest management files in manifest
                         if (file.Name == ".manifest" || file.Name == ".xbit" || file.Name == ".symlink") continue;
 
-                        nodes.Add(GetFileNode(file, Format.HashAlgorithm, externalXbits, externalSymlinks));
+                        nodes.Add(GetFileNode(file, Format.GetHashAlgorithm(), externalXbits, externalSymlinks));
                         BytesProcessed += file.Length;
                     }
                     else
