@@ -52,8 +52,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         {
             lock (_taskLock) // Prevent multiple concurrent tasks
             {
-                Invoke((SimpleEventHandler)(() => trackingControl.Task = task));
-                task.RunSync(CancellationToken);
+                Invoke((SimpleEventHandler)(() => TrackingDialog.Run(this, task, null)));
             }
         }
 
@@ -64,17 +63,15 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
 
         public void ShowProgressUI()
         {
-            Invoke((SimpleEventHandler)(() => groupProgress.Visible = true));
+            Invoke((SimpleEventHandler)(() => labelWorking.Visible = true));
         }
 
         public void DisableProgressUI()
-        {
-            // Is already disabled anyway
-        }
+        {}
 
         public void CloseProgressUI()
         {
-            Invoke((SimpleEventHandler)(() => groupProgress.Visible = false));
+            Invoke((SimpleEventHandler)(() => labelWorking.Visible = false));
         }
 
         public bool AskQuestion(string question, string batchInformation)

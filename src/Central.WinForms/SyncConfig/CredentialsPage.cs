@@ -56,7 +56,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         {
             Parent.Parent.Enabled = true;
             if (e.Error == null) Continue(new SyncCredentials(textBoxUsername.Text, textBoxPassword.Text));
-            else Msg.Inform(this, e.Error.Message, MsgSeverity.Error);
+            else if (!(e.Error is OperationCanceledException)) Msg.Inform(this, e.Error.Message, MsgSeverity.Error);
         }
 
         private static void CheckCredentials(Uri syncServer, SyncCredentials credentials)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace Common.Tasks
 {
@@ -17,6 +18,10 @@ namespace Common.Tasks
         /// <summary>
         /// Raised the first time <see cref="RequestCancellation"/> is called. Subsequent calls will not raise this event again.
         /// </summary>
+        /// <remarks>
+        ///   <para>This event is raised from a background thread. Wrap via <see cref="Control.Invoke(System.Delegate)"/> to update UI elements.</para>
+        ///   <para>Handling this blocks the task, therefore observers should handle the event quickly.</para>
+        /// </remarks>
         public event SimpleEventHandler CancellationRequested;
 
         private readonly object _lock = new object();

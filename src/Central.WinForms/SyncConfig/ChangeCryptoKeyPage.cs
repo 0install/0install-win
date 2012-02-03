@@ -63,7 +63,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             Parent.Parent.Enabled = buttonChange.Visible = textBoxCryptoKey.Enabled = true;
 
             if (e.Error == null) Continue(textBoxCryptoKey.Text);
-            else Msg.Inform(this, e.Error.Message, MsgSeverity.Error);
+            else if (!(e.Error is OperationCanceledException)) Msg.Inform(this, e.Error.Message, MsgSeverity.Error);
         }
     }
 }

@@ -66,7 +66,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         {
             Parent.Parent.Enabled = true;
             if (e.Error == null) CustomServer(textBoxCustomServer.Uri);
-            else Msg.Inform(this, e.Error.Message, MsgSeverity.Error);
+            else if (!(e.Error is OperationCanceledException)) Msg.Inform(this, e.Error.Message, MsgSeverity.Error);
         }
 
         private static void CheckServer(Uri syncServer)
