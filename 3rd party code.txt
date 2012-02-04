@@ -6,13 +6,13 @@ Pre-compiled managed DLL: nunit.framework.dll
 
 Moq 4.0.10827
 http://code.google.com/p/moq/
-BSD license: http://www.opensource.org/licenses/bsd-license.php
+BSD license: http://www.opensource.org/licenses/bsd-license
 Source unmodified
 Pre-compiled managed DLL: nunit.framework.dll
 
 NDesk.Options 0.2.1
 http://ndesk.org/Options
-MIT license: http://www.opensource.org/licenses/mit-license.php
+MIT license: http://www.opensource.org/licenses/mit-license
 Source unmodified
 Self-compiled managed DLL: NDesk.Options.dll
 
@@ -42,9 +42,15 @@ Pre-compiled managed DLL: C5.dll
 
 INI File Parser v1.7
 http://code.google.com/p/ini-parser/
-MIT license: http://www.opensource.org/licenses/mit-license.php
+MIT license: http://www.opensource.org/licenses/mit-license
 Source unmodified
 Pre-compiled managed DLL: INIFileParser.dll
+
+XML-RPC.NET 2.5.0
+http://www.xml-rpc.net/
+MIT license: http://www.opensource.org/licenses/mit-license
+Source unmodified
+Pre-compiled managed DLL: CookComputing.XmlRpcV2.dll
 
 EasyHook 2.6
 http://easyhook.codeplex.com/
