@@ -47,13 +47,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="path">The target path to store the generated EXE file.</param>
         /// <param name="target">The application to be launched via the stub.</param>
         /// <param name="command">The command argument to be passed to the the "0install run" command; may be <see langword="null"/>.</param>
+        /// <param name="needsTerminal"><see langword="true"/> to build a CLI stub, <see langword="false"/> to build a GUI stub.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="InvalidOperationException">Thrown if there was a compilation error while generating the stub EXE.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem is not permitted.</exception>
-        internal static void BuildRunStub(string path, InterfaceFeed target, string command, ITaskHandler handler)
+        internal static void BuildRunStub(string path, InterfaceFeed target, string command, bool needsTerminal, ITaskHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -68,9 +69,6 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string args = "run ";
             if (!string.IsNullOrEmpty(command)) args += "--command=" + StringUtils.EscapeArgument(command) + " ";
             args += StringUtils.EscapeArgument(target.InterfaceID);
-
-            var entryPoint = target.Feed.GetEntryPoint(command ?? Command.NameRun);
-            bool needsTerminal = target.Feed.NeedsTerminal || (entryPoint != null && entryPoint.NeedsTerminal);
 
             // Load the template code and insert variables
             string code = GetEmbeddedResource("Stub.template").Replace("[EXE]", Path.Combine(Locations.InstallBase, needsTerminal ? "0install.exe" : "0install-win.exe").Replace(@"\", @"\\"));
@@ -115,6 +113,27 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 }
             }
         }
+
+        /// <summary>
+        /// Builds a stub EXE that executes the "0install run" command.
+        /// </summary>
+        /// <param name="path">The target path to store the generated EXE file.</param>
+        /// <param name="target">The application to be launched via the stub.</param>
+        /// <param name="command">The command argument to be passed to the the "0install run" command; may be <see langword="null"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if there was a compilation error while generating the stub EXE.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem.</exception>
+        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem is not permitted.</exception>
+        internal static void BuildRunStub(string path, InterfaceFeed target, string command, ITaskHandler handler)
+        {
+            // Determine whether the target is a CLI or GUI app
+            var entryPoint = target.Feed.GetEntryPoint(command ?? Command.NameRun);
+            bool needsTerminal = target.Feed.NeedsTerminal || (entryPoint != null && entryPoint.NeedsTerminal);
+
+            BuildRunStub(path, target, command, needsTerminal, handler);
+        }
         #endregion
 
         #region Helpers
@@ -136,7 +155,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Get
         /// <summary>
-        /// Uses <see cref="BuildRunStub"/> to build a stub EXE in a well-known location. Future calls with the same arguments will return the same EXE without rebuilding it.
+        /// Uses <see cref="BuildRunStub(string,InterfaceFeed,string,bool,ITaskHandler)"/> to build a stub EXE in a well-known location. Future calls with the same arguments will return the same EXE without rebuilding it.
         /// </summary>
         /// <param name="target">The application to be launched via the stub.</param>
         /// <param name="command">The command argument to be passed to the the "0install run" command; may be <see langword="null"/>.</param>
