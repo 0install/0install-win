@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security.Cryptography;
 using ZeroInstall.Model;
@@ -76,6 +77,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Retreives a new instance of the hashing algorithm used for <see cref="ManifestFileBase.Hash"/> and the <see cref="Manifest"/> hash itself.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Generates a new instance each time to allow for concurrent usage")]
         public abstract HashAlgorithm GetHashAlgorithm();
 
         /// <summary>

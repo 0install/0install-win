@@ -61,7 +61,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// A short title describing what the command being executed does.
         /// </summary>
-        public virtual string ActionTitle { get; set; }
+        public string ActionTitle { get; set; }
 
         /// <inheritdoc />
         public bool Batch { get; set; }

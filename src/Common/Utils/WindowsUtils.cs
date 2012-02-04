@@ -36,6 +36,7 @@ namespace Common.Utils
     public static partial class WindowsUtils
     {
         #region Command-line arguments
+        // ReSharper disable ReturnTypeCanBeEnumerable.Global
         /// <summary>
         /// Tries to split a command-line into individual arguments.
         /// </summary>
@@ -66,6 +67,8 @@ namespace Common.Utils
                 UnsafeNativeMethods.LocalFree(ptrToSplitArgs);
             }
         }
+
+        // ReSharper restore ReturnTypeCanBeEnumerable.Global
         #endregion
 
         #region Mutex

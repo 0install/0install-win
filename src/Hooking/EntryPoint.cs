@@ -24,6 +24,7 @@ using EasyHook;
 
 namespace ZeroInstall.Hooking
 {
+    // ReSharper disable ClassNeverInstantiated.Global
     /// <summary>
     /// Used as an entry point when injecting the hooking DLL into another process.
     /// </summary>
@@ -133,4 +134,5 @@ namespace ZeroInstall.Hooking
         }
         #endregion
     }
+    // ReSharper restore ClassNeverInstantiated.Global
 }

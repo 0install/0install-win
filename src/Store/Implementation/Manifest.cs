@@ -43,10 +43,13 @@ namespace ZeroInstall.Store.Implementation
 
         private readonly C5.IList<ManifestNode> _nodes;
 
+        // ReSharper disable ReturnTypeCanBeEnumerable.Global
         /// <summary>
         /// A list of all elements in the tree this manifest represents.
         /// </summary>
         public IList<ManifestNode> Nodes { get { return _nodes; } }
+
+        // ReSharper restore ReturnTypeCanBeEnumerable.Global
 
         private long _totalSize = -1;
 

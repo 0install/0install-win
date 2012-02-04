@@ -93,8 +93,13 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         }
         #endregion
 
+        #region Verify
+        /// <summary>
+        /// Does nothing.
+        /// </summary>
         public override void Verify(ITaskHandler handler)
         {}
+        #endregion
 
         #region Context menu
         /// <inheritdoc/>
