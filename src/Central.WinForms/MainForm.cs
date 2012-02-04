@@ -107,11 +107,12 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         private void SelfUpdateCheckAsync()
         {
-            // ToDo: Add option to turn self-update off
+            // Flag file to supress check
+            if (File.Exists(Path.Combine(Locations.InstallBase, "_no_self_update_check"))) return;
 
             // Don't check for updates when launched as a Zero Install implementation
             string topDir = Path.GetFileName(Locations.InstallBase) ?? Locations.InstallBase;
-            if ((topDir.StartsWith("sha") && topDir.Contains("="))) return;
+            if (topDir.Contains("=")) return;
 
             if (!selfUpdateWorker.IsBusy) selfUpdateWorker.RunWorkerAsync();
         }
