@@ -8,7 +8,6 @@
 #include "scripts\products\kb835732.iss"
 #include "scripts\products\msi20.iss"
 #include "scripts\products\msi31.iss"
-#include "scripts\products\vcredist.iss"
 #include "scripts\products\dotnetfx20.iss"
 #include "scripts\products\dotnetfx20sp1.iss"
 #include "scripts\products\dotnetfx20sp2.iss"
@@ -132,7 +131,7 @@ begin
 	// Determine the exact Windows version, including Service pack
 	initwinversion();
 
-	// Check if vcredist and .NET 2.0 can be installed on this OS
+	// Check if .NET 2.0 can be installed on this OS
 	if not minwinspversion(5, 0, 4) then begin
 		MsgBox(FmtMessage(CustomMessage('depinstall_missing'), [CustomMessage('win2000sp4_title')]), mbError, MB_OK);
 		exit;
@@ -145,7 +144,6 @@ begin
 	// Add all required products to the list
 	msi20('2.0');
 	msi31('3.0');
-	vcredist();	
 	if minwinversion(6, 0) then begin
 		//starting with Windows Vista, .netfx 3.0 or newer is included
 	end else begin
