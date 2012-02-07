@@ -292,7 +292,7 @@ namespace ZeroInstall.Central.WinForms
                 }
                 #endregion
             }
-            Invoke((SimpleEventHandler)(() => catalogList.BuildCategories()));
+            Invoke((SimpleEventHandler)(() => catalogList.ShowCategories()));
         }
 
         private void appListWatcher_Changed(object sender, FileSystemEventArgs e)
@@ -348,7 +348,7 @@ namespace ZeroInstall.Central.WinForms
                 // Update "added" status of tile
                 tile.InAppList = _currentAppList.ContainsEntry(feed.UriString);
             }
-            catalogList.BuildCategories();
+            catalogList.ShowCategories();
         }
 
         /// <summary>
@@ -421,7 +421,7 @@ namespace ZeroInstall.Central.WinForms
                         #endregion
                     },
                     removedFeed => catalogList.RemoveTile(removedFeed.UriString));
-                catalogList.BuildCategories();
+                catalogList.ShowCategories();
                 _currentCatalog = newCatalog;
             }
 

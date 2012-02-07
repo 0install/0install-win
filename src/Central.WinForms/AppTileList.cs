@@ -220,7 +220,7 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Show a list of categories of the current tiles.
         /// </summary>
-        public void BuildCategories()
+        public void ShowCategories()
         {
             // Accumulate all categories
             var categories = new C5.TreeSet<string>();
