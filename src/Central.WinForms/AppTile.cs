@@ -48,10 +48,44 @@ namespace ZeroInstall.Central.WinForms
         private readonly IIconCache _iconCache;
 
         /// <summary>A <see cref="Feed"/> additional metadata for the application was retrieved from.</summary>
-        private Feed _feed;
         #endregion
 
         #region Properties
+        private Feed _feed;
+
+        /// <summary>
+        /// A <see cref="Feed"/> from which the tile  extracts relevant application metadata such as summaries and icons.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
+        /// <remarks>This method must not be called from a background thread.</remarks>
+        public Feed Feed
+        {
+            get { return _feed; }
+            set
+            {
+                #region Sanity checks
+                if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
+                #endregion
+
+                _feed = value;
+                if (value == null) return;
+
+                // Get application summary from feed
+                labelSummary.Text = value.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture);
+
+                if (_iconCache != null)
+                { // Load application icon in background
+                    try
+                    {
+                        var icon = value.GetIcon(Icon.MimeTypePng, null);
+                        iconDownloadWorker.RunWorkerAsync(icon.Location);
+                    }
+                    catch (KeyNotFoundException)
+                    {}
+                }
+            }
+        }
+
         /// <summary>
         /// The interface ID of the application this tile represents.
         /// </summary>
@@ -111,37 +145,7 @@ namespace ZeroInstall.Central.WinForms
 
         //--------------------//
 
-        #region Feed metadata
-        /// <summary>
-        /// Extracts relevant application metadata such as summaries and icons from a <see cref="Feed"/>.
-        /// </summary>
-        /// <param name="feed">A <see cref="Feed"/> to retrieve additional metadata for the application from; may be <see langword="null"/>.</param>
-        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
-        /// <remarks>This method must not be called from a background thread.</remarks>
-        public void SetFeed(Feed feed)
-        {
-            #region Sanity checks
-            if (feed == null) throw new ArgumentNullException("feed");
-            if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
-            #endregion
-
-            _feed = feed;
-
-            // Get application summary from feed
-            labelSummary.Text = feed.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture);
-
-            if (_iconCache != null)
-            { // Load application icon in background
-                try
-                {
-                    var icon = feed.GetIcon(Icon.MimeTypePng, null);
-                    iconDownloadWorker.RunWorkerAsync(icon.Location);
-                }
-                catch (KeyNotFoundException)
-                {}
-            }
-        }
-
+        #region Feed processing
         private void iconDownloadWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             // Download and load icon in background

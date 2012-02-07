@@ -258,48 +258,41 @@ namespace ZeroInstall.Central.WinForms
             var feedsToLoad = (IDictionary<AppTile, string>)e.Argument;
             foreach (var pair in feedsToLoad)
             {
-                // Load and parse the feed
-                Feed feed;
                 try
                 {
-                    feed = policy.FeedManager.GetFeed(pair.Value, policy);
+                    // Load and parse the feed
+                    var feed = policy.FeedManager.GetFeed(pair.Value, policy);
+
+                    // Send it to the UI thread
+                    var tile = pair.Key;
+                    Invoke((SimpleEventHandler)(() => tile.Feed = feed));
                 }
                     #region Error handling
                 catch (OperationCanceledException)
-                {
-                    continue;
-                }
+                {}
                 catch (InvalidInterfaceIDException ex)
                 {
                     Log.Warn("Unable to load feed for application list entry '" + pair.Value + "':\n" + ex.Message);
-                    continue;
                 }
                 catch (IOException ex)
                 {
                     Log.Warn("Unable to load feed for application list entry '" + pair.Value + "':\n" + ex.Message);
-                    continue;
                 }
                 catch (WebException ex)
                 {
                     Log.Warn("Unable to load feed for application list entry '" + pair.Value + "':\n" + ex.Message);
-                    continue;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
                     Log.Warn("Unable to load feed for application list entry '" + pair.Value + "':\n" + ex.Message);
-                    continue;
                 }
                 catch (SignatureException ex)
                 {
                     Log.Warn("Unable to load feed for application list entry '" + pair.Value + "':\n" + ex.Message);
-                    continue;
                 }
                 #endregion
-
-                // Send it to the UI thread
-                var tile = pair.Key;
-                Invoke((SimpleEventHandler)(() => tile.SetFeed(feed)));
             }
+            Invoke((SimpleEventHandler)(() => catalogList.BuildCategories()));
         }
 
         private void appListWatcher_Changed(object sender, FileSystemEventArgs e)
@@ -350,11 +343,12 @@ namespace ZeroInstall.Central.WinForms
             foreach (var feed in _currentCatalog.Feeds)
             {
                 var tile = catalogList.AddTile(feed.UriString, feed.Name);
-                tile.SetFeed(feed);
+                tile.Feed = feed;
 
                 // Update "added" status of tile
                 tile.InAppList = _currentAppList.ContainsEntry(feed.UriString);
             }
+            catalogList.BuildCategories();
         }
 
         /// <summary>
@@ -414,7 +408,7 @@ namespace ZeroInstall.Central.WinForms
                         try
                         {
                             var tile = catalogList.AddTile(addedFeed.UriString, addedFeed.Name);
-                            tile.SetFeed(addedFeed);
+                            tile.Feed = addedFeed;
 
                             // Update "added" status of tile
                             tile.InAppList = _currentAppList.ContainsEntry(addedFeed.UriString);
@@ -427,6 +421,7 @@ namespace ZeroInstall.Central.WinForms
                         #endregion
                     },
                     removedFeed => catalogList.RemoveTile(removedFeed.UriString));
+                catalogList.BuildCategories();
                 _currentCatalog = newCatalog;
             }
 

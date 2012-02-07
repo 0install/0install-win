@@ -218,6 +218,19 @@ namespace ZeroInstall.Central.WinForms
         }
 
         /// <summary>
+        /// Show a list of categories of the current tiles.
+        /// </summary>
+        public void BuildCategories()
+        {
+            // Accumulate all categories
+            var categories = new C5.TreeSet<string>();
+            foreach (var tile in _tileDictionary.Values)
+                categories.AddAll(tile.Feed.Categories);
+
+            // ToDo: Show category GUI
+        }
+
+        /// <summary>
         /// Scrolls the list by a specified <paramref name="delta"/>.
         /// </summary>
         public void PerformScroll(int delta)
