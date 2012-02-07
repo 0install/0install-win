@@ -43,6 +43,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// The canonical name of the binary supplying the command (without file extensions). Used by desktop integration to name stubs better.
         /// </summary>
+        /// <remarks>Will default to <see cref="Command"/> when left <see langword="null"/>.</remarks>
         [Description("The canonical name of the binary supplying the command (without file extensions). Used by desktop integration to name stubs better.")]
         [XmlAttribute("binary-name")]
         public string BinaryName { get; set; }

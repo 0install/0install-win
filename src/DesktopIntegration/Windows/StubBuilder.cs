@@ -176,8 +176,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string dirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "stubs", hash);
 
             var entryPoint = target.Feed.GetEntryPoint(command ?? Command.NameRun);
-            string exeName = (entryPoint != null && !string.IsNullOrEmpty(entryPoint.BinaryName))
-                ? entryPoint.BinaryName
+            string exeName = (entryPoint != null)
+                ? entryPoint.BinaryName ?? entryPoint.Command
                 : ModelUtils.Escape(target.Feed.Name);
             string exePath = Path.Combine(dirPath, exeName + ".exe");
 

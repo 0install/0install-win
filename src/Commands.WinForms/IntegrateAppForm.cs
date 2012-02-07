@@ -161,21 +161,19 @@ namespace ZeroInstall.Commands.WinForms
             { // Multiple entry points
                 foreach (var entryPoint in _feed.EntryPoints)
                 {
-                    if (!string.IsNullOrEmpty(entryPoint.Command))
+                    if (string.IsNullOrEmpty(entryPoint.Command)) continue;
+                    string entryPointName = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture);
+
+                    _menuEntries.Add(new AccessPoints.MenuEntry
                     {
-                        string entryPointName = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture);
+                        Name = entryPointName ?? _appEntry.Name + " " + entryPoint.Command,
+                        // Group all entry points in a single folder
+                        Category = string.IsNullOrEmpty(category) ? _appEntry.Name : category + Path.DirectorySeparatorChar + _appEntry.Name,
+                        Command = entryPoint.Command
+                    });
 
-                        _menuEntries.Add(new AccessPoints.MenuEntry
-                        {
-                            Name = entryPointName ?? _appEntry.Name + " " + entryPoint.Command,
-                            // Group all entry points in a single folder
-                            Category = string.IsNullOrEmpty(category) ? _appEntry.Name : category + Path.DirectorySeparatorChar + _appEntry.Name,
-                            Command = entryPoint.Command
-                        });
-
-                        if (_feed.NeedsTerminal || entryPoint.NeedsTerminal)
-                            _aliases.Add(new AccessPoints.AppAlias {Name = entryPoint.BinaryName ?? entryPoint.Command, Command = entryPoint.Command});
-                    }
+                    if (_feed.NeedsTerminal || entryPoint.NeedsTerminal)
+                        _aliases.Add(new AccessPoints.AppAlias {Name = entryPoint.BinaryName ?? entryPoint.Command, Command = entryPoint.Command});
                 }
             }
 
