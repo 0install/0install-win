@@ -49,9 +49,10 @@ namespace ZeroInstall.Injector.Solver
         /// <summary>
         /// The name of the <see cref="Command"/> in the interface to be started.
         /// </summary>
+        /// <remarks>Will default to <see cref="Command.NameRun"/> if <see langword="null"/>. <see cref="string.Empty"/> means the command does not matter.</remarks>
         [Description("The name of the command in the interface to be started.")]
         [XmlAttribute("command")]
-        public string Command { get; set; }
+        public string CommandName { get; set; }
 
         // Preserve order
         private readonly C5.LinkedList<ImplementationSelection> _implementations = new C5.LinkedList<ImplementationSelection>();
@@ -283,7 +284,7 @@ namespace ZeroInstall.Injector.Solver
         /// <returns>The cloned <see cref="Selections"/>.</returns>
         public Selections Clone()
         {
-            var newSelections = new Selections {InterfaceID = InterfaceID, Command = Command};
+            var newSelections = new Selections {InterfaceID = InterfaceID, CommandName = CommandName};
             foreach (var implementation in Implementations) newSelections.Implementations.Add(implementation.CloneImplementation());
             return newSelections;
         }
@@ -300,7 +301,7 @@ namespace ZeroInstall.Injector.Solver
         {
             if (other == null) return false;
 
-            return (InterfaceID == other.InterfaceID) && (Command == other.Command) && Implementations.SequencedEquals(other.Implementations);
+            return (InterfaceID == other.InterfaceID) && (CommandName == other.CommandName) && Implementations.SequencedEquals(other.Implementations);
         }
 
         /// <inheritdoc/>
@@ -317,7 +318,7 @@ namespace ZeroInstall.Injector.Solver
             unchecked
             {
                 int result = (InterfaceID != null ? InterfaceID.GetHashCode() : 0);
-                if (Command != null) result = (result * 397) ^ Command.GetHashCode();
+                if (CommandName != null) result = (result * 397) ^ CommandName.GetHashCode();
                 result = (result * 397) ^ Implementations.GetSequencedHashCode();
                 return result;
             }

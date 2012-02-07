@@ -104,7 +104,7 @@ namespace ZeroInstall.Injector
             if (!string.IsNullOrEmpty(Main)) ApplyMain(ref mainImplementation);
 
             // Recursivley build command-line (applying additional bindings)
-            var commandLine = GetCommandLine(mainImplementation, Selections.Command, startInfo);
+            var commandLine = GetCommandLine(mainImplementation, Selections.CommandName, startInfo);
             if (!string.IsNullOrEmpty(Wrapper)) commandLine.InsertAll(0, WindowsUtils.SplitArgs(Wrapper)); // Add wrapper in front
             commandLine.AddAll(arguments); // Append user arguments
 

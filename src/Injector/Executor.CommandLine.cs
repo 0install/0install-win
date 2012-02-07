@@ -73,7 +73,7 @@ namespace ZeroInstall.Injector
         /// Determines the command-line needed to execute an <see cref="ImplementationSelection"/>. Recursivley handles <see cref="Runner"/>s.
         /// </summary>
         /// <param name="implementation">The implementation to launch.</param>
-        /// <param name="commandName">The name of the <see cref="Command"/> within the <paramref name="implementation"/> to launch.</param>
+        /// <param name="commandName">The name of the <see cref="Command"/> within the <paramref name="implementation"/> to launch. Will default to <see cref="Command.NameRun"/> if <see langword="null"/>.</param>
         /// <param name="startInfo">The process launch environment to apply additional <see cref="Binding"/> to.</param>
         /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if an <see cref="Implementation"/> is not cached yet.</exception>
@@ -88,7 +88,7 @@ namespace ZeroInstall.Injector
             if (startInfo == null) throw new ArgumentNullException("startInfo");
             #endregion
 
-            Command command = implementation.GetCommand(string.IsNullOrEmpty(commandName) ? Command.NameRun : commandName);
+            Command command = implementation.GetCommand(commandName ?? Command.NameRun);
 
             // Apply bindings implementations use to find themselves and their dependencies
             ApplyBindings(command, implementation, startInfo);

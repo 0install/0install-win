@@ -22,6 +22,7 @@ using System.Threading;
 using Common;
 using Common.Collections;
 using Common.Utils;
+using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
@@ -127,6 +128,9 @@ namespace ZeroInstall.Commands
         /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
         protected int LaunchImplementation()
         {
+            if (Requirements.CommandName == "")
+                throw new OptionException(Resources.NoRunWithEmptyCommand, "--command");
+
             // Prevent the user from pressing any buttons once the child process is being launched
             Policy.Handler.DisableProgressUI();
 

@@ -553,6 +553,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to When running an implementation the command may not be empty..
+        /// </summary>
+        internal static string NoRunWithEmptyCommand {
+            get {
+                return ResourceManager.GetString("NoRunWithEmptyCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can only update with Feed IDs, not with selections documents..
         /// </summary>
         internal static string NoSelectionsDocumentUpdate {
@@ -670,7 +679,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Instead of executing the default command, use {COMMAND} instead. Possible command names are defined in the program&apos;s interface..
+        ///   Looks up a localized string similar to Instead of executing the default command, use {COMMAND} instead. Possible command names are defined in the program&apos;s interface. Set to empty (&quot;&quot;) to ignore the command during selection..
         /// </summary>
         internal static string OptionCommand {
             get {

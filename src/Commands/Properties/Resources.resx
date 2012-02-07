@@ -285,6 +285,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="NoLongerUsed" xml:space="preserve">
     <value>No longer used: </value>
   </data>
+  <data name="NoRunWithEmptyCommand" xml:space="preserve">
+    <value>When running an implementation the command may not be empty.</value>
+  </data>
   <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
     <value>Can only update with Feed IDs, not with selections documents.</value>
   </data>
@@ -325,7 +328,7 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
     <value>Chosen implementation's version number must be earlier than {VERSION}. i.e., force the use of an old version the program.</value>
   </data>
   <data name="OptionCommand" xml:space="preserve">
-    <value>Instead of executing the default command, use {COMMAND} instead. Possible command names are defined in the program's interface.</value>
+    <value>Instead of executing the default command, use {COMMAND} instead. Possible command names are defined in the program's interface. Set to empty ("") to ignore the command during selection.</value>
   </data>
   <data name="OptionCpu" xml:space="preserve">
     <value>Forces the solver to target a specific {CPU}.</value>
