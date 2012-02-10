@@ -46,7 +46,7 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Get feed
         /// <inheritdoc/>
-        public override Feed GetFeed(string feedID, Policy policy, out bool stale)
+        public override Feed GetFeed(string feedID, Policy policy, ref bool stale)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
@@ -56,10 +56,7 @@ namespace ZeroInstall.Injector.Feeds
             // Assume invalid URIs are local paths
             Uri feedUrl;
             if (!ModelUtils.TryParseUri(feedID, out feedUrl))
-            {
-                stale = false;
                 return LoadLocalFeed(feedID);
-            }
 
             try
             {

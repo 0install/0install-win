@@ -55,13 +55,13 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Get feed
         /// <inheritdoc/>
-        public abstract Feed GetFeed(string feedID, Policy policy, out bool stale);
+        public abstract Feed GetFeed(string feedID, Policy policy, ref bool stale);
 
         /// <inheritdoc/>
         public Feed GetFeed(string feedID, Policy policy)
         {
-            bool stale;
-            var feed = GetFeed(feedID, policy, out stale);
+            bool stale = false;
+            var feed = GetFeed(feedID, policy, ref stale);
 
             // Detect outdated feed
             if (stale && !Refresh)
@@ -69,7 +69,7 @@ namespace ZeroInstall.Injector.Feeds
                 Refresh = true;
                 try
                 {
-                    feed = GetFeed(feedID, policy, out stale);
+                    feed = GetFeed(feedID, policy, ref stale);
                 }
                 catch (WebException)
                 {

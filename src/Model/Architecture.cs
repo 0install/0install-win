@@ -179,9 +179,9 @@ namespace ZeroInstall.Model
                 switch (Environment.OSVersion.Platform)
                 {
                     case PlatformID.Unix:
-                        return new Architecture(OS.Linux, Cpu.I586);
+                        return new Architecture(OS.Linux, WindowsUtils.Is64BitProcess ? Cpu.X64 : Cpu.I586);
                     case PlatformID.MacOSX:
-                        return new Architecture(OS.MacOsX, Cpu.I686);
+                        return new Architecture(OS.MacOsX, WindowsUtils.Is64BitProcess ? Cpu.X64 : Cpu.I686);
                     default:
                         return new Architecture(OS.Unknown, Cpu.Unknown);
                 }

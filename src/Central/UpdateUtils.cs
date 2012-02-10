@@ -46,7 +46,7 @@ namespace ZeroInstall.Central
 
             // Run solver
             bool staleFeeds;
-            var requirements = new Requirements {InterfaceID = policy.Config.SelfUpdateID, CommandName = "update"};
+            var requirements = new Requirements {InterfaceID = policy.Config.SelfUpdateID, CommandName = "update", Architecture = Architecture.CurrentSystem};
             var selections = policy.Solver.Solve(requirements, policy, out staleFeeds);
 
             // Report version of current update if it is newer than the already installed version

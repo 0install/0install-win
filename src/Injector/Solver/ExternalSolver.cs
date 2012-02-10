@@ -20,7 +20,6 @@ using System.IO;
 using Common;
 using Common.Utils;
 using ZeroInstall.Injector.Properties;
-using ZeroInstall.Model;
 
 namespace ZeroInstall.Injector.Solver
 {
@@ -39,15 +38,11 @@ namespace ZeroInstall.Injector.Solver
             if (string.IsNullOrEmpty(requirements.InterfaceID)) throw new ArgumentException(Resources.MissingInterfaceID, "requirements");
             #endregion
 
-            // Sanitize interface ID (support both URIs and local paths)
-            string interfaceID = requirements.InterfaceID.Replace("\"", "");
-            if (interfaceID.Contains(" ")) interfaceID = "\"" + interfaceID + "\"";
-
             // Execute the external solver
             IExternalSolverControl control;
             if (WindowsUtils.IsWindows) control = new ExternalSolverControlBundled(); // Use bundled Python on Windows
             else control = new ExternalSolverControlNative(); // Use native Python everywhere else
-            string arguments = GetSolverArguments(requirements, policy) + interfaceID;
+            string arguments = GetSolverArguments(requirements, policy);
             string result = control.ExecuteSolver(arguments, policy.Handler);
 
             // Detect when feeds get out-of-date
@@ -73,24 +68,17 @@ namespace ZeroInstall.Injector.Solver
         /// </summary>
         /// <param name="requirements">A set of requirements/restrictions imposed by the user on the implementation selection process.</param>
         /// <param name="policy">Provides additional class dependencies.</param>
-        /// <returns>An empty string or a list of arguments terminated by a space.</returns>
+        /// <returns>A list of arguments terminated by a space.</returns>
         private static string GetSolverArguments(Requirements requirements, Policy policy)
         {
             string arguments = "";
-            if (policy.Config.NetworkUse == NetworkLevel.Offline) arguments += "--offline ";
-            if (policy.FeedManager.Refresh) arguments += "--refresh ";
-            if (requirements.CommandName != null) arguments += "--command=\"" + requirements.CommandName + "\" ";
-            if (requirements.BeforeVersion != null) arguments += "--before=" + requirements.BeforeVersion + " ";
-            if (requirements.NotBeforeVersion != null) arguments += "--not-before=" + requirements.NotBeforeVersion + " ";
-            if (requirements.Architecture.Cpu == Cpu.Source) arguments += "--source ";
-            else
-            {
-                if (requirements.Architecture.OS != OS.All) arguments += "--os=" + requirements.Architecture.OSString + " ";
-                if (requirements.Architecture.Cpu != Cpu.All) arguments += "--cpu=" + requirements.Architecture.CpuString + " ";
-            }
-            //if (additionalStore != null) arguments += "--store=" + additionalStore.DirectoryPath + " ";
+
             for (int i = 0; i < policy.Verbosity; i++)
                 arguments += "--verbose ";
+            if (policy.Config.NetworkUse == NetworkLevel.Offline) arguments += "--offline ";
+            if (policy.FeedManager.Refresh) arguments += "--refresh ";
+            //if (additionalStore != null) arguments += "--store=" + additionalStore.DirectoryPath + " ";s
+            arguments += requirements.ToCommandLineArgs();
 
             return arguments;
         }

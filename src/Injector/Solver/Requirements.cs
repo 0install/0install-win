@@ -112,12 +112,18 @@ namespace ZeroInstall.Injector.Solver
         public string ToCommandLineArgs()
         {
             var builder = new StringBuilder();
+
             if (!string.IsNullOrEmpty(CommandName)) builder.Append("--command=" + StringUtils.EscapeArgument(CommandName) + " ");
-            if (Architecture.OS != OS.All) builder.Append("--os=" + Architecture.OSString + " ");
-            if (Architecture.Cpu != Cpu.All) builder.Append("--cpu=" + Architecture.CpuString + " ");
+            if (Architecture.Cpu == Cpu.Source) builder.Append("--source ");
+            else
+            {
+                if (Architecture.OS != OS.All) builder.Append("--os=" + Architecture.OSString + " ");
+                if (Architecture.Cpu != Cpu.All) builder.Append("--cpu=" + Architecture.CpuString + " ");
+            }
             if (NotBeforeVersion != null) builder.Append("--not-before=" + NotBeforeVersion + " ");
             if (BeforeVersion != null) builder.Append("--before=" + BeforeVersion + " ");
             builder.Append(StringUtils.EscapeArgument(InterfaceID));
+
             return builder.ToString();
         }
         #endregion

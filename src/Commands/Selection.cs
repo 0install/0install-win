@@ -67,7 +67,8 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionSelection; } }
 
-        private readonly Requirements _requirements = new Requirements() /*{Architecture = Architecture.CurrentSystem}*/;
+        // Default to current system as architecture requirement
+        private readonly Requirements _requirements = new Requirements {Architecture = Architecture.CurrentSystem};
 
         /// <summary>
         /// A set of requirements/restrictions imposed by the user on the implementation selection process as parsed from the command-line arguments.

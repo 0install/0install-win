@@ -83,8 +83,8 @@ namespace ZeroInstall.Injector.Feeds
                 _cacheMock.Setup(x => x.GetFeed(tempFile.Path)).Returns(feed).Verifiable();
                 // ReSharper restore AccessToDisposedClosure
 
-                bool stale;
-                Assert.AreSame(feed, _policy.FeedManager.GetFeed(tempFile.Path, _policy, out stale));
+                bool stale = false;
+                Assert.AreSame(feed, _policy.FeedManager.GetFeed(tempFile.Path, _policy, ref stale));
                 Assert.IsFalse(stale);
             }
         }
@@ -92,8 +92,8 @@ namespace ZeroInstall.Injector.Feeds
         [Test(Description = "Ensures missing local feed files are reported correctly.")]
         public void TestLocalMissing()
         {
-            bool stale;
-            Assert.Throws<FileNotFoundException>(() => _policy.FeedManager.GetFeed("invalid-" + Path.GetRandomFileName(), _policy, out stale));
+            bool stale = true;
+            Assert.Throws<FileNotFoundException>(() => _policy.FeedManager.GetFeed("invalid-" + Path.GetRandomFileName(), _policy, ref stale));
         }
 
         [Test(Description = "Ensures cached feeds that are not stale are returned correctly.")]
@@ -106,8 +106,8 @@ namespace ZeroInstall.Injector.Feeds
 
             new FeedPreferences {LastChecked = DateTime.UtcNow}.SaveFor("http://0install.de/feeds/test/test1.xml");
 
-            bool stale;
-            Assert.AreSame(feed, _policy.FeedManager.GetFeed("http://0install.de/feeds/test/test1.xml", _policy, out stale));
+            bool stale = true;
+            Assert.AreSame(feed, _policy.FeedManager.GetFeed("http://0install.de/feeds/test/test1.xml", _policy, ref stale));
             Assert.IsFalse(stale);
         }
 
@@ -121,8 +121,8 @@ namespace ZeroInstall.Injector.Feeds
 
             new FeedPreferences {LastChecked = DateTime.UtcNow - _policy.Config.Freshness}.SaveFor("http://0install.de/feeds/test/test1.xml");
 
-            bool stale;
-            Assert.AreSame(feed, _policy.FeedManager.GetFeed("http://0install.de/feeds/test/test1.xml", _policy, out stale));
+            bool stale = true;
+            Assert.AreSame(feed, _policy.FeedManager.GetFeed("http://0install.de/feeds/test/test1.xml", _policy, ref stale));
             Assert.IsTrue(stale);
         }
 

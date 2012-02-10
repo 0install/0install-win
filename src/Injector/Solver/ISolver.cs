@@ -23,7 +23,7 @@ namespace ZeroInstall.Injector.Solver
     /// <summary>
     /// Chooses a set of <see cref="Model.Implementation"/>s to satisfy the requirements of a program and its user. 
     /// </summary>
-    /// <remarks>This is an application of the strategy pattern. Implementations of this interface are immutable.</remarks>
+    /// <remarks>This is an application of the strategy pattern. Implementations of this interface are immutable and thread-safe.</remarks>
     public interface ISolver
     {
         /// <summary>
@@ -31,7 +31,7 @@ namespace ZeroInstall.Injector.Solver
         /// </summary>
         /// <param name="requirements">A set of requirements/restrictions imposed by the user on the implementation selection process.</param>
         /// <param name="policy">Provides additional class dependencies.</param>
-        /// <param name="staleFeeds">Indicates that one or more of the <see cref="Model.Feed"/>s used by the solver should be updated.</param>
+        /// <param name="staleFeeds">Returns <see langword="true"/> if one or more of the <see cref="Model.Feed"/>s used by the solver have passed <see cref="Config.Freshness"/>.</param>
         /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
         /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>

@@ -41,7 +41,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <summary>
         /// Always throws <see cref="NotImplementedException"/>.
         /// </summary>
-        public override Feed GetFeed(string feedID, Policy policy, out bool stale)
+        public override Feed GetFeed(string feedID, Policy policy, ref bool stale)
         {
             throw new NotImplementedException();
         }
