@@ -178,11 +178,16 @@ namespace ZeroInstall.Updater
         /// </summary>
         public void RunNgen()
         {
+            string fileName = FileUtils.PathCombine(
+                (Environment.GetEnvironmentVariable("windir") ?? @"C:\Windows"),
+                "Microsoft.NET",
+                (WindowsUtils.Is64BitOperatingSystem ? "Framework64" : "Framework"),
+                "v2.0.50727", "ngen.exe");
+
             foreach (string assembly in _ngenAssemblies)
             {
-                var startInfo = new ProcessStartInfo(
-                    Path.Combine(Environment.GetEnvironmentVariable("windir") ?? @"C:\Windows", @"Microsoft.NET\Framework\v2.0.50727\ngen.exe"),
-                    "install " + Path.Combine(Target, assembly) + "/queue") {WindowStyle = ProcessWindowStyle.Hidden};
+                string arguments = StringUtils.ConcatenateEscapeArgument(new[] {"install", Path.Combine(Target, assembly), "/queue"});
+                var startInfo = new ProcessStartInfo(fileName, arguments) {WindowStyle = ProcessWindowStyle.Hidden};
                 Process.Start(startInfo).WaitForExit();
             }
         }
