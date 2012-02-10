@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
@@ -89,7 +90,7 @@ namespace ZeroInstall.Commands
                 value = Policy.Config.GetOption(key);
             }
                 #region Error handling
-            catch (C5.NoSuchItemException)
+            catch (KeyNotFoundException)
             {
                 Policy.Handler.Output("Configuration error", string.Format("Unknown option '{0}'", key));
                 return 1;
@@ -111,7 +112,7 @@ namespace ZeroInstall.Commands
                 Policy.Config.SetOption(key, value);
             }
                 #region Error handling
-            catch (C5.NoSuchItemException)
+            catch (KeyNotFoundException)
             {
                 Policy.Handler.Output("Configuration error", string.Format("Unknown option '{0}'", key));
                 return 1;

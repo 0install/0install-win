@@ -81,7 +81,7 @@ namespace ZeroInstall.Injector
         /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
         /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
-        private C5.LinkedList<string> GetCommandLine(ImplementationSelection implementation, string commandName, ProcessStartInfo startInfo)
+        private List<string> GetCommandLine(ImplementationSelection implementation, string commandName, ProcessStartInfo startInfo)
         {
             #region Sanity checks
             if (implementation == null) throw new ArgumentNullException("implementation");
@@ -95,13 +95,13 @@ namespace ZeroInstall.Injector
             if (command.WorkingDir != null) ApplyWorkingDir(command.WorkingDir, implementation, startInfo);
             ApplyDependencyBindings(command, startInfo);
 
-            C5.LinkedList<string> commandLine;
+            List<string> commandLine;
             var runner = command.Runner;
-            if (runner == null) commandLine = new C5.LinkedList<string>();
+            if (runner == null) commandLine = new List<string>();
             else
             {
                 commandLine = GetCommandLine(Selections[runner.Interface], null, startInfo);
-                commandLine.AddAll(runner.Arguments);
+                commandLine.AddRange(runner.Arguments);
             }
 
             if (!string.IsNullOrEmpty(command.Path))
@@ -111,7 +111,7 @@ namespace ZeroInstall.Injector
                 // Fully qualified paths are used by package/native implementations, usually relative to the implementation
                 commandLine.Add(Path.IsPathRooted(path) ? path : Path.Combine(GetImplementationPath(implementation), path));
             }
-            commandLine.AddAll(command.Arguments);
+            commandLine.AddRange(command.Arguments);
 
             return commandLine;
         }
@@ -123,10 +123,17 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <param name="commandLine">The command-line to split.</param>
         /// <param name="environmentVariables">A list of environment variables available for expansion.</param>
-        private static CommandLineSplit SplitCommandLine(C5.IList<string> commandLine, StringDictionary environmentVariables)
+        private static CommandLineSplit SplitCommandLine(List<string> commandLine, StringDictionary environmentVariables)
         {
-            commandLine = commandLine.Map(entry => StringUtils.ExpandUnixVariables(entry, environmentVariables));
-            return new CommandLineSplit(commandLine.First, StringUtils.ConcatenateEscapeArgument(commandLine.View(1, commandLine.Count - 1)));
+            // Split into file name...
+            string fileName = StringUtils.ExpandUnixVariables(commandLine[0], environmentVariables);
+
+            // ... and everything else
+            var arguments = new string[commandLine.Count - 1];
+            for (int i = 0; i < arguments.Length; i++)
+                arguments[i] = StringUtils.ExpandUnixVariables(commandLine[i + 1], environmentVariables);
+
+            return new CommandLineSplit(fileName, StringUtils.ConcatenateEscapeArgument(arguments));
         }
         #endregion
     }

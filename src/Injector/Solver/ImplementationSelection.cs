@@ -69,14 +69,13 @@ namespace ZeroInstall.Injector.Solver
         [XmlAttribute("package")]
         public string Package { get; set; }
 
-        // Order is always alphabetical, duplicate string entries are not allowed
-        private readonly C5.TreeSet<string> _distributions = new C5.TreeSet<string>();
+        // Order is not important (but is preserved), duplicate entries are not allowed (but not enforced)
+        private readonly List<string> _distributions = new List<string>();
 
         /// <summary>
         /// A list of distribution names where <see cref="Package"/> applies.
-        /// Only set for <see cref="PackageImplementation"/>s; <see langword="null"/> if this comes from a real Zero Instal <see cref="Model.Implementation"/>.
         /// </summary>
-        [Category("Identity"), Description("A space-separated list of distribution names where the package name applies. Only set for PackageImplementation; null if this comes from a real Zero Instal implementation.")]
+        [Category("Identity"), Description("A list of distribution names where the package name applies. Only set for PackageImplementation; null if this comes from a real Zero Instal implementation.")]
         [XmlIgnore]
         public ICollection<string> Distributions { get { return _distributions; } }
 
@@ -100,7 +99,7 @@ namespace ZeroInstall.Injector.Solver
                 if (string.IsNullOrEmpty(value)) return;
 
                 // Replace list by parsing input string split by spaces
-                foreach (string distribution in value.Split(' ')) _distributions.Add(distribution);
+                _distributions.AddRange(value.Split(' '));
             }
         }
         #endregion

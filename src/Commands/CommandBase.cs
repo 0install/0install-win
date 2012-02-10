@@ -52,7 +52,7 @@ namespace ZeroInstall.Commands
         protected readonly OptionSet Options = new OptionSet();
 
         /// <summary>Feeds to add, terms to search for, etc.</summary>
-        protected readonly C5.IList<string> AdditionalArgs = new C5.ArrayList<string>();
+        protected List<string> AdditionalArgs = new List<string>();
         #endregion
 
         #region Properties
@@ -148,7 +148,7 @@ namespace ZeroInstall.Commands
         {
             IsParsed = true;
 
-            AdditionalArgs.AddAll(Options.Parse(args));
+            AdditionalArgs.AddRange(Options.Parse(args));
         }
         #endregion
 

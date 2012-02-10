@@ -113,7 +113,7 @@ namespace ZeroInstall.Injector
         public void TestGetStartInfo()
         {
             var selections = SelectionsTest.CreateTestSelections();
-            selections.Implementations.InsertFirst(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
+            selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
             var executor = new Executor(selections, GetMockStore(selections));
             var startInfo = executor.GetStartInfo("--custom");
@@ -145,7 +145,7 @@ namespace ZeroInstall.Injector
             if (!WindowsUtils.IsWindows) throw new InconclusiveException("Wrapper command-line parsing relies on a Win32 API and therefore will not work on non-Windows platforms");
 
             var selections = SelectionsTest.CreateTestSelections();
-            selections.Implementations.InsertFirst(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
+            selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
             var executor = new Executor(selections, GetMockStore(selections)) {Wrapper = "wrapper --wrapper"};
             var startInfo = executor.GetStartInfo("--custom");
@@ -174,7 +174,7 @@ namespace ZeroInstall.Injector
         public void TestGetStartInfoMainRelative()
         {
             var selections = SelectionsTest.CreateTestSelections();
-            selections.Implementations.InsertFirst(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
+            selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
             var executor = new Executor(selections, GetMockStore(selections)) {Main = "main"};
             var startInfo = executor.GetStartInfo("--custom");
@@ -203,7 +203,7 @@ namespace ZeroInstall.Injector
         public void TestGetStartInfoMainAbsolute()
         {
             var selections = SelectionsTest.CreateTestSelections();
-            selections.Implementations.InsertFirst(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
+            selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
             var executor = new Executor(selections, GetMockStore(selections)) {Main = "/main"};
             var startInfo = executor.GetStartInfo("--custom");
@@ -232,7 +232,7 @@ namespace ZeroInstall.Injector
         public void TestGetStartInfoPathlessCommand()
         {
             var selections = SelectionsTest.CreateTestSelections();
-            selections.Implementations.InsertFirst(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
+            selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
             selections.Implementations[1].Commands[0].Path = null;
 
             var executor = new Executor(selections, GetMockStore(selections));

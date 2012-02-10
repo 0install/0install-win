@@ -60,15 +60,15 @@ namespace ZeroInstall.Commands
         {
             #region Sanity checks
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs.First)) throw new OptionException(Resources.MissingArguments, "");
+            if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
             if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
             #endregion
 
             Policy.Handler.ShowProgressUI();
             Policy.FeedManager.ImportFeed(
-                Feed.Load(AdditionalArgs.First).Uri,
-                new Uri(AdditionalArgs.First),
-                File.ReadAllBytes(AdditionalArgs.First),
+                Feed.Load(AdditionalArgs[0]).Uri,
+                new Uri(AdditionalArgs[0]),
+                File.ReadAllBytes(AdditionalArgs[0]),
                 Policy);
             return 0;
         }

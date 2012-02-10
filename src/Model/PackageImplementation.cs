@@ -85,8 +85,8 @@ namespace ZeroInstall.Model
         [XmlAttribute("package")]
         public string Package { get; set; }
 
-        // Order is always alphabetical, duplicate string entries are not allowed
-        private readonly C5.TreeSet<string> _distributions = new C5.TreeSet<string>();
+        // Order is not important (but is preserved), duplicate string entries are not allowed (but not enforced)
+        private readonly List<string> _distributions = new List<string>();
 
         /// <summary>
         /// A list of distribution names where <see cref="Package"/> applies.
@@ -97,7 +97,7 @@ namespace ZeroInstall.Model
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Version"/>
-        [XmlAttribute("distributions"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [XmlAttribute("distributions"), DefaultValue(""), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string DistributionsString
         {
             get
@@ -115,7 +115,7 @@ namespace ZeroInstall.Model
                 if (string.IsNullOrEmpty(value)) return;
 
                 // Replace list by parsing input string split by spaces
-                foreach (string distribution in value.Split(' ')) _distributions.Add(distribution);
+                _distributions.AddRange(value.Split(' '));
             }
         }
         #endregion

@@ -47,33 +47,6 @@ namespace ZeroInstall.Injector.Solver
         }
         #endregion
 
-        [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
-        public void TestSaveLoad()
-        {
-            var selections1 = CreateTestSelections();
-
-            // Serialize and deserialize data
-            string data = selections1.WriteToString();
-            var selections2 = Selections.LoadFromString(data);
-
-            // Ensure data stayed the same
-            Assert.AreEqual(selections1, selections2, "Serialized objects should be equal.");
-            Assert.AreEqual(selections1.GetHashCode(), selections2.GetHashCode(), "Serialized objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(selections1, selections2), "Serialized objects should not return the same reference.");
-        }
-
-        [Test(Description = "Ensures that the class can be correctly cloned.")]
-        public void TestClone()
-        {
-            var selections1 = CreateTestSelections();
-            var selections2 = selections1.Clone();
-
-            // Ensure data stayed the same
-            Assert.AreEqual(selections1, selections2, "Cloned objects should be equal.");
-            Assert.AreEqual(selections1.GetHashCode(), selections2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(selections1, selections2), "Cloning should not return the same reference.");
-        }
-
         [Test(Description = "Ensures that Selections.ListUncachedImplementations() correctly finds Implementations not cached in a store")]
         public void TestListUncachedImplementations()
         {

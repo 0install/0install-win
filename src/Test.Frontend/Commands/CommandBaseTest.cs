@@ -130,7 +130,12 @@ namespace ZeroInstall.Commands
         {
             Command.Parse(args);
             Assert.AreEqual(exitStatus, Command.Execute());
-            Assert.AreEqual(selections, _selections);
+            if (selections != null)
+            {
+                Assert.AreEqual(selections.InterfaceID, _selections.InterfaceID);
+                Assert.AreEqual(selections.CommandName, _selections.CommandName);
+                CollectionAssert.AreEqual(selections.Implementations, _selections.Implementations);
+            }
             Assert.AreEqual(output, _output);
         }
 

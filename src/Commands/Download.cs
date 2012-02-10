@@ -44,7 +44,7 @@ namespace ZeroInstall.Commands
         private bool _show;
 
         /// <summary><see cref="Implementation"/>s referenced in <see cref="Selection.Selections"/> that are not available in the <see cref="Fetcher.Store"/>.</summary>
-        protected IEnumerable<Implementation> UncachedImplementations;
+        protected ICollection<Implementation> UncachedImplementations;
         #endregion
 
         #region Properties
@@ -125,6 +125,9 @@ namespace ZeroInstall.Commands
         /// <remarks>Makes sure <see cref="ISolver"/> ran with up-to-date feeds before downloading any implementations.</remarks>
         protected void DownloadUncachedImplementations()
         {
+            // Do not waste time on Fetcher subsystem if nothing is missing from cache
+            if (UncachedImplementations.Count == 0) return;
+
             try
             {
                 Policy.Fetcher.RunSync(new FetchRequest(UncachedImplementations, Policy.Handler));

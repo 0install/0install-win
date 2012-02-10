@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Common.Storage;
 using NUnit.Framework;
@@ -78,7 +79,7 @@ namespace ZeroInstall.Injector
         public void TestGetSetValue()
         {
             var config = new Config();
-            Assert.Throws<C5.NoSuchItemException>(() => config.SetOption("Test", "Test"));
+            Assert.Throws<KeyNotFoundException>(() => config.SetOption("Test", "Test"));
 
             Assert.IsFalse(config.HelpWithTesting);
             Assert.AreEqual("False", config.GetOption("help_with_testing"));

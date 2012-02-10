@@ -162,12 +162,12 @@ namespace ZeroInstall.Commands
         {
             base.Parse(args);
 
-            if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs.First))
+            if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs[0]))
                 throw new InvalidInterfaceIDException(Resources.NoInterfaceSpecified);
 
             // The first argument is the interface ID
-            Requirements.InterfaceID = GetCanonicalID(AdditionalArgs.First);
-            AdditionalArgs.RemoveFirst();
+            Requirements.InterfaceID = GetCanonicalID(AdditionalArgs[0]);
+            AdditionalArgs.RemoveAt(0);
 
             if (File.Exists(Requirements.InterfaceID))
             {

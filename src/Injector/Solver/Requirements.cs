@@ -58,7 +58,7 @@ namespace ZeroInstall.Injector.Solver
         /// </summary>
         public Architecture Architecture { get; set; }
 
-        private readonly C5.LinkedList<CultureInfo> _languages = new C5.LinkedList<CultureInfo>();
+        private readonly List<CultureInfo> _languages = new List<CultureInfo>();
 
         /// <summary>
         /// The preferred languages for implementations in decreasing order. Use system locale if empty.
@@ -85,7 +85,7 @@ namespace ZeroInstall.Injector.Solver
         public Requirements Clone()
         {
             var requirements = new Requirements {InterfaceID = InterfaceID, CommandName = CommandName, Architecture = Architecture, NotBeforeVersion = NotBeforeVersion, BeforeVersion = BeforeVersion};
-            requirements._languages.AddAll(_languages);
+            requirements._languages.AddRange(_languages);
 
             return requirements;
         }
@@ -131,7 +131,7 @@ namespace ZeroInstall.Injector.Solver
             if (InterfaceID != other.InterfaceID) return false;
             if (CommandName != other.CommandName) return false;
             if (Architecture != other.Architecture) return false;
-            if (!_languages.SequencedEquals(other._languages)) return false;
+            // ToDo: if (!_languages.SequencedEquals(other._languages)) return false;
             if (NotBeforeVersion != other.NotBeforeVersion) return false;
             if (BeforeVersion != other.BeforeVersion) return false;
             return true;
@@ -153,7 +153,7 @@ namespace ZeroInstall.Injector.Solver
                 int result = (InterfaceID != null ? InterfaceID.GetHashCode() : 0);
                 result = (result * 397) ^ (CommandName != null ? CommandName.GetHashCode() : 0);
                 result = (result * 397) ^ Architecture.GetHashCode();
-                result = (result * 397) ^ _languages.GetSequencedHashCode();
+                // ToDo: result = (result * 397) ^ _languages.GetSequencedHashCode();
                 result = (result * 397) ^ (NotBeforeVersion != null ? NotBeforeVersion.GetHashCode() : 0);
                 result = (result * 397) ^ (BeforeVersion != null ? BeforeVersion.GetHashCode() : 0);
                 return result;

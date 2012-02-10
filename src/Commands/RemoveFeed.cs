@@ -61,7 +61,7 @@ namespace ZeroInstall.Commands
         {
             #region Sanity checks
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs.First)) throw new OptionException(Resources.MissingArguments, "");
+            if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
             if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments, "");
             #endregion
 

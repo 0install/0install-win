@@ -227,8 +227,9 @@ namespace ZeroInstall.DesktopIntegration
             {
                 foreach (var appEntry in AppList.Entries)
                 {
-                    var toReAdd = new List<AccessPoint>();
-                    if (appEntry.AccessPoints != null) toReAdd.AddRange(appEntry.AccessPoints.Entries);
+                    var toReAdd = (appEntry.AccessPoints == null)
+                        ? new AccessPoint[0]
+                        : appEntry.AccessPoints.Entries.ToArray();
                     AddAccessPointsHelper(appEntry, feedRetriever(appEntry.InterfaceID), toReAdd);
                 }
             }

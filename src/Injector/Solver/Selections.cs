@@ -36,7 +36,7 @@ namespace ZeroInstall.Injector.Solver
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("selections", Namespace = Feed.XmlNamespace)]
     [XmlType("selections", Namespace = Feed.XmlNamespace)]
-    public sealed class Selections : IEquatable<Selections>, ICloneable
+    public sealed class Selections
     {
         #region Properties
         /// <summary>
@@ -55,14 +55,14 @@ namespace ZeroInstall.Injector.Solver
         public string CommandName { get; set; }
 
         // Preserve order
-        private readonly C5.LinkedList<ImplementationSelection> _implementations = new C5.LinkedList<ImplementationSelection>();
+        private readonly List<ImplementationSelection> _implementations = new List<ImplementationSelection>();
 
         /// <summary>
         /// A list of <see cref="ImplementationSelection"/>s chosen in this selection.
         /// </summary>
         [Description("A list of implementations chosen in this selection.")]
         [XmlElement("selection")]
-        public C5.LinkedList<ImplementationSelection> Implementations { get { return _implementations; } }
+        public List<ImplementationSelection> Implementations { get { return _implementations; } }
 
         /// <summary>
         /// The main implementation in the selection (the actual program to launch). Identified by <see cref="InterfaceID"/>.
@@ -174,7 +174,7 @@ namespace ZeroInstall.Injector.Solver
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the feed file could not be parsed.</exception>
-        public IEnumerable<Implementation> ListUncachedImplementations(IStore searchStore, IFeedCache feedCache)
+        public ICollection<Implementation> ListUncachedImplementations(IStore searchStore, IFeedCache feedCache)
         {
             #region Sanity checks
             if (searchStore == null) throw new ArgumentNullException("searchStore");
@@ -272,56 +272,6 @@ namespace ZeroInstall.Injector.Solver
         public string WriteToString()
         {
             return XmlStorage.ToString(this);
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Clone
-        /// <summary>
-        /// Creates a deep copy of this <see cref="Selections"/>
-        /// </summary>
-        /// <returns>The cloned <see cref="Selections"/>.</returns>
-        public Selections Clone()
-        {
-            var newSelections = new Selections {InterfaceID = InterfaceID, CommandName = CommandName};
-            foreach (var implementation in Implementations) newSelections.Implementations.Add(implementation.CloneImplementation());
-            return newSelections;
-        }
-
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
-        #endregion
-
-        #region Equality
-        /// <inheritdoc/>
-        public bool Equals(Selections other)
-        {
-            if (other == null) return false;
-
-            return (InterfaceID == other.InterfaceID) && (CommandName == other.CommandName) && Implementations.SequencedEquals(other.Implementations);
-        }
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj is Selections && Equals((Selections)obj);
-        }
-
-        /// <inheritdoc/>
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                int result = (InterfaceID != null ? InterfaceID.GetHashCode() : 0);
-                if (CommandName != null) result = (result * 397) ^ CommandName.GetHashCode();
-                result = (result * 397) ^ Implementations.GetSequencedHashCode();
-                return result;
-            }
         }
         #endregion
     }

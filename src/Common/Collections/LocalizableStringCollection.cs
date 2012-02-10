@@ -89,10 +89,7 @@ namespace Common.Collections
             if (language == null) throw new ArgumentNullException("language");
             #endregion
 
-            var toRemove = new LinkedList<LocalizableString>();
-            foreach (LocalizableString entry in this)
-                if (Equals(language, entry.Language)) toRemove.AddLast(entry);
-            RemoveAll(toRemove);
+            RemoveAll(FindAll(entry => Equals(language, entry.Language)));
         }
         #endregion
 

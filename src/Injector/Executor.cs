@@ -61,17 +61,20 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Creates a new launcher from <see cref="Selections"/>.
         /// </summary>
-        /// <param name="selections">The specific <see cref="ImplementationSelection"/>s chosen for the <see cref="Dependency"/>s.</param>
+        /// <param name="selections">
+        /// The specific <see cref="ImplementationSelection"/>s chosen for the <see cref="Dependency"/>s.
+        /// This object must _not_ be modified once it has been passed into this constructor!
+        /// </param>
         /// <param name="store">Used to locate the selected <see cref="Model.Implementation"/>s.</param>
         public Executor(Selections selections, IStore store)
         {
             #region Sanity checks
             if (selections == null) throw new ArgumentNullException("selections");
             if (store == null) throw new ArgumentNullException("store");
-            if (selections.Implementations.IsEmpty) throw new ArgumentException(Resources.NoImplementationsPassed, "selections");
+            if (selections.Implementations.Count == 0) throw new ArgumentException(Resources.NoImplementationsPassed, "selections");
             #endregion
 
-            Selections = selections.Clone();
+            Selections = selections;
             Store = store;
         }
         #endregion
@@ -105,8 +108,8 @@ namespace ZeroInstall.Injector
 
             // Recursivley build command-line (applying additional bindings)
             var commandLine = GetCommandLine(mainImplementation, Selections.CommandName, startInfo);
-            if (!string.IsNullOrEmpty(Wrapper)) commandLine.InsertAll(0, WindowsUtils.SplitArgs(Wrapper)); // Add wrapper in front
-            commandLine.AddAll(arguments); // Append user arguments
+            if (!string.IsNullOrEmpty(Wrapper)) commandLine.InsertRange(0, WindowsUtils.SplitArgs(Wrapper)); // Add wrapper in front
+            commandLine.AddRange(arguments); // Append user arguments
 
             // Split and apply command-lines for executable bindings (delayed until here because there may be variable expanding)
             foreach (var pending in _runEnvPendings)

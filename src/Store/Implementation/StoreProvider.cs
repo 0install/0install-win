@@ -37,7 +37,10 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="UnauthorizedAccessException">Thrown if access to a configuration file or one of the stores was not permitted.</exception>
         public static IStore CreateDefault()
         {
-            return new CompositeStore(GetStores());
+            var stores = GetStores();
+            var storesArray = new IStore[stores.Count];
+            stores.CopyTo(storesArray, 0);
+            return new CompositeStore(storesArray);
         }
 
         /// <summary>
@@ -45,14 +48,14 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <exception cref="IOException">Thrown if a directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory was not permitted.</exception>
-        private static IEnumerable<IStore> GetStores()
+        private static LinkedList<IStore> GetStores()
         {
-            var stores = new C5.LinkedList<IStore>();
+            var stores = new LinkedList<IStore>();
             foreach (var path in GetImplementationDirs())
             {
                 try
                 {
-                    stores.Add(new DirectoryStore(path));
+                    stores.AddLast(new DirectoryStore(path));
                 }
                     #region Error handling
                 catch (IOException ex)
@@ -67,7 +70,7 @@ namespace ZeroInstall.Store.Implementation
                 }
                 #endregion
             }
-            stores.Add(new ServiceStore());
+            //stores.Add(new ServiceStore());
 
             return stores;
         }

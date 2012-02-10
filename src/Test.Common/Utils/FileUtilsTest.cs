@@ -290,6 +290,7 @@ namespace Common.Utils
         }
         #endregion
 
+#if FS_SECURITY
         #region Unix
         [Test]
         public void TestIsRegularFile()
@@ -355,5 +356,6 @@ namespace Common.Utils
             }
         }
         #endregion
+#endif
     }
 }

@@ -134,7 +134,7 @@ namespace Common.Collections
             if (newArray == null) return new T[0];
             if (oldArray == null) return newArray;
 
-            var added = new C5.LinkedList<T>();
+            var added = new LinkedList<T>();
 
             int oldCounter = 0;
             int newCounter = 0;
@@ -158,12 +158,14 @@ namespace Common.Collections
                 }
                 else if (comparison > 0)
                 { // old > new
-                    added.Add(newElement);
+                    added.AddLast(newElement);
                     newCounter++;
                 }
             }
 
-            return added.ToArray();
+            var result = new T[added.Count];
+            added.CopyTo(result, 0);
+            return result;
         }
         #endregion
 

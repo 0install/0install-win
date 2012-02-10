@@ -58,7 +58,7 @@ namespace ZeroInstall.Injector
     {
         #region Variables
         /// <summary>Provides meta-data for loading and saving settings properties.</summary>
-        private readonly C5.IDictionary<string, PropertyPointer<string>> _metaData;
+        private readonly Dictionary<string, PropertyPointer<string>> _metaData;
 
         /// <summary>Singleton used for reading and writing INI files.</summary>
         private static readonly FileIniDataParser _iniParse = new FileIniDataParser();
@@ -209,7 +209,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         public Config()
         {
-            _metaData = new C5.TreeDictionary<string, PropertyPointer<string>>
+            _metaData = new Dictionary<string, PropertyPointer<string>>
             {
                 {"freshness", PropertyPointer.GetTimespanConverter(new PropertyPointer<TimeSpan>(() => Freshness, value => Freshness = value, _defaultFreshness))},
                 {"help_with_testing", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => HelpWithTesting, value => HelpWithTesting = value, false))},
@@ -274,7 +274,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <param name="key">The key of the option to retrieve.</param>
         /// <returns>The string representation of the the option.</returns>
-        /// <exception cref="C5.NoSuchItemException">Thrown if <paramref name="key"/> is invalid.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if <paramref name="key"/> is invalid.</exception>
         public string GetOption(string key)
         {
             return _metaData[key].Value;
@@ -285,7 +285,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <param name="key">The key of the option to set.</param>
         /// <param name="value">A string representation of the option.</param>
-        /// <exception cref="C5.NoSuchItemException">Thrown if <paramref name="key"/> is invalid.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if <paramref name="key"/> is invalid.</exception>
         /// <exception cref="FormatException">Thrown if <paramref name="value"/> is invalid.</exception>
         public void SetOption(string key, string value)
         {
@@ -296,7 +296,7 @@ namespace ZeroInstall.Injector
         /// Resets an option identified by a key to its default value.
         /// </summary>
         /// <param name="key">The key of the option to reset.</param>
-        /// <exception cref="C5.NoSuchItemException">Thrown if <paramref name="key"/> is invalid.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if <paramref name="key"/> is invalid.</exception>
         public void ResetOption(string key)
         {
             var property = _metaData[key];

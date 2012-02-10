@@ -65,7 +65,7 @@ namespace ZeroInstall.Commands
                     pattern = null;
                     break;
                 case 1:
-                    pattern = AdditionalArgs.First;
+                    pattern = AdditionalArgs[0];
                     break;
                 default:
                     throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");

@@ -292,7 +292,7 @@ namespace ZeroInstall.Model
             #endregion
 
             // Split string
-            var architectureArray = architecture.Split(new[] {'-'});
+            var architectureArray = architecture.Split('-');
             if (architectureArray.Length != 2) throw new ArgumentException(Resources.ArchitectureStringFormat, "architecture");
             string os = architectureArray[0];
             string cpu = architectureArray[1];

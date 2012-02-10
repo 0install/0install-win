@@ -38,32 +38,26 @@ namespace ZeroInstall.Store.Implementation
     public class CompositeStore : MarshalByRefObject, IStore
     {
         #region Variables
-        // Preserve order, duplicate entries are not allowed
-        private readonly C5.IList<IStore> _stores = new C5.HashedLinkedList<IStore>();
+        private readonly IStore[] _stores;
         #endregion
 
         #region Constructor
         /// <summary>
         /// Creates a new composite implementation provider with a set of <see cref="IStore"/>s.
         /// </summary>
-        /// <param name="stores">A priority-sorted list of <see cref="IStore"/>s. Queried last-to-first for adding new <see cref="Model.Implementation"/>s, first-to-last otherwise. Duplicates are ignored.</param>
-        public CompositeStore(IEnumerable<IStore> stores)
+        /// <param name="stores">
+        /// A priority-sorted list of <see cref="IStore"/>s.
+        /// Queried last-to-first for adding new <see cref="Model.Implementation"/>s, first-to-last otherwise.
+        /// This array must _not_ be modified once it has been passed into this constructor!
+        /// </param>
+        public CompositeStore(params IStore[] stores)
         {
             #region Sanity checks
             if (stores == null) throw new ArgumentNullException("stores");
             #endregion
 
-            // Defensive copy and remove duplicates
-            foreach (var store in stores)
-                if (store != null && !_stores.Contains(store)) _stores.Add(store);
+            _stores = stores;
         }
-
-        /// <summary>
-        /// Creates a new composite implementation provider with a set of <see cref="IStore"/>s.
-        /// </summary>
-        /// <param name="stores">A priority-sorted list of <see cref="IStore"/>s. Queried last-to-first for adding new <see cref="Model.Implementation"/>s, first-to-last otherwise.</param>
-        public CompositeStore(params IStore[] stores) : this((IEnumerable<IStore>)stores)
-        {}
         #endregion
 
         //--------------------//
@@ -164,12 +158,12 @@ namespace ZeroInstall.Store.Implementation
 
             // Find the last store the implementation can be added to (some might be write-protected)
             Exception innerException = null;
-            foreach (IStore store in _stores.Backwards())
+            for (int i = _stores.Length - 1; i >= 0; i--) // Iterate backwards
             {
                 try
                 {
                     // Try to add implementation to this store
-                    store.AddDirectory(path, manifestDigest, handler);
+                    _stores[i].AddDirectory(path, manifestDigest, handler);
                     return;
                 }
                     #region Error handling
@@ -201,13 +195,13 @@ namespace ZeroInstall.Store.Implementation
 
             // Find the last store the implementation can be added to (some might be write-protected)
             Exception innerException = null;
-            foreach (IStore store in _stores.Backwards())
+            for (int i = _stores.Length - 1; i >= 0; i--) // Iterate backwards
             {
                 try
                 {
                     // Try to add implementation to this store
                     // ReSharper disable PossibleMultipleEnumeration
-                    store.AddArchives(archiveInfos, manifestDigest, handler);
+                    _stores[i].AddArchives(archiveInfos, manifestDigest, handler);
                     // ReSharper restore PossibleMultipleEnumeration
                     return;
                 }
@@ -344,7 +338,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         public override string ToString()
         {
-            return "CompositeStore: " + _stores.Count + " children";
+            return "CompositeStore: " + _stores.Length + " children";
         }
         #endregion
     }

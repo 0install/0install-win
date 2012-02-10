@@ -42,9 +42,9 @@ namespace ZeroInstall.Injector
         {
             public readonly string Name;
 
-            public readonly C5.IList<string> CommandLine;
+            public readonly List<string> CommandLine;
 
-            public RunEnvPending(string name, C5.IList<string> commandLine)
+            public RunEnvPending(string name, List<string> commandLine)
             {
                 Name = name;
                 CommandLine = commandLine;
@@ -56,7 +56,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// A list of run-environment executables pending to be configured.
         /// </summary>
-        private readonly C5.LinkedList<RunEnvPending> _runEnvPendings = new C5.LinkedList<RunEnvPending>();
+        private readonly LinkedList<RunEnvPending> _runEnvPendings = new LinkedList<RunEnvPending>();
         #endregion
 
         //--------------------//
@@ -212,7 +212,7 @@ namespace ZeroInstall.Injector
             // Point variable directly to executable
             startInfo.EnvironmentVariables.Add(binding.Name, DeployRunEnvExecutable(binding.Name));
 
-            _runEnvPendings.Add(new RunEnvPending(binding.Name, GetCommandLine(implementation, binding.Command, startInfo)));
+            _runEnvPendings.AddLast(new RunEnvPending(binding.Name, GetCommandLine(implementation, binding.Command, startInfo)));
         }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace ZeroInstall.Injector
             // Add executable directory to PATH variable
             startInfo.EnvironmentVariables["PATH"] = Path.GetDirectoryName(DeployRunEnvExecutable(binding.Name)) + startInfo.EnvironmentVariables["PATH"];
 
-            _runEnvPendings.Add(new RunEnvPending(binding.Name, GetCommandLine(implementation, binding.Command, startInfo)));
+            _runEnvPendings.AddLast(new RunEnvPending(binding.Name, GetCommandLine(implementation, binding.Command, startInfo)));
         }
 
         /// <summary>
