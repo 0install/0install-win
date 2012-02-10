@@ -124,7 +124,7 @@
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=4AEA77783CDD624CA1D0077F330FA948/Reformat/@EntryValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=4AEA77783CDD624CA1D0077F330FA948/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=4AEA77783CDD624CA1D0077F330FA948/Text/@EntryValue">/*&#xD;
- * Copyright $YEAR$ $NAME$&#xD;
+ * Copyright 2006-$YEAR$ $NAME$&#xD;
  *&#xD;
  * Permission is hereby granted, free of charge, to any person obtaining a copy&#xD;
  * of this software and associated documentation files (the "Software"), to deal&#xD;
@@ -219,7 +219,7 @@ $SELECTION$$END$
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A8AA9566E8A6F747B0E66FA36FEFEB38/Reformat/@EntryValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A8AA9566E8A6F747B0E66FA36FEFEB38/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A8AA9566E8A6F747B0E66FA36FEFEB38/Text/@EntryValue">/*&#xD;
- * Copyright $YEAR$ $NAME$&#xD;
+ * Copyright 2010-$YEAR$ $NAME$&#xD;
  *&#xD;
  * This program is free software: you can redistribute it and/or modify&#xD;
  * it under the terms of the GNU Lesser Public License as published by&#xD;
