@@ -63,6 +63,11 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         public string ActionTitle { get; set; }
 
+        /// <summary>
+        /// Always returns <see langword="true"/>.
+        /// </summary>
+        public bool IsGui { get { return true; } }
+
         /// <inheritdoc />
         public bool Batch { get; set; }
         #endregion

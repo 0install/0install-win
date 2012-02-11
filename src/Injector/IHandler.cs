@@ -33,6 +33,11 @@ namespace ZeroInstall.Injector
     public interface IHandler : ITaskHandler
     {
         /// <summary>
+        /// Indicates whether this handler is a graphical user interface that displays windows.
+        /// </summary>
+        bool IsGui { get; }
+
+        /// <summary>
         /// Do not show progress reports, questions or messages (except for non-intrusive background messages like tray icons) unless a critical error occurs.
         /// </summary>
         /// <remarks>Do not change this from a background thread!</remarks>

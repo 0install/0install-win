@@ -167,7 +167,7 @@ namespace ZeroInstall.Commands
             }
 
             // Wait for a moment before closing the GUI so that focus is retained until it can be passed on to the child process
-            Thread.Sleep(1000);
+            if (Policy.Handler.IsGui) Thread.Sleep(1000);
             Policy.Handler.CloseProgressUI();
 
             if (NoWait || process == null) return 0;

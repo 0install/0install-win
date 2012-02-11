@@ -34,6 +34,11 @@ namespace ZeroInstall.Commands
     /// </summary>
     public class CliHandler : CliTaskHandler, IHandler
     {
+        /// <summary>
+        /// Always returns <see langword="false"/>.
+        /// </summary>
+        public bool IsGui { get { return false; } }
+
         /// <inheritdoc />
         public bool Batch { get; set; }
 
