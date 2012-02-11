@@ -95,7 +95,7 @@ namespace ZeroInstall.Publish
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            string tempPath = path + "." + Path.GetRandomFileName() + ".new";
+            string tempPath = path + ".new";
             try
             {
                 // Write to temporary file first

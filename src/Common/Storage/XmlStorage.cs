@@ -176,7 +176,9 @@ namespace Common.Storage
             string directory = Path.GetDirectoryName(Path.GetFullPath(path));
             if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory)) Directory.CreateDirectory(directory);
 
-            string tempPath = path + "." + Path.GetRandomFileName() + ".new";
+            // Prepend random string for temp file name
+            string tempPath = Path.GetDirectoryName(path) + Path.DirectorySeparatorChar + "temp." + Path.GetRandomFileName() + "." + Path.GetFileName(path);
+
             try
             {
                 // Write to temporary file first

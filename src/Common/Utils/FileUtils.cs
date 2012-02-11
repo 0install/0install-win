@@ -255,7 +255,8 @@ namespace Common.Utils
             // Simply move if the destination does not exist
             if (File.Exists(destinationPath))
             {
-                string backupPath = destinationPath + "." + Path.GetRandomFileName();
+                // Prepend random string for temp file name
+                string backupPath = Path.GetDirectoryName(destinationPath) + Path.DirectorySeparatorChar + "backup." + Path.GetRandomFileName() + "." + Path.GetFileName(destinationPath);
 
                 try
                 {
