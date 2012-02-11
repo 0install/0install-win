@@ -65,11 +65,21 @@ namespace ZeroInstall.Injector
         /// </summary>
         public IHandler Handler { get; private set; }
 
+        private int _verbosity;
+
         /// <summary>
         /// The detail level of messages printed to the console.
         /// 0 = normal, 1 = verbose, 2 = very verbose
         /// </summary>
-        public int Verbosity { get; set; }
+        public int Verbosity
+        {
+            get { return _verbosity; }
+            set
+            {
+                _verbosity = value;
+                OpenPgp.Verbose = (value >= 1);
+            }
+        }
         #endregion
 
         #region Constructor
@@ -115,7 +125,7 @@ namespace ZeroInstall.Injector
         {
             return new Policy(
                 Config.Load(), new FeedManager(FeedCacheProvider.CreateDefault()),
-                FetcherProvider.CreateDefault(), OpenPgpProvider.Default, SolverProvider.Default, handler);
+                FetcherProvider.CreateDefault(), OpenPgpProvider.CreateDefault(), SolverProvider.Default, handler);
         }
         #endregion
 

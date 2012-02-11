@@ -281,7 +281,7 @@ namespace ZeroInstall.Publish.WinForms
             {
                 try
                 {
-                    OpenPgpProvider.Default.DetachSign(tempFile.Path, keySpecifier, passphrase);
+                    OpenPgpProvider.CreateDefault().DetachSign(tempFile.Path, keySpecifier, passphrase);
                 }
                 catch (WrongPassphraseException)
                 {

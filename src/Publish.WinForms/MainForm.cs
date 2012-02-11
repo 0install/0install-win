@@ -357,7 +357,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             try
             {
-                return OpenPgpProvider.Default.ListSecretKeys();
+                return OpenPgpProvider.CreateDefault().ListSecretKeys();
             }
             catch (IOException)
             {
