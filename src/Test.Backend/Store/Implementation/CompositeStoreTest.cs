@@ -113,7 +113,6 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestGetPathFirst()
         {
-            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(true).Verifiable();
             _mockStore1.Setup(x => x.GetPath(_digest1)).Returns("path").Verifiable();
             Assert.AreEqual("path", _testStore.GetPath(_digest1), "Should get path from first mock");
         }
@@ -121,8 +120,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestGetPathSecond()
         {
-            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
-            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(true).Verifiable();
+            _mockStore1.Setup(x => x.GetPath(_digest1)).Returns((string)null).Verifiable();
             _mockStore2.Setup(x => x.GetPath(_digest1)).Returns("path").Verifiable();
             Assert.AreEqual("path", _testStore.GetPath(_digest1), "Should get path from second mock");
         }
@@ -130,9 +128,9 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestGetPathFail()
         {
-            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
-            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
-            Assert.Throws<ImplementationNotFoundException>(() => _testStore.GetPath(_digest1), "Should pass through fatal exceptions");
+            _mockStore1.Setup(x => x.GetPath(_digest1)).Returns((string)null).Verifiable();
+            _mockStore2.Setup(x => x.GetPath(_digest1)).Returns((string)null).Verifiable();
+            Assert.IsNull(_testStore.GetPath(_digest1));
         }
         #endregion
 

@@ -139,7 +139,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldThrowOnAddWithEmptyDigest()
         {
-            Assert.Throws(typeof(ArgumentException), () => _store.AddDirectory(_packageDir, new ManifestDigest(), new SilentHandler()));
+            Assert.Throws<ArgumentException>(() => _store.AddDirectory(_packageDir, new ManifestDigest(), new SilentHandler()));
         }
 
         [Test]
@@ -154,7 +154,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldThrowWhenRequestedPathOfUncontainedPackage()
         {
-            Assert.Throws(typeof(ImplementationNotFoundException), () => _store.GetPath(new ManifestDigest("sha256=123")));
+            Assert.IsNull(_store.GetPath(new ManifestDigest("sha256=123")));
         }
 
         [Test]

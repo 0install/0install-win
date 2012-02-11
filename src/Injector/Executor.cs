@@ -163,7 +163,13 @@ namespace ZeroInstall.Injector
             if (implementation == null) throw new ArgumentNullException("implementation");
             #endregion
 
-            return (string.IsNullOrEmpty(implementation.LocalPath) ? Store.GetPath(implementation.ManifestDigest) : implementation.LocalPath);
+            if (string.IsNullOrEmpty(implementation.LocalPath))
+            {
+                string path = Store.GetPath(implementation.ManifestDigest);
+                if (path == null) throw new ImplementationNotFoundException(implementation.ManifestDigest);
+                return path;
+            }
+            else return implementation.LocalPath;
         }
         #endregion
     }

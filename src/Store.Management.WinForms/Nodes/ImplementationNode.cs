@@ -74,7 +74,9 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
             _digest = digest;
 
             // Determine the total size of an implementation via its manifest file
-            string manifestPath = Path.Combine(store.GetPath(digest), ".manifest");
+            string path = store.GetPath(digest);
+            if (path == null) return;
+            string manifestPath = Path.Combine(path, ".manifest");
             Size = Manifest.Load(manifestPath, ManifestFormat.FromPrefix(digest.BestPrefix)).TotalSize;
         }
         #endregion
@@ -122,7 +124,11 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         {
             return new ContextMenu(new[]
             {
-                new MenuItem(Resources.OpenInFileManager, delegate { Process.Start(_store.GetPath(_digest)); }),
+                new MenuItem(Resources.OpenInFileManager, delegate
+                {
+                    string path = _store.GetPath(_digest);
+                    if (path != null) Process.Start(path);
+                }),
                 new MenuItem(Resources.Verify, delegate
                 {
                     try

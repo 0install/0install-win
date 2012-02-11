@@ -139,11 +139,12 @@ namespace ZeroInstall.Store.Implementation
             foreach (IStore store in _stores)
             {
                 // Use the first store that contains the implementation
-                if (store.Contains(manifestDigest)) return store.GetPath(manifestDigest);
+                string path = store.GetPath(manifestDigest);
+                if (path != null) return path;
             }
 
             // If we reach this, none of the stores contains the implementation
-            throw new ImplementationNotFoundException(manifestDigest);
+            return null;
         }
         #endregion
 
@@ -218,6 +219,7 @@ namespace ZeroInstall.Store.Implementation
             }
 
             // If we reach this, the implementation couldn't be added to any store
+            if (innerException != null) Log.Error(innerException.Message);
             throw new IOException(Resources.UnableToAddImplementationToStore, innerException);
         }
         #endregion

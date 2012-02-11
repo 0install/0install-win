@@ -70,9 +70,8 @@ namespace ZeroInstall.Store.Implementation
         /// Determines the local path of an implementation with a given <see cref="ManifestDigest"/>.
         /// </summary>
         /// <param name="manifestDigest">The digest the implementation to look for.</param>
-        /// <exception cref="ImplementationNotFoundException">Thrown if the requested implementation could not be found in the store.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
-        /// <returns>A fully qualified path to the directory containing the implementation.</returns>
+        /// <returns>A fully qualified path to the directory containing the implementation; <see langword="null"/> if the requested implementation could not be found in the store.</returns>
         string GetPath(ManifestDigest manifestDigest);
 
         /// <summary>

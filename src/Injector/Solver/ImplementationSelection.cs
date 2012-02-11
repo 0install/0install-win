@@ -160,18 +160,9 @@ namespace ZeroInstall.Injector.Solver
             if (store == null) throw new ArgumentNullException("store");
             #endregion
 
-            if (ID.StartsWith("package:")) return "(" + ID + ")";
-            else
-            {
-                try
-                {
-                    return store.GetPath(ManifestDigest);
-                }
-                catch (ImplementationNotFoundException)
-                {
-                    return null;
-                }
-            }
+            return ID.StartsWith("package:")
+                ? "(" + ID + ")"
+                : store.GetPath(ManifestDigest);
         }
         #endregion
 

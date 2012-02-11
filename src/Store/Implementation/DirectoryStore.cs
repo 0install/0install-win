@@ -247,7 +247,7 @@ namespace ZeroInstall.Store.Implementation
                 if (Directory.Exists(path)) return path;
             }
 
-            throw new ImplementationNotFoundException(manifestDigest);
+            return null;
         }
         #endregion
 
@@ -345,6 +345,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             string path = GetPath(manifestDigest);
+            if (path == null) throw new ImplementationNotFoundException(manifestDigest);
 
             // Defer deleting to handler
             handler.RunTask(

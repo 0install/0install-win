@@ -61,7 +61,9 @@ namespace ZeroInstall.Store.Management.Cli
         {
             if (args.Count != 2) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageFind));
 
-            Console.WriteLine(_store.GetPath(new ManifestDigest(args[1])));
+            string path = _store.GetPath(new ManifestDigest(args[1]));
+            if (path == null) throw new ImplementationNotFoundException(new ManifestDigest(args[1]));
+            Console.WriteLine(path);
         }
 
         private static void Remove(IList<string> args, ITaskHandler handler)
