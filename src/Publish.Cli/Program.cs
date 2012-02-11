@@ -312,7 +312,7 @@ namespace ZeroInstall.Publish.Cli
             }
             else
             {
-                var openPgp = OpenPgpProvider.Default;
+                var openPgp = OpenPgpProvider.CreateDefault();
 
                 // Use default secret key if there are no existing signatures
                 if (options.XmlSign && feed.SecretKey == null)
