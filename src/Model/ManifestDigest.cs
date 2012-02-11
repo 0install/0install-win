@@ -79,7 +79,7 @@ namespace ZeroInstall.Model
         {
             get
             {
-                ICollection<string> list = new LinkedList<string>();
+                var list = new List<string>(3);
 
                 if (!string.IsNullOrEmpty(Sha256)) list.Add(Sha256Prefix + "=" + Sha256);
                 if (!string.IsNullOrEmpty(Sha1New)) list.Add(Sha1NewPrefix + "=" + Sha1New);
