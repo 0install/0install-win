@@ -172,11 +172,26 @@ Feed ID: {0}
 Alte Zeit: {1}
 Neue Zeit: {2}</value>
   </data>
-  <data name="SelectionCandidateNoteIncompatibleSystem" xml:space="preserve">
-    <value>Nicht kompatibel mit dem aktuellen System</value>
+  <data name="SelectionCandidateNoteBuggy" xml:space="preserve">
+    <value>Fehlerhafte Implementierung</value>
+  </data>
+  <data name="SelectionCandidateNoteIncompatibleArchitecture" xml:space="preserve">
+    <value>Inkompatibles Betriebsystem oder CPU</value>
+  </data>
+  <data name="SelectionCandidateNoteInsecure" xml:space="preserve">
+    <value>Unsichere Implementierung</value>
+  </data>
+  <data name="SelectionCandidateNoteNotCached" xml:space="preserve">
+    <value>Implementierung nicht im Cache (derzeit im Off-Line Modus)</value>
   </data>
   <data name="SelectionCandidateNoteSource" xml:space="preserve">
     <value>Nicht ausführbare Quellcode Implementierung</value>
+  </data>
+  <data name="SelectionCandidateNoteVersionTooNew" xml:space="preserve">
+    <value>Implementierungsversion zu neu</value>
+  </data>
+  <data name="SelectionCandidateNoteVersionTooOld" xml:space="preserve">
+    <value>Implementierungsversion zu alt</value>
   </data>
   <data name="SolverProblem" xml:space="preserve">
     <value>Der Solver ist auf ein unerwartetes Problem gestoßen.</value>

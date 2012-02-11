@@ -30,7 +30,7 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// A manifest lists every file, directory and symlink in the tree and contains a hash of each file's content.
     /// </summary>
-    /// <remarks>This class is immutable.</remarks>
+    /// <remarks>This class is immutable and thread-safe.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     public sealed class Manifest : IEquatable<Manifest>

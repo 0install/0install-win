@@ -212,11 +212,38 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Not compatible with current system.
+        ///   Looks up a localized string similar to Buggy implementation.
         /// </summary>
-        internal static string SelectionCandidateNoteIncompatibleSystem {
+        internal static string SelectionCandidateNoteBuggy {
             get {
-                return ResourceManager.GetString("SelectionCandidateNoteIncompatibleSystem", resourceCulture);
+                return ResourceManager.GetString("SelectionCandidateNoteBuggy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incompatible operating system or CPU.
+        /// </summary>
+        internal static string SelectionCandidateNoteIncompatibleArchitecture {
+            get {
+                return ResourceManager.GetString("SelectionCandidateNoteIncompatibleArchitecture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insecure implementation.
+        /// </summary>
+        internal static string SelectionCandidateNoteInsecure {
+            get {
+                return ResourceManager.GetString("SelectionCandidateNoteInsecure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Implementation not in cache (currently in off-line mode).
+        /// </summary>
+        internal static string SelectionCandidateNoteNotCached {
+            get {
+                return ResourceManager.GetString("SelectionCandidateNoteNotCached", resourceCulture);
             }
         }
         
@@ -226,6 +253,24 @@ namespace ZeroInstall.Injector.Properties {
         internal static string SelectionCandidateNoteSource {
             get {
                 return ResourceManager.GetString("SelectionCandidateNoteSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Implementation version too new.
+        /// </summary>
+        internal static string SelectionCandidateNoteVersionTooNew {
+            get {
+                return ResourceManager.GetString("SelectionCandidateNoteVersionTooNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Implementation version too old.
+        /// </summary>
+        internal static string SelectionCandidateNoteVersionTooOld {
+            get {
+                return ResourceManager.GetString("SelectionCandidateNoteVersionTooOld", resourceCulture);
             }
         }
         

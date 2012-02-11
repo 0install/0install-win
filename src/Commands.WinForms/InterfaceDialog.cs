@@ -224,8 +224,8 @@ namespace ZeroInstall.Commands.WinForms
                     var implementation = element as Implementation;
                     if (implementation == null) continue;
 
-                    var candidate = new SelectionCandidate(feedID, implementation, feedPreferences.GetImplementationPreferences(implementation.ID));
-                    if (checkBoxShowAllVersions.Checked || candidate.IsCompatible)
+                    var candidate = new SelectionCandidate(feedID, implementation, feedPreferences.GetImplementationPreferences(implementation.ID), new Requirements{Architecture = Architecture.CurrentSystem});
+                    if (checkBoxShowAllVersions.Checked || candidate.IsUsable)
                         candidates.Add(candidate);
                 }
             }

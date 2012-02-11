@@ -26,7 +26,7 @@ namespace ZeroInstall.Injector.Solver
     /// <summary>
     /// Represents an <see cref="Implementation"/> that is available to an <see cref="ISolver"/> for selection.
     /// </summary>
-    public class SelectionCandidate
+    public class SelectionCandidate : IComparable<SelectionCandidate>
     {
         #region Variables
         /// <summary>The implementation this selection candidate references.</summary>
@@ -67,6 +67,12 @@ namespace ZeroInstall.Injector.Solver
         public Stability UserStability { get { return _implementationPreferences.UserStability; } set { _implementationPreferences.UserStability = value; } }
 
         /// <summary>
+        /// The <see cref="UserStability"/> if it is set, otherwise <see cref="Stability"/>.
+        /// </summary>
+        [Browsable(false)]
+        public Stability EffectiveStability { get { return (UserStability == Stability.Unset) ? Stability : UserStability; } }
+
+        /// <summary>
         /// For platform-specific binaries, the platform for which an <see cref="Model.Implementation"/> was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU. 
         /// </summary>
         [Description("For platform-specific binaries, the platform for which an implementation was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU. ")]
@@ -76,13 +82,13 @@ namespace ZeroInstall.Injector.Solver
         /// Human-readable notes about the implementation, e.g. "not suitable for this architecture".
         /// </summary>
         [Description("Human-readable notes about the implementation, e.g. \"not suitable for this architecture\".")]
-        public string Notes { get; private set; }
+        public string Notes { get; internal set; }
 
         /// <summary>
-        /// Indicates wether this implementation can be executed on the current system.
+        /// Indicates wether this implementation fullfills all specified <see cref="Requirements"/>.
         /// </summary>
         [Browsable(false)]
-        public bool IsCompatible { get; private set; }
+        public bool IsUsable { get; internal set; }
         #endregion
 
         #region Constructor
@@ -92,7 +98,8 @@ namespace ZeroInstall.Injector.Solver
         /// <param name="feedID">The file name or URL of the feed listing the implementation.</param>
         /// <param name="implementation">The implementation this selection candidate references.</param>
         /// <param name="implementationPreferences">The preferences controlling how the <see cref="ISolver"/> evaluates this candidate.</param>
-        public SelectionCandidate(string feedID, Implementation implementation, ImplementationPreferences implementationPreferences)
+        /// <param name="requirements">A set of requirements/restrictions the <paramref name="implementation"/> needs to fullfill for <see cref="IsUsable"/> to be <see langword="true"/>.</param>
+        public SelectionCandidate(string feedID, Implementation implementation, ImplementationPreferences implementationPreferences, Requirements requirements)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
@@ -103,18 +110,22 @@ namespace ZeroInstall.Injector.Solver
             FeedID = feedID;
             _implementation = implementation;
             _implementationPreferences = implementationPreferences;
-            IsCompatible = implementation.Architecture.IsCompatible(Model.Architecture.CurrentSystem);
-            Notes = GetNotes();
-        }
 
-        /// <summary>
-        /// Creates notes about the implementation's relation to the current system (e.g. why a certain implementation is not be suitable for selection).
-        /// </summary>
-        private string GetNotes()
-        {
-            if (_implementation.Architecture.Cpu == Cpu.Source) return Resources.SelectionCandidateNoteSource;
-            if (!_implementation.Architecture.IsCompatible(Model.Architecture.CurrentSystem)) return Resources.SelectionCandidateNoteIncompatibleSystem;
-            return "None";
+            if (!implementation.Architecture.IsCompatible(requirements.Architecture))
+            {
+                Notes = (_implementation.Architecture.Cpu == Cpu.Source)
+                    ? Resources.SelectionCandidateNoteSource
+                    : Resources.SelectionCandidateNoteIncompatibleArchitecture;
+            }
+            else if (requirements.NotBeforeVersion != null && Version < requirements.NotBeforeVersion)
+                Notes = Resources.SelectionCandidateNoteVersionTooOld;
+            else if (requirements.BeforeVersion != null && Version >= requirements.BeforeVersion)
+                Notes = Resources.SelectionCandidateNoteVersionTooNew;
+            else if (EffectiveStability == Stability.Buggy)
+                Notes = Resources.SelectionCandidateNoteBuggy;
+            else if (EffectiveStability == Stability.Insecure)
+                Notes = Resources.SelectionCandidateNoteInsecure;
+            else IsUsable = true;
         }
         #endregion
     }

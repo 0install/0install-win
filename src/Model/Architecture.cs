@@ -348,7 +348,7 @@ namespace ZeroInstall.Model
             if (implementation == OS.Unknown || system == OS.Unknown) return false;
 
             // Exact OS match or platform-neutral implementation
-            if (implementation == system || implementation == OS.All) return true;
+            if (implementation == system || implementation == OS.All || system == OS.All) return true;
 
             // Compatible supersets
             if (implementation == OS.Windows && system == OS.Cygwin) return true;
@@ -366,7 +366,7 @@ namespace ZeroInstall.Model
             if (implementation == Cpu.Unknown || system == Cpu.Unknown) return false;
 
             // Exact CPU match or platform-neutral implementation
-            if (implementation == system || implementation == Cpu.All) return true;
+            if (implementation == system || implementation == Cpu.All || system == Cpu.All) return true;
 
             // Compatible supersets
             if (implementation == Cpu.Ppc && system == Cpu.Ppc64) return true;

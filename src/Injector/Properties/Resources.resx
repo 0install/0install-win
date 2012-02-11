@@ -172,11 +172,26 @@ Feed ID: {0}
 Old time: {1}
 New time: {2}</value>
   </data>
-  <data name="SelectionCandidateNoteIncompatibleSystem" xml:space="preserve">
-    <value>Not compatible with current system</value>
+  <data name="SelectionCandidateNoteBuggy" xml:space="preserve">
+    <value>Buggy implementation</value>
+  </data>
+  <data name="SelectionCandidateNoteIncompatibleArchitecture" xml:space="preserve">
+    <value>Incompatible operating system or CPU</value>
+  </data>
+  <data name="SelectionCandidateNoteInsecure" xml:space="preserve">
+    <value>Insecure implementation</value>
+  </data>
+  <data name="SelectionCandidateNoteNotCached" xml:space="preserve">
+    <value>Implementation not in cache (currently in off-line mode)</value>
   </data>
   <data name="SelectionCandidateNoteSource" xml:space="preserve">
     <value>Non-executable source implementation</value>
+  </data>
+  <data name="SelectionCandidateNoteVersionTooNew" xml:space="preserve">
+    <value>Implementation version too new</value>
+  </data>
+  <data name="SelectionCandidateNoteVersionTooOld" xml:space="preserve">
+    <value>Implementation version too old</value>
   </data>
   <data name="SolverProblem" xml:space="preserve">
     <value>The solver encountered an unexpected problem.</value>
