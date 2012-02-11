@@ -60,6 +60,7 @@ namespace ZeroInstall.Injector.Solver
         /// <summary>
         /// A list of <see cref="ImplementationSelection"/>s chosen in this selection.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists", Justification = "Used for XML serialization")]
         [Description("A list of implementations chosen in this selection.")]
         [XmlElement("selection")]
         public List<ImplementationSelection> Implementations { get { return _implementations; } }

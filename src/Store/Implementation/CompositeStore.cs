@@ -46,9 +46,9 @@ namespace ZeroInstall.Store.Implementation
         /// Creates a new composite implementation provider with a set of <see cref="IStore"/>s.
         /// </summary>
         /// <param name="stores">
-        /// A priority-sorted list of <see cref="IStore"/>s.
-        /// Queried last-to-first for adding new <see cref="Model.Implementation"/>s, first-to-last otherwise.
-        /// This array must _not_ be modified once it has been passed into this constructor!
+        ///   A priority-sorted list of <see cref="IStore"/>s.
+        ///   Queried last-to-first for adding new <see cref="Model.Implementation"/>s, first-to-last otherwise.
+        ///   This array must _not_ be modified once it has been passed into this constructor!
         /// </param>
         public CompositeStore(params IStore[] stores)
         {

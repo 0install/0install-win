@@ -48,6 +48,7 @@
             this.buttonAddFeed = new System.Windows.Forms.Button();
             this.listBoxFeeds = new System.Windows.Forms.ListBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonApply = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPageVersions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVersions)).BeginInit();
@@ -57,11 +58,13 @@
             // buttonOK
             // 
             resources.ApplyResources(this.buttonOK, "buttonOK");
+            this.toolTip.SetToolTip(this.buttonOK, resources.GetString("buttonOK.ToolTip"));
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // buttonCancel
             // 
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
+            this.toolTip.SetToolTip(this.buttonCancel, resources.GetString("buttonCancel.ToolTip"));
             // 
             // tabControl
             // 
@@ -70,15 +73,17 @@
             this.tabControl.Controls.Add(this.tabPageFeeds);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
+            this.toolTip.SetToolTip(this.tabControl, resources.GetString("tabControl.ToolTip"));
             // 
             // tabPageVersions
             // 
+            resources.ApplyResources(this.tabPageVersions, "tabPageVersions");
             this.tabPageVersions.Controls.Add(this.checkBoxShowAllVersions);
             this.tabPageVersions.Controls.Add(this.labelStability);
             this.tabPageVersions.Controls.Add(this.comboBoxStability);
             this.tabPageVersions.Controls.Add(this.dataGridVersions);
-            resources.ApplyResources(this.tabPageVersions, "tabPageVersions");
             this.tabPageVersions.Name = "tabPageVersions";
+            this.toolTip.SetToolTip(this.tabPageVersions, resources.GetString("tabPageVersions.ToolTip"));
             this.tabPageVersions.UseVisualStyleBackColor = true;
             // 
             // checkBoxShowAllVersions
@@ -93,20 +98,21 @@
             // 
             resources.ApplyResources(this.labelStability, "labelStability");
             this.labelStability.Name = "labelStability";
+            this.toolTip.SetToolTip(this.labelStability, resources.GetString("labelStability.ToolTip"));
             // 
             // comboBoxStability
             // 
+            resources.ApplyResources(this.comboBoxStability, "comboBoxStability");
             this.comboBoxStability.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStability.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxStability, "comboBoxStability");
             this.comboBoxStability.Name = "comboBoxStability";
             this.toolTip.SetToolTip(this.comboBoxStability, resources.GetString("comboBoxStability.ToolTip"));
             // 
             // dataGridVersions
             // 
+            resources.ApplyResources(this.dataGridVersions, "dataGridVersions");
             this.dataGridVersions.AllowUserToAddRows = false;
             this.dataGridVersions.AllowUserToDeleteRows = false;
-            resources.ApplyResources(this.dataGridVersions, "dataGridVersions");
             this.dataGridVersions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridVersions.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataColumnVersion,
@@ -117,6 +123,7 @@
             this.dataColumnNotes,
             this.dataColumnSource});
             this.dataGridVersions.Name = "dataGridVersions";
+            this.toolTip.SetToolTip(this.dataGridVersions, resources.GetString("dataGridVersions.ToolTip"));
             // 
             // dataColumnVersion
             // 
@@ -176,11 +183,12 @@
             // 
             // tabPageFeeds
             // 
+            resources.ApplyResources(this.tabPageFeeds, "tabPageFeeds");
             this.tabPageFeeds.Controls.Add(this.buttonRemoveFeed);
             this.tabPageFeeds.Controls.Add(this.buttonAddFeed);
             this.tabPageFeeds.Controls.Add(this.listBoxFeeds);
-            resources.ApplyResources(this.tabPageFeeds, "tabPageFeeds");
             this.tabPageFeeds.Name = "tabPageFeeds";
+            this.toolTip.SetToolTip(this.tabPageFeeds, resources.GetString("tabPageFeeds.ToolTip"));
             this.tabPageFeeds.UseVisualStyleBackColor = true;
             // 
             // buttonRemoveFeed
@@ -201,27 +209,39 @@
             // 
             // listBoxFeeds
             // 
-            this.listBoxFeeds.AllowDrop = true;
             resources.ApplyResources(this.listBoxFeeds, "listBoxFeeds");
+            this.listBoxFeeds.AllowDrop = true;
             this.listBoxFeeds.DisplayMember = "Source";
             this.listBoxFeeds.FormattingEnabled = true;
             this.listBoxFeeds.Name = "listBoxFeeds";
             this.listBoxFeeds.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.toolTip.SetToolTip(this.listBoxFeeds, resources.GetString("listBoxFeeds.ToolTip"));
             this.listBoxFeeds.ValueMember = "Source";
             this.listBoxFeeds.SelectedIndexChanged += new System.EventHandler(this.listBoxFeeds_SelectedIndexChanged);
             this.listBoxFeeds.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBoxFeeds_DragDrop);
             this.listBoxFeeds.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBoxFeeds_DragEnter);
             // 
+            // buttonApply
+            // 
+            resources.ApplyResources(this.buttonApply, "buttonApply");
+            this.buttonApply.Name = "buttonApply";
+            this.toolTip.SetToolTip(this.buttonApply, resources.GetString("buttonApply.ToolTip"));
+            this.buttonApply.UseVisualStyleBackColor = true;
+            this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
+            // 
             // InterfaceDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.buttonApply);
             this.Controls.Add(this.tabControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.MaximizeBox = true;
             this.Name = "InterfaceDialog";
+            this.toolTip.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Load += new System.EventHandler(this.InterfaceDialog_Load);
             this.Controls.SetChildIndex(this.tabControl, 0);
+            this.Controls.SetChildIndex(this.buttonApply, 0);
             this.Controls.SetChildIndex(this.buttonOK, 0);
             this.Controls.SetChildIndex(this.buttonCancel, 0);
             this.tabControl.ResumeLayout(false);
@@ -253,5 +273,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataColumnArchitecture;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataColumnNotes;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataColumnSource;
+        private System.Windows.Forms.Button buttonApply;
     }
 }

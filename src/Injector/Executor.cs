@@ -62,8 +62,8 @@ namespace ZeroInstall.Injector
         /// Creates a new launcher from <see cref="Selections"/>.
         /// </summary>
         /// <param name="selections">
-        /// The specific <see cref="ImplementationSelection"/>s chosen for the <see cref="Dependency"/>s.
-        /// This object must _not_ be modified once it has been passed into this constructor!
+        ///   The specific <see cref="ImplementationSelection"/>s chosen for the <see cref="Dependency"/>s.
+        ///   This object must _not_ be modified once it has been passed into this constructor!
         /// </param>
         /// <param name="store">Used to locate the selected <see cref="Model.Implementation"/>s.</param>
         public Executor(Selections selections, IStore store)

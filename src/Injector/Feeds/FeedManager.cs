@@ -127,6 +127,7 @@ namespace ZeroInstall.Injector.Feeds
         private Feed LoadCachedFeed(string feedID, Policy policy, out bool stale)
         {
             // Detect when feeds get out-of-date
+            // ToDo: Evaluat caching the last check value somewhere
             var preferences = FeedPreferences.LoadForSafe(feedID);
             TimeSpan feedAge = DateTime.UtcNow - preferences.LastChecked;
             stale = (feedAge > policy.Config.Freshness);

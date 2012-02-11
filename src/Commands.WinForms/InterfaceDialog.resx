@@ -117,110 +117,329 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="labelStability.Text" xml:space="preserve">
+    <value>Preferred &amp;stability:</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonOK.Location" type="System.Drawing.Point, System.Drawing">
     <value>566, 310</value>
   </data>
-  <data name="&gt;&gt;buttonOK.Name" xml:space="preserve">
-    <value>buttonOK</value>
-  </data>
-  <data name="&gt;&gt;buttonOK.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonOK.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonOK.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>647, 310</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
-    <value>buttonCancel</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="tabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="checkBoxShowAllVersions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
+  <data name="&gt;&gt;buttonRemoveFeed.Parent" xml:space="preserve">
+    <value>tabPageFeeds</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="checkBoxShowAllVersions.AutoSize" type="System.Boolean, mscorlib">
+  <data name="labelStability.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="checkBoxShowAllVersions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>587, 10</value>
+  <data name="buttonAddFeed.ToolTip" xml:space="preserve">
+    <value>Adds  a new source of implementations for this interface</value>
   </data>
-  <data name="checkBoxShowAllVersions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 17</value>
+  <data name="buttonAddFeed.Text" xml:space="preserve">
+    <value>&amp;Add</value>
   </data>
-  <data name="checkBoxShowAllVersions.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="checkBoxShowAllVersions.Text" xml:space="preserve">
-    <value>Show all &amp;versions</value>
-  </data>
-  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="checkBoxShowAllVersions.ToolTip" xml:space="preserve">
-    <value>Show versions that are not supported on this system</value>
-  </data>
-  <data name="&gt;&gt;checkBoxShowAllVersions.Name" xml:space="preserve">
-    <value>checkBoxShowAllVersions</value>
+  <data name="&gt;&gt;comboBoxStability.Parent" xml:space="preserve">
+    <value>tabPageVersions</value>
   </data>
   <data name="&gt;&gt;checkBoxShowAllVersions.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;checkBoxShowAllVersions.Parent" xml:space="preserve">
-    <value>tabPageVersions</value>
+  <data name="&gt;&gt;buttonOK.Name" xml:space="preserve">
+    <value>buttonOK</value>
   </data>
-  <data name="&gt;&gt;checkBoxShowAllVersions.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;dataColumnReleased.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dataColumnReleased.Width" type="System.Int32, mscorlib">
+    <value>77</value>
+  </data>
+  <data name="&gt;&gt;checkBoxShowAllVersions.Name" xml:space="preserve">
+    <value>checkBoxShowAllVersions</value>
+  </data>
+  <data name="checkBoxShowAllVersions.ToolTip" xml:space="preserve">
+    <value>Show versions that are not supported on this system</value>
+  </data>
+  <data name="dataColumnVersion.Width" type="System.Int32, mscorlib">
+    <value>67</value>
+  </data>
+  <data name="dataColumnSource.HeaderText" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="listBoxFeeds.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="checkBoxShowAllVersions.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="dataColumnUserStability.MinimumWidth" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="dataColumnReleased.HeaderText" xml:space="preserve">
+    <value>Released</value>
+  </data>
+  <data name="&gt;&gt;dataColumnSource.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="listBoxFeeds.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonAddFeed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>538, 237</value>
+  </data>
+  <data name="tabControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>709, 292</value>
+  </data>
+  <data name="dataColumnStability.Width" type="System.Int32, mscorlib">
+    <value>70</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Interface properties</value>
+  </data>
+  <data name="tabPageFeeds.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;buttonAddFeed.Name" xml:space="preserve">
+    <value>buttonAddFeed</value>
+  </data>
+  <data name="&gt;&gt;buttonRemoveFeed.Name" xml:space="preserve">
+    <value>buttonRemoveFeed</value>
+  </data>
+  <data name="tabPageVersions.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="labelStability.AutoSize" type="System.Boolean, mscorlib">
+  <data name="checkBoxShowAllVersions.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="labelStability.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 9</value>
+  <data name="comboBoxStability.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 21</value>
   </data>
-  <data name="labelStability.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 13</value>
+  <data name="checkBoxShowAllVersions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>108, 17</value>
   </data>
-  <data name="labelStability.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="dataColumnVersion.HeaderText" xml:space="preserve">
+    <value>Version</value>
   </data>
-  <data name="labelStability.Text" xml:space="preserve">
-    <value>Preferred &amp;stability:</value>
+  <data name="buttonApply.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 23</value>
   </data>
-  <data name="&gt;&gt;labelStability.Name" xml:space="preserve">
-    <value>labelStability</value>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="listBoxFeeds.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabPageFeeds.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="dataGridVersions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;toolTip.Name" xml:space="preserve">
+    <value>toolTip</value>
   </data>
   <data name="&gt;&gt;labelStability.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;buttonApply.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="dataGridVersions.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;toolTip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="listBoxFeeds.Size" type="System.Drawing.Size, System.Drawing">
+    <value>688, 225</value>
+  </data>
+  <data name="tabPageVersions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStability.Name" xml:space="preserve">
+    <value>comboBoxStability</value>
+  </data>
+  <data name="buttonApply.Text" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="&gt;&gt;tabPageVersions.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;dataColumnStability.Name" xml:space="preserve">
+    <value>dataColumnStability</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
+    <value>buttonCancel</value>
+  </data>
+  <data name="dataColumnSource.MinimumWidth" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="&gt;&gt;listBoxFeeds.Name" xml:space="preserve">
+    <value>listBoxFeeds</value>
+  </data>
+  <data name="&gt;&gt;dataColumnVersion.Name" xml:space="preserve">
+    <value>dataColumnVersion</value>
+  </data>
+  <data name="buttonRemoveFeed.ToolTip" xml:space="preserve">
+    <value>Removes a source of implementations for this interface</value>
+  </data>
+  <data name="buttonRemoveFeed.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="labelStability.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="dataColumnUserStability.HeaderText" xml:space="preserve">
+    <value>Override</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>InterfaceDialog</value>
+  </data>
+  <data name="dataColumnNotes.Width" type="System.Int32, mscorlib">
+    <value>60</value>
+  </data>
+  <data name="&gt;&gt;listBoxFeeds.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonRemoveFeed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonRemoveFeed.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStability.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="tabPageFeeds.Text" xml:space="preserve">
+    <value>Feeds</value>
+  </data>
+  <data name="tabPageVersions.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="&gt;&gt;tabPageVersions.Parent" xml:space="preserve">
+    <value>tabControl</value>
+  </data>
+  <data name="labelStability.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 9</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>400, 220</value>
+  </data>
+  <data name="&gt;&gt;dataColumnArchitecture.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridVersions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataColumnNotes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dataColumnStability.MinimumWidth" type="System.Int32, mscorlib">
+    <value>70</value>
+  </data>
+  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>647, 310</value>
+  </data>
+  <data name="&gt;&gt;dataGridVersions.Parent" xml:space="preserve">
+    <value>tabPageVersions</value>
+  </data>
+  <data name="tabPageFeeds.Size" type="System.Drawing.Size, System.Drawing">
+    <value>701, 266</value>
+  </data>
+  <data name="&gt;&gt;tabPageFeeds.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="buttonRemoveFeed.Text" xml:space="preserve">
+    <value>&amp;Remove</value>
+  </data>
   <data name="&gt;&gt;labelStability.Parent" xml:space="preserve">
     <value>tabPageVersions</value>
   </data>
-  <data name="&gt;&gt;labelStability.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="dataGridVersions.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="listBoxFeeds.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="&gt;&gt;listBoxFeeds.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="buttonRemoveFeed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>619, 237</value>
+  </data>
+  <data name="tabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="buttonAddFeed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="&gt;&gt;tabPageFeeds.Name" xml:space="preserve">
+    <value>tabPageFeeds</value>
+  </data>
+  <data name="&gt;&gt;dataColumnVersion.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dataGridVersions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>689, 227</value>
+  </data>
+  <data name="buttonRemoveFeed.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonCancel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;dataColumnUserStability.Name" xml:space="preserve">
+    <value>dataColumnUserStability</value>
+  </data>
+  <data name="labelStability.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 13</value>
+  </data>
+  <data name="checkBoxShowAllVersions.Text" xml:space="preserve">
+    <value>Show all &amp;versions</value>
+  </data>
+  <data name="&gt;&gt;dataColumnStability.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonApply.Location" type="System.Drawing.Point, System.Drawing">
+    <value>475, 310</value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;tabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="comboBoxStability.Location" type="System.Drawing.Point, System.Drawing">
     <value>99, 6</value>
   </data>
-  <data name="comboBoxStability.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 21</value>
+  <data name="tabPageFeeds.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="&gt;&gt;buttonOK.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;dataColumnNotes.Name" xml:space="preserve">
+    <value>dataColumnNotes</value>
+  </data>
+  <data name="&gt;&gt;dataColumnArchitecture.Name" xml:space="preserve">
+    <value>dataColumnArchitecture</value>
+  </data>
+  <data name="&gt;&gt;tabPageVersions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxStability.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControl.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="checkBoxShowAllVersions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>587, 10</value>
   </data>
   <data name="comboBoxStability.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -228,337 +447,172 @@
   <data name="comboBoxStability.ToolTip" xml:space="preserve">
     <value>Determines which kind of stability rating on versions will be considered the "best" and thus chosen first</value>
   </data>
-  <data name="&gt;&gt;comboBoxStability.Name" xml:space="preserve">
-    <value>comboBoxStability</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStability.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStability.Parent" xml:space="preserve">
-    <value>tabPageVersions</value>
-  </data>
-  <data name="&gt;&gt;comboBoxStability.ZOrder" xml:space="preserve">
+  <data name="tabControl.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
-  </data>
-  <data name="dataGridVersions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <metadata name="dataColumnVersion.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataColumnVersion.HeaderText" xml:space="preserve">
-    <value>Version</value>
-  </data>
-  <data name="dataColumnVersion.Width" type="System.Int32, mscorlib">
-    <value>67</value>
-  </data>
-  <metadata name="dataColumnReleased.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataColumnReleased.HeaderText" xml:space="preserve">
-    <value>Released</value>
-  </data>
-  <data name="dataColumnReleased.Width" type="System.Int32, mscorlib">
-    <value>77</value>
-  </data>
-  <metadata name="dataColumnStability.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataColumnStability.HeaderText" xml:space="preserve">
-    <value>Stability</value>
-  </data>
-  <data name="dataColumnStability.MinimumWidth" type="System.Int32, mscorlib">
-    <value>70</value>
-  </data>
-  <data name="dataColumnStability.Width" type="System.Int32, mscorlib">
-    <value>70</value>
-  </data>
-  <data name="dataColumnUserStability.HeaderText" xml:space="preserve">
-    <value>Override</value>
-  </data>
-  <data name="dataColumnUserStability.MinimumWidth" type="System.Int32, mscorlib">
-    <value>80</value>
-  </data>
-  <data name="dataColumnUserStability.Width" type="System.Int32, mscorlib">
-    <value>80</value>
-  </data>
-  <metadata name="dataColumnArchitecture.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataColumnArchitecture.HeaderText" xml:space="preserve">
-    <value>Architecture</value>
-  </data>
-  <data name="dataColumnArchitecture.Width" type="System.Int32, mscorlib">
-    <value>89</value>
-  </data>
-  <metadata name="dataColumnNotes.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataColumnNotes.HeaderText" xml:space="preserve">
-    <value>Notes</value>
-  </data>
-  <data name="dataColumnNotes.Width" type="System.Int32, mscorlib">
-    <value>60</value>
-  </data>
-  <metadata name="dataColumnSource.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataColumnSource.HeaderText" xml:space="preserve">
-    <value>Source</value>
-  </data>
-  <data name="dataColumnSource.MinimumWidth" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <data name="dataGridVersions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 33</value>
-  </data>
-  <data name="dataGridVersions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>689, 227</value>
-  </data>
-  <data name="dataGridVersions.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;dataGridVersions.Name" xml:space="preserve">
-    <value>dataGridVersions</value>
-  </data>
-  <data name="&gt;&gt;dataGridVersions.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridVersions.Parent" xml:space="preserve">
-    <value>tabPageVersions</value>
-  </data>
-  <data name="&gt;&gt;dataGridVersions.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="tabPageVersions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tabPageVersions.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPageVersions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>701, 266</value>
-  </data>
-  <data name="tabPageVersions.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPageVersions.Text" xml:space="preserve">
-    <value>Versions</value>
-  </data>
-  <data name="&gt;&gt;tabPageVersions.Name" xml:space="preserve">
-    <value>tabPageVersions</value>
-  </data>
-  <data name="&gt;&gt;tabPageVersions.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageVersions.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabPageVersions.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonRemoveFeed.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="buttonRemoveFeed.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonRemoveFeed.Location" type="System.Drawing.Point, System.Drawing">
-    <value>619, 237</value>
-  </data>
-  <data name="buttonRemoveFeed.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="buttonRemoveFeed.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="buttonRemoveFeed.Text" xml:space="preserve">
-    <value>&amp;Remove</value>
-  </data>
-  <data name="buttonRemoveFeed.ToolTip" xml:space="preserve">
-    <value>Removes a source of implementations for this interface</value>
-  </data>
-  <data name="&gt;&gt;buttonRemoveFeed.Name" xml:space="preserve">
-    <value>buttonRemoveFeed</value>
-  </data>
-  <data name="&gt;&gt;buttonRemoveFeed.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonRemoveFeed.Parent" xml:space="preserve">
-    <value>tabPageFeeds</value>
-  </data>
-  <data name="&gt;&gt;buttonRemoveFeed.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonAddFeed.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="buttonAddFeed.Location" type="System.Drawing.Point, System.Drawing">
-    <value>538, 237</value>
-  </data>
-  <data name="buttonAddFeed.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="buttonAddFeed.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="buttonAddFeed.Text" xml:space="preserve">
-    <value>&amp;Add</value>
-  </data>
-  <data name="buttonAddFeed.ToolTip" xml:space="preserve">
-    <value>Adds  a new source of implementations for this interface</value>
-  </data>
-  <data name="&gt;&gt;buttonAddFeed.Name" xml:space="preserve">
-    <value>buttonAddFeed</value>
-  </data>
-  <data name="&gt;&gt;buttonAddFeed.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAddFeed.Parent" xml:space="preserve">
-    <value>tabPageFeeds</value>
-  </data>
-  <data name="&gt;&gt;buttonAddFeed.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="listBoxFeeds.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="listBoxFeeds.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="listBoxFeeds.Size" type="System.Drawing.Size, System.Drawing">
-    <value>688, 225</value>
-  </data>
-  <data name="listBoxFeeds.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;listBoxFeeds.Name" xml:space="preserve">
-    <value>listBoxFeeds</value>
-  </data>
-  <data name="&gt;&gt;listBoxFeeds.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;listBoxFeeds.Parent" xml:space="preserve">
-    <value>tabPageFeeds</value>
-  </data>
-  <data name="&gt;&gt;listBoxFeeds.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tabPageFeeds.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tabPageFeeds.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPageFeeds.Size" type="System.Drawing.Size, System.Drawing">
-    <value>701, 266</value>
-  </data>
-  <data name="tabPageFeeds.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tabPageFeeds.Text" xml:space="preserve">
-    <value>Feeds</value>
-  </data>
-  <data name="&gt;&gt;tabPageFeeds.Name" xml:space="preserve">
-    <value>tabPageFeeds</value>
   </data>
   <data name="&gt;&gt;tabPageFeeds.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonApply.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonOK.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;tabPageFeeds.Parent" xml:space="preserve">
     <value>tabControl</value>
   </data>
-  <data name="&gt;&gt;tabPageFeeds.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>Common.Controls.OKCancelDialog, Common, Version=1.5.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
-  <data name="tabControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 12</value>
+  <data name="dataColumnArchitecture.HeaderText" xml:space="preserve">
+    <value>Architecture</value>
   </data>
-  <data name="tabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>709, 292</value>
+  <data name="&gt;&gt;listBoxFeeds.Parent" xml:space="preserve">
+    <value>tabPageFeeds</value>
   </data>
-  <data name="tabControl.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;tabControl.Name" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;buttonOK.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;tabControl.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;tabControl.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>734, 345</value>
-  </data>
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>400, 220</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Interface properties</value>
-  </data>
-  <data name="&gt;&gt;dataColumnVersion.Name" xml:space="preserve">
-    <value>dataColumnVersion</value>
-  </data>
-  <data name="&gt;&gt;dataColumnVersion.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataColumnReleased.Name" xml:space="preserve">
-    <value>dataColumnReleased</value>
-  </data>
-  <data name="&gt;&gt;dataColumnReleased.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataColumnStability.Name" xml:space="preserve">
-    <value>dataColumnStability</value>
-  </data>
-  <data name="&gt;&gt;dataColumnStability.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataColumnUserStability.Name" xml:space="preserve">
-    <value>dataColumnUserStability</value>
+  <data name="tabPageVersions.Text" xml:space="preserve">
+    <value>Versions</value>
   </data>
   <data name="&gt;&gt;dataColumnUserStability.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;dataColumnArchitecture.Name" xml:space="preserve">
-    <value>dataColumnArchitecture</value>
+  <data name="&gt;&gt;dataGridVersions.Name" xml:space="preserve">
+    <value>dataGridVersions</value>
   </data>
-  <data name="&gt;&gt;dataColumnArchitecture.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="tabControl.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="&gt;&gt;dataColumnNotes.Name" xml:space="preserve">
-    <value>dataColumnNotes</value>
+  <data name="dataColumnArchitecture.Width" type="System.Int32, mscorlib">
+    <value>89</value>
   </data>
-  <data name="&gt;&gt;dataColumnNotes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="tabControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 12</value>
+  </data>
+  <data name="&gt;&gt;checkBoxShowAllVersions.Parent" xml:space="preserve">
+    <value>tabPageVersions</value>
+  </data>
+  <data name="buttonAddFeed.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;buttonApply.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonAddFeed.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
   </data>
   <data name="&gt;&gt;dataColumnSource.Name" xml:space="preserve">
     <value>dataColumnSource</value>
   </data>
-  <data name="&gt;&gt;dataColumnSource.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="dataGridVersions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 33</value>
   </data>
-  <data name="&gt;&gt;toolTip.Name" xml:space="preserve">
-    <value>toolTip</value>
+  <data name="tabPageVersions.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="&gt;&gt;toolTip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="dataColumnUserStability.Width" type="System.Int32, mscorlib">
+    <value>80</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>InterfaceDialog</value>
+  <data name="&gt;&gt;buttonAddFeed.Parent" xml:space="preserve">
+    <value>tabPageFeeds</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>Common.Controls.OKCancelDialog, Common, Version=1.1.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+  <data name="tabPageFeeds.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
   </data>
+  <data name="&gt;&gt;tabControl.Name" xml:space="preserve">
+    <value>tabControl</value>
+  </data>
+  <data name="buttonRemoveFeed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="&gt;&gt;checkBoxShowAllVersions.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>734, 345</value>
+  </data>
+  <data name="&gt;&gt;buttonApply.Name" xml:space="preserve">
+    <value>buttonApply</value>
+  </data>
+  <data name="&gt;&gt;buttonAddFeed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridVersions.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="buttonRemoveFeed.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;labelStability.Name" xml:space="preserve">
+    <value>labelStability</value>
+  </data>
+  <data name="checkBoxShowAllVersions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;dataColumnReleased.Name" xml:space="preserve">
+    <value>dataColumnReleased</value>
+  </data>
+  <data name="&gt;&gt;labelStability.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tabPageVersions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>701, 266</value>
+  </data>
+  <data name="&gt;&gt;buttonAddFeed.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="dataColumnNotes.HeaderText" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="labelStability.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonApply.TabIndex" type="System.Int32, mscorlib">
+    <value>999</value>
+  </data>
+  <data name="buttonOK.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonApply.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="dataColumnStability.HeaderText" xml:space="preserve">
+    <value>Stability</value>
+  </data>
+  <data name="&gt;&gt;tabPageVersions.Name" xml:space="preserve">
+    <value>tabPageVersions</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataColumnStability.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataColumnVersion.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataColumnReleased.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataColumnArchitecture.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataColumnSource.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="dataColumnNotes.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>
