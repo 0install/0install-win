@@ -134,7 +134,8 @@ namespace ZeroInstall.Store.Feeds
         /// <summary>
         /// Ensures <see cref="DiskFeedCache"/> can handle feed URIs longer than the OSes maximum supported file path length.
         /// </summary>
-        [Test]
+        // This feature has been removed to improve performance
+        //[Test]
         public void TestTooLongFilename()
         {
             if (!WindowsUtils.IsWindows) throw new InconclusiveException("Windows systems have a specific upper limit to file path lengths");

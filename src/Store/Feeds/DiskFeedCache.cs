@@ -79,10 +79,8 @@ namespace ZeroInstall.Store.Feeds
             }
 
             return File.Exists(Path.Combine(DirectoryPath, ModelUtils.Escape(feedID))) ||
-                // Too long file paths may have been contracted using a hash of the feed ID
-                File.Exists(Path.Combine(DirectoryPath, StringUtils.Hash(feedID, SHA256.Create()))) ||
-                    // Local files are passed through directly
-                    File.Exists(feedID);
+                // Local files are passed through directly
+                File.Exists(feedID);
         }
         #endregion
 
@@ -144,14 +142,7 @@ namespace ZeroInstall.Store.Feeds
             {
                 string path = Path.Combine(DirectoryPath, ModelUtils.Escape(feedID));
                 if (File.Exists(path)) return path;
-                else
-                {
-                    // Too long file paths may have been contracted using a hash of the feed ID
-                    string altPath = Path.Combine(DirectoryPath, StringUtils.Hash(feedID, SHA256.Create()));
-                    if (File.Exists(altPath)) return altPath;
-
-                    throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedID, path));
-                }
+                else throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedID, path));
             }
             else
             { // Assume invalid URIs are local paths
