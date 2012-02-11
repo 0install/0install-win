@@ -48,14 +48,14 @@ namespace ZeroInstall.Model.Capabilities
         public string ArchitectureString { get { return Architecture.ToString(); } set { Architecture = new Architecture(value); } }
 
         // Preserve order
-        private readonly C5.LinkedList<Capability> _entries = new C5.LinkedList<Capability>();
+        private readonly C5.ArrayList<Capability> _entries = new C5.ArrayList<Capability>();
 
         /// <summary>
         /// A list of <see cref="Capability"/>s.
         /// </summary>
         [Description("A list of capabilities.")]
         [XmlElement(typeof(AppRegistration)), XmlElement(typeof(AutoPlay)), XmlElement(typeof(ComServer)), XmlElement(typeof(ContextMenu)), XmlElement(typeof(DefaultProgram)), XmlElement(typeof(FileType)), XmlElement(typeof(GamesExplorer)), XmlElement(typeof(UrlProtocol))]
-        public C5.LinkedList<Capability> Entries { get { return _entries; } }
+        public C5.ArrayList<Capability> Entries { get { return _entries; } }
         #endregion
 
         //--------------------//

@@ -58,14 +58,14 @@ namespace ZeroInstall.Model.Capabilities
         public Verb Verb { get; set; }
 
         // Preserve order
-        private readonly C5.LinkedList<AutoPlayEvent> _events = new C5.LinkedList<AutoPlayEvent>();
+        private readonly C5.ArrayList<AutoPlayEvent> _events = new C5.ArrayList<AutoPlayEvent>();
 
         /// <summary>
         /// The IDs of the events this action can handle.
         /// </summary>
         [Description("The IDs of the events this action can handle.")]
         [XmlElement("event")]
-        public C5.LinkedList<AutoPlayEvent> Events { get { return _events; } }
+        public C5.ArrayList<AutoPlayEvent> Events { get { return _events; } }
 
         /// <inheritdoc/>
         [XmlIgnore]

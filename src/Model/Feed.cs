@@ -112,24 +112,24 @@ namespace ZeroInstall.Model
         public string HomepageString { get { return Homepage != null ? Homepage.ToString() : null; } set { Homepage = (value == null ? null : new Uri(value)); } }
 
         // Preserve order
-        private readonly C5.LinkedList<Icon> _icons = new C5.LinkedList<Icon>();
+        private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
 
         /// <summary>
         /// Zero or more icons to represent the program.
         /// </summary>
         [Category("Interface"), Description("Zero or more icons to represent the program.")]
         [XmlElement("icon")]
-        public C5.LinkedList<Icon> Icons { get { return _icons; } }
+        public C5.ArrayList<Icon> Icons { get { return _icons; } }
 
         // Preserve order
-        private readonly C5.LinkedList<string> _categories = new C5.LinkedList<string>();
+        private readonly C5.ArrayList<string> _categories = new C5.ArrayList<string>();
 
         /// <summary>
         /// Zero or more categories as defined by the freedesktop.org menu specification.
         /// </summary>
         [Category("Interface"), Description("Zero or more categories as defined by the freedesktop.org menu specification.")]
         [XmlElement("category")]
-        public C5.LinkedList<string> Categories { get { return _categories; } }
+        public C5.ArrayList<string> Categories { get { return _categories; } }
 
         /// <summary>
         /// If <see langword="true"/>, this element indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.
@@ -144,47 +144,47 @@ namespace ZeroInstall.Model
         public string NeedsTerminalString { get { return (NeedsTerminal ? "" : null); } set { NeedsTerminal = (value != null); } }
 
         // Preserve order
-        private readonly C5.LinkedList<FeedReference> _feeds = new C5.LinkedList<FeedReference>();
+        private readonly C5.ArrayList<FeedReference> _feeds = new C5.ArrayList<FeedReference>();
 
         /// <summary>
         /// Zero ore more additional feeds containing implementations of this interface.
         /// </summary>
         [Category("Feed"), Description("Zero ore more additional feeds containing implementations of this interface.")]
         [XmlElement("feed")]
-        public C5.LinkedList<FeedReference> Feeds { get { return _feeds; } }
+        public C5.ArrayList<FeedReference> Feeds { get { return _feeds; } }
 
         // Preserve order
-        private readonly C5.LinkedList<InterfaceReference> _feedFor = new C5.LinkedList<InterfaceReference>();
+        private readonly C5.ArrayList<InterfaceReference> _feedFor = new C5.ArrayList<InterfaceReference>();
 
         /// <summary>
         /// The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.
         /// </summary>
         [Category("Feed"), Description("The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.")]
         [XmlElement("feed-for")]
-        public C5.LinkedList<InterfaceReference> FeedFor { get { return _feedFor; } }
+        public C5.ArrayList<InterfaceReference> FeedFor { get { return _feedFor; } }
 
         // Preserve order
-        private readonly C5.LinkedList<Element> _elements = new C5.LinkedList<Element>();
+        private readonly C5.ArrayList<Element> _elements = new C5.ArrayList<Element>();
 
         /// <summary>
         /// A list of <see cref="Group"/>s and <see cref="Implementation"/>s contained within this interface.
         /// </summary>
         [Category("Implementation"), Description("A list of groups and implementations contained within this interface.")]
         [XmlElement(typeof(Implementation)), XmlElement(typeof(PackageImplementation)), XmlElement(typeof(Group))]
-        public C5.LinkedList<Element> Elements { get { return _elements; } }
+        public C5.ArrayList<Element> Elements { get { return _elements; } }
 
         // Preserve order
-        private readonly C5.LinkedList<EntryPoint> _entryPoints = new C5.LinkedList<EntryPoint>();
+        private readonly C5.ArrayList<EntryPoint> _entryPoints = new C5.ArrayList<EntryPoint>();
 
         /// <summary>
         /// A list of <see cref="EntryPoint"/>s for starting this interface.
         /// </summary>
         [Category("Implementation"), Description("A list of EntryPoints for starting this interface.")]
         [XmlElement("entry-point")]
-        public C5.LinkedList<EntryPoint> EntryPoints { get { return _entryPoints; } }
+        public C5.ArrayList<EntryPoint> EntryPoints { get { return _entryPoints; } }
 
         // Preserve order
-        private readonly C5.LinkedList<CapabilityList> _capabilityLists = new C5.LinkedList<CapabilityList>();
+        private readonly C5.ArrayList<CapabilityList> _capabilityLists = new C5.ArrayList<CapabilityList>();
 
         /// <summary>
         /// A set of <see cref="Capability"/> lists for different architectures.
@@ -192,7 +192,7 @@ namespace ZeroInstall.Model
         [Description("A set of Capability lists for different architectures.")]
         [XmlElement("capabilities", Namespace = Capability.XmlNamespace)]
         // Note: Can not use ICollection<T> interface with XML Serialization
-            public C5.LinkedList<CapabilityList> CapabilityLists
+            public C5.ArrayList<CapabilityList> CapabilityLists
         {
             get { return _capabilityLists; }
         }

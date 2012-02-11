@@ -88,14 +88,14 @@ namespace ZeroInstall.Model
         public LocalizableStringCollection Descriptions { get { return _descriptions; } }
 
         // Preserve order
-        private readonly C5.LinkedList<Icon> _icons = new C5.LinkedList<Icon>();
+        private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
 
         /// <summary>
         /// Zero or more icons to represent the command.
         /// </summary>
         [Description("Zero or more icons to represent the command.")]
         [XmlElement("icon")]
-        public C5.LinkedList<Icon> Icons { get { return _icons; } }
+        public C5.ArrayList<Icon> Icons { get { return _icons; } }
         #endregion
 
         //--------------------//

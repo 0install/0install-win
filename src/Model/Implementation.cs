@@ -33,14 +33,14 @@ namespace ZeroInstall.Model
     {
         #region Properties
         // Preserve order
-        private readonly C5.LinkedList<RetrievalMethod> _retrievalMethods = new C5.LinkedList<RetrievalMethod>();
+        private readonly C5.ArrayList<RetrievalMethod> _retrievalMethods = new C5.ArrayList<RetrievalMethod>();
 
         /// <summary>
         /// A list of <see cref="Archive"/>s as <see cref="RetrievalMethod"/>s.
         /// </summary>
         [Category("Retrieval"), Description("A list of archives as retrieval methods.")]
         [XmlElement(typeof(Archive)), XmlElement(typeof(Recipe))]
-        public C5.LinkedList<RetrievalMethod> RetrievalMethods { get { return _retrievalMethods; } }
+        public C5.ArrayList<RetrievalMethod> RetrievalMethods { get { return _retrievalMethods; } }
         #endregion
 
         //--------------------//

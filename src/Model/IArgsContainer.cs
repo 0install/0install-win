@@ -30,6 +30,6 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("A list of command-line arguments to be passed to an executable.")]
         [XmlElement("arg")]
-        C5.LinkedList<string> Arguments { get; }
+        C5.ArrayList<string> Arguments { get; }
     }
 }

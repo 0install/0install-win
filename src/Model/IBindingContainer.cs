@@ -30,6 +30,6 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("A list of bindings for implementations to locate dependencies.")]
         [XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding)), XmlElement(typeof(ExecutableInVar)), XmlElement(typeof(ExecutableInPath))]
-        C5.LinkedList<Binding> Bindings { get; }
+        C5.ArrayList<Binding> Bindings { get; }
     }
 }

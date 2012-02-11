@@ -36,14 +36,14 @@ namespace ZeroInstall.Model.Capabilities
         public override bool WindowsSystemWideOnly { get { return false; } }
 
         // Preserve order, duplicate string entries are not allowed (but not enforced)
-        private readonly C5.LinkedList<FileTypeExtension> _extensions = new C5.LinkedList<FileTypeExtension>();
+        private readonly C5.ArrayList<FileTypeExtension> _extensions = new C5.ArrayList<FileTypeExtension>();
 
         /// <summary>
         /// A list of all file extensions associated with this file type.
         /// </summary>
         [Description("A list of all file extensions associated with this file type.")]
         [XmlElement("extension")]
-        public C5.LinkedList<FileTypeExtension> Extensions { get { return _extensions; } }
+        public C5.ArrayList<FileTypeExtension> Extensions { get { return _extensions; } }
 
         /// <inheritdoc/>
         [XmlIgnore]

@@ -30,6 +30,6 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Execution"), Description("A list of interfaces this implementation depends upon.")]
         [XmlElement("requires")]
-        C5.LinkedList<Dependency> Dependencies { get; }
+        C5.ArrayList<Dependency> Dependencies { get; }
     }
 }

@@ -30,6 +30,6 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Implementation"), Description("A list of groups and implementations contained within this element.")]
         [XmlElement(typeof(Implementation)), XmlElement(typeof(PackageImplementation)), XmlElement(typeof(Group))]
-        C5.LinkedList<Element> Elements { get; }
+        C5.ArrayList<Element> Elements { get; }
     }
 }

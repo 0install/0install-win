@@ -36,14 +36,14 @@ namespace ZeroInstall.Model.Capabilities
         public override bool WindowsSystemWideOnly { get { return false; } }
 
         // Preserve order
-        private readonly C5.LinkedList<KnownProtocolPrefix> _knownPrefixes = new C5.LinkedList<KnownProtocolPrefix>();
+        private readonly C5.ArrayList<KnownProtocolPrefix> _knownPrefixes = new C5.ArrayList<KnownProtocolPrefix>();
 
         /// <summary>
         /// A well-known protocol prefix such as "http". Should be empty and set in <see cref="Capability.ID"/> instead if it is a custom protocol.
         /// </summary>
         [Description("The protocoles prefix such as \"http\". Should be empty and set in ID instead if it is a custom protocol.")]
         [XmlElement("known-prefix")]
-        public C5.LinkedList<KnownProtocolPrefix> KnownPrefixes { get { return _knownPrefixes; } }
+        public C5.ArrayList<KnownProtocolPrefix> KnownPrefixes { get { return _knownPrefixes; } }
 
         /// <inheritdoc/>
         [XmlIgnore]

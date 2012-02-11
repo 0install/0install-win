@@ -70,24 +70,24 @@ namespace ZeroInstall.Model
         public string Use { get; set; }
 
         // Preserve order
-        private readonly C5.LinkedList<Constraint> _constraints = new C5.LinkedList<Constraint>();
+        private readonly C5.ArrayList<Constraint> _constraints = new C5.ArrayList<Constraint>();
 
         /// <summary>
         /// A list of version <see cref="Constraint"/>s that must be fulfilled.
         /// </summary>
         [Description("A list of version constraints that must be fulfilled.")]
         [XmlElement("version")]
-        public C5.LinkedList<Constraint> Constraints { get { return _constraints; } }
+        public C5.ArrayList<Constraint> Constraints { get { return _constraints; } }
 
         // Preserve order
-        private readonly C5.LinkedList<Binding> _bindings = new C5.LinkedList<Binding>();
+        private readonly C5.ArrayList<Binding> _bindings = new C5.ArrayList<Binding>();
 
         /// <summary>
         /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
         [Description("A list of bindings for implementations to locate dependencies.")]
         [XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding)), XmlElement(typeof(ExecutableInVar)), XmlElement(typeof(ExecutableInPath))]
-        public C5.LinkedList<Binding> Bindings { get { return _bindings; } }
+        public C5.ArrayList<Binding> Bindings { get { return _bindings; } }
         #endregion
 
         //--------------------//

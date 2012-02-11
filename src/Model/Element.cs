@@ -152,27 +152,27 @@ namespace ZeroInstall.Model
         public string DocDir { get; set; }
 
         // Preserve order
-        private readonly C5.LinkedList<Dependency> _dependencies = new C5.LinkedList<Dependency>();
+        private readonly C5.ArrayList<Dependency> _dependencies = new C5.ArrayList<Dependency>();
 
         /// <summary>
         /// A list of interfaces this implementation depends upon.
         /// </summary>
         [Category("Execution"), Description("A list of interfaces this implementation depends upon.")]
         [XmlElement("requires")]
-        public C5.LinkedList<Dependency> Dependencies { get { return _dependencies; } }
+        public C5.ArrayList<Dependency> Dependencies { get { return _dependencies; } }
 
         // Preserve order
-        private readonly C5.LinkedList<Binding> _bindings = new C5.LinkedList<Binding>();
+        private readonly C5.ArrayList<Binding> _bindings = new C5.ArrayList<Binding>();
 
         /// <summary>
         /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
         [Description("A list of bindings for implementations to locate dependencies.")]
         [XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding)), XmlElement(typeof(ExecutableInVar)), XmlElement(typeof(ExecutableInPath))]
-        public C5.LinkedList<Binding> Bindings { get { return _bindings; } }
+        public C5.ArrayList<Binding> Bindings { get { return _bindings; } }
 
         // Preserve order
-        private readonly C5.LinkedList<Command> _commands = new C5.LinkedList<Command>();
+        private readonly C5.ArrayList<Command> _commands = new C5.ArrayList<Command>();
 
         /// <summary>
         /// A list of commands that can be used to launch this implementation.
@@ -180,7 +180,7 @@ namespace ZeroInstall.Model
         /// <remarks>This will eventually replace <see cref="Main"/> and <see cref="SelfTest"/>.</remarks>
         [Category("Execution"), Description("A list of commands that can be used to launch this implementation.")]
         [XmlElement("command")]
-        public C5.LinkedList<Command> Commands { get { return _commands; } }
+        public C5.ArrayList<Command> Commands { get { return _commands; } }
         #endregion
 
         //--------------------//
