@@ -26,7 +26,7 @@ namespace ZeroInstall.Injector.Solver
     /// <summary>
     /// Uses an external process to solve dependencies.
     /// </summary>
-    /// <remarks>This class is immutable.</remarks>
+    /// <remarks>This class is immutable and thread-safe.</remarks>
     public sealed class ExternalSolver : ISolver
     {
         /// <inheritdoc />

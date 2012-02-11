@@ -14,7 +14,7 @@ namespace ZeroInstall.Model
     /// DottedList := (Integer ("." Integer)*)
     /// </code>
     /// </remarks>
-    /// <remarks>This class is immutable.</remarks>
+    /// <remarks>This class is immutable and thread-safe.</remarks>
     [Serializable]
     internal sealed class DottedList : IEquatable<DottedList>, IComparable<DottedList>
     {

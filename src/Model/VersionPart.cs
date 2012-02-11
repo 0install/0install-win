@@ -25,7 +25,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Represents a part of a <see cref="ImplementationVersion"/> containing nothing, a <see cref="VersionModifier"/>, a <see cref="DottedList"/> or both.
     /// </summary>
-    /// <remarks>This class is immutable.</remarks>
+    /// <remarks>This class is immutable and thread-safe.</remarks>
     [Serializable]
     internal class VersionPart : IEquatable<VersionPart>, IComparable<VersionPart>
     {
