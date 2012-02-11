@@ -212,19 +212,7 @@ namespace ZeroInstall.Store.Feeds
             ModelUtils.ValidateInterfaceID(feedID);
             #endregion
 
-            // Delete from both regular and contracted path
-            try
-            {
-                File.Delete(Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)));
-            }
-            catch (PathTooLongException)
-            {}
-            try
-            {
-                File.Delete(Path.Combine(DirectoryPath, StringUtils.Hash(feedID, SHA256.Create())));
-            }
-            catch (PathTooLongException)
-            {}
+            File.Delete(Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)));
         }
         #endregion
     }
