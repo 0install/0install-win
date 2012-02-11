@@ -26,7 +26,7 @@ namespace ZeroInstall.Injector.Solver
     /// <summary>
     /// Represents an <see cref="Implementation"/> that is available to an <see cref="ISolver"/> for selection.
     /// </summary>
-    public class SelectionCandidate : IComparable<SelectionCandidate>
+    public class SelectionCandidate
     {
         #region Variables
         /// <summary>The implementation this selection candidate references.</summary>
