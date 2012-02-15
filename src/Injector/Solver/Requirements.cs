@@ -113,7 +113,7 @@ namespace ZeroInstall.Injector.Solver
         {
             var builder = new StringBuilder();
 
-            if (!string.IsNullOrEmpty(CommandName)) builder.Append("--command=" + StringUtils.EscapeArgument(CommandName) + " ");
+            if (CommandName != null) builder.Append("--command=" + StringUtils.EscapeArgument(CommandName) + " ");
             if (Architecture.Cpu == Cpu.Source) builder.Append("--source ");
             else
             {

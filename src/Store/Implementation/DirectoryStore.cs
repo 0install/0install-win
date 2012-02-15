@@ -391,6 +391,20 @@ namespace ZeroInstall.Store.Implementation
                         try
                         {
                             FileUtils.DisableWriteProtection(path);
+                        }
+                            #region Error handling
+                        catch (IOException)
+                        {
+                            // Ignore since we may be able to delete it anyway
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            // Ignore since we may be able to delete it anyway
+                        }
+                        #endregion
+
+                        try
+                        {
                             Directory.Delete(path, true);
                         }
                             #region Error handling
