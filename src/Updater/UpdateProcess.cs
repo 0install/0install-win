@@ -35,7 +35,7 @@ namespace ZeroInstall.Updater
     {
         #region Variables
         /// <summary>A mutex that prevents Zero Install instances from being launched while an update is in progress.</summary>
-        private AppMutex _blockingMutex;
+        private AppMutex _blockingMutexOld, _blockingMutexNew;
         #endregion
 
         #region Properties
@@ -108,11 +108,25 @@ namespace ZeroInstall.Updater
         /// </summary>
         public void MutexWait()
         {
-            string targetMutex = "mutex-" + StringUtils.Hash(Target, SHA256.Create());
-            while (AppMutex.Probe(targetMutex))
+            // Installation paths are encoded into mutex names to allow instance detection
+            // Support old versions that used SHA256 for mutex names (unnecessarily complex since not security-relevant)
+            string targetMutexOld = "mutex-" + StringUtils.Hash(Target, SHA256.Create());
+            string targetMutexNew = "mutex-" + StringUtils.Hash(Target, MD5.Create());
+
+            // Wait for existing instances to terminate
+            while (AppMutex.Probe(targetMutexOld))
                 Thread.Sleep(1000);
-            AppMutex.Create(targetMutex + "-update", out _blockingMutex);
-            while (AppMutex.Probe(targetMutex))
+            while (AppMutex.Probe(targetMutexNew))
+                Thread.Sleep(1000);
+
+            // Prevent new instances from starting
+            AppMutex.Create(targetMutexOld + "-update", out _blockingMutexOld);
+            AppMutex.Create(targetMutexNew + "-update", out _blockingMutexNew);
+
+            // Detect any new instances that started in the short time between detecting existing ones and blocking new ones
+            while (AppMutex.Probe(targetMutexOld))
+                Thread.Sleep(1000);
+            while (AppMutex.Probe(targetMutexNew))
                 Thread.Sleep(1000);
         }
         #endregion
@@ -224,7 +238,8 @@ namespace ZeroInstall.Updater
         /// </summary>
         public void Done()
         {
-            _blockingMutex.Close();
+            _blockingMutexOld.Close();
+            _blockingMutexNew.Close();
         }
         #endregion
     }

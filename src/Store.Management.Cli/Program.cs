@@ -73,8 +73,8 @@ namespace ZeroInstall.Store.Management.Cli
         /// </summary>
         public static int Main(string[] args)
         {
-            // Prevent launch during update and allow instance detection
-            string mutexName = "mutex-" + StringUtils.Hash(Locations.InstallBase, SHA256.Create());
+            // Encode installation path into mutex name to allow instance detection during updates
+            string mutexName = "mutex-" + StringUtils.Hash(Locations.InstallBase, MD5.Create());
             if (AppMutex.Probe(mutexName + "-update")) return 99;
             AppMutex.Create(mutexName);
 #if !DEBUG
