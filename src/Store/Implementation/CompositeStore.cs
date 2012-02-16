@@ -105,9 +105,6 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Contains
-        // ToDo: Replace with lock-less multi-threaded dictionary
-        private readonly Dictionary<ManifestDigest, bool> _containsCache = new Dictionary<ManifestDigest, bool>();
-
         /// <inheritdoc />
         public bool Contains(ManifestDigest manifestDigest)
         {
@@ -130,14 +127,6 @@ namespace ZeroInstall.Store.Implementation
             // If we reach this, none of the stores contains the implementation
             lock (_containsCache) _containsCache[manifestDigest] = false;
             return false;
-        }
-
-        /// <summary>
-        /// Clears the internal cache used by <see cref="Contains(ManifestDigest)"/>.
-        /// </summary>
-        public void ClearContainsCache()
-        {
-            lock (_containsCache) _containsCache.Clear();
         }
 
         /// <inheritdoc />
@@ -179,6 +168,8 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
+            ClearCaches();
+
             // Find the last store the implementation can be added to (some might be write-protected)
             Exception innerException = null;
             for (int i = _stores.Length - 1; i >= 0; i--) // Iterate backwards
@@ -215,6 +206,8 @@ namespace ZeroInstall.Store.Implementation
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
+
+            ClearCaches();
 
             // Find the last store the implementation can be added to (some might be write-protected)
             Exception innerException = null;
@@ -254,6 +247,8 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
+            ClearCaches();
+
             bool removed = false;
             foreach (IStore store in _stores)
             {
@@ -274,6 +269,8 @@ namespace ZeroInstall.Store.Implementation
             if (string.IsNullOrEmpty(directory)) throw new ArgumentNullException("directory");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
+
+            ClearCaches();
 
             bool removed = false;
             foreach (IStore store in _stores)
@@ -351,6 +348,17 @@ namespace ZeroInstall.Store.Implementation
                         yield return problem;
                 }
             }
+        }
+        #endregion
+
+        #region Caches
+        // ToDo: Replace with lock-less multi-threaded dictionary
+        private readonly Dictionary<ManifestDigest, bool> _containsCache = new Dictionary<ManifestDigest, bool>();
+
+        /// <inheritdoc />
+        public void ClearCaches()
+        {
+            lock (_containsCache) _containsCache.Clear();
         }
         #endregion
 

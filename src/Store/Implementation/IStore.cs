@@ -162,5 +162,10 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="IOException">Thrown if a directory in the store could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
         IEnumerable<DigestMismatchException> Audit(ITaskHandler handler);
+
+        /// <summary>
+        /// Clears any internal memory caches.
+        /// </summary>
+        void ClearCaches();
     }
 }

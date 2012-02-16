@@ -120,7 +120,7 @@ namespace ZeroInstall.Store.Implementation
             Assert.IsTrue(_testStore.Contains(_digest1));
 
             // Then clear cache and report different result
-            _testStore.ClearContainsCache();
+            _testStore.ClearCaches();
             _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
             _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
             Assert.IsFalse(_testStore.Contains(_digest1));

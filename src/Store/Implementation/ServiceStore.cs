@@ -261,6 +261,14 @@ namespace ZeroInstall.Store.Implementation
         }
         #endregion
 
+        #region Caches
+        /// <inheritdoc />
+        public void ClearCaches()
+        {
+            // No internal caching
+        }
+        #endregion
+
         //--------------------//
 
         #region Conversion
