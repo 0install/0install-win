@@ -107,6 +107,24 @@ namespace ZeroInstall.Store.Implementation
             _mockStore2.Setup(x => x.Contains("dir1")).Returns(false).Verifiable();
             Assert.IsFalse(_testStore.Contains("dir1"));
         }
+
+        [Test]
+        public void TestContainsCache()
+        {
+            // First have underlying store report true
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(true).Verifiable();
+            Assert.IsTrue(_testStore.Contains(_digest1));
+
+            // Then check the composite cached the result
+            _mockStore1.Setup(x => x.Contains(_digest1)).Throws(new AssertionException("Should not call underlying store when result is cached"));
+            Assert.IsTrue(_testStore.Contains(_digest1));
+
+            // Then clear cache and report different result
+            _testStore.ClearContainsCache();
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
+            Assert.IsFalse(_testStore.Contains(_digest1));
+        }
         #endregion
 
         #region Get path

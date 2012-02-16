@@ -28,7 +28,7 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Combines multiple <see cref="IStore"/>s as a composite.
+    /// Combines multiple <see cref="IStore"/>s as a composite. Adds memory caching for <see cref="IStore.Contains(ManifestDigest)"/>.
     /// </summary>
     /// <remarks>
     ///   <para>When adding new <see cref="Model.Implementation"/>s the last child <see cref="IStore"/> that doesn't throw an <see cref="UnauthorizedAccessException"/> is used.</para>
@@ -105,17 +105,39 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Contains
+        // ToDo: Replace with lock-less multi-threaded dictionary
+        private readonly Dictionary<ManifestDigest, bool> _containsCache = new Dictionary<ManifestDigest, bool>();
+
         /// <inheritdoc />
         public bool Contains(ManifestDigest manifestDigest)
         {
+            lock (_containsCache)
+            {
+                bool result;
+                if (_containsCache.TryGetValue(manifestDigest, out result)) return result;
+            }
+
             foreach (IStore store in _stores)
             {
                 // Check if any store contains the implementation
-                if (store.Contains(manifestDigest)) return true;
+                if (store.Contains(manifestDigest))
+                {
+                    lock (_containsCache) _containsCache[manifestDigest] = true;
+                    return true;
+                }
             }
 
             // If we reach this, none of the stores contains the implementation
+            lock (_containsCache) _containsCache[manifestDigest] = false;
             return false;
+        }
+
+        /// <summary>
+        /// Clears the internal cache used by <see cref="Contains(ManifestDigest)"/>.
+        /// </summary>
+        public void ClearContainsCache()
+        {
+            lock (_containsCache) _containsCache.Clear();
         }
 
         /// <inheritdoc />
