@@ -20,8 +20,11 @@
  * THE SOFTWARE.
  */
 
+using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
+using Common.Properties;
 using Common.Storage;
 using Common.Utils;
 
@@ -39,13 +42,22 @@ namespace Common.Cli
         /// <remarks>
         /// If a sub-directory named like <paramref name="name"/> is found in the installation directory this is used.
         /// Otherwise we try to locate the directory within the "bundled" directory (parallel to "src").
+        /// Finally try the working directory.
         /// </remarks>
         public static string GetBundledDirectory(string name)
         {
-            // Use the installation directory of the launching application since the current directory may be arbitrary
-            return Directory.Exists(Path.Combine(Locations.InstallBase, name))
-                ? Path.Combine(Locations.InstallBase, name)
-                : FileUtils.PathCombine(Locations.InstallBase, "..", "..", "..", "bundled", name);
+            string path = Path.Combine(Locations.InstallBase, name); // Installation directory
+            if (Directory.Exists(path)) return path;
+            path = Path.Combine(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location) ?? "", name); // Library installation diretory
+            if (Directory.Exists(path)) return path;
+            path = FileUtils.PathCombine(Locations.InstallBase, "..", "..", "..", "bundled", name); // Parallel directory during development
+            if (Directory.Exists(path)) return path;
+            path = FileUtils.PathCombine(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location) ?? "", "..", "..", "..", "bundled", name); // Parallel directory during development
+            if (Directory.Exists(path)) return path;
+            path = Path.Combine(Environment.CurrentDirectory, name); // Working directory
+            if (Directory.Exists(path)) return path;
+
+            throw new IOException(string.Format(Resources.UnableToLaunchBundled, name));
         }
 
         /// <summary>
