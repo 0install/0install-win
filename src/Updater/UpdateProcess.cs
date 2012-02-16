@@ -194,8 +194,7 @@ namespace ZeroInstall.Updater
         {
             string fileName = FileUtils.PathCombine(
                 (Environment.GetEnvironmentVariable("windir") ?? @"C:\Windows"),
-                "Microsoft.NET",
-                (WindowsUtils.Is64BitOperatingSystem ? "Framework64" : "Framework"),
+                "Microsoft.NET", (WindowsUtils.Is64BitOperatingSystem ? "Framework64" : "Framework"),
                 "v2.0.50727", "ngen.exe");
 
             foreach (string assembly in _ngenAssemblies)
