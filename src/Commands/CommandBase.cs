@@ -52,7 +52,8 @@ namespace ZeroInstall.Commands
         protected readonly OptionSet Options = new OptionSet();
 
         /// <summary>Feeds to add, terms to search for, etc.</summary>
-        protected List<string> AdditionalArgs = new List<string>();
+        [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists", Justification = "Using a List<T> for performance reasons")]
+        protected readonly List<string> AdditionalArgs = new List<string>();
         #endregion
 
         #region Properties

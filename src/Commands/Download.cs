@@ -106,7 +106,7 @@ namespace ZeroInstall.Commands
 
             try
             {
-                UncachedImplementations = Selections.ListUncachedImplementations(Policy.Fetcher.Store, Policy.FeedManager.Cache);
+                UncachedImplementations = Selections.GetUncachedImplementations(Policy);
             }
                 #region Error handling
             catch (InvalidDataException ex)
@@ -130,7 +130,7 @@ namespace ZeroInstall.Commands
 
             try
             {
-                Policy.Fetcher.RunSync(new FetchRequest(UncachedImplementations, Policy.Handler));
+                Policy.Fetcher.FetchImplementations(UncachedImplementations, Policy.Handler);
             }
             catch
             {

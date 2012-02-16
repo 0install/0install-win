@@ -47,8 +47,8 @@ namespace ZeroInstall.Injector.Solver
         }
         #endregion
 
-        [Test(Description = "Ensures that Selections.ListUncachedImplementations() correctly finds Implementations not cached in a store")]
-        public void TestListUncachedImplementations()
+        [Test(Description = "Ensures that Selections.GetUncachedImplementations() correctly finds Implementations not cached in a store")]
+        public void TestGetUncachedImplementations()
         {
             var feed = FeedTest.CreateTestFeed();
             var selections = CreateTestSelections();
@@ -65,7 +65,7 @@ namespace ZeroInstall.Injector.Solver
             storeMock.Setup(x => x.Contains(selections.Implementations[1].ManifestDigest)).Returns(true).Verifiable();
             storeMock.Setup(x => x.Contains(default(ManifestDigest))).Returns(false).Verifiable();
 
-            var implementations = selections.ListUncachedImplementations(storeMock.Object, cacheMock.Object);
+            var implementations = selections.GetUncachedImplementations(storeMock.Object, cacheMock.Object);
 
             // Only the first implementation should be listed as uncached
             CollectionAssert.AreEquivalent(new[] {feed.Elements[0]}, implementations);

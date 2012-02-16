@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using Common;
 using Common.Collections;
@@ -126,6 +127,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Model.Implementation"/>s is not cached yet.</exception>
         /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
         /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
+        [SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength", Justification = "Explicit test for empty but non-null strings is intended")]
         protected int LaunchImplementation()
         {
             if (Requirements.CommandName == "")

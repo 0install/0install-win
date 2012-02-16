@@ -56,7 +56,6 @@
     <Compile Include="ImplementationFetch.cs" />
     <Compile Include="RetrievalMethodRanker.cs" />
     <Compile Include="FetcherProvider.cs" />
-    <Compile Include="FetchRequest.cs" />
     <Compile Include="Fetcher.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IFetcher.cs" />

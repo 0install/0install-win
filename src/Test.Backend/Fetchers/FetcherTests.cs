@@ -164,8 +164,7 @@ namespace ZeroInstall.Fetchers
 
             try
             {
-                var request = new FetchRequest(new List<Implementation> {implementation}, new SilentHandler());
-                _fetcher.RunSync(request);
+                _fetcher.FetchImplementations(new List<Implementation> {implementation}, new SilentHandler());
             }
             finally
             {
@@ -188,8 +187,7 @@ namespace ZeroInstall.Fetchers
             Implementation implementation = SynthesizeImplementation("archive.zip", archiveOffset, PackageBuilderManifestExtension.ComputePackageDigest(package), out server);
             try
             {
-                var request = new FetchRequest(new List<Implementation> {implementation}, new SilentHandler());
-                _fetcher.RunSync(request);
+                _fetcher.FetchImplementations(new List<Implementation> {implementation}, new SilentHandler());
             }
             finally
             {
@@ -243,8 +241,7 @@ namespace ZeroInstall.Fetchers
             var implementation = SynthesizeImplementation("archive.zip", 0, PackageBuilderManifestExtension.ComputePackageDigest(builder), out server);
             try
             {
-                var request = new FetchRequest(new List<Implementation> {implementation}, new SilentHandler());
-                _fetcher.RunSync(request);
+                _fetcher.FetchImplementations(new List<Implementation> {implementation}, new SilentHandler());
             }
             finally
             {
@@ -295,8 +292,7 @@ namespace ZeroInstall.Fetchers
                     ManifestDigest = PackageBuilderManifestExtension.ComputePackageDigest(merged),
                     RetrievalMethods = {recipe}
                 };
-                var request = new FetchRequest(new List<Implementation> {implementation}, new SilentHandler());
-                Assert.DoesNotThrow(() => _fetcher.RunSync(request));
+                Assert.DoesNotThrow(() => _fetcher.FetchImplementations(new List<Implementation> {implementation}, new SilentHandler()));
                 Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
             }
         }
@@ -328,8 +324,7 @@ namespace ZeroInstall.Fetchers
                     RetrievalMethods = {fakeArchive, archive}
                 };
 
-                var request = new FetchRequest(new List<Implementation> {implementation}, new SilentHandler());
-                _fetcher.RunSync(request);
+                _fetcher.FetchImplementations(new List<Implementation> {implementation}, new SilentHandler());
                 Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
             }
         }
@@ -409,8 +404,7 @@ namespace ZeroInstall.Fetchers
             };
             try
             {
-                var request = new FetchRequest(new List<Implementation> {implementation}, new SilentHandler());
-                fetcher.RunSync(request);
+                fetcher.FetchImplementations(new List<Implementation> {implementation}, new SilentHandler());
             }
             catch (MockException)
             {}
@@ -451,8 +445,7 @@ namespace ZeroInstall.Fetchers
             };
             try
             {
-                var request = new FetchRequest(new List<Implementation> {implementation}, new SilentHandler());
-                fetcher.RunSync(request);
+                fetcher.FetchImplementations(new List<Implementation> {implementation}, new SilentHandler());
             }
             catch (MockException)
             {}

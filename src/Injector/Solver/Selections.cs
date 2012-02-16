@@ -175,7 +175,7 @@ namespace ZeroInstall.Injector.Solver
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the feed file could not be parsed.</exception>
-        public ICollection<Implementation> ListUncachedImplementations(IStore searchStore, IFeedCache feedCache)
+        public ICollection<Implementation> GetUncachedImplementations(IStore searchStore, IFeedCache feedCache)
         {
             #region Sanity checks
             if (searchStore == null) throw new ArgumentNullException("searchStore");
@@ -204,6 +204,25 @@ namespace ZeroInstall.Injector.Solver
             }
 
             return notCached;
+        }
+
+        /// <summary>
+        /// Returns a list of any selected downloadable <see cref="ImplementationBase"/>s that are missing from an <see cref="IStore"/>.
+        /// </summary>
+        /// <param name="policy">Provides an <see cref="IStore"/> and an <see cref="IFeedCache"/>.</param>
+        /// <returns>An object that allows the main <see cref="ImplementationBase"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
+        /// <remarks>Feed files may be downloaded, no implementations are downloaded.</remarks>
+        /// <exception cref="KeyNotFoundException">Thrown if the requested feed was not found in the cache.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if the feed file could not be parsed.</exception>
+        public ICollection<Implementation> GetUncachedImplementations(Policy policy)
+        {
+            #region Sanity checks
+            if (policy == null) throw new ArgumentNullException("policy");
+            #endregion
+
+            return GetUncachedImplementations(policy.Fetcher.Store, policy.FeedManager.Cache);
         }
         #endregion
 

@@ -16,6 +16,8 @@
  */
 
 using System;
+using System.Collections.Generic;
+using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 
@@ -68,16 +70,17 @@ namespace ZeroInstall.Fetchers
 
         #region Join
         /// <inheritdoc/>
-        public void RunSync(FetchRequest fetchRequest)
+        public void FetchImplementations(IEnumerable<Implementation> implementations, ITaskHandler handler)
         {
             #region Sanity checks
-            if (fetchRequest == null) throw new ArgumentNullException("fetchRequest");
+            if (implementations == null) throw new ArgumentNullException("implementations");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            foreach (var implementation in fetchRequest.Implementations)
+            foreach (var implementation in implementations)
             {
                 var fetchProcess = CreateFetch(implementation);
-                fetchProcess.Execute(fetchRequest.Handler);
+                fetchProcess.Execute(handler);
                 if (!fetchProcess.Completed) throw fetchProcess.Problems.Last;
             }
         }

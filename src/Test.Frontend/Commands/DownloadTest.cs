@@ -18,7 +18,6 @@
 using System;
 using Common.Storage;
 using NUnit.Framework;
-using ZeroInstall.Fetchers;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 
@@ -65,8 +64,7 @@ namespace ZeroInstall.Commands
             CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(testFeed2);
 
             // Download uncached implementations
-            var request = new FetchRequest(new[] {testImplementation1, testImplementation2}, Policy.Handler);
-            FetcherMock.Setup(x => x.RunSync(request)).Verifiable();
+            FetcherMock.Setup(x => x.FetchImplementations(new[] {testImplementation1, testImplementation2}, Policy.Handler)).Verifiable();
 
             Assert.AreEqual(0, Command.Execute());
         }

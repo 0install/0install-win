@@ -16,13 +16,13 @@
  */
 
 using System;
+using System.Collections.Generic;
 using Common.Storage;
+using Common.Tasks;
 using Moq;
 using NUnit.Framework;
-using ZeroInstall.Fetchers;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
-using ImplementationSelection = ZeroInstall.Injector.Solver.ImplementationSelection;
 
 namespace ZeroInstall.Commands
 {
@@ -60,7 +60,7 @@ namespace ZeroInstall.Commands
             CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub3.xml")).Returns(FeedTest.CreateTestFeed());
 
             // Download uncached implementations
-            FetcherMock.Setup(x => x.RunSync(It.IsAny<FetchRequest>())).Verifiable();
+            FetcherMock.Setup(x => x.FetchImplementations(It.IsAny<IEnumerable<Implementation>>(), It.IsAny<ITaskHandler>())).Verifiable();
 
             var args = new[] {"http://0install.de/feeds/test/test1.xml", "--command=command name", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0"};
             AssertParseExecuteResult(args, selectionsNew, "http://0install.de/feeds/test/test2.xml: 1.0 -> 2.0" + Environment.NewLine + "http://0install.de/feeds/test/sub3.xml: new -> 0.1", 0);
