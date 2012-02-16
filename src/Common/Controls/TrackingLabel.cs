@@ -119,6 +119,11 @@ namespace Common.Controls
                         ForeColor = SystemColors.ControlText;
                         break;
 
+                    case TaskState.Started:
+                        Text = "";
+                        ForeColor = SystemColors.ControlText;
+                        break;
+
                     case TaskState.Header:
                         Text = Resources.StateHeader;
                         ForeColor = SystemColors.ControlText;

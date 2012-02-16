@@ -100,7 +100,7 @@ namespace ZeroInstall.Store.Implementation
             try
             {
                 if (_cancelRequest) return;
-                lock (StateLock) State = TaskState.Header;
+                lock (StateLock) State = TaskState.Started;
 
                 // Get the complete (recursive) content of the directory sorted according to the format specification
                 var entries = Format.GetSortedDirectoryEntries(TargetDir);

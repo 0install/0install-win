@@ -122,6 +122,8 @@ namespace Common.Tasks
         /// <inheritdoc/>
         public void RunSync(CancellationToken cancellationToken)
         {
+            lock (_stateLock) State = TaskState.Started;
+
             try
             {
                 _work();
@@ -145,6 +147,8 @@ namespace Common.Tasks
                 throw;
             }
             #endregion
+            
+            lock (_stateLock) State = TaskState.Complete;
         }
 
         /// <inheritdoc />

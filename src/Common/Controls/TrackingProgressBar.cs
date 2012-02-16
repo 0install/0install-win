@@ -133,6 +133,7 @@ namespace Common.Controls
                         if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(formHandle, WindowsUtils.TaskbarProgressBarState.Paused);
                         break;
 
+                    case TaskState.Started:
                     case TaskState.Header:
                         Style = ProgressBarStyle.Marquee;
                         if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(formHandle, WindowsUtils.TaskbarProgressBarState.Indeterminate);
