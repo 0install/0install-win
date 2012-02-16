@@ -35,7 +35,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         #region Variables
         private readonly IStore _store;
         #endregion
-        
+
         #region Properties
         /// <inheritdoc/>
         public override string Name { get { return Resources.TemporaryDirectories + "#" + Directory + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }

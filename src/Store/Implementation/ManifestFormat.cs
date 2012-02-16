@@ -173,7 +173,10 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         private class Sha1OldFormat : OldFormat
         {
-            public override HashAlgorithm GetHashAlgorithm() { return SHA1.Create(); }
+            public override HashAlgorithm GetHashAlgorithm()
+            {
+                return SHA1.Create();
+            }
 
             public override string Prefix { get { return "sha1"; } }
         }
@@ -239,7 +242,10 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         private class Sha1NewFormat : NewFormat
         {
-            public override HashAlgorithm GetHashAlgorithm() { return SHA1.Create(); }
+            public override HashAlgorithm GetHashAlgorithm()
+            {
+                return SHA1.Create();
+            }
 
             public override string Prefix { get { return "sha1new"; } }
         }
@@ -249,7 +255,10 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         private class Sha256Format : NewFormat
         {
-            public override HashAlgorithm GetHashAlgorithm() { return SHA256.Create(); }
+            public override HashAlgorithm GetHashAlgorithm()
+            {
+                return SHA256.Create();
+            }
 
             public override string Prefix { get { return "sha256"; } }
         }

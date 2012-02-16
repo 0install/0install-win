@@ -126,15 +126,11 @@ namespace ZeroInstall.Commands.WinForms
 
             // Add feeds references from main feed
             foreach (var reference in _feedCache.GetFeed(_interfaceID).Feeds)
-            {
                 listBoxFeeds.Items.Add(reference.Source); // Add string => not removable in GUI
-            }
 
             // Add manually registered feeds
             foreach (var reference in _interfacePreferences.Feeds)
-            {
                 listBoxFeeds.Items.Add(reference); // Add complex object => removable in GUI
-            }
         }
 
         /// <summary>

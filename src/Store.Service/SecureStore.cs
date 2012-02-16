@@ -92,7 +92,7 @@ namespace ZeroInstall.Store.Service
         {
             throw new NotImplementedException();
         }
-        
+
         /// <inheritdoc />
         public bool Contains(string directory)
         {

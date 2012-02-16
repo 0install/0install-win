@@ -97,7 +97,7 @@ namespace ZeroInstall.Store.Implementation
             _store.AddDirectory(_packageDir, digest, new SilentHandler());
 
             Assert.IsTrue(_store.Contains(digest), "After adding, Store must contain the added package");
-            CollectionAssert.AreEqual(new[] { digest }, _store.ListAll(), "After adding, Store must show the added package in the complete list");
+            CollectionAssert.AreEqual(new[] {digest}, _store.ListAll(), "After adding, Store must show the added package in the complete list");
 
             Assert.IsTrue(Directory.Exists(_tempDir.Path), "Store directory should have been recreated");
         }

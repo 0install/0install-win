@@ -58,7 +58,7 @@ namespace ZeroInstall.Injector.Solver
             _cacheMock.Verify();
         }
         #endregion
-        
+
         protected SolverTest(ISolver solver)
         {
             _solver = solver;

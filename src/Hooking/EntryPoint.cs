@@ -134,5 +134,6 @@ namespace ZeroInstall.Hooking
         }
         #endregion
     }
+
     // ReSharper restore ClassNeverInstantiated.Global
 }
