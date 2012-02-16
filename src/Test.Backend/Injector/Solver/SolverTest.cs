@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using Common.Storage;
 using NUnit.Framework;
 using Moq;
@@ -30,14 +31,12 @@ namespace ZeroInstall.Injector.Solver
     /// </summary>
     public abstract class SolverTest
     {
+        #region Shared
         private readonly ISolver _solver;
         private Mock<IFeedCache> _cacheMock;
-        private Policy _policy;
 
-        protected SolverTest(ISolver solver)
-        {
-            _solver = solver;
-        }
+        private Policy _policy;
+        private LocationsRedirect _redirect;
 
         [SetUp]
         public void SetUp()
@@ -46,33 +45,40 @@ namespace ZeroInstall.Injector.Solver
             _policy = new Policy(
                 new Config(), new FeedManager(_cacheMock.Object),
                 new Mock<IFetcher>().Object, new Mock<IOpenPgp>().Object, _solver, new SilentHandler());
+
+            // Don't store generated executables settings in real user profile
+            _redirect = new LocationsRedirect("0install-unit-tests");
         }
 
         [TearDown]
         public void TearDown()
         {
+            _redirect.Dispose();
+
             _cacheMock.Verify();
+        }
+        #endregion
+        
+        protected SolverTest(ISolver solver)
+        {
+            _solver = solver;
         }
 
         private static Feed CreateTestFeed()
         {
-            return new Feed {Name = "Test", Summaries = {"Test"}, Elements = {new Implementation {ID = "test", Version = new ImplementationVersion("1.0"), LocalPath = ".", Main = "test"}}};
+            return new Feed {Uri = new Uri("http://0install.de/feeds/test/test1.xml"), Name = "Test", Summaries = {"Test"}, Elements = {new Implementation {ID = "test", Version = new ImplementationVersion("1.0"), LocalPath = ".", Main = "test"}}};
         }
 
-        [Test(Description = "Ensures ISolver.Solve() correctly solves the dependencies for a specific feed ID.")]
-        public void TestSolve()
+        [Test]
+        public void TestBasic()
         {
-            using (var tempFile = new TemporaryFile("0install-unit-tests"))
-            {
-                CreateTestFeed().Save(tempFile.Path);
+            var testFeed = CreateTestFeed();
+            testFeed.Simplify();
+            _cacheMock.Setup(x => x.Contains(testFeed.Uri.ToString())).Returns(true);
+            _cacheMock.Setup(x => x.GetFeed(testFeed.Uri.ToString())).Returns(testFeed);
 
-                bool staleFeeds;
-
-                Selections selections = _solver.Solve(new Requirements {InterfaceID = tempFile.Path}, _policy, out staleFeeds);
-                Assert.IsFalse(staleFeeds, "Local feed files should never be considered stale");
-
-                Assert.AreEqual(tempFile.Path, selections.InterfaceID);
-            }
+            bool staleFeeds;
+            var selections = _solver.Solve(new Requirements {InterfaceID = testFeed.Uri.ToString()}, _policy, out staleFeeds);
         }
     }
 }

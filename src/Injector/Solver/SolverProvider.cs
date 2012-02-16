@@ -22,6 +22,8 @@ namespace ZeroInstall.Injector.Solver
     /// </summary>
     public static class SolverProvider
     {
+        // Try to use SimpleSolver and fall back to ExternalSolver for complex problems
+        //private static readonly ISolver _default = new FallbackSolver(new SimpleSolver(), new ExternalSolver());
         private static readonly ISolver _default = new ExternalSolver();
 
         /// <summary>

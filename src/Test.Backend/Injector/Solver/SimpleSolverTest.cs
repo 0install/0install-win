@@ -15,25 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using ZeroInstall.Commands.Properties;
-using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Injector;
-using ZeroInstall.Model;
+using NUnit.Framework;
 
-namespace ZeroInstall.Commands
+namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
-    /// Uses the stderr stream to inform the user about the progress of tasks and ask the user questions.
+    /// Contains test methods for <see cref="SimpleSolver"/>.
     /// </summary>
-    public class CliHandler : CliHandlerBase
+    [TestFixture]
+    public class SimpleSolverTest : SolverTest
     {
-        #region Dialogs
-        /// <inheritdoc />
-        public override void ShowIntegrateApp(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed)
-        {
-            // ToDo: Implement text-based UI
-            Output(Resources.DesktopIntegration, Resources.IntegrateAppUseGui);
-        }
-        #endregion
+        public SimpleSolverTest() : base(new SimpleSolver())
+        {}
     }
 }

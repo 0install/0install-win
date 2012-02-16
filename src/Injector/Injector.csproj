@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
+    <Compile Include="CliHandlerBase.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Executor.Bindings.cs" />
     <Compile Include="Executor.CommandLine.cs" />
@@ -82,11 +83,14 @@
     </Compile>
     <None Include="runenv.cli.cs" />
     <Compile Include="SilentHandler.cs" />
+    <Compile Include="Solver\FallbackSolver.cs" />
     <Compile Include="Solver\Requirements.cs" />
     <Compile Include="Solver\SelectionCandidate.cs" />
     <Compile Include="Solver\Selections.cs" />
     <Compile Include="Solver\ImplementationSelection.cs" />
     <Compile Include="Solver\ISolver.cs" />
+    <Compile Include="Solver\SimpleSolver.cs" />
+    <Compile Include="Solver\SolverFeedCache.cs" />
     <Compile Include="Solver\SolverException.cs" />
     <Compile Include="Solver\SolverProvider.cs" />
     <Compile Include="Solver\ExternalSolver.cs" />
