@@ -94,15 +94,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             using (var manifestFile = new TemporaryFile("0install"))
             {
-                // Select compiler
-                CodeDomProvider compiler;
-                if (File.Exists(Environment.ExpandEnvironmentVariables(@"%windir%\Microsoft.NET\Framework\v3.5\csc.exe")))
-                { // Use C# v3.5 compiler if available to add Win32 manifest
-                    File.WriteAllText(manifestFile.Path, GetEmbeddedResource("Stub.manifest"));
-                    compilerParameters.CompilerOptions += " /win32manifest:" + StringUtils.EscapeArgument(manifestFile.Path);
-                    compiler = new CSharpCodeProvider(new Dictionary<string, string> {{"CompilerVersion", "v3.5"}});
-                }
-                else compiler = new CSharpCodeProvider();
+                // Use C# v3 compiler if available to add Win32 manifest
+                string cSharp30CompilerPath = FileUtils.PathCombine(
+                    (Environment.GetEnvironmentVariable("windir") ?? @"C:\Windows"),
+                    "Microsoft.NET", (WindowsUtils.Is64BitProcess ? "Framework64" : "Framework"),
+                    "v3.5", "csc.exe");
+                var compiler = File.Exists(cSharp30CompilerPath)
+                    ? GetCSharp30Compiler(compilerParameters, manifestFile)
+                    : new CSharpCodeProvider();
 
                 // Run the compilation process and check for errors
                 var compilerResults = compiler.CompileAssemblyFromSource(compilerParameters, code);
@@ -112,6 +111,17 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     throw new InvalidOperationException("Compilation error " + error.ErrorNumber + " in line " + error.Line + "\n" + error.ErrorText);
                 }
             }
+        }
+
+        /// <summary>
+        /// Instantiates a C# 3.0 compiler from within a C# 2.0 process.
+        /// </summary>
+        /// <remarks>Extracted to a separate method in case this is not C# 2.0 SP2 and the corresponding constructor method is therefore missing.</remarks>
+        private static CodeDomProvider GetCSharp30Compiler(CompilerParameters compilerParameters, TemporaryFile manifestFile)
+        {
+            File.WriteAllText(manifestFile.Path, GetEmbeddedResource("Stub.manifest"));
+            compilerParameters.CompilerOptions += " /win32manifest:" + StringUtils.EscapeArgument(manifestFile.Path);
+            return new CSharpCodeProvider(new Dictionary<string, string> {{"CompilerVersion", "v3.5"}});
         }
 
         /// <summary>
