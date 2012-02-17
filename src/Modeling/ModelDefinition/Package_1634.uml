@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="4f00b828-d2c8-4be2-b753-6b581e880434"
   name="Archive"
@@ -74,7 +74,7 @@
             <classMoniker
               Id="aac91736-0152-4877-b9d7-1b8711346683"
               LastKnownName="ThreadTaskBase"
-              LastKnownLocation="Package5_1629.uml" />
+              LastKnownLocation="Package_0657.uml" />
           </generalization>
         </generalsInternal>
         <ownedAttributesInternal>
@@ -636,64 +636,6 @@
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
-          </operation>
-          <operation
-            Id="94ac45e9-e39b-48fc-8c3e-fcea25f9c05c"
-            name="Cancel"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="aa69beae-98d1-412b-92c2-6d359b78424f"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=Cancel"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="2e550c23-83a1-4023-a51e-08115b802526"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="694b14c5-203d-43fd-88dd-3e895373a643">
-                    <propertyInstance
-                      Id="48e44003-759e-4f2a-91b0-f9dd2a5fce60"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="1d060ac3-96f2-4d16-b531-3a3b88235438">
-                    <propertyInstance
-                      Id="460004d2-a159-4914-90ea-e279c1bdb479"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="9a0f85cb-8a30-4324-a9f7-4805102b0002">
-                    <propertyInstance
-                      Id="eb75e0c4-ad48-4a96-9a77-ff3563592613"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="176c05f0-8044-48dd-92cb-9d2dc8c46f51">
-                    <propertyInstance
-                      Id="7331b812-759c-497a-9a59-ce5fb0003317"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="be821a78-6148-4b1c-952a-6dad17e9bb96">
-                    <propertyInstance
-                      Id="0f98329c-b6e7-4de9-ac21-fb7aceed2269"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
           </operation>
           <operation
             Id="a51ddbae-1aed-48e9-ae29-09340d67ff76"

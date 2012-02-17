@@ -773,9 +773,9 @@
                 </property>
               </ownedAttributesInternal>
               <ownedOperationsInternal>
-                <operation Id="78b45486-97dc-414e-938c-d57f4155d927" name="Simplify" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                <operation Id="78b45486-97dc-414e-938c-d57f4155d927" name="Normalize" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
-                    <reference Id="9b6fd35b-177b-400f-a277-a1eec541972d" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Feed Member=Simplify" tag="ViewCode">
+                    <reference Id="9b6fd35b-177b-400f-a277-a1eec541972d" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Feed Member=Normalize" tag="ViewCode">
                       <elementDefinition Id="2931592b-00bd-4417-8087-bff7bc367581" />
                     </reference>
                   </referencesInternal>
@@ -1857,9 +1857,9 @@
                 </property>
               </ownedAttributesInternal>
               <ownedOperationsInternal>
-                <operation Id="72f50850-2529-471d-8da8-b19e5e867e31" name="Simplify" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                <operation Id="72f50850-2529-471d-8da8-b19e5e867e31" name="Normalize" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
-                    <reference Id="f73d1d84-5f51-48e7-a1c4-5d64330d61da" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Element Member=Simplify" tag="ViewCode">
+                    <reference Id="f73d1d84-5f51-48e7-a1c4-5d64330d61da" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Element Member=Normalize" tag="ViewCode">
                       <elementDefinition Id="0f8fd5bd-1e90-448c-a4ea-a469976cab89" />
                     </reference>
                   </referencesInternal>
@@ -3650,9 +3650,9 @@
                 </generalization>
               </generalsInternal>
               <ownedOperationsInternal>
-                <operation Id="32787cfc-b2a3-4125-9238-1b118a7bc502" name="Simplify" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                <operation Id="32787cfc-b2a3-4125-9238-1b118a7bc502" name="Normalize" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
-                    <reference Id="04fc80a4-9c95-4d45-ac43-6ae9b2019de8" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Group Member=Simplify" tag="ViewCode">
+                    <reference Id="04fc80a4-9c95-4d45-ac43-6ae9b2019de8" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Group Member=Normalize" tag="ViewCode">
                       <elementDefinition Id="53d8d872-9919-41a5-923a-8e5b9c1b228b" />
                     </reference>
                   </referencesInternal>
@@ -4377,9 +4377,9 @@
               </appliedStereotypesInternal>
               <elementDefinition Id="d8d383a1-52d5-4742-9236-73565bc3aef8" />
               <ownedOperationsInternal>
-                <operation Id="7f4a2d10-51a0-4921-a847-78eddd46a168" name="Simplify" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                <operation Id="7f4a2d10-51a0-4921-a847-78eddd46a168" name="Normalize" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
-                    <reference Id="10603c8c-4c21-46f1-ac02-41cd979c9237" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=RetrievalMethod Member=Simplify" tag="ViewCode">
+                    <reference Id="10603c8c-4c21-46f1-ac02-41cd979c9237" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=RetrievalMethod Member=Normalize" tag="ViewCode">
                       <elementDefinition Id="c5c5642e-87cf-428a-bbd5-32b997d470c4" />
                     </reference>
                   </referencesInternal>
@@ -4505,9 +4505,9 @@
                 </association>
               </targetEnds>
               <ownedOperationsInternal>
-                <operation Id="6f322054-b5d7-4e90-af29-e3d508e68b97" name="Simplify" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                <operation Id="6f322054-b5d7-4e90-af29-e3d508e68b97" name="Normalize" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
-                    <reference Id="00616850-2b4d-4dda-bd5b-c43146d8dd42" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Recipe Member=Simplify" tag="ViewCode">
+                    <reference Id="00616850-2b4d-4dda-bd5b-c43146d8dd42" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Recipe Member=Normalize" tag="ViewCode">
                       <elementDefinition Id="6ac9fdd0-bb5c-4516-8d65-cf59b96348ca" />
                     </reference>
                   </referencesInternal>
@@ -4930,9 +4930,9 @@
                 </property>
               </ownedAttributesInternal>
               <ownedOperationsInternal>
-                <operation Id="a8c56342-21af-47b9-89a4-30ce0b639021" name="Simplify" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                <operation Id="a8c56342-21af-47b9-89a4-30ce0b639021" name="Normalize" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
-                    <reference Id="75583aaf-5b44-4325-8500-7bce12d1ebbc" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Archive Member=Simplify" tag="ViewCode">
+                    <reference Id="75583aaf-5b44-4325-8500-7bce12d1ebbc" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Archive Member=Normalize" tag="ViewCode">
                       <elementDefinition Id="fe5f9f65-1586-4da3-adde-3525f8b7aa44" />
                     </reference>
                   </referencesInternal>

@@ -1204,7 +1204,7 @@
             </Interface>
           </packageHasNamedElement>
           <packageHasNamedElement>
-            <class Id="4b160469-a5db-44b0-85fa-d07966ad378d" name="CliHandler" isAbstract="false" isLeaf="false" isActiveClass="false">
+            <class Id="4b160469-a5db-44b0-85fa-d07966ad378d" name="CliHandlerBase" isAbstract="false" isLeaf="false" isActiveClass="false">
               <referencesInternal>
                 <reference Id="01feaca8-159e-4a6a-ad43-00a4614e44e1" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=CliHandler" tag="ViewCode">
                   <elementDefinition Id="a4d9fd9a-ce73-48e2-aa10-67951d6fce0b" />

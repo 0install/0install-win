@@ -2851,7 +2851,7 @@
     <packageHasNamedElement>
       <class
         Id="d8e02ea3-3dfb-4e27-8371-5e803a9de280"
-        name="CliHandler"
+        name="CliHandlerBase"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">

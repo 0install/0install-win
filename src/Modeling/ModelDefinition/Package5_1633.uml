@@ -9131,64 +9131,6 @@
             </ownedParameters>
           </operation>
           <operation
-            Id="8e67456d-9112-4ac1-88f0-4aa2a078d23b"
-            name="Cancel"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="e295a9ba-74cc-479e-bd76-16e919d3907d"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=Cancel"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="2d51f42b-6630-42bb-b946-bcac668bd9f1"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="8fa3aaca-4d0c-4d0f-8fb4-5e77d6cc9930">
-                    <propertyInstance
-                      Id="b28bfd19-c19b-4cd6-a8e5-52e0c8305c7c"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="082e95f4-648f-4f92-b131-90deee4a97b4">
-                    <propertyInstance
-                      Id="b160efb3-9a5d-40b3-b1ab-8047e91ab3f5"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="ad0da949-0bcf-4452-ba14-5f5fe8310107">
-                    <propertyInstance
-                      Id="7246db52-e538-4206-b7c0-3865b03c17b2"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="6e595423-86fa-4596-bfd2-5b81491eea38">
-                    <propertyInstance
-                      Id="dada06eb-3c9c-4a10-809e-0af441f7b973"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="df6cffc1-43d0-425e-b736-4ee61325aa13">
-                    <propertyInstance
-                      Id="fa57b2f5-6242-47d4-a2a3-e0caf928f91b"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-          </operation>
-          <operation
             Id="c6497c18-2d0c-47a4-9b1a-38a743468e0b"
             name="RunTask"
             visibility="Protected"

@@ -1147,7 +1147,7 @@
         <ownedOperationsInternal>
           <operation
             Id="1b732432-5b1a-45ca-9987-cc37752d58b0"
-            name="Simplify"
+            name="Normalize"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -1156,7 +1156,7 @@
             <referencesInternal>
               <reference
                 Id="fe5f9f65-1586-4da3-adde-3525f8b7aa44"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Archive Member=Simplify"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Archive Member=Normalize"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -5149,7 +5149,7 @@
         <ownedOperationsInternal>
           <operation
             Id="7527f9a2-9ea8-4f7c-8760-1ec96e547d78"
-            name="Simplify"
+            name="Normalize"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -5158,7 +5158,7 @@
             <referencesInternal>
               <reference
                 Id="0f8fd5bd-1e90-448c-a4ea-a469976cab89"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Element Member=Simplify"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Element Member=Normalize"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -7051,7 +7051,7 @@
         <ownedOperationsInternal>
           <operation
             Id="8608bffc-72e1-466e-8989-89c8a8d1649b"
-            name="Simplify"
+            name="Normalize"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -7060,7 +7060,7 @@
             <referencesInternal>
               <reference
                 Id="2931592b-00bd-4417-8087-bff7bc367581"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Feed Member=Simplify"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Feed Member=Normalize"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -8395,7 +8395,7 @@
         <ownedOperationsInternal>
           <operation
             Id="1d1ab06c-a9d3-4865-9f0f-986ea131919c"
-            name="Simplify"
+            name="Normalize"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -8404,7 +8404,7 @@
             <referencesInternal>
               <reference
                 Id="53d8d872-9919-41a5-923a-8e5b9c1b228b"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Group Member=Simplify"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Group Member=Normalize"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -8523,7 +8523,7 @@
         <ownedOperationsInternal>
           <operation
             Id="91435f88-39c2-418f-a8bb-767584333332"
-            name="Simplify"
+            name="Normalize"
             isLeaf="false"
             isStatic="false"
             isAbstract="true"
@@ -8532,7 +8532,7 @@
             <referencesInternal>
               <reference
                 Id="c5c5642e-87cf-428a-bbd5-32b997d470c4"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=RetrievalMethod Member=Simplify"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=RetrievalMethod Member=Normalize"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -12179,7 +12179,7 @@
         <ownedOperationsInternal>
           <operation
             Id="ff430992-036b-4b25-b50a-0c896bb8cb5d"
-            name="Simplify"
+            name="Normalize"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -12188,7 +12188,7 @@
             <referencesInternal>
               <reference
                 Id="6ac9fdd0-bb5c-4516-8d65-cf59b96348ca"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Recipe Member=Simplify"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Recipe Member=Normalize"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>

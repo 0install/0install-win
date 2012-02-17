@@ -6,7 +6,7 @@
       <packageMoniker Id="4c0cf256-91a1-4eec-b32d-ad33f00a6b7b" LastKnownName="Injector" />
       <nestedChildShapes>
         <classShape Id="12241af3-d4d2-4374-9f45-c106229596ad" absoluteBounds="0.625, 3.75, 2.125, 2.4690855797131848" hideQualifiedName="false" increaseHeight="0.18800345897674561" customColor="181, 193, 223">
-          <classMoniker Id="4b160469-a5db-44b0-85fa-d07966ad378d" LastKnownName="CliHandler" />
+          <classMoniker Id="4b160469-a5db-44b0-85fa-d07966ad378d" LastKnownName="CliHandlerBase" />
           <nestedChildShapes>
             <AttributeElementListCompartment Id="439a1035-526e-4900-89fa-37bee191c871" absoluteBounds="0.63999999999999968, 4.2653356393178292, 2.0949999999999998, 0.36132811258236563" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
             <OperationElementListCompartment Id="20e337ec-e084-4e7c-850f-b6a7cc92fade" absoluteBounds="0.64, 4.6366637519001959, 2.0949999999999998, 1.4824218278129895" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
@@ -84,7 +84,7 @@
         </classShape>
       </nestedChildShapes>
     </packageShape>
-    <generalizationConnector edgePoints="[(4.75 : 3.01587669968605); (7.125 : 3.01587669968605)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110">
+    <generalizationConnector edgePoints="[(4.75 : 3.01587669968605); (7.125 : 3.01587669968605)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110">
       <generalizationMoniker Id="fe2b83d1-2dbe-40fe-a518-b80f71b5715e" />
       <relativeChildShapes />
       <nodes>

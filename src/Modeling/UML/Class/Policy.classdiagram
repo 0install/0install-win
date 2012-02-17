@@ -84,11 +84,6 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="38bd8d47-b5b5-451f-9564-a9592f2de919" name="FetchRequest" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Fetchers::FetchRequest">
-        <elementDefinition Id="dbe9d5b9-b47d-49f8-a1ba-069762b38164" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <referencedType Id="21e3be54-080e-428a-8484-9fac1cce8910" name="String" isAbstract="false" isLeaf="false" cachedFullName="String">
         <elementDefinition Id="59259974-6d55-42c6-b7bd-763d77ac8ef9" />
       </referencedType>
@@ -199,7 +194,7 @@
                       </association>
                     </targetEnds>
                     <ownedOperations>
-                      <operation Id="a53a23c3-3774-4e9e-82e1-d3e3dd2e7bae" name="Start" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                      <operation Id="a53a23c3-3774-4e9e-82e1-d3e3dd2e7bae" name="FetchImplementations" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
                         <referencesInternal>
                           <reference Id="953a48f2-3b13-47f0-8bc6-8da974ddfefd" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=Fetcher Member=(Name=RunSync OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=FetchRequest)])" tag="ViewCode">
                             <elementDefinition Id="c1e83f8c-81bf-43eb-9609-0c96d340c040" />
@@ -245,120 +240,28 @@
                         <elementDefinition Id="8a753665-9be2-471b-b18a-b5d4934a34aa" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="dcfa6732-499e-48b4-a78a-7b33f3fcce6a" name="fetchRequest" direction="In" isUnique="false">
-                              <elementDefinition Id="a6a0a9cc-2463-40bb-b0a2-839061b4e384" />
+                            <parameter Id="eb35998f-3756-4710-8e7e-332061e33518" name="implementations" direction="In">
+                              <lowerValueInternal>
+                                <literalString Id="90f07e36-3557-4891-8b4f-468de2ce7367" name="Lower" value="*">
+                                  <elementDefinition Id="02c4cf35-949a-4a5d-8741-a56b03ddd39a" />
+                                </literalString>
+                              </lowerValueInternal>
+                              <upperValueInternal>
+                                <literalString Id="ac87f9c5-79a3-4065-9687-5a021f8d509b" name="Upper" value="*">
+                                  <elementDefinition Id="5b323ee5-33b4-4aa7-80e5-3716774fc8d4" />
+                                </literalString>
+                              </upperValueInternal>
+                              <elementDefinition Id="32b6649a-3006-4a41-bcbc-0fa1b7eb2246" />
                               <type_NamedElement>
-                                <referencedTypeMoniker Id="38bd8d47-b5b5-451f-9564-a9592f2de919" LastKnownName="FetchRequest" />
+                                <referencedTypeMoniker Id="88e6fc9b-c69f-491c-b5b2-8504a00abdb1" LastKnownName="Implementation" />
                               </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
-                        </ownedParameters>
-                      </operation>
-                      <operation Id="473bc12d-add5-4176-8229-86bf76a14030" name="Cancel" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-                        <referencesInternal>
-                          <reference Id="961949ed-f001-4c7a-b8da-0e0e62cd5f08" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=Fetcher Member=(Name=RunSync OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=FetchRequest)])" tag="ViewCode">
-                            <elementDefinition Id="3399cfea-f044-4ac7-bca0-da2707ecb53e" />
-                          </reference>
-                        </referencesInternal>
-                        <appliedStereotypesInternal>
-                          <stereotypeInstance Id="92b8136a-0079-4629-b7d4-efbaf5c71221" name="method" profile="CSharpProfile">
-                            <elementDefinition Id="fbf11bb5-7b00-49b8-9403-a099dcfb3dd6" />
-                            <propertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="e6091933-6a61-415c-a8ad-23f409e37d2d">
-                                <propertyInstance Id="f0262a44-e607-464e-a21d-51380d772a97" name="ClrAttributes">
-                                  <elementDefinition Id="245f54b0-75d8-43fe-9efa-e1b466c28970" />
-                                </propertyInstance>
-                                <elementDefinition Id="9efae66e-1d3b-46ba-bfca-f0da08aa8d32" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="e518db53-09a3-4ab6-a477-a6a3c2519181">
-                                <propertyInstance Id="16b84087-579a-41a3-9791-b9bdbf76cce5" name="IsPartial" value="false">
-                                  <elementDefinition Id="3b658d94-c790-48f3-9a2a-02bfecce9fba" />
-                                </propertyInstance>
-                                <elementDefinition Id="89a7a35c-458f-430a-a28b-d2f9a04002e8" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="f7b647d5-39f7-4bea-b1f4-9d5b902c331b">
-                                <propertyInstance Id="55f0401a-4566-4be4-a574-5ee3ae0e4299" name="IsUnsafe" value="false">
-                                  <elementDefinition Id="9b24c344-1f31-48ac-894e-f7b2faf1c202" />
-                                </propertyInstance>
-                                <elementDefinition Id="bdcef5e1-eb8f-4c82-96de-3f2842abb6ca" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="734f1301-aa5c-4eab-8e28-9ae6495cb28d">
-                                <propertyInstance Id="522a64dd-b5dd-44c2-8299-b1cf8f213392" name="PackageVisibility" value="internal">
-                                  <elementDefinition Id="0003dfc2-31c6-4f0a-9737-d9a30758f822" />
-                                </propertyInstance>
-                                <elementDefinition Id="476e4b3e-13bf-4311-b1d9-b47e217ad01b" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="14d43243-e02a-458f-b9e4-5a65b399d498">
-                                <propertyInstance Id="86cb3ae8-c8f2-48c7-b353-948b2520ff97" name="params" value="false">
-                                  <elementDefinition Id="fdc520ee-2a6e-4c31-b1b2-5c0223efb292" />
-                                </propertyInstance>
-                                <elementDefinition Id="d40be959-38d6-4b8c-87be-698ce6ed17bd" />
-                              </stereotypeInstanceHasPropertyInstances>
-                            </propertyInstances>
-                          </stereotypeInstance>
-                        </appliedStereotypesInternal>
-                        <elementDefinition Id="bc761639-270b-4ed1-97a3-638a917d4676" />
-                        <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="f28a653e-5dd4-4ddc-a1b8-87076266800a" name="fetchRequest" direction="In" isUnique="false">
-                              <elementDefinition Id="b9e46c26-5aa8-457d-83ba-4844a88e5a3f" />
+                            <parameter Id="33ad635c-8433-443d-b734-fa371244d9e1" name="handler" direction="In" isUnique="false">
+                              <elementDefinition Id="a3c4a466-89e9-433f-8b73-a6be3f112ab8" />
                               <type_NamedElement>
-                                <referencedTypeMoniker Id="38bd8d47-b5b5-451f-9564-a9592f2de919" LastKnownName="FetchRequest" />
-                              </type_NamedElement>
-                            </parameter>
-                          </operationHasOwnedParameters>
-                        </ownedParameters>
-                      </operation>
-                      <operation Id="9f730074-c6b4-4363-8ffe-c1873ff88da5" name="Join" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-                        <referencesInternal>
-                          <reference Id="803c5f39-7009-4561-92ec-e01cadd102f8" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=Fetcher Member=(Name=RunSync OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=FetchRequest)])" tag="ViewCode">
-                            <elementDefinition Id="d0efce8b-21a6-48f9-84e6-998ee7121a78" />
-                          </reference>
-                        </referencesInternal>
-                        <appliedStereotypesInternal>
-                          <stereotypeInstance Id="152cc7c4-8737-414b-b646-d592b5deac02" name="method" profile="CSharpProfile">
-                            <elementDefinition Id="75f0c0a1-ff58-4431-838c-32f9b35ecc70" />
-                            <propertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="9e8047cd-de50-48bc-9f0b-2894a1304505">
-                                <propertyInstance Id="9f9b9698-0573-4030-9eba-3691bf976255" name="ClrAttributes">
-                                  <elementDefinition Id="a6f0a7a0-c2ed-409f-bd28-3786845988d9" />
-                                </propertyInstance>
-                                <elementDefinition Id="268e71ec-0763-4c6c-a1dd-0d5d59454dda" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="619f086f-d1a4-4652-b96c-158e8b53ef45">
-                                <propertyInstance Id="381f76dd-f014-47eb-8dc7-49a34a620c55" name="IsPartial" value="false">
-                                  <elementDefinition Id="db58aefd-0f1a-4b51-8c10-7f14a18dc742" />
-                                </propertyInstance>
-                                <elementDefinition Id="f7b30140-4fe1-47b8-ad1c-455e7f6d69af" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="029a45a5-06d5-47e6-b909-4c84f9c60c48">
-                                <propertyInstance Id="4d4f1d76-5c32-461a-9660-af9424f1aece" name="IsUnsafe" value="false">
-                                  <elementDefinition Id="fadf949b-5ddb-4349-bc91-6ed6cae37e1a" />
-                                </propertyInstance>
-                                <elementDefinition Id="bd21a6be-b925-43b2-9308-4522c99b3a2c" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="e5ec7a6b-092e-49dc-a36f-166a4c86414d">
-                                <propertyInstance Id="393a1ca4-c3e7-41a0-9a33-f5502d005413" name="PackageVisibility" value="internal">
-                                  <elementDefinition Id="87c272e3-81bf-4828-9b6e-d2ee6f6db26e" />
-                                </propertyInstance>
-                                <elementDefinition Id="63e12fa3-6a2a-4d68-94b2-d983a9fd2ad2" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="b759d742-a1ad-452f-9e67-a543776d22b8">
-                                <propertyInstance Id="6f6d88cf-154a-4587-b912-347ca66e02cc" name="params" value="false">
-                                  <elementDefinition Id="8586a53f-b9de-4843-bc5a-7ca8aeaad7b7" />
-                                </propertyInstance>
-                                <elementDefinition Id="bf5f08a1-b7f4-4b19-ba9a-fa5dde766ead" />
-                              </stereotypeInstanceHasPropertyInstances>
-                            </propertyInstances>
-                          </stereotypeInstance>
-                        </appliedStereotypesInternal>
-                        <elementDefinition Id="736af409-3c96-4c51-9ab8-25cc3ccd30ec" />
-                        <ownedParameters>
-                          <operationHasOwnedParameters>
-                            <parameter Id="d7dd69d2-510a-48d9-bc1a-4f809688efdc" name="fetchRequest" direction="In" isUnique="false">
-                              <elementDefinition Id="3a05bc59-da34-4f79-96fc-e5d395aec85d" />
-                              <type_NamedElement>
-                                <referencedTypeMoniker Id="38bd8d47-b5b5-451f-9564-a9592f2de919" LastKnownName="FetchRequest" />
+                                <referencedTypeMoniker Id="a4d66557-fca4-44aa-a453-5894748da7c9" LastKnownName="IHandler" />
                               </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
@@ -3638,6 +3541,11 @@
     <packageHasNamedElement>
       <referencedType Id="ecb713df-b7f8-4ad8-9c86-df9429c66560" name="ISolver" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Injector::Solver::ISolver">
         <elementDefinition Id="ee7df2f8-02c8-484d-99f9-7cc78a5e0e28" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="88e6fc9b-c69f-491c-b5b2-8504a00abdb1" name="Implementation" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Model::Implementation">
+        <elementDefinition Id="53bedb1c-ef5f-4c7e-b2e9-9ea717a4a5a3" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>
