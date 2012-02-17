@@ -185,13 +185,13 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
-        #region Simplify
+        #region Normalize
         /// <summary>
         /// Sets missing default values and handles legacy elements.
         /// </summary>
-        /// <remarks>This should be called to prepare an interface for launch.
+        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing.
         /// It should not be called if you plan on serializing the interface again since it will may some of its structure.</remarks>
-        public virtual void Simplify()
+        public virtual void Normalize()
         {
             // Convert legacy launch commands
             if (!string.IsNullOrEmpty(Main)) Commands.Add(new Command {Name = Command.NameRun, Path = Main});
@@ -230,7 +230,7 @@ namespace ZeroInstall.Model
         /// </summary>
         /// <param name="name">The <see cref="Command.Name"/> to look for.</param>
         /// <exception cref="KeyNotFoundException">Thrown if no matching <see cref="Command"/> was found.</exception>
-        /// <remarks>Should only be called after <see cref="Simplify"/> has been called, otherwise nested <see cref="Implementation"/>s will not be considered.</remarks>
+        /// <remarks>Should only be called after <see cref="Normalize"/> has been called, otherwise nested <see cref="Implementation"/>s will not be considered.</remarks>
         public Command GetCommand(string name)
         {
             foreach (var command in Commands)

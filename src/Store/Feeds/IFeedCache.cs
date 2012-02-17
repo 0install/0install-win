@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Feeds
         IEnumerable<string> ListAll();
 
         /// <summary>
-        /// Gets a specific <see cref="Feed"/> from this cache. <see cref="Feed.Simplify"/> is automatically called.
+        /// Gets a specific <see cref="Feed"/> from this cache. <see cref="Feed.Normalize"/> is automatically called.
         /// </summary>
         /// <param name="feedID">The canonical ID used to identify the feed.</param>
         /// <returns>The parsed <see cref="Feed"/> object. Do not modify this object! It may be a reference to an in-memory cache entry.</returns>

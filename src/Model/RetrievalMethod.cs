@@ -29,9 +29,9 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Sets missing default values, flattens the inheritance structure, etc.
         /// </summary>
-        /// <remarks>This should be called to prepare an interface for launch.
-        /// It should not be called if you plan on serializing the <see cref="Feed"/> again since it will may some of its structure.</remarks>
-        public abstract void Simplify();
+        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing.
+        /// It should not be called if you plan on serializing the feed again since it will may loose some of its structure.</remarks>
+        public abstract void Normalize();
 
         /// <summary>
         /// Creates a deep copy of this <see cref="RetrievalMethod"/> instance.

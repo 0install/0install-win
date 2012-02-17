@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Model.Archive">
-    <Position X="4.5" Y="4.25" Width="2" />
+    <Position X="4.5" Y="3.5" Width="2" />
     <Members>
+      <Method Name="CloneRecipeStep" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
       <Property Name="LocationString" Hidden="true" />
@@ -20,7 +21,7 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAgAACAAAAARAAAIAAAAABAAAAACA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAgAACAAAAAQAAAIAAAAABAAAAADA=</HashCode>
       <FileName>Implementation.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -30,6 +31,7 @@
   <Class Name="ZeroInstall.Model.Recipe">
     <Position X="2.25" Y="2.5" Width="2" />
     <Members>
+      <Method Name="Clone" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
@@ -38,7 +40,7 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAARIAAAAAAAAAAEgAAAAAAAAAAAIIAAAAAAAAAAACA=</HashCode>
+      <HashCode>AAABIAAAAAAAAAAEgAAAAAAAAAAAIIAAAAAAAAAAADA=</HashCode>
       <FileName>Recipe.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -47,17 +49,22 @@
     <Position X="3.5" Y="0.5" Width="1.75" />
     <Members>
       <Method Name="Clone" Hidden="true" />
+      <Method Name="ICloneable.Clone" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAADA=</HashCode>
       <FileName>RetrievalMethod.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.Model.RecipeStep">
+  <Class Name="ZeroInstall.Model.RecipeStep" Collapsed="true">
     <Position X="4.5" Y="2.5" Width="2" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="CloneRecipeStep" Hidden="true" />
+    </Members>
     <TypeIdentifier>
-      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>RecipeStep.cs</FileName>
     </TypeIdentifier>
   </Class>

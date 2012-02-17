@@ -173,13 +173,13 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Ensures that <see cref="Feed.Simplify"/> correctly collapsed <see cref="Group"/> structures.
+        /// Ensures that <see cref="Feed.Normalize"/> correctly collapses <see cref="Group"/> structures.
         /// </summary>
         [Test]
-        public void TestSimplify()
+        public void TestNormalize()
         {
             var feed = new Feed {Elements = {CreateTestGroup()}};
-            feed.Simplify();
+            feed.Normalize();
 
             var implementation = feed.Elements[0];
             Assert.AreEqual(new Architecture(OS.Solaris, Cpu.I586), implementation.Architecture);
@@ -212,10 +212,10 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Ensures that <see cref="Feed.Simplify"/> correctly updates collection hash codes.
+        /// Ensures that <see cref="Feed.Normalize"/> correctly updates collection hash codes.
         /// </summary>
         [Test]
-        public void TestSimplifyHash()
+        public void TestNormalizeHash()
         {
             var feed = CreateTestFeed();
 
@@ -224,8 +224,8 @@ namespace ZeroInstall.Model
                 XmlStorage.Save(tempFile.Path, feed);
                 var feedReload = XmlStorage.Load<Feed>(tempFile.Path);
 
-                feed.Simplify();
-                feedReload.Simplify();
+                feed.Normalize();
+                feedReload.Normalize();
                 Assert.AreEqual(feed.GetHashCode(), feedReload.GetHashCode());
             }
         }

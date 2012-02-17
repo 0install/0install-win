@@ -51,20 +51,20 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
-        #region Simplify
+        #region Normalize
         /// <summary>
-        /// Call <see cref="RetrievalMethod.Simplify"/> on all contained <see cref="RecipeStep"/>s.
+        /// Call <see cref="RetrievalMethod.Normalize"/> on all contained <see cref="RecipeStep"/>s.
         /// </summary>
-        /// <remarks>This should be called to prepare an interface for launch.
-        /// It should not be called if you plan on serializing the <see cref="Feed"/> again since it will may some of its structure.</remarks>
-        public override void Simplify()
+        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing.
+        /// It should not be called if you plan on serializing the feed again since it will may loose some of its structure.</remarks>
+        public override void Normalize()
         {
             // Simplify recipe steps and rebuild list to update sequenced hash value
             var newSteps = new RecipeStep[Steps.Count];
             int i = 0;
             foreach (var step in Steps)
             {
-                step.Simplify();
+                step.Normalize();
                 newSteps[i++] = step;
             }
             Steps.Clear();

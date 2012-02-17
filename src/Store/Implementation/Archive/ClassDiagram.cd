@@ -10,41 +10,41 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAIAAASCAAQAAAAAAAACQAAAAYCAgAAAAgiACCAQA=</HashCode>
+      <HashCode>AAAAIAAASCAAQAQAAAAAAAQAAAAYCAgAQAAgiACSAQA=</HashCode>
       <FileName>Implementation\Archive\Extractor.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.Archive.ZipExtractor">
-    <Position X="4.25" Y="5.5" Width="1.75" />
+    <Position X="4.25" Y="5.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AgAAAAAAAAAgAAAgAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAACAgAAAgAAAAAAACAAQAAAAAIAAAAAAAAAA=</HashCode>
       <FileName>Implementation\Archive\ZipExtractor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.Archive.TarBz2Extractor" Collapsed="true">
-    <Position X="2.25" Y="8.25" Width="1.5" />
+    <Position X="2.25" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>Implementation\Archive\TarBz2Extractor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.Archive.TarExtractor">
-    <Position X="2.25" Y="5.5" Width="1.5" />
+    <Position X="2.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgAAAAAACAAIAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAACCAIAAAgAAAAAAAAAAQAAAAAIAAAAAAAAAA=</HashCode>
       <FileName>Implementation\Archive\TarExtractor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.Archive.TarGzExtractor" Collapsed="true">
-    <Position X="0.5" Y="8.25" Width="1.5" />
+    <Position X="0.5" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>Implementation\Archive\TarGzExtractor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.Archive.TarLzmaExtractor" Collapsed="true">
-    <Position X="4" Y="8.25" Width="1.5" />
+    <Position X="4" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>Implementation\Archive\TarLzmaExtractor.cs</FileName>

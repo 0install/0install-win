@@ -49,7 +49,7 @@ namespace ZeroInstall.Store.Feeds
                 try
                 {
                     var feed = cache.GetFeed(id);
-                    feed.Simplify();
+                    feed.Normalize();
                     feeds.AddLast(feed);
                 }
                     #region Error handling

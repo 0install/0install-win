@@ -57,15 +57,15 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
-        #region Simplify
+        #region Normalize
         /// <summary>
         /// Sets missing default values and handles legacy elements.
         /// </summary>
-        /// <remarks>This should be called to prepare an interface for launch.
+        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing.
         /// It should not be called if you plan on serializing the interface again since it will may some of its structure.</remarks>
-        public override void Simplify()
+        public override void Normalize()
         {
-            base.Simplify();
+            base.Normalize();
 
             // Merge the version modifier into the normal version attribute
             if (!string.IsNullOrEmpty(VersionModifier))

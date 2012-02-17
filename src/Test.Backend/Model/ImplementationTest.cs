@@ -57,31 +57,31 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Ensures that <see cref="Implementation.Simplify"/> correctly identifies manifest digests in the ID tag.
+        /// Ensures that <see cref="Implementation.Normalize"/> correctly identifies manifest digests in the ID tag.
         /// </summary>
         [Test]
-        public void TestSimplifyID()
+        public void TestNormalizeID()
         {
             var implementation = new Implementation {ID = "sha256=123"};
-            implementation.Simplify();
+            implementation.Normalize();
             Assert.AreEqual("123", implementation.ManifestDigest.Sha256);
 
             implementation = new Implementation {ID = "sha256=wrong", ManifestDigest = new ManifestDigest("sha256=correct")};
-            implementation.Simplify();
+            implementation.Normalize();
             Assert.AreEqual("correct", implementation.ManifestDigest.Sha256);
 
             implementation = new Implementation {ID = "abc"};
-            implementation.Simplify();
+            implementation.Normalize();
         }
 
         /// <summary>
-        /// Ensures that <see cref="Implementation.Simplify"/> correctly converts <see cref="Element.Main"/> and <see cref="Element.SelfTest"/> to <see cref="Command"/>s.
+        /// Ensures that <see cref="Implementation.Normalize"/> correctly converts <see cref="Element.Main"/> and <see cref="Element.SelfTest"/> to <see cref="Command"/>s.
         /// </summary>
         [Test]
-        public void TestSimplifyCommand()
+        public void TestNormalizeCommand()
         {
             var implementation = new Implementation {Main = "main", SelfTest = "test"};
-            implementation.Simplify();
+            implementation.Normalize();
             Assert.AreEqual("main", implementation.GetCommand(Command.NameRun).Path);
             Assert.AreEqual("test", implementation.GetCommand(Command.NameTest).Path);
         }

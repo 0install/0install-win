@@ -45,22 +45,22 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
-        #region Simplify
+        #region Normalize
         /// <summary>
         /// Sets missing default values and handles legacy elements.
         /// </summary>
-        /// <remarks>This should be called to prepare an interface for launch.
+        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing.
         /// It should not be called if you plan on serializing the interface again since it will may some of its structure.</remarks>
-        public override void Simplify()
+        public override void Normalize()
         {
-            base.Simplify();
+            base.Normalize();
 
             // Simplify retrieval methods and rebuild list to update sequenced hash value
             var newRetreivalMethods = new RetrievalMethod[RetrievalMethods.Count];
             int i = 0;
             foreach (var retrievalMethods in RetrievalMethods)
             {
-                retrievalMethods.Simplify();
+                retrievalMethods.Normalize();
                 newRetreivalMethods[i++] = retrievalMethods;
             }
             RetrievalMethods.Clear();

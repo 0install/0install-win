@@ -242,7 +242,7 @@ namespace ZeroInstall.Commands.WinForms
             foreach (var feedEntry in _selection.Feeds)
             {
                 var preferences = feedEntry.Value;
-                preferences.Simplify();
+                preferences.Normalize();
                 preferences.SaveFor(feedEntry.Key);
             }
         }

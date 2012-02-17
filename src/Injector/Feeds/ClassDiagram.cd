@@ -7,9 +7,10 @@
       <Method Name="Clone" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ICloneable.Clone" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAQgIAQAAACAgABiAEAAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
+      <HashCode>AAAQgIAQAAAAAgAJiAGAAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
       <FileName>Feeds\TrustDB.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -23,7 +24,7 @@
       <Method Name="FeedManager" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAEAAQQgABAAAAAAAIAAIAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQAAAAAAAQAEAAQYgABAAAAAAAIAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>Feeds\FeedManager.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -33,9 +34,9 @@
     <Members>
       <Field Name="_implementations" Hidden="true" />
       <Method Name="Clone" Hidden="true" />
-      <Method Name="CloneFeedPreferences" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ICloneable.Clone" Hidden="true" />
       <Property Name="LastCheckedUnix" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
     </Members>
@@ -45,7 +46,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AQwAgIAAAAAAAAAEgQAACSAAAAAAAIAAAEAAAAAAADA=</HashCode>
+      <HashCode>AQgAgIAAAAAAAAAMgQAACSAAAAAAAIAAAEAAAAAAADA=</HashCode>
       <FileName>Feeds\FeedPreferences.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -58,15 +59,16 @@
     <Members>
       <Field Name="_userStability" Hidden="true" />
       <Method Name="Clone" Hidden="true" />
-      <Method Name="CloneImplementationPreferences" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ICloneable.Clone" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAABAgAAAAgABEgAAAAAAAAAAAAIAAEAAAAAAAABA=</HashCode>
+      <HashCode>AAAAABAgAAAAgAAMgAAAAAAAAAAAAIAAEAAAAAAAABA=</HashCode>
       <FileName>Feeds\ImplementationPreferences.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Injector.Feeds.InterfacePreferences">
     <Position X="4" Y="0.5" Width="1.75" />
@@ -74,9 +76,9 @@
       <Field Name="_feeds" Hidden="true" />
       <Field Name="_stabilityPolicy" Hidden="true" />
       <Method Name="Clone" Hidden="true" />
-      <Method Name="CloneInterfacePreferences" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ICloneable.Clone" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
       <Property Name="UriString" Hidden="true" />
     </Members>
@@ -86,7 +88,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAgAgIAAAAAQgAAEhAAACSAAAAAAAIAASAgAAAAAABA=</HashCode>
+      <HashCode>AAgAgIAAAAAQgAAMhAAACCAAAAAAAIAASAgAAAAAABA=</HashCode>
       <FileName>Feeds\InterfacePreferences.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -99,13 +101,13 @@
     <Members>
       <Field Name="_domains" Hidden="true" />
       <Method Name="Clone" Hidden="true" />
-      <Method Name="CloneKey" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ICloneable.Clone" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAEAAAAAAAEgAAACAAAAAAAAIAAAAEAQAAAABA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAMgAAACAAAAAAAAIAAAAEAQAAAABA=</HashCode>
       <FileName>Feeds\Key.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -123,8 +125,12 @@
   </Class>
   <Class Name="ZeroInstall.Injector.Feeds.FeedManagerBase">
     <Position X="2.25" Y="0.5" Width="1.5" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="ICloneable.Clone" Hidden="true" />
+    </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAgAABAAAAQgAAAAAAAAAIEAIAAAAAAAAAAABA=</HashCode>
+      <HashCode>AAAAAAAgAABAAAAYgAAAAAAAAAIAAIAAAAAAAAAAABA=</HashCode>
       <FileName>Feeds\FeedManagerBase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -132,17 +138,16 @@
   <Struct Name="ZeroInstall.Injector.Feeds.Domain" BaseTypeListCollapsed="true">
     <Position X="0.5" Y="5" Width="1.5" />
     <Members>
-      <Field Name="_value" Hidden="true" />
       <Method Name="Clone" Hidden="true" />
-      <Method Name="CloneDomain" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ICloneable.Clone" Hidden="true" />
       <Method Name="operator !=" Hidden="true" />
       <Method Name="operator ==" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>ABAAAAAAAAIAAAAEgAAAAAAAAAAAAIAAAAAgAAAAAjA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAMgAAAAAAAAAAAAIAAAAAgAAAAAjA=</HashCode>
       <FileName>Feeds\Domain.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />

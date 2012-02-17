@@ -200,20 +200,20 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
-        #region Simplify
+        #region Normalize
         /// <summary>
         /// Flattens the <see cref="Group"/> inheritance structure and sets missing default values in <see cref="Implementation"/>s.
         /// </summary>
-        /// <remarks>This should be called to prepare an interface for launch.
-        /// It should not be called if you plan on serializing the <see cref="Feed"/> again since it will may some of its structure.</remarks>
-        public void Simplify()
+        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing.
+        /// It should not be called if you plan on serializing the feed again since it will may loose some of its structure.</remarks>
+        public void Normalize()
         {
             var collapsedElements = new C5.LinkedList<Element>();
 
             foreach (var element in Elements)
             {
                 // Flatten structure in groups, set missing default values in implementations
-                element.Simplify();
+                element.Normalize();
 
                 var group = element as Group;
                 if (group != null)
@@ -252,7 +252,7 @@ namespace ZeroInstall.Model
         /// </summary>
         /// <param name="id">The <see cref="ImplementationBase.ID"/> to look for.</param>
         /// <returns>The identified <see cref="Implementation"/> or <see langword="null"/> no matching one was found.</returns>
-        /// <remarks>Should only be called after <see cref="Simplify"/> has been called, otherwise nested <see cref="Implementation"/>s will be missed.</remarks>
+        /// <remarks>Should only be called after <see cref="Normalize"/> has been called, otherwise nested <see cref="Implementation"/>s will be missed.</remarks>
         public Implementation GetImplementation(string id)
         {
             foreach (var element in Elements)
@@ -269,7 +269,7 @@ namespace ZeroInstall.Model
         /// </summary>
         /// <param name="digest">The <see cref="ManifestDigest"/> to look for.</param>
         /// <returns>The identified <see cref="Implementation"/> or <see langword="null"/> no matching one was found.</returns>
-        /// <remarks>Should only be called after <see cref="Simplify"/> has been called, otherwise nested <see cref="Implementation"/>s will be missed.</remarks>
+        /// <remarks>Should only be called after <see cref="Normalize"/> has been called, otherwise nested <see cref="Implementation"/>s will be missed.</remarks>
         public Implementation GetImplementation(ManifestDigest digest)
         {
             foreach (var element in Elements)

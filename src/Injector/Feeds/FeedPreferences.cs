@@ -84,11 +84,11 @@ namespace ZeroInstall.Injector.Feeds
         }
         #endregion
 
-        #region Simplify
+        #region Normalize
         /// <summary>
         /// Removes superflous entries from <see cref="Implementations"/>.
         /// </summary>
-        public void Simplify()
+        public void Normalize()
         {
             _implementations.RemoveAll(_implementations.FindAll(implementation => implementation.IsSuperflous));
         }

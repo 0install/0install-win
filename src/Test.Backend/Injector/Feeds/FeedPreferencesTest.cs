@@ -72,16 +72,16 @@ namespace ZeroInstall.Injector.Feeds
         }
 
         /// <summary>
-        /// Ensures that <see cref="FeedPreferences.Simplify"/> correctly superflous entries in <see cref="FeedPreferences.Implementations"/>.
+        /// Ensures that <see cref="FeedPreferences.Normalize"/> correctly removes superflous entries from <see cref="FeedPreferences.Implementations"/>.
         /// </summary>
         [Test]
-        public void TestSimplify()
+        public void TestNormalize()
         {
             var keep = new ImplementationPreferences {ID = "id1", UserStability = Stability.Testing};
             var superflous = new ImplementationPreferences {ID = "id2"};
             var preferences = new FeedPreferences {Implementations = {keep, superflous}};
 
-            preferences.Simplify();
+            preferences.Normalize();
             CollectionAssert.AreEquivalent(new[] {keep}, preferences.Implementations);
         }
 

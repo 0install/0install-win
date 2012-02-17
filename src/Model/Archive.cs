@@ -77,13 +77,13 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
-        #region Simplify
+        #region Normalize
         /// <summary>
         /// Guesses missing default values.
         /// </summary>
-        /// <remarks>This should be called to prepare an interface for launch.
-        /// It should not be called if you plan on serializing the <see cref="Feed"/> again since it will may some of its structure.</remarks>
-        public override void Simplify()
+        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing.
+        /// It should not be called if you plan on serializing the feed again since it will may loose some of its structure.</remarks>
+        public override void Normalize()
         {
             // If the MIME type is already set or the location is missing, we have nothing to do here
             if (!string.IsNullOrEmpty(MimeType) || string.IsNullOrEmpty(LocationString)) return;
