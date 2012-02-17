@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Fetchers.Fetcher">
-    <Position X="0.5" Y="3" Width="1.5" />
+    <Position X="0.5" Y="3" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAQAQAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAACAAAAAAAAEAAQAAAAA=</HashCode>
       <FileName>Fetcher.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -11,19 +11,8 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="ZeroInstall.Fetchers.FetchRequest">
-    <Position X="0.5" Y="5" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAAAAAgAAAAQAAAAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>FetchRequest.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Implementations" />
-    </ShowAsCollectionAssociation>
-    <Lollipop Position="0.2" />
-  </Class>
   <Class Name="ZeroInstall.Model.Implementation">
-    <Position X="3.75" Y="5" Width="1.75" />
+    <Position X="2.75" Y="5" Width="1.75" />
     <Members>
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
@@ -34,21 +23,18 @@
   <Class Name="ZeroInstall.Fetchers.FetcherProvider" Collapsed="true">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>FetcherProvider.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Default" />
-    </ShowAsAssociation>
   </Class>
   <Interface Name="ZeroInstall.Store.Implementation.IStore">
     <Position X="3.75" Y="1.75" Width="1.75" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="ZeroInstall.Fetchers.IFetcher">
-    <Position X="0.5" Y="1.5" Width="1.5" />
+    <Position X="0.5" Y="1.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAQAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAQAAAAA=</HashCode>
       <FileName>IFetcher.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

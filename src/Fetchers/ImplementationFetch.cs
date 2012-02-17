@@ -20,6 +20,8 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
+using System.Threading;
+using Common;
 using Common.Net;
 using Common.Tasks;
 using Common.Utils;
@@ -58,7 +60,39 @@ namespace ZeroInstall.Fetchers
 
         public void Execute(ITaskHandler handler)
         {
-            TryRetrievalMethods(handler);
+            using (var mutex = new Mutex(false, "0install-fetcher-" + _digest.BestDigest))
+            {
+                // Wait for the mutex and allow cancellation every 100 ms
+                try
+                {
+                    while (!mutex.WaitOne(100))
+                        handler.RunTask(new MutexTask(Resources.DownloadInAnotherWindow, mutex), _digest);
+                }
+                    #region Error handling
+                catch (AbandonedMutexException ex)
+                {
+                    // Abandoned mutexes also get owned, but indicate something may have gone wrong elsewhere
+                    Log.Warn(ex.Message);
+                }
+                #endregion
+
+                try
+                {
+                    // Check if another process added the implementation in the meantime
+                    _fetcherInstance.Store.ClearCaches();
+                    if (_fetcherInstance.Store.Contains(_digest))
+                    {
+                        Completed = true;
+                        return;
+                    }
+
+                    TryRetrievalMethods(handler);
+                }
+                finally
+                {
+                    mutex.ReleaseMutex();
+                }
+            }
         }
 
         private void TryRetrievalMethods(ITaskHandler handler)
