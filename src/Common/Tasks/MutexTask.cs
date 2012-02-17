@@ -20,71 +20,66 @@
  * THE SOFTWARE.
  */
 
+using System;
 using System.Threading;
 
 namespace Common.Tasks
 {
     /// <summary>
-    /// Abstract base class for background tasks that implement <see cref="ITask"/> using an explicit background thread.
+    /// Waits for a <see cref="Mutex"/> to become available.
     /// </summary>
-    public abstract class ThreadTaskBase : TaskBase
+    public sealed class MutexTask : ThreadTask
     {
         #region Variables
-        /// <summary>Synchronization handle to prevent race conditions with thread startup/shutdown or <see cref="ITask.State"/> switching.</summary>
-        protected readonly object StateLock = new object();
-
-        /// <summary>The background thread used for executing the task. Sub-classes must initalize this member.</summary>
-        protected readonly Thread Thread;
+        /// <summary>The <see cref="Mutex"/> to wait for.</summary>
+        private readonly Mutex _mutex;
         #endregion
 
         #region Properties
-        /// <inheritdoc />
-        public override bool CanCancel { get { return true; } }
+        private readonly string _name;
+
+        /// <inheritdoc/>
+        public override string Name { get { return _name; } }
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Prepares a new background thread for executing a task.
+        /// Creates a new mutex-waiting task.
         /// </summary>
-        protected ThreadTaskBase()
+        /// <param name="name">A name describing the task in human-readable form.</param>
+        /// <param name="mutex">The <see cref="Mutex"/> to wait for.</param>
+        public MutexTask(string name, Mutex mutex)
         {
-            // Prepare the background thread for later execution
-            Thread = new Thread(RunTask);
+            #region Sanity checks
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            if (mutex == null) throw new ArgumentNullException("mutex");
+            #endregion
+
+            _name = name;
+            _mutex = mutex;
         }
         #endregion
 
         //--------------------//
 
-        #region Control
-        /// <inheritdoc/>
-        public override void Start()
-        {
-            lock (StateLock)
-            {
-                if (State != TaskState.Ready) return;
-
-                State = TaskState.Started;
-                Thread.Start();
-            }
-        }
-
-        /// <inheritdoc />
-        public override void Join()
-        {
-            lock (StateLock)
-            {
-                if (Thread == null || !Thread.IsAlive) return;
-            }
-
-            Thread.Join();
-        }
-        #endregion
-
         #region Thread code
-        /// <summary>
-        /// The actual code to be executed by a background thread.
-        /// </summary>
-        protected abstract void RunTask();
+        /// <inheritdoc/>
+        protected override void RunTask()
+        {
+            // Wait for the mutex and allow cancellation every 100 ms
+            try
+            {
+                while (!_mutex.WaitOne(100))
+                    if (CancelRequest) throw new OperationCanceledException();
+            }
+            catch (AbandonedMutexException ex)
+            {
+                // Abandoned mutexes also get owned, but indicate something may have gone wrong elsewhere
+                Log.Warn(ex.Message);
+            }
+
+            lock (StateLock) State = TaskState.Complete;
+        }
         #endregion
     }
 }

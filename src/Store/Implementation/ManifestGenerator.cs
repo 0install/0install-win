@@ -28,13 +28,8 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// Generates a <see cref="Manifest"/> for a directory in the filesystem as a background task.
     /// </summary>
-    public class ManifestGenerator : ThreadTaskBase
+    public class ManifestGenerator : ThreadTask
     {
-        #region Variables
-        /// <summary>Flag that indicates the current process should be canceled.</summary>
-        private volatile bool _cancelRequest;
-        #endregion
-
         #region Properties
         /// <inheritdoc />
         public override string Name { get { return string.Format(Resources.GeneratingManifest, Format, Path.GetFileName(TargetDir)); } }
@@ -50,7 +45,7 @@ namespace ZeroInstall.Store.Implementation
         public ManifestFormat Format { get; private set; }
 
         /// <summary>
-        /// If <see cref="TaskBase.State"/> is <see cref="TaskState.Complete"/> this property contains the generated <see cref="Manifest"/>; otherwise it's <see langword="null"/>.
+        /// If <see cref="ThreadTask.State"/> is <see cref="TaskState.Complete"/> this property contains the generated <see cref="Manifest"/>; otherwise it's <see langword="null"/>.
         /// </summary>
         public Manifest Result { get; private set; }
         #endregion
@@ -75,31 +70,13 @@ namespace ZeroInstall.Store.Implementation
 
         //--------------------//
 
-        #region Control
-        /// <inheritdoc />
-        public override void Cancel()
-        {
-            lock (StateLock)
-            {
-                if (_cancelRequest || State == TaskState.Ready || State >= TaskState.Complete) return;
-
-                _cancelRequest = true;
-                Thread.Join();
-
-                // Reset the state so the task can be started again
-                State = TaskState.Ready;
-                _cancelRequest = true;
-            }
-        }
-        #endregion
-
         #region Thread code
         /// <inheritdoc />
         protected override void RunTask()
         {
             try
             {
-                if (_cancelRequest) return;
+                if (CancelRequest) throw new OperationCanceledException();
                 lock (StateLock) State = TaskState.Started;
 
                 // Get the complete (recursive) content of the directory sorted according to the format specification
@@ -109,7 +86,7 @@ namespace ZeroInstall.Store.Implementation
                 var externalXbits = FlagUtils.GetExternalFlags(".xbit", TargetDir);
                 var externalSymlinks = FlagUtils.GetExternalFlags(".symlink", TargetDir);
 
-                if (_cancelRequest) return;
+                if (CancelRequest) throw new OperationCanceledException();
                 lock (StateLock) State = TaskState.Data;
 
                 // Iterate through the directory listing to build a list of manifets entries
@@ -131,42 +108,20 @@ namespace ZeroInstall.Store.Implementation
                         if (directory != null) nodes.Add(GetDirectoryNode(directory, Path.GetFullPath(TargetDir)));
                     }
 
-                    if (_cancelRequest) return;
+                    if (CancelRequest) throw new OperationCanceledException();
                 }
 
                 Result = new Manifest(nodes, Format);
             }
                 #region Error handling
-            catch (IOException ex)
-            {
-                lock (StateLock)
-                {
-                    ErrorMessage = ex.Message;
-                    State = TaskState.IOError;
-                }
-                return;
-            }
             catch (UnauthorizedAccessException ex)
             {
-                lock (StateLock)
-                {
-                    ErrorMessage = ex.Message;
-                    State = TaskState.IOError;
-                }
-                return;
-            }
-            catch (NotSupportedException ex)
-            {
-                lock (StateLock)
-                {
-                    ErrorMessage = ex.Message;
-                    State = TaskState.IOError;
-                }
-                return;
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(ex.Message, ex);
             }
             #endregion
 
-            if (_cancelRequest) return;
+            if (CancelRequest) throw new OperationCanceledException();
             lock (StateLock) State = TaskState.Complete;
         }
 

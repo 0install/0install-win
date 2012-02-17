@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Net;
 using Common.Compression;
 using Common.Streams;
 using Common.Tasks;
@@ -30,7 +31,7 @@ namespace ZeroInstall.Store.Implementation.Archive
     /// <summary>
     /// Provides methods for extracting an archive (optionally as a background task).
     /// </summary>
-    public abstract class Extractor : ThreadTaskBase, IDisposable
+    public abstract class Extractor : ThreadTask, IDisposable
     {
         #region Variables
         /// <summary>
@@ -160,6 +161,33 @@ namespace ZeroInstall.Store.Implementation.Archive
         //--------------------//
 
         #region Control
+        /// <inheritdoc/>
+        public override void RunSync(CancellationToken cancellationToken)
+        {
+            if (cancellationToken != null) cancellationToken.CancellationRequested += Cancel;
+            Start();
+            Join();
+            if (cancellationToken != null) cancellationToken.CancellationRequested -= Cancel;
+
+            switch (State)
+            {
+                case TaskState.Complete:
+                    return;
+
+                case TaskState.WebError:
+                    State = TaskState.Ready;
+                    throw new WebException(ErrorMessage);
+
+                case TaskState.IOError:
+                    State = TaskState.Ready;
+                    throw new IOException(ErrorMessage);
+
+                default:
+                    State = TaskState.Ready;
+                    throw new OperationCanceledException();
+            }
+        }
+
         /// <inheritdoc />
         public override void Cancel()
         {
@@ -169,9 +197,6 @@ namespace ZeroInstall.Store.Implementation.Archive
 
                 Thread.Abort();
                 Thread.Join();
-
-                // Reset the state so the task can be started again
-                State = TaskState.Ready;
             }
         }
         #endregion

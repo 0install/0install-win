@@ -32,13 +32,8 @@ namespace Common.Net
     /// <summary>
     /// Downloads a file from a specific internet address to a local file (optionally as a background task).
     /// </summary>
-    public class DownloadFile : ThreadTaskBase
+    public class DownloadFile : ThreadTask
     {
-        #region Variables
-        /// <summary>Flag that indicates the current process should be canceled.</summary>
-        private volatile bool _cancelRequest;
-        #endregion
-
         #region Properties
         /// <inheritdoc />
         public override string Name { get { return string.Format(Resources.Downloading, Source); } }
@@ -101,28 +96,6 @@ namespace Common.Net
 
         //--------------------//
 
-        #region Control
-        /// <inheritdoc />
-        public override void Cancel()
-        {
-            lock (StateLock)
-            {
-                if (_cancelRequest || State == TaskState.Ready || State >= TaskState.Complete) return;
-
-                _cancelRequest = true;
-            }
-
-            Thread.Join();
-
-            lock (StateLock)
-            {
-                // Reset the state so the task can be started again
-                State = TaskState.Ready;
-                _cancelRequest = false;
-            }
-        }
-        #endregion
-
         #region Thread code
         /// <inheritdoc />
         protected override void RunTask()
@@ -136,7 +109,7 @@ namespace Common.Net
                 {
                     // ToDo: SetResumePoint()
 
-                    if (_cancelRequest) return;
+                    if (CancelRequest) throw new OperationCanceledException();
                     lock (StateLock) State = TaskState.Header;
 
                     // Start the server request, allowing for cancellation
@@ -144,54 +117,27 @@ namespace Common.Net
                     var responseRequest = request.BeginGetResponse(null, null);
                     // ReSharper restore AssignNullToNotNullAttribute
                     while (!responseRequest.AsyncWaitHandle.WaitOne(100, false))
-                        if (_cancelRequest) return;
+                        if (CancelRequest) throw new OperationCanceledException();
 
                     // Process the response
                     using (WebResponse response = request.EndGetResponse(responseRequest))
                     {
-                        if (_cancelRequest) return;
-                        lock (StateLock)
-                        {
-                            if (!ReadHeader(response)) return;
-
-                            // ToDo: VerifyResumePoint()
-
-                            State = TaskState.Data;
-                        }
+                        if (CancelRequest) throw new OperationCanceledException();
+                        ReadHeader(response);
+                        // ToDo: VerifyResumePoint()
+                        lock (StateLock) State = TaskState.Data;
 
                         // Start writing data to the file
                         if (response != null) WriteStreamToTarget(response.GetResponseStream(), fileStream);
-                        if (_cancelRequest) return;
+                        if (CancelRequest) throw new OperationCanceledException();
                     }
                 }
             }
                 #region Error handling
-            catch (WebException ex)
-            {
-                lock (StateLock)
-                {
-                    ErrorMessage = ex.Message;
-                    State = TaskState.WebError;
-                }
-                return;
-            }
-            catch (IOException ex)
-            {
-                lock (StateLock)
-                {
-                    ErrorMessage = ex.Message;
-                    State = TaskState.IOError;
-                }
-                return;
-            }
             catch (UnauthorizedAccessException ex)
             {
-                lock (StateLock)
-                {
-                    ErrorMessage = ex.Message;
-                    State = TaskState.IOError;
-                }
-                return;
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(ex.Message, ex);
             }
             #endregion
 
@@ -204,7 +150,7 @@ namespace Common.Net
         /// Reads the header information in the <paramref name="response"/> and stores it the object properties.
         /// </summary>
         /// <returns><see langword="true"/> if everything is ok; <see langword="false"/> if there was an error.</returns>
-        private bool ReadHeader(WebResponse response)
+        private void ReadHeader(WebResponse response)
         {
             Headers = response.Headers;
 
@@ -214,15 +160,10 @@ namespace Common.Net
             // Determine file size and make sure predetermined sizes are valid
             if (BytesTotal == -1 || response.ContentLength == -1) BytesTotal = response.ContentLength;
             else if (BytesTotal != response.ContentLength)
-            {
-                ErrorMessage = string.Format(Resources.FileNotExpectedSize, Source, BytesTotal, response.ContentLength);
-                State = TaskState.WebError;
-                return false;
-            }
+                throw new WebException(string.Format(Resources.FileNotExpectedSize, Source, BytesTotal, response.ContentLength));
 
             // HTTP servers with range-support and FTP servers support resuming downloads
             SupportsResume = (response is HttpWebResponse && Headers[HttpResponseHeader.AcceptRanges] == "bytes") || response is FtpWebResponse;
-            return true;
         }
 
         /// <summary>
@@ -254,7 +195,7 @@ namespace Common.Net
             while ((length = webStream.Read(buffer, 0, buffer.Length)) > 0)
             {
                 fileStream.Write(buffer, 0, length);
-                if (_cancelRequest) return;
+                if (CancelRequest) throw new OperationCanceledException();
                 lock (StateLock) BytesProcessed += length;
             }
         }

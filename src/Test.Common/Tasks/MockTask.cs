@@ -28,7 +28,7 @@ namespace Common.Tasks
     /// <summary>
     /// Pretends to perform a task for testing purposes
     /// </summary>
-    public class MockTask : TaskBase
+    public class MockTask : ThreadTask
     {
         #region Variables
         /// <summary>Indicates that <see cref="MockStateComplete"/> has been called.</summary>
@@ -65,6 +65,14 @@ namespace Common.Tasks
         public override void Cancel()
         {
             throw new NotSupportedException("Task can not be canceled.");
+        }
+        #endregion
+
+        #region Thread code
+        /// <inheritdoc/>
+        protected override void RunTask()
+        {
+            lock (StateLock) State = TaskState.Complete;
         }
         #endregion
 

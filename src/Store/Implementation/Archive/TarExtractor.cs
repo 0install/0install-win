@@ -90,30 +90,13 @@ namespace ZeroInstall.Store.Implementation.Archive
                 #region Error handling
             catch (SharpZipBaseException ex)
             {
-                lock (StateLock)
-                {
-                    ErrorMessage = Resources.ArchiveInvalid + "\n" + ex.Message;
-                    State = TaskState.IOError;
-                }
-                return;
-            }
-            catch (IOException ex)
-            {
-                lock (StateLock)
-                {
-                    ErrorMessage = ex.Message;
-                    State = TaskState.IOError;
-                }
-                return;
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
             }
             catch (UnauthorizedAccessException ex)
             {
-                lock (StateLock)
-                {
-                    ErrorMessage = ex.Message;
-                    State = TaskState.IOError;
-                }
-                return;
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(ex.Message, ex);
             }
             #endregion
 

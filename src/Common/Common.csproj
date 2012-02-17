@@ -69,6 +69,7 @@
     <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="PropertyPointer.cs" />
+    <Compile Include="Tasks\MutexTask.cs" />
     <Compile Include="TimedLogEvent.cs" />
     <Compile Include="Msg.cs" />
     <Compile Include="ToStringWrapper.cs" />
@@ -80,8 +81,7 @@
     <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Tasks\SimpleTask.cs" />
     <Compile Include="Tasks\ForEachTask.cs" />
-    <Compile Include="Tasks\TaskBase.cs" />
-    <Compile Include="Tasks\ThreadTaskBase.cs" />
+    <Compile Include="Tasks\ThreadTask.cs" />
     <Compile Include="Tasks\ITaskHandler.cs" />
     <Compile Include="Tasks\SilentTaskHandler.cs" />
     <Compile Include="Tasks\CliTaskHandler.cs" />

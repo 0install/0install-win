@@ -110,7 +110,7 @@ namespace Common.Tasks
 
         #region Control
         /// <summary>
-        /// Runs the task synchronous to the current thread.
+        /// Runs the task on the current thread or synchronous to it.
         /// Similar to calling <see cref="Start"/>, <see cref="Join"/> and then checking <see cref="State"/> and <see cref="ErrorMessage"/>.
         /// </summary>
         /// <param name="cancellationToken">Signaled when the user wishes to cancel the task execution.</param>
@@ -134,7 +134,7 @@ namespace Common.Tasks
         void Join();
 
         /// <summary>
-        /// Stops executing the task.
+        /// Stops executing the task. Will block until the task has ended if it was started with <see cref="Start"/>. Will return immediately if it was started with <see cref="RunSync"/>.
         /// </summary>
         /// <remarks>Calling this on a not running task has no effect.</remarks>
         void Cancel();
