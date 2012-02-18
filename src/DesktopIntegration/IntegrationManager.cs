@@ -63,7 +63,7 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Constructor
         /// <summary>
-        /// Creates a new integration manager using a custom <see cref="DesktopIntegration.AppList"/>. Do not use directly unless for testing purposes!
+        /// Creates a new integration manager using a custom <see cref="DesktopIntegration.AppList"/>. Do not use directly except for testing purposes!
         /// </summary>
         /// <param name="systemWide">Apply operations system-wide instead of just for the current user.</param>
         /// <param name="appListPath">The storage location of the <see cref="AppList"/> file.</param>
@@ -97,7 +97,7 @@ namespace ZeroInstall.DesktopIntegration
             : this(systemWide, AppList.GetDefaultPath(systemWide), handler)
         {
             // Prevent multiple concurrent desktop integration operations
-            _mutex = new Mutex(true, systemWide ? @"Global\" + MutexName : MutexName);
+            _mutex = new Mutex(false, systemWide ? @"Global\" + MutexName : MutexName);
             if (!_mutex.WaitOne(1000, false))
             {
                 _mutex = null; // Don't try to release mutex if it wasn't acquired
