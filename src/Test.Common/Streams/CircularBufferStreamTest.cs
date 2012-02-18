@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.IO;
 using System.Threading;
 using NUnit.Framework;
 
@@ -148,6 +149,24 @@ namespace Common.Streams
             var trimmedConsumerData = new byte[producerData.Length];
             Buffer.BlockCopy(consumerData, 0, trimmedConsumerData, 0, trimmedConsumerData.Length);
             CollectionAssert.AreEqual(producerData, trimmedConsumerData);
+        }
+
+        /// <summary>
+        /// Ensures exceptions get passed from <see cref="CircularBufferStream.RelayErrorToReader"/> to <see cref="CircularBufferStream.Read"/>.
+        /// </summary>
+        [Test]
+        public void TestErrorRelay()
+        {
+            // Throw exception on producer thread after a short delay
+            new Thread(delegate()
+            {
+                Thread.Sleep(50);
+                _stream.RelayErrorToReader(new InvalidDataException("Test exception"));
+            }).Start();
+
+            // Catch exception on consumer thread
+            var consumerData = new byte[2];
+            Assert.Throws<InvalidDataException>(() => _stream.Read(consumerData, 0, consumerData.Length));
         }
     }
 }

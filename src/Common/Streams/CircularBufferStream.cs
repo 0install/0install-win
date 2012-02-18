@@ -37,8 +37,8 @@ namespace Common.Streams
         /// <summary>The byte array used as a circular buffer storage.</summary>
         private readonly byte[] _buffer;
 
-        /// <summary>Synchronization object used to synchronize access to <see cref="_buffer"/>.</summary>
-        private readonly object _bufferLock = new object();
+        /// <summary>Synchronization object used to synchronize access across consumer and producer threads.</summary>
+        private readonly object _lock = new object();
 
         /// <summary>The index of the first byte currently store in the <see cref="_buffer"/>.</summary>
         private int _dataStart;
@@ -48,6 +48,9 @@ namespace Common.Streams
 
         /// <summary>Indicates that the producer has finished and no new data will be added.</summary>
         private bool _doneWriting;
+
+        /// <summary>Exceptions sent to <see cref="Read"/>ers via <see cref="RelayErrorToReader"/>.</summary>
+        private Exception _relayedException;
 
         /// <summary>A barrier that blocks threads until new data is available in the <see cref="_buffer"/>.</summary>
         private readonly ManualResetEvent _dataAvailable = new ManualResetEvent(false);
@@ -129,8 +132,10 @@ namespace Common.Streams
             {
                 if (IsDisposed) throw new ObjectDisposedException("CircularBufferStream");
 
-                lock (_bufferLock)
+                lock (_lock)
                 {
+                    if (_relayedException != null) throw _relayedException;
+
                     // All data read and no new data coming
                     if (_doneWriting && _dataLength == 0) break;
                 }
@@ -138,7 +143,7 @@ namespace Common.Streams
                 // Block while buffer is empty
                 _dataAvailable.WaitOne();
 
-                lock (_bufferLock)
+                lock (_lock)
                 {
                     // The index of the last byte currently stored in the buffer plus one
                     int dataEnd = (_dataStart + _dataLength) % _buffer.Length;
@@ -173,6 +178,19 @@ namespace Common.Streams
 
             return bytesCopied;
         }
+
+        /// <summary>
+        /// Throws an exception from within <see cref="Read"/>.
+        /// </summary>
+        /// <param name="exception">The exception to throw.</param>
+        public void RelayErrorToReader(Exception exception)
+        {
+            lock (_lock)
+                _relayedException = exception;
+
+            // Stop waiting for data that will never come
+            _dataAvailable.Set();
+        }
         #endregion
 
         #region Write
@@ -196,7 +214,7 @@ namespace Common.Streams
                 // Block while buffer is full
                 _spaceAvailable.WaitOne();
 
-                lock (_bufferLock)
+                lock (_lock)
                 {
                     // The index of the last byte currently stored in the buffer plus one
                     int dataEnd = (_dataStart + _dataLength) % _buffer.Length;
@@ -236,7 +254,8 @@ namespace Common.Streams
         /// </summary>
         public void DoneWriting()
         {
-            _doneWriting = true;
+            lock (_lock)
+                _doneWriting = true;
 
             // Stop waiting for data that will never come
             _dataAvailable.Set();
