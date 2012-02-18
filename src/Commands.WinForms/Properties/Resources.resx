@@ -1223,6 +1223,9 @@
   <data name="Change" xml:space="preserve">
     <value>Change</value>
   </data>
+  <data name="DownloadDamaged" xml:space="preserve">
+    <value>A downloaded file is damaged or invalid.</value>
+  </data>
   <data name="EnterFeedUrl" xml:space="preserve">
     <value>Please enter the URL of the new source of implementations for this interface:</value>
   </data>

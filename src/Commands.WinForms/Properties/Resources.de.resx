@@ -123,6 +123,9 @@
   <data name="Change" xml:space="preserve">
     <value>Ändern</value>
   </data>
+  <data name="DownloadDamaged" xml:space="preserve">
+    <value>Eine heruntergeladene Datei ist beschädigt oder ungültig.</value>
+  </data>
   <data name="EnterFeedUrl" xml:space="preserve">
     <value>Bitte geben Sie die URL der neuen Quelle von Implementierungen für dieses Interface an:</value>
   </data>

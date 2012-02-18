@@ -193,7 +193,9 @@ namespace ZeroInstall.Commands.WinForms
             catch (DigestMismatchException ex)
             {
                 handler.DisableProgressUI();
-                ErrorBox.Show(ex.Message, errorLog + Environment.NewLine + Environment.NewLine + "Manifest:" + ex.ActualManifest);
+                errorLog.AppendPar(ex.Message, RtfColor.Red);
+                errorLog.AppendPar("Generated manifest:" + Environment.NewLine + ex.ActualManifest, RtfColor.Black);
+                ErrorBox.Show(Resources.DownloadDamaged, errorLog.ToString());
             }
             catch (SolverException ex)
             {
