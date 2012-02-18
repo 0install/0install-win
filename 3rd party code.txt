@@ -52,6 +52,12 @@ MIT license: http://www.opensource.org/licenses/mit-license
 Source unmodified
 Pre-compiled managed DLL: CookComputing.XmlRpcV2.dll
 
+Task Scheduler Managed Wrapper 1.7.1
+http://taskscheduler.codeplex.com/
+MIT license: http://www.opensource.org/licenses/mit-license
+Source unmodified
+Pre-compiled managed DLL: Microsoft.Win32.TaskScheduler.dll
+
 EasyHook 2.6
 http://easyhook.codeplex.com/
 GNU LGPL: http://www.gnu.org/copyleft/lesser.html
