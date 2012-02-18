@@ -55,8 +55,8 @@ namespace ZeroInstall.Store.Implementation.Archive
                 #region Error handling
             catch (ZipException ex)
             {
-                // Make sure only standard exception types are thrown to the outside
-                throw new IOException(Resources.ArchiveInvalid, ex);
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);;
             }
             #endregion
         }

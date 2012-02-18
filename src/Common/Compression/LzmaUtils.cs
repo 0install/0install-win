@@ -58,7 +58,10 @@ namespace Common.Compression
             // Read LZMA header
             if (baseStream.CanSeek) baseStream.Position = 0;
             var properties = new byte[5];
-            if (baseStream.Read(properties, 0, 5) != 5) throw new InvalidDataException(Resources.ArchiveInvalid);
+            if (baseStream.Read(properties, 0, 5) != 5)
+            { // Stream too short
+                throw new InvalidDataException(Resources.ArchiveInvalid);
+            }
             try
             {
                 decoder.SetDecoderProperties(properties);
@@ -66,7 +69,7 @@ namespace Common.Compression
                 #region Error handling
             catch (InvalidParamException ex)
             {
-                // Make sure only standard exception types are thrown to the outside
+                // Wrap exception since only certain exception types are allowed
                 throw new InvalidDataException(Resources.ArchiveInvalid, ex);
             }
             #endregion
@@ -85,7 +88,10 @@ namespace Common.Compression
             }
 
             // If the uncompressed length is unknown, use original size * 1.5 as an estimate
-            bufferStream.SetLength(uncompressedLength == -1 ? baseStream.Length : (long)(uncompressedLength * 1.5));
+            unchecked
+            {
+                bufferStream.SetLength(uncompressedLength == -1 ? baseStream.Length : (long)(uncompressedLength * 1.5));
+            }
 
             // Initialize the producer thread that will deliver uncompressed data
             var thread = new Thread(delegate()
@@ -94,12 +100,18 @@ namespace Common.Compression
                 {
                     decoder.Code(baseStream, bufferStream, baseStream.Length, uncompressedLength, null);
                 }
-                    #region Error handnling
+                    #region Error handling
                 catch (ThreadAbortException)
                 {}
-                    // If the buffer stream is closed to early the user probably just canceled the extraction process
                 catch (ObjectDisposedException)
-                {}
+                {
+                    // If the buffer stream is closed too early the user probably just canceled the extraction process
+                }
+                catch (DataErrorException ex)
+                {
+                    // Wrap exception since only certain exception types are allowed
+                    bufferStream.RelayErrorToReader(new InvalidDataException(ex.Message, ex));
+                }
                     #endregion
 
                 finally

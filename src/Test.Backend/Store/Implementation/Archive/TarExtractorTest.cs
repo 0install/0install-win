@@ -28,6 +28,7 @@ namespace ZeroInstall.Store.Implementation.Archive
     {
         private TemporaryDirectory _sandbox;
         private string _oldWorkingDirectory;
+        private static readonly byte[] _garbageData = new byte[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
 
         [SetUp]
         public void SetUp()
@@ -52,10 +53,22 @@ namespace ZeroInstall.Store.Implementation.Archive
         }
 
         [Test]
+        public void TestPlainError()
+        {
+            Assert.Throws<IOException>(() => TestExtract("application/x-tar", new MemoryStream(_garbageData)));
+        }
+
+        [Test]
         public void TestGzCompressed()
         {
             using (var archive = TestData.GetTestTarGzArchiveStream())
                 TestExtract("application/x-compressed-tar", archive);
+        }
+
+        [Test]
+        public void TestGzCompressedError()
+        {
+            Assert.Throws<IOException>(() => TestExtract("application/x-compressed-tar", new MemoryStream(_garbageData)));
         }
 
         [Test]
@@ -66,10 +79,22 @@ namespace ZeroInstall.Store.Implementation.Archive
         }
 
         [Test]
+        public void TestBz2CompressedError()
+        {
+            Assert.Throws<IOException>(() => TestExtract("application/x-bzip-compressed-tar", new MemoryStream(_garbageData)));
+        }
+
+        [Test]
         public void TestLzmaCompressed()
         {
             using (var archive = TestData.GetTestTarLzmaArchiveStream())
                 TestExtract("application/x-lzma-compressed-tar", archive);
+        }
+
+        [Test]
+        public void TestLzmaCompressedError()
+        {
+            Assert.Throws<IOException>(() => TestExtract("application/x-lzma-compressed-tar", new MemoryStream(_garbageData)));
         }
 
         [Test]
