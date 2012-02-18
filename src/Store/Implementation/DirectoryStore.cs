@@ -438,6 +438,7 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
+            if (!Contains(manifestDigest)) throw new ImplementationNotFoundException(manifestDigest);
             VerifyDirectory(Path.Combine(DirectoryPath, manifestDigest.BestDigest), manifestDigest, handler);
         }
         #endregion

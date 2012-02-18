@@ -143,6 +143,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> indicates no known hash methods.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if no implementation matching <paramref name="manifestDigest"/> could be found in the store.</exception>
         /// <exception cref="IOException">Thrown if the entry's directory could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the entry's directory is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the entry's directory doesn't match <paramref name="manifestDigest"/>.</exception>

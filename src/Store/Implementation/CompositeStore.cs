@@ -68,7 +68,7 @@ namespace ZeroInstall.Store.Implementation
         {
             // Merge the lists from all contained stores, eliminating duplicates
             var result = new C5.TreeSet<ManifestDigest>();
-            foreach (IStore store in _stores)
+            foreach (var store in _stores)
             {
                 try
                 {
@@ -88,7 +88,7 @@ namespace ZeroInstall.Store.Implementation
         {
             // Merge the lists from all contained stores, eliminating duplicates
             var result = new C5.TreeSet<string>();
-            foreach (IStore store in _stores)
+            foreach (var store in _stores)
             {
                 try
                 {
@@ -114,7 +114,7 @@ namespace ZeroInstall.Store.Implementation
                 if (_containsCache.TryGetValue(manifestDigest, out result)) return result;
             }
 
-            foreach (IStore store in _stores)
+            foreach (var store in _stores)
             {
                 // Check if any store contains the implementation
                 if (store.Contains(manifestDigest))
@@ -132,7 +132,7 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public bool Contains(string directory)
         {
-            foreach (IStore store in _stores)
+            foreach (var store in _stores)
             {
                 // Check if any store contains the implementation
                 if (store.Contains(directory)) return true;
@@ -147,7 +147,7 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public string GetPath(ManifestDigest manifestDigest)
         {
-            foreach (IStore store in _stores)
+            foreach (var store in _stores)
             {
                 // Use the first store that contains the implementation
                 string path = store.GetPath(manifestDigest);
@@ -250,7 +250,7 @@ namespace ZeroInstall.Store.Implementation
             ClearCaches();
 
             bool removed = false;
-            foreach (IStore store in _stores)
+            foreach (var store in _stores)
             {
                 // Remove from every store that contains the implementation
                 if (store.Contains(manifestDigest))
@@ -273,7 +273,7 @@ namespace ZeroInstall.Store.Implementation
             ClearCaches();
 
             bool removed = false;
-            foreach (IStore store in _stores)
+            foreach (var store in _stores)
             {
                 // Remove from store every that contains the implementation
                 if (store.Contains(directory))
@@ -295,7 +295,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Try to optimize all contained stores
-            foreach (IStore store in _stores)
+            foreach (var store in _stores)
             {
                 try
                 {
@@ -324,8 +324,16 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Verify in all contained stores
-            foreach (IStore store in _stores)
+            bool verified = false;
+            foreach (var store in _stores)
+            {
+                if (!store.Contains(manifestDigest)) continue;
                 store.Verify(manifestDigest, handler);
+                verified = true;
+            }
+
+            // If we reach this, none of the stores contains the implementation
+            if (!verified) throw new ImplementationNotFoundException(manifestDigest);
         }
         #endregion
 
@@ -338,13 +346,13 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Try to audit all contained stores
-            foreach (IStore store in _stores)
+            foreach (var store in _stores)
             {
                 var problems = store.Audit(handler);
                 if (problems != null)
                 {
                     // Combine problems from all stores
-                    foreach (DigestMismatchException problem in problems)
+                    foreach (var problem in problems)
                         yield return problem;
                 }
             }

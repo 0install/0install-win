@@ -260,9 +260,14 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestVerify()
         {
-            _mockStore1.Setup(x => x.Verify(_digest1, _handler)).Verifiable();
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(true).Verifiable();
             _mockStore2.Setup(x => x.Verify(_digest1, _handler)).Verifiable();
             _testStore.Verify(_digest1, _handler);
+
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
+            Assert.Throws<ImplementationNotFoundException>(() => _testStore.Verify(_digest1, _handler));
         }
         #endregion
 
