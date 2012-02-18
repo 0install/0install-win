@@ -11,6 +11,7 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "_allowWindowClose", Justification = "Disposing WaitHandle is not necessary since the SafeWaitHandle is never touched")]
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))

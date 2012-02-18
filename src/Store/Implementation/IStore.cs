@@ -107,23 +107,21 @@ namespace ZeroInstall.Store.Implementation
         /// Removes a specific implementation from the cache.
         /// </summary>
         /// <param name="manifestDigest">The digest of the implementation to be removed.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if no implementation matching <paramref name="manifestDigest"/> could be found in the store.</exception>
         /// <exception cref="IOException">Thrown if the implementation could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
-        void Remove(ManifestDigest manifestDigest, ITaskHandler handler);
+        void Remove(ManifestDigest manifestDigest);
 
         /// <summary>
         /// Removes a specific directory from the cache.
-        /// Only use this to remove temporary directories. Use <see cref="Remove(ZeroInstall.Model.ManifestDigest,Common.Tasks.ITaskHandler)"/> instead if possible.
+        /// Only use this to remove temporary directories. Use <see cref="Remove(ZeroInstall.Model.ManifestDigest)"/> instead if possible.
         /// </summary>
         /// <param name="directory">The name of the directory to be removed.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="DirectoryNotFoundException">Thrown if no directory called <paramref name="directory"/> could be found in the store.</exception>
         /// <exception cref="IOException">Thrown if the directory could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
-        void Remove(string directory, ITaskHandler handler);
+        void Remove(string directory);
 
         /// <summary>
         /// Reads in all the manifest files in the store and looks for duplicates (files with the same permissions, modification time and digest). When it finds a pair, it deletes one and replaces it with a hard-link to the other.

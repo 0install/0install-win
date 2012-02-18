@@ -72,7 +72,7 @@ namespace ZeroInstall.Store.Management.Cli
 
             for (int i = 1; i < args.Count; i++)
             {
-                _store.Remove(new ManifestDigest(args[i]), handler);
+                _store.Remove(new ManifestDigest(args[i]));
                 Log.Info(string.Format(Resources.SuccessfullyRemoved, args[i]));
             }
         }

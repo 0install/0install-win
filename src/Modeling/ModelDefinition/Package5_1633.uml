@@ -504,19 +504,12 @@
                   Id="1f259810-91f8-43b1-a6f7-d9197eddcd4d"
                   name="manifestDigest"
                   direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="d276b016-3dc4-4498-814c-7e14e1fc04f1"
-                  name="handler"
-                  direction="In"
                   isUnique="false">
                   <type_NamedElement>
-                    <interfaceMoniker
-                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package_0657.uml" />
+                    <undefinedTypeMoniker
+                      Id="064f5a54-c1cb-4cda-b76e-bf41363cf1f8"
+                      LastKnownName="ManifestDigest"
+                      LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -745,6 +738,31 @@
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
                       LastKnownLocation="Package_0657.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="1337d2e0-3c07-4e00-bcc0-791d2cc6acc5"
+            name="Remove"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="c40b92d2-8377-4695-b5de-05b18b2c2d29"
+                  name="directory"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="Architecture.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1285,22 +1303,15 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="ebb55ce0-1e30-4c9a-b03d-e6ffb64e40f9"
+                  Id="01f55f3e-c2a8-416c-b25f-df74571cc5b0"
                   name="manifestDigest"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="036fae3f-7a91-4c11-8d6f-2e5330c40401"
-                  name="handler"
                   direction="In"
                   isUnique="false">
                   <type_NamedElement>
-                    <interfaceMoniker
-                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package_0657.uml" />
+                    <undefinedTypeMoniker
+                      Id="064f5a54-c1cb-4cda-b76e-bf41363cf1f8"
+                      LastKnownName="ManifestDigest"
+                      LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1508,6 +1519,74 @@
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
                       LastKnownLocation="Package_0657.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="42605fa8-c73e-45f2-88b4-b83e6897f1c3"
+            name="Remove"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="52348ee6-ffe5-488d-b49b-449ca468add1"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3f032d74-5d7f-4fa7-b10c-41b4f54272ab">
+                    <propertyInstance
+                      Id="67881995-36a8-4efd-9981-83b9e43badf2"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="19181827-fe5d-4211-a547-0d091b847aba">
+                    <propertyInstance
+                      Id="b3ce8019-93ca-4b41-88db-b46bedb03d19"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="253100f6-09ee-4b48-896b-db3b68a04e0f">
+                    <propertyInstance
+                      Id="80285903-c5db-4b94-911a-ca622058e694"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="06d9ccb2-b108-43d0-b696-2ad16ed0718e">
+                    <propertyInstance
+                      Id="31e7d84f-3f91-4065-bf09-640143fd533f"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="352140df-ceae-43f4-9af4-f6edb71d5848">
+                    <propertyInstance
+                      Id="b8d3fe5d-4456-405e-a8b4-cc66802b563f"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1e9c108d-eb25-41e3-9904-57d8c866a94b"
+                  name="directory"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="Architecture.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4147,19 +4226,12 @@
                   Id="4e4ee3ca-1874-429b-8d6d-637da005f6c8"
                   name="manifestDigest"
                   direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="155eadc7-7026-43ef-9c57-2bda4490e326"
-                  name="handler"
-                  direction="In"
                   isUnique="false">
                   <type_NamedElement>
-                    <interfaceMoniker
-                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package_0657.uml" />
+                    <undefinedTypeMoniker
+                      Id="064f5a54-c1cb-4cda-b76e-bf41363cf1f8"
+                      LastKnownName="ManifestDigest"
+                      LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4280,6 +4352,31 @@
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
                       LastKnownLocation="Package_0657.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="fe2e658d-57e9-4848-88b4-6fe44bd70fe8"
+            name="Remove"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="22ff3ab1-dc7e-4776-9595-4208313a4284"
+                  name="directory"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="Architecture.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4704,19 +4801,12 @@
                   Id="1834614e-9c05-4f88-b4af-d15312ea49ce"
                   name="manifestDigest"
                   direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="ba848a3c-254d-4135-8b16-6e065e460c39"
-                  name="handler"
-                  direction="In"
                   isUnique="false">
                   <type_NamedElement>
-                    <interfaceMoniker
-                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package_0657.uml" />
+                    <undefinedTypeMoniker
+                      Id="064f5a54-c1cb-4cda-b76e-bf41363cf1f8"
+                      LastKnownName="ManifestDigest"
+                      LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4898,6 +4988,31 @@
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
                       LastKnownLocation="Package_0657.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="530d6ea0-9ef1-48c8-9fa7-6703dc25d666"
+            name="Remove"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="878bdd37-9444-4721-be74-5f931b1367e6"
+                  name="directory"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="Architecture.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -8599,7 +8714,7 @@
             isSubstitutable="false">
             <classMoniker
               Id="aac91736-0152-4877-b9d7-1b8711346683"
-              LastKnownName="ThreadTaskBase"
+              LastKnownName="ThreadTask"
               LastKnownLocation="Package_0657.uml" />
           </generalization>
         </generalsInternal>
@@ -9197,6 +9312,11 @@
         Id="4f00b828-d2c8-4be2-b753-6b581e880434"
         LastKnownName="Archive"
         LastKnownLocation="Package_1634.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="064f5a54-c1cb-4cda-b76e-bf41363cf1f8"
+        name="ManifestDigest" />
     </packageHasNamedElement>
   </packagedElements>
 </package>

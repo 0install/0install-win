@@ -56,7 +56,7 @@ namespace Common.Storage
         /// Creates a uniquely named, empty temporary directory on disk.
         /// </summary>
         /// <param name="prefix">A short string the directory name should start with.</param>
-        /// <param name="makeWorkingDir">Set to <see langword="true"/> to make the new directory the <see cref="Environment.CurrentDirectory"/> until <see cref="Dispose"/> is called.</param>
+        /// <param name="makeWorkingDir">Set to <see langword="true"/> to make the new directory the <see cref="Environment.CurrentDirectory"/> until <see cref="Dispose()"/> is called.</param>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory in <see cref="System.IO.Path.GetTempPath"/>.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory in <see cref="System.IO.Path.GetTempPath"/> is not permitted.</exception>
         public TemporaryDirectory(string prefix, bool makeWorkingDir)
@@ -105,7 +105,7 @@ namespace Common.Storage
                 catch (IOException)
                 {}
                 catch (UnauthorizedAccessException)
-                { }
+                {}
 #endif
 
                 Directory.Delete(Path, true);

@@ -126,6 +126,15 @@
   <data name="DeleteEntry" xml:space="preserve">
     <value>Möchten Sie diesen Eintrag aus dem Cache löschen?</value>
   </data>
+  <data name="DeletingDirectory" xml:space="preserve">
+    <value>Lösche Verzeichnis</value>
+  </data>
+  <data name="DeletingEntries" xml:space="preserve">
+    <value>Lösche Einträge</value>
+  </data>
+  <data name="DeletingImplementations" xml:space="preserve">
+    <value>Lösche Implementierung</value>
+  </data>
   <data name="ImplementationOK" xml:space="preserve">
     <value>Implementierung ist in Ordnung.</value>
   </data>

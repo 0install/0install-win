@@ -241,12 +241,8 @@ namespace ZeroInstall.Store.Implementation
 
         #region Remove
         /// <inheritdoc />
-        public void Remove(ManifestDigest manifestDigest, ITaskHandler handler)
+        public void Remove(ManifestDigest manifestDigest)
         {
-            #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
-            #endregion
-
             ClearCaches();
 
             bool removed = false;
@@ -255,7 +251,7 @@ namespace ZeroInstall.Store.Implementation
                 // Remove from every store that contains the implementation
                 if (store.Contains(manifestDigest))
                 {
-                    store.Remove(manifestDigest, handler);
+                    store.Remove(manifestDigest);
                     removed = true;
                 }
             }
@@ -263,11 +259,10 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <inheritdoc />
-        public void Remove(string directory, ITaskHandler handler)
+        public void Remove(string directory)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(directory)) throw new ArgumentNullException("directory");
-            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             ClearCaches();
@@ -278,7 +273,7 @@ namespace ZeroInstall.Store.Implementation
                 // Remove from store every that contains the implementation
                 if (store.Contains(directory))
                 {
-                    store.Remove(directory, handler);
+                    store.Remove(directory);
                     removed = true;
                 }
             }

@@ -338,83 +338,56 @@ namespace ZeroInstall.Store.Implementation
 
         #region Remove
         /// <inheritdoc />
-        public void Remove(ManifestDigest manifestDigest, ITaskHandler handler)
+        public void Remove(ManifestDigest manifestDigest)
         {
-            #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
-            #endregion
-
             string path = GetPath(manifestDigest);
             if (path == null) throw new ImplementationNotFoundException(manifestDigest);
 
-            // Defer deleting to handler
-            handler.RunTask(
-                new SimpleTask(string.Format(Resources.DeletingImplementation, manifestDigest.BestDigest),
-                    delegate
-                    {
-                        try
-                        {
-                            FileUtils.DisableWriteProtection(path);
+            FileUtils.DisableWriteProtection(path);
 
-                            // Move the directory to be deleted to a temporary directory to ensure the removal operation is atomic
-                            string tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
-                            Directory.Move(path, tempDir);
+            // Move the directory to be deleted to a temporary directory to ensure the removal operation is atomic
+            string tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
+            Directory.Move(path, tempDir);
 
-                            Directory.Delete(tempDir, true);
-                        }
-                            #region Error handling
-                        catch (UnauthorizedAccessException ex)
-                        {
-                            // Wrap exception since only certain exception types are allowed in tasks
-                            throw new IOException(ex.Message, ex);
-                        }
-                        #endregion
-                    }), manifestDigest);
+            Directory.Delete(tempDir, true);
         }
 
         /// <inheritdoc />
-        public void Remove(string directory, ITaskHandler handler)
+        public void Remove(string directory)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(directory)) throw new ArgumentNullException("directory");
-            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             string path = Path.Combine(DirectoryPath, directory);
             if (!Directory.Exists(path)) throw new DirectoryNotFoundException();
 
-            // Defer deleting to handler
-            handler.RunTask(
-                new SimpleTask(string.Format(Resources.DeletingDirectory, directory),
-                    delegate
-                    {
-                        try
-                        {
-                            FileUtils.DisableWriteProtection(path);
-                        }
-                            #region Error handling
-                        catch (IOException)
-                        {
-                            // Ignore since we may be able to delete it anyway
-                        }
-                        catch (UnauthorizedAccessException)
-                        {
-                            // Ignore since we may be able to delete it anyway
-                        }
-                        #endregion
+            try
+            {
+                FileUtils.DisableWriteProtection(path);
+            }
+                #region Error handling
+            catch (IOException)
+            {
+                // Ignore since we may be able to delete it anyway
+            }
+            catch (UnauthorizedAccessException)
+            {
+                // Ignore since we may be able to delete it anyway
+            }
+            #endregion
 
-                        try
-                        {
-                            Directory.Delete(path, true);
-                        }
-                            #region Error handling
-                        catch (UnauthorizedAccessException ex)
-                        {
-                            // Wrap exception since only certain exception types are allowed in tasks
-                            throw new IOException(ex.Message, ex);
-                        }
-                        #endregion
-                    }), null);
+            try
+            {
+                Directory.Delete(path, true);
+            }
+                #region Error handling
+            catch (UnauthorizedAccessException ex)
+            {
+                // Wrap exception since only certain exception types are allowed in tasks
+                throw new IOException(ex.Message, ex);
+            }
+            #endregion
         }
         #endregion
 

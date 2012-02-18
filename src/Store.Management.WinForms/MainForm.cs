@@ -215,10 +215,11 @@ namespace ZeroInstall.Store.Management.WinForms
             {
                 try
                 {
-                    foreach (StoreNode entry in _treeView.CheckedEntries)
-                        entry.Delete(this);
+                    RunTask(new ForEachTask<StoreNode>(Resources.DeletingEntries, _treeView.CheckedEntries, entry => entry.Delete()), null);
                 }
                     #region Error handling
+                catch (OperationCanceledException)
+                {}
                 catch (KeyNotFoundException ex)
                 {
                     Msg.Inform(this, ex.Message, MsgSeverity.Error);

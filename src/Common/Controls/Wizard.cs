@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 using Common.Properties;
 
@@ -32,6 +33,10 @@ namespace Common.Controls
         /// <param name="page">The page to display and add.</param>
         protected void PushPage(UserControl page)
         {
+            #region Sanity checks
+            if (page == null) throw new ArgumentNullException("page");
+            #endregion
+
             if (PageStack.Count != 0) panelPage.Controls.Remove(PageStack.Peek());
             panelPage.Controls.Add(page);
             PageStack.Push(page);

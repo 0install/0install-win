@@ -123,7 +123,7 @@ namespace ZeroInstall.Store.Implementation
 
             _store.AddDirectory(_packageDir, digest, new SilentHandler());
             Assert.IsTrue(_store.Contains(digest), "After adding, Store must contain the added package");
-            _store.Remove(digest, new SilentHandler());
+            _store.Remove(digest);
             Assert.IsFalse(_store.Contains(digest), "After remove, Store may no longer contain the added package");
         }
 
@@ -132,7 +132,7 @@ namespace ZeroInstall.Store.Implementation
         {
             Directory.CreateDirectory(Path.Combine(_store.DirectoryPath, "temp"));
             Assert.IsTrue(_store.Contains("temp"), "After adding, Store must list the temp directory");
-            _store.Remove("temp", new SilentHandler());
+            _store.Remove("temp");
             Assert.IsFalse(_store.Contains("temp"), "After remove, Store may no longer list the temp directory");
         }
 
@@ -187,7 +187,7 @@ namespace ZeroInstall.Store.Implementation
                     try
                     {
                         _store.AddDirectory(_packageDir, digest, new SilentHandler());
-                        _store.Remove(digest, new SilentHandler());
+                        _store.Remove(digest);
                     }
                     catch (ImplementationAlreadyInStoreException)
                     {}

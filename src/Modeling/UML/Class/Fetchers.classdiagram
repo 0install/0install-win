@@ -933,15 +933,10 @@
                   <elementDefinition Id="a65aa020-a7f1-44a3-aec1-e21bd73bfada" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="412f1f39-e34d-4ffb-af2f-a3a010d255fe" name="manifestDigest" direction="In" isUnique="false">
-                        <elementDefinition Id="ebb55ce0-1e30-4c9a-b03d-e6ffb64e40f9" />
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="3ebe366a-affc-43e2-8b77-b1c029ff0245" name="handler" direction="In" isUnique="false">
-                        <elementDefinition Id="036fae3f-7a91-4c11-8d6f-2e5330c40401" />
+                      <parameter Id="cc8c2751-fb08-4b4b-ba12-e147e5ae84e0" name="manifestDigest" direction="In" isUnique="false">
+                        <elementDefinition Id="01f55f3e-c2a8-416c-b25f-df74571cc5b0" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="0482311c-6e8d-49f7-b1ef-c693f2ab2967" LastKnownName="ITaskHandler" />
+                          <referencedTypeMoniker Id="04126516-b09f-48be-94ab-1c2a9b85a386" LastKnownName="ManifestDigest" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -1094,6 +1089,56 @@
                         <elementDefinition Id="a143d3b2-9bbb-4caf-bf4f-3d187acd587d" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="0482311c-6e8d-49f7-b1ef-c693f2ab2967" LastKnownName="ITaskHandler" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="abad7a38-6cbf-43d3-8eec-b2807bd902de" name="Remove" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                  <appliedStereotypesInternal>
+                    <stereotypeInstance Id="1395750c-2cd6-467d-aeb7-17cfb56742bf" name="method" profile="CSharpProfile">
+                      <elementDefinition Id="52348ee6-ffe5-488d-b49b-449ca468add1" />
+                      <propertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="c4a7cce6-9028-4ff7-8091-b76616ce3b09">
+                          <propertyInstance Id="c2e57f4d-4e52-45ab-80ff-fad07c56c1a0" name="ClrAttributes">
+                            <elementDefinition Id="67881995-36a8-4efd-9981-83b9e43badf2" />
+                          </propertyInstance>
+                          <elementDefinition Id="3f032d74-5d7f-4fa7-b10c-41b4f54272ab" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="63f95ca3-8af4-46c3-9aa4-9135be670279">
+                          <propertyInstance Id="88993be6-adba-4e86-8dda-41ff8c772b43" name="IsPartial" value="false">
+                            <elementDefinition Id="b3ce8019-93ca-4b41-88db-b46bedb03d19" />
+                          </propertyInstance>
+                          <elementDefinition Id="19181827-fe5d-4211-a547-0d091b847aba" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="9ed3d0d5-2b25-4297-9c82-f9e4bc220b18">
+                          <propertyInstance Id="9d01aad5-2720-4b0b-838a-08bfaf8c2932" name="IsUnsafe" value="false">
+                            <elementDefinition Id="80285903-c5db-4b94-911a-ca622058e694" />
+                          </propertyInstance>
+                          <elementDefinition Id="253100f6-09ee-4b48-896b-db3b68a04e0f" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="c67aaed3-d470-449e-9712-403d8ea0ada6">
+                          <propertyInstance Id="06e0afc7-4745-4f0d-9429-7c5a6dbc4899" name="PackageVisibility" value="internal">
+                            <elementDefinition Id="31e7d84f-3f91-4065-bf09-640143fd533f" />
+                          </propertyInstance>
+                          <elementDefinition Id="06d9ccb2-b108-43d0-b696-2ad16ed0718e" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="6c2a9ce4-407a-4c62-acdb-f11f12aaf5c4">
+                          <propertyInstance Id="2f19adb6-5c2c-43c0-ac98-ad16be1402df" name="params" value="false">
+                            <elementDefinition Id="b8d3fe5d-4456-405e-a8b4-cc66802b563f" />
+                          </propertyInstance>
+                          <elementDefinition Id="352140df-ceae-43f4-9af4-f6edb71d5848" />
+                        </stereotypeInstanceHasPropertyInstances>
+                      </propertyInstances>
+                    </stereotypeInstance>
+                  </appliedStereotypesInternal>
+                  <elementDefinition Id="42605fa8-c73e-45f2-88b4-b83e6897f1c3" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="135fb3f6-2fdf-4b45-b5dc-ac542a80a52c" name="directory" direction="In" isUnique="false">
+                        <elementDefinition Id="1e9c108d-eb25-41e3-9904-57d8c866a94b" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="3df044ae-1f99-4411-a7d8-62f243a1495f" LastKnownName="String" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -2110,6 +2155,11 @@
     <packageHasNamedElement>
       <referencedType Id="5bee1ecb-69a1-4e0f-a84c-5a081715e2fb" name="IHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Injector::IHandler">
         <elementDefinition Id="7df0078e-51a1-47cb-a0b2-2dba92bc646d" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="04126516-b09f-48be-94ab-1c2a9b85a386" name="ManifestDigest" isAbstract="false" isLeaf="false" cachedFullName="ManifestDigest">
+        <elementDefinition Id="064f5a54-c1cb-4cda-b76e-bf41363cf1f8" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

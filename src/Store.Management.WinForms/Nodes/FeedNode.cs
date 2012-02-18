@@ -79,11 +79,10 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <summary>
         /// Deletes this <see cref="Model.Feed"/> from the <see cref="IFeedCache"/> it is located in.
         /// </summary>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="KeyNotFoundException">Thrown if no matching feed could be found in the <see cref="IFeedCache"/>.</exception>
         /// <exception cref="IOException">Thrown if the feed could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the cache is not permitted.</exception>
-        public override void Delete(ITaskHandler handler)
+        public override void Delete()
         {
             _cache.Remove(_feed.Uri.ToString());
         }
@@ -109,7 +108,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                     {
                         try
                         {
-                            Delete(Parent);
+                            Delete();
                         }
                             #region Error handling
                         catch (KeyNotFoundException ex)

@@ -65,6 +65,10 @@ namespace Common.Tasks
             _name = name;
             _work = work;
             _target = target;
+
+            // Detect collections that know their own length
+            var collection = target as ICollection<T>;
+            if (collection != null) BytesTotal = collection.Count;
         }
         #endregion
 
@@ -74,10 +78,13 @@ namespace Common.Tasks
         /// <inheritdoc/>
         protected override void RunTask()
         {
+            lock (StateLock) State = TaskState.Data;
+
             foreach (var element in _target)
             {
                 if (CancelRequest.WaitOne(0)) throw new OperationCanceledException();
                 _work(element);
+                lock (StateLock) BytesProcessed++;
             }
 
             lock (StateLock) State = TaskState.Complete;

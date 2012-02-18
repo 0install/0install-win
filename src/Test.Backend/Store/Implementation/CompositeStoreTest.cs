@@ -207,16 +207,16 @@ namespace ZeroInstall.Store.Implementation
         public void TestRemoveBoth()
         {
             _mockStore1.Setup(x => x.Contains(_digest1)).Returns(true).Verifiable();
-            _mockStore1.Setup(x => x.Remove(_digest1, _handler)).Verifiable();
+            _mockStore1.Setup(x => x.Remove(_digest1)).Verifiable();
             _mockStore2.Setup(x => x.Contains(_digest1)).Returns(true).Verifiable();
-            _mockStore2.Setup(x => x.Remove(_digest1, _handler)).Verifiable();
-            _testStore.Remove(_digest1, _handler);
+            _mockStore2.Setup(x => x.Remove(_digest1)).Verifiable();
+            _testStore.Remove(_digest1);
 
             _mockStore1.Setup(x => x.Contains("dir1")).Returns(true).Verifiable();
-            _mockStore1.Setup(x => x.Remove("dir1", _handler)).Verifiable();
+            _mockStore1.Setup(x => x.Remove("dir1")).Verifiable();
             _mockStore2.Setup(x => x.Contains("dir1")).Returns(true).Verifiable();
-            _mockStore2.Setup(x => x.Remove("dir1", _handler)).Verifiable();
-            _testStore.Remove("dir1", _handler);
+            _mockStore2.Setup(x => x.Remove("dir1")).Verifiable();
+            _testStore.Remove("dir1");
         }
 
         [Test]
@@ -224,13 +224,13 @@ namespace ZeroInstall.Store.Implementation
         {
             _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
             _mockStore2.Setup(x => x.Contains(_digest1)).Returns(true).Verifiable();
-            _mockStore2.Setup(x => x.Remove(_digest1, _handler)).Verifiable();
-            _testStore.Remove(_digest1, _handler);
+            _mockStore2.Setup(x => x.Remove(_digest1)).Verifiable();
+            _testStore.Remove(_digest1);
 
             _mockStore1.Setup(x => x.Contains("dir1")).Returns(false).Verifiable();
             _mockStore2.Setup(x => x.Contains("dir1")).Returns(true).Verifiable();
-            _mockStore2.Setup(x => x.Remove("dir1", _handler)).Verifiable();
-            _testStore.Remove("dir1", _handler);
+            _mockStore2.Setup(x => x.Remove("dir1")).Verifiable();
+            _testStore.Remove("dir1");
         }
 
         [Test]
@@ -238,11 +238,11 @@ namespace ZeroInstall.Store.Implementation
         {
             _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
             _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
-            Assert.Throws<ImplementationNotFoundException>(() => _testStore.Remove(_digest1, _handler), "Should report if none of the stores contained the implementation");
+            Assert.Throws<ImplementationNotFoundException>(() => _testStore.Remove(_digest1), "Should report if none of the stores contained the implementation");
 
             _mockStore1.Setup(x => x.Contains("dir1")).Returns(false).Verifiable();
             _mockStore2.Setup(x => x.Contains("dir1")).Returns(false).Verifiable();
-            Assert.Throws<DirectoryNotFoundException>(() => _testStore.Remove("dir1", _handler), "Should report if none of the stores contained the implementation");
+            Assert.Throws<DirectoryNotFoundException>(() => _testStore.Remove("dir1"), "Should report if none of the stores contained the implementation");
         }
         #endregion
 

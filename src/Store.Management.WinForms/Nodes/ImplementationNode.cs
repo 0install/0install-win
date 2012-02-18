@@ -87,15 +87,14 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <summary>
         /// Deletes this implementation from the <see cref="IStore"/> it is located in.
         /// </summary>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="KeyNotFoundException">Thrown if no matching implementation could be found in the <see cref="IStore"/>.</exception>
         /// <exception cref="IOException">Thrown if the implementation could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
-        public override void Delete(ITaskHandler handler)
+        public override void Delete()
         {
             try
             {
-                _store.Remove(_digest, handler);
+                _store.Remove(_digest);
             }
                 #region Error handling
             catch (ImplementationNotFoundException ex)
@@ -160,7 +159,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                     {
                         try
                         {
-                            Delete(Parent);
+                            Parent.RunTask(new SimpleTask(Resources.DeletingImplementations, Delete), null);
                         }
                             #region Error handling
                         catch (KeyNotFoundException ex)

@@ -68,28 +68,33 @@ namespace Common.Controls
                 labelProgress.Task = task;
                 task.StateChanged += delegate
                 {
-                    // Close window when the task has been completed
-                    if (task.State >= TaskState.Complete) Invoke(new SimpleEventHandler(Close));
+                    // Close window when the task has been completed or cancelled (and thus become ready again)
+                    if (task.State >= TaskState.Complete || task.State == TaskState.Ready) Invoke(new SimpleEventHandler(Close));
                 };
 
                 task.Start();
             };
+
+            bool cancellationStarted = false;
             FormClosing += delegate(object sender, FormClosingEventArgs e)
             {
                 // Only close the window if the task has been completed or canceled
                 if (task.State >= TaskState.Complete || _allowWindowClose.WaitOne(0)) return;
 
-                if (task.CanCancel)
+                if (task.CanCancel || !cancellationStarted)
                 {
+                    cancellationStarted = true; // Only start cancellation once
+                    buttonCancel.Enabled = false; // Don't tempt user to press Cancel again
+
                     // Note: Must perform cancellation on a separate thread because it might send messages back to the GUI thread (which therefore must not be blocked)
                     new Thread(() =>
                     {
+                        _allowWindowClose.Set(); // Allow the window to be closed now
                         task.Cancel();
-                        _allowWindowClose.Set();
-                        Invoke(new SimpleEventHandler(Close));
                     }).Start();
                 }
-                e.Cancel = true;
+
+                e.Cancel = true; // Window cannot be closed yet
             };
         }
         #endregion

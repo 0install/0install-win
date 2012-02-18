@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -30,6 +31,7 @@ namespace Common.Tasks
     /// <summary>
     /// Abstract base class for background tasks that implement <see cref="ITask"/> using a <see cref="Thread"/>.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Disposing WaitHandle is not necessary since the SafeWaitHandle is never touched")]
     public abstract class ThreadTask : MarshalByRefObject, ITask
     {
         #region Variables

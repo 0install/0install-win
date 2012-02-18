@@ -75,11 +75,10 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <summary>
         /// Deletes this element from the cache it is stored in.
         /// </summary>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="KeyNotFoundException">Thrown if no matching element could be found in the cache.</exception>
         /// <exception cref="IOException">Thrown if the element could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the cache is not permitted.</exception>
-        public abstract void Delete(ITaskHandler handler);
+        public abstract void Delete();
         #endregion
 
         #region Verify

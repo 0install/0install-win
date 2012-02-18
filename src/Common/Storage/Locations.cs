@@ -387,7 +387,7 @@ namespace Common.Storage
             if (_isPortable)
             {
                 // Check in portable base directory
-                path = FileUtils.PathCombine(_portableBase, "data", resourceCombined);path = Path.GetFullPath(path);
+                path = FileUtils.PathCombine(_portableBase, "data", resourceCombined);
                 path = Path.GetFullPath(path);
                 if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
             }

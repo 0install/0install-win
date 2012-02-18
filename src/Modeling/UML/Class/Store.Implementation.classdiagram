@@ -809,51 +809,6 @@
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="1b7ae928-98f7-4e7c-b6b2-9dbd3e7e6eb0" name="Cancel" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <referencesInternal>
-                          <reference Id="28b0ba35-9e70-4f3e-a0e4-1d710c1af4e1" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=Cancel" tag="ViewCode">
-                            <elementDefinition Id="aa69beae-98d1-412b-92c2-6d359b78424f" />
-                          </reference>
-                        </referencesInternal>
-                        <appliedStereotypesInternal>
-                          <stereotypeInstance Id="f191d1db-15e1-410d-b640-3d9964b7ef2d" name="method" profile="CSharpProfile">
-                            <elementDefinition Id="2e550c23-83a1-4023-a51e-08115b802526" />
-                            <propertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="51862a22-70df-4da8-b5f2-6a77bbf5c986">
-                                <propertyInstance Id="337c32f1-bd5f-4130-bd1b-63168e84f944" name="ClrAttributes">
-                                  <elementDefinition Id="48e44003-759e-4f2a-91b0-f9dd2a5fce60" />
-                                </propertyInstance>
-                                <elementDefinition Id="694b14c5-203d-43fd-88dd-3e895373a643" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="4a3405af-396a-45ba-9e1b-9963d85a9850">
-                                <propertyInstance Id="1c6b7040-4750-4638-a8fd-721a52f630cb" name="IsPartial" value="false">
-                                  <elementDefinition Id="460004d2-a159-4914-90ea-e279c1bdb479" />
-                                </propertyInstance>
-                                <elementDefinition Id="1d060ac3-96f2-4d16-b531-3a3b88235438" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="01ffc795-dc2f-4ba6-8d1b-be170b79803d">
-                                <propertyInstance Id="823cdd40-e6ae-43ad-a0f8-6240f9d2bbcd" name="IsUnsafe" value="false">
-                                  <elementDefinition Id="eb75e0c4-ad48-4a96-9a77-ff3563592613" />
-                                </propertyInstance>
-                                <elementDefinition Id="9a0f85cb-8a30-4324-a9f7-4805102b0002" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="97f3767a-3e73-4595-9766-5c5e825235c9">
-                                <propertyInstance Id="29ff7d2b-c9f8-4339-bb69-1796cfe6aa44" name="PackageVisibility" value="internal">
-                                  <elementDefinition Id="7331b812-759c-497a-9a59-ce5fb0003317" />
-                                </propertyInstance>
-                                <elementDefinition Id="176c05f0-8044-48dd-92cb-9d2dc8c46f51" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="01ba5312-28b8-4631-9c7c-6c715c2e4b75">
-                                <propertyInstance Id="3de48b29-7cc3-446b-8e3d-831bd728683f" name="params" value="false">
-                                  <elementDefinition Id="0f98329c-b6e7-4de9-ac21-fb7aceed2269" />
-                                </propertyInstance>
-                                <elementDefinition Id="be821a78-6148-4b1c-952a-6dad17e9bb96" />
-                              </stereotypeInstanceHasPropertyInstances>
-                            </propertyInstances>
-                          </stereotypeInstance>
-                        </appliedStereotypesInternal>
-                        <elementDefinition Id="94ac45e9-e39b-48fc-8c3e-fcea25f9c05c" />
-                      </operation>
                       <operation Id="0ff9082e-3798-4a53-bcc7-5a2a0ef84283" name="RunTask" visibility="Protected" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                         <referencesInternal>
                           <reference Id="0ebc33f4-a043-4e52-91e4-9e433012bcdb" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOTask Member=RunTask" tag="ViewCode">
@@ -1920,18 +1875,10 @@
                   <elementDefinition Id="a65aa020-a7f1-44a3-aec1-e21bd73bfada" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="5b6e7b53-ae65-441d-9c12-358d069364d9" name="manifestDigest" direction="In" isUnique="false">
-                        <elementDefinition Id="ebb55ce0-1e30-4c9a-b03d-e6ffb64e40f9" />
+                      <parameter Id="76d18d91-c15a-4d4e-bc19-8eacb1020c40" name="manifestDigest" direction="In" isUnique="false">
+                        <elementDefinition Id="01f55f3e-c2a8-416c-b25f-df74571cc5b0" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="15a2cba9-c78d-437b-a8f5-0dc29562c45e" LastKnownName="ManifestDigest" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="0153a54b-9223-4df4-a740-64cf155715d5" name="handler" direction="In" isUnique="false">
-                        <elementDefinition Id="036fae3f-7a91-4c11-8d6f-2e5330c40401" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="ITaskHandler" />
+                          <referencedTypeMoniker Id="0cdcc941-00cb-43a7-8780-5bab32ae4e95" LastKnownName="ManifestDigest" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -2084,6 +2031,56 @@
                         <elementDefinition Id="a143d3b2-9bbb-4caf-bf4f-3d187acd587d" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="09d04156-1daf-4fd2-8342-f27ca8dea59c" LastKnownName="ITaskHandler" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="dee39cb2-d0cd-4701-b14e-8baeb044b012" name="Remove" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                  <appliedStereotypesInternal>
+                    <stereotypeInstance Id="f7be6a18-cbb8-42ed-a850-d6dfab081b91" name="method" profile="CSharpProfile">
+                      <elementDefinition Id="52348ee6-ffe5-488d-b49b-449ca468add1" />
+                      <propertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="5265235c-6b2b-48d4-a634-42a93cdc611a">
+                          <propertyInstance Id="bf9de837-2a51-4ede-a11e-f2c6b9a5363f" name="ClrAttributes">
+                            <elementDefinition Id="67881995-36a8-4efd-9981-83b9e43badf2" />
+                          </propertyInstance>
+                          <elementDefinition Id="3f032d74-5d7f-4fa7-b10c-41b4f54272ab" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="9a43323f-79bf-40fb-95ed-d5c61916a216">
+                          <propertyInstance Id="eec8b568-305a-4eda-a80f-84957f6d765f" name="IsPartial" value="false">
+                            <elementDefinition Id="b3ce8019-93ca-4b41-88db-b46bedb03d19" />
+                          </propertyInstance>
+                          <elementDefinition Id="19181827-fe5d-4211-a547-0d091b847aba" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="1e07b885-b4e9-488f-9bc5-4ad4475dc53f">
+                          <propertyInstance Id="de4d2bf9-ff94-4291-9373-c49a9f0eb3cd" name="IsUnsafe" value="false">
+                            <elementDefinition Id="80285903-c5db-4b94-911a-ca622058e694" />
+                          </propertyInstance>
+                          <elementDefinition Id="253100f6-09ee-4b48-896b-db3b68a04e0f" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="3911034c-f127-43af-a186-bd80bc46b425">
+                          <propertyInstance Id="3991cffb-e767-4839-b80f-10264b90d334" name="PackageVisibility" value="internal">
+                            <elementDefinition Id="31e7d84f-3f91-4065-bf09-640143fd533f" />
+                          </propertyInstance>
+                          <elementDefinition Id="06d9ccb2-b108-43d0-b696-2ad16ed0718e" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="c305e806-c5a2-4d9b-bd8b-313e851f9cf9">
+                          <propertyInstance Id="f26589a2-7099-4221-8ae1-ec85412d5a02" name="params" value="false">
+                            <elementDefinition Id="b8d3fe5d-4456-405e-a8b4-cc66802b563f" />
+                          </propertyInstance>
+                          <elementDefinition Id="352140df-ceae-43f4-9af4-f6edb71d5848" />
+                        </stereotypeInstanceHasPropertyInstances>
+                      </propertyInstances>
+                    </stereotypeInstance>
+                  </appliedStereotypesInternal>
+                  <elementDefinition Id="42605fa8-c73e-45f2-88b4-b83e6897f1c3" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="465aff8a-f7c1-419a-8e3b-c231625ba1ba" name="directory" direction="In" isUnique="false">
+                        <elementDefinition Id="1e9c108d-eb25-41e3-9904-57d8c866a94b" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="525cae30-1c3d-4119-96c8-7632bbb9e5b4" LastKnownName="String" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -2430,15 +2427,7 @@
                       <parameter Id="13d757e7-b294-4e14-821f-fc32dd6427c4" name="manifestDigest" direction="In" isUnique="false">
                         <elementDefinition Id="1f259810-91f8-43b1-a6f7-d9197eddcd4d" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="15a2cba9-c78d-437b-a8f5-0dc29562c45e" LastKnownName="ManifestDigest" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="13403e5c-dae6-4b66-8980-a58d2b722051" name="handler" direction="In" isUnique="false">
-                        <elementDefinition Id="d276b016-3dc4-4498-814c-7e14e1fc04f1" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="ITaskHandler" />
+                          <referencedTypeMoniker Id="0cdcc941-00cb-43a7-8780-5bab32ae4e95" LastKnownName="ManifestDigest" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -2591,6 +2580,19 @@
                         <elementDefinition Id="26dd1003-0828-42ff-bb53-be462913de32" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="ITaskHandler" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="eb53a7eb-95a7-47ab-a900-454301874130" name="Remove" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="1337d2e0-3c07-4e00-bcc0-791d2cc6acc5" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="7cdf3ac9-6771-4a7c-8510-83434bf18980" name="directory" direction="In" isUnique="false">
+                        <elementDefinition Id="c40b92d2-8377-4695-b5de-05b18b2c2d29" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="525cae30-1c3d-4119-96c8-7632bbb9e5b4" LastKnownName="String" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -2855,15 +2857,7 @@
                       <parameter Id="cae14eef-60e6-4a5e-8ef8-2878924f5b6d" name="manifestDigest" direction="In" isUnique="false">
                         <elementDefinition Id="1834614e-9c05-4f88-b4af-d15312ea49ce" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="15a2cba9-c78d-437b-a8f5-0dc29562c45e" LastKnownName="ManifestDigest" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="f13df2f2-8ea0-4ea9-add7-4fe5cf846b81" name="handler" direction="In" isUnique="false">
-                        <elementDefinition Id="ba848a3c-254d-4135-8b16-6e065e460c39" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="ITaskHandler" />
+                          <referencedTypeMoniker Id="0cdcc941-00cb-43a7-8780-5bab32ae4e95" LastKnownName="ManifestDigest" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -2989,6 +2983,19 @@
                         <elementDefinition Id="f085d670-a7ea-49f7-b3cd-9af42aadac07" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="ITaskHandler" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="839fa6de-2c2f-40c1-bc27-898fcfe6bc65" name="Remove" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="530d6ea0-9ef1-48c8-9fa7-6703dc25d666" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="a1aeb094-8ef2-4f36-b085-b08accdee879" name="directory" direction="In" isUnique="false">
+                        <elementDefinition Id="878bdd37-9444-4721-be74-5f931b1367e6" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="525cae30-1c3d-4119-96c8-7632bbb9e5b4" LastKnownName="String" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -3269,15 +3276,7 @@
                       <parameter Id="df463e05-30b8-4adf-b074-d0103dbe2d9c" name="manifestDigest" direction="In" isUnique="false">
                         <elementDefinition Id="4e4ee3ca-1874-429b-8d6d-637da005f6c8" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="15a2cba9-c78d-437b-a8f5-0dc29562c45e" LastKnownName="ManifestDigest" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="1838ac16-81af-4976-b912-cb90b8b4a23f" name="handler" direction="In" isUnique="false">
-                        <elementDefinition Id="155eadc7-7026-43ef-9c57-2bda4490e326" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="ITaskHandler" />
+                          <referencedTypeMoniker Id="0cdcc941-00cb-43a7-8780-5bab32ae4e95" LastKnownName="ManifestDigest" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -3356,6 +3355,19 @@
                         <elementDefinition Id="7a75abc6-f4e3-467c-8b94-d456d94c3738" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="ITaskHandler" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="2a404528-95b7-4a52-8b4c-42dde77ac551" name="Remove" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="fe2e658d-57e9-4848-88b4-6fe44bd70fe8" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="ee8d3058-21e6-4329-a6c9-3c2e5e689b6c" name="directory" direction="In" isUnique="false">
+                        <elementDefinition Id="22ff3ab1-dc7e-4776-9595-4208313a4284" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="525cae30-1c3d-4119-96c8-7632bbb9e5b4" LastKnownName="String" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -6216,51 +6228,6 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
-                <operation Id="9b4c2c48-4df0-41c9-9dfe-9efacdd53c86" name="Cancel" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                  <referencesInternal>
-                    <reference Id="a32d1020-e35c-4524-ba04-43cb16c9f860" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=Cancel" tag="ViewCode">
-                      <elementDefinition Id="e295a9ba-74cc-479e-bd76-16e919d3907d" />
-                    </reference>
-                  </referencesInternal>
-                  <appliedStereotypesInternal>
-                    <stereotypeInstance Id="b4c85ece-a397-4de9-9ef4-6919eadd3750" name="method" profile="CSharpProfile">
-                      <elementDefinition Id="2d51f42b-6630-42bb-b946-bcac668bd9f1" />
-                      <propertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="556fbffd-4a3a-4a6c-b6d0-7cdf2c3acb60">
-                          <propertyInstance Id="5f55898d-25d1-40ec-9f5b-5884428febc8" name="ClrAttributes">
-                            <elementDefinition Id="b28bfd19-c19b-4cd6-a8e5-52e0c8305c7c" />
-                          </propertyInstance>
-                          <elementDefinition Id="8fa3aaca-4d0c-4d0f-8fb4-5e77d6cc9930" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="f9d1daa9-5de0-445d-8ff6-5985c1e89080">
-                          <propertyInstance Id="aeeafd76-2f28-4137-9ab2-690592511eef" name="IsPartial" value="false">
-                            <elementDefinition Id="b160efb3-9a5d-40b3-b1ab-8047e91ab3f5" />
-                          </propertyInstance>
-                          <elementDefinition Id="082e95f4-648f-4f92-b131-90deee4a97b4" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="2b40940c-9fcf-4c43-8d84-5e1225ba1269">
-                          <propertyInstance Id="10027049-f3eb-4578-b4f6-9ddc7fce1aca" name="IsUnsafe" value="false">
-                            <elementDefinition Id="7246db52-e538-4206-b7c0-3865b03c17b2" />
-                          </propertyInstance>
-                          <elementDefinition Id="ad0da949-0bcf-4452-ba14-5f5fe8310107" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="5ea01a4e-7e21-4667-95c4-759fa4d8b20c">
-                          <propertyInstance Id="ff8eebcb-8358-4239-8c19-b878bf4aabde" name="PackageVisibility" value="internal">
-                            <elementDefinition Id="dada06eb-3c9c-4a10-809e-0af441f7b973" />
-                          </propertyInstance>
-                          <elementDefinition Id="6e595423-86fa-4596-bfd2-5b81491eea38" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="3a26b41c-a1a7-4dce-8aaf-833abca1d24f">
-                          <propertyInstance Id="e80bc9fe-7ab8-4333-a620-d491ff9ba1c3" name="params" value="false">
-                            <elementDefinition Id="fa57b2f5-6242-47d4-a2a3-e0caf928f91b" />
-                          </propertyInstance>
-                          <elementDefinition Id="df6cffc1-43d0-425e-b736-4ee61325aa13" />
-                        </stereotypeInstanceHasPropertyInstances>
-                      </propertyInstances>
-                    </stereotypeInstance>
-                  </appliedStereotypesInternal>
-                  <elementDefinition Id="8e67456d-9112-4ac1-88f0-4aa2a078d23b" />
-                </operation>
                 <operation Id="4adfa7c4-a946-46bd-828d-768c25ce8c00" name="RunTask" visibility="Protected" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
                     <reference Id="45b83100-1c6a-4e26-9337-01ce9132c4d5" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOTask Member=RunTask" tag="ViewCode">
@@ -8403,6 +8370,11 @@
     <packageHasNamedElement>
       <referencedType Id="09d04156-1daf-4fd2-8342-f27ca8dea59c" name="ITaskHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::Common::Tasks::ITaskHandler">
         <elementDefinition Id="994d7262-293c-457a-8bd8-90d073c4cbe9" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="0cdcc941-00cb-43a7-8780-5bab32ae4e95" name="ManifestDigest" isAbstract="false" isLeaf="false" cachedFullName="ManifestDigest">
+        <elementDefinition Id="064f5a54-c1cb-4cda-b76e-bf41363cf1f8" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

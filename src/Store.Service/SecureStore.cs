@@ -136,21 +136,16 @@ namespace ZeroInstall.Store.Service
 
         #region Remove
         /// <inheritdoc />
-        public void Remove(ManifestDigest manifestDigest, ITaskHandler handler)
+        public void Remove(ManifestDigest manifestDigest)
         {
-            #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
-            #endregion
-
             throw new NotImplementedException();
         }
 
         /// <inheritdoc />
-        public void Remove(string directory, ITaskHandler handler)
+        public void Remove(string directory)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(directory)) throw new ArgumentNullException("directory");
-            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             throw new NotImplementedException();
