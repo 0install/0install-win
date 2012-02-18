@@ -44,10 +44,10 @@ namespace Common.Streams
         private int _dataStart;
 
         /// <summary>The number of bytes currently stored in the <see cref="_buffer"/>.</summary>
-        private volatile int _dataLength; // Invariant: _positionWrite - _positionRead <= _dataLength <= _buffer.Length
+        private int _dataLength; // Invariant: _positionWrite - _positionRead <= _dataLength <= _buffer.Length
 
         /// <summary>Indicates that the producer has finished and no new data will be added.</summary>
-        private volatile bool _doneWriting; // Volatile justification: ???
+        private bool _doneWriting;
 
         /// <summary>A barrier that blocks threads until new data is available in the <see cref="_buffer"/>.</summary>
         private readonly ManualResetEvent _dataAvailable = new ManualResetEvent(false);
@@ -124,10 +124,16 @@ namespace Common.Streams
             // Bytes copied to target buffer so far
             int bytesCopied = 0;
 
-            // Loop until the request number of bytes have been returned or until no more data is available
-            while (bytesCopied != count && !(_doneWriting && _dataLength == 0))
+            // Loop until the request number of bytes have been returned
+            while (bytesCopied != count)
             {
                 if (IsDisposed) throw new ObjectDisposedException("CircularBufferStream");
+
+                lock (_bufferLock)
+                {
+                    // All data read and no new data coming
+                    if (_doneWriting && _dataLength == 0) break;
+                }
 
                 // Block while buffer is empty
                 _dataAvailable.WaitOne();
