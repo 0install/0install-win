@@ -125,13 +125,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                     // Parse Unix data
                     var entryData = extraData.GetEntryData();
                     unixData.SetData(entryData, 0, entryData.Length);
-                    DateTime dateTime = unixData.CreateTime;
-
-                    // HACK: Compensate for unintended local timezone shifting of the Unix epoch in official SharpZipLib release
-                    //TimeSpan timeError = new DateTime(1970, 1, 1, 0, 0, 0) - new DateTime(1970, 1, 1, 0, 0, 0).ToUniversalTime();
-                    //dateTime = dateTime + timeError;
-
-                    return dateTime.ToUniversalTime();
+                    return unixData.CreateTime;
                 }
             }
 

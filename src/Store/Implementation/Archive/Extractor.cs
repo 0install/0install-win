@@ -274,8 +274,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                 if (length != 0) StreamToFile(stream, fileStream);
 
             if (executable) SetExecutableBit(relativePath);
-                // If an executable file is overwritten by a non-executable file, remove the xbit flag
-            else if (alreadyExists) RemoveExecutableBit(relativePath);
+            else if (alreadyExists) RemoveExecutableBit(relativePath); // If an executable file is overwritten by a non-executable file, remove the xbit flag
 
             File.SetLastWriteTimeUtc(filePath, dateTime);
         }
