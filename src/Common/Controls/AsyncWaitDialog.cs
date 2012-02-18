@@ -36,7 +36,7 @@ namespace Common.Controls
         private readonly Thread _thread;
 
         /// <summary>A barrier that blocks threads until the window handle is ready.</summary>
-        private readonly EventWaitHandle _handleReady = new EventWaitHandle(false, EventResetMode.ManualReset);
+        private readonly ManualResetEvent _handleReady = new ManualResetEvent(false);
         #endregion
 
         #region Constructor

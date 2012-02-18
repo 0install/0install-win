@@ -34,13 +34,13 @@ namespace Common.Tasks
     {
         #region Variables
         /// <summary>Flag that indicates the current process should be canceled.</summary>
-        protected volatile bool CancelRequest;
+        protected readonly AutoResetEvent CancelRequest = new AutoResetEvent(false);
 
         /// <summary>Synchronization handle to prevent race conditions with thread startup/shutdown or <see cref="ITask.State"/> switching.</summary>
         protected readonly object StateLock = new object();
 
         /// <summary>The background thread used for executing the task. Sub-classes must initalize this member.</summary>
-        protected readonly Thread Thread;
+        protected Thread Thread;
         #endregion
 
         #region Events
@@ -111,7 +111,14 @@ namespace Common.Tasks
         #region Constructor
         protected ThreadTask()
         {
-            // Prepare the background thread for later execution
+            PrepareThread();
+        }
+
+        /// <summary>
+        /// Prepare the background <see cref="Thread"/> for later execution.
+        /// </summary>
+        private void PrepareThread()
+        {
             Thread = new Thread(delegate()
             {
                 try
@@ -125,7 +132,7 @@ namespace Common.Tasks
                     {
                         // Reset the state so the task can be started again
                         State = TaskState.Ready;
-                        CancelRequest = false;
+                        PrepareThread();
                     }
                 }
                 catch (IOException ex)
@@ -165,7 +172,7 @@ namespace Common.Tasks
             {
                 // Reset the state so the task can be started again
                 State = TaskState.Ready;
-                CancelRequest = false;
+                PrepareThread();
                 throw;
             }
             finally
@@ -202,11 +209,10 @@ namespace Common.Tasks
         {
             lock (StateLock)
             {
-                if (CancelRequest || State == TaskState.Ready || State >= TaskState.Complete) return;
-
-                CancelRequest = true;
+                if (State == TaskState.Ready || State >= TaskState.Complete) return;
             }
 
+            CancelRequest.Set();
             if (!Thread.IsAlive) return;
             Thread.Join();
         }

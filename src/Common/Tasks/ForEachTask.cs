@@ -76,7 +76,7 @@ namespace Common.Tasks
         {
             foreach (var element in _target)
             {
-                if (CancelRequest) throw new OperationCanceledException();
+                if (CancelRequest.WaitOne(0)) throw new OperationCanceledException();
                 _work(element);
             }
 

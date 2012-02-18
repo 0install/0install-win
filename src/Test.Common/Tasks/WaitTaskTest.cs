@@ -27,36 +27,32 @@ using NUnit.Framework;
 namespace Common.Tasks
 {
     /// <summary>
-    /// Contains test methods for <see cref="MutexTask"/>.
+    /// Contains test methods for <see cref="WaitTask"/>.
     /// </summary>
     [TestFixture]
-    public class MutexTaskTest
+    public class WaitTaskTest
     {
-        [Test(Description = "Ensures the task waits until the mutex becomes free.")]
+        [Test(Description = "Ensures the task waits until the wait handle is signaled.")]
         public void TestWait()
         {
-            using (var mutex = new Mutex())
+            using (var waitHandle = new ManualResetEvent(false))
             {
-                mutex.WaitOne();
-
-                var task = new MutexTask("Test task", mutex);
+                var task = new WaitTask("Test task", waitHandle);
                 task.Start();
                 Assert.AreEqual(TaskState.Started, task.State);
 
-                mutex.ReleaseMutex();
+                waitHandle.Set();
                 task.Join();
                 Assert.AreEqual(TaskState.Complete, task.State);
             }
         }
 
-        [Test(Description = "Starts waiting for an everblocking mutex using Start() and stops again right away using Cancel().")]
+        [Test(Description = "Starts waiting for an everblocking handle using Start() and stops again right away using Cancel().")]
         public void TestCancelAsync()
         {
-            using (var mutex = new Mutex())
+            using (var waitHandle = new ManualResetEvent(false))
             {
-                mutex.WaitOne();
-
-                var task = new MutexTask("Test task", mutex);
+                var task = new WaitTask("Test task", waitHandle);
                 task.Start();
                 task.Cancel();
 
@@ -64,15 +60,13 @@ namespace Common.Tasks
             }
         }
 
-        [Test(Description = "Starts waiting for an everblocking mutex using RunSync() and stops again right away using Cancel().")]
+        [Test(Description = "Starts waiting for an everblocking handle using RunSync() and stops again right away using Cancel().")]
         public void TestCancelSync()
         {
-            using (var mutex = new Mutex())
+            using (var waitHandle = new ManualResetEvent(false))
             {
-                mutex.WaitOne();
-
                 // Monitor for a cancellation exception
-                var task = new MutexTask("Test task", mutex);
+                var task = new WaitTask("Test task", waitHandle);
                 bool exceptionThrown = false;
                 var waitThread = new Thread(delegate()
                 {

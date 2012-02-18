@@ -24,6 +24,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
+using System.Threading;
 using Common.Properties;
 using Common.Tasks;
 
@@ -109,27 +110,29 @@ namespace Common.Net
                 {
                     // ToDo: SetResumePoint()
 
-                    if (CancelRequest) throw new OperationCanceledException();
+                    if (CancelRequest.WaitOne(0)) throw new OperationCanceledException();
                     lock (StateLock) State = TaskState.Header;
 
                     // Start the server request, allowing for cancellation
                     // ReSharper disable AssignNullToNotNullAttribute
                     var responseRequest = request.BeginGetResponse(null, null);
                     // ReSharper restore AssignNullToNotNullAttribute
-                    while (!responseRequest.AsyncWaitHandle.WaitOne(100, false))
-                        if (CancelRequest) throw new OperationCanceledException();
+
+                    // Wait for the download request to complete or a cancel request to arrive
+                    if (WaitHandle.WaitAny(new[] {responseRequest.AsyncWaitHandle, CancelRequest}) == 1)
+                        throw new OperationCanceledException();
 
                     // Process the response
                     using (WebResponse response = request.EndGetResponse(responseRequest))
                     {
-                        if (CancelRequest) throw new OperationCanceledException();
+                        if (CancelRequest.WaitOne(0)) throw new OperationCanceledException();
                         ReadHeader(response);
                         // ToDo: VerifyResumePoint()
                         lock (StateLock) State = TaskState.Data;
 
                         // Start writing data to the file
                         if (response != null) WriteStreamToTarget(response.GetResponseStream(), fileStream);
-                        if (CancelRequest) throw new OperationCanceledException();
+                        if (CancelRequest.WaitOne(0)) throw new OperationCanceledException();
                     }
                 }
             }
@@ -195,7 +198,7 @@ namespace Common.Net
             while ((length = webStream.Read(buffer, 0, buffer.Length)) > 0)
             {
                 fileStream.Write(buffer, 0, length);
-                if (CancelRequest) throw new OperationCanceledException();
+                if (CancelRequest.WaitOne(0)) throw new OperationCanceledException();
                 lock (StateLock) BytesProcessed += length;
             }
         }

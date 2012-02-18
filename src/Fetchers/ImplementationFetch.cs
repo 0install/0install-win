@@ -66,7 +66,7 @@ namespace ZeroInstall.Fetchers
                 try
                 {
                     while (!mutex.WaitOne(100))
-                        handler.RunTask(new MutexTask(Resources.DownloadInAnotherWindow, mutex), _digest);
+                        handler.RunTask(new WaitTask(Resources.DownloadInAnotherWindow, mutex), _digest);
                 }
                     #region Error handling
                 catch (AbandonedMutexException ex)

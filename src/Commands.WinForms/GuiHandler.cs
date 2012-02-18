@@ -46,10 +46,10 @@ namespace ZeroInstall.Commands.WinForms
         private ProgressForm _form;
 
         /// <summary>A barrier that blocks threads until the <see cref="_form"/>'s handle is ready.</summary>
-        private readonly EventWaitHandle _guiReady = new EventWaitHandle(false, EventResetMode.ManualReset);
+        private readonly ManualResetEvent _guiReady = new ManualResetEvent(false);
 
         /// <summary>A wait handle used by <see cref="AuditSelections"/> to be signaled once the user is satisfied with the <see cref="Selections"/>.</summary>
-        private readonly EventWaitHandle _auditWaitHandle = new AutoResetEvent(false);
+        private readonly AutoResetEvent _auditWaitHandle = new AutoResetEvent(false);
         #endregion
 
         #region Properties

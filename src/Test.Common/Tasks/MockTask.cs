@@ -32,7 +32,7 @@ namespace Common.Tasks
     {
         #region Variables
         /// <summary>Indicates that <see cref="MockStateComplete"/> has been called.</summary>
-        private readonly EventWaitHandle _joinWait = new EventWaitHandle(false, EventResetMode.AutoReset);
+        private readonly AutoResetEvent _joinWait = new AutoResetEvent(false);
         #endregion
 
         #region Properties

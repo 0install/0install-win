@@ -38,7 +38,7 @@ namespace Common.Controls
     {
         #region Variables
         /// <summary>Indicates that the task has been canceled and that the window may be closed.</summary>
-        private volatile bool _canceled;
+        private readonly ManualResetEvent _allowWindowClose = new ManualResetEvent(false);
         #endregion
 
         #region Constructor
@@ -77,7 +77,7 @@ namespace Common.Controls
             FormClosing += delegate(object sender, FormClosingEventArgs e)
             {
                 // Only close the window if the task has been completed or canceled
-                if (task.State >= TaskState.Complete || _canceled) return;
+                if (task.State >= TaskState.Complete || _allowWindowClose.WaitOne(0)) return;
 
                 if (task.CanCancel)
                 {
@@ -85,7 +85,7 @@ namespace Common.Controls
                     new Thread(() =>
                     {
                         task.Cancel();
-                        _canceled = true;
+                        _allowWindowClose.Set();
                         Invoke(new SimpleEventHandler(Close));
                     }).Start();
                 }

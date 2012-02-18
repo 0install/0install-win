@@ -71,7 +71,7 @@
     <Compile Include="Storage\LocationsRedirect.cs" />
     <Compile Include="Tasks\ForEachTaskTest.cs" />
     <Compile Include="Tasks\MockTask.cs" />
-    <Compile Include="Tasks\MutexTaskTest.cs" />
+    <Compile Include="Tasks\WaitTaskTest.cs" />
     <Compile Include="Tasks\SimpleTaskTest.cs" />
     <Compile Include="Undo\CollectionTest.cs" />
     <Compile Include="Undo\CompositeCommandTest.cs" />

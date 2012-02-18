@@ -28,8 +28,9 @@ using System.Threading;
 namespace Common.Streams
 {
     /// <summary>
-    /// A circular buffer represented as a thread-safe stream that producers can write to and consumers can read from simultaneously.
+    /// A circular buffer represented as a stream that one producer can write to and one consumer can read from simultaneously.
     /// </summary>
+    /// <remarks>Do not use more than one producer or consumer thread simultaneously!</remarks>
     public sealed class CircularBufferStream : Stream
     {
         #region Variables
@@ -40,19 +41,19 @@ namespace Common.Streams
         private readonly object _bufferLock = new object();
 
         /// <summary>The index of the first byte currently store in the <see cref="_buffer"/>.</summary>
-        private volatile int _dataStart;
+        private int _dataStart;
 
         /// <summary>The number of bytes currently stored in the <see cref="_buffer"/>.</summary>
         private volatile int _dataLength; // Invariant: _positionWrite - _positionRead <= _dataLength <= _buffer.Length
 
-        /// <summary>Indicates that the producer end has finished and no new data will be added.</summary>
-        private volatile bool _doneWriting;
+        /// <summary>Indicates that the producer has finished and no new data will be added.</summary>
+        private volatile bool _doneWriting; // Volatile justification: ???
 
         /// <summary>A barrier that blocks threads until new data is available in the <see cref="_buffer"/>.</summary>
-        private readonly EventWaitHandle _dataAvailable = new EventWaitHandle(false, EventResetMode.ManualReset);
+        private readonly ManualResetEvent _dataAvailable = new ManualResetEvent(false);
 
         /// <summary>A barrier that blocks threads until empty space is available in the <see cref="_buffer"/>.</summary>
-        private readonly EventWaitHandle _spaceAvailable = new EventWaitHandle(true, EventResetMode.ManualReset);
+        private readonly ManualResetEvent _spaceAvailable = new ManualResetEvent(true);
         #endregion
 
         #region Properties

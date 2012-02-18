@@ -69,7 +69,7 @@
     <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="PropertyPointer.cs" />
-    <Compile Include="Tasks\MutexTask.cs" />
+    <Compile Include="Tasks\WaitTask.cs" />
     <Compile Include="TimedLogEvent.cs" />
     <Compile Include="Msg.cs" />
     <Compile Include="ToStringWrapper.cs" />

@@ -26,13 +26,13 @@ using System.Threading;
 namespace Common.Tasks
 {
     /// <summary>
-    /// Waits for a <see cref="Mutex"/> to become available.
+    /// Waits for a <see cref="WaitHandle"/> to become available.
     /// </summary>
-    public sealed class MutexTask : ThreadTask
+    public sealed class WaitTask : ThreadTask
     {
         #region Variables
-        /// <summary>The <see cref="Mutex"/> to wait for.</summary>
-        private readonly Mutex _mutex;
+        /// <summary>The <see cref="WaitHandle"/> to wait for.</summary>
+        private readonly WaitHandle _waitHandle;
         #endregion
 
         #region Properties
@@ -44,19 +44,19 @@ namespace Common.Tasks
 
         #region Constructor
         /// <summary>
-        /// Creates a new mutex-waiting task.
+        /// Creates a new handle-waiting task.
         /// </summary>
         /// <param name="name">A name describing the task in human-readable form.</param>
-        /// <param name="mutex">The <see cref="Mutex"/> to wait for.</param>
-        public MutexTask(string name, Mutex mutex)
+        /// <param name="waitHandle">>The <see cref="WaitHandle"/> to wait for.</param>
+        public WaitTask(string name, WaitHandle waitHandle)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
-            if (mutex == null) throw new ArgumentNullException("mutex");
+            if (waitHandle == null) throw new ArgumentNullException("waitHandle");
             #endregion
 
             _name = name;
-            _mutex = mutex;
+            _waitHandle = waitHandle;
         }
         #endregion
 
@@ -66,11 +66,11 @@ namespace Common.Tasks
         /// <inheritdoc/>
         protected override void RunTask()
         {
-            // Wait for the mutex and allow cancellation every 100 ms
             try
             {
-                while (!_mutex.WaitOne(100))
-                    if (CancelRequest) throw new OperationCanceledException();
+                // Wait for the target handle or a cancel request to arrive
+                if (WaitHandle.WaitAny(new[] {_waitHandle, CancelRequest}) == 1)
+                    throw new OperationCanceledException();
             }
             catch (AbandonedMutexException ex)
             {

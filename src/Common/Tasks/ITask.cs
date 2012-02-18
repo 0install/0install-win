@@ -134,9 +134,14 @@ namespace Common.Tasks
         void Join();
 
         /// <summary>
-        /// Stops executing the task. Will block until the task has ended if it was started with <see cref="Start"/>. Will return immediately if it was started with <see cref="RunSync"/>.
+        /// Stops executing the task.<br/>
+        /// Will block until the task has ended if it was started with <see cref="Start"/>.<br/>
+        /// Will return immediately if it was started with <see cref="RunSync"/>.
         /// </summary>
-        /// <remarks>Calling this on a not running task has no effect.</remarks>
+        /// <remarks>
+        /// Calling this on a not running task has no effect.<br/>
+        /// Once a task has been cancelled it can be re<see cref="Start"/>ed.
+        /// </remarks>
         void Cancel();
         #endregion
     }

@@ -4,11 +4,12 @@ using System.Windows.Forms;
 namespace Common.Tasks
 {
     /// <summary>
-    /// Propagates notification that operations should be canceled.
+    /// Propagates notification that operations should be canceled.<br/>
+    /// Once a token has been signaled it remains in that state and cannot be reused.
     /// </summary>
     public sealed class CancellationToken
     {
-        private volatile bool _isCancellationRequested;
+        private volatile bool _isCancellationRequested; // Volatile justification: Write access is locked, many reads
 
         /// <summary>
         /// Indicates whether <see cref="RequestCancellation"/> has been called.
@@ -33,11 +34,9 @@ namespace Common.Tasks
         {
             lock (_lock)
             {
-                if (!IsCancellationRequested)
-                {
-                    _isCancellationRequested = true;
-                    if (CancellationRequested != null) CancellationRequested();
-                }
+                if (_isCancellationRequested) return; // Don't trigger more than once
+                _isCancellationRequested = true;
+                if (CancellationRequested != null) CancellationRequested();
             }
         }
 
