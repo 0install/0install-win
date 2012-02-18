@@ -66,18 +66,11 @@ namespace Common.Storage
         public void TestFileRelative()
         {
             TestData testData1 = new TestData {Data = "Hello"}, testData2;
-            using (var tempDirectory = new TemporaryDirectory("unit-tests"))
+            using (new TemporaryDirectory("unit-tests", true))
             {
-                // Change the working directory
-                string oldWorkingDir = Environment.CurrentDirectory;
-                Environment.CurrentDirectory = tempDirectory.Path;
-
                 // Write and read file
                 XmlStorage.Save("file.xml", testData1);
                 testData2 = XmlStorage.Load<TestData>("file.xml");
-
-                // Restore the original working directory
-                Environment.CurrentDirectory = oldWorkingDir;
             }
 
             // Ensure data stayed the same

@@ -39,7 +39,7 @@ namespace Common.Cli
         /// <returns>Handles to all matching files that were found</returns>
         /// <exception cref="FileNotFoundException">Thrown if a file that was explicitly specified in <paramref name="args"/> (no wildcards) could not be found.</exception>
         /// <remarks><paramref name="args"/> are first interpreted as files, then as directories. Directories are searched using the <paramref name="defaultPattern"/>. * and ? characters are considered as wildcards.</remarks>
-        public static ICollection<FileInfo> GetFiles(IEnumerable<string> args, string defaultPattern)
+        public static IList<FileInfo> GetFiles(IEnumerable<string> args, string defaultPattern)
         {
             #region Sanity checks
             if (args == null) throw new ArgumentNullException("args");
@@ -51,14 +51,14 @@ namespace Common.Cli
             {
                 if (entry.Contains("*") || entry.Contains("?"))
                 {
-                    string directory = Path.GetDirectoryName(entry.Replace("*", "").Replace("?", ""));
-                    if (string.IsNullOrEmpty(directory)) directory = Environment.CurrentDirectory;
+                    string dewildcardedPath = entry.Replace("*", "x").Replace("?", "x");
+                    string directory = Path.GetDirectoryName(Path.GetFullPath(dewildcardedPath)) ?? Environment.CurrentDirectory;
                     string filePattern = Path.GetFileName(entry);
                     if (string.IsNullOrEmpty(filePattern)) filePattern = defaultPattern;
                     foreach (string file in Directory.GetFiles(directory, filePattern))
-                        result.Add(new FileInfo(file));
+                        result.Add(new FileInfo(Path.GetFullPath(file)));
                 }
-                else if (File.Exists(entry)) result.Add(new FileInfo(entry));
+                else if (File.Exists(entry)) result.Add(new FileInfo(Path.GetFullPath(entry)));
                 else if (Directory.Exists(entry))
                 {
                     foreach (string file in Directory.GetFiles(entry, defaultPattern))

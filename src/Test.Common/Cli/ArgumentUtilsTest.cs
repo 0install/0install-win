@@ -20,6 +20,8 @@
  * THE SOFTWARE.
  */
 
+using System.IO;
+using Common.Storage;
 using NUnit.Framework;
 
 namespace Common.Cli
@@ -31,9 +33,59 @@ namespace Common.Cli
     public class ArgumentUtilsTest
     {
         [Test]
-        public void TestGetFiles()
+        public void TestGetFilesAbsolute()
         {
-            //PathUtils.GetFiles(new[] {""}, ".xml");
+            using (var tempDirectory = new TemporaryDirectory("unit-tests"))
+            {
+                File.WriteAllText(Path.Combine(tempDirectory.Path, "a.txt"), @"a");
+                File.WriteAllText(Path.Combine(tempDirectory.Path, "b.txt"), @"b");
+                File.WriteAllText(Path.Combine(tempDirectory.Path, "c.inf"), @"c");
+                File.WriteAllText(Path.Combine(tempDirectory.Path, "d.nfo"), @"d");
+
+                string subdirPath = Path.Combine(tempDirectory.Path, "dir");
+                Directory.CreateDirectory(subdirPath);
+                File.WriteAllText(Path.Combine(subdirPath, "1.txt"), @"1");
+                File.WriteAllText(Path.Combine(subdirPath, "2.inf"), @"a");
+
+                var result = ArgumentUtils.GetFiles(new[]
+                {
+                    Path.Combine(tempDirectory.Path, "*.txt"), // Wildcard
+                    Path.Combine(tempDirectory.Path, "d.nfo"), // Specifc file
+                    subdirPath // Directory with implict default wildcard
+                }, "*.txt");
+                Assert.AreEqual(result[0].FullName, Path.Combine(tempDirectory.Path, "a.txt"));
+                Assert.AreEqual(result[1].FullName, Path.Combine(tempDirectory.Path, "b.txt"));
+                Assert.AreEqual(result[2].FullName, Path.Combine(tempDirectory.Path, "d.nfo"));
+                Assert.AreEqual(result[3].FullName, Path.Combine(subdirPath, "1.txt"));
+            }
+        }
+
+        [Test]
+        public void TestGetFilesRelative()
+        {
+            using (var tempDirectory = new TemporaryDirectory("unit-tests", true))
+            {
+                File.WriteAllText("a.txt", @"a");
+                File.WriteAllText("b.txt", @"b");
+                File.WriteAllText("c.inf", @"c");
+                File.WriteAllText("d.nfo", @"d");
+
+                const string subdirPath = "dir";
+                Directory.CreateDirectory(subdirPath);
+                File.WriteAllText(Path.Combine(subdirPath, "1.txt"), @"1");
+                File.WriteAllText(Path.Combine(subdirPath, "2.inf"), @"a");
+
+                var result = ArgumentUtils.GetFiles(new[]
+                {
+                    "*.txt", // Wildcard
+                    "d.nfo", // Specifc file
+                    subdirPath // Directory with implict default wildcard
+                }, "*.txt");
+                Assert.AreEqual(result[0].FullName, Path.Combine(tempDirectory.Path, "a.txt"));
+                Assert.AreEqual(result[1].FullName, Path.Combine(tempDirectory.Path, "b.txt"));
+                Assert.AreEqual(result[2].FullName, Path.Combine(tempDirectory.Path, "d.nfo"));
+                Assert.AreEqual(result[3].FullName, Path.Combine(Path.Combine(tempDirectory.Path, subdirPath), "1.txt"));
+            }
         }
     }
 }
