@@ -182,7 +182,8 @@ namespace ZeroInstall.Store.Feeds
         private void WriteToFile(byte[] data, string path)
         {
             // Prepend random string for temp file name
-            string tempPath = Path.GetDirectoryName(path) + Path.DirectorySeparatorChar + "temp." + Path.GetRandomFileName() + "." + Path.GetFileName(path);
+            string directory = Path.GetDirectoryName(Path.GetFullPath(path));
+            string tempPath = directory + Path.DirectorySeparatorChar + "temp." + Path.GetRandomFileName() + "." + Path.GetFileName(path);
 
             try
             {

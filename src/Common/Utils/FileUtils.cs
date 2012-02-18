@@ -256,7 +256,8 @@ namespace Common.Utils
             if (File.Exists(destinationPath))
             {
                 // Prepend random string for temp file name
-                string backupPath = Path.GetDirectoryName(destinationPath) + Path.DirectorySeparatorChar + "backup." + Path.GetRandomFileName() + "." + Path.GetFileName(destinationPath);
+                string directory = Path.GetDirectoryName(Path.GetFullPath(destinationPath));
+                string backupPath = directory + Path.DirectorySeparatorChar + "backup." + Path.GetRandomFileName() + "." + Path.GetFileName(destinationPath);
 
                 try
                 {

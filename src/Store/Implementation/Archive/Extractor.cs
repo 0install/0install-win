@@ -329,7 +329,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         /// Combines the extraction <see cref="TargetDir"/> path with the relative path inside the archive (ensuring only valid paths are returned).
         /// </summary>
         /// <param name="relativePath">A path relative to the archive's root.</param>
-        /// <returns>The combined path.</returns>
+        /// <returns>The combined path as an absolute path.</returns>
         /// <exception cref="IOException">Thrown if <paramref name="relativePath"/> is invalid (e.g. is absolute, points outside the archive's root, contains invalid characters).</exception>
         private string CombinePath(string relativePath)
         {
@@ -341,7 +341,7 @@ namespace ZeroInstall.Store.Implementation.Archive
 
             try
             {
-                return Path.Combine(TargetDir, relativePath);
+                return Path.GetFullPath(Path.Combine(TargetDir, relativePath));
             }
                 #region Error handling
             catch (ArgumentException ex)

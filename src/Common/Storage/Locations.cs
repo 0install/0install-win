@@ -253,6 +253,7 @@ namespace Common.Storage
             #endregion
 
             // Ensure the directory part of the path exists
+            path = Path.GetFullPath(path);
             string dirPath = isFile ? (Path.GetDirectoryName(path) ?? path) : path;
             if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
 
@@ -282,6 +283,7 @@ namespace Common.Storage
             {
                 // Check in portable base directory
                 path = FileUtils.PathCombine(_portableBase, "config", resourceCombined);
+                path = Path.GetFullPath(path);
                 if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
             }
             else
@@ -299,6 +301,7 @@ namespace Common.Storage
                 }
                 #endregion
 
+                path = Path.GetFullPath(path);
                 if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
 
                 // Check in system directories
@@ -316,6 +319,7 @@ namespace Common.Storage
                     }
                     #endregion
 
+                    path = Path.GetFullPath(path);
                     if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
                 }
             }
@@ -354,6 +358,7 @@ namespace Common.Storage
             #endregion
 
             // Ensure the directory part of the path exists
+            path = Path.GetFullPath(path);
             string dirPath = isFile ? (Path.GetDirectoryName(path) ?? path) : path;
             if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
 
@@ -382,7 +387,8 @@ namespace Common.Storage
             if (_isPortable)
             {
                 // Check in portable base directory
-                path = FileUtils.PathCombine(_portableBase, "data", resourceCombined);
+                path = FileUtils.PathCombine(_portableBase, "data", resourceCombined);path = Path.GetFullPath(path);
+                path = Path.GetFullPath(path);
                 if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
             }
             else
@@ -400,6 +406,7 @@ namespace Common.Storage
                 }
                 #endregion
 
+                path = Path.GetFullPath(path);
                 if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
 
                 // Check in system directories
@@ -417,6 +424,7 @@ namespace Common.Storage
                     }
                     #endregion
 
+                    path = Path.GetFullPath(path);
                     if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
                 }
             }
@@ -458,6 +466,7 @@ namespace Common.Storage
             // Ensure the directory exists
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
+            path = Path.GetFullPath(path);
             return path;
         }
 
@@ -494,6 +503,7 @@ namespace Common.Storage
                 else directory.Create();
             }
 
+            path = Path.GetFullPath(path);
             return path;
         }
         #endregion

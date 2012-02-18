@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System;
 using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
 using NUnit.Framework;
@@ -46,13 +47,37 @@ namespace Common.Storage
         [Test]
         public void TestFile()
         {
-            TestData testData1, testData2;
+            TestData testData1 = new TestData {Data = "Hello"}, testData2;
             using (var tempFile = new TemporaryFile("unit-tests"))
             {
                 // Write and read file
-                testData1 = new TestData {Data = "Hello"};
                 XmlStorage.Save(tempFile.Path, testData1);
                 testData2 = XmlStorage.Load<TestData>(tempFile.Path);
+            }
+
+            // Ensure data stayed the same
+            Assert.AreEqual(testData1.Data, testData2.Data);
+        }
+
+        /// <summary>
+        /// Ensures <see cref="XmlStorage.Save{T}(System.IO.Stream,T)"/> and <see cref="XmlStorage.Load{T}(System.IO.Stream)"/> work correctly with relative paths.
+        /// </summary>
+        [Test]
+        public void TestFileRelative()
+        {
+            TestData testData1 = new TestData {Data = "Hello"}, testData2;
+            using (var tempDirectory = new TemporaryDirectory("unit-tests"))
+            {
+                // Change the working directory
+                string oldWorkingDir = Environment.CurrentDirectory;
+                Environment.CurrentDirectory = tempDirectory.Path;
+
+                // Write and read file
+                XmlStorage.Save("file.xml", testData1);
+                testData2 = XmlStorage.Load<TestData>("file.xml");
+
+                // Restore the original working directory
+                Environment.CurrentDirectory = oldWorkingDir;
             }
 
             // Ensure data stayed the same

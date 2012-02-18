@@ -58,7 +58,7 @@ namespace ZeroInstall.Publish
 
             XmlStorage.AddStylesheet(path, "interface.xsl");
 
-            string directory = Path.GetDirectoryName(path);
+            string directory = Path.GetDirectoryName(Path.GetFullPath(path));
             if (directory == null) return;
 
             // Write the default XSL with its accompanying CSS file unless there is already an XSL in place

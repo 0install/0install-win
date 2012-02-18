@@ -371,7 +371,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             long startOffset = GetValidStartOffset(hintTextBoxStartOffset.Text);
             if (startOffset < 0) startOffset = 0;
 
-            var extractedArchivePath = Path.Combine(Path.GetDirectoryName(archive) ?? "", Path.GetFileName(archive) + "_extracted");
+            var extractedArchivePath = Path.Combine(Path.GetDirectoryName(Path.GetFullPath(archive)) ?? "", Path.GetFileName(archive) + "_extracted");
             try
             {
                 if (Directory.Exists(extractedArchivePath)) Directory.Delete(extractedArchivePath, true);

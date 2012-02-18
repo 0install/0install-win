@@ -177,7 +177,7 @@ namespace Common.Storage
             if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory)) Directory.CreateDirectory(directory);
 
             // Prepend random string for temp file name
-            string tempPath = Path.GetDirectoryName(path) + Path.DirectorySeparatorChar + "temp." + Path.GetRandomFileName() + "." + Path.GetFileName(path);
+            string tempPath = directory + Path.DirectorySeparatorChar + "temp." + Path.GetRandomFileName() + "." + Path.GetFileName(path);
 
             try
             {
@@ -394,7 +394,7 @@ namespace Common.Storage
             #endregion
 
             // Make sure the containing directory exists
-            string directory = Path.GetDirectoryName(path);
+            string directory = Path.GetDirectoryName(Path.GetFullPath(path));
             if (directory != null && !Directory.Exists(directory)) Directory.CreateDirectory(directory);
 
             using (var fileStream = File.Create(path))

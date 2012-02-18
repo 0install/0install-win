@@ -69,7 +69,7 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldHandleRelativePaths()
         {
             // Change the working directory
-            string workingDir = Environment.CurrentDirectory;
+            string oldWorkingDir = Environment.CurrentDirectory;
             Environment.CurrentDirectory = PackageFolder;
 
             // Replace default generator with one using a relative path
@@ -78,7 +78,7 @@ namespace ZeroInstall.Store.Implementation
             ShouldGenerateManifestWithAllFilesListed();
 
             // Restore the original working directory
-            Environment.CurrentDirectory = workingDir;
+            Environment.CurrentDirectory = oldWorkingDir;
         }
 
         private void ValidatePackage()

@@ -128,7 +128,8 @@ namespace ZeroInstall.Store.Feeds
         private static void DownloadFile(Uri source, string target, ITaskHandler handler)
         {
             // Prepend random string to file name to prevent ListAll from catching temporary files
-            string tempPath = Path.GetDirectoryName(target) + Path.DirectorySeparatorChar + "temp." + Path.GetRandomFileName() + "." + Path.GetFileName(target);
+            string directory = Path.GetDirectoryName(Path.GetFullPath(target));
+            string tempPath = directory + Path.DirectorySeparatorChar + "temp." + Path.GetRandomFileName() + "." + Path.GetFileName(target);
 
             try
             {

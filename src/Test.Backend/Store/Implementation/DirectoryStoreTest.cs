@@ -106,14 +106,14 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldHandleRelativePaths()
         {
             // Change the working directory
-            string workingDir = Environment.CurrentDirectory;
+            string oldWorkingDir = Environment.CurrentDirectory;
             Environment.CurrentDirectory = _tempDir.Path;
             _store = new DirectoryStore(".");
 
             ShouldAllowToAddFolder();
 
             // Restore the original working directory
-            Environment.CurrentDirectory = workingDir;
+            Environment.CurrentDirectory = oldWorkingDir;
         }
 
         [Test]
