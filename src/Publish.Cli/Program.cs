@@ -260,9 +260,10 @@ namespace ZeroInstall.Publish.Cli
 
                     foreach (var file in options.Feeds)
                     {
-                        var feed = SignedFeed.Load(file.FullName);
-                        HandleModify(feed.Feed, options);
-                        SaveFeed(feed, file.FullName, ref options);
+                        var signedFeed = SignedFeed.Load(file.FullName);
+                        var originalFeed = signedFeed.Feed.Clone();
+                        HandleModify(signedFeed.Feed, options);
+                        SaveFeed(signedFeed, originalFeed, file.FullName, ref options);
                     }
                     return ErrorLevel.OK;
 
@@ -295,7 +296,8 @@ namespace ZeroInstall.Publish.Cli
         /// <summary>
         /// Saves a feed applying any signature options.
         /// </summary>
-        /// <param name="feed">The feed to save.</param>
+        /// <param name="signedFeed">The feed to save.</param>
+        /// <param name="originalFeed">The feed as it was before any modifications were performed.</param>
         /// <param name="path">The path to save the feed to.</param>
         /// <param name="options">The parser results to be handled.</param>
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
@@ -303,31 +305,42 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="KeyNotFoundException">Thrown if an OpenPGP key could not be found.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        private static void SaveFeed(SignedFeed feed, string path, ref ParseResults options)
+        private static void SaveFeed(SignedFeed signedFeed, Feed originalFeed, string path, ref ParseResults options)
         {
             if (options.Unsign)
             {
                 // Remove any existing signatures
-                feed.SecretKey = null;
+                signedFeed.SecretKey = null;
             }
             else
             {
                 var openPgp = OpenPgpProvider.CreateDefault();
-
-                // Use default secret key if there are no existing signatures
-                if (options.XmlSign && feed.SecretKey == null)
-                    feed.SecretKey = openPgp.GetSecretKey(null);
-
-                // Use specific secret key for signature
-                if (!string.IsNullOrEmpty(options.Key))
-                    feed.SecretKey = openPgp.GetSecretKey(options.Key);
+                if (options.XmlSign)
+                { // Signing explicitly requested
+                    if (signedFeed.SecretKey == null)
+                    { // No previous signature
+                        // Use user-specified key or default key
+                        signedFeed.SecretKey = openPgp.GetSecretKey(options.Key);
+                    }
+                    else
+                    { // Existing siganture
+                        if (!string.IsNullOrEmpty(options.Key)) // Use new user-specified key
+                            signedFeed.SecretKey = openPgp.GetSecretKey(options.Key);
+                        //else resign implied
+                    }
+                }
+                //else resign implied
             }
 
+            // If no signing or unsigning was explicitly requested and the content did not change
+            // there is no need to overwrite (and potentiall resign) the file
+            if (!options.XmlSign && !options.Unsign && signedFeed.Feed.Equals(originalFeed)) return;
+
             // Ask for passphrase to unlock secret key
-            if (feed.SecretKey != null && string.IsNullOrEmpty(options.OpenPgpPassphrase))
+            if (signedFeed.SecretKey != null && string.IsNullOrEmpty(options.OpenPgpPassphrase))
                 options.OpenPgpPassphrase = CliUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
 
-            feed.Save(path, options.OpenPgpPassphrase);
+            signedFeed.Save(path, options.OpenPgpPassphrase);
         }
         #endregion
     }

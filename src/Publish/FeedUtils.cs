@@ -147,10 +147,10 @@ namespace ZeroInstall.Publish
                 if (validSignature != null) return openPgp.GetSecretKey(validSignature.Fingerprint);
             }
                 #region Error handling
-            catch (KeyNotFoundException ex)
+            catch (KeyNotFoundException)
             {
                 // Secret key not in the user's keyring
-                Log.Info(ex.Message);
+                //Log.Info(ex.Message);
             }
             catch (SignatureException ex)
             {

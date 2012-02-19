@@ -113,10 +113,10 @@ namespace ZeroInstall.Publish.WinForms
         {
             var task = new ForEachTask<FileInfo>("Signing feeds", _files, file =>
             {
-                SignedFeed feed;
+                SignedFeed signedFeed;
                 try
                 {
-                    feed = SignedFeed.Load(file.FullName);
+                    signedFeed = SignedFeed.Load(file.FullName);
                 }
                     #region Error handling
                 catch (UnauthorizedAccessException ex)
@@ -131,10 +131,10 @@ namespace ZeroInstall.Publish.WinForms
                 }
                 #endregion
 
-                feed.SecretKey = secretKey;
+                signedFeed.SecretKey = secretKey;
                 try
                 {
-                    feed.Save(file.FullName, passphrase);
+                    signedFeed.Save(file.FullName, passphrase);
                 }
                     #region Error handling
                 catch (UnauthorizedAccessException ex)
