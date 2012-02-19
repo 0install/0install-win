@@ -17,6 +17,7 @@
 
 using System;
 using Common.Controls;
+using Common.Utils;
 using ZeroInstall.Injector;
 
 namespace ZeroInstall.Central.WinForms.SyncConfig
@@ -98,6 +99,8 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
                 config.SyncCryptoKey = cryptoKey;
                 config.Save();
                 Close();
+
+                ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] { "sync" }));
             };
 
             // Load first page
