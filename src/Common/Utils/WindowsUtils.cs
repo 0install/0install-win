@@ -92,14 +92,17 @@ namespace Common.Utils
 
             if (!IsWindowsNT) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
 
+            // Create new or open existing mutex
             handle = UnsafeNativeMethods.CreateMutex(IntPtr.Zero, false, name);
 
             int error = Marshal.GetLastWin32Error();
             switch (error)
             {
                 case ErrorSuccess:
+                    // New mutex created, handle passed out
                     return false;
                 case ErrorAlreadyExists:
+                    // Existing mutex aquired, handle passed out
                     return true;
                 case ErrorAccessDenied:
                     return OpenMutex(name);
@@ -124,18 +127,24 @@ namespace Common.Utils
 
             if (!IsWindowsNT) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
 
-            UnsafeNativeMethods.OpenMutex(Synchronize, false, name);
+            // Try to open existing mutex
+            var handle = UnsafeNativeMethods.OpenMutex(Synchronize, false, name);
 
-            int error = Marshal.GetLastWin32Error();
-            switch (error)
+            if (handle == IntPtr.Zero)
             {
-                case ErrorSuccess:
-                    return true;
-                case ErrorFileNotFound:
-                    return false;
-                default:
-                    throw new Win32Exception(error);
+                int error = Marshal.GetLastWin32Error();
+                switch (error)
+                {
+                    case ErrorFileNotFound:
+                        // No existing mutex found
+                        return false;
+                    default:
+                        throw new Win32Exception(error);
+                }
             }
+
+            // Existing mutex opened, handle remains until process terminates
+            return true;
         }
 
         /// <summary>
@@ -153,24 +162,25 @@ namespace Common.Utils
 
             if (!IsWindowsNT) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
 
+            // Try to open existing mutex
             var handle = UnsafeNativeMethods.OpenMutex(Synchronize, false, name);
 
-            bool result;
-            int error = Marshal.GetLastWin32Error();
-            switch (error)
+            if (handle == IntPtr.Zero)
             {
-                case ErrorSuccess:
-                    result = true;
-                    break;
-                case ErrorFileNotFound:
-                    result = false;
-                    break;
-                default:
-                    throw new Win32Exception(error);
+                int error = Marshal.GetLastWin32Error();
+                switch (error)
+                {
+                    case ErrorFileNotFound:
+                        // No existing mutex found
+                        return false;
+                    default:
+                        throw new Win32Exception(error);
+                }
             }
 
+            // Existing mutex opened, close handle again
             UnsafeNativeMethods.CloseHandle(handle);
-            return result;
+            return true;
         }
 
         /// <summary>
