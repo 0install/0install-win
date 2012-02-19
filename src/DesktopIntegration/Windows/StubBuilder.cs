@@ -66,12 +66,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory)) Directory.CreateDirectory(directory);
 
             // Build command-line
-            string args = "run ";
+            string args = needsTerminal ? "" : "run ";
             if (!string.IsNullOrEmpty(command)) args += "--command=" + StringUtils.EscapeArgument(command) + " ";
             args += StringUtils.EscapeArgument(target.InterfaceID);
 
             // Load the template code and insert variables
-            string code = GetEmbeddedResource("Stub.template").Replace("[EXE]", Path.Combine(Locations.InstallBase, needsTerminal ? "0install.exe" : "0install-win.exe").Replace(@"\", @"\\"));
+            string code = GetEmbeddedResource("Stub.template").Replace("[EXE]", Path.Combine(Locations.InstallBase, needsTerminal ? "0launch.exe" : "0install-win.exe").Replace(@"\", @"\\"));
             code = code.Replace("[ARGUMENTS]", EscapeForCode(args));
             code = code.Replace("[TITLE]", EscapeForCode(target.Feed.GetBestName(CultureInfo.CurrentUICulture, command)));
 
