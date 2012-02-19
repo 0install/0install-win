@@ -132,6 +132,10 @@
   <data name="Hide" xml:space="preserve">
     <value>Verstecken</value>
   </data>
+  <data name="IgnoreMissingFeedFor" xml:space="preserve">
+    <value>Dieser Feed scheint nicht für die gleiche Anwendung zu sein. Trotzdem hinzufügen?
+Ein &lt;feed-for&gt; Tag zeigt Feed-Kompatibilität an.</value>
+  </data>
   <data name="Integrate" xml:space="preserve">
     <value>Integriere {0}</value>
   </data>

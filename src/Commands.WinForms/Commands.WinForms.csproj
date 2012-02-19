@@ -87,6 +87,7 @@
     <Compile Include="InterfaceDialog.Designer.cs">
       <DependentUpon>InterfaceDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="MinimalHandler.cs" />
     <Compile Include="ProgressForm.cs">
       <SubType>Form</SubType>
     </Compile>

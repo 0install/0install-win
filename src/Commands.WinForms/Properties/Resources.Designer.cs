@@ -106,6 +106,16 @@ namespace ZeroInstall.Commands.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This feed does not seem to be for the same appliaction. Add it anyway?
+        ///A &lt;feed-for&gt; tag indicates feed compatibility..
+        /// </summary>
+        internal static string IgnoreMissingFeedFor {
+            get {
+                return ResourceManager.GetString("IgnoreMissingFeedFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Integrate {0}.
         /// </summary>
         internal static string Integrate {

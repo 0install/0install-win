@@ -58,7 +58,7 @@ namespace ZeroInstall.Injector
         }
 
         /// <inheritdoc />
-        public bool AskQuestion(string question, string batchInformation)
+        public virtual bool AskQuestion(string question, string batchInformation)
         {
             return false;
         }

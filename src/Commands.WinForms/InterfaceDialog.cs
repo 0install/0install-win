@@ -15,14 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Indicates that the solver provides no c and that they must therefore be generated here
+#define NO_SOLVER_CANDIDATES
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Net;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
 using ZeroInstall.Commands.WinForms.Properties;
+using ZeroInstall.Injector;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
@@ -48,8 +53,13 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>The interface preferences being modified.</summary>
         private readonly InterfacePreferences _interfacePreferences;
 
+#if NO_SOLVER_CANDIDATES
+        /// <summary>A list of all feed IDs contributing to the selection process associated with their respective preferences.</summary>
+        private readonly IDictionary<string, FeedPreferences> _feeds = new Dictionary<string, FeedPreferences>();
+#else
         /// <summary>The last implementation selected for this interface.</summary>
         private ImplementationSelection _selection;
+#endif
         #endregion
 
         #region Constructor
@@ -122,15 +132,32 @@ namespace ZeroInstall.Commands.WinForms
         private void LoadFeeds()
         {
             // Add main feed
+#if NO_SOLVER_CANDIDATES
+            _feeds.Add(_interfaceID, FeedPreferences.LoadForSafe(_interfaceID));
+#endif
             listBoxFeeds.Items.Add(_interfaceID); // Add string => not removable in GUI
 
             // Add feeds references from main feed
             foreach (var reference in _feedCache.GetFeed(_interfaceID).Feeds)
+            {
+#if NO_SOLVER_CANDIDATES
+                _feeds.Add(reference.Source, FeedPreferences.LoadForSafe(reference.Source));
+#endif
                 listBoxFeeds.Items.Add(reference.Source); // Add string => not removable in GUI
+            }
 
             // Add manually registered feeds
             foreach (var reference in _interfacePreferences.Feeds)
+            {
+#if NO_SOLVER_CANDIDATES
+                _feeds.Add(reference.Source, FeedPreferences.LoadForSafe(reference.Source));
+#endif
                 listBoxFeeds.Items.Add(reference); // Add complex object => removable in GUI
+            }
+
+#if NO_SOLVER_CANDIDATES
+            UpdateDataGridVersions();
+#endif
         }
 
         /// <summary>
@@ -150,12 +177,60 @@ namespace ZeroInstall.Commands.WinForms
             }
             #endregion
 
-            // ToDo: Load feed into cache if missing
-            // ToDo: Ensure <feed-for> is set
+            // Make sure the feed is in the cache
+            var policy = Policy.CreateDefault(new MinimalHandler(this));
+            Feed feed;
+            try
+            {
+                feed = policy.FeedManager.GetFeed(feedID, policy);
+            }
+                #region Error handling
+            catch (OperationCanceledException)
+            {
+                return;
+            }
+            catch (InvalidInterfaceIDException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            catch (WebException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            catch (SignatureException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+                #endregion
+
+            // Ensure a matching <feed-for> is present for online feeds
+            Uri interfaceUri;
+            if (ModelUtils.TryParseUri(_interfaceID, out interfaceUri) && !feed.FeedFor.Exists(entry => entry.Target == interfaceUri))
+                if (!Msg.YesNo(this, Resources.IgnoreMissingFeedFor, MsgSeverity.Warn)) return;
+
+#if NO_SOLVER_CANDIDATES
+            if (_feeds.ContainsKey(feedID)) return; // Prevent duplicates
+            _feeds.Add(feedID, FeedPreferences.LoadForSafe(feedID));
+#endif
 
             var reference = new FeedReference {Source = feedID};
             _interfacePreferences.Feeds.Add(reference);
             listBoxFeeds.Items.Add(reference);
+
+            UpdateDataGridVersions();
         }
 
         /// <summary>
@@ -165,6 +240,11 @@ namespace ZeroInstall.Commands.WinForms
         {
             listBoxFeeds.Items.Remove(feed);
             _interfacePreferences.Feeds.Remove(feed);
+
+#if NO_SOLVER_CANDIDATES
+            _feeds.Remove(feed.Source);
+            UpdateDataGridVersions();
+#endif
         }
 
         /// <summary>
@@ -172,6 +252,59 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private void UpdateDataGridVersions()
         {
+#if NO_SOLVER_CANDIDATES
+            var candidates = new BindingList<SelectionCandidate> {AllowEdit = true, AllowNew = false};
+            foreach (var feedEntry in _feeds)
+            {
+                string feedID = feedEntry.Key;
+                Feed feed;
+                try
+                {
+                    feed = _feedCache.GetFeed(feedID);
+                }
+                    #region Error handling
+                catch (InvalidInterfaceIDException ex)
+                {
+                    Log.Error("Unable to load feed '" + feedID + "'; skipping.\n" + ex.Message);
+                    continue;
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    Log.Error("Unable to load feed '" + feedID + "'; skipping.\n" + ex.Message);
+                    continue;
+                }
+                catch (IOException ex)
+                {
+                    Log.Error("Unable to load feed '" + feedID + "'; skipping.\n" + ex.Message);
+                    continue;
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Log.Error("Unable to load feed '" + feedID + "'; skipping.\n" + ex.Message);
+                    continue;
+                }
+                catch (InvalidDataException ex)
+                {
+                    Log.Error("Unable to load feed '" + feedID + "'; skipping.\n" + ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
+                    continue;
+                }
+                #endregion
+
+                var feedPreferences = feedEntry.Value;
+
+                // ToDo: Get selection candidates from Solver
+                foreach (var element in feed.Elements)
+                {
+                    var implementation = element as Implementation;
+                    if (implementation == null) continue;
+
+                    var candidate = new SelectionCandidate(feedID, implementation, feedPreferences.GetImplementationPreferences(implementation.ID), new Requirements {Architecture = Architecture.CurrentSystem});
+                    if (checkBoxShowAllVersions.Checked || candidate.IsUsable)
+                        candidates.Add(candidate);
+                }
+            }
+            dataGridVersions.DataSource = candidates;
+#else
             // ToDo: Display progress
             _selection = _solveCallback()[_interfaceID];
 
@@ -179,6 +312,7 @@ namespace ZeroInstall.Commands.WinForms
             foreach (var candidate in _selection.Candidates)
                 if (checkBoxShowAllVersions.Checked || candidate.IsUsable) list.Add(candidate);
             dataGridVersions.DataSource = list;
+#endif
         }
         #endregion
 
@@ -209,6 +343,12 @@ namespace ZeroInstall.Commands.WinForms
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
+#if NO_SOLVER_CANDIDATES
+            // Read interface stability policy from ComboBox
+            if (comboBoxStability.SelectedItem is Stability) _interfacePreferences.StabilityPolicy = (Stability)comboBoxStability.SelectedItem;
+            else _interfacePreferences.StabilityPolicy = Stability.Unset;
+#endif
+
             try
             {
                 ApplySettings();
@@ -239,12 +379,21 @@ namespace ZeroInstall.Commands.WinForms
             _interfacePreferences.SaveFor(_interfaceID);
 
             // Save all feed preferences
+#if NO_SOLVER_CANDIDATES
+            foreach (var feedEntry in _feeds)
+            {
+                var preferences = feedEntry.Value;
+                preferences.Normalize();
+                preferences.SaveFor(feedEntry.Key);
+            }
+#else
             foreach (var feedEntry in _selection.Feeds)
             {
                 var preferences = feedEntry.Value;
                 preferences.Normalize();
                 preferences.SaveFor(feedEntry.Key);
             }
+#endif
         }
 
         private void listBoxFeeds_SelectedIndexChanged(object sender, EventArgs e)

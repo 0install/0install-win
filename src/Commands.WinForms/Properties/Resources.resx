@@ -1232,6 +1232,10 @@
   <data name="Hide" xml:space="preserve">
     <value>Hide</value>
   </data>
+  <data name="IgnoreMissingFeedFor" xml:space="preserve">
+    <value>This feed does not seem to be for the same appliaction. Add it anyway?
+A &lt;feed-for&gt; tag indicates feed compatibility.</value>
+  </data>
   <data name="Integrate" xml:space="preserve">
     <value>Integrate {0}</value>
   </data>
