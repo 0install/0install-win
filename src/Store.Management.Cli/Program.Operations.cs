@@ -82,7 +82,7 @@ namespace ZeroInstall.Store.Management.Cli
             if (args.Count != 1) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageList));
 
             foreach (ManifestDigest digest in _store.ListAll())
-                Console.WriteLine(digest.BestDigest);
+                Console.WriteLine(_store.GetPath(digest));
         }
 
         private static void Optimise(IList<string> args, ITaskHandler handler)
