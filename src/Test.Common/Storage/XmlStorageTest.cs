@@ -20,7 +20,6 @@
  * THE SOFTWARE.
  */
 
-using System;
 using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
 using NUnit.Framework;

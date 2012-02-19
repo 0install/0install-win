@@ -55,7 +55,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             catch (SharpZipBaseException ex)
             {
                 // Wrap exception since only certain exception types are allowed
-                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);;
+                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
             }
         }
         #endregion

@@ -32,7 +32,7 @@ namespace Common.Storage
     public class TemporaryDirectory : IDisposable
     {
         #region Variables
-        private string _oldWorkingDir;
+        private readonly string _oldWorkingDir;
         #endregion
 
         #region Properties

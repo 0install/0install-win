@@ -58,7 +58,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                 #region Error handling
             catch (TarException ex)
             {
-                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);;
+                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
             }
             #endregion
         }
