@@ -102,10 +102,27 @@ namespace Common.Utils
                     // New mutex created, handle passed out
                     return false;
                 case ErrorAlreadyExists:
-                    // Existing mutex aquired, handle passed out
+                    // Existing mutex opened, handle passed out
                     return true;
                 case ErrorAccessDenied:
-                    return OpenMutex(name);
+                    // Try to open existing mutex
+                    handle = UnsafeNativeMethods.OpenMutex(Synchronize, false, name);
+
+                    if (handle == IntPtr.Zero)
+                    {
+                        error = Marshal.GetLastWin32Error();
+                        switch (error)
+                        {
+                            case ErrorFileNotFound:
+                                // No existing mutex found
+                                return false;
+                            default:
+                                throw new Win32Exception(error);
+                        }
+                    }
+
+                    // Existing mutex opened, handle passed out
+                    return true;
                 default:
                     throw new Win32Exception(error);
             }
