@@ -64,7 +64,7 @@ namespace ZeroInstall.Injector.Feeds
             var feed = GetFeed(feedID, policy, ref stale);
 
             // Detect outdated feed
-            if (stale && !Refresh)
+            if (stale && !Refresh && policy.Config.NetworkUse == NetworkLevel.Full)
             {
                 Refresh = true;
                 try

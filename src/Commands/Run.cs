@@ -98,7 +98,7 @@ namespace ZeroInstall.Commands
             Solve();
 
             // If any implementations need to be downloaded rerun solver in refresh mode (unless it was already in that mode to begin with)
-            if (!EnumerableUtils.IsEmpty(UncachedImplementations) && !Policy.FeedManager.Refresh && Policy.Config.NetworkUse != NetworkLevel.Offline)
+            if (!EnumerableUtils.IsEmpty(UncachedImplementations) && !Policy.FeedManager.Refresh)
             {
                 Policy.FeedManager.Refresh = true;
                 Solve();
@@ -108,7 +108,7 @@ namespace ZeroInstall.Commands
             DownloadUncachedImplementations();
 
             // If any of the feeds are getting old spawn background update process
-            if (StaleFeeds && Policy.Config.NetworkUse != NetworkLevel.Offline)
+            if (StaleFeeds && Policy.Config.NetworkUse == NetworkLevel.Full)
             {
                 // ToDo: Automatically switch to GTK# on Linux
                 ProcessUtils.LaunchHelperAssembly("0install-win", "update --batch " + Requirements.ToCommandLineArgs());

@@ -199,7 +199,7 @@ namespace ZeroInstall.Commands
             SelectionsUI();
 
             // If any of the feeds are getting old rerun solver in refresh mode
-            if (StaleFeeds && Policy.Config.NetworkUse != NetworkLevel.Offline)
+            if (StaleFeeds && Policy.Config.NetworkUse == NetworkLevel.Full)
             {
                 Policy.FeedManager.Refresh = true;
                 Solve();
