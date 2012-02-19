@@ -66,7 +66,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability Clone()
         {
-            var capability = new UrlProtocol {ID = ID};
+            var capability = new UrlProtocol {ID = ID, ExplicitOnly = ExplicitOnly};
             capability.Icons.AddAll(Icons);
             foreach (var description in Descriptions) capability.Descriptions.Add(description.Clone());
             foreach (var verb in Verbs) capability.Verbs.Add(verb.Clone());

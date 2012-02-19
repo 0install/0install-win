@@ -88,7 +88,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability Clone()
         {
-            var capability = new AutoPlay {ID = ID, Provider = Provider, ProgID = ProgID, Verb = Verb.Clone()};
+            var capability = new AutoPlay {ID = ID, ExplicitOnly = ExplicitOnly, Provider = Provider, ProgID = ProgID, Verb = Verb.Clone()};
             capability.Icons.AddAll(Icons);
             foreach (var description in Descriptions) capability.Descriptions.Add(description.Clone());
             capability.Events.AddAll(Events);

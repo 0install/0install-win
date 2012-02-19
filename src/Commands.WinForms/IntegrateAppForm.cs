@@ -75,6 +75,12 @@ namespace ZeroInstall.Commands.WinForms
         /// A list of <see cref="AccessPoints.AppAlias"/>es as displayed by the <see cref="dataGridAliases"/>.
         /// </summary>
         private readonly BindingList<AccessPoints.AppAlias> _aliases = new BindingList<AccessPoints.AppAlias>();
+
+        private readonly BindingList<FileTypeModel> _fileTypesBinding = new BindingList<FileTypeModel>();
+        private readonly BindingList<UrlProtocolModel> _urlProtocolsBinding = new BindingList<UrlProtocolModel>();
+        private readonly BindingList<AutoPlayModel> _autoPlayBinding = new BindingList<AutoPlayModel>();
+        private readonly BindingList<ContextMenuModel> _contextMenuBinding = new BindingList<ContextMenuModel>();
+        private readonly BindingList<DefaultProgramModel> _defaultProgramBinding = new BindingList<DefaultProgramModel>();
         #endregion
 
         #region Constructor
@@ -199,12 +205,6 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private void SetupDefaultAccessPoints()
         {
-            var fileTypesBinding = new BindingList<FileTypeModel>();
-            var urlProtocolsBinding = new BindingList<UrlProtocolModel>();
-            var autoPlayBinding = new BindingList<AutoPlayModel>();
-            var contextMenuBinding = new BindingList<ContextMenuModel>();
-            var defaultProgramBinding = new BindingList<DefaultProgramModel>();
-
             foreach (var capabilityList in _appEntry.CapabilityLists)
             {
                 if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
@@ -213,7 +213,7 @@ namespace ZeroInstall.Commands.WinForms
                 foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(capabilityList.Entries))
                 {
                     var model = new FileTypeModel(fileType, IsCapabillityUsed<AccessPoints.FileType>(fileType));
-                    fileTypesBinding.Add(model);
+                    _fileTypesBinding.Add(model);
                     _capabilityModels.Add(model);
                 }
 
@@ -221,7 +221,7 @@ namespace ZeroInstall.Commands.WinForms
                 foreach (var urlProtocol in EnumerableUtils.OfType<Capabilities.UrlProtocol>(capabilityList.Entries))
                 {
                     var model = new UrlProtocolModel(urlProtocol, IsCapabillityUsed<AccessPoints.UrlProtocol>(urlProtocol));
-                    urlProtocolsBinding.Add(model);
+                    _urlProtocolsBinding.Add(model);
                     _capabilityModels.Add(model);
                 }
 
@@ -229,7 +229,7 @@ namespace ZeroInstall.Commands.WinForms
                 foreach (var autoPlay in EnumerableUtils.OfType<Capabilities.AutoPlay>(capabilityList.Entries))
                 {
                     var model = new AutoPlayModel(autoPlay, IsCapabillityUsed<AccessPoints.AutoPlay>(autoPlay));
-                    autoPlayBinding.Add(model);
+                    _autoPlayBinding.Add(model);
                     _capabilityModels.Add(model);
                 }
 
@@ -237,7 +237,7 @@ namespace ZeroInstall.Commands.WinForms
                 foreach (var contextMenu in EnumerableUtils.OfType<Capabilities.ContextMenu>(capabilityList.Entries))
                 {
                     var model = new ContextMenuModel(contextMenu, IsCapabillityUsed<AccessPoints.ContextMenu>(contextMenu));
-                    contextMenuBinding.Add(model);
+                    _contextMenuBinding.Add(model);
                     _capabilityModels.Add(model);
                 }
 
@@ -247,22 +247,22 @@ namespace ZeroInstall.Commands.WinForms
                     foreach (var defaultProgram in EnumerableUtils.OfType<Capabilities.DefaultProgram>(capabilityList.Entries))
                     {
                         var model = new DefaultProgramModel(defaultProgram, IsCapabillityUsed<AccessPoints.DefaultProgram>(defaultProgram));
-                        defaultProgramBinding.Add(model);
+                        _defaultProgramBinding.Add(model);
                         _capabilityModels.Add(model);
                     }
                 }
             }
 
             // Apply data to DataGrids in bulk for better performance (remove empty tabs)
-            if (fileTypesBinding.Count != 0) dataGridFileTypes.DataSource = fileTypesBinding;
+            if (_fileTypesBinding.Count != 0) dataGridFileTypes.DataSource = _fileTypesBinding;
             else tabControl.TabPages.Remove(tabPageFileTypes);
-            if (urlProtocolsBinding.Count != 0) dataGridUrlProtocols.DataSource = urlProtocolsBinding;
+            if (_urlProtocolsBinding.Count != 0) dataGridUrlProtocols.DataSource = _urlProtocolsBinding;
             else tabControl.TabPages.Remove(tabPageUrlProtocols);
-            if (autoPlayBinding.Count != 0) dataGridAutoPlay.DataSource = autoPlayBinding;
+            if (_autoPlayBinding.Count != 0) dataGridAutoPlay.DataSource = _autoPlayBinding;
             else tabControl.TabPages.Remove(tabPageAutoPlay);
-            if (contextMenuBinding.Count != 0) dataGridContextMenu.DataSource = contextMenuBinding;
+            if (_contextMenuBinding.Count != 0) dataGridContextMenu.DataSource = _contextMenuBinding;
             else tabControl.TabPages.Remove(tabPageContextMenu);
-            if (defaultProgramBinding.Count != 0 && _integrationManager.SystemWide) dataGridDefaultPrograms.DataSource = defaultProgramBinding;
+            if (_defaultProgramBinding.Count != 0 && _integrationManager.SystemWide) dataGridDefaultPrograms.DataSource = _defaultProgramBinding;
             else tabControl.TabPages.Remove(tabPageDefaultPrograms);
         }
 
@@ -394,37 +394,62 @@ namespace ZeroInstall.Commands.WinForms
         #region Select all checkboxes
         private void checkBoxFileTypesAll_CheckedChanged(object sender, EventArgs e)
         {
-            SetAllLastColumn(dataGridFileTypes, checkBoxFileTypesAll.Checked);
+            int lastColumn = dataGridFileTypes.Columns.Count - 1;
+            dataGridFileTypes.BeginEdit(false);
+            for (int i = 0; i < dataGridFileTypes.RowCount; i++)
+            {
+                if (_fileTypesBinding[i].Capability.ExplicitOnly) continue;
+                dataGridFileTypes[lastColumn, i].Value = checkBoxFileTypesAll.Checked;
+            }
+            dataGridFileTypes.EndEdit();
         }
 
         private void checkBoxUrlProtocolsAll_CheckedChanged(object sender, EventArgs e)
         {
-            SetAllLastColumn(dataGridUrlProtocols, checkBoxUrlProtocolsAll.Checked);
+            int lastColumn = dataGridUrlProtocols.Columns.Count - 1;
+            dataGridUrlProtocols.BeginEdit(false);
+            for (int i = 0; i < dataGridUrlProtocols.RowCount; i++)
+            {
+                if (_urlProtocolsBinding[i].Capability.ExplicitOnly) continue;
+                dataGridUrlProtocols[lastColumn, i].Value = checkBoxUrlProtocolsAll.Checked;
+            }
+            dataGridUrlProtocols.EndEdit();
         }
 
         private void checkBoxAutoPlayAll_CheckedChanged(object sender, EventArgs e)
         {
-            SetAllLastColumn(dataGridAutoPlay, checkBoxAutoPlayAll.Checked);
+            int lastColumn = dataGridAutoPlay.Columns.Count - 1;
+            dataGridAutoPlay.BeginEdit(false);
+            for (int i = 0; i < dataGridAutoPlay.RowCount; i++)
+            {
+                if (_autoPlayBinding[i].Capability.ExplicitOnly) continue;
+                dataGridAutoPlay[lastColumn, i].Value = checkBoxAutoPlayAll.Checked;
+            }
+            dataGridAutoPlay.EndEdit();
         }
 
         private void checkBoxContextMenuAll_CheckedChanged(object sender, EventArgs e)
         {
-            SetAllLastColumn(dataGridContextMenu, checkBoxContextMenuAll.Checked);
+            int lastColumn = dataGridContextMenu.Columns.Count - 1;
+            dataGridContextMenu.BeginEdit(false);
+            for (int i = 0; i < dataGridContextMenu.RowCount; i++)
+            {
+                if (_contextMenuBinding[i].Capability.ExplicitOnly) continue;
+                dataGridContextMenu[lastColumn, i].Value = checkBoxContextMenuAll.Checked;
+            }
+            dataGridContextMenu.EndEdit();
         }
 
         private void checkBoxDefaultProgramsAll_CheckedChanged(object sender, EventArgs e)
         {
-            SetAllLastColumn(dataGridDefaultPrograms, checkBoxDefaultProgramsAll.Checked);
-        }
-
-        private void SetAllLastColumn(DataGridView dataGrid, bool value)
-        {
-            int lastColumn = dataGrid.Columns.Count - 1;
-
-            dataGrid.BeginEdit(false);
-            for (int i = 0; i < dataGrid.RowCount; i++)
-                dataGrid[lastColumn, i].Value = value;
-            dataGrid.EndEdit();
+            int lastColumn = dataGridDefaultPrograms.Columns.Count - 1;
+            dataGridDefaultPrograms.BeginEdit(false);
+            for (int i = 0; i < dataGridDefaultPrograms.RowCount; i++)
+            {
+                if (_defaultProgramBinding[i].Capability.ExplicitOnly) continue;
+                dataGridDefaultPrograms[lastColumn, i].Value = checkBoxDefaultProgramsAll.Checked;
+            }
+            dataGridDefaultPrograms.EndEdit();
         }
         #endregion
     }
