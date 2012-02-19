@@ -70,9 +70,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            #region Sanity checks
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            #endregion
 
             if (Locations.IsPortable) throw new NotSupportedException(Resources.NotAvailableInPortableMode);
             if (SystemWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();

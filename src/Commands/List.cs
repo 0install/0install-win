@@ -68,7 +68,7 @@ namespace ZeroInstall.Commands
                     pattern = AdditionalArgs[0];
                     break;
                 default:
-                    throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
+                    throw new OptionException(Resources.TooManyArguments, "");
             }
 
             Policy.Handler.Output(Resources.FoundFeeds, GetList(pattern));

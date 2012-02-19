@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Common.Collections;
+using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Fetchers;
@@ -69,11 +70,9 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            #region Sanity checks
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
-            #endregion
-
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + StringUtils.ConcatenateEscapeArgument(AdditionalArgs), "");
+            
             Policy.Handler.ShowProgressUI();
 
             Solve();

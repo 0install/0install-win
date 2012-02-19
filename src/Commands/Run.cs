@@ -89,9 +89,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            #region Sanity checks
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            #endregion
 
             Policy.Handler.ShowProgressUI();
 

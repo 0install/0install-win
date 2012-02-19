@@ -56,11 +56,9 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            #region Sanity checks
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
             if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
             if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
-            #endregion
 
             string interfaceID = AdditionalArgs[0];
             if (File.Exists(AdditionalArgs[0])) interfaceID = Path.GetFullPath(AdditionalArgs[0]);

@@ -75,8 +75,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override void Parse(IEnumerable<string> args)
         {
-            // Don't allow custom arguments
-            if (Options.Parse(args).Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
+            if (Options.Parse(args).Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + StringUtils.ConcatenateEscapeArgument(AdditionalArgs), "");
 
             Requirements.InterfaceID = Policy.Config.SelfUpdateID;
 
@@ -91,9 +90,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            #region Sanity checks
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            #endregion
 
             Policy.Handler.ShowProgressUI();
             Solve();
