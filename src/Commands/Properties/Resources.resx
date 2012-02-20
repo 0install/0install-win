@@ -145,6 +145,9 @@
     <value>Checking for updates</value>
   </data>
   <data name="AliasCreated" xml:space="preserve">
+    <value>An alias named '{0}' for '{1}' was created.</value>
+  </data>
+  <data name="AliasCreatedReopenTerminal" xml:space="preserve">
     <value>An alias named '{0}' for '{1}' was created.
 You may have to close and reopen your terminal for this to become effective.</value>
   </data>

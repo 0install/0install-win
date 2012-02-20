@@ -145,6 +145,9 @@
     <value>Suche nach Updates</value>
   </data>
   <data name="AliasCreated" xml:space="preserve">
+    <value>Ein Alias namens '{0}' für '{1}' wurde angelegt.</value>
+  </data>
+  <data name="AliasCreatedReopenTerminal" xml:space="preserve">
     <value>Ein Alias namens '{0}' für '{1}' wurde angelegt.
 Sie müssen eventuell ihr Terminal schließen und wieder öffnen damit dies wirksam wird.</value>
   </data>

@@ -139,6 +139,9 @@ namespace ZeroInstall.Commands
         {
             Policy.Handler.ShowProgressUI();
 
+            // Check this before modifying the environment
+            bool needsReopenTerminal = NeedsReopenTerminal(integrationManager.SystemWide);
+
             AppEntry appEntry = GetAppEntry(integrationManager, interfaceID);
 
             // Apply the new alias
@@ -156,8 +159,28 @@ namespace ZeroInstall.Commands
             #endregion
 
             // Show a "integration complete" message (but not in batch mode, since it is too unimportant)
-            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DesktopIntegration, string.Format(Resources.AliasCreated, aliasName, appEntry.Name));
+            if (!Policy.Handler.Batch)
+            {
+                Policy.Handler.Output(
+                    Resources.DesktopIntegration,
+                    string.Format(needsReopenTerminal ? Resources.AliasCreatedReopenTerminal : Resources.AliasCreated, aliasName, appEntry.Name));
+            }
             return 0;
+        }
+
+        /// <summary>
+        /// Determines whether the user may need to reopen the terminal to be able to use newly created aliases.
+        /// </summary>
+        private static bool NeedsReopenTerminal(bool systemWide)
+        {
+            // Non-windows terminals may require rehashing to find new aliases
+            if (!WindowsUtils.IsWindows) return true;
+
+            // If the default alias directory is already in the PATH terminals will find new aliases right away
+            string stubDirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "aliases");
+            var variableTarget = systemWide ? EnvironmentVariableTarget.Machine : EnvironmentVariableTarget.User;
+            string existingValue = Environment.GetEnvironmentVariable("PATH", variableTarget);
+            return existingValue == null || !existingValue.Contains(stubDirPath);
         }
         #endregion
 
