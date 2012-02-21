@@ -1,5 +1,5 @@
 ;Version numbers
-#define Version "1.6.0"
+#define Version "1.6.1"
 
 ;Automatic dependency download and installation
 #include "scripts\fileversion.iss"
@@ -90,6 +90,10 @@ Source: ..\3rd party code.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Test.*,nunit.*,*.xml; DestDir: {app}; Flags: ignoreversion recursesubdirs
 Source: ..\bundled\*; DestDir: {app}; Flags: ignoreversion recursesubdirs
 
+[Dirs]
+;ToDo: Suppress inherited permissions from {commonappdata}
+;Name: {commonappdata}\0install.net; Flags: uninsneveruninstall; Permissions: admins-full
+
 [Registry]
 Root: HKLM32; Subkey: Software\Zero Install; ValueType: string; ValueName: InstallLocation; ValueData: {app}; Flags: uninsdeletevalue uninsdeletekeyifempty
 Root: HKLM64; Subkey: Software\Zero Install; ValueType: string; ValueName: InstallLocation; ValueData: {app}; Flags: uninsdeletevalue uninsdeletekeyifempty; Check: IsWin64
@@ -141,6 +145,8 @@ Name: {app}\Solver; Type: filesandordirs
 Name: {app}\GnuPG; Type: filesandordirs
 Name: {app}\ZeroInstall.*; Type: files
 Name: {app}\.manifest; Type: files
+Name: {app}\.xbit; Type: files
+Name: {app}\.symlink; Type: files
 Name: {app}; Type: dirifempty
 
 [Code]
@@ -187,16 +193,16 @@ var
 	appdir:			String;
 	selectedTasks:	String;
 begin
-	appdir := ExpandConstant('{app}')
 	if CurUninstallStep = usUninstall then begin
-		if LoadStringFromFile(appdir + '\uninsTasks.txt', selectedTasks) then
+		if LoadStringFromFile(ExpandConstant('{app}\uninsTasks.txt'), selectedTasks) then
 			if Pos('modifypath', selectedTasks) > 0 then
 				ModPath();
-		DeleteFile(appdir + '\uninsTasks.txt')
+		DeleteFile(ExpandConstant('{app}\\uninsTasks.txt'))
 
 		if MsgBox(CustomMessage('DeleteCache'), mbConfirmation, MB_YESNO) = IDYES
 		then begin
-			DelTree(GetShellFolder(False, sfLocalAppData) + '\0install.net', true, true, true);
+			DelTree(ExpandConstant('{localappdata}\0install.net'), true, true, true);
+			DelTree(ExpandConstant('{commonappdata}\0install.net\implementations'), true, true, true);
 		end;
 	end;
 end;
