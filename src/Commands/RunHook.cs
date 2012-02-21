@@ -107,7 +107,7 @@ namespace ZeroInstall.Commands
                     { // Try to use a system-wide stub if possible
                         registryCommandLine = StubBuilder.GetRunStub(_target, command.Name, true, _policy.Handler);
                     }
-                    catch (UnauthorizedAccessException)
+                    catch (InvalidOperationException)
                     { // Fall back to per-user stub
                         registryCommandLine = StubBuilder.GetRunStub(_target, command.Name, false, _policy.Handler);
                     }

@@ -175,7 +175,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem is not permitted.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if write access to the filesystem is not permitted.</exception>
         public static string GetRunStub(InterfaceFeed target, string command, bool systemWide, ITaskHandler handler)
         {
             #region Sanity checks
