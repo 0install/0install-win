@@ -21,6 +21,7 @@ using Microsoft.Win32;
 
 namespace ZeroInstall.Hooking
 {
+    // ReSharper disable ClassNeverInstantiated.Global
     public partial class EntryPoint
     {
         #region Structures
@@ -102,4 +103,6 @@ namespace ZeroInstall.Hooking
             #endregion
         }
     }
+
+    // ReSharper restore ClassNeverInstantiated.Global
 }

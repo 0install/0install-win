@@ -100,7 +100,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
                 config.Save();
                 Close();
 
-                ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] { "sync" }));
+                ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"sync"}));
             };
 
             // Load first page

@@ -27,9 +27,9 @@ using System.ComponentModel;
 namespace Common.Utils
 {
     /// <summary>
-    /// Provides a cross-proccess object allowing control over the number of instances of an application running.
+    /// Provides a cross-proccess object allowing easy dection of application instances (e.g., for use by installers and update tools).
     /// </summary>
-    /// <remarks><see cref="System.Threading.Mutex"/> is intended for synchronizing access to resources while this class intended to detect application instances.</remarks>
+    /// <remarks><see cref="System.Threading.Mutex"/> is intended for synchronizing access to shared resources while this class is intended to detect application instances.</remarks>
     // ReSharper disable UnusedMethodReturnValue.Global
     public sealed class AppMutex
     {

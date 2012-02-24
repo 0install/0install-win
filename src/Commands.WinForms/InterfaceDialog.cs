@@ -16,6 +16,7 @@
  */
 
 // Indicates that the solver provides no c and that they must therefore be generated here
+
 #define NO_SOLVER_CANDIDATES
 
 using System;
@@ -57,7 +58,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>A list of all feed IDs contributing to the selection process associated with their respective preferences.</summary>
         private readonly IDictionary<string, FeedPreferences> _feeds = new Dictionary<string, FeedPreferences>();
 #else
-        /// <summary>The last implementation selected for this interface.</summary>
+    /// <summary>The last implementation selected for this interface.</summary>
         private ImplementationSelection _selection;
 #endif
         #endregion
@@ -214,7 +215,7 @@ namespace ZeroInstall.Commands.WinForms
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
                 return;
             }
-                #endregion
+            #endregion
 
             // Ensure a matching <feed-for> is present for online feeds
             Uri interfaceUri;
@@ -305,7 +306,7 @@ namespace ZeroInstall.Commands.WinForms
             }
             dataGridVersions.DataSource = candidates;
 #else
-            // ToDo: Display progress
+    // ToDo: Display progress
             _selection = _solveCallback()[_interfaceID];
 
             var list = new BindingList<SelectionCandidate> {AllowEdit = true, AllowNew = false};

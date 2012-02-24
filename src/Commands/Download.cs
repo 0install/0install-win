@@ -72,7 +72,7 @@ namespace ZeroInstall.Commands
         {
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
             if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + StringUtils.ConcatenateEscapeArgument(AdditionalArgs), "");
-            
+
             Policy.Handler.ShowProgressUI();
 
             Solve();

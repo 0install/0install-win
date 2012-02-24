@@ -229,33 +229,6 @@ Probieren Sie 0store --help</value>
   <data name="Usage" xml:space="preserve">
     <value>Verwendung:</value>
   </data>
-  <data name="UsageAdd" xml:space="preserve">
-    <value>0store add DIGEST (VERZEICHNIS | (ARCHIV [EXTRACT]))</value>
-  </data>
-  <data name="UsageAudit" xml:space="preserve">
-    <value>0store audit [CACHE+]</value>
-  </data>
-  <data name="UsageCopy" xml:space="preserve">
-    <value>0store copy VERZEICHNIS [CACHE]</value>
-  </data>
-  <data name="UsageFind" xml:space="preserve">
-    <value>0store find DIGEST</value>
-  </data>
-  <data name="UsageList" xml:space="preserve">
-    <value>0store list</value>
-  </data>
-  <data name="UsageManifest" xml:space="preserve">
-    <value>0store manifest VERZEICHNIS [ALGORITHMUS]</value>
-  </data>
-  <data name="UsageOptimize" xml:space="preserve">
-    <value>0store optimise [CACHE+]</value>
-  </data>
-  <data name="UsageRemove" xml:space="preserve">
-    <value>0store remove DIGEST+</value>
-  </data>
-  <data name="UsageVerify" xml:space="preserve">
-    <value>0store verify (DIGEST|VERZEICHNIS)+</value>
-  </data>
   <data name="WrongNoArguments" xml:space="preserve">
     <value>Falsche Anzahl an Argumenten.
 Verwendung: {0}</value>

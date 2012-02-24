@@ -41,7 +41,7 @@ namespace ZeroInstall.Model.Design
             return new object[] {value.LocationString, value.MimeType};
         }
 
-        /// <returns>The arguments of <see cref="Icon"/> converted to string.</returns>
+        /// <returns>The arguments of <see cref="Icon"/> converted to strings.</returns>
         protected override string[] GetValues(Icon value, ITypeDescriptorContext context, CultureInfo culture)
         {
             return new[] {value.LocationString, value.MimeType};

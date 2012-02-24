@@ -261,6 +261,7 @@ namespace ZeroInstall.DesktopIntegration
             Dispose(false);
         }
 
+        // ReSharper disable UnusedParameter.Global
         /// <summary>
         /// Releases the mutex and any unmanaged resources.
         /// </summary>
@@ -273,6 +274,8 @@ namespace ZeroInstall.DesktopIntegration
                 _mutex.Close();
             }
         }
+
+        // ReSharper restore UnusedParameter.Global
         #endregion
     }
 }

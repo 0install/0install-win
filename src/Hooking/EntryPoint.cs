@@ -53,6 +53,7 @@ namespace ZeroInstall.Hooking
         #endregion
 
         #region Constructor
+        // ReSharper disable UnusedParameter.Local
         /// <summary>
         /// Creates a new entry point.
         /// </summary>
@@ -73,11 +74,14 @@ namespace ZeroInstall.Hooking
             _relaunchControl = relaunchControl;
             _relaunchInformation = relaunchControl.GetCurrentEntry();
         }
+
+        // ReSharper restore UnusedParameter.Local
         #endregion
 
         //--------------------//
 
         #region Injection
+        // ReSharper disable UnusedParameter.Global
         /// <summary>
         /// Sets up the API hooks and maintains them.
         /// </summary>
@@ -109,6 +113,8 @@ namespace ZeroInstall.Hooking
 
             while (true) Thread.Sleep(500);
         }
+
+        // ReSharper restore UnusedParameter.Global
 
         private void SetupHooks()
         {

@@ -263,7 +263,7 @@ namespace ZeroInstall.Store.Management.Cli
                     return ErrorLevel.OK;
 
                 case "remove":
-                    Remove(args, handler);
+                    Remove(args);
                     return ErrorLevel.OK;
 
                 case "list":

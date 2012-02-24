@@ -116,7 +116,7 @@ namespace ZeroInstall.Injector.Solver
                     else if (lineMode >= ErrorMode.Info && lineMode <= ErrorMode.Critical)
                         FlushMessage(_currentErrorMode, line);
                     else
-                        throw new ArgumentException("Question within question is invalid", "line");
+                        throw new ArgumentException(@"Question within question is invalid", "line");
                     break;
             }
 

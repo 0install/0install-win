@@ -801,18 +801,42 @@ namespace Common.Controls
             int x = 0;
             int y = 0;
 
-            if (align == ContentAlignment.BottomLeft || align == ContentAlignment.MiddleLeft || align == ContentAlignment.TopLeft)
-                x = outer.X;
-            else if (align == ContentAlignment.BottomCenter || align == ContentAlignment.MiddleCenter || align == ContentAlignment.TopCenter)
-                x = Math.Max(outer.X + ((outer.Width - inner.Width) / 2), outer.Left);
-            else if (align == ContentAlignment.BottomRight || align == ContentAlignment.MiddleRight || align == ContentAlignment.TopRight)
-                x = outer.Right - inner.Width;
-            if (align == ContentAlignment.TopCenter || align == ContentAlignment.TopLeft || align == ContentAlignment.TopRight)
-                y = outer.Y;
-            else if (align == ContentAlignment.MiddleCenter || align == ContentAlignment.MiddleLeft || align == ContentAlignment.MiddleRight)
-                y = outer.Y + (outer.Height - inner.Height) / 2;
-            else if (align == ContentAlignment.BottomCenter || align == ContentAlignment.BottomRight || align == ContentAlignment.BottomLeft)
-                y = outer.Bottom - inner.Height;
+            switch (align)
+            {
+                case ContentAlignment.TopLeft:
+                case ContentAlignment.MiddleLeft:
+                case ContentAlignment.BottomLeft:
+                    x = outer.X;
+                    break;
+                case ContentAlignment.TopCenter:
+                case ContentAlignment.MiddleCenter:
+                case ContentAlignment.BottomCenter:
+                    x = Math.Max(outer.X + ((outer.Width - inner.Width) / 2), outer.Left);
+                    break;
+                case ContentAlignment.TopRight:
+                case ContentAlignment.MiddleRight:
+                case ContentAlignment.BottomRight:
+                    x = outer.Right - inner.Width;
+                    break;
+            }
+            switch (align)
+            {
+                case ContentAlignment.TopRight:
+                case ContentAlignment.TopLeft:
+                case ContentAlignment.TopCenter:
+                    y = outer.Y;
+                    break;
+                case ContentAlignment.MiddleRight:
+                case ContentAlignment.MiddleLeft:
+                case ContentAlignment.MiddleCenter:
+                    y = outer.Y + (outer.Height - inner.Height) / 2;
+                    break;
+                case ContentAlignment.BottomLeft:
+                case ContentAlignment.BottomRight:
+                case ContentAlignment.BottomCenter:
+                    y = outer.Bottom - inner.Height;
+                    break;
+            }
 
             return new Rectangle(x, y, Math.Min(inner.Width, outer.Width), Math.Min(inner.Height, outer.Height));
         }

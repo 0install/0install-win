@@ -25,6 +25,7 @@ using System.Collections.Generic;
 
 namespace Common.Collections
 {
+    // ReSharper disable UnusedParameter.Global
     /// <summary>
     /// An interface to a keyed collection (pseudo-dictionary) of <see cref="INamed"/> objects.
     /// </summary>
@@ -63,4 +64,6 @@ namespace Common.Collections
         /// </summary>
         event SimpleEventHandler CollectionChanged;
     }
+
+    // ReSharper restore UnusedParameter.Global
 }

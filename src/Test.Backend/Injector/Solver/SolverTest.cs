@@ -78,7 +78,8 @@ namespace ZeroInstall.Injector.Solver
             _cacheMock.Setup(x => x.GetFeed(testFeed.Uri.ToString())).Returns(testFeed);
 
             bool staleFeeds;
-            var selections = _solver.Solve(new Requirements {InterfaceID = testFeed.Uri.ToString()}, _policy, out staleFeeds);
+            /*var selections =*/
+            _solver.Solve(new Requirements {InterfaceID = testFeed.Uri.ToString()}, _policy, out staleFeeds);
         }
     }
 }

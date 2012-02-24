@@ -66,7 +66,7 @@ namespace ZeroInstall.Store.Management.Cli
             Console.WriteLine(path);
         }
 
-        private static void Remove(IList<string> args, ITaskHandler handler)
+        private static void Remove(IList<string> args)
         {
             if (args.Count < 2) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageRemove));
 
@@ -77,6 +77,7 @@ namespace ZeroInstall.Store.Management.Cli
             }
         }
 
+        // ReSharper disable UnusedParameter.Local
         private static void List(IList<string> args)
         {
             if (args.Count != 1) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageList));
@@ -84,6 +85,8 @@ namespace ZeroInstall.Store.Management.Cli
             foreach (ManifestDigest digest in _store.ListAll())
                 Console.WriteLine(_store.GetPath(digest));
         }
+
+        // ReSharper restore UnusedParameter.Local
 
         private static void Optimise(IList<string> args, ITaskHandler handler)
         {

@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonOK.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonCancel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="checkBoxShowAllVersions.Location" type="System.Drawing.Point, System.Drawing">
     <value>558, 10</value>
@@ -138,9 +132,6 @@
   </data>
   <data name="labelStability.Text" xml:space="preserve">
     <value>Bevorzugte &amp;Stabilität:</value>
-  </data>
-  <data name="labelStability.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="comboBoxStability.Location" type="System.Drawing.Point, System.Drawing">
     <value>116, 6</value>
@@ -173,14 +164,8 @@
   <data name="dataColumnSource.HeaderText" xml:space="preserve">
     <value>Quelle</value>
   </data>
-  <data name="dataGridVersions.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="tabPageVersions.Text" xml:space="preserve">
     <value>Versionen</value>
-  </data>
-  <data name="tabPageVersions.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="buttonRemoveFeed.Text" xml:space="preserve">
     <value>&amp;Entfernen</value>
@@ -188,25 +173,10 @@
   <data name="buttonAddFeed.Text" xml:space="preserve">
     <value>&amp;Hinzufügen</value>
   </data>
-  <data name="listBoxFeeds.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabPageFeeds.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabControl.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="buttonApply.Text" xml:space="preserve">
     <value>Übernehmen</value>
   </data>
-  <data name="buttonApply.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Interface Eigenschaften</value>
-  </data>
-  <data name="$this.ToolTip" xml:space="preserve">
-    <value />
   </data>
 </root>

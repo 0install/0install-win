@@ -44,5 +44,14 @@ namespace Common.Collections
             collection.FromString("en_US de");
             CollectionAssert.AreEquivalent(new LanguageCollection {"de", "en-US"}, collection);
         }
+
+        [Test]
+        public void TestDuplicateDetection()
+        {
+            var collection = new LanguageCollection();
+            collection.FromString("en_US");
+            Assert.IsFalse(collection.Add("en-US"));
+            CollectionAssert.AreEquivalent(new LanguageCollection {"en-US"}, collection);
+        }
     }
 }

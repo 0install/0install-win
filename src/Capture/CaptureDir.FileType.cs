@@ -114,9 +114,7 @@ namespace ZeroInstall.Capture
                 capability.Verbs.AddAll(GetVerbs(progIDKey, commandMapper));
 
                 // Only return capabilities that have verbs associated with them
-                if (capability.Verbs.IsEmpty) return null;
-
-                return capability;
+                return capability.Verbs.IsEmpty ? null : capability;
             }
         }
     }
