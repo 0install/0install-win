@@ -26,7 +26,7 @@ using System.Windows.Forms;
 using Common;
 using Common.Compression;
 using Common.Controls;
-using Common.Net;
+using Common.Tasks;
 using ZeroInstall.Store.Implementation.Archive;
 using ZeroInstall.Model;
 

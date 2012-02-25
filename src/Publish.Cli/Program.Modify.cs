@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.IO;
 using Common.Collections;
 using Common.Compression;
-using Common.Net;
 using Common.Storage;
 using Common.Tasks;
 using ZeroInstall.Model;

@@ -26,9 +26,8 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using Common.Properties;
-using Common.Tasks;
 
-namespace Common.Net
+namespace Common.Tasks
 {
     /// <summary>
     /// Downloads a file from a specific internet address to a local file (optionally as a background task).

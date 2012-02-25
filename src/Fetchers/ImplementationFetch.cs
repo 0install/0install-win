@@ -22,7 +22,6 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using Common;
-using Common.Net;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Fetchers.Properties;

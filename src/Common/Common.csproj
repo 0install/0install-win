@@ -88,7 +88,7 @@
     <Compile Include="Tasks\WaitTask.cs" />
     <Compile Include="Compression\ArchiveUtils.cs" />
     <Compile Include="Compression\LzmaUtils.cs" />
-    <Compile Include="Net\DownloadFile.cs" />
+    <Compile Include="Tasks\DownloadFile.cs" />
     <Compile Include="Cli\ArgumentUtils.cs" />
     <Compile Include="Cli\CliUtils.cs" />
     <Compile Include="Cli\ProgressBar.cs" />
