@@ -524,12 +524,6 @@
     </packageHasNamedElement>
     <packageHasNamedElement>
       <packageMoniker
-        Id="18f9f18a-0e13-4a50-8628-e609e81f814b"
-        LastKnownName="Net"
-        LastKnownLocation="Package_1749.uml" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <packageMoniker
         Id="9eb1c98a-53d3-4e51-a2a9-6bcd6c06dd60"
         LastKnownName="Tasks"
         LastKnownLocation="Package_0657.uml" />
