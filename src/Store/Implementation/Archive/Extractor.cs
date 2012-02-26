@@ -270,6 +270,9 @@ namespace ZeroInstall.Store.Implementation.Archive
 
             bool alreadyExists = File.Exists(filePath);
 
+            // If a symlink is overwritten by a normal file, remove the symlink flag
+            if (alreadyExists) FlagUtils.RemoveExternalFlag(Path.Combine(TargetDir, ".symlink"), relativePath);
+
             using (var fileStream = File.Create(filePath))
                 if (length != 0) StreamToFile(stream, fileStream);
 
