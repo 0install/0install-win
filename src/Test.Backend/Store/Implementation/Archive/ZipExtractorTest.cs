@@ -175,7 +175,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                 extractor.RunSync(null);
 
             if (MonoUtils.IsUnix)
-                Assert.IsTrue(FileUtils.IsExecutable(Path.Combine(_sandbox.Path, "subdir2/executable")), "File 'executable' should be marked as exectuable");
+                Assert.IsTrue(FileUtils.IsExecutable(Path.Combine(_sandbox.Path, "subdir2/executable")), "File 'executable' should be marked as executable");
             else
             {
                 string xbitFileContent = File.ReadAllText(Path.Combine(_sandbox.Path, ".xbit")).Trim();
