@@ -7,11 +7,13 @@ using System.Text;
 
 public static class Stub
 {
-	public static void Main(string[] args)
+	public static int Main(string[] args)
 	{
 		ProcessStartInfo startInfo = new ProcessStartInfo("[EXE]", "[ARGUMENTS] " + GetArguments(args));
 		startInfo.UseShellExecute = false;
-		Process.Start(startInfo).WaitForExit();
+		Process process = Process.Start(startInfo);
+		process.WaitForExit();
+		return process.ExitCode;
 	}
 
 	private static string GetArguments(string[] args)
