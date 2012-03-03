@@ -64,8 +64,8 @@ namespace ZeroInstall.Commands.WinForms
             if (AppMutex.Probe(mutexName + "-update")) return;
             AppMutex.Create(mutexName);
 
-#if !DEBUG
             // Allow setup to detect Zero Install instances
+#if !DEBUG
             AppMutex.Create("Zero Install");
 #endif
 
@@ -185,12 +185,12 @@ namespace ZeroInstall.Commands.WinForms
             catch (SignatureException ex)
             {
                 handler.DisableProgressUI();
-                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                ErrorBox.Show(ex.Message, errorLog.ToString());
             }
             catch (InvalidInterfaceIDException ex)
             {
                 handler.DisableProgressUI();
-                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                ErrorBox.Show(ex.Message, errorLog.ToString());
             }
             catch (DigestMismatchException ex)
             {
@@ -219,12 +219,12 @@ namespace ZeroInstall.Commands.WinForms
             catch (Win32Exception ex)
             {
                 handler.DisableProgressUI();
-                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                ErrorBox.Show(ex.Message, errorLog.ToString());
             }
             catch (BadImageFormatException ex)
             {
                 handler.DisableProgressUI();
-                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                ErrorBox.Show(ex.Message, errorLog.ToString());
             }
                 #endregion
 
