@@ -37,8 +37,8 @@ namespace ZeroInstall.Store.Service
             if (AppMutex.Probe(mutexName + "-update")) return;
             AppMutex.Create(mutexName);
 
-#if !DEBUG
             // Allow setup to detect Zero Install instances
+#if !DEBUG
             AppMutex.Create("Zero Install");
 #endif
 

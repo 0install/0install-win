@@ -48,8 +48,8 @@ namespace ZeroInstall.Commands.Cli
             if (AppMutex.Probe(mutexName + "-update")) return 99;
             AppMutex.Create(mutexName);
 
-#if !DEBUG
             // Allow setup to detect Zero Install instances
+#if !DEBUG
             AppMutex.Create("Zero Install");
 #endif
 

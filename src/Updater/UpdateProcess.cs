@@ -217,7 +217,7 @@ namespace ZeroInstall.Updater
                 // Update the Uninstall version entry
                 Registry.SetValue(InnoSetupRegKey, "DisplayVersion", NewVersion, RegistryValueKind.String);
 
-                // Store installation location in registry to allow other applications to locate Zero Install
+                // Store installation location in registry to allow other applications or bootstrappers to locate Zero Install
                 Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Zero Install", "InstallLocation", Target, RegistryValueKind.String);
                 if (WindowsUtils.Is64BitProcess) Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Zero Install", "InstallLocation", Target, RegistryValueKind.String);
             }

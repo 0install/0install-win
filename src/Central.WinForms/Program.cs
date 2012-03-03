@@ -41,13 +41,13 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// The application user model ID used by the Windows 7 taskbar. Encodes <see cref="Locations.InstallBase"/> and the name of this sub-app.
         /// </summary>
-        public static readonly string AppUserModelID = "ZeroInstall." + StringUtils.Hash(Locations.InstallBase, SHA256.Create()) + ".Central";
+        public static readonly string AppUserModelID = "ZeroInstall." + StringUtils.Hash(Locations.InstallBase, MD5.Create()) + ".Central";
 
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        public static void Main(string[] args)
+        public static void Main()
         {
             WindowsUtils.SetCurrentProcessAppID(AppUserModelID);
 
@@ -55,6 +55,8 @@ namespace ZeroInstall.Central.WinForms
             string mutexName = "mutex-" + StringUtils.Hash(Locations.InstallBase, MD5.Create());
             if (AppMutex.Probe(mutexName + "-update")) return;
             AppMutex.Create(mutexName);
+
+            // Allow setup to detect Zero Install instances
 #if !DEBUG
             AppMutex.Create("Zero Install");
 #endif
@@ -63,18 +65,23 @@ namespace ZeroInstall.Central.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
-            // Store installation location in registry to allow other applications to locate Zero Install
+            // Store installation location in registry to allow other applications or bootstrappers to locate Zero Install
             if (!Locations.IsPortable && WindowsUtils.IsWindows && WindowsUtils.IsAdministrator)
             {
-                try
+                // Do not store the location if Zero Install itself was launched as a Zero Install implementation
+                string topDir = Path.GetFileName(Locations.InstallBase) ?? Locations.InstallBase;
+                if (!topDir.Contains("="))
                 {
-                    Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Zero Install", "InstallLocation", Locations.InstallBase, RegistryValueKind.String);
-                    if (WindowsUtils.Is64BitProcess) Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Zero Install", "InstallLocation", Locations.InstallBase, RegistryValueKind.String);
+                    try
+                    {
+                        Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Zero Install", "InstallLocation", Locations.InstallBase, RegistryValueKind.String);
+                        if (WindowsUtils.Is64BitProcess) Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Zero Install", "InstallLocation", Locations.InstallBase, RegistryValueKind.String);
+                    }
+                        #region Error handling
+                    catch (SecurityException)
+                    {}
+                    #endregion
                 }
-                    #region Error handling
-                catch (SecurityException)
-                {}
-                #endregion
             }
 
             Application.Run(new MainForm());
