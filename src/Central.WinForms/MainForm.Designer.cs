@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControlApps = new System.Windows.Forms.TabControl();
             this.tabPageAppList = new System.Windows.Forms.TabPage();
@@ -45,15 +44,12 @@
             this.selfUpdateWorker = new System.ComponentModel.BackgroundWorker();
             this.catalogWorker = new System.ComponentModel.BackgroundWorker();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
-            this.appListWatcher = new System.IO.FileSystemWatcher();
             this.appListWorker = new System.ComponentModel.BackgroundWorker();
-            this.appListTimer = new System.Windows.Forms.Timer(this.components);
             this.buttonSync = new System.Windows.Forms.Button();
             this.tabControlApps.SuspendLayout();
             this.tabPageAppList.SuspendLayout();
             this.tabPageCatalog.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.appListWatcher)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlApps
@@ -153,24 +149,10 @@
             this.pictureBoxLogo.Name = "pictureBoxLogo";
             this.pictureBoxLogo.TabStop = false;
             // 
-            // appListWatcher
-            // 
-            this.appListWatcher.EnableRaisingEvents = true;
-            this.appListWatcher.NotifyFilter = ((System.IO.NotifyFilters)((((System.IO.NotifyFilters.FileName | System.IO.NotifyFilters.Size) 
-            | System.IO.NotifyFilters.LastWrite) 
-            | System.IO.NotifyFilters.CreationTime)));
-            this.appListWatcher.SynchronizingObject = this;
-            this.appListWatcher.Changed += new System.IO.FileSystemEventHandler(this.appListWatcher_Changed);
-            // 
             // appListWorker
             // 
+            this.appListWorker.WorkerSupportsCancellation = true;
             this.appListWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.appListWorker_DoWork);
-            // 
-            // appListTimer
-            // 
-            this.appListTimer.Enabled = true;
-            this.appListTimer.Interval = 2500;
-            this.appListTimer.Tick += new System.EventHandler(this.appListTimer_Tick);
             // 
             // buttonSync
             // 
@@ -199,7 +181,6 @@
             this.tabPageCatalog.ResumeLayout(false);
             this.tabPageCatalog.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.appListWatcher)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -219,9 +200,7 @@
         private System.ComponentModel.BackgroundWorker catalogWorker;
         private System.Windows.Forms.PictureBox pictureBoxLogo;
         private System.Windows.Forms.Button buttonRefreshCatalog;
-        private System.IO.FileSystemWatcher appListWatcher;
         private System.ComponentModel.BackgroundWorker appListWorker;
-        private System.Windows.Forms.Timer appListTimer;
         private System.Windows.Forms.Label labelLoadingCatalog;
         private System.Windows.Forms.Button buttonAddOtherApp;
         private System.Windows.Forms.Button buttonSync;

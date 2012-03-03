@@ -169,7 +169,7 @@
     <value>appList</value>
   </data>
   <data name="&gt;&gt;appList.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.5.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.6.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;appList.Parent" xml:space="preserve">
     <value>tabPageAppList</value>
@@ -286,7 +286,7 @@
     <value>catalogList</value>
   </data>
   <data name="&gt;&gt;catalogList.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.5.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.6.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;catalogList.Parent" xml:space="preserve">
     <value>tabPageCatalog</value>
@@ -501,15 +501,9 @@
   <data name="&gt;&gt;pictureBoxLogo.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="appListWatcher.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>298, 17</value>
+  <metadata name="appListWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>293, 19</value>
   </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>524, 512</value>
-  </data>
   <data name="buttonSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -539,6 +533,12 @@
   </data>
   <data name="&gt;&gt;buttonSync.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>524, 512</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -946,23 +946,11 @@
   <data name="&gt;&gt;catalogWorker.Type" xml:space="preserve">
     <value>System.ComponentModel.BackgroundWorker, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;appListWatcher.Name" xml:space="preserve">
-    <value>appListWatcher</value>
-  </data>
-  <data name="&gt;&gt;appListWatcher.Type" xml:space="preserve">
-    <value>System.IO.FileSystemWatcher, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;appListWorker.Name" xml:space="preserve">
     <value>appListWorker</value>
   </data>
   <data name="&gt;&gt;appListWorker.Type" xml:space="preserve">
     <value>System.ComponentModel.BackgroundWorker, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;appListTimer.Name" xml:space="preserve">
-    <value>appListTimer</value>
-  </data>
-  <data name="&gt;&gt;appListTimer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainForm</value>
@@ -970,10 +958,4 @@
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <metadata name="appListWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>434, 17</value>
-  </metadata>
-  <metadata name="appListTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>565, 17</value>
-  </metadata>
 </root>

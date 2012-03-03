@@ -236,8 +236,6 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         protected void Complete()
         {
-            WindowsUtils.NotifyAssocChanged();
-
             try
             {
                 AppList.Save(AppListPath);
@@ -248,6 +246,9 @@ namespace ZeroInstall.DesktopIntegration
                 Thread.Sleep(1000);
                 AppList.Save(AppListPath);
             }
+
+            WindowsUtils.NotifyAssocChanged(); // Notify Windows Explorer of changes
+            WindowsUtils.BroadcastMessage(ChangedWindowMessageID); // Notify Zero Install GUIs of changes
         }
         #endregion
     }

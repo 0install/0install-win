@@ -66,11 +66,6 @@ namespace ZeroInstall.Central.WinForms
                 appList.IconCache = catalogList.IconCache = IconCacheProvider.CreateDefault();
             };
 
-            // Set up AppList file monitoring
-            string appListPath = AppList.GetDefaultPath(false);
-            appListWatcher.Path = Path.GetDirectoryName(appListPath);
-            appListWatcher.Filter = Path.GetFileName(appListPath);
-
             Shown += delegate
             {
                 SelfUpdateCheckAsync();
@@ -80,17 +75,19 @@ namespace ZeroInstall.Central.WinForms
 
                 // Show "new apps" list if "my apps" list is empty
                 if (_currentAppList.Entries.IsEmpty) tabControlApps.SelectedTab = tabPageCatalog;
-
-                appListWatcher.EnableRaisingEvents = true;
             };
 
             FormClosing += delegate
             {
                 Visible = false;
+
+                // Wait for background tasks to shutdown
+                appListWorker.CancelAsync();
                 while (selfUpdateWorker.IsBusy || appListWorker.IsBusy || catalogWorker.IsBusy)
                     Application.DoEvents();
             };
 
+            // Redirect mouse wheel input to AppTileLists
             MouseWheel += delegate(object sender, MouseEventArgs e)
             {
                 if (tabControlApps.SelectedTab == tabPageAppList) appList.PerformScroll(e.Delta);
@@ -108,9 +105,9 @@ namespace ZeroInstall.Central.WinForms
         private void SelfUpdateCheckAsync()
         {
             // Flag file to supress check
-            if (File.Exists(Path.Combine(Locations.InstallBase, "_no_self_update_check"))) return;
+            if (File.Exists(Path.Combine(Locations.PortableBase, "_no_self_update_check"))) return;
 
-            // Don't check for updates when launched as a Zero Install implementation
+            // Don't check for updates if Zero Install itself was launched as a Zero Install implementation
             string topDir = Path.GetFileName(Locations.InstallBase) ?? Locations.InstallBase;
             if (topDir.Contains("=")) return;
 
@@ -258,6 +255,8 @@ namespace ZeroInstall.Central.WinForms
             var feedsToLoad = (IDictionary<AppTile, string>)e.Argument;
             foreach (var pair in feedsToLoad)
             {
+                if (appListWorker.CancellationPending) return;
+
                 try
                 {
                     // Load and parse the feed
@@ -295,15 +294,12 @@ namespace ZeroInstall.Central.WinForms
             Invoke((SimpleEventHandler)(() => catalogList.ShowCategories()));
         }
 
-        private void appListWatcher_Changed(object sender, FileSystemEventArgs e)
+        protected override void WndProc(ref Message m)
         {
-            if (e.ChangeType != WatcherChangeTypes.Deleted && e.FullPath == AppList.GetDefaultPath(false))
-                LoadAppList();
-        }
+            // Detect changes made to the AppList by other threads or processes
+            if (m.Msg == IntegrationManager.ChangedWindowMessageID) LoadAppList();
 
-        private void appListTimer_Tick(object sender, EventArgs e)
-        {
-            LoadAppList();
+            base.WndProc(ref m);
         }
         #endregion
 

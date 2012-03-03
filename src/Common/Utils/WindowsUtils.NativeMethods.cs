@@ -121,12 +121,18 @@ namespace Common.Utils
             public static extern int CloseHandle(IntPtr hObject);
 
 
-            // Shell
+            // Shell and window messages
             [DllImport("shell32", CharSet = CharSet.Auto, SetLastError = true)]
             public static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
 
             [DllImport("user32", CharSet = CharSet.Unicode, SetLastError = true)]
-            public static extern IntPtr SendMessageTimeout(IntPtr windowHandle, uint msg, UIntPtr wParam, string lParam, uint flags, uint timeout, out UIntPtr lpdwResult);
+            public static extern IntPtr SendMessageTimeout(IntPtr hwnd, int msg, IntPtr wParam, string lParam, int flags, uint timeout, out IntPtr lpdwResult);
+
+            [DllImport("user32", CharSet = CharSet.Unicode, SetLastError = true)]
+            public static extern bool PostMessage(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam);
+
+            [DllImport("user32")]
+            public static extern int RegisterWindowMessage(string message);
 
 
             // Filesystem

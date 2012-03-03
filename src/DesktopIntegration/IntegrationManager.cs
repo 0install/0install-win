@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using Common.Tasks;
+using Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
@@ -51,6 +52,9 @@ namespace ZeroInstall.DesktopIntegration
 
         /// <summary>Prevents multiple processes from performing desktop integration operations simultaneously.</summary>
         private readonly Mutex _mutex;
+
+        /// <summary>The window message ID (for use with <see cref="WindowsUtils.BroadcastMessage"/>) that signals integration changes to interested observers.</summary>
+        public static readonly int ChangedWindowMessageID = WindowsUtils.RegisterWindowMessage(MutexName);
         #endregion
 
         #region Properties

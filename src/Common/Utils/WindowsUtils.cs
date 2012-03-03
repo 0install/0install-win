@@ -261,6 +261,8 @@ namespace Common.Utils
             UnsafeNativeMethods.SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, IntPtr.Zero, IntPtr.Zero);
         }
 
+        private static readonly IntPtr HWND_BROADCAST = new IntPtr(0xFFFF);
+
         /// <summary>
         /// Informs all GUI applications that changes where made to the environment variables (e.g. PATH) and that they should re-pull them.
         /// </summary>
@@ -268,14 +270,34 @@ namespace Common.Utils
         {
             if (!IsWindows) return;
 
-            var HWND_BROADCAST = new IntPtr(0xFFFF);
-            const uint WM_SETTINGCHANGE = 0x001A;
-            const uint SMTO_ABORTIFHUNG = 0x0002;
-            UIntPtr result;
-            UnsafeNativeMethods.SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, UIntPtr.Zero, "Environment", SMTO_ABORTIFHUNG, 5000, out result);
+            const int WM_SETTINGCHANGE = 0x001A;
+            const int SMTO_ABORTIFHUNG = 0x0002;
+            IntPtr result;
+            UnsafeNativeMethods.SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, IntPtr.Zero, "Environment", SMTO_ABORTIFHUNG, 5000, out result);
         }
 
         // ReSharper restore InconsistentNaming
+        #endregion
+
+        #region Window messages
+        /// <summary>
+        /// Registers a new message type that can be sent to windows.
+        /// </summary>
+        /// <param name="message">A unique string used to identify the message type session-wide.</param>
+        /// <returns>A unique ID number used to identify the message type session-wide.</returns>
+        public static int RegisterWindowMessage(string message)
+        {
+            return IsWindows ? UnsafeNativeMethods.RegisterWindowMessage(message) : 0;
+        }
+
+        /// <summary>
+        /// Sends a message of a specific type to all windows in the current session.
+        /// </summary>
+        /// <param name="messageID">A unique ID number used to identify the message type session-wide.</param>
+        public static void BroadcastMessage(int messageID)
+        {
+            if (IsWindows) UnsafeNativeMethods.PostMessage(HWND_BROADCAST, messageID, IntPtr.Zero, IntPtr.Zero);
+        }
         #endregion
 
         #region Filesystem
