@@ -267,8 +267,18 @@ namespace ZeroInstall.Injector.Feeds
                 }
                 else
                 { // Load key file from server
-                    using (var webClient = new WebClient())
-                        keyData = webClient.DownloadData(keyUri);
+                    try
+                    {
+                        using (var webClient = new WebClient())
+                            keyData = webClient.DownloadData(keyUri);
+                    }
+                        #region Error handling
+                    catch (WebException ex)
+                    {
+                        // Wrap exception to add context information
+                        throw new SignatureException(string.Format(Resources.UnableToLoadKeyFile, uri) + "\n" + ex.Message, ex);
+                    }
+                    #endregion
                 }
                 policy.Handler.CancellationToken.ThrowIfCancellationRequested();
                 policy.OpenPgp.ImportKey(keyData);

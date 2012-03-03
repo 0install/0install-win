@@ -196,6 +196,9 @@ Neue Zeit: {2}</value>
   <data name="SolverProblem" xml:space="preserve">
     <value>Der Solver ist auf ein unerwartetes Problem gestoßen.</value>
   </data>
+  <data name="UnableToLoadKeyFile" xml:space="preserve">
+    <value>Konnte GnuPG Schlüsseldatei für '{0}' nicht laden.</value>
+  </data>
   <data name="UntrustedKeys" xml:space="preserve">
     <value>Der Feed ist mit nicht-vertrauten Keys signiert!</value>
   </data>
