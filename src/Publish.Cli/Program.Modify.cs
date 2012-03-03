@@ -63,18 +63,22 @@ namespace ZeroInstall.Publish.Cli
 
         private static void AddMissing(Implementation implementation, bool store)
         {
-            if (implementation.ManifestDigest == default(ManifestDigest))
+            foreach (var archive in EnumerableUtils.OfType<Archive>(implementation.RetrievalMethods))
             {
-                foreach (var archive in EnumerableUtils.OfType<Archive>(implementation.RetrievalMethods))
+                // Download archives if any information is missing
+                if (implementation.ManifestDigest == default(ManifestDigest) || archive.Size == 0 || string.IsNullOrEmpty(archive.MimeType))
                 {
                     var digest = DownloadMissing(archive, store);
+
                     if (implementation.ManifestDigest == default(ManifestDigest))
-                    {
+                    { // No existing digest, set from archive
                         implementation.ManifestDigest = digest;
                         if (string.IsNullOrEmpty(implementation.ID)) implementation.ID = "sha1new=" + digest.Sha1New;
                     }
                     else if (digest != implementation.ManifestDigest)
+                    { // Archive does not match existing digest
                         throw new DigestMismatchException(implementation.ManifestDigest.ToString(), null, digest.ToString(), null);
+                    }
                 }
             }
         }
