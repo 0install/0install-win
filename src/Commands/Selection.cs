@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Net.NetworkInformation;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -198,7 +197,7 @@ namespace ZeroInstall.Commands
             SelectionsUI();
 
             // If any of the feeds are getting old rerun solver in refresh mode
-            if (StaleFeeds && Policy.Config.NetworkUse == NetworkLevel.Full && NetworkInterface.GetIsNetworkAvailable())
+            if (StaleFeeds && Policy.Config.EffectiveNetworkUse == NetworkLevel.Full)
             {
                 Policy.FeedManager.Refresh = true;
                 Solve();

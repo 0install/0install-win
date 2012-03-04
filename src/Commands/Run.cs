@@ -19,7 +19,6 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Net.NetworkInformation;
 using System.Threading;
 using Common;
 using Common.Collections;
@@ -107,7 +106,7 @@ namespace ZeroInstall.Commands
             DownloadUncachedImplementations();
 
             // If any of the feeds are getting old spawn background update process
-            if (StaleFeeds && Policy.Config.NetworkUse == NetworkLevel.Full && NetworkInterface.GetIsNetworkAvailable())
+            if (StaleFeeds && Policy.Config.EffectiveNetworkUse == NetworkLevel.Full)
             {
                 // ToDo: Automatically switch to GTK# on Linux
                 ProcessUtils.LaunchHelperAssembly("0install-win", "update --batch " + Requirements.ToCommandLineArgs());

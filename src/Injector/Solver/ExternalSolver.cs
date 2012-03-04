@@ -75,7 +75,7 @@ namespace ZeroInstall.Injector.Solver
 
             for (int i = 0; i < policy.Verbosity; i++)
                 arguments += "--verbose ";
-            if (policy.Config.NetworkUse == NetworkLevel.Offline) arguments += "--offline ";
+            if (policy.Config.EffectiveNetworkUse == NetworkLevel.Offline) arguments += "--offline ";
             if (policy.FeedManager.Refresh) arguments += "--refresh ";
             //if (additionalStore != null) arguments += "--store=" + additionalStore.DirectoryPath + " ";s
             arguments += requirements.ToCommandLineArgs();

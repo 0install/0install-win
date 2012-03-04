@@ -17,7 +17,6 @@
 
 using System;
 using System.IO;
-using System.Net.NetworkInformation;
 using Common.Utils;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
@@ -42,7 +41,7 @@ namespace ZeroInstall.Central
         public static ImplementationVersion CheckSelfUpdate()
         {
             var policy = Policy.CreateDefault(new SilentHandler());
-            if (policy.Config.NetworkUse == NetworkLevel.Offline || !NetworkInterface.GetIsNetworkAvailable()) return null;
+            if (policy.Config.EffectiveNetworkUse == NetworkLevel.Offline) return null;
             policy.FeedManager.Refresh = true;
 
             // Run solver

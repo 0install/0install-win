@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.IO;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
 using Common;
@@ -103,6 +104,11 @@ namespace ZeroInstall.Injector
                 _networkLevel = value;
             }
         }
+
+        /// <summary>
+        /// Coressponds to <see cref="NetworkUse"/> unless there is currently no network connection available in which case this always returns <see cref="NetworkLevel.Offline"/>.
+        /// </summary>
+        public NetworkLevel EffectiveNetworkUse { get { return NetworkInterface.GetIsNetworkAvailable() ? _networkLevel : NetworkLevel.Offline; } }
 
         private bool _autoApproveKeys = true;
 

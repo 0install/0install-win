@@ -138,7 +138,7 @@ namespace ZeroInstall.Injector.Solver
                     var candidate = new SelectionCandidate(feedID, implementation, feedPreferences.GetImplementationPreferences(implementation.ID), requirements);
 
                     // Exclude non-cached implementations when in offline-mode
-                    if (candidate.IsUsable && _policy.Config.NetworkUse == NetworkLevel.Offline && !_policy.Fetcher.Store.Contains(implementation.ManifestDigest))
+                    if (candidate.IsUsable && _policy.Config.EffectiveNetworkUse == NetworkLevel.Offline && !_policy.Fetcher.Store.Contains(implementation.ManifestDigest))
                     {
                         candidate.IsUsable = false;
                         candidate.Notes = Resources.SelectionCandidateNoteNotCached;
@@ -162,7 +162,7 @@ namespace ZeroInstall.Injector.Solver
                     if (x.EffectiveStability != Stability.Preferred && y.EffectiveStability == Stability.Preferred) return 1;
 
                     // If network use is set to 'Minimal', cached implementations come before non-cached
-                    if (_policy.Config.NetworkUse == NetworkLevel.Minimal)
+                    if (_policy.Config.EffectiveNetworkUse == NetworkLevel.Minimal)
                     {
                         bool xCached = _policy.Fetcher.Store.Contains(x.Implementation.ManifestDigest);
                         bool yCached = _policy.Fetcher.Store.Contains(x.Implementation.ManifestDigest);
@@ -180,7 +180,7 @@ namespace ZeroInstall.Injector.Solver
                     if (x.Version < y.Version) return 1;
 
                     // Cached come before non-cached (for 'Full' network use mode)
-                    if (_policy.Config.NetworkUse == NetworkLevel.Full)
+                    if (_policy.Config.EffectiveNetworkUse == NetworkLevel.Full)
                     {
                         bool xCached = _policy.Fetcher.Store.Contains(x.Implementation.ManifestDigest);
                         bool yCached = _policy.Fetcher.Store.Contains(x.Implementation.ManifestDigest);
