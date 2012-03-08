@@ -145,10 +145,10 @@ Ein &lt;feed-for&gt; Tag zeigt Feed-Kompatibilität an.</value>
   <data name="PropertiesFor" xml:space="preserve">
     <value>Eigenschaften für {0}</value>
   </data>
-  <data name="Solving" xml:space="preserve">
-    <value>Löse Anfrage auf...</value>
-  </data>
   <data name="TryHelp" xml:space="preserve">
     <value>Probieren Sie {0} --help</value>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Arbeite...</value>
   </data>
 </root>

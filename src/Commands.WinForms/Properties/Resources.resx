@@ -1245,10 +1245,10 @@ A &lt;feed-for&gt; tag indicates feed compatibility.</value>
   <data name="PropertiesFor" xml:space="preserve">
     <value>Properties for {0}</value>
   </data>
-  <data name="Solving" xml:space="preserve">
-    <value>Solving request...</value>
-  </data>
   <data name="TryHelp" xml:space="preserve">
     <value>Try {0} --help</value>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Working...</value>
   </data>
 </root>

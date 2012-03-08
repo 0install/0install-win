@@ -33,8 +33,8 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonHide = new System.Windows.Forms.Button();
-            this.labelSolving = new System.Windows.Forms.Label();
-            this.progressBarSolving = new System.Windows.Forms.ProgressBar();
+            this.labelWorking = new System.Windows.Forms.Label();
+            this.progressBarWorking = new System.Windows.Forms.ProgressBar();
             this.selectionsControl = new ZeroInstall.Commands.WinForms.SelectionsControl();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.trackingControl = new Common.Controls.TrackingControl();
@@ -69,25 +69,25 @@
             this.buttonHide.UseVisualStyleBackColor = true;
             this.buttonHide.Click += new System.EventHandler(this.buttonHide_Click);
             // 
-            // labelSolving
+            // labelWorking
             // 
-            this.labelSolving.AutoSize = true;
-            this.labelSolving.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSolving.Location = new System.Drawing.Point(8, 18);
-            this.labelSolving.Name = "labelSolving";
-            this.labelSolving.Size = new System.Drawing.Size(70, 20);
-            this.labelSolving.TabIndex = 0;
-            this.labelSolving.Text = "(Solving)";
+            this.labelWorking.AutoSize = true;
+            this.labelWorking.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelWorking.Location = new System.Drawing.Point(8, 18);
+            this.labelWorking.Name = "labelWorking";
+            this.labelWorking.Size = new System.Drawing.Size(70, 20);
+            this.labelWorking.TabIndex = 0;
+            this.labelWorking.Text = "(Solving)";
             // 
-            // progressBarSolving
+            // progressBarWorking
             // 
-            this.progressBarSolving.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.progressBarWorking.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarSolving.Location = new System.Drawing.Point(12, 41);
-            this.progressBarSolving.Name = "progressBarSolving";
-            this.progressBarSolving.Size = new System.Drawing.Size(435, 23);
-            this.progressBarSolving.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progressBarSolving.TabIndex = 4;
+            this.progressBarWorking.Location = new System.Drawing.Point(12, 41);
+            this.progressBarWorking.Name = "progressBarWorking";
+            this.progressBarWorking.Size = new System.Drawing.Size(435, 23);
+            this.progressBarWorking.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBarWorking.TabIndex = 4;
             // 
             // selectionsControl
             // 
@@ -119,8 +119,8 @@
             this.Controls.Add(this.buttonHide);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.selectionsControl);
-            this.Controls.Add(this.progressBarSolving);
-            this.Controls.Add(this.labelSolving);
+            this.Controls.Add(this.progressBarWorking);
+            this.Controls.Add(this.labelWorking);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(375, 150);
@@ -138,8 +138,8 @@
         private System.Windows.Forms.Button buttonHide;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private SelectionsControl selectionsControl;
-        private System.Windows.Forms.Label labelSolving;
-        private System.Windows.Forms.ProgressBar progressBarSolving;
+        private System.Windows.Forms.Label labelWorking;
+        private System.Windows.Forms.ProgressBar progressBarWorking;
         private System.Windows.Forms.ToolTip toolTip;
         private Common.Controls.TrackingControl trackingControl;
 

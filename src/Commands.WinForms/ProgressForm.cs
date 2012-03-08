@@ -57,7 +57,7 @@ namespace ZeroInstall.Commands.WinForms
 
             Load += delegate
             {
-                labelSolving.Text = Resources.Solving;
+                labelWorking.Text = Resources.Working;
                 buttonHide.Text = Resources.Hide;
                 buttonCancel.Text = Resources.Cancel;
             };
@@ -142,7 +142,7 @@ namespace ZeroInstall.Commands.WinForms
             {
                 trackingControl.Visible = true;
                 trackingControl.Task = task;
-                labelSolving.Visible = progressBarSolving.Visible = false;
+                labelWorking.Visible = progressBarWorking.Visible = false;
             }
             else
             {
@@ -150,7 +150,7 @@ namespace ZeroInstall.Commands.WinForms
                 {
                     trackingControl.Visible = true;
                     trackingControl.Task = task;
-                    labelSolving.Visible = progressBarSolving.Visible = false;
+                    labelWorking.Visible = progressBarWorking.Visible = false;
                 };
             }
         }

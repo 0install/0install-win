@@ -142,15 +142,6 @@ namespace ZeroInstall.Commands.WinForms.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Solving request....
-        /// </summary>
-        internal static string Solving {
-            get {
-                return ResourceManager.GetString("Solving", resourceCulture);
-            }
-        }
-        
         internal static System.Drawing.Icon TrayIcon {
             get {
                 object obj = ResourceManager.GetObject("TrayIcon", resourceCulture);
@@ -164,6 +155,15 @@ namespace ZeroInstall.Commands.WinForms.Properties {
         internal static string TryHelp {
             get {
                 return ResourceManager.GetString("TryHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Working....
+        /// </summary>
+        internal static string Working {
+            get {
+                return ResourceManager.GetString("Working", resourceCulture);
             }
         }
     }
