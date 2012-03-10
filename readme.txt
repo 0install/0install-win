@@ -20,7 +20,7 @@ To add the external solver:
 - Perform a Git clone of git://repo.or.cz/zeroinstall/solver.git.
 - Open a console and change the current directory to the GIT checkout.
 - Call "python setup.py py2exe".
-- Copy the content of the "dist" directory as well as the "0solve" and "_download_child" files to bundled/Solver.
+- Copy the content of the "dist" directory as well as the "0solve" file bundled/Solver.
 
 
 
