@@ -59,7 +59,10 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="systemWide">Store the <see cref="AppList"/> system-wide instead of just for the current user.</param>
         public static string GetDefaultPath(bool systemWide)
         {
-            return Path.Combine(Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration"), "app-list.xml");
+            return Path.Combine(
+                // System-wide storage cannot be portable, per-user storage can be portable
+                systemWide ? Locations.GetIntegrationDirPath("0install.net", true, "desktop-integration") : Locations.GetSaveDataPath("0install.net", false, "desktop-integration"),
+                "app-list.xml");
         }
         #endregion
 
