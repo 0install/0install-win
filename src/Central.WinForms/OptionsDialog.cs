@@ -128,7 +128,7 @@ namespace ZeroInstall.Central.WinForms
                 if (!Locations.IsPortable)
                 {
                     // Write list of user-configured implementation directories to config file
-                    using (var configFile = new StreamWriter(_implementationDirsConfigPath, false, Encoding.UTF8) {NewLine = "\n"})
+                    using (var configFile = new StreamWriter(_implementationDirsConfigPath, false, new UTF8Encoding(false)) {NewLine = "\n"})
                     {
                         foreach (var store in EnumerableUtils.OfType<DirectoryStore>(listBoxImplDirs.Items))
                             configFile.WriteLine(store.DirectoryPath);
