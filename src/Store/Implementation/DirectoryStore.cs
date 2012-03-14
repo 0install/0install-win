@@ -412,7 +412,25 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             if (!Contains(manifestDigest)) throw new ImplementationNotFoundException(manifestDigest);
-            VerifyDirectory(Path.Combine(DirectoryPath, manifestDigest.BestDigest), manifestDigest, handler);
+
+            string target = Path.Combine(DirectoryPath, manifestDigest.BestDigest);
+            VerifyDirectory(target, manifestDigest, handler);
+
+            // Reseal the directory in case the write protection got lost
+            try
+            {
+                FileUtils.EnableWriteProtection(target);
+            }
+                #region Error handling
+            catch (IOException)
+            {
+                Log.Warn("Unable to enable write protection for " + target);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Log.Warn("Unable to enable write protection for " + target);
+            }
+            #endregion
         }
         #endregion
 
