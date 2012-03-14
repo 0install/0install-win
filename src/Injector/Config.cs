@@ -108,6 +108,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Coressponds to <see cref="NetworkUse"/> unless there is currently no network connection available in which case this always returns <see cref="NetworkLevel.Offline"/>.
         /// </summary>
+        [Browsable(false)]
         public NetworkLevel EffectiveNetworkUse { get { return NetworkInterface.GetIsNetworkAvailable() ? _networkLevel : NetworkLevel.Offline; } }
 
         private bool _autoApproveKeys = true;

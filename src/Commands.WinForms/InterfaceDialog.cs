@@ -317,7 +317,42 @@ namespace ZeroInstall.Commands.WinForms
         }
         #endregion
 
-        #region Buttons
+        #region Feed buttons
+        private void listBoxFeeds_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Enable remove button if there is at least one removable object selected
+            buttonRemoveFeed.Enabled = false;
+            foreach (var item in listBoxFeeds.SelectedItems)
+            {
+                if (item is FeedReference /*&& _interfacePreferences.Feeds.Contains((FeedReference)item)*/)
+                {
+                    buttonRemoveFeed.Enabled = true;
+                    return;
+                }
+            }
+        }
+
+        private void buttonAddFeed_Click(object sender, EventArgs e)
+        {
+            string feedID = InputBox.Show(this, "Feed", Resources.EnterFeedUrl);
+            if (string.IsNullOrEmpty(feedID)) return;
+
+            AddFeed(feedID);
+        }
+
+        private void buttonRemoveFeed_Click(object sender, EventArgs e)
+        {
+            var toRemove = new LinkedList<FeedReference>();
+            foreach (var item in listBoxFeeds.SelectedItems)
+            {
+                var feed = item as FeedReference;
+                if (feed != null) toRemove.AddLast(feed);
+            }
+            foreach (var feed in toRemove) RemoveFeed(feed);
+        }
+        #endregion
+
+        #region Global buttons
         private void checkBoxShowAllVersions_CheckedChanged(object sender, EventArgs e)
         {
             UpdateDataGridVersions();
@@ -395,39 +430,6 @@ namespace ZeroInstall.Commands.WinForms
                 preferences.SaveFor(feedEntry.Key);
             }
 #endif
-        }
-
-        private void listBoxFeeds_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Enable remove button if there is at least one removable object selected
-            buttonRemoveFeed.Enabled = false;
-            foreach (var item in listBoxFeeds.SelectedItems)
-            {
-                if (item is FeedReference /*&& _interfacePreferences.Feeds.Contains((FeedReference)item)*/)
-                {
-                    buttonRemoveFeed.Enabled = true;
-                    return;
-                }
-            }
-        }
-
-        private void buttonAddFeed_Click(object sender, EventArgs e)
-        {
-            string feedID = InputBox.Show(this, "Feed", Resources.EnterFeedUrl);
-            if (string.IsNullOrEmpty(feedID)) return;
-
-            AddFeed(feedID);
-        }
-
-        private void buttonRemoveFeed_Click(object sender, EventArgs e)
-        {
-            var toRemove = new LinkedList<FeedReference>();
-            foreach (var item in listBoxFeeds.SelectedItems)
-            {
-                var feed = item as FeedReference;
-                if (feed != null) toRemove.AddLast(feed);
-            }
-            foreach (var feed in toRemove) RemoveFeed(feed);
         }
         #endregion
 

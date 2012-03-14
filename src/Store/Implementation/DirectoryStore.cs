@@ -454,11 +454,11 @@ namespace ZeroInstall.Store.Implementation
 
         #region Conversion
         /// <summary>
-        /// Returns the Store in the form "DirectoryStore: DirectoryPath". Not safe for parsing!
+        /// Returns <see cref="DirectoryPath"/>. Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return "DirectoryStore: " + DirectoryPath;
+            return DirectoryPath;
         }
         #endregion
 
