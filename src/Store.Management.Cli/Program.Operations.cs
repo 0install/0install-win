@@ -119,17 +119,17 @@ namespace ZeroInstall.Store.Management.Cli
 
         private static ErrorLevel Audit(IList<string> args, ITaskHandler handler)
         {
-            ErrorLevel result = ErrorLevel.OK;
-            if (args.Count == 1) AuditStore(_store, handler);
+            if (args.Count == 1) return AuditStore(_store, handler);
             else
             {
+                ErrorLevel result = ErrorLevel.OK;
                 for (int i = 1; i < args.Count; i++)
                 {
                     ErrorLevel tempResult = AuditStore(new DirectoryStore(args[i]), handler);
-                    if (tempResult > result) result = tempResult;
+                    if (tempResult > result) result = tempResult; // Remember only the worst error level
                 }
+                return result;
             }
-            return result;
         }
 
         /// <summary>
