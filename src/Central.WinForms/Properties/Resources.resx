@@ -157,6 +157,17 @@ Return to input</value>
   <data name="ProblemSavingOptions" xml:space="preserve">
     <value>There was a problem saving the options.</value>
   </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Do you wish to save any changes made?</value>
+  </data>
+  <data name="SaveChangesNo" xml:space="preserve">
+    <value>No
+Discard changes</value>
+  </data>
+  <data name="SaveChangesYes" xml:space="preserve">
+    <value>Yes
+Save changes</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>

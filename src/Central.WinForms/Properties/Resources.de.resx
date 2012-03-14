@@ -141,6 +141,17 @@ Zurück zur Eingabe</value>
   <data name="ProblemSavingOptions" xml:space="preserve">
     <value>Es gab ein Problem beim Speichern der Einstellungen.</value>
   </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Möchten Sie bereits vorgenommene Änderungen speichern?</value>
+  </data>
+  <data name="SaveChangesNo" xml:space="preserve">
+    <value>Nein
+Änderungen verwerfen</value>
+  </data>
+  <data name="SaveChangesYes" xml:space="preserve">
+    <value>Ja
+Änderungen speichern</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Suche</value>
   </data>

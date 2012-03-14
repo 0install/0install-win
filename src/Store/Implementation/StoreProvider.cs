@@ -81,7 +81,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="IOException">Thrown if there was a problem accessing a configuration file or one of the stores.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to a configuration file was not permitted.</exception>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reads data from a config file with no caching")]
-        private static IEnumerable<string> GetImplementationDirs()
+        public static IEnumerable<string> GetImplementationDirs()
         {
             // Always add the user cache to have a reliable fallback location for storage
             yield return Locations.GetCacheDirPath("0install.net", "implementations");

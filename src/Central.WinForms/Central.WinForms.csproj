@@ -208,6 +208,7 @@
       <DependentUpon>SetupWizard.cs</DependentUpon>
     </Compile>
     <Compile Include="SyncConfig\SyncCredentials.cs" />
+    <Compile Include="TrustNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
