@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using Common;
 using Common.Cli;
 using Common.Storage;
@@ -99,6 +100,11 @@ namespace ZeroInstall.Publish.Cli
             {
                 Log.Error(ex.Message);
                 return (int)ErrorLevel.InvalidArguments;
+            }
+            catch (WebException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.IOError;
             }
             catch (InvalidDataException ex)
             {
@@ -239,6 +245,7 @@ namespace ZeroInstall.Publish.Cli
         /// <returns>The error code to end the process with.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the operation.</exception>
         /// <exception cref="OptionException">Thrown if the specified feed file paths were invalid.</exception>
+        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="InvalidDataException">Thrown if a feed file is damaged.</exception>
         /// <exception cref="FileNotFoundException">Thrown if a feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
