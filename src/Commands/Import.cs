@@ -62,12 +62,28 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
             if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
 
+            string path;
+            try
+            {
+                path = Path.GetFullPath(AdditionalArgs[0]);
+            }
+                #region Error handling
+            catch (ArgumentException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(ex.Message, ex);
+            }
+            catch (NotSupportedException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(ex.Message, ex);
+            }
+            #endregion
+
             Policy.Handler.ShowProgressUI();
             Policy.FeedManager.ImportFeed(
-                Feed.Load(AdditionalArgs[0]).Uri,
-                new Uri(AdditionalArgs[0]),
-                File.ReadAllBytes(AdditionalArgs[0]),
-                Policy);
+                Feed.Load(path).Uri, new Uri(path),
+                File.ReadAllBytes(path), Policy);
             return 0;
         }
         #endregion

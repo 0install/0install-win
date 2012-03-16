@@ -179,6 +179,24 @@ namespace ZeroInstall.Store.Management.Cli
         {
             if (args.Count < 2 || args.Count > 3) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageManifest));
 
+            string path;
+            try
+            {
+                path = Path.GetFullPath(args[1]);
+            }
+                #region Error handling
+            catch (ArgumentException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(ex.Message, ex);
+            }
+            catch (NotSupportedException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(ex.Message, ex);
+            }
+            #endregion
+
             // Determine manifest format
             ManifestFormat format;
             if (args.Count == 3) format = ManifestFormat.FromPrefix(args[2]);
@@ -187,7 +205,7 @@ namespace ZeroInstall.Store.Management.Cli
                 try
                 {
                     // Try to extract the algorithm from the directory name
-                    format = ManifestFormat.FromPrefix(StringUtils.GetLeftPartAtFirstOccurrence(Path.GetFileName(Path.GetFullPath(args[1])), '='));
+                    format = ManifestFormat.FromPrefix(StringUtils.GetLeftPartAtFirstOccurrence(Path.GetFileName(path), '='));
                 }
                 catch (ArgumentException)
                 {
@@ -196,7 +214,6 @@ namespace ZeroInstall.Store.Management.Cli
                 }
             }
 
-            string path = args[1];
             if (!Directory.Exists(path)) throw new DirectoryNotFoundException(string.Format(Resources.DirectoryNotFound, path));
 
             var manifest = Manifest.Generate(path, format, handler, path);
