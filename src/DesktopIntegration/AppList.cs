@@ -61,7 +61,7 @@ namespace ZeroInstall.DesktopIntegration
         {
             return Path.Combine(
                 // System-wide storage cannot be portable, per-user storage can be portable
-                systemWide ? Locations.GetIntegrationDirPath("0install.net", true, "desktop-integration") : Locations.GetSaveDataPath("0install.net", false, "desktop-integration"),
+                systemWide ? Locations.GetIntegrationDirPath("0install.net", true, "desktop-integration") : Locations.GetSaveConfigPath("0install.net", false, "desktop-integration"),
                 "app-list.xml");
         }
         #endregion
