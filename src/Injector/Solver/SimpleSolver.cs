@@ -157,12 +157,14 @@ namespace ZeroInstall.Injector.Solver
 
                 candidates.Sort((x, y) =>
                 {
+                    // ToDo: Languages we understand come first
+
                     // Preferred implementations come first
                     if (x.EffectiveStability == Stability.Preferred && y.EffectiveStability != Stability.Preferred) return -1;
                     if (x.EffectiveStability != Stability.Preferred && y.EffectiveStability == Stability.Preferred) return 1;
 
-                    // If network use is set to 'Minimal', cached implementations come before non-cached
-                    if (_policy.Config.EffectiveNetworkUse == NetworkLevel.Minimal)
+                    // Prefer available implementations next if we have limited network access
+                    if (_policy.Config.EffectiveNetworkUse != NetworkLevel.Full)
                     {
                         bool xCached = _policy.Fetcher.Store.Contains(x.Implementation.ManifestDigest);
                         bool yCached = _policy.Fetcher.Store.Contains(x.Implementation.ManifestDigest);
@@ -171,15 +173,21 @@ namespace ZeroInstall.Injector.Solver
                         if (!xCached && yCached) return 1;
                     }
 
+                    // ToDo: Packages that require admin access to install come last
+
                     // Implementations at or above the selected stability level come before all others (smaller enum value = more stable)
                     if (x.EffectiveStability <= stabilityPolicy && y.EffectiveStability > stabilityPolicy) return -1;
                     if (x.EffectiveStability > stabilityPolicy && y.EffectiveStability <= stabilityPolicy) return 1;
 
-                    // Higher-numbered versions come before low-numbered ones
+                    // Newer versions come before older ones
                     if (x.Version > y.Version) return -1;
                     if (x.Version < y.Version) return 1;
 
-                    // Cached come before non-cached (for 'Full' network use mode)
+                    // ToDo: Get best architecture
+
+                    // ToDo: Slightly prefer languages specialised to our country
+
+                    // Slightly prefer cached versions
                     if (_policy.Config.EffectiveNetworkUse == NetworkLevel.Full)
                     {
                         bool xCached = _policy.Fetcher.Store.Contains(x.Implementation.ManifestDigest);
@@ -188,7 +196,9 @@ namespace ZeroInstall.Injector.Solver
                         if (xCached && !yCached) return -1;
                         if (!xCached && yCached) return 1;
                     }
-                    return 0;
+
+                    // Order by ID so the order isn't random
+                    return string.CompareOrdinal(x.Implementation.ID, y.Implementation.ID);
                 });
             }
         }
