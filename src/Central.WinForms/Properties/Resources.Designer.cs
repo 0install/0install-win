@@ -155,6 +155,24 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to remove the {0} checked keys from the list?.
+        /// </summary>
+        internal static string RemoveCheckedKeys {
+            get {
+                return ResourceManager.GetString("RemoveCheckedKeys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to remove the {0} selected entries from the list?.
+        /// </summary>
+        internal static string RemoveSelectedEntries {
+            get {
+                return ResourceManager.GetString("RemoveSelectedEntries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you wish to save any changes made?.
         /// </summary>
         internal static string SaveChanges {

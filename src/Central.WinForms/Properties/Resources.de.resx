@@ -141,6 +141,12 @@ Zurück zur Eingabe</value>
   <data name="ProblemSavingOptions" xml:space="preserve">
     <value>Es gab ein Problem beim Speichern der Einstellungen.</value>
   </data>
+  <data name="RemoveCheckedKeys" xml:space="preserve">
+    <value>Möchten Sie die {0} angehakten Keys aus der Liste entfernen?</value>
+  </data>
+  <data name="RemoveSelectedEntries" xml:space="preserve">
+    <value>Möchten Sie die {0} ausgewählten Einträge aus der Liste entfernen?</value>
+  </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Möchten Sie bereits vorgenommene Änderungen speichern?</value>
   </data>

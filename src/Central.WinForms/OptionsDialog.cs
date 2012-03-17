@@ -29,6 +29,7 @@ using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Injector;
+using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Central.WinForms
@@ -37,7 +38,7 @@ namespace ZeroInstall.Central.WinForms
     {
         #region Variables
         // Don't use WinForms designer for this, since it doesn't understand generics
-        private readonly FilteredTreeView<TrustNode> _treeViewTrustedKeys = new FilteredTreeView<TrustNode> {Separator = '#', Dock = DockStyle.Fill};
+        private readonly FilteredTreeView<TrustNode> _treeViewTrustedKeys = new FilteredTreeView<TrustNode> {Separator = '#', CheckBoxes = true, Dock = DockStyle.Fill};
         #endregion
 
         #region Startup
@@ -45,7 +46,9 @@ namespace ZeroInstall.Central.WinForms
         {
             InitializeComponent();
             groupImplDirs.Enabled = !Locations.IsPortable;
+
             panelTrustedKeys.Controls.Add(_treeViewTrustedKeys);
+            _treeViewTrustedKeys.CheckedEntriesChanged += _treeViewTrustedKeys_CheckedEntriesChanged;
         }
 
         private void OptionsDialog_Load(object sender, EventArgs e)
@@ -91,6 +94,12 @@ namespace ZeroInstall.Central.WinForms
                     if (Array.Exists(userConfig, entry => entry == implementationDir)) listBoxImplDirs.Items.Add(new DirectoryStore(implementationDir)); // DirectoryStore = can be modified
                     else listBoxImplDirs.Items.Add(implementationDir); // Plain string = cannot be modified
                 }
+
+                // Read list of trusted keys
+                var trustDB = TrustDB.LoadSafe();
+                var trustNodes = new NamedCollection<TrustNode>();
+                trustDB.Keys.Apply(key => key.Domains.Apply(domain => trustNodes.Add(new TrustNode(key.Fingerprint, domain))));
+                _treeViewTrustedKeys.Entries = trustNodes;
             }
                 #region Error handling
             catch (IOException ex)
@@ -134,6 +143,12 @@ namespace ZeroInstall.Central.WinForms
                             configFile.WriteLine(store.DirectoryPath);
                     }
                 }
+
+                // Write list of trusted keys
+                var trustDB = new TrustDB();
+                foreach (var trustNode in _treeViewTrustedKeys.Entries)
+                    trustDB.TrustKey(trustNode.Fingerprint, trustNode.Domain);
+                trustDB.Save();
             }
                 #region Error handling
             catch (IOException ex)
@@ -152,7 +167,117 @@ namespace ZeroInstall.Central.WinForms
         }
         #endregion
 
-        #region Sync
+        #region Helpers
+        /// <summary>
+        /// Opens a URL in the system's default browser.
+        /// </summary>
+        /// <param name="url">The URL to open.</param>
+        private void OpenInBrowser(string url)
+        {
+            try
+            {
+                Process.Start(url);
+            }
+                #region Error handling
+            catch (FileNotFoundException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (Win32Exception ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Storage buttons
+        private void listBoxImplDirs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Enable go to button if there is exactly one object selected
+            buttonGoToImplDir.Enabled = (listBoxImplDirs.SelectedItems.Count == 1);
+
+            // Enable remove button if there is at least one removable object selected
+            buttonRemoveImplDir.Enabled = false;
+            foreach (var item in listBoxImplDirs.SelectedItems)
+            {
+                if (item is DirectoryStore)
+                {
+                    buttonRemoveImplDir.Enabled = true;
+                    return;
+                }
+            }
+        }
+
+        private void buttonGoToImplDir_Click(object sender, EventArgs e)
+        {
+            OpenInBrowser(listBoxImplDirs.SelectedItem.ToString());
+        }
+
+        private void buttonAddImplDir_Click(object sender, EventArgs e)
+        {
+            if (implDirBrowserDialog.ShowDialog(this) != DialogResult.OK) return;
+
+            DirectoryStore newStore;
+            try
+            {
+                newStore = new DirectoryStore(implDirBrowserDialog.SelectedPath);
+                if (Directory.GetFileSystemEntries(newStore.DirectoryPath).Length != 0)
+                {
+                    // ToDo: newStore.Audit()
+                }
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            #endregion
+
+            listBoxImplDirs.Items.Add(newStore);
+        }
+
+        private void buttonRemoveImplDir_Click(object sender, EventArgs e)
+        {
+            // Remove all selected items that are DirectoryStores and not plain strings
+            var toRemove = new LinkedList<DirectoryStore>();
+            foreach (var item in listBoxImplDirs.SelectedItems)
+            {
+                var store = item as DirectoryStore;
+                if (store != null) toRemove.AddLast(store);
+            }
+
+            if (!Msg.YesNo(this, string.Format(Resources.RemoveSelectedEntries, toRemove.Count), MsgSeverity.Warn)) return;
+            foreach (var store in toRemove) listBoxImplDirs.Items.Remove(store);
+        }
+        #endregion
+
+        #region Trust buttons
+        private void _treeViewTrustedKeys_CheckedEntriesChanged(object sender, EventArgs e)
+        {
+            // Enable remove button when there are checked elements
+            buttonRemoveTrustedKey.Enabled = (_treeViewTrustedKeys.CheckedEntries.Length != 0);
+        }
+
+        private void buttonRemoveTrustedKey_Click(object sender, EventArgs e)
+        {
+            var checkedNodes = _treeViewTrustedKeys.CheckedEntries;
+            if (!Msg.YesNo(this, string.Format(Resources.RemoveCheckedKeys, checkedNodes.Length), MsgSeverity.Warn)) return;
+
+            foreach (var node in checkedNodes)
+                _treeViewTrustedKeys.Entries.Remove(node);
+        }
+        #endregion
+
+        #region Sync buttons
         private void textBoxSync_TextChanged(object sender, EventArgs e)
         {
             buttonSyncReset.Enabled = !string.IsNullOrEmpty(textBoxSyncServer.Text) && textBoxSyncServer.IsValid &&
@@ -200,85 +325,6 @@ namespace ZeroInstall.Central.WinForms
             new SyncConfig.ResetWizard().ShowDialog(this);
             LoadConfig();
         }
-        #endregion
-
-        #region Helpers
-        /// <summary>
-        /// Opens a URL in the system's default browser.
-        /// </summary>
-        /// <param name="url">The URL to open.</param>
-        private void OpenInBrowser(string url)
-        {
-            try
-            {
-                Process.Start(url);
-            }
-                #region Error handling
-            catch (FileNotFoundException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            catch (Win32Exception ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            #endregion
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Storage buttons
-        private void listBoxImplDirs_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Enable remove button if there is at least one removable object selected
-            buttonRemoveImplDir.Enabled = false;
-            foreach (var item in listBoxImplDirs.SelectedItems)
-            {
-                if (item is DirectoryStore)
-                {
-                    buttonRemoveImplDir.Enabled = true;
-                    return;
-                }
-            }
-        }
-
-        private void buttonAddImplDir_Click(object sender, EventArgs e)
-        {
-            if (implDirBrowserDialog.ShowDialog(this) != DialogResult.OK) return;
-
-            try
-            {
-                listBoxImplDirs.Items.Add(new DirectoryStore(implDirBrowserDialog.SelectedPath));
-            }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            #endregion
-        }
-
-        private void buttonRemoveImplDir_Click(object sender, EventArgs e)
-        {
-            // Remove all selected items that are DirectoryStores and not plain strings
-            var toRemove = new LinkedList<DirectoryStore>();
-            foreach (var item in listBoxImplDirs.SelectedItems)
-            {
-                var store = item as DirectoryStore;
-                if (store != null) toRemove.AddLast(store);
-            }
-            foreach (var store in toRemove) listBoxImplDirs.Items.Remove(store);
-        }
-        #endregion
-
-        #region Trust buttons
-        private void buttonRemoveTrustedKey_Click(object sender, EventArgs e)
-        {}
         #endregion
 
         #region Global buttons

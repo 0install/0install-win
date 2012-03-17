@@ -52,6 +52,7 @@
             this.tabPageStorage = new System.Windows.Forms.TabPage();
             this.groupImplDirs = new System.Windows.Forms.GroupBox();
             this.buttonRemoveImplDir = new System.Windows.Forms.Button();
+            this.buttonGoToImplDir = new System.Windows.Forms.Button();
             this.buttonAddImplDir = new System.Windows.Forms.Button();
             this.listBoxImplDirs = new System.Windows.Forms.ListBox();
             this.tabPageTrust = new System.Windows.Forms.TabPage();
@@ -228,6 +229,7 @@
             // 
             resources.ApplyResources(this.groupImplDirs, "groupImplDirs");
             this.groupImplDirs.Controls.Add(this.buttonRemoveImplDir);
+            this.groupImplDirs.Controls.Add(this.buttonGoToImplDir);
             this.groupImplDirs.Controls.Add(this.buttonAddImplDir);
             this.groupImplDirs.Controls.Add(this.listBoxImplDirs);
             this.groupImplDirs.Name = "groupImplDirs";
@@ -239,6 +241,13 @@
             this.buttonRemoveImplDir.Name = "buttonRemoveImplDir";
             this.buttonRemoveImplDir.UseVisualStyleBackColor = true;
             this.buttonRemoveImplDir.Click += new System.EventHandler(this.buttonRemoveImplDir_Click);
+            // 
+            // buttonGoToImplDir
+            // 
+            resources.ApplyResources(this.buttonGoToImplDir, "buttonGoToImplDir");
+            this.buttonGoToImplDir.Name = "buttonGoToImplDir";
+            this.buttonGoToImplDir.UseVisualStyleBackColor = true;
+            this.buttonGoToImplDir.Click += new System.EventHandler(this.buttonGoToImplDir_Click);
             // 
             // buttonAddImplDir
             // 
@@ -388,5 +397,6 @@
         private System.Windows.Forms.FolderBrowserDialog implDirBrowserDialog;
         private System.Windows.Forms.Button buttonApply;
         private System.Windows.Forms.Panel panelTrustedKeys;
+        private System.Windows.Forms.Button buttonGoToImplDir;
     }
 }
