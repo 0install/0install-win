@@ -29,7 +29,7 @@ namespace Common
     /// An object that has a unique human-readable name that can be used for identification in lists and sorting and that can be modified.
     /// </summary>
     /// <see cref="Collections.INamedCollection{T}"/>
-    public interface INamed : IComparable
+    public interface INamed<T> : IComparable<T>
     {
         /// <summary>
         /// A unique human-readable name for the object.

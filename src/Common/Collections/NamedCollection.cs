@@ -28,11 +28,11 @@ using Common.Properties;
 namespace Common.Collections
 {
     /// <summary>
-    /// A keyed collection (pseudo-dictionary) of <see cref="INamed"/> objects. Elements are automatically maintained in an alphabetically sorted order. Suitable for XML serialization.
+    /// A keyed collection (pseudo-dictionary) of <see cref="INamed{T}"/> objects. Elements are automatically maintained in an alphabetically sorted order. Suitable for XML serialization.
     /// </summary>
     /// <remarks>Correct behavior with duplicate names or renaming without using the <see cref="Rename"/> method is not guaranteed!</remarks>
     // ToDo: Reimplement without KeyedCollection to be able to use more efficent sorting
-    public class NamedCollection<T> : KeyedCollection<string, T>, INamedCollection<T>, ICloneable where T : INamed
+    public class NamedCollection<T> : KeyedCollection<string, T>, INamedCollection<T>, ICloneable where T : INamed<T>
     {
         #region Events
         /// <inheritdoc/>
@@ -80,7 +80,7 @@ namespace Common.Collections
 
         #region Sort
         /// <summary>
-        /// Sorts all elements alphabetically by their <see cref="INamed.Name"/>.
+        /// Sorts all elements alphabetically by their <see cref="INamed{T}.Name"/>.
         /// </summary>
         private void Sort()
         {

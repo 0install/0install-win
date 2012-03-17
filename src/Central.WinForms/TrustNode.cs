@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.ComponentModel;
 using Common;
 using ZeroInstall.Injector.Feeds;
 
@@ -23,13 +25,42 @@ namespace ZeroInstall.Central.WinForms
     /// <summary>
     /// Represents a <see cref="Key"/>-<see cref="Domain"/> pair in a <see cref="TrustDB"/> for display in a GUI.
     /// </summary>
-    internal sealed class TrustNode : INamed
+    internal sealed class TrustNode : INamed<TrustNode>
     {
-        public string Name { get { throw new System.NotImplementedException(); } set { throw new System.NotImplementedException(); } }
+        /// <summary>
+        /// The <see cref="Key.Fingerprint"/>.
+        /// </summary>
+        public string Fingerprint { get; private set; }
 
-        public int CompareTo(object obj)
+        /// <summary>
+        /// The domain the fingerprint is valid for.
+        /// </summary>
+        public Domain Domain { get; private set; }
+
+        /// <inheritdoc/>
+        [Browsable(false)]
+        public string Name { get { return Fingerprint + "#" + Domain.Value; } set { throw new NotSupportedException(); } }
+
+        /// <summary>
+        /// Creates a new <see cref="Key"/>-<see cref="Domain"/> pair.
+        /// </summary>
+        /// <param name="fingerprint">The <see cref="Key.Fingerprint"/>.</param>
+        /// <param name="domain">The domain the fingerprint is valid for.</param>
+        public TrustNode(string fingerprint, Domain domain)
         {
-            throw new System.NotImplementedException();
+            Fingerprint = fingerprint;
+            Domain = domain;
+        }
+
+        int IComparable<TrustNode>.CompareTo(TrustNode other)
+        {
+            #region Sanity checks
+            if (other == null) throw new ArgumentNullException("other");
+            #endregion
+
+            int fingerprintCompare = string.CompareOrdinal(Fingerprint, other.Fingerprint);
+            if (fingerprintCompare != 0) return fingerprintCompare;
+            return string.CompareOrdinal(Domain.Value, other.Domain.Value);
         }
     }
 }

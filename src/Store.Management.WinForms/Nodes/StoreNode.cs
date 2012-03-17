@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
     /// Models information about elements in a cache for display in a GUI.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "Comparison only used for INamed sorting")]
-    public abstract class StoreNode : INamed, IContextMenu
+    public abstract class StoreNode : INamed<StoreNode>, IContextMenu
     {
         #region Variables
         /// <summary>
@@ -94,14 +94,13 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         #endregion
 
         #region Comparison
-        int IComparable.CompareTo(object obj)
+        int IComparable<StoreNode>.CompareTo(StoreNode other)
         {
-            string otherName;
-            var named = obj as INamed;
-            if (named != null) otherName = named.Name;
-            else if (obj != null) otherName = obj.ToString();
-            else otherName = null;
-            return string.Compare(Name, otherName, StringComparison.OrdinalIgnoreCase);
+            #region Sanity checks
+            if (other == null) throw new ArgumentNullException("other");
+            #endregion
+
+            return string.Compare(Name, other.Name, StringComparison.OrdinalIgnoreCase);
         }
         #endregion
 
