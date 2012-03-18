@@ -106,7 +106,7 @@ namespace ZeroInstall.Commands.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This feed does not seem to be for the same appliaction. Add it anyway?
+        ///   Looks up a localized string similar to This feed does not seem to be for the same application. Add it anyway?
         ///A &lt;feed-for&gt; tag indicates feed compatibility..
         /// </summary>
         internal static string IgnoreMissingFeedFor {

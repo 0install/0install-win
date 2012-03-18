@@ -48,6 +48,11 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="domain">The domain the fingerprint is valid for.</param>
         public TrustNode(string fingerprint, Domain domain)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException("fingerprint");
+            if (domain == null) throw new ArgumentNullException("domain");
+            #endregion
+
             Fingerprint = fingerprint;
             Domain = domain;
         }
@@ -59,8 +64,7 @@ namespace ZeroInstall.Central.WinForms
             #endregion
 
             int fingerprintCompare = string.CompareOrdinal(Fingerprint, other.Fingerprint);
-            if (fingerprintCompare != 0) return fingerprintCompare;
-            return string.CompareOrdinal(Domain.Value, other.Domain.Value);
+            return (fingerprintCompare == 0) ? string.CompareOrdinal(Domain.Value, other.Domain.Value) : fingerprintCompare;
         }
     }
 }

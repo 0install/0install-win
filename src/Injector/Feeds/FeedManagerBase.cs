@@ -60,6 +60,11 @@ namespace ZeroInstall.Injector.Feeds
         /// <inheritdoc/>
         public Feed GetFeed(string feedID, Policy policy)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            if (policy == null) throw new ArgumentNullException("policy");
+            #endregion
+
             bool stale = false;
             var feed = GetFeed(feedID, policy, ref stale);
 
