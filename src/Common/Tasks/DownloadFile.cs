@@ -109,7 +109,7 @@ namespace Common.Tasks
                 {
                     // ToDo: SetResumePoint()
 
-                    if (CancelRequest.WaitOne(0)) throw new OperationCanceledException();
+                    if (CancelRequest.WaitOne(0, false)) throw new OperationCanceledException();
                     lock (StateLock) State = TaskState.Header;
 
                     // Start the server request, allowing for cancellation
@@ -124,14 +124,14 @@ namespace Common.Tasks
                     // Process the response
                     using (WebResponse response = request.EndGetResponse(responseRequest))
                     {
-                        if (CancelRequest.WaitOne(0)) throw new OperationCanceledException();
+                        if (CancelRequest.WaitOne(0, false)) throw new OperationCanceledException();
                         ReadHeader(response);
                         // ToDo: VerifyResumePoint()
                         lock (StateLock) State = TaskState.Data;
 
                         // Start writing data to the file
                         if (response != null) WriteStreamToTarget(response.GetResponseStream(), fileStream);
-                        if (CancelRequest.WaitOne(0)) throw new OperationCanceledException();
+                        if (CancelRequest.WaitOne(0, false)) throw new OperationCanceledException();
                     }
                 }
             }
@@ -197,7 +197,7 @@ namespace Common.Tasks
             while ((length = webStream.Read(buffer, 0, buffer.Length)) > 0)
             {
                 fileStream.Write(buffer, 0, length);
-                if (CancelRequest.WaitOne(0)) throw new OperationCanceledException();
+                if (CancelRequest.WaitOne(0, false)) throw new OperationCanceledException();
                 lock (StateLock) BytesProcessed += length;
             }
         }

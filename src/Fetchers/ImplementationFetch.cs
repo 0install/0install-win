@@ -64,7 +64,7 @@ namespace ZeroInstall.Fetchers
                 // Wait for the mutex and allow cancellation every 100 ms
                 try
                 {
-                    while (!mutex.WaitOne(100))
+                    while (!mutex.WaitOne(100, false))
                         handler.RunTask(new WaitTask(Resources.DownloadInAnotherWindow, mutex), _digest);
                 }
                     #region Error handling

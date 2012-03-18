@@ -79,7 +79,7 @@ namespace Common.Controls
             FormClosing += delegate(object sender, FormClosingEventArgs e)
             {
                 // Only close the window if the task has been completed or canceled
-                if (task.State >= TaskState.Complete || _allowWindowClose.WaitOne(0)) return;
+                if (task.State >= TaskState.Complete || _allowWindowClose.WaitOne(0, false)) return;
 
                 if (task.CanCancel || !cancellationStarted)
                 {
