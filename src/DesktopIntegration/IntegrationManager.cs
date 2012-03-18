@@ -98,7 +98,6 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public IntegrationManager(bool systemWide, ITaskHandler handler)
-            : this(systemWide, AppList.GetDefaultPath(systemWide), handler)
         {
             // Prevent multiple concurrent desktop integration operations
             _mutex = new Mutex(false, systemWide ? @"Global\" + MutexName : MutexName);
@@ -106,6 +105,17 @@ namespace ZeroInstall.DesktopIntegration
             {
                 _mutex = null; // Don't try to release mutex if it wasn't acquired
                 throw new UnauthorizedAccessException(Resources.IntegrationMutex);
+            }
+
+            SystemWide = systemWide;
+            AppListPath = AppList.GetDefaultPath(systemWide);
+            Handler = handler;
+
+            if (File.Exists(AppListPath)) AppList = AppList.Load(AppListPath);
+            else
+            {
+                AppList = new AppList();
+                AppList.Save(AppListPath);
             }
         }
         #endregion
