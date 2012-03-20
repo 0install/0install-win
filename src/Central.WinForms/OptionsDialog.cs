@@ -136,12 +136,21 @@ namespace ZeroInstall.Central.WinForms
 
                 if (!Locations.IsPortable)
                 {
-                    // Write list of user-configured implementation directories to config file
-                    using (var configFile = new StreamWriter(_implementationDirsConfigPath, false, new UTF8Encoding(false)) {NewLine = "\n"})
+                    // Write list of user-configured implementation directories to temporary file first to ensure atomicity
+                    string tempPath = _implementationDirsConfigPath + ".new." + Path.GetRandomFileName(); // Append random string for temp file name
+                    try
                     {
-                        foreach (var store in EnumerableUtils.OfType<DirectoryStore>(listBoxImplDirs.Items))
-                            configFile.WriteLine(store.DirectoryPath);
+                        WriteImplDirs(tempPath);
+                        FileUtils.Replace(tempPath, _implementationDirsConfigPath);
                     }
+                        #region Error handling
+                    catch (Exception)
+                    {
+                        // Clean up failed transactions
+                        if (File.Exists(tempPath)) File.Delete(tempPath);
+                        throw;
+                    }
+                    #endregion
                 }
 
                 // Write list of trusted keys
@@ -164,6 +173,19 @@ namespace ZeroInstall.Central.WinForms
                 Msg.Inform(this, Resources.ProblemSavingOptions + "\n" + ex.Message, MsgSeverity.Error);
             }
             #endregion
+        }
+
+        /// <summary>
+        /// Writes the directories listed in <see cref="listBoxImplDirs"/> to a plain-text configuration file.
+        /// </summary>
+        /// <param name="configPath">The path of the configuration file to write.</param>
+        private void WriteImplDirs(string configPath)
+        {
+            using (var configFile = new StreamWriter(configPath, false, new UTF8Encoding(false)) {NewLine = "\n"})
+            {
+                foreach (var store in EnumerableUtils.OfType<DirectoryStore>(listBoxImplDirs.Items))
+                    configFile.WriteLine(store.DirectoryPath);
+            }
         }
         #endregion
 
