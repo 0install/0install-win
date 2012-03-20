@@ -188,11 +188,14 @@ Sie können den Crypto-Schlüssel später zurücksetzen, indem Sie den Reset Ass
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>Die Daten die derzeit auf dem Sync-Server gespeichert sind, sind beschädigt.
-Sie können die Daten, die auf dem Server gespeichert sind, später ersetzen, indem Sie den Reset Assistenten ausführen.</value>
+Sie können die Daten die auf dem Server gespeichert sind später ersetzen, indem Sie den Problembehebungs-Assistenten ausführen.</value>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Sind Sie sicher, dass Sie eine unverschlüsselte Verbindung zu einem Sync-Server verwenden möchten?
 Verschlüsselte Verbindungen nutzenen einen https:// Präfix.</value>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Arbeite...</value>
   </data>
   <data name="YesRemoveApp" xml:space="preserve">
     <value>Ja

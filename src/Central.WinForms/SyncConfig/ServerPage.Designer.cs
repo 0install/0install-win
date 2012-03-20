@@ -69,8 +69,8 @@
             // 
             // textBoxCustomServer
             // 
-            this.textBoxCustomServer.AllowDrop = true;
             resources.ApplyResources(this.textBoxCustomServer, "textBoxCustomServer");
+            this.textBoxCustomServer.AllowDrop = true;
             this.textBoxCustomServer.ForeColor = System.Drawing.Color.Red;
             this.textBoxCustomServer.HttpOnly = true;
             this.textBoxCustomServer.Name = "textBoxCustomServer";

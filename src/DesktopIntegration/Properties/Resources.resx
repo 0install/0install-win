@@ -139,15 +139,15 @@
     <value>The shortcut name '{0}' contains invalid characters.</value>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
-    <value>The username and/or password you entered for the Sync server are incorrect. Please check your Synchronization Options.</value>
+    <value>The username and/or password you entered for the Sync server are incorrect. Please check your synchronization options.</value>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
-    <value>The Crypto key you entered for Sync is incorrect. Please check your Synchronization Options.
-You can change the Crypto key used on the server by running the Reset wizard or '0install sync --reset=server'.</value>
+    <value>The crypto key you entered for Sync is incorrect. Please check your Synchronization Options.
+You can change the crypto key used on the server by running the troubleshooting wizard from the 'Options' window or by executing '0install sync --reset=server'.</value>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>The data currently stored on the Sync server is damaged.
-You can replace the data stored on the server by running the Reset wizard or '0install sync --reset=server'.</value>
+You can replace the data stored on the server by running the troubleshooting wizard from the 'Options' window or by executing '0install sync --reset=server'.</value>
   </data>
   <data name="UnableToFindTypeID" xml:space="preserve">
     <value>Unable to find {0} with the ID '{1}'.</value>

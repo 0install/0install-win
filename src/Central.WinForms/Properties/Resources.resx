@@ -204,11 +204,14 @@ You can reset the Crypto key later by running the Reset wizard.</value>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>The data currently stored on the Sync server is damaged.
-You can replace the data stored on the server later by running the Reset wizard.</value>
+You can replace the data stored on the server later by running the troubleshooting wizard.</value>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Are you sure you want to use an unencrypted connection to a Sync server?
 Encrypted connections use an https:// prefix.</value>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Working...</value>
   </data>
   <data name="YesRemoveApp" xml:space="preserve">
     <value>Yes

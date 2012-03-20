@@ -140,7 +140,7 @@
     <value>Neue Anwendungen</value>
   </data>
   <data name="buttonOptions.Text" xml:space="preserve">
-    <value>&amp;Einstellungen</value>
+    <value>&amp;Optionen</value>
   </data>
   <data name="buttonCacheManagement.Text" xml:space="preserve">
     <value>&amp;Cache Verwaltung</value>

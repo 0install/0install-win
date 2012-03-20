@@ -286,7 +286,7 @@ namespace ZeroInstall.Central.WinForms.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to The data currently stored on the Sync server is damaged.
-        ///You can replace the data stored on the server later by running the Reset wizard..
+        ///You can replace the data stored on the server later by running the troubleshooting wizard..
         /// </summary>
         internal static string SyncServerDataDamaged {
             get {
@@ -301,6 +301,15 @@ namespace ZeroInstall.Central.WinForms.Properties {
         internal static string UnencryptedSyncServer {
             get {
                 return ResourceManager.GetString("UnencryptedSyncServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Working....
+        /// </summary>
+        internal static string Working {
+            get {
+                return ResourceManager.GetString("Working", resourceCulture);
             }
         }
         

@@ -117,197 +117,110 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonOK.Location" type="System.Drawing.Point, System.Drawing">
-    <value>226, 247</value>
-  </data>
-  <data name="&gt;&gt;buttonOK.Name" xml:space="preserve">
-    <value>buttonOK</value>
-  </data>
-  <data name="&gt;&gt;buttonOK.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonOK.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonOK.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>307, 247</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
-    <value>buttonCancel</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonAdvanced.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonAdvanced.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 247</value>
-  </data>
-  <data name="buttonAdvanced.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonAdvanced.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="buttonAdvanced.Text" xml:space="preserve">
-    <value>&amp;Advanced</value>
-  </data>
-  <data name="&gt;&gt;buttonAdvanced.Name" xml:space="preserve">
-    <value>buttonAdvanced</value>
-  </data>
-  <data name="&gt;&gt;buttonAdvanced.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAdvanced.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonAdvanced.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="buttonSyncReset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="buttonSyncReset.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonSyncReset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>184, 146</value>
-  </data>
-  <data name="buttonSyncReset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 23</value>
-  </data>
-  <data name="buttonSyncReset.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="buttonSyncReset.Text" xml:space="preserve">
-    <value>&amp;Fix problems</value>
-  </data>
-  <data name="&gt;&gt;buttonSyncReset.Name" xml:space="preserve">
-    <value>buttonSyncReset</value>
-  </data>
-  <data name="&gt;&gt;buttonSyncReset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonSyncReset.Parent" xml:space="preserve">
-    <value>tabPageSync</value>
-  </data>
-  <data name="&gt;&gt;buttonSyncReset.ZOrder" xml:space="preserve">
+  <data name="listBoxImplDirs.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="buttonSyncSetup.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonAddImplDir.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
   </data>
-  <data name="buttonSyncSetup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>73, 146</value>
+  <data name="buttonRemoveTrustedKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>263, 134</value>
   </data>
-  <data name="buttonSyncSetup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 23</value>
+  <data name="&gt;&gt;tabPageSync.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
-  <data name="buttonSyncSetup.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+  <data name="tabOptions.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="buttonSyncSetup.Text" xml:space="preserve">
-    <value>Se&amp;tup</value>
+  <data name="&gt;&gt;groupTrustedKeys.Parent" xml:space="preserve">
+    <value>tabPageTrust</value>
   </data>
-  <data name="&gt;&gt;buttonSyncSetup.Name" xml:space="preserve">
-    <value>buttonSyncSetup</value>
+  <data name="buttonAddImplDir.Text" xml:space="preserve">
+    <value>A&amp;dd</value>
   </data>
-  <data name="&gt;&gt;buttonSyncSetup.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;labelServer.Name" xml:space="preserve">
+    <value>labelServer</value>
   </data>
-  <data name="&gt;&gt;buttonSyncSetup.Parent" xml:space="preserve">
-    <value>tabPageSync</value>
+  <data name="&gt;&gt;labelSyncUsername.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
-  <data name="&gt;&gt;buttonSyncSetup.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="linkSyncAccount.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="linkSyncAccount.Location" type="System.Drawing.Point, System.Drawing">
-    <value>74, 81</value>
-  </data>
-  <data name="linkSyncAccount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 13</value>
-  </data>
-  <data name="linkSyncAccount.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="linkSyncAccount.Text" xml:space="preserve">
-    <value>Manage account</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="textBoxSyncServer.HintText" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
   <data name="&gt;&gt;linkSyncAccount.Name" xml:space="preserve">
     <value>linkSyncAccount</value>
   </data>
-  <data name="&gt;&gt;linkSyncAccount.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;labelSyncPassword.Name" xml:space="preserve">
+    <value>labelSyncPassword</value>
   </data>
-  <data name="&gt;&gt;linkSyncAccount.Parent" xml:space="preserve">
+  <data name="&gt;&gt;panelTrustedKeys.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="labelServer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 9</value>
+  </data>
+  <data name="groupImplDirs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;labelSyncPassword.Parent" xml:space="preserve">
     <value>tabPageSync</value>
   </data>
-  <data name="&gt;&gt;linkSyncAccount.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;panelTrustedKeys.Name" xml:space="preserve">
+    <value>panelTrustedKeys</value>
   </data>
-  <data name="buttonSyncCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
+  <data name="&gt;&gt;textBoxSyncServer.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="buttonSyncCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>331, 110</value>
+  <data name="radioNetworkUseFull.Text" xml:space="preserve">
+    <value>&amp;Full mode (always download best version)</value>
   </data>
-  <data name="buttonSyncCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>19, 20</value>
+  <data name="&gt;&gt;groupTrustedKeys.Name" xml:space="preserve">
+    <value>groupTrustedKeys</value>
   </data>
-  <data name="buttonSyncCryptoKey.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+  <data name="&gt;&gt;labelSyncCryptoKey.ZOrder" xml:space="preserve">
+    <value>10</value>
   </data>
-  <data name="buttonSyncCryptoKey.Text" xml:space="preserve">
-    <value>?</value>
+  <data name="groupImplDirs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>344, 163</value>
   </data>
-  <data name="&gt;&gt;buttonSyncCryptoKey.Name" xml:space="preserve">
-    <value>buttonSyncCryptoKey</value>
+  <data name="&gt;&gt;textBoxSyncUsername.Name" xml:space="preserve">
+    <value>textBoxSyncUsername</value>
   </data>
-  <data name="&gt;&gt;buttonSyncCryptoKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="buttonRemoveImplDir.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
-  <data name="&gt;&gt;buttonSyncCryptoKey.Parent" xml:space="preserve">
-    <value>tabPageSync</value>
+  <data name="&gt;&gt;radioNetworkUseOffline.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonSyncCryptoKey.ZOrder" xml:space="preserve">
-    <value>6</value>
+  <data name="tabPageUpdates.Size" type="System.Drawing.Size, System.Drawing">
+    <value>362, 203</value>
   </data>
-  <data name="textBoxSyncCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="textBoxSyncPassword.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="textBoxSyncCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>77, 111</value>
+  <data name="checkBoxAutoApproveKeys.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="textBoxSyncCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>248, 20</value>
+  <data name="linkSyncAccount.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="textBoxSyncCryptoKey.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+  <data name="labelSyncPassword.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
-  <data name="&gt;&gt;textBoxSyncCryptoKey.Name" xml:space="preserve">
-    <value>textBoxSyncCryptoKey</value>
+  <data name="&gt;&gt;buttonRemoveImplDir.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;textBoxSyncCryptoKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;textBoxSyncPassword.ZOrder" xml:space="preserve">
+    <value>11</value>
   </data>
-  <data name="&gt;&gt;textBoxSyncCryptoKey.Parent" xml:space="preserve">
-    <value>tabPageSync</value>
+  <data name="tabPageSync.Text" xml:space="preserve">
+    <value>Sync</value>
+  </data>
+  <data name="labelServer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="&gt;&gt;textBoxSyncCryptoKey.ZOrder" xml:space="preserve">
     <value>8</value>
@@ -315,778 +228,865 @@
   <data name="labelSyncCryptoKey.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="labelSyncCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 114</value>
-  </data>
-  <data name="labelSyncCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 13</value>
-  </data>
-  <data name="labelSyncCryptoKey.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="labelSyncCryptoKey.Text" xml:space="preserve">
-    <value>&amp;Crypto key:</value>
-  </data>
-  <data name="&gt;&gt;labelSyncCryptoKey.Name" xml:space="preserve">
-    <value>labelSyncCryptoKey</value>
-  </data>
-  <data name="&gt;&gt;labelSyncCryptoKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelSyncCryptoKey.Parent" xml:space="preserve">
-    <value>tabPageSync</value>
-  </data>
-  <data name="&gt;&gt;labelSyncCryptoKey.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="textBoxSyncPassword.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxSyncPassword.Location" type="System.Drawing.Point, System.Drawing">
-    <value>77, 58</value>
-  </data>
-  <data name="textBoxSyncPassword.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 20</value>
-  </data>
-  <data name="textBoxSyncPassword.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;textBoxSyncPassword.Name" xml:space="preserve">
-    <value>textBoxSyncPassword</value>
-  </data>
-  <data name="&gt;&gt;textBoxSyncPassword.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxSyncPassword.Parent" xml:space="preserve">
-    <value>tabPageSync</value>
-  </data>
-  <data name="&gt;&gt;textBoxSyncPassword.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="labelSyncPassword.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelSyncPassword.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 61</value>
-  </data>
-  <data name="labelSyncPassword.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 13</value>
-  </data>
-  <data name="labelSyncPassword.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="labelSyncPassword.Text" xml:space="preserve">
-    <value>&amp;Password:</value>
-  </data>
-  <data name="&gt;&gt;labelSyncPassword.Name" xml:space="preserve">
-    <value>labelSyncPassword</value>
-  </data>
-  <data name="&gt;&gt;labelSyncPassword.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelSyncPassword.Parent" xml:space="preserve">
-    <value>tabPageSync</value>
-  </data>
-  <data name="&gt;&gt;labelSyncPassword.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="textBoxSyncServer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxSyncServer.HintText" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="textBoxSyncServer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>77, 6</value>
-  </data>
-  <data name="textBoxSyncServer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 20</value>
-  </data>
-  <data name="textBoxSyncServer.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;textBoxSyncServer.Name" xml:space="preserve">
-    <value>textBoxSyncServer</value>
-  </data>
-  <data name="&gt;&gt;textBoxSyncServer.Type" xml:space="preserve">
-    <value>Common.Controls.UriTextBox, Common, Version=1.6.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
-  </data>
-  <data name="&gt;&gt;textBoxSyncServer.Parent" xml:space="preserve">
-    <value>tabPageSync</value>
-  </data>
-  <data name="&gt;&gt;textBoxSyncServer.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="labelServer.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelServer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelServer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 9</value>
-  </data>
-  <data name="labelServer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 13</value>
-  </data>
-  <data name="labelServer.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelServer.Text" xml:space="preserve">
-    <value>&amp;Server:</value>
-  </data>
-  <data name="&gt;&gt;labelServer.Name" xml:space="preserve">
-    <value>labelServer</value>
-  </data>
-  <data name="&gt;&gt;labelServer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;labelServer.Parent" xml:space="preserve">
     <value>tabPageSync</value>
   </data>
-  <data name="&gt;&gt;labelServer.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="textBoxSyncUsername.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxSyncUsername.Location" type="System.Drawing.Point, System.Drawing">
-    <value>77, 32</value>
-  </data>
-  <data name="textBoxSyncUsername.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 20</value>
-  </data>
-  <data name="textBoxSyncUsername.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;textBoxSyncUsername.Name" xml:space="preserve">
-    <value>textBoxSyncUsername</value>
-  </data>
-  <data name="&gt;&gt;textBoxSyncUsername.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxSyncUsername.Parent" xml:space="preserve">
-    <value>tabPageSync</value>
-  </data>
-  <data name="&gt;&gt;textBoxSyncUsername.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="labelSyncUsername.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelSyncUsername.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 35</value>
-  </data>
-  <data name="labelSyncUsername.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 13</value>
-  </data>
-  <data name="labelSyncUsername.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="labelSyncUsername.Text" xml:space="preserve">
-    <value>&amp;Username:</value>
-  </data>
-  <data name="&gt;&gt;labelSyncUsername.Name" xml:space="preserve">
-    <value>labelSyncUsername</value>
-  </data>
-  <data name="&gt;&gt;labelSyncUsername.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelSyncUsername.Parent" xml:space="preserve">
-    <value>tabPageSync</value>
-  </data>
-  <data name="&gt;&gt;labelSyncUsername.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="tabOptions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="checkBoxHelpWithTesting.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxHelpWithTesting.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 114</value>
-  </data>
-  <data name="checkBoxHelpWithTesting.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 17</value>
-  </data>
-  <data name="checkBoxHelpWithTesting.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>&amp;Use beta versions of applications when available</value>
-  </data>
-  <data name="&gt;&gt;checkBoxHelpWithTesting.Name" xml:space="preserve">
-    <value>checkBoxHelpWithTesting</value>
-  </data>
-  <data name="&gt;&gt;checkBoxHelpWithTesting.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxHelpWithTesting.Parent" xml:space="preserve">
-    <value>tabPageUpdates</value>
-  </data>
-  <data name="&gt;&gt;checkBoxHelpWithTesting.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="groupNetworkUse.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="radioNetworkUseOffline.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioNetworkUseOffline.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 65</value>
-  </data>
-  <data name="radioNetworkUseOffline.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 17</value>
-  </data>
-  <data name="radioNetworkUseOffline.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>&amp;Offline mode (Do not download anything)</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseOffline.Name" xml:space="preserve">
-    <value>radioNetworkUseOffline</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseOffline.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseOffline.Parent" xml:space="preserve">
-    <value>groupNetworkUse</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseOffline.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="radioNetworkUseMinimal.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioNetworkUseMinimal.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 42</value>
-  </data>
-  <data name="radioNetworkUseMinimal.Size" type="System.Drawing.Size, System.Drawing">
-    <value>298, 17</value>
-  </data>
-  <data name="radioNetworkUseMinimal.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>&amp;Minimal mode (Only download when absolutely necessary)</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseMinimal.Name" xml:space="preserve">
-    <value>radioNetworkUseMinimal</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseMinimal.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseMinimal.Parent" xml:space="preserve">
-    <value>groupNetworkUse</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseMinimal.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="radioNetworkUseFull.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radioNetworkUseFull.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
-  <data name="radioNetworkUseFull.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 17</value>
-  </data>
-  <data name="radioNetworkUseFull.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>&amp;Full mode (Always download best version)</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseFull.Name" xml:space="preserve">
-    <value>radioNetworkUseFull</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseFull.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseFull.Parent" xml:space="preserve">
-    <value>groupNetworkUse</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseFull.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="groupNetworkUse.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="groupNetworkUse.Size" type="System.Drawing.Size, System.Drawing">
-    <value>344, 93</value>
-  </data>
-  <data name="groupNetworkUse.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="groupNetworkUse.Text" xml:space="preserve">
-    <value>Network use</value>
-  </data>
-  <data name="&gt;&gt;groupNetworkUse.Name" xml:space="preserve">
-    <value>groupNetworkUse</value>
-  </data>
-  <data name="&gt;&gt;groupNetworkUse.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupNetworkUse.Parent" xml:space="preserve">
-    <value>tabPageUpdates</value>
-  </data>
-  <data name="&gt;&gt;groupNetworkUse.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tabPageUpdates.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tabPageUpdates.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 9, 3</value>
-  </data>
-  <data name="tabPageUpdates.Size" type="System.Drawing.Size, System.Drawing">
-    <value>362, 203</value>
-  </data>
-  <data name="tabPageUpdates.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPageUpdates.Text" xml:space="preserve">
-    <value>Updates</value>
-  </data>
-  <data name="&gt;&gt;tabPageUpdates.Name" xml:space="preserve">
-    <value>tabPageUpdates</value>
-  </data>
-  <data name="&gt;&gt;tabPageUpdates.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageUpdates.Parent" xml:space="preserve">
-    <value>tabOptions</value>
-  </data>
-  <data name="&gt;&gt;tabPageUpdates.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="groupImplDirs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="buttonRemoveImplDir.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="buttonRemoveImplDir.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonRemoveImplDir.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonRemoveImplDir.Location" type="System.Drawing.Point, System.Drawing">
-    <value>263, 134</value>
-  </data>
-  <data name="buttonRemoveImplDir.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="buttonRemoveImplDir.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="buttonRemoveImplDir.Text" xml:space="preserve">
-    <value>&amp;Remove</value>
-  </data>
-  <data name="&gt;&gt;buttonRemoveImplDir.Name" xml:space="preserve">
-    <value>buttonRemoveImplDir</value>
-  </data>
-  <data name="&gt;&gt;buttonRemoveImplDir.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonRemoveImplDir.Parent" xml:space="preserve">
-    <value>groupImplDirs</value>
-  </data>
-  <data name="&gt;&gt;buttonRemoveImplDir.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonGoToImplDir.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="buttonGoToImplDir.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonGoToImplDir.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonGoToImplDir.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 134</value>
-  </data>
-  <data name="buttonGoToImplDir.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="buttonGoToImplDir.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="buttonGoToImplDir.Text" xml:space="preserve">
-    <value>&amp;Go to</value>
-  </data>
-  <data name="&gt;&gt;buttonGoToImplDir.Name" xml:space="preserve">
-    <value>buttonGoToImplDir</value>
-  </data>
-  <data name="&gt;&gt;buttonGoToImplDir.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="labelSyncCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 114</value>
   </data>
   <data name="&gt;&gt;buttonGoToImplDir.Parent" xml:space="preserve">
     <value>groupImplDirs</value>
   </data>
-  <data name="&gt;&gt;buttonGoToImplDir.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;linkSyncAccount.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
-  <data name="buttonAddImplDir.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+  <data name="&gt;&gt;labelSyncUsername.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="buttonAddImplDir.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Options</value>
   </data>
-  <data name="buttonAddImplDir.Location" type="System.Drawing.Point, System.Drawing">
-    <value>182, 134</value>
+  <data name="&gt;&gt;groupNetworkUse.Name" xml:space="preserve">
+    <value>groupNetworkUse</value>
   </data>
-  <data name="buttonAddImplDir.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="buttonAddImplDir.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="buttonAddImplDir.Text" xml:space="preserve">
-    <value>A&amp;dd</value>
-  </data>
-  <data name="&gt;&gt;buttonAddImplDir.Name" xml:space="preserve">
-    <value>buttonAddImplDir</value>
-  </data>
-  <data name="&gt;&gt;buttonAddImplDir.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAddImplDir.Parent" xml:space="preserve">
-    <value>groupImplDirs</value>
-  </data>
-  <data name="&gt;&gt;buttonAddImplDir.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="listBoxImplDirs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="listBoxImplDirs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
-  <data name="listBoxImplDirs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>332, 108</value>
-  </data>
-  <data name="listBoxImplDirs.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;tabPageUpdates.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;listBoxImplDirs.Name" xml:space="preserve">
-    <value>listBoxImplDirs</value>
+  <data name="tabOptions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="radioNetworkUseOffline.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
   <data name="&gt;&gt;listBoxImplDirs.Type" xml:space="preserve">
     <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;listBoxImplDirs.Parent" xml:space="preserve">
-    <value>groupImplDirs</value>
+  <data name="textBoxSyncUsername.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
-  <data name="&gt;&gt;listBoxImplDirs.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="groupImplDirs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="groupImplDirs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>344, 163</value>
-  </data>
-  <data name="groupImplDirs.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>&amp;Implementation cache directories</value>
-  </data>
-  <data name="&gt;&gt;groupImplDirs.Name" xml:space="preserve">
-    <value>groupImplDirs</value>
-  </data>
-  <data name="&gt;&gt;groupImplDirs.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupImplDirs.Parent" xml:space="preserve">
-    <value>tabPageStorage</value>
-  </data>
-  <data name="&gt;&gt;groupImplDirs.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tabPageStorage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tabPageStorage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 9, 3</value>
-  </data>
-  <data name="tabPageStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>362, 203</value>
-  </data>
-  <data name="tabPageStorage.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tabPageStorage.Text" xml:space="preserve">
-    <value>Storage</value>
-  </data>
-  <data name="&gt;&gt;tabPageStorage.Name" xml:space="preserve">
-    <value>tabPageStorage</value>
-  </data>
-  <data name="&gt;&gt;tabPageStorage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageStorage.Parent" xml:space="preserve">
-    <value>tabOptions</value>
-  </data>
-  <data name="&gt;&gt;tabPageStorage.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="checkBoxAutoApproveKeys.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="checkBoxAutoApproveKeys.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxAutoApproveKeys.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 175</value>
-  </data>
-  <data name="checkBoxAutoApproveKeys.Size" type="System.Drawing.Size, System.Drawing">
-    <value>311, 17</value>
-  </data>
-  <data name="checkBoxAutoApproveKeys.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>A&amp;utomatically approve new keys (if known by the key server)</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoApproveKeys.Name" xml:space="preserve">
-    <value>checkBoxAutoApproveKeys</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoApproveKeys.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoApproveKeys.Parent" xml:space="preserve">
-    <value>tabPageTrust</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoApproveKeys.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="groupTrustedKeys.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="panelTrustedKeys.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="panelTrustedKeys.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
-  <data name="panelTrustedKeys.Size" type="System.Drawing.Size, System.Drawing">
-    <value>332, 109</value>
-  </data>
-  <data name="panelTrustedKeys.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;panelTrustedKeys.Name" xml:space="preserve">
-    <value>panelTrustedKeys</value>
-  </data>
-  <data name="&gt;&gt;panelTrustedKeys.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelTrustedKeys.Parent" xml:space="preserve">
-    <value>groupTrustedKeys</value>
-  </data>
-  <data name="&gt;&gt;panelTrustedKeys.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonRemoveTrustedKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="buttonRemoveTrustedKey.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonRemoveTrustedKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonRemoveTrustedKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>263, 134</value>
-  </data>
-  <data name="buttonRemoveTrustedKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="buttonRemoveTrustedKey.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="buttonRemoveTrustedKey.Text" xml:space="preserve">
-    <value>&amp;Remove</value>
-  </data>
-  <data name="&gt;&gt;buttonRemoveTrustedKey.Name" xml:space="preserve">
-    <value>buttonRemoveTrustedKey</value>
-  </data>
-  <data name="&gt;&gt;buttonRemoveTrustedKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonRemoveTrustedKey.Parent" xml:space="preserve">
-    <value>groupTrustedKeys</value>
-  </data>
-  <data name="&gt;&gt;buttonRemoveTrustedKey.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="groupTrustedKeys.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="groupTrustedKeys.Size" type="System.Drawing.Size, System.Drawing">
-    <value>344, 163</value>
-  </data>
-  <data name="groupTrustedKeys.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="groupTrustedKeys.Text" xml:space="preserve">
-    <value>&amp;Trusted keys</value>
-  </data>
-  <data name="&gt;&gt;groupTrustedKeys.Name" xml:space="preserve">
-    <value>groupTrustedKeys</value>
-  </data>
-  <data name="&gt;&gt;groupTrustedKeys.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupTrustedKeys.Parent" xml:space="preserve">
-    <value>tabPageTrust</value>
-  </data>
-  <data name="&gt;&gt;groupTrustedKeys.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tabPageTrust.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tabPageTrust.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 9, 3</value>
-  </data>
-  <data name="tabPageTrust.Size" type="System.Drawing.Size, System.Drawing">
-    <value>362, 203</value>
-  </data>
-  <data name="tabPageTrust.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tabPageTrust.Text" xml:space="preserve">
-    <value>Trust</value>
+  <data name="&gt;&gt;textBoxSyncPassword.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabPageTrust.Name" xml:space="preserve">
     <value>tabPageTrust</value>
   </data>
-  <data name="&gt;&gt;tabPageTrust.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageTrust.Parent" xml:space="preserve">
+  <data name="&gt;&gt;tabOptions.Name" xml:space="preserve">
     <value>tabOptions</value>
   </data>
-  <data name="&gt;&gt;tabPageTrust.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="labelSyncPassword.Text" xml:space="preserve">
+    <value>&amp;Password:</value>
   </data>
-  <data name="tabPageSync.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+  <data name="&gt;&gt;buttonRemoveTrustedKey.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="tabPageSync.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 9, 3</value>
+  <data name="&gt;&gt;tabPageUpdates.Parent" xml:space="preserve">
+    <value>tabOptions</value>
   </data>
   <data name="tabPageSync.Size" type="System.Drawing.Size, System.Drawing">
     <value>362, 203</value>
   </data>
-  <data name="tabPageSync.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+  <data name="&gt;&gt;buttonAdvanced.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tabPageSync.Text" xml:space="preserve">
-    <value>Sync</value>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>380, 310</value>
   </data>
-  <data name="&gt;&gt;tabPageSync.Name" xml:space="preserve">
-    <value>tabPageSync</value>
-  </data>
-  <data name="&gt;&gt;tabPageSync.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageSync.Parent" xml:space="preserve">
-    <value>tabOptions</value>
-  </data>
-  <data name="&gt;&gt;tabPageSync.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="tabOptions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 12</value>
-  </data>
-  <data name="tabOptions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>370, 229</value>
-  </data>
-  <data name="tabOptions.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tabOptions.Name" xml:space="preserve">
-    <value>tabOptions</value>
-  </data>
-  <data name="&gt;&gt;tabOptions.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabOptions.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;tabOptions.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <metadata name="implDirBrowserDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Please select or create a directory to use as an implementation cache.</value>
-  </data>
-  <data name="buttonApply.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+  <data name="&gt;&gt;buttonAdvanced.Name" xml:space="preserve">
+    <value>buttonAdvanced</value>
   </data>
   <data name="buttonApply.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;tabPageTrust.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncPassword.Parent" xml:space="preserve">
+    <value>tabPageSync</value>
+  </data>
+  <data name="buttonSyncReset.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="groupNetworkUse.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="buttonSyncCryptoKey.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="tabPageUpdates.Text" xml:space="preserve">
+    <value>Updates</value>
+  </data>
+  <data name="&gt;&gt;radioNetworkUseMinimal.Parent" xml:space="preserve">
+    <value>groupNetworkUse</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>394, 282</value>
+  </data>
+  <data name="panelTrustedKeys.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="buttonRemoveImplDir.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="buttonApply.Location" type="System.Drawing.Point, System.Drawing">
     <value>145, 247</value>
   </data>
-  <data name="buttonApply.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="groupImplDirs.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;linkSyncAccount.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabOptions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelSyncCryptoKey.Name" xml:space="preserve">
+    <value>labelSyncCryptoKey</value>
+  </data>
+  <data name="tabPageStorage.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;tabPageUpdates.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>Common.Controls.OKCancelDialog, Common, Version=1.6.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+  </data>
+  <data name="&gt;&gt;tabPageStorage.Parent" xml:space="preserve">
+    <value>tabOptions</value>
+  </data>
+  <data name="buttonSyncReset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 23</value>
+  </data>
+  <data name="radioNetworkUseOffline.Text" xml:space="preserve">
+    <value>&amp;Offline mode (do not download anything)</value>
+  </data>
+  <data name="tabPageSync.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="buttonSyncSetup.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="&gt;&gt;buttonGoToImplDir.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="buttonSyncReset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 146</value>
+  </data>
+  <data name="implDirBrowserDialog.Description" xml:space="preserve">
+    <value>Please select or create a directory to use as an implementation cache.</value>
+  </data>
+  <data name="groupImplDirs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="radioNetworkUseFull.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="tabPageTrust.Size" type="System.Drawing.Size, System.Drawing">
+    <value>362, 203</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncSetup.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;groupTrustedKeys.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="checkBoxHelpWithTesting.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAutoApproveKeys.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tabPageSync.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="tabPageTrust.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;groupImplDirs.Name" xml:space="preserve">
+    <value>groupImplDirs</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncCryptoKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupTrustedKeys.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="groupNetworkUse.Size" type="System.Drawing.Size, System.Drawing">
+    <value>344, 93</value>
+  </data>
+  <data name="&gt;&gt;listBoxImplDirs.Parent" xml:space="preserve">
+    <value>groupImplDirs</value>
+  </data>
+  <data name="buttonAdvanced.Text" xml:space="preserve">
+    <value>&amp;Advanced</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAutoApproveKeys.Name" xml:space="preserve">
+    <value>checkBoxAutoApproveKeys</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncCryptoKey.Parent" xml:space="preserve">
+    <value>tabPageSync</value>
+  </data>
+  <data name="buttonGoToImplDir.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAutoApproveKeys.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="buttonRemoveTrustedKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
+  </data>
+  <data name="tabPageSync.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 9, 3</value>
+  </data>
+  <data name="textBoxSyncUsername.Size" type="System.Drawing.Size, System.Drawing">
+    <value>273, 20</value>
   </data>
   <data name="buttonApply.TabIndex" type="System.Int32, mscorlib">
     <value>999</value>
   </data>
-  <data name="buttonApply.Text" xml:space="preserve">
-    <value>Apply</value>
+  <data name="&gt;&gt;tabPageStorage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonApply.Name" xml:space="preserve">
-    <value>buttonApply</value>
-  </data>
-  <data name="&gt;&gt;buttonApply.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonGoToImplDir.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonApply.Parent" xml:space="preserve">
+  <data name="&gt;&gt;buttonOK.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="tabPageTrust.Text" xml:space="preserve">
+    <value>Trust</value>
+  </data>
+  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>307, 247</value>
+  </data>
+  <data name="textBoxSyncPassword.Location" type="System.Drawing.Point, System.Drawing">
+    <value>77, 58</value>
+  </data>
+  <data name="&gt;&gt;buttonRemoveTrustedKey.Name" xml:space="preserve">
+    <value>buttonRemoveTrustedKey</value>
+  </data>
+  <data name="textBoxSyncUsername.Location" type="System.Drawing.Point, System.Drawing">
+    <value>77, 32</value>
+  </data>
+  <data name="textBoxSyncServer.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;radioNetworkUseMinimal.Name" xml:space="preserve">
+    <value>radioNetworkUseMinimal</value>
+  </data>
+  <data name="&gt;&gt;labelSyncUsername.Parent" xml:space="preserve">
+    <value>tabPageSync</value>
+  </data>
+  <data name="&gt;&gt;radioNetworkUseOffline.Parent" xml:space="preserve">
+    <value>groupNetworkUse</value>
+  </data>
+  <data name="&gt;&gt;buttonRemoveTrustedKey.Parent" xml:space="preserve">
+    <value>groupTrustedKeys</value>
+  </data>
+  <data name="&gt;&gt;labelSyncCryptoKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAdvanced.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;buttonApply.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="buttonRemoveImplDir.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="labelSyncPassword.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 13</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHelpWithTesting.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkSyncAccount.Parent" xml:space="preserve">
+    <value>tabPageSync</value>
+  </data>
+  <data name="tabOptions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>370, 229</value>
+  </data>
+  <data name="tabPageStorage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 9, 3</value>
+  </data>
+  <data name="checkBoxHelpWithTesting.Size" type="System.Drawing.Size, System.Drawing">
+    <value>256, 17</value>
+  </data>
+  <data name="checkBoxHelpWithTesting.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 114</value>
+  </data>
+  <data name="&gt;&gt;buttonRemoveImplDir.Name" xml:space="preserve">
+    <value>buttonRemoveImplDir</value>
+  </data>
+  <data name="&gt;&gt;radioNetworkUseFull.Name" xml:space="preserve">
+    <value>radioNetworkUseFull</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncSetup.Name" xml:space="preserve">
+    <value>buttonSyncSetup</value>
+  </data>
+  <data name="labelSyncUsername.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>394, 282</value>
+  <data name="panelTrustedKeys.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>380, 310</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Options</value>
-  </data>
-  <data name="&gt;&gt;implDirBrowserDialog.Name" xml:space="preserve">
-    <value>implDirBrowserDialog</value>
+  <data name="&gt;&gt;buttonSyncReset.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;implDirBrowserDialog.Type" xml:space="preserve">
     <value>System.Windows.Forms.FolderBrowserDialog, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="buttonAddImplDir.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;labelSyncUsername.Name" xml:space="preserve">
+    <value>labelSyncUsername</value>
+  </data>
+  <data name="groupTrustedKeys.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonRemoveImplDir.Location" type="System.Drawing.Point, System.Drawing">
+    <value>263, 134</value>
+  </data>
+  <data name="textBoxSyncCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>77, 111</value>
+  </data>
+  <data name="buttonAddImplDir.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="groupNetworkUse.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncSetup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="radioNetworkUseMinimal.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncServer.Name" xml:space="preserve">
+    <value>textBoxSyncServer</value>
+  </data>
+  <data name="&gt;&gt;labelSyncPassword.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;tabOptions.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tabPageSync.Parent" xml:space="preserve">
+    <value>tabOptions</value>
+  </data>
+  <data name="&gt;&gt;buttonAddImplDir.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncReset.Parent" xml:space="preserve">
+    <value>tabPageSync</value>
+  </data>
+  <data name="&gt;&gt;buttonOK.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelServer.Text" xml:space="preserve">
+    <value>&amp;Server:</value>
+  </data>
+  <data name="buttonAdvanced.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="labelSyncUsername.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="groupNetworkUse.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;implDirBrowserDialog.Name" xml:space="preserve">
+    <value>implDirBrowserDialog</value>
+  </data>
+  <data name="buttonSyncReset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="tabPageStorage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="textBoxSyncUsername.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="linkSyncAccount.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;tabPageUpdates.Name" xml:space="preserve">
+    <value>tabPageUpdates</value>
+  </data>
+  <data name="listBoxImplDirs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="groupNetworkUse.Text" xml:space="preserve">
+    <value>Network use</value>
+  </data>
+  <data name="buttonRemoveTrustedKey.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="buttonSyncSetup.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="labelSyncUsername.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 13</value>
+  </data>
+  <data name="tabPageUpdates.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 9, 3</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;panelTrustedKeys.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tabPageSync.Name" xml:space="preserve">
+    <value>tabPageSync</value>
+  </data>
+  <data name="buttonSyncReset.Text" xml:space="preserve">
+    <value>T&amp;roubleshooting</value>
+  </data>
+  <data name="&gt;&gt;labelServer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="textBoxSyncPassword.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="buttonGoToImplDir.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonRemoveImplDir.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="buttonGoToImplDir.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;labelSyncCryptoKey.Parent" xml:space="preserve">
+    <value>tabPageSync</value>
+  </data>
+  <data name="labelSyncUsername.Text" xml:space="preserve">
+    <value>&amp;Username:</value>
+  </data>
+  <data name="buttonGoToImplDir.Text" xml:space="preserve">
+    <value>&amp;Go to</value>
+  </data>
+  <data name="panelTrustedKeys.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="checkBoxAutoApproveKeys.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 175</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHelpWithTesting.Parent" xml:space="preserve">
+    <value>tabPageUpdates</value>
+  </data>
+  <data name="&gt;&gt;tabOptions.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;labelSyncPassword.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonAddImplDir.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;buttonGoToImplDir.Name" xml:space="preserve">
+    <value>buttonGoToImplDir</value>
+  </data>
+  <data name="&gt;&gt;buttonRemoveTrustedKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonSyncReset.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonApply.Text" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="textBoxSyncCryptoKey.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="labelSyncCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 13</value>
+  </data>
+  <data name="linkSyncAccount.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 13</value>
+  </data>
+  <data name="buttonAdvanced.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 247</value>
+  </data>
+  <data name="labelSyncCryptoKey.Text" xml:space="preserve">
+    <value>&amp;Crypto key:</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncCryptoKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupImplDirs.Parent" xml:space="preserve">
+    <value>tabPageStorage</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncServer.Parent" xml:space="preserve">
+    <value>tabPageSync</value>
+  </data>
+  <data name="listBoxImplDirs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>332, 108</value>
+  </data>
+  <data name="buttonOK.Location" type="System.Drawing.Point, System.Drawing">
+    <value>226, 247</value>
+  </data>
+  <data name="labelSyncCryptoKey.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>OptionsDialog</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>Common.Controls.OKCancelDialog, Common, Version=1.6.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+  <data name="buttonApply.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
   </data>
+  <data name="checkBoxAutoApproveKeys.Size" type="System.Drawing.Size, System.Drawing">
+    <value>311, 17</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncUsername.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="checkBoxHelpWithTesting.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="buttonSyncSetup.Text" xml:space="preserve">
+    <value>Se&amp;tup</value>
+  </data>
+  <data name="tabOptions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 12</value>
+  </data>
+  <data name="groupTrustedKeys.Size" type="System.Drawing.Size, System.Drawing">
+    <value>344, 163</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHelpWithTesting.Name" xml:space="preserve">
+    <value>checkBoxHelpWithTesting</value>
+  </data>
+  <data name="&gt;&gt;radioNetworkUseOffline.Name" xml:space="preserve">
+    <value>radioNetworkUseOffline</value>
+  </data>
+  <data name="&gt;&gt;groupNetworkUse.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="buttonAdvanced.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonAdvanced.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 23</value>
+  </data>
+  <data name="labelServer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>41, 13</value>
+  </data>
+  <data name="&gt;&gt;buttonRemoveImplDir.Parent" xml:space="preserve">
+    <value>groupImplDirs</value>
+  </data>
+  <data name="textBoxSyncServer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>77, 6</value>
+  </data>
+  <data name="groupTrustedKeys.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="labelServer.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;groupImplDirs.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;buttonOK.Name" xml:space="preserve">
+    <value>buttonOK</value>
+  </data>
+  <data name="labelSyncUsername.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 35</value>
+  </data>
+  <data name="buttonApply.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="tabPageUpdates.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;listBoxImplDirs.Name" xml:space="preserve">
+    <value>listBoxImplDirs</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAutoApproveKeys.Parent" xml:space="preserve">
+    <value>tabPageTrust</value>
+  </data>
+  <data name="buttonRemoveImplDir.Text" xml:space="preserve">
+    <value>&amp;Remove</value>
+  </data>
+  <data name="&gt;&gt;buttonAddImplDir.Parent" xml:space="preserve">
+    <value>groupImplDirs</value>
+  </data>
+  <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
+    <value>&amp;Use beta versions of applications when available</value>
+  </data>
+  <data name="buttonSyncCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>331, 110</value>
+  </data>
+  <data name="textBoxSyncCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>248, 20</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
+    <value>buttonCancel</value>
+  </data>
+  <data name="&gt;&gt;radioNetworkUseFull.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncServer.Type" xml:space="preserve">
+    <value>Common.Controls.UriTextBox, Common, Version=1.6.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncCryptoKey.Name" xml:space="preserve">
+    <value>textBoxSyncCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;buttonApply.Name" xml:space="preserve">
+    <value>buttonApply</value>
+  </data>
+  <data name="radioNetworkUseFull.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radioNetworkUseOffline.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 65</value>
+  </data>
+  <data name="&gt;&gt;tabPageStorage.Name" xml:space="preserve">
+    <value>tabPageStorage</value>
+  </data>
+  <data name="checkBoxAutoApproveKeys.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tabPageStorage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>362, 203</value>
+  </data>
+  <data name="radioNetworkUseOffline.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioNetworkUseOffline.Size" type="System.Drawing.Size, System.Drawing">
+    <value>215, 17</value>
+  </data>
+  <data name="&gt;&gt;groupNetworkUse.Parent" xml:space="preserve">
+    <value>tabPageUpdates</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncCryptoKey.Name" xml:space="preserve">
+    <value>buttonSyncCryptoKey</value>
+  </data>
+  <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
+    <value>&amp;Minimal mode (only download when absolutely necessary)</value>
+  </data>
+  <data name="listBoxImplDirs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;buttonAdvanced.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="radioNetworkUseMinimal.Size" type="System.Drawing.Size, System.Drawing">
+    <value>296, 17</value>
+  </data>
+  <data name="&gt;&gt;buttonRemoveImplDir.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAddImplDir.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonRemoveTrustedKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="linkSyncAccount.Text" xml:space="preserve">
+    <value>Manage account</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="radioNetworkUseMinimal.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 42</value>
+  </data>
+  <data name="textBoxSyncServer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>273, 20</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHelpWithTesting.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;labelServer.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="buttonRemoveTrustedKey.Text" xml:space="preserve">
+    <value>&amp;Remove</value>
+  </data>
+  <data name="&gt;&gt;tabPageTrust.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tabPageUpdates.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="radioNetworkUseMinimal.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
+    <value>A&amp;utomatically approve new keys (if known by the key server)</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncCryptoKey.Parent" xml:space="preserve">
+    <value>tabPageSync</value>
+  </data>
+  <data name="&gt;&gt;radioNetworkUseFull.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="labelSyncPassword.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 61</value>
+  </data>
+  <data name="buttonSyncCryptoKey.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;groupImplDirs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonGoToImplDir.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;buttonAddImplDir.Name" xml:space="preserve">
+    <value>buttonAddImplDir</value>
+  </data>
+  <data name="&gt;&gt;tabPageSync.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncReset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tabPageStorage.Text" xml:space="preserve">
+    <value>Storage</value>
+  </data>
+  <data name="&gt;&gt;listBoxImplDirs.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="buttonRemoveTrustedKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioNetworkUseFull.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 17</value>
+  </data>
+  <data name="&gt;&gt;tabPageTrust.Parent" xml:space="preserve">
+    <value>tabOptions</value>
+  </data>
+  <data name="buttonGoToImplDir.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="groupTrustedKeys.Text" xml:space="preserve">
+    <value>&amp;Trusted keys</value>
+  </data>
+  <data name="&gt;&gt;radioNetworkUseFull.Parent" xml:space="preserve">
+    <value>groupNetworkUse</value>
+  </data>
+  <data name="&gt;&gt;buttonApply.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="linkSyncAccount.Location" type="System.Drawing.Point, System.Drawing">
+    <value>74, 81</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncCryptoKey.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="buttonSyncCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="buttonSyncCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>19, 20</value>
+  </data>
+  <data name="buttonRemoveImplDir.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="buttonSyncSetup.Location" type="System.Drawing.Point, System.Drawing">
+    <value>73, 146</value>
+  </data>
+  <data name="&gt;&gt;radioNetworkUseMinimal.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="buttonRemoveTrustedKey.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;radioNetworkUseMinimal.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="textBoxSyncServer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="labelServer.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonGoToImplDir.Location" type="System.Drawing.Point, System.Drawing">
+    <value>101, 134</value>
+  </data>
+  <data name="buttonAddImplDir.Location" type="System.Drawing.Point, System.Drawing">
+    <value>182, 134</value>
+  </data>
+  <data name="textBoxSyncCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="panelTrustedKeys.Size" type="System.Drawing.Size, System.Drawing">
+    <value>332, 109</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="buttonSyncSetup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 23</value>
+  </data>
+  <data name="&gt;&gt;buttonApply.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelSyncPassword.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="textBoxSyncPassword.Size" type="System.Drawing.Size, System.Drawing">
+    <value>273, 20</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncReset.Name" xml:space="preserve">
+    <value>buttonSyncReset</value>
+  </data>
+  <data name="&gt;&gt;groupNetworkUse.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonSyncSetup.Parent" xml:space="preserve">
+    <value>tabPageSync</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncUsername.Parent" xml:space="preserve">
+    <value>tabPageSync</value>
+  </data>
+  <data name="&gt;&gt;buttonOK.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tabPageTrust.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 9, 3</value>
+  </data>
+  <data name="&gt;&gt;radioNetworkUseOffline.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="checkBoxAutoApproveKeys.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="&gt;&gt;tabPageStorage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupTrustedKeys.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="groupImplDirs.Text" xml:space="preserve">
+    <value>&amp;Implementation cache directories</value>
+  </data>
+  <data name="tabPageTrust.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="&gt;&gt;buttonApply.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;panelTrustedKeys.Parent" xml:space="preserve">
+    <value>groupTrustedKeys</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncUsername.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="radioNetworkUseFull.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="&gt;&gt;textBoxSyncPassword.Name" xml:space="preserve">
+    <value>textBoxSyncPassword</value>
+  </data>
+  <metadata name="implDirBrowserDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

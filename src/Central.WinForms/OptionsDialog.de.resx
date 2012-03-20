@@ -117,118 +117,128 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;buttonDone.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="buttonAdvanced.Text" xml:space="preserve">
+    <value>&amp;Fortgeschritten</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="labelTitle.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="buttonSyncReset.Text" xml:space="preserve">
+    <value>P&amp;roblembehebung</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
+  <data name="linkSyncAccount.Location" type="System.Drawing.Point, System.Drawing">
+    <value>95, 81</value>
   </data>
-  <data name="&gt;&gt;buttonDone.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="linkSyncAccount.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 13</value>
   </data>
-  <data name="labelTitle.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 18pt, style=Bold</value>
+  <data name="linkSyncAccount.Text" xml:space="preserve">
+    <value>Account verwalten</value>
   </data>
-  <data name="&gt;&gt;buttonDone.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="textBoxSyncCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>98, 111</value>
   </data>
-  <data name="&gt;&gt;labelTitle.Name" xml:space="preserve">
-    <value>labelTitle</value>
+  <data name="textBoxSyncCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>227, 20</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="labelInfo.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="labelSyncCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 13</value>
   </data>
-  <data name="labelInfo.Text" xml:space="preserve">
-    <value>Zero Install Sync is now set up and ready to use. Run this wizard on any other computers you wish to keep synchronized with this one.</value>
+  <data name="labelSyncCryptoKey.Text" xml:space="preserve">
+    <value>&amp;Crypto-Schlüssel:</value>
   </data>
-  <data name="buttonDone.Text" xml:space="preserve">
-    <value>&amp;Done</value>
+  <data name="textBoxSyncPassword.Location" type="System.Drawing.Point, System.Drawing">
+    <value>98, 58</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="textBoxSyncPassword.Size" type="System.Drawing.Size, System.Drawing">
+    <value>252, 20</value>
   </data>
-  <data name="&gt;&gt;labelInfo.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="labelSyncPassword.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 13</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>SetupFinishedPage</value>
+  <data name="labelSyncPassword.Text" xml:space="preserve">
+    <value>&amp;Passwort:</value>
   </data>
-  <data name="labelTitle.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="textBoxSyncServer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>98, 6</value>
   </data>
-  <data name="buttonDone.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
+  <data name="textBoxSyncServer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>252, 20</value>
   </data>
-  <data name="&gt;&gt;buttonDone.Name" xml:space="preserve">
-    <value>buttonDone</value>
+  <data name="textBoxSyncUsername.Location" type="System.Drawing.Point, System.Drawing">
+    <value>98, 32</value>
   </data>
-  <data name="&gt;&gt;labelInfo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="textBoxSyncUsername.Size" type="System.Drawing.Size, System.Drawing">
+    <value>252, 20</value>
   </data>
-  <data name="labelInfo.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
+  <data name="labelSyncUsername.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 13</value>
   </data>
-  <data name="&gt;&gt;labelInfo.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="labelSyncUsername.Text" xml:space="preserve">
+    <value>&amp;Benutzername:</value>
   </data>
-  <data name="buttonDone.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="checkBoxHelpWithTesting.Size" type="System.Drawing.Size, System.Drawing">
+    <value>324, 17</value>
   </data>
-  <data name="labelTitle.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
+  <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
+    <value>&amp;Beta-Versionen von Anwendungen verwenden wenn verfügbar</value>
   </data>
-  <data name="labelTitle.Size" type="System.Drawing.Size, System.Drawing">
-    <value>470, 37</value>
+  <data name="groupNetworkUse.Text" xml:space="preserve">
+    <value>Netzwerknutzung</value>
   </data>
-  <data name="labelInfo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="radioNetworkUseOffline.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 17</value>
   </data>
-  <data name="labelInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>35, 65</value>
+  <data name="radioNetworkUseOffline.Text" xml:space="preserve">
+    <value>&amp;Offline (gar nichts herunterladen)</value>
   </data>
-  <data name="&gt;&gt;labelInfo.Name" xml:space="preserve">
-    <value>labelInfo</value>
+  <data name="radioNetworkUseMinimal.Size" type="System.Drawing.Size, System.Drawing">
+    <value>283, 17</value>
   </data>
-  <data name="&gt;&gt;labelTitle.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
+    <value>&amp;Minimal (nur herunterladen wenn unbedingt notwendig)</value>
   </data>
-  <data name="&gt;&gt;labelTitle.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="radioNetworkUseFull.Size" type="System.Drawing.Size, System.Drawing">
+    <value>247, 17</value>
   </data>
-  <data name="&gt;&gt;labelTitle.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="radioNetworkUseFull.Text" xml:space="preserve">
+    <value>&amp;Vollständig (immer beste Version herunterladen)</value>
   </data>
-  <data name="buttonDone.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 35</value>
+  <data name="tabPageStorage.Text" xml:space="preserve">
+    <value>Speicher</value>
   </data>
-  <data name="buttonDone.Location" type="System.Drawing.Point, System.Drawing">
-    <value>39, 158</value>
+  <data name="groupImplDirs.Text" xml:space="preserve">
+    <value>&amp;Implementierungscacheverzeichnisse</value>
   </data>
-  <data name="labelTitle.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
+  <data name="buttonRemoveImplDir.Text" xml:space="preserve">
+    <value>&amp;Entfernen</value>
   </data>
-  <data name="labelTitle.Text" xml:space="preserve">
-    <value>Finished</value>
+  <data name="buttonGoToImplDir.Text" xml:space="preserve">
+    <value>&amp;Gehe zu</value>
   </data>
-  <data name="labelInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>400, 81</value>
+  <data name="buttonAddImplDir.Text" xml:space="preserve">
+    <value>&amp;Hinzufügen</value>
   </data>
-  <data name="labelTitle.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 18</value>
+  <data name="tabPageTrust.Text" xml:space="preserve">
+    <value>Vertrauen</value>
   </data>
-  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>470, 300</value>
+  <data name="checkBoxAutoApproveKeys.Size" type="System.Drawing.Size, System.Drawing">
+    <value>339, 17</value>
   </data>
-  <data name="buttonDone.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
+    <value>Dem Schlüsselserver bekannte Schlüssel &amp;automatisch akzeptieren</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
+  <data name="groupTrustedKeys.Text" xml:space="preserve">
+    <value>&amp;Vertraute Schlüssel</value>
+  </data>
+  <data name="buttonRemoveTrustedKey.Text" xml:space="preserve">
+    <value>&amp;Entfernen</value>
+  </data>
+  <data name="implDirBrowserDialog.Description" xml:space="preserve">
+    <value>Bitte wählen Sie ein Verzeichnis aus, das als Implementierungscache genutzt werden soll.</value>
+  </data>
+  <data name="buttonApply.Text" xml:space="preserve">
+    <value>Anwenden</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Optionen</value>
+  </data>
 </root>

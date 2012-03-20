@@ -142,8 +142,8 @@
             // 
             // textBoxSyncServer
             // 
-            this.textBoxSyncServer.AllowDrop = true;
             resources.ApplyResources(this.textBoxSyncServer, "textBoxSyncServer");
+            this.textBoxSyncServer.AllowDrop = true;
             this.textBoxSyncServer.HttpOnly = true;
             this.textBoxSyncServer.Name = "textBoxSyncServer";
             this.textBoxSyncServer.TextChanged += new System.EventHandler(this.textBoxSync_TextChanged);
@@ -176,9 +176,9 @@
             // 
             // tabPageUpdates
             // 
+            resources.ApplyResources(this.tabPageUpdates, "tabPageUpdates");
             this.tabPageUpdates.Controls.Add(this.checkBoxHelpWithTesting);
             this.tabPageUpdates.Controls.Add(this.groupNetworkUse);
-            resources.ApplyResources(this.tabPageUpdates, "tabPageUpdates");
             this.tabPageUpdates.Name = "tabPageUpdates";
             this.tabPageUpdates.UseVisualStyleBackColor = true;
             // 
@@ -220,8 +220,8 @@
             // 
             // tabPageStorage
             // 
-            this.tabPageStorage.Controls.Add(this.groupImplDirs);
             resources.ApplyResources(this.tabPageStorage, "tabPageStorage");
+            this.tabPageStorage.Controls.Add(this.groupImplDirs);
             this.tabPageStorage.Name = "tabPageStorage";
             this.tabPageStorage.UseVisualStyleBackColor = true;
             // 
@@ -258,8 +258,8 @@
             // 
             // listBoxImplDirs
             // 
-            this.listBoxImplDirs.AllowDrop = true;
             resources.ApplyResources(this.listBoxImplDirs, "listBoxImplDirs");
+            this.listBoxImplDirs.AllowDrop = true;
             this.listBoxImplDirs.DisplayMember = "Source";
             this.listBoxImplDirs.FormattingEnabled = true;
             this.listBoxImplDirs.Name = "listBoxImplDirs";
@@ -269,9 +269,9 @@
             // 
             // tabPageTrust
             // 
+            resources.ApplyResources(this.tabPageTrust, "tabPageTrust");
             this.tabPageTrust.Controls.Add(this.checkBoxAutoApproveKeys);
             this.tabPageTrust.Controls.Add(this.groupTrustedKeys);
-            resources.ApplyResources(this.tabPageTrust, "tabPageTrust");
             this.tabPageTrust.Name = "tabPageTrust";
             this.tabPageTrust.UseVisualStyleBackColor = true;
             // 
@@ -303,6 +303,7 @@
             // 
             // tabPageSync
             // 
+            resources.ApplyResources(this.tabPageSync, "tabPageSync");
             this.tabPageSync.Controls.Add(this.buttonSyncReset);
             this.tabPageSync.Controls.Add(this.textBoxSyncServer);
             this.tabPageSync.Controls.Add(this.buttonSyncSetup);
@@ -315,7 +316,6 @@
             this.tabPageSync.Controls.Add(this.labelSyncPassword);
             this.tabPageSync.Controls.Add(this.labelSyncCryptoKey);
             this.tabPageSync.Controls.Add(this.textBoxSyncPassword);
-            resources.ApplyResources(this.tabPageSync, "tabPageSync");
             this.tabPageSync.Name = "tabPageSync";
             this.tabPageSync.UseVisualStyleBackColor = true;
             // 

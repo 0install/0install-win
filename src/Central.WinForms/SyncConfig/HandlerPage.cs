@@ -20,6 +20,7 @@ using System.Windows.Forms;
 using Common;
 using Common.Controls;
 using Common.Tasks;
+using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
@@ -36,6 +37,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         public HandlerPage()
         {
             InitializeComponent();
+            labelWorking.Text = Resources.Working;
         }
 
         #region ITaskHandler

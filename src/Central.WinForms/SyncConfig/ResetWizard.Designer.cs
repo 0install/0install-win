@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.Text = "Zero Install Sync Reset";
+            this.Text = "Zero Install Sync";
         }
 
         #endregion

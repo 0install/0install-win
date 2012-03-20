@@ -268,7 +268,7 @@
     <value>4</value>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>Any changes you have made on other computers but not synchronized to this one yet will be lost!</value>
+    <value>Any changes you have made on other computers but not synchronized with this one yet will be lost!</value>
   </data>
   <data name="&gt;&gt;labelInfo2.Name" xml:space="preserve">
     <value>labelInfo2</value>
@@ -298,6 +298,6 @@
     <value>ResetCryptoKeyPage</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.SyncConfig.HandlerPage, ZeroInstall, Version=1.5.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>ZeroInstall.Central.WinForms.SyncConfig.HandlerPage, ZeroInstall, Version=1.6.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
 </root>
