@@ -32,25 +32,6 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
 {
     internal partial class ExistingCryptoKeyPage : UserControl
     {
-        #region Inner class
-        private class WebClientTimeout : WebClient
-        {
-            private readonly int _timeout;
-
-            public WebClientTimeout(int timeout)
-            {
-                _timeout = timeout;
-            }
-            
-            protected override WebRequest GetWebRequest(Uri address)
-            {
-                var result = base.GetWebRequest(address);
-                if (result != null) result.Timeout = _timeout;
-                return result;
-            }
-        }
-        #endregion
-
         public Uri SyncServer;
         public SyncCredentials SyncCredentials;
 
@@ -96,7 +77,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             if (!syncServer.ToString().EndsWith("/")) syncServer = new Uri(syncServer + "/"); // Ensure the server URI references a directory
             var appListUri = new Uri(syncServer, new Uri("app-list", UriKind.Relative));
 
-            using (var webClient = new WebClientTimeout(10000)
+            using (var webClient = new WebClientTimeout(10000) // 10 seconds timeout
             {
                 Credentials = new NetworkCredential(syncCredentials.Username, syncCredentials.Password),
                 CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)

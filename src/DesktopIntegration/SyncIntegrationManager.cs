@@ -21,6 +21,7 @@ using System.IO;
 using System.Net;
 using System.Net.Cache;
 using System.Threading;
+using Common;
 using Common.Collections;
 using Common.Storage;
 using Common.Tasks;
@@ -138,7 +139,7 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             var appListUri = new Uri(_syncServer, new Uri("app-list", UriKind.Relative));
-            using (var webClient = new WebClient
+            using (var webClient = new WebClientTimeout(10000) // 10 seconds timeout
             {
                 Credentials = new NetworkCredential(_username, _password),
                 CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)

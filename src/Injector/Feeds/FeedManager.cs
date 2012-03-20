@@ -167,7 +167,7 @@ namespace ZeroInstall.Injector.Feeds
         {
             // ToDo: Add tracking and better cancellation support
             policy.Handler.CancellationToken.ThrowIfCancellationRequested();
-            using (var webClient = new WebClient())
+            using (var webClient = new WebClientTimeout(10000)) // 10 seconds timeout
             {
                 try
                 {
@@ -269,7 +269,9 @@ namespace ZeroInstall.Injector.Feeds
                 { // Load key file from server
                     try
                     {
-                        using (var webClient = new WebClient())
+                        // ToDo: Add tracking and better cancellation support
+                        policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+                        using (var webClient = new WebClientTimeout(10000)) // 10 seconds timeout
                             keyData = webClient.DownloadData(keyUri);
                     }
                         #region Error handling
