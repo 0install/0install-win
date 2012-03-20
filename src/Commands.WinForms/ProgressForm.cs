@@ -54,13 +54,6 @@ namespace ZeroInstall.Commands.WinForms
             _cancelCallback = cancelCallback;
 
             Shown += delegate { WindowsUtils.SetForegroundWindow(this); };
-
-            Load += delegate
-            {
-                labelWorking.Text = Resources.Working;
-                buttonHide.Text = Resources.Hide;
-                buttonCancel.Text = Resources.Cancel;
-            };
         }
 
         /// <summary>
@@ -69,6 +62,10 @@ namespace ZeroInstall.Commands.WinForms
         public void Initialize()
         {
             InitializeComponent();
+            labelWorking.Text = Resources.Working;
+            buttonHide.Text = Resources.Hide;
+            buttonCancel.Text = Resources.Cancel;
+
             CreateHandle();
             CreateControl();
         }
