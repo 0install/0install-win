@@ -168,11 +168,17 @@ namespace ZeroInstall.Commands.WinForms
                 foreach (var entryPoint in _feed.EntryPoints)
                 {
                     if (string.IsNullOrEmpty(entryPoint.Command)) continue;
-                    string entryPointName = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture);
 
                     _menuEntries.Add(new AccessPoints.MenuEntry
                     {
-                        Name = entryPointName ?? _appEntry.Name + " " + entryPoint.Command,
+                        // Try to get a localized name for the command
+                        Name = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture) ??
+                            // If that fails...
+                            ((entryPoint.Command == Command.NameRun)
+                                // ... use the application's name
+                                ? _appEntry.Name
+                                // ... or the application's name and the command
+                                : _appEntry.Name + " " + entryPoint.Command),
                         // Group all entry points in a single folder
                         Category = string.IsNullOrEmpty(category) ? _appEntry.Name : category + Path.DirectorySeparatorChar + _appEntry.Name,
                         Command = entryPoint.Command
