@@ -51,6 +51,11 @@
           <xs:documentation>The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.</xs:documentation>
         </xs:annotation>
       </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="replaced-by" type="tns:interface-reference">
+        <xs:annotation>
+          <xs:documentation>This feed was replaced by another interface.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="implementation" type="tns:implementation" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="package-implementation" type="tns:package-implementation" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="group" type="tns:group" />

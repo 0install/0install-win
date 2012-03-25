@@ -307,6 +307,32 @@
                   </relationshipOwnedElementsInternal>
                   <elementDefinition Id="10ed7b17-2a06-40d4-91f6-676bd3ddf3e2" />
                 </association>
+                <association Id="7d0561d9-5434-4478-be87-fe14a0ad44f0" isDerived="false" sourceEndRoleName="Feed" targetEndRoleName="ReplacedBy" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="43e1638c-e6f3-459d-8df8-7f28557d21e1" LastKnownName="InterfaceReference" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="b3ca5597-1c18-4b35-84cc-d6d392227a9c" name="Feed" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="b620548f-9a7a-4205-80af-6d6ae911f5f8" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="1d4a623b-444d-4924-ab52-ac1f52569fa6" name="ReplacedBy" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="true">
+                        <lowerValueInternal>
+                          <literalString Id="9e1ec8fc-50bb-4a19-a136-0e0b064e9659" name="Lower" value="0">
+                            <elementDefinition Id="5661dffb-e7d6-41ad-9702-caff7a3bf1a9" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="36c283a3-2878-489e-9deb-09387f420187" name="Upper" value="1">
+                            <elementDefinition Id="7190b665-fe71-40e9-bb02-57450bc8e93d" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="f5a5b09d-db6e-470b-8367-1a7f409a7871" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="72c8d1cb-e60e-4ea9-a46c-8efd8e936044" />
+                </association>
               </targetEnds>
               <ownedAttributesInternal>
                 <property Id="d4e62b41-c1f7-46cf-888c-0a20d4101bc2" name="MinInjectorVersion" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">

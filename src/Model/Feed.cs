@@ -163,6 +163,13 @@ namespace ZeroInstall.Model
         [XmlElement("feed-for")]
         public C5.ArrayList<InterfaceReference> FeedFor { get { return _feedFor; } }
 
+        /// <summary>
+        /// This feed was replaced by another interface.
+        /// </summary>
+        [Category("Feed"), Description("This feed was replaced by another interface.")]
+        [XmlElement("replaced-by")]
+        public InterfaceReference ReplacedBy { get; set; }
+
         // Preserve order
         private readonly C5.ArrayList<Element> _elements = new C5.ArrayList<Element>();
 

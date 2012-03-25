@@ -6433,6 +6433,58 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
+          <association
+            Id="72c8d1cb-e60e-4ea9-a46c-8efd8e936044"
+            isDerived="false"
+            sourceEndRoleName="Feed"
+            targetEndRoleName="ReplacedBy"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="47a7fc9f-a762-41e1-9aba-3f440528d2d1"
+              LastKnownName="InterfaceReference"
+              LastKnownLocation="Package1_1629.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="b620548f-9a7a-4205-80af-6d6ae911f5f8"
+                  name="Feed"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="f5a5b09d-db6e-470b-8367-1a7f409a7871"
+                  name="ReplacedBy"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="5661dffb-e7d6-41ad-9702-caff7a3bf1a9"
+                      name="Lower"
+                      value="0" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="7190b665-fe71-40e9-bb02-57450bc8e93d"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
         </targetEnds>
         <ownedAttributesInternal>
           <property
