@@ -65,13 +65,8 @@ Compression=lzma/ultra
 SolidCompression=true
 
 [Languages]
-#ifdef Update
-  Name: de; MessagesFile: Update_de.isl; InfoBeforeFile: Update_de.rtf
-  Name: en; MessagesFile: Update_en.isl; InfoBeforeFile: Update_en.rtf
-#else
-  Name: de; MessagesFile: compiler:Languages\German.isl; LicenseFile: License_de.rtf
-  Name: en; MessagesFile: compiler:Default.isl; LicenseFile: License_en.rtf
-#endif
+Name: de; MessagesFile: compiler:Languages\German.isl; LicenseFile: License_de.rtf
+Name: en; MessagesFile: compiler:Default.isl; LicenseFile: License_en.rtf
 
 [InstallDelete]
 ;Remove NanoGrid shortcuts
@@ -150,7 +145,6 @@ Name: {app}\.symlink; Type: files
 Name: {app}; Type: dirifempty
 
 [Code]
-#ifndef Update
 function InitializeSetup(): Boolean;
 begin
 	// Determine the exact Windows version, including Service pack
@@ -186,7 +180,6 @@ begin
 
 	Result := true;
 end;
-#endif
 
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 var
@@ -194,11 +187,13 @@ var
 	selectedTasks:	String;
 begin
 	if CurUninstallStep = usUninstall then begin
+		// Remove Zero Install from PATH
 		if LoadStringFromFile(ExpandConstant('{app}\uninsTasks.txt'), selectedTasks) then
 			if Pos('modifypath', selectedTasks) > 0 then
 				ModPath();
 		DeleteFile(ExpandConstant('{app}\\uninsTasks.txt'))
 
+		// Clean implementation cache
 		if MsgBox(CustomMessage('DeleteCache'), mbConfirmation, MB_YESNO) = IDYES
 		then begin
 			DelTree(ExpandConstant('{localappdata}\0install.net'), true, true, true);
