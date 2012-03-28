@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddTooltip" xml:space="preserve">
+    <value>Zu "Meine Anwendungen" hinzufügen</value>
+  </data>
   <data name="AppRemoveConfirm" xml:space="preserve">
     <value>Sind Sie sicher, dass Sie '{0}' aus Ihrer Anwendungsliste entfernen möchten?
 Dabei werden auch alle Desktopintegrationen für die Anwendung entfernt.</value>
@@ -126,6 +129,9 @@ Dabei werden auch alle Desktopintegrationen für die Anwendung entfernt.</value>
   </data>
   <data name="FailedToRun" xml:space="preserve">
     <value>Konnte {0} nicht starten.</value>
+  </data>
+  <data name="IntegrateTooltip" xml:space="preserve">
+    <value>In das Betriebsystem integrieren</value>
   </data>
   <data name="NoKeepApp" xml:space="preserve">
     <value>Nein
@@ -147,6 +153,9 @@ Zurück zur Eingabe</value>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Möchten Sie die {0} ausgewählten Einträge aus der Liste entfernen?</value>
   </data>
+  <data name="RemoveTooltip" xml:space="preserve">
+    <value>Aus "Meine Anwendungen" entfernen</value>
+  </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Möchten Sie bereits vorgenommene Änderungen speichern?</value>
   </data>
@@ -163,6 +172,12 @@ Zurück zur Eingabe</value>
   </data>
   <data name="SelectCommand" xml:space="preserve">
     <value>Kommando für {0} auswählen</value>
+  </data>
+  <data name="SelectCommandButton" xml:space="preserve">
+    <value>&amp;Kommando auswählen</value>
+  </data>
+  <data name="SelectVersionButton" xml:space="preserve">
+    <value>&amp;Version auswählen</value>
   </data>
   <data name="SelfUpdateAvailable" xml:space="preserve">
     <value>Ein Update auf Zero Install v{0} ist verfügbar. Jetzt installieren? (empfohlen)</value>
@@ -193,6 +208,9 @@ Sie können die Daten die auf dem Server gespeichert sind später ersetzen, inde
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Sind Sie sicher, dass Sie eine unverschlüsselte Verbindung zu einem Sync-Server verwenden möchten?
 Verschlüsselte Verbindungen nutzenen einen https:// Präfix.</value>
+  </data>
+  <data name="UpdateButton" xml:space="preserve">
+    <value>&amp;Aktualisieren</value>
   </data>
   <data name="Working" xml:space="preserve">
     <value>Arbeite...</value>

@@ -67,6 +67,15 @@ namespace ZeroInstall.Central.WinForms.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Add to &quot;my applications&quot;.
+        /// </summary>
+        internal static string AddTooltip {
+            get {
+                return ResourceManager.GetString("AddTooltip", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap App {
             get {
                 object obj = ResourceManager.GetObject("App", resourceCulture);
@@ -99,6 +108,15 @@ namespace ZeroInstall.Central.WinForms.Properties {
         internal static string FailedToRun {
             get {
                 return ResourceManager.GetString("FailedToRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Integrate into operating system.
+        /// </summary>
+        internal static string IntegrateTooltip {
+            get {
+                return ResourceManager.GetString("IntegrateTooltip", resourceCulture);
             }
         }
         
@@ -173,6 +191,15 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove from &quot;my applications&quot;.
+        /// </summary>
+        internal static string RemoveTooltip {
+            get {
+                return ResourceManager.GetString("RemoveTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you wish to save any changes made?.
         /// </summary>
         internal static string SaveChanges {
@@ -216,6 +243,24 @@ namespace ZeroInstall.Central.WinForms.Properties {
         internal static string SelectCommand {
             get {
                 return ResourceManager.GetString("SelectCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select &amp;command.
+        /// </summary>
+        internal static string SelectCommandButton {
+            get {
+                return ResourceManager.GetString("SelectCommandButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select &amp;version.
+        /// </summary>
+        internal static string SelectVersionButton {
+            get {
+                return ResourceManager.GetString("SelectVersionButton", resourceCulture);
             }
         }
         
@@ -301,6 +346,15 @@ namespace ZeroInstall.Central.WinForms.Properties {
         internal static string UnencryptedSyncServer {
             get {
                 return ResourceManager.GetString("UnencryptedSyncServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Update.
+        /// </summary>
+        internal static string UpdateButton {
+            get {
+                return ResourceManager.GetString("UpdateButton", resourceCulture);
             }
         }
         
