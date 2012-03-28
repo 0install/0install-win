@@ -266,6 +266,9 @@ If you select 'No' Zero Install will continue to use the old capabilities.</valu
   <data name="FoundFeeds" xml:space="preserve">
     <value>Found feeds:</value>
   </data>
+  <data name="ImplementationNoSelfUpdate" xml:space="preserve">
+    <value>This Zero Install instance was launched as an implementation by another Zero Install instance. It therefore cannot update itself.</value>
+  </data>
   <data name="IntegrateAppUseGui" xml:space="preserve">
     <value>Please use the GUI version of Zero Install or specify explicit integration options using command-line arguments.</value>
   </data>

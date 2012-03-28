@@ -498,6 +498,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This Zero Install instance was launched as an implementation by another Zero Install instance. It therefore cannot update itself..
+        /// </summary>
+        internal static string ImplementationNoSelfUpdate {
+            get {
+                return ResourceManager.GetString("ImplementationNoSelfUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please use the GUI version of Zero Install or specify explicit integration options using command-line arguments..
         /// </summary>
         internal static string IntegrateAppUseGui {

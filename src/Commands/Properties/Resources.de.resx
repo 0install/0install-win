@@ -266,6 +266,9 @@ Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.
   <data name="FoundFeeds" xml:space="preserve">
     <value>Gefundene Feeds:</value>
   </data>
+  <data name="ImplementationNoSelfUpdate" xml:space="preserve">
+    <value>Diese Zero Install Instanz wurde als Implementierung von einer anderen Zero Install Instanz gestartet. Sie kann sich daher nicht selbst aktualisieren.</value>
+  </data>
   <data name="IntegrateAppUseGui" xml:space="preserve">
     <value>Bitte verwenden Sie die GUI Version von Zero Install oder geben Sie explizite Integrationsoptionen mit Befehlszeilenargumenten an.</value>
   </data>

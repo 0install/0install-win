@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
@@ -91,6 +92,10 @@ namespace ZeroInstall.Commands
         public override int Execute()
         {
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
+
+            // Do not perform self-update if Zero Install itself was launched as a Zero Install implementation
+            string topDir = Path.GetFileName(Locations.InstallBase) ?? Locations.InstallBase;
+            if (topDir.Contains("=")) throw new NotSupportedException(Resources.ImplementationNoSelfUpdate);
 
             Policy.Handler.ShowProgressUI();
             Solve();
