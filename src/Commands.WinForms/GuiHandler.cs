@@ -162,8 +162,12 @@ namespace ZeroInstall.Commands.WinForms
             _guiReady.WaitOne();
             if (!_form.IsHandleCreated) return;
 
-            _form.Invoke((SimpleEventHandler)(() => { if (_form.IsHandleCreated) _form.HideTrayIcon(); }));
-            _form.Invoke((SimpleEventHandler)Application.ExitThread);
+            _form.Invoke((SimpleEventHandler)(() =>
+            {
+                if (_form.IsHandleCreated) _form.HideTrayIcon();
+                Application.ExitThread();
+                _form.Dispose();
+            }));
             _form = null;
             _guiReady.Reset();
         }

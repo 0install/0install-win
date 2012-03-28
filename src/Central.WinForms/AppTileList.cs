@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -47,6 +48,12 @@ namespace ZeroInstall.Central.WinForms
 
         /// <summary><see langword="true"/> if the last tile used <see cref="TileColorLight"/>; <see langword="false"/> if the last tile used <see cref="TileColorDark"/>.</summary>
         private bool _lastTileLight;
+
+        /// <summary><see cref="AppTile"/>s prepared by <see cref="QueueNewTile"/>, waiting to be added to <see cref="_flowLayout"/>.</summary>
+        private readonly List<Control> _appTileQueue = new List<Control>();
+
+        /// <summary>The combined height of all <see cref="AppTile"/>s in <see cref="_appTileQueue"/>.</summary>
+        private int _appTileQueueHeight;
         #endregion
 
         #region Properties
@@ -129,12 +136,12 @@ namespace ZeroInstall.Central.WinForms
 
         #region Access
         /// <summary>
-        /// Adds a new application tile to the list.
+        /// Prepares a new application tile to be added to the list. Will be added in bulk when <see cref="AddQueuedTiles"/> is called.
         /// </summary>
         /// <param name="interfaceID">The interface ID of the application this tile represents.</param>
         /// <param name="appName">The name of the application this tile represents.</param>
         /// <exception cref="C5.DuplicateNotAllowedException">Thrown if the list already contains an <see cref="AppTile"/> with the specified <paramref name="interfaceID"/>.</exception>
-        public AppTile AddTile(string interfaceID, string appName)
+        public AppTile QueueNewTile(string interfaceID, string appName)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
@@ -146,7 +153,7 @@ namespace ZeroInstall.Central.WinForms
 
             if (StringUtils.Contains(appName, _textSearch.Text))
             {
-                _flowLayout.Height += tile.Height;
+                _appTileQueueHeight += tile.Height;
 
                 // Alternate between light and dark tiles
                 tile.BackColor = _lastTileLight ? TileColorDark : TileColorLight;
@@ -154,9 +161,21 @@ namespace ZeroInstall.Central.WinForms
             }
             else tile.Visible = false;
 
-            _flowLayout.Controls.Add(tile);
+            _appTileQueue.Add(tile);
             _tileDictionary.Add(interfaceID, tile);
             return tile;
+        }
+
+        /// <summary>
+        /// Adds all new tiles queued by <see cref="QueueNewTile"/> calls.
+        /// </summary>
+        public void AddQueuedTiles()
+        {
+            _flowLayout.Height += _appTileQueueHeight;
+            _appTileQueueHeight = 0;
+
+            _flowLayout.Controls.AddRange(_appTileQueue.ToArray());
+            _appTileQueue.Clear();
         }
 
         /// <summary>
@@ -177,16 +196,20 @@ namespace ZeroInstall.Central.WinForms
         /// Removes an application tile from the list.
         /// </summary>
         /// <param name="tile">The tile to remove.</param>
+        /// <remarks>Disposes the <see cref="AppTile"/> (it cannot be reused).</remarks>
         public void RemoveTile(AppTile tile)
         {
             #region Sanity checks
             if (tile == null) throw new ArgumentNullException("tile");
             #endregion
 
+            // Flush queue first, to allow propper recoloring
+            AddQueuedTiles();
+
             _flowLayout.Controls.Remove(tile);
             if (tile.Visible) _flowLayout.Height -= tile.Height;
-
             _tileDictionary.Remove(tile.InterfaceID);
+            tile.Dispose();
 
             RecolorTiles();
         }
@@ -210,6 +233,9 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         public void Clear()
         {
+            _appTileQueue.Clear();
+            _appTileQueueHeight = 0;
+
             _flowLayout.Controls.Clear();
             _flowLayout.Height = 0;
 
@@ -246,6 +272,9 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         private void RefilterTiles()
         {
+            _scrollPanel.SuspendLayout();
+            _flowLayout.SuspendLayout();
+
             bool needsRecolor = false;
             foreach (var tile in _tileDictionary.Values)
             {
@@ -263,6 +292,9 @@ namespace ZeroInstall.Central.WinForms
             }
 
             if (needsRecolor) RecolorTiles();
+
+            _scrollPanel.ResumeLayout();
+            _flowLayout.ResumeLayout();
         }
 
         /// <summary>

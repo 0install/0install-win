@@ -337,15 +337,34 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonSyncSetup_Click(object sender, EventArgs e)
         {
-            new SyncConfig.SetupWizard().ShowDialog(this);
-            LoadConfig();
+            switch (Msg.YesNoCancel(this, Resources.SaveChanges, MsgSeverity.Info, Resources.SaveChangesYes, Resources.SaveChangesNo))
+            {
+                case DialogResult.Yes:
+                    SaveConfig();
+                    break;
+                case DialogResult.Cancel:
+                    return;
+            }
+
+            using (var wizard = new SyncConfig.SetupWizard())
+                wizard.ShowDialog(this);
+            Close();
         }
 
         private void buttonSyncReset_Click(object sender, EventArgs e)
         {
-            SaveConfig();
-            new SyncConfig.ResetWizard().ShowDialog(this);
-            LoadConfig();
+            switch (Msg.YesNoCancel(this, Resources.SaveChanges, MsgSeverity.Info, Resources.SaveChangesYes, Resources.SaveChangesNo))
+            {
+                case DialogResult.Yes:
+                    SaveConfig();
+                    break;
+                case DialogResult.Cancel:
+                    return;
+            }
+
+            using (var wizard = new SyncConfig.ResetWizard())
+                wizard.ShowDialog(this);
+            Close();
         }
         #endregion
 

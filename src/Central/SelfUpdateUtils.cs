@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
@@ -25,11 +26,26 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Central
 {
     /// <summary>
-    /// Helper methods for updating installed applications.
+    /// Provides methods for updating Zero Install itself.
     /// </summary>
-    public static class UpdateUtils
+    public static class SelfUpdateUtils
     {
-        #region Self-update
+        /// <summary>
+        /// <see langword="true"/> if <see cref="Check"/> should be called automatically.
+        /// </summary>
+        public static bool AutoActive
+        {
+            get
+            {
+                // Do not check for updates if Zero Install itself was launched as a Zero Install implementation
+                string topDir = Path.GetFileName(Locations.InstallBase) ?? Locations.InstallBase;
+                if (topDir.Contains("=")) return false;
+
+                // Flag file to supress check
+                return !File.Exists(Path.Combine(Locations.PortableBase, "_no_self_update_check"));
+            }
+        }
+
         /// <summary>
         /// Checks if updates for Zero Install itself are available.
         /// </summary>
@@ -38,7 +54,7 @@ namespace ZeroInstall.Central
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if an operation failed due to insufficient rights.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
-        public static ImplementationVersion CheckSelfUpdate()
+        public static ImplementationVersion Check()
         {
             var policy = Policy.CreateDefault(new SilentHandler());
             if (policy.Config.EffectiveNetworkUse == NetworkLevel.Offline) return null;
@@ -54,6 +70,5 @@ namespace ZeroInstall.Central
             var newVersion = selections.Implementations[0].Version;
             return (newVersion > currentVersion) ? newVersion : null;
         }
-        #endregion
     }
 }

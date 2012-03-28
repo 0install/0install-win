@@ -68,7 +68,7 @@ namespace ZeroInstall.Central.WinForms
 
             Shown += delegate
             {
-                SelfUpdateCheckAsync();
+                if (SelfUpdateUtils.AutoActive) selfUpdateWorker.RunWorkerAsync();
                 LoadAppList();
                 LoadCatalogCached();
                 LoadCatalogAsync();
@@ -99,26 +99,11 @@ namespace ZeroInstall.Central.WinForms
         //--------------------//
 
         #region Self-update
-        /// <summary>
-        /// Runs a check for updates for Zero Install itself in the background.
-        /// </summary>
-        private void SelfUpdateCheckAsync()
-        {
-            // Flag file to supress check
-            if (File.Exists(Path.Combine(Locations.PortableBase, "_no_self_update_check"))) return;
-
-            // Don't check for updates if Zero Install itself was launched as a Zero Install implementation
-            string topDir = Path.GetFileName(Locations.InstallBase) ?? Locations.InstallBase;
-            if (topDir.Contains("=")) return;
-
-            if (!selfUpdateWorker.IsBusy) selfUpdateWorker.RunWorkerAsync();
-        }
-
         private void selfUpdateWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
-                e.Result = UpdateUtils.CheckSelfUpdate();
+                e.Result = SelfUpdateUtils.Check();
             }
                 #region Error handling
             catch (OperationCanceledException)
@@ -216,7 +201,7 @@ namespace ZeroInstall.Central.WinForms
                     if (string.IsNullOrEmpty(addedEntry.InterfaceID) || addedEntry.Name == null) return;
                     try
                     {
-                        var tile = appList.AddTile(addedEntry.InterfaceID, addedEntry.Name);
+                        var tile = appList.QueueNewTile(addedEntry.InterfaceID, addedEntry.Name);
                         tile.InAppList = true;
                         feedsToLoad.Add(tile, addedEntry.InterfaceID);
 
@@ -243,6 +228,7 @@ namespace ZeroInstall.Central.WinForms
                     var catalogTile = catalogList.GetTile(removedEntry.InterfaceID);
                     if (catalogTile != null) catalogTile.InAppList = false;
                 });
+            appList.AddQueuedTiles();
             _currentAppList = newAppList;
 
             // Load additional data from feeds in background
@@ -252,6 +238,7 @@ namespace ZeroInstall.Central.WinForms
         private void appListWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             var policy = Policy.CreateDefault(new SilentHandler());
+            policy.Config.NetworkUse = NetworkLevel.Minimal; // Don't update already cached feeds, even if they are stale
 
             var feedsToLoad = (IDictionary<AppTile, string>)e.Argument;
             foreach (var pair in feedsToLoad)
@@ -265,7 +252,7 @@ namespace ZeroInstall.Central.WinForms
 
                     // Send it to the UI thread
                     var tile = pair.Key;
-                    Invoke((SimpleEventHandler)(() => tile.Feed = feed));
+                    BeginInvoke((SimpleEventHandler)(() => tile.Feed = feed));
                 }
                     #region Error handling
                 catch (OperationCanceledException)
@@ -292,7 +279,6 @@ namespace ZeroInstall.Central.WinForms
                 }
                 #endregion
             }
-            Invoke((SimpleEventHandler)(() => catalogList.ShowCategories()));
         }
 
         protected override void WndProc(ref Message m)
@@ -339,12 +325,13 @@ namespace ZeroInstall.Central.WinForms
 
             foreach (var feed in _currentCatalog.Feeds)
             {
-                var tile = catalogList.AddTile(feed.UriString, feed.Name);
+                var tile = catalogList.QueueNewTile(feed.UriString, feed.Name);
                 tile.Feed = feed;
 
                 // Update "added" status of tile
                 tile.InAppList = _currentAppList.ContainsEntry(feed.UriString);
             }
+            catalogList.AddQueuedTiles();
             catalogList.ShowCategories();
         }
 
@@ -404,7 +391,7 @@ namespace ZeroInstall.Central.WinForms
                         if (string.IsNullOrEmpty(addedFeed.UriString) || addedFeed.Name == null) return;
                         try
                         {
-                            var tile = catalogList.AddTile(addedFeed.UriString, addedFeed.Name);
+                            var tile = catalogList.QueueNewTile(addedFeed.UriString, addedFeed.Name);
                             tile.Feed = addedFeed;
 
                             // Update "added" status of tile
@@ -418,6 +405,7 @@ namespace ZeroInstall.Central.WinForms
                         #endregion
                     },
                     removedFeed => catalogList.RemoveTile(removedFeed.UriString));
+                catalogList.AddQueuedTiles();
                 catalogList.ShowCategories();
                 _currentCatalog = newCatalog;
             }
@@ -434,7 +422,10 @@ namespace ZeroInstall.Central.WinForms
         {
             var config = Config.Load();
             if (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey))
-                new SyncConfig.SetupWizard().ShowDialog(this);
+            {
+                using (var wizard = new SyncConfig.SetupWizard())
+                    wizard.ShowDialog(this);
+            }
             else ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"sync"}));
         }
 
@@ -453,7 +444,8 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonOptions_Click(object sender, EventArgs e)
         {
-            new OptionsDialog().ShowDialog(this);
+            using (var dialog = new OptionsDialog())
+                dialog.ShowDialog(this);
         }
 
         private void buttonCacheManagement_Click(object sender, EventArgs e)
