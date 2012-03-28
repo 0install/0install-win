@@ -46,10 +46,6 @@ namespace ZeroInstall.Central.WinForms
 
         /// <summary>The icon cache used to retrieve icons specified in <see cref="Feed"/>; may be <see langword="null"/>.</summary>
         private readonly IIconCache _iconCache;
-
-        /// <summary>A <see cref="Feed"/> additional metadata for the application was retrieved from.</summary>
-        
-        private static readonly Bitmap _buttonAddImage = Resources.AddButton, _buttonRemoveImage = Resources.RemoveButton, _buttonIntegrateImage = Resources.SetupButton;
         #endregion
 
         #region Properties
@@ -127,6 +123,10 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region Constructor
+        private static readonly Bitmap _addButton = Resources.AddButton, _removeButton = Resources.RemoveButton, _integrateButton = Resources.SetupButton;
+        private static readonly string _addTooltip = Resources.AddTooltip, _removeTooltip = Resources.RemoveTooltip, _integrateTooltip = Resources.IntegrateTooltip;
+        private static readonly string _selectCommandButton = Resources.SelectCommandButton, _selectVersionButton = Resources.SelectVersionButton, _updateButton = Resources.UpdateButton;
+
         /// <summary>
         /// Creates a new application tile.
         /// </summary>
@@ -141,9 +141,15 @@ namespace ZeroInstall.Central.WinForms
             #endregion
 
             InitializeComponent();
-            buttonAdd.Image = _buttonAddImage;
-            buttonRemove.Image = _buttonRemoveImage;
-            buttonIntegrate.Image = _buttonIntegrateImage;
+            buttonAdd.Image = _addButton;
+            buttonRemove.Image = _removeButton;
+            buttonIntegrate.Image = _integrateButton;
+            toolTip.SetToolTip(buttonAdd, _addTooltip);
+            toolTip.SetToolTip(buttonRemove, _removeTooltip);
+            toolTip.SetToolTip(buttonIntegrate, _integrateTooltip);
+            buttonSelectCommand.Text = _selectCommandButton;
+            buttonSelectVersion.Text = _selectVersionButton;
+            buttonUpdate.Text = _updateButton;
 
             InterfaceID = interfaceID;
             labelName.Text = appName;

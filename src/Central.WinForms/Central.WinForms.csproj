@@ -219,13 +219,6 @@
     <None Include="Resources\Logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AppTile.de.resx">
-      <DependentUpon>AppTile.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AppTile.resx">
-      <DependentUpon>AppTile.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.de.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
