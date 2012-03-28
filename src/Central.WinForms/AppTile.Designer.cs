@@ -53,7 +53,6 @@
             // pictureBoxIcon
             // 
             resources.ApplyResources(this.pictureBoxIcon, "pictureBoxIcon");
-            this.pictureBoxIcon.Image = global::ZeroInstall.Central.WinForms.Properties.Resources.App;
             this.pictureBoxIcon.Name = "pictureBoxIcon";
             this.pictureBoxIcon.TabStop = false;
             // 
@@ -113,7 +112,6 @@
             // buttonAdd
             // 
             resources.ApplyResources(this.buttonAdd, "buttonAdd");
-            this.buttonAdd.Image = global::ZeroInstall.Central.WinForms.Properties.Resources.AddButton;
             this.buttonAdd.Name = "buttonAdd";
             this.toolTip.SetToolTip(this.buttonAdd, resources.GetString("buttonAdd.ToolTip"));
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -139,7 +137,6 @@
             // buttonRemove
             // 
             resources.ApplyResources(this.buttonRemove, "buttonRemove");
-            this.buttonRemove.Image = global::ZeroInstall.Central.WinForms.Properties.Resources.RemoveButton;
             this.buttonRemove.Name = "buttonRemove";
             this.toolTip.SetToolTip(this.buttonRemove, resources.GetString("buttonRemove.ToolTip"));
             this.buttonRemove.UseVisualStyleBackColor = true;
@@ -148,7 +145,6 @@
             // buttonIntegrate
             // 
             resources.ApplyResources(this.buttonIntegrate, "buttonIntegrate");
-            this.buttonIntegrate.Image = global::ZeroInstall.Central.WinForms.Properties.Resources.SetupButton;
             this.buttonIntegrate.Name = "buttonIntegrate";
             this.toolTip.SetToolTip(this.buttonIntegrate, resources.GetString("buttonIntegrate.ToolTip"));
             this.buttonIntegrate.UseVisualStyleBackColor = true;

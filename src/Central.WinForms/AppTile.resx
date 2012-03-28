@@ -162,9 +162,6 @@
   <data name="labelName.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="labelName.Text" xml:space="preserve">
-    <value>(Name)</value>
-  </data>
   <data name="&gt;&gt;labelName.Name" xml:space="preserve">
     <value>labelName</value>
   </data>
@@ -188,9 +185,6 @@
   </data>
   <data name="labelSummary.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
-  </data>
-  <data name="labelSummary.Text" xml:space="preserve">
-    <value>(Summary)</value>
   </data>
   <data name="&gt;&gt;labelSummary.Name" xml:space="preserve">
     <value>labelSummary</value>
@@ -241,7 +235,7 @@
     <value>buttonRun</value>
   </data>
   <data name="&gt;&gt;buttonRun.Type" xml:space="preserve">
-    <value>Common.Controls.SplitButton, Common, Version=1.5.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>Common.Controls.SplitButton, Common, Version=1.6.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;buttonRun.Parent" xml:space="preserve">
     <value>$this</value>
@@ -355,7 +349,7 @@
     <value>trackingProgressBar</value>
   </data>
   <data name="&gt;&gt;trackingProgressBar.Type" xml:space="preserve">
-    <value>Common.Controls.TrackingProgressBar, Common, Version=1.5.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>Common.Controls.TrackingProgressBar, Common, Version=1.6.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;trackingProgressBar.Parent" xml:space="preserve">
     <value>$this</value>
@@ -418,7 +412,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonIntegrate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>330, 31</value>
+    <value>330, 32</value>
   </data>
   <data name="buttonIntegrate.Size" type="System.Drawing.Size, System.Drawing">
     <value>31, 25</value>

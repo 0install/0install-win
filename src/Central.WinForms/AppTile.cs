@@ -48,6 +48,8 @@ namespace ZeroInstall.Central.WinForms
         private readonly IIconCache _iconCache;
 
         /// <summary>A <see cref="Feed"/> additional metadata for the application was retrieved from.</summary>
+        
+        private static readonly Bitmap _buttonAddImage = Resources.AddButton, _buttonRemoveImage = Resources.RemoveButton, _buttonIntegrateImage = Resources.SetupButton;
         #endregion
 
         #region Properties
@@ -74,14 +76,18 @@ namespace ZeroInstall.Central.WinForms
                 labelSummary.Text = value.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture);
 
                 if (_iconCache != null)
-                { // Load application icon in background
+                {
                     try
                     {
+                        // Load application icon in background
                         var icon = value.GetIcon(Icon.MimeTypePng, null);
                         iconDownloadWorker.RunWorkerAsync(icon.Location);
                     }
                     catch (KeyNotFoundException)
-                    {}
+                    {
+                        // Fall back to default icon
+                        pictureBoxIcon.Image = Resources.App;
+                    }
                 }
             }
         }
@@ -135,6 +141,9 @@ namespace ZeroInstall.Central.WinForms
             #endregion
 
             InitializeComponent();
+            buttonAdd.Image = _buttonAddImage;
+            buttonRemove.Image = _buttonRemoveImage;
+            buttonIntegrate.Image = _buttonIntegrateImage;
 
             InterfaceID = interfaceID;
             labelName.Text = appName;

@@ -93,11 +93,13 @@ namespace Common.Controls
         /// <summary>Prevents <see cref="OnTextChanged"/> from raising any events.</summary>
         private bool _suppressTextChangedEvent;
 
+        private static readonly Bitmap _buttonClearImage = Resources.ClearButton;
+
         private readonly PictureBox _buttonClear = new PictureBox
         {
             Visible = false, Cursor = Cursors.Default,
             Location = new Point(79, -1), Size = new Size(18, 18), Anchor = AnchorStyles.Right,
-            BackColor = SystemColors.Window, BackgroundImageLayout = ImageLayout.Center, BackgroundImage = Resources.ClearButton
+            BackColor = SystemColors.Window, BackgroundImageLayout = ImageLayout.Center, BackgroundImage = _buttonClearImage
         };
         #endregion
 
