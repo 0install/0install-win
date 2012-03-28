@@ -43,13 +43,11 @@ namespace Common.Controls
             // infoLabel
             // 
             resources.ApplyResources(this.infoLabel, "infoLabel");
-            this.infoLabel.BackColor = System.Drawing.Color.Transparent;
             this.infoLabel.Name = "infoLabel";
             // 
             // pictureBox
             // 
             resources.ApplyResources(this.pictureBox, "pictureBox");
-            this.pictureBox.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox.Image = global::Common.Properties.Resources.Warning;
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.TabStop = false;

@@ -245,6 +245,7 @@ namespace ZeroInstall.Central.WinForms
                 });
             _currentAppList = newAppList;
 
+            // Load additional data from feeds in background
             appListWorker.RunWorkerAsync(feedsToLoad);
         }
 
