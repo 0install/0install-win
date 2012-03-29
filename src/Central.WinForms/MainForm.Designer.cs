@@ -31,9 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControlApps = new System.Windows.Forms.TabControl();
             this.tabPageAppList = new System.Windows.Forms.TabPage();
-            this.buttonAddOtherApp = new System.Windows.Forms.Button();
+            this.buttonSync = new System.Windows.Forms.Button();
             this.appList = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
+            this.buttonAddOtherApp = new System.Windows.Forms.Button();
             this.labelLoadingCatalog = new System.Windows.Forms.Label();
             this.buttonRefreshCatalog = new System.Windows.Forms.Button();
             this.catalogList = new ZeroInstall.Central.WinForms.AppTileList();
@@ -45,7 +46,6 @@
             this.catalogWorker = new System.ComponentModel.BackgroundWorker();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.appListWorker = new System.ComponentModel.BackgroundWorker();
-            this.buttonSync = new System.Windows.Forms.Button();
             this.tabControlApps.SuspendLayout();
             this.tabPageAppList.SuspendLayout();
             this.tabPageCatalog.SuspendLayout();
@@ -62,18 +62,18 @@
             // 
             // tabPageAppList
             // 
-            this.tabPageAppList.Controls.Add(this.buttonAddOtherApp);
+            this.tabPageAppList.Controls.Add(this.buttonSync);
             this.tabPageAppList.Controls.Add(this.appList);
             resources.ApplyResources(this.tabPageAppList, "tabPageAppList");
             this.tabPageAppList.Name = "tabPageAppList";
             this.tabPageAppList.UseVisualStyleBackColor = true;
             // 
-            // buttonAddOtherApp
+            // buttonSync
             // 
-            resources.ApplyResources(this.buttonAddOtherApp, "buttonAddOtherApp");
-            this.buttonAddOtherApp.Name = "buttonAddOtherApp";
-            this.buttonAddOtherApp.UseVisualStyleBackColor = true;
-            this.buttonAddOtherApp.Click += new System.EventHandler(this.buttonAddOtherApp_Click);
+            resources.ApplyResources(this.buttonSync, "buttonSync");
+            this.buttonSync.Name = "buttonSync";
+            this.buttonSync.UseVisualStyleBackColor = true;
+            this.buttonSync.Click += new System.EventHandler(this.buttonSync_Click);
             // 
             // appList
             // 
@@ -82,12 +82,20 @@
             // 
             // tabPageCatalog
             // 
+            this.tabPageCatalog.Controls.Add(this.buttonAddOtherApp);
             this.tabPageCatalog.Controls.Add(this.labelLoadingCatalog);
             this.tabPageCatalog.Controls.Add(this.buttonRefreshCatalog);
             this.tabPageCatalog.Controls.Add(this.catalogList);
             resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
             this.tabPageCatalog.Name = "tabPageCatalog";
             this.tabPageCatalog.UseVisualStyleBackColor = true;
+            // 
+            // buttonAddOtherApp
+            // 
+            resources.ApplyResources(this.buttonAddOtherApp, "buttonAddOtherApp");
+            this.buttonAddOtherApp.Name = "buttonAddOtherApp";
+            this.buttonAddOtherApp.UseVisualStyleBackColor = true;
+            this.buttonAddOtherApp.Click += new System.EventHandler(this.buttonAddOtherApp_Click);
             // 
             // labelLoadingCatalog
             // 
@@ -154,19 +162,11 @@
             this.appListWorker.WorkerSupportsCancellation = true;
             this.appListWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.appListWorker_DoWork);
             // 
-            // buttonSync
-            // 
-            resources.ApplyResources(this.buttonSync, "buttonSync");
-            this.buttonSync.Name = "buttonSync";
-            this.buttonSync.UseVisualStyleBackColor = true;
-            this.buttonSync.Click += new System.EventHandler(this.buttonSync_Click);
-            // 
             // MainForm
             // 
             this.AllowDrop = true;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             resources.ApplyResources(this, "$this");
-            this.Controls.Add(this.buttonSync);
             this.Controls.Add(this.pictureBoxLogo);
             this.Controls.Add(this.buttonOptions);
             this.Controls.Add(this.labelVersion);

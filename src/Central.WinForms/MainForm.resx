@@ -121,36 +121,36 @@
   <data name="tabControlApps.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="buttonAddOtherApp.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+  <data name="buttonSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
-  <data name="buttonAddOtherApp.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="buttonSync.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonAddOtherApp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>320, 334</value>
+  <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 334</value>
   </data>
-  <data name="buttonAddOtherApp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>167, 23</value>
+  <data name="buttonSync.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 23</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonAddOtherApp.TabIndex" type="System.Int32, mscorlib">
+  <data name="buttonSync.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="buttonAddOtherApp.Text" xml:space="preserve">
-    <value>&amp;Add other application</value>
+  <data name="buttonSync.Text" xml:space="preserve">
+    <value>&amp;Sync</value>
   </data>
-  <data name="&gt;&gt;buttonAddOtherApp.Name" xml:space="preserve">
-    <value>buttonAddOtherApp</value>
+  <data name="&gt;&gt;buttonSync.Name" xml:space="preserve">
+    <value>buttonSync</value>
   </data>
-  <data name="&gt;&gt;buttonAddOtherApp.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonSync.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonAddOtherApp.Parent" xml:space="preserve">
+  <data name="&gt;&gt;buttonSync.Parent" xml:space="preserve">
     <value>tabPageAppList</value>
   </data>
-  <data name="&gt;&gt;buttonAddOtherApp.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonSync.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="appList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -204,6 +204,36 @@
   <data name="&gt;&gt;tabPageAppList.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="buttonAddOtherApp.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonAddOtherApp.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonAddOtherApp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 334</value>
+  </data>
+  <data name="buttonAddOtherApp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 23</value>
+  </data>
+  <data name="buttonAddOtherApp.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="buttonAddOtherApp.Text" xml:space="preserve">
+    <value>&amp;Add other application</value>
+  </data>
+  <data name="&gt;&gt;buttonAddOtherApp.Name" xml:space="preserve">
+    <value>buttonAddOtherApp</value>
+  </data>
+  <data name="&gt;&gt;buttonAddOtherApp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAddOtherApp.Parent" xml:space="preserve">
+    <value>tabPageCatalog</value>
+  </data>
+  <data name="&gt;&gt;buttonAddOtherApp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="labelLoadingCatalog.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
@@ -212,6 +242,9 @@
   </data>
   <data name="labelLoadingCatalog.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="labelLoadingCatalog.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="labelLoadingCatalog.Location" type="System.Drawing.Point, System.Drawing">
     <value>300, 337</value>
@@ -238,7 +271,7 @@
     <value>tabPageCatalog</value>
   </data>
   <data name="&gt;&gt;labelLoadingCatalog.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="buttonRefreshCatalog.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -268,7 +301,7 @@
     <value>tabPageCatalog</value>
   </data>
   <data name="&gt;&gt;buttonRefreshCatalog.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="catalogList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -292,7 +325,7 @@
     <value>tabPageCatalog</value>
   </data>
   <data name="&gt;&gt;catalogList.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="tabPageCatalog.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -340,7 +373,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tabControlApps.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="buttonOptions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -370,7 +403,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonOptions.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="buttonCacheManagement.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -379,10 +412,10 @@
     <value>NoControl</value>
   </data>
   <data name="buttonCacheManagement.Location" type="System.Drawing.Point, System.Drawing">
-    <value>109, 467</value>
+    <value>13, 467</value>
   </data>
   <data name="buttonCacheManagement.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 23</value>
+    <value>150, 23</value>
   </data>
   <data name="buttonCacheManagement.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -400,7 +433,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonCacheManagement.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="buttonHelp.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -430,7 +463,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonHelp.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="labelVersion.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -463,7 +496,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelVersion.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <metadata name="selfUpdateWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>148, 17</value>
@@ -499,41 +532,11 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pictureBoxLogo.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <metadata name="appListWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>293, 19</value>
   </metadata>
-  <data name="buttonSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonSync.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 467</value>
-  </data>
-  <data name="buttonSync.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 23</value>
-  </data>
-  <data name="buttonSync.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="buttonSync.Text" xml:space="preserve">
-    <value>&amp;Sync</value>
-  </data>
-  <data name="&gt;&gt;buttonSync.Name" xml:space="preserve">
-    <value>buttonSync</value>
-  </data>
-  <data name="&gt;&gt;buttonSync.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonSync.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonSync.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
