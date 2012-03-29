@@ -353,7 +353,7 @@ namespace ZeroInstall.Central.WinForms
             try
             {
                 // ToDo: Merge multiple catalogs from custom sources
-                var catalog = Catalog.Load(new MemoryStream(new WebClientTimeout(10000).DownloadData("http://0install.de/catalog/")));
+                var catalog = Catalog.Load(new MemoryStream(new WebClientTimeout(12000).DownloadData("http://0install.de/catalog/"))); // 12 seconds timeout
                 catalog.Save(Path.Combine(Locations.GetCacheDirPath("0install.net"), "catalog.xml"));
 
                 e.Result = catalog;

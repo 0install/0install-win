@@ -68,7 +68,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             request.Method = "HEAD";
             request.Credentials = new NetworkCredential(credentials.Username, credentials.Password);
             request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
-            request.Timeout = 10000; // 10 seconds
+            request.Timeout = 12000; // 12 seconds timeout
 
             try
             {

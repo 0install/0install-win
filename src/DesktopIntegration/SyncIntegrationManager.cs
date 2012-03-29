@@ -115,6 +115,40 @@ namespace ZeroInstall.DesktopIntegration
                 _appListLastSync.Save(AppListPath + AppListLastSyncSuffix);
             }
         }
+
+        /// <summary>
+        /// Creates a new sync manager for a custom <see cref="AppList"/> file. Used for testing.
+        /// </summary>
+        /// <param name="systemWide">Apply operations system-wide instead of just for the current user.</param>
+        /// <param name="appListPath">The storage location of the <see cref="AppList"/> file.</param>
+        /// <param name="syncServer">The base URL of the sync server.</param>
+        /// <param name="username">The username to authenticate with against the <paramref name="syncServer"/>.</param>
+        /// <param name="password">The password to authenticate with against the <paramref name="syncServer"/>.</param>
+        /// <param name="cryptoKey">The local key used to encrypt data before sending it to the <paramref name="syncServer"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        public SyncIntegrationManager(bool systemWide, string appListPath, Uri syncServer, string username, string password, string cryptoKey, ITaskHandler handler)
+            : base(systemWide, appListPath, handler)
+        {
+            #region Sanity checks
+            if (syncServer == null) throw new ArgumentNullException("syncServer");
+            #endregion
+
+            if (!syncServer.ToString().EndsWith("/")) syncServer = new Uri(syncServer + "/"); // Ensure the server URI references a directory
+            _syncServer = syncServer;
+            _username = username;
+            _password = password;
+            _cryptoKey = cryptoKey;
+
+            if (File.Exists(AppListPath + AppListLastSyncSuffix)) _appListLastSync = AppList.Load(AppListPath + AppListLastSyncSuffix);
+            else
+            {
+                _appListLastSync = new AppList();
+                _appListLastSync.Save(AppListPath + AppListLastSyncSuffix);
+            }
+        }
         #endregion
 
         //--------------------//
@@ -139,12 +173,13 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             var appListUri = new Uri(_syncServer, new Uri("app-list", UriKind.Relative));
-            using (var webClient = new WebClientTimeout(10000) // 10 seconds timeout
+            using (var webClient = new WebClientTimeout(12000) // 12 seconds timeout
             {
                 Credentials = new NetworkCredential(_username, _password),
                 CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)
             })
             {
+                bool timeoutRetryPerformed = false;
                 Retry:
                 byte[] appListData;
                 try
@@ -158,14 +193,25 @@ namespace ZeroInstall.DesktopIntegration
                     #region Error handling
                 catch (WebException ex)
                 {
-                    // Wrap exception to add context information
-                    if (ex.Status == WebExceptionStatus.ProtocolError)
+                    switch (ex.Status)
                     {
-                        var response = ex.Response as HttpWebResponse;
-                        if (response != null && response.StatusCode == HttpStatusCode.Unauthorized)
-                            throw new WebException(Resources.SyncCredentialsInvalid, ex);
-                    }
+                        case WebExceptionStatus.ProtocolError:
+                            // Wrap exception to add context information
+                            var response = ex.Response as HttpWebResponse;
+                            if (response != null && response.StatusCode == HttpStatusCode.Unauthorized)
+                                throw new WebException(Resources.SyncCredentialsInvalid, ex);
+                            break;
 
+                        case WebExceptionStatus.Timeout:
+                            // In case of timeout retry exactly once
+                            if (!timeoutRetryPerformed)
+                            {
+                                timeoutRetryPerformed = true;
+                                Handler.CancellationToken.ThrowIfCancellationRequested();
+                                goto Retry;
+                            }
+                            break;
+                    }
                     throw;
                 }
                 #endregion

@@ -64,7 +64,7 @@ namespace Common.Net
         public Uri FileUri { get; private set; }
 
         /// <summary>
-        /// Wait for ten seconds every time before finishing a response.
+        /// Wait for twenty seconds every time before finishing a response.
         /// </summary>
         public bool Slow { get; set; }
         #endregion
@@ -150,7 +150,7 @@ namespace Common.Net
                     if (context.Request.RawUrl == "/" + _resourceName)
                     {
                         // Delay finishing the file transfer if Slow-mode is active
-                        if (Slow) Thread.Sleep(10000);
+                        if (Slow) Thread.Sleep(20000);
 
                         context.Response.ContentLength64 = _fileContent.Length;
                         StreamUtils.Copy(_fileContent, context.Response.OutputStream);
