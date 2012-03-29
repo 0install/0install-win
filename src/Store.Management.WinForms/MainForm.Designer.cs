@@ -153,7 +153,6 @@ namespace ZeroInstall.Store.Management.WinForms
             this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.buttonClose);
             this.Name = "MainForm";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.splitContainer.Panel2.ResumeLayout(false);
             this.splitContainer.ResumeLayout(false);
             this.tableLayoutPanelSize.ResumeLayout(false);

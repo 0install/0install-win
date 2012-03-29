@@ -48,21 +48,14 @@ namespace ZeroInstall.Store.Management.WinForms
         public MainForm()
         {
             InitializeComponent();
+            if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
+            Shown += delegate { RefreshList(); };
 
             HandleCreated += delegate { Program.ConfigureTaskbar(this, Text, null, null); };
 
             _treeView.SelectedEntryChanged += OnSelectedEntryChanged;
             _treeView.CheckedEntriesChanged += OnCheckedEntriesChanged;
             splitContainer.Panel1.Controls.Add(_treeView);
-        }
-        #endregion
-
-        #region Load
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
-
-            RefreshList();
         }
         #endregion
 
