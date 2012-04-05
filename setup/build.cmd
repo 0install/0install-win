@@ -18,9 +18,7 @@ if not exist "%ProgramFiles_temp%\Inno Setup 5" (
 )
 path %ProgramFiles_temp%\Inno Setup 5;%path%
 
-
-
-echo Building Inno Setup...
+echo Building installer...
 iscc /Q setup.iss
 if errorlevel 1 pause
 
@@ -29,18 +27,18 @@ if "%2"=="+run" "%TargetDir%\%SetupEXE%" /silent
 if "%3"=="+run" "%TargetDir%\%SetupEXE%" /silent
 if "%4"=="+run" "%TargetDir%\%SetupEXE%" /silent
 
-
 echo Building Backend archive...
 if exist "%TargetDir%\zero-install-backend.zip" del "%TargetDir%\zero-install-backend.zip"
-cd "%~dp0..\bundled"
+cd /d "%~dp0..\bundled"
 zip -9 -r "%TargetDir%\zero-install-backend.zip" . > NUL
-cd "%~dp0..\build\Backend\Release"
+cd /d "%~dp0..\build\Backend\Release"
 zip -9 -r "%TargetDir%\zero-install-backend.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* > NUL
 if errorlevel 1 pause
 zip -9 -j "%TargetDir%\zero-install-backend.zip" "%~dp0..\lgpl.txt" > NUL
 if errorlevel 1 pause
 zip -9 -j "%TargetDir%\zero-install-backend.zip" "%~dp0..\3rd party code.txt" > NUL
 if errorlevel 1 pause
+cd /d "%~dp0"
 
 echo Building Frontend archive...
 if exist "%TargetDir%\zero-install.zip" del "%TargetDir%\zero-install.zip"

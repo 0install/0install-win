@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System.Collections.Generic;
 using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
 using NUnit.Framework;
@@ -32,6 +33,7 @@ namespace Common.Storage
     [TestFixture]
     public class XmlStorageTest
     {
+        // ReSharper disable MemberCanBePrivate.Global
         /// <summary>
         /// A data-structure used to test serialization.
         /// </summary>
@@ -40,8 +42,10 @@ namespace Common.Storage
             public string Data { get; set; }
         }
 
+        // ReSharper restore MemberCanBePrivate.Global
+
         /// <summary>
-        /// Ensures <see cref="XmlStorage.Save{T}(System.IO.Stream,T)"/> and <see cref="XmlStorage.Load{T}(System.IO.Stream)"/> work correctly.
+        /// Ensures <see cref="XmlStorage.Save{T}(Stream,T)"/> and <see cref="XmlStorage.Load{T}(Stream)"/> work correctly.
         /// </summary>
         [Test]
         public void TestFile()
@@ -59,7 +63,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Ensures <see cref="XmlStorage.Save{T}(System.IO.Stream,T)"/> and <see cref="XmlStorage.Load{T}(System.IO.Stream)"/> work correctly with relative paths.
+        /// Ensures <see cref="XmlStorage.Save{T}(Stream,T)"/> and <see cref="XmlStorage.Load{T}(Stream)"/> work correctly with relative paths.
         /// </summary>
         [Test]
         public void TestFileRelative()
@@ -77,7 +81,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Ensures <see cref="XmlStorage.ToZip{T}(System.IO.Stream,T,string,System.Collections.Generic.IEnumerable{Common.Storage.EmbeddedFile})"/> and <see cref="XmlStorage.FromZip{T}(System.IO.Stream,string,System.Collections.Generic.IEnumerable{Common.Storage.EmbeddedFile})"/> work correctly with no password.
+        /// Ensures <see cref="XmlStorage.ToZip{T}(Stream,T,string,IEnumerable{EmbeddedFile})"/> and <see cref="XmlStorage.FromZip{T}(Stream,string,IEnumerable{EmbeddedFile})"/> work correctly with no password.
         /// </summary>
         [Test]
         public void TestZipNoPassword()
@@ -94,7 +98,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Ensures <see cref="XmlStorage.ToZip{T}(System.IO.Stream,T,string,System.Collections.Generic.IEnumerable{Common.Storage.EmbeddedFile})"/> and <see cref="XmlStorage.FromZip{T}(System.IO.Stream,string,System.Collections.Generic.IEnumerable{Common.Storage.EmbeddedFile})"/> work correctly with a password.
+        /// Ensures <see cref="XmlStorage.ToZip{T}(Stream,T,string,IEnumerable{EmbeddedFile})"/> and <see cref="XmlStorage.FromZip{T}(Stream,string,IEnumerable{EmbeddedFile})"/> work correctly with a password.
         /// </summary>
         [Test]
         public void TestZipPassword()
@@ -111,7 +115,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Ensures <see cref="XmlStorage.FromZip{T}(System.IO.Stream,string,System.Collections.Generic.IEnumerable{Common.Storage.EmbeddedFile})"/> correctly detects incorrect passwords.
+        /// Ensures <see cref="XmlStorage.FromZip{T}(Stream,string,IEnumerable{EmbeddedFile})"/> correctly detects incorrect passwords.
         /// </summary>
         [Test]
         public void TestIncorrectPassword()
