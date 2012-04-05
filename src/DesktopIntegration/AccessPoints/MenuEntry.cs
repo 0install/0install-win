@@ -103,7 +103,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
                 // Delete category directory if empty
                 string dirPath = GetWindowsCategoryPath(systemWide);
-                if (Directory.Exists(dirPath) && Directory.GetFiles(dirPath).Length == 0)
+                if (Directory.Exists(dirPath) && Directory.GetFileSystemEntries(dirPath).Length == 0)
                     Directory.Delete(GetWindowsCategoryPath(systemWide), false);
             }
         }
