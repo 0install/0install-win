@@ -219,6 +219,9 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         private void UpdateButtons()
         {
+            // Prevent problems if the tile was removed
+            if (Disposing || IsDisposed) return;
+
             buttonAdd.Enabled = buttonAdd.Visible = !_inAppList;
             buttonRemove.Enabled = buttonRemove.Visible = _inAppList;
             buttonIntegrate.Enabled = _inAppList;
@@ -273,10 +276,11 @@ namespace ZeroInstall.Central.WinForms
             // Disable button while operation is running
             buttonAdd.Enabled = false;
 
+            var parent = Parent;
             ProcessUtils.RunAsync(delegate
             {
                 Commands.WinForms.Program.Main(new[] {"add-app", InterfaceID});
-                Invoke((SimpleEventHandler)UpdateButtons); // Restore buttons
+                parent.Invoke((SimpleEventHandler)UpdateButtons); // Restore buttons
             });
         }
 
@@ -285,10 +289,11 @@ namespace ZeroInstall.Central.WinForms
             // Disable buttons while operation is running
             buttonRemove.Enabled = buttonIntegrate.Enabled = false;
 
+            var parent = Parent;
             ProcessUtils.RunAsync(delegate
             {
                 Commands.WinForms.Program.Main(new[] {"integrate-app", InterfaceID});
-                Invoke((SimpleEventHandler)UpdateButtons); // Restore buttons
+                parent.Invoke((SimpleEventHandler)UpdateButtons); // Restore buttons
             });
         }
 
@@ -299,10 +304,11 @@ namespace ZeroInstall.Central.WinForms
             // Disable buttons while operation is running
             buttonRemove.Enabled = buttonIntegrate.Enabled = false;
 
+            var parent = Parent;
             ProcessUtils.RunAsync(delegate
             {
                 Commands.WinForms.Program.Main(new[] {"remove-app", InterfaceID});
-                Invoke((SimpleEventHandler)UpdateButtons); // Restore buttons
+                parent.Invoke((SimpleEventHandler)UpdateButtons); // Restore buttons
             });
         }
         #endregion
