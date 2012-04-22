@@ -38,7 +38,7 @@
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="1" name="needs-terminal" type="xs:string">
         <xs:annotation>
-          <xs:documentation>Indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.</xs:documentation>
+          <xs:documentation>If present, this element indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="feed" type="tns:feed-reference">
@@ -53,7 +53,7 @@
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="1" name="replaced-by" type="tns:interface-reference">
         <xs:annotation>
-          <xs:documentation>This feed was replaced by another interface.</xs:documentation>
+          <xs:documentation>This feed's interface has been replaced by the given interface. Any references to the old URI should be updated to use the new one.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="implementation" type="tns:implementation" />
@@ -596,12 +596,12 @@
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element minOccurs="0" maxOccurs="1" name="needs-terminal" type="xs:string">
         <xs:annotation>
-          <xs:documentation>Indicates that the entry point requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.</xs:documentation>
+          <xs:documentation>If present, this element indicates that the entry point requires a terminal in order to run. Graphical launchers should therefore execute this entry point in a suitable terminal emulator.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="name" type="tns:localizable-string">
         <xs:annotation>
-          <xs:documentation>Localized user-friendly name for the command.</xs:documentation>
+          <xs:documentation>Localized user-friendly name for the command. If not present, the command attribute is used instead.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="summary" type="tns:localizable-string">
@@ -622,12 +622,12 @@
     </xs:choice>
     <xs:attribute name="command" type="xs:string" use="required">
       <xs:annotation>
-        <xs:documentation>The name of the command.</xs:documentation>
+        <xs:documentation>The name of the command this entry point represents.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="binary-name" type="xs:string">
       <xs:annotation>
-        <xs:documentation>The canonical name of the binary supplying the command (without file extensions). Used by desktop integration to better name stubs.</xs:documentation>
+        <xs:documentation>The canonical name of the binary supplying the command (without file extensions). This is used to suggest suitable alias names.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>

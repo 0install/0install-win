@@ -34,24 +34,24 @@ namespace ZeroInstall.Model
     {
         #region Properties
         /// <summary>
-        /// The name of the <see cref="Command"/>.
+        /// The name of the <see cref="Command"/> this entry point represents.
         /// </summary>
-        [Description("The name of the command.")]
+        [Description("The name of the command this entry point represents.")]
         [XmlAttribute("command")]
         public string Command { get; set; }
 
         /// <summary>
-        /// The canonical name of the binary supplying the command (without file extensions). Used by desktop integration to name stubs better.
+        /// The canonical name of the binary supplying the command (without file extensions). This is used to suggest suitable alias names.
         /// </summary>
         /// <remarks>Will default to <see cref="Command"/> when left <see langword="null"/>.</remarks>
-        [Description("The canonical name of the binary supplying the command (without file extensions). Used by desktop integration to name stubs better.")]
+        [Description("The canonical name of the binary supplying the command (without file extensions). This is used to suggest suitable alias names.")]
         [XmlAttribute("binary-name")]
         public string BinaryName { get; set; }
 
         /// <summary>
-        /// If <see langword="true"/>, this element indicates that the entry point requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.
+        /// If <see langword="true"/>, indicates that the <see cref="Command"/> represented by this entry point requires a terminal in order to run.
         /// </summary>
-        [Category("Interface"), Description("If true, this element indicates that the entry point requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.")]
+        [Category("Interface"), Description("If true, indicates that the Command represented by this entry point requires a terminal in order to run.")]
         [XmlIgnore, DefaultValue(false)]
         public bool NeedsTerminal { get; set; }
 
@@ -63,9 +63,9 @@ namespace ZeroInstall.Model
         private readonly LocalizableStringCollection _names = new LocalizableStringCollection();
 
         /// <summary>
-        /// Localized user-friendly names for the command.
+        /// User-friendly names for the command. If not present, <see cref="Command"/> is used instead.
         /// </summary>
-        [Description("Localized user-friendly names for the command.")]
+        [Description("Localized user-friendly names for the command. If not present, Command is used instead.")]
         [XmlElement("name")]
         public LocalizableStringCollection Names { get { return _names; } }
 

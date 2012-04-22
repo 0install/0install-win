@@ -78,7 +78,7 @@ namespace ZeroInstall.Hooking
 
             // Determine the name of the binary without leading directories or trailing file extensions
             string binaryName = Path.GetFileName(WindowsUtils.CurrentProcessPath);
-            if (binaryName.EndsWith(".exe", true, CultureInfo.InvariantCulture)) binaryName = binaryName.Substring(0, binaryName.Length - 4);
+            if (binaryName.EndsWith(".exe", StringComparison.OrdinalIgnoreCase)) binaryName = binaryName.Substring(0, binaryName.Length - 4);
 
             // Try to find a match and fall back to first entry if none is found
             var result = _entries.Find(entry => entry.BinaryName == binaryName);

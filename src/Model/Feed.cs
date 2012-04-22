@@ -132,9 +132,9 @@ namespace ZeroInstall.Model
         public C5.ArrayList<string> Categories { get { return _categories; } }
 
         /// <summary>
-        /// If <see langword="true"/>, this element indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.
+        /// If <see langword="true"/>, indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.
         /// </summary>
-        [Category("Interface"), Description("If true, this element indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.")]
+        [Category("Interface"), Description("If true, indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.")]
         [XmlIgnore, DefaultValue(false)]
         public bool NeedsTerminal { get; set; }
 
@@ -164,9 +164,9 @@ namespace ZeroInstall.Model
         public C5.ArrayList<InterfaceReference> FeedFor { get { return _feedFor; } }
 
         /// <summary>
-        /// This feed was replaced by another interface.
+        /// This feed's interface <see cref="Uri"/> has been replaced by the given interface. Any references to the old URI should be updated to use the new one.
         /// </summary>
-        [Category("Feed"), Description("This feed was replaced by another interface.")]
+        [Category("Feed"), Description("This feed's interface has been replaced by the given interface. Any references to the old URI should be updated to use the new one.")]
         [XmlElement("replaced-by")]
         public InterfaceReference ReplacedBy { get; set; }
 
