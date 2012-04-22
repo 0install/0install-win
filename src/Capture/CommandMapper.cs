@@ -126,7 +126,7 @@ namespace ZeroInstall.Capture
 
             foreach (var tuple in _commmands)
             {
-                if (commandLine.StartsWith(tuple.CommandLine, true, CultureInfo.InvariantCulture))
+                if (commandLine.StartsWith(tuple.CommandLine, StringComparison.OrdinalIgnoreCase))
                 {
                     additionalArgs = commandLine.Substring(tuple.CommandLine.Length).TrimStart();
                     return tuple.Command;

@@ -29,7 +29,7 @@ using ZeroInstall.DesktopIntegration.Windows;
 namespace ZeroInstall.Capture
 {
     /// <summary>
-    /// Represents the systems state at a point in time. Used to determine changes.
+    /// Represents the systems state at a point in time. This is used to determine changes.
     /// </summary>
     [Serializable]
     public class Snapshot

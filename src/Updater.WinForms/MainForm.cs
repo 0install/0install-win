@@ -37,7 +37,7 @@ namespace ZeroInstall.Updater.WinForms
         /// <summary>The update process to execute and track.</summary>
         private readonly UpdateProcess _updateProcess;
 
-        /// <summary>Indicates whether the updater has alread respawned itself as an administator. Used to prevent infinite loops.</summary>
+        /// <summary>Indicates whether the updater has alread respawned itself as an administator. This is used to prevent infinite loops.</summary>
         private readonly bool _rerun;
         #endregion
 
@@ -46,7 +46,7 @@ namespace ZeroInstall.Updater.WinForms
         /// Creates a new update GUI.
         /// </summary>
         /// <param name="updateProcess">The update process to execute and track.</param>
-        /// <param name="rerun">Indicates whether the updater has alread respawned itself as an administator. Used to prevent infinite loops.</param>
+        /// <param name="rerun">Indicates whether the updater has alread respawned itself as an administator. This is used to prevent infinite loops.</param>
         public MainForm(UpdateProcess updateProcess, bool rerun)
         {
             _updateProcess = updateProcess;
