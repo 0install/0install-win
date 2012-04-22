@@ -71,6 +71,12 @@ namespace ZeroInstall.Model
             Assert.IsFalse(new Architecture(OS.Cygwin, Cpu.I486).IsCompatible(new Architecture(OS.Windows, Cpu.I486)));
             Assert.IsTrue(new Architecture(OS.Darwin, Cpu.I686).IsCompatible(new Architecture(OS.MacOsX, Cpu.I686)));
             Assert.IsFalse(new Architecture(OS.MacOsX, Cpu.I686).IsCompatible(new Architecture(OS.Darwin, Cpu.I686)));
+            Assert.IsTrue(new Architecture(OS.Posix, Cpu.I686).IsCompatible(new Architecture(OS.Linux, Cpu.I686)));
+            Assert.IsTrue(new Architecture(OS.Posix, Cpu.I686).IsCompatible(new Architecture(OS.Solaris, Cpu.I686)));
+            Assert.IsTrue(new Architecture(OS.Posix, Cpu.I686).IsCompatible(new Architecture(OS.Darwin, Cpu.I686)));
+            Assert.IsTrue(new Architecture(OS.Posix, Cpu.I686).IsCompatible(new Architecture(OS.MacOsX, Cpu.I686)));
+            Assert.IsTrue(new Architecture(OS.Posix, Cpu.I686).IsCompatible(new Architecture(OS.Posix, Cpu.I686)));
+            Assert.IsFalse(new Architecture(OS.Posix, Cpu.I686).IsCompatible(new Architecture(OS.Windows, Cpu.I686)));
 
             // CPU wildcards
             Assert.IsTrue(new Architecture(OS.Windows, Cpu.All).IsCompatible(new Architecture(OS.Windows, Cpu.I486)));

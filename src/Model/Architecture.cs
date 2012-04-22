@@ -52,13 +52,17 @@ namespace ZeroInstall.Model
         [XmlEnum("Darwin")]
         Darwin,
 
-        /// <summary>Supports only Windows NT 5.0+ (Windows 2000, XP, 2003, Vista, 2008, 7, 2008 R2, ...).</summary>
-        [XmlEnum("Windows")]
-        Windows,
-
         /// <summary>A Unix-compatibility layer for Windows.</summary>
         [XmlEnum("Cygwin")]
         Cygwin,
+
+        /// <summary>Everthing except <see cref="Windows"/>.</summary>
+        [XmlEnum("POSIX")]
+        Posix,
+
+        /// <summary>Supports only Windows NT 5.0+ (Windows 2000, XP, 2003, Vista, 2008, 7, 2008 R2, ...).</summary>
+        [XmlEnum("Windows")]
+        Windows,
 
         /// <summary>The supported operating system has not been set yet.</summary>
         [XmlEnum("unknown")]
@@ -353,6 +357,7 @@ namespace ZeroInstall.Model
             // Compatible supersets
             if (implementation == OS.Windows && system == OS.Cygwin) return true;
             if (implementation == OS.Darwin && system == OS.MacOsX) return true;
+            if (implementation == OS.Posix && system <= OS.Posix) return true;
 
             // No match
             return false;
