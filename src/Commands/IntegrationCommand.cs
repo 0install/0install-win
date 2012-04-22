@@ -5,7 +5,9 @@ using System.IO;
 using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -53,6 +55,67 @@ namespace ZeroInstall.Commands
             var process = Process.Start(startInfo);
             process.WaitForExit();
             return process.ExitCode;
+        }
+
+        /// <summary>
+        /// Finds an existing <see cref="AppEntry"/> or creates a new one for a specific interface ID.
+        /// </summary>
+        /// <param name="integrationManager">Manages desktop integration operations.</param>
+        /// <param name="interfaceID">The interface ID to create an <see cref="AppEntry"/> for. Will be updated if <see cref="Feed.ReplacedBy"/> is set and accepted by the user.</param>
+        protected virtual AppEntry GetAppEntry(IIntegrationManager integrationManager, ref string interfaceID)
+        {
+            #region Sanity checks
+            if (integrationManager == null) throw new ArgumentNullException("integrationManager");
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            #endregion
+
+            try
+            {
+                // Try to find an existing AppEntry
+                return integrationManager.AppList.GetEntry(interfaceID);
+            }
+            catch (KeyNotFoundException)
+            {
+                try
+                {
+                    // Create a new AppEntry
+                    return CreateAppEntry(integrationManager, ref interfaceID);
+                }
+                catch (InvalidOperationException)
+                {
+                    // Find the existing AppEntry after interface ID replacement
+                    return integrationManager.AppList.GetEntry(interfaceID);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creates new one <see cref="AppEntry"/> for a specific interface ID.
+        /// </summary>
+        /// <param name="integrationManager">Manages desktop integration operations.</param>
+        /// <param name="interfaceID">The interface ID to create an <see cref="AppEntry"/> for. Will be updated if <see cref="Feed.ReplacedBy"/> is set and accepted by the user.</param>
+        /// <exception cref="InvalidOperationException">Thrown if the application is already in the list.</exception>
+        protected AppEntry CreateAppEntry(IIntegrationManager integrationManager, ref string interfaceID)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (integrationManager == null) throw new ArgumentNullException("integrationManager");
+            #endregion
+
+            // Detect replaced feeds
+            var feed = Policy.FeedManager.GetFeed(interfaceID, Policy);
+            if (feed.ReplacedBy != null)
+            {
+                if (Policy.Handler.AskQuestion(
+                    string.Format(Resources.FeedReplacedAsk, feed.Name, interfaceID, feed.ReplacedBy.Target),
+                    string.Format(Resources.FeedReplaced, interfaceID, feed.ReplacedBy.Target)))
+                {
+                    interfaceID = feed.ReplacedBy.Target.ToString();
+                    feed = Policy.FeedManager.GetFeed(interfaceID, Policy);
+                }
+            }
+
+            return integrationManager.AddApp(interfaceID, feed);
         }
         #endregion
     }

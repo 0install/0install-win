@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using Common.Collections;
 using Common.Storage;
 using Common.Utils;
@@ -142,7 +141,7 @@ namespace ZeroInstall.Commands
             // Check this before modifying the environment
             bool needsReopenTerminal = NeedsReopenTerminal(integrationManager.SystemWide);
 
-            AppEntry appEntry = GetAppEntry(integrationManager, interfaceID);
+            var appEntry = GetAppEntry(integrationManager, ref interfaceID);
 
             // Apply the new alias
             var alias = new AppAlias {Name = aliasName, Command = command};
@@ -209,22 +208,6 @@ namespace ZeroInstall.Commands
 
             foundAppEntry = null;
             return null;
-        }
-
-        /// <summary>
-        /// Finds an existing <see cref="AppEntry"/> or creates a new one for a specific interface ID.
-        /// </summary>
-        private AppEntry GetAppEntry(IIntegrationManager integrationManager, string interfaceID)
-        {
-            try
-            {
-                return integrationManager.AppList.GetEntry(interfaceID);
-            }
-            catch (KeyNotFoundException)
-            {
-                // Automatically add missing AppEntry
-                return integrationManager.AddApp(interfaceID, Policy.FeedManager.GetFeed(interfaceID, Policy));
-            }
         }
         #endregion
     }

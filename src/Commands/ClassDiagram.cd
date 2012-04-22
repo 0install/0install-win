@@ -33,7 +33,7 @@
       <Method Name="Download" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAABAAAQAAgAAQAABAAAAQIhAAAAAAACAAAAAAAAIA=</HashCode>
+      <HashCode>AAAABAAAAAAgAAQAAAAAAAQIhAAAAAAACAAAAAAAAAA=</HashCode>
       <FileName>Download.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -94,7 +94,7 @@
       <Method Name="CommandBase" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAgAAAAQAkgAAQAgAIAAAAEBAIAAAAAAAAAAABEBAA=</HashCode>
+      <HashCode>AAAgAAAAAAkgAAQAAAIAAAAEBAAAAAAAAAAAAABEBAA=</HashCode>
       <FileName>CommandBase.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -166,7 +166,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.IntegrationCommand">
-    <Position X="18.25" Y="2.75" Width="1.5" />
+    <Position X="18" Y="2.75" Width="2" />
     <Members>
       <Method Name="IntegrationCommand" Hidden="true" />
     </Members>
@@ -181,7 +181,7 @@
       <Method Name="AddAlias" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAIAAAAAAAgAAUAAAAAAAQEBAAAAgEAAAAEAAAAAAA=</HashCode>
+      <HashCode>AAAIAAAAAAAgAAUAAAAAAAQEBAAAAgEAAAAEAAAAIAA=</HashCode>
       <FileName>AddAlias.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -191,17 +191,16 @@
       <Method Name="SyncApps" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQAAgAASAAAAAAAQEBAAAAQACAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAASAAAAAAAQEBAAAAQACAAAAAAAAAAA=</HashCode>
       <FileName>SyncApps.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.CliHandler">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAEAAAAEgMAAIAAAAAAAAAAAARAAAAAACggA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
       <FileName>CliHandler.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Commands.Digest">
     <Position X="14.75" Y="5.25" Width="1.5" />

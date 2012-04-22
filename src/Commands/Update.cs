@@ -137,6 +137,14 @@ namespace ZeroInstall.Commands
                 }
             }
 
+            // Detect replaced feeds
+            var feed = Policy.FeedManager.Cache.GetFeed(Requirements.InterfaceID);
+            if (feed.ReplacedBy != null)
+            {
+                builder.AppendLine(string.Format(Resources.FeedReplaced, Requirements.InterfaceID, feed.ReplacedBy.Target));
+                changes = true;
+            }
+
             if (changes)
             {
                 // Display the list of changes

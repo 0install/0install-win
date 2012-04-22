@@ -461,6 +461,24 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; has been replaced by &apos;{1}&apos;. Consider updating..
+        /// </summary>
+        internal static string FeedReplaced {
+            get {
+                return ResourceManager.GetString("FeedReplaced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The feed for &apos;{0}&apos; ({1}) has been replaced by &apos;{2}&apos;. Do you want to use the new feed instead?.
+        /// </summary>
+        internal static string FeedReplacedAsk {
+            get {
+                return ResourceManager.GetString("FeedReplacedAsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Feeds registered for &apos;{0}&apos;:.
         /// </summary>
         internal static string FeedsRegistered {

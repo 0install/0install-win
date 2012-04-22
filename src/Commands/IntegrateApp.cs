@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Common.Storage;
 using Common.Utils;
@@ -105,8 +104,8 @@ namespace ZeroInstall.Commands
                 return 0;
             }
 
+            var appEntry = GetAppEntry(integrationManager, ref interfaceID);
             var feed = Policy.FeedManager.GetFeed(interfaceID, Policy);
-            var appEntry = GetAppEntry(integrationManager, interfaceID, feed);
 
             // If the user specified no specific integration options show an interactive UI
             if (_addCategories.IsEmpty && _removeCategories.IsEmpty && _importLists.IsEmpty)
@@ -157,24 +156,19 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Finds an existing <see cref="AppEntry"/> or creates a new one for a specific interface ID and feed.
         /// </summary>
-        private AppEntry GetAppEntry(IIntegrationManager integrationManager, string interfaceID, Feed feed)
+        /// <param name="integrationManager">Manages desktop integration operations.</param>
+        /// <param name="interfaceID">The interface ID to create an <see cref="AppEntry"/> for. Will be updated if <see cref="Feed.ReplacedBy"/> is set and accepted by the user.</param>
+        protected override AppEntry GetAppEntry(IIntegrationManager integrationManager, ref string interfaceID)
         {
-            AppEntry appEntry;
-            try
-            {
-                appEntry = integrationManager.AppList.GetEntry(interfaceID);
+            var appEntry = base.GetAppEntry(integrationManager, ref interfaceID);
 
-                if (!appEntry.CapabilityLists.UnsequencedEquals(feed.CapabilityLists))
-                {
-                    string changedMessage = string.Format(Resources.CapabilitiesChanged, appEntry.Name);
-                    if (Policy.Handler.AskQuestion(changedMessage + " " + Resources.AskUpdateCapabilities, changedMessage))
-                        integrationManager.UpdateApp(appEntry, feed);
-                }
-            }
-            catch (KeyNotFoundException)
+            // Detect feed changes that may make an AppEntry update necessary
+            var feed = Policy.FeedManager.GetFeed(interfaceID, Policy);
+            if (!appEntry.CapabilityLists.UnsequencedEquals(feed.CapabilityLists))
             {
-                // Automatically add missing AppEntry
-                appEntry = integrationManager.AddApp(interfaceID, feed);
+                string changedMessage = string.Format(Resources.CapabilitiesChanged, appEntry.Name);
+                if (Policy.Handler.AskQuestion(changedMessage + " " + Resources.AskUpdateCapabilities, changedMessage))
+                    integrationManager.UpdateApp(appEntry, feed);
             }
             return appEntry;
         }

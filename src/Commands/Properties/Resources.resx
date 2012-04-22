@@ -253,6 +253,12 @@ If you select 'No' Zero Install will continue to use the old capabilities.</valu
     <value>The feed was successfully registered for the following interfaces:
 {0}</value>
   </data>
+  <data name="FeedReplaced" xml:space="preserve">
+    <value>'{0}' has been replaced by '{1}'. Consider updating.</value>
+  </data>
+  <data name="FeedReplacedAsk" xml:space="preserve">
+    <value>The feed for '{0}' ({1}) has been replaced by '{2}'. Do you want to use the new feed instead?</value>
+  </data>
   <data name="FeedsRegistered" xml:space="preserve">
     <value>Feeds registered for '{0}':</value>
   </data>

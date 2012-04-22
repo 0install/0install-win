@@ -57,14 +57,14 @@ namespace ZeroInstall.Commands
 
             try
             {
-                integrationManager.AddApp(interfaceID, Policy.FeedManager.GetFeed(interfaceID, Policy));
+                // Create a new AppEntry
+                CreateAppEntry(integrationManager, ref interfaceID);
             }
             catch (InvalidOperationException ex)
             {
-                // Show a "nothing to do" message (but not in batch mode, since it is too unimportant));
+                // Show a "nothing to do" message if there is an existing AppEntry (but not in batch mode, since it is too unimportant));
                 if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, ex.Message);
             }
-
             return 0;
         }
         #endregion
