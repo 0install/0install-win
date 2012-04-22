@@ -49,7 +49,7 @@ namespace Common.Utils
         /// </summary>
         public static bool CompareChar(char c1, char c2)
         {
-            return char.ToLower(c1, CultureInfo.InvariantCulture) == char.ToLower(c2, CultureInfo.InvariantCulture);
+            return char.ToLowerInvariant(c1) == char.ToLowerInvariant(c2);
         }
 
         /// <summary>
@@ -422,14 +422,16 @@ namespace Common.Utils
         /// <summary>
         /// Formats a byte number in human-readable form (KB, MB, GB).
         /// </summary>
-        public static string FormatBytes(long value)
+        /// <param name="provider">Provides culture-specific formatting information.</param>
+        /// <param name="value">The value in bytes.</param>
+        public static string FormatBytes(IFormatProvider provider, long value)
         {
             if (value >= 1073741824)
-                return string.Format(CultureInfo.CurrentCulture, "{0:0.00}", value / 1073741824f) + " GB";
+                return string.Format(provider, "{0:0.00}", value / 1073741824f) + " GB";
             if (value >= 1048576)
-                return string.Format(CultureInfo.CurrentCulture, "{0:0.00}", value / 1048576f) + " MB";
+                return string.Format(provider, "{0:0.00}", value / 1048576f) + " MB";
             if (value >= 1024)
-                return string.Format(CultureInfo.CurrentCulture, "{0:0.00}", value / 1024f) + " KB";
+                return string.Format(provider, "{0:0.00}", value / 1024f) + " KB";
             return value + " Bytes";
         }
         #endregion
