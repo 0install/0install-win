@@ -23,6 +23,7 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 using Common.Properties;
 using Common.Tasks;
@@ -168,8 +169,8 @@ namespace Common.Controls
             // Handle events coming from a non-UI thread, block caller
             Invoke(new SimpleEventHandler(delegate
             {
-                Text = StringUtils.FormatBytes(bytesProcessed);
-                if (bytesTotal != -1) Text += @" / " + StringUtils.FormatBytes(bytesTotal);
+                Text = StringUtils.FormatBytes(CultureInfo.CurrentCulture, bytesProcessed);
+                if (bytesTotal != -1) Text += @" / " + StringUtils.FormatBytes(CultureInfo.CurrentCulture, bytesTotal);
             }));
         }
         #endregion

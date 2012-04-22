@@ -202,7 +202,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
                     comboBoxArchiveFormat.SelectedIndex = 0;
             }
             // set other hintTextBoxes
-            if (_archive.StartOffset != default(long)) hintTextBoxStartOffset.Text = _archive.StartOffset.ToString(CultureInfo.InvariantCulture);
+            if (_archive.StartOffset != default(long)) hintTextBoxStartOffset.Text = _archive.StartOffset.ToString(CultureInfo.CurrentCulture);
             if (!string.IsNullOrEmpty(_archive.LocationString)) uriTextBoxArchiveUrl.Text = _archive.LocationString;
 
             // build treeViewSubDirectory

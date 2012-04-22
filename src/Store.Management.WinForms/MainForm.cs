@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using Common;
@@ -138,7 +139,7 @@ namespace ZeroInstall.Store.Management.WinForms
                 buttonVerify.Enabled = buttonRemove.Enabled = false;
 
                 // Update total size
-                textTotalSize.Text = StringUtils.FormatBytes(totalSize);
+                textTotalSize.Text = StringUtils.FormatBytes(CultureInfo.CurrentCulture, totalSize);
             }
                 #region Error handling
             catch (IOException ex)
@@ -177,7 +178,7 @@ namespace ZeroInstall.Store.Management.WinForms
 
             // Update current entry size
             var implementationEntry = _treeView.SelectedEntry as ImplementationNode;
-            textCurrentSize.Text = (implementationEntry != null) ? StringUtils.FormatBytes(implementationEntry.Size) : "-";
+            textCurrentSize.Text = (implementationEntry != null) ? StringUtils.FormatBytes(CultureInfo.CurrentCulture, implementationEntry.Size) : "-";
         }
 
         private void OnCheckedEntriesChanged(object sender, EventArgs e)
@@ -198,7 +199,7 @@ namespace ZeroInstall.Store.Management.WinForms
                     var implementationEntry = entry as ImplementationNode;
                     if (implementationEntry != null) totalSize += implementationEntry.Size;
                 }
-                textCheckedSize.Text = StringUtils.FormatBytes(totalSize);
+                textCheckedSize.Text = StringUtils.FormatBytes(CultureInfo.CurrentCulture, totalSize);
             }
         }
 

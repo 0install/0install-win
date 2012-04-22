@@ -19,16 +19,16 @@ namespace Common.Compression
             if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException("fileName");
             #endregion
 
-            if (fileName.EndsWith(".zip")) return "application/zip";
-            if (fileName.EndsWith(".cab")) return "application/vnd.ms-cab-compressed";
-            if (fileName.EndsWith(".tar")) return "application/x-tar";
-            if (fileName.EndsWith(".tar.gz") || fileName.EndsWith(".tgz")) return "application/x-compressed-tar";
-            if (fileName.EndsWith(".tar.bz2") || fileName.EndsWith(".tbz2") || fileName.EndsWith(".tbz")) return "application/x-bzip-compressed-tar";
-            if (fileName.EndsWith(".tar.lzma")) return "application/x-lzma-compressed-tar";
-            if (fileName.EndsWith(".deb")) return "application/x-deb";
-            if (fileName.EndsWith(".rpm")) return "application/x-rpm";
-            if (fileName.EndsWith(".dmg")) return "application/x-apple-diskimage";
-            if (fileName.EndsWith(".gem")) return "application/x-ruby-gem";
+            if (fileName.EndsWith(".zip", StringComparison.OrdinalIgnoreCase)) return "application/zip";
+            if (fileName.EndsWith(".cab", StringComparison.OrdinalIgnoreCase)) return "application/vnd.ms-cab-compressed";
+            if (fileName.EndsWith(".tar", StringComparison.OrdinalIgnoreCase)) return "application/x-tar";
+            if (fileName.EndsWith(".tar.gz", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".tgz")) return "application/x-compressed-tar";
+            if (fileName.EndsWith(".tar.bz2", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".tbz2") || fileName.EndsWith(".tbz")) return "application/x-bzip-compressed-tar";
+            if (fileName.EndsWith(".tar.lzma", StringComparison.OrdinalIgnoreCase)) return "application/x-lzma-compressed-tar";
+            if (fileName.EndsWith(".deb", StringComparison.OrdinalIgnoreCase)) return "application/x-deb";
+            if (fileName.EndsWith(".rpm", StringComparison.OrdinalIgnoreCase)) return "application/x-rpm";
+            if (fileName.EndsWith(".dmg", StringComparison.OrdinalIgnoreCase)) return "application/x-apple-diskimage";
+            if (fileName.EndsWith(".gem", StringComparison.OrdinalIgnoreCase)) return "application/x-ruby-gem";
             return null;
         }
     }
