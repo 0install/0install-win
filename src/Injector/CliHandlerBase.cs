@@ -80,7 +80,7 @@ namespace ZeroInstall.Injector
         {
             if (Batch)
             {
-                Log.Warn(batchInformation);
+                if (!string.IsNullOrEmpty(batchInformation)) Log.Warn(batchInformation);
                 return false;
             }
 
@@ -89,7 +89,9 @@ namespace ZeroInstall.Injector
             // Loop until the user has made a valid choice
             while (true)
             {
-                switch ((CliUtils.ReadString("[Y/N] ") ?? "n").ToLower())
+                string input = CliUtils.ReadString("[Y/N]");
+                if (input == null) throw new OperationCanceledException();
+                switch (input.ToLower())
                 {
                     case "y":
                     case "yes":

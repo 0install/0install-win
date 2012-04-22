@@ -192,7 +192,7 @@ namespace ZeroInstall.Commands.WinForms
                 if (!_form.IsHandleCreated) return;
 
                 // Auto-deny unknown keys and inform via tray icon when in batch mode
-                if (Batch) _form.ShowTrayIcon(batchInformation, ToolTipIcon.Warning);
+                if (Batch && !string.IsNullOrEmpty(batchInformation)) _form.ShowTrayIcon(batchInformation, ToolTipIcon.Warning);
                 else
                 {
                     switch (Msg.YesNoCancel(_form, question, MsgSeverity.Info))

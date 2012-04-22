@@ -71,7 +71,7 @@ namespace ZeroInstall.Injector
         /// Asks the user a Yes/No/Cancel question (e.g., whether to trust a new GPG key).
         /// </summary>
         /// <param name="question">The question and comprehensive information to help the user make an informed decision.</param>
-        /// <param name="batchInformation">Information to be displayed if the question was automatically answered with 'No' because <see cref="Batch"/> was set to <see langword="true"/>.</param>
+        /// <param name="batchInformation">Information to be displayed if the question was automatically answered with 'No' because <see cref="Batch"/> was set to <see langword="true"/>; may be <see langword="null"/>.</param>
         /// <returns><see langword="true"/> if the user answered with 'Yes'; <see langword="false"/> if the user answered with 'No'.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the user selected 'Cancel'.</exception>
         /// <remarks>
