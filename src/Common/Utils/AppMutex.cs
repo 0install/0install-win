@@ -70,7 +70,7 @@ namespace Common.Utils
             IntPtr handle;
             try
             {
-                result |= WindowsUtils.CreateMutex(name, out handle);
+                result = WindowsUtils.CreateMutex("Global\\" + name, out handle);
             }
             catch (Win32Exception ex)
             {
@@ -78,7 +78,7 @@ namespace Common.Utils
             }
             try
             {
-                result |= WindowsUtils.CreateMutex("Global\\" + name, out handle);
+                result |= WindowsUtils.CreateMutex(name, out handle);
             }
             catch (Win32Exception ex)
             {
@@ -112,7 +112,7 @@ namespace Common.Utils
             IntPtr handle1 = IntPtr.Zero, handle2 = IntPtr.Zero;
             try
             {
-                result |= WindowsUtils.CreateMutex(name, out handle1);
+                result = WindowsUtils.CreateMutex("Global\\" + name, out handle1);
             }
             catch (Win32Exception ex)
             {
@@ -120,7 +120,7 @@ namespace Common.Utils
             }
             try
             {
-                result |= WindowsUtils.CreateMutex("Global\\" + name, out handle2);
+                result |= WindowsUtils.CreateMutex(name, out handle2);
             }
             catch (Win32Exception ex)
             {
@@ -149,7 +149,7 @@ namespace Common.Utils
             bool result = false;
             try
             {
-                result |= WindowsUtils.OpenMutex(name);
+                result = WindowsUtils.OpenMutex("Global\\" + name);
             }
             catch (Win32Exception ex)
             {
@@ -157,7 +157,7 @@ namespace Common.Utils
             }
             try
             {
-                result |= WindowsUtils.OpenMutex("Global\\" + name);
+                result |= WindowsUtils.OpenMutex(name);
             }
             catch (Win32Exception ex)
             {
@@ -183,7 +183,7 @@ namespace Common.Utils
             bool result = false;
             try
             {
-                result |= WindowsUtils.ProbeMutex(name);
+                result = WindowsUtils.ProbeMutex("Global\\" + name);
             }
             catch (Win32Exception ex)
             {
@@ -191,7 +191,7 @@ namespace Common.Utils
             }
             try
             {
-                result |= WindowsUtils.ProbeMutex("Global\\" + name);
+                result |= WindowsUtils.ProbeMutex(name);
             }
             catch (Win32Exception ex)
             {
