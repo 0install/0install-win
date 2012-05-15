@@ -27,7 +27,7 @@ namespace ZeroInstall.Model
 
         #region Variables
         /// <summary>The individual decimals.</summary>
-        private readonly int[] _decimals;
+        private readonly long[] _decimals;
         #endregion
 
         #region Constructor
@@ -42,11 +42,11 @@ namespace ZeroInstall.Model
             #endregion
 
             string[] parts = value.Split('.');
-            _decimals = new int[parts.Length];
+            _decimals = new long[parts.Length];
 
             for (int i = 0; i < parts.Length; i++)
             {
-                if (!int.TryParse(parts[i], out _decimals[i]))
+                if (!long.TryParse(parts[i], out _decimals[i]))
                     throw new ArgumentException(Resources.MustBeDottedList);
             }
         }
@@ -124,11 +124,10 @@ namespace ZeroInstall.Model
             int upperBound = Math.Max(_decimals.Length, other._decimals.Length);
             for (var i = 0; i < upperBound; ++i)
             {
-                int left = i >= _decimals.Length ? -1 : _decimals[i];
-                int right = i >= other._decimals.Length ? -1 : other._decimals[i];
+                long left = i >= _decimals.Length ? -1 : _decimals[i];
+                long right = i >= other._decimals.Length ? -1 : other._decimals[i];
                 int comparisonResult = left.CompareTo(right);
-                if (comparisonResult != 0)
-                    return left.CompareTo(right);
+                if (comparisonResult != 0) return left.CompareTo(right);
             }
             return 0;
         }
