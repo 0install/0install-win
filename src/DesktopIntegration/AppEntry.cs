@@ -161,7 +161,7 @@ namespace ZeroInstall.DesktopIntegration
             if (other == null) return false;
 
             if (Name != other.Name) return false;
-            if (InterfaceID != other.InterfaceID) return false;
+            if (!ModelUtils.IDEquals(InterfaceID, other.InterfaceID)) return false;
             if (!CapabilityLists.SequencedEquals(other.CapabilityLists)) return false;
             if (!Equals(AccessPoints, other.AccessPoints)) return false;
             return true;
@@ -181,7 +181,8 @@ namespace ZeroInstall.DesktopIntegration
             unchecked
             {
                 int result = (Name ?? "").GetHashCode();
-                result = (result * 397) ^ (InterfaceID ?? "").GetHashCode();
+                // Use lower-case string for hashing in case a business logic rule causes a cases-insensitive comparison of IDs
+                result = (result * 397) ^ InterfaceID.ToLowerInvariant().GetHashCode();
                 result = (result * 397) ^ CapabilityLists.GetSequencedHashCode();
                 if (AccessPoints != null) result = (result * 397) ^ AccessPoints.GetHashCode();
                 return result;

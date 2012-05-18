@@ -24,6 +24,7 @@ using System.Xml.Serialization;
 using Common.Storage;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -80,7 +81,7 @@ namespace ZeroInstall.DesktopIntegration
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             #endregion
 
-            return Entries.Exists(entry => entry.InterfaceID == interfaceID);
+            return Entries.Exists(entry => ModelUtils.IDEquals(entry.InterfaceID, interfaceID));
         }
 
         /// <summary>
@@ -96,7 +97,7 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             AppEntry appEntry;
-            if (!Entries.Find(entry => entry.InterfaceID == interfaceID, out appEntry)) throw new KeyNotFoundException(string.Format(Resources.AppNotInList, interfaceID));
+            if (!Entries.Find(entry => ModelUtils.IDEquals(entry.InterfaceID, interfaceID), out appEntry)) throw new KeyNotFoundException(string.Format(Resources.AppNotInList, interfaceID));
             return appEntry;
         }
         #endregion

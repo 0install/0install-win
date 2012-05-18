@@ -77,7 +77,7 @@ namespace ZeroInstall.Model
         {
             if (other == null) return false;
 
-            return base.Equals(other) && other.Source == Source;
+            return base.Equals(other) && ModelUtils.IDEquals(other.Source, Source);
         }
 
         /// <inheritdoc/>
@@ -94,7 +94,8 @@ namespace ZeroInstall.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (Source != null ? Source.GetHashCode() : 0);
+                // Use lower-case string for hashing in case a business logic rule causes a cases-insensitive comparison of IDs
+                result = (result * 397) ^ (Source != null ? Source.ToLowerInvariant().GetHashCode() : 0);
                 return result;
             }
         }

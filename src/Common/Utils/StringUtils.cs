@@ -37,15 +37,15 @@ namespace Common.Utils
     {
         #region Comparing
         /// <summary>
-        /// Compare strings using case insensitive, invariant culture comparison.
+        /// Compare strings using case-insensitive comparison.
         /// </summary>
         public static bool Compare(string s1, string s2)
         {
-            return string.Compare(s1, s2, StringComparison.OrdinalIgnoreCase) == 0;
+            return string.Equals(s1, s2, StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>
-        /// Compare chars using case insensitive, invariant culture comparison.
+        /// Compare chars using case-insensitive comparison.
         /// </summary>
         public static bool CompareChar(char c1, char c2)
         {

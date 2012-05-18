@@ -222,7 +222,7 @@ namespace ZeroInstall.DesktopIntegration
                     if (conflictIDs.TryGetValue(conflictID, out conflictData))
                     {
                         // Ignore conflicts that are actually just re-applications of existing access points
-                        if (appEntry.InterfaceID != conflictData.AppEntry.InterfaceID || !accessPoint.Equals(conflictData.AccessPoint))
+                        if (!ModelUtils.IDEquals(appEntry.InterfaceID, conflictData.AppEntry.InterfaceID) || !accessPoint.Equals(conflictData.AccessPoint))
                             throw new InvalidOperationException(string.Format(Resources.AccessPointConflict, conflictData.AccessPoint, conflictData.AppEntry, accessPoint, appEntry));
                     }
                 }

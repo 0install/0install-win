@@ -74,9 +74,9 @@ namespace ZeroInstall.Model
         }
         #endregion
 
-        #region Escaping
+        #region URI escaping
         /// <summary>
-        /// Escapes a value using URL encoding.
+        /// Escapes a value using URI encoding.
         /// </summary>
         public static string Escape(string value)
         {
@@ -88,7 +88,7 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Unescapes a value using URL encoding.
+        /// Unescapes a value using URI encoding.
         /// </summary>
         public static string Unescape(string escaped)
         {
@@ -100,7 +100,7 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Escapes a value using URL encoding except for slashes (encoded as #) and colons (left as-is on POSIX systems).
+        /// Escapes a value using URI encoding except for slashes (encoded as #) and colons (left as-is on POSIX systems).
         /// </summary>
         public static string PrettyEscape(string value)
         {
@@ -120,7 +120,7 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Unescapes a value using URL encoding except for slashes (encoded as #).
+        /// Unescapes a value using URI encoding except for slashes (encoded as #).
         /// </summary>
         public static string PrettyUnescape(string escaped)
         {
@@ -130,6 +130,25 @@ namespace ZeroInstall.Model
 
             // Decode # as slash
             return Unescape(escaped.Replace("#", "%2f"));
+        }
+        #endregion
+
+        #region ID comparison
+        /// <summary>
+        /// Compares to interface IDs and determines whether they are equivalent (using URI or file path comparison as appropriate).
+        /// </summary>
+        public static bool IDEquals(string idA, string idB)
+        {
+            Uri uriA, uriB;
+            if (TryParseUri(idA, out uriA) && TryParseUri(idB, out uriB))
+            { // Use URI comparison when possible
+                return (uriA == uriB);
+            }
+            else if (WindowsUtils.IsWindows && Path.IsPathRooted(idA) && Path.IsPathRooted(idB))
+            { // Use case-insensitive comparison for file paths on Windows
+                return StringUtils.Compare(idA, idB);
+            }
+            else return idA == idB;
         }
         #endregion
     }
