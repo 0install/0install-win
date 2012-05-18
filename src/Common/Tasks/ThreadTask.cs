@@ -145,6 +145,14 @@ namespace Common.Tasks
                         State = TaskState.IOError;
                     }
                 }
+                catch (UnauthorizedAccessException ex)
+                {
+                    lock (StateLock)
+                    {
+                        ErrorMessage = ex.Message;
+                        State = TaskState.IOError;
+                    }
+                }
                 catch (WebException ex)
                 {
                     lock (StateLock)
