@@ -112,7 +112,7 @@ namespace ZeroInstall.Central.WinForms
             set
             {
                 #region Sanity checks
-                if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
+                if (InvokeRequired) throw new InvalidOperationException("Property set from a non UI thread.");
                 #endregion
 
                 _inAppList = value;
@@ -219,12 +219,24 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         private void UpdateButtons()
         {
-            // Prevent problems if the tile was removed
-            if (Disposing || IsDisposed) return;
-
             buttonAdd.Enabled = buttonAdd.Visible = !_inAppList;
             buttonRemove.Enabled = buttonRemove.Visible = _inAppList;
             buttonIntegrate.Enabled = _inAppList;
+        }
+
+        /// <summary>
+        /// Calls <see cref="UpdateButtons"/> on the UI thread.
+        /// </summary>
+        private void InvokeUpdateButtons()
+        {
+            try
+            {
+                Invoke((SimpleEventHandler)UpdateButtons);
+            }
+            catch (InvalidOperationException)
+            {
+                // Don't worry if the control was disposed in the meantime
+            }
         }
 
         private void linkLabelDetails_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -276,11 +288,10 @@ namespace ZeroInstall.Central.WinForms
             // Disable button while operation is running
             buttonAdd.Enabled = false;
 
-            var parent = Parent;
             ProcessUtils.RunAsync(delegate
             {
                 Commands.WinForms.Program.Main(new[] {"add-app", InterfaceID});
-                parent.Invoke((SimpleEventHandler)UpdateButtons); // Restore buttons
+                InvokeUpdateButtons(); // Restore buttons
             });
         }
 
@@ -289,11 +300,10 @@ namespace ZeroInstall.Central.WinForms
             // Disable buttons while operation is running
             buttonRemove.Enabled = buttonIntegrate.Enabled = false;
 
-            var parent = Parent;
             ProcessUtils.RunAsync(delegate
             {
                 Commands.WinForms.Program.Main(new[] {"integrate-app", InterfaceID});
-                parent.Invoke((SimpleEventHandler)UpdateButtons); // Restore buttons
+                InvokeUpdateButtons(); // Restore buttons
             });
         }
 
@@ -304,11 +314,10 @@ namespace ZeroInstall.Central.WinForms
             // Disable buttons while operation is running
             buttonRemove.Enabled = buttonIntegrate.Enabled = false;
 
-            var parent = Parent;
             ProcessUtils.RunAsync(delegate
             {
                 Commands.WinForms.Program.Main(new[] {"remove-app", InterfaceID});
-                parent.Invoke((SimpleEventHandler)UpdateButtons); // Restore buttons
+                InvokeUpdateButtons(); // Restore buttons
             });
         }
         #endregion
