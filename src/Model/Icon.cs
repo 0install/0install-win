@@ -129,7 +129,9 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                return ((LocationString ?? "").GetHashCode() * 397) ^ (MimeType ?? "").ToLowerInvariant().GetHashCode();
+                int result = (Location != null ? Location.GetHashCode() : 0);
+                if (MimeType != null) result = (result * 397) ^ StringComparer.OrdinalIgnoreCase.GetHashCode(MimeType);
+                return result;
             }
         }
         #endregion

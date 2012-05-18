@@ -142,9 +142,8 @@ namespace ZeroInstall.Model
             {
                 int result = (Location != null ? Location.GetHashCode() : 0);
                 result = (result * 397) ^ Size.GetHashCode();
-                result = (result * 397) ^ (Extract ?? "").GetHashCode();
-                // Use lower-case string for hashing because the value is case-insensitive
-                result = (result * 397) ^ (MimeType ?? "").ToLowerInvariant().GetHashCode();
+                if (Extract != null) result = (result * 397) ^ Extract.GetHashCode();
+                if (MimeType != null) result = (result * 397) ^ StringComparer.OrdinalIgnoreCase.GetHashCode(MimeType);
                 result = (result * 397) ^ StartOffset.GetHashCode();
                 return result;
             }

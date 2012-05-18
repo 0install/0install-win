@@ -150,7 +150,9 @@ namespace Common.Collections
         {
             unchecked
             {
-                return ((Value ?? "").GetHashCode() * 397) ^ (LanguageString ?? "").GetHashCode();
+                int result = (Value != null ? Value.GetHashCode() : 0);
+                if (LanguageString != null) result = (result * 397) ^ LanguageString.GetHashCode();
+                return result;
             }
         }
         #endregion

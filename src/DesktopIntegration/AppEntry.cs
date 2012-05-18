@@ -180,9 +180,9 @@ namespace ZeroInstall.DesktopIntegration
         {
             unchecked
             {
-                int result = (Name ?? "").GetHashCode();
-                // Use lower-case string for hashing in case a business logic rule causes a cases-insensitive comparison of IDs
-                result = (result * 397) ^ InterfaceID.ToLowerInvariant().GetHashCode();
+                int result = (Name != null ? Name.GetHashCode() : 0);
+                // Use case-insensitive hashing in case a business logic rule causes case-insensitive comparison of IDs
+                if (InterfaceID != null) result = (result * 397) ^ StringComparer.OrdinalIgnoreCase.GetHashCode(InterfaceID);
                 result = (result * 397) ^ CapabilityLists.GetSequencedHashCode();
                 if (AccessPoints != null) result = (result * 397) ^ AccessPoints.GetHashCode();
                 return result;

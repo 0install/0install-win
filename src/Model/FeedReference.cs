@@ -94,8 +94,7 @@ namespace ZeroInstall.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                // Use lower-case string for hashing in case a business logic rule causes a cases-insensitive comparison of IDs
-                result = (result * 397) ^ (Source != null ? Source.ToLowerInvariant().GetHashCode() : 0);
+                if (Source != null) result = (result * 397) ^ StringComparer.OrdinalIgnoreCase.GetHashCode(Source);
                 return result;
             }
         }
