@@ -37,7 +37,7 @@ namespace ZeroInstall.Commands.WinForms
     /// </summary>
     /// <remarks>
     /// This class is heavily multi-threaded. The UI is prepared in a background thread to allow simultaneous continuation of computation.
-    /// Any calls relying on the UI being reading will block automatically.
+    /// Any calls relying on the UI to aquire user input will block automatically.
     /// </remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Disposal is handled sufficiently by GC in this case")]
     public class GuiHandler : MarshalByRefObject, IHandler
@@ -160,16 +160,22 @@ namespace ZeroInstall.Commands.WinForms
             // If GUI does not exist or was closed cancel, otherwise wait until it is ready
             if (_form == null) return;
             _guiReady.WaitOne();
-            if (!_form.IsHandleCreated) return;
 
-            _form.Invoke((SimpleEventHandler)(() =>
+            try
             {
-                if (_form.IsHandleCreated) _form.HideTrayIcon();
-                Application.ExitThread();
-                _form.Dispose();
-            }));
-            _form = null;
-            _guiReady.Reset();
+                _form.Invoke((SimpleEventHandler)(() =>
+                {
+                    if (_form.IsHandleCreated) _form.HideTrayIcon();
+                    Application.ExitThread();
+                    _form.Dispose();
+                }));
+                _form = null;
+                _guiReady.Reset();
+            }
+            catch (InvalidOperationException)
+            {
+                // Don't worry if the form was disposed in the meantime
+            }
         }
         #endregion
 
@@ -224,9 +230,15 @@ namespace ZeroInstall.Commands.WinForms
             // If GUI does not exist or was closed cancel, otherwise wait until it is ready
             if (_form == null) return;
             _guiReady.WaitOne();
-            if (!_form.IsHandleCreated) return;
 
-            _form.Invoke((SimpleEventHandler)(() => { if (_form.IsHandleCreated) _form.ShowSelections(selections, feedCache); }));
+            try
+            {
+                _form.Invoke((SimpleEventHandler)(() => { if (_form.IsHandleCreated) _form.ShowSelections(selections, feedCache); }));
+            }
+            catch (InvalidOperationException)
+            {
+                // Don't worry if the form was disposed in the meantime
+            }
         }
 
         /// <inheritdoc/>
