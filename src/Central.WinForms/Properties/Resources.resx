@@ -214,12 +214,11 @@ Install update</value>
 Keep this key secret and use something different for your password. This way nobody can access your data, even if the server were to be compromised.</value>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
-    <value>The Crypto key you entered is incorrect.
-You can reset the Crypto key later by running the Reset wizard.</value>
+    <value>The Crypto key you entered is incorrect.</value>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>The data currently stored on the Sync server is damaged.
-You can replace the data stored on the server later by running the troubleshooting wizard.</value>
+You can replace the data stored on the server by choosing that you don't remember the Crypto key.</value>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Are you sure you want to use an unencrypted connection to a Sync server?
