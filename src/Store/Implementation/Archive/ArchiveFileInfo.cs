@@ -45,5 +45,11 @@ namespace ZeroInstall.Store.Implementation.Archive
         /// The number of bytes at the beginning of the file which should be ignored.
         /// </summary>
         public long StartOffset { get; set; }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return (SubDir == null) ? Path : Path + " (" + SubDir + ")";
+        }
     }
 }
