@@ -34,19 +34,34 @@ namespace ZeroInstall.Store.Management.Cli
         #region Manage
         private static ErrorLevel Add(IList<string> args, ITaskHandler handler)
         {
-            if (args.Count < 3 || args.Count > 4) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageAdd));
+            if (args.Count < 3) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageAdd));
             var manifestDigest = new ManifestDigest(args[1]);
             string path = args[2];
-            string subDir = (args.Count == 4) ? args[3] : null;
 
-            if (Directory.Exists(path)) _store.AddDirectory(path, manifestDigest, handler);
-            else if (File.Exists(path)) _store.AddArchives(new[] {new ArchiveFileInfo {Path = path, SubDir = subDir}}, manifestDigest, handler);
+            if (File.Exists(path) || args.Count > 3)
+            { // One ore more archives (combined/overlayed)
+                var archives = new ArchiveFileInfo[(args.Count - 1) / 2];
+                for (int i = 0; i < archives.Length; i++)
+                {
+                    archives[i] = new ArchiveFileInfo
+                    {
+                        Path = args[i * 2 + 2], // Even numbered arguments are paths
+                        SubDir = (args.Count > i * 2 + 3) ? args[i * 2 + 3] : null // Odd numbered arguments are sub-dirs and are optional at the end
+                    };
+                }
+                _store.AddArchives(archives, manifestDigest, handler);
+                return ErrorLevel.OK;
+            }
+            else if (Directory.Exists(path))
+            { // A single directory
+                _store.AddDirectory(path, manifestDigest, handler);
+                return ErrorLevel.OK;
+            }
             else
             {
                 Log.Error(string.Format(Resources.NoSuchFileOrDirectory, path));
                 return ErrorLevel.IOError;
             }
-            return ErrorLevel.OK;
         }
 
         private static void Copy(IList<string> args, ITaskHandler handler)
