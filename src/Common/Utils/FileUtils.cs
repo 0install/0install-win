@@ -339,10 +339,6 @@ namespace Common.Utils
                     ToggleWriteProtectionUnix(directory, true);
                     break;
 
-                case PlatformID.Win32Windows:
-                    ToggleWriteProtectionWin32(directory, true);
-                    break;
-
                 case PlatformID.Win32NT:
                     ToggleWriteProtectionWinNT(directory, true);
                     break;
@@ -373,20 +369,16 @@ namespace Common.Utils
                     ToggleWriteProtectionUnix(directory, false);
                     break;
 
-                case PlatformID.Win32Windows:
-                    ToggleWriteProtectionWin32(directory, false);
-                    break;
-
                 case PlatformID.Win32NT:
                     ToggleWriteProtectionWinNT(directory, false);
-                    //try { ToggleWriteProtectionWin32(directory, false); }
-                    //#region Error handling
-                    //catch (ArgumentException ex)
-                    //{
-                    //    // Wrap exception since only certain exception types are allowed in tasks
-                    //    throw new IOException(ex.Message, ex);
-                    //}
-                    //#endregion
+
+                    // Remove any read-only attributes
+                    try
+                    {
+                        WalkDirectory(directory, dir => dir.Attributes = FileAttributes.Normal, file => file.IsReadOnly = false);
+                    }
+                    catch (ArgumentException)
+                    {}
                     break;
             }
         }
@@ -409,11 +401,6 @@ namespace Common.Utils
                 throw new IOException(Resources.UnixSubsystemFail, ex);
             }
             #endregion
-        }
-
-        private static void ToggleWriteProtectionWin32(DirectoryInfo directory, bool enable)
-        {
-            WalkDirectory(directory, null, file => file.IsReadOnly = enable);
         }
 
         private static void ToggleWriteProtectionWinNT(DirectoryInfo directory, bool enable)
