@@ -105,7 +105,8 @@ namespace Common.Storage
                     default:
                     case PlatformID.Win32Windows:
                     case PlatformID.Win32NT:
-                        return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                        // Use XDG specification or Win32 API
+                        return GetEnvironmentVariable("XDG_CONFIG_HOME", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
                 }
             }
         }
@@ -130,7 +131,8 @@ namespace Common.Storage
                     default:
                     case PlatformID.Win32Windows:
                     case PlatformID.Win32NT:
-                        return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                        // Use XDG specification or Win32 API
+                        return GetEnvironmentVariable("XDG_DATA_HOME", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData));
                 }
             }
         }
@@ -155,7 +157,8 @@ namespace Common.Storage
                     default:
                     case PlatformID.Win32Windows:
                     case PlatformID.Win32NT:
-                        return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                        // Use XDG specification or Win32 API
+                        return GetEnvironmentVariable("XDG_CACHE_HOME", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData));
                 }
             }
         }
@@ -183,7 +186,8 @@ namespace Common.Storage
                     default:
                     case PlatformID.Win32Windows:
                     case PlatformID.Win32NT:
-                        return Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+                        // Use XDG specification or Win32 API
+                        return GetEnvironmentVariable("XDG_CONFIG_DIRS", Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData));
                 }
             }
         }
@@ -209,7 +213,8 @@ namespace Common.Storage
                     default:
                     case PlatformID.Win32Windows:
                     case PlatformID.Win32NT:
-                        return Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+                        // Use XDG specification or Win32 API
+                        return GetEnvironmentVariable("XDG_DATA_DIRS", Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData));
                 }
             }
         }
