@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
@@ -119,6 +120,10 @@ namespace ZeroInstall.Injector
                 startInfo.EnvironmentVariables.Add("0install-runenv-args-" + pending.Name, split.Arguments);
             }
             _runEnvPendings.Clear();
+
+            // Make sure archives always get extracted by .NET code even if a Python-version of Zero Install is executed
+            if (WindowsUtils.IsWindows)
+                startInfo.EnvironmentVariables.Add("ZEROINSTALL_EXTERNAL_STORE", Path.Combine(Locations.InstallBase, "0store.exe"));
 
             // Split and apply main command-line
             {
