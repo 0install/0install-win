@@ -230,7 +230,7 @@ Try 0store --help</value>
     <value>Usage:</value>
   </data>
   <data name="UsageAdd" xml:space="preserve">
-    <value>0store add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [ARCHIVE [EXTRACT [...]]]))</value>
+    <value>0store add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))</value>
   </data>
   <data name="UsageAudit" xml:space="preserve">
     <value>0store audit [CACHE+]</value>

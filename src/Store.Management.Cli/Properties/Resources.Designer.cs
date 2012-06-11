@@ -322,7 +322,7 @@ namespace ZeroInstall.Store.Management.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 0store add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [ARCHIVE [EXTRACT [...]]])).
+        ///   Looks up a localized string similar to 0store add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]])).
         /// </summary>
         internal static string UsageAdd {
             get {

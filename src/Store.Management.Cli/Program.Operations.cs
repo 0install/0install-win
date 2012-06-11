@@ -39,14 +39,15 @@ namespace ZeroInstall.Store.Management.Cli
             string path = args[2];
 
             if (File.Exists(path) || args.Count > 3)
-            { // One ore more archives (combined/overlayed)
-                var archives = new ArchiveFileInfo[(args.Count - 1) / 2];
+            { // One or more archives (combined/overlayed)
+                var archives = new ArchiveFileInfo[(args.Count - 1) / 3];
                 for (int i = 0; i < archives.Length; i++)
                 {
                     archives[i] = new ArchiveFileInfo
                     {
-                        Path = args[i * 2 + 2], // Even numbered arguments are paths
-                        SubDir = (args.Count > i * 2 + 3) ? args[i * 2 + 3] : null // Odd numbered arguments are sub-dirs and are optional at the end
+                        Path = args[i * 3 + 2],
+                        SubDir = (args.Count > i * 3 + 3) ? args[i * 3 + 3] : null,
+                        MimeType = (args.Count > i * 3 + 4) ? args[i * 3 + 4] : null
                     };
                 }
                 _store.AddArchives(archives, manifestDigest, handler);
