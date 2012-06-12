@@ -36,7 +36,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
     {
         #region Constants
         /// <summary>Prepended before <see cref="Capabilities.AppRegistration.CapabilityRegPath"/>. This prevents conflicts with non-Zero Install installations.</summary>
-        private const string CapabilityPrefix = @"Zero Install\Applications\";
+        private const string CapabilityPrefix = @"SOFTWARE\Zero Install\Applications\";
 
         /// <summary>The HKLM registry key for registering applications as candidates for default programs.</summary>
         public const string RegKeyMachineRegisteredApplications = @"SOFTWARE\RegisteredApplications";
@@ -85,7 +85,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(appRegistration.CapabilityRegPath)) throw new InvalidDataException("Invalid CapabilityRegPath");
 
             // ToDo: Handle appRegistration.X64
-            using (var capabilitiesKey = Registry.LocalMachine.CreateSubKey(CapabilityPrefix + appRegistration.CapabilityRegPath))
+            using (var capabilitiesKey = Registry.LocalMachine.CreateSubKey(/*CapabilityPrefix +*/ appRegistration.CapabilityRegPath))
             {
                 capabilitiesKey.SetValue(RegValueAppName, target.Feed.Name ?? "");
                 capabilitiesKey.SetValue(RegValueAppDescription, target.Feed.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture) ?? "");
@@ -131,7 +131,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             }
 
             using (var regAppsKey = Registry.LocalMachine.CreateSubKey(RegKeyMachineRegisteredApplications))
-                regAppsKey.SetValue(appRegistration.ID, CapabilityPrefix + appRegistration.CapabilityRegPath);
+                regAppsKey.SetValue(appRegistration.ID, /*CapabilityPrefix +*/ appRegistration.CapabilityRegPath);
         }
         #endregion
 
@@ -158,7 +158,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             // ToDo: Handle appRegistration.X64
             try
             {
-                Registry.LocalMachine.DeleteSubKeyTree(CapabilityPrefix + appRegistration.CapabilityRegPath);
+                Registry.LocalMachine.DeleteSubKeyTree(/*CapabilityPrefix +*/ appRegistration.CapabilityRegPath);
             }
             catch (ArgumentException)
             {} // Ignore missing registry keys
