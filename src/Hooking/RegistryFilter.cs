@@ -78,7 +78,7 @@ namespace ZeroInstall.Hooking
         /// Filters a registry write request applying <see cref="_rules"/>.
         /// </summary>
         /// <param name="toRegistry">The value to be written to the registry.</param>
-        /// <returns>The value for the registry with any required substitutions applied or <see langword="null"/> if nothing was changed..</returns>
+        /// <returns>The value for the registry with any required substitutions applied or <see langword="null"/> if nothing was changed.</returns>
         internal string WriteFilter(string toRegistry)
         {
             if (string.IsNullOrEmpty(toRegistry)) return toRegistry;
