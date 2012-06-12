@@ -22,6 +22,7 @@ using System.Net;
 using System.Xml;
 using Common;
 using Common.Collections;
+using Common.Storage;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
@@ -129,8 +130,9 @@ namespace ZeroInstall.Injector.Feeds
             // Detect when feeds get out-of-date
             // ToDo: Evaluate caching the last check value somewhere
             var preferences = FeedPreferences.LoadForSafe(feedID);
-            TimeSpan feedAge = DateTime.UtcNow - preferences.LastChecked;
-            stale = (feedAge > policy.Config.Freshness);
+            TimeSpan lastChecked = DateTime.UtcNow - preferences.LastChecked;
+            TimeSpan lastCheckAttempt = DateTime.UtcNow - GetLastCheckAttempt(feedID);
+            stale = (lastChecked > policy.Config.Freshness && lastCheckAttempt > _failedCheckDelay);
 
             try
             {
@@ -165,6 +167,8 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
         private void DownloadFeed(Uri url, Policy policy)
         {
+            SetLastCheckAttempt(url.ToString());
+
             // ToDo: Add tracking and better cancellation support
             policy.Handler.CancellationToken.ThrowIfCancellationRequested();
             using (var webClient = new WebClientTimeout(12000)) // 12 seconds timeout
@@ -178,7 +182,7 @@ namespace ZeroInstall.Injector.Feeds
                 {
                     if (url.Host == "localhost" || url.Host == "127.0.0.1") throw;
                     policy.Handler.CancellationToken.ThrowIfCancellationRequested();
-                    Log.Warn("Error while downloading feed '" + url + "':\n" + ex.Message + "\nSwitching to mirror.");
+                    Log.Warn(string.Format(Resources.FeedDownloadErrorSwitchToMirror, url, ex.Message));
 
                     var mirrorUrl = new Uri(policy.Config.FeedMirror, string.Format(
                         "feeds/{0}/{1}/{2}/latest.xml",
@@ -356,6 +360,41 @@ namespace ZeroInstall.Injector.Feeds
             {
                 // No existing feed to be replaced
             }
+        }
+        #endregion
+
+        #region Check attempt
+        /// <summary>
+        /// Minimum amount of time between stale feed update attempts.
+        /// </summary>
+        private static readonly TimeSpan _failedCheckDelay = new TimeSpan(1, 0, 0);
+
+        /// <summary>
+        /// Determines the most recent point in time an attempt was made to download a particular feed.
+        /// </summary>
+        private DateTime GetLastCheckAttempt(string feedID)
+        {
+            // Determine timestamp file path
+            var file = new FileInfo(Path.Combine(
+                Locations.GetCacheDirPath("0install.net", "injector", "last-check-attempt"),
+                ModelUtils.Escape(feedID).Replace("%2f", "#")));
+
+            // Check last modification time
+            return file.Exists ? file.LastWriteTimeUtc : new DateTime();
+        }
+
+        /// <summary>
+        /// Notes the current time as an attempt to download a particular feed.
+        /// </summary>
+        private void SetLastCheckAttempt(string feedID)
+        {
+            // Determine timestamp file path
+            string path = Path.Combine(
+                Locations.GetCacheDirPath("0install.net", "injector", "last-check-attempt"),
+                ModelUtils.Escape(feedID).Replace("%2f", "#"));
+
+            // Set modification time to now
+            File.WriteAllText(path, "");
         }
         #endregion
 
