@@ -62,9 +62,10 @@
     <Compile Include="AddFeed.cs" />
     <Compile Include="AppCommand.cs" />
     <Compile Include="CliHandler.cs" />
-    <Compile Include="CommandBase.cs" />
+    <Compile Include="FrontendCommand.cs" />
     <Compile Include="CommandFactory.cs" />
     <Compile Include="Configure.cs" />
+    <Compile Include="AddRemoveFeedCommand.cs" />
     <Compile Include="IntegrationCommand.cs" />
     <Compile Include="IntegrateApp.cs" />
     <Compile Include="DefaultCommand.cs" />

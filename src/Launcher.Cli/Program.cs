@@ -69,7 +69,7 @@ namespace ZeroInstall.Launcher.Cli
             }
 
             IHandler handler = new CliHandler();
-            CommandBase command;
+            FrontendCommand command;
             try
             {
                 command = new Run(Policy.CreateDefault(handler));

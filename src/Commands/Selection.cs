@@ -33,7 +33,7 @@ namespace ZeroInstall.Commands
     /// Select a version of the program identified by URI, and compatible versions of all of its dependencies.
     /// </summary>
     [CLSCompliant(false)]
-    public class Selection : CommandBase
+    public class Selection : FrontendCommand
     {
         #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>

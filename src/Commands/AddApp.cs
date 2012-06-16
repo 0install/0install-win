@@ -62,7 +62,7 @@ namespace ZeroInstall.Commands
             }
             catch (InvalidOperationException ex)
             {
-                // Show a "nothing to do" message if there is an existing AppEntry (but not in batch mode, since it is too unimportant));
+                // Show a "nothing to do" message if there is an existing AppEntry (but not in batch mode, since it is not important enough));
                 if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, ex.Message);
             }
             return 0;

@@ -98,7 +98,7 @@
     <Folder Include="Central\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\CommandBaseTest.cs" />
+    <Compile Include="Commands\FrontendCommandTest.cs" />
     <Compile Include="Commands\DownloadTest.cs" />
     <Compile Include="Commands\ListTest.cs" />
     <Compile Include="Commands\SelectionTest.cs" />

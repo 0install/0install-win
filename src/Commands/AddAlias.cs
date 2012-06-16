@@ -120,7 +120,7 @@ namespace ZeroInstall.Commands
             {
                 integrationManager.RemoveAccessPoints(appEntry, new AccessPoint[] {appAlias});
 
-                // Show a "integration complete" message (but not in batch mode, since it is too unimportant)
+                // Show a "integration complete" message (but not in batch mode, since it is not important enough)
                 Policy.Handler.Output(Resources.AppAlias, string.Format(Resources.AliasRemoved, aliasName, appEntry.Name));
             }
             return 0;
@@ -157,7 +157,7 @@ namespace ZeroInstall.Commands
             }
             #endregion
 
-            // Show a "integration complete" message (but not in batch mode, since it is too unimportant)
+            // Show a "integration complete" message (but not in batch mode, since it is not important enough)
             if (!Policy.Handler.Batch)
             {
                 Policy.Handler.Output(

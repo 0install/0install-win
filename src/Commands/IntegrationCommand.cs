@@ -15,7 +15,7 @@ namespace ZeroInstall.Commands
     /// Common base class for commands that manage <see cref="ZeroInstall.DesktopIntegration"/>.
     /// </summary>
     [CLSCompliant(false)]
-    public abstract class IntegrationCommand : CommandBase
+    public abstract class IntegrationCommand : FrontendCommand
     {
         #region Variables
         /// <summary>Apply the operation system-wide instead of just for the current user.</summary>

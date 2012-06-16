@@ -67,7 +67,7 @@ namespace ZeroInstall.Commands.Cli
             }
 
             IHandler handler = new CliHandler();
-            CommandBase command;
+            FrontendCommand command;
             try
             {
                 command = CommandFactory.CreateAndParse(args, handler);

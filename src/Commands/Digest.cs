@@ -31,7 +31,7 @@ namespace ZeroInstall.Commands
     /// Calculate the manifest digest of a directory or archive.
     /// </summary>
     [CLSCompliant(false)]
-    public sealed class Digest : CommandBase
+    public sealed class Digest : FrontendCommand
     {
         #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>

@@ -28,7 +28,7 @@ namespace ZeroInstall.Commands
     /// </summary>
     /// <remarks>If a search term is given, only URIs containing that string are shown (case insensitive).</remarks>
     [CLSCompliant(false)]
-    public sealed class List : CommandBase
+    public sealed class List : FrontendCommand
     {
         #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>

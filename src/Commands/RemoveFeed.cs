@@ -17,8 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using Common.Utils;
-using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Feeds;
@@ -30,7 +28,7 @@ namespace ZeroInstall.Commands
     /// Un-register a feed, reversing the effect of <see cref="AddFeed"/>.
     /// </summary>
     [CLSCompliant(false)]
-    public sealed class RemoveFeed : CommandBase
+    public sealed class RemoveFeed : AddRemoveFeedCommand
     {
         #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
@@ -39,65 +37,42 @@ namespace ZeroInstall.Commands
 
         #region Properties
         /// <inheritdoc/>
-        protected override string Usage { get { return "[OPTIONS] [INTERFACE] FEED"; } }
+        protected override string Description { get { return Resources.DescriptionRemoveFeed; } }
 
         /// <inheritdoc/>
-        protected override string Description { get { return Resources.DescriptionRemoveFeed; } }
+        public override string ActionTitle { get { return Resources.ActionRemoveFeed; } }
         #endregion
 
         #region Constructor
         /// <inheritdoc/>
         public RemoveFeed(Policy policy) : base(policy)
-        {
-            Options.Add("batch", Resources.OptionBatch, unused => Policy.Handler.Batch = true);
-        }
+        {}
         #endregion
 
         //--------------------//
 
         #region Execute
-        /// <inheritdoc/>
-        public override int Execute()
+        /// <summary>
+        /// Removes a <see cref="FeedReference"/> from one or more <see cref="InterfacePreferences"/>.
+        /// </summary>
+        /// <returns>The interfaces that were actually affected.</returns>
+        protected override ICollection<string> ApplyFeedToInterfaces(string feedID, IEnumerable<string> interfaces)
         {
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
-            if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments, "");
-
-            Policy.Handler.ShowProgressUI();
-
-            string feedID;
-            IEnumerable<string> interfaces;
-            if (AdditionalArgs.Count == 2)
-            { // Main interface for feed specified explicitly
-                interfaces = new[] {GetCanonicalID(AdditionalArgs[0])};
-                feedID = GetCanonicalID(AdditionalArgs[1]);
-            }
-            else
-            { // Determine interfaces from feed content
-                feedID = GetCanonicalID(AdditionalArgs[0]);
-
-                interfaces = Policy.FeedManager.GetFeed(feedID, Policy).FeedFor.Map(reference => reference.Target.ToString());
-            }
-
-            // Remove feed from interface preference fies
-            ICollection<string> removedFrom = new LinkedList<string>();
+            var modified = new List<string>();
+            var reference = new FeedReference {Source = feedID};
             foreach (var interfaceID in interfaces)
             {
                 var preferences = InterfacePreferences.LoadFor(interfaceID);
-                if (preferences.Feeds.Remove(new FeedReference {Source = feedID}))
-                    removedFrom.Add(interfaceID);
+                if (preferences.Feeds.Remove(reference))
+                    modified.Add(interfaceID);
                 preferences.SaveFor(interfaceID);
             }
-
-            // Show a confirmation message (but not in batch mode, since it is too unimportant)
-            if (!Policy.Handler.Batch)
-            {
-                Policy.Handler.Output(Resources.FeedManagement, (removedFrom.Count == 0)
-                    ? Resources.FeedNotRegistered
-                    : string.Format(Resources.FeedUnregistered, StringUtils.Concatenate(removedFrom, "\n")));
-            }
-            return removedFrom.Count == 0 ? 0 : 1;
+            return modified;
         }
+
+        protected override string ModifiedMessage { get { return Resources.FeedUnregistered; } }
+
+        protected override string NoneModifiedMessage { get { return Resources.FeedNotRegistered; } }
         #endregion
     }
 }

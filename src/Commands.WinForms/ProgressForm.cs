@@ -31,7 +31,7 @@ using ZeroInstall.Store.Feeds;
 namespace ZeroInstall.Commands.WinForms
 {
     /// <summary>
-    /// Displays the progress of a <see cref="CommandBase"/> and <see cref="ITask"/>s.
+    /// Displays the progress of a <see cref="FrontendCommand"/> and <see cref="ITask"/>s.
     /// </summary>
     public partial class ProgressForm : Form
     {

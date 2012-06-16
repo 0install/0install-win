@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ActionAddFeed" xml:space="preserve">
-    <value>Adding additional feed</value>
+    <value>Adding additional feed association</value>
   </data>
   <data name="ActionAppCommand" xml:space="preserve">
     <value>Managing desktop integration</value>
@@ -128,6 +128,9 @@
   </data>
   <data name="ActionDownload" xml:space="preserve">
     <value>Downloading application</value>
+  </data>
+  <data name="ActionRemoveFeed" xml:space="preserve">
+    <value>Removing additional feed association</value>
   </data>
   <data name="ActionRun" xml:space="preserve">
     <value>Preparing to launch application</value>

@@ -80,7 +80,7 @@ namespace ZeroInstall.Commands.WinForms
             if (args.Length == 0) args = new[] {"--help"};
 
             var handler = new GuiHandler();
-            CommandBase command;
+            FrontendCommand command;
             try
             {
                 command = CommandFactory.CreateAndParse(args, handler);

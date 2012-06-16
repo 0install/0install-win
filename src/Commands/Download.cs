@@ -90,7 +90,7 @@ namespace ZeroInstall.Commands
             if (_show) Policy.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
             else
             {
-                // Show a "download complete" message (but not in batch mode, since it is too unimportant)
+                // Show a "download complete" message (but not in batch mode, since it is not important enough)
                 if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
             }
             return 0;

@@ -37,12 +37,12 @@ using ZeroInstall.Store.Implementation;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Represents a command issued via the command-line.
+    /// Represents a command issued via the command-line. Not to be confused with <see cref="Model.Command"/>!
     /// </summary>
     /// <remarks>Specific sub-classes of this class are used to handle a commands like "0install COMMAND [OPTIONS]".</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [CLSCompliant(false)]
-    public abstract class CommandBase
+    public abstract class FrontendCommand
     {
         #region Variables
         /// <summary>Indicates whether <see cref="Parse"/> has already been called.</summary>
@@ -115,7 +115,7 @@ namespace ZeroInstall.Commands
         /// Creates a new command.
         /// </summary>
         /// <param name="policy">Provides additional class dependencies.</param>
-        protected CommandBase(Policy policy)
+        protected FrontendCommand(Policy policy)
         {
             Policy = policy;
 

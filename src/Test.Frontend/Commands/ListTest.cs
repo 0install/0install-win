@@ -25,10 +25,10 @@ namespace ZeroInstall.Commands
     /// Contains code for testing <see cref="List"/>.
     /// </summary>
     [TestFixture]
-    public class ListTest : CommandBaseTest
+    public class ListTest : FrontendCommandTest
     {
         /// <inheritdoc/>
-        protected override CommandBase GetCommand()
+        protected override FrontendCommand GetCommand()
         {
             return new List(Policy);
         }

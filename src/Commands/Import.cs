@@ -29,7 +29,7 @@ namespace ZeroInstall.Commands
     /// </summary>
     /// <remarks>This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again. The file must have a trusted digital signature, as when fetching from the network.</remarks>
     [CLSCompliant(false)]
-    public sealed class Import : CommandBase
+    public sealed class Import : FrontendCommand
     {
         #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>

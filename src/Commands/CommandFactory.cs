@@ -26,7 +26,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Handles the creation of <see cref="CommandBase"/> instances for handling of commands like "0install COMMAND [OPTIONS]".
+    /// Handles the creation of <see cref="FrontendCommand"/> instances for handling of commands like "0install COMMAND [OPTIONS]".
     /// </summary>
     [CLSCompliant(false)]
     public static class CommandFactory
@@ -38,16 +38,16 @@ namespace ZeroInstall.Commands
         internal static readonly string[] ValidCommandNames = new[] {Selection.Name, Download.Name, Update.Name, Run.Name, SelfUpdate.Name, Import.Name, List.Name, Configure.Name, AddFeed.Name, RemoveFeed.Name, ListFeeds.Name, Digest.Name, AddApp.Name, RemoveApp.Name, IntegrateApp.Name, AddAlias.Name, SyncApps.Name, RepairApps.Name};
 
         /// <summary>
-        /// Creates a nw <see cref="CommandBase"/> based on a name.
+        /// Creates a nw <see cref="FrontendCommand"/> based on a name.
         /// </summary>
         /// <param name="commandName">The command name to look for; case-insensitive; may be <see langword="null"/>.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be about download and IO tasks.</param>
-        /// <returns>The requested <see cref="CommandBase"/> or <see cref="DefaultCommand"/> if <paramref name="commandName"/> was <see langword="null"/>.</returns>
+        /// <returns>The requested <see cref="FrontendCommand"/> or <see cref="DefaultCommand"/> if <paramref name="commandName"/> was <see langword="null"/>.</returns>
         /// <exception cref="OptionException">Thrown if <paramref name="commandName"/> is an unknown command.</exception>
         /// <exception cref="IOException">Thrown if there was a problem accessing a configuration file or one of the stores.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to a configuration file or one of the stores was not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if a configuration file is damaged.</exception>
-        private static CommandBase GetCommand(string commandName, IHandler handler)
+        private static FrontendCommand GetCommand(string commandName, IHandler handler)
         {
             var policy = Policy.CreateDefault(handler);
             if (string.IsNullOrEmpty(commandName)) return new DefaultCommand(policy);
@@ -97,18 +97,18 @@ namespace ZeroInstall.Commands
 
         #region Create and parse
         /// <summary>
-        /// Parses command-line arguments, automatically creating an appropriate <see cref="CommandBase"/>.
+        /// Parses command-line arguments, automatically creating an appropriate <see cref="FrontendCommand"/>.
         /// </summary>
         /// <param name="args">The command-line arguments to be parsed.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be about download and IO tasks.</param>
-        /// <returns>The newly created <see cref="CommandBase"/> after <see cref="CommandBase.Parse"/> has been called.</returns>
+        /// <returns>The newly created <see cref="FrontendCommand"/> after <see cref="FrontendCommand.Parse"/> has been called.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the user asked to see help information, version information, etc..</exception>
         /// <exception cref="OptionException">Thrown if <paramref name="args"/> contains unknown options or specified an unknown command.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if a configuration file is damaged.</exception>
         /// <exception cref="InvalidInterfaceIDException">Thrown when trying to set an invalid interface ID.</exception>
-        public static CommandBase CreateAndParse(IEnumerable<string> args, IHandler handler)
+        public static FrontendCommand CreateAndParse(IEnumerable<string> args, IHandler handler)
         {
             #region Sanity checks
             if (args == null) throw new ArgumentNullException("args");
@@ -116,7 +116,7 @@ namespace ZeroInstall.Commands
             #endregion
 
             var arguments = new LinkedList<String>(args);
-            CommandBase command = GetCommand(GetCommandName(arguments), handler);
+            FrontendCommand command = GetCommand(GetCommandName(arguments), handler);
 
             command.Parse(arguments);
             return command;

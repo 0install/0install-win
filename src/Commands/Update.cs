@@ -153,7 +153,7 @@ namespace ZeroInstall.Commands
             }
             else
             {
-                // Show a "nothing changed" message (but not in batch mode, since it is too unimportant)
+                // Show a "nothing changed" message (but not in batch mode, since it is not important enough)
                 if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.ChangesFound, Resources.NoUpdatesFound);
             }
         }

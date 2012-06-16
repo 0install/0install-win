@@ -17,8 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using Common.Utils;
-using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Feeds;
@@ -27,10 +25,10 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Register an additional source of implementations (versions) of a program. 
+    /// Register an additional source of implementations (versions) of a program.
     /// </summary>
     [CLSCompliant(false)]
-    public sealed class AddFeed : CommandBase
+    public sealed class AddFeed : AddRemoveFeedCommand
     {
         #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
@@ -38,9 +36,6 @@ namespace ZeroInstall.Commands
         #endregion
 
         #region Properties
-        /// <inheritdoc/>
-        protected override string Usage { get { return "[OPTIONS] NEW-FEED"; } }
-
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionAddFeed; } }
 
@@ -51,59 +46,36 @@ namespace ZeroInstall.Commands
         #region Constructor
         /// <inheritdoc/>
         public AddFeed(Policy policy) : base(policy)
-        {
-            Options.Add("batch", Resources.OptionBatch, unused => Policy.Handler.Batch = true);
-
-            Options.Add("o|offline", Resources.OptionOffline, unused => Policy.Config.NetworkUse = NetworkLevel.Offline);
-            Options.Add("r|refresh", Resources.OptionRefresh, unused => Policy.FeedManager.Refresh = true);
-        }
+        {}
         #endregion
 
         //--------------------//
 
         #region Execute
-        /// <inheritdoc/>
-        public override int Execute()
+        /// <summary>
+        /// Adds a <see cref="FeedReference"/> to one or more <see cref="InterfacePreferences"/>.
+        /// </summary>
+        /// <returns>The interfaces that were actually affected.</returns>
+        protected override ICollection<string> ApplyFeedToInterfaces(string feedID, IEnumerable<string> interfaces)
         {
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
-            if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
-
-            Policy.Handler.ShowProgressUI();
-
-            string feedID = GetCanonicalID(AdditionalArgs[0]);
-
-            var feed = Policy.FeedManager.GetFeed(feedID, Policy);
-            if (feed.FeedFor.IsEmpty)
-            {
-                Policy.Handler.Output(Resources.FeedManagement, string.Format(Resources.MissingFeedFor, feedID));
-                return 1;
-            }
-
-            // Add feed to interface preference fies
-            ICollection<string> addedTo = new LinkedList<string>();
-            var interfaces = feed.FeedFor.Map(reference => reference.Target.ToString());
+            var modified = new List<string>();
             foreach (var interfaceID in interfaces)
             {
                 var preferences = InterfacePreferences.LoadFor(interfaceID);
                 var reference = new FeedReference {Source = feedID};
-                if (!preferences.Feeds.Contains(reference))
+                if (!preferences.Feeds.Contains(reference)) // Prevent duplicate entries
                 {
                     preferences.Feeds.Add(reference);
-                    addedTo.Add(interfaceID);
+                    modified.Add(interfaceID);
                 }
                 preferences.SaveFor(interfaceID);
             }
-
-            // Show a confirmation message (but not in batch mode, since it is too unimportant)
-            if (!Policy.Handler.Batch)
-            {
-                Policy.Handler.Output(Resources.FeedManagement, (addedTo.Count == 0)
-                    ? Resources.FeedAlreadyRegistered
-                    : string.Format(Resources.FeedRegistered, StringUtils.Concatenate(addedTo, "\n")));
-            }
-            return addedTo.Count == 0 ? 0 : 1;
+            return modified;
         }
+
+        protected override string ModifiedMessage { get { return Resources.FeedRegistered; } }
+
+        protected override string NoneModifiedMessage { get { return Resources.FeedAlreadyRegistered; } }
         #endregion
     }
 }

@@ -30,7 +30,7 @@ namespace ZeroInstall.Commands
     public class DownloadTest : SelectionTest
     {
         /// <inheritdoc/>
-        protected override CommandBase GetCommand()
+        protected override FrontendCommand GetCommand()
         {
             return new Download(Policy);
         }

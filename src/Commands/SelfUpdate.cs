@@ -106,7 +106,7 @@ namespace ZeroInstall.Commands
             var newVersion = Selections.Implementations[0].Version;
             if (!_force && currentVersion >= newVersion)
             {
-                // Show a "nothing changed" message (but not in batch mode, since it is too unimportant)
+                // Show a "nothing changed" message (but not in batch mode, since it is not important enough)
                 if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.ChangesFound, Resources.NoUpdatesFound);
                 return 1;
             }

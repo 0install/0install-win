@@ -60,7 +60,7 @@ namespace ZeroInstall.Alias.Cli
             if (args.Length == 0) args = new[] {"--help"};
 
             IHandler handler = new CliHandler();
-            CommandBase command;
+            FrontendCommand command;
             try
             {
                 command = new AddAlias(Policy.CreateDefault(handler));

@@ -29,9 +29,9 @@ using ZeroInstall.Store.Implementation;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Contains common code for testing specific <see cref="CommandBase"/>s.
+    /// Contains common code for testing specific <see cref="FrontendCommand"/>s.
     /// </summary>
-    public abstract class CommandBaseTest
+    public abstract class FrontendCommandTest
     {
         #region Mock classes
         /// <summary>
@@ -85,11 +85,11 @@ namespace ZeroInstall.Commands
         protected Policy Policy { get; private set; }
 
         /// <summary>The command to be tested.</summary>
-        protected CommandBase Command { get; private set; }
+        protected FrontendCommand Command { get; private set; }
         #endregion
 
         /// <summary>Creates an instance of the command type to be tested using <see cref="_handler"/> and <see cref="Policy"/>.</summary>
-        protected abstract CommandBase GetCommand();
+        protected abstract FrontendCommand GetCommand();
 
         [SetUp]
         public void SetUp()
@@ -120,12 +120,12 @@ namespace ZeroInstall.Commands
         }
 
         /// <summary>
-        /// Verifies that calling <see cref="CommandBase.Parse"/> and <see cref="CommandBase.Execute"/> causes a specific reuslt.
+        /// Verifies that calling <see cref="FrontendCommand.Parse"/> and <see cref="FrontendCommand.Execute"/> causes a specific reuslt.
         /// </summary>
-        /// <param name="args">The arguments to pass to <see cref="CommandBase.Parse"/>.</param>
+        /// <param name="args">The arguments to pass to <see cref="FrontendCommand.Parse"/>.</param>
         /// <param name="selections">The expected value for a <see cref="IHandler.ShowSelections"/> call; <see langword="null"/> if none.</param>
         /// <param name="output">The expected string for a <see cref="IHandler.Output"/> call; <see langword="null"/> if none.</param>
-        /// <param name="exitStatus">The expected exit status code returned by <see cref="CommandBase.Execute"/>.</param>
+        /// <param name="exitStatus">The expected exit status code returned by <see cref="FrontendCommand.Execute"/>.</param>
         protected void AssertParseExecuteResult(IEnumerable<string> args, Selections selections, string output, int exitStatus)
         {
             Command.Parse(args);

@@ -29,7 +29,7 @@ namespace ZeroInstall.Commands
     /// List all known feed IDs for a specific interface.
     /// </summary>
     [CLSCompliant(false)]
-    public sealed class ListFeeds : CommandBase
+    public sealed class ListFeeds : FrontendCommand
     {
         #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>

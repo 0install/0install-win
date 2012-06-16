@@ -28,7 +28,7 @@ namespace ZeroInstall.Commands
     /// The default command used when no command is explicitly specified.
     /// </summary>
     [CLSCompliant(false)]
-    public sealed class DefaultCommand : CommandBase
+    public sealed class DefaultCommand : FrontendCommand
     {
         #region Properties
         /// <inheritdoc/>

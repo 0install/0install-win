@@ -60,7 +60,7 @@ namespace ZeroInstall.Commands
             }
             catch (KeyNotFoundException ex)
             {
-                // Show a "nothing to do" message (but not in batch mode, since it is too unimportant));
+                // Show a "nothing to do" message (but not in batch mode, since it is not important enough));
                 if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, ex.Message);
                 return 0;
             }

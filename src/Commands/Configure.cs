@@ -27,7 +27,7 @@ namespace ZeroInstall.Commands
     /// View or change <see cref="Config"/>.
     /// </summary>
     [CLSCompliant(false)]
-    public sealed class Configure : CommandBase
+    public sealed class Configure : FrontendCommand
     {
         #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
