@@ -70,7 +70,7 @@ namespace ZeroInstall.Injector.Solver
 
             private void AddSelection(Requirements requirements)
             {
-                //policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+                _policy.Handler.CancellationToken.ThrowIfCancellationRequested();
 
                 var candidates = new List<SelectionCandidate>();
 
@@ -113,12 +113,16 @@ namespace ZeroInstall.Injector.Solver
                 // ToDo: Detect cyclic or cross-references
                 foreach (var dependency in implementation.Dependencies)
                 {
-                    AddSelection(new Requirements
+                    if (string.IsNullOrEmpty(dependency.Use) || (dependency.Use == "testing" && requirements.CommandName == "test"))
                     {
-                        InterfaceID = dependency.Interface,
-                        Architecture = requirements.Architecture,
-                        //BeforeVersion = dependency.
-                    });
+                        AddSelection(new Requirements
+                        {
+                            InterfaceID = dependency.Interface,
+                            Architecture = requirements.Architecture,
+                            BeforeVersion = dependency.BeforeVersion,
+                            NotBeforeVersion = dependency.NotBeforeVersion
+                        });
+                    }
                 }
             }
 

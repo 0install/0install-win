@@ -103,6 +103,7 @@
     <Compile Include="Model\Capabilities\CapabilityListTest.cs" />
     <Compile Include="Model\CatalogTest.cs" />
     <Compile Include="Model\CommandTest.cs" />
+    <Compile Include="Model\DependencyTest.cs" />
     <Compile Include="Model\EnvironmentBindingTest.cs" />
     <Compile Include="Model\ExecutableInPathTest.cs" />
     <Compile Include="Model\ExecutableInVarTest.cs" />

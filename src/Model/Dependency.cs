@@ -79,6 +79,34 @@ namespace ZeroInstall.Model
         [XmlElement("version")]
         public C5.ArrayList<Constraint> Constraints { get { return _constraints; } }
 
+        /// <summary>
+        /// The maximum <see cref="Constraint.NotBeforeVersion"/> found in <see cref="Constraints"/>; <see langword="null"/> if <see cref="Constraints"/> is empty.
+        /// </summary>
+        public ImplementationVersion NotBeforeVersion
+        {
+            get
+            {
+                ImplementationVersion result = null;
+                foreach (var constraint in _constraints)
+                    if (result == null || constraint.NotBeforeVersion > result) result = constraint.NotBeforeVersion;
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// The minimum <see cref="Constraint.BeforeVersion"/> found in <see cref="Constraints"/>; <see langword="null"/> if <see cref="Constraints"/> is empty.
+        /// </summary>
+        public ImplementationVersion BeforeVersion
+        {
+            get
+            {
+                ImplementationVersion result = null;
+                foreach (var constraint in _constraints)
+                    if (result == null || constraint.BeforeVersion < result) result = constraint.BeforeVersion;
+                return result;
+            }
+        }
+
         // Preserve order
         private readonly C5.ArrayList<Binding> _bindings = new C5.ArrayList<Binding>();
 
