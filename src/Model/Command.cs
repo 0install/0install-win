@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A Command says how to run an <see cref="Implementation"/> as a program..
+    /// A Command says how to run an <see cref="Implementation"/> as a program.
     /// </summary>
     /// <seealso cref="Element.Commands"/>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
