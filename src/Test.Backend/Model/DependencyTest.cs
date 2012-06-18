@@ -42,35 +42,23 @@ namespace ZeroInstall.Model
         #endregion
 
         /// <summary>
-        /// Ensures that the class can be correctly cloned.
+        /// Ensures that the class can be correctly cloned and compared.
         /// </summary>
         [Test]
-        public void TestClone()
+        public void TestCloneEquals()
         {
             var dependency1 = CreateTestDependency();
-            var dependency2 = dependency1.Clone();
+            Assert.AreEqual(dependency1, dependency1, "Equals() should be reflexive.");
+            Assert.AreEqual(dependency1.GetHashCode(), dependency1.GetHashCode(), "GetHashCode() should be reflexive.");
 
-            // Ensure data stayed the same
+            var dependency2 = dependency1.Clone();
             Assert.AreEqual(dependency1, dependency2, "Cloned objects should be equal.");
             Assert.AreEqual(dependency1.GetHashCode(), dependency2.GetHashCode(), "Cloned objects' hashes should be equal.");
             Assert.IsFalse(ReferenceEquals(dependency1, dependency2), "Cloning should not return the same reference.");
-        }
 
-        /// <summary>
-        /// Ensures that the class can be correctly compared.
-        /// </summary>
-        [Test]
-        public void TestEquals()
-        {
-            var dependency1 = CreateTestDependency();
-            var dependency2 = dependency1.Clone();
             dependency2.Bindings.Add(new EnvironmentBinding());
-
-            // Ensure data stayed the same
-            Assert.AreEqual(dependency1, dependency1, "Equals() should be reflexive.");
-            Assert.AreEqual(dependency1.GetHashCode(), dependency1.GetHashCode(), "GetHashCode() should be reflexive.");
-            Assert.AreNotEqual(dependency1, dependency2);
-            Assert.AreNotEqual(dependency1.GetHashCode(), dependency2.GetHashCode());
+            Assert.AreNotEqual(dependency1, dependency2, "Modified objects should no longer be equal");
+            //Assert.AreNotEqual(dependency1.GetHashCode(), dependency2.GetHashCode(), "Modified objects' hashes should no longer be equal");
         }
 
         /// <summary>

@@ -82,35 +82,23 @@ namespace ZeroInstall.Model
         #endregion
 
         /// <summary>
-        /// Ensures that the class can be correctly cloned.
+        /// Ensures that the class can be correctly cloned and compared.
         /// </summary>
         [Test]
-        public void TestClone()
+        public void TestCloneEquals()
         {
             var command1 = CreateTestCommand1();
-            var command2 = command1.Clone();
+            Assert.AreEqual(command1, command1, "Equals() should be reflexive.");
+            Assert.AreEqual(command1.GetHashCode(), command1.GetHashCode(), "GetHashCode() should be reflexive.");
 
-            // Ensure data stayed the same
+            var command2 = command1.Clone();
             Assert.AreEqual(command1, command2, "Cloned objects should be equal.");
             Assert.AreEqual(command1.GetHashCode(), command2.GetHashCode(), "Cloned objects' hashes should be equal.");
             Assert.IsFalse(ReferenceEquals(command1, command2), "Cloning should not return the same reference.");
-        }
 
-        /// <summary>
-        /// Ensures that the class can be correctly compared.
-        /// </summary>
-        [Test]
-        public void TestEquals()
-        {
-            var command1 = CreateTestCommand1();
-            var command2 = command1.Clone();
             command2.Bindings.Add(new EnvironmentBinding());
-
-            // Ensure data stayed the same
-            Assert.AreEqual(command1, command1, "Equals() should be reflexive.");
-            Assert.AreEqual(command1.GetHashCode(), command1.GetHashCode(), "GetHashCode() should be reflexive.");
-            Assert.AreNotEqual(command1, command2);
-            Assert.AreNotEqual(command1.GetHashCode(), command2.GetHashCode());
+            Assert.AreNotEqual(command1, command2, "Modified objects should no longer be equal");
+            //Assert.AreNotEqual(command1.GetHashCode(), command2.GetHashCode(), "Modified objects' hashes should no longer be equal");
         }
     }
 }

@@ -158,18 +158,23 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Ensures that the class can be correctly cloned.
+        /// Ensures that the class can be correctly cloned and compared.
         /// </summary>
         [Test]
-        public void TestClone()
+        public void TestCloneEquals()
         {
             var feed1 = CreateTestFeed();
-            var feed2 = feed1.Clone();
+            Assert.AreEqual(feed1, feed1, "Equals() should be reflexive.");
+            Assert.AreEqual(feed1.GetHashCode(), feed1.GetHashCode(), "GetHashCode() should be reflexive.");
 
-            // Ensure data stayed the same
+            var feed2 = feed1.Clone();
             Assert.AreEqual(feed1, feed2, "Cloned objects should be equal.");
             Assert.AreEqual(feed1.GetHashCode(), feed2.GetHashCode(), "Cloned objects' hashes should be equal.");
             Assert.IsFalse(ReferenceEquals(feed1, feed2), "Cloning should not return the same reference.");
+
+            feed2.Elements.Add(new Implementation { ID = "dummy"});
+            Assert.AreNotEqual(feed1, feed2, "Modified objects should no longer be equal");
+            //Assert.AreNotEqual(feed1.GetHashCode(), feed2.GetHashCode(), "Modified objects' hashes should no longer be equal");
         }
 
         /// <summary>
