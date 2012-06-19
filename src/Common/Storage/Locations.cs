@@ -293,24 +293,8 @@ namespace Common.Storage
             }
             else
             {
-                // Check in user profile
-                try
-                {
-                    path = FileUtils.PathCombine(UserConfigDir, appName, resourceCombined);
-                }
-                    #region Error handling
-                catch (ArgumentException ex)
-                {
-                    // Wrap exception to add context information
-                    throw new IOException(string.Format(Resources.InvalidConfigDir, UserConfigDir) + "\n" + ex.Message, ex);
-                }
-                #endregion
-
-                path = Path.GetFullPath(path);
-                if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
-
-                // Check in system directories
-                foreach (var dirPath in SystemConfigDirs.Split(Path.PathSeparator))
+                // Check in user profile and system directories
+                foreach (var dirPath in (UserConfigDir + Path.PathSeparator + SystemConfigDirs).Split(Path.PathSeparator))
                 {
                     try
                     {
@@ -398,24 +382,8 @@ namespace Common.Storage
             }
             else
             {
-                // Check in user profile
-                try
-                {
-                    path = FileUtils.PathCombine(UserDataDir, appName, resourceCombined);
-                }
-                    #region Error handling
-                catch (ArgumentException ex)
-                {
-                    // Wrap exception to add context information
-                    throw new IOException(string.Format(Resources.InvalidConfigDir, UserDataDir) + "\n" + ex.Message, ex);
-                }
-                #endregion
-
-                path = Path.GetFullPath(path);
-                if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
-
-                // Check in system directories
-                foreach (var dirPath in SystemDataDirs.Split(Path.PathSeparator))
+                // Check in user profile and system directories
+                foreach (var dirPath in (UserDataDir + Path.PathSeparator + SystemDataDirs).Split(Path.PathSeparator))
                 {
                     try
                     {
