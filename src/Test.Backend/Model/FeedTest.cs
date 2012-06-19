@@ -172,7 +172,7 @@ namespace ZeroInstall.Model
             Assert.AreEqual(feed1.GetHashCode(), feed2.GetHashCode(), "Cloned objects' hashes should be equal.");
             Assert.IsFalse(ReferenceEquals(feed1, feed2), "Cloning should not return the same reference.");
 
-            feed2.Elements.Add(new Implementation { ID = "dummy"});
+            feed2.Elements.Add(new Implementation {ID = "dummy"});
             Assert.AreNotEqual(feed1, feed2, "Modified objects should no longer be equal");
             //Assert.AreNotEqual(feed1.GetHashCode(), feed2.GetHashCode(), "Modified objects' hashes should no longer be equal");
         }
