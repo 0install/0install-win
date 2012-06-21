@@ -98,7 +98,6 @@ namespace ZeroInstall.Store.Implementation.Archive
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
-            if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
