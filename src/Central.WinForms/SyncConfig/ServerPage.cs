@@ -76,7 +76,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             var request = WebRequest.Create(syncServer);
             request.Method = "HEAD";
             request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
-            request.Timeout = 12000; // 12 seconds timeout
+            request.Timeout = WebClientTimeout.DefaultTimeout;
             request.GetResponse();
         }
     }

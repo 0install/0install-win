@@ -173,7 +173,7 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             var appListUri = new Uri(_syncServer, new Uri("app-list", UriKind.Relative));
-            using (var webClient = new WebClientTimeout(12000) // 12 seconds timeout
+            using (var webClient = new WebClientTimeout
             {
                 Credentials = new NetworkCredential(_username, _password),
                 CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)
