@@ -30,7 +30,18 @@ namespace Common
     /// </summary>
     public class WebClientTimeout : WebClient
     {
+        /// <summary>
+        /// The default timeout value, in milliseconds, used when no explicit value is specified.
+        /// </summary>
+        public const int DefaultTimeout = 20000; // 20 seconds
+
         private readonly int _timeout;
+
+        /// <summary>
+        /// Creates a new <see cref="WebClient"/> using <see cref="DefaultTimeout"/>.
+        /// </summary>
+        public WebClientTimeout() : this(DefaultTimeout)
+        {}
 
         /// <summary>
         /// Creates a new <see cref="WebClient"/>.
