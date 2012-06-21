@@ -151,7 +151,7 @@ namespace ZeroInstall.Injector.Feeds
                 #region Error handling
             catch (FileNotFoundException)
             {
-                Log.Info("Creating new trust DB.");
+                // Creat new trust database
                 return new TrustDB();
             }
             catch (IOException ex)
