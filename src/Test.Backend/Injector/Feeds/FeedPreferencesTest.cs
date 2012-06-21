@@ -89,12 +89,12 @@ namespace ZeroInstall.Injector.Feeds
         public void TestGetImplementationPreferences()
         {
             var preferences = new FeedPreferences();
-            var prefs1 = preferences.GetImplementationPreferences("id1");
-            Assert.AreSame(prefs1, preferences.GetImplementationPreferences("id1"), "Second call with same ID should return same reference");
+            var prefs1 = preferences["id1"];
+            Assert.AreSame(prefs1, preferences["id1"], "Second call with same ID should return same reference");
 
             var prefs2 = new ImplementationPreferences {ID = "id2"};
             preferences.Implementations.Add(prefs2);
-            Assert.AreSame(prefs2, preferences.GetImplementationPreferences("id2"), "Call with pre-existing ID should return existing reference");
+            Assert.AreSame(prefs2, preferences["id2"], "Call with pre-existing ID should return existing reference");
 
             CollectionAssert.AreEquivalent(new[] {prefs1, prefs2}, preferences.Implementations);
         }

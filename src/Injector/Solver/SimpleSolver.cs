@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Common.Collections;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Properties;
@@ -139,7 +140,7 @@ namespace ZeroInstall.Injector.Solver
                     if (!string.IsNullOrEmpty(requirements.CommandName))
                         if (!implementation.Commands.Exists(command => command.Name == requirements.CommandName)) continue;
 
-                    var candidate = new SelectionCandidate(feedID, implementation, feedPreferences.GetImplementationPreferences(implementation.ID), requirements);
+                    var candidate = new SelectionCandidate(feedID, implementation, feedPreferences[implementation.ID], requirements);
 
                     // Exclude non-cached implementations when in offline-mode
                     if (candidate.IsUsable && _policy.Config.EffectiveNetworkUse == NetworkLevel.Offline && !_policy.Fetcher.Store.Contains(implementation.ManifestDigest))

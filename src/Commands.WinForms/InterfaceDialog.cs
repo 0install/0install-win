@@ -299,7 +299,8 @@ namespace ZeroInstall.Commands.WinForms
                     var implementation = element as Implementation;
                     if (implementation == null) continue;
 
-                    var candidate = new SelectionCandidate(feedID, implementation, feedPreferences.GetImplementationPreferences(implementation.ID), new Requirements {Architecture = Architecture.CurrentSystem});
+                    var candidate = new SelectionCandidate(feedID, implementation, feedPreferences[implementation.ID], new Requirements {Architecture = Architecture.CurrentSystem});
+
                     if (checkBoxShowAllVersions.Checked || candidate.IsUsable)
                         candidates.Add(candidate);
                 }
@@ -417,19 +418,10 @@ namespace ZeroInstall.Commands.WinForms
             // Save all feed preferences
 #if NO_SOLVER_CANDIDATES
             foreach (var feedEntry in _feeds)
-            {
-                var preferences = feedEntry.Value;
-                preferences.Normalize();
-                preferences.SaveFor(feedEntry.Key);
-            }
 #else
             foreach (var feedEntry in _selection.Feeds)
-            {
-                var preferences = feedEntry.Value;
-                preferences.Normalize();
-                preferences.SaveFor(feedEntry.Key);
-            }
 #endif
+                feedEntry.Value.SaveFor(feedEntry.Key);
         }
         #endregion
 

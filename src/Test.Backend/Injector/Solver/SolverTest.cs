@@ -73,7 +73,7 @@ namespace ZeroInstall.Injector.Solver
         public void TestBasic()
         {
             var testFeed = CreateTestFeed();
-            testFeed.Normalize();
+            testFeed.Normalize(testFeed.Uri.ToString());
             _cacheMock.Setup(x => x.Contains(testFeed.Uri.ToString())).Returns(true);
             _cacheMock.Setup(x => x.GetFeed(testFeed.Uri.ToString())).Returns(testFeed);
 

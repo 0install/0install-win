@@ -72,15 +72,18 @@ namespace ZeroInstall.Injector.Feeds
         /// </summary>
         /// <param name="id">The <see cref="ImplementationPreferences.ID"/> to search for.</param>
         /// <returns>The found or newly created <see cref="ImplementationPreferences"/>.</returns>
-        public ImplementationPreferences GetImplementationPreferences(string id)
+        public ImplementationPreferences this[string id]
         {
-            ImplementationPreferences result;
-            if (!Implementations.Find(implementation => implementation.ID == id, out result))
+            get
             {
-                result = new ImplementationPreferences {ID = id};
-                Implementations.Add(result);
+                ImplementationPreferences result;
+                if (!Implementations.Find(implementation => implementation.ID == id, out result))
+                {
+                    result = new ImplementationPreferences {ID = id};
+                    Implementations.Add(result);
+                }
+                return result;
             }
-            return result;
         }
         #endregion
 
@@ -175,6 +178,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void Save(string path)
         {
+            Normalize();
             XmlStorage.Save(path, this);
         }
 
@@ -186,6 +190,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void SaveFor(string feedID)
         {
+            Normalize();
             var path = Locations.GetSaveConfigPath("0install.net", true, "injector", "feeds", ModelUtils.PrettyEscape(feedID));
             XmlStorage.Save(path, this);
         }
