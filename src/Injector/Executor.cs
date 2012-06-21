@@ -116,14 +116,14 @@ namespace ZeroInstall.Injector
             foreach (var pending in _runEnvPendings)
             {
                 var split = SplitCommandLine(pending.CommandLine, startInfo.EnvironmentVariables);
-                startInfo.EnvironmentVariables.Add("0install-runenv-file-" + pending.Name, split.FileName);
-                startInfo.EnvironmentVariables.Add("0install-runenv-args-" + pending.Name, split.Arguments);
+                startInfo.EnvironmentVariables["0install-runenv-file-" + pending.Name] = split.FileName;
+                startInfo.EnvironmentVariables["0install-runenv-args-" + pending.Name] = split.Arguments;
             }
             _runEnvPendings.Clear();
 
             // Make sure archives always get extracted by .NET code even if a Python-version of Zero Install is executed
             if (WindowsUtils.IsWindows)
-                startInfo.EnvironmentVariables.Add("ZEROINSTALL_EXTERNAL_STORE", Path.Combine(Locations.InstallBase, "0store.exe"));
+                startInfo.EnvironmentVariables["ZEROINSTALL_EXTERNAL_STORE"] = Path.Combine(Locations.InstallBase, "0store.exe");
 
             // Split and apply main command-line
             {
