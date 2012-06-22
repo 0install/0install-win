@@ -49,10 +49,9 @@ namespace ZeroInstall.Injector.Solver
                 startInfo.EnvironmentVariables["GNUPGHOME"] = Locations.GetSaveConfigPath("GnuPG", false, "gnupg");
             }
 
-            // Add bundled GnuPG to search path for the external solver to use on Windows
-            string gnuPGDirectory = GetBundledDirectory("GnuPG");
-            if (WindowsUtils.IsWindows && File.Exists(Path.Combine(gnuPGDirectory, "gpg.exe")))
-                startInfo.EnvironmentVariables["PATH"] = gnuPGDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
+            // Add bundled GnuPG to environment variable for the external solver to use on Windows
+            string gpgPath = Path.Combine(GetBundledDirectory("GnuPG"), "gpg.exe");
+            if (WindowsUtils.IsWindows && File.Exists(gpgPath)) startInfo.EnvironmentVariables["ZEROINSTALL_GPG"] = gpgPath;
 
             return startInfo;
         }
