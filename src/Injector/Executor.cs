@@ -113,11 +113,11 @@ namespace ZeroInstall.Injector
             commandLine.AddRange(arguments); // Append user arguments
 
             // Split and apply command-lines for executable bindings (delayed until here because there may be variable expanding)
-            foreach (var pending in _runEnvPendings)
+            foreach (var runEnv in _runEnvPendings)
             {
-                var split = SplitCommandLine(pending.CommandLine, startInfo.EnvironmentVariables);
-                startInfo.EnvironmentVariables["0install-runenv-file-" + pending.Name] = split.FileName;
-                startInfo.EnvironmentVariables["0install-runenv-args-" + pending.Name] = split.Arguments;
+                var split = SplitCommandLine(runEnv.CommandLine, startInfo.EnvironmentVariables);
+                startInfo.EnvironmentVariables["0install-runenv-file-" + runEnv.ExeName] = split.Path;
+                startInfo.EnvironmentVariables["0install-runenv-args-" + runEnv.ExeName] = split.Arguments;
             }
             _runEnvPendings.Clear();
 
@@ -128,7 +128,7 @@ namespace ZeroInstall.Injector
             // Split and apply main command-line
             {
                 var split = SplitCommandLine(commandLine, startInfo.EnvironmentVariables);
-                startInfo.FileName = split.FileName;
+                startInfo.FileName = split.Path;
                 startInfo.Arguments = split.Arguments;
             }
             return startInfo;

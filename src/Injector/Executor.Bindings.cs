@@ -40,13 +40,24 @@ namespace ZeroInstall.Injector
         /// </summary>
         private struct RunEnvPending
         {
-            public readonly string Name;
+            /// <summary>
+            /// The executable's file name without the directory and with the file ending.
+            /// </summary>
+            public readonly string ExeName;
 
+            /// <summary>
+            /// The command-line the executable should run.
+            /// </summary>
             public readonly List<string> CommandLine;
 
-            public RunEnvPending(string name, List<string> commandLine)
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="exeName">The executable's file name without the directory and with the file ending.</param>
+            /// <param name="commandLine">The command-line the executable should run.</param>
+            public RunEnvPending(string exeName, List<string> commandLine)
             {
-                Name = name;
+                ExeName = exeName;
                 CommandLine = commandLine;
             }
         }
@@ -56,7 +67,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// A list of run-environment executables pending to be configured.
         /// </summary>
-        private readonly LinkedList<RunEnvPending> _runEnvPendings = new LinkedList<RunEnvPending>();
+        private readonly List<RunEnvPending> _runEnvPendings = new List<RunEnvPending>();
         #endregion
 
         //--------------------//
@@ -209,10 +220,13 @@ namespace ZeroInstall.Injector
         /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
         private void ApplyExecutableInVar(ExecutableInVar binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
-            // Point variable directly to executable
-            startInfo.EnvironmentVariables.Add(binding.Name, DeployRunEnvExecutable(binding.Name));
+            string exePath = DeployRunEnvExecutable(binding.Name);
 
-            _runEnvPendings.AddLast(new RunEnvPending(binding.Name, GetCommandLine(implementation, binding.Command, startInfo)));
+            // Point variable directly to executable
+            startInfo.EnvironmentVariables.Add(binding.Name, exePath);
+
+            // Tell the executable what command-line to run
+            _runEnvPendings.Add(new RunEnvPending(Path.GetFileName(exePath), GetCommandLine(implementation, binding.Command, startInfo)));
         }
 
         /// <summary>
@@ -227,10 +241,13 @@ namespace ZeroInstall.Injector
         /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
         private void ApplyExecutableInPath(ExecutableInPath binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
-            // Add executable directory to PATH variable
-            startInfo.EnvironmentVariables["PATH"] = Path.GetDirectoryName(DeployRunEnvExecutable(binding.Name)) + startInfo.EnvironmentVariables["PATH"];
+            string exePath = DeployRunEnvExecutable(binding.Name);
 
-            _runEnvPendings.AddLast(new RunEnvPending(binding.Name, GetCommandLine(implementation, binding.Command, startInfo)));
+            // Add executable directory to PATH variable
+            startInfo.EnvironmentVariables["PATH"] = Path.GetDirectoryName(exePath) + startInfo.EnvironmentVariables["PATH"];
+
+            // Tell the executable what command-line to run
+            _runEnvPendings.Add(new RunEnvPending(Path.GetFileName(exePath), GetCommandLine(implementation, binding.Command, startInfo)));
         }
 
         /// <summary>
@@ -250,19 +267,34 @@ namespace ZeroInstall.Injector
 
             // ToDo: Add different binaries for Windows GUI apps and for Linux
             string templatePath = Path.Combine(Locations.GetCacheDirPath("0install.net", "injector", "executables"), "runenv.cli.template");
-            if (!File.Exists(templatePath))
+            try
+            {
                 WriteOutEmbeddedResource("runenv.cli.template", templatePath);
+            }
+                #region Error handling
+            catch (IOException)
+            {
+                // File is probably currently in use
+            }
+            catch (UnauthorizedAccessException)
+            {
+                // File is probably currently in use
+            }
+            #endregion
 
             string deployedPath = FileUtils.PathCombine(Locations.GetCacheDirPath("0install.net", "injector", "executables", name), name);
             if (WindowsUtils.IsWindows) deployedPath += ".exe";
 
-            if (WindowsUtils.IsWindowsNT) WindowsUtils.CreateHardLink(deployedPath, templatePath);
-            else if (MonoUtils.IsUnix)
+            if (!File.Exists(deployedPath))
             {
-                MonoUtils.CreateSymlink(deployedPath, templatePath);
-                MonoUtils.SetExecutable(deployedPath, true);
+                if (WindowsUtils.IsWindowsNT) WindowsUtils.CreateHardLink(deployedPath, templatePath);
+                else if (MonoUtils.IsUnix)
+                {
+                    MonoUtils.CreateSymlink(deployedPath, templatePath);
+                    MonoUtils.SetExecutable(deployedPath, true);
+                }
+                else File.Copy(templatePath, deployedPath);
             }
-            else File.Copy(templatePath, deployedPath);
 
             return deployedPath;
         }

@@ -32,17 +32,17 @@ namespace ZeroInstall.Injector
     {
         #region Structs
         /// <summary>
-        /// Represents a command-line split into a file name and arguments part.
+        /// Represents a command-line split into a path and arguments part.
         /// </summary>
         private struct CommandLineSplit
         {
-            public readonly string FileName;
+            public readonly string Path;
 
             public readonly string Arguments;
 
-            public CommandLineSplit(string fileName, string arguments)
+            public CommandLineSplit(string path, string arguments)
             {
-                FileName = fileName;
+                Path = path;
                 Arguments = arguments;
             }
         }

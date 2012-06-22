@@ -37,7 +37,10 @@ public class RunEnv
         string envFile = Environment.GetEnvironmentVariable("0install-runenv-file-" + envName);
         string envArgs = Environment.GetEnvironmentVariable("0install-runenv-args-" + envName);
         string userArgs = ConcatenateEscapeArgument(args);
-        Process process = Process.Start(envFile, string.IsNullOrEmpty(userArgs) ? envArgs : envArgs + " " + userArgs);
+
+        ProcessStartInfo startInfo = new ProcessStartInfo(envFile, string.IsNullOrEmpty(userArgs) ? envArgs : envArgs + " " + userArgs);
+        startInfo.UseShellExecute = false;
+        Process process = Process.Start(startInfo);
         process.WaitForExit();
         return process.ExitCode;
     }
