@@ -189,9 +189,10 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Sets missing default values and handles legacy elements.
         /// </summary>
+        /// <param name="feedID">The feed the data was originally loaded from.</param>
         /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing.
-        /// It should not be called if you plan on serializing the interface again since it will may some of its structure.</remarks>
-        public virtual void Normalize()
+        /// It should not be called if you plan on serializing the interface again since it may change some of its structure.</remarks>
+        public virtual void Normalize(string feedID)
         {
             // Convert legacy launch commands
             if (!string.IsNullOrEmpty(Main)) Commands.Add(new Command {Name = Command.NameRun, Path = Main});

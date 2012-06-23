@@ -117,7 +117,7 @@ namespace ZeroInstall.Store.Feeds
 
             // Add to memory cache (replacing existing old versions)
             var feed = Feed.Load(new MemoryStream(data));
-            feed.Normalize();
+            feed.Normalize(feedID);
             lock (_feedDictionary)
             {
                 _feedDictionary.Remove(feedID);

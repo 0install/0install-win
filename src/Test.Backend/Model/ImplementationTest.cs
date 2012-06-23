@@ -17,6 +17,7 @@
 
 using System.Collections.Generic;
 using System.Globalization;
+using Common.Utils;
 using NUnit.Framework;
 
 namespace ZeroInstall.Model
@@ -63,15 +64,15 @@ namespace ZeroInstall.Model
         public void TestNormalizeID()
         {
             var implementation = new Implementation {ID = "sha256=123"};
-            implementation.Normalize();
+            implementation.Normalize("http://0install.de/feeds/test/test1.xml");
             Assert.AreEqual("123", implementation.ManifestDigest.Sha256);
 
             implementation = new Implementation {ID = "sha256=wrong", ManifestDigest = new ManifestDigest("sha256=correct")};
-            implementation.Normalize();
+            implementation.Normalize("http://0install.de/feeds/test/test1.xml");
             Assert.AreEqual("correct", implementation.ManifestDigest.Sha256);
 
             implementation = new Implementation {ID = "abc"};
-            implementation.Normalize();
+            implementation.Normalize("http://0install.de/feeds/test/test1.xml");
         }
 
         /// <summary>
@@ -81,9 +82,47 @@ namespace ZeroInstall.Model
         public void TestNormalizeCommand()
         {
             var implementation = new Implementation {Main = "main", SelfTest = "test"};
-            implementation.Normalize();
+            implementation.Normalize("http://0install.de/feeds/test/test1.xml");
             Assert.AreEqual("main", implementation.GetCommand(Command.NameRun).Path);
             Assert.AreEqual("test", implementation.GetCommand(Command.NameTest).Path);
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="Implementation.Normalize"/> correctly makes <see cref="ImplementationBase.LocalPath"/> absolute.
+        /// </summary>
+        [Test]
+        public void TestNormalizeLocalPath()
+        {
+            var implementation1 = new Implementation {ID = "./subdir"};
+            var implementation2 = new Implementation {ID = "./wrong", LocalPath = "subdir"};
+
+            string feedID = WindowsUtils.IsWindows ? @"C:\local\feed.xml" : "/local/feed.xml";
+            implementation1.Normalize(feedID);
+            implementation2.Normalize(feedID);
+
+            string expected = WindowsUtils.IsWindows ? @"C:\local\subdir" : "/local/subdir";
+            Assert.AreEqual(expected, implementation1.ID);
+            Assert.AreEqual(expected, implementation1.LocalPath);
+            Assert.AreEqual("./wrong", implementation2.ID);
+            Assert.AreEqual(expected, implementation2.LocalPath);
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="Implementation.Normalize"/> leaves <see cref="ImplementationBase.LocalPath"/> alone for remote feeds.
+        /// </summary>
+        [Test]
+        public void TestNormalizeRemotePath()
+        {
+            var implementation1 = new Implementation {ID = "./subdir"};
+            var implementation2 = new Implementation {ID = "./wrong", LocalPath = "subdir"};
+
+            implementation1.Normalize("http://0install.de/feeds/test/test1.xml");
+            implementation2.Normalize("http://0install.de/feeds/test/test1.xml");
+
+            Assert.AreEqual("./subdir", implementation1.ID);
+            Assert.IsNull(implementation1.LocalPath);
+            Assert.AreEqual("./wrong", implementation2.ID);
+            Assert.AreEqual("subdir", implementation2.LocalPath);
         }
 
         /// <summary>

@@ -18,7 +18,9 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Xml.Serialization;
+using Common.Utils;
 
 namespace ZeroInstall.Model
 {
@@ -61,11 +63,12 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Sets missing default values and handles legacy elements.
         /// </summary>
+        /// <param name="feedID">The feed the data was originally loaded from.</param>
         /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing.
-        /// It should not be called if you plan on serializing the interface again since it will may some of its structure.</remarks>
-        public override void Normalize()
+        /// It should not be called if you plan on serializing the interface again since it may change some of its structure.</remarks>
+        public override void Normalize(string feedID)
         {
-            base.Normalize();
+            base.Normalize(feedID);
 
             // Merge the version modifier into the normal version attribute
             if (!string.IsNullOrEmpty(VersionModifier))
@@ -77,12 +80,26 @@ namespace ZeroInstall.Model
             // Default stability rating to testing
             if (Stability == Stability.Unset) Stability = Stability.Testing;
 
-            // Check if stuff may be read from the ID
-            if (string.IsNullOrEmpty(ID)) return;
+            // Make local paths absolute when possible
+            string feedDir = null;
+            try
+            {
+                if (Path.IsPathRooted(feedID)) feedDir = Path.GetDirectoryName(feedID);
+            }
+            catch (ArgumentException)
+            {
+                // Ignore non-filename IDs
+            }
+            if (!string.IsNullOrEmpty(feedDir))
+            {
+                if (!string.IsNullOrEmpty(LocalPath))
+                    LocalPath = Path.GetFullPath(Path.Combine(feedDir, FileUtils.UnifySlashes(LocalPath)));
+                else if (!string.IsNullOrEmpty(ID) && ID.StartsWith(".")) // Get local path from ID if missing
+                    LocalPath = ID = Path.GetFullPath(Path.Combine(feedDir, FileUtils.UnifySlashes(ID)));
+            }
 
-            // Fill in values (only if missing) using legacy entries (indentified by prefixes)
-            if (string.IsNullOrEmpty(LocalPath) && (ID.StartsWith(".") || ID.StartsWith("/"))) LocalPath = ID;
-            else if (ID.Contains("=")) ManifestDigest.ParseID(ID, ref _manifestDigest);
+            // Parse manifest digest from ID if missing
+            if (!string.IsNullOrEmpty(ID) && ID.Contains("=")) ManifestDigest.ParseID(ID, ref _manifestDigest);
         }
         #endregion
 

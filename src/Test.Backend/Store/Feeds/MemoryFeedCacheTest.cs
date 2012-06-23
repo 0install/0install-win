@@ -106,7 +106,7 @@ namespace ZeroInstall.Store.Feeds
             _cache.Add("http://0install.de/feeds/test/test1.xml", feedData1);
 
             // Expect no pass-through due to caching on .Add()
-            _feed.Normalize();
+            _feed.Normalize(_feed.Uri.ToString());
             Feed firstAccess = _cache.GetFeed("http://0install.de/feeds/test/test1.xml");
             Assert.AreEqual(_feed, firstAccess);
             Feed secondAccess = _cache.GetFeed("http://0install.de/feeds/test/test1.xml");
@@ -131,7 +131,7 @@ namespace ZeroInstall.Store.Feeds
             _cache.Add("http://0install.de/feeds/test/test1.xml", feedData);
 
             // Expect no pass-through due to caching on .Add()
-            _feed.Normalize();
+            _feed.Normalize(_feed.Uri.ToString());
             Feed firstAccess = _cache.GetFeed("http://0install.de/feeds/test/test1.xml");
             Assert.AreEqual(_feed, firstAccess);
             Feed secondAccess = _cache.GetFeed("http://0install.de/feeds/test/test1.xml");

@@ -47,11 +47,11 @@ namespace ZeroInstall.Store.Feeds
             _feed1 = FeedTest.CreateTestFeed();
             _feed1.Uri = new Uri("http://0install.de/feeds/test/test1.xml");
             _feed1.Save(Path.Combine(_tempDir.Path, ModelUtils.Escape(_feed1.UriString)));
-            _feed1.Normalize();
+            _feed1.Normalize(Path.Combine(_tempDir.Path, ModelUtils.Escape(_feed1.UriString)));
             _feed2 = FeedTest.CreateTestFeed();
             _feed2.Uri = new Uri("http://0install.de/feeds/test/test2.xml");
             _feed2.Save(Path.Combine(_tempDir.Path, ModelUtils.Escape(_feed2.UriString)));
-            _feed2.Normalize();
+            _feed2.Normalize(Path.Combine(_tempDir.Path, ModelUtils.Escape(_feed2.UriString)));
             File.WriteAllText(Path.Combine(_tempDir.Path, "http_invalid"), "");
         }
 
@@ -118,7 +118,7 @@ namespace ZeroInstall.Store.Feeds
 
             _cache.Add(feed.Uri.ToString(), feed.ToArray());
 
-            feed.Normalize();
+            feed.Normalize(feed.Uri.ToString());
             Assert.AreEqual(feed, _cache.GetFeed(feed.Uri.ToString()));
         }
 
@@ -149,7 +149,7 @@ namespace ZeroInstall.Store.Feeds
 
             _cache.Add(feed.Uri.ToString(), feed.ToArray());
 
-            feed.Normalize();
+            feed.Normalize(feed.Uri.ToString());
             Assert.AreEqual(feed, _cache.GetFeed(feed.Uri.ToString()));
 
             Assert.IsTrue(_cache.Contains(feed.Uri.ToString()));

@@ -49,11 +49,12 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Sets missing default values and handles legacy elements.
         /// </summary>
+        /// <param name="feedID">The feed the data was originally loaded from.</param>
         /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing.
-        /// It should not be called if you plan on serializing the interface again since it will may some of its structure.</remarks>
-        public override void Normalize()
+        /// It should not be called if you plan on serializing the interface again since it may change some of its structure.</remarks>
+        public override void Normalize(string feedID)
         {
-            base.Normalize();
+            base.Normalize(feedID);
 
             // Simplify retrieval methods and rebuild list to update sequenced hash value
             var newRetreivalMethods = new RetrievalMethod[RetrievalMethods.Count];

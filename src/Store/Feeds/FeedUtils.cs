@@ -44,12 +44,12 @@ namespace ZeroInstall.Store.Feeds
             #endregion
 
             var feeds = new LinkedList<Feed>();
-            foreach (string id in cache.ListAll())
+            foreach (string feedID in cache.ListAll())
             {
                 try
                 {
-                    var feed = cache.GetFeed(id);
-                    feed.Normalize();
+                    var feed = cache.GetFeed(feedID);
+                    feed.Normalize(feedID);
                     feeds.AddLast(feed);
                 }
                     #region Error handling

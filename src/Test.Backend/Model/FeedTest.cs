@@ -184,7 +184,7 @@ namespace ZeroInstall.Model
         public void TestNormalize()
         {
             var feed = new Feed {Elements = {CreateTestGroup()}};
-            feed.Normalize();
+            feed.Normalize("http://0install.de/feeds/test/test1.xml");
 
             var implementation = feed.Elements[0];
             Assert.AreEqual(new Architecture(OS.Solaris, Cpu.I586), implementation.Architecture);
@@ -229,8 +229,8 @@ namespace ZeroInstall.Model
                 XmlStorage.Save(tempFile.Path, feed);
                 var feedReload = XmlStorage.Load<Feed>(tempFile.Path);
 
-                feed.Normalize();
-                feedReload.Normalize();
+                feed.Normalize(tempFile.Path);
+                feedReload.Normalize(tempFile.Path);
                 Assert.AreEqual(feed.GetHashCode(), feedReload.GetHashCode());
             }
         }

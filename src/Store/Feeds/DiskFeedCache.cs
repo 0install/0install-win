@@ -116,7 +116,7 @@ namespace ZeroInstall.Store.Feeds
             #endregion
 
             var feed = Feed.Load(GetPath(feedID));
-            feed.Normalize();
+            feed.Normalize(feedID);
             return feed;
         }
 
