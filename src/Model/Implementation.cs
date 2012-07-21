@@ -29,7 +29,7 @@ namespace ZeroInstall.Model
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlType("implementation", Namespace = Feed.XmlNamespace)]
-    public sealed class Implementation : ImplementationBase
+    public sealed class Implementation : ImplementationBase, IEquatable<Implementation>
     {
         #region Properties
         // Preserve order
