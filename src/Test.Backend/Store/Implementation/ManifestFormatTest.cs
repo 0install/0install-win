@@ -54,7 +54,7 @@ namespace ZeroInstall.Store.Implementation
             try
             {
                 // In the old format sub-directories and files are sorted together, so "directory" comes before "x.txt"
-                var entries = new List<FileSystemInfo>(ManifestFormat.Sha1Old.GetSortedDirectoryEntries(tempDir));
+                var entries = new List<FileSystemInfo>(ManifestFormat.Sha1.GetSortedDirectoryEntries(tempDir));
                 Assert.AreEqual("Y.txt", entries[0].Name); // Capital letters come before lowercase letters
                 Assert.AreEqual("directory", entries[1].Name);
                 Assert.AreEqual("file.txt", entries[2].Name);
@@ -71,6 +71,15 @@ namespace ZeroInstall.Store.Implementation
             { // Clean up
                 Directory.Delete(tempDir, true);
             }
+        }
+
+        [Test]
+        public void TestFromPrefix()
+        {
+            Assert.AreSame(ManifestFormat.Sha1, ManifestFormat.FromPrefix("sha1=abc"));
+            Assert.AreSame(ManifestFormat.Sha1New, ManifestFormat.FromPrefix("sha1new=abc"));
+            Assert.AreSame(ManifestFormat.Sha256, ManifestFormat.FromPrefix("sha256=abc"));
+            Assert.AreSame(ManifestFormat.Sha256New, ManifestFormat.FromPrefix("sha256new=abc"));
         }
     }
 }

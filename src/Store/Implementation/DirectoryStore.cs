@@ -173,7 +173,7 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var format = ManifestFormat.FromPrefix(expectedDigest.BestPrefix);
+            var format = ManifestFormat.FromPrefix(expectedDigest.BestDigest);
             var actualManifest = Manifest.Generate(directory, format, handler, expectedDigest);
 
             string expectedDigestValue = expectedDigest.BestDigest;
@@ -191,14 +191,23 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public IEnumerable<ManifestDigest> ListAll()
         {
-            // Find all directories whose names contain an equals sign
-            string[] directories = Directory.GetDirectories(DirectoryPath, "*=*");
+            // Find all directories
+            string[] directories = Directory.GetDirectories(DirectoryPath);
 
             // Turn into a C-sorted list
             Array.Sort(directories, StringComparer.Ordinal);
 
             // Convert directory names to manifest digests
-            return Array.ConvertAll(directories, directory => new ManifestDigest(Path.GetFileName(directory)));
+            var result = new List<ManifestDigest>();
+            for (int i = 0; i < directories.Length; i++)
+            {
+                string name = Path.GetFileName(directories[i]);
+
+                // Ignore invalid/temporary names
+                var digest = new ManifestDigest(name);
+                if (digest != default(ManifestDigest)) result.Add(digest);
+            }
+            return result;
         }
 
         /// <inheritdoc />
@@ -210,10 +219,15 @@ namespace ZeroInstall.Store.Implementation
             // Turn into a C-sorted list
             Array.Sort(directories, StringComparer.Ordinal);
 
-            // Filter non-temporary directories
             var result = new List<string>();
             for (int i = 0; i < directories.Length; i++)
-                if (!directories[i].Contains("=")) result.Add(Path.GetFileName(directories[i]));
+            {
+                string name = Path.GetFileName(directories[i]);
+
+                // Ignore valid names
+                var digest = new ManifestDigest(name);
+                if (digest == default(ManifestDigest)) result.Add(name);
+            }
             return result;
         }
         #endregion

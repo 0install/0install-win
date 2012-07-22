@@ -77,7 +77,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
             string path = store.GetPath(digest);
             if (path == null) return;
             string manifestPath = Path.Combine(path, ".manifest");
-            Size = Manifest.Load(manifestPath, ManifestFormat.FromPrefix(digest.BestPrefix)).TotalSize;
+            Size = Manifest.Load(manifestPath, ManifestFormat.FromPrefix(digest.BestDigest)).TotalSize;
         }
         #endregion
 

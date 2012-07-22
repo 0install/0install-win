@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Simon E. Silva Lauinger
+ * Copyright 2010-2012 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -15,19 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Windows.Forms;
-using ZeroInstall.Model;
+using System;
 
-namespace ZeroInstall.Publish.WinForms.Dialogs
+namespace ZeroInstall.Store.Implementation
 {
-    public partial class ManifestDigestDialog : Form
+    /// <summary>
+    /// Helper methods for <see cref="IStore"/>s and paths.
+    /// </summary>
+    public static class StoreUtils
     {
-        public ManifestDigestDialog(ManifestDigest manifestDigest)
+        /// <summary>
+        /// Determines whether a path looks like it is inside a store known by <see cref="ManifestFormat"/>.
+        /// </summary>
+        public static bool PathInAStore(string path)
         {
-            InitializeComponent();
-            hintTextBoxSha1Old.Text = manifestDigest.Sha1;
-            hintTextBoxSha1New.Text = manifestDigest.Sha1New;
-            hintTextBoxSha256.Text = manifestDigest.Sha256;
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
+            return Array.Exists(ManifestFormat.All, format => path.Contains(format.Prefix + format.Separator));
         }
     }
 }

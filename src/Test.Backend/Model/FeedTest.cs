@@ -70,7 +70,7 @@ namespace ZeroInstall.Model
             return new Implementation
             {
                 ID = "id1",
-                ManifestDigest = new ManifestDigest("sha256=123"),
+                ManifestDigest = new ManifestDigest(sha256: "123"),
                 Version = new ImplementationVersion("1.0"),
                 Architecture = new Architecture(OS.Windows, Cpu.I586),
                 Languages = {new CultureInfo("en-US")},
@@ -255,8 +255,8 @@ namespace ZeroInstall.Model
         {
             var feed = CreateTestFeed();
 
-            Assert.AreEqual(CreateTestImplementation(), feed.GetImplementation(new ManifestDigest("sha256=123")));
-            Assert.IsNull(feed.GetImplementation(new ManifestDigest("sha256=456")));
+            Assert.AreEqual(CreateTestImplementation(), feed.GetImplementation(new ManifestDigest(sha256: "123")));
+            Assert.IsNull(feed.GetImplementation(new ManifestDigest(sha256: "456")));
         }
 
         /// <summary>

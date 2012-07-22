@@ -2,6 +2,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
+using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
 
@@ -11,18 +13,18 @@ namespace ZeroInstall.Store.Implementation
     /// Abstract class to encapsulate the differences between the different formats that can be used to save and load <see cref="Manifest"/>s.
     /// </summary>
     /// <remarks>
-    /// Comprises: The hashing method used and the format specification used to serialize and deserialize manifests.
+    /// Comprises: The digest method used and the format specification used to serialize and deserialize manifests.
     /// </remarks>
     [Serializable]
     public abstract class ManifestFormat
     {
         #region Singleton properties
-        private static readonly ManifestFormat _sha1Old = new Sha1OldFormat();
+        private static readonly ManifestFormat _sha1 = new Sha1Format();
 
         /// <summary>
-        /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestDigest.Sha1Old"/>.
+        /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestDigest.Sha1"/>.
         /// </summary>
-        public static ManifestFormat Sha1Old { get { return _sha1Old; } }
+        public static ManifestFormat Sha1 { get { return _sha1; } }
 
         private static readonly ManifestFormat _sha1New = new Sha1NewFormat();
 
@@ -38,52 +40,52 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         public static ManifestFormat Sha256 { get { return _sha256; } }
 
-        /// <summary>
-        /// All currently supported <see cref="ManifestFormat"/>s listed from best to worst.
-        /// </summary>
-        public static readonly ManifestFormat[] All = new[] {_sha256, _sha1New, _sha1Old};
+        private static readonly ManifestFormat _sha256New = new Sha256NewFormat();
 
         /// <summary>
-        /// All currently supported and non-deprecated <see cref="ManifestFormat"/>s listed from best to worst.
+        /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestDigest.Sha256New"/>.
         /// </summary>
-        public static readonly ManifestFormat[] Recommended = new[] {_sha256, _sha1New};
+        public static ManifestFormat Sha256New { get { return _sha256New; } }
+
+        /// <summary>
+        /// All currently supported <see cref="ManifestFormat"/>s listed from best (safest) to worst.
+        /// </summary>
+        public static readonly ManifestFormat[] All = new[] {_sha256New, _sha256, _sha1New, _sha1};
+
+        /// <summary>
+        /// All currently supported and non-deprecated <see cref="ManifestFormat"/>s listed from best (safest) to worst.
+        /// </summary>
+        public static readonly ManifestFormat[] Recommended = new[] {_sha256New, _sha256, _sha1New};
         #endregion
 
         #region Factory methods
         /// <summary>
         /// Selects the correct <see cref="ManifestFormat"/> based on the digest prefix.
         /// </summary>
-        /// <param name="prefix">The prefix name of the algorithm without a trailing equals sign (e.g. sha256).</param>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="prefix"/> is no known algorithm prefix.</exception>
-        public static ManifestFormat FromPrefix(string prefix)
+        /// <param name="id">The digest id to extract the prefix from or only the prefix.</param>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="id"/> is no known algorithm prefix.</exception>
+        public static ManifestFormat FromPrefix(string id)
         {
-            switch (prefix)
-            {
-                case ManifestDigest.Sha1OldPrefix:
-                    return Sha1Old;
-                case ManifestDigest.Sha1NewPrefix:
-                    return Sha1New;
-                case ManifestDigest.Sha256Prefix:
-                    return Sha256;
-                default:
-                    throw new ArgumentException(Resources.NoKnownDigestMethod);
-            }
+            if (id.StartsWith(Sha256New.Prefix)) return Sha256New;
+            if (id.StartsWith(Sha256.Prefix)) return Sha256;
+            if (id.StartsWith(Sha1New.Prefix)) return Sha1New;
+            if (id.StartsWith(Sha1.Prefix)) return Sha1;
+            throw new ArgumentException(Resources.NoKnownDigestMethod);
         }
         #endregion
 
         //--------------------//
 
-        #region Abstract properties
-        /// <summary>
-        /// Retreives a new instance of the hashing algorithm used for <see cref="ManifestFileBase.Hash"/> and the <see cref="Manifest"/> hash itself.
-        /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Generates a new instance each time to allow for concurrent usage")]
-        public abstract HashAlgorithm GetHashAlgorithm();
-
+        #region Properties
         /// <summary>
         /// The prefix used to identify the format (e.g. "sha256").
         /// </summary>
         public abstract string Prefix { get; }
+
+        /// <summary>
+        /// The separator placed between the <see cref="Prefix"/> and the actual digest.
+        /// </summary>
+        public virtual string Separator { get { return "="; } }
 
         /// <inheritdoc/>
         public override string ToString()
@@ -92,7 +94,7 @@ namespace ZeroInstall.Store.Implementation
         }
         #endregion
 
-        #region Abstract methods
+        #region Builder methods
         /// <summary>
         /// Generates a file entry (line) for a specific <see cref="ManifestNode"/>.
         /// </summary>
@@ -111,6 +113,62 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
         public abstract FileSystemInfo[] GetSortedDirectoryEntries(string path);
+        #endregion
+
+        #region Digest methods
+        /// <summary>
+        /// Generates the digest of a stream based on the format's hash method.
+        /// </summary>
+        /// <param name="stream">The stream containing the data to digest.</param>
+        /// <returns>The string-serialization of the digest.</returns>
+        public string DigestStream(Stream stream)
+        {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            #endregion
+
+            return SerializeHash(GetHashAlgorithm().ComputeHash(stream));
+        }
+
+        /// <summary>
+        /// Generates the digest of a file based on the format's hash method.
+        /// </summary>
+        /// <param name="path">The path of the file to digest.</param>
+        /// <returns>The string-serialization of the digest.</returns>
+        public string DigestFile(string path)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
+            using (var stream = File.OpenRead(path))
+                return DigestStream(stream);
+        }
+
+        /// <summary>
+        /// Generates the digest of a string encoded as UTF-8.
+        /// </summary>
+        /// <param name="value">The string to hash.</param>
+        /// <returns>The string-serialization of the digest.</returns>
+        public string DigestString(string value)
+        {
+            #region Sanity checks
+            if (value == null) throw new ArgumentNullException("value");
+            #endregion
+
+            return SerializeHash(GetHashAlgorithm().ComputeHash(Encoding.UTF8.GetBytes(value)));
+        }
+
+        /// <summary>
+        /// Retreives a new instance of the hashing algorithm used for generating digests.
+        /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Generates a new instance each time to allow for concurrent usage")]
+        protected abstract HashAlgorithm GetHashAlgorithm();
+
+        protected virtual string SerializeHash(byte[] hash)
+        {
+            return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+        }
         #endregion
 
         //--------------------//
@@ -169,16 +227,16 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <summary>
-        /// A specific <see cref="ManifestFormat"/>s using the old manifest format and <see cref="SHA1"/> hashes.
+        /// A specific <see cref="ManifestFormat"/>s using the old manifest format and <see cref="SHA1"/> digests.
         /// </summary>
-        private class Sha1OldFormat : OldFormat
+        private class Sha1Format : OldFormat
         {
-            public override HashAlgorithm GetHashAlgorithm()
+            public override string Prefix { get { return "sha1"; } }
+
+            protected override HashAlgorithm GetHashAlgorithm()
             {
                 return SHA1.Create();
             }
-
-            public override string Prefix { get { return "sha1"; } }
         }
         #endregion
 
@@ -238,29 +296,49 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <summary>
-        /// A specific <see cref="ManifestFormat"/>s using the new manifest format and <see cref="SHA1"/> hashes.
+        /// A specific <see cref="ManifestFormat"/>s using the new manifest format and <see cref="SHA1"/> digests.
         /// </summary>
         private class Sha1NewFormat : NewFormat
         {
-            public override HashAlgorithm GetHashAlgorithm()
+            public override string Prefix { get { return "sha1new"; } }
+
+            protected override HashAlgorithm GetHashAlgorithm()
             {
                 return SHA1.Create();
             }
-
-            public override string Prefix { get { return "sha1new"; } }
         }
 
         /// <summary>
-        /// A specific <see cref="ManifestFormat"/>s using the new manifest format and <see cref="SHA256"/> hashes.
+        /// A specific <see cref="ManifestFormat"/>s using the new manifest format and <see cref="SHA256"/> digests.
         /// </summary>
         private class Sha256Format : NewFormat
         {
-            public override HashAlgorithm GetHashAlgorithm()
+            public override string Prefix { get { return "sha256"; } }
+
+            protected override HashAlgorithm GetHashAlgorithm()
+            {
+                return SHA256.Create();
+            }
+        }
+
+        /// <summary>
+        /// A specific <see cref="ManifestFormat"/>s using the new manifest format and <see cref="SHA256"/> digests.
+        /// </summary>
+        private class Sha256NewFormat : NewFormat
+        {
+            public override string Prefix { get { return "sha256new"; } }
+
+            public override string Separator { get { return "_"; } }
+
+            protected override HashAlgorithm GetHashAlgorithm()
             {
                 return SHA256.Create();
             }
 
-            public override string Prefix { get { return "sha256"; } }
+            protected override string SerializeHash(byte[] hash)
+            {
+                return StringUtils.Base32Encode(hash);
+            }
         }
         #endregion
     }

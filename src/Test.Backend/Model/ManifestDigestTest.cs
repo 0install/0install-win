@@ -31,14 +31,15 @@ namespace ZeroInstall.Model
         [Test]
         public void TestParseID()
         {
-            // An empty digest object should extract a sha1 digest
-            var digest = new ManifestDigest();
-            ManifestDigest.ParseID("sha1=test", ref digest);
-            Assert.AreEqual("test", digest.Sha1Old);
+            Assert.AreEqual("test", new ManifestDigest("sha1=test").Sha1);
+            Assert.AreEqual("test", new ManifestDigest("sha1new=test").Sha1New);
+            Assert.AreEqual("test", new ManifestDigest("sha256=test").Sha256);
+            Assert.AreEqual("test", new ManifestDigest("sha256new_test").Sha256New);
 
             // Once a digest value has been set, ID values shall not be able to overwrite it
+            var digest = new ManifestDigest("sha1=test");
             ManifestDigest.ParseID("sha1=test2", ref digest);
-            Assert.AreEqual("test", digest.Sha1Old);
+            Assert.AreEqual("test", digest.Sha1);
         }
 
         /// <summary>
@@ -47,13 +48,16 @@ namespace ZeroInstall.Model
         [Test]
         public void TestBestDigest()
         {
-            var digest = new ManifestDigest("test1", "test2", "test3");
+            var digest = new ManifestDigest("test1", "test2", "test3", "test4");
+            Assert.AreEqual("sha256new_test4", digest.BestDigest);
+
+            digest = new ManifestDigest("test1", "test2", "test3");
             Assert.AreEqual("sha256=test3", digest.BestDigest);
 
-            digest = new ManifestDigest("test1", "test2", null);
+            digest = new ManifestDigest("test1", "test2");
             Assert.AreEqual("sha1new=test2", digest.BestDigest);
 
-            digest = new ManifestDigest("test1", null, null);
+            digest = new ManifestDigest(sha1: "test1");
             Assert.AreEqual("sha1=test1", digest.BestDigest);
         }
 
@@ -63,20 +67,20 @@ namespace ZeroInstall.Model
         [Test]
         public void TestPartialEqual()
         {
-            var digest1 = new ManifestDigest("test1", null, null);
-            var digest2 = new ManifestDigest("test1", "test2", null);
+            var digest1 = new ManifestDigest(sha1: "test1");
+            var digest2 = new ManifestDigest(sha1: "test1", sha1New: "test2");
             Assert.IsTrue(digest1.PartialEquals(digest2));
 
-            digest1 = new ManifestDigest("test1", null, null);
-            digest2 = new ManifestDigest("test2", null, null);
+            digest1 = new ManifestDigest(sha1: "test1");
+            digest2 = new ManifestDigest(sha1: "test2");
             Assert.IsFalse(digest1.PartialEquals(digest2));
 
-            digest1 = new ManifestDigest("test1", null, null);
-            digest2 = new ManifestDigest(null, "test2", null);
+            digest1 = new ManifestDigest(sha1: "test1");
+            digest2 = new ManifestDigest(sha1New: "test2");
             Assert.IsFalse(digest1.PartialEquals(digest2));
 
-            digest1 = new ManifestDigest(null, "test1", null);
-            digest2 = new ManifestDigest(null, null, "test2");
+            digest1 = new ManifestDigest(sha1New: "test1");
+            digest2 = new ManifestDigest(sha256: "test2");
             Assert.IsFalse(digest1.PartialEquals(digest2));
         }
     }

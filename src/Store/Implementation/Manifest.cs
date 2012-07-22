@@ -21,14 +21,13 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using Common.Tasks;
-using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// A manifest lists every file, directory and symlink in the tree and contains a hash of each file's content.
+    /// A manifest lists every file, directory and symlink in the tree and contains a digest of each file's content.
     /// </summary>
     /// <remarks>This class is immutable and thread-safe.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
@@ -37,7 +36,7 @@ namespace ZeroInstall.Store.Implementation
     {
         #region Properties
         /// <summary>
-        /// The format of the manifest (which file details are listed, which hash method is used, etc.).
+        /// The format of the manifest (which file details are listed, which digest method is used, etc.).
         /// </summary>
         public ManifestFormat Format { get; private set; }
 
@@ -81,7 +80,7 @@ namespace ZeroInstall.Store.Implementation
         /// Creates a new manifest.
         /// </summary>
         /// <param name="nodes">A list of all elements in the tree this manifest represents.</param>
-        /// <param name="format">The format used for <see cref="Save(Stream)"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Hash"/>.</param>
+        /// <param name="format">The format used for <see cref="Save(Stream)"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Digest"/>.</param>
         internal Manifest(C5.IList<ManifestNode> nodes, ManifestFormat format)
         {
             #region Sanity checks
@@ -100,10 +99,10 @@ namespace ZeroInstall.Store.Implementation
 
         #region Storage
         /// <summary>
-        /// Writes the manifest to a file and calculates its hash.
+        /// Writes the manifest to a file and calculates its digest.
         /// </summary>
         /// <param name="path">The path of the file to write.</param>
-        /// <returns>The manifest digest (format=hash).</returns>
+        /// <returns>The manifest digest.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         /// <remarks>
@@ -118,15 +117,15 @@ namespace ZeroInstall.Store.Implementation
             using (var stream = File.Create(path))
                 Save(stream);
 
-            // Caclulate the hash of the completed manifest file
-            return Format.Prefix + "=" + FileUtils.ComputeHash(path, Format.GetHashAlgorithm());
+            // Caclulate the digest of the completed manifest file
+            return Format.Prefix + Format.Separator + Format.DigestFile(path);
         }
 
         /// <summary>
         /// Writes the manifest to a stream.
         /// </summary>
         /// <param name="stream">The stream to write to.</param>
-        /// <returns>The manifest digest (format=hash).</returns>
+        /// <returns>The manifest digest.</returns>
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
         /// </remarks>
@@ -136,7 +135,7 @@ namespace ZeroInstall.Store.Implementation
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            // Use UTF-8 without BOM and Unix-stlye line breaks to ensure correct hash values
+            // Use UTF-8 without BOM and Unix-stlye line breaks to ensure correct digest values
             var writer = new StreamWriter(stream, new UTF8Encoding(false)) {NewLine = "\n"};
 
             // Write one line for each node
@@ -150,7 +149,7 @@ namespace ZeroInstall.Store.Implementation
         /// Parses a manifest file stream.
         /// </summary>
         /// <param name="stream">The stream to load from.</param>
-        /// <param name="format">The format of the file and the format of the created <see cref="Manifest"/>. Comprises the hash algorithm used and the file's format.</param>
+        /// <param name="format">The format of the file and the format of the created <see cref="Manifest"/>. Comprises the digest method used and the file's format.</param>
         /// <returns>A set of <see cref="ManifestNode"/>s containing the parsed content of the file.</returns>
         /// <exception cref="FormatException">Thrown if the file specified is not a valid manifest file.</exception>
         /// <remarks>
@@ -184,7 +183,7 @@ namespace ZeroInstall.Store.Implementation
         /// Parses a manifest file.
         /// </summary>
         /// <param name="path">The path of the file to load.</param>
-        /// <param name="format">The format of the file and the format of the created <see cref="Manifest"/>. Comprises the hash algorithm used and the file's format.</param>
+        /// <param name="format">The format of the file and the format of the created <see cref="Manifest"/>. Comprises the digest method used and the file's format.</param>
         /// <returns>A set of <see cref="ManifestNode"/>s containing the parsed content of the file.</returns>
         /// <exception cref="FormatException">Thrown if the file specified is not a valid manifest file.</exception>
         /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
@@ -209,7 +208,7 @@ namespace ZeroInstall.Store.Implementation
         /// Generates a manifest for a directory in the filesystem.
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
-        /// <param name="format">The format of the manifest (which file details are listed, which hash method is used, etc.).</param>
+        /// <param name="format">The format of the manifest (which file details are listed, which digest method is used, etc.).</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="tag">An object used to associate a <see cref="ITask"/> with a specific process; may be <see langword="null"/>.</param>
         /// <returns>A manifest for the directory.</returns>
@@ -234,9 +233,9 @@ namespace ZeroInstall.Store.Implementation
         /// Generates a manifest for a directory in the filesystem and writes the manifest to a file named ".manifest" in that directory.
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
-        /// <param name="format">The format of the manifest (which file details are listed, which hash method is used, etc.).</param>
+        /// <param name="format">The format of the manifest (which file details are listed, which digest method is used, etc.).</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <returns>The manifest digest (format=hash).</returns>
+        /// <returns>The manifest digest.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
@@ -273,7 +272,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Calculates the digest for the manifest in-memory.
         /// </summary>
-        /// <returns>The manifest digest (format=hash).</returns>
+        /// <returns>The manifest digest.</returns>
         public string CalculateDigest()
         {
             using (var stream = new MemoryStream())
@@ -281,7 +280,7 @@ namespace ZeroInstall.Store.Implementation
                 Save(stream);
 
                 stream.Position = 0;
-                return Format.Prefix + "=" + FileUtils.ComputeHash(stream, Format.GetHashAlgorithm());
+                return Format.Prefix + Format.Separator + Format.DigestStream(stream);
             }
         }
         #endregion

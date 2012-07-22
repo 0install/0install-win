@@ -34,8 +34,8 @@ namespace ZeroInstall.Store.Implementation
     {
         #region Shared
         // Dummy data used by the tests
-        private static readonly ManifestDigest _digest1 = new ManifestDigest(null, "abc", null);
-        private static readonly ManifestDigest _digest2 = new ManifestDigest(null, "123", null);
+        private static readonly ManifestDigest _digest1 = new ManifestDigest(sha1New: "abc");
+        private static readonly ManifestDigest _digest2 = new ManifestDigest(sha1New: "123");
         private static readonly ArchiveFileInfo _archive1 = new ArchiveFileInfo {Path = "path1"};
         private static readonly ArchiveFileInfo _archive2 = new ArchiveFileInfo {Path = "path2"};
         private static readonly IEnumerable<ArchiveFileInfo> _archives = new[] {_archive1, _archive2};

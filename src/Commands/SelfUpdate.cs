@@ -24,6 +24,7 @@ using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Commands
 {
@@ -94,8 +95,7 @@ namespace ZeroInstall.Commands
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
 
             // Do not perform self-update if Zero Install itself was launched as a Zero Install implementation
-            string topDir = Path.GetFileName(Locations.InstallBase) ?? Locations.InstallBase;
-            if (topDir.Contains("=")) throw new NotSupportedException(Resources.ImplementationNoSelfUpdate);
+            if (StoreUtils.PathInAStore(Locations.InstallBase)) throw new NotSupportedException(Resources.ImplementationNoSelfUpdate);
 
             Policy.Handler.ShowProgressUI();
             Solve();

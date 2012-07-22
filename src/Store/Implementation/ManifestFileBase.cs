@@ -28,9 +28,9 @@ namespace ZeroInstall.Store.Implementation
     {
         #region Properties
         /// <summary>
-        /// The hash of the content of the file calculated using the selected digest algorithm.
+        /// The digest of the content of the file calculated using the selected digest algorithm.
         /// </summary>
-        public string Hash { get; private set; }
+        public string Digest { get; private set; }
 
         /// <summary>
         /// The time this file was last modified encoded as Unix time (number of seconds since the epoch).
@@ -52,20 +52,20 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Creates a new file entry.
         /// </summary>
-        /// <param name="hash">The hash of the content of the file calculated using the selected digest algorithm.</param>
+        /// <param name="digest">The digest of the content of the file calculated using the selected digest algorithm.</param>
         /// <param name="modifiedTime">The time this file was last modified in the number of seconds since the epoch.</param>
         /// <param name="size">The size of the file in bytes.</param>
         /// <param name="fileName">The name of the file without the containing directory.</param>
         /// <exception cref="NotSupportedException">Thrown if <paramref name="fileName"/> contains a newline character.</exception>
-        protected ManifestFileBase(string hash, long modifiedTime, long size, string fileName)
+        protected ManifestFileBase(string digest, long modifiedTime, long size, string fileName)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(hash)) throw new ArgumentNullException("hash");
+            if (string.IsNullOrEmpty(digest)) throw new ArgumentNullException("digest");
             if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException("fileName");
             if (fileName.Contains("\n")) throw new NotSupportedException(Resources.NewlineInName);
             #endregion
 
-            Hash = hash;
+            Digest = digest;
             ModifiedTime = modifiedTime;
             Size = size;
             FileName = fileName;
@@ -80,7 +80,7 @@ namespace ZeroInstall.Store.Implementation
         {
             if (other == null) return false;
 
-            return other.Hash == Hash && other.ModifiedTime == ModifiedTime && other.Size == Size && other.FileName == FileName;
+            return other.Digest == Digest && other.ModifiedTime == ModifiedTime && other.Size == Size && other.FileName == FileName;
         }
 
         /// <inheritdoc/>
@@ -88,7 +88,7 @@ namespace ZeroInstall.Store.Implementation
         {
             unchecked
             {
-                int result = (Hash != null ? Hash.GetHashCode() : 0);
+                int result = (Digest != null ? Digest.GetHashCode() : 0);
                 result = (result * 397) ^ ModifiedTime.GetHashCode();
                 result = (result * 397) ^ Size.GetHashCode();
                 result = (result * 397) ^ (FileName != null ? FileName.GetHashCode() : 0);

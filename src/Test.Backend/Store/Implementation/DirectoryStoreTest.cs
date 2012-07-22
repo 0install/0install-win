@@ -70,6 +70,31 @@ namespace ZeroInstall.Store.Implementation
         }
 
         [Test]
+        public void TestListAll()
+        {
+            Directory.CreateDirectory(Path.Combine(_tempDir.Path, "sha1=test1"));
+            Directory.CreateDirectory(Path.Combine(_tempDir.Path, "sha1new=test2"));
+            Directory.CreateDirectory(Path.Combine(_tempDir.Path, "sha256=test3"));
+            Directory.CreateDirectory(Path.Combine(_tempDir.Path, "sha256new_test4"));
+            Directory.CreateDirectory(Path.Combine(_tempDir.Path, "temp=stuff"));
+            CollectionAssert.AreEqual(new[]
+            {
+                new ManifestDigest(sha1: "test1"),
+                new ManifestDigest(sha1New: "test2"),
+                new ManifestDigest(sha256: "test3"),
+                new ManifestDigest(sha256New: "test4")
+            }, _store.ListAll());
+        }
+
+        [Test]
+        public void TestListAllTemp()
+        {
+            Directory.CreateDirectory(Path.Combine(_tempDir.Path, "sha1=test"));
+            Directory.CreateDirectory(Path.Combine(_tempDir.Path, "temp=stuff"));
+            CollectionAssert.AreEqual(new[] {"temp=stuff"}, _store.ListAllTemp());
+        }
+
+        [Test]
         public void ShouldTellIfItContainsAnImplementation()
         {
             string hash = Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new SilentHandler());
@@ -154,7 +179,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldThrowWhenRequestedPathOfUncontainedPackage()
         {
-            Assert.IsNull(_store.GetPath(new ManifestDigest("sha256=123")));
+            Assert.IsNull(_store.GetPath(new ManifestDigest(sha256: "123")));
         }
 
         [Test]

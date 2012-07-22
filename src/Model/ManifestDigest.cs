@@ -21,9 +21,8 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml;
 using System.Xml.Serialization;
-using Common.Utils;
+using Common.Collections;
 using ZeroInstall.Model.Design;
-using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model
 {
@@ -37,24 +36,13 @@ namespace ZeroInstall.Model
     [XmlType("manifest-digest", Namespace = Feed.XmlNamespace)]
     public struct ManifestDigest : IEquatable<ManifestDigest>, IComparable<ManifestDigest>
     {
-        #region Constants
-        /// <summary>The prefix used to identify the <see cref="Sha1Old"/> format.</summary>
-        public const string Sha1OldPrefix = "sha1";
-
-        /// <summary>The prefix used to identify the <see cref="Sha1New"/> format.</summary>
-        public const string Sha1NewPrefix = "sha1new";
-
-        /// <summary>The prefix used to identify the <see cref="Sha256"/> format.</summary>
-        public const string Sha256Prefix = "sha256";
-        #endregion
-
         #region Properties
         /// <summary>
         /// A SHA-1 hash of the old manifest format.
         /// </summary>
         [Description("A SHA-1 hash of the old manifest format.")]
         [XmlAttribute("sha1"), DefaultValue("")]
-        public string Sha1Old { get; set; }
+        public string Sha1 { get; set; }
 
         /// <summary>
         /// A SHA-1 hash of the new manifest format.
@@ -72,52 +60,36 @@ namespace ZeroInstall.Model
         public string Sha256 { get; set; }
 
         /// <summary>
-        /// Lists all contained manifest digests (format=hash) sorted from best (safest) to worst.
+        /// A SHA-256 hash of the new manifest format with a base32 encoding and no equals sign in the path.
+        /// </summary>
+        [Description("A SHA-256 hash of the new manifest format with a base32 encoding and no equals sign in the path.")]
+        [XmlAttribute("sha256new"), DefaultValue("")]
+        public string Sha256New { get; set; }
+
+        /// <summary>
+        /// Lists all contained manifest digests sorted from best (safest) to worst.
         /// </summary>
         [XmlIgnore]
         public IEnumerable<string> AvailableDigests
         {
             get
             {
-                var list = new List<string>(3);
+                var list = new List<string>(4);
 
-                if (!string.IsNullOrEmpty(Sha256)) list.Add(Sha256Prefix + "=" + Sha256);
-                if (!string.IsNullOrEmpty(Sha1New)) list.Add(Sha1NewPrefix + "=" + Sha1New);
-                if (!string.IsNullOrEmpty(Sha1Old)) list.Add(Sha1OldPrefix + "=" + Sha1Old);
+                if (!string.IsNullOrEmpty(Sha256New)) list.Add("sha256new_" + Sha256New);
+                if (!string.IsNullOrEmpty(Sha256)) list.Add("sha256=" + Sha256);
+                if (!string.IsNullOrEmpty(Sha1New)) list.Add("sha1new=" + Sha1New);
+                if (!string.IsNullOrEmpty(Sha1)) list.Add("sha1=" + Sha1);
 
                 return list;
             }
         }
 
         /// <summary>
-        /// Returns the best (safest) contained manifest digest (format=hash). <see langword="null"/> if none is set.
+        /// Returns the best (safest) contained manifest digest. <see langword="null"/> if none is set.
         /// </summary>
         [XmlIgnore]
-        public string BestDigest
-        {
-            get
-            {
-                if (!string.IsNullOrEmpty(Sha256)) return Sha256Prefix + "=" + Sha256;
-                if (!string.IsNullOrEmpty(Sha1New)) return Sha1NewPrefix + "=" + Sha1New;
-                if (!string.IsNullOrEmpty(Sha1Old)) return Sha1OldPrefix + "=" + Sha1Old;
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Returns the prefix of the best (safest) contained manifest digest. <see langword="null"/> if none is set.
-        /// </summary>
-        [XmlIgnore]
-        public string BestPrefix
-        {
-            get
-            {
-                if (!string.IsNullOrEmpty(Sha256)) return Sha256Prefix;
-                if (!string.IsNullOrEmpty(Sha1New)) return Sha1NewPrefix;
-                if (!string.IsNullOrEmpty(Sha1Old)) return Sha1OldPrefix;
-                return null;
-            }
-        }
+        public string BestDigest { get { return EnumerableUtils.First(AvailableDigests); } }
 
         /// <summary>
         /// Contains any unknown hash algorithms specified as pure XML attributes.
@@ -140,14 +112,16 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Creates a new manifest digest structure with pre-set values.
         /// </summary>
-        /// <param name="sha1Old">A SHA-1 hash of the old manifest format.</param>
+        /// <param name="sha1">A SHA-1 hash of the old manifest format.</param>
         /// <param name="sha1New">A SHA-1 hash of the new manifest format.</param>
         /// <param name="sha256">A SHA-256 hash of the new manifest format. (most secure)</param>
-        public ManifestDigest(string sha1Old, string sha1New, string sha256) : this()
+        /// <param name="sha256New">A SHA-256 hash of the new manifest format with a base32 encoding and no equals sign in the path.</param>
+        public ManifestDigest(string sha1 = null, string sha1New = null, string sha256 = null, string sha256New = null) : this()
         {
-            Sha1Old = sha1Old;
+            Sha1 = sha1;
             Sha1New = sha1New;
             Sha256 = sha256;
+            Sha256New = sha256New;
         }
         #endregion
 
@@ -163,26 +137,18 @@ namespace ZeroInstall.Model
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
-            if (!id.Contains("=")) throw new ArgumentException(string.Format(Resources.InvalidDigest, id));
             #endregion
 
-            // Split the ID string
-            string prefix = StringUtils.GetLeftPartAtFirstOccurrence(id, '=');
-            string hash = StringUtils.GetRightPartAtFirstOccurrence(id, '=');
-
             // Check for known prefixes (and don't overwrite existing values)
-            switch (prefix)
-            {
-                case Sha1OldPrefix:
-                    if (string.IsNullOrEmpty(target.Sha1Old)) target.Sha1Old = hash;
-                    break;
-                case Sha1NewPrefix:
-                    if (string.IsNullOrEmpty(target.Sha1New)) target.Sha1New = hash;
-                    break;
-                case Sha256Prefix:
-                    if (string.IsNullOrEmpty(target.Sha256)) target.Sha256 = hash;
-                    break;
-            }
+            if (string.IsNullOrEmpty(target.Sha1)) target.Sha1 = GetIfPrefixed(id, "sha1=");
+            if (string.IsNullOrEmpty(target.Sha1New)) target.Sha1New = GetIfPrefixed(id, "sha1new=");
+            if (string.IsNullOrEmpty(target.Sha256)) target.Sha256 = GetIfPrefixed(id, "sha256=");
+            if (string.IsNullOrEmpty(target.Sha256New)) target.Sha256New = GetIfPrefixed(id, "sha256new_");
+        }
+
+        private static string GetIfPrefixed(string value, string prefix)
+        {
+            return value.StartsWith(prefix) ? value.Substring(prefix.Length) : null;
         }
         #endregion
 
@@ -194,7 +160,7 @@ namespace ZeroInstall.Model
         /// </summary>
         public override string ToString()
         {
-            return string.Format("sha1={0}, sha1new={1}, sha256={2}", Sha1Old, Sha1New, Sha256);
+            return string.Format("sha1={0}, sha1new={1}, sha256={2}, sha256new_{3}", Sha1, Sha1New, Sha256, Sha256New);
         }
         #endregion
 
@@ -202,7 +168,7 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         public bool Equals(ManifestDigest other)
         {
-            return other.Sha1Old == Sha1Old && other.Sha1New == Sha1New && other.Sha256 == Sha256;
+            return other.Sha1 == Sha1 && other.Sha1New == Sha1New && other.Sha256 == Sha256 && other.Sha256New == Sha256New;
         }
 
         /// <summary>
@@ -213,10 +179,11 @@ namespace ZeroInstall.Model
         {
             int matchCounter = 0;
             return
-                PartialEqualsHelper(ref matchCounter, Sha1Old, other.Sha1Old) &&
+                PartialEqualsHelper(ref matchCounter, Sha1, other.Sha1) &&
                     PartialEqualsHelper(ref matchCounter, Sha1New, other.Sha1New) &&
                         PartialEqualsHelper(ref matchCounter, Sha256, other.Sha256) &&
-                            (matchCounter > 0);
+                            PartialEqualsHelper(ref matchCounter, Sha256New, other.Sha256New) &&
+                                (matchCounter > 0);
         }
 
         /// <summary>
@@ -261,9 +228,10 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                int result = (Sha1Old != null ? Sha1Old.GetHashCode() : 0);
+                int result = (Sha1 != null ? Sha1.GetHashCode() : 0);
                 result = (result * 397) ^ (Sha1New != null ? Sha1New.GetHashCode() : 0);
                 result = (result * 397) ^ (Sha256 != null ? Sha256.GetHashCode() : 0);
+                result = (result * 397) ^ (Sha256New != null ? Sha256New.GetHashCode() : 0);
                 return result;
             }
         }

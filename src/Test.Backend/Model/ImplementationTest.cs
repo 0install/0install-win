@@ -36,7 +36,7 @@ namespace ZeroInstall.Model
         {
             return new Implementation
             {
-                ID = "id", ManifestDigest = new ManifestDigest("sha256=123"), Version = new ImplementationVersion("1.0"),
+                ID = "id", ManifestDigest = new ManifestDigest(sha256: "123"), Version = new ImplementationVersion("1.0"),
                 Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")},
                 Main = "executable", DocDir = "doc", Stability = Stability.Developer,
                 Bindings = {EnvironmentBindingTest.CreateTestBinding()},
@@ -67,7 +67,7 @@ namespace ZeroInstall.Model
             implementation.Normalize("http://0install.de/feeds/test/test1.xml");
             Assert.AreEqual("123", implementation.ManifestDigest.Sha256);
 
-            implementation = new Implementation {ID = "sha256=wrong", ManifestDigest = new ManifestDigest("sha256=correct")};
+            implementation = new Implementation {ID = "sha256=wrong", ManifestDigest = new ManifestDigest(sha256: "correct")};
             implementation.Normalize("http://0install.de/feeds/test/test1.xml");
             Assert.AreEqual("correct", implementation.ManifestDigest.Sha256);
 

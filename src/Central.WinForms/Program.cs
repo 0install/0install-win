@@ -25,6 +25,7 @@ using Common.Controls;
 using Common.Storage;
 using Common.Utils;
 using Microsoft.Win32;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -69,8 +70,7 @@ namespace ZeroInstall.Central.WinForms
             if (!Locations.IsPortable && WindowsUtils.IsWindows && WindowsUtils.IsAdministrator)
             {
                 // Do not store the location if Zero Install itself was launched as a Zero Install implementation
-                string topDir = Path.GetFileName(Locations.InstallBase) ?? Locations.InstallBase;
-                if (!topDir.Contains("="))
+                if (StoreUtils.PathInAStore(Locations.InstallBase))
                 {
                     try
                     {

@@ -22,6 +22,7 @@ using Common.Utils;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Central
 {
@@ -38,8 +39,7 @@ namespace ZeroInstall.Central
             get
             {
                 // Do not check for updates if Zero Install itself was launched as a Zero Install implementation
-                string topDir = Path.GetFileName(Locations.InstallBase) ?? Locations.InstallBase;
-                if (topDir.Contains("=")) return false;
+                if (StoreUtils.PathInAStore(Locations.InstallBase)) return false;
 
                 // Flag file to supress check
                 return !File.Exists(Path.Combine(Locations.PortableBase, "_no_self_update_check"));

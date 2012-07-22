@@ -99,7 +99,7 @@ namespace ZeroInstall.Model
             }
 
             // Parse manifest digest from ID if missing
-            if (!string.IsNullOrEmpty(ID) && ID.Contains("=")) ManifestDigest.ParseID(ID, ref _manifestDigest);
+            if (!string.IsNullOrEmpty(ID)) ManifestDigest.ParseID(ID, ref _manifestDigest);
         }
         #endregion
 

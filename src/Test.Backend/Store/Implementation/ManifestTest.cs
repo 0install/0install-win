@@ -46,7 +46,7 @@ namespace ZeroInstall.Store.Implementation
             try
             {
                 // Generate manifest, write it to a file and read the file again
-                return Manifest.Generate(tempDir, ManifestFormat.Sha1Old, new SilentHandler(), null);
+                return Manifest.Generate(tempDir, ManifestFormat.Sha1New, new SilentHandler(), null);
             }
             finally
             { // Clean up
@@ -64,7 +64,7 @@ namespace ZeroInstall.Store.Implementation
                 // Generate manifest, write it to a file and read the file again
                 manifest1 = CreateTestManifest();
                 manifest1.Save(tempFile.Path);
-                manifest2 = Manifest.Load(tempFile.Path, ManifestFormat.Sha1Old);
+                manifest2 = Manifest.Load(tempFile.Path, ManifestFormat.Sha1New);
             }
 
             // Ensure data stayed the same
@@ -74,19 +74,19 @@ namespace ZeroInstall.Store.Implementation
         [Test(Description = "Ensures damaged manifest lines are correctly identified.")]
         public void TestLoadException()
         {
-            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("test"), ManifestFormat.Sha1Old));
+            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("test"), ManifestFormat.Sha1));
             Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("test"), ManifestFormat.Sha1New));
             Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("test"), ManifestFormat.Sha256));
 
-            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("D /test"), ManifestFormat.Sha1Old));
+            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("D /test"), ManifestFormat.Sha1));
             Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("D /test"), ManifestFormat.Sha1New));
             Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("D /test"), ManifestFormat.Sha256));
 
-            Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 1200000000 128 test"), ManifestFormat.Sha1Old));
+            Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 1200000000 128 test"), ManifestFormat.Sha1));
             Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 1200000000 128 test"), ManifestFormat.Sha1New));
             Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 1200000000 128 test"), ManifestFormat.Sha256));
 
-            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 128 test"), ManifestFormat.Sha1Old));
+            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 128 test"), ManifestFormat.Sha1));
             Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 128 test"), ManifestFormat.Sha1New));
             Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 128 test"), ManifestFormat.Sha256));
         }
@@ -114,9 +114,10 @@ namespace ZeroInstall.Store.Implementation
             try
             {
                 ManifestDigest digest1 = Manifest.CreateDigest(packageDir, new SilentHandler());
-                Assert.IsNullOrEmpty(digest1.Sha1Old); // Sha1Old is deprecated
+                Assert.IsNullOrEmpty(digest1.Sha1); // sha1 is deprecated
                 Assert.IsNotNullOrEmpty(digest1.Sha1New);
                 Assert.IsNotNullOrEmpty(digest1.Sha256);
+                Assert.IsNotNullOrEmpty(digest1.Sha256New);
 
                 ManifestDigest digest2 = Manifest.CreateDigest(packageDir, new SilentHandler());
                 Assert.AreEqual(digest1, digest2);
@@ -240,7 +241,7 @@ namespace ZeroInstall.Store.Implementation
         }
 
         [Test]
-        public void ShouldHandleSha1Old()
+        public void ShouldHandleSha1()
         {
             using (var package = new TemporaryDirectory("0install-unit-tests"))
             {
@@ -252,7 +253,7 @@ namespace ZeroInstall.Store.Implementation
                 string manifestPath = Path.Combine(package.Path, ".manifest");
                 File.WriteAllText(innerExePath, @"xxxxxxx");
                 File.WriteAllText(xbitPath, @"/inner/inner.exe");
-                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha1Old, new SilentHandler());
+                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha1, new SilentHandler());
                 using (var manifestFile = File.OpenText(manifestPath))
                 {
                     string currentLine = manifestFile.ReadLine();

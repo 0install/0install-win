@@ -27,24 +27,24 @@ namespace ZeroInstall.Model.Design
     internal class ManifestDigestConverter : ValueTypeConverter<ManifestDigest>
     {
         /// <summary>The number of arguments <see cref="ManifestDigest"/> has.</summary>
-        protected override int NoArguments { get { return 3; } }
+        protected override int NoArguments { get { return 4; } }
 
         /// <returns>The constructor used to create new instances of <see cref="ManifestDigest"/> (deserialization).</returns>
         protected override ConstructorInfo GetConstructor()
         {
-            return typeof(ManifestDigest).GetConstructor(new[] {typeof(string), typeof(string), typeof(string)});
+            return typeof(ManifestDigest).GetConstructor(new[] {typeof(string), typeof(string), typeof(string), typeof(string)});
         }
 
         /// <returns>The unconverted arguments of <see cref="ManifestDigest"/>.</returns>
         protected override object[] GetArguments(ManifestDigest value)
         {
-            return new object[] {value.Sha1Old, value.Sha1New, value.Sha256};
+            return new object[] {value.Sha1, value.Sha1New, value.Sha256, value.Sha256New};
         }
 
         /// <returns>The arguments of <see cref="ManifestDigest"/> converted to string.</returns>
         protected override string[] GetValues(ManifestDigest value, ITypeDescriptorContext context, CultureInfo culture)
         {
-            return new[] {value.Sha1Old, value.Sha1New, value.Sha256};
+            return new[] {value.Sha1, value.Sha1New, value.Sha256, value.Sha256New};
         }
 
         /// <returns>A new instance of <see cref="ManifestDigest"/>.</returns>
@@ -54,7 +54,7 @@ namespace ZeroInstall.Model.Design
             if (values == null) throw new ArgumentNullException("values");
             #endregion
 
-            return new ManifestDigest(values[0], values[1], values[2]);
+            return new ManifestDigest(values[0], values[1], values[2], values[3]);
         }
 
         /// <returns>A new instance of <see cref="ManifestDigest"/>.</returns>
@@ -64,7 +64,7 @@ namespace ZeroInstall.Model.Design
             if (propertyValues == null) throw new ArgumentNullException("propertyValues");
             #endregion
 
-            return new ManifestDigest(propertyValues["Sha1"].ToString(), propertyValues["Sha1New"].ToString(), propertyValues["Sha256"].ToString());
+            return new ManifestDigest(propertyValues["Sha1"].ToString(), propertyValues["Sha1New"].ToString(), propertyValues["Sha256"].ToString(), propertyValues["Sha256New"].ToString());
         }
     }
 }

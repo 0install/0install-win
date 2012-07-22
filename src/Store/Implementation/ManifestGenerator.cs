@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Store.Properties;
@@ -99,7 +98,7 @@ namespace ZeroInstall.Store.Implementation
                         // Don't include manifest management files in manifest
                         if (file.Name == ".manifest" || file.Name == ".xbit" || file.Name == ".symlink") continue;
 
-                        nodes.Add(GetFileNode(file, Format.GetHashAlgorithm(), externalXbits, externalSymlinks));
+                        nodes.Add(GetFileNode(file, Format, externalXbits, externalSymlinks));
                         BytesProcessed += file.Length;
                     }
                     else
@@ -144,34 +143,34 @@ namespace ZeroInstall.Store.Implementation
         /// Creates a manifest node for a file.
         /// </summary>
         /// <param name="file">The file object to create a node for.</param>
-        /// <param name="hashAlgorithm">The algorithm to use to calculate the hash of the file's content.</param>
+        /// <param name="format">The manifest format containing digest rules.</param>
         /// <param name="externalXbits">A list of fully qualified paths of files that are named in the <code>.xbit</code> file.</param>
         /// <param name="externalSymlinks">A list of fully qualified paths of files that are named in the <code>.symlink</code> file.</param>
         /// <returns>The node for the list.</returns>
         /// <exception cref="NotSupportedException">Thrown if the <paramref name="file"/> has illegal properties (e.g. is a device file, has line breaks in the filename, etc.).</exception>
         /// <exception cref="IOException">Thrown if there was an error reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to read the file.</exception>
-        private static ManifestNode GetFileNode(FileInfo file, HashAlgorithm hashAlgorithm, ICollection<string> externalXbits, ICollection<string> externalSymlinks)
+        private static ManifestNode GetFileNode(FileInfo file, ManifestFormat format, ICollection<string> externalXbits, ICollection<string> externalSymlinks)
         {
             // Real symlinks
             string symlinkContents;
             if (FileUtils.IsSymlink(file.FullName, out symlinkContents))
-                return new ManifestSymlink(StringUtils.Hash(symlinkContents, hashAlgorithm), symlinkContents.Length, file.Name);
+                return new ManifestSymlink(format.DigestString(symlinkContents), symlinkContents.Length, file.Name);
 
             // External symlinks
             if (externalSymlinks.Contains(file.FullName))
-                return new ManifestSymlink(FileUtils.ComputeHash(file.FullName, hashAlgorithm), file.Length, file.Name);
+                return new ManifestSymlink(format.DigestFile(file.FullName), file.Length, file.Name);
 
-            // Invalid file types
+            // Invalid file typest
             if (!FileUtils.IsRegularFile(file.FullName))
                 throw new NotSupportedException(string.Format(Resources.IllegalFileType, file.FullName));
 
             // Executable files
             if (externalXbits.Contains(file.FullName) || FileUtils.IsExecutable(file.FullName))
-                return new ManifestExecutableFile(FileUtils.ComputeHash(file.FullName, hashAlgorithm), FileUtils.ToUnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
+                return new ManifestExecutableFile(format.DigestFile(file.FullName), FileUtils.ToUnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
 
             // Regular files
-            return new ManifestNormalFile(FileUtils.ComputeHash(file.FullName, hashAlgorithm), FileUtils.ToUnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
+            return new ManifestNormalFile(format.DigestFile(file.FullName), FileUtils.ToUnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
         }
 
         /// <summary>

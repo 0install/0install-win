@@ -37,7 +37,7 @@ namespace ZeroInstall.Injector.Solver
             {
                 InterfaceID = "http://0install.de/feeds/test/test1.xml",
                 FromFeed = "http://0install.de/feeds/test/sub1.xml",
-                ID = "id1", ManifestDigest = new ManifestDigest("sha256=123"), Version = new ImplementationVersion("1.0"),
+                ID = "id1", ManifestDigest = new ManifestDigest(sha256: "123"), Version = new ImplementationVersion("1.0"),
                 Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")},
                 DocDir = "doc", Stability = Stability.Developer,
                 Bindings =
@@ -67,7 +67,7 @@ namespace ZeroInstall.Injector.Solver
             {
                 InterfaceID = "http://0install.de/feeds/test/test2.xml",
                 FromFeed = "http://0install.de/feeds/test/sub2.xml",
-                ID = "id2", ManifestDigest = new ManifestDigest("sha256=abc"), Version = new ImplementationVersion("1.0"),
+                ID = "id2", ManifestDigest = new ManifestDigest(sha256: "abc"), Version = new ImplementationVersion("1.0"),
                 Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")},
                 DocDir = "doc", Stability = Stability.Developer,
                 Bindings =

@@ -399,6 +399,55 @@ namespace Common.Utils
         }
         #endregion
 
+        #region Base 32
+        private static readonly char[] _base32Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".ToCharArray();
+        private const int NormaleByteSize = 8, Base32ByteSize = 5;
+
+        /// <summary>
+        /// Encodes a byte array in base 32 without padding.
+        /// </summary>
+        public static string Base32Encode(byte[] data)
+        {
+            #region Sanity checks
+            if (data == null) throw new ArgumentNullException("data");
+            if (data.Length == 0) return "";
+            #endregion
+
+            int i = 0, index = 0;
+            var result = new StringBuilder((data.Length + 7) * NormaleByteSize / Base32ByteSize);
+
+            while (i < data.Length)
+            {
+                int currentByte = (data[i] >= 0) ? data[i] : (data[i] + 256);
+                int digit;
+                
+                // Is the current digit going to span a byte boundary?
+                if (index > (NormaleByteSize - Base32ByteSize))
+                {
+                    int nextByte = (i + 1) < data.Length
+                        ? ((data[i + 1] >= 0) ? data[i + 1]
+                        : (data[i + 1] + 256)) : 0;
+
+                    digit = currentByte & (0xFF >> index);
+                    index = (index + Base32ByteSize) % NormaleByteSize;
+                    digit <<= index;
+                    digit |= nextByte >> (NormaleByteSize - index);
+                    i++;
+                }
+                else
+                {
+                    digit = (currentByte >> (NormaleByteSize - (index + Base32ByteSize))) & 0x1F;
+                    index = (index + Base32ByteSize) % NormaleByteSize;
+                    if (index == 0)
+                        i++;
+                }
+                result.Append(_base32Alphabet[digit]);
+            }
+
+            return result.ToString();
+        }
+        #endregion
+
         #region Hash
         /// <summary>
         /// Computes the hash value of a string encoded as UTF-8.

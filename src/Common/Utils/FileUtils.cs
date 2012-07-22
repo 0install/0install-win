@@ -67,44 +67,6 @@ namespace Common.Utils
         }
         #endregion
 
-        #region Hash
-        /// <summary>
-        /// Computes the hash value of the content of a file.
-        /// </summary>
-        /// <param name="path">The path of the file to hash.</param>
-        /// <param name="algorithm">The hashing algorithm to use.</param>
-        /// <returns>A hexadecimal string representation of the hash value.</returns>
-        /// <exception cref="IOException">Thrown if there was an error reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to read the file.</exception>
-        public static string ComputeHash(string path, HashAlgorithm algorithm)
-        {
-            #region Sanity checks
-            if (path == null) throw new ArgumentNullException("path");
-            if (algorithm == null) throw new ArgumentNullException("algorithm");
-            #endregion
-
-            using (var stream = File.OpenRead(path))
-                return ComputeHash(stream, algorithm);
-        }
-
-        /// <summary>
-        /// Computes the hash value of the content of a stream.
-        /// </summary>
-        /// <param name="stream">The stream containing the data to hash.</param>
-        /// <param name="algorithm">The hashing algorithm to use.</param>
-        /// <returns>A hexadecimal string representation of the hash value.</returns>
-        [SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "The returned characters are only 0-9 and A-F")]
-        public static string ComputeHash(Stream stream, HashAlgorithm algorithm)
-        {
-            #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
-            if (algorithm == null) throw new ArgumentNullException("algorithm");
-            #endregion
-
-            return BitConverter.ToString(algorithm.ComputeHash(stream)).Replace("-", "").ToLowerInvariant();
-        }
-        #endregion
-
         #region Time
         /// <summary>
         /// Converts a <see cref="DateTime"/> into the number of seconds since the Unix epoch (1970-1-1).

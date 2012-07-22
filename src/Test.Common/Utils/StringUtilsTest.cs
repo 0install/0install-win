@@ -123,12 +123,17 @@ namespace Common.Utils
             Assert.AreEqual("test1\\\\\\\"test2", StringUtils.EscapeArgument("test1\\\"test2"), "Slashes with quotation marks should be escaped");
         }
 
-        private const string Sha1ForEmptyString = "da39a3ee5e6b4b0d3255bfef95601890afd80709";
+        [Test]
+        public void TestBase32Encode()
+        {
+            Assert.AreEqual("IFBA", StringUtils.Base32Encode(new byte[] {65, 66}));
+        }
 
         [Test]
         public void TestHash()
         {
-            Assert.AreEqual(Sha1ForEmptyString, StringUtils.Hash("", SHA1.Create()));
+            const string sha1ForEmptyString = "da39a3ee5e6b4b0d3255bfef95601890afd80709";
+            Assert.AreEqual(sha1ForEmptyString, StringUtils.Hash("", SHA1.Create()));
         }
 
         [Test]

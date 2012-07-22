@@ -32,10 +32,10 @@ namespace ZeroInstall.Store.Management
         [Test]
         public void TestGetImplementation()
         {
-            var digest1 = new ManifestDigest("sha256=123");
+            var digest1 = new ManifestDigest(sha256: "123");
             var implementation1 = new Model.Implementation {ManifestDigest = digest1};
             var feed1 = new Feed {Elements = {implementation1}};
-            var digest2 = new ManifestDigest("sha256=abc");
+            var digest2 = new ManifestDigest(sha256: "abc");
             var implementation2 = new Model.Implementation {ManifestDigest = digest2};
             var feed2 = new Feed {Elements = {implementation2}};
             var feeds = new[] {feed1, feed2};
@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Management
             Assert.AreEqual(implementation2, ImplementationUtils.GetImplementation(digest2, feeds, out feed));
             Assert.AreEqual(feed2, feed);
 
-            Assert.IsNull(ImplementationUtils.GetImplementation(new ManifestDigest("sha256=invalid"), feeds, out feed), "No implementation should have been found");
+            Assert.IsNull(ImplementationUtils.GetImplementation(new ManifestDigest(sha256: "invalid"), feeds, out feed), "No implementation should have been found");
             Assert.IsNull(feed, "No feed should have been found");
         }
     }

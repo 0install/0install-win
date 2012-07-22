@@ -46,30 +46,6 @@ namespace Common.Utils
         }
         #endregion
 
-        #region Hash
-        private const string Sha1ForEmptyString = "da39a3ee5e6b4b0d3255bfef95601890afd80709";
-
-        /// <summary>
-        /// Ensures <see cref="FileUtils.ComputeHash(string,HashAlgorithm)"/> can correctly hash files using SHA1.
-        /// </summary>
-        [Test]
-        public void TestComputeHashFile()
-        {
-            // Create and hash an empty file
-            using (var tempFile = new TemporaryFile("unit-tests"))
-                Assert.AreEqual(Sha1ForEmptyString, FileUtils.ComputeHash(tempFile.Path, SHA1.Create()));
-        }
-
-        /// <summary>
-        /// Ensures <see cref="FileUtils.ComputeHash(Stream,HashAlgorithm)"/> can correctly hash files using SHA1.
-        /// </summary>
-        [Test]
-        public void TestComputeHashStream()
-        {
-            Assert.AreEqual(Sha1ForEmptyString, FileUtils.ComputeHash(new MemoryStream(), SHA1.Create()));
-        }
-        #endregion
-
         #region Time
         /// <summary>
         /// Ensures <see cref="FileUtils.ToUnixTime"/> correctly converts a <see cref="DateTime"/> value to a Unix epoch value.
