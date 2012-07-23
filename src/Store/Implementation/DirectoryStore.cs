@@ -191,24 +191,20 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public IEnumerable<ManifestDigest> ListAll()
         {
-            string[] directories = FileUtils.GetSubdirectoryNames(DirectoryPath);
-
-            // Convert directory names to manifest digets
-            var result = new List<ManifestDigest>(directories.Length);
-            for (int i = 0; i < directories.Length; i++)
-            {
-                // Ignore invalid/temporary names
-                var digest = new ManifestDigest(directories[i]);
-                if (digest != default(ManifestDigest)) result.Add(digest);
-            }
-            return result;
+            return Array.FindAll(
+                // Get all digests...
+                Array.ConvertAll(FileUtils.GetSubdirectoryNames(DirectoryPath), directory => new ManifestDigest(directory)),
+                // ... that are valid
+                digest => digest != default(ManifestDigest));
         }
 
         /// <inheritdoc />
         public IEnumerable<string> ListAllTemp()
         {
-            // Get all directories that do not have valid digest names
-            return Array.FindAll(FileUtils.GetSubdirectoryNames(DirectoryPath),
+            return Array.FindAll(
+                // Get all directory names...
+                FileUtils.GetSubdirectoryNames(DirectoryPath),
+                // ... that do not have valid digest names
                 directory => new ManifestDigest(directory) == default(ManifestDigest));
         }
         #endregion
