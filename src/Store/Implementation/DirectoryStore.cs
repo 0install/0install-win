@@ -191,20 +191,14 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public IEnumerable<ManifestDigest> ListAll()
         {
-            // Find all directories
-            string[] directories = Directory.GetDirectories(DirectoryPath);
+            string[] directories = FileUtils.GetSubdirectoryNames(DirectoryPath);
 
-            // Turn into a C-sorted list
-            Array.Sort(directories, StringComparer.Ordinal);
-
-            // Convert directory names to manifest digests
-            var result = new List<ManifestDigest>();
+            // Convert directory names to manifest digets
+            var result = new List<ManifestDigest>(directories.Length);
             for (int i = 0; i < directories.Length; i++)
             {
-                string name = Path.GetFileName(directories[i]);
-
                 // Ignore invalid/temporary names
-                var digest = new ManifestDigest(name);
+                var digest = new ManifestDigest(directories[i]);
                 if (digest != default(ManifestDigest)) result.Add(digest);
             }
             return result;
@@ -213,22 +207,9 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public IEnumerable<string> ListAllTemp()
         {
-            // Find all directories
-            string[] directories = Directory.GetDirectories(DirectoryPath);
-
-            // Turn into a C-sorted list
-            Array.Sort(directories, StringComparer.Ordinal);
-
-            var result = new List<string>();
-            for (int i = 0; i < directories.Length; i++)
-            {
-                string name = Path.GetFileName(directories[i]);
-
-                // Ignore valid names
-                var digest = new ManifestDigest(name);
-                if (digest == default(ManifestDigest)) result.Add(name);
-            }
-            return result;
+            // Get all directories that do not have valid digest names
+            return Array.FindAll(FileUtils.GetSubdirectoryNames(DirectoryPath),
+                directory => new ManifestDigest(directory) == default(ManifestDigest));
         }
         #endregion
 
