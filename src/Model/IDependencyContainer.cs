@@ -21,7 +21,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// An object that contains <see cref="Dependency"/>s.
+    /// An object that contains <see cref="Dependency"/>s and <see cref="Restriction"/>s.
     /// </summary>
     public interface IDependencyContainer
     {
@@ -31,5 +31,12 @@ namespace ZeroInstall.Model
         [Category("Execution"), Description("A list of interfaces this implementation depends upon.")]
         [XmlElement("requires")]
         C5.ArrayList<Dependency> Dependencies { get; }
+
+        /// <summary>
+        /// A list of interfaces that are restricted to specific versions when used.
+        /// </summary>
+        [Category("Execution"), Description("A list of interfaces that are restricted to specific versions when used.")]
+        [XmlElement("restricts")]
+        C5.ArrayList<Restriction> Restrictions { get; }
     }
 }

@@ -45,16 +45,9 @@ namespace ZeroInstall.Model
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlType("depedency", Namespace = Feed.XmlNamespace)]
-    public class Dependency : XmlUnknown, IBindingContainer, ICloneable
+    public class Dependency : Restriction, IBindingContainer, IEquatable<Dependency>
     {
         #region Properties
-        /// <summary>
-        /// The URI or local path used to identify the interface.
-        /// </summary>
-        [Description("The URI or local path used to identify the interface.")]
-        [XmlAttribute("interface")]
-        public string Interface { get; set; }
-
         /// <summary>
         /// Controls how important this dependency is (i.e. whether ignoring it is an option).
         /// </summary>
@@ -68,44 +61,6 @@ namespace ZeroInstall.Model
         [Description("This can be used to indicate that this dependency is only needed in some cases.")]
         [XmlAttribute("use"), DefaultValue("")]
         public string Use { get; set; }
-
-        // Preserve order
-        private readonly C5.ArrayList<Constraint> _constraints = new C5.ArrayList<Constraint>();
-
-        /// <summary>
-        /// A list of version <see cref="Constraint"/>s that must be fulfilled.
-        /// </summary>
-        [Description("A list of version constraints that must be fulfilled.")]
-        [XmlElement("version")]
-        public C5.ArrayList<Constraint> Constraints { get { return _constraints; } }
-
-        /// <summary>
-        /// The maximum <see cref="Constraint.NotBeforeVersion"/> found in <see cref="Constraints"/>; <see langword="null"/> if <see cref="Constraints"/> is empty.
-        /// </summary>
-        public ImplementationVersion NotBeforeVersion
-        {
-            get
-            {
-                ImplementationVersion result = null;
-                foreach (var constraint in _constraints)
-                    if (result == null || constraint.NotBeforeVersion > result) result = constraint.NotBeforeVersion;
-                return result;
-            }
-        }
-
-        /// <summary>
-        /// The minimum <see cref="Constraint.BeforeVersion"/> found in <see cref="Constraints"/>; <see langword="null"/> if <see cref="Constraints"/> is empty.
-        /// </summary>
-        public ImplementationVersion BeforeVersion
-        {
-            get
-            {
-                ImplementationVersion result = null;
-                foreach (var constraint in _constraints)
-                    if (result == null || constraint.BeforeVersion < result) result = constraint.BeforeVersion;
-                return result;
-            }
-        }
 
         // Preserve order
         private readonly C5.ArrayList<Binding> _bindings = new C5.ArrayList<Binding>();
@@ -137,18 +92,22 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="Dependency"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Dependency"/>.</returns>
-        public virtual Dependency Clone()
+        public Dependency CloneDependency()
         {
             var dependency = new Dependency {Interface = Interface, Importance = Importance, Use = Use};
-            foreach (var binding in Bindings) dependency.Bindings.Add(binding.Clone());
             foreach (var constraint in Constraints) dependency.Constraints.Add(constraint.Clone());
+            foreach (var binding in Bindings) dependency.Bindings.Add(binding.Clone());
 
             return dependency;
         }
 
-        object ICloneable.Clone()
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Dependency"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Dependency"/>.</returns>
+        public override Restriction Clone()
         {
-            return Clone();
+            return CloneDependency();
         }
         #endregion
 
@@ -158,10 +117,9 @@ namespace ZeroInstall.Model
         {
             if (other == null) return false;
 
-            if (Interface != other.Interface) return false;
+            if (!base.Equals(other)) return false;
             if (Importance != other.Importance) return false;
             if (Use != other.Use) return false;
-            if (!Constraints.SequencedEquals(other.Constraints)) return false;
             if (!Bindings.SequencedEquals(other.Bindings)) return false;
             return true;
         }
@@ -179,10 +137,9 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                int result = (Interface ?? "").GetHashCode();
+                int result = base.GetHashCode();
                 result = (result * 397) ^ Importance.GetHashCode();
                 result = (result * 397) ^ (Use ?? "").GetHashCode();
-                result = (result * 397) ^ Constraints.GetSequencedHashCode();
                 result = (result * 397) ^ Bindings.GetSequencedHashCode();
                 return result;
             }

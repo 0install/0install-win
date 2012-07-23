@@ -83,7 +83,7 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="Runner"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Runner"/>.</returns>
-        public override Dependency Clone()
+        public override Restriction Clone()
         {
             return CloneRunner();
         }
@@ -95,10 +95,8 @@ namespace ZeroInstall.Model
         {
             if (other == null) return false;
 
-            if (Interface != other.Interface) return false;
-            if (Use != other.Use) return false;
-            if (!Constraints.SequencedEquals(other.Constraints)) return false;
-            if (!Bindings.SequencedEquals(other.Bindings)) return false;
+            if (!base.Equals(other)) return false;
+            if (Command != other.Command) return false;
             return true;
         }
 
@@ -115,11 +113,8 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                int result = (Interface ?? "").GetHashCode();
-                result = (result * 397) ^ (Use ?? "").GetHashCode();
-                result = (result * 397) ^ Constraints.GetSequencedHashCode();
-                result = (result * 397) ^ Bindings.GetSequencedHashCode();
-                result = (result * 397) ^ Arguments.GetSequencedHashCode();
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (Command ?? "").GetHashCode();
                 return result;
             }
         }

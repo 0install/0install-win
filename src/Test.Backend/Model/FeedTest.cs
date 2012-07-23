@@ -86,6 +86,14 @@ namespace ZeroInstall.Model
                             Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding(), ExecutableInVarTest.CreateTestBinding(), ExecutableInPathTest.CreateTestBinding()}
                         }
                     },
+                Restrictions =
+                    {
+                        new Restriction
+                        {
+                            Interface = "http://0install.de/feeds/test/test2.xml",
+                            Constraints = {new Constraint {BeforeVersion = new ImplementationVersion("2.0")}}
+                        }
+                    },
                 RetrievalMethods = {new Recipe {Steps = {new Archive {Location = new Uri("http://0install.de/files/test/test.zip"), Size = 1024}}}}
             };
         }

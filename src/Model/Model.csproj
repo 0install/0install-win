@@ -95,6 +95,7 @@
     <Compile Include="Element.cs" />
     <Compile Include="InvalidInterfaceIDException.cs" />
     <Compile Include="ModelUtils.cs" />
+    <Compile Include="Restriction.cs" />
     <Compile Include="Runner.cs" />
     <Compile Include="VersionPart.cs" />
     <Compile Include="Feed.cs" />

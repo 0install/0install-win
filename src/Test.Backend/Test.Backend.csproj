@@ -116,6 +116,7 @@
     <Compile Include="Model\ModelUtilsTest.cs" />
     <Compile Include="Model\OverlayBindingTest.cs" />
     <Compile Include="Model\PackageImplementationTest.cs" />
+    <Compile Include="Model\RestrictionTest.cs" />
     <Compile Include="Model\RunnerTest.cs" />
     <Compile Include="DesktopIntegration\AppListTest.cs" />
     <Compile Include="Store\Feeds\DiskIconCacheTest.cs" />

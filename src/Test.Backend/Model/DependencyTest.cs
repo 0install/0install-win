@@ -34,9 +34,9 @@ namespace ZeroInstall.Model
             return new Dependency
             {
                 Interface = "",
+                Constraints = {new Constraint {NotBeforeVersion = new ImplementationVersion("1.0"), BeforeVersion = new ImplementationVersion("2.0")}},
                 Importance = Importance.Recommended,
-                Use = "testing",
-                Constraints = {new Constraint {NotBeforeVersion = new ImplementationVersion("1.0"), BeforeVersion = new ImplementationVersion("2.0")}}
+                Use = "testing"
             };
         }
         #endregion
@@ -51,7 +51,7 @@ namespace ZeroInstall.Model
             Assert.AreEqual(dependency1, dependency1, "Equals() should be reflexive.");
             Assert.AreEqual(dependency1.GetHashCode(), dependency1.GetHashCode(), "GetHashCode() should be reflexive.");
 
-            var dependency2 = dependency1.Clone();
+            var dependency2 = dependency1.CloneDependency();
             Assert.AreEqual(dependency1, dependency2, "Cloned objects should be equal.");
             Assert.AreEqual(dependency1.GetHashCode(), dependency2.GetHashCode(), "Cloned objects' hashes should be equal.");
             Assert.IsFalse(ReferenceEquals(dependency1, dependency2), "Cloning should not return the same reference.");
@@ -59,24 +59,6 @@ namespace ZeroInstall.Model
             dependency2.Bindings.Add(new EnvironmentBinding());
             Assert.AreNotEqual(dependency1, dependency2, "Modified objects should no longer be equal");
             //Assert.AreNotEqual(dependency1.GetHashCode(), dependency2.GetHashCode(), "Modified objects' hashes should no longer be equal");
-        }
-
-        /// <summary>
-        /// Ensures <see cref="Dependency.NotBeforeVersion"/> and <see cref="Dependency.BeforeVersion"/> deduce correct values from <see cref="Dependency.Constraints"/>.
-        /// </summary>
-        [Test]
-        public void TestConstraintCollapsing()
-        {
-            var dependency = new Dependency
-            {
-                Constraints =
-                    {
-                        new Constraint {NotBeforeVersion = new ImplementationVersion("1.0"), BeforeVersion = new ImplementationVersion("2.0")},
-                        new Constraint {NotBeforeVersion = new ImplementationVersion("0.9"), BeforeVersion = new ImplementationVersion("1.9")},
-                    }
-            };
-            Assert.AreEqual(new ImplementationVersion("1.0"), dependency.NotBeforeVersion);
-            Assert.AreEqual(new ImplementationVersion("1.9"), dependency.BeforeVersion);
         }
     }
 }

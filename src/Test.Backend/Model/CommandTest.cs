@@ -76,6 +76,14 @@ namespace ZeroInstall.Model
                             Interface = "http://0install.de/feeds/test/test1.xml",
                             Bindings = {new EnvironmentBinding {Name = "TEST1_PATH_COMMAND_DEP"}}
                         }
+                    },
+                Restrictions =
+                    {
+                        new Restriction
+                        {
+                            Interface = "http://0install.de/feeds/test/test2.xml",
+                            Constraints = {new Constraint {BeforeVersion = new ImplementationVersion("2.0")}}
+                        }
                     }
             };
         }

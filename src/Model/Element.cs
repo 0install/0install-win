@@ -162,6 +162,16 @@ namespace ZeroInstall.Model
         public C5.ArrayList<Dependency> Dependencies { get { return _dependencies; } }
 
         // Preserve order
+        private readonly C5.ArrayList<Restriction> _restrictions = new C5.ArrayList<Restriction>();
+
+        /// <summary>
+        /// A list of interfaces that are restricted to specific versions when used.
+        /// </summary>
+        [Description("A list of interfaces that are restricted to specific versions when used.")]
+        [XmlElement("restricts")]
+        public C5.ArrayList<Restriction> Restrictions { get { return _restrictions; } }
+
+        // Preserve order
         private readonly C5.ArrayList<Binding> _bindings = new C5.ArrayList<Binding>();
 
         /// <summary>
@@ -221,6 +231,7 @@ namespace ZeroInstall.Model
             // Accumulate list entries
             foreach (var command in parent.Commands) Commands.Add(command);
             foreach (var dependency in parent.Dependencies) Dependencies.Add(dependency);
+            foreach (var restriction in parent.Restrictions) Restrictions.Add(restriction);
             foreach (var bindings in parent.Bindings) Bindings.Add(bindings);
         }
         #endregion
@@ -274,7 +285,8 @@ namespace ZeroInstall.Model
             to.SelfTest = from.SelfTest;
             to.DocDir = from.DocDir;
             foreach (var command in from.Commands) to.Commands.Add(command.Clone());
-            foreach (var dependency in from.Dependencies) to.Dependencies.Add(dependency.Clone());
+            foreach (var dependency in from.Dependencies) to.Dependencies.Add(dependency.CloneDependency());
+            foreach (var restriction in from.Restrictions) to.Restrictions.Add(restriction.Clone());
             foreach (var binding in from.Bindings) to.Bindings.Add(binding.Clone());
         }
         #endregion
@@ -287,7 +299,7 @@ namespace ZeroInstall.Model
 
             return base.Equals(other) &&
                 other.Version == Version && other.VersionModifier == VersionModifier && other.Released == Released && other.License == License && other.Main == Main && other.SelfTest == SelfTest && other.DocDir == DocDir &&
-                    Commands.SequencedEquals(other.Commands) && Dependencies.SequencedEquals(other.Dependencies) && Bindings.SequencedEquals(other.Bindings);
+                    Commands.SequencedEquals(other.Commands) && Dependencies.SequencedEquals(other.Dependencies) && Restrictions.SequencedEquals(other.Restrictions) && Bindings.SequencedEquals(other.Bindings);
         }
 
         /// <inheritdoc/>
@@ -305,6 +317,7 @@ namespace ZeroInstall.Model
                 result = (result * 397) ^ (DocDir ?? "").GetHashCode();
                 result = (result * 397) ^ Commands.GetSequencedHashCode();
                 result = (result * 397) ^ Dependencies.GetSequencedHashCode();
+                result = (result * 397) ^ Restrictions.GetSequencedHashCode();
                 result = (result * 397) ^ Bindings.GetSequencedHashCode();
                 return result;
             }

@@ -100,6 +100,16 @@ namespace ZeroInstall.Model
         [XmlElement("requires")]
         public C5.ArrayList<Dependency> Dependencies { get { return _dependencies; } }
 
+        // Preserve order
+        private readonly C5.ArrayList<Restriction> _restrictions = new C5.ArrayList<Restriction>();
+
+        /// <summary>
+        /// A list of interfaces that are restricted to specific versions when used.
+        /// </summary>
+        [Description("A list of interfaces that are restricted to specific versions when used.")]
+        [XmlElement("restricts")]
+        public C5.ArrayList<Restriction> Restrictions { get { return _restrictions; } }
+
         /// <summary>
         /// An interface that needs be used as a runner for this command. The <see cref="Path"/> is passed to that interface as an argument.
         /// </summary>
@@ -132,7 +142,8 @@ namespace ZeroInstall.Model
             foreach (var argument in Arguments) newCommand.Arguments.Add(argument);
             foreach (var binding in Bindings) newCommand.Bindings.Add(binding.Clone());
             if (WorkingDir != null) newCommand.WorkingDir = WorkingDir.Clone();
-            foreach (var dependency in Dependencies) newCommand.Dependencies.Add(dependency.Clone());
+            foreach (var dependency in Dependencies) newCommand.Dependencies.Add(dependency.CloneDependency());
+            foreach (var restriction in Restrictions) newCommand.Restrictions.Add(restriction.Clone());
             if (Runner != null) newCommand.Runner = Runner.CloneRunner();
 
             return newCommand;
@@ -156,6 +167,7 @@ namespace ZeroInstall.Model
             if (!Bindings.SequencedEquals(other.Bindings)) return false;
             if (!Equals(WorkingDir, other.WorkingDir)) return false;
             if (!Dependencies.SequencedEquals(other.Dependencies)) return false;
+            if (!Restrictions.SequencedEquals(other.Restrictions)) return false;
             if (!Equals(Runner, other.Runner)) return false;
             return true;
         }
@@ -179,6 +191,7 @@ namespace ZeroInstall.Model
                 result = (result * 397) ^ Bindings.GetSequencedHashCode();
                 if (WorkingDir != null) result = (result * 397) ^ WorkingDir.GetHashCode();
                 result = (result * 397) ^ Dependencies.GetSequencedHashCode();
+                result = (result * 397) ^ Restrictions.GetSequencedHashCode();
                 if (Runner != null) result = (result * 397) ^ Runner.GetHashCode();
                 return result;
             }
