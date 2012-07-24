@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2011 Simon E. Silva Lauinger
+ * Copyright 2011-2012 Simon E. Silva Lauinger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -16,11 +16,13 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 using C5;
+using Common;
 using Common.Collections;
 using ZeroInstall.Publish.WinForms.Properties;
 
@@ -68,12 +70,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <returns>The selected language or <see langword="null" /> if no language is selected.</returns>
         public CultureInfo SelectedLanguage
         {
-            get
-            {
-                string languageWithMarker = comboBoxLanguages.Text;
-                return CultureInfo.GetCultureInfo(languageWithMarker.StartsWith(UsingLanguageMarker)
-                    ? languageWithMarker.Substring(UsingLanguageMarker.Length)
-                    : languageWithMarker);
+            get {
+                return ((ToStringWrapper<CultureInfo>)comboBoxLanguages.SelectedItem).Element;
             }
 
             set
@@ -82,7 +80,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 if (value == null) throw new ArgumentNullException("value");
                 #endregion
 
-                comboBoxLanguages.SelectedItem = (comboBoxLanguages.Items.Contains(value.IetfLanguageTag)) ? value.IetfLanguageTag : UsingLanguageMarker + value.IetfLanguageTag;
+                comboBoxLanguages.SelectedItem = CreateToStringWrapper(value, Values.ContainsExactLanguage(value));                
             }
         }
         #endregion
@@ -91,7 +89,11 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <summary>
         /// The <see cref="string"/> which marks the already translated languages.
         /// </summary>
-        private const string UsingLanguageMarker = "* ";
+        private const string TranslatedLanguageMarker = "* ";
+        #endregion
+
+        #region
+        private BindingList<ToStringWrapper<CultureInfo>> _comboBoxEntries;
         #endregion
 
         public LocalizableTextControl()
@@ -111,31 +113,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
             Values.CollectionChanged += delegate
             {
-                var setLanguages = new SortedArray<CultureInfo>(new CultureComparer());
-                var notSetLanguages = new SortedArray<CultureInfo>(new CultureComparer());
-
-                foreach (CultureInfo language in CultureInfo.GetCultures(CultureTypes.FrameworkCultures))
-                {
-                    // Exclude the invariant culture since "no language" defaults to "English generic"
-                    if (language.Equals(CultureInfo.InvariantCulture)) continue;
-
-                    // seperate set languages and not set languages
-                    if (Values.ContainsExactLanguage(language)) setLanguages.Add(language);
-                    else notSetLanguages.Add(language);
-                }
-
-                // store selected language
-                CultureInfo selectedLanguage = SelectedLanguage;
-
-                comboBoxLanguages.Items.Clear();
-                // add languages to comboBox
-                comboBoxLanguages.BeginUpdate();
-                foreach (CultureInfo settedLanguage in setLanguages) comboBoxLanguages.Items.Add(UsingLanguageMarker + settedLanguage.IetfLanguageTag);
-                foreach (CultureInfo notSettedLanguage in notSetLanguages) comboBoxLanguages.Items.Add(notSettedLanguage.IetfLanguageTag);
-                comboBoxLanguages.EndUpdate();
-
-                // restore selected language
-                SelectedLanguage = selectedLanguage;
+                UpdateComboBoxLanguages();
             };
         }
 
@@ -144,23 +122,44 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// </summary>
         private void InitializeComboBoxLanguages()
         {
-            // Add FrameworkCultures to comboBox
-            var sortedCultures = new SortedArray<CultureInfo>(new CultureComparer());
-            sortedCultures.AddAll(CultureInfo.GetCultures(CultureTypes.FrameworkCultures));
-            sortedCultures.Remove(CultureInfo.InvariantCulture);
-            foreach (CultureInfo cultureInfo in sortedCultures)
-                comboBoxLanguages.Items.Add(cultureInfo.IetfLanguageTag);
-            comboBoxLanguages.SelectedIndex = 0;
+            FillComboBoxLanguages();
+            
+            comboBoxLanguages.SelectedIndexChanged += ComboBoxLanguage_SelectedIndexChanged;
+        }
 
-            // Sets right translation to hintTextBoxSummary
-            comboBoxLanguages.SelectedIndexChanged += delegate
+// ReSharper disable InconsistentNaming
+        private void ComboBoxLanguage_SelectedIndexChanged(object sender, EventArgs args)
+// ReSharper restore InconsistentNaming
+        {
+            hintTextBoxSummary.TextChanged -= HintTextBoxSummary_TextChanged;
+            hintTextBoxSummary.Text = Values.ContainsExactLanguage(SelectedLanguage)
+                ? Values.GetExactLanguage(SelectedLanguage)
+                : string.Empty;
+            hintTextBoxSummary.TextChanged += HintTextBoxSummary_TextChanged;
+        }
+
+        private void FillComboBoxLanguages()
+        {
+            var frameworkCultures = CultureInfo.GetCultures(CultureTypes.FrameworkCultures);
+            var sortedToStringWrappers = new ArrayList<ToStringWrapper<CultureInfo>>(frameworkCultures.Length);
+            foreach (var cultureInfo in frameworkCultures)
             {
-                hintTextBoxSummary.TextChanged -= HintTextBoxSummaryTextChanged;
-                hintTextBoxSummary.Text = Values.ContainsExactLanguage(SelectedLanguage)
-                    ? Values.GetExactLanguage(SelectedLanguage)
-                    : string.Empty;
-                hintTextBoxSummary.TextChanged += HintTextBoxSummaryTextChanged;
-            };
+                if (cultureInfo.Equals(CultureInfo.InvariantCulture)) continue;
+                sortedToStringWrappers.Add(CreateToStringWrapper(cultureInfo, Values.ContainsExactLanguage(cultureInfo)));
+            }
+            sortedToStringWrappers.Sort(new ToStringWrapperCultureComparer());
+
+            comboBoxLanguages.BeginUpdate();
+            _comboBoxEntries=new BindingList<ToStringWrapper<CultureInfo>>(sortedToStringWrappers);
+            comboBoxLanguages.DataSource = _comboBoxEntries;
+            comboBoxLanguages.EndUpdate();
+        }
+
+        private void UpdateComboBoxLanguages()
+        {
+            CultureInfo selectedLanguage = SelectedLanguage;
+            _comboBoxEntries[comboBoxLanguages.SelectedIndex] = CreateToStringWrapper(selectedLanguage, Values.ContainsExactLanguage(selectedLanguage));
+            SelectedLanguage = selectedLanguage;
         }
 
         /// <summary>
@@ -168,15 +167,17 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// </summary>
         private void InitializeHintTextBoxSummary()
         {
-            hintTextBoxSummary.TextChanged += HintTextBoxSummaryTextChanged;
+            hintTextBoxSummary.TextChanged += HintTextBoxSummary_TextChanged;
         }
 
         /// <summary>
         /// Removes <see cref="SelectedLanguage"/> from <see cref="Values"/> if text of <see cref="hintTextBoxSummary"/> is empty, else adds <see cref="SelectedLanguage"/> to <see cref="Values"/>.
         /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void HintTextBoxSummaryTextChanged(object sender, EventArgs e)
+        /// <param name="sender">Not Used.</param>
+        /// <param name="e">Not Used.</param>
+// ReSharper disable InconsistentNaming
+        private void HintTextBoxSummary_TextChanged(object sender, EventArgs e)
+// ReSharper restore InconsistentNaming
         {
             string changedSummary = hintTextBoxSummary.Text;
             // Remove language from Values if translation has been removed.
@@ -184,7 +185,33 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 Values.RemoveAll(SelectedLanguage);
             // Add language to Values if translation was set.
             if (!string.IsNullOrEmpty(changedSummary))
+            {
+                comboBoxLanguages.SelectedIndexChanged -= ComboBoxLanguage_SelectedIndexChanged;
                 Values.Set(changedSummary, SelectedLanguage);
+                comboBoxLanguages.SelectedIndexChanged += ComboBoxLanguage_SelectedIndexChanged;
+            }
+        }
+
+        private ToStringWrapper<CultureInfo> CreateToStringWrapper(CultureInfo forCulture, bool cultureUsed)
+        {
+            return new ToStringWrapper<CultureInfo>(forCulture, () => cultureUsed ? TranslatedLanguageMarker + forCulture.IetfLanguageTag : forCulture.IetfLanguageTag);
+        }
+
+        private class ToStringWrapperCultureComparer : CultureComparer, IComparer<ToStringWrapper<CultureInfo>>
+        {
+            public int Compare(ToStringWrapper<CultureInfo> x, ToStringWrapper<CultureInfo> y)
+            {
+                bool isXUsed = x.ToString().StartsWith(TranslatedLanguageMarker);
+                bool isYUsed = y.ToString().StartsWith(TranslatedLanguageMarker);
+
+                int compareNumber;
+
+                if (isXUsed == isYUsed) compareNumber = Compare(x.Element, y.Element);
+                else if (isXUsed) compareNumber = -1;
+                else compareNumber = 1;
+
+                return compareNumber;
+            }
         }
     }
 }

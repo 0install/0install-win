@@ -1,4 +1,7 @@
-﻿namespace ZeroInstall.Publish.WinForms.Controls
+﻿using System.Globalization;
+using Common;
+
+namespace ZeroInstall.Publish.WinForms.Controls
 {
     partial class LocalizableTextControl
     {
@@ -8,7 +11,7 @@
         private System.ComponentModel.IContainer components = null;
 
         /// <summary> 
-        /// Clean up any resources being used.
+        /// Clean up any resources being Used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
@@ -43,7 +46,6 @@
             this.hintTextBoxSummary.ShowClearButton = true;
             this.hintTextBoxSummary.Size = new System.Drawing.Size(342, 20);
             this.hintTextBoxSummary.TabIndex = 10;
-            this.hintTextBoxSummary.TextChanged += new System.EventHandler(this.HintTextBoxSummaryTextChanged);
             // 
             // comboBoxLanguages
             // 
@@ -70,6 +72,6 @@
         #endregion
 
         public Common.Controls.HintTextBox hintTextBoxSummary;
-        private System.Windows.Forms.ComboBox comboBoxLanguages;
+        private new System.Windows.Forms.ComboBox comboBoxLanguages;
     }
 }
