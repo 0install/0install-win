@@ -420,13 +420,13 @@ namespace Common.Utils
             {
                 int currentByte = (data[i] >= 0) ? data[i] : (data[i] + 256);
                 int digit;
-                
+
                 // Is the current digit going to span a byte boundary?
                 if (index > (NormaleByteSize - Base32ByteSize))
                 {
                     int nextByte = (i + 1) < data.Length
                         ? ((data[i + 1] >= 0) ? data[i + 1]
-                        : (data[i + 1] + 256)) : 0;
+                            : (data[i + 1] + 256)) : 0;
 
                     digit = currentByte & (0xFF >> index);
                     index = (index + Base32ByteSize) % NormaleByteSize;
@@ -445,6 +445,21 @@ namespace Common.Utils
             }
 
             return result.ToString();
+        }
+        #endregion
+
+        #region Base 16
+        /// <summary>
+        /// Encodes a byte array in base 16 (hexadecimal).
+        /// </summary>
+        public static string Base16Encode(byte[] data)
+        {
+            #region Sanity checks
+            if (data == null) throw new ArgumentNullException("data");
+            if (data.Length == 0) return "";
+            #endregion
+
+            return BitConverter.ToString(data).Replace("-", "").ToLowerInvariant();
         }
         #endregion
 

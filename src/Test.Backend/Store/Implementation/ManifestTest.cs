@@ -77,29 +77,46 @@ namespace ZeroInstall.Store.Implementation
             Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("test"), ManifestFormat.Sha1));
             Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("test"), ManifestFormat.Sha1New));
             Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("test"), ManifestFormat.Sha256));
+            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("test"), ManifestFormat.Sha256New));
 
             Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("D /test"), ManifestFormat.Sha1));
             Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("D /test"), ManifestFormat.Sha1New));
             Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("D /test"), ManifestFormat.Sha256));
+            Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("D /test"), ManifestFormat.Sha256New));
 
             Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 1200000000 128 test"), ManifestFormat.Sha1));
             Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 1200000000 128 test"), ManifestFormat.Sha1New));
             Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 1200000000 128 test"), ManifestFormat.Sha256));
+            Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 1200000000 128 test"), ManifestFormat.Sha256New));
 
             Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 128 test"), ManifestFormat.Sha1));
             Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 128 test"), ManifestFormat.Sha1New));
             Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 128 test"), ManifestFormat.Sha256));
+            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 128 test"), ManifestFormat.Sha256New));
         }
 
         [Test]
-        public void TestCalculateHash()
+        public void TestCalculateDigest()
         {
             string packageDir = DirectoryStoreTest.CreateArtificialPackage();
             try
             {
-                string inMemoryHash = Manifest.Generate(packageDir, ManifestFormat.Sha256, new SilentHandler(), null).CalculateDigest();
-                string diskHash = Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, new SilentHandler());
-                Assert.AreEqual(diskHash, inMemoryHash);
+                Assert.AreEqual(
+                    Manifest.CreateDotFile(packageDir, ManifestFormat.Sha1, new SilentHandler()),
+                    Manifest.Generate(packageDir, ManifestFormat.Sha1, new SilentHandler(), null).CalculateDigest(),
+                    "sha1 dot file and digest should match");
+                Assert.AreEqual(
+                    Manifest.CreateDotFile(packageDir, ManifestFormat.Sha1New, new SilentHandler()),
+                    Manifest.Generate(packageDir, ManifestFormat.Sha1New, new SilentHandler(), null).CalculateDigest(),
+                    "sha1new dot file and digest should match");
+                Assert.AreEqual(
+                    Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, new SilentHandler()),
+                    Manifest.Generate(packageDir, ManifestFormat.Sha256, new SilentHandler(), null).CalculateDigest(),
+                    "sha256 dot file and digest should match");
+                Assert.AreEqual(
+                    Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256New, new SilentHandler()),
+                    Manifest.Generate(packageDir, ManifestFormat.Sha256New, new SilentHandler(), null).CalculateDigest(),
+                    "sha256new dot file and digest should match");
             }
             finally
             {

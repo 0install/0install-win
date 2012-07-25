@@ -2,7 +2,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security.Cryptography;
-using System.Text;
 using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
@@ -116,47 +115,31 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Digest methods
-        /// <summary>
-        /// Generates the digest of a stream based on the format's hash method.
-        /// </summary>
-        /// <param name="stream">The stream containing the data to digest.</param>
-        /// <returns>The string-serialization of the digest.</returns>
-        public string DigestStream(Stream stream)
+        public string DigestManifest(Stream stream)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            return SerializeHash(GetHashAlgorithm().ComputeHash(stream));
+            return SerializeManifestDigest(GetHashAlgorithm().ComputeHash(stream));
         }
 
-        /// <summary>
-        /// Generates the digest of a file based on the format's hash method.
-        /// </summary>
-        /// <param name="path">The path of the file to digest.</param>
-        /// <returns>The string-serialization of the digest.</returns>
-        public string DigestFile(string path)
+        public string DigestContent(Stream stream)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            using (var stream = File.OpenRead(path))
-                return DigestStream(stream);
+            return SerializeContentDigest(GetHashAlgorithm().ComputeHash(stream));
         }
 
-        /// <summary>
-        /// Generates the digest of a string encoded as UTF-8.
-        /// </summary>
-        /// <param name="value">The string to hash.</param>
-        /// <returns>The string-serialization of the digest.</returns>
-        public string DigestString(string value)
+        public string DigestContent(byte[] data)
         {
             #region Sanity checks
-            if (value == null) throw new ArgumentNullException("value");
+            if (data == null) throw new ArgumentNullException("data");
             #endregion
 
-            return SerializeHash(GetHashAlgorithm().ComputeHash(Encoding.UTF8.GetBytes(value)));
+            return SerializeContentDigest(GetHashAlgorithm().ComputeHash(data));
         }
 
         /// <summary>
@@ -165,9 +148,14 @@ namespace ZeroInstall.Store.Implementation
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Generates a new instance each time to allow for concurrent usage")]
         protected abstract HashAlgorithm GetHashAlgorithm();
 
-        protected virtual string SerializeHash(byte[] hash)
+        protected virtual string SerializeContentDigest(byte[] hash)
         {
-            return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+            return StringUtils.Base16Encode(hash);
+        }
+
+        protected virtual string SerializeManifestDigest(byte[] hash)
+        {
+            return StringUtils.Base16Encode(hash);
         }
         #endregion
 
@@ -335,7 +323,7 @@ namespace ZeroInstall.Store.Implementation
                 return SHA256.Create();
             }
 
-            protected override string SerializeHash(byte[] hash)
+            protected override string SerializeManifestDigest(byte[] hash)
             {
                 return StringUtils.Base32Encode(hash);
             }

@@ -118,7 +118,8 @@ namespace ZeroInstall.Store.Implementation
                 Save(stream);
 
             // Caclulate the digest of the completed manifest file
-            return Format.Prefix + Format.Separator + Format.DigestFile(path);
+            using (var stream = File.OpenRead(path))
+                return Format.Prefix + Format.Separator + Format.DigestManifest(stream);
         }
 
         /// <summary>
@@ -280,7 +281,7 @@ namespace ZeroInstall.Store.Implementation
                 Save(stream);
 
                 stream.Position = 0;
-                return Format.Prefix + Format.Separator + Format.DigestStream(stream);
+                return Format.Prefix + Format.Separator + Format.DigestManifest(stream);
             }
         }
         #endregion

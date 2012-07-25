@@ -52,7 +52,7 @@ namespace ZeroInstall.Fetchers
             using (var entryData = new MemoryStream(entry.Content))
             {
                 size = entryData.Length;
-                hash = ManifestFormat.Sha256.DigestStream(entryData);
+                hash = ManifestFormat.Sha256.DigestContent(entry.Content);
             }
             if (entry.IsExecutable) node = new ManifestExecutableFile(hash, FileUtils.ToUnixTime(entry.LastWriteTime), size, entry.Name);
             else node = new ManifestNormalFile(hash, FileUtils.ToUnixTime(entry.LastWriteTime), size, entry.Name);
@@ -68,7 +68,7 @@ namespace ZeroInstall.Fetchers
             {
                 WriteHierarchyManifestToStream(package, dotFile);
                 dotFile.Seek(0, SeekOrigin.Begin);
-                return new ManifestDigest(sha256: ManifestFormat.Sha256.DigestStream(dotFile));
+                return new ManifestDigest(sha256: ManifestFormat.Sha256.DigestManifest(dotFile));
             }
         }
 

@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Store.Properties;
@@ -155,22 +156,28 @@ namespace ZeroInstall.Store.Implementation
             // Real symlinks
             string symlinkContents;
             if (FileUtils.IsSymlink(file.FullName, out symlinkContents))
-                return new ManifestSymlink(format.DigestString(symlinkContents), symlinkContents.Length, file.Name);
+            {
+                var symlinkData = Encoding.UTF8.GetBytes(symlinkContents);
+                return new ManifestSymlink(format.DigestContent(symlinkData), symlinkData.Length, file.Name);
+            }
 
-            // External symlinks
-            if (externalSymlinks.Contains(file.FullName))
-                return new ManifestSymlink(format.DigestFile(file.FullName), file.Length, file.Name);
-
-            // Invalid file typest
+            // Invalid file type
             if (!FileUtils.IsRegularFile(file.FullName))
                 throw new NotSupportedException(string.Format(Resources.IllegalFileType, file.FullName));
 
-            // Executable files
-            if (externalXbits.Contains(file.FullName) || FileUtils.IsExecutable(file.FullName))
-                return new ManifestExecutableFile(format.DigestFile(file.FullName), FileUtils.ToUnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
+            using (var stream = File.OpenRead(file.FullName))
+            {
+                // External symlinks
+                if (externalSymlinks.Contains(file.FullName))
+                    return new ManifestSymlink(format.DigestContent(stream), file.Length, file.Name);
 
-            // Regular files
-            return new ManifestNormalFile(format.DigestFile(file.FullName), FileUtils.ToUnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
+                // Executable file
+                if (externalXbits.Contains(file.FullName) || FileUtils.IsExecutable(file.FullName))
+                    return new ManifestExecutableFile(format.DigestContent(stream), FileUtils.ToUnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
+
+                // Normal file
+                return new ManifestNormalFile(format.DigestContent(stream), FileUtils.ToUnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
+            }
         }
 
         /// <summary>
