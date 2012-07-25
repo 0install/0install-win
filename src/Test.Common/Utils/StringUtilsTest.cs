@@ -124,9 +124,37 @@ namespace Common.Utils
         }
 
         [Test]
+        public void TestBase64Utf8Encode()
+        {
+            Assert.AreEqual(null, StringUtils.Base64Utf8Encode(null));
+            Assert.AreEqual("", StringUtils.Base64Utf8Encode(""));
+            Assert.AreEqual("dGVzdA==", StringUtils.Base64Utf8Encode("test"));
+        }
+
+        [Test]
+        public void TestBase64Utf8Decode()
+        {
+            Assert.AreEqual(null, StringUtils.Base64Utf8Decode(null));
+            Assert.AreEqual("", StringUtils.Base64Utf8Decode(""));
+            Assert.AreEqual("test", StringUtils.Base64Utf8Decode("dGVzdA=="));
+        }
+
+        [Test]
         public void TestBase32Encode()
         {
             Assert.AreEqual("IFBA", StringUtils.Base32Encode(new byte[] {65, 66}));
+        }
+
+        [Test]
+        public void TestBase16Encode()
+        {
+            Assert.AreEqual("4142", StringUtils.Base16Encode(new byte[] {65, 66}));
+        }
+
+        [Test]
+        public void TestBase16Decode()
+        {
+            Assert.AreEqual(new byte[] {65, 66}, StringUtils.Base16Decode("4142"));
         }
 
         [Test]

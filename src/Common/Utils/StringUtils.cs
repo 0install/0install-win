@@ -384,7 +384,7 @@ namespace Common.Utils
         /// <summary> 
         /// Encodes a string as UTF-8 in base 64.
         /// </summary>
-        public static string Base64Encode(string value)
+        public static string Base64Utf8Encode(string value)
         {
             return value == null ? null : Convert.ToBase64String(Encoding.UTF8.GetBytes(value));
         }
@@ -393,7 +393,7 @@ namespace Common.Utils
         /// Decodes a UTF-8 in base 64 string.
         /// </summary>
         /// <exception cref="FormatException">Thrown if <paramref name="value"/> is not a valid base 64 string.</exception>
-        public static string Base64Decode(string value)
+        public static string Base64Utf8Decode(string value)
         {
             return value == null ? null : Encoding.UTF8.GetString(Convert.FromBase64String(value));
         }
@@ -460,6 +460,21 @@ namespace Common.Utils
             #endregion
 
             return BitConverter.ToString(data).Replace("-", "").ToLowerInvariant();
+        }
+
+        /// <summary>
+        /// Decodes a base 16 (hexadecimal) to a byte array.
+        /// </summary>
+        public static byte[] Base16Decode(string encoded)
+        {
+            #region Sanity checks
+            if (encoded == null) throw new ArgumentNullException("encoded");
+            #endregion
+
+            var result = new byte[encoded.Length / 2];
+            for (int i = 0; i < encoded.Length / 2; i++)
+                result[i] = Convert.ToByte(encoded.Substring(i * 2, 2), 16);
+            return result;
         }
         #endregion
 

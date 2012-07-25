@@ -23,6 +23,7 @@ using Common.Collections;
 using Common.Compression;
 using Common.Storage;
 using Common.Tasks;
+using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Implementation.Archive;
@@ -65,10 +66,23 @@ namespace ZeroInstall.Publish.Cli
 
         private static void AddMissing(Implementation implementation, bool store)
         {
+            // Convert sha256 to sha256new
+            if (!string.IsNullOrEmpty(implementation.ManifestDigest.Sha256) && string.IsNullOrEmpty(implementation.ManifestDigest.Sha256New))
+            {
+                implementation.ManifestDigest = new ManifestDigest(
+                    implementation.ManifestDigest.Sha1,
+                    implementation.ManifestDigest.Sha1New,
+                    implementation.ManifestDigest.Sha256,
+                    StringUtils.Base32Encode(StringUtils.Base16Decode(implementation.ManifestDigest.Sha256)));
+            }
+
             foreach (var archive in EnumerableUtils.OfType<Archive>(implementation.RetrievalMethods))
             {
-                // Download archives if any information is missing
-                if (implementation.ManifestDigest == default(ManifestDigest) || archive.Size == 0 || string.IsNullOrEmpty(archive.MimeType))
+                // Guess missing MIME type
+                if (string.IsNullOrEmpty(archive.MimeType)) archive.MimeType = ArchiveUtils.GuessMimeType(archive.Location.ToString());
+
+                // Download archives if information is missing
+                if (implementation.ManifestDigest == default(ManifestDigest) || archive.Size == 0)
                 {
                     var digest = DownloadMissing(archive, store);
 
@@ -87,8 +101,6 @@ namespace ZeroInstall.Publish.Cli
 
         private static ManifestDigest DownloadMissing(Archive archive, bool store)
         {
-            if (string.IsNullOrEmpty(archive.MimeType)) archive.MimeType = ArchiveUtils.GuessMimeType(archive.Location.ToString());
-
             using (var tempFile = new TemporaryFile("0publish"))
             {
                 _handler.RunTask(new DownloadFile(archive.Location, tempFile.Path), null);

@@ -434,7 +434,7 @@ namespace ZeroInstall.Injector
                 {
                     try
                     {
-                        property.Value.Value = property.Value.NeedsEncoding ? StringUtils.Base64Decode(global[key]) : global[key];
+                        property.Value.Value = property.Value.NeedsEncoding ? StringUtils.Base64Utf8Decode(global[key]) : global[key];
                     }
                         #region Error handling
                     catch (FormatException ex)
@@ -478,7 +478,7 @@ namespace ZeroInstall.Injector
                 // Remove the old value and only set the new one if it isn't the default value
                 global.RemoveKey(key);
                 if (!Equals(property.Value.DefaultValue, property.Value.Value))
-                    global.AddKey(key, property.Value.NeedsEncoding ? StringUtils.Base64Encode(property.Value.Value) : property.Value.Value);
+                    global.AddKey(key, property.Value.NeedsEncoding ? StringUtils.Base64Utf8Encode(property.Value.Value) : property.Value.Value);
             }
         }
         #endregion
