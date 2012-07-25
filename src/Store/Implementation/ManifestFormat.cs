@@ -115,15 +115,11 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Digest methods
-        public string DigestManifest(Stream stream)
-        {
-            #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
-            #endregion
-
-            return SerializeManifestDigest(GetHashAlgorithm().ComputeHash(stream));
-        }
-
+        /// <summary>
+        /// Generates the digest of a implementation file as used within the manifest file.
+        /// </summary>
+        /// <param name="stream">The content of the implementation file.</param>
+        /// <returns>A string representation of the digest.</returns>
         public string DigestContent(Stream stream)
         {
             #region Sanity checks
@@ -133,6 +129,11 @@ namespace ZeroInstall.Store.Implementation
             return SerializeContentDigest(GetHashAlgorithm().ComputeHash(stream));
         }
 
+        /// <summary>
+        /// Generates the digest of a implementation file as used within the manifest file.
+        /// </summary>
+        /// <param name="data">The content of the implementation file.</param>
+        /// <returns>A string representation of the digest.</returns>
         public string DigestContent(byte[] data)
         {
             #region Sanity checks
@@ -143,16 +144,36 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <summary>
+        /// Generates the digest of a manifest file as used for the implementation directory name.
+        /// </summary>
+        /// <param name="stream">The content of the manifest file.</param>
+        /// <returns>A string representation of the digest.</returns>
+        public string DigestManifest(Stream stream)
+        {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            #endregion
+
+            return SerializeManifestDigest(GetHashAlgorithm().ComputeHash(stream));
+        }
+
+        /// <summary>
         /// Retreives a new instance of the hashing algorithm used for generating digests.
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Generates a new instance each time to allow for concurrent usage")]
         protected abstract HashAlgorithm GetHashAlgorithm();
 
+        /// <summary>
+        /// Serializes a hash as digest of an implementation file as used within the manifest file.
+        /// </summary>
         protected virtual string SerializeContentDigest(byte[] hash)
         {
             return StringUtils.Base16Encode(hash);
         }
 
+        /// <summary>
+        /// Serializes a hash as a digest of a manifest file as used for the implementation directory name.
+        /// </summary>
         protected virtual string SerializeManifestDigest(byte[] hash)
         {
             return StringUtils.Base16Encode(hash);
