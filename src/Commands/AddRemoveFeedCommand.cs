@@ -93,8 +93,10 @@ namespace ZeroInstall.Commands
         /// <returns>The interfaces that were actually affected.</returns>
         protected abstract ICollection<string> ApplyFeedToInterfaces(string feedID, IEnumerable<string> interfaces);
 
+        /// <summary>Message to be displayed if the command resulted in an action.</summary>
         protected abstract string ModifiedMessage { get; }
 
+        /// <summary>Message to be displayed if the command resulted in no changes.</summary>
         protected abstract string NoneModifiedMessage { get; }
     }
 }

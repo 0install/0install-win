@@ -70,8 +70,10 @@ namespace ZeroInstall.Commands
             return modified;
         }
 
+        /// <inheritdoc/>
         protected override string ModifiedMessage { get { return Resources.FeedUnregistered; } }
 
+        /// <inheritdoc/>
         protected override string NoneModifiedMessage { get { return Resources.FeedNotRegistered; } }
         #endregion
     }

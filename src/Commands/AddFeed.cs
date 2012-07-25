@@ -73,8 +73,10 @@ namespace ZeroInstall.Commands
             return modified;
         }
 
+        /// <inheritdoc/>
         protected override string ModifiedMessage { get { return Resources.FeedRegistered; } }
 
+        /// <inheritdoc/>
         protected override string NoneModifiedMessage { get { return Resources.FeedAlreadyRegistered; } }
         #endregion
     }

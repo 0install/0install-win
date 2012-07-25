@@ -33,7 +33,7 @@ namespace ZeroInstall.Model
     {
         #region Properties
         /// <summary>
-        /// The name of the command in the <see cref="Dependency.Interface"/> to use.
+        /// The name of the command in the <see cref="Restriction.Interface"/> to use.
         /// </summary>
         [Description("The name of the command in the interface to use.")]
         [XmlAttribute("command")]
