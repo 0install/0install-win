@@ -65,6 +65,10 @@
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DesktopIntegration\DesktopIntegration.csproj">
+      <Project>{F48937E1-3763-465F-9F12-6CBBBFF61784}</Project>
+      <Name>DesktopIntegration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fetchers\Fetchers.csproj">
       <Project>{37C09DC0-86FA-422C-B7EA-6970BF348ED0}</Project>
       <Name>Fetchers</Name>

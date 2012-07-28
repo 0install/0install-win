@@ -272,6 +272,9 @@ If you select 'No' Zero Install will continue to use the old capabilities.</valu
   <data name="FileOrDirNotFound" xml:space="preserve">
     <value>Unable to find file or directory '{0}'.</value>
   </data>
+  <data name="FilePrefixAbsoluteUsage" xml:space="preserve">
+    <value>Use file:///path for absolute paths, not file:/path.</value>
+  </data>
   <data name="FoundFeeds" xml:space="preserve">
     <value>Found feeds:</value>
   </data>

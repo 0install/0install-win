@@ -17,12 +17,18 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using Common.Storage;
+using Common.Utils;
 using NUnit.Framework;
 using Moq;
+using ZeroInstall.DesktopIntegration;
+using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
+using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 
@@ -143,6 +149,56 @@ namespace ZeroInstall.Commands
         public void TestExecuteBeforeParse()
         {
             Assert.Throws<InvalidOperationException>(() => Command.Execute(), "Execute should not allow calls before Parse");
+        }
+
+        [Test]
+        public void TestGetCanonicalID()
+        {
+            // Absolute paths
+            if (WindowsUtils.IsWindows)
+            {
+                Assert.AreEqual(@"C:\test\file", FrontendCommand.GetCanonicalID("file:///C:/test/file"));
+                Assert.AreEqual(@"C:\test\file", FrontendCommand.GetCanonicalID(@"C:\test\file"));
+            }
+            if (MonoUtils.IsUnix)
+            {
+                Assert.AreEqual("/var/test/file", FrontendCommand.GetCanonicalID("file:///var/test/file"));
+                Assert.AreEqual("/var/test/file", FrontendCommand.GetCanonicalID("/var/test/file"));
+            }
+
+            // Relative paths
+            Assert.AreEqual(FileUtils.PathCombine(Environment.CurrentDirectory, "test", "file"), FrontendCommand.GetCanonicalID("file:test/file"));
+            Assert.AreEqual(FileUtils.PathCombine(Environment.CurrentDirectory, "test", "file"), FrontendCommand.GetCanonicalID(Path.Combine("test", "file")));
+
+            // Invalid paths
+            Assert.Throws<InvalidInterfaceIDException>(() => FrontendCommand.GetCanonicalID("file:/test/file"));
+            if (WindowsUtils.IsWindows) Assert.Throws<InvalidInterfaceIDException>(() => FrontendCommand.GetCanonicalID(":::"));
+
+            // URIs
+            Assert.AreEqual("http://0install.de/feeds/test/test1.xml", FrontendCommand.GetCanonicalID("http://0install.de/feeds/test/test1.xml"));
+        }
+
+        [Test]
+        public void TestGetCanonicalIDAliases()
+        {
+            using (new LocationsRedirect("0install-unit-tests"))
+            {
+                // Fake an alias
+                new AppList
+                {
+                    Entries =
+                        {
+                            new AppEntry
+                            {
+                                InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                                AccessPoints = new AccessPointList {Entries = {new AppAlias {Name = "test"}}}
+                            }
+                        }
+                }.Save(AppList.GetDefaultPath(false));
+
+                Assert.AreEqual("http://0install.de/feeds/test/test1.xml", FrontendCommand.GetCanonicalID("alias:test"));
+                Assert.Throws<InvalidInterfaceIDException>(() => FrontendCommand.GetCanonicalID("alias:invalid"));
+            }
         }
     }
 }

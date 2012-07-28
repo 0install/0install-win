@@ -183,42 +183,46 @@ namespace ZeroInstall.Commands
         /// Converts an interface or feed ID to its canonical representation.
         /// </summary>
         /// <remarks>Aliases prefixed by "alias:" are resolved to the IDs they represent and relative local paths are converted to absolute paths. Everything else stays unchanged.</remarks>
-        protected static string GetCanonicalID(string id)
+        /// <exception cref="InvalidInterfaceIDException">Thrown if the <paramref name="id"/> is invalid.</exception>
+        /// <exception cref="IOException">Thrown if there was a problem checking a local file path.</exception>
+        public static string GetCanonicalID(string id)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
             #endregion
 
-            if (id.StartsWith("alias:"))
-            { // Look up AppEntry (and thus interface ID) belonging to an alias
-                string aliasName = id.Substring("alias:".Length);
-                AppEntry appEntry;
-                AddAlias.GetAppAlias(AppList.Load(AppList.GetDefaultPath(false)), aliasName, out appEntry);
-                return (appEntry == null ? id : appEntry.InterfaceID);
+            try
+            {
+                if (id.StartsWith("alias:"))
+                { // Look up AppEntry (and thus interface ID) belonging to an alias
+                    string aliasName = id.Substring("alias:".Length);
+                    AppEntry appEntry;
+                    AddAlias.GetAppAlias(AppList.Load(AppList.GetDefaultPath(false)), aliasName, out appEntry);
+                    if (appEntry == null) throw new InvalidInterfaceIDException(string.Format(Resources.AliasNotFound, aliasName));
+                    return appEntry.InterfaceID;
+                }
+                else if (id.StartsWith("file:///")) return FileUtils.UnifySlashes(id.Substring(WindowsUtils.IsWindows ? 8 : 7));
+                else if (id.StartsWith("file:/")) throw new ArgumentException(Resources.FilePrefixAbsoluteUsage);
+                else if (id.StartsWith("file:")) return Path.GetFullPath(FileUtils.UnifySlashes(id.Substring(5)));
+                //else if (IsApp(id))
+                //{}
+                //else if (IsShortName(id))
+                //{}
+                else if (ModelUtils.IsValidUri(id)) return id;
+                else return Path.GetFullPath(id); // Assume invalid URIs are local paths
             }
-            else if (ModelUtils.IsValidUri(id))
-                return id;
-            else
-            { // Assume invalid URIs are local paths
-                try
-                {
-                    return Path.GetFullPath(id);
-                }
-                    #region Error handling
-                catch (ArgumentException)
-                {
-                    return id;
-                }
-                catch (NotSupportedException)
-                {
-                    return id;
-                }
-                catch (IOException)
-                {
-                    return id;
-                }
-                #endregion
+            #region Error handling
+            catch (ArgumentException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new InvalidInterfaceIDException(ex.Message, ex);
             }
+            catch (InvalidOperationException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new InvalidInterfaceIDException(ex.Message, ex);
+            }
+            #endregion
         }
         #endregion
     }

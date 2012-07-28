@@ -269,6 +269,9 @@ Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.
   <data name="FileOrDirNotFound" xml:space="preserve">
     <value>Konnte die Datei oder das Verzeichnis '{0}' nicht finden.</value>
   </data>
+  <data name="FilePrefixAbsoluteUsage" xml:space="preserve">
+    <value>Verwenden Sie file:///Pfad für absolute Pfade, nicht file:/Pfad.</value>
+  </data>
   <data name="FoundFeeds" xml:space="preserve">
     <value>Gefundene Feeds:</value>
   </data>

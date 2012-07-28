@@ -516,6 +516,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use file:///path for absolute paths, not file:/path..
+        /// </summary>
+        internal static string FilePrefixAbsoluteUsage {
+            get {
+                return ResourceManager.GetString("FilePrefixAbsoluteUsage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Found feeds:.
         /// </summary>
         internal static string FoundFeeds {
