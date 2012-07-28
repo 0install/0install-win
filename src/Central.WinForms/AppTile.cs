@@ -42,6 +42,9 @@ namespace ZeroInstall.Central.WinForms
     public partial class AppTile : UserControl
     {
         #region Variables
+        /// <summary>Apply operations system-wide instead of just for the current user.</summary>
+        private readonly bool _systemWide;
+
         private static readonly IHandler _handler = new SilentHandler();
 
         /// <summary>The icon cache used to retrieve icons specified in <see cref="Feed"/>; may be <see langword="null"/>.</summary>
@@ -130,15 +133,18 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Creates a new application tile.
         /// </summary>
+        /// <param name="systemWide">Apply operations system-wide instead of just for the current user.</param>
         /// <param name="interfaceID">The interface ID of the application this tile represents.</param>
         /// <param name="appName">The name of the application this tile represents.</param>
         /// <param name="iconCache">The icon cache used to retrieve icons specified in <see cref="Feed"/>; may be <see langword="null"/>.</param>
-        public AppTile(string interfaceID, string appName, IIconCache iconCache)
+        public AppTile(bool systemWide, string interfaceID, string appName, IIconCache iconCache)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             if (appName == null) throw new ArgumentNullException("appName");
             #endregion
+
+            _systemWide = systemWide;
 
             InitializeComponent();
             buttonAdd.Image = _addButton;
@@ -290,7 +296,7 @@ namespace ZeroInstall.Central.WinForms
 
             ProcessUtils.RunAsync(delegate
             {
-                Commands.WinForms.Program.Main(new[] {"add-app", InterfaceID});
+                Commands.WinForms.Program.Main(_systemWide ? new[] {"add-app", "--global", InterfaceID} : new[] {"add-app", InterfaceID});
                 InvokeUpdateButtons(); // Restore buttons
             });
         }
@@ -302,7 +308,7 @@ namespace ZeroInstall.Central.WinForms
 
             ProcessUtils.RunAsync(delegate
             {
-                Commands.WinForms.Program.Main(new[] {"integrate-app", InterfaceID});
+                Commands.WinForms.Program.Main(_systemWide ? new[] {"integrate-app", "--global", InterfaceID} : new[] {"integrate-app", InterfaceID});
                 InvokeUpdateButtons(); // Restore buttons
             });
         }
@@ -316,7 +322,7 @@ namespace ZeroInstall.Central.WinForms
 
             ProcessUtils.RunAsync(delegate
             {
-                Commands.WinForms.Program.Main(new[] {"remove-app", InterfaceID});
+                Commands.WinForms.Program.Main(_systemWide ? new[] {"remove-app", "--global", InterfaceID} : new[] {"remove-app", InterfaceID});
                 InvokeUpdateButtons(); // Restore buttons
             });
         }

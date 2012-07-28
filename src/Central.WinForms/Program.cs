@@ -16,6 +16,9 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security;
@@ -48,13 +51,13 @@ namespace ZeroInstall.Central.WinForms
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        public static void Main()
+        public static int Main(string[] args)
         {
             WindowsUtils.SetCurrentProcessAppID(AppUserModelID);
 
             // Encode installation path into mutex name to allow instance detection during updates
             string mutexName = "mutex-" + StringUtils.Hash(Locations.InstallBase, MD5.Create());
-            if (AppMutex.Probe(mutexName + "-update")) return;
+            if (AppMutex.Probe(mutexName + "-update")) return 1;
             AppMutex.Create(mutexName);
 
             // Allow setup to detect Zero Install instances
@@ -84,7 +87,36 @@ namespace ZeroInstall.Central.WinForms
                 }
             }
 
-            Application.Run(new MainForm());
+            bool systemWide = Array.Exists(args, arg => arg == "--global");
+            if (systemWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
+
+            Application.Run(new MainForm(systemWide));
+            return 0;
+        }
+
+        /// <summary>
+        /// Reruns the current command as an administrator.
+        /// </summary>
+        /// <returns>The exit code of the rerun command.</returns>
+        /// <remarks>The command-line arguments are pulled from the current process.</remarks>
+        private static int RerunAsAdmin()
+        {
+            if (!WindowsUtils.IsWindows) throw new PlatformNotSupportedException();
+
+            var commandLine = new LinkedList<string>(Environment.GetCommandLineArgs());
+            string executable = commandLine.First.Value;
+
+            try
+            {
+                var startInfo = new ProcessStartInfo(executable, StringUtils.ConcatenateEscapeArgument(commandLine)) {Verb = "runas"};
+                var process = Process.Start(startInfo);
+                process.WaitForExit();
+                return process.ExitCode;
+            }
+            catch (Win32Exception)
+            {
+                return 1;
+            }
         }
 
         /// <summary>

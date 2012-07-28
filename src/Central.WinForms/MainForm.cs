@@ -41,12 +41,20 @@ namespace ZeroInstall.Central.WinForms
     /// </summary>
     internal partial class MainForm : Form
     {
+        #region Variables
+        /// <summary>Apply operations system-wide instead of just for the current user.</summary>
+        private readonly bool _systemWide;
+        #endregion
+
         #region Constructor
         /// <summary>
         /// Initializes the main GUI.
         /// </summary>
-        public MainForm()
+        /// <param name="systemWide">Apply operations system-wide instead of just for the current user.</param>
+        public MainForm(bool systemWide)
         {
+            _systemWide = systemWide;
+
             InitializeComponent();
 
             HandleCreated += delegate
@@ -60,6 +68,7 @@ namespace ZeroInstall.Central.WinForms
 
             Load += delegate
             {
+                if (systemWide) Text += @" - System-wide mode";
                 if (Locations.IsPortable) Text += @" - Portable mode";
                 labelVersion.Text = @"v" + Application.ProductVersion;
 
@@ -167,7 +176,7 @@ namespace ZeroInstall.Central.WinForms
             AppList newAppList;
             try
             {
-                newAppList = AppList.Load(AppList.GetDefaultPath(false));
+                newAppList = AppList.Load(AppList.GetDefaultPath(_systemWide));
             }
                 #region Error handling
             catch (FileNotFoundException)
@@ -201,7 +210,7 @@ namespace ZeroInstall.Central.WinForms
                     if (string.IsNullOrEmpty(addedEntry.InterfaceID) || addedEntry.Name == null) return;
                     try
                     {
-                        var tile = appList.QueueNewTile(addedEntry.InterfaceID, addedEntry.Name);
+                        var tile = appList.QueueNewTile(_systemWide, addedEntry.InterfaceID, addedEntry.Name);
                         tile.InAppList = true;
                         feedsToLoad.Add(tile, addedEntry.InterfaceID);
 
@@ -325,7 +334,7 @@ namespace ZeroInstall.Central.WinForms
 
             foreach (var feed in _currentCatalog.Feeds)
             {
-                var tile = catalogList.QueueNewTile(feed.UriString, feed.Name);
+                var tile = catalogList.QueueNewTile(_systemWide, feed.UriString, feed.Name);
                 tile.Feed = feed;
 
                 // Update "added" status of tile
@@ -391,7 +400,7 @@ namespace ZeroInstall.Central.WinForms
                         if (string.IsNullOrEmpty(addedFeed.UriString) || addedFeed.Name == null) return;
                         try
                         {
-                            var tile = catalogList.QueueNewTile(addedFeed.UriString, addedFeed.Name);
+                            var tile = catalogList.QueueNewTile(_systemWide, addedFeed.UriString, addedFeed.Name);
                             tile.Feed = addedFeed;
 
                             // Update "added" status of tile

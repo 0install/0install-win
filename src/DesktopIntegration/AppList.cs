@@ -53,18 +53,6 @@ namespace ZeroInstall.DesktopIntegration
         [Description("A list of application entries.")]
         [XmlElement("app")]
         public C5.LinkedList<AppEntry> Entries { get { return _entries; } }
-
-        /// <summary>
-        /// Returns the default file path used to store the main <see cref="AppList"/> on this system.
-        /// </summary>
-        /// <param name="systemWide">Store the <see cref="AppList"/> system-wide instead of just for the current user.</param>
-        public static string GetDefaultPath(bool systemWide)
-        {
-            return Path.Combine(
-                // System-wide storage cannot be portable, per-user storage can be portable
-                systemWide ? Locations.GetIntegrationDirPath("0install.net", true, "desktop-integration") : Locations.GetSaveConfigPath("0install.net", false, "desktop-integration"),
-                "app-list.xml");
-        }
         #endregion
 
         //--------------------//
@@ -186,6 +174,18 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             XmlStorage.Save(stream, this);
+        }
+
+        /// <summary>
+        /// Returns the default file path used to store the main <see cref="AppList"/> on this system.
+        /// </summary>
+        /// <param name="systemWide">Store the <see cref="AppList"/> system-wide instead of just for the current user.</param>
+        public static string GetDefaultPath(bool systemWide)
+        {
+            return Path.Combine(
+                // System-wide storage cannot be portable, per-user storage can be portable
+                systemWide ? Locations.GetIntegrationDirPath("0install.net", true, "desktop-integration") : Locations.GetSaveConfigPath("0install.net", false, "desktop-integration"),
+                "app-list.xml");
         }
         #endregion
 
