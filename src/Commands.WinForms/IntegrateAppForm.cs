@@ -161,7 +161,7 @@ namespace ZeroInstall.Commands.WinForms
 
                 // Try to guess reasonable alias name of command-line applications
                 if (_feed.NeedsTerminal)
-                    _aliases.Add(new AccessPoints.AppAlias {Name = _appEntry.Name.Replace(' ', '_').ToLower(), Command = Command.NameRun});
+                    _aliases.Add(new AccessPoints.AppAlias {Name = _appEntry.Name.Replace(' ', '-').ToLower(), Command = Command.NameRun});
             }
             else
             { // Multiple entry points
