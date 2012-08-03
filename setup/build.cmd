@@ -7,6 +7,8 @@ set TargetDir=%~dp0..\build\Setup
 set SetupEXE=zero-install.exe
 
 
+if not exist "%TargetDir%" mkdir "%TargetDir%"
+
 echo Building Backend archive...
 if exist "%TargetDir%\zero-install-backend.zip" del "%TargetDir%\zero-install-backend.zip"
 cd /d "%~dp0..\bundled"
