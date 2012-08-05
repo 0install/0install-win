@@ -34,7 +34,7 @@ namespace ZeroInstall.DesktopIntegration
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("app-list", Namespace = XmlNamespace)]
     [XmlType("app-list", Namespace = XmlNamespace)]
-    public sealed class AppList : ICloneable, IEquatable<AppList>
+    public sealed class AppList : XmlUnknown, ICloneable, IEquatable<AppList>
     {
         #region Constants
         /// <summary>

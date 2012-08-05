@@ -34,7 +34,7 @@ namespace ZeroInstall.DesktopIntegration
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlType("app", Namespace = AppList.XmlNamespace)]
-    public sealed class AppEntry : IMergeable<AppEntry>, ICloneable
+    public sealed class AppEntry : XmlUnknown, IMergeable<AppEntry>, ICloneable
     {
         #region Properties
         /// <summary>
