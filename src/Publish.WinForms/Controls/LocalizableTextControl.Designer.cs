@@ -1,7 +1,4 @@
-﻿using System.Globalization;
-using Common;
-
-namespace ZeroInstall.Publish.WinForms.Controls
+﻿namespace ZeroInstall.Publish.WinForms.Controls
 {
     partial class LocalizableTextControl
     {
@@ -72,6 +69,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
         #endregion
 
         public Common.Controls.HintTextBox hintTextBoxSummary;
-        private new System.Windows.Forms.ComboBox comboBoxLanguages;
+        private System.Windows.Forms.ComboBox comboBoxLanguages;
     }
 }
