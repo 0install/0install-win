@@ -244,7 +244,7 @@ namespace ZeroInstall.Injector
             string exePath = DeployRunEnvExecutable(binding.Name);
 
             // Add executable directory to PATH variable
-            startInfo.EnvironmentVariables["PATH"] = Path.GetDirectoryName(exePath) + startInfo.EnvironmentVariables["PATH"];
+            startInfo.EnvironmentVariables["PATH"] = Path.GetDirectoryName(exePath) + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
 
             // Tell the executable what command-line to run
             _runEnvPendings.Add(new RunEnvPending(Path.GetFileName(exePath), GetCommandLine(implementation, binding.Command, startInfo)));
