@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://zero-install.sourceforge.net/2004/injector/interface" elementFormDefault="qualified" targetNamespace="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:tns="http://zero-install.sourceforge.net/2004/injector/interface" elementFormDefault="qualified"
+           targetNamespace="http://zero-install.sourceforge.net/2004/injector/interface"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
   <xs:import namespace="http://0install.de/schema/desktop-integration/capabilities" />
   <xs:element name="interface" nillable="true" type="tns:feed" />
@@ -8,68 +10,93 @@
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string">
         <xs:annotation>
-          <xs:documentation>A short name to identify the interface (e.g. "Foo"). Required!</xs:documentation>
+          <xs:documentation>
+            A short name to identify the interface (e.g. "Foo"). Required!
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="summary" type="tns:localizable-string">
         <xs:annotation>
-          <xs:documentation>Short one-line description; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills"). Required!</xs:documentation>
+          <xs:documentation>
+            Short one-line description; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills"). Required!
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="description" type="tns:localizable-string">
         <xs:annotation>
-          <xs:documentation>Full description, which can be several paragraphs long.</xs:documentation>
+          <xs:documentation>
+            Full description, which can be several paragraphs long.
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="1" name="homepage" type="xs:string">
         <xs:annotation>
-          <xs:documentation>The URL of a web-page describing this interface in more detail.</xs:documentation>
+          <xs:documentation>
+            The URL of a web-page describing this interface in more detail.
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="icon" type="tns:icon">
         <xs:annotation>
-          <xs:documentation>An icon to use for the program.</xs:documentation>
+          <xs:documentation>
+            An icon to use for the program.
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="category" type="xs:string">
         <xs:annotation>
-          <xs:documentation>A category as defined by the freedesktop.org menu specification.</xs:documentation>
+          <xs:documentation>
+            A category as defined by the freedesktop.org menu specification.
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="1" name="needs-terminal" type="xs:string">
         <xs:annotation>
-          <xs:documentation>If present, this element indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.</xs:documentation>
+          <xs:documentation>
+            If present, this element indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="feed" type="tns:feed-reference">
         <xs:annotation>
-          <xs:documentation>An additional feed containing implementations of this interface.</xs:documentation>
+          <xs:documentation>
+            An additional feed containing implementations of this interface.
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="feed-for" type="tns:interface-reference">
         <xs:annotation>
-          <xs:documentation>The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.</xs:documentation>
+          <xs:documentation>
+            The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="1" name="replaced-by" type="tns:interface-reference">
         <xs:annotation>
-          <xs:documentation>This feed's interface has been replaced by the given interface. Any references to the old URI should be updated to use the new one.</xs:documentation>
+          <xs:documentation>
+            This feed's interface has been replaced by the given interface. Any references to the old URI should be updated to use the new one.
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="implementation" type="tns:implementation" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="package-implementation" type="tns:package-implementation" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="group" type="tns:group" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="entry-point" type="tns:entry-point" />
-      <xs:element minOccurs="0" maxOccurs="unbounded" xmlns:caps="http://0install.de/schema/desktop-integration/capabilities" ref="caps:capabilities" />
+      <xs:element minOccurs="0" maxOccurs="unbounded"
+                  xmlns:caps="http://0install.de/schema/desktop-integration/capabilities" ref="caps:capabilities" />
     </xs:choice>
     <xs:attribute name="min-injector-version" type="xs:string">
       <xs:annotation>
-        <xs:documentation>This attribute gives the oldest version of the injector that can read this file. Older versions will tell the user to upgrade if they are asked to read the file. Versions prior to 0.20 do not perform this check, however. If the attribute is not present, the file can be read by all versions.</xs:documentation>
+        <xs:documentation>
+          This attribute gives the oldest version of the injector that can read this file. Older versions will tell the user to upgrade if they are asked to read the file. Versions prior to 0.20 do not perform this check, however. If the attribute is not present, the file can be read by all versions.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="uri" type="xs:string">
       <xs:annotation>
-        <xs:documentation>This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).</xs:documentation>
+        <xs:documentation>
+          This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
@@ -83,48 +110,63 @@
   <xs:complexType name="icon">
     <xs:attribute name="href" type="xs:string" use="required">
       <xs:annotation>
-        <xs:documentation>The URL used to locate the icon.</xs:documentation>
+        <xs:documentation>
+          The URL used to locate the icon.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="type" type="xs:string" use="required">
       <xs:annotation>
-        <xs:documentation>The MIME type of the icon. This value is case-insensitive.</xs:documentation>
+        <xs:documentation>
+          The MIME type of the icon. This value is case-insensitive.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
   <xs:complexType name="feed-reference">
     <xs:attribute name="src" type="xs:string" use="required">
       <xs:annotation>
-        <xs:documentation>The URL or local path used to locate the feed.</xs:documentation>
+        <xs:documentation>
+          The URL or local path used to locate the feed.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="langs" type="xs:string">
       <xs:annotation>
-        <xs:documentation>The natural language(s) which the implementations in the feed support.</xs:documentation>
+        <xs:documentation>
+          The natural language(s) which the implementations in the feed support.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="arch" type="xs:string">
       <xs:annotation>
-        <xs:documentation>For platform-specific binaries, the platform for which the implementations in the feed were compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU.</xs:documentation>
+        <xs:documentation>
+          For platform-specific binaries, the platform for which the implementations in the feed were compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
   <xs:complexType name="interface-reference">
     <xs:attribute name="interface" type="xs:string" use="required">
       <xs:annotation>
-        <xs:documentation>The URI used to locate the interface.</xs:documentation>
+        <xs:documentation>
+          The URI used to locate the interface.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
   <xs:complexType name="group">
     <xs:annotation>
-      <xs:documentation>All attributes of the group are inherited by any child groups and implementations as defaults, but can be overridden there. All dependencies and bindings are inherited (sub-groups may add more dependencies and bidnings to the list, but cannot remove anything).</xs:documentation>
+      <xs:documentation>
+        All attributes of the group are inherited by any child groups and implementations as defaults, but can be overridden there. All dependencies and bindings are inherited (sub-groups may add more dependencies and bidnings to the list, but cannot remove anything).
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent mixed="false">
       <xs:extension base="tns:element">
         <xs:choice minOccurs="0" maxOccurs="unbounded">
           <xs:element minOccurs="0" maxOccurs="unbounded" name="implementation" type="tns:implementation" />
-          <xs:element minOccurs="0" maxOccurs="unbounded" name="package-implementation" type="tns:package-implementation" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="package-implementation"
+                      type="tns:package-implementation" />
           <xs:element minOccurs="0" maxOccurs="unbounded" name="group" type="tns:group" />
         </xs:choice>
       </xs:extension>
@@ -142,63 +184,87 @@
     </xs:choice>
     <xs:attribute name="langs" type="xs:string">
       <xs:annotation>
-        <xs:documentation>The natural language(s) which the implementation supports.</xs:documentation>
+        <xs:documentation>
+          The natural language(s) which the implementation supports.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="arch" type="xs:string">
       <xs:annotation>
-        <xs:documentation>For platform-specific binaries, the platform for which the implementation was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU.</xs:documentation>
+        <xs:documentation>
+          For platform-specific binaries, the platform for which the implementation was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="version" type="xs:string">
       <xs:annotation>
-        <xs:documentation>The version number of the implementation.</xs:documentation>
+        <xs:documentation>
+          The version number of the implementation.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="version-modifier" type="xs:string">
       <xs:annotation>
-        <xs:documentation>A string to be appended to the version. The purpose of this is to allow complex version numbers (such as "1.0-rc2") in older versions of the injector.</xs:documentation>
+        <xs:documentation>
+          A string to be appended to the version. The purpose of this is to allow complex version numbers (such as "1.0-rc2") in older versions of the injector.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="released" type="xs:string">
       <xs:annotation>
-        <xs:documentation>The date this implementation was made available. For development versions checked out from version control this attribute should not be present.</xs:documentation>
+        <xs:documentation>
+          The date this implementation was made available. For development versions checked out from version control this attribute should not be present.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="stability" type="tns:stability">
       <xs:annotation>
-        <xs:documentation>The default stability rating for this implementation.</xs:documentation>
+        <xs:documentation>
+          The default stability rating for this implementation.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="license" type="xs:string">
       <xs:annotation>
-        <xs:documentation>License terms (typically a Trove category, as used on freshmeat.net).</xs:documentation>
+        <xs:documentation>
+          License terms (typically a Trove category, as used on freshmeat.net).
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="main" type="xs:string">
       <xs:annotation>
-        <xs:documentation>The relative path of an executable inside the implementation that should be executed by default when the interface is run. If an implementation has no main setting, then it cannot be executed without specifying one manually. This typically means that the interface is for a library.</xs:documentation>
+        <xs:documentation>
+          The relative path of an executable inside the implementation that should be executed by default when the interface is run. If an implementation has no main setting, then it cannot be executed without specifying one manually. This typically means that the interface is for a library.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="self-test" type="xs:string">
       <xs:annotation>
-        <xs:documentation>The relative path of an executable inside the implementation that can be executed to test the program. The program must be non-interactive (e.g. it can't open any windows or prompt for input). It should return with an exit status of zero if the tests pass. Any other status indicates failure.</xs:documentation>
+        <xs:documentation>
+          The relative path of an executable inside the implementation that can be executed to test the program. The program must be non-interactive (e.g. it can't open any windows or prompt for input). It should return with an exit status of zero if the tests pass. Any other status indicates failure.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="doc-dir" type="xs:string">
       <xs:annotation>
-        <xs:documentation>The relative path of a directory inside the implementation that contains the package's documentation. This is the directory that would end up inside /usr/share/doc on a traditional Linux system.</xs:documentation>
+        <xs:documentation>
+          The relative path of a directory inside the implementation that contains the package's documentation. This is the directory that would end up inside /usr/share/doc on a traditional Linux system.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
   <xs:complexType name="command">
     <xs:annotation>
-      <xs:documentation>A Command says how to run an implementation as a program.</xs:documentation>
+      <xs:documentation>
+        A Command says how to run an implementation as a program.
+      </xs:documentation>
     </xs:annotation>
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element minOccurs="0" maxOccurs="unbounded" name="arg" type="xs:string">
         <xs:annotation>
-          <xs:documentation>A single command-line argument to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.</xs:documentation>
+          <xs:documentation>
+            A single command-line argument to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="environment" type="tns:environment" />
@@ -212,54 +278,74 @@
     </xs:choice>
     <xs:attribute name="name" type="xs:string">
       <xs:annotation>
-        <xs:documentation>The name of the command.</xs:documentation>
+        <xs:documentation>
+          The name of the command.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="path" type="xs:string">
       <xs:annotation>
-        <xs:documentation>The relative path of an executable inside the implementation that should be executed to run this command.</xs:documentation>
+        <xs:documentation>
+          The relative path of an executable inside the implementation that should be executed to run this command.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
   <xs:complexType name="binding" abstract="true">
     <xs:annotation>
-      <xs:documentation>Bindings specify how the chosen implementation is made known to the running program.</xs:documentation>
+      <xs:documentation>
+        Bindings specify how the chosen implementation is made known to the running program.
+      </xs:documentation>
     </xs:annotation>
   </xs:complexType>
   <xs:complexType name="environment">
     <xs:annotation>
-      <xs:documentation>Make a chosen implementation available by setting environment variables.</xs:documentation>
+      <xs:documentation>
+        Make a chosen implementation available by setting environment variables.
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent mixed="false">
       <xs:extension base="tns:binding">
         <xs:attribute name="name" type="xs:string" use="required">
           <xs:annotation>
-            <xs:documentation>The name of the environment variable.</xs:documentation>
+            <xs:documentation>
+              The name of the environment variable.
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="value" type="xs:string">
           <xs:annotation>
-            <xs:documentation>A static value to set the variable to. If this is set 'insert' must be empty.</xs:documentation>
+            <xs:documentation>
+              A static value to set the variable to. If this is set 'insert' must be empty.
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="insert" type="xs:string">
           <xs:annotation>
-            <xs:documentation>The relative path of the item within the implementation to insert into the variable's value. Use "." to publish the root directory. If this is set 'value' must be empty.</xs:documentation>
+            <xs:documentation>
+              The relative path of the item within the implementation to insert into the variable's value. Use "." to publish the root directory. If this is set 'value' must be empty.
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="mode" type="tns:environment-mode" default="prepend">
           <xs:annotation>
-            <xs:documentation>Controls how 'insert' or 'value' is added to the variable.</xs:documentation>
+            <xs:documentation>
+              Controls how 'insert' or 'value' is added to the variable.
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="separator" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Overrides the default separator character (colon character on POSIX systems, and semi-colon on Windows).</xs:documentation>
+            <xs:documentation>
+              Overrides the default separator character (colon character on POSIX systems, and semi-colon on Windows).
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="default" type="xs:string">
           <xs:annotation>
-            <xs:documentation>If the environment variable is not currently set then this value is used for prepending or appending.</xs:documentation>
+            <xs:documentation>
+              If the environment variable is not currently set then this value is used for prepending or appending.
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -269,12 +355,16 @@
     <xs:restriction base="xs:string">
       <xs:enumeration value="prepend">
         <xs:annotation>
-          <xs:documentation>The absolute path of the item is prepended to the current value of the variable.</xs:documentation>
+          <xs:documentation>
+            The absolute path of the item is prepended to the current value of the variable.
+          </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="append">
         <xs:annotation>
-          <xs:documentation>The absolute path of the item is append to the end of the current value of the variable.</xs:documentation>
+          <xs:documentation>
+            The absolute path of the item is append to the end of the current value of the variable.
+          </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="replace">
@@ -288,18 +378,24 @@
   </xs:simpleType>
   <xs:complexType name="overlay">
     <xs:annotation>
-      <xs:documentation>Make a chosen implementation available by overlaying it onto another part of the file-system.</xs:documentation>
+      <xs:documentation>
+        Make a chosen implementation available by overlaying it onto another part of the file-system.
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent mixed="false">
       <xs:extension base="tns:binding">
         <xs:attribute name="src" type="xs:string">
           <xs:annotation>
-            <xs:documentation>The relative path of the directory in the implementation to publish. The default is to publish everything.</xs:documentation>
+            <xs:documentation>
+              The relative path of the directory in the implementation to publish. The default is to publish everything.
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="mount-point" type="xs:string">
           <xs:annotation>
-            <xs:documentation>The mount point on which src is to appear in the filesystem. If missing, '/' (on POSIX) or '%systemdrive%' (on Windows) is assumed.</xs:documentation>
+            <xs:documentation>
+              The mount point on which src is to appear in the filesystem. If missing, '/' (on POSIX) or '%systemdrive%' (on Windows) is assumed.
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -307,18 +403,24 @@
   </xs:complexType>
   <xs:complexType name="executable-in-var">
     <xs:annotation>
-      <xs:documentation>Make a chosen implementation available by overlaying it onto another part of the file-system.</xs:documentation>
+      <xs:documentation>
+        Make a chosen implementation available by overlaying it onto another part of the file-system.
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent mixed="false">
       <xs:extension base="tns:binding">
         <xs:attribute name="name" type="xs:string" use="required">
           <xs:annotation>
-            <xs:documentation>The name of the environment variable.</xs:documentation>
+            <xs:documentation>
+              The name of the environment variable.
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="command" type="xs:string">
           <xs:annotation>
-            <xs:documentation>The name of the command in the implementation to launch. If missing, 'run' is assumed.</xs:documentation>
+            <xs:documentation>
+              The name of the command in the implementation to launch. If missing, 'run' is assumed.
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -326,18 +428,24 @@
   </xs:complexType>
   <xs:complexType name="executable-in-path">
     <xs:annotation>
-      <xs:documentation>Make a chosen implementation available as an executable in the search PATH.</xs:documentation>
+      <xs:documentation>
+        Make a chosen implementation available as an executable in the search PATH.
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent mixed="false">
       <xs:extension base="tns:binding">
         <xs:attribute name="name" type="xs:string" use="required">
           <xs:annotation>
-            <xs:documentation>The name of the executable (without file extensions).</xs:documentation>
+            <xs:documentation>
+              The name of the executable (without file extensions).
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="command" type="xs:string">
           <xs:annotation>
-            <xs:documentation>The name of the command in the implementation to launch. If missing, 'run' is assumed.</xs:documentation>
+            <xs:documentation>
+              The name of the command in the implementation to launch. If missing, 'run' is assumed.
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -352,30 +460,40 @@
     </xs:annotation>
     <xs:attribute name="src" type="xs:string">
       <xs:annotation>
-        <xs:documentation>The relative path of the directory in the implementation to publish. The default is to publish everything.</xs:documentation>
+        <xs:documentation>
+          The relative path of the directory in the implementation to publish. The default is to publish everything.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
   <xs:complexType name="restriction">
     <xs:annotation>
-      <xs:documentation>A reference to an interface that is restricted to specific versions when used.</xs:documentation>
+      <xs:documentation>
+        A reference to an interface that is restricted to specific versions when used.
+      </xs:documentation>
     </xs:annotation>
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element minOccurs="0" maxOccurs="unbounded" name="version" type="tns:constraint">
         <xs:annotation>
-          <xs:documentation>Restricts the versions that are allowed.</xs:documentation>
+          <xs:documentation>
+            Restricts the versions that are allowed.
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:choice>
     <xs:attribute name="interface" type="xs:string" use="required">
       <xs:annotation>
-        <xs:documentation>The URI or local path used to identify the interface.</xs:documentation>
+        <xs:documentation>
+          The URI or local path used to identify the interface.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
   <xs:complexType name="dependency">
     <xs:annotation>
-      <xs:documentation>A reference to an interface that is required as dependency.</xs:documentation>
+      <xs:documentation>
+        A reference to an interface that is required as dependency.
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent mixed="false">
       <xs:extension base="tns:restriction">
@@ -387,12 +505,16 @@
         </xs:choice>
         <xs:attribute name="importance" type="tns:importance" default="essential">
           <xs:annotation>
-            <xs:documentation>Controls how important this dependency is (i.e. whether ignoring it is an option).</xs:documentation>
+            <xs:documentation>
+              Controls how important this dependency is (i.e. whether ignoring it is an option).
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="use" type="xs:string">
           <xs:annotation>
-            <xs:documentation>This can be used to indicate that this dependency is only needed in some cases.</xs:documentation>
+            <xs:documentation>
+              This can be used to indicate that this dependency is only needed in some cases.
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -401,12 +523,16 @@
   <xs:complexType name="constraint">
     <xs:attribute name="not-before" type="xs:string">
       <xs:annotation>
-        <xs:documentation>This is the lowest-numbered version that can be chosen.</xs:documentation>
+        <xs:documentation>
+          This is the lowest-numbered version that can be chosen.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="before" type="xs:string">
       <xs:annotation>
-        <xs:documentation>This version and all later versions are unsuitable.</xs:documentation>
+        <xs:documentation>
+          This version and all later versions are unsuitable.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
@@ -414,32 +540,42 @@
     <xs:restriction base="xs:string">
       <xs:enumeration value="essential">
         <xs:annotation>
-          <xs:documentation>A version of the dependency must be selected.</xs:documentation>
+          <xs:documentation>
+            A version of the dependency must be selected.
+          </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="recommended">
         <xs:annotation>
-          <xs:documentation>No version of the dependency is also an option, although selecting a version is preferable to not selecting one.</xs:documentation>
+          <xs:documentation>
+            No version of the dependency is also an option, although selecting a version is preferable to not selecting one.
+          </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="runner">
     <xs:annotation>
-      <xs:documentation>A reference to an interface that is required by an command as a runner.</xs:documentation>
+      <xs:documentation>
+        A reference to an interface that is required by an command as a runner.
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent mixed="false">
       <xs:extension base="tns:dependency">
         <xs:choice minOccurs="0" maxOccurs="unbounded">
           <xs:element minOccurs="0" maxOccurs="unbounded" name="arg" type="xs:string">
             <xs:annotation>
-              <xs:documentation>A single command-line argument to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.</xs:documentation>
+              <xs:documentation>
+                A single command-line argument to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.
+              </xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:choice>
         <xs:attribute name="command" type="xs:string">
           <xs:annotation>
-            <xs:documentation>The name of the command in the interface to use.</xs:documentation>
+            <xs:documentation>
+              The name of the command in the interface to use.
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -449,12 +585,16 @@
     <xs:restriction base="xs:string">
       <xs:enumeration value="preferred">
         <xs:annotation>
-          <xs:documentation>Set by user as a personal preference overriding other stability criteria.</xs:documentation>
+          <xs:documentation>
+            Set by user as a personal preference overriding other stability criteria.
+          </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="packaged">
         <xs:annotation>
-          <xs:documentation>Indicates that an implementation is provided as a package-implementation.</xs:documentation>
+          <xs:documentation>
+            Indicates that an implementation is provided as a package-implementation.
+          </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="stable">
@@ -469,24 +609,32 @@
       </xs:enumeration>
       <xs:enumeration value="developer">
         <xs:annotation>
-          <xs:documentation>More extreme version of "testing", expected to have bugs.</xs:documentation>
+          <xs:documentation>
+            More extreme version of "testing", expected to have bugs.
+          </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="buggy">
         <xs:annotation>
-          <xs:documentation>Known bugs, none security-related.</xs:documentation>
+          <xs:documentation>
+            Known bugs, none security-related.
+          </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="insecure">
         <xs:annotation>
-          <xs:documentation>Known bugs, some or all security-related.</xs:documentation>
+          <xs:documentation>
+            Known bugs, some or all security-related.
+          </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="implementation">
     <xs:annotation>
-      <xs:documentation>An implementation is a specific version of an application, e.g. Firefox 3.6 for Windows.</xs:documentation>
+      <xs:documentation>
+        An implementation is a specific version of an application, e.g. Firefox 3.6 for Windows.
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent mixed="false">
       <xs:extension base="tns:element">
@@ -497,12 +645,16 @@
         </xs:choice>
         <xs:attribute name="id" type="xs:string" use="required">
           <xs:annotation>
-            <xs:documentation>A unique identifier for this implementation. Used when storing implementation-specific user preferences.</xs:documentation>
+            <xs:documentation>
+              A unique identifier for this implementation. Used when storing implementation-specific user preferences.
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="local-path" type="xs:string">
           <xs:annotation>
-            <xs:documentation>If the feed file is a local file (the interface 'uri' starts with /) then the local-path attribute may contain the pathname of a local directory (either an absolute path or a path relative to the directory containing the feed file).</xs:documentation>
+            <xs:documentation>
+              If the feed file is a local file (the interface 'uri' starts with /) then the local-path attribute may contain the pathname of a local directory (either an absolute path or a path relative to the directory containing the feed file).
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -521,12 +673,16 @@
   </xs:complexType>
   <xs:complexType name="retrieval-method" abstract="true">
     <xs:annotation>
-      <xs:documentation>A retrieval method is a way of getting a copy of an implementation.</xs:documentation>
+      <xs:documentation>
+        A retrieval method is a way of getting a copy of an implementation.
+      </xs:documentation>
     </xs:annotation>
   </xs:complexType>
   <xs:complexType name="recipe">
     <xs:annotation>
-      <xs:documentation>A recipe is a list of recipe steps used to create an implementation directory.</xs:documentation>
+      <xs:documentation>
+        A recipe is a list of recipe steps used to create an implementation directory.
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent mixed="false">
       <xs:extension base="tns:retrieval-method">
@@ -538,7 +694,9 @@
   </xs:complexType>
   <xs:complexType name="recipe-step" abstract="true">
     <xs:annotation>
-      <xs:documentation>A step within a recipe.</xs:documentation>
+      <xs:documentation>
+        A step within a recipe.
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent mixed="false">
       <xs:extension base="tns:retrieval-method" />
@@ -546,13 +704,17 @@
   </xs:complexType>
   <xs:complexType name="archive">
     <xs:annotation>
-      <xs:documentation>Represents an archive to be downloaded and extracted.</xs:documentation>
+      <xs:documentation>
+        Represents an archive to be downloaded and extracted.
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent mixed="false">
       <xs:extension base="tns:recipe-step">
         <xs:attribute name="href" type="xs:string" use="required">
           <xs:annotation>
-            <xs:documentation>The URL used to locate the archive.</xs:documentation>
+            <xs:documentation>
+              The URL used to locate the archive.
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="type" type="xs:string">
@@ -564,7 +726,9 @@
         </xs:attribute>
         <xs:attribute name="size" type="xs:long" use="required">
           <xs:annotation>
-            <xs:documentation>The size of the archive in bytes. The archive must have the given size or it will be rejected.</xs:documentation>
+            <xs:documentation>
+              The size of the archive in bytes. The archive must have the given size or it will be rejected.
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="start-offset" type="xs:long">
@@ -577,7 +741,9 @@
         </xs:attribute>
         <xs:attribute name="extract" type="xs:string">
           <xs:annotation>
-            <xs:documentation>The name of the subdirectory in the archive to extract; empty or unset for entire archive.</xs:documentation>
+            <xs:documentation>
+              The name of the subdirectory in the archive to extract; empty or unset for entire archive.
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -585,18 +751,24 @@
   </xs:complexType>
   <xs:complexType name="package-implementation">
     <xs:annotation>
-      <xs:documentation>An implementation provided by a distribution-specific package manager.</xs:documentation>
+      <xs:documentation>
+        An implementation provided by a distribution-specific package manager.
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent mixed="false">
       <xs:extension base="tns:element">
         <xs:attribute name="package" type="xs:string" use="required">
           <xs:annotation>
-            <xs:documentation>he name of the package in the distribution-specific package manager.</xs:documentation>
+            <xs:documentation>
+              he name of the package in the distribution-specific package manager.
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="distributions" type="xs:string">
           <xs:annotation>
-            <xs:documentation>A space-separated list of distribution names where the package name applies.</xs:documentation>
+            <xs:documentation>
+              A space-separated list of distribution names where the package name applies.
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -604,43 +776,59 @@
   </xs:complexType>
   <xs:complexType name="entry-point">
     <xs:annotation>
-      <xs:documentation>Associates a command with a user-friendly name and description.</xs:documentation>
+      <xs:documentation>
+        Associates a command with a user-friendly name and description.
+      </xs:documentation>
     </xs:annotation>
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element minOccurs="0" maxOccurs="1" name="needs-terminal" type="xs:string">
         <xs:annotation>
-          <xs:documentation>If present, this element indicates that the entry point requires a terminal in order to run. Graphical launchers should therefore execute this entry point in a suitable terminal emulator.</xs:documentation>
+          <xs:documentation>
+            If present, this element indicates that the entry point requires a terminal in order to run. Graphical launchers should therefore execute this entry point in a suitable terminal emulator.
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="name" type="tns:localizable-string">
         <xs:annotation>
-          <xs:documentation>Localized user-friendly name for the command. If not present, the command attribute is used instead.</xs:documentation>
+          <xs:documentation>
+            Localized user-friendly name for the command. If not present, the command attribute is used instead.
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="summary" type="tns:localizable-string">
         <xs:annotation>
-          <xs:documentation>Short one-line description; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills").</xs:documentation>
+          <xs:documentation>
+            Short one-line description; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills").
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="description" type="tns:localizable-string">
         <xs:annotation>
-          <xs:documentation>Full description, which can be several paragraphs long.</xs:documentation>
+          <xs:documentation>
+            Full description, which can be several paragraphs long.
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="icon" type="tns:icon">
         <xs:annotation>
-          <xs:documentation>An icon to represent the command.</xs:documentation>
+          <xs:documentation>
+            An icon to represent the command.
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:choice>
     <xs:attribute name="command" type="xs:string" use="required">
       <xs:annotation>
-        <xs:documentation>The name of the command this entry point represents.</xs:documentation>
+        <xs:documentation>
+          The name of the command this entry point represents.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="binary-name" type="xs:string">
       <xs:annotation>
-        <xs:documentation>The canonical name of the binary supplying the command (without file extensions). This is used to suggest suitable alias names.</xs:documentation>
+        <xs:documentation>
+          The canonical name of the binary supplying the command (without file extensions). This is used to suggest suitable alias names.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
