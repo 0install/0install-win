@@ -23,6 +23,9 @@
     <Content Include="ModelDefinition\Package_0657.uml">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="ModelDefinition\Package_1145.uml">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="NamespaceOverview.dgml">
       <SubType>Content</SubType>
     </Content>

@@ -19,11 +19,12 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A recipe is a list of <see cref="RecipeStep"/>s used to create an <see cref="Model.Implementation"/> directory.
+    /// A recipe is a list of <see cref="IRecipeStep"/>s used to create an <see cref="Model.Implementation"/> directory.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
@@ -32,14 +33,28 @@ namespace ZeroInstall.Model
     {
         #region Properties
         // Preserve order
-        private readonly C5.ArrayList<RecipeStep> _steps = new C5.ArrayList<RecipeStep>();
+        private readonly C5.ArrayList<IRecipeStep> _steps = new C5.ArrayList<IRecipeStep>();
 
         /// <summary>
-        /// An ordered list of <see cref="RecipeStep"/>s to execute.
+        /// An ordered list of <see cref="IRecipeStep"/>s to execute.
         /// </summary>
         [Description("An ordered list of archives to extract.")]
-        [XmlElement("archive", typeof(Archive)) /* Note: explicit naming of XML tag can be removed once other RecipeStep types have been added */]
-        public C5.ArrayList<RecipeStep> Steps { get { return _steps; } }
+        [XmlIgnore]
+        public C5.ArrayList<IRecipeStep> Steps { get { return _steps; } }
+
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="Steps"/>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [XmlElement(typeof(Archive)), XmlElement(typeof(RenameStep)), XmlElement(typeof(RemoveStep)), XmlElement(typeof(AddDirectoryStep)), XmlElement(typeof(AddToplevelStep))]
+        public object[] StepsArray
+        {
+            get { return _steps.ToArray(); }
+            set
+            {
+                _steps.Clear();
+                if (value != null && value.Length > 0) _steps.AddAll(EnumerableUtils.OfType<IRecipeStep>(value));
+            }
+        }
 
         /// <summary>
         /// Indicates whether this recipe contains steps of unknown type and therefore can not be processed.
@@ -53,14 +68,14 @@ namespace ZeroInstall.Model
 
         #region Normalize
         /// <summary>
-        /// Call <see cref="RetrievalMethod.Normalize"/> on all contained <see cref="RecipeStep"/>s.
+        /// Call <see cref="RetrievalMethod.Normalize"/> on all contained <see cref="IRecipeStep"/>s.
         /// </summary>
         /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing.
         /// It should not be called if you plan on serializing the feed again since it will may loose some of its structure.</remarks>
         public override void Normalize()
         {
             // Simplify recipe steps and rebuild list to update sequenced hash value
-            var newSteps = new RecipeStep[Steps.Count];
+            var newSteps = new IRecipeStep[Steps.Count];
             int i = 0;
             foreach (var step in Steps)
             {

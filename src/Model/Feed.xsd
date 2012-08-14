@@ -670,6 +670,7 @@
     <xs:attribute name="sha1" type="xs:string" />
     <xs:attribute name="sha1new" type="xs:string" />
     <xs:attribute name="sha256" type="xs:string" />
+    <xs:attribute name="sha256new" type="xs:string" />
   </xs:complexType>
   <xs:complexType name="retrieval-method" abstract="true">
     <xs:annotation>
@@ -678,30 +679,6 @@
       </xs:documentation>
     </xs:annotation>
   </xs:complexType>
-  <xs:complexType name="recipe">
-    <xs:annotation>
-      <xs:documentation>
-        A recipe is a list of recipe steps used to create an implementation directory.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:retrieval-method">
-        <xs:choice minOccurs="0" maxOccurs="unbounded">
-          <xs:element minOccurs="0" maxOccurs="unbounded" name="archive" type="tns:archive" />
-        </xs:choice>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="recipe-step" abstract="true">
-    <xs:annotation>
-      <xs:documentation>
-        A step within a recipe.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:retrieval-method" />
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="archive">
     <xs:annotation>
       <xs:documentation>
@@ -709,7 +686,7 @@
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent mixed="false">
-      <xs:extension base="tns:recipe-step">
+      <xs:extension base="tns:retrieval-method">
         <xs:attribute name="href" type="xs:string" use="required">
           <xs:annotation>
             <xs:documentation>
@@ -748,6 +725,87 @@
         </xs:attribute>
       </xs:extension>
     </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="recipe">
+    <xs:annotation>
+      <xs:documentation>
+        A recipe is a list of recipe steps used to create an implementation directory.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:retrieval-method">
+        <xs:choice minOccurs="1" maxOccurs="unbounded">
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="archive" type="tns:archive" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="rename" type="tns:rename" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="remove" type="tns:remove" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="add-directory" type="tns:add-directory" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="add-toplevel" type="tns:add-toplevel" />
+        </xs:choice>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="rename">
+    <xs:annotation>
+      <xs:documentation>
+        Renames or moves a file or directory. It is an error if the source or destination are outside the implementation.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="source" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>
+          The source file or directory relative to the implementation root as a Unix-style path.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="dest" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>
+          The destination file or directory relative to the implementation root as a Unix-style path.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="remove">
+    <xs:annotation>
+      <xs:documentation>
+        Removes or moves a file or directory. It is an error if the path is outside the implementation.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="path" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>
+          The file or directory to be removed relative to the implementation root as a Unix-style path.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="add-directory">
+    <xs:annotation>
+      <xs:documentation>
+        Adds a directory. It is an error if the path is outside the implementation.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="path" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>
+          The directory to be added relative to the implementation root as a Unix-style path.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="add-toplevel">
+    <xs:annotation>
+      <xs:documentation>
+        Moves everything into a new top-level directory. It is an error if the path is outside the implementation.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="dir" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>
+          The name of the directory to be added.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
   </xs:complexType>
   <xs:complexType name="package-implementation">
     <xs:annotation>

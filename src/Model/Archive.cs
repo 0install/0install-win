@@ -29,7 +29,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [Serializable]
     [XmlType("archive", Namespace = Feed.XmlNamespace)]
-    public sealed class Archive : RecipeStep, IEquatable<Archive>
+    public sealed class Archive : RetrievalMethod, IRecipeStep, IEquatable<Archive>
     {
         #region Properties
         /// <summary>
@@ -78,11 +78,7 @@ namespace ZeroInstall.Model
         //--------------------//
 
         #region Normalize
-        /// <summary>
-        /// Guesses missing default values.
-        /// </summary>
-        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing.
-        /// It should not be called if you plan on serializing the feed again since it will may loose some of its structure.</remarks>
+        /// <inheritdoc/>
         public override void Normalize()
         {
             // If the MIME type is already set or the location is missing, we have nothing to do here
@@ -112,9 +108,27 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="Archive"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Archive"/>.</returns>
-        public override RecipeStep CloneRecipeStep()
+        private Archive CloneArchive()
         {
             return new Archive {Location = Location, MimeType = MimeType, Size = Size, StartOffset = StartOffset, Extract = Extract};
+        }
+
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Archive"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Archive"/>.</returns>
+        public IRecipeStep CloneRecipeStep()
+        {
+            return CloneArchive();
+        }
+
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Archive"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Archive"/>.</returns>
+        public override RetrievalMethod Clone()
+        {
+            return CloneArchive();
         }
         #endregion
 

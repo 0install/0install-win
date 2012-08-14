@@ -15,29 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Xml.Serialization;
-
 namespace ZeroInstall.Model
 {
     /// <summary>
     /// A retrieval step is a part of a <see cref="Recipe"/>.
     /// </summary>
-    [XmlType("recipe-step", Namespace = Feed.XmlNamespace)]
-    public abstract class RecipeStep : RetrievalMethod
+    public interface IRecipeStep
     {
         /// <summary>
-        /// Creates a deep copy of this <see cref="RecipeStep"/> instance.
+        /// Sets missing default values, flattens the inheritance structure, etc.
         /// </summary>
-        /// <returns>The new copy of the <see cref="RecipeStep"/>.</returns>
-        public abstract RecipeStep CloneRecipeStep();
+        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing.
+        /// It should not be called if you plan on serializing the feed again since it will may loose some of its structure.</remarks>
+        void Normalize();
 
         /// <summary>
-        /// Creates a deep copy of this <see cref="RecipeStep"/> instance.
+        /// Creates a deep copy of this <see cref="IRecipeStep"/> instance.
         /// </summary>
-        /// <returns>The new copy of the <see cref="RecipeStep"/>.</returns>
-        public override RetrievalMethod Clone()
-        {
-            return CloneRecipeStep();
-        }
+        /// <returns>The new copy of the <see cref="IRecipeStep"/>.</returns>
+        IRecipeStep CloneRecipeStep();
     }
 }
