@@ -112,7 +112,7 @@ namespace ZeroInstall.Injector
             if (!string.IsNullOrEmpty(Wrapper)) commandLine.InsertRange(0, WindowsUtils.SplitArgs(Wrapper)); // Add wrapper in front
             commandLine.AddRange(arguments); // Append user arguments
 
-            // Split and apply command-lines for executable bindings (delayed until here because there may be variable expanding)
+            // Split and apply command-lines for executable bindings (delayed until here because variable expanding may be necessary)
             foreach (var runEnv in _runEnvPendings)
             {
                 var split = SplitCommandLine(runEnv.CommandLine, startInfo.EnvironmentVariables);
