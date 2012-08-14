@@ -182,6 +182,7 @@ namespace Common.Utils
         /// </summary>
         /// <param name="parts">The strings to be combines.</param>
         /// <param name="separator">The separator characters to place between the <paramref name="parts"/>.</param>
+        /// <remarks>Works like <see cref="string.Join(string,string[])"/></remarks>
         public static string Concatenate(IEnumerable<string> parts, string separator)
         {
             #region Sanity checks
@@ -332,12 +333,10 @@ namespace Common.Utils
             string[] parts = value.Split('"');
             for (int i = 0; i < parts.Length; i++)
             {
-                // Count slashes preceeding each quotation mark
-                string slashesTrimmed = parts[i].TrimEnd('\\');
-                int slashesCount = parts[i].Length - slashesTrimmed.Length;
+                // Count slashes preceeding the quotation mark
+                int slashesCount = parts[i].Length - parts[i].TrimEnd('\\').Length;
 
                 result.Append(parts[i]);
-
                 if (i < parts.Length - 1)
                 { // Not last part
                     for (int j = 0; j < slashesCount; j++) result.Append('\\'); // Double number of slashes
