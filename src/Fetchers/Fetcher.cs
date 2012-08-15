@@ -68,7 +68,6 @@ namespace ZeroInstall.Fetchers
             return new ImplementationFetch(this, implementation);
         }
 
-        #region Join
         /// <inheritdoc/>
         public void FetchImplementations(IEnumerable<Implementation> implementations, ITaskHandler handler)
         {
@@ -84,6 +83,5 @@ namespace ZeroInstall.Fetchers
                 if (!fetchProcess.Completed) throw fetchProcess.Problems.Last;
             }
         }
-        #endregion
     }
 }
