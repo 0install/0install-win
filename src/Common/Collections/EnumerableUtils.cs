@@ -47,6 +47,16 @@ namespace Common.Collections
         }
 
         /// <summary>
+        /// Returns the first element of an array.
+        /// </summary>
+        /// <param name="array">The array to get the first element from; may be <see langword="null"/>.</param>
+        /// <returns>The first element of <paramref name="array"/> or <see langword="null"/> if <paramref name="array"/> is empty or <see langword="null"/>.</returns>
+        public static T First<T>(T[] array) where T : class
+        {
+            return (array == null || array.Length == 0) ? null : array[0];
+        }
+
+        /// <summary>
         /// Returns the first element of an enumerable collection that matches a certain condition.
         /// </summary>
         /// <param name="collection">The collection to get the element from; may be <see langword="null"/>.</param>

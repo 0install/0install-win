@@ -18,6 +18,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
+using Common;
 using Common.Collections;
 using Common.Utils;
 using NDesk.Options;
@@ -71,7 +73,7 @@ namespace ZeroInstall.Commands
         public override int Execute()
         {
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + StringUtils.ConcatenateEscapeArgument(AdditionalArgs), "");
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + StringUtils.JoinEscapeArguments(AdditionalArgs), "");
 
             Policy.Handler.ShowProgressUI();
 
@@ -108,6 +110,21 @@ namespace ZeroInstall.Commands
                 UncachedImplementations = Selections.GetUncachedImplementations(Policy);
             }
                 #region Error handling
+            catch (KeyNotFoundException)
+            {
+                // Wait a moment and then retry in case it was just a race condition
+                Thread.Sleep(500);
+                try
+                {
+                    UncachedImplementations = Selections.GetUncachedImplementations(Policy);
+                }
+                catch (InvalidDataException ex)
+                {
+                    // Wrap exception to add context
+                    throw new SolverException(ex.Message, ex);
+                }
+                Log.Info("Successfully handled race condition while listing uncached implementations");
+            }
             catch (InvalidDataException ex)
             {
                 // Wrap exception to add context

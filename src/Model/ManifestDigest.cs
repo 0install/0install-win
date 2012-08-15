@@ -70,7 +70,7 @@ namespace ZeroInstall.Model
         /// Lists all contained manifest digests sorted from best (safest) to worst.
         /// </summary>
         [XmlIgnore]
-        public IEnumerable<string> AvailableDigests
+        public string[] AvailableDigests
         {
             get
             {
@@ -81,7 +81,7 @@ namespace ZeroInstall.Model
                 if (!string.IsNullOrEmpty(Sha1New)) list.Add("sha1new=" + Sha1New);
                 if (!string.IsNullOrEmpty(Sha1)) list.Add("sha1=" + Sha1);
 
-                return list;
+                return list.ToArray();
             }
         }
 

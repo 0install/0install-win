@@ -146,7 +146,7 @@ namespace Common.Cli
             }
 
             if (errorList.Count > 0)
-                throw new UnhandledErrorsException(StringUtils.Concatenate(errorList, "\n"));
+                throw new UnhandledErrorsException(StringUtils.Join("\n", errorList));
             return outputBuffer.ToString();
         }
         #endregion

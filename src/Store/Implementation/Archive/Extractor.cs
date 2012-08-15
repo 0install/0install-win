@@ -339,7 +339,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             #endregion
 
-            if (Path.IsPathRooted(relativePath) || relativePath.Contains(".." + Path.DirectorySeparatorChar)) throw new IOException(Resources.ArchiveInvalidPath);
+            if (FileUtils.IsBreakoutPath(relativePath)) throw new IOException(Resources.ArchiveInvalidPath);
 
             try
             {

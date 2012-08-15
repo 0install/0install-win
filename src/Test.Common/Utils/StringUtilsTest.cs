@@ -77,19 +77,19 @@ namespace Common.Utils
         }
 
         [Test]
-        public void TestConcatenate()
+        public void TestJoin()
         {
-            Assert.AreEqual("part1", StringUtils.Concatenate(new[] {"part1"}, " "));
-            Assert.AreEqual("part1 part2", StringUtils.Concatenate(new[] {"part1", "part2"}, " "));
-            Assert.AreEqual("\"part1 part2\" part3", StringUtils.ConcatenateEscapeArgument(new[] {"part1 part2", "part3"}));
+            Assert.AreEqual("part1", StringUtils.Join(" ", new[] {"part1"}));
+            Assert.AreEqual("part1 part2", StringUtils.Join(" ", new[] {"part1", "part2"}));
+            Assert.AreEqual("\"part1 part2\" part3", StringUtils.JoinEscapeArguments(new[] {"part1 part2", "part3"}));
         }
 
         [Test]
-        public void TestConcatenateEscape()
+        public void TestJoinEscapeArguments()
         {
-            Assert.AreEqual("part1", StringUtils.ConcatenateEscapeArgument(new[] {"part1"}));
-            Assert.AreEqual("part1 part2", StringUtils.ConcatenateEscapeArgument(new[] {"part1", "part2"}));
-            Assert.AreEqual("\"part1 \\\" part2\" part3", StringUtils.ConcatenateEscapeArgument(new[] {"part1 \" part2", "part3"}));
+            Assert.AreEqual("part1", StringUtils.JoinEscapeArguments(new[] {"part1"}));
+            Assert.AreEqual("part1 part2", StringUtils.JoinEscapeArguments(new[] {"part1", "part2"}));
+            Assert.AreEqual("\"part1 \\\" part2\" part3", StringUtils.JoinEscapeArguments(new[] {"part1 \" part2", "part3"}));
         }
 
         [Test]

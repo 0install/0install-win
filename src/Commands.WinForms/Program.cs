@@ -73,7 +73,7 @@ namespace ZeroInstall.Commands.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
-            Log.Info("Zero Install Command Windows GUI started with: " + StringUtils.ConcatenateEscapeArgument(args));
+            Log.Info("Zero Install Command Windows GUI started with: " + StringUtils.JoinEscapeArguments(args));
 
             // Automatically show help for missing args
             if (args == null) args = new string[0];

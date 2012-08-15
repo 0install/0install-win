@@ -233,7 +233,7 @@ namespace ZeroInstall.Publish.Cli
         private static void PrintUsage()
         {
             var usages = new[] {Resources.UsageFeed};
-            Console.WriteLine(Resources.Usage + '\t' + StringUtils.Concatenate(usages, Environment.NewLine + '\t') + '\n');
+            Console.WriteLine(Resources.Usage + '\t' + string.Join(Environment.NewLine + '\t', usages) + '\n');
         }
         #endregion
 

@@ -23,7 +23,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Security.Cryptography;
 using Common.Properties;
 #if FS_SECURITY
 using System.Security.AccessControl;
@@ -40,12 +39,12 @@ namespace Common.Utils
     {
         #region Paths
         /// <summary>
-        /// Replaces all slashes (forward and backward) with <see cref="Path.DirectorySeparatorChar"/>.
+        /// Replaces forward slashes with <see cref="Path.DirectorySeparatorChar"/>.
         /// </summary>
         public static string UnifySlashes(string value)
         {
             if (value == null) return null;
-            return value.Replace('\\', Path.DirectorySeparatorChar).Replace('/', Path.DirectorySeparatorChar);
+            return value.Replace('/', Path.DirectorySeparatorChar);
         }
 
         /// <summary>
@@ -64,6 +63,14 @@ namespace Common.Utils
                     temp = Path.Combine(temp, parts[i]);
             }
             return temp;
+        }
+
+        /// <summary>
+        /// Determines whether a path might escape its parent directory (by being absolute or using ..).
+        /// </summary>
+        public static bool IsBreakoutPath(string path)
+        {
+            return Path.IsPathRooted(path) || path.EndsWith("..") || path.Contains(".." + Path.DirectorySeparatorChar);
         }
         #endregion
 

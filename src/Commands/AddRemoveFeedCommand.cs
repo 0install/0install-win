@@ -82,7 +82,7 @@ namespace ZeroInstall.Commands
             {
                 Policy.Handler.Output(Resources.FeedManagement, (modified.Count == 0)
                     ? NoneModifiedMessage
-                    : string.Format(ModifiedMessage, StringUtils.Concatenate(modified, "\n")));
+                    : string.Format(ModifiedMessage, StringUtils.Join("\n", modified)));
             }
             return modified.Count == 0 ? 0 : 1;
         }

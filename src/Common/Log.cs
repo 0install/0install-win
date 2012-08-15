@@ -167,7 +167,7 @@ namespace Common
 
             // Create uniform line-breaks and indention
             string[] lines = StringUtils.SplitMultilineText(message.Trim());
-            message = StringUtils.Concatenate(lines, Environment.NewLine + "\t");
+            message = string.Join(Environment.NewLine + "\t", lines);
 
             // Thread-safety: Only one log message is handled at a time
             lock (_sessionContent)

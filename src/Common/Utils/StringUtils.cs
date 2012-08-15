@@ -158,7 +158,7 @@ namespace Common.Utils
             if (value == null) throw new ArgumentNullException("value");
             #endregion
 
-            var ret = new List<string>();
+            var result = new List<string>();
             string[] splitted1 = value.Split('\n');
             string[] splitted2 = value.Split('\r');
             string[] splitted = splitted1.Length >= splitted2.Length ? splitted1 : splitted2;
@@ -167,23 +167,23 @@ namespace Common.Utils
             {
                 // Never add any \r or \n to the single lines
                 if (s.EndsWith("\r", StringComparison.Ordinal) || s.EndsWith("\n", StringComparison.Ordinal))
-                    ret.Add(s.Substring(0, s.Length - 1));
+                    result.Add(s.Substring(0, s.Length - 1));
                 else if (s.StartsWith("\n", StringComparison.Ordinal) || s.StartsWith("\r", StringComparison.Ordinal))
-                    ret.Add(s.Substring(1));
+                    result.Add(s.Substring(1));
                 else
-                    ret.Add(s);
+                    result.Add(s);
             }
 
-            return ret.ToArray();
+            return result.ToArray();
         }
 
         /// <summary>
         /// Combines multiple strings into one, placing a <paramref name="separator"/> between the <paramref name="parts"/>.
         /// </summary>
-        /// <param name="parts">The strings to be combines.</param>
         /// <param name="separator">The separator characters to place between the <paramref name="parts"/>.</param>
-        /// <remarks>Works like <see cref="string.Join(string,string[])"/></remarks>
-        public static string Concatenate(IEnumerable<string> parts, string separator)
+        /// <param name="parts">The strings to be combines.</param>
+        /// <remarks>Works like <see cref="string.Join(string,string[])"/> but for <see cref="IEnumerable{T}"/>s.</remarks>
+        public static string Join(string separator, IEnumerable<string> parts)
         {
             #region Sanity checks
             if (parts == null) throw new ArgumentNullException("parts");
@@ -360,7 +360,7 @@ namespace Common.Utils
         /// This coressponds to Windows' handling of command-line arguments as specified in:
         /// http://msdn.microsoft.com/library/17w5ykft
         /// </remarks>
-        public static string ConcatenateEscapeArgument(IEnumerable<string> parts)
+        public static string JoinEscapeArguments(IEnumerable<string> parts)
         {
             if (parts == null) return null;
 

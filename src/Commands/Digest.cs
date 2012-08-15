@@ -18,7 +18,6 @@
 using System;
 using System.IO;
 using Common.Storage;
-using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
@@ -62,7 +61,7 @@ namespace ZeroInstall.Commands
             for (int i = 0; i < ManifestFormat.All.Length; i++)
                 algorithmNames[i] = ManifestFormat.All[i].Prefix;
             Options.Add("algorithm=",
-                Resources.OptionAlgorithm + "\n" + string.Format(Resources.SupportedValues, StringUtils.Concatenate(algorithmNames, ", ")),
+                Resources.OptionAlgorithm + "\n" + string.Format(Resources.SupportedValues, string.Join(", ", algorithmNames)),
                 delegate(string algorithm)
                 {
                     try

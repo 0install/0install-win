@@ -60,7 +60,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public IntegrateApp(Policy policy) : base(policy)
         {
-            string categoryList = StringUtils.Concatenate(CategoryIntegrationManager.Categories, ", ");
+            string categoryList = StringUtils.Join(", ", CategoryIntegrationManager.Categories);
 
             Options.Add("a|add=", Resources.OptionAppAdd + "\n" + Resources.OptionAppCategory + categoryList, category =>
             {

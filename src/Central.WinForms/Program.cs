@@ -108,7 +108,7 @@ namespace ZeroInstall.Central.WinForms
 
             try
             {
-                var startInfo = new ProcessStartInfo(executable, StringUtils.ConcatenateEscapeArgument(commandLine)) {Verb = "runas"};
+                var startInfo = new ProcessStartInfo(executable, StringUtils.JoinEscapeArguments(commandLine)) {Verb = "runas"};
                 var process = Process.Start(startInfo);
                 process.WaitForExit();
                 return process.ExitCode;

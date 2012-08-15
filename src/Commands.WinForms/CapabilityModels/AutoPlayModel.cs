@@ -30,7 +30,7 @@ namespace ZeroInstall.Commands.WinForms.CapabilityModels
         /// <summary>
         /// All <see cref="AutoPlay.Events"/> concatenated with ", ".
         /// </summary>
-        public string Events { get { return StringUtils.Concatenate(_autoPlay.Events.Map(ev => ev.Name), ", "); } }
+        public string Events { get { return StringUtils.Join(", ", _autoPlay.Events.Map(ev => ev.Name)); } }
 
         /// <inheritdoc />
         public AutoPlayModel(AutoPlay capability, bool used) : base(capability, used)

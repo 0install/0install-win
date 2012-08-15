@@ -223,10 +223,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             var generator = new ManifestGenerator(path, format);
-
-            // Defer task to handler
-            handler.RunTask(generator, tag);
-
+            handler.RunTask(generator, tag); // Defer task to handler
             return generator.Result;
         }
 

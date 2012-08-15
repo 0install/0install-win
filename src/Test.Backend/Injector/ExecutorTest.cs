@@ -93,7 +93,7 @@ namespace ZeroInstall.Injector
             Assert.AreEqual(Path.Combine(Test1Path, "bin"), startInfo.WorkingDirectory, "Should set implementation path");
 
             string execFile = Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path));
-            string execArgs = StringUtils.ConcatenateEscapeArgument(new[]
+            string execArgs = StringUtils.JoinEscapeArguments(new[]
             {
                 selections.Implementations[2].Commands[0].Arguments[0],
                 selections.Implementations[1].Commands[1].Runner.Arguments[0],
@@ -123,7 +123,7 @@ namespace ZeroInstall.Injector
                 startInfo.FileName,
                 "Should combine runner implementation directory with runner command path");
             Assert.AreEqual(
-                StringUtils.ConcatenateEscapeArgument(new[]
+                StringUtils.JoinEscapeArguments(new[]
                 {
                     selections.Implementations[2].Commands[0].Arguments[0],
                     selections.Implementations[1].Commands[0].Runner.Arguments[0],
@@ -152,7 +152,7 @@ namespace ZeroInstall.Injector
             var startInfo = executor.GetStartInfo("--custom");
             Assert.AreEqual("wrapper", startInfo.FileName);
             Assert.AreEqual(
-                StringUtils.ConcatenateEscapeArgument(new[]
+                StringUtils.JoinEscapeArguments(new[]
                 {
                     "--wrapper",
                     Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
@@ -184,7 +184,7 @@ namespace ZeroInstall.Injector
                 startInfo.FileName,
                 "Should combine runner implementation directory with runner command path");
             Assert.AreEqual(
-                StringUtils.ConcatenateEscapeArgument(new[]
+                StringUtils.JoinEscapeArguments(new[]
                 {
                     selections.Implementations[2].Commands[0].Arguments[0],
                     selections.Implementations[1].Commands[0].Runner.Arguments[0],
@@ -213,7 +213,7 @@ namespace ZeroInstall.Injector
                 startInfo.FileName,
                 "Should combine runner implementation directory with runner command path");
             Assert.AreEqual(
-                StringUtils.ConcatenateEscapeArgument(new[]
+                StringUtils.JoinEscapeArguments(new[]
                 {
                     selections.Implementations[2].Commands[0].Arguments[0],
                     selections.Implementations[1].Commands[0].Runner.Arguments[0],
@@ -242,7 +242,7 @@ namespace ZeroInstall.Injector
                 Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
                 startInfo.FileName);
             Assert.AreEqual(
-                StringUtils.ConcatenateEscapeArgument(new[]
+                StringUtils.JoinEscapeArguments(new[]
                 {
                     selections.Implementations[2].Commands[0].Arguments[0],
                     selections.Implementations[1].Commands[0].Runner.Arguments[0],

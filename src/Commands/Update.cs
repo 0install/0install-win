@@ -67,7 +67,7 @@ namespace ZeroInstall.Commands
         public override int Execute()
         {
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + StringUtils.ConcatenateEscapeArgument(AdditionalArgs), "");
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + StringUtils.JoinEscapeArguments(AdditionalArgs), "");
             if (SelectionsDocument) throw new NotSupportedException(Resources.NoSelectionsDocumentUpdate);
 
             Policy.Handler.ShowProgressUI();

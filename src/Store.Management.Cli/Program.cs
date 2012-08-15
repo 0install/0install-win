@@ -212,7 +212,7 @@ namespace ZeroInstall.Store.Management.Cli
         private static void PrintUsage()
         {
             var usages = new[] {Resources.UsageAdd, Resources.UsageAudit, Resources.UsageCopy, Resources.UsageFind, Resources.UsageList, Resources.UsageManifest, Resources.UsageOptimize, Resources.UsageRemove, Resources.UsageVerify};
-            Console.WriteLine(Resources.Usage + '\t' + StringUtils.Concatenate(usages, Environment.NewLine + '\t') + '\n');
+            Console.WriteLine(Resources.Usage + '\t' + string.Join(Environment.NewLine + '\t', usages) + '\n');
         }
 
         private static void PrintManual()
@@ -224,7 +224,7 @@ namespace ZeroInstall.Store.Management.Cli
             Console.WriteLine(@"FIND" + Environment.NewLine + Environment.NewLine + Resources.DetailsFind + Environment.NewLine + Environment.NewLine + Environment.NewLine);
             Console.WriteLine(@"LIST" + Environment.NewLine + Environment.NewLine + Resources.DetailsList + Environment.NewLine + Environment.NewLine + Environment.NewLine);
             Console.WriteLine(@"MANAGE" + Environment.NewLine + Environment.NewLine + Resources.DetailsManage + Environment.NewLine + Environment.NewLine + Environment.NewLine);
-            string supportedFormats = StringUtils.Concatenate(Array.ConvertAll(ManifestFormat.All, format => format.ToString()), ", ");
+            string supportedFormats = string.Join(", ", Array.ConvertAll(ManifestFormat.All, format => format.ToString()));
             Console.WriteLine(@"MANIFEST" + Environment.NewLine + Environment.NewLine + string.Format(Resources.DetailsManifest, supportedFormats) + Environment.NewLine + Environment.NewLine + Environment.NewLine);
             Console.WriteLine(@"REMOVE" + Environment.NewLine + Environment.NewLine + Resources.DetailsRemove + Environment.NewLine + Environment.NewLine + Environment.NewLine);
             Console.WriteLine(@"VERIFY" + Environment.NewLine + Environment.NewLine + Resources.DetailsVerify);

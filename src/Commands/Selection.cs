@@ -122,7 +122,7 @@ namespace ZeroInstall.Commands
                 #endregion
             });
             Options.Add("s|source", Resources.OptionSource, unused => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Cpu.Source));
-            Options.Add("os=", Resources.OptionOS + "\n" + string.Format(Resources.SupportedValues, StringUtils.Concatenate(Architecture.KnownOSStrings, ", ")), delegate(string os)
+            Options.Add("os=", Resources.OptionOS + "\n" + string.Format(Resources.SupportedValues, string.Join(", ", Architecture.KnownOSStrings)), delegate(string os)
             {
                 if (string.IsNullOrEmpty(os)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--os"), "os");
                 try
@@ -136,7 +136,7 @@ namespace ZeroInstall.Commands
                 }
                 #endregion
             });
-            Options.Add("cpu=", Resources.OptionCpu + "\n" + string.Format(Resources.SupportedValues, StringUtils.Concatenate(Architecture.KnownCpuStrings, ", ")), delegate(string cpu)
+            Options.Add("cpu=", Resources.OptionCpu + "\n" + string.Format(Resources.SupportedValues, string.Join(", ", Architecture.KnownCpuStrings)), delegate(string cpu)
             {
                 if (string.IsNullOrEmpty(cpu)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--cpu"), "cpu");
                 try
@@ -190,7 +190,7 @@ namespace ZeroInstall.Commands
         public override int Execute()
         {
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + StringUtils.ConcatenateEscapeArgument(AdditionalArgs), "");
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + StringUtils.JoinEscapeArguments(AdditionalArgs), "");
 
             Policy.Handler.ShowProgressUI();
             Solve();
