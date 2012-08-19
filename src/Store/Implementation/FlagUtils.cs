@@ -58,11 +58,11 @@ namespace ZeroInstall.Store.Implementation
                 // Each line in the file signals a flagged file
                 while (!flagFile.EndOfStream)
                 {
-                    string currentLine = flagFile.ReadLine();
-                    if (currentLine != null && currentLine.StartsWith("/"))
+                    string line = flagFile.ReadLine();
+                    if (line != null && line.StartsWith("/"))
                     {
                         // Trim away the first slash and then replace Unix-style slashes
-                        string relativePath = FileUtils.UnifySlashes(currentLine.Substring(1));
+                        string relativePath = FileUtils.UnifySlashes(line.Substring(1));
                         externalFlags.Add(Path.Combine(flagDir, relativePath));
                     }
                 }
@@ -102,7 +102,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Sets a flag for a file in an external flag file.
         /// </summary>
-        /// <param name="file">The path to the flag file ending in the type of flag to store (<code>.xbit</code> or <code>.symlink</code>).</param>
+        /// <param name="file">The path to the flag file, ending with the type in the type of flag to store (<code>.xbit</code> or <code>.symlink</code>).</param>
         /// <param name="relativePath">The path of the file to set the flag for relative to <paramref name="file"/>.</param>
         /// <exception cref="IOException">Thrown if there was an error writing the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to write the flag file.</exception>
@@ -118,18 +118,14 @@ namespace ZeroInstall.Store.Implementation
             // Convert path to rooted Unix-style
             relativePath = "/" + relativePath.Replace(Path.DirectorySeparatorChar, '/');
 
-            // Use default encoding: UTF-8 without BOM
-            using (var xbitWriter = File.AppendText(file))
-            {
-                xbitWriter.NewLine = "\n";
-                xbitWriter.WriteLine(relativePath);
-            }
+            using (var flagFile = new StreamWriter(file, true, new UTF8Encoding(false)) {NewLine = "\n"}) // Append
+                flagFile.WriteLine(relativePath);
         }
 
         /// <summary>
         /// Removes a flag for a file in an external flag file.
         /// </summary>
-        /// <param name="file">The path to the flag file ending in the type of flag to store (<code>.xbit</code> or <code>.symlink</code>).</param>
+        /// <param name="file">The path to the flag file, ending with the type in the type of flag to store (<code>.xbit</code> or <code>.symlink</code>).</param>
         /// <param name="relativePath">The path of the file to remove the flag for relative to <paramref name="file"/>.</param>
         /// <exception cref="IOException">Thrown if there was an error writing the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to write the flag file.</exception>
@@ -147,10 +143,60 @@ namespace ZeroInstall.Store.Implementation
             // Convert path to rooted Unix-style
             relativePath = "/" + relativePath.Replace(Path.DirectorySeparatorChar, '/');
 
-            // Read the entire file, remove any matching lines and then rewrite the file
-            string xbitFileContent = File.ReadAllText(file);
-            xbitFileContent = xbitFileContent.Replace(relativePath + "\n", "");
-            File.WriteAllText(file, xbitFileContent, new UTF8Encoding(false));
+            // Prepend random string for temp file name
+            string tempPath = Path.GetDirectoryName(file) + Path.DirectorySeparatorChar + "temp." + Path.GetRandomFileName() + Path.GetFileName(file);
+
+            // Write to temporary file first before replacing
+            using (StreamReader oldFlagFile = File.OpenText(file))
+            using (var newFlagFile = new StreamWriter(tempPath, false, new UTF8Encoding(false)) {NewLine = "\n"})
+            {
+                // Each line in the file signals a flagged file
+                while (!oldFlagFile.EndOfStream)
+                {
+                    string line = oldFlagFile.ReadLine();
+                    if (line != null && line.StartsWith("/") && line != relativePath) // Filter removed file
+                        newFlagFile.WriteLine(line);
+                }
+            }
+            FileUtils.Replace(tempPath, file);
+        }
+
+        /// <summary>
+        /// Adds a directory prefix to all entries in an external flag file.
+        /// </summary>
+        /// <param name="file">The path to the flag file.</param>
+        /// <param name="prefix">The directory prefix without leading or trailing slashes.</param>
+        /// <exception cref="IOException">Thrown if there was an error writing the flag file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to write the flag file.</exception>
+        public static void PrefixExternalFlags(string file, string prefix)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(file)) throw new ArgumentNullException("file");
+            if (string.IsNullOrEmpty(prefix)) throw new ArgumentNullException("prefix");
+            if (Path.IsPathRooted(prefix)) throw new ArgumentException(Resources.PathNotRelative, "prefix");
+            #endregion
+
+            if (!File.Exists(file)) return;
+
+            // Convert prefix to rooted Unix-style
+            prefix = "/" + prefix.Replace(Path.DirectorySeparatorChar, '/');
+
+            // Prepend random string for temp file name
+            string tempPath = Path.GetDirectoryName(file) + Path.DirectorySeparatorChar + "temp." + Path.GetRandomFileName() + Path.GetFileName(file);
+
+            // Write to temporary file first before replacing
+            using (StreamReader oldFlagFile = File.OpenText(file))
+            using (var newFlagFile = new StreamWriter(tempPath, false, new UTF8Encoding(false)) {NewLine = "\n"})
+            {
+                // Each line in the file signals a flagged file
+                while (!oldFlagFile.EndOfStream)
+                {
+                    string line = oldFlagFile.ReadLine();
+                    if (line != null && line.StartsWith("/"))
+                        newFlagFile.WriteLine(prefix + line); // Add prefix
+                }
+            }
+            FileUtils.Replace(tempPath, file);
         }
         #endregion
     }
