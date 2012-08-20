@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using Common.Storage;
@@ -68,7 +67,8 @@ namespace ZeroInstall.Fetchers
                     // toplevel/executable [X]
                     string path = FileUtils.PathCombine(recipeDir.Path, "toplevel", "executable");
                     Assert.IsTrue(File.Exists(path), "Missing file: toplevel/executable");
-                    CollectionAssert.Contains(xbits, path, "Not executable: toplevel/executable");
+                    if (WindowsUtils.IsWindows) CollectionAssert.Contains(xbits, path, "Not executable: toplevel/executable");
+                    else if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsExecutable(path), "Not executable: toplevel/executable");
 
                     // sub/dir [D]
                     Assert.IsTrue(Directory.Exists(FileUtils.PathCombine(recipeDir.Path, "sub", "dir")), "Missing directory: sub/dir");
@@ -79,7 +79,8 @@ namespace ZeroInstall.Fetchers
                     // executable2 [X]
                     path = FileUtils.PathCombine(recipeDir.Path, "executable2");
                     Assert.IsTrue(File.Exists(path), "Missing file: executable2");
-                    CollectionAssert.Contains(xbits, path, "Not executable: executable2");
+                    if (WindowsUtils.IsWindows) CollectionAssert.Contains(xbits, path, "Not executable: executable2");
+                    else if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsExecutable(path), "Not executable: executable2");
                 }
             }
         }
@@ -87,16 +88,16 @@ namespace ZeroInstall.Fetchers
         [Test]
         public void TestApplyRecipeExceptions()
         {
-            Assert.Throws<Exception>(() => RecipeUtils.ApplyRecipe(new Recipe
+            Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe
             {Steps = {new AddToplevelStep {Directory = "top/level"}}}, new ArchiveFileInfo[0], new SilentHandler(), null));
 
-            Assert.Throws<Exception>(() => RecipeUtils.ApplyRecipe(new Recipe
+            Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe
             {Steps = {new AddDirectoryStep {Path = "../dir"}}}, new ArchiveFileInfo[0], new SilentHandler(), null));
 
-            Assert.Throws<Exception>(() => RecipeUtils.ApplyRecipe(new Recipe
+            Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe
             {Steps = {new RemoveStep {Path = "../file"}}}, new ArchiveFileInfo[0], new SilentHandler(), null));
 
-            Assert.Throws<Exception>(() => RecipeUtils.ApplyRecipe(new Recipe
+            Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe
             {Steps = {new RenameStep {Source = "source", Destination = "../destination"}}}, new ArchiveFileInfo[0], new SilentHandler(), null));
         }
     }
