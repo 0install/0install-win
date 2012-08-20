@@ -20,13 +20,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using Common.Collections;
-using Common.Compression;
-using Common.Storage;
 using Common.Tasks;
-using Common.Utils;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Implementation;
-using ZeroInstall.Store.Implementation.Archive;
 
 namespace ZeroInstall.Publish.Cli
 {
@@ -51,83 +46,11 @@ namespace ZeroInstall.Publish.Cli
 
         private static void AddMissing(IEnumerable<Element> elements, bool store)
         {
-            foreach (var element in elements)
+            new PerTypeDispatcher<Element>(true)
             {
-                var implementation = element as Implementation;
-                if (implementation != null)
-                    AddMissing(implementation, store);
-                else
-                {
-                    var group = element as Group;
-                    if (group != null) AddMissing(group.Elements, store);
-                }
-            }
-        }
-
-        private static void AddMissing(Implementation implementation, bool store)
-        {
-            // Convert sha256 to sha256new
-            if (!string.IsNullOrEmpty(implementation.ManifestDigest.Sha256) && string.IsNullOrEmpty(implementation.ManifestDigest.Sha256New))
-            {
-                implementation.ManifestDigest = new ManifestDigest(
-                    implementation.ManifestDigest.Sha1,
-                    implementation.ManifestDigest.Sha1New,
-                    implementation.ManifestDigest.Sha256,
-                    StringUtils.Base32Encode(StringUtils.Base16Decode(implementation.ManifestDigest.Sha256)));
-            }
-
-            foreach (var archive in EnumerableUtils.OfType<Archive>(implementation.RetrievalMethods))
-            {
-                // Guess missing MIME type
-                if (string.IsNullOrEmpty(archive.MimeType)) archive.MimeType = ArchiveUtils.GuessMimeType(archive.Location.ToString());
-
-                // Download archives if information is missing
-                if (implementation.ManifestDigest == default(ManifestDigest) || archive.Size == 0)
-                {
-                    var digest = DownloadMissing(archive, store);
-
-                    if (implementation.ManifestDigest == default(ManifestDigest))
-                    { // No existing digest, set from archive
-                        implementation.ManifestDigest = digest;
-                        if (string.IsNullOrEmpty(implementation.ID)) implementation.ID = "sha1new=" + digest.Sha1New;
-                    }
-                    else if (digest != implementation.ManifestDigest)
-                    { // Archive does not match existing digest
-                        throw new DigestMismatchException(implementation.ManifestDigest.ToString(), null, digest.ToString(), null);
-                    }
-                }
-            }
-        }
-
-        private static ManifestDigest DownloadMissing(Archive archive, bool store)
-        {
-            using (var tempFile = new TemporaryFile("0publish"))
-            {
-                _handler.RunTask(new DownloadFile(archive.Location, tempFile.Path), null);
-
-                using (var tempDir = new TemporaryDirectory("0publish"))
-                {
-                    using (var extractor = Extractor.CreateExtractor(archive.MimeType, tempFile.Path, 0, tempDir.Path))
-                    {
-                        extractor.SubDir = archive.Extract;
-                        _handler.RunTask(extractor, null);
-                    }
-
-                    var digest = Manifest.CreateDigest(tempDir.Path, _handler);
-                    if (store)
-                    {
-                        try
-                        {
-                            StoreProvider.CreateDefault().AddDirectory(tempDir.Path, digest, _handler);
-                        }
-                        catch (ImplementationAlreadyInStoreException)
-                        {}
-                    }
-
-                    archive.Size = new FileInfo(tempFile.Path).Length;
-                    return digest;
-                }
-            }
+                (Implementation implementation) => ImplementationUtils.AddMissing(implementation, store, _handler),
+                (Group group) => AddMissing(group.Elements, store) // recursion
+            }.Dispatch(elements);
         }
     }
 }
