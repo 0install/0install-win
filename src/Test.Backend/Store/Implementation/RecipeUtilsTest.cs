@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Collections.Generic;
 using System.IO;
 using Common.Storage;
 using Common.Streams;
@@ -47,10 +46,10 @@ namespace ZeroInstall.Store.Implementation
                         {
                             new Model.Archive(),
                             new AddToplevelStep {Directory = "toplevel"},
-                            new AddDirectoryStep {Path = "sub/dir"},
+                            new AddDirectoryStep {Path = "toplevel/subdir3"},
                             new Model.Archive(),
-                            new RemoveStep {Path = "toplevel/regular"},
-                            new RenameStep {Source = "executable", Destination = "executable2"}
+                            new RemoveStep {Path = "toplevel/subdir2"},
+                            new RenameStep {Source = "subdir2/executable", Destination = "subdir2/executable2"}
                         }
                 };
                 var archives = new[]
@@ -60,26 +59,54 @@ namespace ZeroInstall.Store.Implementation
                 };
                 using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, archives, new SilentHandler(), null))
                 {
-                    ICollection<string> xbits = FlagUtils.GetExternalFlags(".xbit", recipeDir.Path);
-                    //var symlinks = FlagUtils.GetExternalFlags(".symlink", recipeDir.Path);
+                    if (!MonoUtils.IsUnix)
+                    {
+                        CollectionAssert.AreEquivalent(new[]
+                        {
+                            FileUtils.PathCombine(recipeDir.Path, "subdir2", "executable2")
+                        }, FlagUtils.GetExternalFlags(".xbit", recipeDir.Path));
+                        CollectionAssert.AreEquivalent(new[]
+                        {
+                            FileUtils.PathCombine(recipeDir.Path, "symlink"),
+                            FileUtils.PathCombine(recipeDir.Path, "toplevel", "symlink")
+                        }, FlagUtils.GetExternalFlags(".symlink", recipeDir.Path));
+                    }
 
-                    // toplevel/executable [X]
-                    string path = FileUtils.PathCombine(recipeDir.Path, "toplevel", "executable");
-                    Assert.IsTrue(File.Exists(path), "Missing file: toplevel/executable");
-                    if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsExecutable(path), "Not executable: toplevel/executable");
-                    else CollectionAssert.Contains(xbits, path, "Not executable: toplevel/executable");
+                    // /symlink [S]
+                    string temp;
+                    string path = FileUtils.PathCombine(recipeDir.Path, "symlink");
+                    Assert.IsTrue(File.Exists(path), "Missing file: " + path);
+                    if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsSymlink(path, out temp), "Not symlink: " + path);
 
-                    // sub/dir [D]
-                    Assert.IsTrue(Directory.Exists(FileUtils.PathCombine(recipeDir.Path, "sub", "dir")), "Missing directory: sub/dir");
+                    // /subdir1/regular
+                    path = FileUtils.PathCombine(recipeDir.Path, "subdir1", "regular");
+                    Assert.IsTrue(File.Exists(path), "Missing file: " + path);
 
-                    // regular
-                    Assert.IsTrue(File.Exists(FileUtils.PathCombine(recipeDir.Path, "regular")), "Missing file: regular");
+                    // /subdir2/executable [deleted]
+                    path = FileUtils.PathCombine(recipeDir.Path, "subdir2", "executable");
+                    Assert.IsFalse(File.Exists(path), "File should not exist: " + path);
 
-                    // executable2 [X]
-                    path = FileUtils.PathCombine(recipeDir.Path, "executable2");
-                    Assert.IsTrue(File.Exists(path), "Missing file: executable2");
-                    if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsExecutable(path), "Not executable: executable2");
-                    else CollectionAssert.Contains(xbits, path, "Not executable: executable2");
+                    // /subdir2/executable2 [X]
+                    path = FileUtils.PathCombine(recipeDir.Path, "subdir2", "executable2");
+                    Assert.IsTrue(File.Exists(path), "Missing file: " + path);
+                    if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsExecutable(path), "Not executable: " + path);
+
+                    // /toplevel/symlink [S]
+                    path = FileUtils.PathCombine(recipeDir.Path, "toplevel", "symlink");
+                    Assert.IsTrue(File.Exists(path), "Missing file: " + path);
+                    if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsSymlink(path, out temp), "Not symlink: " + path);
+
+                    // /toplevel/subdir1/regular
+                    path = FileUtils.PathCombine(recipeDir.Path, "toplevel", "subdir1", "regular");
+                    Assert.IsTrue(File.Exists(path), "Missing file: " + path);
+
+                    // /toplevel/subdir2 [deleted]
+                    path = FileUtils.PathCombine(recipeDir.Path, "toplevel", "subdir2");
+                    Assert.IsFalse(Directory.Exists(path), "Directory should not exist: " + path);
+
+                    // /toplevel/subdir3 [D]
+                    path = FileUtils.PathCombine(recipeDir.Path, "toplevel", "subdir3");
+                    Assert.IsTrue(Directory.Exists(path), "Missing directory: " + path);
                 }
             }
         }
