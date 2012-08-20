@@ -110,7 +110,7 @@ namespace ZeroInstall.Fetchers
         {
             try
             {
-                new PerTypeDispatcher<RetrievalMethod>
+                new PerTypeDispatcher<RetrievalMethod>(false)
                 {
                     (Archive archive) => PerformArchiveStep(archive, handler),
                     (Recipe recipe) =>

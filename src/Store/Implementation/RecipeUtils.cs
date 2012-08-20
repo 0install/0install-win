@@ -57,7 +57,7 @@ namespace ZeroInstall.Store.Implementation
             {
                 IEnumerator<ArchiveFileInfo> archivesEnum = archiveInfos.GetEnumerator();
                 // ReSharper disable AccessToDisposedClosure
-                new PerTypeDispatcher<IRecipeStep>
+                new PerTypeDispatcher<IRecipeStep>(false)
                 {
                     (Model.Archive step) =>
                     {

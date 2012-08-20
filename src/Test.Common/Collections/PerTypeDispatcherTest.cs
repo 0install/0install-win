@@ -40,9 +40,6 @@ namespace Common.Collections
         private class Sub2 : Base
         {}
 
-        private class Sub3 : Base
-        {}
-
         [Test]
         public void TestDispatch()
         {
@@ -51,7 +48,7 @@ namespace Common.Collections
             var sub2Orig = new Sub2();
             Sub2 sub2Dispatched = null;
 
-            var dispatcher = new PerTypeDispatcher<Base>
+            var dispatcher = new PerTypeDispatcher<Base>(false)
             {
                 (Sub1 sub1) => sub1Dispatched = sub1,
                 (Sub2 sub2) => sub2Dispatched = sub2
@@ -62,8 +59,13 @@ namespace Common.Collections
 
             dispatcher.Dispatch(sub2Orig);
             Assert.AreSame(sub2Orig, sub2Dispatched);
+        }
 
-            Assert.Throws<KeyNotFoundException>(() => dispatcher.Dispatch(new Sub3()));
+        [Test]
+        public void TestDispatchExceptions()
+        {
+            Assert.Throws<KeyNotFoundException>(() => new PerTypeDispatcher<Base>(false) {(Sub1 sub1) => { }}.Dispatch(new Sub2()));
+            Assert.DoesNotThrow(() => new PerTypeDispatcher<Base>(true) {(Sub1 sub1) => { }}.Dispatch(new Sub2()));
         }
     }
 }

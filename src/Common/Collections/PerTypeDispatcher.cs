@@ -35,6 +35,18 @@ namespace Common.Collections
     {
         private readonly Dictionary<Type, Action<object>> _map = new Dictionary<Type, Action<object>>();
 
+        /// <summary><see langword="true"/> to silently ignore dispatch attempts on unknown types; <see langword="false"/> to throw exceptions.</summary>
+        private readonly bool _ignoreMissing;
+
+        /// <summary>
+        /// Creates a new dispatcher.
+        /// </summary>
+        /// <param name="ignoreMissing"><see langword="true"/> to silently ignore dispatch attempts on unknown types; <see langword="false"/> to throw exceptions.</param>
+        public PerTypeDispatcher(bool ignoreMissing)
+        {
+            _ignoreMissing = ignoreMissing;
+        }
+
         public IEnumerator<KeyValuePair<Type, Action<object>>> GetEnumerator()
         {
             return _map.GetEnumerator();
@@ -59,19 +71,23 @@ namespace Common.Collections
         /// Dispatches an element to the delegate matching the type.
         /// </summary>
         /// <param name="element">The element to be dispatched.</param>
+        /// <exception cref="KeyNotFoundException">Thrown if no delegate matching the <paramref name="element"/> type was <see cref="Add{TSpecific}"/>ed and <see cref="_ignoreMissing"/> is <see langword="false"/>.</exception>
         public void Dispatch(TBase element)
         {
             #region Sanity checks
             if (element == null) throw new ArgumentNullException("element");
             #endregion
-
-            _map[element.GetType()](element);
+            
+            Action<object> action;
+            if (_map.TryGetValue(element.GetType(), out action)) action(element);
+            else if (!_ignoreMissing) throw new KeyNotFoundException("bla");
         }
 
         /// <summary>
         /// Calls <see cref="Dispatch(TBase)"/> for every element in a collection.
         /// </summary>
         /// <param name="elements">The elements to be dispatched.</param>
+        /// <exception cref="KeyNotFoundException">Thrown if no delegate matching one of the element types was <see cref="Add{TSpecific}"/>ed and <see cref="_ignoreMissing"/> is <see langword="false"/>.</exception>
         public void Dispatch(IEnumerable<TBase> elements)
         {
             #region Sanity checks
