@@ -200,6 +200,9 @@ Festgelegt in der Konfigurationsdatei '{1}'.</value>
     <value>Es gab ein Problem beim Zugriff auf den Implementierungs-Store '{0}'.
 Festgelegt in der Konfigurationsdatei '{1}'.</value>
   </data>
+  <data name="RecipeInvalidPath" xml:space="preserve">
+    <value>Das Recipe enthält einen ungültigen Pfad (möglicherweise ein Sicherheitsrisiko): {0}</value>
+  </data>
   <data name="RootedPathRequired" xml:space="preserve">
     <value>Ein vollständig qualifizierter/gewurzelter Pfad wird benötigt.</value>
   </data>

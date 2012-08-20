@@ -97,15 +97,6 @@ namespace ZeroInstall.Fetchers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A recipe step contains an invalid path (potentially a security risk): {0}.
-        /// </summary>
-        internal static string RecipeInvalidPath {
-            get {
-                return ResourceManager.GetString("RecipeInvalidPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The recipe step was of an unknown type..
         /// </summary>
         internal static string UnknownRecipeStepType {

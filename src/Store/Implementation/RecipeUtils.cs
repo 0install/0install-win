@@ -1,4 +1,21 @@
-﻿using System;
+﻿/*
+ * Copyright 2010-2012 Bastian Eicher, Roland Leopold Walkling
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -6,12 +23,11 @@ using Common.Collections;
 using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
-using ZeroInstall.Fetchers.Properties;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Implementation.Archive;
+using ZeroInstall.Store.Properties;
 
-namespace ZeroInstall.Fetchers
+namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
     /// Provides helper methods for dealing with <see cref="Recipe"/>s.
@@ -22,16 +38,16 @@ namespace ZeroInstall.Fetchers
         /// Applies a <see cref="Recipe"/> to a <see cref="TemporaryDirectory"/>.
         /// </summary>
         /// <param name="recipe">The <see cref="Recipe"/> to apply.</param>
-        /// <param name="downloadedArchives">Archives downloaded for the the <paramref name="recipe"/>. Must be in same order as <see cref="Archive"/> elements in <paramref name="recipe"/>.</param>
+        /// <param name="archiveInfos">Archives downloaded for the the <paramref name="recipe"/>. Must be in same order as <see cref="Archive"/> elements in <paramref name="recipe"/>.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
         /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>.</param>
         /// <returns>A <see cref="TemporaryDirectory"/> with the resulting directory content.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if <paramref name="recipe"/> contains unknown <see cref="IRecipeStep"/>s.</exception>
-        public static TemporaryDirectory ApplyRecipe(Recipe recipe, IEnumerable<ArchiveFileInfo> downloadedArchives, ITaskHandler handler, object tag)
+        public static TemporaryDirectory ApplyRecipe(Recipe recipe, IEnumerable<ArchiveFileInfo> archiveInfos, ITaskHandler handler, object tag)
         {
             #region Sanity checks
             if (recipe == null) throw new ArgumentNullException("recipe");
-            if (downloadedArchives == null) throw new ArgumentNullException("downloadedArchives");
+            if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
@@ -39,11 +55,11 @@ namespace ZeroInstall.Fetchers
 
             try
             {
-                IEnumerator<ArchiveFileInfo> archivesEnum = downloadedArchives.GetEnumerator();
+                IEnumerator<ArchiveFileInfo> archivesEnum = archiveInfos.GetEnumerator();
                 // ReSharper disable AccessToDisposedClosure
                 new PerTypeDispatcher<IRecipeStep>
                 {
-                    (Archive step) =>
+                    (Model.Archive step) =>
                     {
                         archivesEnum.MoveNext();
                         ApplyArchive(archivesEnum.Current, targetDir.Path, handler, tag);

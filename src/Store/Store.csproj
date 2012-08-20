@@ -91,6 +91,7 @@
     <Compile Include="Implementation\ImplementationNotFoundException.cs" />
     <Compile Include="Implementation\ManifestFormat.cs" />
     <Compile Include="Implementation\ManifestGenerator.cs" />
+    <Compile Include="Implementation\RecipeUtils.cs" />
     <Compile Include="Implementation\ServiceStore.cs" />
     <Compile Include="Implementation\StoreProvider.cs" />
     <Compile Include="Implementation\CompositeStore.cs" />

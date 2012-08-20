@@ -86,7 +86,6 @@
     <Compile Include="Fetchers\FetcherStoreInteraction.cs" />
     <Compile Include="Fetchers\FetcherTests.cs" />
     <Compile Include="Fetchers\PackageBuilderManifestExtension.cs" />
-    <Compile Include="Fetchers\RecipeUtilsTest.cs" />
     <Compile Include="Fetchers\TestData.cs" />
     <Compile Include="Injector\ExecutorTest.cs" />
     <Compile Include="Injector\ConfigTest.cs" />
@@ -126,6 +125,8 @@
     <Compile Include="Injector\Feeds\FeedPreferencesTest.cs" />
     <Compile Include="Injector\Feeds\InterfacePreferencesTest.cs" />
     <Compile Include="Injector\Feeds\TrustDBTest.cs" />
+    <Compile Include="Store\Feeds\FeedUtilsTest.cs" />
+    <Compile Include="Store\Management\ImplementationUtilsTest.cs" />
     <Compile Include="Store\Implementation\Archive\ExtractorTest.cs" />
     <Compile Include="Store\Implementation\Archive\TarExtractorTest.cs" />
     <Compile Include="Store\Implementation\Archive\TestData.cs" />
@@ -136,8 +137,7 @@
     <Compile Include="Store\Implementation\ManifestTest.cs" />
     <Compile Include="Store\Implementation\CompositeStoreTest.cs" />
     <Compile Include="Store\Implementation\DirectoryStoreTest.cs" />
-    <Compile Include="Store\Feeds\FeedUtilsTest.cs" />
-    <Compile Include="Store\Management\ImplementationUtilsTest.cs" />
+    <Compile Include="Store\Implementation\RecipeUtilsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Store\Implementation\Archive\testArchive.gem" />

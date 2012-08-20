@@ -23,10 +23,9 @@ using Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Implementation.Archive;
 
-namespace ZeroInstall.Fetchers
+namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
     /// Contains test methods for <see cref="RecipeUtils"/>.
@@ -46,10 +45,10 @@ namespace ZeroInstall.Fetchers
                 {
                     Steps =
                         {
-                            new Archive(),
+                            new Model.Archive(),
                             new AddToplevelStep {Directory = "toplevel"},
                             new AddDirectoryStep {Path = "sub/dir"},
-                            new Archive(),
+                            new Model.Archive(),
                             new RemoveStep {Path = "toplevel/regular"},
                             new RenameStep {Source = "executable", Destination = "executable2"}
                         }
