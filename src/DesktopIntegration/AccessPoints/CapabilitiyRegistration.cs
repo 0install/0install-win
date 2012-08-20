@@ -73,32 +73,27 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            if (!WindowsUtils.IsWindows) return;
-
             // Register all applicable capabilities
             var target = new InterfaceFeed(appEntry.InterfaceID, feed);
             foreach (var capabilityList in appEntry.CapabilityLists)
             {
                 if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
 
-                // Note: Enumerating only once and using nested if-clauses to determine types would be more efficient but less maintainable
-                foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(capabilityList.Entries))
-                    Windows.FileType.Register(target, fileType, false, systemWide, handler);
-                foreach (var urlProtocol in EnumerableUtils.OfType<Capabilities.UrlProtocol>(capabilityList.Entries))
-                    Windows.UrlProtocol.Register(target, urlProtocol, false, systemWide, handler);
-                foreach (var autoPlay in EnumerableUtils.OfType<Capabilities.AutoPlay>(capabilityList.Entries))
-                    Windows.AutoPlay.Register(target, autoPlay, false, systemWide, handler);
-                foreach (var comServer in EnumerableUtils.OfType<Capabilities.ComServer>(capabilityList.Entries))
-                    Windows.ComServer.Register(target, comServer, systemWide, handler);
-                foreach (var gamesExplorer in EnumerableUtils.OfType<Capabilities.GamesExplorer>(capabilityList.Entries))
-                    Windows.GamesExplorer.Register(target, gamesExplorer, systemWide, handler);
-                if (systemWide)
+                var dispatcher = new PerTypeDispatcher<Capabilities.Capability>(true);
+                if (WindowsUtils.IsWindows)
                 {
-                    foreach (var defaultProgram in EnumerableUtils.OfType<Capabilities.DefaultProgram>(capabilityList.Entries))
-                        Windows.DefaultProgram.Register(target, defaultProgram, false, handler);
-                    foreach (var appRegistration in EnumerableUtils.OfType<Capabilities.AppRegistration>(capabilityList.Entries))
-                        Windows.AppRegistration.Apply(target, appRegistration, EnumerableUtils.OfType<Capabilities.VerbCapability>(capabilityList.Entries), handler);
+                    dispatcher.Add((Capabilities.FileType fileType) => Windows.FileType.Register(target, fileType, false, systemWide, handler));
+                    dispatcher.Add((Capabilities.UrlProtocol urlProtocol) => Windows.UrlProtocol.Register(target, urlProtocol, false, systemWide, handler));
+                    dispatcher.Add((Capabilities.AutoPlay autoPlay) => Windows.AutoPlay.Register(target, autoPlay, false, systemWide, handler));
+                    dispatcher.Add((Capabilities.ComServer comServer) => Windows.ComServer.Register(target, comServer, systemWide, handler));
+                    dispatcher.Add((Capabilities.GamesExplorer gamesExplorer) => Windows.GamesExplorer.Register(target, gamesExplorer, systemWide, handler));
+                    if (systemWide)
+                    {
+                        dispatcher.Add((Capabilities.DefaultProgram defaultProgram) => Windows.DefaultProgram.Register(target, defaultProgram, false, handler));
+                        dispatcher.Add((Capabilities.AppRegistration appRegistration) => Windows.AppRegistration.Apply(target, appRegistration, EnumerableUtils.OfType<Capabilities.VerbCapability>(capabilityList.Entries), handler));
+                    }
                 }
+                dispatcher.Dispatch(capabilityList.Entries);
             }
         }
 

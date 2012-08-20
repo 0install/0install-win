@@ -198,12 +198,12 @@ namespace ZeroInstall.Commands.WinForms
         private void ReadCommandAccessPoints()
         {
             // Add clones to DataGrids so that user modifications can still be canceled
-            foreach (var entry in EnumerableUtils.OfType<AccessPoints.MenuEntry>(_appEntry.AccessPoints.Entries))
-                _menuEntries.Add((AccessPoints.MenuEntry)entry.Clone());
-            foreach (var entry in EnumerableUtils.OfType<AccessPoints.DesktopIcon>(_appEntry.AccessPoints.Entries))
-                _desktopIcons.Add((AccessPoints.DesktopIcon)entry.Clone());
-            foreach (var entry in EnumerableUtils.OfType<AccessPoints.AppAlias>(_appEntry.AccessPoints.Entries))
-                _aliases.Add((AccessPoints.AppAlias)entry.Clone());
+            new PerTypeDispatcher<AccessPoints.AccessPoint>(true)
+            {
+                (AccessPoints.MenuEntry menuEntry) => _menuEntries.Add((AccessPoints.MenuEntry)menuEntry.Clone()),
+                (AccessPoints.DesktopIcon desktopIcon) => _desktopIcons.Add((AccessPoints.DesktopIcon)desktopIcon.Clone()),
+                (AccessPoints.AppAlias appAlias) => _aliases.Add((AccessPoints.AppAlias)appAlias.Clone()),
+            }.Dispatch(_appEntry.AccessPoints.Entries);
         }
 
         /// <summary>
@@ -215,48 +215,53 @@ namespace ZeroInstall.Commands.WinForms
             {
                 if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
 
-                // File types
-                foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(capabilityList.Entries))
+                var dispatcher = new PerTypeDispatcher<Capabilities.Capability>(true)
                 {
-                    var model = new FileTypeModel(fileType, IsCapabillityUsed<AccessPoints.FileType>(fileType));
-                    _fileTypesBinding.Add(model);
-                    _capabilityModels.Add(model);
-                }
+                    // File types
+                    (Capabilities.FileType fileType) =>
+                    {
+                        var model = new FileTypeModel(fileType, IsCapabillityUsed<AccessPoints.FileType>(fileType));
+                        _fileTypesBinding.Add(model);
+                        _capabilityModels.Add(model);
+                    },
 
-                // URL protocols
-                foreach (var urlProtocol in EnumerableUtils.OfType<Capabilities.UrlProtocol>(capabilityList.Entries))
-                {
-                    var model = new UrlProtocolModel(urlProtocol, IsCapabillityUsed<AccessPoints.UrlProtocol>(urlProtocol));
-                    _urlProtocolsBinding.Add(model);
-                    _capabilityModels.Add(model);
-                }
+                    // URL protocols
+                    (Capabilities.UrlProtocol urlProtocol) =>
+                    {
+                        var model = new UrlProtocolModel(urlProtocol, IsCapabillityUsed<AccessPoints.UrlProtocol>(urlProtocol));
+                        _urlProtocolsBinding.Add(model);
+                        _capabilityModels.Add(model);
+                    },
 
-                // AutoPlay
-                foreach (var autoPlay in EnumerableUtils.OfType<Capabilities.AutoPlay>(capabilityList.Entries))
-                {
-                    var model = new AutoPlayModel(autoPlay, IsCapabillityUsed<AccessPoints.AutoPlay>(autoPlay));
-                    _autoPlayBinding.Add(model);
-                    _capabilityModels.Add(model);
-                }
+                    // AutoPlay
+                    (Capabilities.AutoPlay autoPlay) =>
+                    {
+                        var model = new AutoPlayModel(autoPlay, IsCapabillityUsed<AccessPoints.AutoPlay>(autoPlay));
+                        _autoPlayBinding.Add(model);
+                        _capabilityModels.Add(model);
+                    },
 
-                // Context menu
-                foreach (var contextMenu in EnumerableUtils.OfType<Capabilities.ContextMenu>(capabilityList.Entries))
-                {
-                    var model = new ContextMenuModel(contextMenu, IsCapabillityUsed<AccessPoints.ContextMenu>(contextMenu));
-                    _contextMenuBinding.Add(model);
-                    _capabilityModels.Add(model);
-                }
+                    // Context menu
+                    (Capabilities.ContextMenu contextMenu) =>
+                    {
+                        var model = new ContextMenuModel(contextMenu, IsCapabillityUsed<AccessPoints.ContextMenu>(contextMenu));
+                        _contextMenuBinding.Add(model);
+                        _capabilityModels.Add(model);
+                    }
+                };
 
                 if (_integrationManager.SystemWide)
                 {
                     // Default program
-                    foreach (var defaultProgram in EnumerableUtils.OfType<Capabilities.DefaultProgram>(capabilityList.Entries))
+                    dispatcher.Add((Capabilities.DefaultProgram defaultProgram) =>
                     {
                         var model = new DefaultProgramModel(defaultProgram, IsCapabillityUsed<AccessPoints.DefaultProgram>(defaultProgram));
                         _defaultProgramBinding.Add(model);
                         _capabilityModels.Add(model);
-                    }
+                    });
                 }
+
+                dispatcher.Dispatch(capabilityList.Entries);
             }
 
             // Apply data to DataGrids in bulk for better performance (remove empty tabs)
@@ -367,9 +372,12 @@ namespace ZeroInstall.Commands.WinForms
             var currenAliases = new List<AccessPoints.AppAlias>();
             if (_appEntry.AccessPoints != null)
             {
-                currentMenuEntries.AddRange(EnumerableUtils.OfType<AccessPoints.MenuEntry>(_appEntry.AccessPoints.Entries));
-                currenDesktopIcons.AddRange(EnumerableUtils.OfType<AccessPoints.DesktopIcon>(_appEntry.AccessPoints.Entries));
-                currenAliases.AddRange(EnumerableUtils.OfType<AccessPoints.AppAlias>(_appEntry.AccessPoints.Entries));
+                new PerTypeDispatcher<AccessPoints.AccessPoint>(true)
+                {
+                    (AccessPoints.MenuEntry menuEntry) => currentMenuEntries.Add(menuEntry),
+                    (AccessPoints.DesktopIcon desktopIcon) => currenDesktopIcons.Add(desktopIcon),
+                    (AccessPoints.AppAlias alias) => currenAliases.Add(alias)
+                }.Dispatch(_appEntry.AccessPoints.Entries);
             }
 
             // Determine differences between current and desired state
