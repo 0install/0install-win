@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Common.Collections
@@ -30,8 +31,20 @@ namespace Common.Collections
     /// </summary>
     /// <typeparam name="TBase">The common base type of all objects to be dispatched.</typeparam>
     /// <remarks>Types must be exact matches. Inheritance is not considered.</remarks>
-    public class PerTypeDispatcher<TBase> : Dictionary<Type, Action<object>> where TBase : class
+    public class PerTypeDispatcher<TBase> : IEnumerable<KeyValuePair<Type, Action<object>>> where TBase : class
     {
+        private readonly Dictionary<Type, Action<object>> _map = new Dictionary<Type, Action<object>>();
+
+        public IEnumerator<KeyValuePair<Type, Action<object>>> GetEnumerator()
+        {
+            return _map.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _map.GetEnumerator();
+        }
+
         /// <summary>
         /// Adds a dispatch delegate.
         /// </summary>
@@ -39,7 +52,7 @@ namespace Common.Collections
         /// <param name="action">The delegate to call.</param>
         public void Add<TSpecific>(Action<TSpecific> action) where TSpecific : TBase
         {
-            Add(typeof(TSpecific), obj => action((TSpecific)obj));
+            _map.Add(typeof(TSpecific), obj => action((TSpecific)obj));
         }
 
         /// <summary>
@@ -52,7 +65,7 @@ namespace Common.Collections
             if (element == null) throw new ArgumentNullException("element");
             #endregion
 
-            this[element.GetType()](element);
+            _map[element.GetType()](element);
         }
 
         /// <summary>
