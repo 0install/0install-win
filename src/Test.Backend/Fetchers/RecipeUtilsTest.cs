@@ -67,8 +67,8 @@ namespace ZeroInstall.Fetchers
                     // toplevel/executable [X]
                     string path = FileUtils.PathCombine(recipeDir.Path, "toplevel", "executable");
                     Assert.IsTrue(File.Exists(path), "Missing file: toplevel/executable");
-                    if (WindowsUtils.IsWindows) CollectionAssert.Contains(xbits, path, "Not executable: toplevel/executable");
-                    else if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsExecutable(path), "Not executable: toplevel/executable");
+                    if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsExecutable(path), "Not executable: toplevel/executable");
+                    else CollectionAssert.Contains(xbits, path, "Not executable: toplevel/executable");
 
                     // sub/dir [D]
                     Assert.IsTrue(Directory.Exists(FileUtils.PathCombine(recipeDir.Path, "sub", "dir")), "Missing directory: sub/dir");
@@ -79,8 +79,8 @@ namespace ZeroInstall.Fetchers
                     // executable2 [X]
                     path = FileUtils.PathCombine(recipeDir.Path, "executable2");
                     Assert.IsTrue(File.Exists(path), "Missing file: executable2");
-                    if (WindowsUtils.IsWindows) CollectionAssert.Contains(xbits, path, "Not executable: executable2");
-                    else if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsExecutable(path), "Not executable: executable2");
+                    if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsExecutable(path), "Not executable: executable2");
+                    else CollectionAssert.Contains(xbits, path, "Not executable: executable2");
                 }
             }
         }
