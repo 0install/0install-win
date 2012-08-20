@@ -22,6 +22,7 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using Common;
+using Common.Collections;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Fetchers.Properties;
@@ -109,7 +110,15 @@ namespace ZeroInstall.Fetchers
         {
             try
             {
-                PerformRetrievalMethodDispatchingOnType(method, handler);
+                new PerTypeDispatcher<RetrievalMethod>
+                {
+                    (Archive archive) => PerformArchiveStep(archive, handler),
+                    (Recipe recipe) =>
+                    {
+                        if (recipe.ContainsUnknownSteps) throw new NotSupportedException("Recipe contains unknown steps.");
+                        PerformRecipe(recipe, handler);
+                    },
+                }.Dispatch(method);
             }
             catch (WebException ex)
             {
@@ -120,19 +129,6 @@ namespace ZeroInstall.Fetchers
         private void SetCompletedIfThereWereNoProblems()
         {
             if (Problems.Count == 0) Completed = true;
-        }
-
-        private void PerformRetrievalMethodDispatchingOnType(RetrievalMethod method, ITaskHandler handler)
-        {
-            var archive = method as Archive;
-            var recipe = method as Recipe;
-            if (archive != null)
-                PerformArchiveStep(archive, handler);
-            else if (recipe != null)
-            {
-                if (recipe.ContainsUnknownSteps) throw new NotSupportedException("Recipe contains unknown steps.");
-                PerformRecipe(recipe, handler);
-            }
         }
 
         private void PerformArchiveStep(Archive archive, ITaskHandler handler)
@@ -168,23 +164,29 @@ namespace ZeroInstall.Fetchers
 
         private void PerformRecipe(Recipe recipe, ITaskHandler handler)
         {
-            var archives = new List<ArchiveFileInfo>();
-            foreach (var currentStep in recipe.Steps)
+            bool complexRecipe = false;
+            var downloadedArchives = new List<ArchiveFileInfo>();
+            foreach (var step in recipe.Steps)
             {
-                var currentArchive = currentStep as Archive;
-                if (currentArchive == null) throw new InvalidOperationException(Resources.UnknownRecipeStepType);
-
-                archives.Add(DownloadAndPrepareArchive(currentArchive, handler));
+                var archive = step as Archive;
+                if (archive == null) complexRecipe = true;
+                else downloadedArchives.Add(DownloadAndPrepareArchive(archive, handler));
             }
+
             try
             {
-                _fetcherInstance.Store.AddArchives(archives, _digest, handler);
+                if (complexRecipe)
+                { // Complex recipes require a temporary directory to build the final implementation before adding it to the store
+                    using (var recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedArchives, handler, _digest))
+                        _fetcherInstance.Store.AddDirectory(recipeDir.Path, _digest, handler);
+                }
+                else _fetcherInstance.Store.AddArchives(downloadedArchives, _digest, handler);
             }
             catch (ImplementationAlreadyInStoreException)
             {}
             finally
             {
-                foreach (var archive in archives) File.Delete(archive.Path);
+                foreach (var archive in downloadedArchives) File.Delete(archive.Path);
             }
         }
 
@@ -200,8 +202,7 @@ namespace ZeroInstall.Fetchers
 
             try
             {
-                // Defer task to handler
-                handler.RunTask(downloadFile, _digest);
+                handler.RunTask(downloadFile, _digest); // Defer task to handler
             }
             catch
             {

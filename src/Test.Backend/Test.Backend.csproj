@@ -86,6 +86,7 @@
     <Compile Include="Fetchers\FetcherStoreInteraction.cs" />
     <Compile Include="Fetchers\FetcherTests.cs" />
     <Compile Include="Fetchers\PackageBuilderManifestExtension.cs" />
+    <Compile Include="Fetchers\RecipeUtilsTest.cs" />
     <Compile Include="Fetchers\TestData.cs" />
     <Compile Include="Injector\ExecutorTest.cs" />
     <Compile Include="Injector\ConfigTest.cs" />

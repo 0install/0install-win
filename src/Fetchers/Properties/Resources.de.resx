@@ -129,6 +129,9 @@
   <data name="NoRetrievalMethod" xml:space="preserve">
     <value>Es wurden keine funktionsfähigen Retrieval Methoden gefunden.</value>
   </data>
+  <data name="RecipeInvalidPath" xml:space="preserve">
+    <value>Das Recipe enthält einen ungültigen Pfad (möglicherweise ein Sicherheitsrisiko): {0}</value>
+  </data>
   <data name="UnknownRecipeStepType" xml:space="preserve">
     <value>Der Recipe Schritt hat einen unbekannten Typ.</value>
   </data>
