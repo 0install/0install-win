@@ -81,7 +81,7 @@ namespace ZeroInstall.Store.Implementation
                 FlagUtils.RemoveExternalFlag(flagFile.Path, Path.Combine("dir1", "file1"));
                 Assert.AreEqual("/dir2/file2\n", File.ReadAllText(flagFile.Path));
 
-                FlagUtils.RemoveExternalFlag(flagFile.Path, Path.Combine("dir2", "file2"));
+                FlagUtils.RemoveExternalFlag(flagFile.Path, "dir2");
                 Assert.AreEqual("", File.ReadAllText(flagFile.Path));
             }
         }

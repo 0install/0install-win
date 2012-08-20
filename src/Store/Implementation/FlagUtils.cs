@@ -116,17 +116,17 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Convert path to rooted Unix-style
-            relativePath = "/" + relativePath.Replace(Path.DirectorySeparatorChar, '/');
+            string unixPath = "/" + relativePath.Replace(Path.DirectorySeparatorChar, '/');
 
             using (var flagFile = new StreamWriter(file, true, new UTF8Encoding(false)) {NewLine = "\n"}) // Append
-                flagFile.WriteLine(relativePath);
+                flagFile.WriteLine(unixPath);
         }
 
         /// <summary>
-        /// Removes a flag for a file in an external flag file.
+        /// Removes one or more flags for a file or directory in an external flag file.
         /// </summary>
         /// <param name="file">The path to the flag file, ending with the type in the type of flag to store (<code>.xbit</code> or <code>.symlink</code>).</param>
-        /// <param name="relativePath">The path of the file to remove the flag for relative to <paramref name="file"/>.</param>
+        /// <param name="relativePath">The path of the file or directory to remove the flag for relative to <paramref name="file"/>.</param>
         /// <exception cref="IOException">Thrown if there was an error writing the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to write the flag file.</exception>
         [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
@@ -141,7 +141,7 @@ namespace ZeroInstall.Store.Implementation
             if (!File.Exists(file)) return;
 
             // Convert path to rooted Unix-style
-            relativePath = "/" + relativePath.Replace(Path.DirectorySeparatorChar, '/');
+            string unixPath = "/" + relativePath.Replace(Path.DirectorySeparatorChar, '/');
 
             // Prepend random string for temp file name
             string tempPath = Path.GetDirectoryName(file) + Path.DirectorySeparatorChar + "temp." + Path.GetRandomFileName() + Path.GetFileName(file);
@@ -154,8 +154,12 @@ namespace ZeroInstall.Store.Implementation
                 while (!oldFlagFile.EndOfStream)
                 {
                     string line = oldFlagFile.ReadLine();
-                    if (line != null && line.StartsWith("/") && line != relativePath) // Filter removed file
+                    if (line != null && line.StartsWith("/"))
+                    {
+                        if (line == unixPath || line.StartsWith(unixPath + "/")) continue; // Filter out removed files
+
                         newFlagFile.WriteLine(line);
+                    }
                 }
             }
             FileUtils.Replace(tempPath, file);
