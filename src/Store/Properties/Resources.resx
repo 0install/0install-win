@@ -156,7 +156,7 @@ Actual value: {1}</value>
     <value>The implementation '{0}' is already in the store.</value>
   </data>
   <data name="ImplementationNotFound" xml:space="preserve">
-    <value>The following implementation could not be located: {0}</value>
+    <value>The implementation '{0}' could not be located.</value>
   </data>
   <data name="InsufficientFSTimeAccuracy" xml:space="preserve">
     <value>The underlying file system does not store file change times with sufficient accuracy.

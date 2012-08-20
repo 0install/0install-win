@@ -75,6 +75,17 @@ namespace ZeroInstall.Injector.Solver
 
         //--------------------//
 
+        #region Normalize
+        /// <summary>
+        /// Calls <see cref="ImplementationBase.Normalize"/> for all <see cref="Implementations"/>.
+        /// </summary>
+        public void Normalize()
+        {
+            foreach (var implementation in Implementations)
+                implementation.Normalize(implementation.FromFeed ?? implementation.InterfaceID);
+        }
+        #endregion
+
         #region Human readable
         /// <summary>
         /// Generates a human-readable representation of the implementation selection hierachy.

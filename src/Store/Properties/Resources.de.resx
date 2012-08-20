@@ -156,7 +156,7 @@ Tatsächlicher Wert: {1}</value>
     <value>Die Implementierung '{0}' ist bereits im Store.</value>
   </data>
   <data name="ImplementationNotFound" xml:space="preserve">
-    <value>Die folgende Implementierung konnte nicht gefunden werden: {0}</value>
+    <value>Die Implementierung '{0}' konnte nicht gefunden werden.</value>
   </data>
   <data name="InsufficientFSTimeAccuracy" xml:space="preserve">
     <value>Das zugrundeliegende Dateisystem speichert Daten und Uhrzeiten mit unzureichender Genauigkeit.

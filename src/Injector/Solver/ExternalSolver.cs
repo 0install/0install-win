@@ -52,7 +52,9 @@ namespace ZeroInstall.Injector.Solver
             policy.Handler.CancellationToken.ThrowIfCancellationRequested();
             try
             {
-                return Selections.LoadFromString(result);
+                var selections = Selections.LoadFromString(result);
+                selections.Normalize();
+                return selections;
             }
                 #region Error handling
             catch (InvalidDataException ex)

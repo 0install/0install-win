@@ -171,7 +171,7 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The following implementation could not be located: {0}.
+        ///   Looks up a localized string similar to The implementation &apos;{0}&apos; could not be located..
         /// </summary>
         internal static string ImplementationNotFound {
             get {
