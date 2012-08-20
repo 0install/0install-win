@@ -121,7 +121,7 @@
     <value>The archive file is invalid or damaged.</value>
   </data>
   <data name="ArchiveInvalidPath" xml:space="preserve">
-    <value>The archive contains invalid paths (potentially a security risk).</value>
+    <value>The archive contains an invalid path (potentially a security risk): {0}</value>
   </data>
   <data name="DeletingDirectory" xml:space="preserve">
     <value>Deleting directory {0}</value>

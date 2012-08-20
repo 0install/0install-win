@@ -121,7 +121,7 @@
     <value>Die Archivdatei ist ungültig oder beschädigt.</value>
   </data>
   <data name="ArchiveInvalidPath" xml:space="preserve">
-    <value>Das Archiv enthält ungültige Pfade (möglicherweise ein Sicherheitsrisiko).</value>
+    <value>Das Archiv enthält einen ungültigen Pfad (möglicherweise ein Sicherheitsrisiko): {0}</value>
   </data>
   <data name="DeletingDirectory" xml:space="preserve">
     <value>Lösche Verzeichnis {0}</value>
