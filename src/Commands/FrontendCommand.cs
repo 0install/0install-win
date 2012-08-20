@@ -211,7 +211,7 @@ namespace ZeroInstall.Commands
                 else if (ModelUtils.IsValidUri(id)) return id;
                 else return Path.GetFullPath(id); // Assume invalid URIs are local paths
             }
-            #region Error handling
+                #region Error handling
             catch (ArgumentException ex)
             {
                 // Wrap exception since only certain exception types are allowed

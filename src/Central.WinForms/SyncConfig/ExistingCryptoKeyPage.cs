@@ -77,7 +77,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             if (!syncServer.ToString().EndsWith("/")) syncServer = new Uri(syncServer + "/"); // Ensure the server URI references a directory
             var appListUri = new Uri(syncServer, new Uri("app-list", UriKind.Relative));
 
-            using (var webClient = new WebClientTimeout()
+            using (var webClient = new WebClientTimeout
             {
                 Credentials = new NetworkCredential(syncCredentials.Username, syncCredentials.Password),
                 CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)

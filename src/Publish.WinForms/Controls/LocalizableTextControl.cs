@@ -70,9 +70,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <returns>The selected language or <see langword="null" /> if no language is selected.</returns>
         public CultureInfo SelectedLanguage
         {
-            get {
-                return ((ToStringWrapper<CultureInfo>)comboBoxLanguages.SelectedItem).Element;
-            }
+            get { return ((ToStringWrapper<CultureInfo>)comboBoxLanguages.SelectedItem).Element; }
 
             set
             {
@@ -80,7 +78,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 if (value == null) throw new ArgumentNullException("value");
                 #endregion
 
-                comboBoxLanguages.SelectedItem = CreateToStringWrapper(value, Values.ContainsExactLanguage(value));                
+                comboBoxLanguages.SelectedItem = CreateToStringWrapper(value, Values.ContainsExactLanguage(value));
             }
         }
         #endregion
@@ -111,10 +109,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         {
             Values = new LocalizableStringCollection();
 
-            Values.CollectionChanged += delegate
-            {
-                UpdateComboBoxLanguages();
-            };
+            Values.CollectionChanged += delegate { UpdateComboBoxLanguages(); };
         }
 
         /// <summary>
@@ -123,13 +118,13 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void InitializeComboBoxLanguages()
         {
             FillComboBoxLanguages();
-            
+
             comboBoxLanguages.SelectedIndexChanged += ComboBoxLanguage_SelectedIndexChanged;
         }
 
-// ReSharper disable InconsistentNaming
+        // ReSharper disable InconsistentNaming
         private void ComboBoxLanguage_SelectedIndexChanged(object sender, EventArgs args)
-// ReSharper restore InconsistentNaming
+            // ReSharper restore InconsistentNaming
         {
             hintTextBoxSummary.TextChanged -= HintTextBoxSummary_TextChanged;
             hintTextBoxSummary.Text = Values.ContainsExactLanguage(SelectedLanguage)
@@ -150,7 +145,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             sortedToStringWrappers.Sort(new ToStringWrapperCultureComparer());
 
             comboBoxLanguages.BeginUpdate();
-            _comboBoxEntries=new BindingList<ToStringWrapper<CultureInfo>>(sortedToStringWrappers);
+            _comboBoxEntries = new BindingList<ToStringWrapper<CultureInfo>>(sortedToStringWrappers);
             comboBoxLanguages.DataSource = _comboBoxEntries;
             comboBoxLanguages.EndUpdate();
         }
@@ -175,9 +170,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// </summary>
         /// <param name="sender">Not Used.</param>
         /// <param name="e">Not Used.</param>
-// ReSharper disable InconsistentNaming
+        // ReSharper disable InconsistentNaming
         private void HintTextBoxSummary_TextChanged(object sender, EventArgs e)
-// ReSharper restore InconsistentNaming
+            // ReSharper restore InconsistentNaming
         {
             string changedSummary = hintTextBoxSummary.Text;
             // Remove language from Values if translation has been removed.
