@@ -108,7 +108,7 @@ namespace ZeroInstall.Fetchers
 
         internal static Archive HostArchiveOnMicroServer(Archive archive, out MicroServer server)
         {
-            server = new MicroServer("archive.zip", File.OpenRead(archive.LocationString));
+            server = new MicroServer("archive.zip", File.OpenRead(archive.Location.ToString()));
             var hostedArchive = (Archive)archive.Clone();
             hostedArchive.Location = server.FileUri;
             return hostedArchive;
