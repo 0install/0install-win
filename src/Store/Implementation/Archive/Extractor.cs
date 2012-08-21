@@ -151,9 +151,20 @@ namespace ZeroInstall.Store.Implementation.Archive
             // Try to guess missing MIME type
             if (string.IsNullOrEmpty(mimeType)) mimeType = ArchiveUtils.GuessMimeType(path);
 
-            var extractor = CreateExtractor(mimeType, new OffsetStream(File.OpenRead(path), startOffset), target);
-            extractor._name = Path.GetFileName(path);
-            return extractor;
+            var stream = File.OpenRead(path);
+            try
+            {
+                var extractor = CreateExtractor(mimeType, new OffsetStream(stream, startOffset), target);
+                extractor._name = Path.GetFileName(path);
+                return extractor;
+            }
+                #region Error handling
+            catch
+            {
+                stream.Close();
+                throw;
+            }
+            #endregion
         }
         #endregion
 
