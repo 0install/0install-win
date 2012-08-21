@@ -31,6 +31,18 @@ namespace Common.Streams
     public class StreamUtilsTest
     {
         /// <summary>
+        /// Ensures <see cref="StreamUtils.Equals(System.IO.Stream,System.IO.Stream)"/> works correctly.
+        /// </summary>
+        [Test]
+        public void TestEquals()
+        {
+            Assert.IsTrue(StreamUtils.Equals(StreamUtils.CreateFromString("abc"), StreamUtils.CreateFromString("abc")));
+            Assert.IsFalse(StreamUtils.Equals(StreamUtils.CreateFromString("ab"), StreamUtils.CreateFromString("abc")));
+            Assert.IsFalse(StreamUtils.Equals(StreamUtils.CreateFromString("abc"), StreamUtils.CreateFromString("ab")));
+            Assert.IsFalse(StreamUtils.Equals(StreamUtils.CreateFromString("abc"), StreamUtils.CreateFromString("")));
+        }
+
+        /// <summary>
         /// Ensures <see cref="StreamUtils.CreateFromString"/> and <see cref="StreamUtils.ReadToString"/> work correctly.
         /// </summary>
         [Test]

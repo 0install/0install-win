@@ -37,6 +37,7 @@ namespace Common.Streams
         /// <param name="source">The source stream to copy from.</param>
         /// <param name="destination">The destination stream to copy to.</param>
         /// <param name="bufferSize">The size of the buffer to use for copying in bytes.</param>
+        /// <remarks>Will try to <see cref="Stream.Seek"/> to the start of <paramref name="source"/>.</remarks>
         public static void Copy(Stream source, Stream destination, long bufferSize)
         {
             #region Sanity checks
@@ -56,6 +57,29 @@ namespace Common.Streams
             } while (read != 0);
 
             if (destination.CanSeek) destination.Position = 0;
+        }
+
+        /// <summary>
+        /// Compares two streams for bit-wise equality.
+        /// </summary>
+        /// <remarks>Will try to <see cref="Stream.Seek"/> to the start of both streams.</remarks>
+        public static bool Equals(Stream stream1, Stream stream2)
+        {
+            #region Sanity checks
+            if (stream1 == null) throw new ArgumentNullException("stream1");
+            if (stream2 == null) throw new ArgumentNullException("stream2");
+            #endregion
+
+            if (stream1.CanSeek) stream1.Position = 0;
+            if (stream2.CanSeek) stream2.Position = 0;
+
+            while(true)
+            {
+                int byte1 = stream1.ReadByte();
+                int byte2 = stream2.ReadByte();
+                if (byte1 != byte2) return false;
+                else if (byte1 == -1) return true;
+            }
         }
 
         /// <summary>
