@@ -95,6 +95,7 @@
   <ItemGroup>
     <Compile Include="Capture\CommandMapperTest.cs" />
     <Compile Include="Publish\FeedUtilsTest.cs" />
+    <Compile Include="Publish\ImplementationUtilsTest.cs" />
     <Compile Include="Publish\WinForms\ControlHelpersTest.cs" />
   </ItemGroup>
   <ItemGroup>

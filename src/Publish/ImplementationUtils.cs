@@ -57,17 +57,7 @@ namespace ZeroInstall.Publish
             TemporaryDirectory implementationDir = null;
             new PerTypeDispatcher<RetrievalMethod>(false)
             {
-                (Archive archive) =>
-                {
-                    // Download and extract the archive
-                    implementationDir = new TemporaryDirectory("0publish");
-                    using (var archiveFile = DownloadArchive(archive, handler))
-                    using (var extractor = Extractor.CreateExtractor(archive.MimeType, archiveFile.Path, 0, implementationDir.Path))
-                    {
-                        extractor.SubDir = archive.Extract;
-                        handler.RunTask(extractor, null); // Defer task to handler
-                    }
-                },
+                (Archive archive) => implementationDir = DownloadAndExtractArchive(archive, handler),
                 (Recipe recipe) => implementationDir = ApplyRecipe(recipe, handler)
             }.Dispatch(retrievalMethod);
 
@@ -108,7 +98,7 @@ namespace ZeroInstall.Publish
                     if (implementation.ManifestDigest == default(ManifestDigest) || archive.Size == 0)
                     {
                         ManifestDigest digest;
-                        using (var tempDir = DownloadArchive(archive, handler))
+                        using (var tempDir = DownloadAndExtractArchive(archive, handler))
                             digest = GenerateDigest(tempDir.Path, store, handler);
 
                         if (implementation.ManifestDigest == default(ManifestDigest))
@@ -133,6 +123,36 @@ namespace ZeroInstall.Publish
             }.Dispatch(implementation.RetrievalMethods);
 
             if (string.IsNullOrEmpty(implementation.ID)) implementation.ID = "sha1new=" + implementation.ManifestDigest.Sha1New;
+        }
+
+        /// <summary>
+        /// Downloads and extracts an <see cref="Archive"/> and adds missing properties.
+        /// </summary>
+        /// <param name="archive">The <see cref="Archive"/> to be downloaded.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
+        /// <returns>A temporary directory containing the contents of the archive.</returns>
+        public static TemporaryDirectory DownloadAndExtractArchive(Archive archive, ITaskHandler handler)
+        {
+            using (var tempFile = DownloadArchive(archive, handler))
+            {
+                var extractionDir = new TemporaryDirectory("0publish");
+                try
+                {
+                    using (var extractor = Extractor.CreateExtractor(archive.MimeType, tempFile.Path, 0, extractionDir.Path))
+                    {
+                        extractor.SubDir = archive.Extract;
+                        handler.RunTask(extractor, null); // Defer task to handler
+                    }
+                    return extractionDir;
+                }
+                    #region Error handling
+                catch
+                {
+                    extractionDir.Dispose();
+                    throw;
+                }
+                #endregion
+            }
         }
 
         /// <summary>
@@ -169,7 +189,7 @@ namespace ZeroInstall.Publish
             {
                 // Download all archives required by the recipe
                 foreach (var archive in EnumerableUtils.OfType<Archive>(recipe.Steps))
-                    downloadedArchives.Add(new ArchiveFileInfo {Path = DownloadArchive(archive, handler).Path, SubDir = archive.Extract});
+                    downloadedArchives.Add(new ArchiveFileInfo {Path = DownloadArchive(archive, handler).Path, SubDir = archive.Extract, MimeType = archive.MimeType});
 
                 // Apply the recipe
                 return RecipeUtils.ApplyRecipe(recipe, downloadedArchives, handler, null);
@@ -188,7 +208,7 @@ namespace ZeroInstall.Publish
         /// <param name="store"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <returns>The newly generated digest.</returns>
-        public static ManifestDigest GenerateDigest(string path, bool store, ITaskHandler handler)
+        private static ManifestDigest GenerateDigest(string path, bool store, ITaskHandler handler)
         {
             var digest = Manifest.CreateDigest(path, handler);
             if (store)
