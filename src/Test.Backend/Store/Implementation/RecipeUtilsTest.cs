@@ -18,9 +18,9 @@
 using System.IO;
 using Common.Storage;
 using Common.Streams;
+using Common.Tasks;
 using Common.Utils;
 using NUnit.Framework;
-using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation.Archive;
 
@@ -57,7 +57,7 @@ namespace ZeroInstall.Store.Implementation
                     new ArchiveFileInfo {Path = archiveFile.Path, MimeType = "application/zip"},
                     new ArchiveFileInfo {Path = archiveFile.Path, MimeType = "application/zip"}
                 };
-                using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, archives, new SilentHandler(), null))
+                using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, archives, new SilentTaskHandler(), null))
                 {
                     if (!MonoUtils.IsUnix)
                     {
@@ -115,16 +115,16 @@ namespace ZeroInstall.Store.Implementation
         public void TestApplyRecipeExceptions()
         {
             Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe
-            {Steps = {new AddToplevelStep {Directory = "top/level"}}}, new ArchiveFileInfo[0], new SilentHandler(), null));
+            {Steps = {new AddToplevelStep {Directory = "top/level"}}}, new ArchiveFileInfo[0], new SilentTaskHandler(), null));
 
             Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe
-            {Steps = {new AddDirectoryStep {Path = "../dir"}}}, new ArchiveFileInfo[0], new SilentHandler(), null));
+            {Steps = {new AddDirectoryStep {Path = "../dir"}}}, new ArchiveFileInfo[0], new SilentTaskHandler(), null));
 
             Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe
-            {Steps = {new RemoveStep {Path = "../file"}}}, new ArchiveFileInfo[0], new SilentHandler(), null));
+            {Steps = {new RemoveStep {Path = "../file"}}}, new ArchiveFileInfo[0], new SilentTaskHandler(), null));
 
             Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe
-            {Steps = {new RenameStep {Source = "source", Destination = "../destination"}}}, new ArchiveFileInfo[0], new SilentHandler(), null));
+            {Steps = {new RenameStep {Source = "source", Destination = "../destination"}}}, new ArchiveFileInfo[0], new SilentTaskHandler(), null));
         }
     }
 }
