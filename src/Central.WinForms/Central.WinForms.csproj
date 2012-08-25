@@ -212,6 +212,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
+    <None Include="Properties\App.config" />
     <None Include="Resources\SetupButton.png" />
     <None Include="Resources\RemoveButton.png" />
     <None Include="Resources\AddButton.png" />
