@@ -300,8 +300,8 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Merges a new <see cref="AppList"/> with the existing data.
         /// </summary>
-        /// <param name="newData">The new <see cref="AppList"/> to merge in.</param>
-        /// <param name="resetClient">Set to <see langword="true"/> to completly replace the contents of <see cref="IntegrationManager.AppList"/> with <paramref name="newData"/> instead of merging the two.</param>
+        /// <param name="remoteAppList">The remote <see cref="AppList"/> to merge in.</param>
+        /// <param name="resetClient">Set to <see langword="true"/> to completly replace the contents of <see cref="IntegrationManager.AppList"/> with <paramref name="remoteAppList"/> instead of merging the two.</param>
         /// <param name="feedRetriever">Callback method used to retrieve additional <see cref="Feed"/>s on demand.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
@@ -312,17 +312,20 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <remarks>Performs a three-way merge using <see cref="_appListLastSync"/> as base.</remarks>
-        private void MergeData(AppList newData, bool resetClient, Converter<string, Feed> feedRetriever, ITaskHandler handler)
+        private void MergeData(AppList remoteAppList, bool resetClient, Converter<string, Feed> feedRetriever, ITaskHandler handler)
         {
             #region Sanity checks
-            if (newData == null) throw new ArgumentNullException("newData");
+            if (remoteAppList == null) throw new ArgumentNullException("remoteAppList");
             if (feedRetriever == null) throw new ArgumentNullException("feedRetriever");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             ICollection<AppEntry> toAdd = new LinkedList<AppEntry>();
             ICollection<AppEntry> toRemove = new LinkedList<AppEntry>();
-            EnumerableUtils.Merge((resetClient ? AppList : _appListLastSync).Entries, newData.Entries, AppList.Entries, toAdd.Add, toRemove.Add);
+
+            // Use 2-way merge for client-reset, 3-way merge otherwise
+            if (resetClient) EnumerableUtils.Merge(remoteAppList.Entries, AppList.Entries, toAdd.Add, toRemove.Add);
+            else EnumerableUtils.Merge(_appListLastSync.Entries, remoteAppList.Entries, AppList.Entries, toAdd.Add, toRemove.Add);
 
             foreach (var appEntry in toRemove)
                 RemoveAppHelper(appEntry);

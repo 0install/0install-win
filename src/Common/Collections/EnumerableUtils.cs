@@ -233,13 +233,13 @@ namespace Common.Collections
 
         #region Merge
         /// <summary>
-        /// Performs a 2-way merge on two collections. Changes from a foreign list are applied to a local list using callback delegates.
+        /// Performs a 2-way merge on two collections. <paramref name="theirsList"/> is updated to reflect <paramref name="mineList"/> using callback delegates.
         /// </summary>
         /// <param name="theirsList">The foreign list with changes that shell be merged in.</param>
         /// <param name="mineList">The local list that shall be updated with foreign changes.</param>
         /// <param name="added">Called for every element that should be added to <paramref name="mineList"/>.</param>
         /// <param name="removed">Called for every element that should be removed from <paramref name="mineList"/>.</param>
-        /// <remarks><paramref name="theirsList"/> and <paramref name="mineList"/> Should use an internal hashmap for <see cref="ICollection{T}.Contains"/> for better performance.</remarks>
+        /// <remarks><paramref name="theirsList"/> and <paramref name="mineList"/> should use an internal hashmap for <see cref="ICollection{T}.Contains"/> for better performance.</remarks>
         public static void Merge<T>(ICollection<T> theirsList, ICollection<T> mineList, Action<T> added, Action<T> removed)
         {
             #region Sanity checks
@@ -267,7 +267,7 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Performs a 3-way merge on a set of collections. Changes from a foreign list are applied to a local list using callback delegates.
+        /// Performs a 3-way merge on a set of collections. Changes between <paramref name="baseList"/> and <paramref name="theirsList"/> are applied to <paramref name="mineList"/> using callback delegates.
         /// </summary>
         /// <param name="baseList">A common baseline from which both <paramref name="theirsList"/> and <paramref name="mineList"/> were modified.</param>
         /// <param name="theirsList">The foreign list with changes that shell be merged in.</param>
