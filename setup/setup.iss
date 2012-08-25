@@ -105,33 +105,33 @@ Name: {commondesktop}\Zero Install; Filename: {app}\ZeroInstall.exe; Tasks: desk
 
 [Run]
 ;Pre-compile .NET executables and their dependencies
-Filename: {dotnet20}\ngen.exe; Parameters: install ZeroInstall.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
-Filename: {dotnet20}\ngen.exe; Parameters: install 0install.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
-Filename: {dotnet20}\ngen.exe; Parameters: install 0install-win.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
-Filename: {dotnet20}\ngen.exe; Parameters: install 0launch.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
-Filename: {dotnet20}\ngen.exe; Parameters: install 0store.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
-Filename: {dotnet20}\ngen.exe; Parameters: install 0store-win.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
-Filename: {dotnet20}\ngen.exe; Parameters: install StoreService.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+;Filename: {dotnet20}\ngen.exe; Parameters: install ZeroInstall.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+;Filename: {dotnet20}\ngen.exe; Parameters: install 0install.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+;Filename: {dotnet20}\ngen.exe; Parameters: install 0install-win.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+;Filename: {dotnet20}\ngen.exe; Parameters: install 0launch.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+;Filename: {dotnet20}\ngen.exe; Parameters: install 0store.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+;Filename: {dotnet20}\ngen.exe; Parameters: install 0store-win.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+;Filename: {dotnet20}\ngen.exe; Parameters: install StoreService.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
 
 ;Pre-compile XML serialization assemblies (are not explicit dependencies, therefore need to be listed separately)
-Filename: {dotnet20}\ngen.exe; Parameters: install ZeroInstall.Model.XmlSerializers.dll /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
-Filename: {dotnet20}\ngen.exe; Parameters: install ZeroInstall.Injector.XmlSerializers.dll /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
-Filename: {dotnet20}\ngen.exe; Parameters: install ZeroInstall.DesktopIntegration.XmlSerializers.dll /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+;Filename: {dotnet20}\ngen.exe; Parameters: install ZeroInstall.Model.XmlSerializers.dll /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+;Filename: {dotnet20}\ngen.exe; Parameters: install ZeroInstall.Injector.XmlSerializers.dll /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+;Filename: {dotnet20}\ngen.exe; Parameters: install ZeroInstall.DesktopIntegration.XmlSerializers.dll /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
 
 Filename: {app}\ZeroInstall.exe; Description: {cm:LaunchProgram,Zero Install}; Flags: nowait postinstall runasoriginaluser skipifsilent
 
 [UninstallRun]
 ;Remove pre-compiled .NET files
-Filename: {dotnet20}\ngen.exe; Parameters: uninstall ZeroInstall.exe; WorkingDir: {app}; Flags: runhidden
-Filename: {dotnet20}\ngen.exe; Parameters: uninstall 0install.exe; WorkingDir: {app}; Flags: runhidden
-Filename: {dotnet20}\ngen.exe; Parameters: uninstall 0install-win.exe; WorkingDir: {app}; Flags: runhidden
-Filename: {dotnet20}\ngen.exe; Parameters: uninstall 0launch.exe; WorkingDir: {app}; Flags: runhidden
-Filename: {dotnet20}\ngen.exe; Parameters: uninstall 0store.exe; WorkingDir: {app}; Flags: runhidden
-Filename: {dotnet20}\ngen.exe; Parameters: uninstall 0store-win.exe; WorkingDir: {app}; Flags: runhidden
-Filename: {dotnet20}\ngen.exe; Parameters: uninstall StoreService.exe; WorkingDir: {app}; Flags: runhidden
-Filename: {dotnet20}\ngen.exe; Parameters: uninstall ZeroInstall.Model.XmlSerializers.dll; WorkingDir: {app}; Flags: runhidden
-Filename: {dotnet20}\ngen.exe; Parameters: uninstall ZeroInstall.Injector.XmlSerializers.dll; WorkingDir: {app}; Flags: runhidden
-Filename: {dotnet20}\ngen.exe; Parameters: uninstall ZeroInstall.DesktopIntegration.XmlSerializers.dll WorkingDir: {app}; Flags: runhidden
+;Filename: {dotnet20}\ngen.exe; Parameters: uninstall ZeroInstall.exe; WorkingDir: {app}; Flags: runhidden
+;Filename: {dotnet20}\ngen.exe; Parameters: uninstall 0install.exe; WorkingDir: {app}; Flags: runhidden
+;Filename: {dotnet20}\ngen.exe; Parameters: uninstall 0install-win.exe; WorkingDir: {app}; Flags: runhidden
+;Filename: {dotnet20}\ngen.exe; Parameters: uninstall 0launch.exe; WorkingDir: {app}; Flags: runhidden
+;Filename: {dotnet20}\ngen.exe; Parameters: uninstall 0store.exe; WorkingDir: {app}; Flags: runhidden
+;Filename: {dotnet20}\ngen.exe; Parameters: uninstall 0store-win.exe; WorkingDir: {app}; Flags: runhidden
+;Filename: {dotnet20}\ngen.exe; Parameters: uninstall StoreService.exe; WorkingDir: {app}; Flags: runhidden
+;Filename: {dotnet20}\ngen.exe; Parameters: uninstall ZeroInstall.Model.XmlSerializers.dll; WorkingDir: {app}; Flags: runhidden
+;Filename: {dotnet20}\ngen.exe; Parameters: uninstall ZeroInstall.Injector.XmlSerializers.dll; WorkingDir: {app}; Flags: runhidden
+;Filename: {dotnet20}\ngen.exe; Parameters: uninstall ZeroInstall.DesktopIntegration.XmlSerializers.dll WorkingDir: {app}; Flags: runhidden
 
 [UninstallDelete]
 ;Remove files added by post-installation updates
