@@ -46,10 +46,10 @@ namespace Common.Utils
         public const string NetFx40 = "v4.0.30319";
 
         /// <summary>
-        /// Returns the canonical .NET framework installation directory for a specific version of the .NET framework. Does not verify the directory actually exists!
+        /// Returns the .NET Framework root directory for a specific version of the .NET framework. Does not verify the directory actually exists!
         /// </summary>
         /// <param name="version">The full .NET version number including the leading "v". Use predefined constants when possible.</param>
-        /// <returns>The path to the .NET framework installation directory.</returns>
+        /// <returns>The path to the .NET Framework root directory.</returns>
         /// <remarks>Automatically uses 64-bit directories if <see cref="Is64BitProcess"/> is <see langword="true"/>.</remarks>
         public static string GetNetFxDirectory(string version)
         {
