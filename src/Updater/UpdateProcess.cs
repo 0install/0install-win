@@ -192,15 +192,15 @@ namespace ZeroInstall.Updater
         /// </summary>
         public void RunNgen()
         {
-            string fileName = FileUtils.PathCombine(
-                (Environment.GetEnvironmentVariable("windir") ?? @"C:\Windows"),
-                "Microsoft.NET", (WindowsUtils.Is64BitOperatingSystem ? "Framework64" : "Framework"),
-                "v2.0.50727", "ngen.exe");
+            // Use .NET 4.0 if possible, otherwise 2.0
+            string netFxDir = WindowsUtils.GetNetFxDirectory(WindowsUtils.NetFx40);
+            if (!Directory.Exists(netFxDir)) netFxDir = WindowsUtils.GetNetFxDirectory(WindowsUtils.NetFx20);
 
+            string ngenPath = Path.Combine(netFxDir, "ngen.exe");
             foreach (string assembly in _ngenAssemblies)
             {
                 string arguments = StringUtils.JoinEscapeArguments(new[] {"install", Path.Combine(Target, assembly), "/queue"});
-                var startInfo = new ProcessStartInfo(fileName, arguments) {WindowStyle = ProcessWindowStyle.Hidden};
+                var startInfo = new ProcessStartInfo(ngenPath, arguments) {WindowStyle = ProcessWindowStyle.Hidden};
                 Process.Start(startInfo).WaitForExit();
             }
         }

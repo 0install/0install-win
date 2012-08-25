@@ -35,6 +35,28 @@ namespace Common.Utils
     /// </summary>
     public static partial class WindowsUtils
     {
+        #region .NET Framework
+        /// <summary>The full version number of the .NET Framework 2.0.</summary>
+        public const string NetFx20 = "v2.0.50727";
+
+        /// <summary>The full version number of the .NET Framework 3.5.</summary>
+        public const string NetFx35 = "v3.5";
+
+        /// <summary>The full version number of the .NET Framework 4.0.</summary>
+        public const string NetFx40 = "v4.0.30319";
+
+        /// <summary>
+        /// Returns the canonical .NET framework installation directory for a specific version of the .NET framework. Does not verify the directory actually exists!
+        /// </summary>
+        /// <param name="version">The full .NET version number including the leading "v". Use predefined constants when possible.</param>
+        /// <returns>The path to the .NET framework installation directory.</returns>
+        /// <remarks>Automatically uses 64-bit directories if <see cref="Is64BitProcess"/> is <see langword="true"/>.</remarks>
+        public static string GetNetFxDirectory(string version)
+        {
+            return FileUtils.PathCombine(Environment.GetEnvironmentVariable("windir"), "Microsoft.NET", (Is64BitProcess ? "Framework64" : "Framework"), version);
+        }
+        #endregion
+
         #region Command-line arguments
         // ReSharper disable ReturnTypeCanBeEnumerable.Global
         /// <summary>

@@ -94,16 +94,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             using (var manifestFile = new TemporaryFile("0install"))
             {
-                // Use C# v3 compiler if available to add Win32 manifest
-                string cSharp30CompilerPath = FileUtils.PathCombine(
-                    (Environment.GetEnvironmentVariable("windir") ?? @"C:\Windows"),
-                    "Microsoft.NET", (WindowsUtils.Is64BitProcess ? "Framework64" : "Framework"),
-                    "v3.5", "csc.exe");
-                var compiler = File.Exists(cSharp30CompilerPath)
-                    ? GetCSharp30Compiler(compilerParameters, manifestFile)
-                    : new CSharpCodeProvider();
+                File.WriteAllText(manifestFile.Path, GetEmbeddedResource("Stub.manifest"));
 
                 // Run the compilation process and check for errors
+                var compiler = GetCSharpCompiler(compilerParameters, manifestFile.Path);
                 var compilerResults = compiler.CompileAssemblyFromSource(compilerParameters, code);
                 if (compilerResults.Errors.HasErrors)
                 {
@@ -114,14 +108,36 @@ namespace ZeroInstall.DesktopIntegration.Windows
         }
 
         /// <summary>
-        /// Instantiates a C# 3.0 compiler from within a C# 2.0 process.
+        /// Detects the best possible C# compiler version and instantiates it.
         /// </summary>
-        /// <remarks>Extracted to a separate method in case this is not C# 2.0 SP2 and the corresponding constructor method is therefore missing.</remarks>
-        private static CodeDomProvider GetCSharp30Compiler(CompilerParameters compilerParameters, TemporaryFile manifestFile)
+        /// <param name="compilerParameters">The compiler parameters to be used. Version-specific options may be set.</param>
+        /// <param name="manifestFilePath">The path of an assembly file to be added to compiled binaries if possible.</param>
+        private static CodeDomProvider GetCSharpCompiler(CompilerParameters compilerParameters, string manifestFilePath)
         {
-            File.WriteAllText(manifestFile.Path, GetEmbeddedResource("Stub.manifest"));
-            compilerParameters.CompilerOptions += " /win32manifest:" + StringUtils.EscapeArgument(manifestFile.Path);
-            return new CSharpCodeProvider(new Dictionary<string, string> {{"CompilerVersion", "v3.5"}});
+            if (Environment.Version.Major == 4)
+            { // C# 4.0 (.NET 4.0/4.5)
+                compilerParameters.CompilerOptions += " /win32manifest:" + StringUtils.EscapeArgument(manifestFilePath);
+                return new CSharpCodeProvider();
+            }
+            else if (Directory.Exists(WindowsUtils.GetNetFxDirectory(WindowsUtils.NetFx35)))
+            { // C# 3.0 (.NET 3.5)
+                compilerParameters.CompilerOptions += " /win32manifest:" + StringUtils.EscapeArgument(manifestFilePath);
+                return NewCSharpCodeProviderEx(WindowsUtils.NetFx35);
+            }
+            else
+            { // C# 2.0 (.NET 2.0/3.0)
+                return new CSharpCodeProvider();
+            }
+        }
+
+        /// <summary>
+        /// Instantiates a post-v2.0 C# compiler in a 2.0 runtime environment.
+        /// </summary>
+        /// <param name="version">The full .NET version number including the leading "v". Use predefined constants when possible.</param>
+        /// <remarks>Extracted to a separate method in case this is older than C# 2.0 SP2 and the required constructor is therefore missing.</remarks>
+        private static CodeDomProvider NewCSharpCodeProviderEx(string version)
+        {
+            return new CSharpCodeProvider(new Dictionary<string, string> {{"CompilerVersion", version}});
         }
 
         /// <summary>
