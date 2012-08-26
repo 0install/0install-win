@@ -187,13 +187,13 @@ namespace ZeroInstall.Commands
                 new AppList
                 {
                     Entries =
+                    {
+                        new AppEntry
                         {
-                            new AppEntry
-                            {
-                                InterfaceID = "http://0install.de/feeds/test/test1.xml",
-                                AccessPoints = new AccessPointList {Entries = {new AppAlias {Name = "test"}}}
-                            }
+                            InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                            AccessPoints = new AccessPointList {Entries = {new AppAlias {Name = "test"}}}
                         }
+                    }
                 }.Save(AppList.GetDefaultPath(false));
 
                 Assert.AreEqual("http://0install.de/feeds/test/test1.xml", FrontendCommand.GetCanonicalID("alias:test"));

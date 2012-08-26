@@ -181,9 +181,9 @@ namespace ZeroInstall.Model
             return
                 PartialEqualsHelper(ref matchCounter, Sha1, other.Sha1) &&
                     PartialEqualsHelper(ref matchCounter, Sha1New, other.Sha1New) &&
-                        PartialEqualsHelper(ref matchCounter, Sha256, other.Sha256) &&
-                            PartialEqualsHelper(ref matchCounter, Sha256New, other.Sha256New) &&
-                                (matchCounter > 0);
+                    PartialEqualsHelper(ref matchCounter, Sha256, other.Sha256) &&
+                    PartialEqualsHelper(ref matchCounter, Sha256New, other.Sha256New) &&
+                    (matchCounter > 0);
         }
 
         /// <summary>

@@ -138,7 +138,7 @@ namespace ZeroInstall.Store.Management.Cli
             if (args.Count == 1) return AuditStore(_store, handler);
             else
             {
-                ErrorLevel result = ErrorLevel.OK;
+                var result = ErrorLevel.OK;
                 for (int i = 1; i < args.Count; i++)
                 {
                     ErrorLevel tempResult = AuditStore(new DirectoryStore(args[i]), handler);

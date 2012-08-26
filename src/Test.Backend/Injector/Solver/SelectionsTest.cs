@@ -39,10 +39,10 @@ namespace ZeroInstall.Injector.Solver
             {
                 InterfaceID = "http://0install.de/feeds/test/test1.xml", CommandName = Command.NameRun,
                 Implementations =
-                    {
-                        ImplementationSelectionTest.CreateTestImplementation1(),
-                        ImplementationSelectionTest.CreateTestImplementation2()
-                    }
+                {
+                    ImplementationSelectionTest.CreateTestImplementation1(),
+                    ImplementationSelectionTest.CreateTestImplementation2()
+                }
             };
         }
         #endregion

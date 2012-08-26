@@ -43,14 +43,14 @@ namespace ZeroInstall.Store.Implementation
                 var recipe = new Recipe
                 {
                     Steps =
-                        {
-                            new Model.Archive(),
-                            new AddToplevelStep {Directory = "toplevel"},
-                            new AddDirectoryStep {Path = "toplevel/subdir3"},
-                            new Model.Archive(),
-                            new RemoveStep {Path = "toplevel/subdir2"},
-                            new RenameStep {Source = "subdir2/executable", Destination = "subdir2/executable2"}
-                        }
+                    {
+                        new Model.Archive(),
+                        new AddToplevelStep {Directory = "toplevel"},
+                        new AddDirectoryStep {Path = "toplevel/subdir3"},
+                        new Model.Archive(),
+                        new RemoveStep {Path = "toplevel/subdir2"},
+                        new RenameStep {Source = "subdir2/executable", Destination = "subdir2/executable2"}
+                    }
                 };
                 var archives = new[]
                 {

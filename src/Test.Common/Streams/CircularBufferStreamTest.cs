@@ -129,7 +129,7 @@ namespace Common.Streams
             var producerData = new byte[64];
             for (byte i = 0; i < producerData.Length; i++)
                 producerData[i] = i;
-            var producerThread = new Thread(delegate()
+            var producerThread = new Thread(() =>
             {
                 _stream.Write(producerData, 0, producerData.Length);
                 _stream.DoneWriting();
@@ -158,7 +158,7 @@ namespace Common.Streams
         public void TestErrorRelay()
         {
             // Throw exception on producer thread after a short delay
-            new Thread(delegate()
+            new Thread(() =>
             {
                 Thread.Sleep(50);
                 _stream.RelayErrorToReader(new InvalidDataException("Test exception"));

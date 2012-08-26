@@ -38,14 +38,14 @@ namespace ZeroInstall.DesktopIntegration
             return new AppList
             {
                 Entries =
+                {
+                    new AppEntry
                     {
-                        new AppEntry
-                        {
-                            InterfaceID = "http://0install.de/feeds/test/test1.xml",
-                            AutoUpdate = true,
-                            CapabilityLists = {Capabilities.CapabilityListTest.CreateTestCapabilityList()}
-                        }
+                        InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                        AutoUpdate = true,
+                        CapabilityLists = {Capabilities.CapabilityListTest.CreateTestCapabilityList()}
                     }
+                }
             };
         }
 
@@ -57,15 +57,15 @@ namespace ZeroInstall.DesktopIntegration
             return new AppList
             {
                 Entries =
+                {
+                    new AppEntry
                     {
-                        new AppEntry
-                        {
-                            InterfaceID = "http://0install.de/feeds/test/test1.xml",
-                            AutoUpdate = true,
-                            CapabilityLists = {Capabilities.CapabilityListTest.CreateTestCapabilityList()},
-                            AccessPoints = CreateTestAccessPointList()
-                        }
+                        InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                        AutoUpdate = true,
+                        CapabilityLists = {Capabilities.CapabilityListTest.CreateTestCapabilityList()},
+                        AccessPoints = CreateTestAccessPointList()
                     }
+                }
             };
         }
 
@@ -77,19 +77,19 @@ namespace ZeroInstall.DesktopIntegration
             return new AccessPointList
             {
                 Entries =
-                    {
-                        new AppAlias {Command = "main", Name = "myapp"},
-                        new AutoPlay {Capability = "autoplay"},
-                        new CapabilityRegistration(),
-                        new ContextMenu {Capability = "context"},
-                        new DefaultProgram {Capability = "default"},
-                        new DesktopIcon {Command = "main", Name = "Desktop icon"},
-                        new FileType {Capability = "file_type"},
-                        new MenuEntry {Command = "main", Name = "Menu entry", Category = "Developer tools"},
-                        new SendTo {Command = "main", Name = "Send to"},
-                        new UrlProtocol {Capability = "protocol"},
-                        new QuickLaunch {Command = "main", Name = "Quick Launch"}
-                    }
+                {
+                    new AppAlias {Command = "main", Name = "myapp"},
+                    new AutoPlay {Capability = "autoplay"},
+                    new CapabilityRegistration(),
+                    new ContextMenu {Capability = "context"},
+                    new DefaultProgram {Capability = "default"},
+                    new DesktopIcon {Command = "main", Name = "Desktop icon"},
+                    new FileType {Capability = "file_type"},
+                    new MenuEntry {Command = "main", Name = "Menu entry", Category = "Developer tools"},
+                    new SendTo {Command = "main", Name = "Send to"},
+                    new UrlProtocol {Capability = "protocol"},
+                    new QuickLaunch {Command = "main", Name = "Quick Launch"}
+                }
             };
         }
         #endregion

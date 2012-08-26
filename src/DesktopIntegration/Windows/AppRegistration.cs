@@ -85,7 +85,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(appRegistration.CapabilityRegPath)) throw new InvalidDataException("Invalid CapabilityRegPath");
 
             // ToDo: Handle appRegistration.X64
-            using (var capabilitiesKey = Registry.LocalMachine.CreateSubKey(/*CapabilityPrefix +*/ appRegistration.CapabilityRegPath))
+            using (var capabilitiesKey = Registry.LocalMachine.CreateSubKey( /*CapabilityPrefix +*/ appRegistration.CapabilityRegPath))
             {
                 capabilitiesKey.SetValue(RegValueAppName, target.Feed.Name ?? "");
                 capabilitiesKey.SetValue(RegValueAppDescription, target.Feed.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture) ?? "");
@@ -158,7 +158,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             // ToDo: Handle appRegistration.X64
             try
             {
-                Registry.LocalMachine.DeleteSubKeyTree(/*CapabilityPrefix +*/ appRegistration.CapabilityRegPath);
+                Registry.LocalMachine.DeleteSubKeyTree( /*CapabilityPrefix +*/ appRegistration.CapabilityRegPath);
             }
             catch (ArgumentException)
             {} // Ignore missing registry keys

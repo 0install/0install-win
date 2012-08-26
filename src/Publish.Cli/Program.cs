@@ -177,7 +177,7 @@ namespace ZeroInstall.Publish.Cli
                         Console.WriteLine(AppInfo.Name + ' ' + AppInfo.Version + Environment.NewLine + AppInfo.Copyright + Environment.NewLine + Resources.LicenseInfo);
                         throw new OperationCanceledException(); // Don't handle any of the other arguments
                     }
-                    },
+                },
                 // Mode selection
                 {
                     "catalog=", Resources.OptionCatalog, delegate(string catalogFile)
@@ -186,7 +186,7 @@ namespace ZeroInstall.Publish.Cli
                         parseResults.Mode = OperationMode.Catalog;
                         parseResults.CatalogFile = catalogFile;
                     }
-                    },
+                },
                 // Modiciations
                 {"add-missing", Resources.OptionAddMissing, unused => parseResults.AddMissing = true},
                 {"store-downloads", Resources.OptionsStoreDownloads, unused => parseResults.StoreDownloads = true},

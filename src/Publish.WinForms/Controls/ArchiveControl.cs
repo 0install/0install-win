@@ -321,9 +321,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 {
                     errorMessage = string.Format("The extraction of the {0} format is not" +
                         " yet supported. Please extract the file yourself (e.g with 7zip) and" +
-                            " set the path to the extracted archive in the \"Locale archive\"" +
-                                " text box.\nATTENTION: DO THIS ONLY AND REALLY ONLY, IF THE FILES" +
-                                    " IN YOUR ARCHIVE DOESN'T USE UNIX X-BIT!", archiveMimeType);
+                        " set the path to the extracted archive in the \"Locale archive\"" +
+                        " text box.\nATTENTION: DO THIS ONLY AND REALLY ONLY, IF THE FILES" +
+                        " IN YOUR ARCHIVE DOESN'T USE UNIX X-BIT!", archiveMimeType);
                 }
                 if (errorMessage == null)
                 {

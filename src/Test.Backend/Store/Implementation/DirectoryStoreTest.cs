@@ -207,7 +207,7 @@ namespace ZeroInstall.Store.Implementation
             var threads = new Thread[100];
             for (int i = 0; i < threads.Length; i++)
             {
-                threads[i] = new Thread(delegate()
+                threads[i] = new Thread(delegate
                 {
                     try
                     {

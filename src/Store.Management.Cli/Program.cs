@@ -179,7 +179,7 @@ namespace ZeroInstall.Store.Management.Cli
                         Console.WriteLine(AppInfo.Name + ' ' + AppInfo.Version + (Locations.IsPortable ? " - " + Resources.PortableMode : "") + Environment.NewLine + AppInfo.Copyright + Environment.NewLine + Resources.LicenseInfo);
                         throw new OperationCanceledException(); // Don't handle any of the other arguments
                     }
-                    },
+                },
                 // Documentation
                 {
                     "man", Resources.OptionMan, unused =>
@@ -187,7 +187,7 @@ namespace ZeroInstall.Store.Management.Cli
                         PrintManual();
                         throw new OperationCanceledException(); // Don't handle any of the other arguments
                     }
-                    },
+                },
             };
             #endregion
 

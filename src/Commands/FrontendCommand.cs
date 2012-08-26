@@ -93,7 +93,7 @@ namespace ZeroInstall.Commands
                     // ToDo: Add flow formatting for better readability on console
                     return Resources.Usage + " 0install " + GetName() + " " + Usage + Environment.NewLine + Environment.NewLine +
                         Description + Environment.NewLine + Environment.NewLine +
-                            Resources.Options + Environment.NewLine + StreamUtils.ReadToString(buffer);
+                        Resources.Options + Environment.NewLine + StreamUtils.ReadToString(buffer);
                 }
             }
         }
@@ -204,10 +204,10 @@ namespace ZeroInstall.Commands
                 else if (id.StartsWith("file:///")) return FileUtils.UnifySlashes(id.Substring(WindowsUtils.IsWindows ? 8 : 7));
                 else if (id.StartsWith("file:/")) throw new ArgumentException(Resources.FilePrefixAbsoluteUsage);
                 else if (id.StartsWith("file:")) return Path.GetFullPath(FileUtils.UnifySlashes(id.Substring(5)));
-                //else if (IsApp(id))
-                //{}
-                //else if (IsShortName(id))
-                //{}
+                    //else if (IsApp(id))
+                    //{}
+                    //else if (IsShortName(id))
+                    //{}
                 else if (ModelUtils.IsValidUri(id)) return id;
                 else return Path.GetFullPath(id); // Assume invalid URIs are local paths
             }

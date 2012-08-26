@@ -41,7 +41,7 @@ namespace Common
         public Future(SimpleResult<T> operation)
         {
             _operation = operation;
-            _thread = new Thread(delegate()
+            _thread = new Thread(() =>
             {
                 _result = _operation();
                 _operation = null; // Release input data memory as soon as calculation is complete

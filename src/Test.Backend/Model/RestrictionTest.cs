@@ -68,10 +68,10 @@ namespace ZeroInstall.Model
             var restriction = new Restriction
             {
                 Constraints =
-                    {
-                        new Constraint {NotBeforeVersion = new ImplementationVersion("1.0"), BeforeVersion = new ImplementationVersion("2.0")},
-                        new Constraint {NotBeforeVersion = new ImplementationVersion("0.9"), BeforeVersion = new ImplementationVersion("1.9")},
-                    }
+                {
+                    new Constraint {NotBeforeVersion = new ImplementationVersion("1.0"), BeforeVersion = new ImplementationVersion("2.0")},
+                    new Constraint {NotBeforeVersion = new ImplementationVersion("0.9"), BeforeVersion = new ImplementationVersion("1.9")},
+                }
             };
             Assert.AreEqual(new ImplementationVersion("1.0"), restriction.NotBeforeVersion);
             Assert.AreEqual(new ImplementationVersion("1.9"), restriction.BeforeVersion);

@@ -426,10 +426,10 @@ namespace ZeroInstall.Fetchers
             var implementation = new Implementation
             {
                 RetrievalMethods =
-                    {
-                        new Archive {MimeType = "application/zip"},
-                        new Archive {MimeType = "application/x-compressed"}
-                    }
+                {
+                    new Archive {MimeType = "application/zip"},
+                    new Archive {MimeType = "application/x-compressed"}
+                }
             };
 
             string selectedType = null;

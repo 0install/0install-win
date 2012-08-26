@@ -77,7 +77,7 @@ namespace Common.Collections
             #region Sanity checks
             if (element == null) throw new ArgumentNullException("element");
             #endregion
-            
+
             Action<object> action;
             if (_map.TryGetValue(element.GetType(), out action)) action(element);
             else if (!_ignoreMissing) throw new KeyNotFoundException("bla");

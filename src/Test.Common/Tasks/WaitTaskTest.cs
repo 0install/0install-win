@@ -68,7 +68,7 @@ namespace Common.Tasks
                 // Monitor for a cancellation exception
                 var task = new WaitTask("Test task", waitHandle);
                 bool exceptionThrown = false;
-                var waitThread = new Thread(delegate()
+                var waitThread = new Thread(delegate
                 {
                     try
                     {

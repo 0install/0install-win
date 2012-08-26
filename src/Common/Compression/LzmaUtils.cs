@@ -94,7 +94,7 @@ namespace Common.Compression
             }
 
             // Initialize the producer thread that will deliver uncompressed data
-            var thread = new Thread(delegate()
+            var thread = new Thread(() =>
             {
                 try
                 {

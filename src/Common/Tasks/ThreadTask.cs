@@ -121,7 +121,7 @@ namespace Common.Tasks
         /// </summary>
         private void PrepareThread()
         {
-            Thread = new Thread(delegate()
+            Thread = new Thread(() =>
             {
                 try
                 {

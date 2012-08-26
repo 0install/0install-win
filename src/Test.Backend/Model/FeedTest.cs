@@ -49,16 +49,16 @@ namespace ZeroInstall.Model
                 Elements = {CreateTestImplementation(), CreateTestPackageImplementation(), CreateTestGroup()},
                 CapabilityLists = {CapabilityListTest.CreateTestCapabilityList()},
                 EntryPoints =
+                {
+                    new EntryPoint
                     {
-                        new EntryPoint
-                        {
-                            Command = Command.NameRun,
-                            BinaryName = "myapp",
-                            Names = {"Entry name", {"German entry name", new CultureInfo("de-DE")}},
-                            Summaries = {"Entry summary", {"German entry summary", new CultureInfo("de-DE")}},
-                            Icons = {new Icon(new Uri("http://0install.de/feeds/images/test_command.png"), Icon.MimeTypePng), new Icon(new Uri("http://0install.de/feeds/images/test_command.ico"), Icon.MimeTypeIco)}
-                        }
+                        Command = Command.NameRun,
+                        BinaryName = "myapp",
+                        Names = {"Entry name", {"German entry name", new CultureInfo("de-DE")}},
+                        Summaries = {"Entry summary", {"German entry summary", new CultureInfo("de-DE")}},
+                        Icons = {new Icon(new Uri("http://0install.de/feeds/images/test_command.png"), Icon.MimeTypePng), new Icon(new Uri("http://0install.de/feeds/images/test_command.ico"), Icon.MimeTypeIco)}
                     }
+                }
             };
         }
 
@@ -78,36 +78,36 @@ namespace ZeroInstall.Model
                 DocDir = "doc",
                 Stability = Stability.Developer,
                 Dependencies =
+                {
+                    new Dependency
                     {
-                        new Dependency
-                        {
-                            Interface = "http://0install.de/feeds/test/test1.xml",
-                            Constraints = {new Constraint(new ImplementationVersion("1.0"), null), new Constraint(null, new ImplementationVersion("2.0"))},
-                            Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding(), ExecutableInVarTest.CreateTestBinding(), ExecutableInPathTest.CreateTestBinding()}
-                        }
-                    },
+                        Interface = "http://0install.de/feeds/test/test1.xml",
+                        Constraints = {new Constraint(new ImplementationVersion("1.0"), null), new Constraint(null, new ImplementationVersion("2.0"))},
+                        Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding(), ExecutableInVarTest.CreateTestBinding(), ExecutableInPathTest.CreateTestBinding()}
+                    }
+                },
                 Restrictions =
+                {
+                    new Restriction
                     {
-                        new Restriction
-                        {
-                            Interface = "http://0install.de/feeds/test/test2.xml",
-                            Constraints = {new Constraint {BeforeVersion = new ImplementationVersion("2.0")}}
-                        }
-                    },
+                        Interface = "http://0install.de/feeds/test/test2.xml",
+                        Constraints = {new Constraint {BeforeVersion = new ImplementationVersion("2.0")}}
+                    }
+                },
                 RetrievalMethods =
+                {
+                    new Recipe
                     {
-                        new Recipe
+                        Steps =
                         {
-                            Steps =
-                                {
-                                    new Archive {Location = new Uri("http://0install.de/files/test/test.zip"), Size = 1024},
-                                    new RenameStep {Source = "a", Destination = "b"},
-                                    new RemoveStep {Path = "c"},
-                                    new AddDirectoryStep {Path = "x/y"},
-                                    new AddToplevelStep {Directory = "z"}
-                                }
+                            new Archive {Location = new Uri("http://0install.de/files/test/test.zip"), Size = 1024},
+                            new RenameStep {Source = "a", Destination = "b"},
+                            new RemoveStep {Path = "c"},
+                            new AddDirectoryStep {Path = "x/y"},
+                            new AddToplevelStep {Directory = "z"}
                         }
                     }
+                }
             };
         }
 
@@ -127,13 +127,13 @@ namespace ZeroInstall.Model
                 DocDir = "doc",
                 Stability = Stability.Developer,
                 Dependencies =
+                {
+                    new Dependency
                     {
-                        new Dependency
-                        {
-                            Interface = "http://0install.de/feeds/test/test2.xml", Importance = Importance.Recommended,
-                            Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding(), ExecutableInVarTest.CreateTestBinding(), ExecutableInPathTest.CreateTestBinding()}
-                        }
+                        Interface = "http://0install.de/feeds/test/test2.xml", Importance = Importance.Recommended,
+                        Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding(), ExecutableInVarTest.CreateTestBinding(), ExecutableInPathTest.CreateTestBinding()}
                     }
+                }
             };
         }
 
@@ -149,10 +149,10 @@ namespace ZeroInstall.Model
                 License = "GPL",
                 Stability = Stability.Developer,
                 Elements =
-                    {
-                        new Implementation {Commands = {new Command {Name = "run", Path = "main1"}}},
-                        new Group {Elements = {new Implementation {Commands = {new Command {Name = "run", Path = "main2"}}}}},
-                    }
+                {
+                    new Implementation {Commands = {new Command {Name = "run", Path = "main1"}}},
+                    new Group {Elements = {new Implementation {Commands = {new Command {Name = "run", Path = "main2"}}}}},
+                }
             };
         }
         #endregion

@@ -152,7 +152,7 @@ namespace ZeroInstall.Capture.Cli
                         Console.WriteLine(@"Zero Install Capture CLI v{0}", assembly.Version);
                         throw new OperationCanceledException();
                     }
-                    },
+                },
                 {"f|force", Resources.OptionForce, unused => parseResults.Force = true},
                 {
                     "installation-dir=", Resources.OptionInstallationDir, value =>
@@ -174,7 +174,7 @@ namespace ZeroInstall.Capture.Cli
                         }
                         #endregion
                     }
-                    },
+                },
                 {"main-exe=", Resources.OptionMainExe, value => parseResults.MainExe = value},
                 {"files", Resources.OptionFiles, unused => parseResults.GetFiles = true}
             };

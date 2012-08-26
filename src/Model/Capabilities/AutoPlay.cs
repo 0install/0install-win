@@ -104,7 +104,7 @@ namespace ZeroInstall.Model.Capabilities
 
             return base.Equals(other) &&
                 other.Provider == Provider && other.ProgID == ProgID && Equals(other.Verb, Verb) &&
-                    Events.SequencedEquals(other.Events);
+                Events.SequencedEquals(other.Events);
         }
 
         /// <inheritdoc/>

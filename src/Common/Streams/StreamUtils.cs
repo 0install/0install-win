@@ -73,7 +73,7 @@ namespace Common.Streams
             if (stream1.CanSeek) stream1.Position = 0;
             if (stream2.CanSeek) stream2.Position = 0;
 
-            while(true)
+            while (true)
             {
                 int byte1 = stream1.ReadByte();
                 int byte2 = stream2.ReadByte();
