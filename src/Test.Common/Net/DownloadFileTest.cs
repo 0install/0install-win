@@ -107,7 +107,7 @@ namespace Common.Net
             _server.Slow = true;
             var download = new DownloadFile(_server.FileUri, _tempFile.Path);
             bool exceptionThrown = false;
-            var downloadThread = new Thread(delegate
+            var downloadThread = new Thread(() =>
             {
                 try
                 {
