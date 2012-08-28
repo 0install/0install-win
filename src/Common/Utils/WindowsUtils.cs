@@ -46,6 +46,17 @@ namespace Common.Utils
         public const string NetFx40 = "v4.0.30319";
 
         /// <summary>
+        /// Determines whether a specific version of the .NET framework is available.
+        /// </summary>
+        /// <param name="version">The full .NET version number including the leading "v". Use predefined constants when possible.</param>
+        /// <returns><see langword="true"/> if the specified version is available, <see langword="false"/> otherwise.</returns>
+        /// <remarks>Automatically uses 64-bit directories if <see cref="Is64BitProcess"/> is <see langword="true"/>.</remarks>
+        public static bool HasNetFxVersion(string version)
+        {
+            return Directory.Exists(GetNetFxDirectory(version));
+        }
+
+        /// <summary>
         /// Returns the .NET Framework root directory for a specific version of the .NET framework. Does not verify the directory actually exists!
         /// </summary>
         /// <param name="version">The full .NET version number including the leading "v". Use predefined constants when possible.</param>

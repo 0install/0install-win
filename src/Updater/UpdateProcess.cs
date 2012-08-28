@@ -193,8 +193,8 @@ namespace ZeroInstall.Updater
         public void RunNgen()
         {
             // Use .NET 4.0 if possible, otherwise 2.0
-            string netFxDir = WindowsUtils.GetNetFxDirectory(WindowsUtils.NetFx40);
-            if (!Directory.Exists(netFxDir)) netFxDir = WindowsUtils.GetNetFxDirectory(WindowsUtils.NetFx20);
+            string netFxDir = WindowsUtils.GetNetFxDirectory(
+                WindowsUtils.HasNetFxVersion(WindowsUtils.NetFx40) ? WindowsUtils.NetFx40 : WindowsUtils.NetFx20);
 
             string ngenPath = Path.Combine(netFxDir, "ngen.exe");
             foreach (string assembly in _ngenAssemblies)

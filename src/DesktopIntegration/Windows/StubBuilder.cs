@@ -119,7 +119,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 compilerParameters.CompilerOptions += " /win32manifest:" + StringUtils.EscapeArgument(manifestFilePath);
                 return new CSharpCodeProvider();
             }
-            else if (Directory.Exists(WindowsUtils.GetNetFxDirectory(WindowsUtils.NetFx35)))
+            else if (WindowsUtils.HasNetFxVersion(WindowsUtils.NetFx35))
             { // C# 3.0 (.NET 3.5)
                 compilerParameters.CompilerOptions += " /win32manifest:" + StringUtils.EscapeArgument(manifestFilePath);
                 return NewCSharpCodeProviderEx(WindowsUtils.NetFx35);
