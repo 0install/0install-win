@@ -89,7 +89,7 @@ public class RunEnv
     /// <summary>
     /// Combines multiple strings into one for use as a Windows command-line argument using <see cref="EscapeArgument"/>.
     /// </summary>
-    /// <param name="parts">The strings to be combines.</param>
+    /// <param name="parts">The strings to be combined.</param>
     /// <remarks>
     /// This coressponds to Windows' handling of command-line arguments as specified in:
     /// http://msdn.microsoft.com/library/17w5ykft

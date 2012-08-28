@@ -81,7 +81,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="runenv.cli.cs" />
+    <None Include="runenv.cs" />
     <Compile Include="SilentHandler.cs" />
     <Compile Include="Solver\FallbackSolver.cs" />
     <Compile Include="Solver\Requirements.cs" />
@@ -140,7 +140,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="runenv.cli.template" />
+    <EmbeddedResource Include="runenv.netfx20.template" />
+	<EmbeddedResource Include="runenv.netfx40.template" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">

@@ -265,11 +265,44 @@ namespace ZeroInstall.Injector
             if (Array.Exists(Path.GetInvalidFileNameChars(), invalidChar => name.Contains(invalidChar.ToString(CultureInfo.InvariantCulture))))
                 throw new CommandException(Resources.IllegalCharInExecutableBinding);
 
-            // ToDo: Add different binaries for Windows GUI apps and for Linux
-            string templatePath = Path.Combine(Locations.GetCacheDirPath("0install.net", "injector", "executables"), "runenv.cli.template");
+            string templatePath = GetRunEnvTemplate();
+            string deployedPath = FileUtils.PathCombine(Locations.GetCacheDirPath("0install.net", "injector", "executables", name), name);
+            if (WindowsUtils.IsWindows) deployedPath += ".exe";
+
+            if (!File.Exists(deployedPath))
+            {
+                if (WindowsUtils.IsWindowsNT) WindowsUtils.CreateHardLink(deployedPath, templatePath);
+                else if (MonoUtils.IsUnix)
+                {
+                    FileUtils.CreateSymlink(deployedPath, templatePath);
+                    FileUtils.SetExecutable(deployedPath, true);
+                }
+                else File.Copy(templatePath, deployedPath);
+            }
+
+            return deployedPath;
+        }
+
+        /// <summary>
+        /// Deploys an appropriate runenv binary template for the current operating system.
+        /// </summary>
+        /// <returns>The path to the deployed executable file.</returns>
+        private static string GetRunEnvTemplate()
+        {
+            string templateName;
+            if (WindowsUtils.IsWindows)
+            {
+                templateName = (Directory.Exists(WindowsUtils.GetNetFxDirectory(WindowsUtils.NetFx40)))
+                    ? "runenv.netfx40.template"
+                    : "runenv.netfx20.template";
+            }
+                //else if (MonoUtils.IsUnix) templateName = "runenv.sh.template";
+            else throw new NotSupportedException("No template binary for current OS");
+
+            string path = Path.Combine(Locations.GetCacheDirPath("0install.net", "injector", "executables"), templateName);
             try
             {
-                WriteOutEmbeddedResource("runenv.cli.template", templatePath);
+                WriteOutEmbeddedResource(templateName, path);
             }
                 #region Error handling
             catch (IOException)
@@ -282,21 +315,8 @@ namespace ZeroInstall.Injector
             }
             #endregion
 
-            string deployedPath = FileUtils.PathCombine(Locations.GetCacheDirPath("0install.net", "injector", "executables", name), name);
-            if (WindowsUtils.IsWindows) deployedPath += ".exe";
-
-            if (!File.Exists(deployedPath))
-            {
-                if (WindowsUtils.IsWindowsNT) WindowsUtils.CreateHardLink(deployedPath, templatePath);
-                else if (MonoUtils.IsUnix)
-                {
-                    MonoUtils.CreateSymlink(deployedPath, templatePath);
-                    MonoUtils.SetExecutable(deployedPath, true);
-                }
-                else File.Copy(templatePath, deployedPath);
-            }
-
-            return deployedPath;
+            if (MonoUtils.IsUnix) FileUtils.SetExecutable(path, true);
+            return path;
         }
 
         /// <summary>
