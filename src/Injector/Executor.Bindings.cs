@@ -315,7 +315,6 @@ namespace ZeroInstall.Injector
             }
             #endregion
 
-            if (MonoUtils.IsUnix) FileUtils.SetExecutable(path, true);
             return path;
         }
 
