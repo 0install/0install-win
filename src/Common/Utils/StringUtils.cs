@@ -181,7 +181,7 @@ namespace Common.Utils
         /// Combines multiple strings into one, placing a <paramref name="separator"/> between the <paramref name="parts"/>.
         /// </summary>
         /// <param name="separator">The separator characters to place between the <paramref name="parts"/>.</param>
-        /// <param name="parts">The strings to be combines.</param>
+        /// <param name="parts">The strings to be combined.</param>
         /// <remarks>Works like <see cref="string.Join(string,string[])"/> but for <see cref="IEnumerable{T}"/>s.</remarks>
         public static string Join(string separator, IEnumerable<string> parts)
         {
@@ -355,7 +355,7 @@ namespace Common.Utils
         /// <summary>
         /// Combines multiple strings into one for use as a Windows command-line argument using <see cref="EscapeArgument"/>.
         /// </summary>
-        /// <param name="parts">The strings to be combines.</param>
+        /// <param name="parts">The strings to be combined.</param>
         /// <remarks>
         /// This coressponds to Windows' handling of command-line arguments as specified in:
         /// http://msdn.microsoft.com/library/17w5ykft
