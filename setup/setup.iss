@@ -1,5 +1,7 @@
-;Version numbers
-#define Version "1.8.1"
+;Set version number via command-line argument "/dVersion=X.Y"
+#ifndef Version
+  #define Version "0.1"
+#endif
 
 ;Automatic dependency download and installation
 #include "scripts\fileversion.iss"
@@ -80,7 +82,7 @@ Name: {app}\ZeroInstall.MyApps.dll; Type: files
 Name: {app}\de\ZeroInstall.MyApps.resources.dll; Type: files
 
 [Files]
-Source: ..\lgpl.txt; DestDir: {app}; Flags: ignoreversion
+Source: ..\license.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\3rd party code.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Test.*,nunit.*,*.xml; DestDir: {app}; Flags: ignoreversion recursesubdirs
 Source: ..\bundled\*; DestDir: {app}; Flags: ignoreversion recursesubdirs
