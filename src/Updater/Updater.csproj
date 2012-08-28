@@ -31,7 +31,7 @@
     <BaseAddress>3506438144</BaseAddress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\build\Updater\Release\</OutputPath>
     <DocumentationFile>..\..\build\Updater\Release\ZeroInstall.Updater.xml</DocumentationFile>
