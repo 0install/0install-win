@@ -15,12 +15,15 @@ To add a portable GnuPG distribution:
 - Copy iconv.dll (e.g. from a GTK+ installation) into bundled/GnuPG.
 
 To add the external solver:
-- Install Python 2.6.x for Windows.
+- Install Python 2.7.x for Windows.
 - Install compatible versions of pygobject, pywin32 and py2exe.
 - Perform a Git clone of git://repo.or.cz/zeroinstall/solver.git.
 - Open a console and change the current directory to the GIT checkout.
 - Call "python setup.py py2exe".
-- Copy the content of the "dist" directory as well as the "0solve" file bundled/Solver.
+- Copy the content of the "dist" directory as well as the "0solve" file to bundled/Solver.
+or
+- Download http://0install.de/files/zero-install-solver.zip.
+- Extract the archive to bundled.
 
 
 
