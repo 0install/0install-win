@@ -54,6 +54,12 @@ namespace Common.Utils
         { get { return IsWindowsNT && Environment.OSVersion.Version >= new Version(6, 1); } }
 
         /// <summary>
+        /// <see langword="true"/> if the current operating system is Windows 8 or newer; <see langword="false"/> otherwise.
+        /// </summary>
+        public static bool IsWindows8
+        { get { return IsWindowsNT && Environment.OSVersion.Version >= new Version(6, 2); } }
+
+        /// <summary>
         /// <see langword="true"/> if the current operating system is 64-bit capable; <see langword="false"/> otherwise.
         /// </summary>
         public static bool Is64BitOperatingSystem

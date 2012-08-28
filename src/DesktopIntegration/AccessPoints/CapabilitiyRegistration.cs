@@ -75,10 +75,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             // Register all applicable capabilities
             var target = new InterfaceFeed(appEntry.InterfaceID, feed);
-            foreach (var capabilityList in appEntry.CapabilityLists)
+            foreach (var capabilityList in appEntry.CapabilityLists.Filter(AreCapabilitiesApplicable))
             {
-                if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
-
                 var dispatcher = new PerTypeDispatcher<Capabilities.Capability>(true);
                 if (WindowsUtils.IsWindows)
                 {
@@ -87,11 +85,10 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                     dispatcher.Add((Capabilities.AutoPlay autoPlay) => Windows.AutoPlay.Register(target, autoPlay, false, systemWide, handler));
                     dispatcher.Add((Capabilities.ComServer comServer) => Windows.ComServer.Register(target, comServer, systemWide, handler));
                     dispatcher.Add((Capabilities.GamesExplorer gamesExplorer) => Windows.GamesExplorer.Register(target, gamesExplorer, systemWide, handler));
+                    if (systemWide || WindowsUtils.IsWindows8)
+                        dispatcher.Add((Capabilities.AppRegistration appRegistration) => Windows.AppRegistration.Register(target, appRegistration, EnumerableUtils.OfType<Capabilities.VerbCapability>(capabilityList.Entries), systemWide, handler));
                     if (systemWide)
-                    {
                         dispatcher.Add((Capabilities.DefaultProgram defaultProgram) => Windows.DefaultProgram.Register(target, defaultProgram, false, handler));
-                        dispatcher.Add((Capabilities.AppRegistration appRegistration) => Windows.AppRegistration.Apply(target, appRegistration, EnumerableUtils.OfType<Capabilities.VerbCapability>(capabilityList.Entries), handler));
-                    }
                 }
                 dispatcher.Dispatch(capabilityList.Entries);
             }
@@ -107,29 +104,28 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (!WindowsUtils.IsWindows) return;
 
             // Unregister all applicable capabilities
-            foreach (var capabilityList in appEntry.CapabilityLists)
+            foreach (var capabilityList in appEntry.CapabilityLists.Filter(AreCapabilitiesApplicable))
             {
-                if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
-
-                // Note: Enumerating only once and using nested if-clauses to determine types would be more efficient but less maintainable
-                foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(capabilityList.Entries))
-                    Windows.FileType.Unregister(fileType, false, systemWide);
-                foreach (var urlProtocol in EnumerableUtils.OfType<Capabilities.UrlProtocol>(capabilityList.Entries))
-                    Windows.UrlProtocol.Unregister(urlProtocol, false, systemWide);
-                foreach (var autoPlay in EnumerableUtils.OfType<Capabilities.AutoPlay>(capabilityList.Entries))
-                    Windows.AutoPlay.Unregister(autoPlay, false, systemWide);
-                foreach (var comServer in EnumerableUtils.OfType<Capabilities.ComServer>(capabilityList.Entries))
-                    Windows.ComServer.Unregister(comServer, systemWide);
-                foreach (var gamesExplorer in EnumerableUtils.OfType<Capabilities.GamesExplorer>(capabilityList.Entries))
-                    Windows.GamesExplorer.Unregister(gamesExplorer, systemWide);
-                if (systemWide)
+                var dispatcher = new PerTypeDispatcher<Capabilities.Capability>(true);
+                if (WindowsUtils.IsWindows)
                 {
-                    foreach (var defaultProgram in EnumerableUtils.OfType<Capabilities.DefaultProgram>(capabilityList.Entries))
-                        Windows.DefaultProgram.Unregister(defaultProgram, false);
-                    foreach (var appRegistration in EnumerableUtils.OfType<Capabilities.AppRegistration>(capabilityList.Entries))
-                        Windows.AppRegistration.Remove(appRegistration);
+                    dispatcher.Add((Capabilities.FileType fileType) => Windows.FileType.Unregister(fileType, false, systemWide));
+                    dispatcher.Add((Capabilities.UrlProtocol urlProtocol) => Windows.UrlProtocol.Unregister(urlProtocol, false, systemWide));
+                    dispatcher.Add((Capabilities.AutoPlay autoPlay) => Windows.AutoPlay.Unregister(autoPlay, false, systemWide));
+                    dispatcher.Add((Capabilities.ComServer comServer) => Windows.ComServer.Unregister(comServer, systemWide));
+                    dispatcher.Add((Capabilities.GamesExplorer gamesExplorer) => Windows.GamesExplorer.Unregister(gamesExplorer, systemWide));
+                    if (systemWide || WindowsUtils.IsWindows8)
+                        dispatcher.Add((Capabilities.AppRegistration appRegistration) => Windows.AppRegistration.Unregister(appRegistration, systemWide));
+                    if (systemWide)
+                        dispatcher.Add((Capabilities.DefaultProgram defaultProgram) => Windows.DefaultProgram.Unregister(defaultProgram, false));
                 }
+                dispatcher.Dispatch(capabilityList.Entries);
             }
+        }
+
+        private bool AreCapabilitiesApplicable(Capabilities.CapabilityList capabilityList)
+        {
+            return capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem);
         }
         #endregion
 

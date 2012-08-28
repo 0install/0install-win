@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using Common.Utils;
 
 namespace ZeroInstall.Model.Capabilities
 {
@@ -31,7 +32,14 @@ namespace ZeroInstall.Model.Capabilities
     {
         #region Properties
         /// <inheritdoc/>
-        public override bool WindowsSystemWideOnly { get { return true; } }
+        public override bool WindowsSystemWideOnly
+        {
+            get
+            {
+                // Per-user registration only possible on Windows 8
+                return !WindowsUtils.IsWindows8;
+            }
+        }
 
         /// <summary>
         /// The registry path relative to HKEY_LOCAL_MACHINE which is used to store the application's capability registration information.
