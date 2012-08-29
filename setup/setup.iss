@@ -85,7 +85,8 @@ Name: {app}\de\ZeroInstall.MyApps.resources.dll; Type: files
 Source: ..\license.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\3rd party code.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Test.*,nunit.*,*.xml; DestDir: {app}; Flags: ignoreversion recursesubdirs
-Source: ..\bundled\*; DestDir: {app}; Flags: ignoreversion recursesubdirs
+Source: ..\bundled\GnuPG\*; DestDir: {app}\GnuPG; Flags: ignoreversion recursesubdirs
+Source: ..\bundled\Solver\*; DestDir: {app}\Solver; Flags: ignoreversion recursesubdirs
 
 [Dirs]
 ;ToDo: Suppress inherited permissions from {commonappdata}

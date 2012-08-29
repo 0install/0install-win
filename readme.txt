@@ -22,8 +22,7 @@ To add the external solver:
 - Call "python setup.py py2exe".
 - Copy the content of the "dist" directory as well as the "0solve" file to bundled/Solver.
 or
-- Download http://0install.de/files/zero-install-solver.zip.
-- Extract the archive to bundled.
+- Run bundled/download-solver.ps1.
 
 
 

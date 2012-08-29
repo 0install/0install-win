@@ -1,5 +1,5 @@
 @echo off
-::Creates archives and and Inno Setup installer. Assumes "..\src\build.cmd Release" has already been executed..
+::Creates archives and and Inno Setup installer. Assumes "..\src\build.cmd Release" and "..\bundled\download-solver.ps1" have already been executed.
 ::Use command-line argument "+update" to additionally create updater archive.
 if "%1"=="+updater" set UPDATER=TRUE
 if "%2"=="+updater" set UPDATER=TRUE
@@ -21,7 +21,7 @@ del /q "%TargetDir%\*"
 
 echo Building ZIP archive...
 cd /d "%~dp0..\bundled"
-zip -q -9 -r "%TargetDir%\zero-install.zip" .
+zip -q -9 -r "%TargetDir%\zero-install.zip" GnuPG Solver
 cd /d "%~dp0..\build\Frontend\Release"
 zip -q -9 -r "%TargetDir%\zero-install.zip" . --exclude *.log *.mdb *.vshost.exe Test.* nunit.* Mono.* *.pdb *.xml
 if errorlevel 1 pause
@@ -32,7 +32,7 @@ if errorlevel 1 pause
 cd /d "%~dp0"
 
 echo Building TAR.BZ2 archive...
-bsdtar -cjf "%TargetDir%\zero-install-%GlobalVersion%.tar.bz2" --exclude=*.log --exclude=*.mdb --exclude=*.vshost.exe --exclude=Test.* --exclude=nunit.* --exclude=Mono.* --exclude=*.pdb --exclude=*.xml -C "%~dp0.." "license.txt" -C "%~dp0.." "3rd party code.txt" -C "%~dp0..\bundled" . -C "%~dp0..\build\Frontend\Release" .
+bsdtar -cjf "%TargetDir%\zero-install-%GlobalVersion%.tar.bz2" --exclude=*.log --exclude=*.mdb --exclude=*.vshost.exe --exclude=Test.* --exclude=nunit.* --exclude=Mono.* --exclude=*.pdb --exclude=*.xml -C "%~dp0.." "license.txt" -C "%~dp0.." "3rd party code.txt" -C "%~dp0..\bundled" GnuPG Solver -C "%~dp0..\build\Frontend\Release" .
 if errorlevel 1 pause
 
 echo Building Tools archive...
@@ -53,7 +53,7 @@ cd /d "%~dp0"
 
 echo Building Backend developer archive...
 cd /d "%~dp0..\bundled"
-zip -q -9 -r "%TargetDir%\zero-install-backend-dev.zip" .
+zip -q -9 -r "%TargetDir%\zero-install-backend-dev.zip" GnuPG Solver
 cd /d "%~dp0..\build\Backend\Release"
 zip -q -9 -r "%TargetDir%\zero-install-backend-dev.zip" . --exclude *.log *.mdb *.vshost.exe Test.* nunit.* Mono.*
 if errorlevel 1 pause
@@ -81,7 +81,8 @@ if not exist "%ProgramFiles_temp%\Inno Setup 5" (
 )
 
 echo Building installer...
-"%ProgramFiles_temp%\Inno Setup 5\iscc.exe" /q "/dVersion=%GlobalVersion%" "/o%TargetDir%" "%~dp0setup.iss"
+cd /d "%~dp0"
+"%ProgramFiles_temp%\Inno Setup 5\iscc.exe" /q "/dVersion=%GlobalVersion%" "/o%TargetDir%" setup.iss
 if errorlevel 1 pause
 
 if "%1"=="+run" "%TargetDir%\zero-install.exe" /silent

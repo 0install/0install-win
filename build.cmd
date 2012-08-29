@@ -6,9 +6,19 @@ if "%2"=="+doc" set BUILD_DOC=TRUE
 if "%3"=="+doc" set BUILD_DOC=TRUE
 if "%4"=="+doc" set BUILD_DOC=TRUE
 
-::Always create release build and setup
+::Create release build
 echo.
 call "%~dp0src\build.cmd" Release
+
+::Auto-download solver if missing
+if not exist "%~dp0bundled\Solver" (
+  echo.
+  cd /d "%~dp0bundled"
+  powershell -NonInteractive -Command - < download-solver.ps1
+  cd /d "%~dp0"
+)
+
+::Create archives and installer
 echo.
 call "%~dp0setup\build.cmd" %*
 
