@@ -44,6 +44,7 @@ namespace ZeroInstall.Model
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Steps"/>
+        [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Used for XML serialization.")]
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [XmlElement(typeof(Archive)), XmlElement(typeof(RenameStep)), XmlElement(typeof(RemoveStep)), XmlElement(typeof(AddDirectoryStep)), XmlElement(typeof(AddToplevelStep))]
         public object[] StepsArray
@@ -119,8 +120,7 @@ namespace ZeroInstall.Model
         public bool Equals(Recipe other)
         {
             if (other == null) return false;
-
-            return Steps.SequencedEquals(other.Steps);
+            return base.Equals(other) && Steps.SequencedEquals(other.Steps);
         }
 
         /// <inheritdoc/>
@@ -136,7 +136,7 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                return Steps.GetSequencedHashCode();
+                return (base.GetHashCode() * 397) ^ Steps.GetSequencedHashCode();
             }
         }
         #endregion

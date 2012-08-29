@@ -160,7 +160,7 @@ namespace ZeroInstall.Model
         public bool Equals(Command other)
         {
             if (other == null) return false;
-
+            if (!base.Equals(other)) return false;
             if (Name != other.Name) return false;
             if (Path != other.Path) return false;
             if (!Arguments.SequencedEquals(other.Arguments)) return false;
@@ -185,7 +185,8 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                int result = (Name ?? "").GetHashCode();
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (Name ?? "").GetHashCode();
                 result = (result * 397) ^ (Path ?? "").GetHashCode();
                 result = (result * 397) ^ Arguments.GetSequencedHashCode();
                 result = (result * 397) ^ Bindings.GetSequencedHashCode();

@@ -124,7 +124,6 @@ namespace ZeroInstall.Model.Capabilities
         public bool Equals(DefaultProgram other)
         {
             if (other == null) return false;
-
             return base.Equals(other) && other.Service == Service;
         }
 
@@ -141,9 +140,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             unchecked
             {
-                int result = base.GetHashCode();
-                result = (result * 397) ^ (Service ?? "").GetHashCode();
-                return result;
+                return (base.GetHashCode() * 397) ^ (Service ?? "").GetHashCode();
             }
         }
         #endregion

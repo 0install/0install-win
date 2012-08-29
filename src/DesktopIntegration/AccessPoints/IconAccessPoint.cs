@@ -49,7 +49,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         protected bool Equals(IconAccessPoint other)
         {
             if (other == null) return false;
-
             return base.Equals(other) && other.Name == Name;
         }
 

@@ -79,14 +79,16 @@ namespace ZeroInstall.Model.Capabilities
         protected bool Equals(Capability other)
         {
             if (other == null) return false;
-
-            return other.ID == ID;
+            return base.Equals(other) && other.ID == ID;
         }
 
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return (ID ?? "").GetHashCode();
+            unchecked
+            {
+                return (base.GetHashCode() * 397) ^ (ID ?? "").GetHashCode();
+            }
         }
         #endregion
     }

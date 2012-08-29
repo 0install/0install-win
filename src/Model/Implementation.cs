@@ -101,10 +101,7 @@ namespace ZeroInstall.Model
         public bool Equals(Implementation other)
         {
             if (other == null) return false;
-
-            if (!base.Equals(other)) return false;
-            if (!RetrievalMethods.SequencedEquals(other.RetrievalMethods)) return false;
-            return true;
+            return base.Equals(other) && RetrievalMethods.SequencedEquals(other.RetrievalMethods);
         }
 
         /// <inheritdoc/>
@@ -121,9 +118,7 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                int result = base.GetHashCode();
-                result = (result * 397) ^ RetrievalMethods.GetSequencedHashCode();
-                return result;
+                return (base.GetHashCode() * 397) ^ RetrievalMethods.GetSequencedHashCode();
             }
         }
         #endregion

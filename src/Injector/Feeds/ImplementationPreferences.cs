@@ -26,7 +26,7 @@ namespace ZeroInstall.Injector.Feeds
     /// Stores user-specific preferences for an <see cref="Model.Implementation"/>.
     /// </summary>
     [XmlType("implementation-preferences", Namespace = Feed.XmlNamespace)]
-    public sealed class ImplementationPreferences : XmlUnknown, ICloneable
+    public sealed class ImplementationPreferences : XmlUnknown, ICloneable, IEquatable<ImplementationPreferences>
     {
         #region Properties
         /// <summary>
@@ -88,8 +88,7 @@ namespace ZeroInstall.Injector.Feeds
         public bool Equals(ImplementationPreferences other)
         {
             if (other == null) return false;
-
-            return ID == other.ID && UserStability == other.UserStability;
+            return base.Equals(other) && ID == other.ID && UserStability == other.UserStability;
         }
 
         /// <inheritdoc/>
@@ -105,7 +104,8 @@ namespace ZeroInstall.Injector.Feeds
         {
             unchecked
             {
-                int result = (ID ?? "").GetHashCode();
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (ID ?? "").GetHashCode();
                 result = (result * 397) ^ UserStability.GetHashCode();
                 return result;
             }

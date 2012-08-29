@@ -47,7 +47,6 @@ namespace ZeroInstall.Model.Capabilities
         protected bool Equals(VerbCapability other)
         {
             if (other == null) return false;
-
             return base.Equals(other) && Verbs.SequencedEquals(other.Verbs);
         }
 
@@ -56,9 +55,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             unchecked
             {
-                int result = base.GetHashCode();
-                result = (result * 397) ^ Verbs.GetSequencedHashCode();
-                return result;
+                return (base.GetHashCode() * 397) ^ Verbs.GetSequencedHashCode();
             }
         }
         #endregion

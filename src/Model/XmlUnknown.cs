@@ -20,5 +20,40 @@ namespace ZeroInstall.Model
         /// </summary>
         [XmlAnyAttribute]
         public XmlAttribute[] UnknownAttributes;
+
+        #region Equality
+        /// <inheritdoc/>
+        protected bool Equals(XmlUnknown other)
+        {
+            if (other == null) return false;
+
+            // Convert arrays to list for easier comparison
+            var elements = new C5.LinkedList<XmlElement>();
+            if (UnknownElements != null) elements.AddAll(UnknownElements);
+            var attributes = new C5.LinkedList<XmlAttribute>();
+            if (UnknownAttributes != null) attributes.AddAll(UnknownAttributes);
+            var otherElements = new C5.LinkedList<XmlElement>();
+            if (other.UnknownElements != null) otherElements.AddAll(other.UnknownElements);
+            var otherAttributes = new C5.LinkedList<XmlAttribute>();
+            if (other.UnknownAttributes != null) otherAttributes.AddAll(other.UnknownAttributes);
+
+            return elements.SequencedEquals(otherElements) && attributes.SequencedEquals(otherAttributes);
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            // Convert arrays to list for easier comparison
+            var elements = new C5.LinkedList<XmlElement>();
+            if (UnknownElements != null) elements.AddAll(UnknownElements);
+            var attributes = new C5.LinkedList<XmlAttribute>();
+            if (UnknownAttributes != null) attributes.AddAll(UnknownAttributes);
+
+            unchecked
+            {
+                return (elements.GetSequencedHashCode() * 397) ^ attributes.GetSequencedHashCode();
+            }
+        }
+        #endregion
     }
 }

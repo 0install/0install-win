@@ -159,11 +159,8 @@ namespace ZeroInstall.Model
         public bool Equals(PackageImplementation other)
         {
             if (other == null) return false;
-
-            if (!base.Equals(other)) return false;
-            if (Package != other.Package) return false;
-            if (DistributionsString != other.DistributionsString) return false;
-            return true;
+            return base.Equals(other) &&
+                (Package == other.Package && DistributionsString == other.DistributionsString);
         }
 
         /// <inheritdoc/>

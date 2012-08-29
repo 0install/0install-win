@@ -474,7 +474,6 @@ namespace ZeroInstall.Store.Implementation
         public bool Equals(DirectoryStore other)
         {
             if (other == null) return false;
-
             return DirectoryPath == other.DirectoryPath;
         }
 

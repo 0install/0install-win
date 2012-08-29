@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
@@ -24,6 +25,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// A reference to an interface that is restricted to specific versions when used.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlType("restriction", Namespace = Feed.XmlNamespace)]
     public class Restriction : XmlUnknown, ICloneable, IEquatable<Restriction>
@@ -111,10 +113,7 @@ namespace ZeroInstall.Model
         public bool Equals(Restriction other)
         {
             if (other == null) return false;
-
-            if (Interface != other.Interface) return false;
-            if (!Constraints.SequencedEquals(other.Constraints)) return false;
-            return true;
+            return base.Equals(other) && Interface == other.Interface && Constraints.SequencedEquals(other.Constraints);
         }
 
         /// <inheritdoc/>
@@ -130,7 +129,8 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                int result = (Interface ?? "").GetHashCode();
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (Interface ?? "").GetHashCode();
                 result = (result * 397) ^ Constraints.GetSequencedHashCode();
                 return result;
             }

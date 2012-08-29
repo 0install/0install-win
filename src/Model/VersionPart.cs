@@ -116,7 +116,6 @@ namespace ZeroInstall.Model
         public bool Equals(VersionPart other)
         {
             if (other == null) return false;
-
             return Equals(other.Modifier, Modifier) && Equals(other.DottedList, DottedList);
         }
 

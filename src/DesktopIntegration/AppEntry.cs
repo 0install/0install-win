@@ -159,7 +159,7 @@ namespace ZeroInstall.DesktopIntegration
         public bool Equals(AppEntry other)
         {
             if (other == null) return false;
-
+            if (!base.Equals(other)) return false;
             if (Name != other.Name) return false;
             if (!ModelUtils.IDEquals(InterfaceID, other.InterfaceID)) return false;
             if (!CapabilityLists.SequencedEquals(other.CapabilityLists)) return false;
@@ -180,7 +180,8 @@ namespace ZeroInstall.DesktopIntegration
         {
             unchecked
             {
-                int result = (Name != null ? Name.GetHashCode() : 0);
+                int result = base.GetHashCode();
+                if (Name != null) result = (result * 397) ^ Name.GetHashCode();
                 // Use case-insensitive hashing in case a business logic rule causes case-insensitive comparison of IDs
                 if (InterfaceID != null) result = (result * 397) ^ StringComparer.OrdinalIgnoreCase.GetHashCode(InterfaceID);
                 result = (result * 397) ^ CapabilityLists.GetSequencedHashCode();

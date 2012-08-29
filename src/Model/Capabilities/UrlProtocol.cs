@@ -80,7 +80,6 @@ namespace ZeroInstall.Model.Capabilities
         public bool Equals(UrlProtocol other)
         {
             if (other == null) return false;
-
             return base.Equals(other) && KnownPrefixes.SequencedEquals(other.KnownPrefixes);
         }
 
@@ -97,9 +96,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             unchecked
             {
-                int result = base.GetHashCode();
-                result = (result * 397) ^ KnownPrefixes.GetSequencedHashCode();
-                return result;
+                return (base.GetHashCode() * 397) ^ KnownPrefixes.GetSequencedHashCode();
             }
         }
         #endregion

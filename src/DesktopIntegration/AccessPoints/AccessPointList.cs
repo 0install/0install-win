@@ -150,9 +150,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         public bool Equals(AccessPointList other)
         {
             if (other == null) return false;
-
-            if (!Entries.SequencedEquals(other.Entries)) return false;
-            return true;
+            return base.Equals(other) && Entries.SequencedEquals(other.Entries);
         }
 
         /// <inheritdoc/>
@@ -166,7 +164,10 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return Entries.GetSequencedHashCode();
+            unchecked
+            {
+                return (base.GetHashCode() * 397) ^ Entries.GetSequencedHashCode();
+            }
         }
         #endregion
     }

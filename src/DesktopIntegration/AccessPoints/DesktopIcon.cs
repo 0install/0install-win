@@ -105,8 +105,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public bool Equals(DesktopIcon other)
         {
-            if (other == null) return false;
-
             return base.Equals(other);
         }
 

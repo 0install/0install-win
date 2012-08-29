@@ -73,8 +73,7 @@ namespace ZeroInstall.Model
         public bool Equals(AddDirectoryStep other)
         {
             if (other == null) return false;
-
-            return other.Path == Path;
+            return base.Equals(other) && other.Path == Path;
         }
 
         /// <inheritdoc/>
@@ -88,7 +87,10 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return Path == null ? 0 : Path.GetHashCode();
+            unchecked
+            {
+                return (base.GetHashCode() * 397) ^ (Path ?? "").GetHashCode();
+            }
         }
         #endregion
     }

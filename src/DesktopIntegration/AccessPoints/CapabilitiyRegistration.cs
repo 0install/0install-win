@@ -153,9 +153,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public bool Equals(CapabilityRegistration other)
         {
-            if (other == null) return false;
-
-            return true;
+            return base.Equals(other);
         }
 
         /// <inheritdoc/>
@@ -169,7 +167,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return 0;
+            return base.GetHashCode();
         }
         #endregion
     }

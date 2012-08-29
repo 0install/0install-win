@@ -80,8 +80,7 @@ namespace ZeroInstall.Model
         public bool Equals(RenameStep other)
         {
             if (other == null) return false;
-
-            return other.Source == Source && other.Destination == Destination;
+            return base.Equals(other) && other.Source == Source && other.Destination == Destination;
         }
 
         /// <inheritdoc/>
@@ -97,7 +96,7 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                int result = 123;
+                int result = base.GetHashCode();
                 if (Source != null) result = (result * 397) ^ Source.GetHashCode();
                 if (Destination != null) result = (result * 397) ^ Destination.GetHashCode();
                 return result;

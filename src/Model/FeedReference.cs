@@ -76,7 +76,6 @@ namespace ZeroInstall.Model
         public bool Equals(FeedReference other)
         {
             if (other == null) return false;
-
             return base.Equals(other) && ModelUtils.IDEquals(other.Source, Source);
         }
 

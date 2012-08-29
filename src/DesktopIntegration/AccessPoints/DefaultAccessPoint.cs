@@ -75,14 +75,13 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         protected bool Equals(DefaultAccessPoint other)
         {
             if (other == null) return false;
-
-            return other.Capability == Capability;
+            return base.Equals(other) && other.Capability == Capability;
         }
 
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return (Capability ?? "").GetHashCode();
+            return (base.GetHashCode() * 397) ^ (Capability ?? "").GetHashCode();
         }
         #endregion
     }

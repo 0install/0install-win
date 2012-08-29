@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Service
     /// Provides a background service to add new entries to a store that requires elevated privileges to write.
     /// </summary>
     /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
-    public class SecureStore : MarshalByRefObject, IStore
+    public class SecureStore : MarshalByRefObject, IStore, IEquatable<SecureStore>
     {
         #region Variables
         /// <summary>
@@ -214,7 +214,6 @@ namespace ZeroInstall.Store.Service
         public bool Equals(SecureStore other)
         {
             if (other == null) return false;
-
             return DirectoryPath == other.DirectoryPath;
         }
 

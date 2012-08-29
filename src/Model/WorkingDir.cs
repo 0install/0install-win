@@ -71,8 +71,7 @@ namespace ZeroInstall.Model
         public bool Equals(WorkingDir other)
         {
             if (other == null) return false;
-
-            return other.Source == Source;
+            return base.Equals(other) && other.Source == Source;
         }
 
         /// <inheritdoc/>
@@ -86,7 +85,10 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return (Source ?? "").GetHashCode();
+            unchecked
+            {
+                return (base.GetHashCode() * 397) ^ (Source ?? "").GetHashCode();
+            }
         }
         #endregion
     }

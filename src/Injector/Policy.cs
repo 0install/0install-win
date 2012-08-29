@@ -32,7 +32,7 @@ namespace ZeroInstall.Injector
     /// <remarks>This class serves to simplify finding class dependencies and to reduce the number of arguments that need to be passed into <see cref="IFeedManager"/> and <see cref="ISolver"/> methods.</remarks>
     [SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces")]
     [Serializable]
-    public class Policy : IEquatable<Policy>, ICloneable
+    public class Policy : ICloneable, IEquatable<Policy>
     {
         #region Properties
         /// <summary>
@@ -155,7 +155,6 @@ namespace ZeroInstall.Injector
         public bool Equals(Policy other)
         {
             if (other == null) return false;
-
             return Equals(other.Config, Config) && Equals(other.FeedManager, FeedManager) && Equals(other.Fetcher, Fetcher) && Equals(other.Solver, Solver) && Equals(other.Handler, Handler);
         }
 

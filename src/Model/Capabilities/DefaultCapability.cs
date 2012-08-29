@@ -43,7 +43,6 @@ namespace ZeroInstall.Model.Capabilities
         protected bool Equals(DefaultCapability other)
         {
             if (other == null) return false;
-
             return base.Equals(other) && other.ExplicitOnly == ExplicitOnly;
         }
 
@@ -52,9 +51,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             unchecked
             {
-                int result = base.GetHashCode();
-                result = (result * 397) ^ ExplicitOnly.GetHashCode();
-                return result;
+                return (base.GetHashCode() * 397) ^ ExplicitOnly.GetHashCode();
             }
         }
         #endregion

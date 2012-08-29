@@ -220,7 +220,6 @@ namespace ZeroInstall.Injector.Feeds
         public bool Equals(TrustDB other)
         {
             if (other == null) return false;
-
             return Keys.UnsequencedEquals(other.Keys);
         }
 

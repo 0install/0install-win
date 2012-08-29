@@ -133,7 +133,6 @@ namespace ZeroInstall.Injector.Solver
         public bool Equals(Requirements other)
         {
             if (other == null) return false;
-
             if (InterfaceID != other.InterfaceID) return false;
             if (CommandName != other.CommandName) return false;
             if (Architecture != other.Architecture) return false;

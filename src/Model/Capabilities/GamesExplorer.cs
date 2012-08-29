@@ -63,8 +63,6 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public bool Equals(GamesExplorer other)
         {
-            if (other == null) return false;
-
             return base.Equals(other);
         }
 
@@ -79,11 +77,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int result = base.GetHashCode();
-                return result;
-            }
+            return base.GetHashCode();
         }
         #endregion
     }

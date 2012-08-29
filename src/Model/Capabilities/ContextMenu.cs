@@ -81,7 +81,6 @@ namespace ZeroInstall.Model.Capabilities
         public bool Equals(ContextMenu other)
         {
             if (other == null) return false;
-
             return base.Equals(other) &&
                 other.AllObjects == AllObjects && Equals(other.Verb, Verb);
         }

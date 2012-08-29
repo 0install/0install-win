@@ -137,8 +137,7 @@ namespace ZeroInstall.Model
         public bool Equals(Archive other)
         {
             if (other == null) return false;
-
-            return other.Location == Location && other.Size == Size && other.Extract == Extract && StringUtils.Compare(other.MimeType, MimeType) && other.StartOffset == StartOffset;
+            return base.Equals(other) && other.Location == Location && other.Size == Size && other.Extract == Extract && StringUtils.Compare(other.MimeType, MimeType) && other.StartOffset == StartOffset;
         }
 
         /// <inheritdoc/>
@@ -154,7 +153,8 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                int result = (Location != null ? Location.GetHashCode() : 0);
+                int result = base.GetHashCode();
+                if (Location != null) result = (result * 397) ^ Location.GetHashCode();
                 result = (result * 397) ^ Size.GetHashCode();
                 if (Extract != null) result = (result * 397) ^ Extract.GetHashCode();
                 if (MimeType != null) result = (result * 397) ^ StringComparer.OrdinalIgnoreCase.GetHashCode(MimeType);

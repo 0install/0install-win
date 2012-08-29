@@ -171,8 +171,7 @@ namespace ZeroInstall.Model
         public bool Equals(Catalog other)
         {
             if (other == null) return false;
-
-            return Feeds.SequencedEquals(other.Feeds);
+            return base.Equals(other) && Feeds.SequencedEquals(other.Feeds);
         }
 
         /// <inheritdoc/>
@@ -186,7 +185,10 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return Feeds.GetSequencedHashCode();
+            unchecked
+            {
+                return (base.GetHashCode() * 397) ^ Feeds.GetSequencedHashCode();
+            }
         }
         #endregion
     }

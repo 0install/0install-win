@@ -30,6 +30,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestDigest.Sha1New"/>.
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
         public static ManifestFormat Sha1New { get { return _sha1New; } }
 
         private static readonly ManifestFormat _sha256 = new Sha256Format();
@@ -44,6 +45,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestDigest.Sha256New"/>.
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
         public static ManifestFormat Sha256New { get { return _sha256New; } }
 
         /// <summary>
@@ -65,6 +67,10 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="ArgumentException">Thrown if <paramref name="id"/> is no known algorithm prefix.</exception>
         public static ManifestFormat FromPrefix(string id)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
+            #endregion
+
             if (id.StartsWith(Sha256New.Prefix)) return Sha256New;
             if (id.StartsWith(Sha256.Prefix)) return Sha256;
             if (id.StartsWith(Sha1New.Prefix)) return Sha1New;

@@ -487,7 +487,7 @@ namespace ZeroInstall.Model
         public bool Equals(Feed other)
         {
             if (other == null) return false;
-
+            if (!base.Equals(other)) return false;
             if (MinInjectorVersion != other.MinInjectorVersion) return false;
             if (Uri != other.Uri) return false;
             if (Name != other.Name) return false;
@@ -517,12 +517,13 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                int result = (MinInjectorVersion ?? new ImplementationVersion("0.1")).GetHashCode();
-                result = (result * 397) ^ (UriString ?? "").GetHashCode();
-                result = (result * 397) ^ (Name ?? "").GetHashCode();
+                int result = base.GetHashCode();
+                if (MinInjectorVersion != null) result = (result * 397) ^ MinInjectorVersion.GetHashCode();
+                if (Uri != null) result = (result * 397) ^ Uri.GetHashCode();
+                if (Name != null) result = (result * 397) ^ Name.GetHashCode();
                 result = (result * 397) ^ Summaries.GetSequencedHashCode();
                 result = (result * 397) ^ Descriptions.GetSequencedHashCode();
-                result = (result * 397) ^ (HomepageString ?? "").GetHashCode();
+                if (Homepage != null) result = (result * 397) ^ Homepage.GetHashCode();
                 result = (result * 397) ^ NeedsTerminal.GetHashCode();
                 result = (result * 397) ^ Feeds.GetSequencedHashCode();
                 result = (result * 397) ^ Categories.GetSequencedHashCode();

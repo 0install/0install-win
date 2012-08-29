@@ -101,8 +101,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public bool Equals(UrlProtocol other)
         {
-            if (other == null) return false;
-
             return base.Equals(other);
         }
 

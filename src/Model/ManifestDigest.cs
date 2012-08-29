@@ -62,6 +62,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A SHA-256 hash of the new manifest format with a base32 encoding and no equals sign in the path.
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
         [Description("A SHA-256 hash of the new manifest format with a base32 encoding and no equals sign in the path.")]
         [XmlAttribute("sha256new"), DefaultValue("")]
         public string Sha256New { get; set; }
@@ -70,18 +71,16 @@ namespace ZeroInstall.Model
         /// Lists all contained manifest digests sorted from best (safest) to worst.
         /// </summary>
         [XmlIgnore]
-        public string[] AvailableDigests
+        public IEnumerable<string> AvailableDigests
         {
             get
             {
                 var list = new List<string>(4);
-
                 if (!string.IsNullOrEmpty(Sha256New)) list.Add("sha256new_" + Sha256New);
                 if (!string.IsNullOrEmpty(Sha256)) list.Add("sha256=" + Sha256);
                 if (!string.IsNullOrEmpty(Sha1New)) list.Add("sha1new=" + Sha1New);
                 if (!string.IsNullOrEmpty(Sha1)) list.Add("sha1=" + Sha1);
-
-                return list.ToArray();
+                return list;
             }
         }
 
@@ -116,6 +115,8 @@ namespace ZeroInstall.Model
         /// <param name="sha1New">A SHA-1 hash of the new manifest format.</param>
         /// <param name="sha256">A SHA-256 hash of the new manifest format. (most secure)</param>
         /// <param name="sha256New">A SHA-256 hash of the new manifest format with a base32 encoding and no equals sign in the path.</param>
+        [SuppressMessage("Microsoft.Design", "CA1025:ReplaceRepetitiveArgumentsWithParamsArray")]
+        [SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed", Justification = "Only used in unit tests.")]
         public ManifestDigest(string sha1 = null, string sha1New = null, string sha256 = null, string sha256New = null) : this()
         {
             Sha1 = sha1;

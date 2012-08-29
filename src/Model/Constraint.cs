@@ -106,8 +106,7 @@ namespace ZeroInstall.Model
         public bool Equals(Constraint other)
         {
             if (other == null) return false;
-
-            return other.NotBeforeVersion == NotBeforeVersion && other.BeforeVersion == BeforeVersion;
+            return base.Equals(other) && other.NotBeforeVersion == NotBeforeVersion && other.BeforeVersion == BeforeVersion;
         }
 
         /// <inheritdoc/>
@@ -123,7 +122,10 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                return ((NotBeforeVersion != null ? NotBeforeVersion.GetHashCode() : 0) * 397) ^ (BeforeVersion != null ? BeforeVersion.GetHashCode() : 0);
+                int result = base.GetHashCode();
+                if (NotBeforeVersion != null) result = (result * 397) ^ NotBeforeVersion.GetHashCode();
+                if (BeforeVersion != null) result = (result * 397) ^ BeforeVersion.GetHashCode();
+                return result;
             }
         }
         #endregion

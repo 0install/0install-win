@@ -125,8 +125,7 @@ namespace ZeroInstall.Model
         public bool Equals(EnvironmentBinding other)
         {
             if (other == null) return false;
-
-            return other.Name == Name || other.Value == Value || other.Insert == Insert || other.Mode == Mode || other.Separator == Separator || other.Default == Default;
+            return base.Equals(other) && other.Name == Name || other.Value == Value || other.Insert == Insert || other.Mode == Mode || other.Separator == Separator || other.Default == Default;
         }
 
         /// <inheritdoc/>
@@ -142,7 +141,8 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                int result = (Name != null ? Name.GetHashCode() : 0);
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (Name ?? "").GetHashCode();
                 result = (result * 397) ^ (Value ?? "").GetHashCode();
                 result = (result * 397) ^ (Insert ?? "").GetHashCode();
                 result = (result * 397) ^ Mode.GetHashCode();

@@ -85,9 +85,7 @@ namespace ZeroInstall.Model.Capabilities
         public bool Equals(AppRegistration other)
         {
             if (other == null) return false;
-
-            return base.Equals(other) &&
-                other.CapabilityRegPath == CapabilityRegPath && other.X64 == X64;
+            return base.Equals(other) && other.CapabilityRegPath == CapabilityRegPath && other.X64 == X64;
         }
 
         /// <inheritdoc/>

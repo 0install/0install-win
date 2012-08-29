@@ -26,7 +26,7 @@ namespace ZeroInstall.Injector.Feeds
     /// A common base class for feed managers. Implements properties, cloning and equating.
     /// Does not implement <see cref="GetFeed(string,ZeroInstall.Injector.Policy)"/> and <see cref="ImportFeed"/>.
     /// </summary>
-    public abstract class FeedManagerBase : IFeedManager, IEquatable<FeedManagerBase>, ICloneable
+    public abstract class FeedManagerBase : IFeedManager, ICloneable, IEquatable<FeedManagerBase>
     {
         #region Properties
         /// <inheritdoc/>
@@ -113,7 +113,6 @@ namespace ZeroInstall.Injector.Feeds
         public bool Equals(FeedManagerBase other)
         {
             if (other == null) return false;
-
             return Refresh == other.Refresh && Equals(other.Cache, Cache);
         }
 

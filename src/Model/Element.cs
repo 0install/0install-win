@@ -296,7 +296,6 @@ namespace ZeroInstall.Model
         protected bool Equals(Element other)
         {
             if (other == null) return false;
-
             return base.Equals(other) &&
                 other.Version == Version && other.VersionModifier == VersionModifier && other.Released == Released && other.License == License && other.Main == Main && other.SelfTest == SelfTest && other.DocDir == DocDir &&
                 Commands.SequencedEquals(other.Commands) && Dependencies.SequencedEquals(other.Dependencies) && Restrictions.SequencedEquals(other.Restrictions) && Bindings.SequencedEquals(other.Bindings);

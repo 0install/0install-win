@@ -134,9 +134,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         public bool Equals(MenuEntry other)
         {
             if (other == null) return false;
-
-            return base.Equals(other) &&
-                other.Category == Category;
+            return base.Equals(other) && other.Category == Category;
         }
 
         /// <inheritdoc/>

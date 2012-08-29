@@ -215,9 +215,7 @@ namespace ZeroInstall.DesktopIntegration
         public bool Equals(AppList other)
         {
             if (other == null) return false;
-
-            if (!Entries.UnsequencedEquals(other.Entries)) return false;
-            return true;
+            return base.Equals(other) && Entries.UnsequencedEquals(other.Entries);
         }
 
         /// <inheritdoc/>
@@ -231,7 +229,10 @@ namespace ZeroInstall.DesktopIntegration
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return Entries.GetUnsequencedHashCode();
+            unchecked
+            {
+                return (base.GetHashCode() * 397) ^ Entries.GetUnsequencedHashCode();
+            }
         }
         #endregion
     }

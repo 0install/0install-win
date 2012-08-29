@@ -138,7 +138,6 @@ namespace ZeroInstall.Model
         protected bool Equals(ImplementationBase other)
         {
             if (other == null) return false;
-
             return base.Equals(other) && other.ID == ID && other.LocalPath == LocalPath && other.ManifestDigest == ManifestDigest;
         }
 

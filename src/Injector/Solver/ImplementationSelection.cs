@@ -203,7 +203,6 @@ namespace ZeroInstall.Injector.Solver
         public bool Equals(ImplementationSelection other)
         {
             if (other == null) return false;
-
             return base.Equals(other) && Equals(other.InterfaceID, InterfaceID) && Equals(other.FromFeed, FromFeed) && Equals(other.Package, Package);
         }
 

@@ -43,14 +43,16 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         protected bool Equals(CommandAccessPoint other)
         {
             if (other == null) return false;
-
-            return other.Command == Command;
+            return base.Equals(other) && other.Command == Command;
         }
 
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return (Command ?? "").GetHashCode();
+            unchecked
+            {
+                return (base.GetHashCode() * 397) ^ (Command ?? "").GetHashCode();
+            }
         }
         #endregion
     }

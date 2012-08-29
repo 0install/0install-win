@@ -79,7 +79,6 @@ namespace ZeroInstall.Store.Implementation
         protected bool Equals(ManifestFileBase other)
         {
             if (other == null) return false;
-
             return other.Digest == Digest && other.ModifiedTime == ModifiedTime && other.Size == Size && other.FileName == FileName;
         }
 

@@ -115,13 +115,7 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         public bool Equals(Dependency other)
         {
-            if (other == null) return false;
-
-            if (!base.Equals(other)) return false;
-            if (Importance != other.Importance) return false;
-            if (Use != other.Use) return false;
-            if (!Bindings.SequencedEquals(other.Bindings)) return false;
-            return true;
+            return base.Equals(other) && Importance == other.Importance && Use == other.Use && Bindings.SequencedEquals(other.Bindings);
         }
 
         /// <inheritdoc/>

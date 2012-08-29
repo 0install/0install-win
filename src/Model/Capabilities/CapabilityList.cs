@@ -142,10 +142,7 @@ namespace ZeroInstall.Model.Capabilities
         public bool Equals(CapabilityList other)
         {
             if (other == null) return false;
-
-            if (Architecture != other.Architecture) return false;
-            if (!Entries.SequencedEquals(other.Entries)) return false;
-            return true;
+            return base.Equals(other) && (Architecture == other.Architecture && Entries.SequencedEquals(other.Entries));
         }
 
         /// <inheritdoc/>
@@ -161,7 +158,8 @@ namespace ZeroInstall.Model.Capabilities
         {
             unchecked
             {
-                int result = Architecture.GetHashCode();
+                int result = base.GetHashCode();
+                result = (result * 397) ^ Architecture.GetHashCode();
                 result = (result * 397) ^ Entries.GetSequencedHashCode();
                 return result;
             }

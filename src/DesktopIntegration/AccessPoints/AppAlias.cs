@@ -100,9 +100,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         public bool Equals(AppAlias other)
         {
             if (other == null) return false;
-
-            return base.Equals(other) &&
-                other.Name == Name;
+            return base.Equals(other) && other.Name == Name;
         }
 
         /// <inheritdoc/>

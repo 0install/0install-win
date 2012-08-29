@@ -34,7 +34,7 @@ namespace ZeroInstall.Injector.Feeds
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("feed-preferences", Namespace = Feed.XmlNamespace)]
     [XmlType("feed-preferences", Namespace = Feed.XmlNamespace)]
-    public sealed class FeedPreferences : XmlUnknown, ICloneable
+    public sealed class FeedPreferences : XmlUnknown, ICloneable, IEquatable<FeedPreferences>
     {
         #region Properties
         /// <summary>
@@ -232,10 +232,7 @@ namespace ZeroInstall.Injector.Feeds
         public bool Equals(FeedPreferences other)
         {
             if (other == null) return false;
-
-            if (LastChecked != other.LastChecked) return false;
-            if (!Implementations.SequencedEquals(other.Implementations)) return false;
-            return true;
+            return base.Equals(other) && LastChecked == other.LastChecked && Implementations.SequencedEquals(other.Implementations);
         }
 
         /// <inheritdoc/>
@@ -251,7 +248,8 @@ namespace ZeroInstall.Injector.Feeds
         {
             unchecked
             {
-                int result = LastChecked.GetHashCode();
+                int result = base.GetHashCode();
+                result = (result * 397) ^ LastChecked.GetHashCode();
                 result = (result * 397) ^ Implementations.GetSequencedHashCode();
                 return result;
             }

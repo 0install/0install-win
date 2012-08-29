@@ -63,8 +63,7 @@ namespace ZeroInstall.Model
         public bool Equals(InterfaceReference other)
         {
             if (other == null) return false;
-
-            return other.Target == Target;
+            return base.Equals(other) && other.Target == Target;
         }
 
         /// <inheritdoc/>
@@ -80,7 +79,7 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                return (TargetString != null ? TargetString.GetHashCode() : 0);
+                return (base.GetHashCode() * 397) ^ (TargetString ?? "").GetHashCode();
             }
         }
         #endregion

@@ -137,8 +137,8 @@ namespace ZeroInstall.Model
         public bool Equals(EntryPoint other)
         {
             if (other == null) return false;
-
-            return Command == other.Command && BinaryName == other.BinaryName && NeedsTerminal == other.NeedsTerminal &&
+            return base.Equals(other) &&
+                Command == other.Command && BinaryName == other.BinaryName && NeedsTerminal == other.NeedsTerminal &&
                 Names.SequencedEquals(other.Names) && Summaries.SequencedEquals(other.Summaries) && Descriptions.SequencedEquals(other.Descriptions) && Icons.SequencedEquals(other.Icons);
         }
 
@@ -155,7 +155,8 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                int result = (Command ?? "").GetHashCode();
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (Command ?? "").GetHashCode();
                 result = (result * 397) ^ (BinaryName ?? "").GetHashCode();
                 result = (result * 397) ^ NeedsTerminal.GetHashCode();
                 result = (result * 397) ^ Names.GetSequencedHashCode();

@@ -101,7 +101,6 @@ namespace ZeroInstall.Model.Capabilities
         public bool Equals(AutoPlay other)
         {
             if (other == null) return false;
-
             return base.Equals(other) &&
                 other.Provider == Provider && other.ProgID == ProgID && Equals(other.Verb, Verb) &&
                 Events.SequencedEquals(other.Events);

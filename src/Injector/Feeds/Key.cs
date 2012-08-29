@@ -80,7 +80,6 @@ namespace ZeroInstall.Injector.Feeds
         public bool Equals(Key other)
         {
             if (other == null) return false;
-
             return Fingerprint == other.Fingerprint && Domains.UnsequencedEquals(other.Domains);
         }
 

@@ -72,8 +72,7 @@ namespace ZeroInstall.Model
         public bool Equals(ExecutableInPath other)
         {
             if (other == null) return false;
-
-            return other.Name == Name || other.Command == Command;
+            return base.Equals(other) && other.Name == Name || other.Command == Command;
         }
 
         /// <inheritdoc/>
@@ -89,7 +88,8 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                int result = (Name != null ? Name.GetHashCode() : 0);
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (Name ?? "").GetHashCode();
                 result = (result * 397) ^ (Command ?? "").GetHashCode();
                 return result;
             }

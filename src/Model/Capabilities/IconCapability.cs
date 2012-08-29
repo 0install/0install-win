@@ -83,7 +83,6 @@ namespace ZeroInstall.Model.Capabilities
         protected bool Equals(IconCapability other)
         {
             if (other == null) return false;
-
             return base.Equals(other) && Descriptions.SequencedEquals(other.Descriptions) && Icons.SequencedEquals(other.Icons);
         }
 

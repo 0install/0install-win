@@ -88,8 +88,7 @@ namespace ZeroInstall.Model
         protected bool Equals(TargetBase other)
         {
             if (other == null) return false;
-
-            return _languages.UnsequencedEquals(other._languages) && other.Architecture == Architecture;
+            return base.Equals(other) && _languages.UnsequencedEquals(other._languages) && other.Architecture == Architecture;
         }
 
         /// <inheritdoc/>
@@ -97,7 +96,10 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                return (Languages.GetUnsequencedHashCode() * 397) ^ Architecture.GetHashCode();
+                int result = base.GetHashCode();
+                result = (result * 397) ^ Languages.GetUnsequencedHashCode();
+                result = (result * 397) ^ Architecture.GetHashCode();
+                return result;
             }
         }
         #endregion

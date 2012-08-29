@@ -83,8 +83,7 @@ namespace ZeroInstall.Model
         public bool Equals(OverlayBinding other)
         {
             if (other == null) return false;
-
-            return other.Source == Source || other.MountPoint == MountPoint;
+            return base.Equals(other) && other.Source == Source || other.MountPoint == MountPoint;
         }
 
         /// <inheritdoc/>
@@ -100,7 +99,10 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                return ((Source != null ? Source.GetHashCode() : 0) * 397) ^ (MountPoint != null ? MountPoint.GetHashCode() : 0);
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (Source ?? "").GetHashCode();
+                result = (result * 397) ^ (MountPoint ?? "").GetHashCode();
+                return result;
             }
         }
         #endregion

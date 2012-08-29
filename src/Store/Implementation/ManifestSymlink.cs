@@ -109,7 +109,6 @@ namespace ZeroInstall.Store.Implementation
         public bool Equals(ManifestSymlink other)
         {
             if (other == null) return false;
-
             return Equals(other.Hash, Hash) && other.Size == Size && Equals(other.SymlinkName, SymlinkName);
         }
 
