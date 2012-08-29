@@ -16,10 +16,10 @@ del /q "%TargetDir%\*"
 
 rem Read version numbers
 set /p version= < "%~dp0version"
-set /p version_tools= < "%~dp0version_tools"
-set /p version_updater= < "%~dp0version_updater"
+set /p version_tools= < "%~dp0version-tools"
+set /p version_updater= < "%~dp0version-updater"
 copy "%~dp0version" "%TargetDir%\version" > NUL
-copy "%~dp0version_tools" "%TargetDir%\version_tools" > NUL
+copy "%~dp0version-tools" "%TargetDir%\version-tools" > NUL
 if "%BUILD_UPDATER%"=="TRUE" copy "%~dp0version_updater" "%TargetDir%\version_updater" > NUL
 
 rem Use bundled utility EXEs
