@@ -28,6 +28,7 @@ path %~dp0utils;%path%
 echo Building ZIP archive...
 cd /d "%~dp0..\bundled"
 zip -q -9 -r "%TargetDir%\zero-install.zip" GnuPG Solver
+if errorlevel 1 pause
 cd /d "%~dp0..\build\Frontend\Release"
 zip -q -9 -r "%TargetDir%\zero-install.zip" . --exclude *.log *.mdb *.vshost.exe Test.* nunit.* Mono.* *.pdb *.xml
 if errorlevel 1 pause
