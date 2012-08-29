@@ -372,7 +372,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <summary>
         /// Determines the most recent point in time an attempt was made to download a particular feed.
         /// </summary>
-        private DateTime GetLastCheckAttempt(string feedID)
+        private static DateTime GetLastCheckAttempt(string feedID)
         {
             // Determine timestamp file path
             var file = new FileInfo(Path.Combine(
@@ -386,7 +386,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <summary>
         /// Notes the current time as an attempt to download a particular feed.
         /// </summary>
-        private void SetLastCheckAttempt(string feedID)
+        private static void SetLastCheckAttempt(string feedID)
         {
             // Determine timestamp file path
             string path = Path.Combine(

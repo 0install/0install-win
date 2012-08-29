@@ -16,7 +16,7 @@
  */
 
 using System.IO;
-using Common.Net;
+using Common;
 using Common.Streams;
 using Common.Tasks;
 using NUnit.Framework;

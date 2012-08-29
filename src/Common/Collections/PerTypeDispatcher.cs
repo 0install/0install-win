@@ -23,6 +23,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using Common.Properties;
 
 namespace Common.Collections
 {
@@ -31,6 +33,7 @@ namespace Common.Collections
     /// </summary>
     /// <typeparam name="TBase">The common base type of all objects to be dispatched.</typeparam>
     /// <remarks>Types must be exact matches. Inheritance is not considered.</remarks>
+    [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
     public class PerTypeDispatcher<TBase> : IEnumerable<KeyValuePair<Type, Action<object>>> where TBase : class
     {
         private readonly Dictionary<Type, Action<object>> _map = new Dictionary<Type, Action<object>>();
@@ -78,9 +81,10 @@ namespace Common.Collections
             if (element == null) throw new ArgumentNullException("element");
             #endregion
 
+            var type = element.GetType();
             Action<object> action;
-            if (_map.TryGetValue(element.GetType(), out action)) action(element);
-            else if (!_ignoreMissing) throw new KeyNotFoundException("bla");
+            if (_map.TryGetValue(type, out action)) action(element);
+            else if (!_ignoreMissing) throw new KeyNotFoundException(string.Format(Resources.MissingDispatchAction, type.Name));
         }
 
         /// <summary>

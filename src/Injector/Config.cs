@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Design;
 using System.IO;
 using System.Net.NetworkInformation;
@@ -55,7 +56,7 @@ namespace ZeroInstall.Injector
     /// User settings controlling network behaviour, solving, etc.
     /// </summary>
     [Serializable]
-    public sealed class Config : IEquatable<Config>, ICloneable
+    public sealed class Config : ICloneable, IEquatable<Config>
     {
         #region Variables
         /// <summary>Provides meta-data for loading and saving settings properties.</summary>
@@ -215,6 +216,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Creates a new configuration with default values set.
         /// </summary>
+        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Key-value dispatcher")]
         public Config()
         {
             _metaData = new Dictionary<string, PropertyPointer<string>>
@@ -522,7 +524,6 @@ namespace ZeroInstall.Injector
         public bool Equals(Config other)
         {
             if (other == null) return false;
-
             foreach (var property in _metaData)
                 if (property.Value.Value != other.GetOption(property.Key)) return false;
             return true;

@@ -19,7 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Common.Net;
+using Common;
 using Common.Tasks;
 using ZeroInstall.Injector;
 using Common.Storage;

@@ -95,6 +95,7 @@ namespace ZeroInstall.Publish
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             if (!File.Exists(path)) throw new FileNotFoundException(string.Format(Resources.FileNotFound, path), path);
             if (secretKey == null) throw new ArgumentNullException("secretKey");
+            if (openPgp == null) throw new ArgumentNullException("openPgp");
             #endregion
 
             // Delete any pre-exisiting signature file
@@ -134,6 +135,11 @@ namespace ZeroInstall.Publish
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the feed file is not permitted.</exception>
         public static OpenPgpSecretKey GetKey(string path, IOpenPgp openPgp)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (openPgp == null) throw new ArgumentNullException("openPgp");
+            #endregion
+
             try
             {
                 var signatures = Store.Feeds.FeedUtils.GetSignatures(openPgp, File.ReadAllBytes(path));

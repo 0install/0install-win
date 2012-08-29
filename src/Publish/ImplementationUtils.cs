@@ -80,6 +80,11 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         public static void AddMissing(Implementation implementation, bool store, ITaskHandler handler)
         {
+            #region Sanity checks
+            if (implementation == null) throw new ArgumentNullException("implementation");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             // Convert sha256 to sha256new
             if (!string.IsNullOrEmpty(implementation.ManifestDigest.Sha256) && string.IsNullOrEmpty(implementation.ManifestDigest.Sha256New))
             {
@@ -133,6 +138,11 @@ namespace ZeroInstall.Publish
         /// <returns>A temporary directory containing the contents of the archive.</returns>
         public static TemporaryDirectory DownloadAndExtractArchive(Archive archive, ITaskHandler handler)
         {
+            #region Sanity checks
+            if (archive == null) throw new ArgumentNullException("archive");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             using (var tempFile = DownloadArchive(archive, handler))
             {
                 var extractionDir = new TemporaryDirectory("0publish");
@@ -163,6 +173,11 @@ namespace ZeroInstall.Publish
         /// <returns>A temporary file containing the archive.</returns>
         public static TemporaryFile DownloadArchive(Archive archive, ITaskHandler handler)
         {
+            #region Sanity checks
+            if (archive == null) throw new ArgumentNullException("archive");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             // Guess missing MIME type
             if (String.IsNullOrEmpty(archive.MimeType)) archive.MimeType = ArchiveUtils.GuessMimeType(archive.Location.ToString());
 
@@ -184,6 +199,11 @@ namespace ZeroInstall.Publish
         /// <returns>A temporary directory containing the result of the recipe.</returns>
         public static TemporaryDirectory ApplyRecipe(Recipe recipe, ITaskHandler handler)
         {
+            #region Sanity checks
+            if (recipe == null) throw new ArgumentNullException("recipe");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             var downloadedArchives = new List<ArchiveFileInfo>();
             try
             {

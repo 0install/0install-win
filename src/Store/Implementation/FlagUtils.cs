@@ -172,6 +172,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="prefix">The directory prefix without leading or trailing slashes.</param>
         /// <exception cref="IOException">Thrown if there was an error writing the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to write the flag file.</exception>
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags")]
         public static void PrefixExternalFlags(string file, string prefix)
         {
             #region Sanity checks

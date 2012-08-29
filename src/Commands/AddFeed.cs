@@ -58,6 +58,11 @@ namespace ZeroInstall.Commands
         /// <returns>The interfaces that were actually affected.</returns>
         protected override ICollection<string> ApplyFeedToInterfaces(string feedID, IEnumerable<string> interfaces)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            if (interfaces == null) throw new ArgumentNullException("interfaces");
+            #endregion
+
             var modified = new List<string>();
             foreach (var interfaceID in interfaces)
             {

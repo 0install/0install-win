@@ -60,6 +60,10 @@ namespace ZeroInstall.Fetchers
 
         public void Execute(ITaskHandler handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             using (var mutex = new Mutex(false, "0install-fetcher-" + _digest.BestDigest))
             {
                 // Wait for the mutex and allow cancellation every 100 ms

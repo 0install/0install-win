@@ -16,7 +16,7 @@
  */
 
 using System.IO;
-using Common.Net;
+using Common;
 using Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Injector;

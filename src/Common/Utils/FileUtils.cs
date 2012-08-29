@@ -70,6 +70,10 @@ namespace Common.Utils
         /// </summary>
         public static bool IsBreakoutPath(string path)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
             return Path.IsPathRooted(path) || path.EndsWith("..") || path.Contains(".." + Path.DirectorySeparatorChar);
         }
         #endregion

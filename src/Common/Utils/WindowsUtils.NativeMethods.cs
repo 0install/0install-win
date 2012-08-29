@@ -131,7 +131,7 @@ namespace Common.Utils
             [DllImport("user32", CharSet = CharSet.Unicode, SetLastError = true)]
             public static extern bool PostMessage(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam);
 
-            [DllImport("user32")]
+            [DllImport("user32", CharSet = CharSet.Unicode, SetLastError = true)]
             public static extern int RegisterWindowMessage(string message);
 
 

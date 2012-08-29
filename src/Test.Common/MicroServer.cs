@@ -27,7 +27,7 @@ using System.Net.Sockets;
 using System.Threading;
 using Common.Streams;
 
-namespace Common.Net
+namespace Common
 {
     /// <summary>
     /// Provides a minimalistic HTTP webserver that can provide only a single file. Useful for testing download code.

@@ -67,9 +67,9 @@
     <Compile Include="Controls\TrackingLabelTest.cs" />
     <Compile Include="Controls\TrackingProgressBarTest.cs" />
     <Compile Include="FutureTest.cs" />
-    <Compile Include="Net\DownloadFileTest.cs" />
-    <Compile Include="Net\MicroServer.cs" />
+    <Compile Include="MicroServer.cs" />
     <Compile Include="Storage\LocationsRedirect.cs" />
+    <Compile Include="Tasks\DownloadFileTest.cs" />
     <Compile Include="Tasks\ForEachTaskTest.cs" />
     <Compile Include="Tasks\MockTask.cs" />
     <Compile Include="Tasks\WaitTaskTest.cs" />

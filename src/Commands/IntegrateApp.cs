@@ -160,6 +160,11 @@ namespace ZeroInstall.Commands
         /// <param name="interfaceID">The interface ID to create an <see cref="AppEntry"/> for. Will be updated if <see cref="Feed.ReplacedBy"/> is set and accepted by the user.</param>
         protected override AppEntry GetAppEntry(IIntegrationManager integrationManager, ref string interfaceID)
         {
+            #region Sanity checks
+            if (integrationManager == null) throw new ArgumentNullException("integrationManager");
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            #endregion
+
             var appEntry = base.GetAppEntry(integrationManager, ref interfaceID);
 
             // Detect feed changes that may make an AppEntry update necessary

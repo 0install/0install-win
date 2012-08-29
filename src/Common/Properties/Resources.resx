@@ -178,6 +178,9 @@
   <data name="MaxElementsExceeded" xml:space="preserve">
     <value>The maximum amount of elements in the collection has been exceeded.</value>
   </data>
+  <data name="MissingDispatchAction" xml:space="preserve">
+    <value>No action registered for '{0}'.</value>
+  </data>
   <data name="MissingStreamSeekSupport" xml:space="preserve">
     <value>The stream must support seeking.</value>
   </data>
