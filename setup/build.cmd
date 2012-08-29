@@ -1,23 +1,29 @@
 @echo off
 ::Creates archives and and Inno Setup installer. Assumes "..\src\build.cmd Release" and "..\bundled\download-solver.ps1" have already been executed.
 ::Use command-line argument "+update" to additionally create updater archive.
-if "%1"=="+updater" set UPDATER=TRUE
-if "%2"=="+updater" set UPDATER=TRUE
-if "%3"=="+updater" set UPDATER=TRUE
-if "%4"=="+updater" set UPDATER=TRUE
+if "%1"=="+updater" set BUILD_UPDATER=TRUE
+if "%2"=="+updater" set BUILD_UPDATER=TRUE
+if "%3"=="+updater" set BUILD_UPDATER=TRUE
+if "%4"=="+updater" set BUILD_UPDATER=TRUE
 
 rem Project settings
 set TargetDir=%~dp0..\build\Setup
-set GlobalVersion=1.8.1
-set ToolsVersion=1.0.0
-set UpdaterVersion=1.1.1
 
 
-::Use bundled utility EXEs
-path %~dp0utils;%path%
-
+rem Prepare clean output directory
 if not exist "%TargetDir%" mkdir "%TargetDir%"
 del /q "%TargetDir%\*"
+
+rem Read version numbers
+set /p version= < "%~dp0version"
+set /p version_tools= < "%~dp0version_tools"
+set /p version_updater= < "%~dp0version_updater"
+copy "%~dp0version" "%TargetDir%\version" > NUL
+copy "%~dp0version_tools" "%TargetDir%\version_tools" > NUL
+if "%BUILD_UPDATER%"=="TRUE" copy "%~dp0version_updater" "%TargetDir%\version_updater" > NUL
+
+rem Use bundled utility EXEs
+path %~dp0utils;%path%
 
 echo Building ZIP archive...
 cd /d "%~dp0..\bundled"
@@ -32,11 +38,11 @@ if errorlevel 1 pause
 cd /d "%~dp0"
 
 echo Building TAR.BZ2 archive...
-bsdtar -cjf "%TargetDir%\zero-install-%GlobalVersion%.tar.bz2" --exclude=*.log --exclude=*.mdb --exclude=*.vshost.exe --exclude=Test.* --exclude=nunit.* --exclude=Mono.* --exclude=*.pdb --exclude=*.xml -C "%~dp0.." "license.txt" -C "%~dp0.." "3rd party code.txt" -C "%~dp0..\bundled" GnuPG Solver -C "%~dp0..\build\Frontend\Release" .
+bsdtar -cjf "%TargetDir%\zero-install-%version%.tar.bz2" --exclude=*.log --exclude=*.mdb --exclude=*.vshost.exe --exclude=Test.* --exclude=nunit.* --exclude=Mono.* --exclude=*.pdb --exclude=*.xml -C "%~dp0.." "license.txt" -C "%~dp0.." "3rd party code.txt" -C "%~dp0..\bundled" GnuPG Solver -C "%~dp0..\build\Frontend\Release" .
 if errorlevel 1 pause
 
 echo Building Tools archive...
-bsdtar -cjf "%TargetDir%\zero-install-tools-%ToolsVersion%.tar.bz2" --exclude=*.log --exclude=*.mdb --exclude=*.vshost.exe --exclude=Test.* --exclude=nunit.* --exclude=Mono.* --exclude=*.pdb --exclude=*.xml -C "%~dp0.." "license.txt" -C "%~dp0.." "3rd party code.txt" -C "%~dp0..\bundled" GnuPG -C "%~dp0..\build\Tools\Release" .
+bsdtar -cjf "%TargetDir%\zero-install-tools-%version_tools%.tar.bz2" --exclude=*.log --exclude=*.mdb --exclude=*.vshost.exe --exclude=Test.* --exclude=nunit.* --exclude=Mono.* --exclude=*.pdb --exclude=*.xml -C "%~dp0.." "license.txt" -C "%~dp0.." "3rd party code.txt" -C "%~dp0..\bundled" GnuPG -C "%~dp0..\build\Tools\Release" .
 if errorlevel 1 pause
 
 echo Building Tools developer archive...
@@ -63,9 +69,9 @@ zip -q -9 -j "%TargetDir%\zero-install-backend-dev.zip" "%~dp0..\3rd party code.
 if errorlevel 1 pause
 cd /d "%~dp0"
 
-if "%BUILD_DOC%"=="TRUE" (
+if "%BUILD_UPDATER%"=="TRUE" (
   echo Building Updater archive...
-  bsdtar -cjf "%TargetDir%\zero-install-updater-%UpdaterVersion%.tar.bz2" --exclude=*.log --exclude=*.pdb --exclude=*.mdb --exclude=*.vshost.exe --exclude=Test.* --exclude=nunit.* --exclude=Mono.* --exclude=*.xml --exclude=SevenZip.* --exclude=C5.* -C "%~dp0..\build\Updater\Release" .
+  bsdtar -cjf "%TargetDir%\zero-install-updater-%version_updater%.tar.bz2" --exclude=*.log --exclude=*.pdb --exclude=*.mdb --exclude=*.vshost.exe --exclude=Test.* --exclude=nunit.* --exclude=Mono.* --exclude=*.xml --exclude=SevenZip.* --exclude=C5.* -C "%~dp0..\build\Updater\Release" .
   if errorlevel 1 pause
 )
 
@@ -82,7 +88,7 @@ if not exist "%ProgramFiles_temp%\Inno Setup 5" (
 
 echo Building installer...
 cd /d "%~dp0"
-"%ProgramFiles_temp%\Inno Setup 5\iscc.exe" /q "/dVersion=%GlobalVersion%" "/o%TargetDir%" setup.iss
+"%ProgramFiles_temp%\Inno Setup 5\iscc.exe" /q "/dVersion=%version%" setup.iss
 if errorlevel 1 pause
 
 if "%1"=="+run" "%TargetDir%\zero-install.exe" /silent
