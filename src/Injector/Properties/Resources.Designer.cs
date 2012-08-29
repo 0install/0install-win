@@ -175,6 +175,15 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;executable-in-*&gt; bindings are currently not supported on this operating system..
+        /// </summary>
+        internal static string NoRunEnvForOS {
+            get {
+                return ResourceManager.GetString("NoRunEnvForOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No selected version.
         /// </summary>
         internal static string NoSelectedVersion {

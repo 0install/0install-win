@@ -296,8 +296,8 @@ namespace ZeroInstall.Injector
                     ? "runenv.netfx40.template"
                     : "runenv.netfx20.template";
             }
-                //else if (MonoUtils.IsUnix) templateName = "runenv.sh.template";
-            else throw new NotSupportedException("No template binary for current OS");
+            else if (MonoUtils.IsUnix) templateName = "runenv.sh.template";
+            else throw new NotSupportedException(Resources.NoRunEnvForOS);
 
             string path = Path.Combine(Locations.GetCacheDirPath("0install.net", "injector", "executables"), templateName);
             try

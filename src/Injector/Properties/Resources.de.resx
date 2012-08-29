@@ -159,6 +159,9 @@ Wechsle zu Mirror.</value>
   <data name="NoKeyInfoServerData" xml:space="preserve">
     <value>Der Keyinformationsserver konnte keine weiteren Informationen über diesen Key zur Verfügung stellen.</value>
   </data>
+  <data name="NoRunEnvForOS" xml:space="preserve">
+    <value>&lt;executable-in-*&gt; Bindings werden auf diesem Betriebsystem derzeit nicht unterstützt.</value>
+  </data>
   <data name="NoSelectedVersion" xml:space="preserve">
     <value>Keine ausgewählte Version</value>
   </data>
