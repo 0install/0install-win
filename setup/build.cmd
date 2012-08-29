@@ -19,7 +19,6 @@ path %~dp0utils;%path%
 if not exist "%TargetDir%" mkdir "%TargetDir%"
 del /q "%TargetDir%\*"
 
-
 echo Building ZIP archive...
 cd /d "%~dp0..\bundled"
 zip -q -9 -r "%TargetDir%\zero-install.zip" .
