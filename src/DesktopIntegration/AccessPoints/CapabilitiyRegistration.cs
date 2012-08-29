@@ -123,7 +123,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             }
         }
 
-        private bool AreCapabilitiesApplicable(Capabilities.CapabilityList capabilityList)
+        private static bool AreCapabilitiesApplicable(Capabilities.CapabilityList capabilityList)
         {
             return capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem);
         }
