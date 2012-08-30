@@ -86,7 +86,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override AccessPoint Clone()
         {
-            return new MockAccessPoint {ID = ID};
+            return new MockAccessPoint {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, ID = ID};
         }
         #endregion
 

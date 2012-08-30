@@ -92,7 +92,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="Constraint"/>.</returns>
         public Constraint Clone()
         {
-            return new Constraint {NotBeforeVersion = NotBeforeVersion, BeforeVersion = BeforeVersion};
+            return new Constraint {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, NotBeforeVersion = NotBeforeVersion, BeforeVersion = BeforeVersion};
         }
 
         object ICloneable.Clone()

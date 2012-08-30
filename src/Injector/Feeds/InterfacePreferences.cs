@@ -181,7 +181,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <returns>The new copy of the <see cref="InterfacePreferences"/>.</returns>
         public InterfacePreferences Clone()
         {
-            var feed = new InterfacePreferences {Uri = Uri, StabilityPolicy = StabilityPolicy};
+            var feed = new InterfacePreferences {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, Uri = Uri, StabilityPolicy = StabilityPolicy};
             foreach (var feedReference in Feeds) feed.Feeds.Add(feedReference.Clone());
 
             return feed;

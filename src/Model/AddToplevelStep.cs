@@ -64,7 +64,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="AddToplevelStep"/>.</returns>
         public IRecipeStep CloneRecipeStep()
         {
-            return new AddToplevelStep {Directory = Directory};
+            return new AddToplevelStep {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, Directory = Directory};
         }
         #endregion
 

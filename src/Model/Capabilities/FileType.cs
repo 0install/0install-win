@@ -66,7 +66,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability Clone()
         {
-            var capability = new FileType {ID = ID, ExplicitOnly = ExplicitOnly};
+            var capability = new FileType {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, ID = ID, ExplicitOnly = ExplicitOnly};
             foreach (var description in Descriptions) capability.Descriptions.Add(description.Clone());
             capability.Icons.AddAll(Icons);
             foreach (var verb in Verbs) capability.Verbs.Add(verb.Clone());

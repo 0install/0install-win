@@ -62,9 +62,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <returns>The new copy of the <see cref="ImplementationPreferences"/>.</returns>
         public ImplementationPreferences Clone()
         {
-            var feedPreferences = new ImplementationPreferences {ID = ID, UserStability = UserStability};
-
-            return feedPreferences;
+            return new ImplementationPreferences {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, ID = ID, UserStability = UserStability};
         }
 
         object ICloneable.Clone()

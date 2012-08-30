@@ -296,7 +296,7 @@ namespace ZeroInstall.DesktopIntegration
         }
         #endregion
 
-        #region Helpers
+        #region Merge data
         /// <summary>
         /// Merges a new <see cref="AppList"/> with the existing data.
         /// </summary>
@@ -320,16 +320,14 @@ namespace ZeroInstall.DesktopIntegration
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            ICollection<AppEntry> toAdd = new LinkedList<AppEntry>();
-            ICollection<AppEntry> toRemove = new LinkedList<AppEntry>();
+            var toAdd = new List<AppEntry>();
+            var toRemove = new List<AppEntry>();
 
             // Use 2-way merge for client-reset, 3-way merge otherwise
             if (resetClient) EnumerableUtils.Merge(remoteAppList.Entries, AppList.Entries, toAdd.Add, toRemove.Add);
             else EnumerableUtils.Merge(_appListLastSync.Entries, remoteAppList.Entries, AppList.Entries, toAdd.Add, toRemove.Add);
 
-            foreach (var appEntry in toRemove)
-                RemoveAppHelper(appEntry);
-
+            toRemove.ForEach(RemoveAppHelper);
             foreach (var appEntry in toAdd)
             {
                 // Clone the AppEntry without the access points
@@ -339,7 +337,8 @@ namespace ZeroInstall.DesktopIntegration
                 AppList.Entries.Add(newAppEntry);
 
                 // Add and apply the access points
-                if (appEntry.AccessPoints != null) AddAccessPointsHelper(newAppEntry, feedRetriever(appEntry.InterfaceID), appEntry.AccessPoints.Entries);
+                if (appEntry.AccessPoints != null)
+                    AddAccessPointsHelper(newAppEntry, feedRetriever(appEntry.InterfaceID), appEntry.AccessPoints.Clone().Entries);
             }
         }
         #endregion

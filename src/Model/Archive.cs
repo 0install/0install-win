@@ -110,7 +110,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="Archive"/>.</returns>
         private Archive CloneArchive()
         {
-            return new Archive {Location = Location, MimeType = MimeType, Size = Size, StartOffset = StartOffset, Extract = Extract};
+            return new Archive {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, Location = Location, MimeType = MimeType, Size = Size, StartOffset = StartOffset, Extract = Extract};
         }
 
         /// <summary>

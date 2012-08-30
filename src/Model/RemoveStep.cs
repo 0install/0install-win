@@ -64,7 +64,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="RemoveStep"/>.</returns>
         public IRecipeStep CloneRecipeStep()
         {
-            return new RemoveStep {Path = Path};
+            return new RemoveStep {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, Path = Path};
         }
         #endregion
 

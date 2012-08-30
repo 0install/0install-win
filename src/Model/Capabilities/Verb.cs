@@ -126,7 +126,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <returns>The new copy of the <see cref="Verb"/>.</returns>
         public Verb Clone()
         {
-            var newVerb = new Verb {Name = Name, Command = Command, Arguments = Arguments, Extended = Extended};
+            var newVerb = new Verb {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, Name = Name, Command = Command, Arguments = Arguments, Extended = Extended};
             foreach (var description in Descriptions) newVerb.Descriptions.Add(description.Clone());
 
             return newVerb;

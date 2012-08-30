@@ -92,7 +92,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override AccessPoint Clone()
         {
-            return new FileType {Capability = Capability};
+            return new FileType {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, Capability = Capability};
         }
         #endregion
 

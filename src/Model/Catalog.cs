@@ -154,7 +154,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="Catalog"/>.</returns>
         public Catalog Clone()
         {
-            var catalog = new Catalog();
+            var catalog = new Catalog {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes};
             foreach (var feed in Feeds) catalog.Feeds.Add(feed.Clone());
 
             return catalog;

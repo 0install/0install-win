@@ -141,7 +141,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <returns>The new copy of the <see cref="AppEntry"/>.</returns>
         public AppEntry Clone()
         {
-            var appList = new AppEntry {Name = Name, InterfaceID = InterfaceID};
+            var appList = new AppEntry {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, Name = Name, InterfaceID = InterfaceID};
             if (AccessPoints != null) appList.AccessPoints = AccessPoints.Clone();
             foreach (var list in CapabilityLists) appList.CapabilityLists.Add(list.Clone());
 

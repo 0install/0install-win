@@ -55,7 +55,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability Clone()
         {
-            return new ComServer {ID = ID};
+            return new ComServer {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, ID = ID};
         }
         #endregion
 

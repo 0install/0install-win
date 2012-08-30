@@ -452,7 +452,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="Feed"/>.</returns>
         public Feed Clone()
         {
-            var feed = new Feed {MinInjectorVersion = MinInjectorVersion, Uri = Uri, Name = Name, Homepage = Homepage, NeedsTerminal = NeedsTerminal};
+            var feed = new Feed {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, MinInjectorVersion = MinInjectorVersion, Uri = Uri, Name = Name, Homepage = Homepage, NeedsTerminal = NeedsTerminal};
             foreach (var feedReference in Feeds) feed.Feeds.Add(feedReference.Clone());
             foreach (var interfaceReference in FeedFor) feed.FeedFor.Add(interfaceReference.Clone());
             foreach (var summary in Summaries) feed.Summaries.Add(summary.Clone());

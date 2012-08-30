@@ -77,6 +77,8 @@ namespace ZeroInstall.Model
             if (to == null) throw new ArgumentNullException("to");
             #endregion
 
+            to.UnknownElements = from.UnknownElements;
+            to.UnknownAttributes = from.UnknownAttributes;
             to.Languages.Clear();
             to.Languages.AddAll(from.Languages);
             to.ArchitectureString = from.ArchitectureString;

@@ -58,6 +58,22 @@ namespace ZeroInstall.Model
         }
         #endregion
 
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="InterfaceReference"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="InterfaceReference"/>.</returns>
+        public InterfaceReference Clone()
+        {
+            return new InterfaceReference {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, Target = Target};
+        }
+
+        object ICloneable.Clone()
+        {
+            return Clone();
+        }
+        #endregion
+
         #region Equality
         /// <inheritdoc/>
         public bool Equals(InterfaceReference other)
@@ -81,22 +97,6 @@ namespace ZeroInstall.Model
             {
                 return (base.GetHashCode() * 397) ^ (TargetString ?? "").GetHashCode();
             }
-        }
-        #endregion
-
-        #region Clone
-        /// <summary>
-        /// Creates a deep copy of this <see cref="InterfaceReference"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="InterfaceReference"/>.</returns>
-        public InterfaceReference Clone()
-        {
-            return new InterfaceReference {Target = Target};
-        }
-
-        object ICloneable.Clone()
-        {
-            return Clone();
         }
         #endregion
     }

@@ -90,7 +90,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override AccessPoint Clone()
         {
-            return new QuickLaunch {Command = Command, Name = Name};
+            return new QuickLaunch {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, Command = Command, Name = Name};
         }
         #endregion
 

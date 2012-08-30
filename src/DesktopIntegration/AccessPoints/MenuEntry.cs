@@ -125,7 +125,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override AccessPoint Clone()
         {
-            return new MenuEntry {Command = Command, Name = Name, Category = Category};
+            return new MenuEntry {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, Command = Command, Name = Name, Category = Category};
         }
         #endregion
 
