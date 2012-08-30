@@ -280,9 +280,6 @@
     <EmbeddedResource Include="Controls\OutputBox.resx">
       <DependentUpon>OutputBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\TrackingControl.resx">
-      <DependentUpon>TrackingControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.de.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
