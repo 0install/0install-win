@@ -744,9 +744,6 @@
   <data name="checkBoxHelpWithTesting.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
   <data name="buttonSyncSetup.Text" xml:space="preserve">
     <value>Se&amp;tup</value>
   </data>

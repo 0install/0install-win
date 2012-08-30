@@ -63,8 +63,6 @@
             // 
             // FeedReferenceControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lblExtFeedURL);
             this.Controls.Add(this.textBoxExtFeedURL);
             this.Controls.Add(this.targetBaseControl);

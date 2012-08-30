@@ -238,8 +238,6 @@
             // 
             // PackageImplementationDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(366, 257);
             this.Controls.Add(this.hintTextBoxDocDir);
             this.Controls.Add(this.labelDocDir);

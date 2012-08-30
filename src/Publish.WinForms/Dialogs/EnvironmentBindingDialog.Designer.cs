@@ -155,8 +155,6 @@
             // 
             // EnvironmentBindingDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(333, 255);
             this.Controls.Add(this.hintTextBoxSeparator);
             this.Controls.Add(this.labelSeparator);

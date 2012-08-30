@@ -124,9 +124,6 @@
   <data name="buttonResetServer.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
   </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
   <data name="labelTitle.Text" xml:space="preserve">
     <value>Sync troubleshooting</value>
   </data>

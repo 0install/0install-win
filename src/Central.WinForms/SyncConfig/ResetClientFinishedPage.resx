@@ -125,9 +125,6 @@
     <value>NoControl</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
   <data name="&gt;&gt;buttonDone.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>

@@ -169,7 +169,7 @@
     <value>appList</value>
   </data>
   <data name="&gt;&gt;appList.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.6.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.11.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;appList.Parent" xml:space="preserve">
     <value>tabPageAppList</value>
@@ -319,7 +319,7 @@
     <value>catalogList</value>
   </data>
   <data name="&gt;&gt;catalogList.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.6.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.11.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;catalogList.Parent" xml:space="preserve">
     <value>tabPageCatalog</value>

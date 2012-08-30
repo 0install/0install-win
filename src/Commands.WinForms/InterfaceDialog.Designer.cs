@@ -223,7 +223,6 @@
             // InterfaceDialog
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonApply);
             this.Controls.Add(this.tabControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;

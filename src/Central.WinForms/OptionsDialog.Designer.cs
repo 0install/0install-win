@@ -334,7 +334,6 @@
             // OptionsDialog
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonApply);
             this.Controls.Add(this.buttonAdvanced);
             this.Controls.Add(this.tabOptions);

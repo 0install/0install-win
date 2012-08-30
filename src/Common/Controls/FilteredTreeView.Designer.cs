@@ -58,8 +58,6 @@
             // 
             // FilteredTreeView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.treeView);
             this.Controls.Add(this.textSearch);
             this.Name = "FilteredTreeView";

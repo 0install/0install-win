@@ -145,7 +145,6 @@ namespace ZeroInstall.Store.Management.WinForms
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonClose;
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.buttonVerify);

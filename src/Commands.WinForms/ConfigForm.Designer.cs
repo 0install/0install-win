@@ -60,7 +60,6 @@
             // ConfigForm
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.propertyGrid);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Name = "ConfigForm";

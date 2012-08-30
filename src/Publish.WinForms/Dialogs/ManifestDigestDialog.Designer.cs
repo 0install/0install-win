@@ -111,8 +111,6 @@
             // ManifestDigestDialog
             // 
             this.AcceptButton = this.buttonOK;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonOK;
             this.ClientSize = new System.Drawing.Size(430, 192);
             this.Controls.Add(this.hintTextBoxSha256);

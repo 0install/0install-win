@@ -95,7 +95,6 @@ namespace Common.Controls
             // ErrorReportForm
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.commentBox);
             this.Controls.Add(this.commentLabel);
             this.Controls.Add(this.buttonCancel);

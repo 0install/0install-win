@@ -193,9 +193,6 @@
             // 
             // DependencyDialog
             // 
-            this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(324, 274);
             this.Controls.Add(this.labelImportance);
             this.Controls.Add(this.comboBoxImportance);

@@ -124,6 +124,10 @@ namespace ZeroInstall.Fetchers
                     },
                 }.Dispatch(method);
             }
+            catch (NotSupportedException ex)
+            {
+                Problems.Add(ex);
+            }
             catch (WebException ex)
             {
                 Problems.Add(ex);

@@ -128,9 +128,6 @@
   <data name="labelTitle.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
   <data name="labelTitle.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 18pt, style=Bold</value>
   </data>

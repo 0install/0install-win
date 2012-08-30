@@ -110,7 +110,6 @@
             // IconManagementControl
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.uriTextBoxIconUrl);
             this.Controls.Add(this.labelIconUrl);
             this.Controls.Add(this.comboBoxIconType);

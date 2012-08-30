@@ -159,9 +159,6 @@
   <data name="&gt;&gt;buttonOfficalServer.Name" xml:space="preserve">
     <value>buttonOfficalServer</value>
   </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
   <data name="labelTitle.Size" type="System.Drawing.Size, System.Drawing">
     <value>470, 37</value>
   </data>

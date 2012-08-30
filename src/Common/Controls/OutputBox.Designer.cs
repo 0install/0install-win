@@ -88,7 +88,6 @@
             // OutputBox
             // 
             this.AcceptButton = this.buttonOK;
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.CancelButton = this.buttonOK;
             this.ClientSize = new System.Drawing.Size(484, 252);
             this.ControlBox = false;

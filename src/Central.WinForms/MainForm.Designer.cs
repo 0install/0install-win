@@ -79,6 +79,8 @@
             // 
             resources.ApplyResources(this.appList, "appList");
             this.appList.Name = "appList";
+            this.appList.TileColorDark = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(240)))), ((int)(((byte)(255)))));
+            this.appList.TileColorLight = System.Drawing.Color.White;
             // 
             // tabPageCatalog
             // 
@@ -113,6 +115,8 @@
             // 
             resources.ApplyResources(this.catalogList, "catalogList");
             this.catalogList.Name = "catalogList";
+            this.catalogList.TileColorDark = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(240)))), ((int)(((byte)(255)))));
+            this.catalogList.TileColorLight = System.Drawing.Color.White;
             // 
             // buttonOptions
             // 
