@@ -57,7 +57,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="WorkingDir"/>.</returns>
         public WorkingDir Clone()
         {
-            return new WorkingDir {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, Source = Source};
+            return new WorkingDir {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Source = Source};
         }
 
         object ICloneable.Clone()

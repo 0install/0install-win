@@ -91,7 +91,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override AccessPoint Clone()
         {
-            return new AppAlias {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, Command = Command, Name = Name};
+            return new AppAlias {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Command = Command, Name = Name};
         }
         #endregion
 

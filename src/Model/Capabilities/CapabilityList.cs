@@ -115,7 +115,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <returns>The new copy of the <see cref="CapabilityList"/>.</returns>
         public CapabilityList Clone()
         {
-            var capabilityList = new CapabilityList {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, Architecture = Architecture};
+            var capabilityList = new CapabilityList {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Architecture = Architecture};
             foreach (var entry in Entries) capabilityList.Entries.Add(entry.Clone());
 
             return capabilityList;

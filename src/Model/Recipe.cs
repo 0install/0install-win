@@ -107,7 +107,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="Recipe"/>.</returns>
         public override RetrievalMethod Clone()
         {
-            var recipe = new Recipe {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes};
+            var recipe = new Recipe {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements};
             foreach (var step in Steps)
                 recipe.Steps.Add(step.CloneRecipeStep());
 

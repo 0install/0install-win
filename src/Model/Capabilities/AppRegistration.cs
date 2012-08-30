@@ -76,7 +76,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability Clone()
         {
-            return new AppRegistration {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, ID = ID, CapabilityRegPath = CapabilityRegPath, X64 = X64};
+            return new AppRegistration {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, CapabilityRegPath = CapabilityRegPath, X64 = X64};
         }
         #endregion
 

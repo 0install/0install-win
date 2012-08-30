@@ -72,7 +72,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability Clone()
         {
-            return new ContextMenu {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, ID = ID, ExplicitOnly = ExplicitOnly, AllObjects = AllObjects, Verb = Verb.Clone()};
+            return new ContextMenu {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, ExplicitOnly = ExplicitOnly, AllObjects = AllObjects, Verb = Verb.Clone()};
         }
         #endregion
 

@@ -63,7 +63,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="ExecutableInVar"/>.</returns>
         public override Binding Clone()
         {
-            return new ExecutableInVar {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, Name = Name, Command = Command};
+            return new ExecutableInVar {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name, Command = Command};
         }
         #endregion
 

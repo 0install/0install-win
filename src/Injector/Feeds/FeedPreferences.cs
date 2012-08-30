@@ -205,7 +205,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <returns>The new copy of the <see cref="FeedPreferences"/>.</returns>
         public FeedPreferences Clone()
         {
-            var feedPreferences = new FeedPreferences {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, LastChecked = LastChecked};
+            var feedPreferences = new FeedPreferences {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, LastChecked = LastChecked};
             foreach (var implementation in Implementations) feedPreferences.Implementations.Add(implementation.Clone());
 
             return feedPreferences;

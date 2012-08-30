@@ -123,7 +123,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <returns>The new copy of the <see cref="AccessPointList"/>.</returns>
         public AccessPointList Clone()
         {
-            var accessPointList = new AccessPointList {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes};
+            var accessPointList = new AccessPointList {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements};
             foreach (var entry in Entries) accessPointList.Entries.Add(entry.Clone());
 
             return accessPointList;

@@ -198,7 +198,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <returns>The new copy of the <see cref="AppList"/>.</returns>
         public AppList Clone()
         {
-            var appList = new AppList {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes};
+            var appList = new AppList {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements};
             foreach (var entry in Entries) appList.Entries.Add(entry.Clone());
 
             return appList;

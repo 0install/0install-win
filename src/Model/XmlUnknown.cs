@@ -10,16 +10,16 @@ namespace ZeroInstall.Model
     public abstract class XmlUnknown
     {
         /// <summary>
-        /// Contains any unknown additional XML elements.
-        /// </summary>
-        [XmlAnyElement]
-        public XmlElement[] UnknownElements;
-
-        /// <summary>
         /// Contains any unknown additional XML attributes.
         /// </summary>
         [XmlAnyAttribute]
         public XmlAttribute[] UnknownAttributes;
+
+        /// <summary>
+        /// Contains any unknown additional XML elements.
+        /// </summary>
+        [XmlAnyElement]
+        public XmlElement[] UnknownElements;
 
         #region Equality
         /// <inheritdoc/>
@@ -27,31 +27,54 @@ namespace ZeroInstall.Model
         {
             if (other == null) return false;
 
-            // Convert arrays to list for easier comparison
-            var elements = new C5.LinkedList<XmlElement>();
-            if (UnknownElements != null) elements.AddAll(UnknownElements);
-            var attributes = new C5.LinkedList<XmlAttribute>();
-            if (UnknownAttributes != null) attributes.AddAll(UnknownAttributes);
-            var otherElements = new C5.LinkedList<XmlElement>();
-            if (other.UnknownElements != null) otherElements.AddAll(other.UnknownElements);
-            var otherAttributes = new C5.LinkedList<XmlAttribute>();
-            if (other.UnknownAttributes != null) otherAttributes.AddAll(other.UnknownAttributes);
+            if (UnknownAttributes == null)
+            {
+                if (other.UnknownAttributes != null) return false;
+            }
+            else
+            {
+                if (other.UnknownAttributes == null || UnknownAttributes.Length != other.UnknownAttributes.Length) return false;
+                else
+                {
+                    // ToDo: Compare UnknownAttributes
+                }
+            }
 
-            return elements.SequencedEquals(otherElements) && attributes.SequencedEquals(otherAttributes);
+            if (UnknownElements == null)
+            {
+                if (other.UnknownElements != null) return false;
+            }
+            else
+            {
+                if (other.UnknownElements == null || UnknownElements.Length != other.UnknownElements.Length) return false;
+                else
+                {
+                    // ToDo: Compare UnknownElements
+                }
+            }
+
+            return true;
         }
 
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            // Convert arrays to list for easier comparison
-            var elements = new C5.LinkedList<XmlElement>();
-            if (UnknownElements != null) elements.AddAll(UnknownElements);
-            var attributes = new C5.LinkedList<XmlAttribute>();
-            if (UnknownAttributes != null) attributes.AddAll(UnknownAttributes);
-
             unchecked
             {
-                return (elements.GetSequencedHashCode() * 397) ^ attributes.GetSequencedHashCode();
+                int result = 397;
+                // ReSharper disable NonReadonlyFieldInGetHashCode
+                if (UnknownAttributes != null)
+                {
+                    foreach (var attribute in UnknownAttributes)
+                        result = (result * 397) ^ attribute.Name.GetHashCode();
+                }
+                if (UnknownElements != null)
+                {
+                    foreach (var element in UnknownElements)
+                        result = (result * 397) ^ element.Name.GetHashCode();
+                }
+                // ReSharper restore NonReadonlyFieldInGetHashCode
+                return result;
             }
         }
         #endregion

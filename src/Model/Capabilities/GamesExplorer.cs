@@ -55,7 +55,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <inheritdoc/>
         public override Capability Clone()
         {
-            return new GamesExplorer {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes, ID = ID};
+            return new GamesExplorer {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID};
         }
         #endregion
 

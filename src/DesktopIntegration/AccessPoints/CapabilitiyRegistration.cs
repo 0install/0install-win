@@ -145,7 +145,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override AccessPoint Clone()
         {
-            return new CapabilityRegistration {UnknownElements = UnknownElements, UnknownAttributes = UnknownAttributes};
+            return new CapabilityRegistration {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements};
         }
         #endregion
 

@@ -336,7 +336,7 @@ namespace ZeroInstall.DesktopIntegration
                 {
                     // Remove access points from clone and then reapply
                     var accessPoints = newAppEntry.AccessPoints.Entries;
-                    newAppEntry.AccessPoints = new AccessPointList {UnknownElements = newAppEntry.AccessPoints.UnknownElements, UnknownAttributes = newAppEntry.AccessPoints.UnknownAttributes};
+                    newAppEntry.AccessPoints = new AccessPointList {UnknownAttributes = newAppEntry.AccessPoints.UnknownAttributes, UnknownElements = newAppEntry.AccessPoints.UnknownElements};
                     AddAccessPointsHelper(newAppEntry, feedRetriever(appEntry.InterfaceID), accessPoints);
                 }
                 AppList.Entries.Add(newAppEntry);
