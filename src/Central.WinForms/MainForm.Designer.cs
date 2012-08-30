@@ -165,8 +165,8 @@
             // MainForm
             // 
             this.AllowDrop = true;
-            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             resources.ApplyResources(this, "$this");
+            this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.pictureBoxLogo);
             this.Controls.Add(this.buttonOptions);
             this.Controls.Add(this.labelVersion);

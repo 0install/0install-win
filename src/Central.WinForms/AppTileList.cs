@@ -68,7 +68,7 @@ namespace ZeroInstall.Central.WinForms
         /// The light background color (one of two colors the list toggles between) for <see cref="AppTile"/>s.
         /// </summary>
         /// <seealso cref="TileColorDark"/>
-        private Color _tileColorLight = SystemColors.ControlLightLight;
+        private Color _tileColorLight = Color.White;
 
         [Category("Appearance"), Description("The light background color (one of two colors the list toggles between) for AppTiles.")]
         [DefaultValue(typeof(Color), "ControlLightLight")]
@@ -78,7 +78,7 @@ namespace ZeroInstall.Central.WinForms
         /// The dark background color (one of two colors the list toggles between) for <see cref="AppTile"/>s.
         /// </summary>
         /// <seealso cref="TileColorLight"/>
-        private Color _tileColorDark = SystemColors.ControlLight;
+        private Color _tileColorDark = Color.FromArgb(230, 240, 255);
 
         [Category("Appearance"), Description("The dark background color (one of two colors the list toggles between) for AppTiles.")]
         [DefaultValue(typeof(Color), "ControlLight")]
@@ -123,7 +123,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 _flowLayout.SuspendLayout();
 
-                _flowLayout.Width = _scrollPanel.Width - 20;
+                _flowLayout.Width = _scrollPanel.Width - 23;
                 foreach (Control control in _flowLayout.Controls)
                     control.Width = _flowLayout.Width;
 
