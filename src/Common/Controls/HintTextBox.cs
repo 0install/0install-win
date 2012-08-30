@@ -146,7 +146,7 @@ namespace Common.Controls
             get { return _hintText; }
             set
             {
-                _hintText = value;
+                AccessibleName = _hintText = value;
 
                 // Update the hint text on-screen if it is already visible
                 if (IsHintTextVisible) ShowHintText();
