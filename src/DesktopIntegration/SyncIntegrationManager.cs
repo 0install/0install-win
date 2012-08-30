@@ -327,18 +327,19 @@ namespace ZeroInstall.DesktopIntegration
             if (resetClient) EnumerableUtils.Merge(remoteAppList.Entries, AppList.Entries, toAdd.Add, toRemove.Add);
             else EnumerableUtils.Merge(_appListLastSync.Entries, remoteAppList.Entries, AppList.Entries, toAdd.Add, toRemove.Add);
 
-            toRemove.ForEach(RemoveAppHelper);
+            foreach (var appEntry in toRemove)
+                RemoveAppHelper(appEntry);
             foreach (var appEntry in toAdd)
             {
-                // Clone the AppEntry without the access points
-                var newAppEntry = new AppEntry {InterfaceID = appEntry.InterfaceID, Name = appEntry.Name, AutoUpdate = appEntry.AutoUpdate, Timestamp = DateTime.UtcNow};
-                foreach (var capabilityList in appEntry.CapabilityLists)
-                    newAppEntry.CapabilityLists.Add(capabilityList.Clone());
+                var newAppEntry = appEntry.Clone();
+                if (newAppEntry.AccessPoints != null)
+                {
+                    // Remove access points from clone and then reapply
+                    var accessPoints = newAppEntry.AccessPoints.Entries;
+                    newAppEntry.AccessPoints = new AccessPointList {UnknownElements = newAppEntry.AccessPoints.UnknownElements, UnknownAttributes = newAppEntry.AccessPoints.UnknownAttributes};
+                    AddAccessPointsHelper(newAppEntry, feedRetriever(appEntry.InterfaceID), accessPoints);
+                }
                 AppList.Entries.Add(newAppEntry);
-
-                // Add and apply the access points
-                if (appEntry.AccessPoints != null)
-                    AddAccessPointsHelper(newAppEntry, feedRetriever(appEntry.InterfaceID), appEntry.AccessPoints.Clone().Entries);
             }
         }
         #endregion

@@ -304,7 +304,8 @@ namespace Common.Collections
                 var matchingTheirs = FindMergeID(theirsList, mine.MergeID);
                 if (matchingTheirs == null)
                 { // Entry in mineList, but not in theirsList
-                    if (baseList.Contains(mine)) removed(mine); // Removed from theirsList
+                    if (baseList.Contains(mine))
+                        removed(mine); // Removed from theirsList
                 }
                 else
                 { // Entry both in mineList and in theirsList
