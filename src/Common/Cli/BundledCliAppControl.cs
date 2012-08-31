@@ -24,7 +24,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using Common.Properties;
 using Common.Storage;
 using Common.Utils;
 
@@ -46,18 +45,17 @@ namespace Common.Cli
         /// </remarks>
         public static string GetBundledDirectory(string name)
         {
-            string path = Path.Combine(Locations.InstallBase, name); // Installation directory
+            string path = Path.Combine(Locations.InstallBase, name); // Subdir of installation directory
             if (Directory.Exists(path)) return path;
-            path = Path.Combine(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location) ?? "", name); // Library installation diretory
+            path = Path.Combine(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location) ?? "", name); // Subdir of library installation diretory
             if (Directory.Exists(path)) return path;
             path = FileUtils.PathCombine(Locations.InstallBase, "..", "..", "..", "bundled", name); // Parallel directory during development
             if (Directory.Exists(path)) return path;
             path = FileUtils.PathCombine(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location) ?? "", "..", "..", "..", "bundled", name); // Parallel directory during development
             if (Directory.Exists(path)) return path;
-            path = Path.Combine(Environment.CurrentDirectory, name); // Working directory
+            path = Path.Combine(Environment.CurrentDirectory, name); // Subdir of working directory
             if (Directory.Exists(path)) return path;
-
-            throw new IOException(string.Format(Resources.UnableToLaunchBundled, name));
+            return Locations.InstallBase; // Installation directory
         }
 
         /// <summary>

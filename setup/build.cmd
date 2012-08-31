@@ -43,7 +43,7 @@ bsdtar -cjf "%TargetDir%\zero-install-%version%.tar.bz2" --exclude=*.log --exclu
 if errorlevel 1 pause
 
 echo Building Tools archive...
-bsdtar -cjf "%TargetDir%\zero-install-tools-%version_tools%.tar.bz2" --exclude=*.log --exclude=*.mdb --exclude=*.vshost.exe --exclude=Test.* --exclude=nunit.* --exclude=Mono.* --exclude=*.pdb --exclude=*.xml -C "%~dp0.." "license.txt" -C "%~dp0.." "3rd party code.txt" -C "%~dp0..\bundled" GnuPG -C "%~dp0..\build\Tools\Release" .
+bsdtar -cjf "%TargetDir%\zero-install-tools-%version_tools%.tar.bz2" --exclude=*.log --exclude=*.mdb --exclude=*.vshost.exe --exclude=Test.* --exclude=nunit.* --exclude=Mono.* --exclude=*.pdb --exclude=*.xml -C "%~dp0.." "license.txt" -C "%~dp0.." "3rd party code.txt" -C "%~dp0..\build\Tools\Release" .
 if errorlevel 1 pause
 
 echo Building Tools developer archive...
