@@ -38,6 +38,9 @@ namespace ZeroInstall.Commands.WinForms
         #region Variables
         /// <summary>To be called when the user wishes to cancel the current process.</summary>
         private readonly SimpleEventHandler _cancelCallback;
+
+        /// <summary>A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/> after <see cref="BeginAuditSelections"/>.</summary>
+        private EventWaitHandle _auditWaitHandle;
         #endregion
 
         #region Constructor
@@ -117,7 +120,25 @@ namespace ZeroInstall.Commands.WinForms
             WindowState = FormWindowState.Normal;
             HideTrayIcon();
 
-            selectionsControl.BeginAudit(solveCallback, waitHandle);
+            _auditWaitHandle = waitHandle;
+
+            // Show audit UI
+            selectionsControl.BeginAudit(solveCallback);
+            buttonAuditDone.Visible = true;
+            buttonAuditDone.Focus();
+        }
+
+        private void buttonAuditDone_Click(object sender, EventArgs e)
+        {
+            buttonAuditDone.Visible = false;
+            selectionsControl.EndAudit();
+
+            // Signal the waiting thread auditing is complete
+            if (_auditWaitHandle != null)
+            {
+                _auditWaitHandle.Set();
+                _auditWaitHandle = null;
+            }
         }
         #endregion
 

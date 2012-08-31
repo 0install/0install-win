@@ -33,7 +33,6 @@
             this.labelName = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelTask = new System.Windows.Forms.Label();
-            this.buttonDone = new System.Windows.Forms.Button();
             this.scrollPanel = new System.Windows.Forms.Panel();
             this.tableLayout.SuspendLayout();
             this.scrollPanel.SuspendLayout();
@@ -62,13 +61,6 @@
             resources.ApplyResources(this.labelTask, "labelTask");
             this.labelTask.Name = "labelTask";
             // 
-            // buttonDone
-            // 
-            resources.ApplyResources(this.buttonDone, "buttonDone");
-            this.buttonDone.Name = "buttonDone";
-            this.buttonDone.UseVisualStyleBackColor = true;
-            this.buttonDone.Click += new System.EventHandler(this.buttonDone_Click);
-            // 
             // scrollPanel
             // 
             resources.ApplyResources(this.scrollPanel, "scrollPanel");
@@ -79,7 +71,6 @@
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonDone);
             this.Controls.Add(this.scrollPanel);
             this.Name = "SelectionsControl";
             this.tableLayout.ResumeLayout(false);
@@ -93,7 +84,6 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayout;
-        private System.Windows.Forms.Button buttonDone;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Label labelTask;

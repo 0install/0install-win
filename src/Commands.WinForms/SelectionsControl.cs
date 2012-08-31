@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Threading;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
@@ -43,9 +42,6 @@ namespace ZeroInstall.Commands.WinForms
 
         /// <summary>The feed cache used to retrieve feeds for additional information about imlementations.</summary>
         private IFeedCache _feedCache;
-
-        /// <summary>>A wait handle to be signaled once the user is done with <see cref="BeginAudit"/>.</summary>
-        private EventWaitHandle _waitHandle;
 
         /// <summary>A list of all <see cref="TrackingControl"/>s used by <see cref="TrackTask"/>. Adressable by associated <see cref="Implementation"/> via <see cref="ManifestDigest"/>.</summary>
         private readonly Dictionary<ManifestDigest, TrackingControl> _trackingControls = new Dictionary<ManifestDigest, TrackingControl>();
@@ -112,21 +108,17 @@ namespace ZeroInstall.Commands.WinForms
         /// Allows the user to modify the <see cref="InterfacePreferences"/> and rerun the <see cref="ISolver"/> if desired.
         /// </summary>
         /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
-        /// <param name="waitHandle">A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/>.</param>
         /// <remarks>
         ///   <para>This method must not be called from a background thread.</para>
         ///   <para>This method must not be called before <see cref="Control.Handle"/> has been created.</para>
         /// </remarks>
-        public void BeginAudit(SimpleResult<Selections> solveCallback, EventWaitHandle waitHandle)
+        public void BeginAudit(SimpleResult<Selections> solveCallback)
         {
             #region Sanity checks
             if (solveCallback == null) throw new ArgumentNullException("solveCallback");
-            if (waitHandle == null) throw new ArgumentNullException("waitHandle");
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             if (!IsHandleCreated) throw new InvalidOperationException("Method called before control handle was created.");
             #endregion
-
-            _waitHandle = waitHandle;
 
             for (int i = 0; i < _selections.Implementations.Count; i++)
             {
@@ -137,22 +129,18 @@ namespace ZeroInstall.Commands.WinForms
                 linkLabel.LinkClicked += delegate
                 {
                     if (InterfaceDialog.Show(this, interfaceID, solveCallback, _feedCache))
-                        ReSolve(solveCallback, waitHandle);
+                        ReSolve(solveCallback);
                 };
                 _auditLinks.AddLast(linkLabel);
                 tableLayout.Controls.Add(linkLabel, 2, i);
             }
-
-            buttonDone.Visible = true;
-            buttonDone.Focus();
         }
 
         /// <summary>
         /// Reruns the solver to reflect changes made to <see cref="InterfacePreferences"/> and <see cref="FeedPreferences"/>.
         /// </summary>
         /// <param name="solveCallback">Called to invoke the solver.</param>
-        /// <param name="waitHandle">A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/>.</param>
-        private void ReSolve(SimpleResult<Selections> solveCallback, EventWaitHandle waitHandle)
+        private void ReSolve(SimpleResult<Selections> solveCallback)
         {
             // Prevent user interaction while solving
             Visible = false;
@@ -164,12 +152,21 @@ namespace ZeroInstall.Commands.WinForms
                 // Update the UI
                 SetSelections(_selections, _feedCache);
                 _auditLinks.Clear();
-                BeginAudit(solveCallback, waitHandle);
+                BeginAudit(solveCallback);
 
                 // Restore user interaction
                 Visible = true;
             };
             solveWorker.RunWorkerAsync();
+        }
+
+        /// <summary>
+        /// Removes the additional UI added by <see cref="BeginAudit"/>.
+        /// </summary>
+        public void EndAudit()
+        {
+            foreach (var control in _auditLinks)
+                tableLayout.Controls.Remove(control);
         }
         #endregion
 
@@ -221,19 +218,6 @@ namespace ZeroInstall.Commands.WinForms
         {
             foreach (var trackingControl in _trackingControls.Values)
                 trackingControl.Task = null;
-        }
-        #endregion
-
-        #region Buttons
-        private void buttonDone_Click(object sender, EventArgs e)
-        {
-            // Remove all auditing-related controls
-            foreach (var control in _auditLinks)
-                tableLayout.Controls.Remove(control);
-            buttonDone.Visible = false;
-
-            // Signal the waiting thread auditing is complete
-            if (_waitHandle != null) _waitHandle.Set();
         }
         #endregion
     }

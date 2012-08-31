@@ -38,6 +38,7 @@
             this.selectionsControl = new ZeroInstall.Commands.WinForms.SelectionsControl();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.trackingControl = new Common.Controls.TrackingControl();
+            this.buttonAuditDone = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -96,7 +97,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.selectionsControl.Location = new System.Drawing.Point(12, 12);
             this.selectionsControl.Name = "selectionsControl";
-            this.selectionsControl.Size = new System.Drawing.Size(435, 138);
+            this.selectionsControl.Size = new System.Drawing.Size(435, 109);
             this.selectionsControl.TabIndex = 1;
             this.selectionsControl.Visible = false;
             // 
@@ -110,11 +111,26 @@
             this.trackingControl.TabIndex = 5;
             this.trackingControl.Visible = false;
             // 
+            // buttonAuditDone
+            // 
+            this.buttonAuditDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonAuditDone.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.buttonAuditDone.Location = new System.Drawing.Point(12, 127);
+            this.buttonAuditDone.Margin = new System.Windows.Forms.Padding(0, 3, 3, 0);
+            this.buttonAuditDone.Name = "buttonAuditDone";
+            this.buttonAuditDone.Size = new System.Drawing.Size(75, 23);
+            this.buttonAuditDone.TabIndex = 6;
+            this.buttonAuditDone.Text = "Done";
+            this.buttonAuditDone.UseVisualStyleBackColor = true;
+            this.buttonAuditDone.Visible = false;
+            this.buttonAuditDone.Click += new System.EventHandler(this.buttonAuditDone_Click);
+            // 
             // ProgressForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(459, 162);
+            this.Controls.Add(this.buttonAuditDone);
             this.Controls.Add(this.trackingControl);
             this.Controls.Add(this.buttonHide);
             this.Controls.Add(this.buttonCancel);
@@ -142,6 +158,7 @@
         private System.Windows.Forms.ProgressBar progressBarWorking;
         private System.Windows.Forms.ToolTip toolTip;
         private Common.Controls.TrackingControl trackingControl;
+        private System.Windows.Forms.Button buttonAuditDone;
 
     }
 }

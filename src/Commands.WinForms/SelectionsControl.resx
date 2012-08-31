@@ -160,7 +160,7 @@
     <value>True</value>
   </data>
   <data name="labelVersion.Location" type="System.Drawing.Point, System.Drawing">
-    <value>90, 0</value>
+    <value>68, 0</value>
   </data>
   <data name="labelVersion.Size" type="System.Drawing.Size, System.Drawing">
     <value>42, 13</value>
@@ -187,7 +187,7 @@
     <value>True</value>
   </data>
   <data name="labelTask.Location" type="System.Drawing.Point, System.Drawing">
-    <value>150, 0</value>
+    <value>128, 0</value>
   </data>
   <data name="labelTask.Size" type="System.Drawing.Size, System.Drawing">
     <value>31, 13</value>
@@ -217,7 +217,7 @@
     <value>1</value>
   </data>
   <data name="tableLayout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>350, 19</value>
+    <value>279, 19</value>
   </data>
   <data name="tableLayout.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -237,47 +237,20 @@
   <data name="tableLayout.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="labelName" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelVersion" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="labelTask" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,30,Absolute,60,Percent,70" /&gt;&lt;Rows Styles="AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <data name="buttonDone.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonDone.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 32</value>
-  </data>
-  <data name="buttonDone.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="buttonDone.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="buttonDone.Text" xml:space="preserve">
-    <value>Done</value>
-  </data>
-  <data name="buttonDone.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;buttonDone.Name" xml:space="preserve">
-    <value>buttonDone</value>
-  </data>
-  <data name="&gt;&gt;buttonDone.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonDone.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonDone.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="scrollPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
   <data name="scrollPanel.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="scrollPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <data name="scrollPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
+  <data name="scrollPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
   <data name="scrollPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>350, 26</value>
+    <value>279, 61</value>
   </data>
   <data name="scrollPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -292,7 +265,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;scrollPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -301,7 +274,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>350, 55</value>
+    <value>279, 61</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>SelectionsControl</value>
