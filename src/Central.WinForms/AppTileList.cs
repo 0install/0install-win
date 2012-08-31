@@ -92,6 +92,8 @@ namespace ZeroInstall.Central.WinForms
         public AppTileList()
         {
             Size = new Size(425, 200);
+            AutoScaleDimensions = new SizeF(6F, 13F);
+            AutoScaleMode = AutoScaleMode.Font;
 
             SuspendLayout();
 

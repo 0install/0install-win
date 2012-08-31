@@ -32,11 +32,15 @@ namespace Common.Controls
     /// </summary>
     public partial class ErrorBox : Form
     {
+        private readonly int _detailsHeight;
+
         #region Constructor
         private ErrorBox()
         {
             InitializeComponent();
-            ToggleDetails();
+
+            // Store text box size before it becomes invisible
+            _detailsHeight = textDetails.Height;
 
             Load += delegate { ToggleDetails(); };
             buttonDetails.Click += delegate { ToggleDetails(); };
@@ -82,8 +86,16 @@ namespace Common.Controls
         private void ToggleDetails()
         {
             textDetails.Visible = !textDetails.Visible;
-            Height = textDetails.Top + (textDetails.Visible ? 250 : 75);
-            buttonDetails.Text = textDetails.Visible ? Resources.HideDetails : Resources.ShowDetails;
+            if (textDetails.Visible)
+            {
+                Height += _detailsHeight;
+                buttonDetails.Text = Resources.HideDetails;
+            }
+            else
+            {
+                Height -= _detailsHeight;
+                buttonDetails.Text = Resources.ShowDetails;
+            }
         }
         #endregion
     }

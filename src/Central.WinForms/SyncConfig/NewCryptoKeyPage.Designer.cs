@@ -73,6 +73,7 @@
             // NewCryptoKeyPage
             // 
             resources.ApplyResources(this, "$this");
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.labelInfo2);
             this.Controls.Add(this.buttonContinue);
             this.Controls.Add(this.textBoxCryptoKey);

@@ -50,30 +50,30 @@
             this.dataGridFileTypesColumnDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridFileTypesColumnExtensions = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageUrlProtocols = new System.Windows.Forms.TabPage();
+            this.checkBoxUrlProtocolsAll = new System.Windows.Forms.CheckBox();
             this.dataGridUrlProtocols = new System.Windows.Forms.DataGridView();
             this.dataGridUrlProtocolsColumnDefault = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridUrlProtocolsColumnDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridUrlProtocolsColumnProtocols = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageAutoPlay = new System.Windows.Forms.TabPage();
+            this.checkBoxAutoPlayAll = new System.Windows.Forms.CheckBox();
             this.dataGridAutoPlay = new System.Windows.Forms.DataGridView();
             this.dataGridAutoPlayColumnDefault = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridAutoPlayColumnDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridAutoPlayColumnEvents = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageContextMenu = new System.Windows.Forms.TabPage();
+            this.checkBoxContextMenuAll = new System.Windows.Forms.CheckBox();
             this.dataGridContextMenu = new System.Windows.Forms.DataGridView();
             this.dataGridContextMenuColumnDefault = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridContextMenuColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageDefaultPrograms = new System.Windows.Forms.TabPage();
+            this.checkBoxDefaultProgramsAll = new System.Windows.Forms.CheckBox();
             this.dataGridDefaultPrograms = new System.Windows.Forms.DataGridView();
             this.dataGridDefaultProgramsColumnDefault = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridDefaultProgramsColumnDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridDefaultProgramsColumnService = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.checkBoxCapabilities = new System.Windows.Forms.CheckBox();
             this.checkBoxAutoUpdate = new System.Windows.Forms.CheckBox();
-            this.checkBoxUrlProtocolsAll = new System.Windows.Forms.CheckBox();
-            this.checkBoxAutoPlayAll = new System.Windows.Forms.CheckBox();
-            this.checkBoxContextMenuAll = new System.Windows.Forms.CheckBox();
-            this.checkBoxDefaultProgramsAll = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageStartMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStartMenu)).BeginInit();
@@ -338,6 +338,18 @@
             this.tabPageUrlProtocols.Text = "URL protocols";
             this.tabPageUrlProtocols.UseVisualStyleBackColor = true;
             // 
+            // checkBoxUrlProtocolsAll
+            // 
+            this.checkBoxUrlProtocolsAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxUrlProtocolsAll.AutoSize = true;
+            this.checkBoxUrlProtocolsAll.Location = new System.Drawing.Point(3, 174);
+            this.checkBoxUrlProtocolsAll.Name = "checkBoxUrlProtocolsAll";
+            this.checkBoxUrlProtocolsAll.Size = new System.Drawing.Size(69, 17);
+            this.checkBoxUrlProtocolsAll.TabIndex = 2;
+            this.checkBoxUrlProtocolsAll.Text = "Select &all";
+            this.checkBoxUrlProtocolsAll.UseVisualStyleBackColor = true;
+            this.checkBoxUrlProtocolsAll.CheckedChanged += new System.EventHandler(this.checkBoxUrlProtocolsAll_CheckedChanged);
+            // 
             // dataGridUrlProtocols
             // 
             this.dataGridUrlProtocols.AllowUserToAddRows = false;
@@ -397,6 +409,18 @@
             this.tabPageAutoPlay.TabIndex = 6;
             this.tabPageAutoPlay.Text = "AutoPlay";
             this.tabPageAutoPlay.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAutoPlayAll
+            // 
+            this.checkBoxAutoPlayAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxAutoPlayAll.AutoSize = true;
+            this.checkBoxAutoPlayAll.Location = new System.Drawing.Point(3, 174);
+            this.checkBoxAutoPlayAll.Name = "checkBoxAutoPlayAll";
+            this.checkBoxAutoPlayAll.Size = new System.Drawing.Size(69, 17);
+            this.checkBoxAutoPlayAll.TabIndex = 2;
+            this.checkBoxAutoPlayAll.Text = "Select &all";
+            this.checkBoxAutoPlayAll.UseVisualStyleBackColor = true;
+            this.checkBoxAutoPlayAll.CheckedChanged += new System.EventHandler(this.checkBoxAutoPlayAll_CheckedChanged);
             // 
             // dataGridAutoPlay
             // 
@@ -458,6 +482,18 @@
             this.tabPageContextMenu.Text = "Context menu";
             this.tabPageContextMenu.UseVisualStyleBackColor = true;
             // 
+            // checkBoxContextMenuAll
+            // 
+            this.checkBoxContextMenuAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxContextMenuAll.AutoSize = true;
+            this.checkBoxContextMenuAll.Location = new System.Drawing.Point(3, 174);
+            this.checkBoxContextMenuAll.Name = "checkBoxContextMenuAll";
+            this.checkBoxContextMenuAll.Size = new System.Drawing.Size(69, 17);
+            this.checkBoxContextMenuAll.TabIndex = 2;
+            this.checkBoxContextMenuAll.Text = "Select &all";
+            this.checkBoxContextMenuAll.UseVisualStyleBackColor = true;
+            this.checkBoxContextMenuAll.CheckedChanged += new System.EventHandler(this.checkBoxContextMenuAll_CheckedChanged);
+            // 
             // dataGridContextMenu
             // 
             this.dataGridContextMenu.AllowUserToAddRows = false;
@@ -507,6 +543,18 @@
             this.tabPageDefaultPrograms.TabIndex = 2;
             this.tabPageDefaultPrograms.Text = "Default programs";
             this.tabPageDefaultPrograms.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxDefaultProgramsAll
+            // 
+            this.checkBoxDefaultProgramsAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxDefaultProgramsAll.AutoSize = true;
+            this.checkBoxDefaultProgramsAll.Location = new System.Drawing.Point(3, 174);
+            this.checkBoxDefaultProgramsAll.Name = "checkBoxDefaultProgramsAll";
+            this.checkBoxDefaultProgramsAll.Size = new System.Drawing.Size(69, 17);
+            this.checkBoxDefaultProgramsAll.TabIndex = 2;
+            this.checkBoxDefaultProgramsAll.Text = "Select &all";
+            this.checkBoxDefaultProgramsAll.UseVisualStyleBackColor = true;
+            this.checkBoxDefaultProgramsAll.CheckedChanged += new System.EventHandler(this.checkBoxDefaultProgramsAll_CheckedChanged);
             // 
             // dataGridDefaultPrograms
             // 
@@ -577,56 +625,10 @@
             this.checkBoxAutoUpdate.Text = "Auto &Update";
             this.checkBoxAutoUpdate.UseVisualStyleBackColor = true;
             // 
-            // checkBoxUrlProtocolsAll
-            // 
-            this.checkBoxUrlProtocolsAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBoxUrlProtocolsAll.AutoSize = true;
-            this.checkBoxUrlProtocolsAll.Location = new System.Drawing.Point(3, 174);
-            this.checkBoxUrlProtocolsAll.Name = "checkBoxUrlProtocolsAll";
-            this.checkBoxUrlProtocolsAll.Size = new System.Drawing.Size(69, 17);
-            this.checkBoxUrlProtocolsAll.TabIndex = 2;
-            this.checkBoxUrlProtocolsAll.Text = "Select &all";
-            this.checkBoxUrlProtocolsAll.UseVisualStyleBackColor = true;
-            this.checkBoxUrlProtocolsAll.CheckedChanged += new System.EventHandler(this.checkBoxUrlProtocolsAll_CheckedChanged);
-            // 
-            // checkBoxAutoPlayAll
-            // 
-            this.checkBoxAutoPlayAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBoxAutoPlayAll.AutoSize = true;
-            this.checkBoxAutoPlayAll.Location = new System.Drawing.Point(3, 174);
-            this.checkBoxAutoPlayAll.Name = "checkBoxAutoPlayAll";
-            this.checkBoxAutoPlayAll.Size = new System.Drawing.Size(69, 17);
-            this.checkBoxAutoPlayAll.TabIndex = 2;
-            this.checkBoxAutoPlayAll.Text = "Select &all";
-            this.checkBoxAutoPlayAll.UseVisualStyleBackColor = true;
-            this.checkBoxAutoPlayAll.CheckedChanged += new System.EventHandler(this.checkBoxAutoPlayAll_CheckedChanged);
-            // 
-            // checkBoxContextMenuAll
-            // 
-            this.checkBoxContextMenuAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBoxContextMenuAll.AutoSize = true;
-            this.checkBoxContextMenuAll.Location = new System.Drawing.Point(3, 174);
-            this.checkBoxContextMenuAll.Name = "checkBoxContextMenuAll";
-            this.checkBoxContextMenuAll.Size = new System.Drawing.Size(69, 17);
-            this.checkBoxContextMenuAll.TabIndex = 2;
-            this.checkBoxContextMenuAll.Text = "Select &all";
-            this.checkBoxContextMenuAll.UseVisualStyleBackColor = true;
-            this.checkBoxContextMenuAll.CheckedChanged += new System.EventHandler(this.checkBoxContextMenuAll_CheckedChanged);
-            // 
-            // checkBoxDefaultProgramsAll
-            // 
-            this.checkBoxDefaultProgramsAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBoxDefaultProgramsAll.AutoSize = true;
-            this.checkBoxDefaultProgramsAll.Location = new System.Drawing.Point(3, 174);
-            this.checkBoxDefaultProgramsAll.Name = "checkBoxDefaultProgramsAll";
-            this.checkBoxDefaultProgramsAll.Size = new System.Drawing.Size(69, 17);
-            this.checkBoxDefaultProgramsAll.TabIndex = 2;
-            this.checkBoxDefaultProgramsAll.Text = "Select &all";
-            this.checkBoxDefaultProgramsAll.UseVisualStyleBackColor = true;
-            this.checkBoxDefaultProgramsAll.CheckedChanged += new System.EventHandler(this.checkBoxDefaultProgramsAll_CheckedChanged);
-            // 
             // IntegrateAppForm
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(474, 293);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.checkBoxAutoUpdate);

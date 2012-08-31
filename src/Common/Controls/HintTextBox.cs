@@ -176,6 +176,9 @@ namespace Common.Controls
                 _buttonClear.Visible = value && !string.IsNullOrEmpty(base.Text) && !IsHintTextVisible;
             }
         }
+
+        // Prevent DPI rescaling from breaking the layout
+        protected override bool ScaleChildren { get { return false; } }
         #endregion
 
         #region Constructor

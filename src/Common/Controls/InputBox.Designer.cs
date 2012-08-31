@@ -64,8 +64,9 @@
             // 
             this.AcceptButton = this.buttonOK;
             this.AllowDrop = true;
-            this.CancelButton = this.buttonCancel;
             resources.ApplyResources(this, "$this");
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.buttonCancel;
             this.ControlBox = false;
             this.Controls.Add(this.textInput);
             this.Controls.Add(this.buttonCancel);

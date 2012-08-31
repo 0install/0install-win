@@ -327,6 +327,9 @@
   <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="commentBox.AccessibleName" xml:space="preserve">
+    <value>If you whish, you can use this field to provide additional information about the problem, such as a description of what you were doing when the crash occurred.</value>
+  </data>
   <data name="commentBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
@@ -352,7 +355,7 @@
     <value>commentBox</value>
   </data>
   <data name="&gt;&gt;commentBox.Type" xml:space="preserve">
-    <value>Common.Controls.HintTextBox, Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>Common.Controls.HintTextBox, Common, Version=1.11.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;commentBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -363,6 +366,9 @@
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>531, 319</value>
   </data>

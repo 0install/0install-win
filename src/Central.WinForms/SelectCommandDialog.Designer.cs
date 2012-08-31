@@ -76,6 +76,7 @@
             // SelectCommandDialog
             // 
             resources.ApplyResources(this, "$this");
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.labelCommand);
             this.Controls.Add(this.comboBoxCommand);
             this.Controls.Add(this.labelSummary);

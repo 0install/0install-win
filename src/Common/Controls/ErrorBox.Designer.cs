@@ -42,10 +42,11 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonOK.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonOK.Location = new System.Drawing.Point(394, 226);
+            this.buttonOK.Location = new System.Drawing.Point(382, 226);
             this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(88, 24);
+            this.buttonOK.Size = new System.Drawing.Size(100, 24);
             this.buttonOK.TabIndex = 0;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
@@ -78,9 +79,10 @@
             // buttonDetails
             // 
             this.buttonDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDetails.Location = new System.Drawing.Point(300, 226);
+            this.buttonDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonDetails.Location = new System.Drawing.Point(256, 226);
             this.buttonDetails.Name = "buttonDetails";
-            this.buttonDetails.Size = new System.Drawing.Size(88, 24);
+            this.buttonDetails.Size = new System.Drawing.Size(120, 24);
             this.buttonDetails.TabIndex = 3;
             this.buttonDetails.Text = "Toggle details";
             this.buttonDetails.UseVisualStyleBackColor = true;
@@ -97,6 +99,7 @@
             // ErrorBox
             // 
             this.AcceptButton = this.buttonOK;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.CancelButton = this.buttonOK;
             this.ClientSize = new System.Drawing.Size(494, 262);
             this.ControlBox = false;

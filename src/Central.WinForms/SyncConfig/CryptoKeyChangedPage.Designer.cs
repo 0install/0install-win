@@ -60,6 +60,7 @@
             // CryptoKeyChangedPage
             // 
             resources.ApplyResources(this, "$this");
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.labelInfo2);
             this.Controls.Add(this.labelInfo);

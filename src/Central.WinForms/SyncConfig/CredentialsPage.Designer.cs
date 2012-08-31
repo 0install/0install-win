@@ -93,6 +93,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             // CredentialsPage
             // 
             resources.ApplyResources(this, "$this");
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonContinue);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.labelPassword);

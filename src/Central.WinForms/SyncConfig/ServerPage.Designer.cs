@@ -84,6 +84,7 @@
             // ServerPage
             // 
             resources.ApplyResources(this, "$this");
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.textBoxCustomServer);
             this.Controls.Add(this.buttonCustomServer);
             this.Controls.Add(this.buttonOfficalServer);
