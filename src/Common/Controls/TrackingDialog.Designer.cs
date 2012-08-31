@@ -45,6 +45,7 @@
             // 
             // labelProgress
             // 
+            this.labelProgress.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelProgress.AutoSize = true;
             this.labelProgress.Location = new System.Drawing.Point(12, 38);
             this.labelProgress.Name = "labelProgress";
@@ -72,7 +73,6 @@
             this.Controls.Add(this.labelProgress);
             this.Controls.Add(this.trackingProgressBar);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(2048, 120);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(120, 120);
             this.Name = "TrackingDialog";

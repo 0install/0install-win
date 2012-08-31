@@ -237,9 +237,6 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>344, 112</value>
   </data>
-  <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>2048, 256</value>
-  </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>250, 146</value>
   </data>
