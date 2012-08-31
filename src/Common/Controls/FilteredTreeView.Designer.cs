@@ -46,7 +46,6 @@
             // 
             // textSearch
             // 
-            this.textSearch.AccessibleName = "(Search)";
             this.textSearch.Dock = System.Windows.Forms.DockStyle.Top;
             this.textSearch.HintText = "(Search)";
             this.textSearch.Location = new System.Drawing.Point(0, 0);
