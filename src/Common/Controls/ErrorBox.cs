@@ -22,7 +22,6 @@
 
 using System;
 using System.Windows.Forms;
-using Common.Properties;
 using Common.Utils;
 
 namespace Common.Controls
@@ -32,18 +31,10 @@ namespace Common.Controls
     /// </summary>
     public partial class ErrorBox : Form
     {
-        private readonly int _detailsHeight;
-
         #region Constructor
         private ErrorBox()
         {
             InitializeComponent();
-
-            // Store text box size before it becomes invisible
-            _detailsHeight = textDetails.Height;
-
-            Load += delegate { ToggleDetails(); };
-            buttonDetails.Click += delegate { ToggleDetails(); };
         }
         #endregion
 
@@ -75,26 +66,6 @@ namespace Common.Controls
                 errorBox.Shown += delegate { WindowsUtils.SetForegroundWindow(errorBox); };
                 // ReSharper restore AccessToDisposedClosure
                 errorBox.ShowDialog();
-            }
-        }
-        #endregion
-
-        #region Details button
-        /// <summary>
-        /// Shows or hides the details field.
-        /// </summary>
-        private void ToggleDetails()
-        {
-            textDetails.Visible = !textDetails.Visible;
-            if (textDetails.Visible)
-            {
-                Height += _detailsHeight;
-                buttonDetails.Text = Resources.HideDetails;
-            }
-            else
-            {
-                Height -= _detailsHeight;
-                buttonDetails.Text = Resources.ShowDetails;
             }
         }
         #endregion

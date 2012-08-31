@@ -90,7 +90,7 @@ namespace ZeroInstall.Commands.WinForms
             for (int i = 0; i < _selections.Implementations.Count; i++)
             {
                 // Lines have a fixed height but a variable width
-                tableLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 54));
+                tableLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 54 * AutoScaleDimensions.Height / 13F));
 
                 // Get feed for each selected implementation
                 var implementation = _selections.Implementations[i];

@@ -124,11 +124,9 @@ namespace ZeroInstall.Central.WinForms
             Resize += delegate
             {
                 _flowLayout.SuspendLayout();
-
-                _flowLayout.Width = _scrollPanel.Width - 23;
+                _flowLayout.Width = _scrollPanel.Width - (int)(20 * AutoScaleDimensions.Width / 6F);
                 foreach (Control control in _flowLayout.Controls)
                     control.Width = _flowLayout.Width;
-
                 _flowLayout.ResumeLayout(false);
             };
 

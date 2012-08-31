@@ -98,8 +98,8 @@ namespace Common.Controls
         private readonly PictureBox _buttonClear = new PictureBox
         {
             Visible = false, Cursor = Cursors.Default,
-            Location = new Point(79, -1), Size = new Size(18, 18), Anchor = AnchorStyles.Right,
-            BackColor = SystemColors.Window, BackgroundImageLayout = ImageLayout.Center, BackgroundImage = _clearButton
+            Location = new Point(81, 1), Size = new Size(14, 14), Dock = DockStyle.Right,
+            BackColor = SystemColors.Window, Image = _clearButton, SizeMode = PictureBoxSizeMode.Zoom
         };
         #endregion
 
@@ -176,9 +176,6 @@ namespace Common.Controls
                 _buttonClear.Visible = value && !string.IsNullOrEmpty(base.Text) && !IsHintTextVisible;
             }
         }
-
-        // Prevent DPI rescaling from breaking the layout
-        protected override bool ScaleChildren { get { return false; } }
         #endregion
 
         #region Constructor

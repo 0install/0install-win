@@ -46,17 +46,21 @@
             this.catalogWorker = new System.ComponentModel.BackgroundWorker();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.appListWorker = new System.ComponentModel.BackgroundWorker();
+            this.panelBottom = new System.Windows.Forms.Panel();
+            this.rootTable = new System.Windows.Forms.TableLayoutPanel();
             this.tabControlApps.SuspendLayout();
             this.tabPageAppList.SuspendLayout();
             this.tabPageCatalog.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
+            this.panelBottom.SuspendLayout();
+            this.rootTable.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlApps
             // 
-            resources.ApplyResources(this.tabControlApps, "tabControlApps");
             this.tabControlApps.Controls.Add(this.tabPageAppList);
             this.tabControlApps.Controls.Add(this.tabPageCatalog);
+            resources.ApplyResources(this.tabControlApps, "tabControlApps");
             this.tabControlApps.Name = "tabControlApps";
             this.tabControlApps.SelectedIndex = 0;
             // 
@@ -166,18 +170,30 @@
             this.appListWorker.WorkerSupportsCancellation = true;
             this.appListWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.appListWorker_DoWork);
             // 
+            // panelBottom
+            // 
+            this.panelBottom.Controls.Add(this.buttonCacheManagement);
+            this.panelBottom.Controls.Add(this.buttonHelp);
+            this.panelBottom.Controls.Add(this.buttonOptions);
+            this.panelBottom.Controls.Add(this.labelVersion);
+            resources.ApplyResources(this.panelBottom, "panelBottom");
+            this.panelBottom.Name = "panelBottom";
+            // 
+            // rootTable
+            // 
+            resources.ApplyResources(this.rootTable, "rootTable");
+            this.rootTable.Controls.Add(this.pictureBoxLogo, 0, 0);
+            this.rootTable.Controls.Add(this.panelBottom, 0, 2);
+            this.rootTable.Controls.Add(this.tabControlApps, 0, 1);
+            this.rootTable.Name = "rootTable";
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.pictureBoxLogo);
-            this.Controls.Add(this.buttonOptions);
-            this.Controls.Add(this.labelVersion);
-            this.Controls.Add(this.buttonCacheManagement);
-            this.Controls.Add(this.buttonHelp);
-            this.Controls.Add(this.tabControlApps);
+            this.Controls.Add(this.rootTable);
             this.Name = "MainForm";
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainForm_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainForm_DragEnter);
@@ -186,6 +202,8 @@
             this.tabPageCatalog.ResumeLayout(false);
             this.tabPageCatalog.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
+            this.panelBottom.ResumeLayout(false);
+            this.rootTable.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -209,6 +227,8 @@
         private System.Windows.Forms.Label labelLoadingCatalog;
         private System.Windows.Forms.Button buttonAddOtherApp;
         private System.Windows.Forms.Button buttonSync;
+        private System.Windows.Forms.Panel panelBottom;
+        private System.Windows.Forms.TableLayoutPanel rootTable;
 
     }
 }
