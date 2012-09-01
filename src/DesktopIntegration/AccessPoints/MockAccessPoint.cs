@@ -109,7 +109,10 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return (ID ?? "").GetHashCode();
+            unchecked
+            {
+                return (base.GetHashCode() * 397) ^ (ID ?? "").GetHashCode();
+            }
         }
         #endregion
     }
