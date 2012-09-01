@@ -60,7 +60,7 @@ namespace ZeroInstall.Model
             public bool Equals(XmlAttribute x, XmlAttribute y)
             {
                 if (x == null || y == null) return false;
-                return x.BaseURI == y.BaseURI && x.Name == y.Name && x.Value == y.Value;
+                return x.NamespaceURI == y.NamespaceURI && x.Name == y.Name && x.Value == y.Value;
             }
 
             [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods")]
@@ -75,7 +75,7 @@ namespace ZeroInstall.Model
             public bool Equals(XmlElement x, XmlElement y)
             {
                 if (x == null || y == null) return false;
-                if (x.BaseURI != y.BaseURI || x.Name != y.Name || x.Value != y.Value) return false;
+                if (x.NamespaceURI != y.NamespaceURI || x.Name != y.Name || x.InnerText != y.InnerText) return false;
                 return
                     GetList(x.Attributes).UnsequencedEquals(GetList(y.Attributes)) &&
                     GetList(x.ChildNodes).SequencedEquals(GetList(y.ChildNodes));
