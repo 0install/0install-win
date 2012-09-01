@@ -1,5 +1,8 @@
-﻿using System.Xml;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Xml;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model
 {
@@ -21,39 +24,79 @@ namespace ZeroInstall.Model
         [XmlAnyElement]
         public XmlElement[] UnknownElements;
 
+        #region List conversion
+        private static C5.IList<XmlAttribute> GetList(XmlAttribute[] attributes)
+        {
+            var list = new C5.ArrayList<XmlAttribute>(attributes.Length, new XmlAttributeComparer());
+            list.AddAll(attributes);
+            return list;
+        }
+
+        private static C5.IList<XmlAttribute> GetList(XmlAttributeCollection attributes)
+        {
+            var array = new XmlAttribute[attributes.Count];
+            attributes.CopyTo(array, 0);
+            return GetList(array);
+        }
+
+        private static C5.IList<XmlElement> GetList(XmlElement[] elements)
+        {
+            var list = new C5.ArrayList<XmlElement>(elements.Length, new XmlElementComparer());
+            list.AddAll(elements);
+            return list;
+        }
+
+        private static C5.IList<XmlElement> GetList(XmlNodeList nodes)
+        {
+            var list = new C5.ArrayList<XmlElement>(nodes.Count, new XmlElementComparer());
+            list.AddAll(EnumerableUtils.OfType<XmlElement>(nodes));
+            return list;
+        }
+        #endregion
+
+        #region Comparers
+        private class XmlAttributeComparer : IEqualityComparer<XmlAttribute>
+        {
+            public bool Equals(XmlAttribute x, XmlAttribute y)
+            {
+                if (x == null || y == null) return false;
+                return x.BaseURI == y.BaseURI && x.Name == y.Name && x.Value == y.Value;
+            }
+
+            [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods")]
+            public int GetHashCode(XmlAttribute obj)
+            {
+                return (obj.Name + obj.Value).GetHashCode();
+            }
+        }
+
+        private class XmlElementComparer : IEqualityComparer<XmlElement>
+        {
+            public bool Equals(XmlElement x, XmlElement y)
+            {
+                if (x == null || y == null) return false;
+                if (x.BaseURI != y.BaseURI || x.Name != y.Name || x.Value != y.Value) return false;
+                return
+                    GetList(x.Attributes).UnsequencedEquals(GetList(y.Attributes)) &&
+                    GetList(x.ChildNodes).SequencedEquals(GetList(y.ChildNodes));
+            }
+
+            [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods")]
+            public int GetHashCode(XmlElement obj)
+            {
+                return (obj.Name + obj.Value).GetHashCode();
+            }
+        }
+        #endregion
+
         #region Equality
         /// <inheritdoc/>
         protected bool Equals(XmlUnknown other)
         {
             if (other == null) return false;
-
-            if (UnknownAttributes == null)
-            {
-                if (other.UnknownAttributes != null) return false;
-            }
-            else
-            {
-                if (other.UnknownAttributes == null || UnknownAttributes.Length != other.UnknownAttributes.Length) return false;
-                else
-                {
-                    // ToDo: Compare UnknownAttributes
-                }
-            }
-
-            if (UnknownElements == null)
-            {
-                if (other.UnknownElements != null) return false;
-            }
-            else
-            {
-                if (other.UnknownElements == null || UnknownElements.Length != other.UnknownElements.Length) return false;
-                else
-                {
-                    // ToDo: Compare UnknownElements
-                }
-            }
-
-            return true;
+            return
+                GetList(UnknownAttributes ?? new XmlAttribute[0]).UnsequencedEquals(GetList(other.UnknownAttributes ?? new XmlAttribute[0])) &&
+                GetList(UnknownElements ?? new XmlElement[0]).SequencedEquals(GetList(other.UnknownElements ?? new XmlElement[0]));
         }
 
         /// <inheritdoc/>
@@ -63,16 +106,8 @@ namespace ZeroInstall.Model
             {
                 int result = 397;
                 // ReSharper disable NonReadonlyFieldInGetHashCode
-                if (UnknownAttributes != null)
-                {
-                    foreach (var attribute in UnknownAttributes)
-                        result = (result * 397) ^ attribute.Name.GetHashCode();
-                }
-                if (UnknownElements != null)
-                {
-                    foreach (var element in UnknownElements)
-                        result = (result * 397) ^ element.Name.GetHashCode();
-                }
+                result = (result * 397) ^ GetList(UnknownAttributes ?? new XmlAttribute[0]).GetUnsequencedHashCode();
+                result = (result * 397) ^ GetList(UnknownElements ?? new XmlElement[0]).GetSequencedHashCode();
                 // ReSharper restore NonReadonlyFieldInGetHashCode
                 return result;
             }
