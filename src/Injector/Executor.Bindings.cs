@@ -111,7 +111,11 @@ namespace ZeroInstall.Injector
         private void ApplyDependencyBindings(IDependencyContainer dependencyContainer, ProcessStartInfo startInfo)
         {
             foreach (var dependency in dependencyContainer.Dependencies)
-                ApplyBindings(dependency, Selections[dependency.Interface], startInfo);
+            {
+                // Essential dependencies bust be bound, others only if they were selected
+                if (dependency.Importance == Importance.Essential || Selections.ContainsImplementation(dependency.Interface))
+                    ApplyBindings(dependency, Selections[dependency.Interface], startInfo);
+            }
         }
         #endregion
 
