@@ -11,8 +11,8 @@ The directory "build" contains the results of various compilation processes. It 
 - Documentation: Contains the generated source code documentation.
 
 To add a portable GnuPG distribution:
-- Copy GnuPG 1.4.x for Windows to bundled/GnuPG.
-- Copy iconv.dll (e.g. from a GTK+ installation) into bundled/GnuPG.
+- Copy GnuPG 1.4.x for Windows to "bundled/GnuPG".
+- Copy iconv.dll (e.g. from a GTK+ installation) into "bundled/GnuPG".
 
 To add the external solver:
 - Install Python 2.7.x for Windows.
@@ -22,19 +22,22 @@ To add the external solver:
 - Call "python setup.py py2exe".
 - Copy the content of the "dist" directory as well as the "0solve" file to bundled/Solver.
 or
-- Run bundled/download-solver.ps1.
+- Run "bundled/download-solver.ps1".
 
 
 
 Windows:
 
-"build.cmd" will call build scripts in subdirectories to create a complete Zero Install for Windows release in build/Frontend/Setup.
-Note: Please read setup/readme.txt aswell for information about required tools.
+"build.cmd" will call build scripts in subdirectories to create a complete Zero Install for Windows release in "build/Frontend/Setup".
+Note: Please read "setup/readme.txt" aswell for information about required tools.
 
 "cleanup.cmd" will delete any temporary files created by the build process or Visual Studio.
 
 Open "UnitTests.nunit" with the NUnit GUI (http://nunit.org/) to run the unit tests.
-Note: You must perform a Debug build first (using Visual Studio or src/build.cmd) before you can run the unit tests.
+Note: You must perform a Debug build first (using Visual Studio or "src/build.cmd") before you can run the unit tests.
+
+"version", "version-tools" and "version-updater" contain the version numbers used by the build scripts.
+Keep in sync with the version numbers in "src/AssemblyInfo.*.cs"!
 
 
 
@@ -45,7 +48,7 @@ Linux:
 "cleanup.sh" will delete any temporary files created by the xbuild build process.
 
 "test.sh" will run the unit tests using the NUnit console runner.
-Note: You must perform a Debug build first (using MonoDevelop or src/build.sh) before you can run the unit tests.
+Note: You must perform a Debug build first (using MonoDevelop or "src/build.sh") before you can run the unit tests.
 
 
 

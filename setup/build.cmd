@@ -1,6 +1,7 @@
 @echo off
 ::Creates archives and and Inno Setup installer. Assumes "..\src\build.cmd Release" and "..\bundled\download-solver.ps1" have already been executed.
 ::Use command-line argument "+update" to additionally create updater archive.
+call "%~dp0..\version.cmd"
 if "%1"=="+updater" set BUILD_UPDATER=TRUE
 if "%2"=="+updater" set BUILD_UPDATER=TRUE
 if "%3"=="+updater" set BUILD_UPDATER=TRUE
@@ -9,22 +10,18 @@ if "%4"=="+updater" set BUILD_UPDATER=TRUE
 rem Project settings
 set TargetDir=%~dp0..\build\Setup
 
-
 rem Prepare clean output directory
 if not exist "%TargetDir%" mkdir "%TargetDir%"
 del /q "%TargetDir%\*"
 
-rem Read version numbers
-set /p version= < "%~dp0version"
-set /p version_tools= < "%~dp0version-tools"
-set /p version_updater= < "%~dp0version-updater"
-copy "%~dp0version" "%TargetDir%\version" > NUL
-copy "%~dp0version-tools" "%TargetDir%\version-tools" > NUL
-if "%BUILD_UPDATER%"=="TRUE" copy "%~dp0version_updater" "%TargetDir%\version_updater" > NUL
-echo ##teamcity[buildNumber '%version%_{build.number}']
+rem Copy version files
+copy "%~dp0..\version" "%TargetDir%\version" > NUL
+copy "%~dp0..\version-tools" "%TargetDir%\version-tools" > NUL
+if "%BUILD_UPDATER%"=="TRUE" copy "%~dp0..\version_updater" "%TargetDir%\version_updater" > NUL
 
 rem Use bundled utility EXEs
 path %~dp0utils;%path%
+
 
 echo ##teamcity[progressMessage 'Building ZIP archive']
 cd /d "%~dp0..\bundled"
