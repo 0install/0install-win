@@ -6,4 +6,4 @@ export VERSION=`cat version`
 export VERSION_TOOLS=`cat version-tools`
 export VERSION_UPDATER=`cat version-updater`
 
-echo \#\#teamcity[buildNumber '$VERSION_{build.number}']
+echo \#\#teamcity[buildNumber \'$VERSION\_{build.number}\']
