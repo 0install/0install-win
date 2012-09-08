@@ -84,6 +84,7 @@
             // 
             this.buttonRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRun.AutoSize = true;
+            this.buttonRun.BackColor = System.Drawing.SystemColors.Control;
             this.buttonRun.ContextMenuStrip = this.contextMenuRun;
             this.buttonRun.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.buttonRun.Location = new System.Drawing.Point(330, 5);
@@ -172,6 +173,7 @@
             // 
             this.buttonRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRemove.AutoSize = true;
+            this.buttonRemove.BackColor = System.Drawing.SystemColors.Control;
             this.buttonRemove.Enabled = false;
             this.buttonRemove.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.buttonRemove.Location = new System.Drawing.Point(363, 32);
@@ -186,6 +188,7 @@
             // 
             this.buttonIntegrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonIntegrate.AutoSize = true;
+            this.buttonIntegrate.BackColor = System.Drawing.SystemColors.Control;
             this.buttonIntegrate.Enabled = false;
             this.buttonIntegrate.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.buttonIntegrate.Location = new System.Drawing.Point(330, 32);
