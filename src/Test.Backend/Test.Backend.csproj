@@ -143,6 +143,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Store\Implementation\Archive\testArchive.gem" />
     <EmbeddedResource Include="Store\Implementation\Archive\testArchive.tar" />
+    <EmbeddedResource Include="Store\Implementation\Archive\testArchiveHardlink.tar" />
     <EmbeddedResource Include="Store\Implementation\Archive\testArchive.tar.bz2" />
     <EmbeddedResource Include="Store\Implementation\Archive\testArchive.tar.gz" />
     <EmbeddedResource Include="Store\Implementation\Archive\testArchive.tar.lzma" />

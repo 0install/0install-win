@@ -295,35 +295,68 @@ namespace ZeroInstall.Store.Implementation.Archive
         /// <summary>
         /// Creates a symbolic link in the filesystem if possible; stores it in a .symlink file otherwise.
         /// </summary>
-        /// <param name="relativePath">A path relative to the archive's root.</param>
-        /// <param name="target">The target the symbolic link shall point to relative to <paramref name="relativePath"/>.</param>
-        protected void CreateSymlink(string relativePath, string target)
+        /// <param name="source">A path relative to the archive's root.</param>
+        /// <param name="target">The target the symbolic link shall point to relative to <paramref name="source"/>. May use non-native path separators!</param>
+        protected void CreateSymlink(string source, string target)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
+            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
-            string filePath = CombinePath(relativePath);
-            string directoryPath = Path.GetDirectoryName(filePath);
-            if (directoryPath != null && !Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
+            string sourceAbsolute = CombinePath(source);
+            string sourceDirectory = Path.GetDirectoryName(sourceAbsolute);
+            if (sourceDirectory != null && !Directory.Exists(sourceDirectory)) Directory.CreateDirectory(sourceDirectory);
 
             switch (Environment.OSVersion.Platform)
             {
                 case PlatformID.Unix:
                 case PlatformID.MacOSX:
-                    FileUtils.CreateSymlink(filePath, target);
+                    FileUtils.CreateSymlink(sourceAbsolute, target);
                     break;
 
-                case PlatformID.Win32Windows:
-                case PlatformID.Win32NT:
+                case PlatformID.Win32NT: // NTFS symbolic links require admin privileges; do not use them here
                 default:
                     // Write link data as a normal file
-                    File.WriteAllText(filePath, target);
+                    File.WriteAllText(sourceAbsolute, target);
 
                     // Non-Unixoid OSes (e.g. Windows) can't store the symlink flag directly in the filesystem; remember in a text-file instead
-                    FlagUtils.SetExternalFlag(Path.Combine(TargetDir, ".symlink"), relativePath);
+                    FlagUtils.SetExternalFlag(Path.Combine(TargetDir, ".symlink"), source);
                     break;
             }
+        }
+
+        /// <summary>
+        /// Creates a hard link in the filesystem if possible; creates a copy otherwise.
+        /// </summary>
+        /// <param name="source">A path relative to the archive's root.</param>
+        /// <param name="target">The target the hard link shall point to relative to <paramref name="source"/>. May use non-native path separators!</param>
+        protected void CreateHardlink(string source, string target)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            #endregion
+
+            string sourceAbsolute = CombinePath(source);
+            string sourceDirectory = Path.GetDirectoryName(sourceAbsolute);
+            if (sourceDirectory != null && !Directory.Exists(sourceDirectory)) Directory.CreateDirectory(sourceDirectory);
+            string targetAbsolute = CombinePath(FileUtils.UnifySlashes(target));
+
+            try
+            {
+                FileUtils.CreateHardlink(sourceAbsolute, targetAbsolute);
+            }
+                #region Sanity checks
+            catch (PlatformNotSupportedException)
+            {
+                File.Copy(targetAbsolute, sourceAbsolute);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                File.Copy(targetAbsolute, sourceAbsolute);
+            }
+            #endregion
         }
 
         #region Helpers

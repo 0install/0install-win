@@ -38,6 +38,11 @@ namespace ZeroInstall.Store.Implementation.Archive
             return GetTestDataResourceStreamByName("testArchive.tar");
         }
 
+        public static Stream GetTestTarArchiveHardlinkStream()
+        {
+            return GetTestDataResourceStreamByName("testArchiveHardlink.tar");
+        }
+
         public static Stream GetTestTarGzArchiveStream()
         {
             return GetTestDataResourceStreamByName("testArchive.tar.gz");
@@ -56,16 +61,6 @@ namespace ZeroInstall.Store.Implementation.Archive
         public static Stream GetTestGemArchiveStream()
         {
             return GetTestDataResourceStreamByName("testArchive.gem");
-        }
-
-        public static Stream GetTestRegularStream()
-        {
-            return StreamUtils.CreateFromString("regular\n");
-        }
-
-        public static Stream GetTestExecutableStream()
-        {
-            return StreamUtils.CreateFromString("executable\n");
         }
 
         private static Stream GetTestDataResourceStreamByName(string name)

@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Common.Properties;
@@ -475,34 +476,97 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Creates a new Unix symbolic link. Only works on Unixoid systems!
+        /// Creates a new symbolic link.
         /// </summary>
-        /// <param name="path">The path of the file to create.</param>
-        /// <param name="target">The target the symbolic link shall point to relative to <paramref name="path"/>.</param>
-        /// <exception cref="PlatformNotSupportedException">Thrown if this method is called on a non-Unixoid system.</exception>
+        /// <param name="source">The path of the file to create.</param>
+        /// <param name="target">The target the symbolic link shall point to relative to <paramref name="source"/>.</param>
+        /// <exception cref="PlatformNotSupportedException">Thrown if this method is called on a system with no symbolic link support.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to create the symbolic link.</exception>
-        public static void CreateSymlink(string path, string target)
+        public static void CreateSymlink(string source, string target)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
-            if (!MonoUtils.IsUnix) throw new PlatformNotSupportedException();
+            if (MonoUtils.IsUnix)
+            {
+                try
+                {
+                    MonoUtils.CreateSymlink(source, target);
+                }
+                    #region Error handling
+                catch (InvalidOperationException ex)
+                {
+                    throw new IOException(Resources.UnixSubsystemFail, ex);
+                }
+                catch (IOException ex)
+                {
+                    throw new IOException(Resources.UnixSubsystemFail, ex);
+                }
+                #endregion
+            }
+            else if (WindowsUtils.IsWindowsVista)
+            {
+                try
+                {
+                    WindowsUtils.CreateSymlink(source, target);
+                }
+                    #region Error handling
+                catch (Win32Exception ex)
+                {
+                    throw new IOException(ex.Message, ex);
+                }
+                #endregion
+            }
+            else throw new PlatformNotSupportedException();
+        }
 
-            try
-            {
-                MonoUtils.CreateSymlink(path, target);
-            }
-                #region Error handling
-            catch (InvalidOperationException ex)
-            {
-                throw new IOException(Resources.UnixSubsystemFail, ex);
-            }
-            catch (IOException ex)
-            {
-                throw new IOException(Resources.UnixSubsystemFail, ex);
-            }
+        /// <summary>
+        /// Creates a new hard link.
+        /// </summary>
+        /// <param name="source">The path of the file to create.</param>
+        /// <param name="target">The absolute path to the target the hard link shall point to.</param>
+        /// <exception cref="PlatformNotSupportedException">Thrown if this method is called on a system with no hard link support.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to create the hard link.</exception>
+        public static void CreateHardlink(string source, string target)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
+
+            if (MonoUtils.IsUnix)
+            {
+                try
+                {
+                    MonoUtils.CreateHardlink(source, target);
+                }
+                    #region Error handling
+                catch (InvalidOperationException ex)
+                {
+                    throw new IOException(Resources.UnixSubsystemFail, ex);
+                }
+                catch (IOException ex)
+                {
+                    throw new IOException(Resources.UnixSubsystemFail, ex);
+                }
+                #endregion
+            }
+            else if (WindowsUtils.IsWindowsNT)
+            {
+                try
+                {
+                    WindowsUtils.CreateHardlink(source, target);
+                }
+                    #region Error handling
+                catch (Win32Exception ex)
+                {
+                    throw new IOException(ex.Message, ex);
+                }
+                #endregion
+            }
+            else throw new PlatformNotSupportedException();
         }
 
         /// <summary>

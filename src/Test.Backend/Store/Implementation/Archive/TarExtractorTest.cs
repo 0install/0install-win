@@ -115,6 +115,17 @@ namespace ZeroInstall.Store.Implementation.Archive
             Assert.IsTrue(File.Exists("subdir2/executable"), "Should extract file 'executable'");
             Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc("subdir2/executable"), "Correct last write time for file 'executable' should be set");
         }
+
+        [Test]
+        public void TestHardlink()
+        {
+            using (var archive = TestData.GetTestTarArchiveHardlinkStream())
+            using (var extractor = Extractor.CreateExtractor("application/x-tar", archive, _sandbox.Path))
+                extractor.RunSync(null);
+
+            Assert.AreEqual("data", File.ReadAllText("file1"));
+            Assert.AreEqual("data", File.ReadAllText("file2"));
+        }
     }
 
     [TestFixture]

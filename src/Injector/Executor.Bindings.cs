@@ -275,13 +275,22 @@ namespace ZeroInstall.Injector
 
             if (!File.Exists(deployedPath))
             {
-                if (WindowsUtils.IsWindowsNT) WindowsUtils.CreateHardLink(deployedPath, templatePath);
-                else if (MonoUtils.IsUnix)
+                try
                 {
-                    FileUtils.CreateSymlink(deployedPath, templatePath);
-                    FileUtils.SetExecutable(deployedPath, true);
+                    FileUtils.CreateHardlink(deployedPath, templatePath);
                 }
-                else File.Copy(templatePath, deployedPath);
+                    #region Sanity checks
+                catch (PlatformNotSupportedException)
+                {
+                    File.Copy(templatePath, deployedPath);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    File.Copy(templatePath, deployedPath);
+                }
+                #endregion
+
+                if (MonoUtils.IsUnix) FileUtils.SetExecutable(deployedPath, true);
             }
 
             return deployedPath;

@@ -79,7 +79,8 @@ namespace ZeroInstall.Store.Implementation.Archive
                     if (string.IsNullOrEmpty(entryName)) continue;
 
                     if (entry.IsDirectory) CreateDirectory(entryName, entry.TarHeader.ModTime);
-                    else if (IsSymlink(entry)) CreateSymlink(entryName, entry.TarHeader.LinkName);
+                    else if (entry.TarHeader.TypeFlag == TarHeader.LF_LINK) CreateHardlink(entryName, entry.TarHeader.LinkName);
+                    else if (entry.TarHeader.TypeFlag == TarHeader.LF_SYMLINK) CreateSymlink(entryName, entry.TarHeader.LinkName);
                     else WriteFile(entryName, entry.TarHeader.ModTime, _tar, entry.Size, IsExecutable(entry));
 
                     BytesProcessed = _tar.Position;
@@ -106,14 +107,6 @@ namespace ZeroInstall.Store.Implementation.Archive
             #endregion
 
             lock (StateLock) State = TaskState.Complete;
-        }
-
-        /// <summary>
-        /// Determines whether a <see cref="TarEntry"/> was created with the symlink flag set.
-        /// </summary>
-        private static bool IsSymlink(TarEntry entry)
-        {
-            return (entry.TarHeader.TypeFlag & TarHeader.LF_SYMLINK) == TarHeader.LF_SYMLINK;
         }
 
         /// <summary>
