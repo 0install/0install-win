@@ -38,6 +38,42 @@ namespace Common.Utils
         public static bool IsUnix { get { return Environment.OSVersion.Platform == PlatformID.Unix || Environment.OSVersion.Platform == PlatformID.MacOSX; } }
         #endregion
 
+        #region Links
+        /// <summary>
+        /// Creates a new Unix symbolic link.
+        /// </summary>
+        /// <param name="source">The path of the file to create.</param>
+        /// <param name="target">The target the symbolic link shall point to relative to <paramref name="source"/>.</param>
+        /// <exception cref="InvalidOperationException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
+        /// <exception cref="IOException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
+        public static void CreateSymlink(string source, string target)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            #endregion
+
+            new UnixSymbolicLinkInfo(source).CreateSymbolicLinkTo(target);
+        }
+
+        /// <summary>
+        /// Creates a new Unix hard link.
+        /// </summary>
+        /// <param name="source">The path of the file to create.</param>
+        /// <param name="target">The absolute path to the target the hard link shall point to.</param>
+        /// <exception cref="InvalidOperationException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
+        /// <exception cref="IOException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
+        public static void CreateHardlink(string source, string target)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            #endregion
+
+            new UnixFileInfo(source).CreateLink(target);
+        }
+        #endregion
+
         #region File type
         /// <summary>
         /// Checks whether a file is a regular file (i.e. not a device file, symbolic link, etc.).
@@ -80,40 +116,6 @@ namespace Common.Utils
             else target = null;
 
             return result;
-        }
-
-        /// <summary>
-        /// Creates a new Unix symbolic link.
-        /// </summary>
-        /// <param name="source">The path of the file to create.</param>
-        /// <param name="target">The target the symbolic link shall point to relative to <paramref name="source"/>.</param>
-        /// <exception cref="InvalidOperationException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
-        /// <exception cref="IOException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
-        public static void CreateSymlink(string source, string target)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
-            #endregion
-
-            new UnixSymbolicLinkInfo(source).CreateSymbolicLinkTo(target);
-        }
-
-        /// <summary>
-        /// Creates a new Unix hard link.
-        /// </summary>
-        /// <param name="source">The path of the file to create.</param>
-        /// <param name="target">The absolute path to the target the hard link shall point to.</param>
-        /// <exception cref="InvalidOperationException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
-        /// <exception cref="IOException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
-        public static void CreateHardlink(string source, string target)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
-            #endregion
-
-            new UnixSymbolicLinkInfo(source).CreateLink(target);
         }
         #endregion
 

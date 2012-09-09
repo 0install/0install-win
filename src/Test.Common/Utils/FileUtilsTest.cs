@@ -267,6 +267,44 @@ namespace Common.Utils
         #endregion
 
 #if FS_SECURITY
+        #region Links
+        [Test]
+        public void TestCreateSymlink()
+        {
+            if (!MonoUtils.IsUnix) throw new InconclusiveException("Unable to test symlinks on non-Unixoid system");
+
+            using (var tempDir = new TemporaryDirectory("unit-tests"))
+            {
+                string symlinkPath = Path.Combine(tempDir.Path, "symlink");
+
+                // Create an empty file and symlink to it using a relative path
+                File.WriteAllText(Path.Combine(tempDir.Path, "target"), "");
+                FileUtils.CreateSymlink(symlinkPath, "target");
+
+                string contents;
+                Assert.IsTrue(FileUtils.IsSymlink(symlinkPath, out contents), "Should detect symlink as such");
+                Assert.AreEqual(contents, "target", "Should get relative link target");
+
+                Assert.IsFalse(FileUtils.IsRegularFile(symlinkPath), "Should not detect symlink as regular file");
+            }
+        }
+
+        [Test]
+        public void TestCreateHardlink()
+        {
+            using (var tempDir = new TemporaryDirectory("unit-tests"))
+            {
+                string hardlinkPath = Path.Combine(tempDir.Path, "hardlink");
+
+                // Create a file and hardlink to it using an absolute path
+                File.WriteAllText(Path.Combine(tempDir.Path, "target"), @"data");
+                FileUtils.CreateHardlink(hardlinkPath, Path.Combine(tempDir.Path, "target"));
+
+                Assert.AreEqual("data", File.ReadAllText(Path.Combine(tempDir.Path, "target")), "Hardlinked file contents should be equal");
+            }
+        }
+        #endregion
+
         #region Unix
         [Test]
         public void TestIsRegularFile()
@@ -283,27 +321,6 @@ namespace Common.Utils
                 string contents;
                 Assert.IsFalse(FileUtils.IsSymlink(tempFile.Path, out contents), "File was incorrectly identified as symlink");
                 Assert.IsNull(contents);
-            }
-        }
-
-        [Test]
-        public void TestCreateSymlink()
-        {
-            if (!MonoUtils.IsUnix) throw new InconclusiveException("Unable to test symlinks on non-Unixoid system");
-
-            using (var tempDir = new TemporaryDirectory("unit-tests"))
-            {
-                string symlinkPath = Path.Combine(tempDir.Path, "symlink");
-
-                // Create an empty file and symlink to it using a relative path
-                File.WriteAllText(Path.Combine(tempDir.Path, "target"), "");
-                MonoUtils.CreateSymlink(symlinkPath, "target");
-
-                string contents;
-                Assert.IsTrue(FileUtils.IsSymlink(symlinkPath, out contents), "Should detect symlink as such");
-                Assert.AreEqual(contents, "target", "Should get relative link target");
-
-                Assert.IsFalse(FileUtils.IsRegularFile(symlinkPath), "Should not detect symlink as regular file");
             }
         }
 

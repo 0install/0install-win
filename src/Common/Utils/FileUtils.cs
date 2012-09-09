@@ -406,75 +406,7 @@ namespace Common.Utils
 
         #endregion
 
-        #region Unix
-        /// <summary>
-        /// Checks whether a file is a regular file (i.e. not a device file, symbolic link, etc.).
-        /// </summary>
-        /// <return><see lang="true"/> if <paramref name="path"/> points to a regular file; <see lang="false"/> otherwise.</return>
-        /// <remarks>Will return <see langword="false"/> for non-existing files.</remarks>
-        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to query the file's properties.</exception>
-        public static bool IsRegularFile(string path)
-        {
-            if (!File.Exists(path)) return false;
-
-            // ToDo: Detect special files on Windows
-            if (WindowsUtils.IsWindows)
-                return true;
-
-            if (MonoUtils.IsUnix)
-            {
-                try
-                {
-                    return MonoUtils.IsRegularFile(path);
-                }
-                    #region Error handling
-                catch (InvalidOperationException ex)
-                {
-                    throw new IOException(Resources.UnixSubsystemFail, ex);
-                }
-                catch (IOException ex)
-                {
-                    throw new IOException(Resources.UnixSubsystemFail, ex);
-                }
-                #endregion
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Checks whether a file is a Unix symbolic link.
-        /// </summary>
-        /// <param name="path">The path of the file to check.</param>
-        /// <param name="target">Returns the target the symbolic link points to if it exists.</param>
-        /// <return><see lang="true"/> if <paramref name="path"/> points to a symbolic link; <see lang="false"/> otherwise.</return>
-        /// <remarks>Will return <see langword="false"/> for non-existing files. Will always return <see langword="false"/> on non-Unixoid systems.</remarks>
-        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to query the file's properties.</exception>
-        public static bool IsSymlink(string path, out string target)
-        {
-            if (File.Exists(path) && MonoUtils.IsUnix)
-            {
-                try
-                {
-                    return MonoUtils.IsSymlink(path, out target);
-                }
-                    #region Error handling
-                catch (InvalidOperationException ex)
-                {
-                    throw new IOException(Resources.UnixSubsystemFail, ex);
-                }
-                catch (IOException ex)
-                {
-                    throw new IOException(Resources.UnixSubsystemFail, ex);
-                }
-                #endregion
-            }
-
-            // Return default values
-            target = null;
-            return false;
-        }
-
+        #region Links
         /// <summary>
         /// Creates a new symbolic link.
         /// </summary>
@@ -567,6 +499,76 @@ namespace Common.Utils
                 #endregion
             }
             else throw new PlatformNotSupportedException();
+        }
+        #endregion
+
+        #region Unix
+        /// <summary>
+        /// Checks whether a file is a regular file (i.e. not a device file, symbolic link, etc.).
+        /// </summary>
+        /// <return><see lang="true"/> if <paramref name="path"/> points to a regular file; <see lang="false"/> otherwise.</return>
+        /// <remarks>Will return <see langword="false"/> for non-existing files.</remarks>
+        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to query the file's properties.</exception>
+        public static bool IsRegularFile(string path)
+        {
+            if (!File.Exists(path)) return false;
+
+            // ToDo: Detect special files on Windows
+            if (WindowsUtils.IsWindows)
+                return true;
+
+            if (MonoUtils.IsUnix)
+            {
+                try
+                {
+                    return MonoUtils.IsRegularFile(path);
+                }
+                    #region Error handling
+                catch (InvalidOperationException ex)
+                {
+                    throw new IOException(Resources.UnixSubsystemFail, ex);
+                }
+                catch (IOException ex)
+                {
+                    throw new IOException(Resources.UnixSubsystemFail, ex);
+                }
+                #endregion
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Checks whether a file is a Unix symbolic link.
+        /// </summary>
+        /// <param name="path">The path of the file to check.</param>
+        /// <param name="target">Returns the target the symbolic link points to if it exists.</param>
+        /// <return><see lang="true"/> if <paramref name="path"/> points to a symbolic link; <see lang="false"/> otherwise.</return>
+        /// <remarks>Will return <see langword="false"/> for non-existing files. Will always return <see langword="false"/> on non-Unixoid systems.</remarks>
+        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to query the file's properties.</exception>
+        public static bool IsSymlink(string path, out string target)
+        {
+            if (File.Exists(path) && MonoUtils.IsUnix)
+            {
+                try
+                {
+                    return MonoUtils.IsSymlink(path, out target);
+                }
+                    #region Error handling
+                catch (InvalidOperationException ex)
+                {
+                    throw new IOException(Resources.UnixSubsystemFail, ex);
+                }
+                catch (IOException ex)
+                {
+                    throw new IOException(Resources.UnixSubsystemFail, ex);
+                }
+                #endregion
+            }
+
+            // Return default values
+            target = null;
+            return false;
         }
 
         /// <summary>
