@@ -337,8 +337,8 @@ namespace Common.Utils
         /// <summary>
         /// Creates a symbolic link for a file or directory.
         /// </summary>
-        /// <param name="source">The new symbolic link to be created.</param>
-        /// <param name="target">The existing file or directory to point to.</param>
+        /// <param name="source">The path of the link to create.</param>
+        /// <param name="target">The path of the existing file or directory to point to (relative to <paramref name="source"/>).</param>
         /// <remarks>Only available on Windows Vista or newer.</remarks>
         /// <exception cref="Win32Exception">Thrown if the symbolic link creation failed.</exception>
         public static void CreateSymlink(string source, string target)
@@ -353,10 +353,10 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Creates a hard link for a file.
+        /// Creates a hard link between two files.
         /// </summary>
-        /// <param name="source">The new hard link to be created.</param>
-        /// <param name="target">The absolute path to the target the hard link shall point to.</param>
+        /// <param name="source">The path of the link to create.</param>
+        /// <param name="target">The absolute path of the existing file to point to.</param>
         /// <remarks>Only available on Windows 2000 or newer.</remarks>
         /// <exception cref="Win32Exception">Thrown if the hard link creation failed.</exception>
         public static void CreateHardlink(string source, string target)

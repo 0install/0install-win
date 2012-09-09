@@ -40,10 +40,10 @@ namespace Common.Utils
 
         #region Links
         /// <summary>
-        /// Creates a new Unix symbolic link.
+        /// Creates a new Unix symbolic link to a file or directory.
         /// </summary>
-        /// <param name="source">The path of the file to create.</param>
-        /// <param name="target">The target the symbolic link shall point to relative to <paramref name="source"/>.</param>
+        /// <param name="source">The path of the link to create.</param>
+        /// <param name="target">The path of the existing file or directory to point to (relative to <paramref name="source"/>).</param>
         /// <exception cref="InvalidOperationException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
         /// <exception cref="IOException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
         public static void CreateSymlink(string source, string target)
@@ -57,10 +57,10 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Creates a new Unix hard link.
+        /// Creates a new Unix hard link between two files.
         /// </summary>
-        /// <param name="source">The path of the file to create.</param>
-        /// <param name="target">The absolute path to the target the hard link shall point to.</param>
+        /// <param name="source">The path of the link to create.</param>
+        /// <param name="target">The absolute path of the existing file to point to.</param>
         /// <exception cref="InvalidOperationException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
         /// <exception cref="IOException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
         public static void CreateHardlink(string source, string target)
@@ -70,7 +70,7 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
-            new UnixFileInfo(source).CreateLink(target);
+            new UnixFileInfo(target).CreateLink(source);
         }
         #endregion
 

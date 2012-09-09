@@ -408,10 +408,10 @@ namespace Common.Utils
 
         #region Links
         /// <summary>
-        /// Creates a new symbolic link.
+        /// Creates a new symbolic link to a file or directory.
         /// </summary>
-        /// <param name="source">The path of the file to create.</param>
-        /// <param name="target">The target the symbolic link shall point to relative to <paramref name="source"/>.</param>
+        /// <param name="source">The path of the link to create.</param>
+        /// <param name="target">The path of the existing file or directory to point to (relative to <paramref name="source"/>).</param>
         /// <exception cref="PlatformNotSupportedException">Thrown if this method is called on a system with no symbolic link support.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to create the symbolic link.</exception>
         public static void CreateSymlink(string source, string target)
@@ -455,10 +455,10 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Creates a new hard link.
+        /// Creates a new hard link between two files.
         /// </summary>
-        /// <param name="source">The path of the file to create.</param>
-        /// <param name="target">The absolute path to the target the hard link shall point to.</param>
+        /// <param name="source">The path of the link to create.</param>
+        /// <param name="target">The absolute path of the existing file to point to.</param>
         /// <exception cref="PlatformNotSupportedException">Thrown if this method is called on a system with no hard link support.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to create the hard link.</exception>
         public static void CreateHardlink(string source, string target)
