@@ -110,16 +110,16 @@ namespace ZeroInstall.Commands
 
             Policy.Handler.ShowProgressUI();
 
-            Manifest manifest;
+            string digest;
             if (Directory.Exists(path))
             { // Manifest for directory
                 if (!string.IsNullOrEmpty(subdir)) throw new OptionException(Resources.TooManyArguments, "");
 
-                manifest = Manifest.Generate(path, _algorithm, Policy.Handler, null);
+                digest = Manifest.CreateDotFile(path, _algorithm, Policy.Handler);
             }
             else if (File.Exists(path))
             { // Manifest for archive
-                using (var tempDir = new TemporaryDirectory("0install-"))
+                using (var tempDir = new TemporaryDirectory("0install"))
                 {
                     using (var extractor = Extractor.CreateExtractor(null, path, 0, tempDir.Path))
                     {
@@ -127,12 +127,12 @@ namespace ZeroInstall.Commands
                         Policy.Handler.RunTask(extractor, null);
                     }
 
-                    manifest = Manifest.Generate(tempDir.Path, _algorithm, Policy.Handler, null);
+                    digest = Manifest.CreateDotFile(tempDir.Path, _algorithm, Policy.Handler);
                 }
             }
             else throw new FileNotFoundException(string.Format(Resources.FileOrDirNotFound, path));
 
-            Policy.Handler.Output("Manifest digest", manifest.CalculateDigest());
+            Policy.Handler.Output("Manifest digest", digest);
             return 0;
         }
         #endregion

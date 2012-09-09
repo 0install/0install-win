@@ -32,6 +32,8 @@ namespace ZeroInstall.Publish
     [TestFixture]
     public class ImplementationUtilsTest
     {
+        private const string ArchiveSha256Digest = "TPD62FAK7ME7OCER5CHL3HQDZQMNJVENJUBL6E6IXX5UI44OXMJQ";
+
         /// <summary>
         /// Ensures <see cref="ImplementationUtils.DownloadArchive"/> works correctly.
         /// </summary>
@@ -96,7 +98,7 @@ namespace ZeroInstall.Publish
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var implementation = ImplementationUtils.Build(new Archive {Location = microServer.FileUri}, false, new SilentTaskHandler());
-                Assert.AreEqual("TPD62FAK7ME7OCER5CHL3HQDZQMNJVENJUBL6E6IXX5UI44OXMJQ", implementation.ManifestDigest.Sha256New);
+                Assert.AreEqual(ArchiveSha256Digest, implementation.ManifestDigest.Sha256New);
 
                 var archive = (Archive)implementation.RetrievalMethods[0];
                 Assert.AreEqual("application/zip", archive.MimeType);
@@ -114,7 +116,7 @@ namespace ZeroInstall.Publish
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var implementation = ImplementationUtils.Build(new Recipe {Steps = {new Archive {Location = microServer.FileUri}}}, false, new SilentTaskHandler());
-                Assert.AreEqual("TPD62FAK7ME7OCER5CHL3HQDZQMNJVENJUBL6E6IXX5UI44OXMJQ", implementation.ManifestDigest.Sha256New);
+                Assert.AreEqual(ArchiveSha256Digest, implementation.ManifestDigest.Sha256New);
 
                 var archive = (Archive)((Recipe)implementation.RetrievalMethods[0]).Steps[0];
                 Assert.AreEqual("application/zip", archive.MimeType);
@@ -133,7 +135,7 @@ namespace ZeroInstall.Publish
             {
                 var implementation = new Implementation {RetrievalMethods = {new Archive {Location = microServer.FileUri}}};
                 ImplementationUtils.AddMissing(implementation, false, new SilentTaskHandler());
-                Assert.AreEqual("TPD62FAK7ME7OCER5CHL3HQDZQMNJVENJUBL6E6IXX5UI44OXMJQ", implementation.ManifestDigest.Sha256New);
+                Assert.AreEqual(ArchiveSha256Digest, implementation.ManifestDigest.Sha256New);
 
                 var archive = (Archive)implementation.RetrievalMethods[0];
                 Assert.AreEqual("application/zip", archive.MimeType);
@@ -152,7 +154,7 @@ namespace ZeroInstall.Publish
             {
                 var implementation = new Implementation {RetrievalMethods = {new Recipe {Steps = {new Archive {Location = microServer.FileUri}}}}};
                 ImplementationUtils.AddMissing(implementation, false, new SilentTaskHandler());
-                Assert.AreEqual("TPD62FAK7ME7OCER5CHL3HQDZQMNJVENJUBL6E6IXX5UI44OXMJQ", implementation.ManifestDigest.Sha256New);
+                Assert.AreEqual(ArchiveSha256Digest, implementation.ManifestDigest.Sha256New);
 
                 var archive = (Archive)((Recipe)implementation.RetrievalMethods[0]).Steps[0];
                 Assert.AreEqual("application/zip", archive.MimeType);
