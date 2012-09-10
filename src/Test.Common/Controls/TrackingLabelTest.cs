@@ -46,8 +46,8 @@ namespace Common.Controls
             }
             catch (TypeInitializationException ex)
             {
-                // Don't fail on Server systems
-                throw new InconclusiveException("Unable to create GUI", ex);
+                // Don't fail on headless systems
+                throw new InconclusiveException("Cannot test GUI on headless systems", ex);
             }
         }
 

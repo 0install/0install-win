@@ -270,7 +270,7 @@ namespace Common.Utils
         [Test]
         public void TestCreateSymlink()
         {
-            if (!MonoUtils.IsUnix) throw new InconclusiveException("Unable to test symlinks on non-Unixoid system");
+            if (!MonoUtils.IsUnix) throw new InconclusiveException("Cannot test symlinks on non-Unixoid system");
 
             using (var tempDir = new TemporaryDirectory("unit-tests"))
             {
@@ -333,7 +333,7 @@ namespace Common.Utils
         [Test]
         public void TestSetExecutable()
         {
-            if (!MonoUtils.IsUnix) throw new InconclusiveException("Unable to test executable bit on non-Unixoid system");
+            if (!MonoUtils.IsUnix) throw new InconclusiveException("Cannot test executable bit on non-Unixoid system");
 
             using (var tempFile = new TemporaryFile("unit-tests"))
             {
