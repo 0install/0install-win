@@ -230,11 +230,13 @@ namespace ZeroInstall.Store.Implementation
                 {
                     if (Directory.Exists(entry))
                     {
-                        // Recurse into sub-direcories
                         result.Add(new DirectoryInfo(entry));
-                        result.AddAll(GetSortedDirectoryEntries(entry));
+
+                        // Recurse into sub-direcories (but do not follow symlinks)
+                        string temp;
+                        if (!FileUtils.IsSymlink(entry, out temp))
+                            result.AddAll(GetSortedDirectoryEntries(entry));
                     }
-                        // Simply list files
                     else result.Add(new FileInfo(entry));
                 }
                 return result.ToArray();
@@ -296,15 +298,15 @@ namespace ZeroInstall.Store.Implementation
                 // Create the combined result list (files first, then sub-diretories)
                 var result = new C5.LinkedList<FileSystemInfo>();
                 foreach (string file in files)
-                {
-                    // Simply list files
                     result.Add(new FileInfo(file));
-                }
                 foreach (string directory in directories)
                 {
-                    // Recurse into sub-direcories
                     result.Add(new DirectoryInfo(directory));
-                    result.AddAll(GetSortedDirectoryEntries(directory));
+
+                    // Recurse into sub-direcories (but do not follow symlinks)
+                    string temp;
+                    if (!FileUtils.IsSymlink(directory, out temp))
+                        result.AddAll(GetSortedDirectoryEntries(directory));
                 }
                 return result.ToArray();
             }

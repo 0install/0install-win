@@ -105,7 +105,7 @@ namespace ZeroInstall.Store.Implementation
                     else
                     {
                         var directory = entry as DirectoryInfo;
-                        if (directory != null) nodes.Add(GetDirectoryNode(directory, Path.GetFullPath(TargetDir)));
+                        if (directory != null) nodes.Add(GetDirectoryNode(directory, Format, Path.GetFullPath(TargetDir)));
                     }
 
                     if (CancelRequest.WaitOne(0, false)) throw new OperationCanceledException();
@@ -184,16 +184,25 @@ namespace ZeroInstall.Store.Implementation
         /// Creates a manifest node for a directory.
         /// </summary>
         /// <param name="directory">The directory object to create a node for.</param>
+        /// <param name="format">The manifest format containing digest rules.</param>
         /// <param name="rootPath">The fully qualified path of the root directory the manifest is being generated for.</param>
         /// <returns>The node for the list.</returns>
         /// <exception cref="IOException">Thrown if there was an error reading the directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to read the directory.</exception>
-        private static ManifestDirectory GetDirectoryNode(DirectoryInfo directory, string rootPath)
+        private static ManifestNode GetDirectoryNode(DirectoryInfo directory, ManifestFormat format, string rootPath)
         {
-            return new ManifestDirectory(
-                FileUtils.ToUnixTime(directory.LastWriteTime),
-                // Remove leading portion of path and use Unix slashes
-                directory.FullName.Substring(rootPath.Length).Replace(Path.DirectorySeparatorChar, '/'));
+            // Remove leading portion of path and use Unix slashes
+            string trimmedName = directory.FullName.Substring(rootPath.Length).Replace(Path.DirectorySeparatorChar, '/');
+
+            // Director symlinks
+            string symlinkContents;
+            if (FileUtils.IsSymlink(directory.FullName, out symlinkContents))
+            {
+                var symlinkData = Encoding.UTF8.GetBytes(symlinkContents);
+                return new ManifestSymlink(format.DigestContent(symlinkData), symlinkData.Length, trimmedName);
+            }
+
+            return new ManifestDirectory(FileUtils.ToUnixTime(directory.LastWriteTime), trimmedName);
         }
         #endregion
     }

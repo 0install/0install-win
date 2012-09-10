@@ -21,6 +21,7 @@ using System.Text.RegularExpressions;
 using Common.Storage;
 using Common.Streams;
 using Common.Tasks;
+using Common.Utils;
 using NUnit.Framework;
 using Moq;
 using ZeroInstall.Injector;
@@ -297,6 +298,22 @@ namespace ZeroInstall.Store.Implementation
             finally
             {
                 Directory.Delete(packageDir, true);
+            }
+        }
+
+        [Test]
+        public void ShouldNotFollowDirSymlinks()
+        {
+            if (!MonoUtils.IsUnix) throw new InconclusiveException("Unable to test symlinks on non-Unixoid system");
+
+            using (var package = new TemporaryDirectory("0install-unit-tests"))
+            {
+                Directory.CreateDirectory(Path.Combine(package.Path, "target"));
+                FileUtils.CreateSymlink(Path.Combine(package.Path, "source"), "target");
+                var manifest = Manifest.Generate(package.Path, ManifestFormat.Sha256New, new SilentHandler(), null);
+
+                Assert.AreEqual("source", ((ManifestSymlink)manifest.Nodes[0]).SymlinkName);
+                Assert.AreEqual("/target", ((ManifestDirectory)manifest.Nodes[1]).FullPath);
             }
         }
     }
