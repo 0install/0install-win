@@ -302,7 +302,7 @@ namespace ZeroInstall.Store.Implementation
         }
 
         [Test]
-        public void ShouldNotFollowDirSymlinks()
+        public void ShouldNotFollowDirectorySymlinks()
         {
             if (!MonoUtils.IsUnix) throw new InconclusiveException("Unable to test symlinks on non-Unixoid system");
 
@@ -312,8 +312,8 @@ namespace ZeroInstall.Store.Implementation
                 FileUtils.CreateSymlink(Path.Combine(package.Path, "source"), "target");
                 var manifest = Manifest.Generate(package.Path, ManifestFormat.Sha256New, new SilentHandler(), null);
 
-                Assert.AreEqual("source", ((ManifestSymlink)manifest.Nodes[0]).SymlinkName);
-                Assert.AreEqual("/target", ((ManifestDirectory)manifest.Nodes[1]).FullPath);
+                Assert.AreEqual("source", ((ManifestSymlink)manifest.Nodes[0]).SymlinkName, "Unexpected manifest:\n" + manifest);
+                Assert.AreEqual("/target", ((ManifestDirectory)manifest.Nodes[1]).FullPath, "Unexpected manifest:\n" + manifest);
             }
         }
     }
