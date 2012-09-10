@@ -10,7 +10,7 @@ http://legroom.net/software/modpath
 Code based on this project is used to automatically download and install dependencies such as the .NET Framework:
 http://www.codeproject.com/KB/install/dotnetfx_innosetup_instal.aspx
 
-The "build.cmd" script will build the Setup using Inno Setup 5.4.1 or newer. It assumes Inno Setup with Preprocessor support has been installed to its default directory.
+The "build.cmd" script will build the Setup using Inno Setup 5.4.1 (non-Unicode!) or newer. It assumes Inno Setup with Preprocessor support has been installed to its default directory.
 Download: Inno Setup from http://www.jrsoftware.org/isdl.php
 Additionally portable ZIP and TAR.BZ2 archives are created and placed along-side the setup. An Info-ZIP compatible "zip" implementation and "bsdtar" needsto available in the system PATH for this to work.
 
