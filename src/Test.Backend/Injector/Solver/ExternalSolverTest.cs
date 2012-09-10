@@ -22,7 +22,7 @@ namespace ZeroInstall.Injector.Solver
     /// <summary>
     /// Contains test methods for <see cref="ExternalSolver"/>.
     /// </summary>
-    [TestFixture(Ignore = true, IgnoreReason = "Won't work in continous build systems")]
+    [TestFixture]
     public class ExternalSolverTest : SolverTest
     {
         public ExternalSolverTest() : base(new ExternalSolver())

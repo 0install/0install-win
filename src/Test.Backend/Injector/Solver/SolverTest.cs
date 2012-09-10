@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using Common.Storage;
 using NUnit.Framework;
 using Moq;
@@ -33,7 +32,7 @@ namespace ZeroInstall.Injector.Solver
     {
         #region Shared
         private readonly ISolver _solver;
-        private Mock<IFeedCache> _cacheMock;
+        //private Mock<IFeedCache> _cacheMock;
 
         private Policy _policy;
         private LocationsRedirect _redirect;
@@ -41,13 +40,13 @@ namespace ZeroInstall.Injector.Solver
         [SetUp]
         public void SetUp()
         {
-            _cacheMock = new Mock<IFeedCache>(MockBehavior.Strict);
-            _policy = new Policy(
-                new Config(), new FeedManager(_cacheMock.Object),
-                new Mock<IFetcher>().Object, new Mock<IOpenPgp>().Object, _solver, new SilentHandler());
-
             // Don't store generated executables settings in real user profile
             _redirect = new LocationsRedirect("0install-unit-tests");
+
+            //_cacheMock = new Mock<IFeedCache>(MockBehavior.Strict);
+            _policy = new Policy(
+                new Config(), new FeedManager(FeedCacheProvider.CreateDefault()),
+                new Mock<IFetcher>().Object, new Mock<IOpenPgp>().Object, _solver, new SilentHandler());
         }
 
         [TearDown]
@@ -55,7 +54,7 @@ namespace ZeroInstall.Injector.Solver
         {
             _redirect.Dispose();
 
-            _cacheMock.Verify();
+            //_cacheMock.Verify();
         }
         #endregion
 
@@ -66,20 +65,24 @@ namespace ZeroInstall.Injector.Solver
 
         private static Feed CreateTestFeed()
         {
-            return new Feed {Uri = new Uri("http://0install.de/feeds/test/test1.xml"), Name = "Test", Summaries = {"Test"}, Elements = {new Implementation {ID = "test", Version = new ImplementationVersion("1.0"), LocalPath = ".", Main = "test"}}};
+            return new Feed {Name = "Test", Summaries = {"Test"}, Elements = {new Implementation {ID = "test", Version = new ImplementationVersion("1.0"), LocalPath = ".", Main = "test"}}};
         }
 
         [Test]
         public void TestBasic()
         {
-            var testFeed = CreateTestFeed();
-            testFeed.Normalize(testFeed.Uri.ToString());
-            _cacheMock.Setup(x => x.Contains(testFeed.Uri.ToString())).Returns(true);
-            _cacheMock.Setup(x => x.GetFeed(testFeed.Uri.ToString())).Returns(testFeed);
+            using (var feedFile = new TemporaryFile("0install-unit-tests"))
+            {
+                var testFeed = CreateTestFeed();
+                testFeed.Normalize(feedFile.Path);
+                //_cacheMock.Setup(x => x.Contains(feedFile.Path)).Returns(true);
+                //_cacheMock.Setup(x => x.GetFeed(feedFile.Path)).Returns(testFeed);
+                testFeed.Save(feedFile.Path);
 
-            bool staleFeeds;
-            /*var selections =*/
-            _solver.Solve(new Requirements {InterfaceID = testFeed.Uri.ToString()}, _policy, out staleFeeds);
+                bool staleFeeds;
+                /*var selections =*/
+                _solver.Solve(new Requirements {InterfaceID = feedFile.Path}, _policy, out staleFeeds);
+            }
         }
     }
 }
