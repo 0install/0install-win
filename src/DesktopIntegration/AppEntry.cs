@@ -77,9 +77,9 @@ namespace ZeroInstall.DesktopIntegration
         }
 
         /// <summary>
-        /// A set of <see cref="AccessPoints"/>s to be registered in the desktop environment; may be <see langword="null"/>.
+        /// A set of <see cref="AccessPoints"/>s to be registered in the desktop environment. Is <see langword="null"/> if no desktop integration has been performed yet.
         /// </summary>
-        [Description("A set of AccessPoints to be registered in the desktop environment; may be null.")]
+        [Description("A set of AccessPoints to be registered in the desktop environment. Is null if no desktop integration has been performed yet.")]
         [XmlElement("access-points")]
         public AccessPointList AccessPoints { get; set; }
 

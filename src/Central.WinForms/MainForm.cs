@@ -210,13 +210,13 @@ namespace ZeroInstall.Central.WinForms
                     if (string.IsNullOrEmpty(addedEntry.InterfaceID) || addedEntry.Name == null) return;
                     try
                     {
-                        var tile = appList.QueueNewTile(_systemWide, addedEntry.InterfaceID, addedEntry.Name);
-                        tile.InAppList = true;
+                        var tile = appList.QueueNewTile(_systemWide, addedEntry.InterfaceID, addedEntry.Name,
+                            (addedEntry.AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated);
                         feedsToLoad.Add(tile, addedEntry.InterfaceID);
 
                         // Update "added" status of tile in catalog list
                         var catalogTile = catalogList.GetTile(addedEntry.InterfaceID);
-                        if (catalogTile != null) catalogTile.InAppList = true;
+                        if (catalogTile != null) catalogTile.Status = tile.Status;
                     }
                         #region Error handling
                     catch (KeyNotFoundException)
@@ -235,7 +235,7 @@ namespace ZeroInstall.Central.WinForms
 
                     // Update "added" status of tile in catalog list
                     var catalogTile = catalogList.GetTile(removedEntry.InterfaceID);
-                    if (catalogTile != null) catalogTile.InAppList = false;
+                    if (catalogTile != null) catalogTile.Status = AppStatus.Candidate;
                 });
             appList.AddQueuedTiles();
             _currentAppList = newAppList;
@@ -332,14 +332,7 @@ namespace ZeroInstall.Central.WinForms
             }
             #endregion
 
-            foreach (var feed in _currentCatalog.Feeds)
-            {
-                var tile = catalogList.QueueNewTile(_systemWide, feed.UriString, feed.Name);
-                tile.Feed = feed;
-
-                // Update "added" status of tile
-                tile.InAppList = _currentAppList.ContainsEntry(feed.UriString);
-            }
+            _currentCatalog.Feeds.Apply(QueueCatalogTile);
             catalogList.AddQueuedTiles();
             catalogList.ShowCategories();
         }
@@ -395,25 +388,7 @@ namespace ZeroInstall.Central.WinForms
                 // Update the displayed catalog list based on changes detected between the current and the new catalog
                 EnumerableUtils.Merge(
                     newCatalog.Feeds, _currentCatalog.Feeds,
-                    addedFeed =>
-                    {
-                        if (string.IsNullOrEmpty(addedFeed.UriString) || addedFeed.Name == null) return;
-                        try
-                        {
-                            var tile = catalogList.QueueNewTile(_systemWide, addedFeed.UriString, addedFeed.Name);
-                            tile.Feed = addedFeed;
-
-                            // Update "added" status of tile
-                            tile.InAppList = _currentAppList.ContainsEntry(addedFeed.UriString);
-                        }
-                            #region Error handling
-                        catch (C5.DuplicateNotAllowedException)
-                        {
-                            Log.Warn("Ignoring duplicate application list entry for: " + addedFeed.Uri);
-                        }
-                        #endregion
-                    },
-                    removedFeed => catalogList.RemoveTile(removedFeed.UriString));
+                    QueueCatalogTile, removedFeed => catalogList.RemoveTile(removedFeed.Uri.ToString()));
                 catalogList.AddQueuedTiles();
                 catalogList.ShowCategories();
                 _currentCatalog = newCatalog;
@@ -421,6 +396,31 @@ namespace ZeroInstall.Central.WinForms
 
             buttonRefreshCatalog.Visible = true;
             labelLoadingCatalog.Visible = false;
+        }
+
+        /// <summary>
+        /// Queues a new tile for the <paramref name="feed"/> on the <see cref="catalogList"/>.
+        /// </summary>
+        private void QueueCatalogTile(Feed feed)
+        {
+            if (string.IsNullOrEmpty(feed.UriString) || feed.Name == null) return;
+            try
+            {
+                string interfaceID = feed.Uri.ToString();
+                var tile = catalogList.QueueNewTile(_systemWide, feed.UriString, feed.Name,
+                    _currentAppList.ContainsEntry(interfaceID)
+                        ? ((_currentAppList.GetEntry(interfaceID).AccessPoints == null)
+                            ? AppStatus.Added
+                            : AppStatus.Integrated)
+                        : AppStatus.Candidate);
+                tile.Feed = feed;
+            }
+                #region Error handling
+            catch (C5.DuplicateNotAllowedException)
+            {
+                Log.Warn("Ignoring duplicate application list entry for: " + feed.Uri);
+            }
+            #endregion
         }
         #endregion
 

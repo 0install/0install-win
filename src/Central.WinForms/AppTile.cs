@@ -37,11 +37,36 @@ using Icon = ZeroInstall.Model.Icon;
 namespace ZeroInstall.Central.WinForms
 {
     /// <summary>
+    /// Describes the status of an application represented by an <see cref="AppTile"/>.
+    /// </summary>
+    /// <seealso cref="AppTile.Status"/>
+    public enum AppStatus
+    {
+        /// <summary>The state has not been set yet.</summary>
+        Unset,
+
+        /// <summary>The application is listed in a <see cref="Catalog"/> but not in the <see cref="AppList"/>.</summary>
+        Candidate,
+
+        /// <summary>The application is listed in the <see cref="AppList"/> but <see cref="AppEntry.AccessPoints"/> is <see langword="null"/>.</summary>
+        Added,
+
+        /// <summary>The application is listed in the <see cref="AppList"/> and <see cref="AppEntry.AccessPoints"/> is set.</summary>
+        Integrated
+    }
+
+    /// <summary>
     /// Represents an application from a <see cref="Catalog"/> or <see cref="AppList"/> as a tile with control buttons.
     /// </summary>
     public partial class AppTile : UserControl
     {
         #region Variables
+        // Static resource preload
+        private static readonly string _runButtonText = Resources.Run;
+        private static readonly Bitmap _addButton = Resources.AddButton, _removeButton = Resources.RemoveButton, _setupButton = Resources.SetupButton, _modifyButton = Resources.ModifyButton;
+        private static readonly string _addButtonTooltip = Resources.AddButtonTooltip, _removeButtonTooltip = Resources.RemoveButtonTooltip, _setupButtonTooltip = Resources.SetupButtonTooltip, _modifyButtonTooltip = Resources.ModifyButtonTooltip;
+        private static readonly string _selectCommandButton = Resources.SelectCommandButton, _selectVersionButton = Resources.SelectVersionButton, _updateButton = Resources.UpdateButton;
+
         /// <summary>Apply operations system-wide instead of just for the current user.</summary>
         private readonly bool _systemWide;
 
@@ -101,24 +126,25 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         public string AppName { get { return labelName.Text; } }
 
-        private bool _inAppList;
+        private AppStatus _status;
 
         /// <summary>
-        /// <see langword="true"/> if the application is listed in the <see cref="AppList"/>; <see langword="false"/> otherwise.
+        /// Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.
         /// </summary>
         /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public bool InAppList
+        public AppStatus Status
         {
-            get { return _inAppList; }
+            get { return _status; }
             set
             {
                 #region Sanity checks
+                if (value < AppStatus.Candidate || value > AppStatus.Integrated) throw new InvalidEnumArgumentException("value", (int)value, typeof(AppStatus));
                 if (InvokeRequired) throw new InvalidOperationException("Property set from a non UI thread.");
                 #endregion
 
-                _inAppList = value;
+                _status = value;
 
                 UpdateButtons();
             }
@@ -126,18 +152,15 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region Constructor
-        private static readonly Bitmap _addButton = Resources.AddButton, _removeButton = Resources.RemoveButton, _integrateButton = Resources.SetupButton;
-        private static readonly string _addTooltip = Resources.AddTooltip, _removeTooltip = Resources.RemoveTooltip, _integrateTooltip = Resources.IntegrateTooltip;
-        private static readonly string _selectCommandButton = Resources.SelectCommandButton, _selectVersionButton = Resources.SelectVersionButton, _updateButton = Resources.UpdateButton;
-
         /// <summary>
         /// Creates a new application tile.
         /// </summary>
         /// <param name="systemWide">Apply operations system-wide instead of just for the current user.</param>
         /// <param name="interfaceID">The interface ID of the application this tile represents.</param>
         /// <param name="appName">The name of the application this tile represents.</param>
+        /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
         /// <param name="iconCache">The icon cache used to retrieve icons specified in <see cref="Feed"/>; may be <see langword="null"/>.</param>
-        public AppTile(bool systemWide, string interfaceID, string appName, IIconCache iconCache)
+        public AppTile(bool systemWide, string interfaceID, string appName, AppStatus status, IIconCache iconCache)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
@@ -147,12 +170,12 @@ namespace ZeroInstall.Central.WinForms
             _systemWide = systemWide;
 
             InitializeComponent();
+            buttonRun.Text = _runButtonText;
             buttonAdd.Image = _addButton;
             buttonRemove.Image = _removeButton;
-            buttonIntegrate.Image = _integrateButton;
-            toolTip.SetToolTip(buttonAdd, _addTooltip);
-            toolTip.SetToolTip(buttonRemove, _removeTooltip);
-            toolTip.SetToolTip(buttonIntegrate, _integrateTooltip);
+            buttonIntegrate.Image = _setupButton;
+            toolTip.SetToolTip(buttonAdd, _addButtonTooltip);
+            toolTip.SetToolTip(buttonRemove, _removeButtonTooltip);
             buttonSelectCommand.Text = _selectCommandButton;
             buttonSelectVersion.Text = _selectVersionButton;
             buttonUpdate.Text = _updateButton;
@@ -160,6 +183,8 @@ namespace ZeroInstall.Central.WinForms
             InterfaceID = interfaceID;
             labelName.Text = appName;
             labelSummary.Text = "";
+            Status = status;
+
             _iconCache = iconCache;
         }
         #endregion
@@ -221,13 +246,16 @@ namespace ZeroInstall.Central.WinForms
 
         #region Buttons
         /// <summary>
-        /// Updates the visibility of buttons based on the <see cref="InAppList"/> state.
+        /// Updates the visibility and icons of buttons based on the <see cref="Status"/>.
         /// </summary>
         private void UpdateButtons()
         {
-            buttonAdd.Enabled = buttonAdd.Visible = !_inAppList;
-            buttonRemove.Enabled = buttonRemove.Visible = _inAppList;
-            buttonIntegrate.Enabled = _inAppList;
+            buttonAdd.Enabled = buttonAdd.Visible = (Status == AppStatus.Candidate);
+            buttonRemove.Enabled = buttonRemove.Visible = (Status >= AppStatus.Added);
+
+            toolTip.SetToolTip(buttonIntegrate, (Status == AppStatus.Integrated) ? _modifyButtonTooltip : _setupButtonTooltip);
+            buttonIntegrate.Image = (Status == AppStatus.Integrated) ? _modifyButton : _setupButton;
+            buttonIntegrate.Enabled = (Status >= AppStatus.Added);
         }
 
         /// <summary>

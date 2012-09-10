@@ -133,7 +133,10 @@
   <data name="SetupButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SetupButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AddTooltip" xml:space="preserve">
+  <data name="ModifyButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ModifyButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AddButtonTooltip" xml:space="preserve">
     <value>Add to "my applications"</value>
   </data>
   <data name="AppRemoveConfirm" xml:space="preserve">
@@ -146,8 +149,8 @@ This will also remove any desktop integration applied for this application.</val
   <data name="FailedToRun" xml:space="preserve">
     <value>Failed to run {0}.</value>
   </data>
-  <data name="IntegrateTooltip" xml:space="preserve">
-    <value>Integrate into operating system</value>
+  <data name="ModifyButtonTooltip" xml:space="preserve">
+    <value>Modify integration</value>
   </data>
   <data name="NoKeepApp" xml:space="preserve">
     <value>No
@@ -163,14 +166,14 @@ Return to input</value>
   <data name="ProblemSavingOptions" xml:space="preserve">
     <value>There was a problem saving the options.</value>
   </data>
+  <data name="RemoveButtonTooltip" xml:space="preserve">
+    <value>Remove from "my applications"</value>
+  </data>
   <data name="RemoveCheckedKeys" xml:space="preserve">
     <value>Do you want to remove the {0} checked keys from the list?</value>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Do you want to remove the {0} selected entries from the list?</value>
-  </data>
-  <data name="RemoveTooltip" xml:space="preserve">
-    <value>Remove from "my applications"</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Do you wish to save any changes made?</value>
@@ -206,6 +209,9 @@ Ignore update for now</value>
     <value>Yes
 Install update</value>
   </data>
+  <data name="SetupButtonTooltip" xml:space="preserve">
+    <value>Setup integration</value>
+  </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
     <value>The username and/or password you entered are incorrect.</value>
   </data>
@@ -237,5 +243,8 @@ Remove the application</value>
   <data name="YesWizardContinue" xml:space="preserve">
     <value>Yes
 Continue wizard</value>
+  </data>
+  <data name="Run" xml:space="preserve">
+    <value>Run</value>
   </data>
 </root>

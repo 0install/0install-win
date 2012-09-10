@@ -70,9 +70,9 @@ namespace ZeroInstall.Central.WinForms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Add to &quot;my applications&quot;.
         /// </summary>
-        internal static string AddTooltip {
+        internal static string AddButtonTooltip {
             get {
-                return ResourceManager.GetString("AddTooltip", resourceCulture);
+                return ResourceManager.GetString("AddButtonTooltip", resourceCulture);
             }
         }
         
@@ -111,19 +111,26 @@ namespace ZeroInstall.Central.WinForms.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Integrate into operating system.
-        /// </summary>
-        internal static string IntegrateTooltip {
-            get {
-                return ResourceManager.GetString("IntegrateTooltip", resourceCulture);
-            }
-        }
-        
         internal static System.Drawing.Bitmap Logo {
             get {
                 object obj = ResourceManager.GetObject("Logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ModifyButton {
+            get {
+                object obj = ResourceManager.GetObject("ModifyButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modify integration.
+        /// </summary>
+        internal static string ModifyButtonTooltip {
+            get {
+                return ResourceManager.GetString("ModifyButtonTooltip", resourceCulture);
             }
         }
         
@@ -173,6 +180,15 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove from &quot;my applications&quot;.
+        /// </summary>
+        internal static string RemoveButtonTooltip {
+            get {
+                return ResourceManager.GetString("RemoveButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to remove the {0} checked keys from the list?.
         /// </summary>
         internal static string RemoveCheckedKeys {
@@ -191,11 +207,11 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove from &quot;my applications&quot;.
+        ///   Looks up a localized string similar to Run.
         /// </summary>
-        internal static string RemoveTooltip {
+        internal static string Run {
             get {
-                return ResourceManager.GetString("RemoveTooltip", resourceCulture);
+                return ResourceManager.GetString("Run", resourceCulture);
             }
         }
         
@@ -297,6 +313,15 @@ namespace ZeroInstall.Central.WinForms.Properties {
             get {
                 object obj = ResourceManager.GetObject("SetupButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setup integration.
+        /// </summary>
+        internal static string SetupButtonTooltip {
+            get {
+                return ResourceManager.GetString("SetupButtonTooltip", resourceCulture);
             }
         }
         

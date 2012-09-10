@@ -93,7 +93,6 @@
             this.buttonRun.Size = new System.Drawing.Size(64, 25);
             this.buttonRun.SplitMenuStrip = this.contextMenuRun;
             this.buttonRun.TabIndex = 4;
-            this.buttonRun.Text = "Start";
             this.buttonRun.UseVisualStyleBackColor = true;
             this.buttonRun.Click += new System.EventHandler(this.buttonRun_Click);
             // 
@@ -174,14 +173,12 @@
             this.buttonRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRemove.AutoSize = true;
             this.buttonRemove.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonRemove.Enabled = false;
             this.buttonRemove.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.buttonRemove.Location = new System.Drawing.Point(363, 32);
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Size = new System.Drawing.Size(31, 25);
             this.buttonRemove.TabIndex = 7;
             this.buttonRemove.UseVisualStyleBackColor = true;
-            this.buttonRemove.Visible = false;
             this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
             // 
             // buttonIntegrate
@@ -189,7 +186,6 @@
             this.buttonIntegrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonIntegrate.AutoSize = true;
             this.buttonIntegrate.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonIntegrate.Enabled = false;
             this.buttonIntegrate.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.buttonIntegrate.Location = new System.Drawing.Point(330, 32);
             this.buttonIntegrate.Name = "buttonIntegrate";

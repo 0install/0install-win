@@ -24,6 +24,7 @@ using Common.Collections;
 using Common.Controls;
 using Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
+using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Central.WinForms
@@ -141,8 +142,9 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="systemWide">Apply operations system-wide instead of just for the current user.</param>
         /// <param name="interfaceID">The interface ID of the application this tile represents.</param>
         /// <param name="appName">The name of the application this tile represents.</param>
+        /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
         /// <exception cref="C5.DuplicateNotAllowedException">Thrown if the list already contains an <see cref="AppTile"/> with the specified <paramref name="interfaceID"/>.</exception>
-        public AppTile QueueNewTile(bool systemWide, string interfaceID, string appName)
+        public AppTile QueueNewTile(bool systemWide, string interfaceID, string appName, AppStatus status)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
@@ -150,7 +152,7 @@ namespace ZeroInstall.Central.WinForms
             if (_tileDictionary.Contains(interfaceID)) throw new C5.DuplicateNotAllowedException();
             #endregion
 
-            var tile = new AppTile(systemWide, interfaceID, appName, IconCache) {Width = _flowLayout.Width};
+            var tile = new AppTile(systemWide, interfaceID, appName, status, IconCache) {Width = _flowLayout.Width};
 
             if (StringUtils.Contains(appName, _textSearch.Text))
             {

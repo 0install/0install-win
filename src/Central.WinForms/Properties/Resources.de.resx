@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddTooltip" xml:space="preserve">
+  <data name="AddButtonTooltip" xml:space="preserve">
     <value>Zu "Meine Anwendungen" hinzufügen</value>
   </data>
   <data name="AppRemoveConfirm" xml:space="preserve">
@@ -130,8 +130,8 @@ Dabei werden auch alle Desktopintegrationen für die Anwendung entfernt.</value>
   <data name="FailedToRun" xml:space="preserve">
     <value>Konnte {0} nicht starten.</value>
   </data>
-  <data name="IntegrateTooltip" xml:space="preserve">
-    <value>In das Betriebsystem integrieren</value>
+  <data name="ModifyButtonTooltip" xml:space="preserve">
+    <value>Integration ändern</value>
   </data>
   <data name="NoKeepApp" xml:space="preserve">
     <value>Nein
@@ -147,14 +147,17 @@ Zurück zur Eingabe</value>
   <data name="ProblemSavingOptions" xml:space="preserve">
     <value>Es gab ein Problem beim Speichern der Einstellungen.</value>
   </data>
+  <data name="RemoveButtonTooltip" xml:space="preserve">
+    <value>Aus "Meine Anwendungen" entfernen</value>
+  </data>
   <data name="RemoveCheckedKeys" xml:space="preserve">
     <value>Möchten Sie die {0} angehakten Keys aus der Liste entfernen?</value>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Möchten Sie die {0} ausgewählten Einträge aus der Liste entfernen?</value>
   </data>
-  <data name="RemoveTooltip" xml:space="preserve">
-    <value>Aus "Meine Anwendungen" entfernen</value>
+  <data name="Run" xml:space="preserve">
+    <value>Start</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Möchten Sie bereits vorgenommene Änderungen speichern?</value>
@@ -189,6 +192,9 @@ Update vorerst ignorieren</value>
   <data name="SelfUpdateYes" xml:space="preserve">
     <value>Ja
 Update installieren</value>
+  </data>
+  <data name="SetupButtonTooltip" xml:space="preserve">
+    <value>Integration einrichten</value>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
     <value>Der Benutzername und/oder das Passwort sind nicht korrekt.</value>
