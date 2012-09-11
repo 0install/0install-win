@@ -280,9 +280,9 @@ namespace Common.Utils
                 File.WriteAllText(Path.Combine(tempDir.Path, "target"), "");
                 FileUtils.CreateSymlink(symlinkPath, "target");
 
-                string contents;
-                Assert.IsTrue(FileUtils.IsSymlink(symlinkPath, out contents), "Should detect symlink as such");
-                Assert.AreEqual(contents, "target", "Should retrieve relative link target");
+                string target;
+                Assert.IsTrue(FileUtils.IsSymlink(symlinkPath, out target), "Should detect symlink as such");
+                Assert.AreEqual(target, "target", "Should retrieve relative link target");
 
                 Assert.IsFalse(FileUtils.IsRegularFile(symlinkPath), "Should not detect symlink as regular file");
             }

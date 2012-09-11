@@ -514,28 +514,49 @@ namespace Common.Utils
             if (!File.Exists(path)) return false;
 
             // ToDo: Detect special files on Windows
-            if (WindowsUtils.IsWindows)
-                return true;
+            if (!MonoUtils.IsUnix) return true;
 
-            if (MonoUtils.IsUnix)
+            try
             {
-                try
-                {
-                    return MonoUtils.IsRegularFile(path);
-                }
-                    #region Error handling
-                catch (InvalidOperationException ex)
-                {
-                    throw new IOException(Resources.UnixSubsystemFail, ex);
-                }
-                catch (IOException ex)
-                {
-                    throw new IOException(Resources.UnixSubsystemFail, ex);
-                }
-                #endregion
+                return MonoUtils.IsRegularFile(path);
             }
+                #region Error handling
+            catch (InvalidOperationException ex)
+            {
+                throw new IOException(Resources.UnixSubsystemFail, ex);
+            }
+            catch (IOException ex)
+            {
+                throw new IOException(Resources.UnixSubsystemFail, ex);
+            }
+            #endregion
+        }
 
-            return true;
+        /// <summary>
+        /// Checks whether a file is a Unix symbolic link.
+        /// </summary>
+        /// <param name="path">The path of the file to check.</param>
+        /// <return><see lang="true"/> if <paramref name="path"/> points to a symbolic link; <see lang="false"/> otherwise.</return>
+        /// <remarks>Will return <see langword="false"/> for non-existing files. Will always return <see langword="false"/> on non-Unixoid systems.</remarks>
+        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to query the file's properties.</exception>
+        public static bool IsSymlink(string path)
+        {
+            if ((!File.Exists(path) && !Directory.Exists(path)) || !MonoUtils.IsUnix) return false;
+
+            try
+            {
+                return MonoUtils.IsSymlink(path);
+            }
+                #region Error handling
+            catch (InvalidOperationException ex)
+            {
+                throw new IOException(Resources.UnixSubsystemFail, ex);
+            }
+            catch (IOException ex)
+            {
+                throw new IOException(Resources.UnixSubsystemFail, ex);
+            }
+            #endregion
         }
 
         /// <summary>
@@ -548,27 +569,26 @@ namespace Common.Utils
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to query the file's properties.</exception>
         public static bool IsSymlink(string path, out string target)
         {
-            if (File.Exists(path) && MonoUtils.IsUnix)
+            if ((!File.Exists(path) && !Directory.Exists(path)) || !MonoUtils.IsUnix)
             {
-                try
-                {
-                    return MonoUtils.IsSymlink(path, out target);
-                }
-                    #region Error handling
-                catch (InvalidOperationException ex)
-                {
-                    throw new IOException(Resources.UnixSubsystemFail, ex);
-                }
-                catch (IOException ex)
-                {
-                    throw new IOException(Resources.UnixSubsystemFail, ex);
-                }
-                #endregion
+                target = null;
+                return false;
             }
 
-            // Return default values
-            target = null;
-            return false;
+            try
+            {
+                return MonoUtils.IsSymlink(path, out target);
+            }
+                #region Error handling
+            catch (InvalidOperationException ex)
+            {
+                throw new IOException(Resources.UnixSubsystemFail, ex);
+            }
+            catch (IOException ex)
+            {
+                throw new IOException(Resources.UnixSubsystemFail, ex);
+            }
+            #endregion
         }
 
         /// <summary>
