@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Common.Utils;
 using NUnit.Framework;
 
 namespace ZeroInstall.Injector.Solver
@@ -26,6 +27,8 @@ namespace ZeroInstall.Injector.Solver
     public class ExternalSolverTest : SolverTest
     {
         public ExternalSolverTest() : base(new ExternalSolver())
-        {}
+        {
+            if (!WindowsUtils.IsWindows) throw new InconclusiveException("External solver is not reliable on non-Windows platforms");
+        }
     }
 }
