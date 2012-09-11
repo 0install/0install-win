@@ -268,7 +268,7 @@ namespace Common.Utils
 #if FS_SECURITY
         #region Links
         [Test]
-        public void TestCreateSymlink()
+        public void TestCreateSymlinkFile()
         {
             if (!MonoUtils.IsUnix) throw new InconclusiveException("Cannot test symlinks on non-Unixoid system");
 
@@ -282,9 +282,28 @@ namespace Common.Utils
 
                 string contents;
                 Assert.IsTrue(FileUtils.IsSymlink(symlinkPath, out contents), "Should detect symlink as such");
-                Assert.AreEqual(contents, "target", "Should get relative link target");
+                Assert.AreEqual(contents, "target", "Should retrieve relative link target");
 
                 Assert.IsFalse(FileUtils.IsRegularFile(symlinkPath), "Should not detect symlink as regular file");
+            }
+        }
+        
+        [Test]
+        public void TestCreateSymlinkDirectory()
+        {
+            if (!MonoUtils.IsUnix) throw new InconclusiveException("Cannot test symlinks on non-Unixoid system");
+
+            using (var tempDir = new TemporaryDirectory("unit-tests"))
+            {
+                string symlinkPath = Path.Combine(tempDir.Path, "symlink");
+
+                // Create an empty directory and symlink to it using a relative path
+                Directory.CreateDirectory(Path.Combine(tempDir.Path, "target"));
+                FileUtils.CreateSymlink(symlinkPath, "target");
+
+                string contents;
+                Assert.IsTrue(FileUtils.IsSymlink(symlinkPath, out contents), "Should detect symlink as such");
+                Assert.AreEqual(contents, "target", "Should retrieve relative link target");
             }
         }
 
