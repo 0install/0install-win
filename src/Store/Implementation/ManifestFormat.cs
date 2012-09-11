@@ -233,9 +233,7 @@ namespace ZeroInstall.Store.Implementation
                         result.Add(new DirectoryInfo(entry));
 
                         // Recurse into sub-direcories (but do not follow symlinks)
-                        string temp;
-                        if (!FileUtils.IsSymlink(entry, out temp))
-                            result.AddAll(GetSortedDirectoryEntries(entry));
+                        if (!FileUtils.IsSymlink(entry)) result.AddAll(GetSortedDirectoryEntries(entry));
                     }
                     else result.Add(new FileInfo(entry));
                 }
@@ -304,9 +302,7 @@ namespace ZeroInstall.Store.Implementation
                     result.Add(new DirectoryInfo(directory));
 
                     // Recurse into sub-direcories (but do not follow symlinks)
-                    string temp;
-                    if (!FileUtils.IsSymlink(directory, out temp))
-                        result.AddAll(GetSortedDirectoryEntries(directory));
+                    if (!FileUtils.IsSymlink(directory)) result.AddAll(GetSortedDirectoryEntries(directory));
                 }
                 return result.ToArray();
             }

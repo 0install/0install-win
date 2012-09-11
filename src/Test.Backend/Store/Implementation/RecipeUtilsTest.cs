@@ -73,10 +73,9 @@ namespace ZeroInstall.Store.Implementation
                     }
 
                     // /symlink [S]
-                    string temp;
                     string path = FileUtils.PathCombine(recipeDir.Path, "symlink");
                     Assert.IsTrue(File.Exists(path), "Missing file: " + path);
-                    if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsSymlink(path, out temp), "Not symlink: " + path);
+                    if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsSymlink(path), "Not symlink: " + path);
 
                     // /subdir1/regular
                     path = FileUtils.PathCombine(recipeDir.Path, "subdir1", "regular");
@@ -94,7 +93,7 @@ namespace ZeroInstall.Store.Implementation
                     // /toplevel/symlink [S]
                     path = FileUtils.PathCombine(recipeDir.Path, "toplevel", "symlink");
                     Assert.IsTrue(File.Exists(path), "Missing file: " + path);
-                    if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsSymlink(path, out temp), "Not symlink: " + path);
+                    if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsSymlink(path), "Not symlink: " + path);
 
                     // /toplevel/subdir1/regular
                     path = FileUtils.PathCombine(recipeDir.Path, "toplevel", "subdir1", "regular");

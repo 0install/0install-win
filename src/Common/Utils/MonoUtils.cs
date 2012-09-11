@@ -95,6 +95,23 @@ namespace Common.Utils
         /// Checks whether a file is a Unix symbolic link.
         /// </summary>
         /// <param name="path">The path of the file to check.</param>
+        /// <return><see lang="true"/> if <paramref name="path"/> points to a symbolic link; <see lang="false"/> otherwise.</return>
+        /// <remarks>Will return <see langword="false"/> for non-existing files.</remarks>
+        /// <exception cref="InvalidOperationException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
+        /// <exception cref="IOException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
+        public static bool IsSymlink(string path)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
+            return UnixFileSystemInfo.GetFileSystemEntry(path).IsSymbolicLink;
+        }
+
+        /// <summary>
+        /// Checks whether a file is a Unix symbolic link.
+        /// </summary>
+        /// <param name="path">The path of the file to check.</param>
         /// <param name="target">Returns the target the symbolic link points to if it exists.</param>
         /// <return><see lang="true"/> if <paramref name="path"/> points to a symbolic link; <see lang="false"/> otherwise.</return>
         /// <remarks>Will return <see langword="false"/> for non-existing files.</remarks>
@@ -106,15 +123,13 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            bool result = UnixFileSystemInfo.GetFileSystemEntry(path).IsSymbolicLink;
-
+            bool result = IsSymlink(path);
             if (result)
             {
                 var symlinkInfo = new UnixSymbolicLinkInfo(path);
                 target = symlinkInfo.ContentsPath;
             }
             else target = null;
-
             return result;
         }
         #endregion
