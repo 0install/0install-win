@@ -23,12 +23,10 @@ namespace ZeroInstall.Injector.Solver
     /// <summary>
     /// Contains test methods for <see cref="ExternalSolver"/>.
     /// </summary>
-    [TestFixture]
+    [TestFixture(Ignore = true, IgnoreReason = "External solver is not reliable on non-Windows platforms")]
     public class ExternalSolverTest : SolverTest
     {
         public ExternalSolverTest() : base(new ExternalSolver())
-        {
-            if (!WindowsUtils.IsWindows) throw new InconclusiveException("External solver is not reliable on non-Windows platforms");
-        }
+        {}
     }
 }
