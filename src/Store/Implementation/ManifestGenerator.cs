@@ -191,17 +191,16 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to read the directory.</exception>
         private static ManifestNode GetDirectoryNode(DirectoryInfo directory, ManifestFormat format, string rootPath)
         {
-            // Remove leading portion of path and use Unix slashes
-            string trimmedName = directory.FullName.Substring(rootPath.Length).Replace(Path.DirectorySeparatorChar, '/');
-
-            // Director symlinks
+            // Directory symlinks
             string symlinkContents;
             if (FileUtils.IsSymlink(directory.FullName, out symlinkContents))
             {
                 var symlinkData = Encoding.UTF8.GetBytes(symlinkContents);
-                return new ManifestSymlink(format.DigestContent(symlinkData), symlinkData.Length, trimmedName);
+                return new ManifestSymlink(format.DigestContent(symlinkData), symlinkData.Length, directory.Name);
             }
 
+            // Remove leading portion of path and use Unix slashes
+            string trimmedName = directory.FullName.Substring(rootPath.Length).Replace(Path.DirectorySeparatorChar, '/');
             return new ManifestDirectory(FileUtils.ToUnixTime(directory.LastWriteTime), trimmedName);
         }
         #endregion
