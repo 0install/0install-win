@@ -304,7 +304,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldNotFollowDirectorySymlinks()
         {
-            if (!MonoUtils.IsUnix) throw new InconclusiveException("Unable to test symlinks on non-Unixoid system");
+            if (!MonoUtils.IsUnix) throw new InconclusiveException("Can only test symlinks on Unixoid system");
 
             using (var package = new TemporaryDirectory("0install-unit-tests"))
             {

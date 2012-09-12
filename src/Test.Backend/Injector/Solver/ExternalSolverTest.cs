@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Common.Utils;
 using NUnit.Framework;
 
 namespace ZeroInstall.Injector.Solver
@@ -23,7 +22,7 @@ namespace ZeroInstall.Injector.Solver
     /// <summary>
     /// Contains test methods for <see cref="ExternalSolver"/>.
     /// </summary>
-    [TestFixture(Ignore = true, IgnoreReason = "External solver is not reliable on non-Windows platforms")]
+    [TestFixture(Ignore = true, IgnoreReason = "External solver is not reliably testable yet")]
     public class ExternalSolverTest : SolverTest
     {
         public ExternalSolverTest() : base(new ExternalSolver())

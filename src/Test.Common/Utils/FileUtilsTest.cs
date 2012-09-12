@@ -387,7 +387,7 @@ namespace Common.Utils
         [Test]
         public void TestSetExecutable()
         {
-            if (!MonoUtils.IsUnix) throw new InconclusiveException("Cannot test executable bit on non-Unixoid system");
+            if (!MonoUtils.IsUnix) throw new InconclusiveException("Can only test executable bits on Unixoid system");
 
             using (var tempFile = new TemporaryFile("unit-tests"))
             {
