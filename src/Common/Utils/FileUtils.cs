@@ -240,19 +240,17 @@ namespace Common.Utils
             switch (Environment.OSVersion.Platform)
             {
                 case PlatformID.Win32NT:
-                    // Use native replacement method with temporary backup file for rollback
+                    // Use native replace method with temporary backup file for rollback
                     File.Replace(sourcePath, destinationPath, backupPath, true);
                     File.Delete(backupPath);
                     break;
 
                 case PlatformID.MacOSX:
                 case PlatformID.Unix:
-                    // Default move method is an atomic replace
-                    File.Move(sourcePath, destinationPath);
-                    break;
+                    // ToDo: Use POSIX move command
 
                 default:
-                    // Emulate replacement method
+                    // Emulate replace method
                     File.Move(destinationPath, backupPath);
                     try
                     {
