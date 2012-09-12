@@ -349,7 +349,10 @@ namespace Common.Utils
             #endregion
 
             if (!IsWindowsVista) throw new NotSupportedException(Resources.OnlyAvailableOnWindows);
-            if (!UnsafeNativeMethods.CreateSymbolicLink(source, target, Directory.Exists(target) ? 1 : 0)) throw new Win32Exception();
+
+            string targetAbsolute = Path.Combine(Path.GetDirectoryName(source) ?? Environment.CurrentDirectory, target);
+            int retval = UnsafeNativeMethods.CreateSymbolicLink(source, target, Directory.Exists(targetAbsolute) ? 1 : 0);
+            if (retval != 1) throw new Win32Exception(Marshal.GetLastWin32Error());
         }
 
         /// <summary>
