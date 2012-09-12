@@ -227,20 +227,31 @@ namespace Common.Utils
             #endregion
 
             // Simply move if the destination does not exist
-            if (File.Exists(destinationPath))
+            if (!File.Exists(destinationPath))
             {
-                // Prepend random string for temp file name
-                string directory = Path.GetDirectoryName(Path.GetFullPath(destinationPath));
-                string backupPath = directory + Path.DirectorySeparatorChar + "backup." + Path.GetRandomFileName() + "." + Path.GetFileName(destinationPath);
+                File.Move(sourcePath, destinationPath);
+                return;
+            }
 
-                try
-                {
+            // Prepend random string for temp file name
+            string directory = Path.GetDirectoryName(Path.GetFullPath(destinationPath));
+            string backupPath = directory + Path.DirectorySeparatorChar + "backup." + Path.GetRandomFileName() + "." + Path.GetFileName(destinationPath);
+
+            switch (Environment.OSVersion.Platform)
+            {
+                case PlatformID.Win32NT:
                     // Use native replacement method with temporary backup file for rollback
                     File.Replace(sourcePath, destinationPath, backupPath, true);
                     File.Delete(backupPath);
-                }
-                catch (PlatformNotSupportedException)
-                {
+                    break;
+
+                case PlatformID.MacOSX:
+                case PlatformID.Unix:
+                    // Default move method is an atomic replace
+                    File.Move(sourcePath, destinationPath);
+                    break;
+
+                default:
                     // Emulate replacement method
                     File.Move(destinationPath, backupPath);
                     try
@@ -254,9 +265,8 @@ namespace Common.Utils
                         File.Move(backupPath, destinationPath);
                         throw;
                     }
-                }
+                    break;
             }
-            else File.Move(sourcePath, destinationPath);
         }
         #endregion
 
