@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
+using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
@@ -181,26 +182,9 @@ namespace ZeroInstall.Store.Feeds
         /// <param name="path">The file to write to.</param>
         private void WriteToFile(byte[] data, string path)
         {
-            // Prepend random string for temp file name
-            string directory = Path.GetDirectoryName(Path.GetFullPath(path));
-            string tempPath = directory + Path.DirectorySeparatorChar + "temp." + Path.GetRandomFileName() + "." + Path.GetFileName(path);
-
-            try
-            {
-                // Write to temporary file first
-                File.WriteAllBytes(tempPath, data);
-                lock (_replaceLock) // Prevent race-conditions when adding the same feed twice
-                    FileUtils.Replace(tempPath, path);
-            }
-                #region Error handling
-            catch
-            {
-                // Clean up failed transactions
-                if (File.Exists(tempPath)) File.Delete(tempPath);
-
-                throw;
-            }
-            #endregion
+            lock (_replaceLock)
+                using (var atomic = new AtomicWrite(path))
+                    File.WriteAllBytes(atomic.WritePath, data);
         }
         #endregion
 

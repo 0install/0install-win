@@ -359,27 +359,8 @@ namespace ZeroInstall.Injector
         {
             TransferToIni();
 
-            // Make sure the containing directory exists
-            string directory = Path.GetDirectoryName(Path.GetFullPath(path));
-            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory)) Directory.CreateDirectory(directory);
-
-            // Prepend random string for temp file name
-            string tempPath = directory + Path.DirectorySeparatorChar + "temp." + Path.GetRandomFileName() + "." + Path.GetFileName(path);
-
-            try
-            {
-                // Write to temporary file first
-                _iniParse.SaveFile(tempPath, _iniData);
-                FileUtils.Replace(tempPath, path);
-            }
-                #region Error handling
-            catch (Exception)
-            {
-                // Clean up failed transactions
-                if (File.Exists(tempPath)) File.Delete(tempPath);
-                throw;
-            }
-            #endregion
+            using (var atomic = new AtomicWrite(path))
+                _iniParse.SaveFile(atomic.WritePath, _iniData);
         }
 
         /// <summary>

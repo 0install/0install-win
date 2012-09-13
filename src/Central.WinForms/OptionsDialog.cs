@@ -136,21 +136,8 @@ namespace ZeroInstall.Central.WinForms
 
                 if (!Locations.IsPortable)
                 {
-                    // Write list of user-configured implementation directories to temporary file first to ensure atomicity
-                    string tempPath = _implementationDirsConfigPath + ".new." + Path.GetRandomFileName(); // Append random string for temp file name
-                    try
-                    {
-                        WriteImplDirs(tempPath);
-                        FileUtils.Replace(tempPath, _implementationDirsConfigPath);
-                    }
-                        #region Error handling
-                    catch (Exception)
-                    {
-                        // Clean up failed transactions
-                        if (File.Exists(tempPath)) File.Delete(tempPath);
-                        throw;
-                    }
-                    #endregion
+                    using (var atomic = new AtomicWrite(_implementationDirsConfigPath))
+                        WriteImplDirs(atomic.WritePath);
                 }
 
                 // Write list of trusted keys

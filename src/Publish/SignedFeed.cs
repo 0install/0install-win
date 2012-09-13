@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using Common.Cli;
+using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
@@ -95,25 +96,14 @@ namespace ZeroInstall.Publish
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            string tempPath = path + ".new";
-            try
+            using (var atomic = new AtomicWrite(path))
             {
                 // Write to temporary file first
-                Feed.Save(tempPath);
+                Feed.Save(atomic.WritePath);
 
-                FeedUtils.AddStylesheet(tempPath);
-                if (SecretKey != null) FeedUtils.SignFeed(tempPath, SecretKey, passphrase, OpenPgpProvider.CreateDefault());
-
-                FileUtils.Replace(tempPath, path);
+                FeedUtils.AddStylesheet(atomic.WritePath);
+                if (SecretKey != null) FeedUtils.SignFeed(atomic.WritePath, SecretKey, passphrase, OpenPgpProvider.CreateDefault());
             }
-                #region Error handling
-            catch (Exception)
-            {
-                // Clean up failed transactions
-                if (File.Exists(tempPath)) File.Delete(tempPath);
-                throw;
-            }
-            #endregion
         }
         #endregion
     }

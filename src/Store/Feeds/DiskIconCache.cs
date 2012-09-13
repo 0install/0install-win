@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Model;
@@ -114,35 +115,14 @@ namespace ZeroInstall.Store.Feeds
                 lock (_lock)
                 { // Perform double-check (inside and outside lock) to prevent race-conditions
                     if (!File.Exists(path))
-                        DownloadFile(iconUrl, path, handler);
+                    {
+                        using (var atomic = new AtomicWrite(path))
+                            handler.RunTask(new DownloadFile(iconUrl, atomic.WritePath), null);
+                    }
                 }
             }
 
             return path;
-        }
-
-        /// <summary>
-        /// Downloads <paramref name="source"/> to <paramref name="target"/> using a temporary intermediate file to make the process atomic.
-        /// </summary>
-        private static void DownloadFile(Uri source, string target, ITaskHandler handler)
-        {
-            // Prepend random string to file name to prevent ListAll from catching temporary files
-            string directory = Path.GetDirectoryName(Path.GetFullPath(target));
-            string tempPath = directory + Path.DirectorySeparatorChar + "temp." + Path.GetRandomFileName() + "." + Path.GetFileName(target);
-
-            try
-            {
-                // Perform atomic download and replace
-                handler.RunTask(new DownloadFile(source, tempPath), null);
-                FileUtils.Replace(tempPath, target);
-            }
-            catch (Exception)
-            {
-                // Don't leave partial downloads in the cache
-                if (File.Exists(tempPath)) File.Delete(tempPath);
-
-                throw;
-            }
         }
         #endregion
 

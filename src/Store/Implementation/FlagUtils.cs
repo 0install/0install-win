@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
+using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Store.Properties;
 
@@ -143,12 +144,10 @@ namespace ZeroInstall.Store.Implementation
             // Convert path to rooted Unix-style
             string unixPath = "/" + relativePath.Replace(Path.DirectorySeparatorChar, '/');
 
-            // Prepend random string for temp file name
-            string tempPath = Path.GetDirectoryName(file) + Path.DirectorySeparatorChar + "temp." + Path.GetRandomFileName() + Path.GetFileName(file);
-
             // Write to temporary file first before replacing
+            using (var atomic = new AtomicWrite(file))
+            using (var newFlagFile = new StreamWriter(atomic.WritePath, false, new UTF8Encoding(false)) {NewLine = "\n"})
             using (StreamReader oldFlagFile = File.OpenText(file))
-            using (var newFlagFile = new StreamWriter(tempPath, false, new UTF8Encoding(false)) {NewLine = "\n"})
             {
                 // Each line in the file signals a flagged file
                 while (!oldFlagFile.EndOfStream)
@@ -162,7 +161,6 @@ namespace ZeroInstall.Store.Implementation
                     }
                 }
             }
-            FileUtils.Replace(tempPath, file);
         }
 
         /// <summary>
@@ -186,12 +184,10 @@ namespace ZeroInstall.Store.Implementation
             // Convert prefix to rooted Unix-style
             prefix = "/" + prefix.Replace(Path.DirectorySeparatorChar, '/');
 
-            // Prepend random string for temp file name
-            string tempPath = Path.GetDirectoryName(file) + Path.DirectorySeparatorChar + "temp." + Path.GetRandomFileName() + Path.GetFileName(file);
-
             // Write to temporary file first before replacing
+            using (var atomic = new AtomicWrite(file))
+            using (var newFlagFile = new StreamWriter(atomic.WritePath, false, new UTF8Encoding(false)) {NewLine = "\n"})
             using (StreamReader oldFlagFile = File.OpenText(file))
-            using (var newFlagFile = new StreamWriter(tempPath, false, new UTF8Encoding(false)) {NewLine = "\n"})
             {
                 // Each line in the file signals a flagged file
                 while (!oldFlagFile.EndOfStream)
@@ -201,7 +197,6 @@ namespace ZeroInstall.Store.Implementation
                         newFlagFile.WriteLine(prefix + line); // Add prefix
                 }
             }
-            FileUtils.Replace(tempPath, file);
         }
         #endregion
     }
