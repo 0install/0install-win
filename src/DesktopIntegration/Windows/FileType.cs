@@ -22,6 +22,7 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using Common.Tasks;
+using Common.Utils;
 using Microsoft.Win32;
 using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
@@ -51,6 +52,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         /// <summary>The HKCU/HKLM registry key backing HKCR.</summary>
         public const string RegKeyClasses = @"SOFTWARE\Classes";
+
+        /// <summary>The HKCU/HKLM registry key backing HKCR.</summary>
+        public const string RegKeyOverrides = @"Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts";
 
         /// <summary>The registry value name for friendly type name storage.</summary>
         public const string RegValueFriendlyName = "FriendlyTypeName";
@@ -129,7 +133,18 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         using (var openWithKey = extensionKey.CreateSubKey(RegSubKeyOpenWith))
                             openWithKey.SetValue(RegKeyPrefix + fileType.ID, "");
 
-                        if (accessPoint) extensionKey.SetValue("", RegKeyPrefix + fileType.ID);
+                        if (accessPoint)
+                        {
+                            extensionKey.SetValue("", RegKeyPrefix + fileType.ID);
+
+                            if (!systemWide && (WindowsUtils.IsWindowsVista || WindowsUtils.IsWindows7))
+                            { // Windows Vista and 7 have an additional per-user override; Windows 8 blocks programmatic access to this override
+                                using (var overridesKey = hive.OpenSubKey(RegKeyOverrides, true))
+                                using (var extensionOverrideKey = overridesKey.CreateSubKey(extension.Value))
+                                using (var userChoiceKey = extensionOverrideKey.CreateSubKey("UserChoice"))
+                                    userChoiceKey.SetValue("Progid", fileType.ID);
+                            }
+                        }
                     }
 
                     // Register MIME types
