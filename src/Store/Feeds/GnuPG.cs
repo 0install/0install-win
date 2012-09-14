@@ -145,8 +145,8 @@ namespace ZeroInstall.Store.Feeds
             #endregion
 
             string arguments = "--batch --no-secmem-warning --passphrase-fd 0";
-            if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --local-user \"" + keySpecifier.Replace("\"", "\\\"") + "\"";
-            arguments += " --detach-sign \"" + path.Replace("\"", "\\\")" + "\"");
+            if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --local-user " + StringUtils.EscapeArgument(keySpecifier);
+            arguments += " --detach-sign " + StringUtils.EscapeArgument(path);
 
             if (string.IsNullOrEmpty(passphrase)) passphrase = "\n";
             Execute(arguments, writer => writer.WriteLine(passphrase), ErrorHandlerException);
