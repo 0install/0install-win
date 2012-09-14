@@ -41,16 +41,19 @@ namespace Common.Tasks
 
         /// <inheritdoc/>
         public override bool CanCancel { get { return false; } }
+
+        /// <inheritdoc />
+        public override bool UnitsByte { get { return false; } }
         #endregion
 
         #region Control
         /// <summary>
-        /// Sets <see cref="ITask.State"/> to <see cref="TaskState.Started"/> and <see cref="ITask.BytesProcessed"/> to <code>128</code>.
+        /// Sets <see cref="ITask.State"/> to <see cref="TaskState.Started"/> and <see cref="ITask.UnitsProcessed"/> to <code>128</code>.
         /// </summary>
         public override void Start()
         {
             State = TaskState.Header;
-            BytesTotal = 128;
+            UnitsTotal = 128;
         }
 
         /// <summary>
@@ -80,12 +83,12 @@ namespace Common.Tasks
 
         #region Mock state
         /// <summary>
-        /// Sets <see cref="ITask.State"/> to <see cref="TaskState.Data"/> and <see cref="ITask.BytesProcessed"/> to <code>64</code>.
+        /// Sets <see cref="ITask.State"/> to <see cref="TaskState.Data"/> and <see cref="ITask.UnitsProcessed"/> to <code>64</code>.
         /// </summary>
         public void MockStateData()
         {
             State = TaskState.Data;
-            BytesProcessed = 64;
+            UnitsProcessed = 64;
         }
 
         /// <summary>

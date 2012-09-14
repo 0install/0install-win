@@ -45,6 +45,9 @@ namespace Common.Tasks
 
         /// <inheritdoc/>
         public override string Name { get { return _name; } }
+
+        /// <inheritdoc />
+        public override bool UnitsByte { get { return false; } }
         #endregion
 
         #region Constructor
@@ -68,7 +71,7 @@ namespace Common.Tasks
 
             // Detect collections that know their own length
             var collection = target as ICollection<T>;
-            if (collection != null) BytesTotal = collection.Count;
+            if (collection != null) UnitsTotal = collection.Count;
         }
         #endregion
 
@@ -84,7 +87,7 @@ namespace Common.Tasks
             {
                 if (CancelRequest.WaitOne(0, false)) throw new OperationCanceledException();
                 _work(element);
-                lock (StateLock) BytesProcessed++;
+                lock (StateLock) UnitsProcessed++;
             }
 
             lock (StateLock) State = TaskState.Complete;

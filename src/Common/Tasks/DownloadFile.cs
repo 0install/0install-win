@@ -38,6 +38,9 @@ namespace Common.Tasks
         /// <inheritdoc />
         public override string Name { get { return string.Format(Resources.Downloading, Source); } }
 
+        /// <inheritdoc />
+        public override bool UnitsByte { get { return true; } }
+
         /// <summary>
         /// The URL the file is to be downloaded from.
         /// </summary>
@@ -82,7 +85,7 @@ namespace Common.Tasks
 
             Source = source;
             Target = target;
-            BytesTotal = bytesTotal;
+            UnitsTotal = bytesTotal;
         }
 
         /// <summary>
@@ -160,9 +163,9 @@ namespace Common.Tasks
             Source = response.ResponseUri;
 
             // Determine file size and make sure predetermined sizes are valid
-            if (BytesTotal == -1 || response.ContentLength == -1) BytesTotal = response.ContentLength;
-            else if (BytesTotal != response.ContentLength)
-                throw new WebException(string.Format(Resources.FileNotExpectedSize, Source, BytesTotal, response.ContentLength));
+            if (UnitsTotal == -1 || response.ContentLength == -1) UnitsTotal = response.ContentLength;
+            else if (UnitsTotal != response.ContentLength)
+                throw new WebException(string.Format(Resources.FileNotExpectedSize, Source, UnitsTotal, response.ContentLength));
 
             // HTTP servers with range-support and FTP servers support resuming downloads
             SupportsResume = (response is HttpWebResponse && Headers[HttpResponseHeader.AcceptRanges] == "bytes") || response is FtpWebResponse;
@@ -198,7 +201,7 @@ namespace Common.Tasks
             {
                 fileStream.Write(buffer, 0, length);
                 if (CancelRequest.WaitOne(0, false)) throw new OperationCanceledException();
-                lock (StateLock) BytesProcessed += length;
+                lock (StateLock) UnitsProcessed += length;
             }
         }
         #endregion

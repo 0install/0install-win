@@ -140,7 +140,7 @@ namespace Common.Controls
                         break;
 
                     case TaskState.Data:
-                        if (sender.BytesTotal == -1)
+                        if (sender.UnitsTotal == -1)
                         {
                             Style = ProgressBarStyle.Marquee;
                             if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(formHandle, WindowsUtils.TaskbarProgressBarState.Indeterminate);

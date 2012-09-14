@@ -154,23 +154,30 @@ namespace Common.Controls
         }
 
         /// <summary>
-        /// Changes the <see cref="Label.Text"/> based on the already processed bytes.
+        /// Changes the <see cref="Label.Text"/> based on the already processed units.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
         private void ProgressChanged(ITask sender)
         {
-            // Only track bytes in data state
+            // Only track units in data state
             if (sender.State != TaskState.Data) return;
 
             // Copy value so it can be safely accessed from another thread
-            long bytesProcessed = sender.BytesProcessed;
-            long bytesTotal = sender.BytesTotal;
+            long unitsProcessed = sender.UnitsProcessed;
+            long unitsTotal = sender.UnitsTotal;
 
             // Handle events coming from a non-UI thread, block caller
             Invoke(new SimpleEventHandler(delegate
             {
-                Text = StringUtils.FormatBytes(CultureInfo.CurrentCulture, bytesProcessed);
-                if (bytesTotal != -1) Text += @" / " + StringUtils.FormatBytes(CultureInfo.CurrentCulture, bytesTotal);
+                Text = (sender.UnitsByte
+                    ? StringUtils.FormatBytes(CultureInfo.CurrentCulture, unitsProcessed)
+                    : unitsProcessed.ToString(CultureInfo.CurrentCulture));
+                if (unitsTotal != -1)
+                {
+                    Text += @" / " + (sender.UnitsByte
+                        ? StringUtils.FormatBytes(CultureInfo.CurrentCulture, unitsTotal)
+                        : unitsTotal.ToString(CultureInfo.CurrentCulture));
+                }
             }));
         }
         #endregion

@@ -90,7 +90,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                         }
                     }
 
-                    BytesProcessed += entry.CompressedSize;
+                    UnitsProcessed += entry.CompressedSize;
                 }
 
                 SetDirectoryWriteTimes();

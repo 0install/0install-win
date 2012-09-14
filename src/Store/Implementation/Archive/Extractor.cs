@@ -46,6 +46,9 @@ namespace ZeroInstall.Store.Implementation.Archive
         /// <inheritdoc />
         public override string Name { get { return string.Format(Resources.ExtractingArchive, Path.GetFileName(_name)); } }
 
+        /// <inheritdoc />
+        public override bool UnitsByte { get { return true; } }
+
         /// <summary>
         /// The backing stream to extract the data from.
         /// </summary>
@@ -80,7 +83,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             Stream = stream;
             TargetDir = target;
 
-            BytesTotal = stream.Length;
+            UnitsTotal = stream.Length;
         }
         #endregion
 

@@ -34,6 +34,9 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public override string Name { get { return string.Format(Resources.GeneratingManifest, Format, Path.GetFileName(TargetDir)); } }
 
+        /// <inheritdoc />
+        public override bool UnitsByte { get { return true; } }
+
         /// <summary>
         /// The path of the directory to analyze.
         /// </summary>
@@ -81,7 +84,7 @@ namespace ZeroInstall.Store.Implementation
 
                 // Get the complete (recursive) content of the directory sorted according to the format specification
                 var entries = Format.GetSortedDirectoryEntries(TargetDir);
-                BytesTotal = TotalFileSize(entries);
+                UnitsTotal = TotalFileSize(entries);
 
                 var externalXbits = FlagUtils.GetExternalFlags(".xbit", TargetDir);
                 var externalSymlinks = FlagUtils.GetExternalFlags(".symlink", TargetDir);
@@ -100,7 +103,7 @@ namespace ZeroInstall.Store.Implementation
                         if (file.Name == ".manifest" || file.Name == ".xbit" || file.Name == ".symlink") continue;
 
                         nodes.Add(GetFileNode(file, Format, externalXbits, externalSymlinks));
-                        BytesProcessed += file.Length;
+                        UnitsProcessed += file.Length;
                     }
                     else
                     {

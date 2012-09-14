@@ -87,17 +87,23 @@ namespace Common.Tasks
         string ErrorMessage { get; }
 
         /// <summary>
-        /// The number of bytes that have been processed so far.
+        /// The number of units that have been processed so far.
         /// </summary>
         [Description("The number of bytes that have been processed so far.")]
-        long BytesProcessed { get; }
+        long UnitsProcessed { get; }
 
         /// <summary>
-        /// The total number of bytes that are to be processed; -1 for unknown.
+        /// The total number of units that are to be processed; -1 for unknown.
         /// </summary>
         /// <remarks>If this value is set to -1 in the constructor, the size be automatically set after <see cref="TaskState.Data"/> has been reached.</remarks>
         [Description("The total number of bytes that are to be processed; -1 for unknown.")]
-        long BytesTotal { get; }
+        long UnitsTotal { get; }
+
+        /// <summary>
+        /// <see langword="true"/> if <see cref="UnitsProcessed"/> and <see cref="UnitsTotal"/> are measured in bytes;
+        /// <see langword="false"/> if they are measured in generic units.
+        /// </summary>
+        bool UnitsByte { get; }
 
         /// <summary>
         /// The progress of the task as a value between 0 and 1; -1 when unknown.

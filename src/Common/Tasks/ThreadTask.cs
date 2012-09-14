@@ -82,29 +82,32 @@ namespace Common.Tasks
         /// <inheritdoc />
         public string ErrorMessage { get; protected set; }
 
-        private long _bytesReceived;
+        private long _unitsProcessed;
 
         /// <inheritdoc />
-        public long BytesProcessed { get { return _bytesReceived; } protected set { UpdateHelper.Do(ref _bytesReceived, value, OnProgressChanged); } }
+        public long UnitsProcessed { get { return _unitsProcessed; } protected set { UpdateHelper.Do(ref _unitsProcessed, value, OnProgressChanged); } }
 
-        private long _bytesTotal = -1;
+        private long _unitsTotal = -1;
 
         /// <inheritdoc />
-        public long BytesTotal { get { return _bytesTotal; } protected set { UpdateHelper.Do(ref _bytesTotal, value, OnProgressChanged); } }
+        public long UnitsTotal { get { return _unitsTotal; } protected set { UpdateHelper.Do(ref _unitsTotal, value, OnProgressChanged); } }
+
+        /// <inheritdoc />
+        public abstract bool UnitsByte { get; }
 
         /// <inheritdoc />
         public double Progress
         {
             get
             {
-                switch (BytesTotal)
+                switch (UnitsTotal)
                 {
                     case -1:
                         return -1;
                     case 0:
                         return 1;
                     default:
-                        return BytesProcessed / (double)BytesTotal;
+                        return UnitsProcessed / (double)UnitsTotal;
                 }
             }
         }

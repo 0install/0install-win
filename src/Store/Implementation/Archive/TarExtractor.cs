@@ -83,7 +83,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                     else if (entry.TarHeader.TypeFlag == TarHeader.LF_SYMLINK) CreateSymlink(entryName, entry.TarHeader.LinkName);
                     else WriteFile(entryName, entry.TarHeader.ModTime, _tar, entry.Size, IsExecutable(entry));
 
-                    BytesProcessed = _tar.Position;
+                    UnitsProcessed = _tar.Position;
                 }
 
                 SetDirectoryWriteTimes();
