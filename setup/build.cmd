@@ -12,7 +12,9 @@ set TargetDir=%~dp0..\build\Setup
 
 rem Prepare clean output directory
 if not exist "%TargetDir%" mkdir "%TargetDir%"
-del /q "%TargetDir%\*"
+del /q "%TargetDir%\*.zip"
+del /q "%TargetDir%\*.tar.bz2"
+del /q "%TargetDir%\*.exe"
 
 rem Copy version files
 copy "%~dp0..\version" "%TargetDir%\version" > NUL

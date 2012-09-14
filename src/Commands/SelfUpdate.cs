@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
@@ -93,8 +94,8 @@ namespace ZeroInstall.Commands
         {
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
 
-            // Do not perform self-update if Zero Install itself was launched as a Zero Install implementation
-            if (StoreUtils.PathInAStore(Locations.InstallBase)) throw new NotSupportedException(Resources.ImplementationNoSelfUpdate);
+            if (File.Exists(Path.Combine(Locations.PortableBase, "_no_self_update_check"))) throw new NotSupportedException(Resources.NoSelfUpdateDisabled);
+            if (StoreUtils.PathInAStore(Locations.InstallBase)) throw new NotSupportedException(Resources.NoSelfUpdateImplementation);
 
             Policy.Handler.ShowProgressUI();
             Solve();
