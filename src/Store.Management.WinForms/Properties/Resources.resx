@@ -147,6 +147,9 @@
   <data name="PortableMode" xml:space="preserve">
     <value>Portable mode</value>
   </data>
+  <data name="ReadingCache" xml:space="preserve">
+    <value>Reading cache</value>
+  </data>
   <data name="Remove" xml:space="preserve">
     <value>Remove</value>
   </data>

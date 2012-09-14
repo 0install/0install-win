@@ -68,7 +68,7 @@ namespace ZeroInstall.Store.Management.WinForms
         /// </summary>
         internal void RefreshList()
         {
-            var waitDialog = new AsyncWaitDialog("Finding cached elements", Icon);
+            var waitDialog = new AsyncWaitDialog(Resources.ReadingCache, Icon);
             waitDialog.Start();
             try
             {
