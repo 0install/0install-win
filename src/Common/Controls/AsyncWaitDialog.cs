@@ -78,6 +78,7 @@ namespace Common.Controls
         public void Start()
         {
             _thread.Start();
+            Application.DoEvents();
         }
 
         /// <summary>

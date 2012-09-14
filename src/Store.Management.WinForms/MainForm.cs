@@ -68,6 +68,8 @@ namespace ZeroInstall.Store.Management.WinForms
         /// </summary>
         internal void RefreshList()
         {
+            var waitDialog = new AsyncWaitDialog("Finding cached elements", Icon);
+            waitDialog.Start();
             try
             {
                 var nodes = new NamedCollection<StoreNode>();
@@ -155,6 +157,7 @@ namespace ZeroInstall.Store.Management.WinForms
                 Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
             }
             #endregion
+            waitDialog.Stop();
 
             OnCheckedEntriesChanged(null, EventArgs.Empty);
         }
