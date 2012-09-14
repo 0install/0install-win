@@ -68,7 +68,7 @@ namespace Common.Controls
             _task.Start();
             _task.MockStateData();
             Application.DoEvents();
-            Assert.AreEqual("64 Bytes / 128 Bytes", _label.Text);
+            Assert.AreEqual("64 / 128", _label.Text);
 
             _task.MockStateComplete();
             Application.DoEvents();
@@ -84,7 +84,7 @@ namespace Common.Controls
             _label.CreateControl();
             _label.Task = _task;
             Application.DoEvents();
-            Assert.AreEqual("64 Bytes / 128 Bytes", _label.Text);
+            Assert.AreEqual("64 / 128", _label.Text);
 
             _task.MockStateComplete();
             Application.DoEvents();
