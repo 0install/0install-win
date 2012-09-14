@@ -2911,7 +2911,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Zero Install"
         "ProductCode" = "8:{4C918E75-3791-47A1-8DA3-D66849BA72F3}"
-        "PackageCode" = "8:{FE274723-BBBF-4D5F-83CA-7760C98458AD}"
+        "PackageCode" = "8:{1C449B2C-8C47-4E24-8203-EAB145936050}"
         "UpgradeCode" = "8:{5F0F08D9-2405-4B56-97E6-1BEC4B00F9F3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -3009,12 +3009,12 @@
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
+            "IconIndex" = "3:32512"
             "Transitive" = "11:FALSE"
             "Target" = "8:_5E28F0BC4B834F72BB1F215EFC866386"
             "Folder" = "8:_F5784850A57C49F69E2CCE7F3A33182E"
             "WorkingFolder" = "8:_46B6D226977641158E4CB8F2BC634D3A"
-            "Icon" = "8:"
+            "Icon" = "8:_5E28F0BC4B834F72BB1F215EFC866386"
             "Feature" = "8:"
             }
         }

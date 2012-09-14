@@ -95,7 +95,7 @@ namespace ZeroInstall.Commands
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
 
             if (File.Exists(Path.Combine(Locations.PortableBase, "_no_self_update_check"))) throw new NotSupportedException(Resources.NoSelfUpdateDisabled);
-            if (StoreUtils.PathInAStore(Locations.InstallBase)) throw new NotSupportedException(Resources.NoSelfUpdateImplementation);
+            if (StoreUtils.PathInAStore(Locations.InstallBase)) throw new NotSupportedException(Resources.NoSelfUpdateStore);
 
             Policy.Handler.ShowProgressUI();
             Solve();

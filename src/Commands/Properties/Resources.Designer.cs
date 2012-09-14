@@ -616,7 +616,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The automatic self-updates of Zero Install were deactivated by the Administrator..
+        ///   Looks up a localized string similar to Zero Install&apos;s automatic self-update was deactivated by the Administrator..
         /// </summary>
         internal static string NoSelfUpdateDisabled {
             get {
@@ -627,9 +627,9 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to This Zero Install instance was launched as an implementation by another Zero Install instance. It therefore cannot update itself..
         /// </summary>
-        internal static string NoSelfUpdateImplementation {
+        internal static string NoSelfUpdateStore {
             get {
-                return ResourceManager.GetString("NoSelfUpdateImplementation", resourceCulture);
+                return ResourceManager.GetString("NoSelfUpdateStore", resourceCulture);
             }
         }
         

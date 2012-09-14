@@ -304,7 +304,7 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
     <value>Kann nur mit Feed IDs aktualisieren, nicht mit Selections Dokumenten.</value>
   </data>
   <data name="NoSelfUpdateDisabled" xml:space="preserve">
-    <value>Die automatischen Selbstupdates von Zero Install wurden vom Administrator deaktiviert.</value>
+    <value>Zero Install's automatische Selbstupdates wurden vom Administrator deaktiviert.</value>
   </data>
   <data name="NoSelfUpdateStore" xml:space="preserve">
     <value>Diese Zero Install Instanz wurde als Implementierung von einer anderen Zero Install Instanz gestartet. Sie kann sich daher nicht selbst aktualisieren.</value>

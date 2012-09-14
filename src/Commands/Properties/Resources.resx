@@ -307,9 +307,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
     <value>Can only update with Feed IDs, not with selections documents.</value>
   </data>
   <data name="NoSelfUpdateDisabled" xml:space="preserve">
-    <value>The automatic self-updates of Zero Install were deactivated by the Administrator.</value>
+    <value>Zero Install's automatic self-update was deactivated by the Administrator.</value>
   </data>
-  <data name="NoSelfUpdateImplementation" xml:space="preserve">
+  <data name="NoSelfUpdateStore" xml:space="preserve">
     <value>This Zero Install instance was launched as an implementation by another Zero Install instance. It therefore cannot update itself.</value>
   </data>
   <data name="NotAvailableInPortableMode" xml:space="preserve">
