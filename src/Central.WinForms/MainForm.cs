@@ -210,8 +210,8 @@ namespace ZeroInstall.Central.WinForms
                     if (string.IsNullOrEmpty(addedEntry.InterfaceID) || addedEntry.Name == null) return;
                     try
                     {
-                        var tile = appList.QueueNewTile(_systemWide, addedEntry.InterfaceID, addedEntry.Name,
-                            (addedEntry.AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated);
+                        var status = (addedEntry.AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated;
+                        var tile = appList.QueueNewTile(_systemWide, addedEntry.InterfaceID, addedEntry.Name, status);
                         feedsToLoad.Add(tile, addedEntry.InterfaceID);
 
                         // Update "added" status of tile in catalog list
@@ -388,7 +388,7 @@ namespace ZeroInstall.Central.WinForms
                 // Update the displayed catalog list based on changes detected between the current and the new catalog
                 EnumerableUtils.Merge(
                     newCatalog.Feeds, _currentCatalog.Feeds,
-                    QueueCatalogTile, removedFeed => catalogList.RemoveTile(removedFeed.Uri.ToString()));
+                    QueueCatalogTile, removedFeed => catalogList.RemoveTile(removedFeed.UriString));
                 catalogList.AddQueuedTiles();
                 catalogList.ShowCategories();
                 _currentCatalog = newCatalog;
@@ -406,13 +406,11 @@ namespace ZeroInstall.Central.WinForms
             if (string.IsNullOrEmpty(feed.UriString) || feed.Name == null) return;
             try
             {
-                string interfaceID = feed.Uri.ToString();
-                var tile = catalogList.QueueNewTile(_systemWide, feed.UriString, feed.Name,
-                    _currentAppList.ContainsEntry(interfaceID)
-                        ? ((_currentAppList.GetEntry(interfaceID).AccessPoints == null)
-                            ? AppStatus.Added
-                            : AppStatus.Integrated)
-                        : AppStatus.Candidate);
+                string interfaceID = feed.UriString;
+                var status = _currentAppList.ContainsEntry(interfaceID)
+                    ? ((_currentAppList.GetEntry(interfaceID).AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated)
+                    : AppStatus.Candidate;
+                var tile = catalogList.QueueNewTile(_systemWide, interfaceID, feed.Name, status);
                 tile.Feed = feed;
             }
                 #region Error handling

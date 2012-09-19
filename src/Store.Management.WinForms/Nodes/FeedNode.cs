@@ -84,7 +84,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the cache is not permitted.</exception>
         public override void Delete()
         {
-            _cache.Remove(_feed.Uri.ToString());
+            _cache.Remove(_feed.UriString);
         }
         #endregion
 

@@ -68,7 +68,7 @@ namespace ZeroInstall.Model
         [XmlIgnore]
         public Uri Uri { get; set; }
 
-        /// <summary>Used for XML serialization.</summary>
+        /// <summary>A string representation of <see cref="Uri"/>.</summary>
         /// <seealso cref="Uri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("uri"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
