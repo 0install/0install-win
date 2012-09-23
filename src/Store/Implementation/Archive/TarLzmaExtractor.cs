@@ -16,7 +16,7 @@
  */
 
 using System.IO;
-using Common.Compression;
+using Common.Utils;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementation.Archive

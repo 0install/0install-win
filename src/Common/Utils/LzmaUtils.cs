@@ -28,7 +28,7 @@ using Common.Streams;
 using SevenZip;
 using SevenZip.Compression.LZMA;
 
-namespace Common.Compression
+namespace Common.Utils
 {
     /// <summary>
     /// Provides helper methods for <see cref="Stream"/> access to LZMA-compressed data.

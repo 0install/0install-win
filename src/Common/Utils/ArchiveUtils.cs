@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common.Compression
+namespace Common.Utils
 {
     /// <summary>
     /// Provides helper methods for dealing with archive files.

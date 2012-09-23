@@ -22,7 +22,7 @@
 
 using NUnit.Framework;
 
-namespace Common.Compression
+namespace Common.Utils
 {
     /// <summary>
     /// Contains test methods for <see cref="ArchiveUtils"/>.

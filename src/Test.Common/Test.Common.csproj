@@ -63,7 +63,6 @@
     <Compile Include="Collections\LanguageCollectionTest.cs" />
     <Compile Include="Collections\LocalizableStringCollectionTest.cs" />
     <Compile Include="Collections\PerTypeDispatcherTest.cs" />
-    <Compile Include="Compression\ArchiveUtils.cs" />
     <Compile Include="Controls\TrackingLabelTest.cs" />
     <Compile Include="Controls\TrackingProgressBarTest.cs" />
     <Compile Include="FutureTest.cs" />
@@ -78,6 +77,7 @@
     <Compile Include="Undo\CompositeCommandTest.cs" />
     <Compile Include="Undo\SetLocalizableStringTest.cs" />
     <Compile Include="Utils\AppMutexText.cs" />
+    <Compile Include="Utils\ArchiveUtilsTest.cs" />
     <Compile Include="Utils\FileUtilsTest.cs" />
     <Compile Include="Utils\StringUtilsTest.cs" />
     <Compile Include="Utils\PackageBuilder.cs" />

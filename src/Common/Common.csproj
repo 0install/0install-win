@@ -86,8 +86,8 @@
     <Compile Include="Tasks\CliTaskHandler.cs" />
     <Compile Include="Tasks\GuiTaskHandler.cs" />
     <Compile Include="Tasks\WaitTask.cs" />
-    <Compile Include="Compression\ArchiveUtils.cs" />
-    <Compile Include="Compression\LzmaUtils.cs" />
+    <Compile Include="Utils\ArchiveUtils.cs" />
+    <Compile Include="Utils\LzmaUtils.cs" />
     <Compile Include="Tasks\DownloadFile.cs" />
     <Compile Include="Cli\ArgumentUtils.cs" />
     <Compile Include="Cli\CliUtils.cs" />

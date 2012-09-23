@@ -19,7 +19,6 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
-using Common.Compression;
 using Common.Utils;
 
 namespace ZeroInstall.Model
