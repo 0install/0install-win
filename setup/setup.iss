@@ -100,8 +100,8 @@ Root: HKLM64; Subkey: Software\Zero Install; ValueType: string; ValueName: Insta
 Name: desktopicon; Description: {cm:CreateDesktopIcon}
 Name: modifypath; Description: {cm:AddToPath}
 [Icons]
-Name: {group}\{cm:UninstallProgram,Zero Install}; Filename: {uninstallexe}
-Name: {group}\Website; Filename: http://0install.de/
+;Name: {group}\{cm:UninstallProgram,Zero Install}; Filename: {uninstallexe}
+;Name: {group}\Website; Filename: http://0install.de/
 Name: {group}\Zero Install; Filename: {app}\ZeroInstall.exe
 Name: {group}\{cm:CacheManagement}; Filename: {app}\0store-win.exe; IconFilename: {app}\0store-win.exe
 Name: {commondesktop}\Zero Install; Filename: {app}\ZeroInstall.exe; Tasks: desktopicon
