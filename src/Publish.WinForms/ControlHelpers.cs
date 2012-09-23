@@ -40,38 +40,7 @@ namespace ZeroInstall.Publish.WinForms
         }
 
         /// <summary>
-        /// Checks if at least one hash in two <see cref="ManifestDigest"/>s is equal.
-        /// </summary>
-        /// <param name="manifestDigest1"><see cref="ManifestDigest"/> to check.</param>
-        /// <param name="manifestDigest2"><see cref="ManifestDigest"/> to check.</param>
-        /// <returns><see langword="true"/>, if at least on hash is equal, <see langword="false"/> if at least one hash is not equal.</returns>
-        public static bool CompareManifestDigests(ManifestDigest manifestDigest1, ManifestDigest manifestDigest2)
-        {
-            if (IsEmpty(manifestDigest1) || IsEmpty(manifestDigest2)) return false;
-            if (!string.IsNullOrEmpty(manifestDigest1.Sha256) && !string.IsNullOrEmpty(manifestDigest2.Sha256))
-                if (manifestDigest1.Sha256 != manifestDigest2.Sha256) return false;
-
-            if (!string.IsNullOrEmpty(manifestDigest1.Sha1New) && !string.IsNullOrEmpty(manifestDigest2.Sha1New))
-                if (manifestDigest1.Sha1New != manifestDigest2.Sha1New) return false;
-
-            if (!string.IsNullOrEmpty(manifestDigest1.Sha1) && !string.IsNullOrEmpty(manifestDigest2.Sha1))
-                if (manifestDigest1.Sha1 != manifestDigest2.Sha1) return false;
-            return true;
-        }
-
-        /// <summary>
-        /// Checks if no <see cref="ManifestDigest"/> hash is set.
-        /// </summary>
-        /// <param name="toCheck"><see cref="ManifestDigest"/> to check.</param>
-        /// <returns><see langword="true"/>, if no hash was setted, else <see langword="false"/></returns>
-        public static bool IsEmpty(ManifestDigest toCheck)
-        {
-            return string.IsNullOrEmpty(toCheck.Sha1New) && string.IsNullOrEmpty(toCheck.Sha1) &&
-                string.IsNullOrEmpty(toCheck.Sha256);
-        }
-
-        /// <summary>
-        /// Get the [Description] text of a <see langword="Enum"/> value.
+        /// Get the <see cref="DescriptionAttribute.Description"/> text of a <see langword="Enum"/> value.
         /// </summary>
         /// <param name="toGetDescriptionFrom">Description of this <see langword="Enum"/></param>
         /// <returns>A Description of a <see langword="Enum"/>.</returns>
