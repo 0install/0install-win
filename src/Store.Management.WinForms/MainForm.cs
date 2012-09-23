@@ -157,6 +157,7 @@ namespace ZeroInstall.Store.Management.WinForms
                 Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
             }
             #endregion
+
             waitDialog.Stop();
 
             OnCheckedEntriesChanged(null, EventArgs.Empty);
