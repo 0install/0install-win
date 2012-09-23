@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
-using Common.Compression;
 using Common.Streams;
 using Common.Tasks;
 using Common.Utils;
@@ -55,9 +54,9 @@ namespace ZeroInstall.Store.Implementation.Archive
         public Stream Stream { get; private set; }
 
         /// <summary>
-        /// The sub-directory in the archive to be extracted; <see langword="null"/> for entire archive.
+        /// The sub-directory in the archive (with Unix-style slashes) to be extracted; <see langword="null"/> to extract entire archive.
         /// </summary>
-        [Description("The sub-directory in the archive to be extracted; null for entire archive.")]
+        [Description("The sub-directory in the archive (with Unix-style slashes) to be extracted; null to extract entire archive.")]
         public string SubDir { get; set; }
 
         /// <summary>
@@ -230,11 +229,11 @@ namespace ZeroInstall.Store.Implementation.Archive
 
             if (!string.IsNullOrEmpty(SubDir))
             {
-                // Remove leading slashes
-                SubDir = SubDir.TrimStart(new[] {Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar});
+                // Remove leading and trailing slashes
+                string subDir = FileUtils.UnifySlashes(SubDir).Trim(Path.DirectorySeparatorChar);
 
                 // Only extract objects within the selected sub-directory
-                entryName = entryName.StartsWith(SubDir) ? entryName.Substring(SubDir.Length) : null;
+                entryName = entryName.StartsWith(subDir) ? entryName.Substring(subDir.Length) : null;
             }
 
             // Remove leading slashes left over after trimming away the SubDir

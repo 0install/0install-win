@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                 .AddFile("file1", "First file")
                 .AddFile("file2", new byte[] {0});
             packageBuilder.AddFolder("emptyFolder");
-            packageBuilder.AddFolder("folder1")
+            packageBuilder.AddFolder("sub").AddFolder("folder")
                 .AddFile("nestedFile", "File 3\n")
                 .AddFolder("nestedFolder").AddFile("doublyNestedFile", "File 4");
             _package = packageBuilder.Hierarchy;
@@ -123,7 +123,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         {
             using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), _sandbox.Path))
             {
-                extractor.SubDir = "folder1";
+                extractor.SubDir = "/sub/folder/";
                 extractor.RunSync(null);
             }
 

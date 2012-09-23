@@ -32,7 +32,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         public string Path { get; set; }
 
         /// <summary>
-        /// The sub-directory in the archive to be extracted; <see langword="null"/> for entire archive.
+        /// The sub-directory in the archive (with Unix-style slashes) to be extracted; <see langword="null"/> to extract entire archive.
         /// </summary>
         public string SubDir { get; set; }
 

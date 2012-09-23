@@ -99,7 +99,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestCalculateDigest()
         {
-            string packageDir = DirectoryStoreTest.CreateArtificialPackage();
+            string packageDir = DirectoryStoreTest.CreateArtificialPackage() + Path.DirectorySeparatorChar;
             try
             {
                 Assert.AreEqual(

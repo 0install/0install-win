@@ -38,7 +38,7 @@ namespace ZeroInstall.Store.Implementation
         public override bool UnitsByte { get { return true; } }
 
         /// <summary>
-        /// The path of the directory to analyze.
+        /// The path of the directory to analyze. No trailing <see cref="Path.DirectorySeparatorChar"/>!
         /// </summary>
         public string TargetDir { get; private set; }
 
@@ -66,7 +66,7 @@ namespace ZeroInstall.Store.Implementation
             if (format == null) throw new ArgumentNullException("format");
             #endregion
 
-            TargetDir = path;
+            TargetDir = path.TrimEnd(Path.DirectorySeparatorChar);
             Format = format;
         }
         #endregion
