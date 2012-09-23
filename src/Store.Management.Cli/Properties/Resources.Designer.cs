@@ -367,7 +367,7 @@ namespace ZeroInstall.Store.Management.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 0store manifest DIRECTORY [ALGORITHM].
+        ///   Looks up a localized string similar to 0store manifest (DIRECTORY [ALGORITHM] | ARCHIVE [EXTRACT [ALGORITHM]]).
         /// </summary>
         internal static string UsageManifest {
             get {

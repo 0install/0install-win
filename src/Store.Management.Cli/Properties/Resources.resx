@@ -245,7 +245,7 @@ Try 0store --help</value>
     <value>0store list</value>
   </data>
   <data name="UsageManifest" xml:space="preserve">
-    <value>0store manifest DIRECTORY [ALGORITHM]</value>
+    <value>0store manifest (DIRECTORY [ALGORITHM] | ARCHIVE [EXTRACT [ALGORITHM]])</value>
   </data>
   <data name="UsageOptimize" xml:space="preserve">
     <value>0store optimise [CACHE+]</value>

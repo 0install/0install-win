@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using Common;
 using Common.Collections;
+using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Model;
@@ -193,7 +194,7 @@ namespace ZeroInstall.Store.Management.Cli
         /// <exception cref="IOException">Thrown if a directory could not be processed.</exception>
         private static void GenerateManifest(IList<string> args, ITaskHandler handler)
         {
-            if (args.Count < 2 || args.Count > 3) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageManifest));
+            if (args.Count < 2 || args.Count > 4) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageManifest));
 
             string path;
             try
@@ -213,26 +214,49 @@ namespace ZeroInstall.Store.Management.Cli
             }
             #endregion
 
-            // Determine manifest format
-            ManifestFormat format;
-            if (args.Count == 3) format = ManifestFormat.FromPrefix(args[2]);
-            else
+            Manifest manifest;
+            if (File.Exists(path))
             {
-                try
+                // Determine manifest format
+                var format = (args.Count == 4)
+                    ? ManifestFormat.FromPrefix(args[3])
+                    : EnumerableUtils.First(ManifestFormat.Recommended);
+
+                using (var tempDir = new TemporaryDirectory("0store"))
                 {
-                    // Try to extract the algorithm from the directory name
-                    format = ManifestFormat.FromPrefix(StringUtils.GetLeftPartAtFirstOccurrence(Path.GetFileName(path), '='));
-                }
-                catch (ArgumentException)
-                {
-                    // Default to the best available algorithm
-                    format = EnumerableUtils.First(ManifestFormat.Recommended);
+                    // Extract archive to temp dir to generate manifest
+                    using (var extractor = Extractor.CreateExtractor(null, path, 0, tempDir.Path))
+                    {
+                        if (args.Count >= 3) extractor.SubDir = args[2];
+                        handler.RunTask(extractor, null);
+                    }
+
+                    manifest = Manifest.Generate(tempDir.Path, format, handler, path);
                 }
             }
+            else if (Directory.Exists(path))
+            {
+                // Determine manifest format
+                ManifestFormat format;
+                if (args.Count == 3) format = ManifestFormat.FromPrefix(args[2]);
+                else
+                {
+                    try
+                    {
+                        // Try to extract the algorithm from the directory name
+                        format = ManifestFormat.FromPrefix(StringUtils.GetLeftPartAtFirstOccurrence(Path.GetFileName(path), '='));
+                    }
+                    catch (ArgumentException)
+                    {
+                        // Default to the best available algorithm
+                        format = EnumerableUtils.First(ManifestFormat.Recommended);
+                    }
+                }
 
-            if (!Directory.Exists(path)) throw new DirectoryNotFoundException(string.Format(Resources.DirectoryNotFound, path));
+                manifest = Manifest.Generate(path, format, handler, path);
+            }
+            else throw new DirectoryNotFoundException(string.Format(Resources.DirectoryNotFound, path));
 
-            var manifest = Manifest.Generate(path, format, handler, path);
             Console.Write(manifest);
             Console.WriteLine(manifest.CalculateDigest());
         }
