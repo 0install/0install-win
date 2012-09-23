@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -40,6 +41,8 @@ namespace ZeroInstall.Commands
         #region Variables
         /// <summary>The hashing algorithm used to generate the manifest.</summary>
         private ManifestFormat _algorithm = ManifestFormat.Sha1New;
+
+        private bool _printManifest, _printDigest;
         #endregion
 
         #region Properties
@@ -47,7 +50,7 @@ namespace ZeroInstall.Commands
         protected override string Description { get { return Resources.DescriptionDigest; } }
 
         /// <inheritdoc/>
-        protected override string Usage { get { return "DIRECTORY | ARCHIVE [SUBDIR]"; } }
+        protected override string Usage { get { return "(DIRECTORY | ARCHIVE [SUBDIR])"; } }
 
         /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionDigest; } }
@@ -60,6 +63,8 @@ namespace ZeroInstall.Commands
             var algorithmNames = new string[ManifestFormat.All.Length];
             for (int i = 0; i < ManifestFormat.All.Length; i++)
                 algorithmNames[i] = ManifestFormat.All[i].Prefix;
+            Options.Add("manifest", Resources.OptionManifest, unused => _printManifest = true);
+            Options.Add("digest", Resources.OptionDigest, unused => _printDigest = true);
             Options.Add("algorithm=",
                 Resources.OptionAlgorithm + "\n" + string.Format(Resources.SupportedValues, string.Join(", ", algorithmNames)),
                 delegate(string algorithm)
@@ -110,12 +115,12 @@ namespace ZeroInstall.Commands
 
             Policy.Handler.ShowProgressUI();
 
-            string digest;
+            Manifest manifest;
             if (Directory.Exists(path))
             { // Manifest for directory
                 if (!string.IsNullOrEmpty(subdir)) throw new OptionException(Resources.TooManyArguments, "");
 
-                digest = Manifest.CreateDotFile(path, _algorithm, Policy.Handler);
+                manifest = Manifest.Generate(path, _algorithm, Policy.Handler, null);
             }
             else if (File.Exists(path))
             { // Manifest for archive
@@ -127,12 +132,16 @@ namespace ZeroInstall.Commands
                         Policy.Handler.RunTask(extractor, null);
                     }
 
-                    digest = Manifest.CreateDotFile(tempDir.Path, _algorithm, Policy.Handler);
+                    manifest = Manifest.Generate(tempDir.Path, _algorithm, Policy.Handler, null);
                 }
             }
             else throw new FileNotFoundException(string.Format(Resources.FileOrDirNotFound, path));
 
-            Policy.Handler.Output("Manifest digest", digest);
+            var output = new StringBuilder();
+            if (!_printManifest && !_printDigest) _printDigest = true;
+            if (_printManifest) output.Append(manifest);
+            if (_printDigest) output.Append(manifest.CalculateDigest());
+            Policy.Handler.Output("Manifest digest", output.ToString());
             return 0;
         }
         #endregion

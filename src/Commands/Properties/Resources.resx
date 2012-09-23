@@ -354,6 +354,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="OptionCpu" xml:space="preserve">
     <value>Forces the solver to target a specific {CPU}.</value>
   </data>
+  <data name="OptionDigest" xml:space="preserve">
+    <value>Display the manifest's digest (enabled by default if --manifest is not set).</value>
+  </data>
   <data name="OptionForceSelfUpdate" xml:space="preserve">
     <value>Perform the update even if the currently installed version is the same or newer.</value>
   </data>
@@ -369,6 +372,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="OptionMain" xml:space="preserve">
     <value>Run the specified executable {MAIN} instead of the default. If it starts with '/' or '\' then the path is relative to the implementation's top-level directory, whereas otherwise it is relative to the directory containing the default main program.
 May not contain command-line arguments! Whitespaces do not need to be escaped.</value>
+  </data>
+  <data name="OptionManifest" xml:space="preserve">
+    <value>Display the manifest itself (one line for each file or directory).</value>
   </data>
   <data name="OptionNotBefore" xml:space="preserve">
     <value>Chosen implementation's version number must not be earlier than {VERSION}. E.g., if you want to run version 2.0 or later, use --not-before=2.0.</value>

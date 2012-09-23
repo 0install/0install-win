@@ -447,4 +447,13 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   <data name="VersionInformation" xml:space="preserve">
     <value>Versionsinformationen:</value>
   </data>
+  <data name="OptionDigest" xml:space="preserve">
+    <value>Zeigt den Digest des Manifest an (standardmäßig aktiviert wenn --manifest nicht gesetzt ist).</value>
+  </data>
+  <data name="OptionManifest" xml:space="preserve">
+    <value>Zeigt das Manifest selbst an (eine Zeile für jede Datei und jedes Verzeichnis).</value>
+  </data>
+  <data name="FeedReplaced" xml:space="preserve">
+    <value>'{0}' wurde durch '{1}' ersetzt. Bitte ziehen Sie eine Aktualisierung in Betracht.</value>
+  </data>
 </root>
