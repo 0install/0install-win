@@ -6,6 +6,12 @@ rem Project settings
 set ProgSLN=ZeroInstall
 
 rem Determine VS version
+if exist %VS110COMNTOOLS% (
+  ::Visual Studio 2012
+  set VS_COMNTOOLS=%VS110COMNTOOLS%
+  set ProgSLN=%ProgSLN%_VS2012.sln
+  goto compile
+)
 if exist %VS100COMNTOOLS% (
   ::Visual Studio 2010
   set VS_COMNTOOLS=%VS100COMNTOOLS%
