@@ -239,7 +239,10 @@ namespace Common.Collections
         /// <param name="mineList">The local list that shall be updated with foreign changes.</param>
         /// <param name="added">Called for every element that should be added to <paramref name="mineList"/>.</param>
         /// <param name="removed">Called for every element that should be removed from <paramref name="mineList"/>.</param>
-        /// <remarks><paramref name="theirsList"/> and <paramref name="mineList"/> should use an internal hashmap for <see cref="ICollection{T}.Contains"/> for better performance.</remarks>
+        /// <remarks>
+        /// <paramref name="theirsList"/> and <paramref name="mineList"/> should use an internal hashmap for <see cref="ICollection{T}.Contains"/> for better performance.
+        /// <see langword="null"/> elements are completely ignored.
+        /// </remarks>
         public static void Merge<T>(ICollection<T> theirsList, ICollection<T> mineList, Action<T> added, Action<T> removed)
         {
             #region Sanity checks
@@ -249,8 +252,11 @@ namespace Common.Collections
             if (removed == null) throw new ArgumentNullException("removed");
             #endregion
 
+            // ReSharper disable CompareNonConstrainedGenericWithNull
             foreach (var mine in mineList)
             {
+                if (mine == null) continue;
+
                 if (!theirsList.Contains(mine))
                 { // Entry in mineList, but not in theirsList
                     removed(mine);
@@ -259,11 +265,14 @@ namespace Common.Collections
 
             foreach (var theirs in theirsList)
             {
+                if (theirs == null) continue;
+
                 if (!mineList.Contains(theirs))
                 { // Entry in theirsList, but not in mineList
                     added(theirs);
                 }
             }
+            // ReSharper restore CompareNonConstrainedGenericWithNull
         }
 
         /// <summary>
@@ -274,7 +283,10 @@ namespace Common.Collections
         /// <param name="mineList">The local list that shall be updated with foreign changes.</param>
         /// <param name="added">Called for every element that should be added to <paramref name="mineList"/>.</param>
         /// <param name="removed">Called for every element that should be removed from <paramref name="mineList"/>.</param>
-        /// <remarks>Modified elements are handled by calling <paramref name="removed"/> for the old state and <paramref name="added"/> for the new state.</remarks>
+        /// <remarks>
+        /// Modified elements are handled by calling <paramref name="removed"/> for the old state and <paramref name="added"/> for the new state.
+        /// <see langword="null"/> elements are completely ignored.
+        /// </remarks>
         public static void Merge<T>(ICollection<T> baseList, IEnumerable<T> theirsList, IEnumerable<T> mineList, Action<T> added, Action<T> removed)
             where T : class, IMergeable<T>
         {
