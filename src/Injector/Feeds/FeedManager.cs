@@ -189,7 +189,16 @@ namespace ZeroInstall.Injector.Feeds
                         url.Scheme,
                         url.Host,
                         string.Concat(url.Segments).TrimStart('/').Replace("/", "%23")));
-                    ImportFeed(url, mirrorUrl, webClient.DownloadData(mirrorUrl), policy);
+                    try
+                    {
+                        ImportFeed(url, mirrorUrl, webClient.DownloadData(mirrorUrl), policy);
+                    }
+                    catch (WebException)
+                    {
+                        // Report the original problem instead of mirror errors
+                        throw ex;
+                    }
+
                     policy.Handler.CancellationToken.ThrowIfCancellationRequested();
                 }
             }
