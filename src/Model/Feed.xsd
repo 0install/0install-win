@@ -489,6 +489,72 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
+  <xs:simpleType name="importance">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="essential">
+        <xs:annotation>
+          <xs:documentation>
+            A version of the dependency must be selected.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="recommended">
+        <xs:annotation>
+          <xs:documentation>
+            No version of the dependency is also an option, although selecting a version is preferable to not selecting one.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="os">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="*">
+        <xs:annotation>
+          <xs:documentation>
+            Any operating system
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Linux" />
+      <xs:enumeration value="Solaris" />
+      <xs:enumeration value="MacOSX">
+        <xs:annotation>
+          <xs:documentation>
+            MacOS X
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Darwin">
+        <xs:annotation>
+          <xs:documentation>
+            non-graphical core of MacOS X
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Cygwin">
+        <xs:annotation>
+          <xs:documentation>
+            POSIX compatability layer on Windows
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="POSIX">
+        <xs:annotation>
+          <xs:documentation>
+            any POSIX-compatible system (Linux, Solaris, MacOS X, Cygwin, ...=
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Windows">
+        <xs:annotation>
+          <xs:documentation>
+            Windows 2000 or newer
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
   <xs:complexType name="dependency">
     <xs:annotation>
       <xs:documentation>
@@ -517,6 +583,13 @@
             </xs:documentation>
           </xs:annotation>
         </xs:attribute>
+        <xs:attribute name="os" type="tns:os" default="*">
+          <xs:annotation>
+            <xs:documentation>
+              Determines for which operating systems this dependency is required.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -536,24 +609,6 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-  <xs:simpleType name="importance">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="essential">
-        <xs:annotation>
-          <xs:documentation>
-            A version of the dependency must be selected.
-          </xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="recommended">
-        <xs:annotation>
-          <xs:documentation>
-            No version of the dependency is also an option, although selecting a version is preferable to not selecting one.
-          </xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-    </xs:restriction>
-  </xs:simpleType>
   <xs:complexType name="runner">
     <xs:annotation>
       <xs:documentation>

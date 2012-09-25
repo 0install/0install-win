@@ -62,6 +62,13 @@ namespace ZeroInstall.Model
         [XmlAttribute("use"), DefaultValue("")]
         public string Use { get; set; }
 
+        /// <summary>
+        /// Determines for which operating systems this dependency is required.
+        /// </summary>
+        [Description("Determines for which operating systems this dependency is required.")]
+        [XmlAttribute("os"), DefaultValue(typeof(OS), "*")]
+        public OS OS { get; set; }
+
         // Preserve order
         private readonly C5.ArrayList<Binding> _bindings = new C5.ArrayList<Binding>();
 
