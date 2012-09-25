@@ -137,7 +137,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         {
                             extensionKey.SetValue("", RegKeyPrefix + fileType.ID);
 
-                            if (!systemWide && (WindowsUtils.IsWindowsVista || WindowsUtils.IsWindows7))
+                            if (!systemWide && WindowsUtils.IsWindowsNT && Environment.OSVersion.Version >= new Version(6, 0) && Environment.OSVersion.Version < new Version(6, 2))
                             { // Windows Vista and 7 have an additional per-user override; Windows 8 blocks programmatic access to this override
                                 using (var overridesKey = hive.OpenSubKey(RegKeyOverrides, true))
                                 using (var extensionOverrideKey = overridesKey.CreateSubKey(extension.Value))
