@@ -66,7 +66,7 @@ namespace ZeroInstall.Model
         /// Determines for which operating systems this dependency is required.
         /// </summary>
         [Description("Determines for which operating systems this dependency is required.")]
-        [XmlAttribute("os"), DefaultValue(typeof(OS), "*")]
+        [XmlAttribute("os"), DefaultValue(typeof(OS), "All")]
         public OS OS { get; set; }
 
         // Preserve order
