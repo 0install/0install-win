@@ -81,8 +81,11 @@ namespace ZeroInstall.Commands
                     // Create a new AppEntry
                     return CreateAppEntry(integrationManager, ref interfaceID);
                 }
-                catch (InvalidOperationException)
+                catch (InvalidOperationException ex)
                 {
+                    // Only use exact exception type match
+                    if (ex.GetType() != typeof(InvalidOperationException)) throw;
+
                     // Find the existing AppEntry after interface ID replacement
                     return integrationManager.AppList.GetEntry(interfaceID);
                 }
