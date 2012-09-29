@@ -218,6 +218,32 @@ namespace Common.Storage
                 }
             }
         }
+
+        /// <summary>
+        /// The directory to store system-wide non-essential data.
+        /// </summary>
+        /// <remarks>On Windows this is <c>CommonApplicationData</c>, on Linux it is <c>/var/cache</c>.</remarks>
+        public static string SystemCacheDir
+        {
+            get
+            {
+                switch (Environment.OSVersion.Platform)
+                {
+                    case PlatformID.MacOSX:
+                        // ToDo: Use MacOS X-specific locations instead of POSIX subsytem
+
+                    case PlatformID.Unix:
+                        // Use XDG specification
+                        return "/var/cache";
+
+                    default:
+                    case PlatformID.Win32Windows:
+                    case PlatformID.Win32NT:
+                        // Use XDG specification or Win32 API
+                        return Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+                }
+            }
+        }
         #endregion
 
         #endregion

@@ -21,6 +21,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using Common.Storage;
+using Common.Utils;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementation
@@ -37,10 +38,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="UnauthorizedAccessException">Thrown if access to a configuration file or one of the stores was not permitted.</exception>
         public static IStore CreateDefault()
         {
-            var stores = GetStores();
-            var storesArray = new IStore[stores.Count];
-            stores.CopyTo(storesArray, 0);
-            return new CompositeStore(storesArray);
+            return new CompositeStore(GetStores().ToArray());
         }
 
         /// <summary>
@@ -48,14 +46,14 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <exception cref="IOException">Thrown if a directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory was not permitted.</exception>
-        private static LinkedList<IStore> GetStores()
+        private static C5.IList<IStore> GetStores()
         {
-            var stores = new LinkedList<IStore>();
+            var stores = new C5.LinkedList<IStore>();
             foreach (var path in GetImplementationDirs())
             {
                 try
                 {
-                    stores.AddLast(new DirectoryStore(path));
+                    stores.Add(new DirectoryStore(path));
                 }
                     #region Error handling
                 catch (IOException ex)
@@ -76,7 +74,7 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <summary>
-        /// Returns a list of custom paths for implementation directories / stores as defined by configuration files.
+        /// Returns a list of paths for implementation directories / stores as defined by configuration files including the default locations.
         /// </summary>
         /// <exception cref="IOException">Thrown if there was a problem accessing a configuration file or one of the stores.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to a configuration file was not permitted.</exception>
@@ -86,7 +84,7 @@ namespace ZeroInstall.Store.Implementation
             // Always add the user cache to have a reliable fallback location for storage
             yield return Locations.GetCacheDirPath("0install.net", "implementations");
 
-            // ToDo: Add default shared location if the configs are empty
+            // Add custom cache locations
             foreach (string configFile in Locations.GetLoadConfigPaths("0install.net", true, "injector", "implementation-dirs"))
             {
                 foreach (string line in File.ReadAllLines(configFile, Encoding.UTF8))
@@ -112,6 +110,14 @@ namespace ZeroInstall.Store.Implementation
 
                     yield return path;
                 }
+            }
+
+            // Add the system cache when not in portable mode
+            if (!Locations.IsPortable)
+            {
+                // Only use pre-existing system cache, do not create new one
+                string systemCache = FileUtils.PathCombine(Locations.SystemCacheDir, "0install.net", "implementations");
+                if (Directory.Exists(systemCache)) yield return systemCache;
             }
         }
     }

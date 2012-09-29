@@ -45,7 +45,6 @@ namespace ZeroInstall.Central.WinForms
         public OptionsDialog()
         {
             InitializeComponent();
-            groupImplDirs.Enabled = !Locations.IsPortable;
 
             panelTrustedKeys.Controls.Add(_treeViewTrustedKeys);
             _treeViewTrustedKeys.CheckedEntriesChanged += _treeViewTrustedKeys_CheckedEntriesChanged;
@@ -134,11 +133,8 @@ namespace ZeroInstall.Central.WinForms
                 config.SyncCryptoKey = textBoxSyncCryptoKey.Text;
                 config.Save();
 
-                if (!Locations.IsPortable)
-                {
-                    using (var atomic = new AtomicWrite(_implementationDirsConfigPath))
-                        WriteImplDirs(atomic.WritePath);
-                }
+                using (var atomic = new AtomicWrite(_implementationDirsConfigPath))
+                    WriteImplDirs(atomic.WritePath);
 
                 // Write list of trusted keys
                 var trustDB = new TrustDB();
@@ -251,7 +247,8 @@ namespace ZeroInstall.Central.WinForms
             }
             #endregion
 
-            listBoxImplDirs.Items.Add(newStore);
+            // Insert after default location in user profile
+            listBoxImplDirs.Items.Insert(1, newStore);
         }
 
         private void buttonRemoveImplDir_Click(object sender, EventArgs e)
