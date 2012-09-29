@@ -39,10 +39,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
 
         #region Properities
         /// <inheritdoc/>
-        public override string Path
-        {
-            get { return Store.GetPath(_digest); }
-        }
+        public override string Path { get { return Store.GetPath(_digest); } }
 
         /// <summary>
         /// The digest identifying the implementation in the store.

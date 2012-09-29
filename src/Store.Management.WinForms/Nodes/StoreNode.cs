@@ -72,10 +72,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         {
             return new ContextMenu(new[]
             {
-                new MenuItem(Resources.OpenInFileManager, delegate
-                {
-                    if (Path != null) Process.Start(Path);
-                }),
+                new MenuItem(Resources.OpenInFileManager, delegate { if (Path != null) Process.Start(Path); }),
                 new MenuItem(Resources.Remove, delegate
                 {
                     if (Msg.YesNo(Parent, Resources.DeleteEntry, MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))

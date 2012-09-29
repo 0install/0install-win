@@ -77,7 +77,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                 {
                     FileUtils.DisableWriteProtection(_path);
                 }
-                #region Error handling
+                    #region Error handling
                 catch (IOException)
                 {
                     // Ignore since we may be able to delete it anyway
@@ -92,7 +92,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                 {
                     Directory.Delete(_path, true);
                 }
-                #region Error handling
+                    #region Error handling
                 catch (UnauthorizedAccessException ex)
                 {
                     // Wrap exception since only certain exception types are allowed in tasks
