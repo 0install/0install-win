@@ -149,13 +149,12 @@ namespace ZeroInstall.Publish
                 #region Error handling
             catch (KeyNotFoundException)
             {
-                // Secret key not in the user's keyring
-                //Log.Info(ex.Message);
+                Log.Info("Secret key not in the user's keyring");
             }
             catch (SignatureException ex)
             {
                 // Unable to parse the signature
-                Log.Error(ex.Message);
+                Log.Error(ex);
             }
             #endregion
 

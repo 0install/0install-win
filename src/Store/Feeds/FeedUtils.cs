@@ -55,15 +55,15 @@ namespace ZeroInstall.Store.Feeds
                     #region Error handling
                 catch (IOException ex)
                 {
-                    Log.Error(ex.Message);
+                    Log.Error(ex);
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    Log.Error(ex.Message);
+                    Log.Error(ex);
                 }
                 catch (InvalidDataException ex)
                 {
-                    Log.Error(ex.Message);
+                    Log.Error(ex);
                 }
                 #endregion
             }

@@ -81,7 +81,7 @@ namespace ZeroInstall.Capture.Cli
             }
             catch (OptionException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return (int)ErrorLevel.InvalidArguments;
             }
             #endregion
@@ -97,27 +97,27 @@ namespace ZeroInstall.Capture.Cli
             }
             catch (OptionException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return (int)ErrorLevel.InvalidArguments;
             }
             catch (InvalidOperationException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return (int)ErrorLevel.IOError;
             }
             catch (FileNotFoundException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return (int)ErrorLevel.IOError;
             }
             catch (IOException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return (int)ErrorLevel.IOError;
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return (int)ErrorLevel.IOError;
             }
             #endregion

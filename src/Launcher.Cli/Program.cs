@@ -88,22 +88,22 @@ namespace ZeroInstall.Launcher.Cli
             }
             catch (IOException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return 1;
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return 1;
             }
             catch (InvalidDataException ex)
             {
-                Log.Error(ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
+                Log.Error(ex);
                 return 1;
             }
             catch (InvalidInterfaceIDException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return 1;
             }
             #endregion
@@ -124,68 +124,68 @@ namespace ZeroInstall.Launcher.Cli
             }
             catch (WebException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return 1;
             }
             catch (NotSupportedException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return 1;
             }
             catch (InvalidDataException ex)
             {
-                Log.Error(ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
+                Log.Error(ex);
                 return 1;
             }
             catch (IOException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return 1;
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return 1;
             }
             catch (DigestMismatchException ex)
             {
-                Log.Error(ex.Message);
-                //if (command.Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
+                Log.Error(ex);
+                if (command.Policy.Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
                 return 1;
             }
             catch (SignatureException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return 1;
             }
             catch (InvalidInterfaceIDException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return 1;
             }
             catch (SolverException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return 1;
             }
             catch (ImplementationNotFoundException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return 1;
             }
             catch (CommandException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return 1;
             }
             catch (Win32Exception ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return 1;
             }
             catch (BadImageFormatException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return 1;
             }
                 #endregion

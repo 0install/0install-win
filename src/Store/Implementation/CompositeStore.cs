@@ -277,11 +277,11 @@ namespace ZeroInstall.Store.Implementation
                     #region Sanity checks
                 catch (IOException ex)
                 {
-                    Log.Error(ex.Message);
+                    Log.Error(ex);
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    Log.Error(ex.Message);
+                    Log.Error(ex);
                 }
                 #endregion
             }

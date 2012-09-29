@@ -156,17 +156,20 @@ namespace ZeroInstall.Injector.Feeds
             }
             catch (IOException ex)
             {
-                Log.Error("Error loading trust DB. Reverting to default values.\n" + ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
+                Log.Warn("Error loading trust DB. Reverting to default values.");
+                Log.Error(ex);
                 return new TrustDB();
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Error("Error loading trust DB. Reverting to default values.\n" + ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
+                Log.Warn("Error loading trust DB. Reverting to default values.");
+                Log.Error(ex);
                 return new TrustDB();
             }
             catch (InvalidDataException ex)
             {
-                Log.Error("Error loading trust DB. Reverting to default values.\n" + ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
+                Log.Warn("Error loading trust DB. Reverting to default values.");
+                Log.Error(ex);
                 return new TrustDB();
             }
             #endregion

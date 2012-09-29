@@ -155,76 +155,82 @@ namespace ZeroInstall.Commands.WinForms
                 handler.DisableProgressUI();
                 Msg.Inform(null, ex.Message + "\n" + string.Format(Resources.TryHelp, ExeName), MsgSeverity.Error);
             }
-            catch (WebException ex)
-            {
-                handler.DisableProgressUI();
-                ErrorBox.Show(ex.Message, errorLog.ToString());
-            }
-            catch (NotSupportedException ex)
-            {
-                handler.DisableProgressUI();
-                ErrorBox.Show(ex.Message, errorLog.ToString());
-            }
-            catch (IOException ex)
-            {
-                handler.DisableProgressUI();
-                ErrorBox.Show(ex.Message, errorLog.ToString());
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                handler.DisableProgressUI();
-                ErrorBox.Show(ex.Message, errorLog.ToString());
-            }
-            catch (InvalidDataException ex)
-            {
-                handler.DisableProgressUI();
-                // Complete XML errors are too long for the headline, so split it into the log
-                if (ex.InnerException != null) Log.Error(ex.InnerException.Message);
-                ErrorBox.Show(ex.Message, errorLog.ToString());
-            }
-            catch (SignatureException ex)
-            {
-                handler.DisableProgressUI();
-                ErrorBox.Show(ex.Message, errorLog.ToString());
-            }
-            catch (InvalidInterfaceIDException ex)
-            {
-                handler.DisableProgressUI();
-                ErrorBox.Show(ex.Message, errorLog.ToString());
-            }
-            catch (DigestMismatchException ex)
-            {
-                handler.DisableProgressUI();
-                errorLog.AppendPar(ex.Message, RtfColor.Red);
-                errorLog.AppendPar("Generated manifest:" + Environment.NewLine + ex.ActualManifest, RtfColor.Black);
-                ErrorBox.Show(Resources.DownloadDamaged, errorLog.ToString());
-            }
-            catch (SolverException ex)
-            {
-                handler.DisableProgressUI();
-                // Solver error message are often too long for the headline, so split it into the log
-                Log.Error(StringUtils.GetRightPartAtFirstOccurrence(ex.Message, Environment.NewLine + Environment.NewLine));
-                ErrorBox.Show(StringUtils.GetLeftPartAtFirstOccurrence(ex.Message, Environment.NewLine + Environment.NewLine), errorLog.ToString());
-            }
-            catch (ImplementationNotFoundException ex)
-            {
-                handler.DisableProgressUI();
-                ErrorBox.Show(ex.Message, errorLog.ToString());
-            }
-            catch (CommandException ex)
-            {
-                handler.DisableProgressUI();
-                ErrorBox.Show(ex.Message, errorLog.ToString());
-            }
             catch (Win32Exception ex)
             {
                 handler.DisableProgressUI();
-                ErrorBox.Show(ex.Message, errorLog.ToString());
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
             }
             catch (BadImageFormatException ex)
             {
                 handler.DisableProgressUI();
-                ErrorBox.Show(ex.Message, errorLog.ToString());
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+            }
+            catch (WebException ex)
+            {
+                handler.DisableProgressUI();
+                Log.Error(ex);
+                ErrorBox.Show(ex.Message, errorLog);
+            }
+            catch (NotSupportedException ex)
+            {
+                handler.DisableProgressUI();
+                Log.Error(ex);
+                ErrorBox.Show(ex.Message, errorLog);
+            }
+            catch (IOException ex)
+            {
+                handler.DisableProgressUI();
+                Log.Error(ex);
+                ErrorBox.Show(ex.Message, errorLog);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                handler.DisableProgressUI();
+                Log.Error(ex);
+                ErrorBox.Show(ex.Message, errorLog);
+            }
+            catch (InvalidDataException ex)
+            {
+                handler.DisableProgressUI();
+                Log.Error(ex);
+                ErrorBox.Show(ex.Message, errorLog);
+            }
+            catch (SignatureException ex)
+            {
+                handler.DisableProgressUI();
+                Log.Error(ex);
+                ErrorBox.Show(ex.Message, errorLog);
+            }
+            catch (InvalidInterfaceIDException ex)
+            {
+                handler.DisableProgressUI();
+                Log.Error(ex);
+                ErrorBox.Show(ex.Message, errorLog);
+            }
+            catch (DigestMismatchException ex)
+            {
+                handler.DisableProgressUI();
+                Log.Error(ex);
+                Log.Info("Generated manifest:\n" + ex.ActualManifest);
+                ErrorBox.Show(Resources.DownloadDamaged, errorLog);
+            }
+            catch (SolverException ex)
+            {
+                handler.DisableProgressUI();
+                Log.Error(ex);
+                ErrorBox.Show(StringUtils.GetLeftPartAtFirstOccurrence(ex.Message, Environment.NewLine), errorLog);
+            }
+            catch (ImplementationNotFoundException ex)
+            {
+                handler.DisableProgressUI();
+                Log.Error(ex);
+                ErrorBox.Show(ex.Message, errorLog);
+            }
+            catch (CommandException ex)
+            {
+                handler.DisableProgressUI();
+                Log.Error(ex);
+                ErrorBox.Show(ex.Message, errorLog);
             }
                 #endregion
 

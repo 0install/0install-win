@@ -45,20 +45,18 @@ namespace Common.Controls
         /// <param name="message">The error message to display.</param>
         /// <param name="detailsRtf">The details formatted as RTF.</param>
         /// <returns>The text the user entered if he pressed OK; otherwise <see langword="null"/>.</returns>
-        public static void Show(string message, string detailsRtf)
+        public static void Show(string message, RtfBuilder detailsRtf)
         {
             #region Sanity checks
             if (message == null) throw new ArgumentNullException("message");
             if (detailsRtf == null) throw new ArgumentNullException("detailsRtf");
             #endregion
 
-            Log.Error(message);
-
             using (var errorBox = new ErrorBox
             {
                 Text = Application.ProductName,
                 labelMessage = {Text = message},
-                textDetails = {Rtf = detailsRtf}
+                textDetails = {Rtf = detailsRtf.ToString()}
             })
             {
                 errorBox.toolTip.SetToolTip(errorBox.labelMessage, errorBox.labelMessage.Text);

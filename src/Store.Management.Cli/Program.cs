@@ -99,7 +99,7 @@ namespace ZeroInstall.Store.Management.Cli
             }
             catch (ArgumentException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return (int)ErrorLevel.InvalidArguments;
             }
             #endregion
@@ -118,37 +118,37 @@ namespace ZeroInstall.Store.Management.Cli
             }
             catch (ArgumentException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return (int)ErrorLevel.InvalidArguments;
             }
             catch (IOException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return (int)ErrorLevel.IOError;
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return (int)ErrorLevel.IOError;
             }
             catch (InvalidDataException ex)
             {
-                Log.Error(ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message));
+                Log.Error(ex);
                 return (int)ErrorLevel.IOError;
             }
             catch (ImplementationNotFoundException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return (int)ErrorLevel.ImplementationError;
             }
             catch (ImplementationAlreadyInStoreException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return (int)ErrorLevel.ImplementationError;
             }
             catch (DigestMismatchException ex)
             {
-                Log.Error(ex.Message);
+                Log.Error(ex);
                 return (int)ErrorLevel.DigestMismatch;
             }
             #endregion
