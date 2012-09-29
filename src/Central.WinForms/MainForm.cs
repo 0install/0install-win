@@ -72,7 +72,25 @@ namespace ZeroInstall.Central.WinForms
                 if (Locations.IsPortable) Text += @" - Portable mode";
                 labelVersion.Text = @"v" + Application.ProductVersion;
 
-                appList.IconCache = catalogList.IconCache = IconCacheProvider.CreateDefault();
+                try
+                {
+                    // Ensure all relevant directories are created
+                    Policy.CreateDefault(new SilentHandler());
+
+                    appList.IconCache = catalogList.IconCache = IconCacheProvider.CreateDefault();
+                }
+                    #region Error handling
+                catch (IOException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                    Close();
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                    Close();
+                }
+                #endregion
             };
 
             Shown += delegate
@@ -356,9 +374,9 @@ namespace ZeroInstall.Central.WinForms
             {
                 // ToDo: Merge multiple catalogs from custom sources
                 var catalog = Catalog.Load(new MemoryStream(new WebClientTimeout().DownloadData("http://0install.de/catalog/")));
-                catalog.Save(Path.Combine(Locations.GetCacheDirPath("0install.net"), "catalog.xml"));
-
                 e.Result = catalog;
+
+                catalog.Save(Path.Combine(Locations.GetCacheDirPath("0install.net"), "catalog.xml"));
             }
                 #region Error handling
             catch (WebException ex)

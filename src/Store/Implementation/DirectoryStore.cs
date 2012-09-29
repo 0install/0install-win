@@ -191,6 +191,8 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public IEnumerable<ManifestDigest> ListAll()
         {
+            if (!Directory.Exists(DirectoryPath)) return new ManifestDigest[0];
+
             return Array.FindAll(
                 // Get all digests...
                 Array.ConvertAll(FileUtils.GetSubdirectoryPaths(DirectoryPath), path => new ManifestDigest(Path.GetFileName(path))),
@@ -201,6 +203,8 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public IEnumerable<string> ListAllTemp()
         {
+            if (!Directory.Exists(DirectoryPath)) return new string[0];
+
             return Array.FindAll(
                 // Get all directory paths...
                 FileUtils.GetSubdirectoryPaths(DirectoryPath),

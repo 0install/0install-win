@@ -26,8 +26,6 @@ namespace ZeroInstall.Store.Feeds
     /// </summary>
     public static class FeedCacheProvider
     {
-        private static readonly IFeedCache _feedCache = new DiskFeedCache(Locations.GetCacheDirPath("0install.net", "interfaces"));
-
         /// <summary>
         /// Creates an <see cref="IFeedCache"/> instance that uses the default cache location in the user profile.
         /// </summary>
@@ -35,9 +33,8 @@ namespace ZeroInstall.Store.Feeds
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         public static IFeedCache CreateDefault()
         {
-            // Can share one instance globally, since it is thread-safe and the directory does not change at runtime
             // Recreate memory-caching layer for each call to prevent long-running caches from going out of sync with disk because of changes made by other processes
-            return new MemoryFeedCache(_feedCache);
+            return new MemoryFeedCache(new DiskFeedCache(Locations.GetCacheDirPath("0install.net", "interfaces")));
         }
     }
 }

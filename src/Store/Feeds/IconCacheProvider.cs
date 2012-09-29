@@ -26,7 +26,9 @@ namespace ZeroInstall.Store.Feeds
     /// </summary>
     public static class IconCacheProvider
     {
-        private static readonly IIconCache _iconCache = new DiskIconCache(Locations.GetCacheDirPath("0install.net", "interface_icons"));
+        private static readonly object _lock = new object();
+
+        private static volatile IIconCache _iconCache;
 
         /// <summary>
         /// Creates an <see cref="IIconCache"/> instance that uses the default cache location in the user profile.
@@ -35,7 +37,16 @@ namespace ZeroInstall.Store.Feeds
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         public static IIconCache CreateDefault()
         {
-            // Can share one instance globally, since it is thread-safe and the directory does not change at runtime
+            // Share one instance globally to prevent race-conditions
+            // Double locking for thread-safe singleton pattern
+            if (_iconCache == null)
+            {
+                lock (_lock)
+                {
+                    if (_iconCache == null)
+                        _iconCache = new DiskIconCache(Locations.GetCacheDirPath("0install.net", "interface_icons"));
+                }
+            }
             return _iconCache;
         }
     }

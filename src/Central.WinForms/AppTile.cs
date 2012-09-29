@@ -80,7 +80,7 @@ namespace ZeroInstall.Central.WinForms
         private Feed _feed;
 
         /// <summary>
-        /// A <see cref="Feed"/> from which the tile  extracts relevant application metadata such as summaries and icons.
+        /// A <see cref="Feed"/> from which the tile extracts relevant application metadata such as summaries and icons.
         /// </summary>
         /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
@@ -204,6 +204,14 @@ namespace ZeroInstall.Central.WinForms
                 #region Error handling
             catch (OperationCanceledException)
             {}
+            catch (IOException ex)
+            {
+                Log.Warn("Unable to store application icon:\n" + ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Warn("Unable to store application icon:\n" + ex.Message);
+            }
             catch (WebException ex)
             {
                 Log.Warn("Unable to download application icon:\n" + ex.Message);

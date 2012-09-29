@@ -20,9 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using Common.Storage;
 using Common.Tasks;
-using Common.Utils;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Feeds
 {
@@ -47,14 +45,11 @@ namespace ZeroInstall.Store.Feeds
         /// Creates a new disk-based cache.
         /// </summary>
         /// <param name="path">A fully qualified directory path.</param>
-        /// <exception cref="DirectoryNotFoundException">Thrown if <paramref name="path"/> does not point to an existing directory.</exception>
         public DiskIconCache(string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
-
-            if (!Directory.Exists(path)) throw new DirectoryNotFoundException(string.Format(Resources.DirectoryNotFound, path));
 
             DirectoryPath = path;
         }
@@ -80,6 +75,8 @@ namespace ZeroInstall.Store.Feeds
         /// <inheritdoc/>
         public IEnumerable<string> ListAll()
         {
+            if (!Directory.Exists(DirectoryPath)) return new string[0];
+
             // Find all files whose names begin with an URL protocol
             string[] files = Directory.GetFiles(DirectoryPath, "http*");
 
