@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using Common;
@@ -35,11 +34,16 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
     public abstract class ImplementationNode : StoreNode
     {
         #region Variables
-        private readonly IStore _store;
         private readonly ManifestDigest _digest;
         #endregion
 
         #region Properities
+        /// <inheritdoc/>
+        public override string Path
+        {
+            get { return Store.GetPath(_digest); }
+        }
+
         /// <summary>
         /// The digest identifying the implementation in the store.
         /// </summary>
@@ -49,7 +53,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <summary>
         /// The total size of the implementation in bytes.
         /// </summary>
-        [Description("The total size of the implementation in bytes.")]
+        [Browsable(false)]
         public long Size { get; private set; }
         #endregion
 
@@ -57,26 +61,25 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <summary>
         /// Creates a new implementation node.
         /// </summary>
+        /// <param name="parent">The window containing this node. Used for callbacks.</param>
         /// <param name="store">The <see cref="IStore"/> the implementation is located in.</param>
         /// <param name="digest">The digest identifying the implementation.</param>
-        /// <param name="parent">The window containing this node. Used for callbacks.</param>
         /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
         /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        protected ImplementationNode(IStore store, ManifestDigest digest, MainForm parent)
-            : base(parent)
+        protected ImplementationNode(MainForm parent, IStore store, ManifestDigest digest)
+            : base(parent, store)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");
             #endregion
 
-            _store = store;
             _digest = digest;
 
             // Determine the total size of an implementation via its manifest file
             string path = store.GetPath(digest);
             if (path == null) return;
-            string manifestPath = Path.Combine(path, ".manifest");
+            string manifestPath = System.IO.Path.Combine(path, ".manifest");
             Size = Manifest.Load(manifestPath, ManifestFormat.FromPrefix(digest.BestDigest)).TotalSize;
         }
         #endregion
@@ -94,7 +97,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         {
             try
             {
-                _store.Remove(_digest);
+                Store.Remove(_digest);
             }
                 #region Error handling
             catch (ImplementationNotFoundException ex)
@@ -113,7 +116,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            _store.Verify(_digest, handler);
+            Store.Verify(_digest, handler);
         }
         #endregion
 
@@ -121,13 +124,8 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <inheritdoc/>
         public override ContextMenu GetContextMenu()
         {
-            return new ContextMenu(new[]
-            {
-                new MenuItem(Resources.OpenInFileManager, delegate
-                {
-                    string path = _store.GetPath(_digest);
-                    if (path != null) Process.Start(path);
-                }),
+            var contextMenu = base.GetContextMenu();
+            contextMenu.MenuItems.Add(
                 new MenuItem(Resources.Verify, delegate
                 {
                     try
@@ -152,34 +150,8 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                         // ToDo: Provide option for deleting
                     }
                     #endregion
-                }),
-                new MenuItem(Resources.Remove, delegate
-                {
-                    if (Msg.YesNo(Parent, Resources.DeleteEntry, MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
-                    {
-                        try
-                        {
-                            Parent.RunTask(new SimpleTask(Resources.DeletingImplementations, Delete), null);
-                        }
-                            #region Error handling
-                        catch (KeyNotFoundException ex)
-                        {
-                            Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
-                        }
-                        catch (IOException ex)
-                        {
-                            Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
-                        }
-                        catch (UnauthorizedAccessException ex)
-                        {
-                            Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
-                        }
-                        #endregion
-
-                        Parent.RefreshList();
-                    }
-                })
-            });
+                }));
+            return contextMenu;
         }
         #endregion
     }

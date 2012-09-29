@@ -140,16 +140,6 @@ namespace ZeroInstall.Store.Service
         {
             throw new NotImplementedException();
         }
-
-        /// <inheritdoc />
-        public void Remove(string directory)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(directory)) throw new ArgumentNullException("directory");
-            #endregion
-
-            throw new NotImplementedException();
-        }
         #endregion
 
         #region Optimise

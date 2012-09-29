@@ -91,7 +91,7 @@ namespace ZeroInstall.Store.Implementation
         {
             Directory.CreateDirectory(Path.Combine(_tempDir.Path, "sha1=test"));
             Directory.CreateDirectory(Path.Combine(_tempDir.Path, "temp=stuff"));
-            CollectionAssert.AreEqual(new[] {"temp=stuff"}, _store.ListAllTemp());
+            CollectionAssert.AreEqual(new[] {Path.Combine(_tempDir.Path, "temp=stuff")}, _store.ListAllTemp());
         }
 
         [Test]
@@ -150,15 +150,6 @@ namespace ZeroInstall.Store.Implementation
             Assert.IsTrue(_store.Contains(digest), "After adding, Store must contain the added package");
             _store.Remove(digest);
             Assert.IsFalse(_store.Contains(digest), "After remove, Store may no longer contain the added package");
-        }
-
-        [Test]
-        public void ShouldAllowToRemoveTemp()
-        {
-            Directory.CreateDirectory(Path.Combine(_store.DirectoryPath, "temp"));
-            Assert.IsTrue(_store.Contains("temp"), "After adding, Store must list the temp directory");
-            _store.Remove("temp");
-            Assert.IsFalse(_store.Contains("temp"), "After remove, Store may no longer list the temp directory");
         }
 
         [Test]

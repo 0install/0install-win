@@ -37,14 +37,14 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <summary>
         /// Creates a new orphaned implementation node.
         /// </summary>
+        /// <param name="parent">The window containing this node. Used for callbacks.</param>
         /// <param name="store">The <see cref="IStore"/> the implementation is located in.</param>
         /// <param name="digest">The digest identifying the implementation.</param>
-        /// <param name="parent">The window containing this node. Used for callbacks.</param>
         /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
         /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        public OrphanedImplementationNode(IStore store, ManifestDigest digest, MainForm parent)
-            : base(store, digest, parent)
+        public OrphanedImplementationNode(MainForm parent, IStore store, ManifestDigest digest)
+            : base(parent, store, digest)
         {}
         #endregion
     }

@@ -270,19 +270,19 @@ namespace Common.Utils
 
         #region Directories
         /// <summary>
-        /// Lists the names of all subdirectories contained within a directory.
+        /// Lists the paths of all subdirectories contained within a directory.
         /// </summary>
         /// <param name="path">The path of the directory to search for subdirectories.</param>
-        /// <returns>A C-sorted list of directory names.</returns>
-        public static string[] GetSubdirectoryNames(string path)
+        /// <returns>A C-sorted list of directory paths.</returns>
+        public static string[] GetSubdirectoryPaths(string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            var directoryNames = Array.ConvertAll(Directory.GetDirectories(path), Path.GetFileName);
-            Array.Sort(directoryNames, StringComparer.Ordinal);
-            return directoryNames;
+            var paths = Directory.GetDirectories(path);
+            Array.Sort(paths, StringComparer.Ordinal);
+            return paths;
         }
 
         /// <summary>

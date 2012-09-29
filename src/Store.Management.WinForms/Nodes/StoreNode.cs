@@ -18,40 +18,34 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using Common;
-using Common.Controls;
 using Common.Tasks;
-using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Management.WinForms.Properties;
 
 namespace ZeroInstall.Store.Management.WinForms.Nodes
 {
     /// <summary>
     /// Models information about elements in a cache for display in a GUI.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "Comparison only used for INamed sorting")]
-    public abstract class StoreNode : INamed<StoreNode>, IContextMenu
+    public abstract class StoreNode : Node
     {
         #region Variables
         /// <summary>
-        /// The window containing this node. Used for callbacks.
+        /// The store containing the element.
         /// </summary>
-        protected readonly MainForm Parent;
+        protected readonly IStore Store;
         #endregion
 
         #region Properties
-        /// <inheritdoc/>
-        [Browsable(false)]
-        public abstract string Name { get; set; }
-
         /// <summary>
-        /// A counter that can be used to prevent naming collisions.
+        /// The file system path of the element.
         /// </summary>
-        /// <remarks>If this value is not zero it is appended to the <see cref="Name"/>.</remarks>
-        public int SuffixCounter;
+        [Description("The file system path of the element.")]
+        public abstract string Path { get; }
         #endregion
 
         #region Constructor
@@ -59,54 +53,57 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// Creates a new store node.
         /// </summary>
         /// <param name="parent">The window containing this node. Used for callbacks.</param>
-        protected StoreNode(MainForm parent)
+        /// <param name="store">The store containing the element.</param>
+        protected StoreNode(MainForm parent, IStore store) : base(parent)
         {
             #region Sanity checks
             if (parent == null) throw new ArgumentNullException("parent");
             #endregion
 
-            Parent = parent;
+            Store = store;
         }
         #endregion
 
         //--------------------//
 
-        #region Delete
-        /// <summary>
-        /// Deletes this element from the cache it is stored in.
-        /// </summary>
-        /// <exception cref="KeyNotFoundException">Thrown if no matching element could be found in the cache.</exception>
-        /// <exception cref="IOException">Thrown if the element could not be deleted.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the cache is not permitted.</exception>
-        public abstract void Delete();
-        #endregion
-
-        #region Verify
-        /// <summary>
-        /// Verify this element is valid.
-        /// </summary>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="IOException">Thrown if the entry's directory could not be processed.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the entry's directory is not permitted.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if the entry's directory doesn't match the <see cref="ManifestDigest"/>.</exception>
-        public abstract void Verify(ITaskHandler handler);
-        #endregion
-
-        #region Comparison
-        int IComparable<StoreNode>.CompareTo(StoreNode other)
-        {
-            #region Sanity checks
-            if (other == null) throw new ArgumentNullException("other");
-            #endregion
-
-            return string.Compare(Name, other.Name, StringComparison.OrdinalIgnoreCase);
-        }
-        #endregion
-
         #region Context menu
         /// <inheritdoc/>
-        public abstract ContextMenu GetContextMenu();
+        public override ContextMenu GetContextMenu()
+        {
+            return new ContextMenu(new[]
+            {
+                new MenuItem(Resources.OpenInFileManager, delegate
+                {
+                    if (Path != null) Process.Start(Path);
+                }),
+                new MenuItem(Resources.Remove, delegate
+                {
+                    if (Msg.YesNo(Parent, Resources.DeleteEntry, MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
+                    {
+                        try
+                        {
+                            Parent.RunTask(new SimpleTask(Resources.DeletingImplementations, Delete), null);
+                        }
+                            #region Error handling
+                        catch (KeyNotFoundException ex)
+                        {
+                            Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
+                        }
+                        catch (IOException ex)
+                        {
+                            Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
+                        }
+                        catch (UnauthorizedAccessException ex)
+                        {
+                            Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
+                        }
+                        #endregion
+
+                        Parent.RefreshList();
+                    }
+                })
+            });
+        }
         #endregion
     }
 }

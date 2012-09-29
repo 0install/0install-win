@@ -17,11 +17,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
-using System.Windows.Forms;
-using Common;
 using Common.Tasks;
+using Common.Utils;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Management.WinForms.Properties;
 
@@ -32,39 +30,33 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
     /// </summary>
     public sealed class TempDirectoryNode : StoreNode
     {
-        #region Variables
-        private readonly IStore _store;
-        #endregion
-
         #region Properties
         /// <inheritdoc/>
-        public override string Name { get { return Resources.TemporaryDirectories + "#" + Directory + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
+        public override string Name { get { return Resources.TemporaryDirectories + "#" + System.IO.Path.GetFileName(_path) + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
 
-        /// <summary>
-        /// The name of the directory in the store.
-        /// </summary>
-        [Description("The name of the directory in the store.")]
-        public string Directory { get; private set; }
+        private readonly string _path;
+
+        /// <inheritdoc/>
+        public override string Path { get { return _path; } }
         #endregion
 
         #region Constructor
         /// <summary>
         /// Creates a new temporary directory node.
         /// </summary>
-        /// <param name="store">The <see cref="IStore"/> the implementation is located in.</param>
-        /// <param name="directory">The name of the directory in the store.</param>
         /// <param name="parent">The window containing this node. Used for callbacks.</param>
+        /// <param name="store">The <see cref="IStore"/> the directory is located in.</param>
+        /// <param name="path">The path of the directory in the store.</param>
         /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
         /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        public TempDirectoryNode(IStore store, string directory, MainForm parent) : base(parent)
+        public TempDirectoryNode(MainForm parent, IStore store, string path) : base(parent, store)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");
             #endregion
 
-            _store = store;
-            Directory = directory;
+            _path = path;
         }
         #endregion
 
@@ -81,7 +73,32 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         {
             try
             {
-                _store.Remove(Directory);
+                try
+                {
+                    FileUtils.DisableWriteProtection(_path);
+                }
+                #region Error handling
+                catch (IOException)
+                {
+                    // Ignore since we may be able to delete it anyway
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    // Ignore since we may be able to delete it anyway
+                }
+                #endregion
+
+                try
+                {
+                    Directory.Delete(_path, true);
+                }
+                #region Error handling
+                catch (UnauthorizedAccessException ex)
+                {
+                    // Wrap exception since only certain exception types are allowed in tasks
+                    throw new IOException(ex.Message, ex);
+                }
+                #endregion
             }
                 #region Error handling
             catch (ImplementationNotFoundException ex)
@@ -98,42 +115,6 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// </summary>
         public override void Verify(ITaskHandler handler)
         {}
-        #endregion
-
-        #region Context menu
-        /// <inheritdoc/>
-        public override ContextMenu GetContextMenu()
-        {
-            return new ContextMenu(new[]
-            {
-                new MenuItem(Resources.Remove, delegate
-                {
-                    if (Msg.YesNo(Parent, Resources.DeleteEntry, MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
-                    {
-                        try
-                        {
-                            Parent.RunTask(new SimpleTask(Resources.DeletingDirectory, Delete), null);
-                        }
-                            #region Error handling
-                        catch (KeyNotFoundException ex)
-                        {
-                            Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
-                        }
-                        catch (IOException ex)
-                        {
-                            Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
-                        }
-                        catch (UnauthorizedAccessException ex)
-                        {
-                            Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
-                        }
-                        #endregion
-
-                        Parent.RefreshList();
-                    }
-                })
-            });
-        }
         #endregion
     }
 }

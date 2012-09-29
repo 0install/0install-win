@@ -41,7 +41,7 @@ namespace ZeroInstall.Store.Management.WinForms
     {
         #region Variables
         // Don't use WinForms designer for this, since it doesn't understand generics
-        private readonly FilteredTreeView<StoreNode> _treeView = new FilteredTreeView<StoreNode> {Separator = '#', CheckBoxes = true, Dock = DockStyle.Fill};
+        private readonly FilteredTreeView<Node> _treeView = new FilteredTreeView<Node> {Separator = '#', CheckBoxes = true, Dock = DockStyle.Fill};
         #endregion
 
         #region Constructor
@@ -72,13 +72,13 @@ namespace ZeroInstall.Store.Management.WinForms
             waitDialog.Start();
             try
             {
-                var nodes = new NamedCollection<StoreNode>();
+                var nodes = new NamedCollection<Node>();
 
                 // List feeds/interfaces
                 var feedCache = FeedCacheProvider.CreateDefault();
                 var feeds = FeedUtils.GetFeeds(feedCache);
                 foreach (Feed feed in feeds)
-                    AddWithIncrement(nodes, new FeedNode(feedCache, feed, this));
+                    AddWithIncrement(nodes, new FeedNode(this, feedCache, feed));
 
                 long totalSize = 0;
                 IStore store;
@@ -110,8 +110,8 @@ namespace ZeroInstall.Store.Management.WinForms
                         var implementation = ImplementationUtils.GetImplementation(digest, feeds, out feed);
 
                         ImplementationNode implementationNode;
-                        if (feed == null) implementationNode = new OrphanedImplementationNode(store, digest, this);
-                        else implementationNode = new OwnedImplementationNode(store, digest, new FeedNode(feedCache, feed, this), implementation, this);
+                        if (feed == null) implementationNode = new OrphanedImplementationNode(this, store, digest);
+                        else implementationNode = new OwnedImplementationNode(this, store, digest, new FeedNode(this, feedCache, feed), implementation);
 
                         totalSize += implementationNode.Size;
                         AddWithIncrement(nodes, implementationNode);
@@ -134,7 +134,7 @@ namespace ZeroInstall.Store.Management.WinForms
 
                 // List temporary directories
                 foreach (string directory in store.ListAllTemp())
-                    AddWithIncrement(nodes, new TempDirectoryNode(store, directory, this));
+                    AddWithIncrement(nodes, new TempDirectoryNode(this, store, directory));
 
                 _treeView.Entries = nodes;
                 _treeView.SelectedEntry = null;
@@ -164,9 +164,9 @@ namespace ZeroInstall.Store.Management.WinForms
         }
 
         /// <summary>
-        /// Adds a <see cref="StoreNode"/> to a collection, incrementing <see cref="StoreNode.SuffixCounter"/> to prevent naming collisions.
+        /// Adds a <see cref="Node"/> to a collection, incrementing <see cref="Node.SuffixCounter"/> to prevent naming collisions.
         /// </summary>
-        private static void AddWithIncrement(NamedCollection<StoreNode> collection, StoreNode entry)
+        private static void AddWithIncrement(NamedCollection<Node> collection, Node entry)
         {
             while (collection.Contains(entry.Name))
                 entry.SuffixCounter++;
@@ -213,7 +213,7 @@ namespace ZeroInstall.Store.Management.WinForms
             {
                 try
                 {
-                    RunTask(new ForEachTask<StoreNode>(Resources.DeletingEntries, _treeView.CheckedEntries, entry => entry.Delete()), null);
+                    RunTask(new ForEachTask<Node>(Resources.DeletingEntries, _treeView.CheckedEntries, entry => entry.Delete()), null);
                 }
                     #region Error handling
                 catch (OperationCanceledException)
@@ -240,7 +240,7 @@ namespace ZeroInstall.Store.Management.WinForms
         {
             try
             {
-                foreach (StoreNode entry in _treeView.CheckedEntries)
+                foreach (Node entry in _treeView.CheckedEntries)
                     entry.Verify(this);
             }
                 #region Error handling

@@ -257,28 +257,6 @@ namespace ZeroInstall.Store.Implementation
             }
             if (!removed) throw new ImplementationNotFoundException(manifestDigest);
         }
-
-        /// <inheritdoc />
-        public void Remove(string directory)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(directory)) throw new ArgumentNullException("directory");
-            #endregion
-
-            ClearCaches();
-
-            bool removed = false;
-            foreach (var store in _stores)
-            {
-                // Remove from store every that contains the implementation
-                if (store.Contains(directory))
-                {
-                    store.Remove(directory);
-                    removed = true;
-                }
-            }
-            if (!removed) throw new DirectoryNotFoundException();
-        }
         #endregion
 
         #region Optimise

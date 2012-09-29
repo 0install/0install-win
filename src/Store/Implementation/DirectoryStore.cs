@@ -193,7 +193,7 @@ namespace ZeroInstall.Store.Implementation
         {
             return Array.FindAll(
                 // Get all digests...
-                Array.ConvertAll(FileUtils.GetSubdirectoryNames(DirectoryPath), directory => new ManifestDigest(directory)),
+                Array.ConvertAll(FileUtils.GetSubdirectoryPaths(DirectoryPath), path => new ManifestDigest(Path.GetFileName(path))),
                 // ... that are valid
                 digest => digest != default(ManifestDigest));
         }
@@ -202,10 +202,10 @@ namespace ZeroInstall.Store.Implementation
         public IEnumerable<string> ListAllTemp()
         {
             return Array.FindAll(
-                // Get all directory names...
-                FileUtils.GetSubdirectoryNames(DirectoryPath),
+                // Get all directory paths...
+                FileUtils.GetSubdirectoryPaths(DirectoryPath),
                 // ... that do not have valid digest names
-                directory => new ManifestDigest(directory) == default(ManifestDigest));
+                path => new ManifestDigest(Path.GetFileName(path)) == default(ManifestDigest));
         }
         #endregion
 
@@ -339,44 +339,6 @@ namespace ZeroInstall.Store.Implementation
             Directory.Move(path, tempDir);
 
             Directory.Delete(tempDir, true);
-        }
-
-        /// <inheritdoc />
-        public void Remove(string directory)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(directory)) throw new ArgumentNullException("directory");
-            #endregion
-
-            string path = Path.Combine(DirectoryPath, directory);
-            if (!Directory.Exists(path)) throw new DirectoryNotFoundException();
-
-            try
-            {
-                FileUtils.DisableWriteProtection(path);
-            }
-                #region Error handling
-            catch (IOException)
-            {
-                // Ignore since we may be able to delete it anyway
-            }
-            catch (UnauthorizedAccessException)
-            {
-                // Ignore since we may be able to delete it anyway
-            }
-            #endregion
-
-            try
-            {
-                Directory.Delete(path, true);
-            }
-                #region Error handling
-            catch (UnauthorizedAccessException ex)
-            {
-                // Wrap exception since only certain exception types are allowed in tasks
-                throw new IOException(ex.Message, ex);
-            }
-            #endregion
         }
         #endregion
 

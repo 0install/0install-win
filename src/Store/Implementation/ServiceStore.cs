@@ -210,25 +210,6 @@ namespace ZeroInstall.Store.Implementation
             }
             #endregion
         }
-
-        /// <inheritdoc />
-        public void Remove(string directory)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(directory)) throw new ArgumentNullException("directory");
-            #endregion
-
-            try
-            {
-                _serviceProxy.Remove(directory);
-            }
-                #region Error handling
-            catch (RemotingException ex)
-            {
-                throw new UnauthorizedAccessException(Resources.StoreServiceCommunicationProblem, ex);
-            }
-            #endregion
-        }
         #endregion
 
         #region Optimise
