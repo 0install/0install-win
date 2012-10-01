@@ -168,15 +168,26 @@ namespace ZeroInstall.Injector
         /// <param name="binding">The binding to apply.</param>
         /// <param name="implementation">The implementation to be made available.</param>
         /// <param name="startInfo">The process launch environment to apply the binding to.</param>
+        /// <exception cref="CommandException">Thrown if <see cref="EnvironmentBinding.Name"/> or other data is invalid.</exception>
         private void ApplyEnvironmentBinding(EnvironmentBinding binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
+            if (string.IsNullOrEmpty(binding.Name)) throw new CommandException(string.Format(Resources.MissingBindingName, @"<environment>"));
+
             var environmentVariables = startInfo.EnvironmentVariables;
 
-            string newValue =
-                // A static value
-                binding.Value
-                    // A path inside the implementation
-                    ?? Path.Combine(GetImplementationPath(implementation), FileUtils.UnifySlashes(binding.Insert ?? ""));
+            string newValue;
+            if (!string.IsNullOrEmpty(binding.Value) && !string.IsNullOrEmpty(binding.Insert))
+            { // Conflict
+                throw new CommandException(Resources.EnvironmentBindingValueInvalid);
+            }
+            else if (!string.IsNullOrEmpty(binding.Value))
+            { // Static value
+                newValue = binding.Value;
+            }
+            else
+            { // Path inside the implementation
+                newValue = Path.Combine(GetImplementationPath(implementation), FileUtils.UnifySlashes(binding.Insert ?? ""));
+            }
 
             // Set the default value if the variable is not already set on the system
             if (!environmentVariables.ContainsKey(binding.Name)) environmentVariables.Add(binding.Name, binding.Default);
@@ -218,12 +229,16 @@ namespace ZeroInstall.Injector
         /// <param name="binding">The binding to apply.</param>
         /// <param name="implementation">The implementation to be made available.</param>
         /// <param name="startInfo">The process launch environment to use to make the run-environment executable available.</param>
-        /// <exception cref="CommandException">Thrown if <see cref="ExecutableInVar.Name"/> contains invalid characters.</exception>
+        /// <exception cref="CommandException">Thrown if <see cref="ExecutableInVar.Name"/> is invalid.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
         private void ApplyExecutableInVar(ExecutableInVar binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
+            if (string.IsNullOrEmpty(binding.Name)) throw new CommandException(string.Format(Resources.MissingBindingName, @"<executable-in-var>"));
+            if (Array.Exists(Path.GetInvalidFileNameChars(), invalidChar => binding.Name.Contains(invalidChar.ToString(CultureInfo.InvariantCulture))))
+                throw new CommandException(string.Format(Resources.IllegalCharInBindingName, @"<executable-in-var>"));
+
             string exePath = DeployRunEnvExecutable(binding.Name);
 
             // Point variable directly to executable
@@ -239,12 +254,16 @@ namespace ZeroInstall.Injector
         /// <param name="binding">The binding to apply.</param>
         /// <param name="implementation">The implementation to be made available.</param>
         /// <param name="startInfo">The process launch environment to use to make the run-environment executable available.</param>
-        /// <exception cref="CommandException">Thrown if <see cref="ExecutableInPath.Name"/> contains invalid characters.</exception>
+        /// <exception cref="CommandException">Thrown if <see cref="ExecutableInPath.Name"/> is invalid.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
         private void ApplyExecutableInPath(ExecutableInPath binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
+            if (string.IsNullOrEmpty(binding.Name)) throw new CommandException(string.Format(Resources.MissingBindingName, @"<executable-in-path>"));
+            if (Array.Exists(Path.GetInvalidFileNameChars(), invalidChar => binding.Name.Contains(invalidChar.ToString(CultureInfo.InvariantCulture))))
+                throw new CommandException(string.Format(Resources.IllegalCharInBindingName, @"<executable-in-path>"));
+
             string exePath = DeployRunEnvExecutable(binding.Name);
 
             // Add executable directory to PATH variable
@@ -259,16 +278,12 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <param name="name">The executable name to deploy under (without file extensions).</param>
         /// <returns>The fully qualified path of the deployed run-environment executable.</returns>
-        /// <exception cref="CommandException">Thrown if the <paramref name="name"/> contains invalid characters.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
         /// <remarks>A run-environment executable executes a command-line specified in an environment variable based on its own name.</remarks>
         private static string DeployRunEnvExecutable(string name)
         {
-            if (Array.Exists(Path.GetInvalidFileNameChars(), invalidChar => name.Contains(invalidChar.ToString(CultureInfo.InvariantCulture))))
-                throw new CommandException(Resources.IllegalCharInExecutableBinding);
-
             string templatePath = GetRunEnvTemplate();
             string deployedPath = FileUtils.PathCombine(Locations.GetCacheDirPath("0install.net", "injector", "executables", name), name);
             if (WindowsUtils.IsWindows) deployedPath += ".exe";
@@ -310,7 +325,7 @@ namespace ZeroInstall.Injector
                     : "runenv.netfx20.template";
             }
             else if (MonoUtils.IsUnix) templateName = "runenv.sh.template";
-            else throw new NotSupportedException(Resources.NoRunEnvForOS);
+            else throw new NotSupportedException(string.Format(Resources.BindingNotSupportedOnCurrentOS, @"<executable-in-*>"));
 
             string path = Path.Combine(Locations.GetCacheDirPath("0install.net", "injector", "executables"), templateName);
             try

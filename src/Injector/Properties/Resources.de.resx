@@ -124,6 +124,12 @@
 Möchten Sie diesem Key zum Signieren von Feeds von '{3}' vertrauen?
 </value>
   </data>
+  <data name="BindingNotSupportedOnCurrentOS" xml:space="preserve">
+    <value>{0} Bindings werden auf diesem Betriebsystem derzeit nicht unterstützt.</value>
+  </data>
+  <data name="EnvironmentBindingValueInvalid" xml:space="preserve">
+    <value>&lt;environment&gt; Bindings müssen entweder ein 'value' oder ein 'insert' Attribut enthalten.</value>
+  </data>
   <data name="ExternalSolverOutputErrror" xml:space="preserve">
     <value>Die Ausgabe des externen Solvers konnte nicht verarbeitet werden.</value>
   </data>
@@ -147,8 +153,11 @@ Wechsle zu Mirror.</value>
   <data name="FileNotFound" xml:space="preserve">
     <value>Datei nicht gefunden: {0}</value>
   </data>
-  <data name="IllegalCharInExecutableBinding" xml:space="preserve">
-    <value>Ungültiges Zeichen im &lt;executable&gt; Binding Namen.</value>
+  <data name="IllegalCharInBindingName" xml:space="preserve">
+    <value>Ungültiges Zeichen im {0} Binding Namen.</value>
+  </data>
+  <data name="MissingBindingName" xml:space="preserve">
+    <value>Fehlender Name in {0} Binding.</value>
   </data>
   <data name="MissingInterfaceID" xml:space="preserve">
     <value>Es wurde kein Interface angegeben.</value>
@@ -158,9 +167,6 @@ Wechsle zu Mirror.</value>
   </data>
   <data name="NoKeyInfoServerData" xml:space="preserve">
     <value>Der Keyinformationsserver konnte keine weiteren Informationen über diesen Key zur Verfügung stellen.</value>
-  </data>
-  <data name="NoRunEnvForOS" xml:space="preserve">
-    <value>&lt;executable-in-*&gt; Bindings werden auf diesem Betriebsystem derzeit nicht unterstützt.</value>
   </data>
   <data name="NoSelectedVersion" xml:space="preserve">
     <value>Keine ausgewählte Version</value>

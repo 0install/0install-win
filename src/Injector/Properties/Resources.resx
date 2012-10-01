@@ -124,6 +124,12 @@
 Do you want to trust this key to sign feeds from '{3}'?
 </value>
   </data>
+  <data name="BindingNotSupportedOnCurrentOS" xml:space="preserve">
+    <value>{0} bindings are currently not supported on this operating system.</value>
+  </data>
+  <data name="EnvironmentBindingValueInvalid" xml:space="preserve">
+    <value>&lt;environment&gt; bindings must contain either a 'value' or an 'insert' attribute.</value>
+  </data>
   <data name="ExternalSolverOutputErrror" xml:space="preserve">
     <value>The output of the external solver could not be processed.</value>
   </data>
@@ -147,8 +153,11 @@ Switching to mirror.</value>
   <data name="FileNotFound" xml:space="preserve">
     <value>File not found: {0}</value>
   </data>
-  <data name="IllegalCharInExecutableBinding" xml:space="preserve">
-    <value>Illegal character in &lt;executable&gt; binding name.</value>
+  <data name="IllegalCharInBindingName" xml:space="preserve">
+    <value>Illegal character in {0} binding name.</value>
+  </data>
+  <data name="MissingBindingName" xml:space="preserve">
+    <value>Missing name in {0} binding.</value>
   </data>
   <data name="MissingInterfaceID" xml:space="preserve">
     <value>No interface was specified.</value>
@@ -158,9 +167,6 @@ Switching to mirror.</value>
   </data>
   <data name="NoKeyInfoServerData" xml:space="preserve">
     <value>The key information server was unable to provide any additional information about this key.</value>
-  </data>
-  <data name="NoRunEnvForOS" xml:space="preserve">
-    <value>&lt;executable-in-*&gt; bindings are currently not supported on this operating system.</value>
   </data>
   <data name="NoSelectedVersion" xml:space="preserve">
     <value>No selected version</value>

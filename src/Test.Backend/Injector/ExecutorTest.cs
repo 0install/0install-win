@@ -55,21 +55,46 @@ namespace ZeroInstall.Injector
         }
         #endregion
 
-        /// <summary>
-        /// Ensures the <see cref="Executor"/> constructor throws the correct exceptions.
-        /// </summary>
         [Test]
-        public void TestExceptions()
+        public void TestExceptionEmpty()
         {
             Assert.Throws<ArgumentException>(() => new Executor(new Selections(), new Mock<IStore>().Object), "Empty selections should be rejected");
+        }
 
+        [Test]
+        public void TestExceptionMultipleInvalidBindings()
+        {
+            var selections = SelectionsTest.CreateTestSelections();
+            selections.Implementations[1].Commands[0].Bindings.Add(new EnvironmentBinding()); // Missing name
+            ExpectCommandException(selections);
+
+            selections = SelectionsTest.CreateTestSelections();
+            selections.Implementations[1].Commands[0].Bindings.Add(new EnvironmentBinding {Name = "test", Insert = "test1", Value = "test2"}); // Conflicting insert and value
+            ExpectCommandException(selections);
+
+            selections = SelectionsTest.CreateTestSelections();
+            selections.Implementations[1].Commands[0].Bindings.Add(new ExecutableInVar()); // Missing name
+            ExpectCommandException(selections);
+
+            selections = SelectionsTest.CreateTestSelections();
+            selections.Implementations[1].Commands[0].Bindings.Add(new ExecutableInPath()); // Missing name
+            ExpectCommandException(selections);
+        }
+
+        [Test]
+        public void TestExceptionMultipleWorkingDirs()
+        {
             var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations[1].Commands[0].WorkingDir = new WorkingDir();
+            ExpectCommandException(selections);
+        }
 
+        private static void ExpectCommandException(Selections selections)
+        {
             var storeMock = new Mock<IStore>(MockBehavior.Loose);
             storeMock.Setup(x => x.GetPath(It.IsAny<ManifestDigest>())).Returns("test path");
             var executor = new Executor(selections, storeMock.Object);
-            Assert.Throws<CommandException>(() => executor.GetStartInfo(), "Multiple WorkingDir changes should be rejected");
+            Assert.Throws<CommandException>(() => executor.GetStartInfo(), "Invalid Selections should be rejected");
         }
 
         private IStore GetMockStore(Selections selections)
