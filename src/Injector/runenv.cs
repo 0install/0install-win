@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Text;
 
@@ -33,11 +34,16 @@ public class RunEnv
 {
     public static int Main(string[] args)
     {
+        // Get file name without ending
         string envName = Path.GetFileName(System.Environment.GetCommandLineArgs()[0]);
+        if (envName.EndsWith(".exe", true, CultureInfo.InvariantCulture)) envName = envName.Substring(0, envName.Length - 4);
+
+        // Read environment variables
         string envFile = Environment.GetEnvironmentVariable("0install-runenv-file-" + envName);
         string envArgs = Environment.GetEnvironmentVariable("0install-runenv-args-" + envName);
         string userArgs = ConcatenateEscapeArgument(args);
 
+        // Launch child process
         ProcessStartInfo startInfo = new ProcessStartInfo(envFile, string.IsNullOrEmpty(userArgs) ? envArgs : envArgs + " " + userArgs);
         startInfo.UseShellExecute = false;
         Process process = Process.Start(startInfo);

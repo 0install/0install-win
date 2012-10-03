@@ -41,7 +41,7 @@ namespace ZeroInstall.Injector
         private struct RunEnvPending
         {
             /// <summary>
-            /// The executable's file name without the directory and with the file ending.
+            /// The executable's file name without any file ending.
             /// </summary>
             public readonly string ExeName;
 
@@ -50,14 +50,11 @@ namespace ZeroInstall.Injector
             /// </summary>
             public readonly List<string> CommandLine;
 
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="exeName">The executable's file name without the directory and with the file ending.</param>
+            /// <param name="name">The executable's file name without any file ending.</param>
             /// <param name="commandLine">The command-line the executable should run.</param>
-            public RunEnvPending(string exeName, List<string> commandLine)
+            public RunEnvPending(string name, List<string> commandLine)
             {
-                ExeName = exeName;
+                ExeName = name;
                 CommandLine = commandLine;
             }
         }
@@ -245,7 +242,7 @@ namespace ZeroInstall.Injector
             startInfo.EnvironmentVariables.Add(binding.Name, exePath);
 
             // Tell the executable what command-line to run
-            _runEnvPendings.Add(new RunEnvPending(Path.GetFileName(exePath), GetCommandLine(implementation, binding.Command, startInfo)));
+            _runEnvPendings.Add(new RunEnvPending(binding.Name, GetCommandLine(implementation, binding.Command, startInfo)));
         }
 
         /// <summary>
@@ -270,7 +267,7 @@ namespace ZeroInstall.Injector
             startInfo.EnvironmentVariables["PATH"] = Path.GetDirectoryName(exePath) + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
 
             // Tell the executable what command-line to run
-            _runEnvPendings.Add(new RunEnvPending(Path.GetFileName(exePath), GetCommandLine(implementation, binding.Command, startInfo)));
+            _runEnvPendings.Add(new RunEnvPending(binding.Name, GetCommandLine(implementation, binding.Command, startInfo)));
         }
 
         /// <summary>
@@ -288,25 +285,29 @@ namespace ZeroInstall.Injector
             string deployedPath = FileUtils.PathCombine(Locations.GetCacheDirPath("0install.net", "injector", "executables", name), name);
             if (WindowsUtils.IsWindows) deployedPath += ".exe";
 
-            if (!File.Exists(deployedPath))
+            try
             {
-                try
-                {
-                    FileUtils.CreateHardlink(deployedPath, templatePath);
-                }
-                    #region Sanity checks
-                catch (PlatformNotSupportedException)
-                {
-                    File.Copy(templatePath, deployedPath);
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    File.Copy(templatePath, deployedPath);
-                }
-                #endregion
-
-                if (MonoUtils.IsUnix) FileUtils.SetExecutable(deployedPath, true);
+                FileUtils.CreateHardlink(deployedPath, templatePath);
             }
+                #region Error handling
+            catch (IOException)
+            {
+                // File is probably currently in use
+                if (!File.Exists(deployedPath)) throw;
+            }
+            catch (PlatformNotSupportedException)
+            {
+                // Unable to hardlink, fallback to simple copy
+                File.Copy(templatePath, deployedPath);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                // Unable to hardlink, fallback to simple copy
+                File.Copy(templatePath, deployedPath);
+            }
+            #endregion
+
+            if (MonoUtils.IsUnix) FileUtils.SetExecutable(deployedPath, true);
 
             return deployedPath;
         }
@@ -334,10 +335,6 @@ namespace ZeroInstall.Injector
             }
                 #region Error handling
             catch (IOException)
-            {
-                // File is probably currently in use
-            }
-            catch (UnauthorizedAccessException)
             {
                 // File is probably currently in use
             }
