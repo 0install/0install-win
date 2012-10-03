@@ -125,10 +125,10 @@ namespace ZeroInstall.Injector
                 Path.Combine(Test1Path, FileUtils.UnifySlashes(selections.Implementations[1].Commands[1].Path)),
                 selections.Implementations[1].Commands[1].Arguments[0]
             });
-            Assert.AreEqual(execFile, startInfo.EnvironmentVariables["0install-runenv-file-exec-in-var" + (WindowsUtils.IsWindows ? ".exe" : "")]);
-            Assert.AreEqual(execArgs, startInfo.EnvironmentVariables["0install-runenv-args-exec-in-var" + (WindowsUtils.IsWindows ? ".exe" : "")]);
-            Assert.AreEqual(execFile, startInfo.EnvironmentVariables["0install-runenv-file-exec-in-path" + (WindowsUtils.IsWindows ? ".exe" : "")]);
-            Assert.AreEqual(execArgs, startInfo.EnvironmentVariables["0install-runenv-args-exec-in-path" + (WindowsUtils.IsWindows ? ".exe" : "")]);
+            Assert.AreEqual(execFile, startInfo.EnvironmentVariables["0install-runenv-file-exec-in-var"]);
+            Assert.AreEqual(execArgs, startInfo.EnvironmentVariables["0install-runenv-args-exec-in-var"]);
+            Assert.AreEqual(execFile, startInfo.EnvironmentVariables["0install-runenv-file-exec-in-path"]);
+            Assert.AreEqual(execArgs, startInfo.EnvironmentVariables["0install-runenv-args-exec-in-path"]);
             Assert.AreEqual(Locations.GetCacheDirPath("0install.net", "injector", "executables", "exec-in-path") + Path.PathSeparator + new ProcessStartInfo().EnvironmentVariables["PATH"], startInfo.EnvironmentVariables["PATH"]);
         }
 
