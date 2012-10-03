@@ -124,7 +124,7 @@ namespace Common.Streams
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            stream.Position = 0;
+            if (stream.CanSeek) stream.Position = 0;
             var reader = new StreamReader(stream, new UTF8Encoding(false));
             return reader.ReadToEnd();
         }

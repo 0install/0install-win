@@ -30,7 +30,10 @@ namespace ZeroInstall.Store.Implementation.Archive
     public class ZipExtractor : Extractor
     {
         #region Variables
-        private readonly ZipFile _zip;
+        /// <summary>Information about the files in the archive as stored in the central directory.</summary>
+        private readonly ZipEntry[] _centralDirectory;
+
+        private readonly ZipInputStream _zipStream;
         #endregion
 
         #region Constructor
@@ -47,10 +50,19 @@ namespace ZeroInstall.Store.Implementation.Archive
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
-            // Create a ZIP-reading stream that doesn't dispose the underlying file stream
             try
             {
-                _zip = new ZipFile(stream) {IsStreamOwner = false};
+                // Read the central directory
+                using (var zipFile = new ZipFile(stream) {IsStreamOwner = false})
+                {
+                    _centralDirectory = new ZipEntry[zipFile.Count];
+                    for (int i = 0; i < _centralDirectory.Length; i++)
+                        _centralDirectory[i] = zipFile[i];
+                }
+                stream.Seek(0, SeekOrigin.Begin);
+
+                // Create a ZIP-reading stream that does not dispose the underlying file stream
+                _zipStream = new ZipInputStream(stream) {IsStreamOwner = false};
             }
                 #region Error handling
             catch (ZipException ex)
@@ -74,23 +86,25 @@ namespace ZeroInstall.Store.Implementation.Archive
             {
                 if (!Directory.Exists(TargetDir)) Directory.CreateDirectory(TargetDir);
 
-                foreach (ZipEntry entry in _zip)
+                // Read ZIP file sequentially and reference central directory in parallel
+                int i = 0;
+                ZipEntry localEntry;
+                while ((localEntry = _zipStream.GetNextEntry()) != null)
                 {
-                    string entryName = GetSubEntryName(entry.Name);
-                    if (string.IsNullOrEmpty(entryName)) continue;
-                    DateTime modTime = GetEntryDateTime(entry);
+                    ZipEntry centralEntry = _centralDirectory[i++];
 
-                    if (entry.IsDirectory) CreateDirectory(entryName, modTime);
-                    else if (entry.IsFile)
+                    string entryName = GetSubEntryName(centralEntry.Name);
+                    if (string.IsNullOrEmpty(entryName)) continue;
+                    DateTime modTime = GetEntryDateTime(centralEntry, localEntry);
+
+                    if (centralEntry.IsDirectory) CreateDirectory(entryName, modTime);
+                    else if (centralEntry.IsFile)
                     {
-                        using (var stream = _zip.GetInputStream(entry))
-                        {
-                            if (IsSymlink(entry)) CreateSymlink(entryName, StreamUtils.ReadToString(stream));
-                            else WriteFile(entryName, modTime, stream, entry.Size, IsExecutable(entry));
-                        }
+                        if (IsSymlink(centralEntry)) CreateSymlink(entryName, StreamUtils.ReadToString(_zipStream));
+                        else WriteFile(entryName, modTime, _zipStream, centralEntry.Size, IsExecutable(centralEntry));
                     }
 
-                    UnitsProcessed += entry.CompressedSize;
+                    UnitsProcessed += centralEntry.CompressedSize;
                 }
 
                 SetDirectoryWriteTimes();
@@ -112,14 +126,16 @@ namespace ZeroInstall.Store.Implementation.Archive
         }
 
         /// <summary>
-        /// Determines the "last changed" time of <see cref="ZipEntry"/>, using extended Unix data if possible.
+        /// Determines the "last changed" time of an entry, using extended Unix data if possible.
         /// </summary>
-        private static DateTime GetEntryDateTime(ZipEntry entry)
+        /// <param name="centralEntry">The entry data from the central directory.</param>
+        /// <param name="localEntry">The entry data from the local header.</param>
+        private static DateTime GetEntryDateTime(ZipEntry centralEntry, ZipEntry localEntry)
         {
-            if (entry.HostSystem == (int)HostSystemID.Unix)
+            if (centralEntry.HostSystem == (int)HostSystemID.Unix)
             {
                 var unixData = new ExtendedUnixData();
-                var extraData = new ZipExtraData(entry.ExtraData);
+                var extraData = new ZipExtraData(centralEntry.ExtraData);
                 if (extraData.Find(unixData.TagID))
                 {
                     // Parse Unix data
@@ -128,9 +144,21 @@ namespace ZeroInstall.Store.Implementation.Archive
                     return unixData.CreateTime;
                 }
             }
+            //else if (centralEntry.HostSystem == (int)HostSystemID.WindowsNT)
+            //{
+            //    var ntData = new NTTaggedData();
+            //    var extraData = new ZipExtraData(centralEntry.ExtraData);
+            //    if (extraData.Find(ntData.TagID))
+            //    {
+            //        // Parse Unix data
+            //        var entryData = extraData.GetEntryData();
+            //        ntData.SetData(entryData, 0, entryData.Length);
+            //        return ntData.LastModificationTime;
+            //    }
+            //}
 
             // Fall back to simple DOS time
-            return entry.DateTime;
+            return localEntry.DateTime;
         }
 
         /// <summary>
@@ -165,7 +193,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             try
             {
                 if (disposing)
-                    if (_zip != null) _zip.Close();
+                    if (_zipStream != null) _zipStream.Close();
             }
             finally
             {
