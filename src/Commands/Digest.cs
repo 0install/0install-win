@@ -17,7 +17,6 @@
 
 using System;
 using System.IO;
-using System.Text;
 using Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -137,11 +136,14 @@ namespace ZeroInstall.Commands
             }
             else throw new FileNotFoundException(string.Format(Resources.FileOrDirNotFound, path));
 
-            var output = new StringBuilder();
-            if (!_printManifest && !_printDigest) _printDigest = true;
-            if (_printManifest) output.Append(manifest);
-            if (_printDigest) output.Append(manifest.CalculateDigest());
-            Policy.Handler.Output("Manifest digest", output.ToString());
+            string output;
+            if (_printManifest)
+            {
+                output = manifest.ToString().TrimEnd('\n');
+                if (_printDigest) output += "\n" + manifest.CalculateDigest();
+            }
+            else output = manifest.CalculateDigest();
+            Policy.Handler.Output("Manifest digest", output);
             return 0;
         }
         #endregion
