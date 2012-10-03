@@ -1,7 +1,7 @@
 Index: TarInputStream.cs
 ===================================================================
---- TarInputStream.cs	(revision 524)
-+++ TarInputStream.cs	(working copy)
+--- src/Tar/TarInputStream.cs	(revision 524)
++++ src/Tar/TarInputStream.cs	(working copy)
 @@ -493,6 +493,8 @@
  						headerBuf = this.tarBuffer.ReadBlock();
  					} else if (header.TypeFlag != TarHeader.LF_NORMAL && 

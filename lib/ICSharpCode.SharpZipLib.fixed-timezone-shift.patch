@@ -1,7 +1,7 @@
-Index: ZipEntry.cs
+Index: src/Zip/ZipEntry.cs
 ===================================================================
---- ZipEntry.cs	(revision 524)
-+++ ZipEntry.cs	(working copy)
+--- src/Zip/ZipEntry.cs	(revision 524)
++++ src/Zip/ZipEntry.cs	(working copy)
 @@ -1004,7 +1004,7 @@
  							long lastAccess = extraData.ReadLong();
  							long createTime = extraData.ReadLong();
@@ -22,10 +22,10 @@ Index: ZipEntry.cs
  				}
  			}
  			if (method == CompressionMethod.WinZipAES) {
-Index: ZipExtraData.cs
+Index: src/Zip/ZipExtraData.cs
 ===================================================================
---- ZipExtraData.cs	(revision 524)
-+++ ZipExtraData.cs	(working copy)
+--- src/Zip/ZipExtraData.cs	(revision 524)
++++ src/Zip/ZipExtraData.cs	(working copy)
 @@ -197,24 +197,24 @@
  				{
  					int iTime = helperStream.ReadLEInt();
@@ -78,3 +78,46 @@ Index: ZipExtraData.cs
  					int seconds = (int)span.TotalSeconds;
  					helperStream.WriteLEInt(seconds);
  				}
+@@ -374,13 +374,13 @@
+ 						if (ntfsLength >= 24)
+ 						{
+ 							long lastModificationTicks = helperStream.ReadLELong();
+-							_lastModificationTime = DateTime.FromFileTime(lastModificationTicks);
++							_lastModificationTime = DateTime.FromFileTimeUtc(lastModificationTicks);
+ 
+ 							long lastAccessTicks = helperStream.ReadLELong();
+-							_lastAccessTime = DateTime.FromFileTime(lastAccessTicks);
++                            _lastAccessTime = DateTime.FromFileTimeUtc(lastAccessTicks);
+ 
+ 							long createTimeTicks = helperStream.ReadLELong();
+-							_createTime = DateTime.FromFileTime(createTimeTicks);
++                            _createTime = DateTime.FromFileTimeUtc(createTimeTicks);
+ 						}
+ 						break;
+ 					}
+@@ -406,9 +406,9 @@
+ 				helperStream.WriteLEInt(0);       // Reserved
+ 				helperStream.WriteLEShort(1);     // Tag
+ 				helperStream.WriteLEShort(24);    // Length = 3 x 8.
+-				helperStream.WriteLELong(_lastModificationTime.ToFileTime());
+-				helperStream.WriteLELong(_lastAccessTime.ToFileTime());
+-				helperStream.WriteLELong(_createTime.ToFileTime());
++				helperStream.WriteLELong(_lastModificationTime.ToFileTimeUtc());
++				helperStream.WriteLELong(_lastAccessTime.ToFileTimeUtc());
++                helperStream.WriteLELong(_createTime.ToFileTimeUtc());
+ 				return ms.ToArray();
+ 			}
+ 		}
+@@ -482,9 +482,9 @@
+ 		}
+ 
+ 		#region Instance Fields
+-		DateTime _lastAccessTime = DateTime.FromFileTime(0);
+-		DateTime _lastModificationTime = DateTime.FromFileTime(0);
+-		DateTime _createTime = DateTime.FromFileTime(0);
++        DateTime _lastAccessTime = DateTime.FromFileTimeUtc(0);
++        DateTime _lastModificationTime = DateTime.FromFileTimeUtc(0);
++        DateTime _createTime = DateTime.FromFileTimeUtc(0);
+ 		#endregion
+ 	}
+ 
