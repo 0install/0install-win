@@ -303,6 +303,7 @@ namespace ZeroInstall.Store.Implementation
 
             // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
             string tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
+            Directory.CreateDirectory(tempDir);
 
             try
             {

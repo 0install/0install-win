@@ -41,7 +41,7 @@ namespace ZeroInstall.Store.Management.Cli
 
             if (File.Exists(path) || args.Count > 3)
             { // One or more archives (combined/overlayed)
-                var archives = new ArchiveFileInfo[(args.Count - 1) / 3];
+                var archives = new ArchiveFileInfo[(args.Count + 1) / 3];
                 for (int i = 0; i < archives.Length; i++)
                 {
                     archives[i] = new ArchiveFileInfo
