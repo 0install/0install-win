@@ -39,9 +39,9 @@ namespace ZeroInstall.Store.Management.Cli
             var manifestDigest = new ManifestDigest(args[1]);
             string path = args[2];
 
-            if (File.Exists(path) || args.Count > 3)
+            if (File.Exists(path))
             { // One or more archives (combined/overlayed)
-                var archives = new ArchiveFileInfo[(args.Count + 1) / 3];
+                var archives = new ArchiveFileInfo[args.Count / 3];
                 for (int i = 0; i < archives.Length; i++)
                 {
                     archives[i] = new ArchiveFileInfo
@@ -56,6 +56,7 @@ namespace ZeroInstall.Store.Management.Cli
             }
             else if (Directory.Exists(path))
             { // A single directory
+                if (args.Count > 3) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageAdd));
                 _store.AddDirectory(path, manifestDigest, handler);
                 return ErrorLevel.OK;
             }
