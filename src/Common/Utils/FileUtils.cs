@@ -401,14 +401,14 @@ namespace Common.Utils
             #endregion
         }
 
+        private static readonly FileSystemAccessRule _denyEveryoneWrite = new FileSystemAccessRule(new SecurityIdentifier("S-1-1-0" /*Everyone*/), FileSystemRights.Write, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Deny);
+
         private static void ToggleWriteProtectionWinNT(DirectoryInfo directory, bool enable)
         {
-            // Add ACL to directory: Everyone = Deny write
-            DirectorySecurity security = directory.GetAccessControl();
-            var denyEveryoneWrite = new FileSystemAccessRule(new SecurityIdentifier("S-1-1-0" /*Everyone*/), FileSystemRights.Write, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Deny);
-            if (enable) security.AddAccessRule(denyEveryoneWrite);
-            else security.RemoveAccessRule(denyEveryoneWrite);
-            directory.SetAccessControl(security);
+            var acl = directory.GetAccessControl();
+            if (enable) acl.AddAccessRule(_denyEveryoneWrite);
+            else acl.RemoveAccessRule(_denyEveryoneWrite);
+            directory.SetAccessControl(acl);
         }
         #endregion
 

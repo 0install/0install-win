@@ -136,11 +136,16 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         if (accessPoint)
                         {
                             if (!systemWide && WindowsUtils.IsWindowsVista && !WindowsUtils.IsWindows8)
-                            { // Windows Vista and later store per-user file extension overrides; Windows 8 blocks programmatic access to this
+                            {
+                                // Windows Vista and later store per-user file extension overrides, Windows 8 blocks programmatic modification with hash values
                                 using (var overridesKey = hive.OpenSubKey(RegKeyOverrides, true))
                                 using (var extensionOverrideKey = overridesKey.CreateSubKey(extension.Value))
-                                using (var userChoiceKey = extensionOverrideKey.CreateSubKey("UserChoice"))
-                                    userChoiceKey.SetValue("Progid", fileType.ID);
+                                {
+                                    // Must delete and recreate instead of direct modification due to wicked ACLs
+                                    extensionOverrideKey.DeleteSubKey("UserChoice", false);
+                                    using (var userChoiceKey = extensionOverrideKey.CreateSubKey("UserChoice"))
+                                        userChoiceKey.SetValue("Progid", RegKeyPrefix + fileType.ID);
+                                }
                             }
                             else extensionKey.SetValue("", RegKeyPrefix + fileType.ID);
                         }
@@ -185,24 +190,24 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     // Unegister MIME types
                     if (!string.IsNullOrEmpty(extension.MimeType))
                     {
-                        if (!systemWide && Environment.OSVersion.Version >= new Version(6, 0) && Environment.OSVersion.Version < new Version(6, 2))
-                        { // Windows Vista and 7 have a special per-user extension override; Windows 8 blocks programmatic access to this override
-                            using (var overridesKey = hive.OpenSubKey(RegKeyOverrides, true))
-                            using (var extensionOverrideKey = overridesKey.CreateSubKey(extension.Value))
-                            using (var userChoiceKey = extensionOverrideKey.CreateSubKey("UserChoice"))
-                            {
-                                // ToDo
-                                //userChoiceKey.SetValue("Progid", fileType.PreviousID);
-                            }
-                        }
-                        else
+                        using (var extensionKey = classesKey.CreateSubKey(extension.Value))
                         {
-                            using (var extensionKey = classesKey.CreateSubKey(extension.Value))
-                            {
-                                // ToDo
-                                //extensionKey.SetValue("", RegKeyPrefix + fileType.PreviousID);
-                            }
+                            // ToDo
+                            //extensionKey.SetValue("", fileType.PreviousID);
                         }
+
+                        //if (!systemWide && WindowsUtils.IsWindowsVista && !WindowsUtils.IsWindows8)
+                        //{
+                        //    // Windows Vista and later store per-user file extension overrides, Windows 8 blocks programmatic modification with hash values
+                        //    using (var overridesKey = hive.OpenSubKey(RegKeyOverrides, true))
+                        //    using (var extensionOverrideKey = overridesKey.CreateSubKey(extension.Value))
+                        //    {
+                        //        // Must delete and recreate instead of direct modification due to wicked ACLs
+                        //        extensionOverrideKey.DeleteSubKey("UserChoice", false);
+                        //        using (var userChoiceKey = extensionOverrideKey.CreateSubKey("UserChoice"))
+                        //            userChoiceKey.SetValue("Progid", fileType.PreviousID);
+                        //    }
+                        //}
                     }
 
                     // Unregister extensions
