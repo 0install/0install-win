@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Security;
 using Common;
+using Common.Utils;
 using Microsoft.Win32;
 using ZeroInstall.Capture.Properties;
 using ZeroInstall.Model;
@@ -180,8 +181,8 @@ namespace ZeroInstall.Capture
                 {
                     // Check if the file type already has the extension and add it if not
                     FileTypeExtension temp;
-                    if (!fileType.Extensions.Find(element => element.Value == extension, out temp))
-                        fileType.Extensions.Add(new FileTypeExtension {Value = extension});
+                    if (!fileType.Extensions.Find(element => StringUtils.Compare(element.Value, extension), out temp))
+                        fileType.Extensions.Add(new FileTypeExtension {Value = extension.ToLower()});
                     break;
                 }
             }

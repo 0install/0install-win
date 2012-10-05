@@ -121,20 +121,20 @@ namespace ZeroInstall.Capture
             {
                 var commandMapper = new CommandMapper(installationDir, commands);
 
-                CollectDefaultPrograms(snapshotDiff, commandMapper, capabilities, ref appName);
-
-                var appRegistration = GetAppRegistration(snapshotDiff, commandMapper, capabilities, ref appName, ref appDescription);
-                capabilities.Entries.Add(appRegistration);
-                if (appRegistration == null)
-                { // Only collect URL protocols if there wasn't already an application registration that covered them
-                    CollectProtocolAssocs(snapshotDiff.ProtocolAssocs, commandMapper, capabilities);
-                }
-
                 CollectFileTypes(snapshotDiff, commandMapper, capabilities);
                 CollectContextMenus(snapshotDiff, commandMapper, capabilities);
                 CollectAutoPlays(snapshotDiff, commandMapper, capabilities);
                 CollectComServers(snapshotDiff.ClassIDs, commandMapper, capabilities);
                 CollectGames(snapshotDiff.Games, commandMapper, capabilities);
+
+                CollectDefaultPrograms(snapshotDiff, commandMapper, capabilities, ref appName);
+
+                var appRegistration = GetAppRegistration(snapshotDiff, commandMapper, capabilities, ref appName, ref appDescription);
+                if (appRegistration != null) capabilities.Entries.Add(appRegistration);
+                else
+                { // Only collect URL protocols if there wasn't already an application registration that covered them
+                    CollectProtocolAssocs(snapshotDiff.ProtocolAssocs, commandMapper, capabilities);
+                }
             }
                 #region Error handling
             catch (SecurityException ex)

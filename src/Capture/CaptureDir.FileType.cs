@@ -97,9 +97,6 @@ namespace ZeroInstall.Capture
                         }
                     }
 
-                    // Don't create file types with no extensions
-                    if (fileType.Extensions.IsEmpty) return null;
-
                     capability = fileType;
                 }
                 else
