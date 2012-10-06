@@ -31,7 +31,7 @@ namespace ZeroInstall.Commands
             Options.Add("o|offline", Resources.OptionOffline, unused => Policy.Config.NetworkUse = NetworkLevel.Offline);
             Options.Add("r|refresh", Resources.OptionRefresh, unused => Policy.FeedManager.Refresh = true);
 
-            Options.Add("g|global", Resources.OptionGlobal, unused => SystemWide = true);
+            Options.Add("system", Resources.OptionGlobal, unused => SystemWide = true);
         }
         #endregion
 

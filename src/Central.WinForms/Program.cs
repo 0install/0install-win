@@ -87,7 +87,7 @@ namespace ZeroInstall.Central.WinForms
                 }
             }
 
-            bool systemWide = Array.Exists(args, arg => arg == "--global");
+            bool systemWide = Array.Exists(args, arg => arg == "--system");
             if (systemWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
 
             Application.Run(new MainForm(systemWide));
