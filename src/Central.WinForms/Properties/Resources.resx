@@ -160,6 +160,9 @@ Keep the application</value>
     <value>No
 Return to input</value>
   </data>
+  <data name="PortableMode" xml:space="preserve">
+    <value>Portable mode</value>
+  </data>
   <data name="ProblemLoadingOptions" xml:space="preserve">
     <value>There was a problem loading the options.</value>
   </data>
@@ -174,6 +177,9 @@ Return to input</value>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Do you want to remove the {0} selected entries from the list?</value>
+  </data>
+  <data name="Run" xml:space="preserve">
+    <value>Run</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Do you wish to save any changes made?</value>
@@ -226,6 +232,9 @@ Keep this key secret and use something different for your password. This way nob
     <value>The data currently stored on the Sync server is damaged.
 You can replace the data stored on the server by choosing that you don't remember the Crypto key.</value>
   </data>
+  <data name="SystemWideMode" xml:space="preserve">
+    <value>System-wide mode</value>
+  </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Are you sure you want to use an unencrypted connection to a Sync server?
 Encrypted connections use an https:// prefix.</value>
@@ -243,8 +252,5 @@ Remove the application</value>
   <data name="YesWizardContinue" xml:space="preserve">
     <value>Yes
 Continue wizard</value>
-  </data>
-  <data name="Run" xml:space="preserve">
-    <value>Run</value>
   </data>
 </root>

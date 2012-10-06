@@ -68,8 +68,8 @@ namespace ZeroInstall.Central.WinForms
 
             Load += delegate
             {
-                if (systemWide) Text += @" - System-wide mode";
-                if (Locations.IsPortable) Text += @" - Portable mode";
+                if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
+                if (systemWide) Text += @" - " + Resources.SystemWideMode;
                 labelVersion.Text = @"v" + Application.ProductVersion;
 
                 try

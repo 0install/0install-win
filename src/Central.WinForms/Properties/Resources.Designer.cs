@@ -155,6 +155,15 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Portable mode.
+        /// </summary>
+        internal static string PortableMode {
+            get {
+                return ResourceManager.GetString("PortableMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There was a problem loading the options..
         /// </summary>
         internal static string ProblemLoadingOptions {
@@ -360,6 +369,15 @@ namespace ZeroInstall.Central.WinForms.Properties {
         internal static string SyncServerDataDamaged {
             get {
                 return ResourceManager.GetString("SyncServerDataDamaged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System-wide mode.
+        /// </summary>
+        internal static string SystemWideMode {
+            get {
+                return ResourceManager.GetString("SystemWideMode", resourceCulture);
             }
         }
         
