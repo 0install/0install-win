@@ -344,7 +344,7 @@ namespace ZeroInstall.Central.WinForms
 
             ProcessUtils.RunAsync(delegate
             {
-                Commands.WinForms.Program.Main(_systemWide ? new[] {"integrate-app", "--global", InterfaceID} : new[] {"integrate-app", InterfaceID});
+                Commands.WinForms.Program.Main(_systemWide ? new[] {"integrate-app", "--system", InterfaceID} : new[] {"integrate-app", InterfaceID});
                 InvokeUpdateButtons(); // Restore buttons
             });
         }
@@ -358,7 +358,7 @@ namespace ZeroInstall.Central.WinForms
 
             ProcessUtils.RunAsync(delegate
             {
-                Commands.WinForms.Program.Main(_systemWide ? new[] {"remove-app", "--global", InterfaceID} : new[] {"remove-app", InterfaceID});
+                Commands.WinForms.Program.Main(_systemWide ? new[] {"remove-app", "--system", InterfaceID} : new[] {"remove-app", InterfaceID});
                 InvokeUpdateButtons(); // Restore buttons
             });
         }
