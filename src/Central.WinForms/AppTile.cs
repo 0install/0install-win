@@ -332,7 +332,7 @@ namespace ZeroInstall.Central.WinForms
 
             ProcessUtils.RunAsync(delegate
             {
-                Commands.WinForms.Program.Main(_systemWide ? new[] {"add-app", "--global", InterfaceID} : new[] {"add-app", InterfaceID});
+                Commands.WinForms.Program.Main(_systemWide ? new[] {"add-app", "--system", InterfaceID} : new[] {"add-app", InterfaceID});
                 InvokeUpdateButtons(); // Restore buttons
             });
         }
