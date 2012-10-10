@@ -343,13 +343,15 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
     <value>Entferne alle {CATEGORY} Access Points.</value>
   </data>
   <data name="OptionBatch" xml:space="preserve">
-    <value>Im Stapelverarbeitungsmodus ausführen: dem Benutzer keine Meldungen zeigen und Rückfragen stillschweigend mit "Nein" beantworten.</value>
+    <value>Im Stapelverarbeitungsmodus ausführen: dem Benutzer keine Meldungen zeigen und Rückfragen stillschweigend mit "Nein" beantworten.
+Traysymbol im grafischen Modus verwenden.</value>
   </data>
   <data name="OptionBefore" xml:space="preserve">
     <value>Die Version der ausgewählten Implementierung muss vor {VERSION} liegen. Zum Beispiel können Sie damit die Verwendung einer älteren Version des Programmes erzwingen.</value>
   </data>
   <data name="OptionCommand" xml:space="preserve">
-    <value>Anstelle der Ausführung des Standardkommandos, verwenden Sie {COMMAND}. Mögliche Kommandos sind im Programminterface spezifiziert. Auf leer ("") setzen um den Command bei der Auswahl zu ignorieren.</value>
+    <value>Anstelle der Ausführung des Standardkommandos, verwenden Sie {COMMAND}. Mögliche Kommandos sind im Programminterface spezifiziert.
+Auf leer ("") setzen um den Command bei der Auswahl zu ignorieren.</value>
   </data>
   <data name="OptionCpu" xml:space="preserve">
     <value>Zwingt den Solver auf eine bestimmte {CPU} abzuzielen.</value>
@@ -383,7 +385,8 @@ Darf keine Befehlszeilenargumente enthalten! Leerzeichen müssen nicht escaped w
     <value>Der Befehlt wird sofort beendet, sobald das Programm gestartet wurde, anstelle auf dessen Beendigung zu warten.</value>
   </data>
   <data name="OptionOffline" xml:space="preserve">
-    <value>Startet im Offline-Modus und überschreibt dabei die Standardeinstellung. Im Offline-Modus wird kein Interface erneuert, auch wenn es veraltet ist und neuere Versionen des Programms werden nicht heruntergeladen, auch wenn der Injektor sie kennt (zum Beispiel durch eine frühere Erneuerung).</value>
+    <value>Startet im Offline-Modus und überschreibt dabei die Standardeinstellung.
+Im Offline-Modus wird kein Interface erneuert, auch wenn es veraltet ist und neuere Versionen des Programms werden nicht heruntergeladen, auch wenn der Injektor sie kennt (zum Beispiel durch eine frühere Erneuerung).</value>
   </data>
   <data name="OptionOS" xml:space="preserve">
     <value>Zwingt den Solver auf ein bestimmtes Betriebssystem {OS} abzuzielen.</value>
@@ -410,19 +413,21 @@ Darf keine Befehlszeilenargumente enthalten! Leerzeichen müssen nicht escaped w
     <value>Zeigt Versionsinformationen an.</value>
   </data>
   <data name="OptionVersionRange" xml:space="preserve">
-    <value>Benötige eine Version des Hauptprogramms innerhalb des angegebenen {RANGE}. Ranges werden durch Pipes (|) getrennt.
+    <value>Benötige eine Version des Hauptprogramms innerhalb des angegebenen {RANGE}.
+Ranges werden durch Pipes (|) getrennt.
 Jede Range ist in der Form "START..!ENDE". Die Ranges akzeptieren Versionen bei denen gilt: START &lt;= VERSION &lt; ENDE. Der Start oder das Ende können weggelassen werden.
 Eine einzelne Versionsnummer kann anstelle eines Ranges angegeben werden um nur diese Version zu akzeptieren, oder !VERSION um alles außer der Version zu akzeptieren.</value>
   </data>
   <data name="OptionVersionRangeFor" xml:space="preserve">
-    <value>Für jede Bibliothek oder Subkomponente mit der angegebenen {URI} die Versions-{RANGE} spezifizieren (wie bei --version).</value>
+    <value>Spezifziert die Versions-{1:RANGE} ür jede Bibliothek oder Subkomponente mit der angegebenen {0:URI} (wie bei --version).</value>
   </data>
   <data name="OptionWithStore" xml:space="preserve">
     <value>Füge {DIR} zu der Liste der zu Durchsuchenden Implementierungscaches hinzu.
 Trotzdem werden neue Downloads nicht in dieses Verzeichnis gespeichert.</value>
   </data>
   <data name="OptionWrapper" xml:space="preserve">
-    <value>Anstelle das ausgewählte Programm direkt auszuführen, führe {COMMAND} PROGRAM ARGS aus. Dies ist nützlich um Debugger und Tracing Tools auf das Programm anzuwenden (anstatt auf Zero Install!).  Beachten Sie, dass der Wrapper in der vom Programm festgelegten Umgebung ausgeführt wird. Somit ist dieser Mechanismus nicht für Sandboxing geeignet.
+    <value>Anstelle das ausgewählte Programm direkt auszuführen, führe {COMMAND} PROGRAM ARGS aus. Dies ist nützlich um Debugger und Tracing Tools auf das Programm anzuwenden (anstatt auf Zero Install!). 
+Beachten Sie, dass der Wrapper in der vom Programm festgelegten Umgebung ausgeführt wird. Somit ist dieser Mechanismus nicht für Sandboxing geeignet.
 Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</value>
   </data>
   <data name="OptionXml" xml:space="preserve">

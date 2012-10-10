@@ -724,7 +724,8 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Run in batch mode: don&apos;t display progress reports to the user and silently answer all questions with &quot;No&quot;. Use a tray icon when in GUI mode..
+        ///   Looks up a localized string similar to Run in batch mode: don&apos;t display progress reports to the user and silently answer all questions with &quot;No&quot;.
+        ///Use a tray icon when in GUI mode..
         /// </summary>
         internal static string OptionBatch {
             get {
@@ -742,7 +743,8 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Instead of executing the default command, use {COMMAND} instead. Possible command names are defined in the program&apos;s interface. Set to empty (&quot;&quot;) to ignore the command during selection..
+        ///   Looks up a localized string similar to Instead of executing the default command, use {COMMAND} instead. Possible command names are defined in the program&apos;s interface.
+        ///Set to empty (&quot;&quot;) to ignore the command during selection..
         /// </summary>
         internal static string OptionCommand {
             get {
@@ -842,7 +844,8 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Run in off-line mode, overriding the default setting. In off-line mode, no interfaces are refreshed even if they are out-of-date, and newer versions of programs won&apos;t be downloaded even if the injector already knows about them (e.g. from a previous refresh)..
+        ///   Looks up a localized string similar to Run in off-line mode, overriding the default setting.
+        ///In off-line mode, no interfaces are refreshed even if they are out-of-date, and newer versions of programs won&apos;t be downloaded even if the injector already knows about them (e.g. from a previous refresh)..
         /// </summary>
         internal static string OptionOffline {
             get {
@@ -923,7 +926,8 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Require a version of the main program within the given {RANGE}. Ranges are separated by pipes (|).
+        ///   Looks up a localized string similar to Require a version of the main program within the given {RANGE}.
+        ///Ranges are separated by pipes (|).
         ///Each range is in the form &quot;START..!END&quot;. The range matches versions where START &lt;= VERSION &lt; END. The start or end may be omitted.
         ///A single version number may be used instead of a range to match only that version, or !VERSION to match everything except that version..
         /// </summary>
@@ -934,7 +938,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For any library or sub-component with the given {URI} specifies the version {RANGE} (as for --version)..
+        ///   Looks up a localized string similar to Specifies the version {1:RANGE} for any library or sub-component with the given {0:URI} (as for --version)..
         /// </summary>
         internal static string OptionVersionRangeFor {
             get {
@@ -953,7 +957,8 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Instead of executing the chosen program directly, run {COMMAND} PROGRAM ARGS. This is useful for running debuggers and tracing tools on the program (rather than on Zero Install!). Note that the wrapper is executed in the environment selected by the program; hence, this mechanism cannot be used for sandboxing.
+        ///   Looks up a localized string similar to Instead of executing the chosen program directly, run {COMMAND} PROGRAM ARGS. This is useful for running debuggers and tracing tools on the program (rather than on Zero Install!).
+        ///Note that the wrapper is executed in the environment selected by the program; hence, this mechanism cannot be used for sandboxing.
         ///May contain command-line arguments. Whitespaces must be escaped!.
         /// </summary>
         internal static string OptionWrapper {

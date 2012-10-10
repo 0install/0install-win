@@ -93,8 +93,10 @@ namespace ZeroInstall.Commands
             });
 
             Options.Add("command=", Resources.OptionCommand, command => _requirements.CommandName = command);
-            Options.Add("version=", Resources.OptionVersionRange, (VersionRange range) => _requirements.Versions = range);
-            Options.Add("version-for=", Resources.OptionVersionRangeFor, (string interfaceID, VersionRange range) => _requirements.VersionsFor.Add(interfaceID, range));
+            Options.Add("version=", Resources.OptionVersionRange,
+                (VersionRange range) => _requirements.Versions = range);
+            Options.Add("version-for==", Resources.OptionVersionRangeFor,
+                (string interfaceID, VersionRange range) => _requirements.VersionsFor.Add(interfaceID, range));
             Options.Add("before=", Resources.OptionBefore, delegate(ImplementationVersion version)
             {
                 if (_requirements.Versions == null) _requirements.Versions = new VersionRange();
@@ -105,7 +107,8 @@ namespace ZeroInstall.Commands
                 if (_requirements.Versions == null) _requirements.Versions = new VersionRange();
                 _requirements.Versions = _requirements.Versions.Intersect(new Constraint {NotBefore = version});
             });
-            Options.Add("s|source", Resources.OptionSource, unused => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Cpu.Source));
+            Options.Add("s|source", Resources.OptionSource,
+                unused => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Cpu.Source));
             Options.Add("os=", Resources.OptionOS + "\n" + string.Format(Resources.SupportedValues, string.Join(", ", Architecture.KnownOSStrings)),
                 (OS os) => _requirements.Architecture = new Architecture(os, _requirements.Architecture.Cpu));
             Options.Add("cpu=", Resources.OptionCpu + "\n" + string.Format(Resources.SupportedValues, string.Join(", ", Architecture.KnownCpuStrings)),
