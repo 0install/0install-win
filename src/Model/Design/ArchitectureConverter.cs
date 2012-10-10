@@ -20,12 +20,19 @@ using System.Collections;
 using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
+using Common.Utils;
 using Common.Values.Design;
 
 namespace ZeroInstall.Model.Design
 {
     internal class ArchitectureConverter : ValueTypeConverter<Architecture>
     {
+        /// <inheritdoc/>
+        protected override string GetElementSeparator(CultureInfo culture)
+        {
+            return "-";
+        }
+
         /// <inheritdoc/>
         protected override int NoArguments { get { return 2; } }
 
@@ -44,7 +51,7 @@ namespace ZeroInstall.Model.Design
         /// <inheritdoc/>
         protected override string[] GetValues(Architecture value, ITypeDescriptorContext context, CultureInfo culture)
         {
-            return new[] {value.OS.ToString(), value.Cpu.ToString()};
+            return new[] {AttributeUtils.ConvertToString(value.OS), AttributeUtils.ConvertToString(value.Cpu)};
         }
 
         /// <inheritdoc/>
@@ -55,8 +62,8 @@ namespace ZeroInstall.Model.Design
             #endregion
 
             return new Architecture(
-                (OS)Enum.Parse(typeof(OS), values[0], true),
-                (Cpu)Enum.Parse(typeof(Cpu), values[1], true));
+                AttributeUtils.ConvertFromString<OS>(values[0]),
+                AttributeUtils.ConvertFromString<Cpu>(values[1]));
         }
 
         /// <inheritdoc/>
@@ -67,8 +74,8 @@ namespace ZeroInstall.Model.Design
             #endregion
 
             return new Architecture(
-                (OS)Enum.Parse(typeof(OS), propertyValues["OS"].ToString(), true),
-                (Cpu)Enum.Parse(typeof(Cpu), propertyValues["Cpu"].ToString(), true));
+                AttributeUtils.ConvertFromString<OS>(propertyValues["OS"].ToString()),
+                AttributeUtils.ConvertFromString<Cpu>(propertyValues["Cpu"].ToString()));
         }
     }
 }

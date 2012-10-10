@@ -87,6 +87,7 @@
     <Compile Include="Tasks\GuiTaskHandler.cs" />
     <Compile Include="Tasks\WaitTask.cs" />
     <Compile Include="Utils\ArchiveUtils.cs" />
+    <Compile Include="Utils\AttributeUtils.cs" />
     <Compile Include="Utils\LzmaUtils.cs" />
     <Compile Include="Tasks\DownloadFile.cs" />
     <Compile Include="Cli\ArgumentUtils.cs" />
@@ -143,8 +144,9 @@
     <Compile Include="Undo\RemoveFromCollection.cs" />
     <Compile Include="Undo\SetLocalizableString.cs" />
     <Compile Include="Undo\CompositeCommand.cs" />
+    <Compile Include="Values\Design\EnumDescriptionConverter.cs" />
     <Compile Include="Values\Design\StringConstructorConverter.cs" />
-    <Compile Include="Values\Design\XmlEnumConverter.cs" />
+    <Compile Include="Values\Design\EnumXmlConverter.cs" />
     <Compile Include="Values\Design\StructConverter.cs" />
     <Compile Include="Values\Design\TimeSpanEditor.cs" />
     <Compile Include="Controls\ErrorReportForm.ErrorReport.cs" />

@@ -17,7 +17,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Reflection;
 using System.Xml.Serialization;
 using Common.Utils;
 using Common.Values.Design;
@@ -31,7 +30,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Describes an operating system family.
     /// </summary>
-    [TypeConverter(typeof(XmlEnumConverter<OS>))]
+    [TypeConverter(typeof(EnumXmlConverter<OS>))]
     public enum OS
     {
         /// <summary>Supports all operating systems (e.g. developed with cross-platform language like Java).</summary>
@@ -74,7 +73,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Describes a CPU architecture.
     /// </summary>
-    [TypeConverter(typeof(XmlEnumConverter<Cpu>))]
+    [TypeConverter(typeof(EnumXmlConverter<Cpu>))]
     public enum Cpu
     {
         /// <summary>Supports all CPU architectures (e.g. developed with cross-platform language like Java).</summary>
@@ -142,36 +141,10 @@ namespace ZeroInstall.Model
         public OS OS { get; set; }
 
         /// <summary>
-        /// The canonical string representation of <see cref="OS"/>.
-        /// </summary>
-        [Browsable(false)]
-        public string OSString { get { return EnumToString(OS); } }
-
-        /// <summary>
         /// Determines which CPU-architectures are supported.
         /// </summary>
         [Description("Determines which CPU-architectures are supported.")]
         public Cpu Cpu { get; set; }
-
-        /// <summary>
-        /// The canonical string representation of <see cref="Cpu"/>.
-        /// </summary>
-        [Browsable(false)]
-        public string CpuString { get { return EnumToString(Cpu); } }
-
-        private static string EnumToString(Enum value)
-        {
-            Type type = value.GetType();
-            // ReSharper disable SpecifyACultureInStringConversionExplicitly
-            FieldInfo fieldInfo = type.GetField(value.ToString());
-            // ReSharper restore SpecifyACultureInStringConversionExplicitly
-
-            // Get the XmlEnum attributes
-            var attribs = (XmlEnumAttribute[])fieldInfo.GetCustomAttributes(typeof(XmlEnumAttribute), false);
-
-            // Return the first if there was a match
-            return (attribs.Length > 0 ? attribs[0].Name : "");
-        }
 
         /// <summary>
         /// Returns an architecture representing the currently running system.
@@ -214,10 +187,8 @@ namespace ZeroInstall.Model
 
             try
             {
-                // ReSharper disable PossibleNullReferenceException
-                OS = (OS)TypeDescriptor.GetConverter(typeof(OS)).ConvertFromInvariantString(os);
-                Cpu = (Cpu)TypeDescriptor.GetConverter(typeof(Cpu)).ConvertFromInvariantString(cpu);
-                // ReSharper restore PossibleNullReferenceException
+                OS = AttributeUtils.ConvertFromString<OS>(os);
+                Cpu = AttributeUtils.ConvertFromString<Cpu>(cpu);
             }
                 #region Error handling
             catch (ArgumentNullException ex)
@@ -303,7 +274,7 @@ namespace ZeroInstall.Model
         /// </summary>
         public override string ToString()
         {
-            return OSString + "-" + CpuString;
+            return AttributeUtils.ConvertToString(OS) + "-" + AttributeUtils.ConvertToString(Cpu);
         }
         #endregion
 

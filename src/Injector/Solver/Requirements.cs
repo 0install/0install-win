@@ -119,8 +119,8 @@ namespace ZeroInstall.Injector.Solver
             if (Architecture.Cpu == Cpu.Source) builder.Append("--source ");
             else
             {
-                if (Architecture.OS != OS.All) builder.Append("--os=" + StringUtils.EscapeArgument(Architecture.OSString) + " ");
-                if (Architecture.Cpu != Cpu.All) builder.Append("--cpu=" + StringUtils.EscapeArgument(Architecture.CpuString) + " ");
+                if (Architecture.OS != OS.All) builder.Append("--os=" + StringUtils.EscapeArgument(AttributeUtils.ConvertToString(Architecture.OS)) + " ");
+                if (Architecture.Cpu != Cpu.All) builder.Append("--cpu=" + StringUtils.EscapeArgument(AttributeUtils.ConvertToString(Architecture.Cpu)) + " ");
             }
             if (Versions != null) builder.Append("--version=" + StringUtils.EscapeArgument(Versions.ToString()) + " ");
             foreach (var pair in VersionsFor)

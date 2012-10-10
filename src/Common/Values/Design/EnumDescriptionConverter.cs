@@ -23,19 +23,34 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using Common.Utils;
 
 namespace Common.Values.Design
 {
     /// <summary>
-    /// Generic type converter for classes that have a constructor with a single string argument and a coressponding <see cref="object.ToString"/> implementation.
+    /// Type converter for <see cref="Enum"/> <see cref="Enum"/>s annotated with <see cref="DescriptionAttribute"/>s.
     /// </summary>
     /// <typeparam name="T">The type the converter is used for.</typeparam>
     /// <example>
-    ///   Add this attribute to the type:
-    ///   <code>[TypeConverter(typeof(StringConstructorConverter&lt;NameOfType&gt;))]</code>
+    ///   Add this attribute to the <see cref="Enum"/>:
+    ///   <code>[TypeConverter(typeof(DescriptionEnumConverter&lt;NameOfEnum&gt;))]</code>
     /// </example>
-    public class StringConstructorConverter<T> : TypeConverter
+    /// <remarks><see cref="DescriptionAttribute.Description"/> is used as the case-insensitive string representation (falls back to element name).</remarks>
+    public class EnumDescriptionConverter<T> : TypeConverter where T : struct
     {
+        private static object GetEnumFromString(string stringValue)
+        {
+            if (stringValue == "") throw new ArgumentNullException();
+
+            foreach (var field in typeof(T).GetFields())
+            {
+                var attributes = (DescriptionAttribute[])field.GetCustomAttributes(typeof(DescriptionAttribute), false);
+                if (attributes.Length > 0 && StringUtils.Compare(attributes[0].Description, stringValue))
+                    return field.GetValue(field.Name);
+            }
+            return Enum.Parse(typeof(T), stringValue, true);
+        }
+
         /// <inheritdoc/>
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
@@ -46,29 +61,16 @@ namespace Common.Values.Design
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var stringValue = value as string;
-            if (stringValue != null)
-            {
-                var constructor = typeof(T).GetConstructor(new[] {typeof(string)});
-                if (constructor != null)
-                {
-                    try
-                    {
-                        return constructor.Invoke(new object[] {stringValue});
-                    }
-                    catch (Exception ex)
-                    {
-                        if (ex.InnerException != null) throw ex.InnerException;
-                        else throw;
-                    }
-                }
-            }
+            if (stringValue != null) return GetEnumFromString(stringValue);
             return base.ConvertFrom(context, culture, value);
         }
 
         /// <inheritdoc/>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (value != null && destinationType == typeof(string)) return value.ToString();
+            var enumValue = value as Enum;
+            if (enumValue != null && destinationType == typeof(string))
+                return AttributeUtils.GetEnumAttributeValue((Enum)value, (DescriptionAttribute attribute) => attribute.Description);
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }

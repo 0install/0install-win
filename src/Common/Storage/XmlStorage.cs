@@ -137,15 +137,15 @@ namespace Common.Storage
             var serializer = new XmlSerializer(typeof(T));
 
             // Detect XmlRoot attribute
-            var rootAttributes = typeof(T).GetCustomAttributes(typeof(XmlRootAttribute), true);
+            var rootAttribute = AttributeUtils.GetAttribute<XmlRootAttribute, T>();
 
-            if (rootAttributes.Length == 0)
+            if (rootAttribute == null)
             { // Use default serializer namespaces (XMLSchema)
                 serializer.Serialize(xmlWriter, data);
             }
             else
             { // Set custom namespace
-                var ns = new XmlSerializerNamespaces(new[] {new XmlQualifiedName("", ((XmlRootAttribute)rootAttributes[0]).Namespace)});
+                var ns = new XmlSerializerNamespaces(new[] {new XmlQualifiedName("", rootAttribute.Namespace)});
                 serializer.Serialize(xmlWriter, data, ns);
             }
 
