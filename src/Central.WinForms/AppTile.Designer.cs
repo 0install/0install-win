@@ -36,7 +36,7 @@
             this.contextMenuRun = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonSelectCommand = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSelectVersion = new System.Windows.Forms.ToolStripMenuItem();
-            this.runMenuSeperator = new System.Windows.Forms.ToolStripSeparator();
+            this.runMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.buttonUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.linkLabelDetails = new System.Windows.Forms.LinkLabel();
@@ -101,7 +101,7 @@
             this.contextMenuRun.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonSelectCommand,
             this.buttonSelectVersion,
-            this.runMenuSeperator,
+            this.runMenuSeparator,
             this.buttonUpdate});
             this.contextMenuRun.Name = "contextMenuRun";
             this.contextMenuRun.Size = new System.Drawing.Size(164, 76);
@@ -118,10 +118,10 @@
             this.buttonSelectVersion.Size = new System.Drawing.Size(163, 22);
             this.buttonSelectVersion.Click += new System.EventHandler(this.buttonSelectVersion_Click);
             // 
-            // runMenuSeperator
+            // runMenuSeparator
             // 
-            this.runMenuSeperator.Name = "runMenuSeperator";
-            this.runMenuSeperator.Size = new System.Drawing.Size(160, 6);
+            this.runMenuSeparator.Name = "runMenuSeparator";
+            this.runMenuSeparator.Size = new System.Drawing.Size(160, 6);
             // 
             // buttonUpdate
             // 
@@ -233,7 +233,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuRun;
         private System.Windows.Forms.ToolStripMenuItem buttonSelectVersion;
         private System.Windows.Forms.ToolStripMenuItem buttonSelectCommand;
-        private System.Windows.Forms.ToolStripSeparator runMenuSeperator;
+        private System.Windows.Forms.ToolStripSeparator runMenuSeparator;
         private System.Windows.Forms.ToolStripMenuItem buttonUpdate;
         private System.Windows.Forms.Button buttonRemove;
         private System.Windows.Forms.Button buttonIntegrate;
