@@ -368,9 +368,10 @@ namespace Common.Utils
                     break;
 
                 case PlatformID.Win32NT:
-                    ToggleWriteProtectionWinNT(directory, false);
+                    // Find NTFS ACL inheritance starting at any level
+                    WalkDirectory(directory, dir => ToggleWriteProtectionWinNT(dir, false), file => { });
 
-                    // Remove any read-only attributes
+                    // Remove any classic read-only attributes
                     try
                     {
                         WalkDirectory(directory, dir => dir.Attributes = FileAttributes.Normal, file => file.IsReadOnly = false);
