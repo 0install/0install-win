@@ -86,9 +86,6 @@
     <Compile Include="Tasks\CliTaskHandler.cs" />
     <Compile Include="Tasks\GuiTaskHandler.cs" />
     <Compile Include="Tasks\WaitTask.cs" />
-    <Compile Include="Utils\ArchiveUtils.cs" />
-    <Compile Include="Utils\AttributeUtils.cs" />
-    <Compile Include="Utils\LzmaUtils.cs" />
     <Compile Include="Tasks\DownloadFile.cs" />
     <Compile Include="Cli\ArgumentUtils.cs" />
     <Compile Include="Cli\CliUtils.cs" />
@@ -113,6 +110,7 @@
     <Compile Include="Streams\DisposeWrapperStream.cs" />
     <Compile Include="Utils\AppInfo.cs" />
     <Compile Include="Utils\AppMutex.cs" />
+    <Compile Include="Utils\AttributeUtils.cs" />
     <Compile Include="Utils\ProcessUtils.cs" />
     <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
@@ -121,6 +119,8 @@
     <Compile Include="Utils\WindowsUtils.Platform.cs" />
     <Compile Include="Utils\WindowsUtils.Properties.cs" />
     <Compile Include="Utils\WindowsUtils.Taskbar.cs" />
+    <Compile Include="Utils\ArchiveUtils.cs" />
+    <Compile Include="Utils\LzmaUtils.cs" />
     <Compile Include="Utils\ImageUtils.cs" />
     <Compile Include="Utils\MonoUtils.cs" />
     <Compile Include="Storage\Locations.cs" />
