@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography;
+using System.Text;
 using Common;
 using Common.Storage;
 using Common.Utils;
@@ -80,7 +81,10 @@ namespace ZeroInstall.Commands.Cli
             }
             catch (OptionException ex)
             {
-                Log.Error(ex.Message + "\n" + string.Format(Resources.TryHelp, "0install"));
+                var messsage = new StringBuilder(ex.Message);
+                if (ex.InnerException != null) messsage.Append("\n" + ex.InnerException.Message);
+                messsage.Append("\n" + string.Format(Resources.TryHelp, "0install"));
+                Log.Error(messsage.ToString());
                 return 1;
             }
             catch (IOException ex)

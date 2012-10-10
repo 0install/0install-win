@@ -82,7 +82,7 @@ namespace ZeroInstall.Model
                     new Dependency
                     {
                         Interface = "http://0install.de/feeds/test/test1.xml",
-                        Constraints = {new Constraint(new ImplementationVersion("1.0"), null), new Constraint(null, new ImplementationVersion("2.0"))},
+                        Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}},
                         Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding(), ExecutableInVarTest.CreateTestBinding(), ExecutableInPathTest.CreateTestBinding()}
                     }
                 },
@@ -91,7 +91,7 @@ namespace ZeroInstall.Model
                     new Restriction
                     {
                         Interface = "http://0install.de/feeds/test/test2.xml",
-                        Constraints = {new Constraint {BeforeVersion = new ImplementationVersion("2.0")}}
+                        Constraints = {new Constraint {Before = new ImplementationVersion("2.0")}}
                     }
                 },
                 RetrievalMethods =

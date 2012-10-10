@@ -26,7 +26,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [Serializable]
     [XmlType("rename", Namespace = Feed.XmlNamespace)]
-    public sealed class RenameStep : XmlUnknown, IRecipeStep, IEquatable<RenameStep>
+    public sealed class RenameStep : FeedElement, IRecipeStep, IEquatable<RenameStep>
     {
         #region Properties
         /// <summary>

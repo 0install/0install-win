@@ -488,6 +488,14 @@
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
+    <xs:attribute name="version" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>
+          A more flexible alternative to &lt;version&gt; tags. A list of ranges, separated by "|", any of which may match.
+          Each range is in the form "START..!END". The range matches versions where START &lt;= VERSION &lt; END. The start or end may be omitted. A single version number may be used instead of a range to match only that version, or !VERSION to match everything except that version.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
   </xs:complexType>
   <xs:simpleType name="importance">
     <xs:restriction base="xs:string">

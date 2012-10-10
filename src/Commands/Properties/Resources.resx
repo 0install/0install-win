@@ -346,7 +346,7 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
     <value>Run in batch mode: don't display progress reports to the user and silently answer all questions with "No". Use a tray icon when in GUI mode.</value>
   </data>
   <data name="OptionBefore" xml:space="preserve">
-    <value>Chosen implementation's version number must be earlier than {VERSION}. i.e., force the use of an old version the program.</value>
+    <value>Require a version of the main program earlier than {VERSION}. i.e., force the use of an old version the program.</value>
   </data>
   <data name="OptionCommand" xml:space="preserve">
     <value>Instead of executing the default command, use {COMMAND} instead. Possible command names are defined in the program's interface. Set to empty ("") to ignore the command during selection.</value>
@@ -377,7 +377,7 @@ May not contain command-line arguments! Whitespaces do not need to be escaped.</
     <value>Display the manifest itself (one line for each file or directory).</value>
   </data>
   <data name="OptionNotBefore" xml:space="preserve">
-    <value>Chosen implementation's version number must not be earlier than {VERSION}. E.g., if you want to run version 2.0 or later, use --not-before=2.0.</value>
+    <value>Require a version of the main program not earlier than {VERSION}. E.g., if you want to run version 2.0 or later, use --not-before=2.0.</value>
   </data>
   <data name="OptionNoWait" xml:space="preserve">
     <value>Immediately returns once the chosen program has been launched instead of waiting for it to finish executing.</value>
@@ -408,6 +408,14 @@ May not contain command-line arguments! Whitespaces do not need to be escaped.</
   </data>
   <data name="OptionVersion" xml:space="preserve">
     <value>Display version information.</value>
+  </data>
+  <data name="OptionVersionRange" xml:space="preserve">
+    <value>Require a version of the main program within the given {RANGE}. Ranges are separated by pipes (|).
+Each range is in the form "START..!END". The range matches versions where START &lt;= VERSION &lt; END. The start or end may be omitted.
+A single version number may be used instead of a range to match only that version, or !VERSION to match everything except that version.</value>
+  </data>
+  <data name="OptionVersionRangeFor" xml:space="preserve">
+    <value>For any library or sub-component with the given {URI} specifies the version {RANGE} (as for --version).</value>
   </data>
   <data name="OptionWithStore" xml:space="preserve">
     <value>Add {DIR} to the list of implementation caches to search.

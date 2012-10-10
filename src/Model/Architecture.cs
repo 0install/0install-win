@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Xml.Serialization;
 using Common.Utils;
+using Common.Values.Design;
 using ZeroInstall.Model.Design;
 using ZeroInstall.Model.Properties;
 
@@ -30,6 +31,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Describes an operating system family.
     /// </summary>
+    [TypeConverter(typeof(XmlEnumConverter<OS>))]
     public enum OS
     {
         /// <summary>Supports all operating systems (e.g. developed with cross-platform language like Java).</summary>
@@ -72,6 +74,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Describes a CPU architecture.
     /// </summary>
+    [TypeConverter(typeof(XmlEnumConverter<Cpu>))]
     public enum Cpu
     {
         /// <summary>Supports all CPU architectures (e.g. developed with cross-platform language like Java).</summary>
@@ -193,98 +196,6 @@ namespace ZeroInstall.Model
         }
         #endregion
 
-        #region Parsers
-        /// <summary>
-        /// Parses a string as an operating system identifier.
-        /// </summary>
-        /// <param name="value">The case-sensitive string to parse.</param>
-        /// <returns>The identified operating system or <see cref="Model.OS.Unknown"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="value"/> is not a known operating system.</exception>
-        public static OS ParseOS(string value)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException("value");
-            #endregion
-
-            OS os;
-            switch (value)
-            {
-                case "*":
-                    os = OS.All;
-                    break;
-                case "Linux":
-                    os = OS.Linux;
-                    break;
-                case "Solaris":
-                    os = OS.Solaris;
-                    break;
-                case "MacOSX":
-                    os = OS.MacOsX;
-                    break;
-                case "Darwin":
-                    os = OS.Darwin;
-                    break;
-                case "Windows":
-                    os = OS.Windows;
-                    break;
-                case "Cygwin":
-                    os = OS.Cygwin;
-                    break;
-                default:
-                    throw new ArgumentException(Resources.UnknownOS);
-            }
-            return os;
-        }
-
-        /// <summary>
-        /// Parses a string as a CPU identifier.
-        /// </summary>
-        /// <param name="value">The case-sensitive string to parse.</param>
-        /// <returns>The identified CPU or <see cref="Model.Cpu.Unknown"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="value"/> is not a known CPU.</exception>
-        public static Cpu ParseCpu(string value)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException("value");
-            #endregion
-
-            Cpu cpu;
-            switch (value)
-            {
-                case "*":
-                    cpu = Cpu.All;
-                    break;
-                case "i386":
-                    cpu = Cpu.I386;
-                    break;
-                case "i486":
-                    cpu = Cpu.I486;
-                    break;
-                case "i586":
-                    cpu = Cpu.I586;
-                    break;
-                case "i686":
-                    cpu = Cpu.I686;
-                    break;
-                case "x86_64":
-                    cpu = Cpu.X64;
-                    break;
-                case "ppc":
-                    cpu = Cpu.Ppc;
-                    break;
-                case "ppc64":
-                    cpu = Cpu.Ppc64;
-                    break;
-                case "src":
-                    cpu = Cpu.Source;
-                    break;
-                default:
-                    throw new ArgumentException(Resources.UnknownCpu);
-            }
-            return cpu;
-        }
-        #endregion
-
         #region Constructor
         /// <summary>
         /// Creates a new architecture structure from a string in the form "os-cpu".
@@ -303,8 +214,10 @@ namespace ZeroInstall.Model
 
             try
             {
-                OS = ParseOS(os);
-                Cpu = ParseCpu(cpu);
+                // ReSharper disable PossibleNullReferenceException
+                OS = (OS)TypeDescriptor.GetConverter(typeof(OS)).ConvertFromInvariantString(os);
+                Cpu = (Cpu)TypeDescriptor.GetConverter(typeof(Cpu)).ConvertFromInvariantString(cpu);
+                // ReSharper restore PossibleNullReferenceException
             }
                 #region Error handling
             catch (ArgumentNullException ex)

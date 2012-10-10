@@ -26,38 +26,40 @@ namespace ZeroInstall.Model.Design
 {
     internal class ArchitectureConverter : ValueTypeConverter<Architecture>
     {
-        /// <summary>The number of arguments <see cref="Architecture"/> has.</summary>
+        /// <inheritdoc/>
         protected override int NoArguments { get { return 2; } }
 
-        /// <returns>The constructor used to create new instances of <see cref="Architecture"/> (deserialization).</returns>
+        /// <inheritdoc/>
         protected override ConstructorInfo GetConstructor()
         {
             return typeof(Architecture).GetConstructor(new[] {typeof(OS), typeof(Cpu)});
         }
 
-        /// <returns>The unconverted arguments of <see cref="Architecture"/>.</returns>
+        /// <inheritdoc/>
         protected override object[] GetArguments(Architecture value)
         {
             return new object[] {value.OS, value.Cpu};
         }
 
-        /// <returns>The arguments of <see cref="Architecture"/> converted to string.</returns>
+        /// <inheritdoc/>
         protected override string[] GetValues(Architecture value, ITypeDescriptorContext context, CultureInfo culture)
         {
             return new[] {value.OS.ToString(), value.Cpu.ToString()};
         }
 
-        /// <returns>A new instance of <see cref="Architecture"/>.</returns>
+        /// <inheritdoc/>
         protected override Architecture GetObject(string[] values, CultureInfo culture)
         {
             #region Sanity checks
             if (values == null) throw new ArgumentNullException("values");
             #endregion
 
-            return new Architecture((OS)Enum.Parse(typeof(OS), values[0]), (Cpu)Enum.Parse(typeof(Cpu), values[1]));
+            return new Architecture(
+                (OS)Enum.Parse(typeof(OS), values[0], true),
+                (Cpu)Enum.Parse(typeof(Cpu), values[1], true));
         }
 
-        /// <returns>A new instance of <see cref="Architecture"/>.</returns>
+        /// <inheritdoc/>
         protected override Architecture GetObject(IDictionary propertyValues)
         {
             #region Sanity checks
@@ -65,8 +67,8 @@ namespace ZeroInstall.Model.Design
             #endregion
 
             return new Architecture(
-                (OS)Enum.Parse(typeof(OS), propertyValues["OS"].ToString()),
-                (Cpu)Enum.Parse(typeof(Cpu), propertyValues["Cpu"].ToString()));
+                (OS)Enum.Parse(typeof(OS), propertyValues["OS"].ToString(), true),
+                (Cpu)Enum.Parse(typeof(Cpu), propertyValues["Cpu"].ToString(), true));
         }
     }
 }

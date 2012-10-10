@@ -16,13 +16,13 @@ namespace ZeroInstall.Model
     /// </remarks>
     /// <remarks>This class is immutable and thread-safe.</remarks>
     [Serializable]
-    internal sealed class DottedList : IEquatable<DottedList>, IComparable<DottedList>
+    internal sealed class VersionDottedList : IEquatable<VersionDottedList>, IComparable<VersionDottedList>
     {
         #region Singleton fields
         /// <summary>
         /// A version number with the value 0.
         /// </summary>
-        public static readonly DottedList Default = new DottedList("0");
+        public static readonly VersionDottedList Default = new VersionDottedList("0");
         #endregion
 
         #region Variables
@@ -35,7 +35,7 @@ namespace ZeroInstall.Model
         /// Creates a new dotted-list from a a string.
         /// </summary>
         /// <param name="value">The string containing the dotted-list.</param>
-        public DottedList(string value)
+        public VersionDottedList(string value)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(value)) throw new ArgumentNullException("value");
@@ -73,7 +73,7 @@ namespace ZeroInstall.Model
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(DottedList other)
+        public bool Equals(VersionDottedList other)
         {
             if (other == null) return false;
 
@@ -97,7 +97,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj is DottedList && Equals((DottedList)obj);
+            return obj is VersionDottedList && Equals((VersionDottedList)obj);
         }
 
         /// <inheritdoc/>
@@ -115,7 +115,7 @@ namespace ZeroInstall.Model
 
         #region Comparison
         /// <inheritdoc/>
-        public int CompareTo(DottedList other)
+        public int CompareTo(VersionDottedList other)
         {
             #region Sanity checks
             if (other == null) throw new ArgumentNullException("other");

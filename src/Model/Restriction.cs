@@ -28,7 +28,7 @@ namespace ZeroInstall.Model
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlType("restriction", Namespace = Feed.XmlNamespace)]
-    public class Restriction : XmlUnknown, ICloneable, IEquatable<Restriction>
+    public class Restriction : FeedElement, ICloneable, IEquatable<Restriction>
     {
         #region Properties
         /// <summary>
@@ -49,30 +49,29 @@ namespace ZeroInstall.Model
         public C5.ArrayList<Constraint> Constraints { get { return _constraints; } }
 
         /// <summary>
-        /// The maximum <see cref="Constraint.NotBeforeVersion"/> found in <see cref="Constraints"/>; <see langword="null"/> if <see cref="Constraints"/> is empty.
+        /// A more flexible alternative to <see cref="Constraints"/>.
         /// </summary>
-        public ImplementationVersion NotBeforeVersion
-        {
-            get
-            {
-                ImplementationVersion result = null;
-                foreach (var constraint in _constraints)
-                    if (result == null || constraint.NotBeforeVersion > result) result = constraint.NotBeforeVersion;
-                return result;
-            }
-        }
+        [Description("A more flexible alternative to &lt;version&gt;s.")]
+        [XmlIgnore]
+        public VersionRange Versions { get; set; }
+
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="Versions"/>
+        [XmlAttribute("version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string VersionString { get { return (Versions == null) ? null : Versions.ToString(); } set { Versions = string.IsNullOrEmpty(value) ? null : new VersionRange(value); } }
 
         /// <summary>
-        /// The minimum <see cref="Constraint.BeforeVersion"/> found in <see cref="Constraints"/>; <see langword="null"/> if <see cref="Constraints"/> is empty.
+        /// A merged view of <see cref="Constraints"/> and <see cref="Versions"/>.
         /// </summary>
-        public ImplementationVersion BeforeVersion
+        public VersionRange EffectiveVersions
         {
             get
             {
-                ImplementationVersion result = null;
-                foreach (var constraint in _constraints)
-                    if (result == null || constraint.BeforeVersion < result) result = constraint.BeforeVersion;
-                return result;
+                var versions = Versions;
+                if (versions == null) versions = new VersionRange();
+                foreach (var constraint in Constraints)
+                    versions = versions.Intersect(constraint);
+                return versions;
             }
         }
         #endregion
@@ -96,7 +95,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="Restriction"/>.</returns>
         public virtual Restriction Clone()
         {
-            var restriction = new Restriction {Interface = Interface};
+            var restriction = new Restriction {Interface = Interface, Versions = Versions};
             foreach (var constraint in Constraints) restriction.Constraints.Add(constraint.Clone());
 
             return restriction;
@@ -113,7 +112,7 @@ namespace ZeroInstall.Model
         public bool Equals(Restriction other)
         {
             if (other == null) return false;
-            return base.Equals(other) && Interface == other.Interface && Constraints.SequencedEquals(other.Constraints);
+            return base.Equals(other) && Interface == other.Interface && Versions == other.Versions && Constraints.SequencedEquals(other.Constraints);
         }
 
         /// <inheritdoc/>
@@ -132,6 +131,7 @@ namespace ZeroInstall.Model
                 int result = base.GetHashCode();
                 result = (result * 397) ^ (Interface ?? "").GetHashCode();
                 result = (result * 397) ^ Constraints.GetSequencedHashCode();
+                if (Versions != null) result = (result * 397) ^ Versions.GetHashCode();
                 return result;
             }
         }

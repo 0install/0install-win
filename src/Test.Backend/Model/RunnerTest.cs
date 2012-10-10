@@ -34,7 +34,7 @@ namespace ZeroInstall.Model
             return new Runner
             {
                 Interface = "http://0install.de/feeds/test/test1.xml", Command = "run2", Bindings = {EnvironmentBindingTest.CreateTestBinding()},
-                Constraints = {new Constraint(new ImplementationVersion("1.0"), new ImplementationVersion("2.0"))},
+                Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}},
                 Arguments = {"--arg"}
             };
         }

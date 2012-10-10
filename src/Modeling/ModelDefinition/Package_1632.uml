@@ -1718,14 +1718,14 @@
             Id="20a32676-2acf-4665-ad3d-36a5d01a6c2b"
             isDerived="false"
             sourceEndRoleName="Requirements"
-            targetEndRoleName="BeforeVersion"
+            targetEndRoleName="Before"
             isLeaf="false"
             isAbstract="false">
             <classMoniker
               Id="74330332-e30f-4be1-86c4-cf7ca8de8cc8"
               LastKnownName="ImplementationVersion"
               LastKnownLocation="Package1_1629.uml" />
-            <description>Property BeforeVersion references type ImplementationVersion.</description>
+            <description>Property Before references type ImplementationVersion.</description>
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
@@ -1756,7 +1756,7 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="03038ab6-3358-4123-844c-affbc0dba4a9"
-                  name="BeforeVersion"
+                  name="Before"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -1784,14 +1784,14 @@
             Id="c1f2ea8f-e39a-401c-8532-a5c79d05c67d"
             isDerived="false"
             sourceEndRoleName="Requirements"
-            targetEndRoleName="NotBeforeVersion"
+            targetEndRoleName="NotBefore"
             isLeaf="false"
             isAbstract="false">
             <classMoniker
               Id="74330332-e30f-4be1-86c4-cf7ca8de8cc8"
               LastKnownName="ImplementationVersion"
               LastKnownLocation="Package1_1629.uml" />
-            <description>Property NotBeforeVersion references type ImplementationVersion.</description>
+            <description>Property NotBefore references type ImplementationVersion.</description>
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
@@ -1822,7 +1822,7 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="2201d5cf-c96d-40ec-a295-245b15af0c38"
-                  name="NotBeforeVersion"
+                  name="NotBefore"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -1923,7 +1923,7 @@
           </property>
           <property
             Id="455773bf-5c8b-4c6d-906c-540963f6498c"
-            name="BeforeVersion"
+            name="Before"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
@@ -1934,7 +1934,7 @@
             <referencesInternal>
               <reference
                 Id="57e9053d-2db6-472c-9ef0-c1a12c0042f8"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=Requirements Member=BeforeVersion"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=Requirements Member=Before"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -2228,7 +2228,7 @@
           </property>
           <property
             Id="b6b4e885-a4ef-4524-8e83-90b41c31af2b"
-            name="NotBeforeVersion"
+            name="NotBefore"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
@@ -2239,7 +2239,7 @@
             <referencesInternal>
               <reference
                 Id="9d6a90ab-5e90-464b-8f2d-35a35b54c57e"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=Requirements Member=NotBeforeVersion"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=Requirements Member=NotBefore"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>

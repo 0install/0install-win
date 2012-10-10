@@ -306,7 +306,7 @@ namespace ZeroInstall.Commands.WinForms
 
                     var candidate = new SelectionCandidate(feedID, implementation, feedPreferences[implementation.ID], new Requirements {Architecture = Architecture.CurrentSystem});
 
-                    if (checkBoxShowAllVersions.Checked || candidate.IsUsable)
+                    if (checkBoxShowAllVersions.Checked || candidate.IsSuitable)
                         candidates.Add(candidate);
                 }
             }

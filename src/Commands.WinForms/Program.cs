@@ -21,6 +21,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
@@ -96,7 +97,10 @@ namespace ZeroInstall.Commands.WinForms
             }
             catch (OptionException ex)
             {
-                Msg.Inform(null, ex.Message + "\n" + string.Format(Resources.TryHelp, ExeName), MsgSeverity.Warn);
+                var messsage = new StringBuilder(ex.Message);
+                if (ex.InnerException != null) messsage.Append("\n" + ex.InnerException.Message);
+                messsage.Append("\n" + string.Format(Resources.TryHelp, ExeName));
+                Msg.Inform(null, messsage.ToString(), MsgSeverity.Warn);
                 return;
             }
             catch (IOException ex)

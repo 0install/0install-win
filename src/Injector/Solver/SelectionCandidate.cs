@@ -90,7 +90,7 @@ namespace ZeroInstall.Injector.Solver
         /// Indicates wether this implementation fullfills all specified <see cref="Requirements"/>.
         /// </summary>
         [Browsable(false)]
-        public bool IsUsable { get; internal set; }
+        public bool IsSuitable { get; internal set; }
         #endregion
 
         #region Constructor
@@ -100,7 +100,7 @@ namespace ZeroInstall.Injector.Solver
         /// <param name="feedID">The file name or URL of the feed listing the implementation.</param>
         /// <param name="implementation">The implementation this selection candidate references.</param>
         /// <param name="implementationPreferences">The preferences controlling how the <see cref="ISolver"/> evaluates this candidate.</param>
-        /// <param name="requirements">A set of requirements/restrictions the <paramref name="implementation"/> needs to fullfill for <see cref="IsUsable"/> to be <see langword="true"/>.</param>
+        /// <param name="requirements">A set of requirements/restrictions the <paramref name="implementation"/> needs to fullfill for <see cref="IsSuitable"/> to be <see langword="true"/>.</param>
         public SelectionCandidate(string feedID, Implementation implementation, ImplementationPreferences implementationPreferences, Requirements requirements)
         {
             #region Sanity checks
@@ -120,15 +120,13 @@ namespace ZeroInstall.Injector.Solver
                     ? Resources.SelectionCandidateNoteSource
                     : Resources.SelectionCandidateNoteIncompatibleArchitecture;
             }
-            else if (requirements.NotBeforeVersion != null && Version < requirements.NotBeforeVersion)
-                Notes = Resources.SelectionCandidateNoteVersionTooOld;
-            else if (requirements.BeforeVersion != null && Version >= requirements.BeforeVersion)
-                Notes = Resources.SelectionCandidateNoteVersionTooNew;
+            else if (requirements.Versions != null && !requirements.Versions.Match(Version))
+                Notes = Resources.SelectionCandidateNoteVersionMismatch;
             else if (EffectiveStability == Stability.Buggy)
                 Notes = Resources.SelectionCandidateNoteBuggy;
             else if (EffectiveStability == Stability.Insecure)
                 Notes = Resources.SelectionCandidateNoteInsecure;
-            else IsUsable = true;
+            else IsSuitable = true;
         }
         #endregion
 

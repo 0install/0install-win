@@ -34,7 +34,8 @@ namespace ZeroInstall.Model
             return new Restriction
             {
                 Interface = "",
-                Constraints = {new Constraint {NotBeforeVersion = new ImplementationVersion("1.0"), BeforeVersion = new ImplementationVersion("2.0")}}
+                Versions = new VersionRange("1.0..!2.0"),
+                Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}}
             };
         }
         #endregion
@@ -60,7 +61,7 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Ensures <see cref="Restriction.NotBeforeVersion"/> and <see cref="Restriction.BeforeVersion"/> deduce correct values from <see cref="Restriction.Constraints"/>.
+        /// Ensures <see cref="Restriction.EffectiveVersions"/> deduces correct values from <see cref="Restriction.Constraints"/>.
         /// </summary>
         [Test]
         public void TestConstraintCollapsing()
@@ -69,12 +70,11 @@ namespace ZeroInstall.Model
             {
                 Constraints =
                 {
-                    new Constraint {NotBeforeVersion = new ImplementationVersion("1.0"), BeforeVersion = new ImplementationVersion("2.0")},
-                    new Constraint {NotBeforeVersion = new ImplementationVersion("0.9"), BeforeVersion = new ImplementationVersion("1.9")},
+                    new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")},
+                    new Constraint {NotBefore = new ImplementationVersion("0.9"), Before = new ImplementationVersion("1.9")},
                 }
             };
-            Assert.AreEqual(new ImplementationVersion("1.0"), restriction.NotBeforeVersion);
-            Assert.AreEqual(new ImplementationVersion("1.9"), restriction.BeforeVersion);
+            Assert.AreEqual(new VersionRange("1.0..!1.9"), restriction.EffectiveVersions);
         }
     }
 }

@@ -22,7 +22,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
 using System.Reflection;
-using Common.Storage;
 using Common.Streams;
 using Common.Utils;
 using NDesk.Options;
@@ -122,11 +121,6 @@ namespace ZeroInstall.Commands
             Options.Add("?|h|help", Resources.OptionHelp, unused =>
             {
                 Policy.Handler.Output(Resources.CommandLineArguments, HelpText);
-                throw new OperationCanceledException(); // Don't handle any of the other arguments
-            });
-            Options.Add("V|version", Resources.OptionVersion, unused =>
-            {
-                Policy.Handler.Output(Resources.VersionInformation, AppInfo.Name + " " + AppInfo.Version + (Locations.IsPortable ? " - " + Resources.PortableMode : "") + Environment.NewLine + AppInfo.Copyright + Environment.NewLine + Resources.LicenseInfo);
                 throw new OperationCanceledException(); // Don't handle any of the other arguments
             });
             Options.Add("v|verbose", Resources.OptionVerbose, unused => Policy.Verbosity++);

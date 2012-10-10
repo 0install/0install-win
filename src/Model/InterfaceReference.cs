@@ -29,7 +29,7 @@ namespace ZeroInstall.Model
     /// <seealso cref="Feed.FeedFor"/>
     [Serializable]
     [XmlType("interface-reference", Namespace = Feed.XmlNamespace)]
-    public sealed class InterfaceReference : XmlUnknown, ICloneable, IEquatable<InterfaceReference>
+    public sealed class InterfaceReference : FeedElement, ICloneable, IEquatable<InterfaceReference>
     {
         #region Properties
         /// <summary>

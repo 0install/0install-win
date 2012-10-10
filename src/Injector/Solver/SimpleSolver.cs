@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Common.Collections;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Properties;
@@ -86,7 +85,7 @@ namespace ZeroInstall.Injector.Solver
 
                 SortCandidates(candidates, interfacePreferences);
 
-                var bestCandidate = candidates.Find(candidate => candidate.IsUsable);
+                var bestCandidate = candidates.Find(candidate => candidate.IsSuitable);
                 if (bestCandidate == null) throw new SolverException("No fitting candidate!");
                 var implementation = bestCandidate.Implementation;
 
@@ -120,8 +119,7 @@ namespace ZeroInstall.Injector.Solver
                         {
                             InterfaceID = dependency.Interface,
                             Architecture = requirements.Architecture,
-                            BeforeVersion = dependency.BeforeVersion,
-                            NotBeforeVersion = dependency.NotBeforeVersion
+                            Versions = dependency.EffectiveVersions
                         });
                     }
                 }
@@ -143,9 +141,9 @@ namespace ZeroInstall.Injector.Solver
                     var candidate = new SelectionCandidate(feedID, implementation, feedPreferences[implementation.ID], requirements);
 
                     // Exclude non-cached implementations when in offline-mode
-                    if (candidate.IsUsable && _policy.Config.EffectiveNetworkUse == NetworkLevel.Offline && !_policy.Fetcher.Store.Contains(implementation.ManifestDigest))
+                    if (candidate.IsSuitable && _policy.Config.EffectiveNetworkUse == NetworkLevel.Offline && !_policy.Fetcher.Store.Contains(implementation.ManifestDigest))
                     {
-                        candidate.IsUsable = false;
+                        candidate.IsSuitable = false;
                         candidate.Notes = Resources.SelectionCandidateNoteNotCached;
                     }
 

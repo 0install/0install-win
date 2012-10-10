@@ -201,11 +201,8 @@ New time: {2}</value>
   <data name="SelectionCandidateNoteSource" xml:space="preserve">
     <value>Non-executable source implementation</value>
   </data>
-  <data name="SelectionCandidateNoteVersionTooNew" xml:space="preserve">
-    <value>Implementation version too new</value>
-  </data>
-  <data name="SelectionCandidateNoteVersionTooOld" xml:space="preserve">
-    <value>Implementation version too old</value>
+  <data name="SelectionCandidateNoteVersionMismatch" xml:space="preserve">
+    <value>Implementation version too old or too new</value>
   </data>
   <data name="SolverProblem" xml:space="preserve">
     <value>The solver encountered an unexpected problem.</value>

@@ -27,7 +27,7 @@ namespace ZeroInstall.Model
     public class ArchitectureTest
     {
         /// <summary>
-        /// Ensures the <see cref="ValueType"/> constructor correctly handles valid inputs and rejects invalid ones.
+        /// Ensures the <see cref="ValueType"/> constructor correctly handles valid inputs.
         /// </summary>
         [Test]
         public void TestConstructor()
@@ -36,7 +36,14 @@ namespace ZeroInstall.Model
             Assert.AreEqual(new Architecture(OS.Linux, Cpu.All), new Architecture("Linux-*"));
             Assert.AreEqual(new Architecture(OS.All, Cpu.I686), new Architecture("*-i686"));
             Assert.AreEqual(new Architecture(OS.Linux, Cpu.I686), new Architecture("Linux-i686"));
+        }
 
+        /// <summary>
+        /// Ensures the <see cref="ValueType"/> constructor correctly rejects invalid inputs.
+        /// </summary>
+        [Test]
+        public void TestConstructorExcept()
+        {
             Assert.Throws<ArgumentNullException>(() => new Architecture(""));
             Assert.Throws<ArgumentException>(() => new Architecture("-"));
             Assert.Throws<ArgumentException>(() => new Architecture("Linux-"));

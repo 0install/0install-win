@@ -93,63 +93,23 @@ namespace ZeroInstall.Commands
             });
 
             Options.Add("command=", Resources.OptionCommand, command => _requirements.CommandName = command);
-            Options.Add("before=", Resources.OptionBefore, delegate(string version)
+            Options.Add("version=", Resources.OptionVersionRange, (VersionRange range) => _requirements.Versions = range);
+            Options.Add("version-for=", Resources.OptionVersionRangeFor, (string interfaceID, VersionRange range) => _requirements.VersionsFor.Add(interfaceID, range));
+            Options.Add("before=", Resources.OptionBefore, delegate(ImplementationVersion version)
             {
-                if (string.IsNullOrEmpty(version)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--before"), "before");
-                try
-                {
-                    _requirements.BeforeVersion = new ImplementationVersion(version);
-                }
-                    #region Error handling
-                catch (ArgumentException ex)
-                {
-                    throw new OptionException(ex.Message, "before", ex);
-                }
-                #endregion
+                if (_requirements.Versions == null) _requirements.Versions = new VersionRange();
+                _requirements.Versions = _requirements.Versions.Intersect(new Constraint {Before = version});
             });
-            Options.Add("not-before=", Resources.OptionNotBefore, delegate(string version)
+            Options.Add("not-before=", Resources.OptionNotBefore, delegate(ImplementationVersion version)
             {
-                if (string.IsNullOrEmpty(version)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--not-before"), "not-before");
-                try
-                {
-                    _requirements.NotBeforeVersion = new ImplementationVersion(version);
-                }
-                    #region Error handling
-                catch (ArgumentException ex)
-                {
-                    throw new OptionException(ex.Message, "not-before", ex);
-                }
-                #endregion
+                if (_requirements.Versions == null) _requirements.Versions = new VersionRange();
+                _requirements.Versions = _requirements.Versions.Intersect(new Constraint {NotBefore = version});
             });
             Options.Add("s|source", Resources.OptionSource, unused => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Cpu.Source));
-            Options.Add("os=", Resources.OptionOS + "\n" + string.Format(Resources.SupportedValues, string.Join(", ", Architecture.KnownOSStrings)), delegate(string os)
-            {
-                if (string.IsNullOrEmpty(os)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--os"), "os");
-                try
-                {
-                    _requirements.Architecture = new Architecture(Architecture.ParseOS(os), _requirements.Architecture.Cpu);
-                }
-                    #region Error handling
-                catch (ArgumentException ex)
-                {
-                    throw new OptionException(ex.Message, "os", ex);
-                }
-                #endregion
-            });
-            Options.Add("cpu=", Resources.OptionCpu + "\n" + string.Format(Resources.SupportedValues, string.Join(", ", Architecture.KnownCpuStrings)), delegate(string cpu)
-            {
-                if (string.IsNullOrEmpty(cpu)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--cpu"), "cpu");
-                try
-                {
-                    _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Architecture.ParseCpu(cpu));
-                }
-                    #region Error handling
-                catch (ArgumentException ex)
-                {
-                    throw new OptionException(ex.Message, "cpu", ex);
-                }
-                #endregion
-            });
+            Options.Add("os=", Resources.OptionOS + "\n" + string.Format(Resources.SupportedValues, string.Join(", ", Architecture.KnownOSStrings)),
+                (OS os) => _requirements.Architecture = new Architecture(os, _requirements.Architecture.Cpu));
+            Options.Add("cpu=", Resources.OptionCpu + "\n" + string.Format(Resources.SupportedValues, string.Join(", ", Architecture.KnownCpuStrings)),
+                (Cpu cpu) => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, cpu));
 
             Options.Add("xml", Resources.OptionXml, unused => ShowXml = true);
         }

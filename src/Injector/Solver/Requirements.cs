@@ -66,14 +66,16 @@ namespace ZeroInstall.Injector.Solver
         public ICollection<CultureInfo> Languages { get { return _languages; } }
 
         /// <summary>
-        /// The lowest-numbered version of the implementation that can be chosen. <see langword="null"/> for no lower limit.
+        /// The range of versions of the implementation that can be chosen. <see langword="null"/> for no limit.
         /// </summary>
-        public ImplementationVersion NotBeforeVersion { get; set; }
+        public VersionRange Versions { get; set; }
+
+        private readonly Dictionary<string, VersionRange> _versionsFor = new Dictionary<string, VersionRange>();
 
         /// <summary>
-        /// This version and all later versions of the implementation are unsuitable. <see langword="null"/> for no upper limit.
+        /// The ranges of versions of specific sub-implementations that can be chosen.
         /// </summary>
-        public ImplementationVersion BeforeVersion { get; set; }
+        public IDictionary<string, VersionRange> VersionsFor { get { return _versionsFor; } }
 
         //--------------------//
 
@@ -84,7 +86,7 @@ namespace ZeroInstall.Injector.Solver
         /// <returns>The new copy of the <see cref="Requirements"/>.</returns>
         public Requirements Clone()
         {
-            var requirements = new Requirements {InterfaceID = InterfaceID, CommandName = CommandName, Architecture = Architecture, NotBeforeVersion = NotBeforeVersion, BeforeVersion = BeforeVersion};
+            var requirements = new Requirements {InterfaceID = InterfaceID, CommandName = CommandName, Architecture = Architecture, Versions = Versions};
             requirements._languages.AddRange(_languages);
 
             return requirements;
@@ -102,8 +104,8 @@ namespace ZeroInstall.Injector.Solver
         /// </summary>
         public override string ToString()
         {
-            if (NotBeforeVersion == null && BeforeVersion == null) return string.Format("{0} ({1})", InterfaceID, CommandName);
-            else return string.Format("{0} ({1}): {2} <= Version < {3}", InterfaceID, CommandName, NotBeforeVersion, BeforeVersion);
+            if (Versions == null) return string.Format("{0} ({1})", InterfaceID, CommandName);
+            else return string.Format("{0} ({1}): {2}", InterfaceID, CommandName, Versions);
         }
 
         /// <summary>
@@ -117,11 +119,12 @@ namespace ZeroInstall.Injector.Solver
             if (Architecture.Cpu == Cpu.Source) builder.Append("--source ");
             else
             {
-                if (Architecture.OS != OS.All) builder.Append("--os=" + Architecture.OSString + " ");
-                if (Architecture.Cpu != Cpu.All) builder.Append("--cpu=" + Architecture.CpuString + " ");
+                if (Architecture.OS != OS.All) builder.Append("--os=" + StringUtils.EscapeArgument(Architecture.OSString) + " ");
+                if (Architecture.Cpu != Cpu.All) builder.Append("--cpu=" + StringUtils.EscapeArgument(Architecture.CpuString) + " ");
             }
-            if (NotBeforeVersion != null) builder.Append("--not-before=" + NotBeforeVersion + " ");
-            if (BeforeVersion != null) builder.Append("--before=" + BeforeVersion + " ");
+            if (Versions != null) builder.Append("--version=" + StringUtils.EscapeArgument(Versions.ToString()) + " ");
+            foreach (var pair in VersionsFor)
+                builder.Append("--version-for=" + StringUtils.EscapeArgument(pair.Key) + " " +  StringUtils.EscapeArgument(pair.Value.ToString()) + " ");
             builder.Append(StringUtils.EscapeArgument(InterfaceID));
 
             return builder.ToString();
@@ -137,8 +140,7 @@ namespace ZeroInstall.Injector.Solver
             if (CommandName != other.CommandName) return false;
             if (Architecture != other.Architecture) return false;
             // ToDo: if (!_languages.SequencedEquals(other._languages)) return false;
-            if (NotBeforeVersion != other.NotBeforeVersion) return false;
-            if (BeforeVersion != other.BeforeVersion) return false;
+            if (Versions != other.Versions) return false;
             return true;
         }
 
@@ -159,8 +161,7 @@ namespace ZeroInstall.Injector.Solver
                 result = (result * 397) ^ (CommandName != null ? CommandName.GetHashCode() : 0);
                 result = (result * 397) ^ Architecture.GetHashCode();
                 // ToDo: result = (result * 397) ^ _languages.GetSequencedHashCode();
-                result = (result * 397) ^ (NotBeforeVersion != null ? NotBeforeVersion.GetHashCode() : 0);
-                result = (result * 397) ^ (BeforeVersion != null ? BeforeVersion.GetHashCode() : 0);
+                result = (result * 397) ^ (Versions != null ? Versions.GetHashCode() : 0);
                 return result;
             }
         }

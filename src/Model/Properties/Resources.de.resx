@@ -147,13 +147,16 @@
   <data name="NoSuitableIconFound" xml:space="preserve">
     <value>Es wurde kein geeignetes Icon gefunden.</value>
   </data>
+  <data name="UnknownCpu" xml:space="preserve">
+    <value>Unbekannte CPU.</value>
+  </data>
   <data name="UnknownModifier" xml:space="preserve">
     <value>Unbekannter Modifizierer.</value>
   </data>
-  <data name="UnknownOS">
-    <value xml:space="preserve">Unbekanntes Betriebssystem.</value>
+  <data name="UnknownOS" xml:space="preserve">
+    <value>Unbekanntes Betriebssystem.</value>
   </data>
-  <data name="UnknownCpu">
-    <value xml:space="preserve">Unbekannte CPU.</value>
+  <data name="VersionRangeEndNotExclusive" xml:space="preserve">
+    <value>Ende des Versionsbereich muss ausschließend sein. Verwenden Sie '..!{0}' anstelle von '..{0}'.</value>
   </data>
 </root>

@@ -26,7 +26,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [Serializable]
     [XmlType("constraint", Namespace = Feed.XmlNamespace)]
-    public class Constraint : XmlUnknown, ICloneable, IEquatable<Constraint>
+    public class Constraint : FeedElement, ICloneable, IEquatable<Constraint>
     {
         #region Properties
         /// <summary>
@@ -34,54 +34,35 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("This is the lowest-numbered version that can be chosen.")]
         [XmlIgnore]
-        public ImplementationVersion NotBeforeVersion { get; set; }
+        public ImplementationVersion NotBefore { get; set; }
 
         /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="NotBeforeVersion"/>
+        /// <seealso cref="NotBefore"/>
         [XmlAttribute("not-before"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string NotBeforeVersionString { get { return (NotBeforeVersion == null ? null : NotBeforeVersion.ToString()); } set { NotBeforeVersion = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
+        public string NotBeforeString { get { return (NotBefore == null ? null : NotBefore.ToString()); } set { NotBefore = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
 
         /// <summary>
         /// This version and all later versions are unsuitable.
         /// </summary>
         [Description("This version and all later versions are unsuitable.")]
         [XmlIgnore]
-        public ImplementationVersion BeforeVersion { get; set; }
+        public ImplementationVersion Before { get; set; }
 
         /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="BeforeVersion"/>
+        /// <seealso cref="Before"/>
         [XmlAttribute("before"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string BeforeVersionString { get { return (BeforeVersion == null ? null : BeforeVersion.ToString()); } set { BeforeVersion = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
-        #endregion
-
-        #region Constructor
-        /// <summary>
-        /// Creates an empty constraint
-        /// </summary>
-        public Constraint()
-        {}
-
-        /// <summary>
-        /// Creates a new constraint structure with pre-set values.
-        /// </summary>
-        /// <param name="notBeforeVersion">This is the lowest-numbered version that can be chosen.</param>
-        /// <param name="beforeVersion">This version and all later versions are unsuitable.</param>
-        public Constraint(ImplementationVersion notBeforeVersion, ImplementationVersion beforeVersion) : this()
-        {
-            NotBeforeVersion = notBeforeVersion;
-            BeforeVersion = beforeVersion;
-        }
+        public string BeforeString { get { return (Before == null ? null : Before.ToString()); } set { Before = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
         #endregion
 
         //--------------------//
 
         #region Conversion
         /// <summary>
-        /// Returns the constraint in the form "Constraint: NotBeforeVersion =&lt; Ver %lt; BeforeVersion". Not safe for parsing!
+        /// Returns the constraint in the form "Constraint: NotBefore =&lt; Ver %lt; Before". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("Constraint: {0} =< Ver < {1}", NotBeforeVersion, BeforeVersion);
+            return string.Format("Constraint: {0} =< Ver < {1}", NotBefore, Before);
         }
         #endregion
 
@@ -92,7 +73,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="Constraint"/>.</returns>
         public Constraint Clone()
         {
-            return new Constraint {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, NotBeforeVersion = NotBeforeVersion, BeforeVersion = BeforeVersion};
+            return new Constraint {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, NotBefore = NotBefore, Before = Before};
         }
 
         object ICloneable.Clone()
@@ -106,7 +87,7 @@ namespace ZeroInstall.Model
         public bool Equals(Constraint other)
         {
             if (other == null) return false;
-            return base.Equals(other) && other.NotBeforeVersion == NotBeforeVersion && other.BeforeVersion == BeforeVersion;
+            return base.Equals(other) && other.NotBefore == NotBefore && other.Before == Before;
         }
 
         /// <inheritdoc/>
@@ -123,8 +104,8 @@ namespace ZeroInstall.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                if (NotBeforeVersion != null) result = (result * 397) ^ NotBeforeVersion.GetHashCode();
-                if (BeforeVersion != null) result = (result * 397) ^ BeforeVersion.GetHashCode();
+                if (NotBefore != null) result = (result * 397) ^ NotBefore.GetHashCode();
+                if (Before != null) result = (result * 397) ^ Before.GetHashCode();
                 return result;
             }
         }

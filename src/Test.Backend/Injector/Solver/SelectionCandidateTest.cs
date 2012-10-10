@@ -28,51 +28,41 @@ namespace ZeroInstall.Injector.Solver
     public class SelectionCandidateTest
     {
         [Test]
-        public void TestIsUsable()
+        public void TestIsSuitable()
         {
             var implementation = ImplementationTest.CreateTestImplementation();
             Assert.IsTrue(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", implementation,
-                new ImplementationPreferences(), new Requirements()).IsUsable);
+                new ImplementationPreferences(), new Requirements()).IsSuitable);
         }
 
         [Test]
-        public void TestIsUsableArchitecture()
+        public void TestIsSuitableArchitecture()
         {
             var implementation = ImplementationTest.CreateTestImplementation();
             Assert.IsTrue(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", implementation,
-                new ImplementationPreferences(), new Requirements {Architecture = implementation.Architecture}).IsUsable);
+                new ImplementationPreferences(), new Requirements {Architecture = implementation.Architecture}).IsSuitable);
             Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", implementation,
-                new ImplementationPreferences(), new Requirements {Architecture = new Architecture(OS.Solaris, Cpu.Ppc)}).IsUsable);
+                new ImplementationPreferences(), new Requirements {Architecture = new Architecture(OS.Solaris, Cpu.Ppc)}).IsSuitable);
         }
 
         [Test]
-        public void TestIsUsableVersionTooOld()
+        public void TestIsSuitableVersionMismatch()
         {
             var implementation = ImplementationTest.CreateTestImplementation();
             Assert.IsTrue(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", implementation,
-                new ImplementationPreferences(), new Requirements {NotBeforeVersion = new ImplementationVersion("1.0")}).IsUsable);
+                new ImplementationPreferences(), new Requirements {Versions = new VersionRange("..!1.1")}).IsSuitable);
             Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", implementation,
-                new ImplementationPreferences(), new Requirements {NotBeforeVersion = new ImplementationVersion("1.1")}).IsUsable);
+                new ImplementationPreferences(), new Requirements {Versions = new VersionRange("..!1.0")}).IsSuitable);
         }
 
         [Test]
-        public void TestIsUsableVersionTooNew()
-        {
-            var implementation = ImplementationTest.CreateTestImplementation();
-            Assert.IsTrue(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", implementation,
-                new ImplementationPreferences(), new Requirements {BeforeVersion = new ImplementationVersion("1.1")}).IsUsable);
-            Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", implementation,
-                new ImplementationPreferences(), new Requirements {BeforeVersion = new ImplementationVersion("1.0")}).IsUsable);
-        }
-
-        [Test]
-        public void TestIsUsableBuggyInsecure()
+        public void TestIsSuitableBuggyInsecure()
         {
             var implementation = ImplementationTest.CreateTestImplementation();
             Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", implementation,
-                new ImplementationPreferences {UserStability = Stability.Buggy}, new Requirements()).IsUsable);
+                new ImplementationPreferences {UserStability = Stability.Buggy}, new Requirements()).IsSuitable);
             Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", implementation,
-                new ImplementationPreferences {UserStability = Stability.Insecure}, new Requirements()).IsUsable);
+                new ImplementationPreferences {UserStability = Stability.Insecure}, new Requirements()).IsSuitable);
         }
     }
 }

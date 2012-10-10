@@ -28,7 +28,7 @@ namespace ZeroInstall.Model
     /// or in <see cref="Element"/>, where they tell a component how to find itself.
     /// </remarks>
     [XmlType("binding", Namespace = Feed.XmlNamespace)]
-    public abstract class Binding : XmlUnknown, ICloneable
+    public abstract class Binding : FeedElement, ICloneable
     {
         /// <summary>
         /// Creates a deep copy of this <see cref="Binding"/> instance.

@@ -1,5 +1,24 @@
-﻿using System;
+﻿/*
+ * Copyright 2010-2012 Bastian Eicher
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
+using System.ComponentModel;
 using System.Text;
+using Common.Values.Design;
 using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model
@@ -18,12 +37,13 @@ namespace ZeroInstall.Model
     ///   </code>
     /// </para>
     /// </remarks>
+    [TypeConverter(typeof(StringConstructorConverter<ImplementationVersion>))]
     [Serializable]
     public sealed class ImplementationVersion : IEquatable<ImplementationVersion>, IComparable<ImplementationVersion>
     {
         #region Variables
         /// <summary>The first part of the version number.</summary>
-        private readonly DottedList _firstPart;
+        private readonly VersionDottedList _firstPart;
 
         /// <summary>All additional parts of the version number.</summary>
         private readonly VersionPart[] _additionalParts;
@@ -44,8 +64,8 @@ namespace ZeroInstall.Model
             string[] parts = value.Split('-');
 
             // Ensure the first part is a dotted list
-            if (!DottedList.IsValid(parts[0])) throw new ArgumentException(Resources.MustStartWithDottedList, "value");
-            _firstPart = new DottedList(parts[0]);
+            if (!VersionDottedList.IsValid(parts[0])) throw new ArgumentException(Resources.MustStartWithDottedList, "value");
+            _firstPart = new VersionDottedList(parts[0]);
 
             // Iterate through all additional parts
             _additionalParts = new VersionPart[parts.Length - 1];
@@ -63,7 +83,7 @@ namespace ZeroInstall.Model
             if (version == null) throw new ArgumentNullException("version");
             #endregion
 
-            _firstPart = new DottedList(version.ToString());
+            _firstPart = new VersionDottedList(version.ToString());
             _additionalParts = new VersionPart[0];
         }
         #endregion
@@ -72,9 +92,9 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Creates a new <see cref="ImplementationVersion"/> using the specified string representation.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The string to parse.</param>
         /// <param name="result">Returns the created <see cref="ImplementationVersion"/> if successfully; <see langword="null"/> otherwise.</param>
-        /// <returns><see langword="true"/> if the <see cref="T:System.Uri"/> was successfully created; <see langword="false"/> otherwise.</returns>
+        /// <returns><see langword="true"/> if the <see cref="ImplementationVersion"/> was successfully created; <see langword="false"/> otherwise.</returns>
         public static bool TryCreate(string value, out ImplementationVersion result)
         {
             try
@@ -93,12 +113,12 @@ namespace ZeroInstall.Model
         //--------------------//
 
         #region Conversion
-        /// <inheritdoc/>
+        /// <summary>
+        /// Returns a string representation of the version. Safe for parsing!
+        /// </summary>        
         public override string ToString()
         {
-            var output = new StringBuilder();
-
-            output.Append(_firstPart);
+            var output = new StringBuilder(_firstPart.ToString());
 
             // Separate additional parts with hyphens
             for (int i = 0; i < _additionalParts.Length; i++)

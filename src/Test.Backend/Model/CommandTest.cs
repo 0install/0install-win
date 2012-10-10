@@ -82,7 +82,7 @@ namespace ZeroInstall.Model
                     new Restriction
                     {
                         Interface = "http://0install.de/feeds/test/test2.xml",
-                        Constraints = {new Constraint {BeforeVersion = new ImplementationVersion("2.0")}}
+                        Constraints = {new Constraint {Before = new ImplementationVersion("2.0")}}
                     }
                 }
             };

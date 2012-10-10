@@ -143,7 +143,9 @@
     <Compile Include="Undo\RemoveFromCollection.cs" />
     <Compile Include="Undo\SetLocalizableString.cs" />
     <Compile Include="Undo\CompositeCommand.cs" />
-    <Compile Include="Values\Design\ValueTypeConverter.cs" />
+    <Compile Include="Values\Design\StringConstructorConverter.cs" />
+    <Compile Include="Values\Design\XmlEnumConverter.cs" />
+    <Compile Include="Values\Design\StructConverter.cs" />
     <Compile Include="Values\Design\TimeSpanEditor.cs" />
     <Compile Include="Controls\ErrorReportForm.ErrorReport.cs" />
     <Compile Include="Controls\IContextMenu.cs" />

@@ -29,7 +29,7 @@ namespace ZeroInstall.Model
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlType("command", Namespace = Feed.XmlNamespace)]
-    public class Command : XmlUnknown, IArgsContainer, IBindingContainer, IDependencyContainer, ICloneable, IEquatable<Command>
+    public class Command : FeedElement, IArgsContainer, IBindingContainer, IDependencyContainer, ICloneable, IEquatable<Command>
     {
         #region Constants
         /// <summary>

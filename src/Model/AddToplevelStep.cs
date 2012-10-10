@@ -26,7 +26,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [Serializable]
     [XmlType("add-toplevel", Namespace = Feed.XmlNamespace)]
-    public sealed class AddToplevelStep : XmlUnknown, IRecipeStep, IEquatable<AddToplevelStep>
+    public sealed class AddToplevelStep : FeedElement, IRecipeStep, IEquatable<AddToplevelStep>
     {
         #region Properties
         /// <summary>

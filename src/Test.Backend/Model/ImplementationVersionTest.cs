@@ -60,6 +60,20 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
+        /// Ensures <see cref="ImplementationVersion"/> objects are correctly compared.
+        /// </summary>
+        [Test]
+        public void TestEquals()
+        {
+            Assert.AreEqual(new ImplementationVersion("1.2-pre-3"), new ImplementationVersion("1.2-pre-3"));
+            Assert.AreNotEqual(new ImplementationVersion("1.2-pre-3"), new ImplementationVersion("1-pre-3"));
+            Assert.AreNotEqual(new ImplementationVersion("1.2-pre-3"), new ImplementationVersion("1.2-post-3"));
+            Assert.AreNotEqual(new ImplementationVersion("1.2-pre-3"), new ImplementationVersion("1.2-pre-4"));
+            Assert.AreNotEqual(new ImplementationVersion("1.2-pre-3"), new ImplementationVersion("1.2-pre--3"));
+            Assert.AreNotEqual(new ImplementationVersion("1.2-pre-3"), new ImplementationVersion("1.2-pre"));
+        }
+
+        /// <summary>
         /// Ensures <see cref="ImplementationVersion"/> objects are sorted correctly.
         /// </summary>
         [Test]

@@ -31,10 +31,10 @@ using System.Reflection;
 namespace Common.Values.Design
 {
     /// <summary>
-    /// Abstract base-class for easily creating a <see cref="TypeConverter"/> for a value type (struct).
+    /// Abstract base-class for easily creating a <see cref="TypeConverter"/> for a struct (value type).
     /// </summary>
     /// <typeparam name="T">The struct to create the <see cref="TypeConverter"/> for.</typeparam>
-    /// <remarks>Providing a <see cref="TypeConverter"/> for a struct vastly improves the runtime experience with <see cref="System.Windows.Forms.PropertyGrid"/>s.</remarks>
+    /// <remarks>Providing a <see cref="TypeConverter"/> for a struct improves the runtime experience with <see cref="System.Windows.Forms.PropertyGrid"/>s.</remarks>
     /// <example>
     ///   Add this attribute to the struct:
     ///   <code>[TypeConverter(typeof(ClassDerivedFromThisOne))]</code>

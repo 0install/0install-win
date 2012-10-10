@@ -36,7 +36,7 @@ namespace ZeroInstall.Injector.Solver
             return new Requirements
             {
                 InterfaceID = "http://0install.de/feeds/test/test1.xml", CommandName = "command name", Architecture = new Architecture(OS.Windows, Cpu.I586),
-                NotBeforeVersion = new ImplementationVersion("1.0"), BeforeVersion = new ImplementationVersion("2.0")
+                Versions = new VersionRange("1.0..!2.0")
             };
         }
         #endregion
@@ -71,7 +71,7 @@ namespace ZeroInstall.Injector.Solver
         [Test(Description = "Ensures that the class can be serialized to a command-line argument string")]
         public void TestToCommandLineArgs()
         {
-            Assert.AreEqual("--command=\"command name\" --os=Windows --cpu=i586 --not-before=1.0 --before=2.0 http://0install.de/feeds/test/test1.xml", CreateTestRequirements().ToCommandLineArgs());
+            Assert.AreEqual("--command=\"command name\" --os=Windows --cpu=i586 --version=1.0..!2.0 http://0install.de/feeds/test/test1.xml", CreateTestRequirements().ToCommandLineArgs());
         }
     }
 }

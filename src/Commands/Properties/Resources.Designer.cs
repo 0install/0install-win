@@ -733,7 +733,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chosen implementation&apos;s version number must be earlier than {VERSION}. i.e., force the use of an old version the program..
+        ///   Looks up a localized string similar to Require a version of the main program earlier than {VERSION}. i.e., force the use of an old version the program..
         /// </summary>
         internal static string OptionBefore {
             get {
@@ -824,7 +824,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chosen implementation&apos;s version number must not be earlier than {VERSION}. E.g., if you want to run version 2.0 or later, use --not-before=2.0..
+        ///   Looks up a localized string similar to Require a version of the main program not earlier than {VERSION}. E.g., if you want to run version 2.0 or later, use --not-before=2.0..
         /// </summary>
         internal static string OptionNotBefore {
             get {
@@ -919,6 +919,26 @@ namespace ZeroInstall.Commands.Properties {
         internal static string OptionVersion {
             get {
                 return ResourceManager.GetString("OptionVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Require a version of the main program within the given {RANGE}. Ranges are separated by pipes (|).
+        ///Each range is in the form &quot;START..!END&quot;. The range matches versions where START &lt;= VERSION &lt; END. The start or end may be omitted.
+        ///A single version number may be used instead of a range to match only that version, or !VERSION to match everything except that version..
+        /// </summary>
+        internal static string OptionVersionRange {
+            get {
+                return ResourceManager.GetString("OptionVersionRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For any library or sub-component with the given {URI} specifies the version {RANGE} (as for --version)..
+        /// </summary>
+        internal static string OptionVersionRangeFor {
+            get {
+                return ResourceManager.GetString("OptionVersionRangeFor", resourceCulture);
             }
         }
         

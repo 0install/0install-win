@@ -103,13 +103,13 @@
   <Class Name="ZeroInstall.Model.Constraint">
     <Position X="8.75" Y="0.75" Width="1.75" />
     <Members>
-      <Property Name="BeforeVersionString" Hidden="true" />
+      <Property Name="BeforeString" Hidden="true" />
       <Method Name="Clone" Hidden="true" />
       <Method Name="Constraint" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
       <Method Name="ICloneable.Clone" Hidden="true" />
-      <Property Name="NotBeforeVersionString" Hidden="true" />
+      <Property Name="NotBeforeString" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>

@@ -256,6 +256,9 @@ Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.
     <value>Der Feed wurde erfolgreich für die folgenden Interfaces registriert:
 {0}</value>
   </data>
+  <data name="FeedReplaced" xml:space="preserve">
+    <value>'{0}' wurde durch '{1}' ersetzt. Bitte ziehen Sie eine Aktualisierung in Betracht.</value>
+  </data>
   <data name="FeedReplacedAsk" xml:space="preserve">
     <value>Der Feed für '{0}' ({1}) wurde durch '{2}' ersetzt. Möchten Sie stattdessen den neuen Feed verwenden?</value>
   </data>
@@ -351,6 +354,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="OptionCpu" xml:space="preserve">
     <value>Zwingt den Solver auf eine bestimmte {CPU} abzuzielen.</value>
   </data>
+  <data name="OptionDigest" xml:space="preserve">
+    <value>Zeigt den Digest des Manifest an (standardmäßig aktiviert wenn --manifest nicht gesetzt ist).</value>
+  </data>
   <data name="OptionForceSelfUpdate" xml:space="preserve">
     <value>Führe das Update durch, auch wenn die derzeit installierte Version die gleiche oder neuer ist.</value>
   </data>
@@ -366,6 +372,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="OptionMain" xml:space="preserve">
     <value>Starte die spezifizierte ausführbare Datei {MAIN} anstellte des Standards. Beginnt der Pfad mit '/' oder '\', ist er relativ zum obersten Verzeichnis der Implementierung. Andernfalls ist er relativ zum Verzeichnis welches das Standardhauptprogramm enthält.
 Darf keine Befehlszeilenargumente enthalten! Leerzeichen müssen nicht escaped werden.</value>
+  </data>
+  <data name="OptionManifest" xml:space="preserve">
+    <value>Zeigt das Manifest selbst an (eine Zeile für jede Datei und jedes Verzeichnis).</value>
   </data>
   <data name="OptionNotBefore" xml:space="preserve">
     <value>Die Version der ausgewählten Implementierung muss nach {VERSION} liegen. Zum Beispiel können Sie damit eine Version 2.0 oder eine spätere starten, in dem Sie '--not-before=2.0' angeben.</value>
@@ -399,6 +408,14 @@ Darf keine Befehlszeilenargumente enthalten! Leerzeichen müssen nicht escaped w
   </data>
   <data name="OptionVersion" xml:space="preserve">
     <value>Zeigt Versionsinformationen an.</value>
+  </data>
+  <data name="OptionVersionRange" xml:space="preserve">
+    <value>Benötige eine Version des Hauptprogramms innerhalb des angegebenen {RANGE}. Ranges werden durch Pipes (|) getrennt.
+Jede Range ist in der Form "START..!ENDE". Die Ranges akzeptieren Versionen bei denen gilt: START &lt;= VERSION &lt; ENDE. Der Start oder das Ende können weggelassen werden.
+Eine einzelne Versionsnummer kann anstelle eines Ranges angegeben werden um nur diese Version zu akzeptieren, oder !VERSION um alles außer der Version zu akzeptieren.</value>
+  </data>
+  <data name="OptionVersionRangeFor" xml:space="preserve">
+    <value>Für jede Bibliothek oder Subkomponente mit der angegebenen {URI} die Versions-{RANGE} spezifizieren (wie bei --version).</value>
   </data>
   <data name="OptionWithStore" xml:space="preserve">
     <value>Füge {DIR} zu der Liste der zu Durchsuchenden Implementierungscaches hinzu.
@@ -446,14 +463,5 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   </data>
   <data name="VersionInformation" xml:space="preserve">
     <value>Versionsinformationen:</value>
-  </data>
-  <data name="OptionDigest" xml:space="preserve">
-    <value>Zeigt den Digest des Manifest an (standardmäßig aktiviert wenn --manifest nicht gesetzt ist).</value>
-  </data>
-  <data name="OptionManifest" xml:space="preserve">
-    <value>Zeigt das Manifest selbst an (eine Zeile für jede Datei und jedes Verzeichnis).</value>
-  </data>
-  <data name="FeedReplaced" xml:space="preserve">
-    <value>'{0}' wurde durch '{1}' ersetzt. Bitte ziehen Sie eine Aktualisierung in Betracht.</value>
   </data>
 </root>

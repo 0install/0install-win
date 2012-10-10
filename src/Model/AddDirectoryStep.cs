@@ -26,7 +26,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [Serializable]
     [XmlType("add-directory", Namespace = Feed.XmlNamespace)]
-    public sealed class AddDirectoryStep : XmlUnknown, IRecipeStep, IEquatable<AddDirectoryStep>
+    public sealed class AddDirectoryStep : FeedElement, IRecipeStep, IEquatable<AddDirectoryStep>
     {
         #region Properties
         /// <summary>

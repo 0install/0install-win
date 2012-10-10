@@ -201,11 +201,8 @@ Neue Zeit: {2}</value>
   <data name="SelectionCandidateNoteSource" xml:space="preserve">
     <value>Nicht ausführbare Quellcode Implementierung</value>
   </data>
-  <data name="SelectionCandidateNoteVersionTooNew" xml:space="preserve">
-    <value>Implementierungsversion zu neu</value>
-  </data>
-  <data name="SelectionCandidateNoteVersionTooOld" xml:space="preserve">
-    <value>Implementierungsversion zu alt</value>
+  <data name="SelectionCandidateNoteVersionMismatch" xml:space="preserve">
+    <value>Implementierungsversion zu alt oder zu neu</value>
   </data>
   <data name="SolverProblem" xml:space="preserve">
     <value>Der Solver ist auf ein unerwartetes Problem gestoßen.</value>

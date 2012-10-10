@@ -26,7 +26,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [Serializable]
     [XmlType("remove", Namespace = Feed.XmlNamespace)]
-    public sealed class RemoveStep : XmlUnknown, IRecipeStep, IEquatable<RemoveStep>
+    public sealed class RemoveStep : FeedElement, IRecipeStep, IEquatable<RemoveStep>
     {
         #region Properties
         /// <summary>

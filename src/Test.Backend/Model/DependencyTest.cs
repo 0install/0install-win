@@ -34,7 +34,7 @@ namespace ZeroInstall.Model
             return new Dependency
             {
                 Interface = "",
-                Constraints = {new Constraint {NotBeforeVersion = new ImplementationVersion("1.0"), BeforeVersion = new ImplementationVersion("2.0")}},
+                Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}},
                 Importance = Importance.Recommended,
                 Use = "testing"
             };
