@@ -84,18 +84,11 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         /// <param name="e">Not used.</param>
         private void ButtonConstraintAddClick(object sender, EventArgs e)
         {
-            Constraint constraint;
             ImplementationVersion notBefore, before;
+            ImplementationVersion.TryCreate(hintTextBoxNotBefore.Text, out notBefore);
+            ImplementationVersion.TryCreate(hintTextBoxBefore.Text, out before);
+            var constraint = new Constraint {NotBefore = notBefore, Before = before};
 
-            // add NotBefore and Before
-            if (ImplementationVersion.TryCreate(hintTextBoxNotBefore.Text, out notBefore) & ImplementationVersion.TryCreate(hintTextBoxBefore.Text, out before))
-                constraint = new Constraint(notBefore, before);
-                //add only NotBefore
-            else if (notBefore != null)
-                constraint = new Constraint(notBefore, null);
-                //add only Before
-            else
-                constraint = new Constraint(null, before);
             // add to the list if it is not allready in the list
             if (!listBoxConstraints.Items.Contains(constraint))
                 listBoxConstraints.Items.Add(constraint);
@@ -154,8 +147,8 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         {
             if (listBoxConstraints.SelectedItem == null) return;
             var selectedItem = (Constraint)listBoxConstraints.SelectedItem;
-            hintTextBoxBefore.Text = selectedItem.BeforeVersionString ?? "";
-            hintTextBoxNotBefore.Text = selectedItem.NotBeforeVersionString ?? "";
+            hintTextBoxBefore.Text = selectedItem.BeforeString ?? "";
+            hintTextBoxNotBefore.Text = selectedItem.NotBeforeString ?? "";
         }
         #endregion
 
