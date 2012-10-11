@@ -1,6 +1,6 @@
 # This script will download and extract the external solver to the current directory
 
-$sourceUrl = "https://0install.de/teamcity/repository/downloadAll/bt29/.lastSuccessful/artifacts.zip"
+$sourceUrl = "https://0install.de/teamcity/guestAuth/repository/downloadAll/bt29/.lastSuccessful/artifacts.zip"
 $tempFile = [System.IO.Path]::GetTempFileName()
 $targetDir = (get-location).Path
 
