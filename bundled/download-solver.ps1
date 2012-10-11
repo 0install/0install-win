@@ -1,6 +1,6 @@
 # This script will download and extract the external solver to the current directory
 
-$sourceUrl = "http://0install.de/files/zero-install-solver.zip"
+$sourceUrl = "https://0install.de/teamcity/repository/downloadAll/bt29/.lastSuccessful/artifacts.zip"
 $tempFile = [System.IO.Path]::GetTempFileName()
 $targetDir = (get-location).Path
 
