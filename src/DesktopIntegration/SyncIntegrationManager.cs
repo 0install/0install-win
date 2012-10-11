@@ -263,7 +263,7 @@ namespace ZeroInstall.DesktopIntegration
 
                     // Prevent race conditions by only allowing replacement of older data
                     if (resetMode == SyncResetMode.None && !string.IsNullOrEmpty(webClient.ResponseHeaders[HttpResponseHeader.ETag]))
-                        webClient.Headers[HttpRequestHeader.IfMatch] = '"' + webClient.ResponseHeaders[HttpResponseHeader.ETag] + '"';
+                        webClient.Headers[HttpRequestHeader.IfMatch] = webClient.ResponseHeaders[HttpResponseHeader.ETag];
                     try
                     {
                         // ToDo: Allow cancel
