@@ -1,14 +1,8 @@
 @echo off
 ::Removes compilation artifacts and other temporary files.
 
-rem Clear binaries (but leave Documentation intact since it takes very long to build)
-rd /s /q build\Backend > NUL 2>&1
-rd /s /q build\Frontend > NUL 2>&1
-rd /s /q build\Tools > NUL 2>&1
-rd /s /q build\Updater > NUL 2>&1
-rd /s /q build\Setup > NUL 2>&1
-rd /s /q build\Documentation\working > NUL 2>&1
-del build\Documentation\*.log > NUL 2>&1
+rem Clear binaries
+rd /s /q build
 
 rem Clear ReSharper's cache
 rd /s /q src\_ReSharper.ZeroInstall_VS2010 > NUL 2>&1
