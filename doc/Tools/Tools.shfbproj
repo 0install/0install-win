@@ -21,7 +21,7 @@
     <NamingMethod>MemberName</NamingMethod>
     <Language>en-US</Language>
     <FrameworkVersion>2.0.50727</FrameworkVersion>
-    <SyntaxFilters>CSharp</SyntaxFilters>
+    <SyntaxFilters>CSharp, VisualBasic</SyntaxFilters>
     <HelpFileFormat>HtmlHelp1</HelpFileFormat>
     <PresentationStyle>vs2005</PresentationStyle>
     <!--<FeedbackEMailAddress>info%400install.de</FeedbackEMailAddress>-->

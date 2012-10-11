@@ -1,6 +1,5 @@
 @echo off
 ::Compiles the source documentation. Assumes "..\src\build.cmd Debug" has already been executed.
-cd /d "%~dp0"
 
 rem Determine VS version
 if defined VS110COMNTOOLS (
@@ -26,12 +25,12 @@ goto err_no_vs
 
 :compile
 echo Compiling source documentation...
-if exist ..\build\Documentation rd /s /q ..\build\Documentation
+if exist "%~dp0..\build\Documentation" rd /s /q "%~dp0..\build\Documentation"
 
-FOR %%A IN (Backend\Backend.shfbproj Frontend\Frontend.shfbproj Tools\Tools.shfbproj) DO (
-  msbuild "%%A" /p:Configuration=Debug /v:q /nologo
-  if errorlevel 1 pause
-)
+msbuild "%~dp0Backend\Backend.shfbproj" /p:Configuration=Debug /v:q /nologo
+move "%~dp0..\build\Documentation\Backend\Backend.chm" "%~dp0..\build\Documentation\Backend.chm"
+msbuild "%~dp0Frontend\Frontend.shfbproj" /p:Configuration=Debug /v:q /nologo
+msbuild "%~dp0Tools\Tools.shfbproj" /p:Configuration=Debug /v:q /nologo
 
 goto end
 
