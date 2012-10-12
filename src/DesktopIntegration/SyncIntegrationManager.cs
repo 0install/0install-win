@@ -172,7 +172,7 @@ namespace ZeroInstall.DesktopIntegration
             if (feedRetriever == null) throw new ArgumentNullException("feedRetriever");
             #endregion
 
-            var appListUri = new Uri(_syncServer, new Uri("app-list", UriKind.Relative));
+            var appListUri = new Uri(_syncServer, new Uri(SystemWide ? "system-app-list" : "app-list", UriKind.Relative));
             using (var webClient = new WebClientTimeout
             {
                 Credentials = new NetworkCredential(_username, _password),
