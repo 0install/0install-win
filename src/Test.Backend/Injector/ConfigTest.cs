@@ -18,8 +18,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using Common.Storage;
 using NUnit.Framework;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Injector
 {
@@ -106,6 +108,38 @@ namespace ZeroInstall.Injector
                 File.WriteAllText(tempFile.Path, testIniData);
                 Config.Load(tempFile.Path).Save(tempFile.Path);
                 Assert.AreEqual(testIniData, File.ReadAllText(tempFile.Path));
+            }
+        }
+
+        [Test]
+        public void StressTest()
+        {
+            using (new LocationsRedirect("0install-unit-tests"))
+            {
+                new Config().Save();
+
+                Exception exception = null;
+                var threads = new Thread[100];
+                for (int i = 0; i < threads.Length; i++)
+                {
+                    threads[i] = new Thread(() =>
+                    {
+                        try
+                        {
+                            Config.Load();
+                        }
+                        catch (Exception ex)
+                        {
+                            exception = ex;
+                        }
+                    });
+                    threads[i].Start();
+                }
+
+                foreach (var thread in threads)
+                    thread.Join();
+                if (exception != null)
+                    Assert.Fail(exception.ToString());
             }
         }
     }

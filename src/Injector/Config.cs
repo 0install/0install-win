@@ -23,7 +23,6 @@ using System.Drawing.Design;
 using System.IO;
 using System.Net.NetworkInformation;
 using System.Text;
-using System.Threading;
 using Common;
 using Common.Storage;
 using Common.Utils;
@@ -61,9 +60,6 @@ namespace ZeroInstall.Injector
         #region Variables
         /// <summary>Provides meta-data for loading and saving settings properties.</summary>
         private readonly Dictionary<string, PropertyPointer<string>> _metaData;
-
-        /// <summary>Singleton used for reading and writing INI files.</summary>
-        private static readonly FileIniDataParser _iniParse = new FileIniDataParser();
 
         /// <summary>Stores the original INI data so that unknown values are preserved on re<see cref="Save()"/>ing.</summary>
         [NonSerialized]
@@ -360,7 +356,8 @@ namespace ZeroInstall.Injector
             TransferToIni();
 
             using (var atomic = new AtomicWrite(path))
-                _iniParse.SaveFile(atomic.WritePath, _iniData);
+            using (var writer = new StreamWriter(atomic.WritePath, false, Encoding.UTF8))
+                new StreamIniDataParser().WriteData(writer, _iniData);
         }
 
         /// <summary>
@@ -376,8 +373,6 @@ namespace ZeroInstall.Injector
         #endregion
 
         #region Serialization
-        private static readonly Random _random = new Random();
-
         /// <summary>
         /// Reads data from an INI file on the disk and transfers it to properties using <see cref="_metaData"/>.
         /// </summary>
@@ -385,23 +380,14 @@ namespace ZeroInstall.Injector
         {
             try
             {
-                _iniData = _iniParse.LoadFile(path, true);
+                using (var reader = new StreamReader(path, Encoding.UTF8))
+                    _iniData = new StreamIniDataParser().ReadData(reader);
             }
                 #region Error handling
-            catch (ParsingException)
+            catch (ParsingException ex)
             {
-                // Wait a moment and then retry in case it was just a race condition
-                Thread.Sleep(_random.Next(250, 750));
-                try
-                {
-                    _iniData = _iniParse.LoadFile(path, true);
-                }
-                catch (ParsingException ex)
-                {
-                    // Wrap exception since only certain exception types are allowed
-                    throw new InvalidDataException(ex.Message);
-                }
-                Log.Info("Successfully handled race condition while loading config");
+                // Wrap exception since only certain exception types are allowed
+                throw new InvalidDataException(ex.Message);
             }
             #endregion
 
