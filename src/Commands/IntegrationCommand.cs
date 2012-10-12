@@ -118,7 +118,16 @@ namespace ZeroInstall.Commands
                 }
             }
 
-            return integrationManager.AddApp(interfaceID, feed);
+            var appEntry = integrationManager.AddApp(interfaceID, feed);
+
+            // Pre-download application for later use
+            if (Policy.Config.EffectiveNetworkUse == NetworkLevel.Full)
+            {
+                // ToDo: Automatically switch to GTK# on Linux
+                ProcessUtils.LaunchHelperAssembly("0install-win", "download --batch " + StringUtils.EscapeArgument(interfaceID));
+            }
+
+            return appEntry;
         }
         #endregion
     }
