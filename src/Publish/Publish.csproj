@@ -63,6 +63,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="SignedCatalog.cs" />
     <Compile Include="SignedFeed.cs" />
   </ItemGroup>
   <ItemGroup>

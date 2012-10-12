@@ -21,7 +21,6 @@ using System.IO;
 using System.Net;
 using Common;
 using Common.Cli;
-using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Model;
@@ -280,18 +279,15 @@ namespace ZeroInstall.Publish.Cli
                         options.Feeds = ArgumentUtils.GetFiles(new[] {Environment.CurrentDirectory}, "*.xml");
 
                     var catalog = new Catalog();
-
                     foreach (var feedFile in options.Feeds)
                     {
                         var feed = Feed.Load(feedFile.FullName);
                         feed.Strip();
                         catalog.Feeds.Add(feed);
                     }
-
                     if (catalog.Feeds.IsEmpty) throw new FileNotFoundException(Resources.NoFeedFilesFound);
 
-                    catalog.Save(options.CatalogFile);
-                    XmlStorage.AddStylesheet(options.CatalogFile, "catalog.xsl");
+                    SaveCatalog(catalog, options);
                     return ErrorLevel.OK;
 
                 default:
@@ -308,7 +304,7 @@ namespace ZeroInstall.Publish.Cli
         /// <param name="path">The path to save the feed to.</param>
         /// <param name="options">The parser results to be handled.</param>
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file or the catalog file is not permitted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file is not permitted.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if an OpenPGP key could not be found.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
@@ -348,6 +344,32 @@ namespace ZeroInstall.Publish.Cli
                 options.OpenPgpPassphrase = CliUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
 
             signedFeed.Save(path, options.OpenPgpPassphrase);
+        }
+
+        /// <summary>
+        /// Saves a catalog applying any signature options.
+        /// </summary>
+        /// <param name="catalog">The catalog to save.</param>
+        /// <param name="options">The parser results to be handled.</param>
+        /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the catalog file could not be written.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a catalog file is not permitted.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if an OpenPGP key could not be found.</exception>
+        /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
+        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
+        private static void SaveCatalog(Catalog catalog, ParseResults options)
+        {
+            if (options.XmlSign)
+            {
+                var openPgp = OpenPgpProvider.CreateDefault();
+                var signedCatalog = new SignedCatalog(catalog, openPgp.GetSecretKey(options.Key));
+
+                // Ask for passphrase to unlock secret key
+                if (signedCatalog.SecretKey != null && string.IsNullOrEmpty(options.OpenPgpPassphrase))
+                    options.OpenPgpPassphrase = CliUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
+                
+                signedCatalog.Save(options.CatalogFile, options.OpenPgpPassphrase);
+            }
+            else catalog.Save(options.CatalogFile);
         }
         #endregion
     }
