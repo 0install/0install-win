@@ -59,8 +59,8 @@ namespace ZeroInstall.Injector.Feeds
                 bool goodVote;
                 var keyInformation = GetKeyInformation(sig.Fingerprint, out goodVote, policy) ?? Resources.NoKeyInfoServerData;
 
-                // Automatically trust key if known and voted good by key server
-                return (policy.Config.AutoApproveKeys && goodVote /*&& !Cache.Contains(uri.ToString())*/) ||
+                // Automatically trust key if known and voted good by key server (unless the feed was already seen/cached)
+                return (policy.Config.AutoApproveKeys && goodVote && !policy.FeedManager.Cache.Contains(uri.ToString())) ||
                     // Otherwise ask user
                     policy.Handler.AskQuestion(string.Format(Resources.AskKeyTrust, uri, sig.Fingerprint, keyInformation, domain), Resources.UntrustedKeys);
             });
