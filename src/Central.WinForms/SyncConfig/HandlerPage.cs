@@ -65,12 +65,13 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         /// <summary>
         /// Always returns <see langword="true"/>.
         /// </summary>
-        public bool IsGui { get { return true; } }
+        public bool Batch { get { return true; } set { } }
 
         /// <summary>
-        /// Always returns <see langword="true"/>.
+        /// Does nothing.
         /// </summary>
-        public bool Batch { get { return true; } set { } }
+        public void SetGuiHints(string actionTitle, int delay)
+        {}
 
         public void ShowProgressUI()
         {

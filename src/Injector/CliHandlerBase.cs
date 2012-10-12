@@ -33,13 +33,14 @@ namespace ZeroInstall.Injector
     /// </summary>
     public class CliHandlerBase : CliTaskHandler, IHandler
     {
-        /// <summary>
-        /// Always returns <see langword="false"/>.
-        /// </summary>
-        public bool IsGui { get { return false; } }
-
         /// <inheritdoc />
         public bool Batch { get; set; }
+
+        /// <summary>
+        /// Does nothing.
+        /// </summary>
+        public void SetGuiHints(string actionTitle, int delay)
+        {}
 
         #region UI control
         /// <inheritdoc/>

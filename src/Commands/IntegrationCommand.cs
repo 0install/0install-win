@@ -120,7 +120,7 @@ namespace ZeroInstall.Commands
 
             var appEntry = integrationManager.AddApp(interfaceID, feed);
 
-            // Pre-download application for later use
+            // Pre-download application in background for later use
             if (Policy.Config.EffectiveNetworkUse == NetworkLevel.Full)
             {
                 // ToDo: Automatically switch to GTK# on Linux

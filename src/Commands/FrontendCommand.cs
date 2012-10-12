@@ -77,6 +77,11 @@ namespace ZeroInstall.Commands
         public virtual string ActionTitle { get { return null; } }
 
         /// <summary>
+        /// The number of milliseconds by which to delay the initial display of the <see cref="IHandler"/> GUI.
+        /// </summary>
+        public virtual int GuiDelay { get { return 0; } }
+
+        /// <summary>
         /// The help text describing the available command-line options and their effects.
         /// </summary>
         public string HelpText

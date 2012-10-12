@@ -73,6 +73,7 @@
     <Compile Include="ConfigForm.Designer.cs">
       <DependentUpon>ConfigForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DelayedGuiHandler.cs" />
     <Compile Include="GuiHandler.cs" />
     <Compile Include="IntegrateAppForm.cs">
       <SubType>Form</SubType>

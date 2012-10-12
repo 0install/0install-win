@@ -30,14 +30,15 @@ namespace ZeroInstall.Injector
     public class SilentHandler : SilentTaskHandler, IHandler
     {
         /// <summary>
-        /// Always returns <see langword="false"/>.
-        /// </summary>
-        public bool IsGui { get { return false; } }
-
-        /// <summary>
         /// Always returns <see langword="true"/>.
         /// </summary>
         public bool Batch { get { return true; } set { } }
+
+        /// <summary>
+        /// Does nothing.
+        /// </summary>
+        public void SetGuiHints(string actionTitle, int delay)
+        {}
 
         /// <inheritdoc/>
         public void ShowProgressUI()

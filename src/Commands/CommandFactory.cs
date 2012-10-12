@@ -119,6 +119,7 @@ namespace ZeroInstall.Commands
             FrontendCommand command = GetCommand(GetCommandName(arguments), handler);
 
             command.Parse(arguments);
+            handler.SetGuiHints(command.ActionTitle, command.GuiDelay);
             return command;
         }
 

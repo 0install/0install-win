@@ -33,15 +33,17 @@ namespace ZeroInstall.Injector
     public interface IHandler : ITaskHandler
     {
         /// <summary>
-        /// Indicates whether this handler is a graphical user interface that displays windows.
-        /// </summary>
-        bool IsGui { get; }
-
-        /// <summary>
         /// Do not show progress reports, questions or messages (except for non-intrusive background messages like tray icons) unless a critical error occurs.
         /// </summary>
         /// <remarks>Do not change this from a background thread!</remarks>
         bool Batch { get; set; }
+
+        /// <summary>
+        /// Provides information for a potential GUI backing this handler.
+        /// </summary>
+        /// <param name="actionTitle">A short title describing what the command being executed does.</param>
+        /// <param name="delay">The number of milliseconds by which to delay the initial display of the GUI.</param>
+        void SetGuiHints(string actionTitle, int delay);
 
         /// <summary>
         /// Prepares any UI elements necessary to track the progress of <see cref="ITask"/>s.

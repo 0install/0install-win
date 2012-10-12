@@ -19,7 +19,6 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading;
 using Common;
 using Common.Collections;
 using Common.Utils;
@@ -59,6 +58,9 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionRun; } }
+
+        /// <inheritdoc/>
+        public override int GuiDelay { get { return Policy.FeedManager.Refresh ? 0 : 1500; } }
         #endregion
 
         #region Constructor
@@ -165,8 +167,6 @@ namespace ZeroInstall.Commands
                 if (runHook != null) runHook.Dispose();
             }
 
-            // Wait for a moment before closing the GUI so that focus is retained until it can be passed on to the child process
-            if (Policy.Handler.IsGui) Thread.Sleep(1000);
             Policy.Handler.CloseProgressUI();
 
             if (NoWait || process == null) return 0;

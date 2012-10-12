@@ -36,6 +36,9 @@ namespace ZeroInstall.Commands
         #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionAddApp; } }
+
+        /// <inheritdoc/>
+        public override int GuiDelay { get { return Policy.FeedManager.Refresh ? 0 : 1000; } }
         #endregion
 
         #region Constructor

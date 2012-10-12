@@ -45,6 +45,9 @@ namespace ZeroInstall.Commands.WinForms
         #region Variables
         private ProgressForm _form;
 
+        /// <summary>Synchronization object used to prevent multiple concurrent generic <see cref="ITask"/>s.</summary>
+        private readonly object _genericTaskLock = new object();
+
         /// <summary>A barrier that blocks threads until the <see cref="_form"/>'s handle is ready.</summary>
         private readonly ManualResetEvent _guiReady = new ManualResetEvent(false);
 
@@ -58,29 +61,44 @@ namespace ZeroInstall.Commands.WinForms
         /// <inheritdoc/>
         public CancellationToken CancellationToken { get { return _cancellationToken; } }
 
-        /// <summary>
-        /// A short title describing what the command being executed does.
-        /// </summary>
-        public string ActionTitle { get; set; }
-
-        /// <summary>
-        /// Always returns <see langword="true"/>.
-        /// </summary>
-        public bool IsGui { get { return true; } }
-
         /// <inheritdoc />
         public bool Batch { get; set; }
+
+        private string _actionTitle;
+
+        /// <inheritdoc />
+        public void SetGuiHints(string actionTitle, int delay)
+        {
+            _actionTitle = actionTitle;
+        }
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Creates a new GUI handler with an external <see cref="CancellationToken"/>.
+        /// </summary>
+        public GuiHandler(CancellationToken cancellationToken)
+        {
+            _cancellationToken = cancellationToken;
+        }
+
+        /// <summary>
+        /// Creates a new GUI handler with its own <see cref="CancellationToken"/>.
+        /// </summary>
+        public GuiHandler() : this(new CancellationToken())
+        {}
         #endregion
 
         //--------------------//
 
         #region Task tracking
-        /// <summary>Synchronization object used to prevent multiple concurrent generic <see cref="ITask"/>s.</summary>
-        private readonly object _genericTaskLock = new object();
-
         /// <inheritdoc />
         public void RunTask(ITask task, object tag)
         {
+            #region Sanity checks
+            if (task == null) throw new ArgumentNullException("task");
+            #endregion
+
             // If GUI does not exist or was closed cancel, otherwise wait until it is ready
             if (_form == null) return;
             _guiReady.WaitOne();
@@ -99,7 +117,7 @@ namespace ZeroInstall.Commands.WinForms
                 }
             }
 
-            if (!CancellationToken.IsCancellationRequested)
+            if (!_cancellationToken.IsCancellationRequested)
                 task.RunSync(_cancellationToken);
         }
         #endregion
@@ -118,7 +136,7 @@ namespace ZeroInstall.Commands.WinForms
             });
 
             // Initialize GUI with a low priority
-            var thread = new Thread(GuiThread) {Priority = ThreadPriority.Lowest};
+            var thread = new Thread(GuiThread);
             thread.SetApartmentState(ApartmentState.STA); // Make COM work
             thread.Start();
         }
@@ -129,14 +147,11 @@ namespace ZeroInstall.Commands.WinForms
         private void GuiThread()
         {
             _form.Initialize();
-            if (ActionTitle != null) _form.Text = ActionTitle;
+            if (_actionTitle != null) _form.Text = _actionTitle;
             if (Locations.IsPortable) _form.Text += @" - " + Resources.PortableMode;
 
-            // Restore normal priority as soon as the GUI becomes visible
-            _form.Shown += delegate { Thread.CurrentThread.Priority = ThreadPriority.Normal; };
-
             // Show the tray icon or the form
-            if (Batch) _form.ShowTrayIcon(ActionTitle, ToolTipIcon.None);
+            if (Batch) _form.ShowTrayIcon(_actionTitle, ToolTipIcon.None);
             else _form.Show();
 
             // Start the message loop and set the wait handle as soon as it is running
@@ -274,8 +289,11 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="title">The title of the balloon message.</param>
         /// <param name="information">The balloon message text.</param>
-        private static void ShowBalloonMessage(string title, string information)
+        private void ShowBalloonMessage(string title, string information)
         {
+            // Remove existing tray icon to give new balloon priority
+            _form.Invoke((SimpleEventHandler)(() => { if (_form.IsHandleCreated) _form.HideTrayIcon(); }));
+
             var icon = new NotifyIcon {Visible = true, Icon = Resources.TrayIcon};
             icon.ShowBalloonTip(10000, title, information, ToolTipIcon.Info);
         }
@@ -287,6 +305,8 @@ namespace ZeroInstall.Commands.WinForms
         {
             #region Sanity checks
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
             // If GUI does not exist or was closed cancel, otherwise wait until it is ready

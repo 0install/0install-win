@@ -80,14 +80,11 @@ namespace ZeroInstall.Commands.WinForms
             if (args == null) args = new string[0];
             if (args.Length == 0) args = new[] {"--help"};
 
-            var handler = new GuiHandler();
+            IHandler handler = new DelayedGuiHandler();
             FrontendCommand command;
             try
             {
                 command = CommandFactory.CreateAndParse(args, handler);
-
-                // Inform the handler about the name of the action being performed
-                handler.ActionTitle = command.ActionTitle;
             }
                 #region Error handling
             catch (OperationCanceledException)
