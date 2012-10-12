@@ -54,6 +54,9 @@ namespace ZeroInstall.Commands
         #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionIntegrateApp; } }
+
+        /// <inheritdoc/>
+        public override int GuiDelay { get { return Policy.Handler.Batch ? 0 : 1000; } }
         #endregion
 
         #region Constructor

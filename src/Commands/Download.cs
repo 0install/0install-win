@@ -56,6 +56,9 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionDownload; } }
+
+        /// <inheritdoc/>
+        public override int GuiDelay { get { return Policy.Handler.Batch ? 1000 : 0; } }
         #endregion
 
         #region Constructor

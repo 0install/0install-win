@@ -67,9 +67,6 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionSelection; } }
 
-        /// <inheritdoc/>
-        public override int GuiDelay { get { return Policy.Handler.Batch ? 1000 : 0; } }
-
         // Default to current system as architecture requirement
         private readonly Requirements _requirements = new Requirements {Architecture = Architecture.CurrentSystem};
 
