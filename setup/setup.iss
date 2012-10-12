@@ -197,10 +197,10 @@ begin
 		DeleteFile(ExpandConstant('{app}\\uninsTasks.txt'))
 
 		// Clean implementation cache
-		if MsgBox(CustomMessage('DeleteCache'), mbConfirmation, MB_YESNO) = IDYES
-		then begin
-			DelTree(ExpandConstant('{localappdata}\0install.net'), true, true, true);
-			DelTree(ExpandConstant('{commonappdata}\0install.net\implementations'), true, true, true);
-		end;
+		//if MsgBox(CustomMessage('DeleteCache'), mbConfirmation, MB_YESNO) = IDYES
+		//then begin
+		//	DelTree(ExpandConstant('{localappdata}\0install.net'), true, true, true);
+		//	DelTree(ExpandConstant('{commonappdata}\0install.net\implementations'), true, true, true);
+		//end;
 	end;
 end;
