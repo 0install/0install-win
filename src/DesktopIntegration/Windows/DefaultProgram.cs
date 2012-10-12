@@ -93,9 +93,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     using (var installInfoKey = appKey.CreateSubKey(RegSubKeyInstallInfo))
                     {
                         string exePath = StringUtils.EscapeArgument(Path.Combine(Locations.InstallBase, "0install-win.exe"));
-                        installInfoKey.SetValue(RegValueReinstallCommand, exePath + " integrate-app --global --batch --add=defaults " + StringUtils.EscapeArgument(target.InterfaceID));
-                        installInfoKey.SetValue(RegValueShowIconsCommand, exePath + " integrate-app --global --batch --add=icons " + StringUtils.EscapeArgument(target.InterfaceID));
-                        installInfoKey.SetValue(RegValueHideIconsCommand, exePath + " integrate-app --global --batch --remove=icons " + StringUtils.EscapeArgument(target.InterfaceID));
+                        installInfoKey.SetValue(RegValueReinstallCommand, exePath + " integrate-app --system --batch --add=defaults " + StringUtils.EscapeArgument(target.InterfaceID));
+                        installInfoKey.SetValue(RegValueShowIconsCommand, exePath + " integrate-app --system --batch --add=icons " + StringUtils.EscapeArgument(target.InterfaceID));
+                        installInfoKey.SetValue(RegValueHideIconsCommand, exePath + " integrate-app --system --batch --remove=icons " + StringUtils.EscapeArgument(target.InterfaceID));
                         installInfoKey.SetValue(RegValueIconsVisible, 0, RegistryValueKind.DWord);
                     }
 
