@@ -16,6 +16,7 @@
  */
 
 using System;
+using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
@@ -54,19 +55,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public SyncApps(Policy policy) : base(policy)
         {
-            Options.Add("reset=", Resources.OptionSyncReset, mode =>
-            {
-                try
-                {
-                    _syncResetMode = (SyncResetMode)Enum.Parse(typeof(SyncResetMode), mode, true);
-                }
-                    #region Error handling
-                catch (ArgumentException)
-                {
-                    throw new OptionException(Resources.UnknownResetMode, "reset");
-                }
-                #endregion
-            });
+            Options.Add("reset=", Resources.OptionSyncReset, (SyncResetMode mode) => _syncResetMode = mode);
         }
         #endregion
 
@@ -77,8 +66,9 @@ namespace ZeroInstall.Commands
         public override int Execute()
         {
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-
             if (AdditionalArgs.Count > 0) throw new OptionException(Resources.TooManyArguments, "");
+
+            if (SystemWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
 
             using (_syncManager = new SyncIntegrationManager(SystemWide, Policy.Config.SyncServer, Policy.Config.SyncServerUsername, Policy.Config.SyncServerPassword, Policy.Config.SyncCryptoKey, Policy.Handler))
             {

@@ -82,14 +82,6 @@ namespace ZeroInstall.Commands
 
         #region Execute
         /// <inheritdoc/>
-        public override int Execute()
-        {
-            if (Locations.IsPortable) throw new NotSupportedException(Resources.NotAvailableInPortableMode);
-
-            return base.Execute();
-        }
-
-        /// <inheritdoc/>
         protected override int ExecuteHelper(ICategoryIntegrationManager integrationManager, string interfaceID)
         {
             #region Sanity checks
