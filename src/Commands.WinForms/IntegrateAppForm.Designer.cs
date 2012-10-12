@@ -74,6 +74,7 @@
             this.dataGridDefaultProgramsColumnService = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.checkBoxCapabilities = new System.Windows.Forms.CheckBox();
             this.checkBoxAutoUpdate = new System.Windows.Forms.CheckBox();
+            this.labelLastDataError = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageStartMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStartMenu)).BeginInit();
@@ -145,6 +146,7 @@
             this.dataGridStartMenu.Name = "dataGridStartMenu";
             this.dataGridStartMenu.Size = new System.Drawing.Size(436, 185);
             this.dataGridStartMenu.TabIndex = 0;
+            this.dataGridStartMenu.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.accessPointDataGrid_DataError);
             // 
             // dataGridStartMenuColumnName
             // 
@@ -194,6 +196,7 @@
             this.dataGridDesktop.Name = "dataGridDesktop";
             this.dataGridDesktop.Size = new System.Drawing.Size(436, 185);
             this.dataGridDesktop.TabIndex = 0;
+            this.dataGridDesktop.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.accessPointDataGrid_DataError);
             // 
             // dataGridDesktopColumnName
             // 
@@ -235,6 +238,7 @@
             this.dataGridAliases.Name = "dataGridAliases";
             this.dataGridAliases.Size = new System.Drawing.Size(436, 185);
             this.dataGridAliases.TabIndex = 1;
+            this.dataGridAliases.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.accessPointDataGrid_DataError);
             // 
             // dataGridAliasesColumnName
             // 
@@ -625,11 +629,24 @@
             this.checkBoxAutoUpdate.Text = "Auto &Update";
             this.checkBoxAutoUpdate.UseVisualStyleBackColor = true;
             // 
+            // labelLastDataError
+            // 
+            this.labelLastDataError.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelLastDataError.ForeColor = System.Drawing.Color.Red;
+            this.labelLastDataError.Location = new System.Drawing.Point(12, 263);
+            this.labelLastDataError.Name = "labelLastDataError";
+            this.labelLastDataError.Size = new System.Drawing.Size(288, 23);
+            this.labelLastDataError.TabIndex = 1002;
+            this.labelLastDataError.Text = "(Last data error)";
+            this.labelLastDataError.Visible = false;
+            // 
             // IntegrateAppForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(474, 293);
+            this.Controls.Add(this.labelLastDataError);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.checkBoxAutoUpdate);
             this.Controls.Add(this.checkBoxCapabilities);
@@ -648,6 +665,7 @@
             this.Controls.SetChildIndex(this.tabControl, 0);
             this.Controls.SetChildIndex(this.buttonOK, 0);
             this.Controls.SetChildIndex(this.buttonCancel, 0);
+            this.Controls.SetChildIndex(this.labelLastDataError, 0);
             this.tabControl.ResumeLayout(false);
             this.tabPageStartMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStartMenu)).EndInit();
@@ -722,5 +740,6 @@
         private System.Windows.Forms.CheckBox checkBoxAutoPlayAll;
         private System.Windows.Forms.CheckBox checkBoxContextMenuAll;
         private System.Windows.Forms.CheckBox checkBoxDefaultProgramsAll;
+        private System.Windows.Forms.Label labelLastDataError;
     }
 }

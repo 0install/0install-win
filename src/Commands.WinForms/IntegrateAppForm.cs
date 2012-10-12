@@ -308,8 +308,8 @@ namespace ZeroInstall.Commands.WinForms
             _appEntry.AutoUpdate = checkBoxAutoUpdate.Checked;
             (checkBoxCapabilities.Checked ? toAdd : toRemove).Add(new AccessPoints.CapabilityRegistration());
 
-            HandleCommandAccessPoints(toAdd, toRemove);
-            HandleDefaultAccessPoints(toAdd, toRemove);
+            HandleCommandAccessPointChanges(toAdd, toRemove);
+            HandleDefaultAccessPointChanges(toAdd, toRemove);
 
             try
             {
@@ -364,7 +364,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="toAdd">List to add <see cref="AccessPoints.AccessPoint"/>s to be added to.</param>
         /// <param name="toRemove">List to add <see cref="AccessPoints.AccessPoint"/>s to be removed to.</param>
-        private void HandleCommandAccessPoints(C5.IExtensible<AccessPoints.AccessPoint> toAdd, C5.IExtensible<AccessPoints.AccessPoint> toRemove)
+        private void HandleCommandAccessPointChanges(C5.IExtensible<AccessPoints.AccessPoint> toAdd, C5.IExtensible<AccessPoints.AccessPoint> toRemove)
         {
             // Build lists with current integration state
             var currentMenuEntries = new List<AccessPoints.MenuEntry>();
@@ -391,7 +391,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="toAdd">List to add <see cref="AccessPoints.AccessPoint"/>s to be added to.</param>
         /// <param name="toRemove">List to add <see cref="AccessPoints.AccessPoint"/>s to be removed to.</param>
-        private void HandleDefaultAccessPoints(C5.IExtensible<AccessPoints.AccessPoint> toAdd, C5.IExtensible<AccessPoints.AccessPoint> toRemove)
+        private void HandleDefaultAccessPointChanges(C5.IExtensible<AccessPoints.AccessPoint> toAdd, C5.IExtensible<AccessPoints.AccessPoint> toRemove)
         {
             foreach (var capabilityModel in _capabilityModels)
             {
@@ -464,6 +464,14 @@ namespace ZeroInstall.Commands.WinForms
                 dataGridDefaultPrograms[lastColumn, i].Value = checkBoxDefaultProgramsAll.Checked;
             }
             dataGridDefaultPrograms.EndEdit();
+        }
+        #endregion
+
+        #region Error handling
+        private void accessPointDataGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            labelLastDataError.Visible = true;
+            labelLastDataError.Text = e.Exception.Message;
         }
         #endregion
     }
