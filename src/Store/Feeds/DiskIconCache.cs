@@ -114,7 +114,10 @@ namespace ZeroInstall.Store.Feeds
                     if (!File.Exists(path))
                     {
                         using (var atomic = new AtomicWrite(path))
+                        {
                             handler.RunTask(new DownloadFile(iconUrl, atomic.WritePath), null);
+                            atomic.Commit();
+                        }
                     }
                 }
             }

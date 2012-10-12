@@ -185,7 +185,10 @@ namespace ZeroInstall.Store.Feeds
         {
             lock (_replaceLock)
                 using (var atomic = new AtomicWrite(path))
+                {
                     File.WriteAllBytes(atomic.WritePath, data);
+                    atomic.Commit();
+                }
         }
         #endregion
 

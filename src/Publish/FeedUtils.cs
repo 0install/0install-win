@@ -73,21 +73,21 @@ namespace ZeroInstall.Publish
 
         #region Sign
         /// <summary>
-        /// Adds a Base64 signature to a feed file and exports the appropriate public key file in the same directory.
+        /// Adds a Base64 signature to a feed or catalog file and exports the appropriate public key file in the same directory.
         /// </summary>
-        /// <param name="path">The feed file to sign.</param>
+        /// <param name="path">The feed or catalog file to sign.</param>
         /// <param name="secretKey">The secret key to use for signing the file.</param>
         /// <param name="passphrase">The passphrase to use to unlock the key.</param>
         /// <param name="openPgp">The OpenPGP-compatible system used to create a signatures.</param>
-        /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
-        /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched or the feed file could not be read or written.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the feed file is not permitted.</exception>
+        /// <exception cref="FileNotFoundException">Thrown if the file could not be found.</exception>
+        /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched or the file could not be read or written.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the file is not permitted.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         /// <remarks>
-        /// The feed file is not parsed before signing; invalid XML files are signed as well.
+        /// The file is not parsed before signing; invalid XML files are signed as well.
         /// The existing file must end with a line break.
-        /// Old feed signatures are not removed.
+        /// Old signatures are not removed.
         /// </remarks>
         public static void SignFeed(string path, OpenPgpSecretKey secretKey, string passphrase, IOpenPgp openPgp)
         {
@@ -119,20 +119,23 @@ namespace ZeroInstall.Publish
             string feedDir = Path.GetDirectoryName(Path.GetFullPath(path));
             if (feedDir != null)
             {
-                string publicKeyFile = Path.Combine(feedDir, secretKey.KeyID + ".gpg");
-                File.WriteAllText(publicKeyFile, openPgp.GetPublicKey(secretKey.Fingerprint), Encoding.ASCII);
+                using (var atomic = new AtomicWrite(Path.Combine(feedDir, secretKey.KeyID + ".gpg")))
+                {
+                    File.WriteAllText(atomic.WritePath, openPgp.GetPublicKey(secretKey.Fingerprint), Encoding.ASCII);
+                    atomic.Commit();
+                }
             }
         }
 
         /// <summary>
-        /// Determines the key used to sign a feed. Only uses the first signature if more than one is present.
+        /// Determines the key used to sign a feed or catalog file. Only uses the first signature if more than one is present.
         /// </summary>
-        /// <param name="path">The feed file to check for signatures.</param>
+        /// <param name="path">The feed or catalog file to check for signatures.</param>
         /// <param name="openPgp">The OpenPGP-compatible system used to validate the signatures.</param>
-        /// <returns>The key used to sign the feed; <see langword="null"/> if the feed was not signed.</returns>
-        /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
-        /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched or the feed file could not be read.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the feed file is not permitted.</exception>
+        /// <returns>The key used to sign the file; <see langword="null"/> if the file was not signed.</returns>
+        /// <exception cref="FileNotFoundException">Thrown if the file file could not be found.</exception>
+        /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched or the file could not be read.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
         public static OpenPgpSecretKey GetKey(string path, IOpenPgp openPgp)
         {
             #region Sanity checks

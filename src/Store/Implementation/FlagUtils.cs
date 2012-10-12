@@ -160,6 +160,7 @@ namespace ZeroInstall.Store.Implementation
                         newFlagFile.WriteLine(line);
                     }
                 }
+                atomic.Commit();
             }
         }
 
@@ -196,6 +197,7 @@ namespace ZeroInstall.Store.Implementation
                     if (line != null && line.StartsWith("/"))
                         newFlagFile.WriteLine(prefix + line); // Add prefix
                 }
+                atomic.Commit();
             }
         }
         #endregion

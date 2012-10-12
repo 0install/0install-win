@@ -138,7 +138,10 @@ namespace ZeroInstall.Central.WinForms
                 config.Save();
 
                 using (var atomic = new AtomicWrite(_implementationDirsConfigPath))
+                {
                     WriteImplDirs(atomic.WritePath);
+                    atomic.Commit();
+                }
 
                 // Write list of trusted keys
                 var trustDB = new TrustDB();

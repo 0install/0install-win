@@ -27,8 +27,15 @@ using Common.Utils;
 namespace Common.Storage
 {
     /// <summary>
-    /// Provides a temporary path to write to and atomically inserts it at the target location on disposal.
+    /// Provides a temporary path to write to and atomically inserts it at the target location on disposal (if <see cref="Commit"/> was called).
     /// </summary>
+    /// <example><code>
+    /// using (var atomic = new AtomicWrite(filePath))
+    /// {
+    ///     File.WriteAllBytes(atomic.WritePath, fileData);
+    ///     atomic.Commit();
+    /// }
+    /// </code></example>
     public sealed class AtomicWrite : IDisposable
     {
         #region Properties
@@ -41,6 +48,11 @@ namespace Common.Storage
         /// The temporary file path to write to.
         /// </summary>
         public string WritePath { get; private set; }
+
+        /// <summary>
+        /// <see langword="true"/> if <see cref="Commit"/> has been called.
+        /// </summary>
+        public bool IsCommited { get; private set; }
         #endregion
 
         #region Constructor
@@ -65,6 +77,16 @@ namespace Common.Storage
         }
         #endregion
 
+        #region Commit
+        /// <summary>
+        /// Allows the new file to be deployed upon <see cref="Dispose"/>.
+        /// </summary>
+        public void Commit()
+        {
+            IsCommited = true;
+        }
+        #endregion
+
         #region Dispose
         /// <summary>
         /// Replaces <see cref="TargetPath"/> with the contents of <see cref="WritePath"/>.
@@ -73,7 +95,7 @@ namespace Common.Storage
         {
             try
             {
-                if (File.Exists(WritePath)) FileUtils.Replace(WritePath, TargetPath);
+                if (File.Exists(WritePath) && IsCommited) FileUtils.Replace(WritePath, TargetPath);
             }
             finally
             {

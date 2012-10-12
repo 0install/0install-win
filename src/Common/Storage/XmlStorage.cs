@@ -174,7 +174,10 @@ namespace Common.Storage
 
             using (var atomic = new AtomicWrite(path))
             using (var fileStream = File.Create(atomic.WritePath))
+            {
                 Save(fileStream, data);
+                atomic.Commit();
+            }
         }
 
         /// <summary>
@@ -376,7 +379,10 @@ namespace Common.Storage
 
             using (var atomic = new AtomicWrite(path))
             using (var fileStream = File.Create(atomic.WritePath))
-                ToZip(fileStream, data, password, additionalFiles);
+            {
+                Save(fileStream, data);
+                atomic.Commit();
+            }
         }
         #endregion
 

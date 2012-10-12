@@ -19,7 +19,6 @@ using System;
 using System.IO;
 using Common.Cli;
 using Common.Storage;
-using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 
@@ -103,6 +102,8 @@ namespace ZeroInstall.Publish
 
                 FeedUtils.AddStylesheet(atomic.WritePath);
                 if (SecretKey != null) FeedUtils.SignFeed(atomic.WritePath, SecretKey, passphrase, OpenPgpProvider.CreateDefault());
+
+                atomic.Commit();
             }
         }
         #endregion

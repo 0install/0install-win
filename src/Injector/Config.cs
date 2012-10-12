@@ -357,7 +357,10 @@ namespace ZeroInstall.Injector
 
             using (var atomic = new AtomicWrite(path))
             using (var writer = new StreamWriter(atomic.WritePath, false, Encoding.UTF8))
+            {
                 new StreamIniDataParser().WriteData(writer, _iniData);
+                atomic.Commit();
+            }
         }
 
         /// <summary>
