@@ -124,7 +124,7 @@ namespace ZeroInstall.Injector.Solver
             }
             if (Versions != null) builder.Append("--version=" + StringUtils.EscapeArgument(Versions.ToString()) + " ");
             foreach (var pair in VersionsFor)
-                builder.Append("--version-for=" + StringUtils.EscapeArgument(pair.Key) + " " +  StringUtils.EscapeArgument(pair.Value.ToString()) + " ");
+                builder.Append("--version-for=" + StringUtils.EscapeArgument(pair.Key) + " " + StringUtils.EscapeArgument(pair.Value.ToString()) + " ");
             builder.Append(StringUtils.EscapeArgument(InterfaceID));
 
             return builder.ToString();
