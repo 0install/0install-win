@@ -216,7 +216,7 @@ namespace ZeroInstall.Injector.Feeds
             if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
-            var newSignature = CheckFeedTrust(uri, mirrorUri, data, policy);
+            var newSignature = TrustUtils.CheckTrust(uri, mirrorUri, data, policy);
             DetectAttacks(uri, data, policy, newSignature);
 
             // Add to cache and remember time
@@ -226,122 +226,7 @@ namespace ZeroInstall.Injector.Feeds
             preferences.SaveFor(uri.ToString());
         }
 
-        /// <summary>
-        /// Checks whether a remote <see cref="Feed"/> has a a valid and trusted signature. Downloads missing GPG keys for verification and interactivley asks the user to approve new keys.
-        /// </summary>
-        /// <param name="uri">The URI the feed originally came from.</param>
-        /// <param name="mirrorUri">The URI or local file path the feed was actually loaded from; <see langword="null"/> if it is identical to <paramref name="uri"/>.</param>
-        /// <param name="data">The data of the feed.</param>
-        /// <param name="policy">Provides additional class dependencies.</param>
-        /// <exception cref="SignatureException">Thrown if no trusted signature was found.</exception>
-        private ValidSignature CheckFeedTrust(Uri uri, Uri mirrorUri, byte[] data, Policy policy)
-        {
-            var domain = new Domain(uri.Host);
-            KeyImported:
-            var trustDB = TrustDB.LoadSafe();
-            var signatures = FeedUtils.GetSignatures(policy.OpenPgp, data);
-
-            // Try to find already trusted key
-            var validSignatures = EnumerableUtils.OfType<ValidSignature>(signatures);
-            // ReSharper disable AccessToModifiedClosure
-            var trustedSignature = EnumerableUtils.First(validSignatures, sig => trustDB.IsTrusted(sig.Fingerprint, domain));
-            // ReSharper restore AccessToModifiedClosure
-            if (trustedSignature != null) return trustedSignature;
-
-            // Try to find valid key and ask user to approve it
-            trustedSignature = EnumerableUtils.First(validSignatures, sig =>
-            {
-                bool goodVote;
-                var keyInformation = GetKeyInformation(sig.Fingerprint, out goodVote, policy) ?? Resources.NoKeyInfoServerData;
-
-                // Automatically trust key if known and voted good by key server and if feed is seen for the first time
-                return (policy.Config.AutoApproveKeys && goodVote && !Cache.Contains(uri.ToString())) ||
-                    // Otherwise ask user
-                    policy.Handler.AskQuestion(string.Format(Resources.AskKeyTrust, uri, sig.Fingerprint, keyInformation, domain), Resources.UntrustedKeys);
-            });
-            if (trustedSignature != null)
-            {
-                // Add newly approved key to trust database
-                trustDB.TrustKey(trustedSignature.Fingerprint, domain);
-                trustDB.Save();
-
-                return trustedSignature;
-            }
-
-            // Download missing key file
-            var missingKey = EnumerableUtils.First(EnumerableUtils.OfType<MissingKeySignature>(signatures));
-            if (missingKey != null)
-            {
-                var keyUri = new Uri(mirrorUri ?? uri, missingKey.KeyID + ".gpg");
-                byte[] keyData;
-                if (keyUri.IsFile)
-                { // Load key file from local file
-                    keyData = File.ReadAllBytes(keyUri.LocalPath);
-                }
-                else
-                { // Load key file from server
-                    try
-                    {
-                        // ToDo: Add tracking and better cancellation support
-                        policy.Handler.CancellationToken.ThrowIfCancellationRequested();
-                        using (var webClient = new WebClientTimeout())
-                            keyData = webClient.DownloadData(keyUri);
-                    }
-                        #region Error handling
-                    catch (WebException ex)
-                    {
-                        // Wrap exception to add context information
-                        throw new SignatureException(string.Format(Resources.UnableToLoadKeyFile, uri) + "\n" + ex.Message, ex);
-                    }
-                    #endregion
-                }
-                policy.Handler.CancellationToken.ThrowIfCancellationRequested();
-                policy.OpenPgp.ImportKey(keyData);
-                goto KeyImported; // Re-evaluate signatures after importing new key material
-            }
-
-            throw new SignatureException(string.Format(Resources.FeedNoTrustedSignatures, uri));
-        }
-
-        /// <summary>
-        /// retrieves information about a OpenPGP key from the <see cref="Config.KeyInfoServer"/>.
-        /// </summary>
-        /// <param name="fingerprint">The fingerprint of the key to check.</param>
-        /// <param name="goodVote">Returns <see langword="true"/> if the server indicated that the key is trustworthy.</param>
-        /// <param name="policy">Provides additional class dependencies.</param>
-        /// <returns>Human-readable information about the key or <see langword="null"/> if the server failed to provide a response.</returns>
-        private static string GetKeyInformation(string fingerprint, out bool goodVote, Policy policy)
-        {
-            try
-            {
-                // ToDo: Add better cancellation support
-                var xmlReader = XmlReader.Create(policy.Config.KeyInfoServer + "key/" + fingerprint);
-                policy.Handler.CancellationToken.ThrowIfCancellationRequested();
-                if (!xmlReader.ReadToFollowing("item"))
-                {
-                    goodVote = false;
-                    return null;
-                }
-
-                goodVote = xmlReader.MoveToAttribute("vote") && (xmlReader.Value == "good");
-                xmlReader.MoveToContent();
-                return xmlReader.ReadString();
-            }
-                #region Error handling
-            catch (XmlException ex)
-            {
-                Log.Error("Unable to parse key information for: " + fingerprint + "\n" + ex.Message);
-                goodVote = false;
-                return null;
-            }
-            catch (WebException ex)
-            {
-                Log.Error("Unable to retrieve key information for: " + fingerprint + "\n" + ex.Message);
-                goodVote = false;
-                return null;
-            }
-            #endregion
-        }
+        
 
         /// <summary>
         /// Detects attacks such as feed substitution or replay attacks.

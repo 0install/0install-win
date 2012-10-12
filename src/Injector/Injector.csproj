@@ -70,6 +70,7 @@
     <Compile Include="Feeds\Key.cs" />
     <Compile Include="Feeds\ReplayAttackException.cs" />
     <Compile Include="Feeds\TrustDB.cs" />
+    <Compile Include="Feeds\TrustUtils.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IHandler.cs" />
     <Compile Include="Executor.cs" />
