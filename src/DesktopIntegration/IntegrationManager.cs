@@ -284,7 +284,7 @@ namespace ZeroInstall.DesktopIntegration
         {
             if (_mutex != null)
             {
-                _mutex.ReleaseMutex();
+                if (disposing) _mutex.ReleaseMutex();
                 _mutex.Close();
             }
         }
