@@ -28,20 +28,24 @@ using ZeroInstall.Store.Feeds;
 namespace ZeroInstall.Commands.WinForms
 {
     /// <summary>
-    /// Wraps another <see cref="IHandler"/> and displays it only after a certain delay or when it is first required.
+    /// Wraps <see cref="GuiHandler"/> and displays it only after a certain delay (or immediately when it is required).
     /// </summary>
     public class DelayedGuiHandler : IHandler
     {
         #region Variables
+        /// <summary>The actual GUI to show with a delay.</summary>
+        private GuiHandler _target;
+
+        /// <summary>The number of milliseconds by which to delay the initial display of the GUI.</summary>
         private int _delay;
 
         /// <summary>Synchronization object used to prevent concurrent access to <see cref="_target"/>.</summary>
         private readonly object _targetLock = new object();
 
-        private readonly AutoResetEvent _guiClose = new AutoResetEvent(false);
+        /// <summary>A wait handle used to signal that <see cref="InitTarget"/> no longer needs to be called.</summary>
+        private readonly AutoResetEvent _uiDone = new AutoResetEvent(false);
 
-        private GuiHandler _target;
-
+        /// <summary>Queues defered actions to be executed as soon as the <see cref="_target"/> is created.</summary>
         private Action<GuiHandler> _onTargetCreate;
         #endregion
 
@@ -52,21 +56,34 @@ namespace ZeroInstall.Commands.WinForms
         public CancellationToken CancellationToken { get { return _cancellationToken; } }
         #endregion
 
+        //--------------------//
+
+        #region Target access
+        /// <summary>
+        /// Initializes the <see cref="_target"/> if it is missing (thread-safe) and returns it.
+        /// </summary>
         private GuiHandler InitTarget()
         {
+            // Double locking
             if (_target != null) return _target;
             lock (_targetLock)
             {
                 if (_target != null) return _target;
+                _uiDone.Set();
 
+                // Create target but keep it hidden until all defered actions are complete (ensures correct order)
                 var newTarget = new GuiHandler(_cancellationToken);
                 if (_onTargetCreate != null) _onTargetCreate(newTarget);
                 return _target = newTarget;
             }
         }
 
+        /// <summary>
+        /// Applies an action to the <see cref="_target"/> as soon as it is created
+        /// </summary>
         private void ApplyToTarget(Action<GuiHandler> action)
         {
+            // Double locking
             if (_target != null) action(_target);
             lock (_targetLock)
             {
@@ -74,8 +91,7 @@ namespace ZeroInstall.Commands.WinForms
                 else _onTargetCreate += action;
             }
         }
-
-        //--------------------//
+        #endregion
 
         #region UI control
         /// <inheritdoc/>
@@ -88,7 +104,7 @@ namespace ZeroInstall.Commands.WinForms
             {
                 new Thread(() =>
                 {
-                    if (!_guiClose.WaitOne(_delay))
+                    if (!_uiDone.WaitOne(_delay))
                         InitTarget();
                 }).Start();
             }
@@ -97,7 +113,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <inheritdoc/>
         public void CloseProgressUI()
         {
-            _guiClose.Set();
+            _uiDone.Set();
             ApplyToTarget(target => target.CloseProgressUI());
         }
         #endregion
