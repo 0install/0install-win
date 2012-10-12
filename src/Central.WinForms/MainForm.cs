@@ -448,10 +448,10 @@ namespace ZeroInstall.Central.WinForms
             var config = Config.Load();
             if (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey))
             {
-                using (var wizard = new SyncConfig.SetupWizard())
+                using (var wizard = new SyncConfig.SetupWizard(_systemWide))
                     wizard.ShowDialog(this);
             }
-            else ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"sync"}));
+            else ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_systemWide ? new[] {"sync", "--system"} : new[] {"sync"}));
         }
 
         private void buttonRefreshCatalog_Click(object sender, EventArgs e)
@@ -469,7 +469,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonOptions_Click(object sender, EventArgs e)
         {
-            using (var dialog = new OptionsDialog())
+            using (var dialog = new OptionsDialog(_systemWide))
                 dialog.ShowDialog(this);
         }
 

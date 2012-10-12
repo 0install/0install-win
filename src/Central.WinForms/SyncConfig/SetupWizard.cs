@@ -28,7 +28,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
     /// <remarks>Modifies the default <see cref="Config"/>.</remarks>
     public partial class SetupWizard : Wizard
     {
-        public SetupWizard()
+        public SetupWizard(bool systemWide)
         {
             InitializeComponent();
 
@@ -44,7 +44,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             var registerPage = new RegisterPage();
             var credentialsPage = new CredentialsPage();
             var existingCryptoKeyPage = new ExistingCryptoKeyPage();
-            var resetCryptoKeyPage = new ResetCryptoKeyPage();
+            var resetCryptoKeyPage = new ResetCryptoKeyPage(systemWide);
             var cryptoKeyChangedPage = new CryptoKeyChangedPage();
             var newCryptoKeyPage = new NewCryptoKeyPage();
             var finishedPage = new SetupFinishedPage();

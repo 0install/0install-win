@@ -27,7 +27,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
     {
         public event SimpleEventHandler Continue;
 
-        public ResetServerPage()
+        public ResetServerPage(bool systemWide) : base(systemWide)
         {
             InitializeComponent();
         }
@@ -43,7 +43,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         private void resetWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             var policy = Policy.CreateDefault(this);
-            using (var sync = new SyncIntegrationManager(false, policy.Config.SyncServer, policy.Config.SyncServerUsername, policy.Config.SyncServerPassword, policy.Config.SyncCryptoKey, policy.Handler))
+            using (var sync = new SyncIntegrationManager(SystemWide, policy.Config.SyncServer, policy.Config.SyncServerUsername, policy.Config.SyncServerPassword, policy.Config.SyncCryptoKey, policy.Handler))
                 sync.Sync(SyncResetMode.Server, feedID => policy.FeedManager.GetFeed(feedID, policy));
         }
 

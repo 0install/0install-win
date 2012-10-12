@@ -34,8 +34,12 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
     /// </summary>
     internal partial class HandlerPage : UserControl, IHandler
     {
-        public HandlerPage()
+        protected readonly bool SystemWide;
+
+        public HandlerPage(bool systemWide)
         {
+            SystemWide = systemWide;
+
             InitializeComponent();
             labelWorking.Text = Resources.Working;
         }

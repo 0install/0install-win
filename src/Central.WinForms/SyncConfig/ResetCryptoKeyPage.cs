@@ -30,7 +30,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
 
         public event Action<string> Continue;
 
-        public ResetCryptoKeyPage()
+        public ResetCryptoKeyPage(bool systemWide) : base(systemWide)
         {
             InitializeComponent();
         }
@@ -52,7 +52,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         {
             var newKey = (string)e.Argument;
             var policy = Policy.CreateDefault(this);
-            using (var sync = new SyncIntegrationManager(false, SyncServer, SyncCredentials.Username, SyncCredentials.Password, newKey, policy.Handler))
+            using (var sync = new SyncIntegrationManager(SystemWide, SyncServer, SyncCredentials.Username, SyncCredentials.Password, newKey, policy.Handler))
                 sync.Sync(SyncResetMode.Server, feedID => policy.FeedManager.GetFeed(feedID, policy));
         }
 

@@ -29,7 +29,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
 
         public event Action<string> Continue;
 
-        public ChangeCryptoKeyPage()
+        public ChangeCryptoKeyPage(bool systemWide) : base(systemWide)
         {
             InitializeComponent();
         }
@@ -51,9 +51,9 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         {
             var newKey = (string)e.Argument;
             var policy = Policy.CreateDefault(this);
-            using (var sync = new SyncIntegrationManager(false, policy.Config.SyncServer, policy.Config.SyncServerUsername, policy.Config.SyncServerPassword, OldKey, policy.Handler))
+            using (var sync = new SyncIntegrationManager(SystemWide, policy.Config.SyncServer, policy.Config.SyncServerUsername, policy.Config.SyncServerPassword, OldKey, policy.Handler))
                 sync.Sync(SyncResetMode.None, feedID => policy.FeedManager.GetFeed(feedID, policy));
-            using (var sync = new SyncIntegrationManager(false, policy.Config.SyncServer, policy.Config.SyncServerUsername, policy.Config.SyncServerPassword, newKey, policy.Handler))
+            using (var sync = new SyncIntegrationManager(SystemWide, policy.Config.SyncServer, policy.Config.SyncServerUsername, policy.Config.SyncServerPassword, newKey, policy.Handler))
                 sync.Sync(SyncResetMode.Server, feedID => policy.FeedManager.GetFeed(feedID, policy));
         }
 
