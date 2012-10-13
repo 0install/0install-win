@@ -17,9 +17,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
-using System.Xml;
 using Common;
 using Common.Collections;
 using Common.Storage;
@@ -165,6 +165,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
+        [SuppressMessage("Microsoft.Usage", "CA2200:RethrowToPreserveStackDetails", Justification = "Rethrow the outer instead of the inner exception")]
         private void DownloadFeed(Uri url, Policy policy)
         {
             SetLastCheckAttempt(url.ToString());

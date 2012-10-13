@@ -41,6 +41,12 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="SignatureException">Thrown if no trusted signature was found.</exception>
         public static ValidSignature CheckTrust(Uri uri, Uri mirrorUri, byte[] data, Policy policy)
         {
+            #region Sanity checks
+            if (uri == null) throw new ArgumentNullException("uri");
+            if (data == null) throw new ArgumentNullException("data");
+            if (policy == null) throw new ArgumentNullException("policy");
+            #endregion
+
             var domain = new Domain(uri.Host);
             KeyImported:
             var trustDB = TrustDB.LoadSafe();
