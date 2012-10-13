@@ -59,13 +59,9 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public Digest(Policy policy) : base(policy)
         {
-            var algorithmNames = new string[ManifestFormat.All.Length];
-            for (int i = 0; i < ManifestFormat.All.Length; i++)
-                algorithmNames[i] = ManifestFormat.All[i].Prefix;
             Options.Add("manifest", Resources.OptionManifest, unused => _printManifest = true);
             Options.Add("digest", Resources.OptionDigest, unused => _printDigest = true);
-            Options.Add("algorithm=",
-                Resources.OptionAlgorithm + "\n" + string.Format(Resources.SupportedValues, string.Join(", ", algorithmNames)),
+            Options.Add("algorithm=", Resources.OptionAlgorithm + "\n" + SupportedValues(ManifestFormat.All),
                 delegate(string algorithm)
                 {
                     try

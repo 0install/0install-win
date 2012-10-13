@@ -109,9 +109,9 @@ namespace ZeroInstall.Commands
             });
             Options.Add("s|source", Resources.OptionSource,
                 unused => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Cpu.Source));
-            Options.Add("os=", Resources.OptionOS + "\n" + string.Format(Resources.SupportedValues, string.Join(", ", Architecture.KnownOSStrings)),
+            Options.Add("os=", Resources.OptionOS + "\n" + SupportedValues(Architecture.KnownOS),
                 (OS os) => _requirements.Architecture = new Architecture(os, _requirements.Architecture.Cpu));
-            Options.Add("cpu=", Resources.OptionCpu + "\n" + string.Format(Resources.SupportedValues, string.Join(", ", Architecture.KnownCpuStrings)),
+            Options.Add("cpu=", Resources.OptionCpu + "\n" + SupportedValues(Architecture.KnownCpu),
                 (Cpu cpu) => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, cpu));
 
             Options.Add("xml", Resources.OptionXml, unused => ShowXml = true);
