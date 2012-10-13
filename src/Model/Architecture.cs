@@ -126,11 +126,11 @@ namespace ZeroInstall.Model
     public struct Architecture : IEquatable<Architecture>
     {
         #region Constants
-        /// <summary>A list of all known string representations of <see cref="OS"/> values.</summary>
-        public static readonly string[] KnownOSStrings = {"*", "Linux", "Solaris", "MacOSX", "Darwin", "Windows", "Cygwin"};
+        /// <summary>A list of all known <see cref="OS"/> values.</summary>
+        public static readonly OS[] KnownOS = {OS.All, OS.Linux, OS.Solaris, OS.MacOsX, OS.Darwin, OS.Windows, OS.Cygwin};
 
-        /// <summary>A list of all known string representations of <see cref="Cpu"/> values, except for <see cref="Model.Cpu.Source"/>.</summary>
-        public static readonly string[] KnownCpuStrings = {"*", "i386", "i486", "i586", "i686", "x86_64", "ppc", "ppc64"};
+        /// <summary>A list of all known <see cref="Cpu"/> values, except for <see cref="Model.Cpu.Source"/>.</summary>
+        public static readonly Cpu[] KnownCpu = {Cpu.All, Cpu.I386, Cpu.I486, Cpu.I586, Cpu.I686, Cpu.X64, Cpu.Ppc, Cpu.Ppc64};
         #endregion
 
         #region Properties
