@@ -286,6 +286,7 @@ namespace Common
         /// </summary>
         public static void Error(Exception ex)
         {
+            if (ex == null) return;
             Error(ex.Message);
             if (ex.InnerException != null) Error(ex.InnerException);
         }

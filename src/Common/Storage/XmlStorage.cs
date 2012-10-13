@@ -380,7 +380,7 @@ namespace Common.Storage
             using (var atomic = new AtomicWrite(path))
             using (var fileStream = File.Create(atomic.WritePath))
             {
-                Save(fileStream, data);
+                ToZip(fileStream, data, password, additionalFiles);
                 atomic.Commit();
             }
         }

@@ -121,6 +121,10 @@ namespace Common.Values.Design
         /// <summary>The separator to place between individual elements.</summary>
         protected virtual string GetElementSeparator(CultureInfo culture)
         {
+            #region Sanity checks
+            if (culture == null) throw new ArgumentNullException("culture");
+            #endregion
+
             return culture.TextInfo.ListSeparator + " ";
         }
 

@@ -36,6 +36,7 @@ namespace Common.Utils
         /// Gets the first <typeparamref name="TAttribute"/> attribute set on the <typeparamref name="TTarget"/> type.
         /// </summary>
         /// <returns>Falls back to <see cref="object.ToString"/> if the attribute is missing.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
         public static TAttribute GetAttribute<TAttribute, TTarget>()
             where TAttribute : Attribute
         {
@@ -51,6 +52,11 @@ namespace Common.Utils
         public static string GetEnumAttributeValue<TAttribute>(Enum target, Converter<TAttribute, string> valueRetriever)
             where TAttribute : Attribute
         {
+            #region Sanity checks
+            if (target == null) throw new ArgumentNullException("target");
+            if (valueRetriever == null) throw new ArgumentNullException("valueRetriever");
+            #endregion
+
             FieldInfo fieldInfo = target.GetType().GetField(target.ToString());
             var attributes = (TAttribute[])fieldInfo.GetCustomAttributes(typeof(TAttribute), true);
             var attribute = EnumerableUtils.First(EnumerableUtils.OfType<TAttribute>(attributes));
@@ -63,6 +69,10 @@ namespace Common.Utils
         /// </summary>
         public static TType ConvertFromString<TType>(string value)
         {
+            #region Sanity checks
+            if (value == null) throw new ArgumentNullException("value");
+            #endregion
+
             return (TType)(TypeDescriptor.GetConverter(typeof(TType)).ConvertFromInvariantString(value));
         }
 
@@ -71,6 +81,10 @@ namespace Common.Utils
         /// </summary>
         public static string ConvertToString<TType>(TType value)
         {
+            #region Sanity checks
+            if (value == null) throw new ArgumentNullException("value");
+            #endregion
+
             return TypeDescriptor.GetConverter(typeof(TType)).ConvertToInvariantString(value);
         }
     }

@@ -39,19 +39,6 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Ensures the <see cref="ValueType"/> constructor correctly rejects invalid inputs.
-        /// </summary>
-        [Test]
-        public void TestConstructorExcept()
-        {
-            Assert.Throws<ArgumentNullException>(() => new Architecture(""));
-            Assert.Throws<ArgumentException>(() => new Architecture("-"));
-            Assert.Throws<ArgumentException>(() => new Architecture("Linux-"));
-            Assert.Throws<ArgumentException>(() => new Architecture("Linux--i686"));
-            Assert.Throws<ArgumentException>(() => new Architecture("-i686"));
-        }
-
-        /// <summary>
         /// Ensures <see cref="Architecture.IsCompatible"/> correctly determines which kinds of packages can run on which machines.
         /// </summary>
         [Test]
