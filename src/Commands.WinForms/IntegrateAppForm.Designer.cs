@@ -636,8 +636,8 @@
             this.labelLastDataError.ForeColor = System.Drawing.Color.Red;
             this.labelLastDataError.Location = new System.Drawing.Point(12, 263);
             this.labelLastDataError.Name = "labelLastDataError";
-            this.labelLastDataError.Size = new System.Drawing.Size(288, 23);
-            this.labelLastDataError.TabIndex = 1002;
+            this.labelLastDataError.Size = new System.Drawing.Size(288, 18);
+            this.labelLastDataError.TabIndex = 3;
             this.labelLastDataError.Text = "(Last data error)";
             this.labelLastDataError.Visible = false;
             // 

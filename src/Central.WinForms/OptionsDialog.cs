@@ -62,6 +62,7 @@ namespace ZeroInstall.Central.WinForms
 
         #region Data access
         private readonly string _implementationDirsConfigPath = Locations.GetSaveConfigPath("0install.net", true, "injector", "implementation-dirs");
+        private readonly string _catalogSourcesConfigPath = Locations.GetSaveConfigPath("0install.net", true, "catalog-sources");
 
         private void LoadConfig()
         {
@@ -97,6 +98,12 @@ namespace ZeroInstall.Central.WinForms
                     if (Array.Exists(userConfig, entry => entry == implementationDir)) listBoxImplDirs.Items.Add(new DirectoryStore(implementationDir)); // DirectoryStore = can be modified
                     else listBoxImplDirs.Items.Add(implementationDir); // Plain string = cannot be modified
                 }
+
+                // List all catalog sources in use
+                listBoxCatalogSources.Items.Clear();
+                // ReSharper disable CoVariantArrayConversion
+                listBoxCatalogSources.Items.AddRange(CatalogProvider.GetCatalogSources());
+                // ReSharper restore CoVariantArrayConversion
 
                 // Read list of trusted keys
                 var trustDB = TrustDB.LoadSafe();
@@ -137,11 +144,13 @@ namespace ZeroInstall.Central.WinForms
                 config.SyncCryptoKey = textBoxSyncCryptoKey.Text;
                 config.Save();
 
-                using (var atomic = new AtomicWrite(_implementationDirsConfigPath))
-                {
-                    WriteImplDirs(atomic.WritePath);
-                    atomic.Commit();
-                }
+                // Write list of user implementation directories
+                WriteConfigFile(_implementationDirsConfigPath,
+                    EnumerableUtils.OfType<DirectoryStore>(listBoxImplDirs.Items));
+
+                // Write list of catalog sources
+                WriteConfigFile(_catalogSourcesConfigPath,
+                    EnumerableUtils.OfType<string>(listBoxCatalogSources.Items));
 
                 // Write list of trusted keys
                 var trustDB = new TrustDB();
@@ -164,22 +173,25 @@ namespace ZeroInstall.Central.WinForms
             }
             #endregion
         }
-
-        /// <summary>
-        /// Writes the directories listed in <see cref="listBoxImplDirs"/> to a plain-text configuration file.
-        /// </summary>
-        /// <param name="configPath">The path of the configuration file to write.</param>
-        private void WriteImplDirs(string configPath)
-        {
-            using (var configFile = new StreamWriter(configPath, false, new UTF8Encoding(false)) {NewLine = "\n"})
-            {
-                foreach (var store in EnumerableUtils.OfType<DirectoryStore>(listBoxImplDirs.Items))
-                    configFile.WriteLine(store.DirectoryPath);
-            }
-        }
         #endregion
 
         #region Helpers
+        /// <summary>
+        /// Writes a set of elements to a plain-text config file.
+        /// </summary>
+        private static void WriteConfigFile<T>(string path, IEnumerable<T> elements)
+        {
+            using (var atomic = new AtomicWrite(path))
+            {
+                using (var configFile = new StreamWriter(atomic.WritePath, false, new UTF8Encoding(false)) { NewLine = "\n" })
+                {
+                    foreach (var element in elements)
+                        configFile.WriteLine(element.ToString());
+                }
+                atomic.Commit();
+            }
+        }
+
         /// <summary>
         /// Opens a URL in the system's default browser.
         /// </summary>
@@ -241,7 +253,7 @@ namespace ZeroInstall.Central.WinForms
                     // ToDo: newStore.Audit()
                 }
             }
-                #region Error handling
+            #region Error handling
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
@@ -270,6 +282,41 @@ namespace ZeroInstall.Central.WinForms
 
             if (!Msg.YesNo(this, string.Format(Resources.RemoveSelectedEntries, toRemove.Count), MsgSeverity.Warn)) return;
             foreach (var store in toRemove) listBoxImplDirs.Items.Remove(store);
+        }
+        #endregion
+
+        #region Catalog buttons
+        private void listBoxCatalogSources_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Enable go to button if there is exactly one object selected
+            buttonGoToCatalogSource.Enabled = (listBoxCatalogSources.SelectedItems.Count == 1);
+
+            // Enable remove button if there is at least one object selected
+            buttonRemoveCatalogSource.Enabled = (listBoxCatalogSources.SelectedItems.Count >= 1);
+        }
+
+        private void buttonResetCatalogSources_Click(object sender, EventArgs e)
+        {
+            if (!Msg.YesNo(this, "bla", MsgSeverity.Warn)) return;
+            listBoxCatalogSources.Items.Clear();
+            listBoxCatalogSources.Items.Add(CatalogProvider.DefaultSource);
+        }
+
+        private void buttonGoToCatalogSource_Click(object sender, EventArgs e)
+        {
+            OpenInBrowser(listBoxCatalogSources.SelectedItem.ToString());
+        }
+
+        private void buttonAddCatalogSource_Click(object sender, EventArgs e)
+        {
+            string newSource = InputBox.Show(this, "bla", "blub");
+            if (!string.IsNullOrEmpty(newSource)) listBoxCatalogSources.Items.Add(newSource);
+        }
+
+        private void buttonRemoveCatalogSource_Click(object sender, EventArgs e)
+        {
+            if (!Msg.YesNo(this, string.Format(Resources.RemoveSelectedEntries, listBoxCatalogSources.SelectedIndices.Count), MsgSeverity.Warn)) return;
+            foreach (int i in listBoxCatalogSources.SelectedIndices) listBoxCatalogSources.Items.RemoveAt(i);
         }
         #endregion
 

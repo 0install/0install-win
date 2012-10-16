@@ -34,6 +34,7 @@
             this.buttonSync = new System.Windows.Forms.Button();
             this.appList = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
+            this.labelLastCatalogError = new System.Windows.Forms.Label();
             this.buttonAddOtherApp = new System.Windows.Forms.Button();
             this.labelLoadingCatalog = new System.Windows.Forms.Label();
             this.buttonRefreshCatalog = new System.Windows.Forms.Button();
@@ -86,6 +87,7 @@
             // 
             // tabPageCatalog
             // 
+            this.tabPageCatalog.Controls.Add(this.labelLastCatalogError);
             this.tabPageCatalog.Controls.Add(this.buttonAddOtherApp);
             this.tabPageCatalog.Controls.Add(this.labelLoadingCatalog);
             this.tabPageCatalog.Controls.Add(this.buttonRefreshCatalog);
@@ -93,6 +95,12 @@
             resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
             this.tabPageCatalog.Name = "tabPageCatalog";
             this.tabPageCatalog.UseVisualStyleBackColor = true;
+            // 
+            // labelLastCatalogError
+            // 
+            resources.ApplyResources(this.labelLastCatalogError, "labelLastCatalogError");
+            this.labelLastCatalogError.ForeColor = System.Drawing.Color.Red;
+            this.labelLastCatalogError.Name = "labelLastCatalogError";
             // 
             // buttonAddOtherApp
             // 
@@ -224,6 +232,7 @@
         private System.Windows.Forms.Button buttonSync;
         private System.Windows.Forms.Panel panelBottom;
         private System.Windows.Forms.TableLayoutPanel rootTable;
+        private System.Windows.Forms.Label labelLastCatalogError;
 
     }
 }

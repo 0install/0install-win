@@ -60,6 +60,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="Executor.Bindings.cs" />
     <Compile Include="Executor.CommandLine.cs" />
+    <Compile Include="Feeds\CatalogProvider.cs" />
     <Compile Include="Feeds\Domain.cs" />
     <Compile Include="Feeds\FeedManager.cs" />
     <Compile Include="Feeds\FeedManagerBase.cs" />

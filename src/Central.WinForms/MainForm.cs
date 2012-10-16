@@ -30,6 +30,7 @@ using Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
+using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
@@ -319,37 +320,14 @@ namespace ZeroInstall.Central.WinForms
 
         #region Catalog
         /// <summary>Stores the data currently displayed in <see cref="catalogList"/>. Used for comparison/merging when updating the list.</summary>
-        private Catalog _currentCatalog = new Catalog();
+        private Catalog _currentCatalog;
 
         /// <summary>
         /// Loads a cached version of the "new applications" catalog from the disk.
         /// </summary>
         private void LoadCatalogCached()
         {
-            try
-            {
-                _currentCatalog = Catalog.Load(Path.Combine(Locations.GetCacheDirPath("0install.net"), "catalog.xml"));
-            }
-                #region Error handling
-            catch (FileNotFoundException)
-            {
-                return;
-            }
-            catch (IOException ex)
-            {
-                Log.Warn("Unable to load cached application catalog from disk:\n" + ex.Message);
-                return;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Log.Warn("Unable to load cached application catalog from disk:\n" + ex.Message);
-            }
-            catch (InvalidDataException ex)
-            {
-                Log.Warn("Unable to parse cached application catalog:\n" + ex.Message);
-            }
-            #endregion
-
+            _currentCatalog = CatalogProvider.GetCached();
             _currentCatalog.Feeds.Apply(QueueCatalogTile);
             catalogList.AddQueuedTiles();
             catalogList.ShowCategories();
@@ -365,6 +343,7 @@ namespace ZeroInstall.Central.WinForms
             buttonRefreshCatalog.Visible = false;
             labelLoadingCatalog.Visible = true;
 
+            labelLastCatalogError.Visible = false;
             catalogWorker.RunWorkerAsync();
         }
 
@@ -372,44 +351,37 @@ namespace ZeroInstall.Central.WinForms
         {
             try
             {
-                // ToDo: Merge multiple catalogs from custom sources
-                var catalog = Catalog.Load(new MemoryStream(new WebClientTimeout().DownloadData("http://0install.de/catalog/")));
-                e.Result = catalog;
-
-                catalog.Save(Path.Combine(Locations.GetCacheDirPath("0install.net"), "catalog.xml"));
+                e.Result = CatalogProvider.GetOnline(Policy.CreateDefault(new SilentHandler()));
             }
                 #region Error handling
             catch (WebException ex)
             {
                 Log.Warn("Unable to download application catalog:\n" + ex.Message);
             }
-            catch (IOException ex)
-            {
-                Log.Warn("Unable to cache downloaded application catalog:\n" + ex.Message);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Log.Warn("Unable to cache downloaded application catalog:\n" + ex.Message);
-            }
-            catch (InvalidDataException ex)
-            {
-                Log.Warn("Unable to parse downloaded application catalog:\n" + ex.Message);
-            }
             #endregion
         }
 
         private void catalogWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            var newCatalog = e.Result as Catalog;
-            if (newCatalog != null)
+            if (e.Error == null)
             {
-                // Update the displayed catalog list based on changes detected between the current and the new catalog
-                EnumerableUtils.Merge(
-                    newCatalog.Feeds, _currentCatalog.Feeds,
-                    QueueCatalogTile, removedFeed => catalogList.RemoveTile(removedFeed.UriString));
-                catalogList.AddQueuedTiles();
-                catalogList.ShowCategories();
-                _currentCatalog = newCatalog;
+                var newCatalog = e.Result as Catalog;
+                if (newCatalog != null)
+                {
+                    // Update the displayed catalog list based on changes detected between the current and the new catalog
+                    EnumerableUtils.Merge(
+                        newCatalog.Feeds, _currentCatalog.Feeds,
+                        QueueCatalogTile, removedFeed => catalogList.RemoveTile(removedFeed.UriString));
+                    catalogList.AddQueuedTiles();
+                    catalogList.ShowCategories();
+                    _currentCatalog = newCatalog;
+                }
+            }
+            else
+            {
+                Log.Error(e.Error);
+                labelLastCatalogError.Text = e.Error.Message;
+                labelLastCatalogError.Visible = true;
             }
 
             buttonRefreshCatalog.Visible = true;
@@ -471,6 +443,7 @@ namespace ZeroInstall.Central.WinForms
         {
             using (var dialog = new OptionsDialog(_systemWide))
                 dialog.ShowDialog(this);
+            LoadCatalogAsync();
         }
 
         private void buttonCacheManagement_Click(object sender, EventArgs e)

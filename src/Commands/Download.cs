@@ -18,9 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
-using Common;
-using Common.Collections;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -83,7 +80,7 @@ namespace ZeroInstall.Commands
             Solve();
 
             // If any of the feeds are getting old or any implementations need to be downloaded rerun solver in refresh mode (unless it was already in that mode to begin with)
-            if ((StaleFeeds || !EnumerableUtils.IsEmpty(UncachedImplementations)) && !Policy.FeedManager.Refresh)
+            if ((StaleFeeds || UncachedImplementations.Count != 0) && !Policy.FeedManager.Refresh)
             {
                 Policy.FeedManager.Refresh = true;
                 Solve();
@@ -113,21 +110,6 @@ namespace ZeroInstall.Commands
                 UncachedImplementations = Selections.GetUncachedImplementations(Policy);
             }
                 #region Error handling
-            catch (KeyNotFoundException)
-            {
-                // Wait a moment and then retry in case it was just a race condition
-                Thread.Sleep(500);
-                try
-                {
-                    UncachedImplementations = Selections.GetUncachedImplementations(Policy);
-                }
-                catch (InvalidDataException ex)
-                {
-                    // Wrap exception to add context
-                    throw new SolverException(ex.Message, ex);
-                }
-                Log.Info("Successfully handled race condition while listing uncached implementations");
-            }
             catch (InvalidDataException ex)
             {
                 // Wrap exception to add context
