@@ -51,7 +51,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
-        /// <exception cref="SignatureException">Thrown if the signature data of a feed file could not be handled.</exception>
+        /// <exception cref="SignatureException">Thrown if the signature data of a remote feed file could not be verified.</exception>
         Feed GetFeed(string feedID, Policy policy, ref bool stale);
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
-        /// <exception cref="SignatureException">Thrown if the signature data of a feed file could not be handled.</exception>
+        /// <exception cref="SignatureException">Thrown if the signature data of a remote feed file could not be verified.</exception>
         Feed GetFeed(string feedID, Policy policy);
 
         /// <summary>

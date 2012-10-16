@@ -124,6 +124,9 @@
     <value>Sind Sie sicher, dass Sie '{0}' aus Ihrer Anwendungsliste entfernen möchten?
 Dabei werden auch alle Desktopintegrationen für die Anwendung entfernt.</value>
   </data>
+  <data name="EnterCatalogUrl" xml:space="preserve">
+    <value>Bitte geben Sie dir URL oder den lokalen Dateipfad des hinzuzufügenden Feedkatalogs ein:</value>
+  </data>
   <data name="EnterInterfaceUrl" xml:space="preserve">
     <value>Bitte geben Sie die URL eines Zero Install Interface hier ein:</value>
   </data>
@@ -149,6 +152,9 @@ Zurück zur Eingabe</value>
   </data>
   <data name="ProblemSavingOptions" xml:space="preserve">
     <value>Es gab ein Problem beim Speichern der Einstellungen.</value>
+  </data>
+  <data name="RemoveAllEntries" xml:space="preserve">
+    <value>Möchten Sie alle Einträge aus der Liste entfernen?</value>
   </data>
   <data name="RemoveButtonTooltip" xml:space="preserve">
     <value>Aus "Meine Anwendungen" entfernen</value>

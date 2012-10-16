@@ -327,7 +327,7 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         private void LoadCatalogCached()
         {
-            _currentCatalog = CatalogProvider.GetCached();
+            _currentCatalog = CatalogManager.GetCached();
             _currentCatalog.Feeds.Apply(QueueCatalogTile);
             catalogList.AddQueuedTiles();
             catalogList.ShowCategories();
@@ -351,7 +351,7 @@ namespace ZeroInstall.Central.WinForms
         {
             try
             {
-                e.Result = CatalogProvider.GetOnline(Policy.CreateDefault(new SilentHandler()));
+                e.Result = CatalogManager.GetOnline(Policy.CreateDefault(new SilentHandler()));
             }
                 #region Error handling
             catch (WebException ex)

@@ -102,7 +102,7 @@ namespace ZeroInstall.Central.WinForms
                 // List all catalog sources in use
                 listBoxCatalogSources.Items.Clear();
                 // ReSharper disable CoVariantArrayConversion
-                listBoxCatalogSources.Items.AddRange(CatalogProvider.GetCatalogSources());
+                listBoxCatalogSources.Items.AddRange(CatalogManager.GetCatalogSources());
                 // ReSharper restore CoVariantArrayConversion
 
                 // Read list of trusted keys
@@ -183,7 +183,7 @@ namespace ZeroInstall.Central.WinForms
         {
             using (var atomic = new AtomicWrite(path))
             {
-                using (var configFile = new StreamWriter(atomic.WritePath, false, new UTF8Encoding(false)) { NewLine = "\n" })
+                using (var configFile = new StreamWriter(atomic.WritePath, false, new UTF8Encoding(false)) {NewLine = "\n"})
                 {
                     foreach (var element in elements)
                         configFile.WriteLine(element.ToString());
@@ -253,7 +253,7 @@ namespace ZeroInstall.Central.WinForms
                     // ToDo: newStore.Audit()
                 }
             }
-            #region Error handling
+                #region Error handling
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
@@ -297,9 +297,9 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonResetCatalogSources_Click(object sender, EventArgs e)
         {
-            if (!Msg.YesNo(this, "bla", MsgSeverity.Warn)) return;
+            if (!Msg.YesNo(this, Resources.RemoveAllEntries, MsgSeverity.Warn)) return;
             listBoxCatalogSources.Items.Clear();
-            listBoxCatalogSources.Items.Add(CatalogProvider.DefaultSource);
+            listBoxCatalogSources.Items.Add(CatalogManager.DefaultSource);
         }
 
         private void buttonGoToCatalogSource_Click(object sender, EventArgs e)
@@ -309,7 +309,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonAddCatalogSource_Click(object sender, EventArgs e)
         {
-            string newSource = InputBox.Show(this, "bla", "blub");
+            string newSource = InputBox.Show(this, groupCatalogSources.Text, Resources.EnterCatalogUrl);
             if (!string.IsNullOrEmpty(newSource)) listBoxCatalogSources.Items.Add(newSource);
         }
 

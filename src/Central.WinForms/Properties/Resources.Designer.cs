@@ -94,6 +94,15 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter the URL or local file path of the feed catalog to add:.
+        /// </summary>
+        internal static string EnterCatalogUrl {
+            get {
+                return ResourceManager.GetString("EnterCatalogUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter the URL of a Zero Install interface here:.
         /// </summary>
         internal static string EnterInterfaceUrl {
@@ -178,6 +187,15 @@ namespace ZeroInstall.Central.WinForms.Properties {
         internal static string ProblemSavingOptions {
             get {
                 return ResourceManager.GetString("ProblemSavingOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to remove all entries from the list?.
+        /// </summary>
+        internal static string RemoveAllEntries {
+            get {
+                return ResourceManager.GetString("RemoveAllEntries", resourceCulture);
             }
         }
         

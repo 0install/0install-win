@@ -28,12 +28,19 @@ using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Injector.Feeds
 {
-    public static class CatalogProvider
+    /// <summary>
+    /// Provides access to remote and local <see cref="Catalog"/>s. Handles downloading, signature verification and caching.
+    /// </summary>
+    public static class CatalogManager
     {
-        public const string DefaultSource = "http://0install.de/catalog/";
-
+        #region Cached
+        /// <summary>The file used to cache a merged view of all used catalogs.</summary>
         private static string CacheFilePath { get { return Path.Combine(Locations.GetCacheDirPath("0install.net"), "catalog.xml"); } }
 
+        /// <summary>
+        /// Loads the last result of <see cref="GetOnline"/>.
+        /// </summary>
+        /// <returns>A valid <see cref="Catalog"/>. Returns an empty <see cref="Catalog"/> if the cache could not be loaded.</returns>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Uncached file system access")]
         public static Catalog GetCached()
         {
@@ -61,14 +68,21 @@ namespace ZeroInstall.Injector.Feeds
             // Transparently handle errors
             return new Catalog();
         }
+        #endregion
+
+        #region Online
+        /// <summary>
+        /// The default <see cref="Catalog"/> source used if no other is specified.
+        /// </summary>
+        public const string DefaultSource = "http://0install.de/catalog/";
 
         /// <summary>
-        /// 
+        /// Downloads and merges all <see cref="Catalog"/>s specified by the configuration files.
         /// </summary>
-        /// <param name="policy"></param>
-        /// <returns></returns>
-        /// <exception cref="WebException"></exception>
-        /// <exception cref="SignatureException"></exception>
+        /// <param name="policy">Provides additional class dependencies.</param>
+        /// <returns>A merged <see cref="Catalog"/> view.</returns>
+        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
+        /// <exception cref="SignatureException">Thrown if the signature data of a remote catalog file could not be verified.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static Catalog GetOnline(Policy policy)
         {
@@ -99,13 +113,13 @@ namespace ZeroInstall.Injector.Feeds
         }
 
         /// <summary>
-        /// 
+        /// Downloads and parses a remote catalog file.
         /// </summary>
-        /// <param name="url"></param>
-        /// <param name="policy"></param>
-        /// <returns></returns>
-        /// <exception cref="WebException"></exception>
-        /// <exception cref="SignatureException"></exception>
+        /// <param name="url">The URL to download the catalog file from.</param>
+        /// <param name="policy">Provides additional class dependencies.</param>
+        /// <returns>The parsed <see cref="Catalog"/>.</returns>
+        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
+        /// <exception cref="SignatureException">Thrown if the signature data of a remote catalog file could not be verified.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         private static Catalog DownloadCatalog(Uri url, Policy policy)
         {
@@ -113,7 +127,9 @@ namespace ZeroInstall.Injector.Feeds
             TrustUtils.CheckTrust(url, null, data, policy);
             return Catalog.Load(new MemoryStream(data));
         }
+        #endregion
 
+        #region Sources
         /// <summary>
         /// Returns a list of catalog sources as defined by configuration files.
         /// </summary>
@@ -136,5 +152,6 @@ namespace ZeroInstall.Injector.Feeds
             }
             return result.ToArray();
         }
+        #endregion
     }
 }
