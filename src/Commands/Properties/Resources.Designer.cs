@@ -780,7 +780,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apply the configuration system-wide instead of just for the current user..
+        ///   Looks up a localized string similar to Apply the configuration machine-wide instead of just for the current user..
         /// </summary>
         internal static string OptionGlobal {
             get {

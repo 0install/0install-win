@@ -51,25 +51,25 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         }
 
         /// <inheritdoc/>
-        public override void Apply(AppEntry appEntry, Feed feed, bool systemWide, ITaskHandler handler)
+        public override void Apply(AppEntry appEntry, Feed feed, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            if (WindowsUtils.IsWindows && !systemWide)
+            if (WindowsUtils.IsWindows && !machineWide)
                 Windows.ShortcutManager.CreateShortcut(GetWindowsShortcutPath(), new InterfaceFeed(appEntry.InterfaceID, feed), Command, false, handler);
         }
 
         /// <inheritdoc/>
-        public override void Unapply(AppEntry appEntry, bool systemWide)
+        public override void Unapply(AppEntry appEntry, bool machineWide)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            if (WindowsUtils.IsWindows && !systemWide)
+            if (WindowsUtils.IsWindows && !machineWide)
                 if (File.Exists(GetWindowsShortcutPath())) File.Delete(GetWindowsShortcutPath());
         }
         #endregion

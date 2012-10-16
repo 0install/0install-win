@@ -34,7 +34,7 @@ namespace ZeroInstall.Model.Capabilities
         #region Properties
         /// <inheritdoc/>
         [XmlIgnore]
-        public override bool WindowsSystemWideOnly { get { return false; } }
+        public override bool WindowsMachineWideOnly { get { return false; } }
 
         /// <summary>
         /// The name of the application as shown in the AutoPlay selection list.

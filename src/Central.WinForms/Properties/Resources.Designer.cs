@@ -127,6 +127,15 @@ namespace ZeroInstall.Central.WinForms.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Machine-wide mode.
+        /// </summary>
+        internal static string MachineWideMode {
+            get {
+                return ResourceManager.GetString("MachineWideMode", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap ModifyButton {
             get {
                 object obj = ResourceManager.GetObject("ModifyButton", resourceCulture);
@@ -387,15 +396,6 @@ namespace ZeroInstall.Central.WinForms.Properties {
         internal static string SyncServerDataDamaged {
             get {
                 return ResourceManager.GetString("SyncServerDataDamaged", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to System-wide mode.
-        /// </summary>
-        internal static string SystemWideMode {
-            get {
-                return ResourceManager.GetString("SystemWideMode", resourceCulture);
             }
         }
         

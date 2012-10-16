@@ -68,9 +68,9 @@ namespace ZeroInstall.Commands
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
             if (AdditionalArgs.Count > 0) throw new OptionException(Resources.TooManyArguments, "");
 
-            if (SystemWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
+            if (MachineWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
 
-            using (_syncManager = new SyncIntegrationManager(SystemWide, Policy.Config.SyncServer, Policy.Config.SyncServerUsername, Policy.Config.SyncServerPassword, Policy.Config.SyncCryptoKey, Policy.Handler))
+            using (_syncManager = new SyncIntegrationManager(MachineWide, Policy.Config.SyncServer, Policy.Config.SyncServerUsername, Policy.Config.SyncServerPassword, Policy.Config.SyncCryptoKey, Policy.Handler))
             {
                 Policy.Handler.ShowProgressUI();
                 Sync();

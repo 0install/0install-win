@@ -66,7 +66,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Apply
         /// <inheritdoc/>
-        public override void Apply(AppEntry appEntry, Feed feed, bool systemWide, ITaskHandler handler)
+        public override void Apply(AppEntry appEntry, Feed feed, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
@@ -80,14 +80,14 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                 var dispatcher = new PerTypeDispatcher<Capabilities.Capability>(true);
                 if (WindowsUtils.IsWindows)
                 {
-                    dispatcher.Add((Capabilities.FileType fileType) => Windows.FileType.Register(target, fileType, false, systemWide, handler));
-                    dispatcher.Add((Capabilities.UrlProtocol urlProtocol) => Windows.UrlProtocol.Register(target, urlProtocol, false, systemWide, handler));
-                    dispatcher.Add((Capabilities.AutoPlay autoPlay) => Windows.AutoPlay.Register(target, autoPlay, false, systemWide, handler));
-                    dispatcher.Add((Capabilities.ComServer comServer) => Windows.ComServer.Register(target, comServer, systemWide, handler));
-                    dispatcher.Add((Capabilities.GamesExplorer gamesExplorer) => Windows.GamesExplorer.Register(target, gamesExplorer, systemWide, handler));
-                    if (systemWide || WindowsUtils.IsWindows8)
-                        dispatcher.Add((Capabilities.AppRegistration appRegistration) => Windows.AppRegistration.Register(target, appRegistration, EnumerableUtils.OfType<Capabilities.VerbCapability>(capabilityList.Entries), systemWide, handler));
-                    if (systemWide)
+                    dispatcher.Add((Capabilities.FileType fileType) => Windows.FileType.Register(target, fileType, false, machineWide, handler));
+                    dispatcher.Add((Capabilities.UrlProtocol urlProtocol) => Windows.UrlProtocol.Register(target, urlProtocol, false, machineWide, handler));
+                    dispatcher.Add((Capabilities.AutoPlay autoPlay) => Windows.AutoPlay.Register(target, autoPlay, false, machineWide, handler));
+                    dispatcher.Add((Capabilities.ComServer comServer) => Windows.ComServer.Register(target, comServer, machineWide, handler));
+                    dispatcher.Add((Capabilities.GamesExplorer gamesExplorer) => Windows.GamesExplorer.Register(target, gamesExplorer, machineWide, handler));
+                    if (machineWide || WindowsUtils.IsWindows8)
+                        dispatcher.Add((Capabilities.AppRegistration appRegistration) => Windows.AppRegistration.Register(target, appRegistration, EnumerableUtils.OfType<Capabilities.VerbCapability>(capabilityList.Entries), machineWide, handler));
+                    if (machineWide)
                         dispatcher.Add((Capabilities.DefaultProgram defaultProgram) => Windows.DefaultProgram.Register(target, defaultProgram, false, handler));
                 }
                 dispatcher.Dispatch(capabilityList.Entries);
@@ -95,7 +95,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         }
 
         /// <inheritdoc/>
-        public override void Unapply(AppEntry appEntry, bool systemWide)
+        public override void Unapply(AppEntry appEntry, bool machineWide)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
@@ -109,14 +109,14 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                 var dispatcher = new PerTypeDispatcher<Capabilities.Capability>(true);
                 if (WindowsUtils.IsWindows)
                 {
-                    dispatcher.Add((Capabilities.FileType fileType) => Windows.FileType.Unregister(fileType, false, systemWide));
-                    dispatcher.Add((Capabilities.UrlProtocol urlProtocol) => Windows.UrlProtocol.Unregister(urlProtocol, false, systemWide));
-                    dispatcher.Add((Capabilities.AutoPlay autoPlay) => Windows.AutoPlay.Unregister(autoPlay, false, systemWide));
-                    dispatcher.Add((Capabilities.ComServer comServer) => Windows.ComServer.Unregister(comServer, systemWide));
-                    dispatcher.Add((Capabilities.GamesExplorer gamesExplorer) => Windows.GamesExplorer.Unregister(gamesExplorer, systemWide));
-                    if (systemWide || WindowsUtils.IsWindows8)
-                        dispatcher.Add((Capabilities.AppRegistration appRegistration) => Windows.AppRegistration.Unregister(appRegistration, systemWide));
-                    if (systemWide)
+                    dispatcher.Add((Capabilities.FileType fileType) => Windows.FileType.Unregister(fileType, false, machineWide));
+                    dispatcher.Add((Capabilities.UrlProtocol urlProtocol) => Windows.UrlProtocol.Unregister(urlProtocol, false, machineWide));
+                    dispatcher.Add((Capabilities.AutoPlay autoPlay) => Windows.AutoPlay.Unregister(autoPlay, false, machineWide));
+                    dispatcher.Add((Capabilities.ComServer comServer) => Windows.ComServer.Unregister(comServer, machineWide));
+                    dispatcher.Add((Capabilities.GamesExplorer gamesExplorer) => Windows.GamesExplorer.Unregister(gamesExplorer, machineWide));
+                    if (machineWide || WindowsUtils.IsWindows8)
+                        dispatcher.Add((Capabilities.AppRegistration appRegistration) => Windows.AppRegistration.Unregister(appRegistration, machineWide));
+                    if (machineWide)
                         dispatcher.Add((Capabilities.DefaultProgram defaultProgram) => Windows.DefaultProgram.Unregister(defaultProgram, false));
                 }
                 dispatcher.Dispatch(capabilityList.Entries);

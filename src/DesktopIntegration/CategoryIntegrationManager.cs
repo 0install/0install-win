@@ -47,7 +47,7 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Constructor
         /// <inheritdoc/>
-        public CategoryIntegrationManager(bool systemWide, ITaskHandler handler) : base(systemWide, handler)
+        public CategoryIntegrationManager(bool machineWide, ITaskHandler handler) : base(machineWide, handler)
         {}
         #endregion
 
@@ -80,7 +80,7 @@ namespace ZeroInstall.DesktopIntegration
                     if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
                     foreach (var capability in EnumerableUtils.OfType<Capabilities.DefaultCapability>(capabilityList.Entries))
                     {
-                        if (capability.WindowsSystemWideOnly && !SystemWide && WindowsUtils.IsWindows) continue;
+                        if (capability.WindowsMachineWideOnly && !MachineWide && WindowsUtils.IsWindows) continue;
                         if (!capability.ExplicitOnly)
                             accessPointsToAdd.AddLast(DefaultAccessPoint.FromCapability(capability));
                     }
@@ -117,7 +117,7 @@ namespace ZeroInstall.DesktopIntegration
             try
             {
                 AddAccessPointsHelper(appEntry, feed, accessPointsToAdd);
-                if (icons && SystemWide) ToggleIconsVisible(appEntry, true);
+                if (icons && MachineWide) ToggleIconsVisible(appEntry, true);
             }
             catch (KeyNotFoundException ex)
             {
@@ -157,7 +157,7 @@ namespace ZeroInstall.DesktopIntegration
             try
             {
                 RemoveAccessPointsHelper(appEntry, accessPointsToRemove);
-                if (icons && SystemWide) ToggleIconsVisible(appEntry, false);
+                if (icons && MachineWide) ToggleIconsVisible(appEntry, false);
             }
             catch (KeyNotFoundException ex)
             {

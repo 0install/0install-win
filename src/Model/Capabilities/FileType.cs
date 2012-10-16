@@ -33,7 +33,7 @@ namespace ZeroInstall.Model.Capabilities
         #region Properties
         /// <inheritdoc/>
         [XmlIgnore]
-        public override bool WindowsSystemWideOnly { get { return false; } }
+        public override bool WindowsMachineWideOnly { get { return false; } }
 
         // Preserve order, duplicate string entries are not allowed (but not enforced)
         private readonly C5.ArrayList<FileTypeExtension> _extensions = new C5.ArrayList<FileTypeExtension>();

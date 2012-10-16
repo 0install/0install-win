@@ -49,7 +49,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// </summary>
         /// <param name="appEntry">The application being integrated.</param>
         /// <param name="feed">The feed providing additional metadata, icons, etc. for the application.</param>
-        /// <param name="systemWide">Apply the configuration system-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Apply the configuration machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to a <see cref="Capabilities.Capability"/> is invalid.</exception>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
@@ -57,17 +57,17 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the access point's data or a referenced <see cref="Capabilities.Capability"/>'s data are invalid.</exception>
-        public abstract void Apply(AppEntry appEntry, Feed feed, bool systemWide, ITaskHandler handler);
+        public abstract void Apply(AppEntry appEntry, Feed feed, bool machineWide, ITaskHandler handler);
 
         /// <summary>
         /// Unapplies this access point on the current machine.
         /// </summary>
         /// <param name="appEntry">The application entry containing this access point.</param>
-        /// <param name="systemWide">Apply the configuration system-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Apply the configuration machine-wide instead of just for the current user.</param>
         /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to a <see cref="Capabilities.Capability"/> is invalid.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public abstract void Unapply(AppEntry appEntry, bool systemWide);
+        public abstract void Unapply(AppEntry appEntry, bool machineWide);
         #endregion
 
         //--------------------//

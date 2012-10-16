@@ -91,14 +91,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="target">The application being integrated.</param>
         /// <param name="fileType">The file type to register.</param>
         /// <param name="accessPoint">Indicates that the file associations shall become default handlers for their respective types.</param>
-        /// <param name="systemWide">Register the file type system-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Register the file type machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="fileType"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, Capabilities.FileType fileType, bool accessPoint, bool systemWide, ITaskHandler handler)
+        public static void Register(InterfaceFeed target, Capabilities.FileType fileType, bool accessPoint, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (fileType == null) throw new ArgumentNullException("fileType");
@@ -107,7 +107,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             if (string.IsNullOrEmpty(fileType.ID)) throw new InvalidDataException("Missing ID");
 
-            var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
+            var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
 
             // Register ProgID
             using (var progIDKey = hive.CreateSubKey(RegKeyClasses + @"\" + RegKeyPrefix + fileType.ID))
@@ -115,7 +115,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 // Add flag to remember whether created for capability or access point
                 progIDKey.SetValue(accessPoint ? PurposeFlagAccessPoint : PurposeFlagCapability, "");
 
-                RegisterVerbCapability(progIDKey, target, fileType, systemWide, handler);
+                RegisterVerbCapability(progIDKey, target, fileType, machineWide, handler);
             }
 
             using (var classesKey = hive.OpenSubKey(RegKeyClasses, true))
@@ -135,7 +135,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
                         if (accessPoint)
                         {
-                            if (!systemWide && WindowsUtils.IsWindowsVista && !WindowsUtils.IsWindows8)
+                            if (!machineWide && WindowsUtils.IsWindowsVista && !WindowsUtils.IsWindows8)
                             {
                                 // Windows Vista and later store per-user file extension overrides, Windows 8 blocks programmatic modification with hash values
                                 using (var overridesKey = hive.OpenSubKey(RegKeyOverrides, true))
@@ -168,11 +168,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="fileType">The file type to remove.</param>
         /// <param name="accessPoint">Indicates that the file associations were default handlers for their respective types.</param>
-        /// <param name="systemWide">Unregister the file type system-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Unregister the file type machine-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="fileType"/> is invalid.</exception>
-        public static void Unregister(Capabilities.FileType fileType, bool accessPoint, bool systemWide)
+        public static void Unregister(Capabilities.FileType fileType, bool accessPoint, bool machineWide)
         {
             #region Sanity checks
             if (fileType == null) throw new ArgumentNullException("fileType");
@@ -180,7 +180,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             if (string.IsNullOrEmpty(fileType.ID)) throw new InvalidDataException("Missing ID");
 
-            var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
+            var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
             using (var classesKey = hive.OpenSubKey(RegKeyClasses, true))
             {
                 foreach (var extension in fileType.Extensions)
@@ -196,7 +196,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                             //extensionKey.SetValue("", fileType.PreviousID);
                         }
 
-                        //if (!systemWide && WindowsUtils.IsWindowsVista && !WindowsUtils.IsWindows8)
+                        //if (!machineWide && WindowsUtils.IsWindowsVista && !WindowsUtils.IsWindows8)
                         //{
                         //    // Windows Vista and later store per-user file extension overrides, Windows 8 blocks programmatic modification with hash values
                         //    using (var overridesKey = hive.OpenSubKey(RegKeyOverrides, true))
@@ -254,14 +254,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="registryKey">The registry key to write the new data to.</param>
         /// <param name="target">The application being integrated.</param>
         /// <param name="capability">The capability to register.</param>
-        /// <param name="systemWide">Assume <paramref name="registryKey"/> is effective system-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Assume <paramref name="registryKey"/> is effective machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="capability"/> is invalid.</exception>
-        internal static void RegisterVerbCapability(RegistryKey registryKey, InterfaceFeed target, Capabilities.VerbCapability capability, bool systemWide, ITaskHandler handler)
+        internal static void RegisterVerbCapability(RegistryKey registryKey, InterfaceFeed target, Capabilities.VerbCapability capability, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (capability == null) throw new ArgumentNullException("capability");
@@ -285,7 +285,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         if (verb.Extended) verbKey.SetValue(RegValueExtended, "");
 
                         using (var commandKey = verbKey.CreateSubKey("command"))
-                            commandKey.SetValue("", GetLaunchCommandLine(target, verb, systemWide, handler));
+                            commandKey.SetValue("", GetLaunchCommandLine(target, verb, machineWide, handler));
 
                         // Prevent conflicts with existing entries
                         shellKey.DeleteSubKey("ddeexec", false);
@@ -297,11 +297,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string iconPath;
             try
             {
-                iconPath = IconProvider.GetIconPath(capability.GetIcon(Icon.MimeTypeIco), systemWide, handler);
+                iconPath = IconProvider.GetIconPath(capability.GetIcon(Icon.MimeTypeIco), machineWide, handler);
             }
             catch (KeyNotFoundException)
             {
-                iconPath = StubBuilder.GetRunStub(target, null, systemWide, handler);
+                iconPath = StubBuilder.GetRunStub(target, null, machineWide, handler);
             }
             using (var iconKey = registryKey.CreateSubKey(RegSubKeyIcon))
                 iconKey.SetValue("", iconPath + ",0");
@@ -312,11 +312,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="target">The application being integrated.</param>
         /// <param name="verb">The verb to get to launch command for.</param>
-        /// <param name="systemWide">Store the stub in a system-wide directory instead of just for the current user.</param>
+        /// <param name="machineWide">Store the stub in a machine-wide directory instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        internal static string GetLaunchCommandLine(InterfaceFeed target, Capabilities.Verb verb, bool systemWide, ITaskHandler handler)
+        internal static string GetLaunchCommandLine(InterfaceFeed target, Capabilities.Verb verb, bool machineWide, ITaskHandler handler)
         {
-            string launchCommand = "\"" + StubBuilder.GetRunStub(target, verb.Command, systemWide, handler) + "\"";
+            string launchCommand = "\"" + StubBuilder.GetRunStub(target, verb.Command, machineWide, handler) + "\"";
             if (!string.IsNullOrEmpty(verb.Arguments)) launchCommand += " " + verb.Arguments;
             return launchCommand;
         }

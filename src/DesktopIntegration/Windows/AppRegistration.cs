@@ -67,14 +67,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="target">The application being integrated.</param>
         /// <param name="appRegistration">The registration information to be applied.</param>
         /// <param name="verbCapabilities">The capabilities that the application is to be registered with.</param>
-        /// <param name="systemWide">Apply the registration system-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Apply the registration machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="appRegistration"/> or <paramref name="verbCapabilities"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, Capabilities.AppRegistration appRegistration, IEnumerable<VerbCapability> verbCapabilities, bool systemWide, ITaskHandler handler)
+        public static void Register(InterfaceFeed target, Capabilities.AppRegistration appRegistration, IEnumerable<VerbCapability> verbCapabilities, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (appRegistration == null) throw new ArgumentNullException("appRegistration");
@@ -85,7 +85,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(appRegistration.ID)) throw new InvalidDataException("Missing ID");
             if (string.IsNullOrEmpty(appRegistration.CapabilityRegPath)) throw new InvalidDataException("Invalid CapabilityRegPath");
 
-            var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
+            var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
 
             // ToDo: Handle appRegistration.X64
             using (var capabilitiesKey = hive.CreateSubKey( /*CapabilityPrefix +*/ appRegistration.CapabilityRegPath))
@@ -97,7 +97,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 try
                 {
                     var icon = target.Feed.GetIcon(Icon.MimeTypeIco, null);
-                    capabilitiesKey.SetValue(RegValueAppIcon, IconProvider.GetIconPath(icon, systemWide, handler) + ",0");
+                    capabilitiesKey.SetValue(RegValueAppIcon, IconProvider.GetIconPath(icon, machineWide, handler) + ",0");
                 }
                 catch (KeyNotFoundException)
                 {}
@@ -143,11 +143,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Removes application registration from the current Windows system.
         /// </summary>
         /// <param name="appRegistration">The registration information to be removed.</param>
-        /// <param name="systemWide">Apply the registration system-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Apply the registration machine-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="appRegistration"/>.</exception>
-        public static void Unregister(Capabilities.AppRegistration appRegistration, bool systemWide)
+        public static void Unregister(Capabilities.AppRegistration appRegistration, bool machineWide)
         {
             #region Sanity checks
             if (appRegistration == null) throw new ArgumentNullException("appRegistration");
@@ -156,7 +156,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(appRegistration.ID)) throw new InvalidDataException("Missing ID");
             if (string.IsNullOrEmpty(appRegistration.CapabilityRegPath)) throw new InvalidDataException("Invalid CapabilityRegPath");
 
-            var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
+            var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
 
             using (var regAppsKey = hive.CreateSubKey(RegKeyMachineRegisteredApplications))
                 regAppsKey.DeleteValue(appRegistration.ID, false);

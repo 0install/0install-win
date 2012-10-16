@@ -73,7 +73,7 @@ namespace ZeroInstall.Model.Capabilities
         #region Properties
         /// <inheritdoc/>
         [XmlIgnore]
-        public override bool WindowsSystemWideOnly { get { return true; } }
+        public override bool WindowsMachineWideOnly { get { return true; } }
 
         /// <summary>
         /// The name of the service (e.g. "StartMenuInternet", "Mail", "Media"). Always use a canonical name when possible.

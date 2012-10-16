@@ -133,6 +133,9 @@ Dabei werden auch alle Desktopintegrationen für die Anwendung entfernt.</value>
   <data name="FailedToRun" xml:space="preserve">
     <value>Konnte {0} nicht starten.</value>
   </data>
+  <data name="MachineWideMode" xml:space="preserve">
+    <value>Maschienenweiter Modus</value>
+  </data>
   <data name="ModifyButtonTooltip" xml:space="preserve">
     <value>Integration ändern</value>
   </data>
@@ -218,9 +221,6 @@ Halten Sie diesen Schlüssel geheim und verwenden Sie etwas anderes für Ihr Pas
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>Die Daten die derzeit auf dem Sync-Server gespeichert sind, sind beschädigt.
 Sie können die Daten die auf dem Server gespeichert sind ersetzen, indem Sie auswählen, dass Sie sich nicht an den Crypto-Schlüssel erinnern.</value>
-  </data>
-  <data name="SystemWideMode" xml:space="preserve">
-    <value>System-weiter Modus</value>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Sind Sie sicher, dass Sie eine unverschlüsselte Verbindung zu einem Sync-Server verwenden möchten?

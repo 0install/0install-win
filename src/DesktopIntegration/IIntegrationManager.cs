@@ -35,9 +35,9 @@ namespace ZeroInstall.DesktopIntegration
         AppList AppList { get; }
 
         /// <summary>
-        /// Apply operations system-wide instead of just for the current user.
+        /// Apply operations machine-wide instead of just for the current user.
         /// </summary>
-        bool SystemWide { get; }
+        bool MachineWide { get; }
 
         /// <summary>
         /// Creates a new <see cref="AppEntry"/> and adds it to the <see cref="AppList"/>.

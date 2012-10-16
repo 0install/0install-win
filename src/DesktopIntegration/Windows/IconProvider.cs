@@ -39,20 +39,20 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Retrieves a Windows icon via the <see cref="IIconCache"/> and stores a permanent copy of it.
         /// </summary>
         /// <param name="icon">The icon to retrieve.</param>
-        /// <param name="systemWide">Apply the configuration system-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Apply the configuration machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <returns>The path to the icon file.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public static string GetIconPath(Icon icon, bool systemWide, ITaskHandler handler)
+        public static string GetIconPath(Icon icon, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            string iconDirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "icons");
+            string iconDirPath = Locations.GetIntegrationDirPath("0install.net", machineWide, "desktop-integration", "icons");
             string iconFilePath = Path.Combine(iconDirPath, StringUtils.Hash(icon.Location.ToString(), SHA256.Create()) + ".ico");
 
             // Return an existing icon or get a new one from the cache

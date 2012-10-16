@@ -79,7 +79,7 @@ namespace ZeroInstall.DesktopIntegration
             {
                 // Unapply any remaining access points
                 foreach (var accessPoint in appEntry.AccessPoints.Entries)
-                    accessPoint.Unapply(appEntry, SystemWide);
+                    accessPoint.Unapply(appEntry, MachineWide);
             }
 
             AppList.Entries.Remove(appEntry);
@@ -155,12 +155,12 @@ namespace ZeroInstall.DesktopIntegration
             CheckForConflicts(appEntry, accessPoints);
 
             EnumerableUtils.ApplyWithRollback(accessPoints,
-                accessPoint => accessPoint.Apply(appEntry, feed, SystemWide, Handler),
+                accessPoint => accessPoint.Apply(appEntry, feed, MachineWide, Handler),
                 accessPoint =>
                 {
                     // Don't perform rollback if the access point was already applied previously and this was only a refresh
                     if (!appEntry.AccessPoints.Entries.Contains(accessPoint))
-                        accessPoint.Unapply(appEntry, SystemWide);
+                        accessPoint.Unapply(appEntry, MachineWide);
                 });
 
             // Add the access points to the AppList
@@ -190,7 +190,7 @@ namespace ZeroInstall.DesktopIntegration
 
             // ReSharper disable PossibleMultipleEnumeration
             foreach (var accessPoint in accessPoints)
-                accessPoint.Unapply(appEntry, SystemWide);
+                accessPoint.Unapply(appEntry, MachineWide);
 
             // Remove the access points from the AppList
             appEntry.AccessPoints.Entries.RemoveAll(accessPoints);

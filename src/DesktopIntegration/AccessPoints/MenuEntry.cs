@@ -55,25 +55,25 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Apply
         /// <summary>The directory path for the Windows start menu category.</summary>
-        private string GetWindowsCategoryPath(bool systemWide)
+        private string GetWindowsCategoryPath(bool machineWide)
         {
-            string menuDir = systemWide
+            string menuDir = machineWide
                 ? Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "Common Programs", "").ToString()
                 : Environment.GetFolderPath(Environment.SpecialFolder.Programs);
             return (string.IsNullOrEmpty(Category) ? menuDir : Path.Combine(menuDir, Category));
         }
 
         /// <summary>The file path for the Windows shortcut file.</summary>
-        private string GetWindowsShortcutPath(bool systemWide)
+        private string GetWindowsShortcutPath(bool machineWide)
         {
             if (string.IsNullOrEmpty(Name) || Name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
                 throw new IOException(string.Format(Resources.NameInvalidChars, Name));
 
-            return Path.Combine(GetWindowsCategoryPath(systemWide), Name + ".lnk");
+            return Path.Combine(GetWindowsCategoryPath(machineWide), Name + ".lnk");
         }
 
         /// <inheritdoc/>
-        public override void Apply(AppEntry appEntry, Feed feed, bool systemWide, ITaskHandler handler)
+        public override void Apply(AppEntry appEntry, Feed feed, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
@@ -83,14 +83,14 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (WindowsUtils.IsWindows)
             {
                 // Create category directory if missing
-                if (!Directory.Exists(GetWindowsCategoryPath(systemWide))) Directory.CreateDirectory(GetWindowsCategoryPath(systemWide));
+                if (!Directory.Exists(GetWindowsCategoryPath(machineWide))) Directory.CreateDirectory(GetWindowsCategoryPath(machineWide));
 
-                Windows.ShortcutManager.CreateShortcut(GetWindowsShortcutPath(systemWide), new InterfaceFeed(appEntry.InterfaceID, feed), Command, systemWide, handler);
+                Windows.ShortcutManager.CreateShortcut(GetWindowsShortcutPath(machineWide), new InterfaceFeed(appEntry.InterfaceID, feed), Command, machineWide, handler);
             }
         }
 
         /// <inheritdoc/>
-        public override void Unapply(AppEntry appEntry, bool systemWide)
+        public override void Unapply(AppEntry appEntry, bool machineWide)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
@@ -98,13 +98,13 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             if (WindowsUtils.IsWindows)
             {
-                string filePath = GetWindowsShortcutPath(systemWide);
+                string filePath = GetWindowsShortcutPath(machineWide);
                 if (File.Exists(filePath)) File.Delete(filePath);
 
                 // Delete category directory if empty
-                string dirPath = GetWindowsCategoryPath(systemWide);
+                string dirPath = GetWindowsCategoryPath(machineWide);
                 if (Directory.Exists(dirPath) && Directory.GetFileSystemEntries(dirPath).Length == 0)
-                    Directory.Delete(GetWindowsCategoryPath(systemWide), false);
+                    Directory.Delete(GetWindowsCategoryPath(machineWide), false);
             }
         }
         #endregion

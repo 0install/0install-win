@@ -104,7 +104,7 @@ namespace ZeroInstall.Commands
 
                     string registryCommandLine;
                     try
-                    { // Try to use a system-wide stub if possible
+                    { // Try to use a machine-wide stub if possible
                         registryCommandLine = StubBuilder.GetRunStub(_target, command.Name, true, _policy.Handler);
                     }
                     catch (InvalidOperationException)
@@ -125,11 +125,11 @@ namespace ZeroInstall.Commands
                 foreach (var defaultProgram in EnumerableUtils.OfType<Model.Capabilities.DefaultProgram>(capabilityList.Entries))
                 {
                     if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.Reinstall))
-                        filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.Reinstall, defaultProgram.InstallCommands.ReinstallArgs, "--system --batch --add=defaults " + StringUtils.EscapeArgument(_target.InterfaceID)));
+                        filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.Reinstall, defaultProgram.InstallCommands.ReinstallArgs, "--machine --batch --add=defaults " + StringUtils.EscapeArgument(_target.InterfaceID)));
                     if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.ShowIcons))
-                        filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.ShowIcons, defaultProgram.InstallCommands.ShowIconsArgs, "--system --batch --add=icons " + StringUtils.EscapeArgument(_target.InterfaceID)));
+                        filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.ShowIcons, defaultProgram.InstallCommands.ShowIconsArgs, "--machine --batch --add=icons " + StringUtils.EscapeArgument(_target.InterfaceID)));
                     if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.HideIcons))
-                        filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.HideIcons, defaultProgram.InstallCommands.HideIconsArgs, "--system --batch --remove=icons " + StringUtils.EscapeArgument(_target.InterfaceID)));
+                        filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.HideIcons, defaultProgram.InstallCommands.HideIconsArgs, "--machine --batch --remove=icons " + StringUtils.EscapeArgument(_target.InterfaceID)));
                 }
             }
 

@@ -54,11 +54,11 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
             if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
 
-            if (SystemWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
+            if (MachineWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
 
             Policy.Handler.ShowProgressUI();
             string interfaceID = GetCanonicalID(AdditionalArgs[0]);
-            using (var integrationManager = new CategoryIntegrationManager(SystemWide, Policy.Handler))
+            using (var integrationManager = new CategoryIntegrationManager(MachineWide, Policy.Handler))
                 return ExecuteHelper(integrationManager, interfaceID);
         }
 

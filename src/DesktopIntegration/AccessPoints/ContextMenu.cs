@@ -47,7 +47,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Apply
         /// <inheritdoc/>
-        public override void Apply(AppEntry appEntry, Feed feed, bool systemWide, ITaskHandler handler)
+        public override void Apply(AppEntry appEntry, Feed feed, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
@@ -58,11 +58,11 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (capability == null) return;
 
             if (WindowsUtils.IsWindows)
-                Windows.ContextMenu.Apply(new InterfaceFeed(appEntry.InterfaceID, feed), capability, systemWide, handler);
+                Windows.ContextMenu.Apply(new InterfaceFeed(appEntry.InterfaceID, feed), capability, machineWide, handler);
         }
 
         /// <inheritdoc/>
-        public override void Unapply(AppEntry appEntry, bool systemWide)
+        public override void Unapply(AppEntry appEntry, bool machineWide)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
@@ -72,7 +72,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (capability == null) return;
 
             if (WindowsUtils.IsWindows)
-                Windows.ContextMenu.Remove(capability, systemWide);
+                Windows.ContextMenu.Remove(capability, machineWide);
         }
         #endregion
 

@@ -43,18 +43,18 @@ namespace ZeroInstall.Central.WinForms
     internal partial class MainForm : Form
     {
         #region Variables
-        /// <summary>Apply operations system-wide instead of just for the current user.</summary>
-        private readonly bool _systemWide;
+        /// <summary>Apply operations sachine-wide instead of just for the current user.</summary>
+        private readonly bool _machineWide;
         #endregion
 
         #region Constructor
         /// <summary>
         /// Initializes the main GUI.
         /// </summary>
-        /// <param name="systemWide">Apply operations system-wide instead of just for the current user.</param>
-        public MainForm(bool systemWide)
+        /// <param name="machineWide">Apply operations sachine-wide instead of just for the current user.</param>
+        public MainForm(bool machineWide)
         {
-            _systemWide = systemWide;
+            _machineWide = machineWide;
 
             InitializeComponent();
 
@@ -70,7 +70,7 @@ namespace ZeroInstall.Central.WinForms
             Load += delegate
             {
                 if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
-                if (systemWide) Text += @" - " + Resources.SystemWideMode;
+                if (machineWide) Text += @" - " + Resources.MachineWideMode;
                 labelVersion.Text = @"v" + Application.ProductVersion;
 
                 try
@@ -195,7 +195,7 @@ namespace ZeroInstall.Central.WinForms
             AppList newAppList;
             try
             {
-                newAppList = AppList.Load(AppList.GetDefaultPath(_systemWide));
+                newAppList = AppList.Load(AppList.GetDefaultPath(_machineWide));
             }
                 #region Error handling
             catch (FileNotFoundException)
@@ -230,7 +230,7 @@ namespace ZeroInstall.Central.WinForms
                     try
                     {
                         var status = (addedEntry.AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated;
-                        var tile = appList.QueueNewTile(_systemWide, addedEntry.InterfaceID, addedEntry.Name, status);
+                        var tile = appList.QueueNewTile(_machineWide, addedEntry.InterfaceID, addedEntry.Name, status);
                         feedsToLoad.Add(tile, addedEntry.InterfaceID);
 
                         // Update "added" status of tile in catalog list
@@ -400,7 +400,7 @@ namespace ZeroInstall.Central.WinForms
                 var status = _currentAppList.ContainsEntry(interfaceID)
                     ? ((_currentAppList.GetEntry(interfaceID).AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated)
                     : AppStatus.Candidate;
-                var tile = catalogList.QueueNewTile(_systemWide, interfaceID, feed.Name, status);
+                var tile = catalogList.QueueNewTile(_machineWide, interfaceID, feed.Name, status);
                 tile.Feed = feed;
             }
                 #region Error handling
@@ -420,10 +420,12 @@ namespace ZeroInstall.Central.WinForms
             var config = Config.Load();
             if (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey))
             {
-                using (var wizard = new SyncConfig.SetupWizard(_systemWide))
+                using (var wizard = new SyncConfig.SetupWizard(_machineWide))
                     wizard.ShowDialog(this);
             }
-            else ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_systemWide ? new[] {"sync", "--system"} : new[] {"sync"}));
+            else ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
+                ? new[] {"sync", "--machine"}
+                : new[] {"sync"}));
         }
 
         private void buttonRefreshCatalog_Click(object sender, EventArgs e)
@@ -441,7 +443,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonOptions_Click(object sender, EventArgs e)
         {
-            using (var dialog = new OptionsDialog(_systemWide))
+            using (var dialog = new OptionsDialog(_machineWide))
                 dialog.ShowDialog(this);
             LoadCatalogAsync();
         }
@@ -484,7 +486,9 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="interfaceID">The URI of the interface to be added.</param>
         private void AddCustomInterface(string interfaceID)
         {
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"add-app", interfaceID}));
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
+                ? new[] {"add-app", "--machine", interfaceID}
+                : new[] {"add-app", interfaceID}));
             tabControlApps.SelectTab(tabPageAppList);
         }
 

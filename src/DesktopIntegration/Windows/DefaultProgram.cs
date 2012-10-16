@@ -57,7 +57,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Register
         /// <summary>
-        /// Registers an application as a candidate for a default program for some service in the current Windows system. This can only be applied system-wide, not per user.
+        /// Registers an application as a candidate for a default program for some service in the current Windows system. This can only be applied machine-wide, not per user.
         /// </summary>
         /// <param name="target">The application being integrated.</param>
         /// <param name="defaultProgram">The default program information to be registered.</param>
@@ -93,9 +93,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     using (var installInfoKey = appKey.CreateSubKey(RegSubKeyInstallInfo))
                     {
                         string exePath = StringUtils.EscapeArgument(Path.Combine(Locations.InstallBase, "0install-win.exe"));
-                        installInfoKey.SetValue(RegValueReinstallCommand, exePath + " integrate-app --system --batch --add=defaults " + StringUtils.EscapeArgument(target.InterfaceID));
-                        installInfoKey.SetValue(RegValueShowIconsCommand, exePath + " integrate-app --system --batch --add=icons " + StringUtils.EscapeArgument(target.InterfaceID));
-                        installInfoKey.SetValue(RegValueHideIconsCommand, exePath + " integrate-app --system --batch --remove=icons " + StringUtils.EscapeArgument(target.InterfaceID));
+                        installInfoKey.SetValue(RegValueReinstallCommand, exePath + " integrate-app --machine --batch --add=defaults " + StringUtils.EscapeArgument(target.InterfaceID));
+                        installInfoKey.SetValue(RegValueShowIconsCommand, exePath + " integrate-app --machine --batch --add=icons " + StringUtils.EscapeArgument(target.InterfaceID));
+                        installInfoKey.SetValue(RegValueHideIconsCommand, exePath + " integrate-app --machine --batch --remove=icons " + StringUtils.EscapeArgument(target.InterfaceID));
                         installInfoKey.SetValue(RegValueIconsVisible, 0, RegistryValueKind.DWord);
                     }
 
@@ -125,7 +125,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Unregister
         /// <summary>
-        /// Unregisters an application as a candidate for a default program in the current Windows system. This can only be applied system-wide, not per user.
+        /// Unregisters an application as a candidate for a default program in the current Windows system. This can only be applied machine-wide, not per user.
         /// </summary>
         /// <param name="defaultProgram">The default program information to be removed.</param>
         /// <param name="accessPoint">Indicates that the program was set as the current default for the service it provides.</param>

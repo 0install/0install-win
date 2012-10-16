@@ -26,7 +26,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
     /// <remarks>Modifies the default <see cref="Config"/>.</remarks>
     public partial class ResetWizard : Wizard
     {
-        public ResetWizard(bool systemWide)
+        public ResetWizard(bool machineWide)
         {
             InitializeComponent();
 
@@ -41,16 +41,16 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
                 SyncServer = config.SyncServer,
                 SyncCredentials = new SyncCredentials(config.SyncServerUsername, config.SyncServerPassword)
             };
-            var changeCryptoKeyPage = new ChangeCryptoKeyPage(systemWide);
-            var resetCryptoKeyPage = new ResetCryptoKeyPage(systemWide)
+            var changeCryptoKeyPage = new ChangeCryptoKeyPage(machineWide);
+            var resetCryptoKeyPage = new ResetCryptoKeyPage(machineWide)
             {
                 SyncServer = config.SyncServer,
                 SyncCredentials = new SyncCredentials(config.SyncServerUsername, config.SyncServerPassword)
             };
             var cryptoKeyChangedPaged = new CryptoKeyChangedPage();
-            var resetServerPage = new ResetServerPage(systemWide);
+            var resetServerPage = new ResetServerPage(machineWide);
             var resetServerFinishedPage = new ResetServerFinishedPage();
-            var resetClientPage = new ResetClientPage(systemWide);
+            var resetClientPage = new ResetClientPage(machineWide);
             var resetClientFinishedPage = new ResetClientFinishedPage();
 
             // Page flows

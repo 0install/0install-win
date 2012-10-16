@@ -37,16 +37,16 @@ namespace ZeroInstall.Central.WinForms
     public partial class OptionsDialog : OKCancelDialog
     {
         #region Variables
-        private readonly bool _systemWide;
+        private readonly bool _machineWide;
 
         // Don't use WinForms designer for this, since it doesn't understand generics
         private readonly FilteredTreeView<TrustNode> _treeViewTrustedKeys = new FilteredTreeView<TrustNode> {Separator = '#', CheckBoxes = true, Dock = DockStyle.Fill};
         #endregion
 
         #region Startup
-        public OptionsDialog(bool systemWide)
+        public OptionsDialog(bool machineWide)
         {
-            _systemWide = systemWide;
+            _machineWide = machineWide;
 
             InitializeComponent();
 
@@ -384,7 +384,7 @@ namespace ZeroInstall.Central.WinForms
                     return;
             }
 
-            using (var wizard = new SyncConfig.SetupWizard(_systemWide))
+            using (var wizard = new SyncConfig.SetupWizard(_machineWide))
                 wizard.ShowDialog(this);
             Close();
         }
@@ -400,7 +400,7 @@ namespace ZeroInstall.Central.WinForms
                     return;
             }
 
-            using (var wizard = new SyncConfig.ResetWizard(_systemWide))
+            using (var wizard = new SyncConfig.ResetWizard(_machineWide))
                 wizard.ShowDialog(this);
             Close();
         }

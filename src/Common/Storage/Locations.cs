@@ -164,9 +164,9 @@ namespace Common.Storage
         }
         #endregion
 
-        #region System-wide directories
+        #region Machine-wide directories
         /// <summary>
-        /// The directories to store system-wide settings (can roam across different machines).
+        /// The directories to store machine-wide settings (can roam across different machines).
         /// </summary>
         /// <returns>Directories separated by <see cref="Path.PathSeparator"/> sorted by decreasing importance.</returns>
         /// <remarks>On Windows this is <c>CommonApplicationData</c>, on Linux it usually is <c>/etc/xdg</c>.</remarks>
@@ -193,7 +193,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// The directories to store system-wide data files (should not roam across different machines).
+        /// The directories to store machine-wide data files (should not roam across different machines).
         /// </summary>
         /// <returns>Directories separated by <see cref="Path.PathSeparator"/> sorted by decreasing importance.</returns>
         /// <remarks>On Windows this is <c>CommonApplicationData</c>, on Linux it usually is <c>/usr/local/share:/usr/share</c>.</remarks>
@@ -220,7 +220,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// The directory to store system-wide non-essential data.
+        /// The directory to store machine-wide non-essential data.
         /// </summary>
         /// <remarks>On Windows this is <c>CommonApplicationData</c>, on Linux it is <c>/var/cache</c>.</remarks>
         public static string SystemCacheDir
@@ -473,23 +473,23 @@ namespace Common.Storage
         /// Returns a path for a directory that can safley be used for desktop integration. It ignores <see cref="IsPortable"/>.
         /// </summary>
         /// <param name="appName">The name of application. Used as part of the path.</param>
-        /// <param name="systemWide"><see langword="true"/> if the directory should be system-wide and machine-specific instead of roaming with the user profile.</param>
+        /// <param name="machineWide"><see langword="true"/> if the directory should be machine-wide and machine-specific instead of roaming with the user profile.</param>
         /// <param name="resource">The directory name of the resource to be stored.</param>
         /// <returns>A fully qualified directory path. The directory is guaranteed to already exist.</returns>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        /// <remarks>If a new directory is created with <paramref name="systemWide"/> set to <see langword="true"/> on Windows, ACLs are set to deny write access for non-Administrator users.</remarks>
-        public static string GetIntegrationDirPath(string appName, bool systemWide, params string[] resource)
+        /// <remarks>If a new directory is created with <paramref name="machineWide"/> set to <see langword="true"/> on Windows, ACLs are set to deny write access for non-Administrator users.</remarks>
+        public static string GetIntegrationDirPath(string appName, bool machineWide, params string[] resource)
         {
             string resourceCombined = FileUtils.PathCombine(resource);
             string path = FileUtils.PathCombine(
-                Environment.GetFolderPath(systemWide ? Environment.SpecialFolder.CommonApplicationData : Environment.SpecialFolder.ApplicationData),
+                Environment.GetFolderPath(machineWide ? Environment.SpecialFolder.CommonApplicationData : Environment.SpecialFolder.ApplicationData),
                 appName, resourceCombined);
 
             var directory = new DirectoryInfo(path);
             if (!directory.Exists)
             {
-                if (WindowsUtils.IsWindowsNT && systemWide)
+                if (WindowsUtils.IsWindowsNT && machineWide)
                 {
                     // Set ACLs for new directory to: Admins/System = Full access, Users/Everyone = Read+Execute
                     var security = new DirectorySecurity();

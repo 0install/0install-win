@@ -40,13 +40,13 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="target">The application being integrated.</param>
         /// <param name="gamesExplorer">The game to be registered.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        /// <param name="systemWide">Register the game system-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Register the game machine-wide instead of just for the current user.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="gamesExplorer"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, Capabilities.GamesExplorer gamesExplorer, bool systemWide, ITaskHandler handler)
+        public static void Register(InterfaceFeed target, Capabilities.GamesExplorer gamesExplorer, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (gamesExplorer == null) throw new ArgumentNullException("gamesExplorer");
@@ -64,11 +64,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Unregisters a game in the current Windows system.
         /// </summary>
         /// <param name="gamesExplorer">The game to be unregistered.</param>
-        /// <param name="systemWide">Unegister the game system-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Unegister the game machine-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="gamesExplorer"/> is invalid.</exception>
-        public static void Unregister(Capabilities.GamesExplorer gamesExplorer, bool systemWide)
+        public static void Unregister(Capabilities.GamesExplorer gamesExplorer, bool machineWide)
         {
             #region Sanity checks
             if (gamesExplorer == null) throw new ArgumentNullException("gamesExplorer");

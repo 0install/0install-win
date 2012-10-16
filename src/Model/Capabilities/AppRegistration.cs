@@ -32,7 +32,7 @@ namespace ZeroInstall.Model.Capabilities
     {
         #region Properties
         /// <inheritdoc/>
-        public override bool WindowsSystemWideOnly
+        public override bool WindowsMachineWideOnly
         {
             get
             {

@@ -39,14 +39,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="target">The application being integrated.</param>
         /// <param name="comServer">The COM server to be registered.</param>
-        /// <param name="systemWide">Register the COM server system-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Register the COM server machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="comServer"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, Capabilities.ComServer comServer, bool systemWide, ITaskHandler handler)
+        public static void Register(InterfaceFeed target, Capabilities.ComServer comServer, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (comServer == null) throw new ArgumentNullException("comServer");
@@ -64,11 +64,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Unregisters a COM server in the current Windows system.
         /// </summary>
         /// <param name="comServer">The COM server to be unregistered.</param>
-        /// <param name="systemWide">Unregister the COM server system-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Unregister the COM server machine-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="comServer"/> is invalid.</exception>
-        public static void Unregister(Capabilities.ComServer comServer, bool systemWide)
+        public static void Unregister(Capabilities.ComServer comServer, bool machineWide)
         {
             #region Sanity checks
             if (comServer == null) throw new ArgumentNullException("comServer");

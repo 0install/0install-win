@@ -58,10 +58,10 @@ namespace ZeroInstall.Commands
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
             if (AdditionalArgs.Count > 0) throw new OptionException(Resources.TooManyArguments, "");
 
-            if (SystemWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
+            if (MachineWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
 
             Policy.Handler.ShowProgressUI();
-            using (var integrationManager = new IntegrationManager(SystemWide, Policy.Handler))
+            using (var integrationManager = new IntegrationManager(MachineWide, Policy.Handler))
                 integrationManager.Repair(feedID => Policy.FeedManager.GetFeed(feedID, Policy));
             return 0;
         }

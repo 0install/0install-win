@@ -18,8 +18,8 @@ namespace ZeroInstall.Commands
     public abstract class IntegrationCommand : FrontendCommand
     {
         #region Variables
-        /// <summary>Apply the operation system-wide instead of just for the current user.</summary>
-        protected bool SystemWide;
+        /// <summary>Apply the operation sachine-wide instead of just for the current user.</summary>
+        protected bool MachineWide;
         #endregion
 
         #region Constructor
@@ -31,7 +31,7 @@ namespace ZeroInstall.Commands
             Options.Add("o|offline", Resources.OptionOffline, unused => Policy.Config.NetworkUse = NetworkLevel.Offline);
             Options.Add("r|refresh", Resources.OptionRefresh, unused => Policy.FeedManager.Refresh = true);
 
-            Options.Add("system", Resources.OptionGlobal, unused => SystemWide = true);
+            Options.Add("m|machine", Resources.OptionGlobal, unused => MachineWide = true);
         }
         #endregion
 

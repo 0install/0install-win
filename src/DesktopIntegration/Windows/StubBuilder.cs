@@ -185,21 +185,21 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="target">The application to be launched via the stub.</param>
         /// <param name="command">The command argument to be passed to the the "0install run" command; may be <see langword="null"/>.</param>
-        /// <param name="systemWide">Store the stub in a system-wide directory instead of just for the current user.</param>
+        /// <param name="machineWide">Store the stub in a machine-wide directory instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <returns>The path to the generated stub EXE.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="InvalidOperationException">Thrown if write access to the filesystem is not permitted.</exception>
-        public static string GetRunStub(InterfaceFeed target, string command, bool systemWide, ITaskHandler handler)
+        public static string GetRunStub(InterfaceFeed target, string command, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             string hash = StringUtils.Hash(target.InterfaceID + "#" + command, SHA256.Create());
-            string dirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "stubs", hash);
+            string dirPath = Locations.GetIntegrationDirPath("0install.net", machineWide, "desktop-integration", "stubs", hash);
 
             var entryPoint = target.Feed.GetEntryPoint(command ?? Command.NameRun);
             string exeName = (entryPoint != null)

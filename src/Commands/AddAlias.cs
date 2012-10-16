@@ -72,9 +72,9 @@ namespace ZeroInstall.Commands
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
             if (AdditionalArgs.Count < 1 || string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
 
-            if (SystemWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
+            if (MachineWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
 
-            using (var integrationManager = new IntegrationManager(SystemWide, Policy.Handler))
+            using (var integrationManager = new IntegrationManager(MachineWide, Policy.Handler))
             {
                 if (_resolve || _remove)
                 {
@@ -137,7 +137,7 @@ namespace ZeroInstall.Commands
             Policy.Handler.ShowProgressUI();
 
             // Check this before modifying the environment
-            bool needsReopenTerminal = NeedsReopenTerminal(integrationManager.SystemWide);
+            bool needsReopenTerminal = NeedsReopenTerminal(integrationManager.MachineWide);
 
             var appEntry = GetAppEntry(integrationManager, ref interfaceID);
 
@@ -168,14 +168,14 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Determines whether the user may need to reopen the terminal to be able to use newly created aliases.
         /// </summary>
-        private static bool NeedsReopenTerminal(bool systemWide)
+        private static bool NeedsReopenTerminal(bool machineWide)
         {
             // Non-windows terminals may require rehashing to find new aliases
             if (!WindowsUtils.IsWindows) return true;
 
             // If the default alias directory is already in the PATH terminals will find new aliases right away
-            string stubDirPath = Locations.GetIntegrationDirPath("0install.net", systemWide, "desktop-integration", "aliases");
-            var variableTarget = systemWide ? EnvironmentVariableTarget.Machine : EnvironmentVariableTarget.User;
+            string stubDirPath = Locations.GetIntegrationDirPath("0install.net", machineWide, "desktop-integration", "aliases");
+            var variableTarget = machineWide ? EnvironmentVariableTarget.Machine : EnvironmentVariableTarget.User;
             string existingValue = Environment.GetEnvironmentVariable("PATH", variableTarget);
             return existingValue == null || !existingValue.Contains(stubDirPath);
         }

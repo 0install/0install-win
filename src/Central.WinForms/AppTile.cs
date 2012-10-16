@@ -67,8 +67,8 @@ namespace ZeroInstall.Central.WinForms
         private static readonly string _addButtonTooltip = Resources.AddButtonTooltip, _removeButtonTooltip = Resources.RemoveButtonTooltip, _setupButtonTooltip = Resources.SetupButtonTooltip, _modifyButtonTooltip = Resources.ModifyButtonTooltip;
         private static readonly string _selectCommandButton = Resources.SelectCommandButton, _selectVersionButton = Resources.SelectVersionButton, _updateButton = Resources.UpdateButton;
 
-        /// <summary>Apply operations system-wide instead of just for the current user.</summary>
-        private readonly bool _systemWide;
+        /// <summary>Apply operations sachine-wide instead of just for the current user.</summary>
+        private readonly bool _machineWide;
 
         private static readonly IHandler _handler = new SilentHandler();
 
@@ -155,19 +155,19 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Creates a new application tile.
         /// </summary>
-        /// <param name="systemWide">Apply operations system-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Apply operations sachine-wide instead of just for the current user.</param>
         /// <param name="interfaceID">The interface ID of the application this tile represents.</param>
         /// <param name="appName">The name of the application this tile represents.</param>
         /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
         /// <param name="iconCache">The icon cache used to retrieve icons specified in <see cref="Feed"/>; may be <see langword="null"/>.</param>
-        public AppTile(bool systemWide, string interfaceID, string appName, AppStatus status, IIconCache iconCache)
+        public AppTile(bool machineWide, string interfaceID, string appName, AppStatus status, IIconCache iconCache)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             if (appName == null) throw new ArgumentNullException("appName");
             #endregion
 
-            _systemWide = systemWide;
+            _machineWide = machineWide;
 
             InitializeComponent();
             buttonRun.Text = _runButtonText;
@@ -332,7 +332,9 @@ namespace ZeroInstall.Central.WinForms
 
             ProcessUtils.RunAsync(delegate
             {
-                Commands.WinForms.Program.Main(_systemWide ? new[] {"add-app", "--system", InterfaceID} : new[] {"add-app", InterfaceID});
+                Commands.WinForms.Program.Main(_machineWide
+                    ? new[] {"add-app", "--machine", InterfaceID}
+                    : new[] {"add-app", InterfaceID});
                 InvokeUpdateButtons(); // Restore buttons
             });
         }
@@ -344,7 +346,9 @@ namespace ZeroInstall.Central.WinForms
 
             ProcessUtils.RunAsync(delegate
             {
-                Commands.WinForms.Program.Main(_systemWide ? new[] {"integrate-app", "--system", InterfaceID} : new[] {"integrate-app", InterfaceID});
+                Commands.WinForms.Program.Main(_machineWide
+                    ? new[] {"integrate-app", "--machine", InterfaceID}
+                    : new[] {"integrate-app", InterfaceID});
                 InvokeUpdateButtons(); // Restore buttons
             });
         }
@@ -358,7 +362,9 @@ namespace ZeroInstall.Central.WinForms
 
             ProcessUtils.RunAsync(delegate
             {
-                Commands.WinForms.Program.Main(_systemWide ? new[] {"remove-app", "--system", InterfaceID} : new[] {"remove-app", InterfaceID});
+                Commands.WinForms.Program.Main(_machineWide
+                    ? new[] {"remove-app", "--machine", InterfaceID}
+                    : new[] {"remove-app", InterfaceID});
                 InvokeUpdateButtons(); // Restore buttons
             });
         }

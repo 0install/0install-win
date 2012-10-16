@@ -86,7 +86,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Creates a new sync manager.
         /// </summary>
-        /// <param name="systemWide">Apply operations system-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <param name="syncServer">The base URL of the sync server.</param>
         /// <param name="username">The username to authenticate with against the <paramref name="syncServer"/>.</param>
         /// <param name="password">The password to authenticate with against the <paramref name="syncServer"/>.</param>
@@ -95,8 +95,8 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public SyncIntegrationManager(bool systemWide, Uri syncServer, string username, string password, string cryptoKey, ITaskHandler handler)
-            : base(systemWide, handler)
+        public SyncIntegrationManager(bool machineWide, Uri syncServer, string username, string password, string cryptoKey, ITaskHandler handler)
+            : base(machineWide, handler)
         {
             #region Sanity checks
             if (syncServer == null) throw new ArgumentNullException("syncServer");
@@ -119,7 +119,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Creates a new sync manager for a custom <see cref="AppList"/> file. Used for testing.
         /// </summary>
-        /// <param name="systemWide">Apply operations system-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <param name="appListPath">The storage location of the <see cref="AppList"/> file.</param>
         /// <param name="syncServer">The base URL of the sync server.</param>
         /// <param name="username">The username to authenticate with against the <paramref name="syncServer"/>.</param>
@@ -129,8 +129,8 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public SyncIntegrationManager(bool systemWide, string appListPath, Uri syncServer, string username, string password, string cryptoKey, ITaskHandler handler)
-            : base(systemWide, appListPath, handler)
+        public SyncIntegrationManager(bool machineWide, string appListPath, Uri syncServer, string username, string password, string cryptoKey, ITaskHandler handler)
+            : base(machineWide, appListPath, handler)
         {
             #region Sanity checks
             if (syncServer == null) throw new ArgumentNullException("syncServer");
@@ -172,7 +172,7 @@ namespace ZeroInstall.DesktopIntegration
             if (feedRetriever == null) throw new ArgumentNullException("feedRetriever");
             #endregion
 
-            var appListUri = new Uri(_syncServer, new Uri(SystemWide ? "system-app-list" : "app-list", UriKind.Relative));
+            var appListUri = new Uri(_syncServer, new Uri(MachineWide ? "app-list-machine" : "app-list", UriKind.Relative));
             using (var webClient = new WebClientTimeout
             {
                 Credentials = new NetworkCredential(_username, _password),

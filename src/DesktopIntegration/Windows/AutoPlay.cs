@@ -65,14 +65,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="target">The application being integrated.</param>
         /// <param name="autoPlay">The AutoPlay handler information to be applied.</param>
         /// <param name="accessPoint">Indicates that the handler should become the default handler for all <see cref="Capabilities.AutoPlay.Events"/>.</param>
-        /// <param name="systemWide">Register the handler system-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Register the handler machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="autoPlay"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, Capabilities.AutoPlay autoPlay, bool accessPoint, bool systemWide, ITaskHandler handler)
+        public static void Register(InterfaceFeed target, Capabilities.AutoPlay autoPlay, bool accessPoint, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (autoPlay == null) throw new ArgumentNullException("autoPlay");
@@ -84,10 +84,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(autoPlay.Verb.Name)) throw new InvalidDataException("Missing verb name");
             if (string.IsNullOrEmpty(autoPlay.Provider)) throw new InvalidDataException("Missing provider");
 
-            var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
+            var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
 
             using (var commandKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + FileType.RegKeyPrefix + autoPlay.ProgID + @"\shell\" + autoPlay.Verb.Name + @"\command"))
-                commandKey.SetValue("", FileType.GetLaunchCommandLine(target, autoPlay.Verb, systemWide, handler));
+                commandKey.SetValue("", FileType.GetLaunchCommandLine(target, autoPlay.Verb, machineWide, handler));
 
             using (var handlerKey = hive.CreateSubKey(RegKeyHandlers + @"\" + FileType.RegKeyPrefix + autoPlay.ID))
             {
@@ -103,11 +103,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 string iconPath;
                 try
                 {
-                    iconPath = IconProvider.GetIconPath(autoPlay.GetIcon(Icon.MimeTypeIco), systemWide, handler);
+                    iconPath = IconProvider.GetIconPath(autoPlay.GetIcon(Icon.MimeTypeIco), machineWide, handler);
                 }
                 catch (KeyNotFoundException)
                 {
-                    iconPath = StubBuilder.GetRunStub(target, null, systemWide, handler);
+                    iconPath = StubBuilder.GetRunStub(target, null, machineWide, handler);
                 }
                 handlerKey.SetValue(RegValueIcon, iconPath + ",0");
             }
@@ -134,11 +134,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="autoPlay">The AutoPlay handler information to be removed.</param>
         /// <param name="accessPoint">Indicates that the handler should was the default handler for all <see cref="Capabilities.AutoPlay.Events"/>.</param>
-        /// <param name="systemWide">Remove the handler system-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Remove the handler machine-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="autoPlay"/> is invalid.</exception>
-        public static void Unregister(Capabilities.AutoPlay autoPlay, bool accessPoint, bool systemWide)
+        public static void Unregister(Capabilities.AutoPlay autoPlay, bool accessPoint, bool machineWide)
         {
             #region Sanity checks
             if (autoPlay == null) throw new ArgumentNullException("autoPlay");
@@ -147,7 +147,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(autoPlay.ID)) throw new InvalidDataException("Missing ID");
             if (string.IsNullOrEmpty(autoPlay.ProgID)) throw new InvalidDataException("Missing ProgID");
 
-            var hive = systemWide ? Registry.LocalMachine : Registry.CurrentUser;
+            var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
 
             if (accessPoint)
             {

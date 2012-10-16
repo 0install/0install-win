@@ -37,9 +37,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="path">The location to place the shorcut at.</param>
         /// <param name="target">The target the shortcut shall point to.</param>
         /// <param name="command">The command within <paramref name="target"/> the shorcut shall point to; may be <see langword="null"/>.</param>
-        /// <param name="systemWide">Create the shortcut system-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Create the shortcut machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        public static void CreateShortcut(string path, InterfaceFeed target, string command, bool systemWide, ITaskHandler handler)
+        public static void CreateShortcut(string path, InterfaceFeed target, string command, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -72,7 +72,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             try
             {
                 var icon = target.Feed.GetIcon(Icon.MimeTypeIco, command);
-                shortcut.IconLocation = IconProvider.GetIconPath(icon, systemWide, handler);
+                shortcut.IconLocation = IconProvider.GetIconPath(icon, machineWide, handler);
             }
             catch (KeyNotFoundException)
             {}

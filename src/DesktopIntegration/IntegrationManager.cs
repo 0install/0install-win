@@ -62,22 +62,22 @@ namespace ZeroInstall.DesktopIntegration
         public AppList AppList { get; private set; }
 
         /// <inheritdoc/>
-        public bool SystemWide { get; private set; }
+        public bool MachineWide { get; private set; }
         #endregion
 
         #region Constructor
         /// <summary>
         /// Creates a new integration manager using a custom <see cref="DesktopIntegration.AppList"/>. Do not use directly except for testing purposes!
         /// </summary>
-        /// <param name="systemWide">Apply operations system-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <param name="appListPath">The storage location of the <see cref="AppList"/> file.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public IntegrationManager(bool systemWide, string appListPath, ITaskHandler handler)
+        public IntegrationManager(bool machineWide, string appListPath, ITaskHandler handler)
         {
-            SystemWide = systemWide;
+            MachineWide = machineWide;
             AppListPath = appListPath;
             Handler = handler;
 
@@ -92,23 +92,23 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Creates a new integration manager using the default <see cref="DesktopIntegration.AppList"/>.
         /// </summary>
-        /// <param name="systemWide">Apply operations system-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public IntegrationManager(bool systemWide, ITaskHandler handler)
+        public IntegrationManager(bool machineWide, ITaskHandler handler)
         {
             // Prevent multiple concurrent desktop integration operations
-            _mutex = new Mutex(false, systemWide ? @"Global\" + MutexName : MutexName);
+            _mutex = new Mutex(false, machineWide ? @"Global\" + MutexName : MutexName);
             if (!_mutex.WaitOne(1000, false))
             {
                 _mutex = null; // Don't try to release mutex if it wasn't acquired
                 throw new UnauthorizedAccessException(Resources.IntegrationMutex);
             }
 
-            SystemWide = systemWide;
-            AppListPath = AppList.GetDefaultPath(systemWide);
+            MachineWide = machineWide;
+            AppListPath = AppList.GetDefaultPath(machineWide);
             Handler = handler;
 
             if (File.Exists(AppListPath)) AppList = AppList.Load(AppListPath);

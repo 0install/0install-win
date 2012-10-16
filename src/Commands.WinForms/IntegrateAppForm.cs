@@ -250,7 +250,7 @@ namespace ZeroInstall.Commands.WinForms
                     }
                 };
 
-                if (_integrationManager.SystemWide)
+                if (_integrationManager.MachineWide)
                 {
                     // Default program
                     dispatcher.Add((Capabilities.DefaultProgram defaultProgram) =>
@@ -273,7 +273,7 @@ namespace ZeroInstall.Commands.WinForms
             else tabControl.TabPages.Remove(tabPageAutoPlay);
             if (_contextMenuBinding.Count != 0) dataGridContextMenu.DataSource = _contextMenuBinding;
             else tabControl.TabPages.Remove(tabPageContextMenu);
-            if (_defaultProgramBinding.Count != 0 && _integrationManager.SystemWide) dataGridDefaultPrograms.DataSource = _defaultProgramBinding;
+            if (_defaultProgramBinding.Count != 0 && _integrationManager.MachineWide) dataGridDefaultPrograms.DataSource = _defaultProgramBinding;
             else tabControl.TabPages.Remove(tabPageDefaultPrograms);
         }
 
