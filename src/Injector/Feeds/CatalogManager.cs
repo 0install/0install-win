@@ -34,6 +34,8 @@ namespace ZeroInstall.Injector.Feeds
     public static class CatalogManager
     {
         #region Cached
+        private const string CacheMutexName = "ZeroInstall.Injector.Feeds.CatalogManager.Cache";
+
         /// <summary>The file used to cache a merged view of all used catalogs.</summary>
         private static string CacheFilePath { get { return Path.Combine(Locations.GetCacheDirPath("0install.net"), "catalog.xml"); } }
 
@@ -46,7 +48,8 @@ namespace ZeroInstall.Injector.Feeds
         {
             try
             {
-                return Catalog.Load(CacheFilePath);
+                using (new MutexLock(CacheMutexName))
+                    return Catalog.Load(CacheFilePath);
             }
                 #region Error handling
             catch (FileNotFoundException)
@@ -96,7 +99,8 @@ namespace ZeroInstall.Injector.Feeds
             // Cache the result
             try
             {
-                catalog.Save(CacheFilePath);
+                using (new MutexLock(CacheMutexName))
+                    catalog.Save(CacheFilePath);
             }
                 #region Error handling
             catch (IOException ex)
