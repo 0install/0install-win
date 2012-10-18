@@ -48,7 +48,8 @@ namespace ZeroInstall.Fetchers
             }
         }
 
-        internal Action<Archive, string> DownloadAction;
+        internal delegate void DownloadCommand(Archive archive, string target);
+        internal DownloadCommand DownloadAction;
 
         internal MockFetcher(IStore store)
             : base(store)
