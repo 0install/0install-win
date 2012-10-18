@@ -411,14 +411,16 @@ namespace Common.Utils
 
             while (i < data.Length)
             {
-                int currentByte = data[i];
+                // ReSharper disable ConditionIsAlwaysTrueOrFalse
+                int currentByte = (data[i] >= 0) ? data[i] : (data[i] + 256);
                 int digit;
 
                 // Is the current digit going to span a byte boundary?
                 if (index > (NormaleByteSize - Base32ByteSize))
                 {
                     int nextByte = (i + 1) < data.Length
-                        ? (data[i + 1]) : 0;
+                        ? ((data[i + 1] >= 0) ? data[i + 1]
+                            : (data[i + 1] + 256)) : 0;
 
                     digit = currentByte & (0xFF >> index);
                     index = (index + Base32ByteSize) % NormaleByteSize;
@@ -433,6 +435,7 @@ namespace Common.Utils
                     if (index == 0)
                         i++;
                 }
+                // ReSharper restore ConditionIsAlwaysTrueOrFalse
                 result.Append(_base32Alphabet[digit]);
             }
 
