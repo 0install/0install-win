@@ -30,8 +30,6 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Fetchers
 {
-    public delegate void Action<in T1, in T2>(T1 argument1, T2 argument2);
-
     internal class MockFetcher : Fetcher
     {
         private class MockImplementationFetch : ImplementationFetch
@@ -425,6 +423,7 @@ namespace ZeroInstall.Fetchers
 
             var implementation = new Implementation
             {
+                ManifestDigest = new ManifestDigest(sha256New: "ABC"),
                 RetrievalMethods =
                 {
                     new Archive {MimeType = "application/zip"},

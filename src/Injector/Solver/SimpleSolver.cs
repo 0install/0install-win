@@ -17,7 +17,7 @@
 
 using System;
 using System.Collections.Generic;
-using Common.Collections;
+using System.Linq;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
@@ -130,7 +130,7 @@ namespace ZeroInstall.Injector.Solver
                 var feed = _feedCache.GetFeed(feedID);
 
                 // ToDo: Add support for PackageImplementations
-                foreach (var implementation in EnumerableUtils.OfType<Implementation>(feed.Elements))
+                foreach (var implementation in feed.Elements.OfType<Implementation>())
                 {
                     // ToDo: Check it is a valid implementation (has version number, manifest digest, etc.)
 

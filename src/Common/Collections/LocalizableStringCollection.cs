@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
 
 namespace Common.Collections
 {
@@ -72,9 +73,7 @@ namespace Common.Collections
             if (language == null) throw new ArgumentNullException("language");
             #endregion
 
-            foreach (LocalizableString entry in this)
-                if (Equals(language, entry.Language)) return true;
-            return false;
+            return this.Any(entry => Equals(language, entry.Language));
         }
         #endregion
 

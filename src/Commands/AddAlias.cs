@@ -16,7 +16,7 @@
  */
 
 using System;
-using Common.Collections;
+using System.Linq;
 using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
@@ -194,13 +194,10 @@ namespace ZeroInstall.Commands
             foreach (var appEntry in appList.Entries)
             {
                 if (appEntry.AccessPoints == null) continue;
-                foreach (var appAlias in EnumerableUtils.OfType<AppAlias>(appEntry.AccessPoints.Entries))
+                foreach (var appAlias in appEntry.AccessPoints.Entries.OfType<AppAlias>().Where(appAlias => appAlias.Name == aliasName))
                 {
-                    if (appAlias.Name == aliasName)
-                    {
-                        foundAppEntry = appEntry;
-                        return appAlias;
-                    }
+                    foundAppEntry = appEntry;
+                    return appAlias;
                 }
             }
 

@@ -133,7 +133,7 @@ namespace ZeroInstall.Injector
             for (int i = 0; i < arguments.Length; i++)
                 arguments[i] = StringUtils.ExpandUnixVariables(commandLine[i + 1], environmentVariables);
 
-            return new CommandLineSplit(fileName, StringUtils.JoinEscapeArguments(arguments));
+            return new CommandLineSplit(fileName, arguments.JoinEscapeArguments());
         }
         #endregion
     }

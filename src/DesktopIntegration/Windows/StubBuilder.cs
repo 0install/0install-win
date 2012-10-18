@@ -26,7 +26,6 @@ using System.Reflection;
 using System.Security.Cryptography;
 using Common;
 using Common.Storage;
-using Common.Streams;
 using Common.Tasks;
 using Common.Utils;
 using Microsoft.CSharp;
@@ -67,8 +66,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             // Build command-line
             string args = needsTerminal ? "" : "run ";
-            if (!string.IsNullOrEmpty(command)) args += "--command=" + StringUtils.EscapeArgument(command) + " ";
-            args += StringUtils.EscapeArgument(target.InterfaceID);
+            if (!string.IsNullOrEmpty(command)) args += "--command=" + command.EscapeArgument() + " ";
+            args += target.InterfaceID.EscapeArgument();
 
             // Load the template code and insert variables
             string code = GetEmbeddedResource("Stub.template").Replace("[EXE]", Path.Combine(Locations.InstallBase, needsTerminal ? "0launch.exe" : "0install-win.exe").Replace(@"\", @"\\"));
@@ -87,7 +86,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             try
             {
                 string iconPath = IconCacheProvider.CreateDefault().GetIcon(target.Feed.GetIcon(Icon.MimeTypeIco, command).Location, handler);
-                compilerParameters.CompilerOptions += " /win32icon:" + StringUtils.EscapeArgument(iconPath);
+                compilerParameters.CompilerOptions += " /win32icon:" + iconPath.EscapeArgument();
             }
             catch (KeyNotFoundException)
             {}
@@ -116,12 +115,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
         {
             if (Environment.Version.Major == 4)
             { // C# 4.0 (.NET 4.0/4.5)
-                compilerParameters.CompilerOptions += " /win32manifest:" + StringUtils.EscapeArgument(manifestFilePath);
+                compilerParameters.CompilerOptions += " /win32manifest:" + manifestFilePath.EscapeArgument();
                 return new CSharpCodeProvider();
             }
             else if (WindowsUtils.HasNetFxVersion(WindowsUtils.NetFx35))
             { // C# 3.0 (.NET 3.5)
-                compilerParameters.CompilerOptions += " /win32manifest:" + StringUtils.EscapeArgument(manifestFilePath);
+                compilerParameters.CompilerOptions += " /win32manifest:" + manifestFilePath.EscapeArgument();
                 return NewCSharpCodeProviderEx(WindowsUtils.NetFx35);
             }
             else
@@ -175,7 +174,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         {
             var assembly = Assembly.GetAssembly(typeof(StubBuilder));
             using (var stream = assembly.GetManifestResourceStream(typeof(StubBuilder), name))
-                return StreamUtils.ReadToString(stream);
+                return stream.ReadToString();
         }
         #endregion
 
@@ -198,7 +197,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            string hash = StringUtils.Hash(target.InterfaceID + "#" + command, SHA256.Create());
+            string hash = (target.InterfaceID + "#" + command).Hash(SHA256.Create());
             string dirPath = Locations.GetIntegrationDirPath("0install.net", machineWide, "desktop-integration", "stubs", hash);
 
             var entryPoint = target.Feed.GetEntryPoint(command ?? Command.NameRun);

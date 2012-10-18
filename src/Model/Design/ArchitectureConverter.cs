@@ -51,7 +51,7 @@ namespace ZeroInstall.Model.Design
         /// <inheritdoc/>
         protected override string[] GetValues(Architecture value, ITypeDescriptorContext context, CultureInfo culture)
         {
-            return new[] {AttributeUtils.ConvertToString(value.OS), AttributeUtils.ConvertToString(value.Cpu)};
+            return new[] {value.OS.ConvertToString(), value.Cpu.ConvertToString()};
         }
 
         /// <inheritdoc/>
@@ -62,8 +62,8 @@ namespace ZeroInstall.Model.Design
             #endregion
 
             return new Architecture(
-                AttributeUtils.ConvertFromString<OS>(values[0]),
-                AttributeUtils.ConvertFromString<Cpu>(values[1]));
+                values[0].ConvertFromString<OS>(),
+                values[1].ConvertFromString<Cpu>());
         }
 
         /// <inheritdoc/>
@@ -74,8 +74,8 @@ namespace ZeroInstall.Model.Design
             #endregion
 
             return new Architecture(
-                AttributeUtils.ConvertFromString<OS>(propertyValues["OS"].ToString()),
-                AttributeUtils.ConvertFromString<Cpu>(propertyValues["Cpu"].ToString()));
+                propertyValues["OS"].ToString().ConvertFromString<OS>(),
+                propertyValues["Cpu"].ToString().ConvertFromString<Cpu>());
         }
     }
 }

@@ -19,7 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using Common.Collections;
+using System.Linq;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
@@ -78,7 +78,7 @@ namespace ZeroInstall.DesktopIntegration
                 foreach (var capabilityList in appEntry.CapabilityLists)
                 {
                     if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
-                    foreach (var capability in EnumerableUtils.OfType<Capabilities.DefaultCapability>(capabilityList.Entries))
+                    foreach (var capability in capabilityList.Entries.OfType<Capabilities.DefaultCapability>())
                     {
                         if (capability.WindowsMachineWideOnly && !MachineWide && WindowsUtils.IsWindows) continue;
                         if (!capability.ExplicitOnly)
@@ -90,7 +90,7 @@ namespace ZeroInstall.DesktopIntegration
             {
                 accessPointsToAdd.AddLast(new DesktopIcon {Name = appEntry.Name, Command = Command.NameRun});
 
-                string category = EnumerableUtils.First(feed.Categories);
+                string category = feed.Categories.FirstOrDefault();
                 if (feed.EntryPoints.IsEmpty)
                 { // Only one entry point
                     accessPointsToAdd.AddLast(new MenuEntry {Name = appEntry.Name, Category = category, Command = Command.NameRun});
@@ -150,9 +150,9 @@ namespace ZeroInstall.DesktopIntegration
 
             // Build capability list
             var accessPointsToRemove = new C5.LinkedList<AccessPoint>();
-            if (capabilities) accessPointsToRemove.AddAll(EnumerableUtils.OfType<CapabilityRegistration>(appEntry.AccessPoints.Entries));
-            if (defaults) accessPointsToRemove.AddAll(EnumerableUtils.OfType<DefaultAccessPoint>(appEntry.AccessPoints.Entries));
-            if (icons) accessPointsToRemove.AddAll(EnumerableUtils.OfType<IconAccessPoint>(appEntry.AccessPoints.Entries));
+            if (capabilities) accessPointsToRemove.AddAll(appEntry.AccessPoints.Entries.OfType<CapabilityRegistration>());
+            if (defaults) accessPointsToRemove.AddAll(appEntry.AccessPoints.Entries.OfType<DefaultAccessPoint>());
+            if (icons) accessPointsToRemove.AddAll(appEntry.AccessPoints.Entries.OfType<IconAccessPoint>());
 
             try
             {
@@ -187,7 +187,7 @@ namespace ZeroInstall.DesktopIntegration
             foreach (var capabilityList in appEntry.CapabilityLists)
             {
                 if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
-                foreach (var defaultProgram in EnumerableUtils.OfType<Capabilities.DefaultProgram>(capabilityList.Entries))
+                foreach (var defaultProgram in capabilityList.Entries.OfType<Capabilities.DefaultProgram>())
                     Windows.DefaultProgram.ToggleIconsVisible(defaultProgram, iconsVisible);
             }
         }

@@ -18,13 +18,14 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using Common;
 using Common.Cli;
-using Common.Collections;
 using Common.Storage;
 using Common.Streams;
+using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Feeds;
@@ -67,7 +68,7 @@ namespace ZeroInstall.Publish
         {
             var assembly = Assembly.GetAssembly(typeof(FeedUtils));
             using (var stream = assembly.GetManifestResourceStream(typeof(FeedUtils), name))
-                return StreamUtils.ReadToString(stream);
+                return stream.ReadToString();
         }
         #endregion
 
@@ -146,7 +147,7 @@ namespace ZeroInstall.Publish
             try
             {
                 var signatures = Store.Feeds.FeedUtils.GetSignatures(openPgp, File.ReadAllBytes(path));
-                var validSignature = EnumerableUtils.First(EnumerableUtils.OfType<ValidSignature>(signatures));
+                var validSignature = signatures.OfType<ValidSignature>().FirstOrDefault();
                 if (validSignature != null) return openPgp.GetSecretKey(validSignature.Fingerprint);
             }
                 #region Error handling

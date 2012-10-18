@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Common.Storage;
 using Common.Utils;
@@ -46,9 +47,9 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <exception cref="IOException">Thrown if a directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory was not permitted.</exception>
-        private static C5.IList<IStore> GetStores()
+        private static IEnumerable<IStore> GetStores()
         {
-            var stores = new C5.LinkedList<IStore>();
+            var stores = new List<IStore>();
             foreach (var path in GetImplementationDirs())
             {
                 try

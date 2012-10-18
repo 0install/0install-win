@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 using Common;
@@ -46,7 +47,7 @@ namespace ZeroInstall.Commands.WinForms
         private readonly string _interfaceID;
 
         /// <summary>Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</summary>
-        private readonly SimpleResult<Selections> _solveCallback;
+        private readonly Func<Selections> _solveCallback;
 
         /// <summary>The feed cache used to retrieve <see cref="Feed"/>s for additional information about imlementations.</summary>
         private readonly IFeedCache _feedCache;
@@ -70,7 +71,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="interfaceID">The interface to modify the preferences for.</param>
         /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
         /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about imlementations.</param>
-        private InterfaceDialog(string interfaceID, SimpleResult<Selections> solveCallback, IFeedCache feedCache)
+        private InterfaceDialog(string interfaceID, Func<Selections> solveCallback, IFeedCache feedCache)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
@@ -112,7 +113,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
         /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about imlementations.</param>
         /// <returns><see langword="true"/> if the preferences where modified; <see langword="false"/> if everything remained unchanged.</returns>
-        public static bool Show(IWin32Window owner, string interfaceID, SimpleResult<Selections> solveCallback, IFeedCache feedCache)
+        public static bool Show(IWin32Window owner, string interfaceID, Func<Selections> solveCallback, IFeedCache feedCache)
         {
             #region Sanity checks
             if (owner == null) throw new ArgumentNullException("owner");
@@ -299,16 +300,10 @@ namespace ZeroInstall.Commands.WinForms
                 var feedPreferences = feedEntry.Value;
 
                 // ToDo: Get selection candidates from Solver
-                foreach (var element in feed.Elements)
-                {
-                    var implementation = element as Implementation;
-                    if (implementation == null) continue;
-
-                    var candidate = new SelectionCandidate(feedID, implementation, feedPreferences[implementation.ID], new Requirements {Architecture = Architecture.CurrentSystem});
-
-                    if (checkBoxShowAllVersions.Checked || candidate.IsSuitable)
-                        candidates.Add(candidate);
-                }
+                foreach (var candidate in feed.Elements.OfType<Implementation>().
+                    Select(implementation => GetSelectionCandidate(feedID, implementation, feedPreferences)).
+                    Where(candidate => checkBoxShowAllVersions.Checked || candidate.IsSuitable))
+                    candidates.Add(candidate);
             }
             dataGridVersions.DataSource = candidates;
 #else
@@ -321,21 +316,18 @@ namespace ZeroInstall.Commands.WinForms
             dataGridVersions.DataSource = list;
 #endif
         }
+
+        private static SelectionCandidate GetSelectionCandidate(string feedID, Implementation implementation, FeedPreferences feedPreferences)
+        {
+            return new SelectionCandidate(feedID, implementation, feedPreferences[implementation.ID], new Requirements {Architecture = Architecture.CurrentSystem});
+        }
         #endregion
 
         #region Feed buttons
         private void listBoxFeeds_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Enable remove button if there is at least one removable object selected
-            buttonRemoveFeed.Enabled = false;
-            foreach (var item in listBoxFeeds.SelectedItems)
-            {
-                if (item is FeedReference /*&& _interfacePreferences.Feeds.Contains((FeedReference)item)*/)
-                {
-                    buttonRemoveFeed.Enabled = true;
-                    return;
-                }
-            }
+            buttonRemoveFeed.Enabled = listBoxFeeds.SelectedItems.OfType<FeedReference>().Any();
         }
 
         private void buttonAddFeed_Click(object sender, EventArgs e)
@@ -348,13 +340,8 @@ namespace ZeroInstall.Commands.WinForms
 
         private void buttonRemoveFeed_Click(object sender, EventArgs e)
         {
-            var toRemove = new LinkedList<FeedReference>();
-            foreach (var item in listBoxFeeds.SelectedItems)
-            {
-                var feed = item as FeedReference;
-                if (feed != null) toRemove.AddLast(feed);
-            }
-            foreach (var feed in toRemove) RemoveFeed(feed);
+            foreach (var feed in listBoxFeeds.SelectedItems.OfType<FeedReference>().ToList())
+                RemoveFeed(feed);
         }
         #endregion
 

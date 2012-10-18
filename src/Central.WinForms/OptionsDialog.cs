@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Common;
@@ -145,12 +146,10 @@ namespace ZeroInstall.Central.WinForms
                 config.Save();
 
                 // Write list of user implementation directories
-                WriteConfigFile(_implementationDirsConfigPath,
-                    EnumerableUtils.OfType<DirectoryStore>(listBoxImplDirs.Items));
+                WriteConfigFile(_implementationDirsConfigPath, listBoxImplDirs.Items.OfType<DirectoryStore>());
 
                 // Write list of catalog sources
-                WriteConfigFile(_catalogSourcesConfigPath,
-                    EnumerableUtils.OfType<string>(listBoxCatalogSources.Items));
+                WriteConfigFile(_catalogSourcesConfigPath, listBoxCatalogSources.Items.OfType<string>());
 
                 // Write list of trusted keys
                 var trustDB = new TrustDB();
@@ -224,15 +223,7 @@ namespace ZeroInstall.Central.WinForms
             buttonGoToImplDir.Enabled = (listBoxImplDirs.SelectedItems.Count == 1);
 
             // Enable remove button if there is at least one removable object selected
-            buttonRemoveImplDir.Enabled = false;
-            foreach (var item in listBoxImplDirs.SelectedItems)
-            {
-                if (item is DirectoryStore)
-                {
-                    buttonRemoveImplDir.Enabled = true;
-                    return;
-                }
-            }
+            buttonRemoveImplDir.Enabled = listBoxImplDirs.SelectedItems.OfType<DirectoryStore>().Any();
         }
 
         private void buttonGoToImplDir_Click(object sender, EventArgs e)

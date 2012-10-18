@@ -19,9 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Net;
 using Common;
-using Common.Collections;
 using Common.Storage;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
@@ -248,7 +248,7 @@ namespace ZeroInstall.Injector.Feeds
             // Detect replay attacks
             try
             {
-                var oldSignature = EnumerableUtils.First(EnumerableUtils.OfType<ValidSignature>(Cache.GetSignatures(uri.ToString(), policy.OpenPgp)));
+                var oldSignature = Cache.GetSignatures(uri.ToString(), policy.OpenPgp).OfType<ValidSignature>().FirstOrDefault();
                 if (oldSignature != null && signature.Timestamp < oldSignature.Timestamp) throw new ReplayAttackException(uri, oldSignature.Timestamp, signature.Timestamp);
             }
             catch (KeyNotFoundException)

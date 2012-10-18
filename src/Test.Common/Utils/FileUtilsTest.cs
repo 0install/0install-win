@@ -53,7 +53,7 @@ namespace Common.Utils
         public void TestToUnixTime()
         {
             // 12677 days = 12677 x 86400 seconds = 1095292800 seconds
-            Assert.AreEqual(1095292800, FileUtils.ToUnixTime(new DateTime(2004, 09, 16)));
+            Assert.AreEqual(1095292800, new DateTime(2004, 09, 16).ToUnixTime());
         }
 
         /// <summary>
@@ -255,7 +255,7 @@ namespace Common.Utils
                 var fileCallbackMock = new Mock<IActionSimulator<string>>(MockBehavior.Strict);
                 fileCallbackMock.Setup(x => x.Invoke(filePath)).Verifiable();
 
-                FileUtils.WalkDirectory(new DirectoryInfo(tempDir.Path),
+                new DirectoryInfo(tempDir.Path).WalkDirectory(
                     subDir => dirCallbackMock.Object.Invoke(subDir.FullName),
                     file => fileCallbackMock.Object.Invoke(file.FullName));
 

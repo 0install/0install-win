@@ -187,8 +187,8 @@ namespace ZeroInstall.Model
 
             try
             {
-                OS = AttributeUtils.ConvertFromString<OS>(os);
-                Cpu = AttributeUtils.ConvertFromString<Cpu>(cpu);
+                OS = os.ConvertFromString<OS>();
+                Cpu = cpu.ConvertFromString<Cpu>();
             }
                 #region Error handling
             catch (ArgumentNullException ex)
@@ -274,7 +274,7 @@ namespace ZeroInstall.Model
         /// </summary>
         public override string ToString()
         {
-            return AttributeUtils.ConvertToString(OS) + "-" + AttributeUtils.ConvertToString(Cpu);
+            return OS.ConvertToString() + "-" + Cpu.ConvertToString();
         }
         #endregion
 

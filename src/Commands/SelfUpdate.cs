@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Common;
 using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
@@ -77,7 +78,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override void Parse(IEnumerable<string> args)
         {
-            if (Options.Parse(args).Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + StringUtils.JoinEscapeArguments(AdditionalArgs), "");
+            if (Options.Parse(args).Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs.JoinEscapeArguments(), "");
 
             Requirements.InterfaceID = Policy.Config.SelfUpdateID;
 

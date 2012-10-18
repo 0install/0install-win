@@ -154,7 +154,7 @@ namespace ZeroInstall.DesktopIntegration
             // ReSharper disable PossibleMultipleEnumeration
             CheckForConflicts(appEntry, accessPoints);
 
-            EnumerableUtils.ApplyWithRollback(accessPoints,
+            accessPoints.ApplyWithRollback(
                 accessPoint => accessPoint.Apply(appEntry, feed, MachineWide, Handler),
                 accessPoint =>
                 {

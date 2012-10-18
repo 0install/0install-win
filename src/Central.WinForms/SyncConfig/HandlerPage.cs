@@ -96,7 +96,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             throw new NotImplementedException();
         }
 
-        public void AuditSelections(SimpleResult<Selections> solveCallback)
+        public void AuditSelections(Func<Selections> solveCallback)
         {
             throw new NotImplementedException();
         }

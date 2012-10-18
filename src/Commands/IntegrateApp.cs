@@ -16,8 +16,9 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Common.Storage;
+using System.Linq;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -42,13 +43,13 @@ namespace ZeroInstall.Commands
 
         #region Variables
         /// <summary>A list of all <see cref="AccessPoint"/> categories to be added to the already applied ones.</summary>
-        private readonly C5.ICollection<string> _addCategories = new C5.LinkedList<string>();
+        private readonly List<string> _addCategories = new List<string>();
 
         /// <summary>A list of all <see cref="AccessPoint"/> categories to be removed from the already applied ones.</summary>
-        private readonly C5.ICollection<string> _removeCategories = new C5.LinkedList<string>();
+        private readonly List<string> _removeCategories = new List<string>();
 
         /// <summary>A list of <see cref="AccessPointList"/> files to be imported.</summary>
-        private readonly C5.ICollection<string> _importLists = new C5.LinkedList<string>();
+        private readonly List<string> _importLists = new List<string>();
         #endregion
 
         #region Properties
@@ -63,7 +64,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public IntegrateApp(Policy policy) : base(policy)
         {
-            string categoryList = StringUtils.Join(", ", CategoryIntegrationManager.Categories);
+            string categoryList = ", ".Join(CategoryIntegrationManager.Categories);
 
             Options.Add("a|add=", Resources.OptionAppAdd + "\n" + Resources.OptionAppCategory + categoryList, category =>
             {
@@ -93,7 +94,7 @@ namespace ZeroInstall.Commands
             #endregion
 
             // If the user only wants to remove stuff avoid fetching the feed
-            if (_addCategories.IsEmpty && _importLists.IsEmpty && !_removeCategories.IsEmpty)
+            if (!_addCategories.Any() && !_importLists.Any() && _removeCategories.Any())
             {
                 RemoveOnly(integrationManager, interfaceID);
                 return 0;
@@ -103,7 +104,7 @@ namespace ZeroInstall.Commands
             var feed = Policy.FeedManager.GetFeed(interfaceID, Policy);
 
             // If the user specified no specific integration options show an interactive UI
-            if (_addCategories.IsEmpty && _removeCategories.IsEmpty && _importLists.IsEmpty)
+            if (!_addCategories.Any() && !_removeCategories.Any() && !_importLists.Any())
             {
                 Policy.Handler.ShowIntegrateApp(integrationManager, appEntry, feed);
                 return 0;
@@ -126,12 +127,12 @@ namespace ZeroInstall.Commands
         /// </summary>
         private void RemoveAndAdd(ICategoryIntegrationManager integrationManager, Feed feed, AppEntry appEntry)
         {
-            if (!_removeCategories.IsEmpty)
+            if (_removeCategories.Any())
                 integrationManager.RemoveAccessPointCategories(appEntry, _removeCategories);
 
             try
             {
-                if (!_addCategories.IsEmpty)
+                if (_addCategories.Any())
                     integrationManager.AddAccessPointCategories(appEntry, feed, _addCategories);
 
                 foreach (string path in _importLists)

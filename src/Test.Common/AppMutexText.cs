@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2006-2012 Bastian Eicher
+ * Copyright 2006-2012 Bastian Eicher, Simon E. Silva Lauinger
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,23 +20,34 @@
  * THE SOFTWARE.
  */
 
-using System;
+using System.IO;
+using Common.Utils;
 using NUnit.Framework;
 
 namespace Common
 {
     /// <summary>
-    /// Contains test methods for <see cref="Future{T}"/>.
+    /// Contains test methods for <see cref="AppMutex"/>.
     /// </summary>
     [TestFixture]
-    public class FutureTest
+    public class AppMutexTest
     {
-        [Test]
-        public void TestCast()
+        /// <summary>
+        /// Ensures the methods <see cref="AppMutex.Probe"/>, <see cref="AppMutex.Create(string,out AppMutex)"/> and <see cref="AppMutex.Close"/> work correctly together.
+        /// </summary>
+        // Fails when executed within TeamCity's test runner
+        //[Test]
+        public void TestProbeCreateClose()
         {
-            var future = new Future<double>(() => Math.Pow(2, 10));
-            double result = future;
-            Assert.AreEqual(1024, result);
+            if (!WindowsUtils.IsWindowsNT) throw new InconclusiveException("AppMutexes are only available on the Windows NT platform.");
+
+            string mutexName = "unit-tests-" + Path.GetRandomFileName();
+            Assert.IsFalse(AppMutex.Probe(mutexName));
+            AppMutex mutex;
+            AppMutex.Create(mutexName, out mutex);
+            Assert.IsTrue(AppMutex.Probe(mutexName));
+            mutex.Close();
+            Assert.IsFalse(AppMutex.Probe(mutexName));
         }
     }
 }

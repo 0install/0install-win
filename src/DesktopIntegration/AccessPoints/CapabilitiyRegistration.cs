@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 using Common.Collections;
 using Common.Tasks;
@@ -86,7 +87,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                     dispatcher.Add((Capabilities.ComServer comServer) => Windows.ComServer.Register(target, comServer, machineWide, handler));
                     dispatcher.Add((Capabilities.GamesExplorer gamesExplorer) => Windows.GamesExplorer.Register(target, gamesExplorer, machineWide, handler));
                     if (machineWide || WindowsUtils.IsWindows8)
-                        dispatcher.Add((Capabilities.AppRegistration appRegistration) => Windows.AppRegistration.Register(target, appRegistration, EnumerableUtils.OfType<Capabilities.VerbCapability>(capabilityList.Entries), machineWide, handler));
+                        dispatcher.Add((Capabilities.AppRegistration appRegistration) => Windows.AppRegistration.Register(target, appRegistration, capabilityList.Entries.OfType<Capabilities.VerbCapability>(), machineWide, handler));
                     if (machineWide)
                         dispatcher.Add((Capabilities.DefaultProgram defaultProgram) => Windows.DefaultProgram.Register(target, defaultProgram, false, handler));
                 }

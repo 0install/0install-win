@@ -305,7 +305,7 @@ namespace ZeroInstall.Central.WinForms
                 try
                 {
                     // Cannot use in-process method here because the "args" string needs to be parsed as multiple arguments instead of one
-                    ProcessUtils.LaunchHelperAssembly(Commands.WinForms.Program.ExeName, "run --no-wait --command=" + StringUtils.EscapeArgument(command) + " " + StringUtils.EscapeArgument(InterfaceID) + " " + args);
+                    ProcessUtils.LaunchHelperAssembly(Commands.WinForms.Program.ExeName, "run --no-wait --command=" + command.EscapeArgument() + " " + InterfaceID.EscapeArgument() + " " + args);
                 }
                     #region Error handling
                 catch (FileNotFoundException ex)

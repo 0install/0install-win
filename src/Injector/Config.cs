@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Design;
 using System.IO;
+using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using Common;
@@ -406,7 +407,7 @@ namespace ZeroInstall.Injector
                 {
                     try
                     {
-                        property.Value.Value = property.Value.NeedsEncoding ? StringUtils.Base64Utf8Decode(global[key]) : global[key];
+                        property.Value.Value = property.Value.NeedsEncoding ? global[key].Base64Utf8Decode() : global[key];
                     }
                         #region Error handling
                     catch (FormatException ex)
@@ -450,7 +451,7 @@ namespace ZeroInstall.Injector
                 // Remove the old value and only set the new one if it isn't the default value
                 global.RemoveKey(key);
                 if (!Equals(property.Value.DefaultValue, property.Value.Value))
-                    global.AddKey(key, property.Value.NeedsEncoding ? StringUtils.Base64Utf8Encode(property.Value.Value) : property.Value.Value);
+                    global.AddKey(key, property.Value.NeedsEncoding ? property.Value.Value.Base64Utf8Encode() : property.Value.Value);
             }
         }
         #endregion
@@ -494,9 +495,7 @@ namespace ZeroInstall.Injector
         public bool Equals(Config other)
         {
             if (other == null) return false;
-            foreach (var property in _metaData)
-                if (property.Value.Value != other.GetOption(property.Key)) return false;
-            return true;
+            return _metaData.All(property => property.Value.Value == other.GetOption(property.Key));
         }
 
         /// <inheritdoc/>
@@ -512,17 +511,8 @@ namespace ZeroInstall.Injector
         {
             unchecked
             {
-                int result = 397;
-                foreach (var property in _metaData)
-                {
-                    // ReSharper disable NonReadonlyFieldInGetHashCode
-                    if (property.Value.Value != null)
-                    { // Use a commutative folding function (addition) since the order in a hash map is non-deterministic
-                        result += property.Value.Value.GetHashCode();
-                    }
-                    // ReSharper restore NonReadonlyFieldInGetHashCode
-                }
-                return result;
+                return _metaData.Where(property => property.Value.Value != null).
+                    Aggregate(397, (current, property) => (current * 397) ^ property.Value.Value.GetHashCode());
             }
         }
         #endregion

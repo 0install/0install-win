@@ -19,9 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
-using Common.Collections;
 using ZeroInstall.Model.Design;
 
 namespace ZeroInstall.Model
@@ -83,12 +83,6 @@ namespace ZeroInstall.Model
                 return list;
             }
         }
-
-        /// <summary>
-        /// Returns the best (safest) contained manifest digest. <see langword="null"/> if none is set.
-        /// </summary>
-        [XmlIgnore]
-        public string BestDigest { get { return EnumerableUtils.First(AvailableDigests); } }
 
         /// <summary>
         /// Contains any unknown hash algorithms specified as pure XML attributes.
@@ -244,7 +238,7 @@ namespace ZeroInstall.Model
             if (Equals(other)) return 0;
 
             // Sort based on the best digest algorithm available
-            int distance = string.CompareOrdinal(BestDigest, other.BestDigest);
+            int distance = string.CompareOrdinal(AvailableDigests.FirstOrDefault(), other.AvailableDigests.FirstOrDefault());
 
             // Only return 0 for true equality
             if (distance == 0) distance = 1;

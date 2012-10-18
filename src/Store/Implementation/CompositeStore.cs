@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using Common;
 using Common.Tasks;
 using ZeroInstall.Model;
@@ -114,14 +115,11 @@ namespace ZeroInstall.Store.Implementation
                 if (_containsCache.TryGetValue(manifestDigest, out result)) return result;
             }
 
-            foreach (var store in _stores)
+            // Check if any store contains the implementation
+            if (_stores.Any(store => store.Contains(manifestDigest)))
             {
-                // Check if any store contains the implementation
-                if (store.Contains(manifestDigest))
-                {
-                    lock (_containsCache) _containsCache[manifestDigest] = true;
-                    return true;
-                }
+                lock (_containsCache) _containsCache[manifestDigest] = true;
+                return true;
             }
 
             // If we reach this, none of the stores contains the implementation
@@ -132,14 +130,8 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public bool Contains(string directory)
         {
-            foreach (var store in _stores)
-            {
-                // Check if any store contains the implementation
-                if (store.Contains(directory)) return true;
-            }
-
-            // If we reach this, none of the stores contains the implementation
-            return false;
+            // Check if any store contains the implementation
+            return _stores.Any(store => store.Contains(directory));
         }
         #endregion
 
@@ -147,15 +139,8 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public string GetPath(ManifestDigest manifestDigest)
         {
-            foreach (var store in _stores)
-            {
-                // Use the first store that contains the implementation
-                string path = store.GetPath(manifestDigest);
-                if (path != null) return path;
-            }
-
-            // If we reach this, none of the stores contains the implementation
-            return null;
+            // Use the first store that contains the implementation
+            return _stores.Select(store => store.GetPath(manifestDigest)).FirstOrDefault(path => path != null);
         }
         #endregion
 
@@ -319,16 +304,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Try to audit all contained stores
-            foreach (var store in _stores)
-            {
-                var problems = store.Audit(handler);
-                if (problems != null)
-                {
-                    // Combine problems from all stores
-                    foreach (var problem in problems)
-                        yield return problem;
-                }
-            }
+            return _stores.Select(store => store.Audit(handler)).Where(problems => problems != null).SelectMany(problems => problems);
         }
         #endregion
 

@@ -115,17 +115,17 @@ namespace ZeroInstall.Injector.Solver
         {
             var builder = new StringBuilder();
 
-            if (CommandName != null) builder.Append("--command=" + StringUtils.EscapeArgument(CommandName) + " ");
+            if (CommandName != null) builder.Append("--command=" + CommandName.EscapeArgument() + " ");
             if (Architecture.Cpu == Cpu.Source) builder.Append("--source ");
             else
             {
-                if (Architecture.OS != OS.All) builder.Append("--os=" + StringUtils.EscapeArgument(AttributeUtils.ConvertToString(Architecture.OS)) + " ");
-                if (Architecture.Cpu != Cpu.All) builder.Append("--cpu=" + StringUtils.EscapeArgument(AttributeUtils.ConvertToString(Architecture.Cpu)) + " ");
+                if (Architecture.OS != OS.All) builder.Append("--os=" + Architecture.OS.ConvertToString().EscapeArgument() + " ");
+                if (Architecture.Cpu != Cpu.All) builder.Append("--cpu=" + Architecture.Cpu.ConvertToString().EscapeArgument() + " ");
             }
-            if (Versions != null) builder.Append("--version=" + StringUtils.EscapeArgument(Versions.ToString()) + " ");
+            if (Versions != null) builder.Append("--version=" + Versions.ToString().EscapeArgument() + " ");
             foreach (var pair in VersionsFor)
-                builder.Append("--version-for=" + StringUtils.EscapeArgument(pair.Key) + " " + StringUtils.EscapeArgument(pair.Value.ToString()) + " ");
-            builder.Append(StringUtils.EscapeArgument(InterfaceID));
+                builder.Append("--version-for=" + pair.Key.EscapeArgument() + " " + pair.Value.ToString().EscapeArgument() + " ");
+            builder.Append(InterfaceID.EscapeArgument());
 
             return builder.ToString();
         }

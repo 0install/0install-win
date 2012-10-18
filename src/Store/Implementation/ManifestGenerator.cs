@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Common.Tasks;
 using Common.Utils;
@@ -134,13 +135,7 @@ namespace ZeroInstall.Store.Implementation
         /// <returns>The size of all files summed up in bytes.</returns>
         private static long TotalFileSize(IEnumerable<FileSystemInfo> entries)
         {
-            long size = 0;
-            foreach (var entry in entries)
-            {
-                var file = entry as FileInfo;
-                if (file != null) size += file.Length;
-            }
-            return size;
+            return entries.OfType<FileInfo>().Sum(file => file.Length);
         }
 
         /// <summary>
@@ -176,10 +171,10 @@ namespace ZeroInstall.Store.Implementation
 
                 // Executable file
                 if (externalXbits.Contains(file.FullName) || FileUtils.IsExecutable(file.FullName))
-                    return new ManifestExecutableFile(format.DigestContent(stream), FileUtils.ToUnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
+                    return new ManifestExecutableFile(format.DigestContent(stream), file.LastWriteTimeUtc.ToUnixTime(), file.Length, file.Name);
 
                 // Normal file
-                return new ManifestNormalFile(format.DigestContent(stream), FileUtils.ToUnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
+                return new ManifestNormalFile(format.DigestContent(stream), file.LastWriteTimeUtc.ToUnixTime(), file.Length, file.Name);
             }
         }
 
@@ -204,7 +199,7 @@ namespace ZeroInstall.Store.Implementation
 
             // Remove leading portion of path and use Unix slashes
             string trimmedName = directory.FullName.Substring(rootPath.Length).Replace(Path.DirectorySeparatorChar, '/');
-            return new ManifestDirectory(FileUtils.ToUnixTime(directory.LastWriteTime), trimmedName);
+            return new ManifestDirectory(directory.LastWriteTime.ToUnixTime(), trimmedName);
         }
         #endregion
     }

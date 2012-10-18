@@ -102,7 +102,7 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         public bool Equals(Icon other)
         {
-            return other.LocationString == LocationString && StringUtils.Compare(other.MimeType, MimeType);
+            return other.LocationString == LocationString && StringUtils.EqualsIgnoreCase(other.MimeType, MimeType);
         }
 
         /// <inheritdoc/>

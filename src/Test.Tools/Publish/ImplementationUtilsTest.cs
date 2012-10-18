@@ -17,8 +17,8 @@
 
 using System.IO;
 using Common;
-using Common.Streams;
 using Common.Tasks;
+using Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;

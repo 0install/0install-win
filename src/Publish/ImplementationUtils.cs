@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using Common.Collections;
 using Common.Storage;
@@ -91,7 +92,7 @@ namespace ZeroInstall.Publish
                     implementation.ManifestDigest.Sha1,
                     implementation.ManifestDigest.Sha1New,
                     implementation.ManifestDigest.Sha256,
-                    StringUtils.Base32Encode(StringUtils.Base16Decode(implementation.ManifestDigest.Sha256)));
+                    implementation.ManifestDigest.Sha256.Base16Decode().Base32Encode());
             }
 
             new PerTypeDispatcher<RetrievalMethod>(true)
@@ -207,8 +208,10 @@ namespace ZeroInstall.Publish
             try
             {
                 // Download all archives required by the recipe
-                foreach (var archive in EnumerableUtils.OfType<Archive>(recipe.Steps))
+                // ReSharper disable LoopCanBeConvertedToQuery
+                foreach (var archive in recipe.Steps.OfType<Archive>())
                     downloadedArchives.Add(new ArchiveFileInfo {Path = DownloadArchive(archive, handler).Path, SubDir = archive.Extract, MimeType = archive.MimeType});
+                // ReSharper restore LoopCanBeConvertedToQuery
 
                 // Apply the recipe
                 return RecipeUtils.ApplyRecipe(recipe, downloadedArchives, handler, null);

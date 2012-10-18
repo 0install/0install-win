@@ -423,9 +423,12 @@ namespace ZeroInstall.Central.WinForms
                 using (var wizard = new SyncConfig.SetupWizard(_machineWide))
                     wizard.ShowDialog(this);
             }
-            else ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
-                ? new[] {"sync", "--machine"}
-                : new[] {"sync"}));
+            else
+            {
+                ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
+                    ? new[] {"sync", "--machine"}
+                    : new[] {"sync"}));
+            }
         }
 
         private void buttonRefreshCatalog_Click(object sender, EventArgs e)
@@ -464,8 +467,8 @@ namespace ZeroInstall.Central.WinForms
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                var files = e.Data.GetData(DataFormats.FileDrop) as string[];
-                AddCustomInterface(EnumerableUtils.First(files));
+                foreach (string path in (string[])e.Data.GetData(DataFormats.FileDrop))
+                    AddCustomInterface(path);
             }
             else if (e.Data.GetDataPresent(DataFormats.Text))
                 AddCustomInterface((string)e.Data.GetData(DataFormats.Text));

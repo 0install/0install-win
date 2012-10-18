@@ -170,12 +170,12 @@ namespace Common.Controls
             Invoke(new SimpleEventHandler(delegate
             {
                 Text = (sender.UnitsByte
-                    ? StringUtils.FormatBytes(CultureInfo.CurrentCulture, unitsProcessed)
+                    ? unitsProcessed.FormatBytes(CultureInfo.CurrentCulture)
                     : unitsProcessed.ToString(CultureInfo.CurrentCulture));
                 if (unitsTotal != -1)
                 {
                     Text += @" / " + (sender.UnitsByte
-                        ? StringUtils.FormatBytes(CultureInfo.CurrentCulture, unitsTotal)
+                        ? unitsTotal.FormatBytes(CultureInfo.CurrentCulture)
                         : unitsTotal.ToString(CultureInfo.CurrentCulture));
                 }
             }));

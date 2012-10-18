@@ -22,7 +22,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
 using System.Reflection;
-using Common.Streams;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -97,7 +96,7 @@ namespace ZeroInstall.Commands
                     // ToDo: Add flow formatting for better readability on console
                     return Resources.Usage + " 0install " + GetName() + " " + Usage + Environment.NewLine + Environment.NewLine +
                         Description + Environment.NewLine + Environment.NewLine +
-                        Resources.Options + Environment.NewLine + StreamUtils.ReadToString(buffer);
+                        Resources.Options + Environment.NewLine + buffer.ReadToString();
                 }
             }
         }

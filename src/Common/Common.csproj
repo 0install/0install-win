@@ -52,6 +52,9 @@
     <Reference Include="Mono.Posix" Condition=" '$(OS)' == 'Windows_NT' ">
       <HintPath>..\..\lib\Mono.Posix.dll</HintPath>
     </Reference>
+    <Reference Include="LinqBridge">
+      <HintPath>..\..\lib\LinqBridge.dll</HintPath>
+    </Reference>
     <Reference Include="C5">
       <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>
@@ -105,12 +108,12 @@
     <Compile Include="Collections\NamedCollection.cs" />
     <Compile Include="Collections\LocalizableStringCollection.cs" />
     <Compile Include="Collections\LocalizableString.cs" />
-    <Compile Include="Streams\StreamUtils.cs" />
+    <Compile Include="Utils\StreamUtils.cs" />
     <Compile Include="Streams\OffsetStream.cs" />
     <Compile Include="Streams\CircularBufferStream.cs" />
     <Compile Include="Streams\DisposeWrapperStream.cs" />
-    <Compile Include="Utils\AppInfo.cs" />
-    <Compile Include="Utils\AppMutex.cs" />
+    <Compile Include="AppInfo.cs" />
+    <Compile Include="AppMutex.cs" />
     <Compile Include="Utils\AttributeUtils.cs" />
     <Compile Include="Utils\ProcessUtils.cs" />
     <Compile Include="Utils\StringUtils.cs" />

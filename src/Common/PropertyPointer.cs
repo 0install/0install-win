@@ -31,7 +31,7 @@ namespace Common
     /// <typeparam name="T">The type of value the property contains.</typeparam>
     public sealed class PropertyPointer<T> : MarshalByRefObject
     {
-        private readonly SimpleResult<T> _getValue;
+        private readonly Func<T> _getValue;
         private readonly Action<T> _setValue;
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Common
         /// <param name="setValue">A delegate that sets the valuel.</param>
         /// <param name="defaultValue">The default value of the property</param>
         /// <param name="needsEncoding">Indicates that this property needs to be encoded (e.g. as base64) before it can be stored in a file.</param>
-        public PropertyPointer(SimpleResult<T> getValue, Action<T> setValue, T defaultValue, bool needsEncoding)
+        public PropertyPointer(Func<T> getValue, Action<T> setValue, T defaultValue, bool needsEncoding)
         {
             #region Sanity checks
             if (getValue == null) throw new ArgumentNullException("getValue");
@@ -79,7 +79,7 @@ namespace Common
         /// <param name="getValue">A delegate that returns the current value.</param>
         /// <param name="setValue">A delegate that sets the valuel.</param>
         /// <param name="defaultValue">The default value of the property</param>
-        public PropertyPointer(SimpleResult<T> getValue, Action<T> setValue, T defaultValue)
+        public PropertyPointer(Func<T> getValue, Action<T> setValue, T defaultValue)
             : this(getValue, setValue, defaultValue, false)
         {}
 
@@ -88,7 +88,7 @@ namespace Common
         /// </summary>
         /// <param name="getValue">A delegate that returns the current value.</param>
         /// <param name="setValue">A delegate that sets the valuel.</param>
-        public PropertyPointer(SimpleResult<T> getValue, Action<T> setValue)
+        public PropertyPointer(Func<T> getValue, Action<T> setValue)
             : this(getValue, setValue, default(T))
         {}
     }

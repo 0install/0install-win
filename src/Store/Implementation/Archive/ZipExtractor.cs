@@ -17,8 +17,8 @@
 
 using System;
 using System.IO;
-using Common.Streams;
 using Common.Tasks;
+using Common.Utils;
 using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.Store.Properties;
 
@@ -100,7 +100,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                     if (centralEntry.IsDirectory) CreateDirectory(entryName, modTime);
                     else if (centralEntry.IsFile)
                     {
-                        if (IsSymlink(centralEntry)) CreateSymlink(entryName, StreamUtils.ReadToString(_zipStream));
+                        if (IsSymlink(centralEntry)) CreateSymlink(entryName, _zipStream.ReadToString());
                         else WriteFile(entryName, modTime, _zipStream, centralEntry.Size, IsExecutable(centralEntry));
                     }
 

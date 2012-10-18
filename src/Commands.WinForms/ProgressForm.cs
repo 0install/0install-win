@@ -108,7 +108,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="waitHandle">A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/>.</param>
         /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
-        public void BeginAuditSelections(SimpleResult<Selections> solveCallback, EventWaitHandle waitHandle)
+        public void BeginAuditSelections(Func<Selections> solveCallback, EventWaitHandle waitHandle)
         {
             #region Sanity checks
             if (solveCallback == null) throw new ArgumentNullException("solveCallback");

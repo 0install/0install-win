@@ -30,11 +30,6 @@ namespace Common
     public delegate void SimpleEventHandler();
 
     /// <summary>
-    /// Generic delegate for getting an object without passing any parameters.
-    /// </summary>
-    public delegate T SimpleResult<T>();
-
-    /// <summary>
     /// Generic delegate for "mapping" one type of object on to another.
     /// </summary>
     /// <typeparam name="TInput">The type passed in as a parameter.</typeparam>

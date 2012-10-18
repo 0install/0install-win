@@ -22,6 +22,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Common;
 using Common.Cli;
+using Common.Collections;
 using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Store.Properties;
@@ -81,19 +82,16 @@ namespace ZeroInstall.Store.Feeds
             if (string.IsNullOrEmpty(keySpecifier)) return secretKeys[0];
 
             // Find the first secret key that matches the key specifier
-            foreach (var key in secretKeys)
-            {
-                if (key.Fingerprint == keySpecifier || key.KeyID == keySpecifier || StringUtils.Contains(key.UserID, keySpecifier))
-                    return key;
-            }
-            throw new KeyNotFoundException(Resources.UnableToFindSecretKey);
+            return secretKeys.First(
+                key => key.Fingerprint == keySpecifier || key.KeyID == keySpecifier || key.UserID.ContainsIgnoreCase(keySpecifier),
+                new KeyNotFoundException(Resources.UnableToFindSecretKey));
         }
 
         /// <inheritdoc/>
         public OpenPgpSecretKey[] ListSecretKeys()
         {
             string result = Execute("--batch --no-secmem-warning --list-secret-keys --with-colons --fixed-list-mode --fingerprint", null, ErrorHandlerException);
-            string[] lines = StringUtils.SplitMultilineText(result);
+            string[] lines = result.SplitMultilineText();
 
             // Each secret key is represented by 4 lines of encoded information
             var keys = new List<OpenPgpSecretKey>(lines.Length / 4);
@@ -127,7 +125,7 @@ namespace ZeroInstall.Store.Feeds
             #endregion
 
             string arguments = "--batch --no-secmem-warning --armor --export";
-            if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --local-user " + StringUtils.EscapeArgument(keySpecifier);
+            if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --local-user " + keySpecifier.EscapeArgument();
 
             return Execute(arguments, null, ErrorHandlerException);
         }
@@ -145,8 +143,8 @@ namespace ZeroInstall.Store.Feeds
             #endregion
 
             string arguments = "--batch --no-secmem-warning --passphrase-fd 0";
-            if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --local-user " + StringUtils.EscapeArgument(keySpecifier);
-            arguments += " --detach-sign " + StringUtils.EscapeArgument(path);
+            if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --local-user " + keySpecifier.EscapeArgument();
+            arguments += " --detach-sign " + path.EscapeArgument();
 
             if (string.IsNullOrEmpty(passphrase)) passphrase = "\n";
             Execute(arguments, writer => writer.WriteLine(passphrase), ErrorHandlerException);
@@ -166,14 +164,14 @@ namespace ZeroInstall.Store.Feeds
             using (var signatureFile = new TemporaryFile("0install-sig"))
             {
                 File.WriteAllBytes(signatureFile.Path, signature);
-                string arguments = "--batch --no-secmem-warning --status-fd 1 --verify " + StringUtils.EscapeArgument(signatureFile.Path) + " -";
+                string arguments = "--batch --no-secmem-warning --status-fd 1 --verify " + signatureFile.Path.EscapeArgument() + " -";
                 result = Execute(arguments, writer =>
                 {
                     writer.BaseStream.Write(data, 0, data.Length);
                     writer.Close();
                 }, ErrorHandlerLog);
             }
-            string[] lines = StringUtils.SplitMultilineText(result);
+            string[] lines = result.SplitMultilineText();
 
             // Each signature is represented by one line of encoded information
             var signatures = new List<OpenPgpSignature>(lines.Length);

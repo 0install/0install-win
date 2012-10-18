@@ -18,8 +18,8 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Xml.Serialization;
-using Common.Collections;
 
 namespace ZeroInstall.Model
 {
@@ -53,7 +53,7 @@ namespace ZeroInstall.Model
             set
             {
                 _steps.Clear();
-                if (value != null && value.Length > 0) _steps.AddAll(EnumerableUtils.OfType<IRecipeStep>(value));
+                if (value != null && value.Length > 0) _steps.AddAll(value.OfType<IRecipeStep>());
             }
         }
 

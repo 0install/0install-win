@@ -43,25 +43,6 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Ensures <see cref="ManifestDigest.BestDigest"/> correctly identifies the best available algorithm in each situation.
-        /// </summary>
-        [Test]
-        public void TestBestDigest()
-        {
-            var digest = new ManifestDigest("test1", "test2", "test3", "test4");
-            Assert.AreEqual("sha256new_test4", digest.BestDigest);
-
-            digest = new ManifestDigest("test1", "test2", "test3");
-            Assert.AreEqual("sha256=test3", digest.BestDigest);
-
-            digest = new ManifestDigest("test1", "test2");
-            Assert.AreEqual("sha1new=test2", digest.BestDigest);
-
-            digest = new ManifestDigest(sha1: "test1");
-            Assert.AreEqual("sha1=test1", digest.BestDigest);
-        }
-
-        /// <summary>
         /// Ensures <see cref="ManifestDigest.PartialEquals"/> correctly compares digests.
         /// </summary>
         [Test]

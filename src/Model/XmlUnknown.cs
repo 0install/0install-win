@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
-using Common.Collections;
 
 namespace ZeroInstall.Model
 {
@@ -49,7 +49,7 @@ namespace ZeroInstall.Model
         private static C5.IList<XmlElement> GetList(XmlNodeList nodes)
         {
             var list = new C5.ArrayList<XmlElement>(nodes.Count, new XmlElementComparer());
-            list.AddAll(EnumerableUtils.OfType<XmlElement>(nodes));
+            list.AddAll(nodes.OfType<XmlElement>());
             return list;
         }
         #endregion

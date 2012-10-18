@@ -23,8 +23,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Common.Utils;
 
-namespace Common.Utils
+namespace Common
 {
     /// <summary>
     /// Provides a cross-proccess object allowing easy dection of application instances (e.g., for use by installers and update tools).

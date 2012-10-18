@@ -17,6 +17,7 @@
 
 using System.Security.Cryptography;
 using System.ServiceProcess;
+using Common;
 using Common.Storage;
 using Common.Utils;
 
@@ -33,7 +34,7 @@ namespace ZeroInstall.Store.Service
         public static void Main(string[] args)
         {
             // Encode installation path into mutex name to allow instance detection during updates
-            string mutexName = "mutex-" + StringUtils.Hash(Locations.InstallBase, MD5.Create());
+            string mutexName = "mutex-" + Locations.InstallBase.Hash(MD5.Create());
             if (AppMutex.Probe(mutexName + "-update")) return;
             AppMutex.Create(mutexName);
 

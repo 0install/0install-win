@@ -22,7 +22,7 @@
 
 using NUnit.Framework;
 
-namespace Common.Streams
+namespace Common.Utils
 {
     /// <summary>
     /// Contains test methods for <see cref="StreamUtils"/>.
@@ -36,21 +36,21 @@ namespace Common.Streams
         [Test]
         public void TestEquals()
         {
-            Assert.IsTrue(StreamUtils.Equals(StreamUtils.CreateFromString("abc"), StreamUtils.CreateFromString("abc")));
-            Assert.IsFalse(StreamUtils.Equals(StreamUtils.CreateFromString("ab"), StreamUtils.CreateFromString("abc")));
-            Assert.IsFalse(StreamUtils.Equals(StreamUtils.CreateFromString("abc"), StreamUtils.CreateFromString("ab")));
-            Assert.IsFalse(StreamUtils.Equals(StreamUtils.CreateFromString("abc"), StreamUtils.CreateFromString("")));
+            Assert.IsTrue(StreamUtils.Equals("abc".ToStream(), "abc".ToStream()));
+            Assert.IsFalse(StreamUtils.Equals("ab".ToStream(), "abc".ToStream()));
+            Assert.IsFalse(StreamUtils.Equals("abc".ToStream(), "ab".ToStream()));
+            Assert.IsFalse(StreamUtils.Equals("abc".ToStream(), "".ToStream()));
         }
 
         /// <summary>
-        /// Ensures <see cref="StreamUtils.CreateFromString"/> and <see cref="StreamUtils.ReadToString"/> work correctly.
+        /// Ensures <see cref="StreamUtils.ToStream"/> and <see cref="StreamUtils.ReadToString"/> work correctly.
         /// </summary>
         [Test]
         public void TestString()
         {
             const string test = "Test";
-            using (var stream = StreamUtils.CreateFromString(test))
-                Assert.AreEqual(test, StreamUtils.ReadToString(stream));
+            using (var stream = test.ToStream())
+                Assert.AreEqual(test, stream.ReadToString());
         }
     }
 }

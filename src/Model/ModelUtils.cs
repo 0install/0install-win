@@ -67,7 +67,7 @@ namespace ZeroInstall.Model
 
             // URIs must be HTTP(S) and have a slash after the host name
             if (!value.StartsWith("http://") && !value.StartsWith("https://")) throw new InvalidInterfaceIDException(string.Format(Resources.InvalidInterfaceID, value));
-            if (StringUtils.CountOccurences(value, '/') < 3) throw new InvalidInterfaceIDException(string.Format(Resources.MissingSlashInUri, value));
+            if (value.CountOccurences('/') < 3) throw new InvalidInterfaceIDException(string.Format(Resources.MissingSlashInUri, value));
 
             // Perform more in-depth URI validation
             if (!IsValidUri(value)) throw new InvalidInterfaceIDException(string.Format(Resources.InvalidInterfaceID, value));
@@ -146,7 +146,7 @@ namespace ZeroInstall.Model
             }
             else if (WindowsUtils.IsWindows && Path.IsPathRooted(idA) && Path.IsPathRooted(idB))
             { // Use case-insensitive comparison for file paths on Windows
-                return StringUtils.Compare(idA, idB);
+                return StringUtils.EqualsIgnoreCase(idA, idB);
             }
             else return idA == idB;
         }

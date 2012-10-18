@@ -257,7 +257,7 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <inheritdoc/>
-        public void AuditSelections(SimpleResult<Selections> solveCallback)
+        public void AuditSelections(Func<Selections> solveCallback)
         {
             #region Sanity checks
             if (solveCallback == null) throw new ArgumentNullException("solveCallback");

@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using Common.Storage;
 using Common.Utils;
@@ -93,12 +94,8 @@ namespace ZeroInstall.Store.Feeds
 
             var result = new List<string>(files.Length);
 
-            for (int i = 0; i < files.Length; i++)
-            {
-                // Take the file name itself and use URL encoding to get the original URL
-                string uri = ModelUtils.Unescape(Path.GetFileName(files[i]) ?? "");
-                if (ModelUtils.IsValidUri(uri)) result.Add(uri);
-            }
+            // Take the file name itself and use URL encoding to get the original URL
+            result.AddRange(files.Select(file => ModelUtils.Unescape(Path.GetFileName(file) ?? "")).Where(ModelUtils.IsValidUri));
 
             // Return as a C-sorted list
             result.Sort(StringComparer.Ordinal);
@@ -170,7 +167,7 @@ namespace ZeroInstall.Store.Feeds
             catch (PathTooLongException)
             {
                 // Contract too long file paths using a hash of the feed ID
-                WriteToFile(data, Path.Combine(DirectoryPath, StringUtils.Hash(feedID, SHA256.Create())));
+                WriteToFile(data, Path.Combine(DirectoryPath, feedID.Hash(SHA256.Create())));
             }
         }
 

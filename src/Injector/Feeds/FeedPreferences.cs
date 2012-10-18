@@ -19,9 +19,9 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 using Common;
-using Common.Collections;
 using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Model;
@@ -47,7 +47,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="LastChecked"/>
         [XmlAttribute("last-checked"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public long LastCheckedUnix { get { return FileUtils.ToUnixTime(LastChecked); } set { LastChecked = FileUtils.FromUnixTime(value); } }
+        public long LastCheckedUnix { get { return LastChecked.ToUnixTime(); } set { LastChecked = FileUtils.FromUnixTime(value); } }
 
         // Preserve order
         private readonly C5.LinkedList<ImplementationPreferences> _implementations = new C5.LinkedList<ImplementationPreferences>();
@@ -125,7 +125,7 @@ namespace ZeroInstall.Injector.Feeds
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
             #endregion
 
-            var path = EnumerableUtils.First(Locations.GetLoadConfigPaths("0install.net", true, "injector", "feeds", ModelUtils.PrettyEscape(feedID)));
+            var path = Locations.GetLoadConfigPaths("0install.net", true, "injector", "feeds", ModelUtils.PrettyEscape(feedID)).FirstOrDefault();
             if (string.IsNullOrEmpty(path)) return new FeedPreferences();
 
             return XmlStorage.Load<FeedPreferences>(path);

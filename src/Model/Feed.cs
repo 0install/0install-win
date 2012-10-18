@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 using Common.Collections;
@@ -220,7 +221,7 @@ namespace ZeroInstall.Model
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
             #endregion
 
-            var collapsedElements = new C5.LinkedList<Element>();
+            var collapsedElements = new List<Element>();
 
             foreach (var element in Elements)
             {
@@ -231,8 +232,7 @@ namespace ZeroInstall.Model
                 if (group != null)
                 {
                     // Move implementations out of groups
-                    foreach (var groupElement in group.Elements)
-                        collapsedElements.Add(groupElement);
+                    collapsedElements.AddRange(group.Elements);
                 }
                 else collapsedElements.Add(element);
             }
@@ -267,13 +267,7 @@ namespace ZeroInstall.Model
         /// <remarks>Should only be called after <see cref="Normalize"/> has been called, otherwise nested <see cref="Implementation"/>s will be missed.</remarks>
         public Implementation GetImplementation(string id)
         {
-            foreach (var element in Elements)
-            {
-                var implementation = element as Implementation;
-                if (implementation != null && implementation.ID == id) return implementation;
-            }
-
-            return null;
+            return Elements.OfType<Implementation>().FirstOrDefault(implementation => implementation.ID == id);
         }
 
         /// <summary>
@@ -284,14 +278,7 @@ namespace ZeroInstall.Model
         /// <remarks>Should only be called after <see cref="Normalize"/> has been called, otherwise nested <see cref="Implementation"/>s will be missed.</remarks>
         public Implementation GetImplementation(ManifestDigest digest)
         {
-            foreach (var element in Elements)
-            {
-                var implementation = element as Implementation;
-                if (implementation != null && implementation.ManifestDigest.PartialEquals(digest))
-                    return implementation;
-            }
-
-            return null;
+            return Elements.OfType<Implementation>().FirstOrDefault(implementation => implementation.ManifestDigest.PartialEquals(digest));
         }
 
         /// <summary>
@@ -368,11 +355,11 @@ namespace ZeroInstall.Model
             var entryPoint = GetEntryPoint(command);
             if (entryPoint != null)
             {
-                var suitableCommandIcons = entryPoint.Icons.FindAll(icon => StringUtils.Compare(icon.MimeType, mimeType) && icon.Location != null);
+                var suitableCommandIcons = entryPoint.Icons.FindAll(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Location != null);
                 if (!suitableCommandIcons.IsEmpty) return suitableCommandIcons.First;
             }
 
-            var suitableFeedIcons = Icons.FindAll(icon => StringUtils.Compare(icon.MimeType, mimeType) && icon.Location != null);
+            var suitableFeedIcons = Icons.FindAll(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Location != null);
             if (!suitableFeedIcons.IsEmpty) return suitableFeedIcons.First;
 
             throw new KeyNotFoundException(Resources.NoSuitableIconFound);

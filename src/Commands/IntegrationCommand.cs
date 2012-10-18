@@ -51,7 +51,7 @@ namespace ZeroInstall.Commands
             commandLine.RemoveFirst();
             if (executable.StartsWith("0alias")) commandLine.AddFirst(AddAlias.Name);
 
-            var startInfo = new ProcessStartInfo(Path.Combine(Locations.InstallBase, "0install-win.exe"), StringUtils.JoinEscapeArguments(commandLine)) {Verb = "runas"};
+            var startInfo = new ProcessStartInfo(Path.Combine(Locations.InstallBase, "0install-win.exe"), commandLine.JoinEscapeArguments()) {Verb = "runas"};
             var process = Process.Start(startInfo);
             process.WaitForExit();
             return process.ExitCode;
@@ -124,7 +124,7 @@ namespace ZeroInstall.Commands
             if (Policy.Config.EffectiveNetworkUse == NetworkLevel.Full)
             {
                 // ToDo: Automatically switch to GTK# on Linux
-                ProcessUtils.LaunchHelperAssembly("0install-win", "download --batch " + StringUtils.EscapeArgument(interfaceID));
+                ProcessUtils.LaunchHelperAssembly("0install-win", "download --batch " + interfaceID.EscapeArgument());
             }
 
             return appEntry;

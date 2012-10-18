@@ -50,7 +50,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// The application user model ID used by the Windows 7 taskbar. Encodes <see cref="Locations.InstallBase"/> and the name of this sub-app.
         /// </summary>
-        public static readonly string AppUserModelID = "ZeroInstall." + StringUtils.Hash(Locations.InstallBase, MD5.Create()) + ".Commands";
+        public static readonly string AppUserModelID = "ZeroInstall." + Locations.InstallBase.Hash(MD5.Create()) + ".Commands";
 
         /// <summary>
         /// The main entry point for the application.
@@ -61,7 +61,7 @@ namespace ZeroInstall.Commands.WinForms
             WindowsUtils.SetCurrentProcessAppID(AppUserModelID);
 
             // Encode installation path into mutex name to allow instance detection during updates
-            string mutexName = "mutex-" + StringUtils.Hash(Locations.InstallBase, MD5.Create());
+            string mutexName = "mutex-" + Locations.InstallBase.Hash(MD5.Create());
             if (AppMutex.Probe(mutexName + "-update")) return;
             AppMutex.Create(mutexName);
 
@@ -74,7 +74,7 @@ namespace ZeroInstall.Commands.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
-            Log.Info("Zero Install Command Windows GUI started with: " + StringUtils.JoinEscapeArguments(args));
+            Log.Info("Zero Install Command Windows GUI started with: " + args.JoinEscapeArguments());
 
             // Automatically show help for missing args
             if (args == null) args = new string[0];
@@ -219,7 +219,7 @@ namespace ZeroInstall.Commands.WinForms
             {
                 handler.DisableProgressUI();
                 Log.Error(ex);
-                ErrorBox.Show(StringUtils.GetLeftPartAtFirstOccurrence(ex.Message, Environment.NewLine), errorLog);
+                ErrorBox.Show(ex.Message.GetLeftPartAtFirstOccurrence(Environment.NewLine), errorLog);
             }
             catch (ImplementationNotFoundException ex)
             {
@@ -260,7 +260,7 @@ namespace ZeroInstall.Commands.WinForms
             string appUserModelID = AppUserModelID;
             if (!string.IsNullOrEmpty(subCommand)) appUserModelID += "." + subCommand;
             string exePath = Path.Combine(Locations.InstallBase, ExeName + ".exe");
-            WindowsUtils.SetWindowAppID(form.Handle, appUserModelID, StringUtils.EscapeArgument(exePath) + " " + arguments, exePath, name);
+            WindowsUtils.SetWindowAppID(form.Handle, appUserModelID, exePath.EscapeArgument() + " " + arguments, exePath, name);
         }
     }
 }

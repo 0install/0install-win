@@ -43,7 +43,7 @@ namespace Common.Values.Design
             foreach (var field in typeof(T).GetFields())
             {
                 var attributes = (DescriptionAttribute[])field.GetCustomAttributes(typeof(DescriptionAttribute), false);
-                if (attributes.Length > 0 && StringUtils.Compare(attributes[0].Description, stringValue))
+                if (attributes.Length > 0 && StringUtils.EqualsIgnoreCase(attributes[0].Description, stringValue))
                     return field.GetValue(field.Name);
             }
             return Enum.Parse(typeof(T), stringValue, true);
@@ -68,7 +68,7 @@ namespace Common.Values.Design
         {
             var enumValue = value as Enum;
             if (enumValue != null && destinationType == typeof(string))
-                return AttributeUtils.GetEnumAttributeValue((Enum)value, (DescriptionAttribute attribute) => attribute.Description);
+                return ((Enum)value).GetEnumAttributeValue((DescriptionAttribute attribute) => attribute.Description);
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }

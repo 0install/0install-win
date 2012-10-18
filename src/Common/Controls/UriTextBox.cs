@@ -23,8 +23,9 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
-using Common.Collections;
+using Common.Utils;
 
 namespace Common.Controls
 {
@@ -120,7 +121,7 @@ namespace Common.Controls
             if (!Uri.TryCreate(text, UriKind.Absolute, out temp)) return false;
 
             // Check URI is HTTP(S) if that was requested
-            if (HttpOnly) return text.StartsWith("http:", StringComparison.OrdinalIgnoreCase) || text.StartsWith("https:", StringComparison.OrdinalIgnoreCase);
+            if (HttpOnly) return text.StartsWithIgnoreCase("http:") || text.StartsWithIgnoreCase("https:");
 
             return true;
         }
@@ -135,7 +136,7 @@ namespace Common.Controls
             if (dragEventArgs.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 var files = dragEventArgs.Data.GetData(DataFormats.FileDrop) as string[];
-                return EnumerableUtils.First(files);
+                return (files ?? new string[0]).FirstOrDefault();
             }
             if (dragEventArgs.Data.GetDataPresent(DataFormats.Text))
                 return (string)dragEventArgs.Data.GetData(DataFormats.Text);

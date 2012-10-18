@@ -16,7 +16,9 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security;
 using Common;
 using Common.Collections;
@@ -161,13 +163,10 @@ namespace ZeroInstall.Capture
             {
                 if (clientsKey == null) return new ComparableTuple<string>[0];
 
-                var serviceAssocsList = new C5.LinkedList<ComparableTuple<string>>();
-                foreach (string serviceName in clientsKey.GetSubKeyNames())
-                {
-                    foreach (string clientName in RegUtils.GetSubKeyNames(clientsKey, serviceName))
-                        serviceAssocsList.Add(new ComparableTuple<string>(serviceName, clientName));
-                }
-                return serviceAssocsList.ToArray();
+                return (
+                    from serviceName in clientsKey.GetSubKeyNames()
+                    from clientName in RegUtils.GetSubKeyNames(clientsKey, serviceName)
+                    select new ComparableTuple<string>(serviceName, clientName)).ToArray();
             }
         }
 
@@ -176,8 +175,8 @@ namespace ZeroInstall.Capture
         /// </summary>
         private static void GetFileAssocData(out ComparableTuple<string>[] fileAssocs, out string[] progIDs)
         {
-            var fileAssocsList = new C5.LinkedList<ComparableTuple<string>>();
-            var progIDsList = new C5.LinkedList<string>();
+            var fileAssocsList = new List<ComparableTuple<string>>();
+            var progIDsList = new List<string>();
 
             foreach (string keyName in Registry.ClassesRoot.GetSubKeyNames())
             {
@@ -189,8 +188,7 @@ namespace ZeroInstall.Capture
                         fileAssocsList.Add(new ComparableTuple<string>(keyName, assocKey.GetValue("", "").ToString()));
 
                         // Get additional ProgIDs
-                        foreach (string progID in RegUtils.GetValueNames(assocKey, FileType.RegSubKeyOpenWith))
-                            fileAssocsList.Add(new ComparableTuple<string>(keyName, progID));
+                        fileAssocsList.AddRange(RegUtils.GetValueNames(assocKey, FileType.RegSubKeyOpenWith).Select(progID => new ComparableTuple<string>(keyName, progID)));
                     }
                 }
                 else progIDsList.Add(keyName);
@@ -205,13 +203,11 @@ namespace ZeroInstall.Capture
         /// </summary>
         private static ComparableTuple<string>[] GetProtocolAssoc()
         {
-            var protocolAssocList = new C5.LinkedList<ComparableTuple<string>>();
-            foreach (string protocol in new[] {"ftp", "gopher", "http", "https"})
-            {
-                var command = Registry.GetValue(@"HKEY_CLASSES_ROOT\" + protocol + @"\shell\open\command", "", "") as string;
-                if (!string.IsNullOrEmpty(command)) protocolAssocList.Add(new ComparableTuple<string>(protocol, command));
-            }
-            return protocolAssocList.ToArray();
+            return (
+                from protocol in new[] {"ftp", "gopher", "http", "https"}
+                let command = Registry.GetValue(@"HKEY_CLASSES_ROOT\" + protocol + @"\shell\open\command", "", "") as string
+                where !string.IsNullOrEmpty(command)
+                select new ComparableTuple<string>(protocol, command)).ToArray();
         }
 
         /// <summary>
@@ -227,13 +223,10 @@ namespace ZeroInstall.Capture
             {
                 if (eventsKey == null) return new ComparableTuple<string>[0];
 
-                var autoPlayAssocsList = new C5.LinkedList<ComparableTuple<string>>();
-                foreach (string eventName in eventsKey.GetSubKeyNames())
-                {
-                    foreach (var handlerName in RegUtils.GetValueNames(eventsKey, eventName))
-                        autoPlayAssocsList.Add(new ComparableTuple<string>(eventName, handlerName));
-                }
-                return autoPlayAssocsList.ToArray();
+                return (
+                    from eventName in eventsKey.GetSubKeyNames()
+                    from handlerName in RegUtils.GetValueNames(eventsKey, eventName)
+                    select new ComparableTuple<string>(eventName, handlerName)).ToArray();
             }
         }
         #endregion
@@ -256,11 +249,11 @@ namespace ZeroInstall.Capture
                 : null;
 
             // Build a list of all installation directorie
-            var programDirs = new C5.ArrayList<string>();
+            var programDirs = new List<string>();
             if (string.IsNullOrEmpty(programFiles32Bit)) Log.Warn(Resources.MissingProgramFiles32Bit);
-            else programDirs.AddAll(Directory.GetDirectories(programFiles32Bit));
+            else programDirs.AddRange(Directory.GetDirectories(programFiles32Bit));
             if (!string.IsNullOrEmpty(programFiles64Bit))
-                programDirs.AddAll(Directory.GetDirectories(programFiles64Bit));
+                programDirs.AddRange(Directory.GetDirectories(programFiles64Bit));
             snapshot.ProgramsDirs = programDirs.ToArray();
         }
         #endregion
@@ -282,24 +275,24 @@ namespace ZeroInstall.Capture
 
             return new Snapshot
             {
-                ServiceAssocs = EnumerableUtils.GetAddedElements(oldSnapshot.ServiceAssocs, newSnapshot.ServiceAssocs),
-                AutoPlayHandlersUser = EnumerableUtils.GetAddedElements(oldSnapshot.AutoPlayHandlersUser, newSnapshot.AutoPlayHandlersUser),
-                AutoPlayHandlersMachine = EnumerableUtils.GetAddedElements(oldSnapshot.AutoPlayHandlersMachine, newSnapshot.AutoPlayHandlersMachine),
-                AutoPlayAssocsUser = EnumerableUtils.GetAddedElements(oldSnapshot.AutoPlayAssocsUser, newSnapshot.AutoPlayAssocsUser),
-                AutoPlayAssocsMachine = EnumerableUtils.GetAddedElements(oldSnapshot.AutoPlayAssocsMachine, newSnapshot.AutoPlayAssocsMachine),
-                FileAssocs = EnumerableUtils.GetAddedElements(oldSnapshot.FileAssocs, newSnapshot.FileAssocs),
-                ProtocolAssocs = EnumerableUtils.GetAddedElements(oldSnapshot.ProtocolAssocs, newSnapshot.ProtocolAssocs),
-                ProgIDs = EnumerableUtils.GetAddedElements(oldSnapshot.ProgIDs, newSnapshot.ProgIDs, StringComparer.InvariantCultureIgnoreCase),
-                ClassIDs = EnumerableUtils.GetAddedElements(oldSnapshot.ClassIDs, newSnapshot.ClassIDs, StringComparer.InvariantCultureIgnoreCase),
-                RegisteredApplications = EnumerableUtils.GetAddedElements(oldSnapshot.RegisteredApplications, newSnapshot.RegisteredApplications),
-                FilesContextMenuSimple = EnumerableUtils.GetAddedElements(oldSnapshot.FilesContextMenuSimple, newSnapshot.FilesContextMenuSimple),
-                FilesContextMenuExtended = EnumerableUtils.GetAddedElements(oldSnapshot.FilesContextMenuExtended, newSnapshot.FilesContextMenuExtended),
-                FilesPropertySheets = EnumerableUtils.GetAddedElements(oldSnapshot.FilesPropertySheets, newSnapshot.FilesPropertySheets),
-                AllContextMenuSimple = EnumerableUtils.GetAddedElements(oldSnapshot.AllContextMenuSimple, newSnapshot.AllContextMenuSimple),
-                AllContextMenuExtended = EnumerableUtils.GetAddedElements(oldSnapshot.AllContextMenuExtended, newSnapshot.AllContextMenuExtended),
-                AllPropertySheets = EnumerableUtils.GetAddedElements(oldSnapshot.AllPropertySheets, newSnapshot.AllPropertySheets),
-                Games = EnumerableUtils.GetAddedElements(oldSnapshot.Games, newSnapshot.Games),
-                ProgramsDirs = EnumerableUtils.GetAddedElements(oldSnapshot.ProgramsDirs, newSnapshot.ProgramsDirs, StringComparer.InvariantCultureIgnoreCase)
+                ServiceAssocs = newSnapshot.ServiceAssocs.GetAddedElements(oldSnapshot.ServiceAssocs),
+                AutoPlayHandlersUser = newSnapshot.AutoPlayHandlersUser.GetAddedElements(oldSnapshot.AutoPlayHandlersUser),
+                AutoPlayHandlersMachine = newSnapshot.AutoPlayHandlersMachine.GetAddedElements(oldSnapshot.AutoPlayHandlersMachine),
+                AutoPlayAssocsUser = newSnapshot.AutoPlayAssocsUser.GetAddedElements(oldSnapshot.AutoPlayAssocsUser),
+                AutoPlayAssocsMachine = newSnapshot.AutoPlayAssocsMachine.GetAddedElements(oldSnapshot.AutoPlayAssocsMachine),
+                FileAssocs = newSnapshot.FileAssocs.GetAddedElements(oldSnapshot.FileAssocs),
+                ProtocolAssocs = newSnapshot.ProtocolAssocs.GetAddedElements(oldSnapshot.ProtocolAssocs),
+                ProgIDs = newSnapshot.ProgIDs.GetAddedElements(oldSnapshot.ProgIDs, StringComparer.InvariantCultureIgnoreCase),
+                ClassIDs = newSnapshot.ClassIDs.GetAddedElements(oldSnapshot.ClassIDs, StringComparer.InvariantCultureIgnoreCase),
+                RegisteredApplications = newSnapshot.RegisteredApplications.GetAddedElements(oldSnapshot.RegisteredApplications),
+                FilesContextMenuSimple = newSnapshot.FilesContextMenuSimple.GetAddedElements(oldSnapshot.FilesContextMenuSimple),
+                FilesContextMenuExtended = newSnapshot.FilesContextMenuExtended.GetAddedElements(oldSnapshot.FilesContextMenuExtended),
+                FilesPropertySheets = newSnapshot.FilesPropertySheets.GetAddedElements(oldSnapshot.FilesPropertySheets),
+                AllContextMenuSimple = newSnapshot.AllContextMenuSimple.GetAddedElements(oldSnapshot.AllContextMenuSimple),
+                AllContextMenuExtended = newSnapshot.AllContextMenuExtended.GetAddedElements(oldSnapshot.AllContextMenuExtended),
+                AllPropertySheets = newSnapshot.AllPropertySheets.GetAddedElements(oldSnapshot.AllPropertySheets),
+                Games = newSnapshot.Games.GetAddedElements(oldSnapshot.Games),
+                ProgramsDirs = newSnapshot.ProgramsDirs.GetAddedElements(oldSnapshot.ProgramsDirs, StringComparer.InvariantCultureIgnoreCase)
             };
         }
         #endregion

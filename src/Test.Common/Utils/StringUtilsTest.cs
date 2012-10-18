@@ -35,133 +35,133 @@ namespace Common.Utils
         [Test]
         public void TestCompare()
         {
-            Assert.IsTrue(StringUtils.Compare("abc", "abc"));
-            Assert.IsTrue(StringUtils.Compare("abc", "ABC"));
+            Assert.IsTrue(StringUtils.EqualsIgnoreCase("abc", "abc"));
+            Assert.IsTrue(StringUtils.EqualsIgnoreCase("abc", "ABC"));
 
-            Assert.IsFalse(StringUtils.Compare("abc", "123"));
-            Assert.IsFalse(StringUtils.Compare("abc", "abc "));
+            Assert.IsFalse(StringUtils.EqualsIgnoreCase("abc", "123"));
+            Assert.IsFalse(StringUtils.EqualsIgnoreCase("abc", "abc "));
         }
 
         [Test]
         public void TestContains()
         {
-            Assert.IsTrue(StringUtils.Contains("This is a test.", "TEST"));
-            Assert.IsTrue(StringUtils.Contains("This is a test.", "test"));
+            Assert.IsTrue("This is a test.".ContainsIgnoreCase("TEST"));
+            Assert.IsTrue("This is a test.".ContainsIgnoreCase("test"));
 
-            Assert.IsFalse(StringUtils.Contains("abc", "123"));
-            Assert.IsFalse(StringUtils.Contains("test", "This is a test."));
+            Assert.IsFalse("abc".ContainsIgnoreCase("123"));
+            Assert.IsFalse("test".ContainsIgnoreCase("This is a test."));
         }
 
         [Test]
         public void TestCountOccurences()
         {
             Assert.AreEqual(0, StringUtils.CountOccurences(null, '/'));
-            Assert.AreEqual(0, StringUtils.CountOccurences("abc", '/'));
-            Assert.AreEqual(1, StringUtils.CountOccurences("ab/c", '/'));
-            Assert.AreEqual(2, StringUtils.CountOccurences("ab/c/", '/'));
+            Assert.AreEqual(0, "abc".CountOccurences('/'));
+            Assert.AreEqual(1, "ab/c".CountOccurences('/'));
+            Assert.AreEqual(2, "ab/c/".CountOccurences('/'));
         }
 
         [Test]
         public void TestGetLastWord()
         {
-            Assert.AreEqual("sentence", StringUtils.GetLastWord("This is a sentence."));
-            Assert.AreEqual("words", StringUtils.GetLastWord("some words"));
+            Assert.AreEqual("sentence", "This is a sentence.".GetLastWord());
+            Assert.AreEqual("words", "some words".GetLastWord());
         }
 
         [Test]
         public void TestSplitMultilineText()
         {
-            CollectionAssert.AreEqual(new[] {"123", "abc"}, StringUtils.SplitMultilineText("123\nabc"), "Should split Linux-stlye linebreaks");
-            CollectionAssert.AreEqual(new[] {"123", "abc"}, StringUtils.SplitMultilineText("123\rabc"), "Should split old Mac-stlye linebreaks");
-            CollectionAssert.AreEqual(new[] {"123", "abc"}, StringUtils.SplitMultilineText("123\r\nabc"), "Should split Windows-stlye linebreaks");
+            CollectionAssert.AreEqual(new[] {"123", "abc"}, "123\nabc".SplitMultilineText(), "Should split Linux-stlye linebreaks");
+            CollectionAssert.AreEqual(new[] {"123", "abc"}, "123\rabc".SplitMultilineText(), "Should split old Mac-stlye linebreaks");
+            CollectionAssert.AreEqual(new[] {"123", "abc"}, "123\r\nabc".SplitMultilineText(), "Should split Windows-stlye linebreaks");
         }
 
         [Test]
         public void TestJoin()
         {
-            Assert.AreEqual("part1", StringUtils.Join(" ", new[] {"part1"}));
-            Assert.AreEqual("part1 part2", StringUtils.Join(" ", new[] {"part1", "part2"}));
-            Assert.AreEqual("\"part1 part2\" part3", StringUtils.JoinEscapeArguments(new[] {"part1 part2", "part3"}));
+            Assert.AreEqual("part1", " ".Join(new[] {"part1"}));
+            Assert.AreEqual("part1 part2", " ".Join(new[] {"part1", "part2"}));
+            Assert.AreEqual("\"part1 part2\" part3", new[] {"part1 part2", "part3"}.JoinEscapeArguments());
         }
 
         [Test]
         public void TestJoinEscapeArguments()
         {
-            Assert.AreEqual("part1", StringUtils.JoinEscapeArguments(new[] {"part1"}));
-            Assert.AreEqual("part1 part2", StringUtils.JoinEscapeArguments(new[] {"part1", "part2"}));
-            Assert.AreEqual("\"part1 \\\" part2\" part3", StringUtils.JoinEscapeArguments(new[] {"part1 \" part2", "part3"}));
+            Assert.AreEqual("part1", new[] {"part1"}.JoinEscapeArguments());
+            Assert.AreEqual("part1 part2", new[] {"part1", "part2"}.JoinEscapeArguments());
+            Assert.AreEqual("\"part1 \\\" part2\" part3", new[] {"part1 \" part2", "part3"}.JoinEscapeArguments());
         }
 
         [Test]
         public void TestGetLeftRightPartChar()
         {
             const string testString = "text1 text2 text3";
-            Assert.AreEqual("text1", StringUtils.GetLeftPartAtFirstOccurrence(testString, ' '));
-            Assert.AreEqual("text2 text3", StringUtils.GetRightPartAtFirstOccurrence(testString, ' '));
-            Assert.AreEqual("text1 text2", StringUtils.GetLeftPartAtLastOccurrence(testString, ' '));
-            Assert.AreEqual("text3", StringUtils.GetRightPartAtLastOccurrence(testString, ' '));
+            Assert.AreEqual("text1", testString.GetLeftPartAtFirstOccurrence(' '));
+            Assert.AreEqual("text2 text3", testString.GetRightPartAtFirstOccurrence(' '));
+            Assert.AreEqual("text1 text2", testString.GetLeftPartAtLastOccurrence(' '));
+            Assert.AreEqual("text3", testString.GetRightPartAtLastOccurrence(' '));
         }
 
         [Test]
         public void TestGetLeftRightPartString()
         {
             const string testString = "text1 - text2 - text3";
-            Assert.AreEqual("text1", StringUtils.GetLeftPartAtFirstOccurrence(testString, " - "));
-            Assert.AreEqual("text2 - text3", StringUtils.GetRightPartAtFirstOccurrence(testString, " - "));
-            Assert.AreEqual("text1 - text2", StringUtils.GetLeftPartAtLastOccurrence(testString, " - "));
-            Assert.AreEqual("text3", StringUtils.GetRightPartAtLastOccurrence(testString, " - "));
+            Assert.AreEqual("text1", testString.GetLeftPartAtFirstOccurrence(" - "));
+            Assert.AreEqual("text2 - text3", testString.GetRightPartAtFirstOccurrence(" - "));
+            Assert.AreEqual("text1 - text2", testString.GetLeftPartAtLastOccurrence(" - "));
+            Assert.AreEqual("text3", testString.GetRightPartAtLastOccurrence(" - "));
         }
 
         [Test]
         public void TestEscapeArgument()
         {
-            Assert.AreEqual("test", StringUtils.EscapeArgument("test"), "Simple strings shouldn't be modified");
-            Assert.AreEqual("\"test1 test2\"", StringUtils.EscapeArgument("test1 test2"), "Strings with whitespaces should be encapsulated");
-            Assert.AreEqual("\"test1 test2\\\\\"", StringUtils.EscapeArgument("test1 test2\\"), "Trailing backslashes should be escaped");
-            Assert.AreEqual("test1\\\"test2", StringUtils.EscapeArgument("test1\"test2"), "Quotation marks should be escaped");
-            Assert.AreEqual("test1\\\\test2", StringUtils.EscapeArgument("test1\\\\test2"), "Consecutive slashes without quotation marks should not be escaped");
-            Assert.AreEqual("test1\\\\\\\"test2", StringUtils.EscapeArgument("test1\\\"test2"), "Slashes with quotation marks should be escaped");
+            Assert.AreEqual("test", "test".EscapeArgument(), "Simple strings shouldn't be modified");
+            Assert.AreEqual("\"test1 test2\"", "test1 test2".EscapeArgument(), "Strings with whitespaces should be encapsulated");
+            Assert.AreEqual("\"test1 test2\\\\\"", "test1 test2\\".EscapeArgument(), "Trailing backslashes should be escaped");
+            Assert.AreEqual("test1\\\"test2", "test1\"test2".EscapeArgument(), "Quotation marks should be escaped");
+            Assert.AreEqual("test1\\\\test2", "test1\\\\test2".EscapeArgument(), "Consecutive slashes without quotation marks should not be escaped");
+            Assert.AreEqual("test1\\\\\\\"test2", "test1\\\"test2".EscapeArgument(), "Slashes with quotation marks should be escaped");
         }
 
         [Test]
         public void TestBase64Utf8Encode()
         {
             Assert.AreEqual(null, StringUtils.Base64Utf8Encode(null));
-            Assert.AreEqual("", StringUtils.Base64Utf8Encode(""));
-            Assert.AreEqual("dGVzdA==", StringUtils.Base64Utf8Encode("test"));
+            Assert.AreEqual("", "".Base64Utf8Encode());
+            Assert.AreEqual("dGVzdA==", "test".Base64Utf8Encode());
         }
 
         [Test]
         public void TestBase64Utf8Decode()
         {
             Assert.AreEqual(null, StringUtils.Base64Utf8Decode(null));
-            Assert.AreEqual("", StringUtils.Base64Utf8Decode(""));
-            Assert.AreEqual("test", StringUtils.Base64Utf8Decode("dGVzdA=="));
+            Assert.AreEqual("", "".Base64Utf8Decode());
+            Assert.AreEqual("test", "dGVzdA==".Base64Utf8Decode());
         }
 
         [Test]
         public void TestBase32Encode()
         {
-            Assert.AreEqual("IFBA", StringUtils.Base32Encode(new byte[] {65, 66}));
+            Assert.AreEqual("IFBA", new byte[] {65, 66}.Base32Encode());
         }
 
         [Test]
         public void TestBase16Encode()
         {
-            Assert.AreEqual("4142", StringUtils.Base16Encode(new byte[] {65, 66}));
+            Assert.AreEqual("4142", new byte[] {65, 66}.Base16Encode());
         }
 
         [Test]
         public void TestBase16Decode()
         {
-            Assert.AreEqual(new byte[] {65, 66}, StringUtils.Base16Decode("4142"));
+            Assert.AreEqual(new byte[] {65, 66}, "4142".Base16Decode());
         }
 
         [Test]
         public void TestHash()
         {
             const string sha1ForEmptyString = "da39a3ee5e6b4b0d3255bfef95601890afd80709";
-            Assert.AreEqual(sha1ForEmptyString, StringUtils.Hash("", SHA1.Create()));
+            Assert.AreEqual(sha1ForEmptyString, "".Hash(SHA1.Create()));
         }
 
         [Test]

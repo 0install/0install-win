@@ -46,7 +46,7 @@ namespace ZeroInstall.Alias.Cli
         public static int Main(string[] args)
         {
             // Encode installation path into mutex name to allow instance detection during updates
-            string mutexName = "mutex-" + StringUtils.Hash(Locations.InstallBase, MD5.Create());
+            string mutexName = "mutex-" + Locations.InstallBase.Hash(MD5.Create());
             if (AppMutex.Probe(mutexName + "-update")) return 99;
             AppMutex.Create(mutexName);
 

@@ -113,7 +113,7 @@ namespace ZeroInstall.Injector
         }
 
         /// <inheritdoc/>
-        public virtual void AuditSelections(SimpleResult<Selections> solveCallback)
+        public virtual void AuditSelections(Func<Selections> solveCallback)
         {
             // Stub to be overriden
         }

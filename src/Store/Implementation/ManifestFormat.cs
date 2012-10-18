@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using Common.Utils;
 using ZeroInstall.Model;
@@ -174,7 +176,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         protected virtual string SerializeContentDigest(byte[] hash)
         {
-            return StringUtils.Base16Encode(hash);
+            return hash.Base16Encode();
         }
 
         /// <summary>
@@ -182,7 +184,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         protected virtual string SerializeManifestDigest(byte[] hash)
         {
-            return StringUtils.Base16Encode(hash);
+            return hash.Base16Encode();
         }
         #endregion
 
@@ -225,7 +227,7 @@ namespace ZeroInstall.Store.Implementation
                 Array.Sort(entries, StringComparer.Ordinal);
 
                 // Create the combined result list (files and sub-diretories mixed)
-                var result = new C5.LinkedList<FileSystemInfo>();
+                var result = new List<FileSystemInfo>();
                 foreach (string entry in entries)
                 {
                     if (Directory.Exists(entry))
@@ -233,7 +235,7 @@ namespace ZeroInstall.Store.Implementation
                         result.Add(new DirectoryInfo(entry));
 
                         // Recurse into sub-direcories (but do not follow symlinks)
-                        if (!FileUtils.IsSymlink(entry)) result.AddAll(GetSortedDirectoryEntries(entry));
+                        if (!FileUtils.IsSymlink(entry)) result.AddRange(GetSortedDirectoryEntries(entry));
                     }
                     else result.Add(new FileInfo(entry));
                 }
@@ -294,15 +296,13 @@ namespace ZeroInstall.Store.Implementation
                 Array.Sort(directories, StringComparer.Ordinal);
 
                 // Create the combined result list (files first, then sub-diretories)
-                var result = new C5.LinkedList<FileSystemInfo>();
-                foreach (string file in files)
-                    result.Add(new FileInfo(file));
+                var result = files.Select(file => new FileInfo(file)).Cast<FileSystemInfo>().ToList();
                 foreach (string directory in directories)
                 {
                     result.Add(new DirectoryInfo(directory));
 
                     // Recurse into sub-direcories (but do not follow symlinks)
-                    if (!FileUtils.IsSymlink(directory)) result.AddAll(GetSortedDirectoryEntries(directory));
+                    if (!FileUtils.IsSymlink(directory)) result.AddRange(GetSortedDirectoryEntries(directory));
                 }
                 return result.ToArray();
             }
@@ -350,7 +350,7 @@ namespace ZeroInstall.Store.Implementation
 
             protected override string SerializeManifestDigest(byte[] hash)
             {
-                return StringUtils.Base32Encode(hash);
+                return hash.Base32Encode();
             }
         }
         #endregion

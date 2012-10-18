@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using Common;
 using Common.Controls;
 using Common.Tasks;
 using ZeroInstall.Commands.WinForms.Properties;
@@ -112,7 +111,7 @@ namespace ZeroInstall.Commands.WinForms
         ///   <para>This method must not be called from a background thread.</para>
         ///   <para>This method must not be called before <see cref="Control.Handle"/> has been created.</para>
         /// </remarks>
-        public void BeginAudit(SimpleResult<Selections> solveCallback)
+        public void BeginAudit(Func<Selections> solveCallback)
         {
             #region Sanity checks
             if (solveCallback == null) throw new ArgumentNullException("solveCallback");
@@ -140,7 +139,7 @@ namespace ZeroInstall.Commands.WinForms
         /// Reruns the solver to reflect changes made to <see cref="InterfacePreferences"/> and <see cref="FeedPreferences"/>.
         /// </summary>
         /// <param name="solveCallback">Called to invoke the solver.</param>
-        private void ReSolve(SimpleResult<Selections> solveCallback)
+        private void ReSolve(Func<Selections> solveCallback)
         {
             // Prevent user interaction while solving
             Visible = false;

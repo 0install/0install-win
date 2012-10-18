@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
@@ -67,11 +68,7 @@ namespace ZeroInstall.Model
         {
             get
             {
-                var versions = Versions;
-                if (versions == null) versions = new VersionRange();
-                foreach (var constraint in Constraints)
-                    versions = versions.Intersect(constraint);
-                return versions;
+                return Constraints.Aggregate(Versions ?? new VersionRange(), (current, constraint) => current.Intersect(constraint));
             }
         }
         #endregion

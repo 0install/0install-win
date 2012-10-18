@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Common;
 using Common.Tasks;
@@ -45,7 +46,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// The digest identifying the implementation in the store.
         /// </summary>
         [Description("The digest identifying the implementation in the store.")]
-        public string Digest { get { return _digest.BestDigest; } }
+        public string Digest { get { return _digest.AvailableDigests.FirstOrDefault(); } }
 
         /// <summary>
         /// The total size of the implementation in bytes.
@@ -77,7 +78,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
             string path = store.GetPath(digest);
             if (path == null) return;
             string manifestPath = System.IO.Path.Combine(path, ".manifest");
-            Size = Manifest.Load(manifestPath, ManifestFormat.FromPrefix(digest.BestDigest)).TotalSize;
+            Size = Manifest.Load(manifestPath, ManifestFormat.FromPrefix(digest.AvailableDigests.FirstOrDefault())).TotalSize;
         }
         #endregion
 

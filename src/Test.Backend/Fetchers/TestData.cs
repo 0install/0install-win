@@ -17,7 +17,7 @@
 
 using System.Reflection;
 using System.IO;
-using Common.Streams;
+using Common.Utils;
 
 namespace ZeroInstall.Fetchers
 {
@@ -35,12 +35,12 @@ namespace ZeroInstall.Fetchers
 
         public static Stream GetTestRegularStream()
         {
-            return StreamUtils.CreateFromString("regular\n");
+            return "regular\n".ToStream();
         }
 
         public static Stream GetTestExecutableStream()
         {
-            return StreamUtils.CreateFromString("executable\n");
+            return "executable\n".ToStream();
         }
 
         private static Stream GetTestDataResourceStreamByName(string name)

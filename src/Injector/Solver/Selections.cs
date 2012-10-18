@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using Common.Storage;
@@ -168,9 +169,7 @@ namespace ZeroInstall.Injector.Solver
         /// <returns><see langword="true"/> if an implementation was found; <see langword="false"/> otherwise.</returns>
         public bool ContainsImplementation(string interfaceID)
         {
-            foreach (var implementation in _implementations)
-                if (implementation.InterfaceID == interfaceID) return true;
-            return false;
+            return _implementations.Any(implementation => implementation.InterfaceID == interfaceID);
         }
         #endregion
 

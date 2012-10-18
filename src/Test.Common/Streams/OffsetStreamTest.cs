@@ -21,6 +21,7 @@
  */
 
 using System.IO;
+using Common.Utils;
 using NUnit.Framework;
 
 namespace Common.Streams
@@ -36,7 +37,7 @@ namespace Common.Streams
         [SetUp]
         public void SetUp()
         {
-            _stream = new OffsetStream(StreamUtils.CreateFromString("abcd"), 1);
+            _stream = new OffsetStream("abcd".ToStream(), 1);
         }
 
         /// <summary>
@@ -109,8 +110,8 @@ namespace Common.Streams
             _stream.WriteByte((byte)'2');
 
             // Check both offset and base stream reacted correctly
-            Assert.AreEqual("234", StreamUtils.ReadToString(_stream));
-            Assert.AreEqual("a234", StreamUtils.ReadToString(_stream.BaseStream));
+            Assert.AreEqual("234", _stream.ReadToString());
+            Assert.AreEqual("a234", _stream.BaseStream.ReadToString());
         }
     }
 }

@@ -53,7 +53,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             #endregion
 
             string iconDirPath = Locations.GetIntegrationDirPath("0install.net", machineWide, "desktop-integration", "icons");
-            string iconFilePath = Path.Combine(iconDirPath, StringUtils.Hash(icon.Location.ToString(), SHA256.Create()) + ".ico");
+            string iconFilePath = Path.Combine(iconDirPath, icon.Location.ToString().Hash(SHA256.Create()) + ".ico");
 
             // Return an existing icon or get a new one from the cache
             if (!File.Exists(iconFilePath) || (DateTime.UtcNow - File.GetLastWriteTimeUtc(iconFilePath) > _freshness))

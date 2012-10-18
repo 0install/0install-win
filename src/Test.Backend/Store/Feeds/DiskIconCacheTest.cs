@@ -19,8 +19,8 @@ using System;
 using System.IO;
 using Common;
 using Common.Storage;
-using Common.Streams;
 using Common.Tasks;
+using Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.Model;
 
@@ -88,7 +88,7 @@ namespace ZeroInstall.Store.Feeds
         public void TestGetIconDownload()
         {
             const string iconData = "test";
-            using (var server = new MicroServer("icon.png", StreamUtils.CreateFromString(iconData)))
+            using (var server = new MicroServer("icon.png", iconData.ToStream()))
             {
                 string path = _cache.GetIcon(server.FileUri, new SilentTaskHandler());
                 Assert.AreEqual(iconData, File.ReadAllText(path));

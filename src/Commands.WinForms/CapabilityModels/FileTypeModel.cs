@@ -30,7 +30,7 @@ namespace ZeroInstall.Commands.WinForms.CapabilityModels
         /// <summary>
         /// All <see cref="FileType.Extensions" /> concatenated with ", ".
         /// </summary>
-        public string Extensions { get { return StringUtils.Join(", ", _fileType.Extensions.Map(extension => extension.Value)); } }
+        public string Extensions { get { return ", ".Join(_fileType.Extensions.Map(extension => extension.Value)); } }
 
         /// <inheritdoc />
         public FileTypeModel(FileType fileType, bool used) : base(fileType, used)

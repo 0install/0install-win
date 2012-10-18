@@ -18,8 +18,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Common;
-using Common.Collections;
 using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
@@ -221,7 +221,7 @@ namespace ZeroInstall.Store.Management.Cli
                 // Determine manifest format
                 var format = (args.Count == 4)
                     ? ManifestFormat.FromPrefix(args[3])
-                    : EnumerableUtils.First(ManifestFormat.Recommended);
+                    : ManifestFormat.Recommended.First();
 
                 using (var tempDir = new TemporaryDirectory("0store"))
                 {
@@ -245,12 +245,12 @@ namespace ZeroInstall.Store.Management.Cli
                     try
                     {
                         // Try to extract the algorithm from the directory name
-                        format = ManifestFormat.FromPrefix(StringUtils.GetLeftPartAtFirstOccurrence(Path.GetFileName(path), '='));
+                        format = ManifestFormat.FromPrefix(Path.GetFileName(path).GetLeftPartAtFirstOccurrence('='));
                     }
                     catch (ArgumentException)
                     {
                         // Default to the best available algorithm
-                        format = EnumerableUtils.First(ManifestFormat.Recommended);
+                        format = ManifestFormat.Recommended.First();
                     }
                 }
 

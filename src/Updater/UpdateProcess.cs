@@ -22,6 +22,7 @@ using System.IO;
 using System.Security;
 using System.Security.Cryptography;
 using System.Threading;
+using Common;
 using Common.Utils;
 using Microsoft.Win32;
 using ZeroInstall.Updater.Properties;
@@ -110,8 +111,8 @@ namespace ZeroInstall.Updater
         {
             // Installation paths are encoded into mutex names to allow instance detection
             // Support old versions that used SHA256 for mutex names (unnecessarily complex since not security-relevant)
-            string targetMutexOld = "mutex-" + StringUtils.Hash(Target, SHA256.Create());
-            string targetMutexNew = "mutex-" + StringUtils.Hash(Target, MD5.Create());
+            string targetMutexOld = "mutex-" + Target.Hash(SHA256.Create());
+            string targetMutexNew = "mutex-" + Target.Hash(MD5.Create());
 
             // Wait for existing instances to terminate
             while (AppMutex.Probe(targetMutexOld))
@@ -199,7 +200,7 @@ namespace ZeroInstall.Updater
             string ngenPath = Path.Combine(netFxDir, "ngen.exe");
             foreach (string assembly in _ngenAssemblies)
             {
-                string arguments = StringUtils.JoinEscapeArguments(new[] {"install", Path.Combine(Target, assembly), "/queue"});
+                string arguments = new[] {"install", Path.Combine(Target, assembly), "/queue"}.JoinEscapeArguments();
                 var startInfo = new ProcessStartInfo(ngenPath, arguments) {WindowStyle = ProcessWindowStyle.Hidden};
                 Process.Start(startInfo).WaitForExit();
             }

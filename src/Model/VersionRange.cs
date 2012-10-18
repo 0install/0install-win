@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Common.Values.Design;
 
 namespace ZeroInstall.Model
@@ -117,15 +118,8 @@ namespace ZeroInstall.Model
 
             if (_parts.Length == 0) return new VersionRange(new VersionRangeRange(constraint.NotBefore, constraint.Before));
 
-            var parts = new C5.LinkedList<VersionRangePart>();
-            foreach (var part in _parts)
-            {
-                var newPart = part.Intersects(constraint);
-                if (newPart != null) parts.Add(newPart);
-            }
-
-            if (parts.Count == 0) return None;
-            return new VersionRange(parts.ToArray());
+            var parts = _parts.Select(part => part.Intersects(constraint)).Where(newPart => newPart != null);
+            return parts.Any() ? new VersionRange(parts.ToArray()) : None;
         }
         #endregion
 
@@ -168,11 +162,13 @@ namespace ZeroInstall.Model
                 return false;
 
             // Cacnel if one of the parts does not match
+            // ReSharper disable LoopCanBeConvertedToQuery
             for (int i = 0; i < _parts.Length; i++)
             {
                 if (!_parts[i].Equals(other._parts[i]))
                     return false;
             }
+            // ReSharper restore LoopCanBeConvertedToQuery
 
             // If we reach this, everything was equal
             return true;
@@ -191,10 +187,7 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                int result = 397;
-                foreach (var part in _parts)
-                    result = (result * 397) ^ part.GetHashCode();
-                return result;
+                return _parts.Aggregate(397, (current, part) => (current * 397) ^ part.GetHashCode());
             }
         }
 

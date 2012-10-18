@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Common.Utils;
 using ZeroInstall.Model;
 
@@ -84,12 +85,12 @@ namespace ZeroInstall.Capture
             foreach (var command in commmands)
             {
                 string path = Path.Combine(installationDir, command.Path.Replace('/', Path.DirectorySeparatorChar));
-                string arguments = StringUtils.JoinEscapeArguments(command.Arguments);
+                string arguments = command.Arguments.JoinEscapeArguments();
 
                 _commmands.Add(GetCommandTuple(installationDir, command, true));
 
                 // Only add a version without escaping if it causes no ambiguities
-                if (!StringUtils.ContainsWhitespace(path) || string.IsNullOrEmpty(arguments))
+                if (!path.ContainsWhitespace() || string.IsNullOrEmpty(arguments))
                     _commmands.Add(GetCommandTuple(installationDir, command, false));
             }
 
@@ -100,7 +101,7 @@ namespace ZeroInstall.Capture
         private static CommandTuple GetCommandTuple(string installationDir, Command command, bool escapePath)
         {
             string path = Path.Combine(installationDir, command.Path.Replace('/', Path.DirectorySeparatorChar));
-            string arguments = StringUtils.JoinEscapeArguments(command.Arguments);
+            string arguments = command.Arguments.JoinEscapeArguments();
 
             string commmandLine = escapePath ? ('"' + path + '"') : path;
             if (!string.IsNullOrEmpty(arguments)) commmandLine += " " + arguments;
@@ -123,13 +124,10 @@ namespace ZeroInstall.Capture
             if (commandLine == null) throw new ArgumentNullException("commandLine");
             #endregion
 
-            foreach (var tuple in _commmands)
+            foreach (var tuple in _commmands.Where(tuple => commandLine.StartsWithIgnoreCase(tuple.CommandLine)))
             {
-                if (commandLine.StartsWith(tuple.CommandLine, StringComparison.OrdinalIgnoreCase))
-                {
-                    additionalArgs = commandLine.Substring(tuple.CommandLine.Length).TrimStart();
-                    return tuple.Command;
-                }
+                additionalArgs = commandLine.Substring(tuple.CommandLine.Length).TrimStart();
+                return tuple.Command;
             }
 
             // No match found

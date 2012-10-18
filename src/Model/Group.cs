@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
@@ -54,7 +55,7 @@ namespace ZeroInstall.Model
         /// It should not be called if you plan on serializing the feed again since it will may loose some of its structure.</remarks>
         public override void Normalize(string feedID)
         {
-            var collapsedElements = new C5.LinkedList<Element>();
+            var collapsedElements = new List<Element>();
 
             foreach (var element in Elements)
             {
@@ -67,8 +68,7 @@ namespace ZeroInstall.Model
                 if (group != null)
                 {
                     // Move implementations out of sub-groups
-                    foreach (var groupElement in group.Elements)
-                        collapsedElements.Add(groupElement);
+                    collapsedElements.AddRange(group.Elements);
                 }
                 else collapsedElements.Add(element);
             }

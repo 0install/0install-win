@@ -10,6 +10,12 @@ BSD license: http://www.opensource.org/licenses/bsd-license
 Source unmodified
 Pre-compiled managed DLL: nunit.framework.dll
 
+LinqBridge 1.3
+http://code.google.com/p/linqbridge/
+MIT license: http://www.opensource.org/licenses/mit-license
+Source unmodified
+Pre-compiled managed DLL: LinqBridge.dll
+
 NDesk.Options 0.2.1
 http://ndesk.org/Options
 MIT license: http://www.opensource.org/licenses/mit-license

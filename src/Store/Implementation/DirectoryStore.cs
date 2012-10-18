@@ -18,7 +18,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Common;
+using Common.Collections;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Model;
@@ -109,8 +111,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Determine the digest method to use
-            string expectedDigestValue = expectedDigest.BestDigest;
-            if (string.IsNullOrEmpty(expectedDigestValue)) throw new ArgumentException(Resources.NoKnownDigestMethod, "expectedDigest");
+            string expectedDigestValue = expectedDigest.AvailableDigests.First(new ArgumentException(Resources.NoKnownDigestMethod, "expectedDigest"));
 
             // Determine the source and target directories
             string source = Path.Combine(DirectoryPath, tempID);
@@ -173,10 +174,10 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var format = ManifestFormat.FromPrefix(expectedDigest.BestDigest);
+            var format = ManifestFormat.FromPrefix(expectedDigest.AvailableDigests.First(new ArgumentException(Resources.NoKnownDigestMethod, "expectedDigest")));
             var actualManifest = Manifest.Generate(directory, format, handler, expectedDigest);
 
-            string expectedDigestValue = expectedDigest.BestDigest;
+            string expectedDigestValue = expectedDigest.AvailableDigests.First(new ArgumentException(Resources.NoKnownDigestMethod, "expectedDigest"));
             string actualDigestValue = actualManifest.CalculateDigest();
             if (actualDigestValue != expectedDigestValue)
                 throw new DigestMismatchException(expectedDigestValue, null, actualDigestValue, actualManifest);
@@ -218,10 +219,7 @@ namespace ZeroInstall.Store.Implementation
         public bool Contains(ManifestDigest manifestDigest)
         {
             // Check for all supported digest algorithms
-            foreach (string digest in manifestDigest.AvailableDigests)
-                if (Directory.Exists(Path.Combine(DirectoryPath, digest))) return true;
-
-            return false;
+            return manifestDigest.AvailableDigests.Any(digest => Directory.Exists(Path.Combine(DirectoryPath, digest)));
         }
 
         /// <inheritdoc />
@@ -236,13 +234,7 @@ namespace ZeroInstall.Store.Implementation
         public string GetPath(ManifestDigest manifestDigest)
         {
             // Check for all supported digest algorithms
-            foreach (string digest in manifestDigest.AvailableDigests)
-            {
-                string path = Path.Combine(DirectoryPath, digest);
-                if (Directory.Exists(path)) return path;
-            }
-
-            return null;
+            return manifestDigest.AvailableDigests.Select(digest => Path.Combine(DirectoryPath, digest)).FirstOrDefault(Directory.Exists);
         }
         #endregion
 
@@ -369,7 +361,7 @@ namespace ZeroInstall.Store.Implementation
 
             if (!Contains(manifestDigest)) throw new ImplementationNotFoundException(manifestDigest);
 
-            string target = Path.Combine(DirectoryPath, manifestDigest.BestDigest);
+            string target = Path.Combine(DirectoryPath, manifestDigest.AvailableDigests.First(new ArgumentException(Resources.NoKnownDigestMethod, "manifestDigest")));
             VerifyDirectory(target, manifestDigest, handler);
 
             // Reseal the directory in case the write protection got lost

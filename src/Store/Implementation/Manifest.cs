@@ -306,11 +306,12 @@ namespace ZeroInstall.Store.Implementation
             if (other == null) return false;
 
             if (_nodes.Count != other._nodes.Count) return false;
+
+            // If any node pair does not match, the manifests are not equal
+            // ReSharper disable LoopCanBeConvertedToQuery
             for (int i = 0; i < _nodes.Count; i++)
-            {
-                // If any node pair does not match, the manifests are not equal
                 if (!Equals(_nodes[i], other._nodes[i])) return false;
-            }
+            // ReSharper restore LoopCanBeConvertedToQuery
 
             // If the for-loop ran through, all node pairs are identical and the manifests are equal
             return true;

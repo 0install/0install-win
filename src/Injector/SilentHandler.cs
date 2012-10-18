@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Common;
+using System;
 using Common.Tasks;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector.Solver;
@@ -71,7 +71,7 @@ namespace ZeroInstall.Injector
         }
 
         /// <inheritdoc/>
-        public void AuditSelections(SimpleResult<Selections> solveCallback)
+        public void AuditSelections(Func<Selections> solveCallback)
         {
             // No UI, so nothing to do
         }

@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 using Common;
@@ -120,7 +121,7 @@ namespace ZeroInstall.Commands.WinForms
 
             checkBoxAutoUpdate.Checked = _appEntry.AutoUpdate;
             checkBoxCapabilities.Visible = !_appEntry.CapabilityLists.IsEmpty;
-            checkBoxCapabilities.Checked = (_appEntry.AccessPoints == null) || !EnumerableUtils.IsEmpty(EnumerableUtils.OfType<AccessPoints.CapabilityRegistration>(_appEntry.AccessPoints.Entries));
+            checkBoxCapabilities.Checked = (_appEntry.AccessPoints == null) || !_appEntry.AccessPoints.Entries.OfType<AccessPoints.CapabilityRegistration>().Any();
 
             SetupCommandAccessPoints();
             SetupDefaultAccessPoints();
@@ -154,7 +155,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private void SuggestCommandAccessPoints()
         {
-            string category = EnumerableUtils.First(_feed.Categories);
+            string category = _feed.Categories.FirstOrDefault();
             if (_feed.EntryPoints.IsEmpty)
             { // Only one entry point
                 _menuEntries.Add(new AccessPoints.MenuEntry {Name = _appEntry.Name, Category = category, Command = Command.NameRun});
@@ -287,9 +288,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             if (_appEntry.AccessPoints == null) return false;
 
-            foreach (T accessPoint in EnumerableUtils.OfType<T>(_appEntry.AccessPoints.Entries))
-                if (accessPoint.Capability == toCheck.ID) return true;
-            return false;
+            return _appEntry.AccessPoints.Entries.OfType<T>().Any(accessPoint => accessPoint.Capability == toCheck.ID);
         }
         #endregion
 
@@ -302,8 +301,8 @@ namespace ZeroInstall.Commands.WinForms
             // Hide so that the underlying progress tracker is visible
             Visible = false;
 
-            var toAdd = new C5.LinkedList<AccessPoints.AccessPoint>();
-            var toRemove = new C5.LinkedList<AccessPoints.AccessPoint>();
+            var toAdd = new List<AccessPoints.AccessPoint>();
+            var toRemove = new List<AccessPoints.AccessPoint>();
 
             _appEntry.AutoUpdate = checkBoxAutoUpdate.Checked;
             (checkBoxCapabilities.Checked ? toAdd : toRemove).Add(new AccessPoints.CapabilityRegistration());
@@ -313,8 +312,8 @@ namespace ZeroInstall.Commands.WinForms
 
             try
             {
-                if (!toRemove.IsEmpty) _integrationManager.RemoveAccessPoints(_appEntry, toRemove);
-                if (!toAdd.IsEmpty) _integrationManager.AddAccessPoints(_appEntry, _feed, toAdd);
+                if (toRemove.Any()) _integrationManager.RemoveAccessPoints(_appEntry, toRemove);
+                if (toAdd.Any()) _integrationManager.AddAccessPoints(_appEntry, _feed, toAdd);
             }
                 #region Error handling
             catch (OperationCanceledException)
@@ -364,7 +363,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="toAdd">List to add <see cref="AccessPoints.AccessPoint"/>s to be added to.</param>
         /// <param name="toRemove">List to add <see cref="AccessPoints.AccessPoint"/>s to be removed to.</param>
-        private void HandleCommandAccessPointChanges(C5.IExtensible<AccessPoints.AccessPoint> toAdd, C5.IExtensible<AccessPoints.AccessPoint> toRemove)
+        private void HandleCommandAccessPointChanges(ICollection<AccessPoints.AccessPoint> toAdd, ICollection<AccessPoints.AccessPoint> toRemove)
         {
             // Build lists with current integration state
             var currentMenuEntries = new List<AccessPoints.MenuEntry>();
@@ -381,9 +380,9 @@ namespace ZeroInstall.Commands.WinForms
             }
 
             // Determine differences between current and desired state
-            EnumerableUtils.Merge(_menuEntries, currentMenuEntries, menuEntry => toAdd.Add(menuEntry), menuEntry => toRemove.Add(menuEntry));
-            EnumerableUtils.Merge(_desktopIcons, currenDesktopIcons, desktopIcon => toAdd.Add(desktopIcon), desktopIcon => toRemove.Add(desktopIcon));
-            EnumerableUtils.Merge(_aliases, currenAliases, alias => toAdd.Add(alias), alias => toRemove.Add(alias));
+            EnumerableUtils.Merge(_menuEntries, currentMenuEntries, toAdd.Add, toRemove.Add);
+            EnumerableUtils.Merge(_desktopIcons, currenDesktopIcons, toAdd.Add, toRemove.Add);
+            EnumerableUtils.Merge(_aliases, currenAliases, toAdd.Add, toRemove.Add);
         }
 
         /// <summary>
@@ -391,7 +390,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="toAdd">List to add <see cref="AccessPoints.AccessPoint"/>s to be added to.</param>
         /// <param name="toRemove">List to add <see cref="AccessPoints.AccessPoint"/>s to be removed to.</param>
-        private void HandleDefaultAccessPointChanges(C5.IExtensible<AccessPoints.AccessPoint> toAdd, C5.IExtensible<AccessPoints.AccessPoint> toRemove)
+        private void HandleDefaultAccessPointChanges(ICollection<AccessPoints.AccessPoint> toAdd, ICollection<AccessPoints.AccessPoint> toRemove)
         {
             foreach (var capabilityModel in _capabilityModels)
             {

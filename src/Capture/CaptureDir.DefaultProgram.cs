@@ -124,15 +124,15 @@ namespace ZeroInstall.Capture
         /// <returns>The path of the executable relative to <paramref name="baseDir"/> without any arguments.</returns>
         private static string IsolateCommand(string commandLine, string baseDir, out string additionalArguments)
         {
-            if (!commandLine.StartsWith('"' + baseDir + '\\', StringComparison.OrdinalIgnoreCase))
+            if (!commandLine.StartsWithIgnoreCase('"' + baseDir + '\\'))
             {
                 additionalArguments = null;
                 return null;
             }
             commandLine = commandLine.Substring(baseDir.Length + 2);
 
-            additionalArguments = StringUtils.GetRightPartAtFirstOccurrence(commandLine, "\" ");
-            return StringUtils.GetLeftPartAtFirstOccurrence(commandLine, '"');
+            additionalArguments = commandLine.GetRightPartAtFirstOccurrence("\" ");
+            return commandLine.GetLeftPartAtFirstOccurrence('"');
         }
         #endregion
     }

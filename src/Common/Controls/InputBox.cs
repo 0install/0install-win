@@ -21,8 +21,8 @@
  */
 
 using System;
+using System.Linq;
 using System.Windows.Forms;
-using Common.Collections;
 
 namespace Common.Controls
 {
@@ -97,7 +97,7 @@ namespace Common.Controls
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 var files = e.Data.GetData(DataFormats.FileDrop) as string[];
-                textInput.Text = EnumerableUtils.First(files);
+                textInput.Text = (files ?? new string[0]).FirstOrDefault();
             }
             else if (e.Data.GetDataPresent(DataFormats.Text))
                 textInput.Text = (string)e.Data.GetData(DataFormats.Text);

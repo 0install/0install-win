@@ -33,7 +33,7 @@ namespace Common.Undo
     public class CompositeCommand : SimpleCommand
     {
         #region Variables
-        private readonly C5.ArrayList<IUndoCommand> _commands = new C5.ArrayList<IUndoCommand>();
+        private readonly List<IUndoCommand> _commands;
         #endregion
 
         #region Constructor
@@ -48,7 +48,7 @@ namespace Common.Undo
             #endregion
 
             // Defensive copy
-            _commands.AddAll(commands);
+            _commands = new List<IUndoCommand>(commands);
         }
         #endregion
 

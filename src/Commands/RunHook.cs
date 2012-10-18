@@ -19,9 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
-using Common.Collections;
 using Common.Storage;
 using Common.Utils;
 using EasyHook;
@@ -119,18 +119,16 @@ namespace ZeroInstall.Commands
             }
 
             // Redirect Windows SPAD commands to Zero Install
-            foreach (var capabilityList in _target.Feed.CapabilityLists)
+            foreach (var defaultProgram in _target.Feed.CapabilityLists.
+                Where(capabilityList => capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)).
+                SelectMany(capabilityList => capabilityList.Entries.OfType<Model.Capabilities.DefaultProgram>()))
             {
-                if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
-                foreach (var defaultProgram in EnumerableUtils.OfType<Model.Capabilities.DefaultProgram>(capabilityList.Entries))
-                {
-                    if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.Reinstall))
-                        filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.Reinstall, defaultProgram.InstallCommands.ReinstallArgs, "--machine --batch --add=defaults " + StringUtils.EscapeArgument(_target.InterfaceID)));
-                    if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.ShowIcons))
-                        filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.ShowIcons, defaultProgram.InstallCommands.ShowIconsArgs, "--machine --batch --add=icons " + StringUtils.EscapeArgument(_target.InterfaceID)));
-                    if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.HideIcons))
-                        filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.HideIcons, defaultProgram.InstallCommands.HideIconsArgs, "--machine --batch --remove=icons " + StringUtils.EscapeArgument(_target.InterfaceID)));
-                }
+                if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.Reinstall))
+                    filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.Reinstall, defaultProgram.InstallCommands.ReinstallArgs, "--machine --batch --add=defaults " + _target.InterfaceID.EscapeArgument()));
+                if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.ShowIcons))
+                    filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.ShowIcons, defaultProgram.InstallCommands.ShowIconsArgs, "--machine --batch --add=icons " + _target.InterfaceID.EscapeArgument()));
+                if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.HideIcons))
+                    filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.HideIcons, defaultProgram.InstallCommands.HideIconsArgs, "--machine --batch --remove=icons " + _target.InterfaceID.EscapeArgument()));
             }
 
             return new RegistryFilter(filterRuleList);
@@ -146,8 +144,8 @@ namespace ZeroInstall.Commands
         {
             string exePath = Path.Combine(Locations.InstallBase, "0install-win.exe");
             return new RegistryFilterRule(
-                StringUtils.EscapeArgument(Path.Combine(_implementationDir, path)) + " " + arguments,
-                StringUtils.EscapeArgument(exePath) + " " + zeroInstallCommand);
+                Path.Combine(_implementationDir, path).EscapeArgument() + " " + arguments,
+                exePath.EscapeArgument() + " " + zeroInstallCommand);
         }
         #endregion
 
@@ -158,30 +156,28 @@ namespace ZeroInstall.Commands
         private RelaunchControl GetRelaunchControl()
         {
             // This will be used as a command-line argument
-            string escapedTarget = StringUtils.EscapeArgument(_target.InterfaceID);
+            string escapedTarget = _target.InterfaceID.EscapeArgument();
 
             // Build a relaunch entry for each entry point
-            var entries = new List<RelaunchEntry>();
-            foreach (var entryPoint in _target.Feed.EntryPoints)
-            {
-                // Only handle entry valid points that specify names and binary names
-                if (string.IsNullOrEmpty(entryPoint.Command) || entryPoint.Names.IsEmpty || string.IsNullOrEmpty(entryPoint.BinaryName)) continue;
-
-                entries.Add(new RelaunchEntry(
+            var entries = (from entryPoint in _target.Feed.EntryPoints
+                where !string.IsNullOrEmpty(entryPoint.Command) && !entryPoint.Names.IsEmpty && !string.IsNullOrEmpty(entryPoint.BinaryName)
+                select new RelaunchEntry(
                     entryPoint.BinaryName,
                     entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture),
-                    "--command=" + StringUtils.EscapeArgument(entryPoint.Command) + " " + escapedTarget,
+                    "--command=" + entryPoint.Command.EscapeArgument() + " " + escapedTarget,
                     entryPoint.NeedsTerminal,
                     GetIconPath(entryPoint.Command)));
-            }
 
             // Create a relaunch entry for the main application
-            entries.Add(new RelaunchEntry(
-                null, // This will always be matched last, serves as a universal fallback
-                _target.Feed.Name,
-                escapedTarget,
-                _target.Feed.NeedsTerminal,
-                GetIconPath(null)));
+            entries = entries.Concat(new[]
+            {
+                new RelaunchEntry(
+                    null, // This will always be matched last, serves as a universal fallback
+                    _target.Feed.Name,
+                    escapedTarget,
+                    _target.Feed.NeedsTerminal,
+                    GetIconPath(null))
+            });
 
             return new RelaunchControl(entries,
                 Path.Combine(Locations.InstallBase, "0install-win.exe"),

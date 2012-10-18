@@ -16,12 +16,13 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using Common;
-using Common.Collections;
 using Common.Storage;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
@@ -142,13 +143,12 @@ namespace ZeroInstall.Injector.Feeds
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reads data from a config file with no caching")]
         public static string[] GetCatalogSources()
         {
-            var path = EnumerableUtils.First(Locations.GetLoadConfigPaths("0install.net", true, "catalog-sources"));
+            var path = Locations.GetLoadConfigPaths("0install.net", true, "catalog-sources").FirstOrDefault();
             if (string.IsNullOrEmpty(path)) return new[] {DefaultSource};
 
-            var result = new C5.LinkedList<string>();
-            foreach (string line in File.ReadAllLines(path, Encoding.UTF8))
+            var result = new List<string>();
+            foreach (string line in File.ReadAllLines(path, Encoding.UTF8).Where(line => !line.StartsWith("#") && !string.IsNullOrEmpty(line)))
             {
-                if (line.StartsWith("#") || string.IsNullOrEmpty(line)) continue;
                 Uri catalogUrl;
                 result.Add(ModelUtils.TryParseUri(line, out catalogUrl)
                     ? catalogUrl.ToString()

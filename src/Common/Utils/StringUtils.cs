@@ -23,7 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Globalization;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -39,7 +39,7 @@ namespace Common.Utils
         /// <summary>
         /// Compare strings using case-insensitive comparison.
         /// </summary>
-        public static bool Compare(string s1, string s2)
+        public static bool EqualsIgnoreCase(string s1, string s2)
         {
             return string.Equals(s1, s2, StringComparison.OrdinalIgnoreCase);
         }
@@ -47,7 +47,7 @@ namespace Common.Utils
         /// <summary>
         /// Compare chars using case-insensitive comparison.
         /// </summary>
-        public static bool CompareChar(char c1, char c2)
+        public static bool EqualsIgnoreCase(char c1, char c2)
         {
             return char.ToLowerInvariant(c1) == char.ToLowerInvariant(c2);
         }
@@ -55,7 +55,7 @@ namespace Common.Utils
         /// <summary>
         /// Compare strings using case sensitive, invariant culture comparison and considering <see langword="null"/> and <see cref="string.Empty"/> equal.
         /// </summary>
-        public static bool CompareEmptyNull(string s1, string s2)
+        public static bool EqualsEmptyNull(string s1, string s2)
         {
             if (string.IsNullOrEmpty(s1) && string.IsNullOrEmpty(s2)) return true;
             return s1 == s2;
@@ -66,7 +66,7 @@ namespace Common.Utils
         /// </summary>
         /// <param name="text">The string to search.</param>
         /// <param name="value">The string to search for in <paramref name="text"/>.</param>
-        public static bool Contains(string text, string value)
+        public static bool ContainsIgnoreCase(this string text, string value)
         {
             #region Sanity checks
             if (text == null) throw new ArgumentNullException("text");
@@ -79,7 +79,7 @@ namespace Common.Utils
         /// <summary>
         /// Checks whether a string contains any whitespace characters
         /// </summary>
-        public static bool ContainsWhitespace(string text)
+        public static bool ContainsWhitespace(this string text)
         {
             #region Sanity checks
             if (text == null) throw new ArgumentNullException("text");
@@ -94,14 +94,21 @@ namespace Common.Utils
         /// <param name="value">The string to search within.</param>
         /// <param name="token">The character to search for.</param>
         /// <returns>The number of occurences of <paramref name="token"/> wihin <paramref name="value"/>.</returns>
-        public static int CountOccurences(string value, char token)
+        public static int CountOccurences(this string value, char token)
         {
             if (string.IsNullOrEmpty(value)) return 0;
 
-            int result = 0;
-            for (int i = 0; i < value.Length; i++)
-                if (value[i] == token) result++;
-            return result;
+            return value.Count(t => t == token);
+        }
+
+        public static bool StartsWithIgnoreCase(this string text, string value)
+        {
+            return text.StartsWith(value, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public static bool EndsWithIgnoreCase(this string text, string value)
+        {
+            return text.EndsWith(value, StringComparison.OrdinalIgnoreCase);
         }
         #endregion
 
@@ -109,7 +116,7 @@ namespace Common.Utils
         /// <summary>
         /// Gets the last word in a string.
         /// </summary>
-        public static string GetLastWord(string value)
+        public static string GetLastWord(this string value)
         {
             #region Sanity checks
             if (value == null) throw new ArgumentNullException("value");
@@ -122,7 +129,7 @@ namespace Common.Utils
         /// <summary>
         /// Removes the last word in a string.
         /// </summary>
-        public static string RemoveLastWord(string value)
+        public static string RemoveLastWord(this string value)
         {
             #region Sanity checks
             if (value == null) throw new ArgumentNullException("value");
@@ -133,26 +140,13 @@ namespace Common.Utils
             if (lastWord.Length == 0 || value.Length == 0 || value.Length - lastWord.Length - 1 <= 0) return value;
             return value.Substring(0, value.Length - lastWord.Length - 1);
         }
-
-        /// <summary>
-        /// Removes a character from a string.
-        /// </summary>
-        public static void RemoveCharacter(ref string text, char characterToBeRemoved)
-        {
-            #region Sanity checks
-            if (text == null) throw new ArgumentNullException("text");
-            #endregion
-
-            if (text.Contains(characterToBeRemoved.ToString(CultureInfo.InvariantCulture)))
-                text = text.Replace(characterToBeRemoved.ToString(CultureInfo.InvariantCulture), "");
-        }
         #endregion
 
         #region Splitting
         /// <summary>
         /// Splits a multiline string to several strings and returns the result as a string array.
         /// </summary>
-        public static string[] SplitMultilineText(string value)
+        public static string[] SplitMultilineText(this string value)
         {
             #region Sanity checks
             if (value == null) throw new ArgumentNullException("value");
@@ -166,9 +160,9 @@ namespace Common.Utils
             foreach (string s in splitted)
             {
                 // Never add any \r or \n to the single lines
-                if (s.EndsWith("\r", StringComparison.Ordinal) || s.EndsWith("\n", StringComparison.Ordinal))
+                if (s.EndsWithIgnoreCase("\r") || s.EndsWithIgnoreCase("\n"))
                     result.Add(s.Substring(0, s.Length - 1));
-                else if (s.StartsWith("\n", StringComparison.Ordinal) || s.StartsWith("\r", StringComparison.Ordinal))
+                else if (s.StartsWithIgnoreCase("\n") || s.StartsWithIgnoreCase("\r"))
                     result.Add(s.Substring(1));
                 else
                     result.Add(s);
@@ -183,7 +177,7 @@ namespace Common.Utils
         /// <param name="separator">The separator characters to place between the <paramref name="parts"/>.</param>
         /// <param name="parts">The strings to be combined.</param>
         /// <remarks>Works like <see cref="string.Join(string,string[])"/> but for <see cref="IEnumerable{T}"/>s.</remarks>
-        public static string Join(string separator, IEnumerable<string> parts)
+        public static string Join(this string separator, IEnumerable<string> parts)
         {
             #region Sanity checks
             if (parts == null) throw new ArgumentNullException("parts");
@@ -206,7 +200,7 @@ namespace Common.Utils
         /// <summary>
         /// Get everything to the left of the first occurrence of a character.
         /// </summary>
-        public static string GetLeftPartAtFirstOccurrence(string sourceText, char ch)
+        public static string GetLeftPartAtFirstOccurrence(this string sourceText, char ch)
         {
             #region Sanity checks
             if (sourceText == null) throw new ArgumentNullException("sourceText");
@@ -219,7 +213,7 @@ namespace Common.Utils
         /// <summary>
         /// Get everything to the right of the first occurrence of a character.
         /// </summary>
-        public static string GetRightPartAtFirstOccurrence(string sourceText, char ch)
+        public static string GetRightPartAtFirstOccurrence(this string sourceText, char ch)
         {
             #region Sanity checks
             if (sourceText == null) throw new ArgumentNullException("sourceText");
@@ -232,7 +226,7 @@ namespace Common.Utils
         /// <summary>
         /// Get everything to the left of the last occurrence of a character.
         /// </summary>
-        public static string GetLeftPartAtLastOccurrence(string sourceText, char ch)
+        public static string GetLeftPartAtLastOccurrence(this string sourceText, char ch)
         {
             #region Sanity checks
             if (sourceText == null) throw new ArgumentNullException("sourceText");
@@ -245,7 +239,7 @@ namespace Common.Utils
         /// <summary>
         /// Get everything to the right of the last occurrence of a character.
         /// </summary>
-        public static string GetRightPartAtLastOccurrence(string sourceText, char ch)
+        public static string GetRightPartAtLastOccurrence(this string sourceText, char ch)
         {
             #region Sanity checks
             if (sourceText == null) throw new ArgumentNullException("sourceText");
@@ -258,7 +252,7 @@ namespace Common.Utils
         /// <summary>
         /// Get everything to the left of the first occurrence of a string.
         /// </summary>
-        public static string GetLeftPartAtFirstOccurrence(string sourceText, string str)
+        public static string GetLeftPartAtFirstOccurrence(this string sourceText, string str)
         {
             #region Sanity checks
             if (sourceText == null) throw new ArgumentNullException("sourceText");
@@ -272,7 +266,7 @@ namespace Common.Utils
         /// <summary>
         /// Get everything to the right of the first occurrence of a string.
         /// </summary>
-        public static string GetRightPartAtFirstOccurrence(string sourceText, string str)
+        public static string GetRightPartAtFirstOccurrence(this string sourceText, string str)
         {
             #region Sanity checks
             if (sourceText == null) throw new ArgumentNullException("sourceText");
@@ -286,7 +280,7 @@ namespace Common.Utils
         /// <summary>
         /// Get everything to the left of the last occurrence of a string.
         /// </summary>
-        public static string GetLeftPartAtLastOccurrence(string sourceText, string str)
+        public static string GetLeftPartAtLastOccurrence(this string sourceText, string str)
         {
             #region Sanity checks
             if (sourceText == null) throw new ArgumentNullException("sourceText");
@@ -300,7 +294,7 @@ namespace Common.Utils
         /// <summary>
         /// Get everything to the right of the last occurrence of a string.
         /// </summary>
-        public static string GetRightPartAtLastOccurrence(string sourceText, string str)
+        public static string GetRightPartAtLastOccurrence(this string sourceText, string str)
         {
             #region Sanity checks
             if (sourceText == null) throw new ArgumentNullException("sourceText");
@@ -321,7 +315,7 @@ namespace Common.Utils
         /// This coressponds to Windows' handling of command-line arguments as specified in:
         /// http://msdn.microsoft.com/library/17w5ykft
         /// </remarks>
-        public static string EscapeArgument(string value)
+        public static string EscapeArgument(this string value)
         {
             if (value == null) return null;
 
@@ -360,7 +354,7 @@ namespace Common.Utils
         /// This coressponds to Windows' handling of command-line arguments as specified in:
         /// http://msdn.microsoft.com/library/17w5ykft
         /// </remarks>
-        public static string JoinEscapeArguments(IEnumerable<string> parts)
+        public static string JoinEscapeArguments(this IEnumerable<string> parts)
         {
             if (parts == null) return null;
 
@@ -383,7 +377,7 @@ namespace Common.Utils
         /// <summary> 
         /// Encodes a string as UTF-8 in base 64.
         /// </summary>
-        public static string Base64Utf8Encode(string value)
+        public static string Base64Utf8Encode(this string value)
         {
             return value == null ? null : Convert.ToBase64String(Encoding.UTF8.GetBytes(value));
         }
@@ -392,7 +386,7 @@ namespace Common.Utils
         /// Decodes a UTF-8 in base 64 string.
         /// </summary>
         /// <exception cref="FormatException">Thrown if <paramref name="value"/> is not a valid base 64 string.</exception>
-        public static string Base64Utf8Decode(string value)
+        public static string Base64Utf8Decode(this string value)
         {
             return value == null ? null : Encoding.UTF8.GetString(Convert.FromBase64String(value));
         }
@@ -405,7 +399,7 @@ namespace Common.Utils
         /// <summary>
         /// Encodes a byte array in base 32 without padding.
         /// </summary>
-        public static string Base32Encode(byte[] data)
+        public static string Base32Encode(this byte[] data)
         {
             #region Sanity checks
             if (data == null) throw new ArgumentNullException("data");
@@ -417,15 +411,14 @@ namespace Common.Utils
 
             while (i < data.Length)
             {
-                int currentByte = (data[i] >= 0) ? data[i] : (data[i] + 256);
+                int currentByte = data[i];
                 int digit;
 
                 // Is the current digit going to span a byte boundary?
                 if (index > (NormaleByteSize - Base32ByteSize))
                 {
                     int nextByte = (i + 1) < data.Length
-                        ? ((data[i + 1] >= 0) ? data[i + 1]
-                            : (data[i + 1] + 256)) : 0;
+                        ? (data[i + 1]) : 0;
 
                     digit = currentByte & (0xFF >> index);
                     index = (index + Base32ByteSize) % NormaleByteSize;
@@ -451,7 +444,7 @@ namespace Common.Utils
         /// <summary>
         /// Encodes a byte array in base 16 (hexadecimal).
         /// </summary>
-        public static string Base16Encode(byte[] data)
+        public static string Base16Encode(this byte[] data)
         {
             #region Sanity checks
             if (data == null) throw new ArgumentNullException("data");
@@ -464,7 +457,7 @@ namespace Common.Utils
         /// <summary>
         /// Decodes a base 16 (hexadecimal) to a byte array.
         /// </summary>
-        public static byte[] Base16Decode(string encoded)
+        public static byte[] Base16Decode(this string encoded)
         {
             #region Sanity checks
             if (encoded == null) throw new ArgumentNullException("encoded");
@@ -484,7 +477,7 @@ namespace Common.Utils
         /// <param name="value">The string to hash.</param>
         /// <param name="algorithm">The hashing algorithm to use.</param>
         /// <returns>A hexadecimal string representation of the hash value.</returns>
-        public static string Hash(string value, HashAlgorithm algorithm)
+        public static string Hash(this string value, HashAlgorithm algorithm)
         {
             #region Sanity checks
             if (value == null) throw new ArgumentNullException("value");
@@ -500,9 +493,9 @@ namespace Common.Utils
         /// <summary>
         /// Formats a byte number in human-readable form (KB, MB, GB).
         /// </summary>
-        /// <param name="provider">Provides culture-specific formatting information.</param>
         /// <param name="value">The value in bytes.</param>
-        public static string FormatBytes(IFormatProvider provider, long value)
+        /// <param name="provider">Provides culture-specific formatting information.</param>
+        public static string FormatBytes(this long value, IFormatProvider provider)
         {
             if (value >= 1073741824)
                 return string.Format(provider, "{0:0.00}", value / 1073741824f) + " GB";

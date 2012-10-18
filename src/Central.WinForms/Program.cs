@@ -24,6 +24,7 @@ using System.IO;
 using System.Security;
 using System.Security.Cryptography;
 using System.Windows.Forms;
+using Common;
 using Common.Controls;
 using Common.Storage;
 using Common.Utils;
@@ -45,7 +46,7 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// The application user model ID used by the Windows 7 taskbar. Encodes <see cref="Locations.InstallBase"/> and the name of this sub-app.
         /// </summary>
-        public static readonly string AppUserModelID = "ZeroInstall." + StringUtils.Hash(Locations.InstallBase, MD5.Create()) + ".Central";
+        public static readonly string AppUserModelID = "ZeroInstall." + Locations.InstallBase.Hash(MD5.Create()) + ".Central";
 
         /// <summary>
         /// The main entry point for the application.
@@ -56,7 +57,7 @@ namespace ZeroInstall.Central.WinForms
             WindowsUtils.SetCurrentProcessAppID(AppUserModelID);
 
             // Encode installation path into mutex name to allow instance detection during updates
-            string mutexName = "mutex-" + StringUtils.Hash(Locations.InstallBase, MD5.Create());
+            string mutexName = "mutex-" + Locations.InstallBase.Hash(MD5.Create());
             if (AppMutex.Probe(mutexName + "-update")) return 1;
             AppMutex.Create(mutexName);
 
@@ -108,7 +109,7 @@ namespace ZeroInstall.Central.WinForms
 
             try
             {
-                var startInfo = new ProcessStartInfo(executable, StringUtils.JoinEscapeArguments(commandLine)) {Verb = "runas"};
+                var startInfo = new ProcessStartInfo(executable, commandLine.JoinEscapeArguments()) {Verb = "runas"};
                 var process = Process.Start(startInfo);
                 process.WaitForExit();
                 return process.ExitCode;
@@ -136,7 +137,7 @@ namespace ZeroInstall.Central.WinForms
             string appUserModelID = AppUserModelID;
             if (!string.IsNullOrEmpty(subCommand)) appUserModelID += "." + subCommand;
             string exePath = Path.Combine(Locations.InstallBase, ExeName + ".exe");
-            WindowsUtils.SetWindowAppID(form.Handle, appUserModelID, StringUtils.EscapeArgument(exePath) + " " + arguments, exePath, name);
+            WindowsUtils.SetWindowAppID(form.Handle, appUserModelID, exePath.EscapeArgument() + " " + arguments, exePath, name);
         }
     }
 }

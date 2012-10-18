@@ -33,54 +33,13 @@ namespace Common.Collections
     public class EnumerableUtilsTest
     {
         /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.First{T}(System.Collections.Generic.IEnumerable{T})"/> correctly returns the first element of a collection or <see langword="null"/> if it is empty.
-        /// </summary>
-        [Test]
-        public void TestFirst()
-        {
-            Assert.AreEqual("first", EnumerableUtils.First(new[] {"first", "second"}));
-            Assert.IsNull(EnumerableUtils.First((IEnumerable<string>)null));
-        }
-
-        /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.First{T}(System.Collections.Generic.IEnumerable{T},System.Predicate{T})"/> correctly returns the first matching element of a collection.
-        /// </summary>
-        [Test]
-        public void TestFirstThat()
-        {
-            Assert.AreEqual("second", EnumerableUtils.First(new[] {"first", "second", "third"}, s => s.StartsWith("s")));
-            Assert.IsNull(EnumerableUtils.First(new[] {"first", "second", "third"}, s => s.StartsWith("x")));
-            Assert.IsNull(EnumerableUtils.First((IEnumerable<string>)null, s => s.StartsWith("x")));
-        }
-
-        /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.IsEmpty{T}"/> correctly determines whether a collection is empty.
-        /// </summary>
-        [Test]
-        public void TestIsEmpty()
-        {
-            Assert.IsTrue(EnumerableUtils.IsEmpty(new int[0]));
-            Assert.IsFalse(EnumerableUtils.IsEmpty(new[] {1, 2, 3}));
-        }
-
-        /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.OfType{TResult}"/> correctly filters out elements of specific types.
-        /// </summary>
-        [Test]
-        public void TestOfType()
-        {
-            var source = new object[] {1, "a", 2, "b", 3, "c"};
-            CollectionAssert.AreEqual(new[] {1, 2, 3}, EnumerableUtils.OfType<int>(source));
-        }
-
-        /// <summary>
         /// Ensures that <see cref="EnumerableUtils.GetAddedElements{T}(T[],T[])"/> correctly detects elements added to an ordered collection.
         /// </summary>
         [Test]
         public void TestGetAddedElements()
         {
-            CollectionAssert.AreEqual(new[] {"B", "H"}, EnumerableUtils.GetAddedElements(new[] {"A", "C", "E", "G"}, new[] {"A", "B", "C", "E", "G", "H"}));
-            CollectionAssert.AreEqual(new[] {"C"}, EnumerableUtils.GetAddedElements(new[] {"A", "D"}, new[] {"C", "D"}));
+            CollectionAssert.AreEqual(new[] {"B", "H"}, new[] {"A", "B", "C", "E", "G", "H"}.GetAddedElements(new[] {"A", "C", "E", "G"}));
+            CollectionAssert.AreEqual(new[] {"C"}, new[] {"C", "D"}.GetAddedElements(new[] {"A", "D"}));
         }
 
         /// <summary>
@@ -91,14 +50,11 @@ namespace Common.Collections
         {
             var applyCalledFor = new LinkedList<int>();
             var rollbackCalledFor = new LinkedList<int>();
-            Assert.Throws<Exception>(() => EnumerableUtils.ApplyWithRollback(new[] {1, 2, 3},
-                value =>
-                {
-                    applyCalledFor.AddLast(value);
-                    if (value == 2) throw new Exception("Test exception");
-                },
-                value => rollbackCalledFor.AddLast(value)),
-                "Exceptions should be passed through after rollback.");
+            Assert.Throws<Exception>(() => new[] {1, 2, 3}.ApplyWithRollback(value =>
+            {
+                applyCalledFor.AddLast(value);
+                if (value == 2) throw new Exception("Test exception");
+            }, value => rollbackCalledFor.AddLast(value)), "Exceptions should be passed through after rollback.");
 
             CollectionAssert.AreEqual(new[] {1, 2}, applyCalledFor);
             CollectionAssert.AreEqual(new[] {2, 1}, rollbackCalledFor);

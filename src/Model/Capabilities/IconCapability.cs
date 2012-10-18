@@ -69,7 +69,7 @@ namespace ZeroInstall.Model.Capabilities
             if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
             #endregion
 
-            var suitableIcons = Icons.FindAll(icon => StringUtils.Compare(icon.MimeType, mimeType) && icon.Location != null);
+            var suitableIcons = Icons.FindAll(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Location != null);
             if (!suitableIcons.IsEmpty) return suitableIcons.First;
 
             throw new KeyNotFoundException(Resources.NoSuitableIconFound);

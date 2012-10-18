@@ -34,14 +34,14 @@ namespace Common
         /// </summary>
         public readonly T Element;
 
-        private readonly SimpleResult<string> _toString;
+        private readonly Func<string> _toString;
 
         /// <summary>
         /// Creates a new wrapper.
         /// </summary>
         /// <param name="element">The element being wrapped.</param>
         /// <param name="toString">The method to be called for the <see cref="ToString"/> result.</param>
-        public ToStringWrapper(T element, SimpleResult<string> toString)
+        public ToStringWrapper(T element, Func<string> toString)
         {
             #region Sanity checks
             if (toString == null) throw new ArgumentNullException("toString");

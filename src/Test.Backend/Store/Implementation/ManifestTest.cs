@@ -19,7 +19,6 @@ using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using Common.Storage;
-using Common.Streams;
 using Common.Tasks;
 using Common.Utils;
 using NUnit.Framework;
@@ -75,25 +74,25 @@ namespace ZeroInstall.Store.Implementation
         [Test(Description = "Ensures damaged manifest lines are correctly identified.")]
         public void TestLoadException()
         {
-            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("test"), ManifestFormat.Sha1));
-            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("test"), ManifestFormat.Sha1New));
-            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("test"), ManifestFormat.Sha256));
-            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("test"), ManifestFormat.Sha256New));
+            Assert.Throws<FormatException>(() => Manifest.Load("test".ToStream(), ManifestFormat.Sha1));
+            Assert.Throws<FormatException>(() => Manifest.Load("test".ToStream(), ManifestFormat.Sha1New));
+            Assert.Throws<FormatException>(() => Manifest.Load("test".ToStream(), ManifestFormat.Sha256));
+            Assert.Throws<FormatException>(() => Manifest.Load("test".ToStream(), ManifestFormat.Sha256New));
 
-            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("D /test"), ManifestFormat.Sha1));
-            Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("D /test"), ManifestFormat.Sha1New));
-            Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("D /test"), ManifestFormat.Sha256));
-            Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("D /test"), ManifestFormat.Sha256New));
+            Assert.Throws<FormatException>(() => Manifest.Load("D /test".ToStream(), ManifestFormat.Sha1));
+            Assert.DoesNotThrow(() => Manifest.Load("D /test".ToStream(), ManifestFormat.Sha1New));
+            Assert.DoesNotThrow(() => Manifest.Load("D /test".ToStream(), ManifestFormat.Sha256));
+            Assert.DoesNotThrow(() => Manifest.Load("D /test".ToStream(), ManifestFormat.Sha256New));
 
-            Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 1200000000 128 test"), ManifestFormat.Sha1));
-            Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 1200000000 128 test"), ManifestFormat.Sha1New));
-            Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 1200000000 128 test"), ManifestFormat.Sha256));
-            Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 1200000000 128 test"), ManifestFormat.Sha256New));
+            Assert.DoesNotThrow(() => Manifest.Load("F abc123 1200000000 128 test".ToStream(), ManifestFormat.Sha1));
+            Assert.DoesNotThrow(() => Manifest.Load("F abc123 1200000000 128 test".ToStream(), ManifestFormat.Sha1New));
+            Assert.DoesNotThrow(() => Manifest.Load("F abc123 1200000000 128 test".ToStream(), ManifestFormat.Sha256));
+            Assert.DoesNotThrow(() => Manifest.Load("F abc123 1200000000 128 test".ToStream(), ManifestFormat.Sha256New));
 
-            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 128 test"), ManifestFormat.Sha1));
-            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 128 test"), ManifestFormat.Sha1New));
-            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 128 test"), ManifestFormat.Sha256));
-            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 128 test"), ManifestFormat.Sha256New));
+            Assert.Throws<FormatException>(() => Manifest.Load("F abc123 128 test".ToStream(), ManifestFormat.Sha1));
+            Assert.Throws<FormatException>(() => Manifest.Load("F abc123 128 test".ToStream(), ManifestFormat.Sha1New));
+            Assert.Throws<FormatException>(() => Manifest.Load("F abc123 128 test".ToStream(), ManifestFormat.Sha256));
+            Assert.Throws<FormatException>(() => Manifest.Load("F abc123 128 test".ToStream(), ManifestFormat.Sha256New));
         }
 
         [Test]

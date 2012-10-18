@@ -24,7 +24,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace Common.Streams
+namespace Common.Utils
 {
     /// <summary>
     /// Provides generic helper methods for <see cref="Stream"/>s.
@@ -60,6 +60,21 @@ namespace Common.Streams
         }
 
         /// <summary>
+        /// Copies the content of one stream to another in one go.
+        /// </summary>
+        /// <param name="source">The source stream to copy from.</param>
+        /// <param name="destination">The destination stream to copy to.</param>
+        public static void Copy(Stream source, Stream destination)
+        {
+            #region Sanity checks
+            if (source == null) throw new ArgumentNullException("source");
+            if (destination == null) throw new ArgumentNullException("destination");
+            #endregion
+
+            Copy(source, destination, source.Length == 0 ? source.Position : source.Length);
+        }
+
+        /// <summary>
         /// Compares two streams for bit-wise equality.
         /// </summary>
         /// <remarks>Will try to <see cref="Stream.Seek"/> to the start of both streams.</remarks>
@@ -83,26 +98,11 @@ namespace Common.Streams
         }
 
         /// <summary>
-        /// Copies the content of one stream to another in one go.
-        /// </summary>
-        /// <param name="source">The source stream to copy from.</param>
-        /// <param name="destination">The destination stream to copy to.</param>
-        public static void Copy(Stream source, Stream destination)
-        {
-            #region Sanity checks
-            if (source == null) throw new ArgumentNullException("source");
-            if (destination == null) throw new ArgumentNullException("destination");
-            #endregion
-
-            Copy(source, destination, source.Length == 0 ? source.Position : source.Length);
-        }
-
-        /// <summary>
         /// Creates a new <see cref="MemoryStream"/> and fills it with UTF-8 encoded string data.
         /// </summary>
         /// <param name="data">The data to fill the stream with.</param>
         /// <returns>A filled stream with the position set to zero.</returns>
-        public static Stream CreateFromString(string data)
+        public static Stream ToStream(this string data)
         {
             #region Sanity checks
             if (data == null) throw new ArgumentNullException("data");
@@ -118,7 +118,7 @@ namespace Common.Streams
         /// </summary>
         /// <param name="stream">The stream to read from.</param>
         /// <returns>A entire content of the stream.</returns>
-        public static string ReadToString(Stream stream)
+        public static string ReadToString(this Stream stream)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");

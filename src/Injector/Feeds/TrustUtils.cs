@@ -17,10 +17,10 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Xml;
 using Common;
-using Common.Collections;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Store.Feeds;
 
@@ -53,14 +53,14 @@ namespace ZeroInstall.Injector.Feeds
             var signatures = FeedUtils.GetSignatures(policy.OpenPgp, data);
 
             // Try to find already trusted key
-            var validSignatures = EnumerableUtils.OfType<ValidSignature>(signatures);
+            var validSignatures = signatures.OfType<ValidSignature>();
             // ReSharper disable AccessToModifiedClosure
-            var trustedSignature = EnumerableUtils.First(validSignatures, sig => trustDB.IsTrusted(sig.Fingerprint, domain));
+            var trustedSignature = validSignatures.FirstOrDefault(sig => trustDB.IsTrusted(sig.Fingerprint, domain));
             // ReSharper restore AccessToModifiedClosure
             if (trustedSignature != null) return trustedSignature;
 
             // Try to find valid key and ask user to approve it
-            trustedSignature = EnumerableUtils.First(validSignatures, sig =>
+            trustedSignature = validSignatures.FirstOrDefault(sig =>
             {
                 bool goodVote;
                 var keyInformation = GetKeyInformation(sig.Fingerprint, out goodVote, policy) ?? Resources.NoKeyInfoServerData;
@@ -80,7 +80,7 @@ namespace ZeroInstall.Injector.Feeds
             }
 
             // Download missing key file
-            var missingKey = EnumerableUtils.First(EnumerableUtils.OfType<MissingKeySignature>(signatures));
+            var missingKey = signatures.OfType<MissingKeySignature>().FirstOrDefault();
             if (missingKey != null)
             {
                 var keyUri = new Uri(mirrorUri ?? uri, missingKey.KeyID + ".gpg");

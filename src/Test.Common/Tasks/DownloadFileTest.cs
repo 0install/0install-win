@@ -25,7 +25,7 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using Common.Storage;
-using Common.Streams;
+using Common.Utils;
 using NUnit.Framework;
 
 namespace Common.Tasks
@@ -43,7 +43,7 @@ namespace Common.Tasks
         [SetUp]
         public void SetUp()
         {
-            _server = new MicroServer("file", StreamUtils.CreateFromString(TestFileContent));
+            _server = new MicroServer("file", TestFileContent.ToStream());
 
             _tempFile = new TemporaryFile("unit-tests");
         }

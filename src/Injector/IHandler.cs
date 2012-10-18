@@ -103,7 +103,7 @@ namespace ZeroInstall.Injector
         ///   <para>Only call this between <see cref="ShowSelections"/> and <see cref="CloseProgressUI"/>.</para>
         ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>
         /// </remarks>
-        void AuditSelections(SimpleResult<Selections> solveCallback);
+        void AuditSelections(Func<Selections> solveCallback);
 
         /// <summary>
         /// Displays multi-line text to the user.

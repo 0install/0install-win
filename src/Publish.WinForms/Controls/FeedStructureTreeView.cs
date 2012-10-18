@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 using Common;
 using Common.Undo;
@@ -154,10 +155,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             var elementContainer = data as TContainer;
             if (elementContainer == null) return new TreeNode[0];
 
-            var nodes = new C5.LinkedList<TreeNode>();
-            foreach (var element in getChildren(elementContainer))
-                nodes.Add(BuildTreeNodes(element));
-            return nodes.ToArray();
+            return getChildren(elementContainer).Select(BuildTreeNodes).ToArray();
         }
         #endregion
 

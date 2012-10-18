@@ -45,7 +45,7 @@ namespace ZeroInstall.Commands.Cli
         public static int Main(string[] args)
         {
             // Encode installation path into mutex name to allow instance detection during updates
-            string mutexName = "mutex-" + StringUtils.Hash(Locations.InstallBase, MD5.Create());
+            string mutexName = "mutex-" + Locations.InstallBase.Hash(MD5.Create());
             if (AppMutex.Probe(mutexName + "-update")) return 99;
             AppMutex.Create(mutexName);
 
@@ -62,7 +62,7 @@ namespace ZeroInstall.Commands.Cli
             if (Array.Exists(args, arg => arg == "--gui"))
             {
                 // ToDo: Automatically switch to GTK# on Linux
-                var process = ProcessUtils.LaunchHelperAssembly("0install-win", StringUtils.JoinEscapeArguments(args));
+                var process = ProcessUtils.LaunchHelperAssembly("0install-win", args.JoinEscapeArguments());
                 process.WaitForExit();
                 return process.ExitCode;
             }

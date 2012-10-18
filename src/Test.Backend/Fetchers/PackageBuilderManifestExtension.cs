@@ -39,7 +39,7 @@ namespace ZeroInstall.Fetchers
 
         public override void VisitFolder(FolderEntry entry)
         {
-            ManifestNode node = new ManifestDirectory(FileUtils.ToUnixTime(entry.LastWriteTime), "/" + entry.RelativePath.Replace("\\", "/"));
+            ManifestNode node = new ManifestDirectory(entry.LastWriteTime.ToUnixTime(), "/" + entry.RelativePath.Replace("\\", "/"));
             _writer.WriteLine(ManifestFormat.Sha256.GenerateEntryForNode(node));
             VisitChildren(entry);
         }
@@ -54,8 +54,8 @@ namespace ZeroInstall.Fetchers
                 size = entryData.Length;
                 hash = ManifestFormat.Sha256.DigestContent(entry.Content);
             }
-            if (entry.IsExecutable) node = new ManifestExecutableFile(hash, FileUtils.ToUnixTime(entry.LastWriteTime), size, entry.Name);
-            else node = new ManifestNormalFile(hash, FileUtils.ToUnixTime(entry.LastWriteTime), size, entry.Name);
+            if (entry.IsExecutable) node = new ManifestExecutableFile(hash, entry.LastWriteTime.ToUnixTime(), size, entry.Name);
+            else node = new ManifestNormalFile(hash, entry.LastWriteTime.ToUnixTime(), size, entry.Name);
             _writer.WriteLine(ManifestFormat.Sha256.GenerateEntryForNode(node));
         }
     }

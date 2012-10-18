@@ -232,7 +232,7 @@ namespace Common.Controls
                     else if (string.IsNullOrEmpty(textSearch.Text))
                         AddTreeNode(entry);
                         // Only list nodes that match the filter
-                    else if (StringUtils.Contains(entry.Name, textSearch.Text))
+                    else if (entry.Name.ContainsIgnoreCase(textSearch.Text))
                         AddTreeNode(entry);
                 }
 
@@ -310,10 +310,10 @@ namespace Common.Controls
             foreach (TreeNode node in subTree)
             {
                 // Checked nodes and nodes with matches in the last part of their name (the displayed text) shall always be visible
-                if (node.Checked || StringUtils.Contains(node.Text, textSearch.Text)) node.EnsureVisible();
+                if (node.Checked || node.Text.ContainsIgnoreCase(textSearch.Text)) node.EnsureVisible();
 
                 // Parent nodes with full name match shall be expanded
-                if (fullNameExpand && StringUtils.Contains(node.Name, textSearch.Text))
+                if (fullNameExpand && node.Name.ContainsIgnoreCase(textSearch.Text))
                 {
                     node.EnsureVisible();
                     node.Expand();

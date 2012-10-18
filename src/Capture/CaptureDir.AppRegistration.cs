@@ -181,7 +181,7 @@ namespace ZeroInstall.Capture
                 {
                     // Check if the file type already has the extension and add it if not
                     FileTypeExtension temp;
-                    if (!fileType.Extensions.Find(element => StringUtils.Compare(element.Value, extension), out temp))
+                    if (!fileType.Extensions.Find(element => StringUtils.EqualsIgnoreCase(element.Value, extension), out temp))
                         fileType.Extensions.Add(new FileTypeExtension {Value = extension.ToLower()});
                     break;
                 }

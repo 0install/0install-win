@@ -45,14 +45,14 @@ namespace Common.Utils
 
             string extension = Path.GetExtension(path);
             if (string.IsNullOrEmpty(extension)) return null;
-            if (StringUtils.Compare(extension, ".bmp")) return ImageFormat.Bmp;
-            if (StringUtils.Compare(extension, ".emf")) return ImageFormat.Emf;
-            if (StringUtils.Compare(extension, ".gif")) return ImageFormat.Gif;
-            if (StringUtils.Compare(extension, ".ico")) return ImageFormat.Icon;
-            if (StringUtils.Compare(extension, ".jpg")) return ImageFormat.Jpeg;
-            if (StringUtils.Compare(extension, ".png")) return ImageFormat.Png;
-            if (StringUtils.Compare(extension, ".tif")) return ImageFormat.Tiff;
-            if (StringUtils.Compare(extension, ".wmf")) return ImageFormat.Wmf;
+            if (StringUtils.EqualsIgnoreCase(extension, ".bmp")) return ImageFormat.Bmp;
+            if (StringUtils.EqualsIgnoreCase(extension, ".emf")) return ImageFormat.Emf;
+            if (StringUtils.EqualsIgnoreCase(extension, ".gif")) return ImageFormat.Gif;
+            if (StringUtils.EqualsIgnoreCase(extension, ".ico")) return ImageFormat.Icon;
+            if (StringUtils.EqualsIgnoreCase(extension, ".jpg")) return ImageFormat.Jpeg;
+            if (StringUtils.EqualsIgnoreCase(extension, ".png")) return ImageFormat.Png;
+            if (StringUtils.EqualsIgnoreCase(extension, ".tif")) return ImageFormat.Tiff;
+            if (StringUtils.EqualsIgnoreCase(extension, ".wmf")) return ImageFormat.Wmf;
             return null;
         }
 

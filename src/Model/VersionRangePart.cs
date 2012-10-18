@@ -37,11 +37,11 @@ namespace ZeroInstall.Model
         {
             if (value.Contains(".."))
             {
-                string start = StringUtils.GetLeftPartAtFirstOccurrence(value, "..");
+                string start = value.GetLeftPartAtFirstOccurrence("..");
                 var startVersion = string.IsNullOrEmpty(start) ? null : new ImplementationVersion(start);
 
                 ImplementationVersion endVersion;
-                string end = StringUtils.GetRightPartAtFirstOccurrence(value, "..");
+                string end = value.GetRightPartAtFirstOccurrence("..");
                 if (string.IsNullOrEmpty(end)) endVersion = null;
                 else
                 {

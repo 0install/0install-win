@@ -20,8 +20,8 @@ using System.Collections.Generic;
 using System.IO;
 using Common;
 using Common.Storage;
-using Common.Streams;
 using Common.Tasks;
+using Common.Utils;
 using NUnit.Framework;
 using Moq;
 using ZeroInstall.Fetchers;
@@ -177,7 +177,7 @@ namespace ZeroInstall.Injector.Feeds
             var feed = FeedTest.CreateTestFeed();
             var data = SignFeed(feed, false);
 
-            using (var keyInfoServer = new MicroServer("key/fingerprint", StreamUtils.CreateFromString(KeyInfoResponse)))
+            using (var keyInfoServer = new MicroServer("key/fingerprint", KeyInfoResponse.ToStream()))
             {
                 _policy.Config.KeyInfoServer = keyInfoServer.ServerUri;
                 _policy.Config.AutoApproveKeys = false;
@@ -196,7 +196,7 @@ namespace ZeroInstall.Injector.Feeds
             var feed = FeedTest.CreateTestFeed();
             var data = SignFeed(feed, false);
 
-            using (var keyInfoServer = new MicroServer("key/fingerprint", StreamUtils.CreateFromString(KeyInfoResponse)))
+            using (var keyInfoServer = new MicroServer("key/fingerprint", KeyInfoResponse.ToStream()))
             {
                 _policy.Config.KeyInfoServer = keyInfoServer.ServerUri;
                 _policy.Config.AutoApproveKeys = false;
@@ -219,7 +219,7 @@ namespace ZeroInstall.Injector.Feeds
             var feed = FeedTest.CreateTestFeed();
             var data = SignFeed(feed, false);
 
-            using (var keyInfoServer = new MicroServer("key/fingerprint", StreamUtils.CreateFromString(KeyInfoResponse)))
+            using (var keyInfoServer = new MicroServer("key/fingerprint", KeyInfoResponse.ToStream()))
             {
                 _policy.Config.KeyInfoServer = keyInfoServer.ServerUri;
                 _policy.Config.AutoApproveKeys = true;
@@ -240,7 +240,7 @@ namespace ZeroInstall.Injector.Feeds
             var feed = FeedTest.CreateTestFeed();
             var data = SignFeed(feed, false);
 
-            using (var keyInfoServer = new MicroServer("key/fingerprint", StreamUtils.CreateFromString(KeyInfoResponse)))
+            using (var keyInfoServer = new MicroServer("key/fingerprint", KeyInfoResponse.ToStream()))
             {
                 _policy.Config.KeyInfoServer = keyInfoServer.ServerUri;
                 _policy.Config.AutoApproveKeys = true;
@@ -262,7 +262,7 @@ namespace ZeroInstall.Injector.Feeds
             var feed = FeedTest.CreateTestFeed();
             var data = SignFeed(feed, false);
 
-            using (var keyInfoServer = new MicroServer("key/other_fingerprint", StreamUtils.CreateFromString("invalid"))) // Cause an error 404
+            using (var keyInfoServer = new MicroServer("key/other_fingerprint", "invalid".ToStream())) // Cause an error 404
             {
                 _policy.Config.KeyInfoServer = keyInfoServer.ServerUri;
                 _policy.Config.AutoApproveKeys = true; // Should not do anything if the key info server does not recognize the key

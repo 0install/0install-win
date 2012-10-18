@@ -136,7 +136,7 @@ namespace ZeroInstall.Model
         public bool Equals(Archive other)
         {
             if (other == null) return false;
-            return base.Equals(other) && other.Location == Location && other.Size == Size && other.Extract == Extract && StringUtils.Compare(other.MimeType, MimeType) && other.StartOffset == StartOffset;
+            return base.Equals(other) && other.Location == Location && other.Size == Size && other.Extract == Extract && StringUtils.EqualsIgnoreCase(other.MimeType, MimeType) && other.StartOffset == StartOffset;
         }
 
         /// <inheritdoc/>

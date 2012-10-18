@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using Common;
@@ -64,7 +65,7 @@ namespace ZeroInstall.Fetchers
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            using (var mutex = new Mutex(false, "0install-fetcher-" + _digest.BestDigest))
+            using (var mutex = new Mutex(false, "0install-fetcher-" + _digest.AvailableDigests.First()))
             {
                 // Wait for the mutex and allow cancellation every 100 ms
                 try

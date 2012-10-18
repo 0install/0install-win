@@ -23,7 +23,7 @@
 using System;
 using System.Reflection;
 
-namespace Common.Utils
+namespace Common
 {
     /// <summary>
     /// Provides information about the main application that is using this library (the entry assembly).

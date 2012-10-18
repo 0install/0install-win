@@ -145,7 +145,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="afterSave">Procedure that will be performed after saving the <see cref="Feed"/>.</param>
         /// <returns>The current <see cref="_feedEditing"/></returns>
-        private bool SaveChanges(SimpleResult<bool> afterSave)
+        private bool SaveChanges(Func<bool> afterSave)
         {
             #region Sanity checks
             if (afterSave == null) throw new ArgumentNullException("afterSave");

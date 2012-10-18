@@ -19,8 +19,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
-using Common.Collections;
 using Common.Controls;
 using Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
@@ -154,7 +154,7 @@ namespace ZeroInstall.Central.WinForms
 
             var tile = new AppTile(machineWide, interfaceID, appName, status, IconCache) {Width = _flowLayout.Width};
 
-            if (StringUtils.Contains(appName, _textSearch.Text))
+            if (appName.ContainsIgnoreCase(_textSearch.Text))
             {
                 _appTileQueueHeight += tile.Height;
 
@@ -282,7 +282,7 @@ namespace ZeroInstall.Central.WinForms
             foreach (var tile in _tileDictionary.Values)
             {
                 // Check if new filter changes visibility
-                bool shouldBeVisible = StringUtils.Contains(tile.AppName, _textSearch.Text);
+                bool shouldBeVisible = tile.AppName.ContainsIgnoreCase(_textSearch.Text);
                 if (tile.Visible != shouldBeVisible)
                 {
                     // Update list length
@@ -307,7 +307,7 @@ namespace ZeroInstall.Central.WinForms
         {
             _lastTileLight = false;
 
-            foreach (var tile in EnumerableUtils.OfType<AppTile>(_flowLayout.Controls))
+            foreach (var tile in _flowLayout.Controls.OfType<AppTile>())
             {
                 if (!tile.Visible) continue;
 

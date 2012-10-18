@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Common;
 using Common.Collections;
@@ -141,7 +142,7 @@ namespace ZeroInstall.Store.Management.WinForms
                 buttonVerify.Enabled = buttonRemove.Enabled = false;
 
                 // Update total size
-                textTotalSize.Text = StringUtils.FormatBytes(CultureInfo.CurrentCulture, totalSize);
+                textTotalSize.Text = totalSize.FormatBytes(CultureInfo.CurrentCulture);
             }
                 #region Error handling
             catch (IOException ex)
@@ -182,7 +183,7 @@ namespace ZeroInstall.Store.Management.WinForms
 
             // Update current entry size
             var implementationEntry = _treeView.SelectedEntry as ImplementationNode;
-            textCurrentSize.Text = (implementationEntry != null) ? StringUtils.FormatBytes(CultureInfo.CurrentCulture, implementationEntry.Size) : "-";
+            textCurrentSize.Text = (implementationEntry != null) ? implementationEntry.Size.FormatBytes(CultureInfo.CurrentCulture) : "-";
         }
 
         private void OnCheckedEntriesChanged(object sender, EventArgs e)
@@ -197,13 +198,8 @@ namespace ZeroInstall.Store.Management.WinForms
                 buttonVerify.Enabled = buttonRemove.Enabled = true;
 
                 // Update selected entries size
-                long totalSize = 0;
-                foreach (var entry in _treeView.CheckedEntries)
-                {
-                    var implementationEntry = entry as ImplementationNode;
-                    if (implementationEntry != null) totalSize += implementationEntry.Size;
-                }
-                textCheckedSize.Text = StringUtils.FormatBytes(CultureInfo.CurrentCulture, totalSize);
+                long totalSize = _treeView.CheckedEntries.OfType<ImplementationNode>().Sum(implementationEntry => implementationEntry.Size);
+                textCheckedSize.Text = totalSize.FormatBytes(CultureInfo.CurrentCulture);
             }
         }
 

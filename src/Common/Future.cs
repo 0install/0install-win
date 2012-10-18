@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System;
 using System.Threading;
 
 namespace Common
@@ -31,14 +32,14 @@ namespace Common
     public class Future<T>
     {
         private readonly Thread _thread;
-        private SimpleResult<T> _operation;
+        private Func<T> _operation;
         private T _result;
 
         /// <summary>
         /// Starts an asynchronous operation.
         /// </summary>
         /// <param name="operation">The operation returning a result.</param>
-        public Future(SimpleResult<T> operation)
+        public Future(Func<T> operation)
         {
             _operation = operation;
             _thread = new Thread(() =>

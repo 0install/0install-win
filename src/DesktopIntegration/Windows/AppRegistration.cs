@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using Common.Collections;
 using Common.Tasks;
@@ -104,7 +105,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
                 using (var fileAssocsKey = capabilitiesKey.CreateSubKey(RegSubKeyFileAssocs))
                 {
-                    foreach (var fileType in EnumerableUtils.OfType<Capabilities.FileType>(verbCapabilities))
+                    foreach (var fileType in verbCapabilities.OfType<Capabilities.FileType>())
                     {
                         foreach (var extension in fileType.Extensions)
                         {
@@ -116,7 +117,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
                 using (var urlAssocsKey = capabilitiesKey.CreateSubKey(RegSubKeyUrlAssocs))
                 {
-                    foreach (var urlProtocol in EnumerableUtils.OfType<Capabilities.UrlProtocol>(verbCapabilities))
+                    foreach (var urlProtocol in verbCapabilities.OfType<Capabilities.UrlProtocol>())
                     {
                         foreach (var prefix in urlProtocol.KnownPrefixes)
                             urlAssocsKey.SetValue(prefix.Value, FileType.RegKeyPrefix + urlProtocol.ID);
@@ -125,7 +126,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
                 using (var startMenuKey = capabilitiesKey.CreateSubKey(RegSubKeyStartMenu))
                 {
-                    foreach (var defaultProgram in EnumerableUtils.OfType<Capabilities.DefaultProgram>(verbCapabilities))
+                    foreach (var defaultProgram in verbCapabilities.OfType<Capabilities.DefaultProgram>())
                     {
                         if (!string.IsNullOrEmpty(defaultProgram.ID) && !string.IsNullOrEmpty(defaultProgram.Service))
                             startMenuKey.SetValue(defaultProgram.Service, defaultProgram.ID);

@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using C5;
 using Common;
@@ -489,7 +490,7 @@ namespace ZeroInstall.Publish.WinForms
             SetupCommandHooks((TextBox)textBox, pointer);
 
             // Enable the undo button even before the command has been created
-            textBox.ClearButtonClicked += delegate { _feedEditing.UpdateButtonStatus(StringUtils.CompareEmptyNull(textBox.Text, pointer.Value)); };
+            textBox.ClearButtonClicked += delegate { _feedEditing.UpdateButtonStatus(StringUtils.EqualsEmptyNull(textBox.Text, pointer.Value)); };
         }
 
         /// <summary>
@@ -514,13 +515,13 @@ namespace ZeroInstall.Publish.WinForms
                 if (e.Cancel) return;
 
                 // Ignore irrelevant changes
-                if (StringUtils.CompareEmptyNull(textBox.Text, pointer.Value)) return;
+                if (StringUtils.EqualsEmptyNull(textBox.Text, pointer.Value)) return;
 
                 _feedEditing.ExecuteCommand(new SetValueCommand<string>(pointer, textBox.Text));
             };
 
             // Enable the undo button even before the command has been created
-            textBox.KeyPress += delegate { _feedEditing.UpdateButtonStatus(StringUtils.CompareEmptyNull(textBox.Text, pointer.Value)); };
+            textBox.KeyPress += delegate { _feedEditing.UpdateButtonStatus(StringUtils.EqualsEmptyNull(textBox.Text, pointer.Value)); };
         }
 
         /// <summary>
@@ -556,7 +557,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="checkedListBox">The <see cref="CheckedListBox"/> to track for input and to update.</param>
         /// <param name="getCollection">A delegate that reads the corresponding value from the collection.</param>
-        private void SetupCommandHooks(CheckedListBox checkedListBox, SimpleResult<System.Collections.Generic.ICollection<string>> getCollection)
+        private void SetupCommandHooks(CheckedListBox checkedListBox, Func<System.Collections.Generic.ICollection<string>> getCollection)
         {
             ItemCheckEventHandler itemCheckEventHandler = (sender, e) =>
             {
@@ -610,7 +611,7 @@ namespace ZeroInstall.Publish.WinForms
             };
         }
 
-        private void SetupCommandHooks(LocalizableTextControl localizableTextControl, SimpleResult<LocalizableStringCollection> getCollection)
+        private void SetupCommandHooks(LocalizableTextControl localizableTextControl, Func<LocalizableStringCollection> getCollection)
         {
             ItemsAddedHandler<LocalizableString> itemsAddedHandler = (sender, itemCountEventArgs) => _feedEditing.ExecuteCommand(new AddToCollection<LocalizableString>(getCollection(), itemCountEventArgs.Item));
             localizableTextControl.Values.ItemsAdded += itemsAddedHandler;
@@ -631,7 +632,7 @@ namespace ZeroInstall.Publish.WinForms
             };
         }
 
-        private void SetupCommandHooks(IconManagementControl iconManager, SimpleResult<System.Collections.Generic.ICollection<Icon>> getCollection)
+        private void SetupCommandHooks(IconManagementControl iconManager, Func<System.Collections.Generic.ICollection<Icon>> getCollection)
         {
             ItemsAddedHandler<Icon> itemsAdded = (sender, eventArgs) => _feedEditing.ExecuteCommand(new AddToCollection<Icon>(getCollection(), eventArgs.Item));
             ItemsRemovedHandler<Icon> itemsRemoved = (sender, eventArgs) => _feedEditing.ExecuteCommand(new RemoveFromCollection<Icon>(getCollection(), eventArgs.Item));
@@ -873,10 +874,7 @@ namespace ZeroInstall.Publish.WinForms
             var elementContainer = data as TContainer;
             if (elementContainer == null) return new TreeNode[0];
 
-            var nodes = new C5.LinkedList<TreeNode>();
-            foreach (var element in getChildren(elementContainer))
-                nodes.Add(BuildTreeNodes(element));
-            return nodes.ToArray();
+            return getChildren(elementContainer).Select(BuildTreeNodes).ToArray();
         }
         #endregion
 
@@ -894,8 +892,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             var feedReference = feedReferenceControl.FeedReference.Clone();
             if (string.IsNullOrEmpty(feedReference.Source)) return;
-            foreach (FeedReference feedReferenceFromListBox in listBoxExternalFeeds.Items)
-                if (feedReference.Equals(feedReferenceFromListBox)) return;
+            if (listBoxExternalFeeds.Items.Cast<FeedReference>().Any(feedReference.Equals)) return;
             listBoxExternalFeeds.Items.Add(feedReference);
         }
 

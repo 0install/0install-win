@@ -19,9 +19,9 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 using Common;
-using Common.Collections;
 using Common.Storage;
 using ZeroInstall.Model;
 
@@ -103,7 +103,7 @@ namespace ZeroInstall.Injector.Feeds
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             #endregion
 
-            var path = EnumerableUtils.First(Locations.GetLoadConfigPaths("0install.net", true, "injector", "interfaces", ModelUtils.PrettyEscape(interfaceID)));
+            var path = Locations.GetLoadConfigPaths("0install.net", true, "injector", "interfaces", ModelUtils.PrettyEscape(interfaceID)).FirstOrDefault();
             if (string.IsNullOrEmpty(path)) return new InterfacePreferences();
 
             return XmlStorage.Load<InterfacePreferences>(path);

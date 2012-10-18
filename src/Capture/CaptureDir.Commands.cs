@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Common;
 using Common.Utils;
 using Microsoft.Win32;
@@ -67,17 +68,17 @@ namespace ZeroInstall.Capture
             installationDir = Path.GetFullPath(installationDir);
 
             bool isFirstExe = true;
-            var commands = new C5.LinkedList<Command>();
+            var commands = new List<Command>();
             foreach (string absolutePath in Directory.GetFiles(installationDir, "*.exe", SearchOption.AllDirectories))
             {
                 // Ignore uninstallers
-                if (StringUtils.Contains(absolutePath, "uninstall") || StringUtils.Contains(absolutePath, "unins0")) continue;
+                if (absolutePath.ContainsIgnoreCase("uninstall") || absolutePath.ContainsIgnoreCase("unins0")) continue;
 
                 // Cut away installation directory plus trailing slash
                 string relativePath = absolutePath.Substring(installationDir.Length + 1);
 
                 // Assume first detected EXE is the main entry point if not specified explicitly
-                string name = (isFirstExe && (mainExe == null)) || StringUtils.Compare(relativePath, mainExe)
+                string name = (isFirstExe && (mainExe == null)) || StringUtils.EqualsIgnoreCase(relativePath, mainExe)
                     ? Command.NameRun
                     : relativePath.Replace(".exe", "").Replace(Path.DirectorySeparatorChar, '.');
                 commands.Add(new Command {Name = name, Path = relativePath.Replace(Path.DirectorySeparatorChar, '/')});
@@ -99,13 +100,8 @@ namespace ZeroInstall.Capture
             if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
-            var verbs = new List<Verb>();
-            foreach (string verbName in RegUtils.GetSubKeyNames(typeKey, "shell"))
-            {
-                var verb = GetVerb(typeKey, commandMapper, verbName);
-                if (verb != null) verbs.Add(verb);
-            }
-            return verbs;
+            return RegUtils.GetSubKeyNames(typeKey, "shell").
+                Select(verbName => GetVerb(typeKey, commandMapper, verbName)).Where(verb => verb != null);
         }
 
         /// <summary>
