@@ -54,6 +54,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Core" Condition=" '$(OS)' != 'Windows_NT' " />
     <Reference Include="LinqBridge" Condition=" '$(OS)' == 'Windows_NT' ">
       <HintPath>..\..\lib\LinqBridge.dll</HintPath>
     </Reference>

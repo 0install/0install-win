@@ -55,6 +55,7 @@
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Core" Condition=" '$(OS)' != 'Windows_NT' " />
     <Reference Include="LinqBridge" Condition=" '$(OS)' == 'Windows_NT' ">
       <HintPath>..\..\lib\LinqBridge.dll</HintPath>
     </Reference>
