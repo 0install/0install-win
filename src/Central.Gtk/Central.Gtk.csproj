@@ -13,7 +13,8 @@
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion Condition=" '$(OS)' == 'Windows_NT' ">v2.0</TargetFrameworkVersion>
+	<TargetFrameworkVersion Condition=" '$(OS)' != 'Windows_NT' ">v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -71,7 +72,7 @@
     <Reference Include="C5, Version=1.1.1.0, Culture=neutral, PublicKeyToken=06a1b38866503b69">
       <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>
-    <Reference Include="LinqBridge">
+    <Reference Include="LinqBridge" Condition=" '$(OS)' == 'Windows_NT' ">
       <HintPath>..\..\lib\LinqBridge.dll</HintPath>
     </Reference>
     <Reference Include="NDesk.Options, Version=1.0.0.0, Culture=neutral, PublicKeyToken=454c612dc368e6ed">

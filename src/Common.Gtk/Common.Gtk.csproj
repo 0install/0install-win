@@ -13,7 +13,8 @@
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion Condition=" '$(OS)' == 'Windows_NT' ">v2.0</TargetFrameworkVersion>
+	<TargetFrameworkVersion Condition=" '$(OS)' != 'Windows_NT' ">v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,7 +47,7 @@
     <Reference Include="gtk-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="LinqBridge">
+    <Reference Include="LinqBridge" Condition=" '$(OS)' == 'Windows_NT' ">
       <HintPath>..\..\lib\LinqBridge.dll</HintPath>
     </Reference>
   </ItemGroup>
