@@ -13,8 +13,7 @@
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion Condition=" '$(OS)' != 'Windows_NT' ">v3.5</TargetFrameworkVersion>
-    <TargetFrameworkVersion Condition=" '$(OS)' == 'Windows_NT' ">v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
