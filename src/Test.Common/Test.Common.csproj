@@ -67,7 +67,6 @@
     <Compile Include="Controls\TrackingLabelTest.cs" />
     <Compile Include="Controls\TrackingProgressBarTest.cs" />
     <Compile Include="MicroServer.cs" />
-    <Compile Include="Storage\LocationsRedirect.cs" />
     <Compile Include="Tasks\DownloadFileTest.cs" />
     <Compile Include="Tasks\ForEachTaskTest.cs" />
     <Compile Include="Tasks\MockTask.cs" />
@@ -84,6 +83,7 @@
     <Compile Include="Utils\StreamUtilsTest.cs" />
     <Compile Include="Streams\OffsetStreamTest.cs" />
     <Compile Include="Streams\CircularBufferStreamTest.cs" />
+    <Compile Include="Storage\LocationsRedirect.cs" />
     <Compile Include="Storage\XmlStorageTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

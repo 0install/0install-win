@@ -101,13 +101,29 @@ namespace Common.Utils
             return value.Count(t => t == token);
         }
 
+        /// <summary>
+        /// Determines whether the beginning of this string matches a specific value case-insensitive comparison.
+        /// </summary>
         public static bool StartsWithIgnoreCase(this string text, string value)
         {
+            #region Sanity checks
+            if (text == null) throw new ArgumentNullException("text");
+            if (value == null) throw new ArgumentNullException("value");
+            #endregion
+
             return text.StartsWith(value, StringComparison.OrdinalIgnoreCase);
         }
 
+        /// <summary>
+        /// Determines whether the end of this string matches a specific value case-insensitive comparison.
+        /// </summary>
         public static bool EndsWithIgnoreCase(this string text, string value)
         {
+            #region Sanity checks
+            if (text == null) throw new ArgumentNullException("text");
+            if (value == null) throw new ArgumentNullException("value");
+            #endregion
+
             return text.EndsWith(value, StringComparison.OrdinalIgnoreCase);
         }
         #endregion

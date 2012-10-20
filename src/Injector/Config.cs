@@ -511,8 +511,13 @@ namespace ZeroInstall.Injector
         {
             unchecked
             {
-                return _metaData.Where(property => property.Value.Value != null).
-                    Aggregate(397, (current, property) => (current * 397) ^ property.Value.Value.GetHashCode());
+                // ReSharper disable LoopCanBeConvertedToQuery
+                int result = 397;
+                foreach (var property in _metaData)
+
+                    if (property.Value.Value != null) result = (result * 397) ^ property.Value.Value.GetHashCode();
+                return result;
+                // ReSharper restore LoopCanBeConvertedToQuery
             }
         }
         #endregion

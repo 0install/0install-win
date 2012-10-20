@@ -41,7 +41,6 @@ namespace ZeroInstall.Commands.WinForms.CapabilityModels
         /// <summary>
         /// Indicates whether the <see cref="CapabilityModel.Capability" /> shall be used or not.
         /// </summary>
-        // ReSharper disable MemberCanBePrivate.Global
         public bool Use { get; set; }
 
         /// <summary>
