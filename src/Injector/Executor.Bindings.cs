@@ -23,7 +23,6 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using Common.Storage;
-using Common.Streams;
 using Common.Utils;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
@@ -173,11 +172,11 @@ namespace ZeroInstall.Injector
             var environmentVariables = startInfo.EnvironmentVariables;
 
             string newValue;
-            if (!string.IsNullOrEmpty(binding.Value) && !string.IsNullOrEmpty(binding.Insert))
+            if (binding.Value != null && binding.Insert != null)
             { // Conflict
                 throw new CommandException(Resources.EnvironmentBindingValueInvalid);
             }
-            else if (!string.IsNullOrEmpty(binding.Value))
+            else if (binding.Value != null)
             { // Static value
                 newValue = binding.Value;
             }
