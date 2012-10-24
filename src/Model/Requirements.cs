@@ -16,27 +16,33 @@
  */
 
 using System;
-using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Text;
+using System.Xml.Serialization;
+using Common.Collections;
 using Common.Utils;
-using ZeroInstall.Model;
 
-namespace ZeroInstall.Injector.Solver
+namespace ZeroInstall.Model
 {
     /// <summary>
     /// A set of requirements/restrictions imposed by the user on the implementation selection process.
     /// </summary>
+    /// <remarks>This is used as input for the solver.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [XmlRoot("requirements", Namespace = Feed.XmlNamespace)]
+    [XmlType("requirements", Namespace = Feed.XmlNamespace)]
     public class Requirements : ICloneable, IEquatable<Requirements>
     {
+        #region Properites
         private string _interfaceID;
 
         /// <summary>
         /// The URI or local path (must be absolute) to the interface to solve the dependencies for.
         /// </summary>
         /// <exception cref="InvalidInterfaceIDException">Thrown when trying to set an invalid interface ID.</exception>
+        [Description("The URI or local path (must be absolute) to the interface to solve the dependencies for.")]
+        [XmlAttribute("interface")]
         public string InterfaceID
         {
             get { return _interfaceID; }
@@ -51,31 +57,62 @@ namespace ZeroInstall.Injector.Solver
         /// The name of the command in the implementation to execute.
         /// </summary>
         /// <remarks>Will default to <see cref="Command.NameRun"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.</remarks>
+        [Description("The name of the command in the implementation to execute.")]
+        [XmlAttribute("command")]
         public string CommandName { get; set; }
 
         /// <summary>
         /// The architecture to find executables for. Find for the current system if left at default value.
         /// </summary>
+        [Description("The architecture to find executables for. Find for the current system if left at default value.")]
+        [XmlIgnore]
         public Architecture Architecture { get; set; }
 
-        private readonly List<CultureInfo> _languages = new List<CultureInfo>();
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="Architecture"/>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [XmlAttribute("arch"), DefaultValue("*-*")]
+        public string ArchitectureString { get { return Architecture.ToString(); } set { Architecture = new Architecture(value); } }
+
+        // Order is always alphabetical, duplicate entries are not allowed
+        private readonly LanguageCollection _languages = new LanguageCollection();
 
         /// <summary>
-        /// The preferred languages for implementations in decreasing order. Use system locale if empty.
+        /// The natural language(s) to look for.
         /// </summary>
-        public ICollection<CultureInfo> Languages { get { return _languages; } }
+        /// <example>For example, the value "en_GB fr" would be search for British English or French.</example>
+        [Description("The natural language(s) to look for.")]
+        [XmlIgnore]
+        public LanguageCollection Languages { get { return _languages; } }
+
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="Architecture"/>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [XmlAttribute("langs"), DefaultValue("")]
+        public string LanguagesString { get { return _languages.ToString(); } set { _languages.FromString(value); } }
 
         /// <summary>
         /// The range of versions of the implementation that can be chosen. <see langword="null"/> for no limit.
         /// </summary>
+        [Description("The range of versions of the implementation that can be chosen. null for no limit.")]
+        [XmlIgnore]
         public VersionRange Versions { get; set; }
 
-        private readonly Dictionary<string, VersionRange> _versionsFor = new Dictionary<string, VersionRange>();
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="Versions"/>
+        [XmlAttribute("version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string VersionsString { get { return (Versions == null) ? null : Versions.ToString(); } set { Versions = string.IsNullOrEmpty(value) ? null : new VersionRange(value); } }
+
+        // Preserve order
+        private readonly C5.ArrayList<VersionFor> _versionsFor = new C5.ArrayList<VersionFor>();
 
         /// <summary>
         /// The ranges of versions of specific sub-implementations that can be chosen.
         /// </summary>
-        public IDictionary<string, VersionRange> VersionsFor { get { return _versionsFor; } }
+        [Description("The ranges of versions of specific sub-implementations that can be chosen.")]
+        [XmlElement("version-for")]
+        public C5.ArrayList<VersionFor> VersionsFor { get { return _versionsFor; } }
+        #endregion
 
         //--------------------//
 
@@ -87,7 +124,8 @@ namespace ZeroInstall.Injector.Solver
         public Requirements Clone()
         {
             var requirements = new Requirements {InterfaceID = InterfaceID, CommandName = CommandName, Architecture = Architecture, Versions = Versions};
-            requirements._languages.AddRange(_languages);
+            requirements._languages.AddAll(_languages);
+            requirements._versionsFor.AddAll(_versionsFor);
 
             return requirements;
         }
@@ -122,9 +160,10 @@ namespace ZeroInstall.Injector.Solver
                 if (Architecture.OS != OS.All) builder.Append("--os=" + Architecture.OS.ConvertToString().EscapeArgument() + " ");
                 if (Architecture.Cpu != Cpu.All) builder.Append("--cpu=" + Architecture.Cpu.ConvertToString().EscapeArgument() + " ");
             }
+            //builder.Append("--languages=" + _languages.ToString().EscapeArgument() + " ");
             if (Versions != null) builder.Append("--version=" + Versions.ToString().EscapeArgument() + " ");
             foreach (var pair in VersionsFor)
-                builder.Append("--version-for=" + pair.Key.EscapeArgument() + " " + pair.Value.ToString().EscapeArgument() + " ");
+                builder.Append("--version-for=" + pair.InterfaceID.EscapeArgument() + " " + pair.Versions.ToString().EscapeArgument() + " ");
             builder.Append(InterfaceID.EscapeArgument());
 
             return builder.ToString();
@@ -139,8 +178,9 @@ namespace ZeroInstall.Injector.Solver
             if (InterfaceID != other.InterfaceID) return false;
             if (CommandName != other.CommandName) return false;
             if (Architecture != other.Architecture) return false;
-            // ToDo: if (!_languages.SequencedEquals(other._languages)) return false;
+            if (!_languages.SequencedEquals(other._languages)) return false;
             if (Versions != other.Versions) return false;
+            if (!_versionsFor.SequencedEquals(other._versionsFor)) return false;
             return true;
         }
 
@@ -160,8 +200,9 @@ namespace ZeroInstall.Injector.Solver
                 int result = (InterfaceID != null ? InterfaceID.GetHashCode() : 0);
                 result = (result * 397) ^ (CommandName != null ? CommandName.GetHashCode() : 0);
                 result = (result * 397) ^ Architecture.GetHashCode();
-                // ToDo: result = (result * 397) ^ _languages.GetSequencedHashCode();
+                result = (result * 397) ^ _languages.GetSequencedHashCode();
                 result = (result * 397) ^ (Versions != null ? Versions.GetHashCode() : 0);
+                result = (result * 397) ^ _versionsFor.GetSequencedHashCode();
                 return result;
             }
         }

@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Xml.Serialization;
 using Common.Collections;
 using Common.Utils;
@@ -38,9 +39,9 @@ namespace ZeroInstall.DesktopIntegration
     {
         #region Properties
         /// <summary>
-        /// The URI or local path of the interface defining the application.
+        /// The URI or local path of the interface defining the application or the pet name if <see cref="Requirements"/> is set.
         /// </summary>
-        [Description("The URI or local path of the interface defining the application.")]
+        [Description("The URI or local path of the interface defining the application or the pet name if Requirements is set.")]
         [XmlAttribute("interface")]
         public string InterfaceID { get; set; }
 
@@ -61,6 +62,13 @@ namespace ZeroInstall.DesktopIntegration
         [Description("Set to true to automatically download the newest available version of the application as a regular background task. Update checks will still be performed when the application is launched when set to false.")]
         [XmlAttribute("auto-update"), DefaultValue(true)]
         public bool AutoUpdate { get { return _autoUpdate; } set { _autoUpdate = value; } }
+
+        /// <summary>
+        /// A set of requirements/restrictions imposed by the user on the implementation selection process. May be <see langword="null"/> if <see cref="InterfaceID"/> is not a pet name.
+        /// </summary>
+        [Description("A set of requirements/restrictions imposed by the user on the implementation selection process. May be null if InterfaceID is not a pet name.")]
+        [XmlElement("requirements", Namespace = Feed.XmlNamespace)]
+        public Requirements Requirements { get; set; }
 
         // Preserve order
         private readonly C5.LinkedList<CapabilityList> _capabilityLists = new C5.LinkedList<CapabilityList>();
@@ -109,15 +117,10 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="KeyNotFoundException">Thrown if no capability matching <paramref name="id"/> and <typeparamref name="T"/> was found.</exception>
         public T GetCapability<T>(string id) where T : Capability
         {
-            foreach (var capabilityList in _capabilityLists)
-            {
-                if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
-                foreach (var capability in capabilityList.Entries)
-                {
-                    var specificCapability = capability as T;
-                    if (specificCapability != null && specificCapability.ID == id) return specificCapability;
-                }
-            }
+            foreach (var specificCapability in _capabilityLists.
+                Where(capabilityList => capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)).
+                SelectMany(capabilityList => capabilityList.Entries.OfType<T>().Where(specificCapability => specificCapability.ID == id)))
+                return specificCapability;
             throw new KeyNotFoundException(string.Format(Resources.UnableToFindTypeID, typeof(T).Name, id));
         }
         #endregion
@@ -142,6 +145,7 @@ namespace ZeroInstall.DesktopIntegration
         public AppEntry Clone()
         {
             var appList = new AppEntry {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name, InterfaceID = InterfaceID};
+            if (Requirements != null) appList.Requirements = Requirements.Clone();
             if (AccessPoints != null) appList.AccessPoints = AccessPoints.Clone();
             foreach (var list in CapabilityLists) appList.CapabilityLists.Add(list.Clone());
 
@@ -160,8 +164,9 @@ namespace ZeroInstall.DesktopIntegration
         {
             if (other == null) return false;
             if (!base.Equals(other)) return false;
-            if (Name != other.Name) return false;
             if (!ModelUtils.IDEquals(InterfaceID, other.InterfaceID)) return false;
+            if (Name != other.Name) return false;
+            if (!Equals(Requirements, other.Requirements)) return false;
             if (!CapabilityLists.SequencedEquals(other.CapabilityLists)) return false;
             if (!Equals(AccessPoints, other.AccessPoints)) return false;
             return true;
@@ -181,9 +186,10 @@ namespace ZeroInstall.DesktopIntegration
             unchecked
             {
                 int result = base.GetHashCode();
-                if (Name != null) result = (result * 397) ^ Name.GetHashCode();
                 // Use case-insensitive hashing in case a business logic rule causes case-insensitive comparison of IDs
                 if (InterfaceID != null) result = (result * 397) ^ StringComparer.OrdinalIgnoreCase.GetHashCode(InterfaceID);
+                if (Name != null) result = (result * 397) ^ Name.GetHashCode();
+                if (Requirements != null) result = (result * 397) ^ Requirements.GetHashCode();
                 result = (result * 397) ^ CapabilityLists.GetSequencedHashCode();
                 if (AccessPoints != null) result = (result * 397) ^ AccessPoints.GetHashCode();
                 return result;

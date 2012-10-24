@@ -17,9 +17,8 @@
 
 using System.Globalization;
 using NUnit.Framework;
-using ZeroInstall.Model;
 
-namespace ZeroInstall.Injector.Solver
+namespace ZeroInstall.Model
 {
     /// <summary>
     /// Contains test methods for <see cref="Requirements"/>.
@@ -35,8 +34,12 @@ namespace ZeroInstall.Injector.Solver
         {
             return new Requirements
             {
-                InterfaceID = "http://0install.de/feeds/test/test1.xml", CommandName = "command name", Architecture = new Architecture(OS.Windows, Cpu.I586),
-                Versions = new VersionRange("1.0..!2.0")
+                InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                CommandName = "command",
+                Architecture = new Architecture(OS.Windows, Cpu.I586),
+                //Languages = {"de-DE", "en-US"},
+                Versions = new VersionRange("1.0..!2.0"),
+                VersionsFor = {new VersionFor {InterfaceID = "http://0install.de/feeds/test/test2.xml", Versions = new VersionRange("2.0..!3.0")}}
             };
         }
         #endregion
@@ -58,8 +61,7 @@ namespace ZeroInstall.Injector.Solver
         public void TestClone()
         {
             var requirements1 = CreateTestRequirements();
-            requirements1.Languages.Add(new CultureInfo("de"));
-            requirements1.Languages.Add(new CultureInfo("en"));
+            requirements1.Languages.Add(new CultureInfo("fr"));
             var requirements2 = requirements1.Clone();
 
             // Ensure data stayed the same
@@ -71,7 +73,9 @@ namespace ZeroInstall.Injector.Solver
         [Test(Description = "Ensures that the class can be serialized to a command-line argument string")]
         public void TestToCommandLineArgs()
         {
-            Assert.AreEqual("--command=\"command name\" --os=Windows --cpu=i586 --version=1.0..!2.0 http://0install.de/feeds/test/test1.xml", CreateTestRequirements().ToCommandLineArgs());
+            Assert.AreEqual(
+                "--command=command --os=Windows --cpu=i586 --version=1.0..!2.0 --version-for=http://0install.de/feeds/test/test2.xml 2.0..!3.0 http://0install.de/feeds/test/test1.xml",
+                CreateTestRequirements().Clone().ToCommandLineArgs());
         }
     }
 }

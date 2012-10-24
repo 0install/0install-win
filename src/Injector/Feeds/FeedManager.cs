@@ -227,8 +227,6 @@ namespace ZeroInstall.Injector.Feeds
             preferences.SaveFor(uri.ToString());
         }
 
-        
-
         /// <summary>
         /// Detects attacks such as feed substitution or replay attacks.
         /// </summary>

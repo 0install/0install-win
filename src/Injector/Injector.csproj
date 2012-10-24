@@ -90,7 +90,6 @@
     <None Include="runenv.cs" />
     <Compile Include="SilentHandler.cs" />
     <Compile Include="Solver\FallbackSolver.cs" />
-    <Compile Include="Solver\Requirements.cs" />
     <Compile Include="Solver\SelectionCandidate.cs" />
     <Compile Include="Solver\Selections.cs" />
     <Compile Include="Solver\ImplementationSelection.cs" />

@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.Model;
 using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration
@@ -41,8 +42,9 @@ namespace ZeroInstall.DesktopIntegration
                 {
                     new AppEntry
                     {
-                        InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                        InterfaceID = "pet-name",
                         AutoUpdate = true,
+                        Requirements = new Requirements {InterfaceID = "http://0install.de/feeds/test/test1.xml"},
                         CapabilityLists = {Capabilities.CapabilityListTest.CreateTestCapabilityList()}
                     }
                 }
@@ -134,8 +136,8 @@ namespace ZeroInstall.DesktopIntegration
         public void TestGetEntry()
         {
             var appList = CreateTestAppListWithAPs();
-            Assert.AreEqual(appList.Entries.First, appList.GetEntry("http://0install.de/feeds/test/test1.xml"));
-            Assert.Throws<KeyNotFoundException>(() => appList.GetEntry("http://0install.de/feeds/test/test2.xml"));
+            Assert.AreEqual(appList.Entries.First, appList["http://0install.de/feeds/test/test1.xml"]);
+            Assert.Throws<KeyNotFoundException>(() => { var ferz = appList["http://0install.de/feeds/test/test2.xml"]; });
         }
 
         [Test(Description = "Ensures that the class can be correctly cloned without AccessPoints.")]

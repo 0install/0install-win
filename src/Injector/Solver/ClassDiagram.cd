@@ -34,36 +34,27 @@
   <Class Name="ZeroInstall.Injector.Solver.ImplementationSelection" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="5.25" Y="2" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAACAAAAEACEoAAQAAAABRACAJAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAACAAAAEACEpAAQAAAABQACIJAAQAAAACAAABA=</HashCode>
       <FileName>Solver\ImplementationSelection.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="ZeroInstall.Injector.Solver.Requirements" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="1.5" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAACCAIAAAwEhAAgQEAAAAAAAIAAAAAAAgAAABA=</HashCode>
-      <FileName>Solver\Requirements.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Injector.Solver.SelectionCandidate" Collapsed="true">
     <Position X="7.5" Y="1" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>IAggAACAEAIAAAAAAAAAAACAAACAAAMAEAAAAAAAAAA=</HashCode>
+      <HashCode>IAAgAAAAEAIAAAAEAAAAAQCAAACAAAEAEEAAAACAAAA=</HashCode>
       <FileName>Solver\SelectionCandidate.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Injector.Solver.Selections" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="5.25" Y="1" Width="2" />
     <TypeIdentifier>
-      <HashCode>AQAAwIgCgAAQAQAAmAAABQAAAAAAAIAAAAAAAQAAABA=</HashCode>
+      <HashCode>AQAAwIACgAAQAQAAGAAAQQAAAAAAAAIAAAAAAQAAAAA=</HashCode>
       <FileName>Solver\Selections.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Implementations" />
     </ShowAsCollectionAssociation>
-    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Injector.Solver.SolverException" Collapsed="true">
     <Position X="7.5" Y="2" Width="1.5" />
@@ -81,6 +72,11 @@
     <ShowAsAssociation>
       <Property Name="Default" />
     </ShowAsAssociation>
+  </Class>
+  <Class Name="ZeroInstall.Model.Requirements" Collapsed="true">
+    <Position X="1.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Interface Name="ZeroInstall.Injector.Solver.IExternalSolverControl" Collapsed="true">
     <Position X="1.75" Y="3" Width="2.25" />

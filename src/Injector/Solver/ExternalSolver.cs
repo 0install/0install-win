@@ -20,6 +20,7 @@ using System.IO;
 using Common;
 using Common.Utils;
 using ZeroInstall.Injector.Properties;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Injector.Solver
 {

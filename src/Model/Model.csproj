@@ -83,6 +83,7 @@
     <Compile Include="Binding.cs" />
     <Compile Include="Constraint.cs" />
     <Compile Include="Dependency.cs" />
+    <Compile Include="Requirements.cs" />
     <Compile Include="VersionDottedList.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="EnvironmentBinding.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="RenameStep.cs" />
     <Compile Include="Restriction.cs" />
     <Compile Include="Runner.cs" />
+    <Compile Include="VersionFor.cs" />
     <Compile Include="VersionPart.cs" />
     <Compile Include="Feed.cs" />
     <Compile Include="Icon.cs" />

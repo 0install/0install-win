@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Injector.Solver
 {

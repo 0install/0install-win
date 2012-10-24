@@ -226,7 +226,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Generates a localized instruction string describing multiple selectable values.
         /// </summary>
-        protected static string SupportedValues<T>(T[] values)
+        internal static string SupportedValues<T>(T[] values)
         {
             return string.Format(Resources.SupportedValues,
                 string.Join(", ", Array.ConvertAll(values, AttributeUtils.ConvertToString)));

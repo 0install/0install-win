@@ -78,15 +78,18 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="interfaceID">The <see cref="AppEntry.InterfaceID"/> to look for.</param>
         /// <returns>The first matching <see cref="AppEntry"/> ; <see langword="null"/> if no match was found.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if no entry matching the interface ID was found.</exception>
-        public AppEntry GetEntry(string interfaceID)
+        public AppEntry this[string interfaceID]
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
-            #endregion
+            get
+            {
+                #region Sanity checks
+                if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+                #endregion
 
-            AppEntry appEntry;
-            if (!Entries.Find(entry => ModelUtils.IDEquals(entry.InterfaceID, interfaceID), out appEntry)) throw new KeyNotFoundException(string.Format(Resources.AppNotInList, interfaceID));
-            return appEntry;
+                AppEntry appEntry;
+                if (!Entries.Find(entry => ModelUtils.IDEquals(entry.InterfaceID, interfaceID), out appEntry)) throw new KeyNotFoundException(string.Format(Resources.AppNotInList, interfaceID));
+                return appEntry;
+            }
         }
         #endregion
 

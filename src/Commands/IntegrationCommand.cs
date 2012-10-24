@@ -72,7 +72,7 @@ namespace ZeroInstall.Commands
             try
             {
                 // Try to find an existing AppEntry
-                return integrationManager.AppList.GetEntry(interfaceID);
+                return integrationManager.AppList[interfaceID];
             }
             catch (KeyNotFoundException)
             {
@@ -87,7 +87,7 @@ namespace ZeroInstall.Commands
                     if (ex.GetType() != typeof(InvalidOperationException)) throw;
 
                     // Find the existing AppEntry after interface ID replacement
-                    return integrationManager.AppList.GetEntry(interfaceID);
+                    return integrationManager.AppList[interfaceID];
                 }
             }
         }

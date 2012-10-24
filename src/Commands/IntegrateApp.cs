@@ -119,7 +119,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         private void RemoveOnly(ICategoryIntegrationManager integrationManager, string interfaceID)
         {
-            integrationManager.RemoveAccessPointCategories(integrationManager.AppList.GetEntry(interfaceID), _removeCategories);
+            integrationManager.RemoveAccessPointCategories(integrationManager.AppList[interfaceID], _removeCategories);
         }
 
         /// <summary>

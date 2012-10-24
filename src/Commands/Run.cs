@@ -20,7 +20,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using Common;
-using Common.Collections;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;

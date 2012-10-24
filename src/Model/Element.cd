@@ -123,7 +123,7 @@
       <Method Name="GetHashCode" Hidden="true" />
       <Method Name="ICloneable.Clone" Hidden="true" />
       <Property Name="ReleasedString" Hidden="true" />
-      <Property Name="VersionString" Hidden="true" />
+      <Property Name="VersionsString" Hidden="true" />
     </Members>
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />

@@ -106,6 +106,7 @@
     <Compile Include="Commands\FrontendCommandTest.cs" />
     <Compile Include="Commands\DownloadTest.cs" />
     <Compile Include="Commands\ListTest.cs" />
+    <Compile Include="Commands\RequirementsUtilsTest.cs" />
     <Compile Include="Commands\SelectionTest.cs" />
     <Compile Include="Commands\UpdateTest.cs" />
     <Compile Include="Store\Service\SecureStoreTest.cs" />

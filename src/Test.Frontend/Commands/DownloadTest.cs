@@ -54,7 +54,7 @@ namespace ZeroInstall.Commands
             var refreshPolicy = Policy.Clone();
             refreshPolicy.FeedManager.Refresh = true;
 
-            var args = new[] {"http://0install.de/feeds/test/test1.xml", "--command=command name", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0"};
+            var args = new[] {"http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0" };
             Command.Parse(args);
 
             bool stale;

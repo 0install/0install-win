@@ -59,7 +59,7 @@ namespace ZeroInstall.Commands
 
             try
             {
-                integrationManager.RemoveApp(integrationManager.AppList.GetEntry(interfaceID));
+                integrationManager.RemoveApp(integrationManager.AppList[interfaceID]);
             }
             catch (KeyNotFoundException ex)
             {

@@ -59,18 +59,12 @@ namespace ZeroInstall.Model
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Versions"/>
         [XmlAttribute("version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string VersionString { get { return (Versions == null) ? null : Versions.ToString(); } set { Versions = string.IsNullOrEmpty(value) ? null : new VersionRange(value); } }
+        public string VersionsString { get { return (Versions == null) ? null : Versions.ToString(); } set { Versions = string.IsNullOrEmpty(value) ? null : new VersionRange(value); } }
 
         /// <summary>
         /// A merged view of <see cref="Constraints"/> and <see cref="Versions"/>.
         /// </summary>
-        public VersionRange EffectiveVersions
-        {
-            get
-            {
-                return Constraints.Aggregate(Versions ?? new VersionRange(), (current, constraint) => current.Intersect(constraint));
-            }
-        }
+        public VersionRange EffectiveVersions { get { return Constraints.Aggregate(Versions ?? new VersionRange(), (current, constraint) => current.Intersect(constraint)); } }
         #endregion
 
         //--------------------//

@@ -43,7 +43,7 @@ namespace ZeroInstall.Commands
 
             bool stale;
             SolverMock.Setup(x => x.Solve(requirements, Policy, out stale)).Returns(selections).Verifiable();
-            var args = new[] {"--xml", "http://0install.de/feeds/test/test1.xml", "--command=command name", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0"};
+            var args = new[] {"--xml", "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0"};
             AssertParseExecuteResult(args, selections, selections.WriteToString(), 0);
         }
 

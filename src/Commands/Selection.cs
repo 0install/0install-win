@@ -92,27 +92,7 @@ namespace ZeroInstall.Commands
                 Policy.Fetcher.Store = new CompositeStore(new DirectoryStore(path), Policy.Fetcher.Store);
             });
 
-            Options.Add("command=", Resources.OptionCommand, command => _requirements.CommandName = command);
-            Options.Add("version=", Resources.OptionVersionRange,
-                (VersionRange range) => _requirements.Versions = range);
-            Options.Add("version-for==", Resources.OptionVersionRangeFor,
-                (string interfaceID, VersionRange range) => _requirements.VersionsFor.Add(interfaceID, range));
-            Options.Add("before=", Resources.OptionBefore, delegate(ImplementationVersion version)
-            {
-                if (_requirements.Versions == null) _requirements.Versions = new VersionRange();
-                _requirements.Versions = _requirements.Versions.Intersect(new Constraint {Before = version});
-            });
-            Options.Add("not-before=", Resources.OptionNotBefore, delegate(ImplementationVersion version)
-            {
-                if (_requirements.Versions == null) _requirements.Versions = new VersionRange();
-                _requirements.Versions = _requirements.Versions.Intersect(new Constraint {NotBefore = version});
-            });
-            Options.Add("s|source", Resources.OptionSource,
-                unused => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Cpu.Source));
-            Options.Add("os=", Resources.OptionOS + "\n" + SupportedValues(Architecture.KnownOS),
-                (OS os) => _requirements.Architecture = new Architecture(os, _requirements.Architecture.Cpu));
-            Options.Add("cpu=", Resources.OptionCpu + "\n" + SupportedValues(Architecture.KnownCpu),
-                (Cpu cpu) => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, cpu));
+            Requirements.FromCommandLine(Options);
 
             Options.Add("xml", Resources.OptionXml, unused => ShowXml = true);
         }
