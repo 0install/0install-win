@@ -366,7 +366,7 @@ namespace ZeroInstall.Publish.Cli
                 // Ask for passphrase to unlock secret key
                 if (signedCatalog.SecretKey != null && string.IsNullOrEmpty(options.OpenPgpPassphrase))
                     options.OpenPgpPassphrase = CliUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
-                
+
                 signedCatalog.Save(options.CatalogFile, options.OpenPgpPassphrase);
             }
             else catalog.Save(options.CatalogFile);
