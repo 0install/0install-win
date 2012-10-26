@@ -19,7 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
+using Common.Collections;
 using Common.Storage;
 
 namespace ZeroInstall.Model
@@ -65,14 +67,10 @@ namespace ZeroInstall.Model
             var newCatalog = new Catalog();
             var feedUris = new C5.HashSet<Uri>(); // Hash interface URIs to detect duplicates quicker
 
-            foreach (var catalog in catalogs)
+            foreach (var feed in catalogs.SelectMany(catalog => catalog.Feeds.Where(feed => !feedUris.Contains(feed.Uri))))
             {
-                foreach (var feed in catalog.Feeds)
-                {
-                    if (feedUris.Contains(feed.Uri)) continue; // Drop duplicates
-                    newCatalog.Feeds.Add(feed);
-                    feedUris.Add(feed.Uri);
-                }
+                newCatalog.Feeds.Add(feed);
+                feedUris.Add(feed.Uri);
             }
 
             return newCatalog;
@@ -90,10 +88,7 @@ namespace ZeroInstall.Model
         /// <exception cref="KeyNotFoundException">Thrown if no <see cref="Feed"/> matching <paramref name="uri"/> was found in <see cref="Feeds"/>.</exception>
         public Feed GetFeed(Uri uri)
         {
-            foreach (var feed in Feeds)
-                if (feed.Uri == uri) return feed;
-
-            throw new KeyNotFoundException();
+            return Feeds.First(feed => feed.Uri == uri, new KeyNotFoundException());
         }
         #endregion
 

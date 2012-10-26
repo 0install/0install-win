@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using Common.Utils;
@@ -226,10 +227,9 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Generates a localized instruction string describing multiple selectable values.
         /// </summary>
-        internal static string SupportedValues<T>(T[] values)
+        internal static string SupportedValues<T>(IEnumerable<T> values)
         {
-            return string.Format(Resources.SupportedValues,
-                string.Join(", ", Array.ConvertAll(values, AttributeUtils.ConvertToString)));
+            return string.Format(Resources.SupportedValues, ", ".Join(values.Select(AttributeUtils.ConvertToString)));
         }
         #endregion
     }

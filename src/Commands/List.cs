@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Linq;
 using System.Text;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -83,11 +84,8 @@ namespace ZeroInstall.Commands
         {
             var builder = new StringBuilder();
             var feeds = Policy.FeedManager.Cache.ListAll();
-            foreach (string entry in feeds)
-            {
-                if (pattern == null || entry.Contains(pattern))
-                    builder.AppendLine(entry);
-            }
+            foreach (string entry in feeds.Where(entry => pattern == null || entry.Contains(pattern)))
+                builder.AppendLine(entry);
             return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break
         }
         #endregion

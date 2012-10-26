@@ -20,7 +20,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model
 {
@@ -245,9 +247,7 @@ namespace ZeroInstall.Model
         /// <remarks>Should only be called after <see cref="Normalize"/> has been called, otherwise nested <see cref="Implementation"/>s will not be considered.</remarks>
         public Command GetCommand(string name)
         {
-            foreach (var command in Commands)
-                if (command != null && command.Name == name) return command;
-            throw new KeyNotFoundException();
+            return Commands.First(command => command != null && command.Name == name, new KeyNotFoundException());
         }
         #endregion
 

@@ -296,7 +296,7 @@ namespace ZeroInstall.Store.Implementation
                 Array.Sort(directories, StringComparer.Ordinal);
 
                 // Create the combined result list (files first, then sub-diretories)
-                var result = files.Select(file => new FileInfo(file)).Cast<FileSystemInfo>().ToList();
+                var result = new List<FileSystemInfo>(files.Select(file => new FileInfo(file)).Cast<FileSystemInfo>());
                 foreach (string directory in directories)
                 {
                     result.Add(new DirectoryInfo(directory));

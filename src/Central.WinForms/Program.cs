@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Security;
 using System.Security.Cryptography;
 using System.Windows.Forms;
@@ -88,7 +89,7 @@ namespace ZeroInstall.Central.WinForms
                 }
             }
 
-            bool machineWide = Array.Exists(args, arg => arg == "-m" || arg == "--machine");
+            bool machineWide = args.Any(arg => arg == "-m" || arg == "--machine");
             if (machineWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
 
             Application.Run(new MainForm(machineWide));

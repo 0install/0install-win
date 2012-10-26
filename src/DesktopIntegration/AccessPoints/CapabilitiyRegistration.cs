@@ -51,17 +51,10 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var idList = new LinkedList<string>();
-            foreach (var capabilityList in appEntry.CapabilityLists)
-            {
-                if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
-                foreach (var capability in capabilityList.Entries)
-                {
-                    foreach (var conflictID in capability.ConflictIDs)
-                        idList.AddLast("capability:" + conflictID);
-                }
-            }
-            return idList;
+            return appEntry.CapabilityLists.
+                Where(capabilityList => capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)).
+                SelectMany(capabilityList => capabilityList.Entries.SelectMany(capability => capability.ConflictIDs)).
+                Select(conflictID => "capability:" + conflictID);
         }
         #endregion
 

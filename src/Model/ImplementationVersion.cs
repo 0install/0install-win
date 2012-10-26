@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using Common.Values.Design;
 using ZeroInstall.Model.Properties;
@@ -121,8 +122,7 @@ namespace ZeroInstall.Model
             var output = new StringBuilder(_firstPart.ToString());
 
             // Separate additional parts with hyphens
-            for (int i = 0; i < _additionalParts.Length; i++)
-                output.Append("-" + _additionalParts[i]);
+            foreach (var part in _additionalParts) output.Append("-" + part);
 
             return output.ToString();
         }
@@ -140,14 +140,9 @@ namespace ZeroInstall.Model
                 return false;
 
             // Cacnel if one of the additional parts does not match
-            for (int i = 0; i < _additionalParts.Length; i++)
-            {
-                if (!_additionalParts[i].Equals(other._additionalParts[i]))
-                    return false;
-            }
+            return !_additionalParts.Where((part, i) => !part.Equals(other._additionalParts[i])).Any();
 
             // If we reach this, everything was equal
-            return true;
         }
 
         /// <inheritdoc/>
@@ -163,10 +158,11 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
+                // ReSharper disable LoopCanBeConvertedToQuery
                 int result = _firstPart.GetHashCode();
-                foreach (var part in _additionalParts)
-                    result = (result * 397) ^ part.GetHashCode();
+                foreach (var part in _additionalParts) result = (result * 397) ^ part.GetHashCode();
                 return result;
+                // ReSharper restore LoopCanBeConvertedToQuery
             }
         }
 

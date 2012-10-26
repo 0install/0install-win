@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
@@ -76,9 +77,8 @@ namespace ZeroInstall.Fetchers
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            foreach (var implementation in implementations)
+            foreach (var fetchProcess in implementations.Select(CreateFetch))
             {
-                var fetchProcess = CreateFetch(implementation);
                 fetchProcess.Execute(handler);
                 if (!fetchProcess.Completed) throw fetchProcess.Problems.Last;
             }

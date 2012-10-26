@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Linq;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -33,7 +34,7 @@ namespace ZeroInstall.Store.Implementation
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            return Array.Exists(ManifestFormat.All, format => path.Contains(format.Prefix + format.Separator));
+            return ManifestFormat.All.Any(format => path.Contains(format.Prefix + format.Separator));
         }
     }
 }

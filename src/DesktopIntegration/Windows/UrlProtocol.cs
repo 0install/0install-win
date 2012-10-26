@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using Common.Tasks;
 using Common.Utils;
@@ -152,7 +153,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     else
                     {
                         progIDKey.DeleteValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, false);
-                        otherFlags = Array.Exists(progIDKey.GetValueNames(), name => name.StartsWith(FileType.PurposeFlagPrefix));
+                        otherFlags = progIDKey.GetValueNames().Any(name => name.StartsWith(FileType.PurposeFlagPrefix));
                     }
                 }
 

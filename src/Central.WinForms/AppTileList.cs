@@ -307,10 +307,8 @@ namespace ZeroInstall.Central.WinForms
         {
             _lastTileLight = false;
 
-            foreach (var tile in _flowLayout.Controls.OfType<AppTile>())
+            foreach (var tile in _flowLayout.Controls.OfType<AppTile>().Where(tile => tile.Visible))
             {
-                if (!tile.Visible) continue;
-
                 // Alternate between light and dark tiles
                 tile.BackColor = _lastTileLight ? TileColorDark : TileColorLight;
                 _lastTileLight = !_lastTileLight;

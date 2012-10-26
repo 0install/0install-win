@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
@@ -29,6 +30,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Configures an <see cref="OptionSet"/> parser to write data to a <see cref="Requirements"/> isntance.
         /// </summary>
+        [CLSCompliant(false)]
         public static void FromCommandLine(this Requirements requirements, OptionSet options)
         {
             options.Add("command=", Resources.OptionCommand, command => requirements.CommandName = command);

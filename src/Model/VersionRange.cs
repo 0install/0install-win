@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using Common.Values.Design;
+using Common.Utils;
 
 namespace ZeroInstall.Model
 {
@@ -134,7 +135,7 @@ namespace ZeroInstall.Model
             #endregion
 
             if (_parts.Length == 0) return true;
-            return Array.Exists(_parts, part => part.Match(version));
+            return _parts.Any(part => part.Match(version));
         }
         #endregion
 
@@ -147,7 +148,7 @@ namespace ZeroInstall.Model
         public override string ToString()
         {
             // Separate parts with colons
-            return string.Join("|", Array.ConvertAll(_parts, part => part.ToString()));
+            return "|".Join(_parts.Select(part => part.ToString()));
         }
         #endregion
 

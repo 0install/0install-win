@@ -88,16 +88,17 @@ namespace ZeroInstall.Store.Implementation
             // Add custom cache locations
             foreach (string configFile in Locations.GetLoadConfigPaths("0install.net", true, "injector", "implementation-dirs"))
             {
-                foreach (string line in File.ReadAllLines(configFile, Encoding.UTF8))
+                foreach (string path in
+                    from line in File.ReadAllLines(configFile, Encoding.UTF8)
+                    where !line.StartsWith("#") && !string.IsNullOrEmpty(line)
+                    select Environment.ExpandEnvironmentVariables(line))
                 {
-                    if (line.StartsWith("#") || string.IsNullOrEmpty(line)) continue;
-                    string path = Environment.ExpandEnvironmentVariables(line);
-
+                    string result = path;
                     try
                     {
                         if (!Path.IsPathRooted(path))
                         { // Allow relative paths only for portable installations
-                            if (Locations.IsPortable) path = Path.Combine(Locations.PortableBase, path);
+                            if (Locations.IsPortable) result = Path.Combine(Locations.PortableBase, path);
                             else throw new IOException(string.Format(Resources.NonRootedPathInConfig, path, configFile));
                         }
                     }
@@ -109,7 +110,7 @@ namespace ZeroInstall.Store.Implementation
                     }
                     #endregion
 
-                    yield return path;
+                    yield return result;
                 }
             }
 

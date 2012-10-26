@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -274,7 +275,7 @@ namespace Common.Utils
         /// </summary>
         /// <param name="path">The path of the directory to search for subdirectories.</param>
         /// <returns>A C-sorted list of directory paths.</returns>
-        public static string[] GetSubdirectoryPaths(string path)
+        public static IEnumerable<string> GetSubdirectoryPaths(string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");

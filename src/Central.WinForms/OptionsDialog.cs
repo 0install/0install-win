@@ -96,7 +96,7 @@ namespace ZeroInstall.Central.WinForms
                 foreach (string implementationDir in StoreProvider.GetImplementationDirs())
                 {
                     // Differentiate between directories that can be modified (because they are listed in the user config) and those that cannot
-                    if (Array.Exists(userConfig, entry => entry == implementationDir)) listBoxImplDirs.Items.Add(new DirectoryStore(implementationDir)); // DirectoryStore = can be modified
+                    if (userConfig.Contains(implementationDir)) listBoxImplDirs.Items.Add(new DirectoryStore(implementationDir)); // DirectoryStore = can be modified
                     else listBoxImplDirs.Items.Add(implementationDir); // Plain string = cannot be modified
                 }
 
@@ -264,12 +264,7 @@ namespace ZeroInstall.Central.WinForms
         private void buttonRemoveImplDir_Click(object sender, EventArgs e)
         {
             // Remove all selected items that are DirectoryStores and not plain strings
-            var toRemove = new LinkedList<DirectoryStore>();
-            foreach (var item in listBoxImplDirs.SelectedItems)
-            {
-                var store = item as DirectoryStore;
-                if (store != null) toRemove.AddLast(store);
-            }
+            var toRemove = listBoxImplDirs.SelectedItems.OfType<DirectoryStore>().ToList();
 
             if (!Msg.YesNo(this, string.Format(Resources.RemoveSelectedEntries, toRemove.Count), MsgSeverity.Warn)) return;
             foreach (var store in toRemove) listBoxImplDirs.Items.Remove(store);

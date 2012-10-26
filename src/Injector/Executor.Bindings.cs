@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Common.Storage;
 using Common.Utils;
@@ -106,12 +107,10 @@ namespace ZeroInstall.Injector
         /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
         private void ApplyDependencyBindings(IDependencyContainer dependencyContainer, ProcessStartInfo startInfo)
         {
-            foreach (var dependency in dependencyContainer.Dependencies)
-            {
+            foreach (var dependency in dependencyContainer.Dependencies.
                 // Essential dependencies bust be bound, others only if they were selected
-                if (dependency.Importance == Importance.Essential || Selections.ContainsImplementation(dependency.Interface))
-                    ApplyBindings(dependency, Selections[dependency.Interface], startInfo);
-            }
+                Where(dependency => dependency.Importance == Importance.Essential || Selections.ContainsImplementation(dependency.Interface)))
+                ApplyBindings(dependency, Selections[dependency.Interface], startInfo);
         }
         #endregion
 
@@ -232,7 +231,7 @@ namespace ZeroInstall.Injector
         private void ApplyExecutableInVar(ExecutableInVar binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
             if (string.IsNullOrEmpty(binding.Name)) throw new CommandException(string.Format(Resources.MissingBindingName, @"<executable-in-var>"));
-            if (Array.Exists(Path.GetInvalidFileNameChars(), invalidChar => binding.Name.Contains(invalidChar.ToString(CultureInfo.InvariantCulture))))
+            if (Path.GetInvalidFileNameChars().Any(invalidChar => binding.Name.Contains(invalidChar.ToString(CultureInfo.InvariantCulture))))
                 throw new CommandException(string.Format(Resources.IllegalCharInBindingName, @"<executable-in-var>"));
 
             string exePath = DeployRunEnvExecutable(binding.Name);
@@ -257,7 +256,7 @@ namespace ZeroInstall.Injector
         private void ApplyExecutableInPath(ExecutableInPath binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
             if (string.IsNullOrEmpty(binding.Name)) throw new CommandException(string.Format(Resources.MissingBindingName, @"<executable-in-path>"));
-            if (Array.Exists(Path.GetInvalidFileNameChars(), invalidChar => binding.Name.Contains(invalidChar.ToString(CultureInfo.InvariantCulture))))
+            if (Path.GetInvalidFileNameChars().Any(invalidChar => binding.Name.Contains(invalidChar.ToString(CultureInfo.InvariantCulture))))
                 throw new CommandException(string.Format(Resources.IllegalCharInBindingName, @"<executable-in-path>"));
 
             string exePath = DeployRunEnvExecutable(binding.Name);

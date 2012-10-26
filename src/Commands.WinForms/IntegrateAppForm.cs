@@ -60,7 +60,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// List of the <see cref="CapabilityModel"/>s handled by this form.
         /// </summary>
-        private readonly ICollection<CapabilityModel> _capabilityModels = new LinkedList<CapabilityModel>();
+        private readonly List<CapabilityModel> _capabilityModels = new List<CapabilityModel>();
 
         /// <summary>
         /// A list of <see cref="AccessPoints.MenuEntry"/>s as displayed by the <see cref="dataGridStartMenu"/>.
@@ -166,10 +166,8 @@ namespace ZeroInstall.Commands.WinForms
             }
             else
             { // Multiple entry points
-                foreach (var entryPoint in _feed.EntryPoints)
+                foreach (var entryPoint in _feed.EntryPoints.Where(entryPoint => !string.IsNullOrEmpty(entryPoint.Command)))
                 {
-                    if (string.IsNullOrEmpty(entryPoint.Command)) continue;
-
                     _menuEntries.Add(new AccessPoints.MenuEntry
                     {
                         // Try to get a localized name for the command

@@ -23,6 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using Common.Collections;
 using Common.Storage;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
@@ -152,15 +153,7 @@ namespace ZeroInstall.Injector.Solver
         /// </summary>
         /// <param name="interfaceID">The <see cref="ImplementationSelection.InterfaceID"/> to look for.</param>
         /// <exception cref="KeyNotFoundException">Thrown if no <see cref="ImplementationSelection"/> matching <paramref name="interfaceID"/> was found in <see cref="Implementations"/>.</exception>
-        public ImplementationSelection this[string interfaceID]
-        {
-            get
-            {
-                foreach (var implementation in _implementations)
-                    if (implementation.InterfaceID == interfaceID) return implementation;
-                throw new KeyNotFoundException();
-            }
-        }
+        public ImplementationSelection this[string interfaceID] { get { return _implementations.First(implementation => implementation.InterfaceID == interfaceID, new KeyNotFoundException()); } }
 
         /// <summary>
         /// Determines whether an <see cref="ImplementationSelection"/> for a specific interface is listed in the selection.
@@ -192,28 +185,19 @@ namespace ZeroInstall.Injector.Solver
             if (feedCache == null) throw new ArgumentNullException("feedCache");
             #endregion
 
-            ICollection<Implementation> notCached = new LinkedList<Implementation>();
-            foreach (var implementation in Implementations)
-            {
+            return (
+                from implementation in Implementations
                 // Local paths are considered to be always available
-                if (!string.IsNullOrEmpty(implementation.LocalPath)) continue;
-
+                where string.IsNullOrEmpty(implementation.LocalPath)
                 // Don't try to download PackageImplementations
-                if (!string.IsNullOrEmpty(implementation.Package)) continue;
-
+                where string.IsNullOrEmpty(implementation.Package)
                 // Don't try to fetch virutal feeds
-                if (!string.IsNullOrEmpty(implementation.FromFeed) && implementation.FromFeed.StartsWith(ImplementationSelection.DistributionFeedPrefix)) continue;
-
+                where string.IsNullOrEmpty(implementation.FromFeed) || !implementation.FromFeed.StartsWith(ImplementationSelection.DistributionFeedPrefix)
                 // Check if an implementation with a matching digest is available in the cache
-                if (searchStore.Contains(implementation.ManifestDigest)) continue;
-
+                where !searchStore.Contains(implementation.ManifestDigest)
                 // If not, get download information for the implementation by checking the original feed
-                var feed = feedCache.GetFeed(implementation.FromFeed ?? implementation.InterfaceID);
-                var downloadableImplementation = feed.GetImplementation(implementation.ID);
-                if (downloadableImplementation != null) notCached.Add(downloadableImplementation);
-            }
-
-            return notCached;
+                let feed = feedCache.GetFeed(implementation.FromFeed ?? implementation.InterfaceID)
+                select feed.GetImplementation(implementation.ID)).Where(impl => impl != null).ToList();
         }
 
         /// <summary>

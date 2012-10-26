@@ -230,15 +230,12 @@ namespace ZeroInstall.Store.Implementation
         {
             ClearCaches();
 
+            // Remove from every store that contains the implementation
             bool removed = false;
-            foreach (var store in _stores)
+            foreach (var store in _stores.Where(store => store.Contains(manifestDigest)))
             {
-                // Remove from every store that contains the implementation
-                if (store.Contains(manifestDigest))
-                {
-                    store.Remove(manifestDigest);
-                    removed = true;
-                }
+                store.Remove(manifestDigest);
+                removed = true;
             }
             if (!removed) throw new ImplementationNotFoundException(manifestDigest);
         }
@@ -281,11 +278,10 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // Verify in all contained stores
+            // Verify in every store that contains the implementation
             bool verified = false;
-            foreach (var store in _stores)
+            foreach (var store in _stores.Where(store => store.Contains(manifestDigest)))
             {
-                if (!store.Contains(manifestDigest)) continue;
                 store.Verify(manifestDigest, handler);
                 verified = true;
             }

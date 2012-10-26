@@ -91,7 +91,7 @@ namespace ZeroInstall.Injector.Feeds
         public static Catalog GetOnline(Policy policy)
         {
             // Load and megre all catalogs
-            var catalog = Catalog.Merge(Array.ConvertAll(GetCatalogSources(), delegate(string source)
+            var catalog = Catalog.Merge(GetCatalogSources().Select(delegate(string source)
             {
                 Uri catalogUrl;
                 return ModelUtils.TryParseUri(source, out catalogUrl) ? DownloadCatalog(catalogUrl, policy) : Catalog.Load(source);

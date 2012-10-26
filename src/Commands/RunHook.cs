@@ -159,14 +159,15 @@ namespace ZeroInstall.Commands
             string escapedTarget = _target.InterfaceID.EscapeArgument();
 
             // Build a relaunch entry for each entry point
-            var entries = (from entryPoint in _target.Feed.EntryPoints
+            var entries =
+                from entryPoint in _target.Feed.EntryPoints
                 where !string.IsNullOrEmpty(entryPoint.Command) && !entryPoint.Names.IsEmpty && !string.IsNullOrEmpty(entryPoint.BinaryName)
                 select new RelaunchEntry(
                     entryPoint.BinaryName,
                     entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture),
                     "--command=" + entryPoint.Command.EscapeArgument() + " " + escapedTarget,
                     entryPoint.NeedsTerminal,
-                    GetIconPath(entryPoint.Command)));
+                    GetIconPath(entryPoint.Command));
 
             // Create a relaunch entry for the main application
             entries = entries.Concat(new[]

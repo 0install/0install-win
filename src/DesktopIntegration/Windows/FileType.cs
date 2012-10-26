@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using Common.Tasks;
 using Common.Utils;
@@ -120,10 +121,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             using (var classesKey = hive.OpenSubKey(RegKeyClasses, true))
             {
-                foreach (var extension in fileType.Extensions)
+                foreach (var extension in fileType.Extensions.Where(extension => !string.IsNullOrEmpty(extension.Value)))
                 {
-                    if (string.IsNullOrEmpty(extension.Value)) continue;
-
                     // Register extensions
                     using (var extensionKey = classesKey.CreateSubKey(extension.Value))
                     {
@@ -183,10 +182,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
             using (var classesKey = hive.OpenSubKey(RegKeyClasses, true))
             {
-                foreach (var extension in fileType.Extensions)
+                foreach (var extension in fileType.Extensions.Where(extension => !string.IsNullOrEmpty(extension.Value)))
                 {
-                    if (string.IsNullOrEmpty(extension.Value)) continue;
-
                     // Unegister MIME types
                     if (!string.IsNullOrEmpty(extension.MimeType))
                     {
@@ -233,7 +230,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         else
                         {
                             progIDKey.DeleteValue(accessPoint ? PurposeFlagAccessPoint : PurposeFlagCapability, false);
-                            otherFlags = Array.Exists(progIDKey.GetValueNames(), name => name.StartsWith(PurposeFlagPrefix));
+                            otherFlags = progIDKey.GetValueNames().Any(name => name.StartsWith(PurposeFlagPrefix));
                         }
                     }
 

@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
@@ -59,7 +60,7 @@ namespace ZeroInstall.Commands.Cli
             if (args.Length == 0) args = new[] {"--help"};
 
             // Redirect to GUI version of 0install if --gui argument is specified
-            if (Array.Exists(args, arg => arg == "--gui"))
+            if (args.Contains("--gui"))
             {
                 // ToDo: Automatically switch to GTK# on Linux
                 var process = ProcessUtils.LaunchHelperAssembly("0install-win", args.JoinEscapeArguments());

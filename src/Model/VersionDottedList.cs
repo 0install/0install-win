@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using ZeroInstall.Model.Properties;
@@ -44,11 +45,13 @@ namespace ZeroInstall.Model
             string[] parts = value.Split('.');
             _decimals = new long[parts.Length];
 
+            // ReSharper disable LoopCanBeConvertedToQuery
             for (int i = 0; i < parts.Length; i++)
             {
                 if (!long.TryParse(parts[i], out _decimals[i]))
                     throw new ArgumentException(Resources.MustBeDottedList);
             }
+            // ReSharper restore LoopCanBeConvertedToQuery
         }
         #endregion
 
@@ -82,14 +85,9 @@ namespace ZeroInstall.Model
                 return false;
 
             // Cacnel if one of the decimal blocks does not match
-            for (int i = 0; i < _decimals.Length; i++)
-            {
-                if (_decimals[i] != other._decimals[i])
-                    return false;
-            }
+            return !_decimals.Where((part, i) => part != other._decimals[i]).Any();
 
             // If we reach this, everything was equal
-            return true;
         }
 
         /// <inheritdoc/>
@@ -105,10 +103,11 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
+                // ReSharper disable LoopCanBeConvertedToQuery
                 int result = 397;
-                foreach (int dec in _decimals)
-                    result = (result * 397) ^ dec;
+                foreach (long dec in _decimals) result = (result * 397) ^ (int)dec;
                 return result;
+                // ReSharper restore LoopCanBeConvertedToQuery
             }
         }
         #endregion

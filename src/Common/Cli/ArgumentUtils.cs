@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Common.Cli
 {
@@ -55,14 +56,12 @@ namespace Common.Cli
                     string directory = Path.GetDirectoryName(Path.GetFullPath(dewildcardedPath)) ?? Environment.CurrentDirectory;
                     string filePattern = Path.GetFileName(entry);
                     if (string.IsNullOrEmpty(filePattern)) filePattern = defaultPattern;
-                    foreach (string file in Directory.GetFiles(directory, filePattern))
-                        result.Add(new FileInfo(Path.GetFullPath(file)));
+                    result.AddRange(Directory.GetFiles(directory, filePattern).Select(file => new FileInfo(Path.GetFullPath(file))));
                 }
                 else if (File.Exists(entry)) result.Add(new FileInfo(Path.GetFullPath(entry)));
                 else if (Directory.Exists(entry))
                 {
-                    foreach (string file in Directory.GetFiles(entry, defaultPattern))
-                        result.Add(new FileInfo(file));
+                    result.AddRange(Directory.GetFiles(entry, defaultPattern).Select(file => new FileInfo(file)));
                 }
                 else throw new FileNotFoundException(string.Format(Properties.Resources.FileNotFound, entry), entry);
             }

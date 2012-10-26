@@ -194,11 +194,11 @@ namespace ZeroInstall.Store.Implementation
         {
             if (!Directory.Exists(DirectoryPath)) return new ManifestDigest[0];
 
-            return Array.FindAll(
+            return FileUtils.GetSubdirectoryPaths(DirectoryPath).
                 // Get all digests...
-                Array.ConvertAll(FileUtils.GetSubdirectoryPaths(DirectoryPath), path => new ManifestDigest(Path.GetFileName(path))),
+                Select(path => new ManifestDigest(Path.GetFileName(path))).
                 // ... that are valid
-                digest => digest != default(ManifestDigest));
+                Where(digest => digest != default(ManifestDigest));
         }
 
         /// <inheritdoc />
@@ -206,11 +206,10 @@ namespace ZeroInstall.Store.Implementation
         {
             if (!Directory.Exists(DirectoryPath)) return new string[0];
 
-            return Array.FindAll(
-                // Get all directory paths...
-                FileUtils.GetSubdirectoryPaths(DirectoryPath),
-                // ... that do not have valid digest names
-                path => new ManifestDigest(Path.GetFileName(path)) == default(ManifestDigest));
+            // Get all directory paths...
+            return FileUtils.GetSubdirectoryPaths(DirectoryPath).
+                // ... that are valid
+                Where(path => new ManifestDigest(Path.GetFileName(path)) == default(ManifestDigest));
         }
         #endregion
 

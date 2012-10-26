@@ -175,9 +175,8 @@ namespace ZeroInstall.Fetchers
         {
             bool complexRecipe = false;
             var downloadedArchives = new List<ArchiveFileInfo>();
-            foreach (var step in recipe.Steps)
+            foreach (var archive in recipe.Steps.Select(step => step as Archive))
             {
-                var archive = step as Archive;
                 if (archive == null) complexRecipe = true;
                 else downloadedArchives.Add(DownloadAndPrepareArchive(archive, handler));
             }

@@ -46,7 +46,7 @@ namespace ZeroInstall.Commands.WinForms
         private readonly Dictionary<ManifestDigest, TrackingControl> _trackingControls = new Dictionary<ManifestDigest, TrackingControl>();
 
         /// <summary>A list of all controls visible only while the user is busy with <see cref="BeginAudit"/>.</summary>
-        private readonly LinkedList<Control> _auditLinks = new LinkedList<Control>();
+        private readonly List<Control> _auditLinks = new List<Control>();
         #endregion
 
         #region Constructor
@@ -130,7 +130,7 @@ namespace ZeroInstall.Commands.WinForms
                     if (InterfaceDialog.Show(this, interfaceID, solveCallback, _feedCache))
                         ReSolve(solveCallback);
                 };
-                _auditLinks.AddLast(linkLabel);
+                _auditLinks.Add(linkLabel);
                 tableLayout.Controls.Add(linkLabel, 2, i);
             }
         }

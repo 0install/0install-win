@@ -18,6 +18,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 using Common;
 using Common.Storage;
@@ -104,11 +105,8 @@ namespace ZeroInstall.Injector.Feeds
             if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException("fingerprint");
             #endregion
 
-            foreach (Key key in Keys)
-            {
-                if (key.Fingerprint == fingerprint)
-                    key.Domains.RemoveAllCopies(domain);
-            }
+            foreach (Key key in Keys.Where(key => key.Fingerprint == fingerprint))
+                key.Domains.RemoveAllCopies(domain);
         }
         #endregion
 

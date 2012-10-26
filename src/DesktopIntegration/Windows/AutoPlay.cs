@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using Common.Tasks;
 using Microsoft.Win32;
@@ -112,10 +113,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 handlerKey.SetValue(RegValueIcon, iconPath + ",0");
             }
 
-            foreach (var autoPlayEvent in autoPlay.Events)
+            foreach (var autoPlayEvent in autoPlay.Events.Where(autoPlayEvent => !string.IsNullOrEmpty(autoPlayEvent.Name)))
             {
-                if (string.IsNullOrEmpty(autoPlayEvent.Name)) continue;
-
                 using (var eventKey = hive.CreateSubKey(RegKeyAssocs + @"\" + autoPlayEvent.Name))
                     eventKey.SetValue(FileType.RegKeyPrefix + autoPlay.ID, "");
 
@@ -164,17 +163,15 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     else
                     {
                         handlerKey.DeleteValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, false);
-                        otherFlags = Array.Exists(handlerKey.GetValueNames(), name => name.StartsWith(FileType.PurposeFlagPrefix));
+                        otherFlags = handlerKey.GetValueNames().Any(name => name.StartsWith(FileType.PurposeFlagPrefix));
                     }
                 }
 
                 // Delete handler key and ProgID if there are no other references
                 if (!otherFlags)
                 {
-                    foreach (var autoPlayEvent in autoPlay.Events)
+                    foreach (var autoPlayEvent in autoPlay.Events.Where(autoPlayEvent => !string.IsNullOrEmpty(autoPlayEvent.Name)))
                     {
-                        if (string.IsNullOrEmpty(autoPlayEvent.Name)) continue;
-
                         using (var eventKey = hive.CreateSubKey(RegKeyAssocs + @"\" + autoPlayEvent.Name))
                             eventKey.DeleteValue(FileType.RegKeyPrefix + autoPlay.ID, false);
                     }

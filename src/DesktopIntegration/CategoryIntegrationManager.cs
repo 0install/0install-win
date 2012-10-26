@@ -70,47 +70,40 @@ namespace ZeroInstall.DesktopIntegration
             bool icons = categories.Contains(IconAccessPoint.CategoryName) || all;
 
             // Build capability list
-            var accessPointsToAdd = new LinkedList<AccessPoint>();
-            if (capabilities) accessPointsToAdd.AddLast(new CapabilityRegistration());
+            var accessPointsToAdd = new List<AccessPoint>();
+            if (capabilities) accessPointsToAdd.Add(new CapabilityRegistration());
             if (defaults)
             {
                 // Add AccessPoints for all suitable Capabilities
-                foreach (var capabilityList in appEntry.CapabilityLists)
-                {
-                    if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
-                    foreach (var capability in capabilityList.Entries.OfType<Capabilities.DefaultCapability>())
-                    {
-                        if (capability.WindowsMachineWideOnly && !MachineWide && WindowsUtils.IsWindows) continue;
-                        if (!capability.ExplicitOnly)
-                            accessPointsToAdd.AddLast(DefaultAccessPoint.FromCapability(capability));
-                    }
-                }
+                accessPointsToAdd.AddRange((
+                    from capabilityList in appEntry.CapabilityLists
+                    where capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)
+                    from capability in capabilityList.Entries.OfType<Capabilities.DefaultCapability>()
+                    where !capability.WindowsMachineWideOnly || MachineWide || !WindowsUtils.IsWindows
+                    where !capability.ExplicitOnly select DefaultAccessPoint.FromCapability(capability)).Cast<AccessPoint>());
             }
             if (icons)
             {
-                accessPointsToAdd.AddLast(new DesktopIcon {Name = appEntry.Name, Command = Command.NameRun});
+                accessPointsToAdd.Add(new DesktopIcon {Name = appEntry.Name, Command = Command.NameRun});
 
                 string category = feed.Categories.FirstOrDefault();
                 if (feed.EntryPoints.IsEmpty)
                 { // Only one entry point
-                    accessPointsToAdd.AddLast(new MenuEntry {Name = appEntry.Name, Category = category, Command = Command.NameRun});
+                    accessPointsToAdd.Add(new MenuEntry {Name = appEntry.Name, Category = category, Command = Command.NameRun});
                 }
                 else
                 { // Multiple entry points
-                    foreach (var entryPoint in feed.EntryPoints)
-                    {
-                        string entryPointName = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture);
-                        if (!string.IsNullOrEmpty(entryPoint.Command) && !string.IsNullOrEmpty(entryPointName))
+                    accessPointsToAdd.AddRange((
+                        from entryPoint in feed.EntryPoints
+                        let entryPointName = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture)
+                        where !string.IsNullOrEmpty(entryPoint.Command) && !string.IsNullOrEmpty(entryPointName)
+                        select new MenuEntry
                         {
-                            accessPointsToAdd.AddLast(new MenuEntry
-                            {
-                                Name = entryPointName,
-                                // Group all entry points in a single folder
-                                Category = string.IsNullOrEmpty(category) ? appEntry.Name : category + Path.DirectorySeparatorChar + appEntry.Name,
-                                Command = entryPoint.Command
-                            });
-                        }
-                    }
+                            Name = entryPointName,
+                            // Group all entry points in a single folder
+                            Category = string.IsNullOrEmpty(category) ? appEntry.Name : category + Path.DirectorySeparatorChar + appEntry.Name,
+                            Command = entryPoint.Command
+                        }).Cast<AccessPoint>());
                 }
             }
 
@@ -184,12 +177,10 @@ namespace ZeroInstall.DesktopIntegration
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            foreach (var capabilityList in appEntry.CapabilityLists)
-            {
-                if (!capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)) continue;
-                foreach (var defaultProgram in capabilityList.Entries.OfType<Capabilities.DefaultProgram>())
-                    Windows.DefaultProgram.ToggleIconsVisible(defaultProgram, iconsVisible);
-            }
+            foreach (var defaultProgram in appEntry.CapabilityLists.
+                Where(capabilityList => capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)).
+                SelectMany(capabilityList => capabilityList.Entries.OfType<Capabilities.DefaultProgram>()))
+                Windows.DefaultProgram.ToggleIconsVisible(defaultProgram, iconsVisible);
         }
         #endregion
     }

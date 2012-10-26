@@ -107,11 +107,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 {
                     foreach (var fileType in verbCapabilities.OfType<Capabilities.FileType>())
                     {
-                        foreach (var extension in fileType.Extensions)
-                        {
-                            if (!string.IsNullOrEmpty(extension.Value) && !string.IsNullOrEmpty(fileType.ID))
-                                fileAssocsKey.SetValue(extension.Value, FileType.RegKeyPrefix + fileType.ID);
-                        }
+                        foreach (var extension in fileType.Extensions.Where(extension => !string.IsNullOrEmpty(extension.Value) && !string.IsNullOrEmpty(fileType.ID)))
+                            fileAssocsKey.SetValue(extension.Value, FileType.RegKeyPrefix + fileType.ID);
                     }
                 }
 
@@ -126,11 +123,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
                 using (var startMenuKey = capabilitiesKey.CreateSubKey(RegSubKeyStartMenu))
                 {
-                    foreach (var defaultProgram in verbCapabilities.OfType<Capabilities.DefaultProgram>())
-                    {
-                        if (!string.IsNullOrEmpty(defaultProgram.ID) && !string.IsNullOrEmpty(defaultProgram.Service))
-                            startMenuKey.SetValue(defaultProgram.Service, defaultProgram.ID);
-                    }
+                    foreach (var defaultProgram in verbCapabilities.OfType<Capabilities.DefaultProgram>().Where(defaultProgram => !string.IsNullOrEmpty(defaultProgram.ID) && !string.IsNullOrEmpty(defaultProgram.Service)))
+                        startMenuKey.SetValue(defaultProgram.Service, defaultProgram.ID);
                 }
             }
 

@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Common.Storage;
 using Common.Tasks;
 using ZeroInstall.Model;
@@ -77,21 +78,17 @@ namespace ZeroInstall.Store.Feeds
         {
             if (!Directory.Exists(DirectoryPath)) return new string[0];
 
-            // Find all files whose names begin with an URL protocol
-            string[] files = Directory.GetFiles(DirectoryPath, "http*");
-
-            var result = new List<string>(files.Length);
-
-            for (int i = 0; i < files.Length; i++)
-            {
+            var files =
+                // Find all files whose names begin with an URL protocol
+                Directory.GetFiles(DirectoryPath, "http*").
                 // Take the file name itself and use URL encoding to get the original URL
-                string uri = ModelUtils.Unescape(Path.GetFileName(files[i]) ?? "");
-                if (ModelUtils.IsValidUri(uri)) result.Add(uri);
-            }
+                Select(path => ModelUtils.Unescape(Path.GetFileName(path) ?? "")).
+                // Filter out temporary/junk files
+                Where(ModelUtils.IsValidUri).ToList();
 
             // Return as a C-sorted list
-            result.Sort(StringComparer.Ordinal);
-            return result;
+            files.Sort(StringComparer.Ordinal);
+            return files;
         }
         #endregion
 

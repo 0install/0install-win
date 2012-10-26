@@ -43,14 +43,14 @@ namespace ZeroInstall.Store.Feeds
             if (cache == null) throw new ArgumentNullException("cache");
             #endregion
 
-            var feeds = new LinkedList<Feed>();
+            var feeds = new List<Feed>();
             foreach (string feedID in cache.ListAll())
             {
                 try
                 {
                     var feed = cache.GetFeed(feedID);
                     feed.Normalize(feedID);
-                    feeds.AddLast(feed);
+                    feeds.Add(feed);
                 }
                     #region Error handling
                 catch (IOException ex)

@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 using Common.Storage;
 using ZeroInstall.DesktopIntegration.AccessPoints;
@@ -107,11 +108,8 @@ namespace ZeroInstall.DesktopIntegration
                 if (appEntry.AccessPoints == null) continue;
                 foreach (var accessPoint in appEntry.AccessPoints.Entries)
                 {
-                    foreach (string conflictID in accessPoint.GetConflictIDs(appEntry))
-                    {
-                        if (!conflictIDs.ContainsKey(conflictID))
-                            conflictIDs.Add(conflictID, new ConflictData(appEntry, accessPoint));
-                    }
+                    foreach (string conflictID in accessPoint.GetConflictIDs(appEntry).Where(conflictID => !conflictIDs.ContainsKey(conflictID)))
+                        conflictIDs.Add(conflictID, new ConflictData(appEntry, accessPoint));
                 }
             }
             return conflictIDs;

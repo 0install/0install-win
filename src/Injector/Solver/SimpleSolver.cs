@@ -111,17 +111,15 @@ namespace ZeroInstall.Injector.Solver
                 _selections.Implementations.Add(selection);
 
                 // ToDo: Detect cyclic or cross-references
-                foreach (var dependency in implementation.Dependencies)
+                foreach (var dependency in implementation.Dependencies.
+                    Where(dependency => string.IsNullOrEmpty(dependency.Use) || (dependency.Use == "testing" && requirements.CommandName == "test")))
                 {
-                    if (string.IsNullOrEmpty(dependency.Use) || (dependency.Use == "testing" && requirements.CommandName == "test"))
+                    AddSelection(new Requirements
                     {
-                        AddSelection(new Requirements
-                        {
-                            InterfaceID = dependency.Interface,
-                            Architecture = requirements.Architecture,
-                            Versions = dependency.EffectiveVersions
-                        });
-                    }
+                        InterfaceID = dependency.Interface,
+                        Architecture = requirements.Architecture,
+                        Versions = dependency.EffectiveVersions
+                    });
                 }
             }
 

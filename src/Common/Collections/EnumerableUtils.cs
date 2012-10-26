@@ -32,6 +32,39 @@ namespace Common.Collections
     /// </summary>
     public static class EnumerableUtils
     {
+        #region LINQ
+        /// <summary>
+        /// Returns the first element in a list or throws a custom exception if no element exists.
+        /// </summary>
+        public static T First<T>(this IEnumerable<T> source, Exception noneException) where T : class
+        {
+            #region Sanity checks
+            if (source == null) throw new ArgumentNullException("source");
+            if (noneException == null) throw new ArgumentNullException("noneException");
+            #endregion
+
+            var result = source.FirstOrDefault();
+            if (result == null) throw noneException;
+            return result;
+        }
+
+        /// <summary>
+        /// Returns the first element in a list or that matches a predicate or throws a custom exception if no such element exists.
+        /// </summary>
+        public static T First<T>(this IEnumerable<T> source, Func<T, bool> predicate, Exception noneException) where T : class
+        {
+            #region Sanity checks
+            if (source == null) throw new ArgumentNullException("source");
+            if (noneException == null) throw new ArgumentNullException("noneException");
+            if (noneException == null) throw new ArgumentNullException("noneException");
+            #endregion
+
+            var result = source.FirstOrDefault(predicate);
+            if (result == null) throw noneException;
+            return result;
+        }
+        #endregion
+
         #region Added elements
         /// <summary>
         /// Assumes two sorted arrays. Determines which elements are present in <paramref name="newArray"/> but not in <paramref name="oldArray"/>.
@@ -253,45 +286,5 @@ namespace Common.Collections
             return elements.FirstOrDefault(element => element != null && element.MergeID == id);
         }
         #endregion
-    }
-}
-
-namespace System.Linq
-{
-    /// <summary>
-    /// Provides helper methods for enumerable collections.
-    /// </summary>
-    public static class EnumerableUtils
-    {
-        /// <summary>
-        /// Returns the first element in a list or throws a custom exception if no element exists.
-        /// </summary>
-        public static T First<T>(this IEnumerable<T> source, Exception noneException) where T : class
-        {
-            #region Sanity checks
-            if (source == null) throw new ArgumentNullException("source");
-            if (noneException == null) throw new ArgumentNullException("noneException");
-            #endregion
-
-            var result = source.FirstOrDefault();
-            if (result == null) throw noneException;
-            return result;
-        }
-
-        /// <summary>
-        /// Returns the first element in a list or that matches a predicate or throws a custom exception if no such element exists.
-        /// </summary>
-        public static T First<T>(this IEnumerable<T> source, Func<T, bool> predicate, Exception noneException) where T : class
-        {
-            #region Sanity checks
-            if (source == null) throw new ArgumentNullException("source");
-            if (noneException == null) throw new ArgumentNullException("noneException");
-            if (noneException == null) throw new ArgumentNullException("noneException");
-            #endregion
-
-            var result = source.FirstOrDefault(predicate);
-            if (result == null) throw noneException;
-            return result;
-        }
     }
 }

@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Common.Tasks;
 using ZeroInstall.Model;
@@ -61,14 +62,7 @@ namespace ZeroInstall.Store.Implementation
             {
                 // Only calculate the total size if it hasn't been cached yet
                 if (_totalSize == -1)
-                {
-                    _totalSize = 0;
-                    foreach (var node in _nodes)
-                    {
-                        var fileNode = node as ManifestFileBase;
-                        if (fileNode != null) _totalSize += fileNode.Size;
-                    }
-                }
+                    _totalSize = _nodes.OfType<ManifestFileBase>().Sum(node => node.Size);
 
                 return _totalSize;
             }

@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
@@ -134,17 +135,8 @@ namespace ZeroInstall.Commands
             if (arguments == null) throw new ArgumentNullException("arguments");
             #endregion
 
-            string commandName = null;
-            foreach (var argument in arguments)
-            {
-                if (!argument.StartsWith("-") && !argument.StartsWith("/"))
-                {
-                    commandName = argument;
-                    arguments.Remove(argument);
-                    break;
-                }
-            }
-
+            string commandName = arguments.FirstOrDefault(argument => !argument.StartsWith("-") && !argument.StartsWith("/"));
+            if (commandName != null) arguments.Remove(commandName);
             return commandName;
         }
         #endregion
