@@ -19,6 +19,7 @@ using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Security;
 using System.Security.Cryptography;
 using System.Threading;
@@ -140,8 +141,8 @@ namespace ZeroInstall.Updater
         {
             if (NewVersion >= new Version("0.54.4"))
             {
-                foreach (string file in new[] {"ZeroInstall.MyApps.dll", Path.Combine("de", "ZeroInstall.MyApps.resources.dll")})
-                    if (File.Exists(file)) File.Delete(file);
+                foreach (string file in new[] {"ZeroInstall.MyApps.dll", Path.Combine("de", "ZeroInstall.MyApps.resources.dll")}.Where(File.Exists))
+                    File.Delete(file);
             }
         }
         #endregion
@@ -197,6 +198,7 @@ namespace ZeroInstall.Updater
             string netFxDir = WindowsUtils.GetNetFxDirectory(
                 WindowsUtils.HasNetFxVersion(WindowsUtils.NetFx40) ? WindowsUtils.NetFx40 : WindowsUtils.NetFx20);
 
+            // ReSharper disable LoopCanBePartlyConvertedToQuery
             string ngenPath = Path.Combine(netFxDir, "ngen.exe");
             foreach (string assembly in _ngenAssemblies)
             {
@@ -204,6 +206,7 @@ namespace ZeroInstall.Updater
                 var startInfo = new ProcessStartInfo(ngenPath, arguments) {WindowStyle = ProcessWindowStyle.Hidden};
                 Process.Start(startInfo).WaitForExit();
             }
+            // ReSharper restore LoopCanBePartlyConvertedToQuery
         }
         #endregion
 

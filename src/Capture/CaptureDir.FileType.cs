@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Security;
 using Microsoft.Win32;
 using ZeroInstall.Model;
@@ -44,12 +45,11 @@ namespace ZeroInstall.Capture
             if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
-            foreach (string progID in snapshotDiff.ProgIDs)
-            {
-                if (string.IsNullOrEmpty(progID)) continue;
-                var fileType = GetFileType(progID, snapshotDiff, commandMapper);
-                if (fileType != null) capabilities.Entries.Add(fileType);
-            }
+            capabilities.Entries.AddAll((
+                from progID in snapshotDiff.ProgIDs
+                where !string.IsNullOrEmpty(progID)
+                select GetFileType(progID, snapshotDiff, commandMapper)).
+                Where(fileType => fileType != null));
         }
 
         /// <summary>
@@ -79,21 +79,18 @@ namespace ZeroInstall.Capture
                 { // Normal file type
                     var fileType = new FileType {ID = progID};
 
-                    foreach (var fileAssoc in snapshotDiff.FileAssocs)
+                    foreach (var fileAssoc in snapshotDiff.FileAssocs.Where(fileAssoc => fileAssoc.Value == progID && !string.IsNullOrEmpty(fileAssoc.Key)))
                     {
-                        if (fileAssoc.Value == progID && !string.IsNullOrEmpty(fileAssoc.Key))
+                        using (var assocKey = Registry.ClassesRoot.OpenSubKey(fileAssoc.Key))
                         {
-                            using (var assocKey = Registry.ClassesRoot.OpenSubKey(fileAssoc.Key))
-                            {
-                                if (assocKey == null) continue;
+                            if (assocKey == null) continue;
 
-                                fileType.Extensions.Add(new FileTypeExtension
-                                {
-                                    Value = fileAssoc.Key,
-                                    MimeType = assocKey.GetValue(Windows.FileType.RegValueContentType, "").ToString(),
-                                    PerceivedType = assocKey.GetValue(Windows.FileType.RegValuePerceivedType, "").ToString()
-                                });
-                            }
+                            fileType.Extensions.Add(new FileTypeExtension
+                            {
+                                Value = fileAssoc.Key,
+                                MimeType = assocKey.GetValue(Windows.FileType.RegValueContentType, "").ToString(),
+                                PerceivedType = assocKey.GetValue(Windows.FileType.RegValuePerceivedType, "").ToString()
+                            });
                         }
                     }
 

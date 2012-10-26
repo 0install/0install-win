@@ -80,6 +80,7 @@ namespace Common.Undo
         //--------------------//
 
         #region Undo / Redo
+        // ReSharper disable ForCanBeConvertedToForeach
         /// <summary>
         /// Set the changed property value again.
         /// </summary>
@@ -103,6 +104,8 @@ namespace Common.Undo
                 _targets[i].GetType().GetProperty(_property.Name).SetValue(_targets[i], _oldValues[i], null);
             }
         }
+
+        // ReSharper restore ForCanBeConvertedToForeach
         #endregion
     }
 }

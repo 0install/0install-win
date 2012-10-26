@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security;
 using Common.Collections;
 using Microsoft.Win32;
@@ -46,17 +47,13 @@ namespace ZeroInstall.Capture
             if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
-            foreach (string handler in snapshotDiff.AutoPlayHandlersUser)
-            {
-                var autoPlay = GetAutoPlay(handler, Registry.CurrentUser, snapshotDiff.AutoPlayAssocsUser, commandMapper);
-                if (autoPlay != null) capabilities.Entries.Add(autoPlay);
-            }
+            capabilities.Entries.AddAll(snapshotDiff.AutoPlayHandlersUser.
+                Select(handler => GetAutoPlay(handler, Registry.CurrentUser, snapshotDiff.AutoPlayAssocsUser, commandMapper)).
+                Where(autoPlay => autoPlay != null));
 
-            foreach (string handler in snapshotDiff.AutoPlayHandlersMachine)
-            {
-                var autoPlay = GetAutoPlay(handler, Registry.LocalMachine, snapshotDiff.AutoPlayAssocsMachine, commandMapper);
-                if (autoPlay != null) capabilities.Entries.Add(autoPlay);
-            }
+            capabilities.Entries.AddAll(snapshotDiff.AutoPlayHandlersMachine.
+                Select(handler => GetAutoPlay(handler, Registry.LocalMachine, snapshotDiff.AutoPlayAssocsMachine, commandMapper)).
+                Where(autoPlay => autoPlay != null));
         }
 
         /// <summary>
@@ -96,8 +93,10 @@ namespace ZeroInstall.Capture
                         Verb = GetVerb(progIDKey, commandMapper, verbName)
                     };
 
-                    foreach (var autoPlayAssoc in autoPlayAssocs)
-                        if (autoPlayAssoc.Value == handler) autoPlay.Events.Add(new AutoPlayEvent {Name = autoPlayAssoc.Key});
+                    autoPlay.Events.AddAll(
+                        from autoPlayAssoc in autoPlayAssocs
+                        where autoPlayAssoc.Value == handler
+                        select new AutoPlayEvent {Name = autoPlayAssoc.Key});
 
                     return autoPlay;
                 }

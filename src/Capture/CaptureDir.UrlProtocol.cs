@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security;
 using Common.Collections;
 using Microsoft.Win32;
@@ -45,9 +46,8 @@ namespace ZeroInstall.Capture
             if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
-            foreach (var protocolAssoc in protocolAssocs)
+            foreach (string protocol in protocolAssocs.Select(protocolAssoc => protocolAssoc.Key))
             {
-                string protocol = protocolAssoc.Key;
                 using (var protocolKey = Registry.ClassesRoot.OpenSubKey(protocol))
                 {
                     capabilities.Entries.Add(new UrlProtocol

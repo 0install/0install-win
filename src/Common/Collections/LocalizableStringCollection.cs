@@ -106,9 +106,7 @@ namespace Common.Collections
             if (language == null) throw new ArgumentNullException("language");
             #endregion
 
-            foreach (LocalizableString entry in this)
-                if (Equals(language, entry.Language)) return entry.Value;
-            throw new KeyNotFoundException();
+            return this.First(entry => Equals(language, entry.Language), new KeyNotFoundException()).Value;
         }
 
         /// <summary>
@@ -131,23 +129,20 @@ namespace Common.Collections
             #endregion
 
             // Try to find exact match
-            foreach (LocalizableString entry in this)
-                if (Equals(language, entry.Language)) return entry.Value;
+            foreach (LocalizableString entry in this.Where(entry => Equals(language, entry.Language)))
+                return entry.Value;
 
             // Try to find same language with neutral culture
-            foreach (LocalizableString entry in this)
-            {
-                if (entry.Language == null) continue;
-                if (language.TwoLetterISOLanguageName == entry.Language.TwoLetterISOLanguageName && entry.Language.IsNeutralCulture) return entry.Value;
-            }
+            foreach (LocalizableString entry in this.Where(entry => entry.Language != null && language.TwoLetterISOLanguageName == entry.Language.TwoLetterISOLanguageName && entry.Language.IsNeutralCulture))
+                return entry.Value;
 
             // Try to find "en"
-            foreach (LocalizableString entry in this)
-                if (Equals(entry.Language, new CultureInfo("en"))) return entry.Value;
+            foreach (LocalizableString entry in this.Where(entry => Equals(entry.Language, new CultureInfo("en"))))
+                return entry.Value;
 
             // Try to find "en-US"
-            foreach (LocalizableString entry in this)
-                if (Equals(entry.Language, new CultureInfo("en-US"))) return entry.Value;
+            foreach (LocalizableString entry in this.Where(entry => Equals(entry.Language, new CultureInfo("en-US"))))
+                return entry.Value;
 
             // Try to find first entry in collection
             return IsEmpty ? null : First.Value;

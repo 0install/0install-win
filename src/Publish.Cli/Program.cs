@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using Common;
 using Common.Cli;
@@ -279,9 +280,8 @@ namespace ZeroInstall.Publish.Cli
                         options.Feeds = ArgumentUtils.GetFiles(new[] {Environment.CurrentDirectory}, "*.xml");
 
                     var catalog = new Catalog();
-                    foreach (var feedFile in options.Feeds)
+                    foreach (var feed in options.Feeds.Select(feedFile => Feed.Load(feedFile.FullName)))
                     {
-                        var feed = Feed.Load(feedFile.FullName);
                         feed.Strip();
                         catalog.Feeds.Add(feed);
                     }

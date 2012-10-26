@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Security;
 using Common;
 using Common.Utils;
@@ -173,18 +174,15 @@ namespace ZeroInstall.Capture
             if (capabilities == null) throw new ArgumentNullException("capabilities");
             #endregion
 
-            foreach (var capability in capabilities.Entries)
+            // Find the matching existing file type
+            var fileType = capabilities.Entries.OfType<FileType>().First(type => type.ID == progID);
+
+            if (fileType != null)
             {
-                // Find the matching existing file type
-                var fileType = capability as FileType;
-                if (fileType != null && fileType.ID == progID)
-                {
-                    // Check if the file type already has the extension and add it if not
-                    FileTypeExtension temp;
-                    if (!fileType.Extensions.Find(element => StringUtils.EqualsIgnoreCase(element.Value, extension), out temp))
-                        fileType.Extensions.Add(new FileTypeExtension {Value = extension.ToLower()});
-                    break;
-                }
+                // Check if the file type already has the extension and add it if not
+                FileTypeExtension temp;
+                if (!fileType.Extensions.Find(element => StringUtils.EqualsIgnoreCase(element.Value, extension), out temp))
+                    fileType.Extensions.Add(new FileTypeExtension {Value = extension.ToLower()});
             }
         }
         #endregion

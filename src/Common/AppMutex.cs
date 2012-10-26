@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Common.Utils;
 
 namespace Common
@@ -47,8 +48,8 @@ namespace Common
         /// </summary>
         public void Close()
         {
-            foreach (var handle in _handles)
-                if (handle != IntPtr.Zero) WindowsUtils.CloseMutex(handle);
+            foreach (var handle in _handles.Where(handle => handle != IntPtr.Zero))
+                WindowsUtils.CloseMutex(handle);
         }
         #endregion
 

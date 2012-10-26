@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 
 namespace Common.Collections
@@ -48,13 +49,13 @@ namespace Common.Collections
         [Test]
         public void TestApplyWithRollback()
         {
-            var applyCalledFor = new LinkedList<int>();
-            var rollbackCalledFor = new LinkedList<int>();
+            var applyCalledFor = new List<int>();
+            var rollbackCalledFor = new List<int>();
             Assert.Throws<Exception>(() => new[] {1, 2, 3}.ApplyWithRollback(value =>
             {
-                applyCalledFor.AddLast(value);
+                applyCalledFor.Add(value);
                 if (value == 2) throw new Exception("Test exception");
-            }, value => rollbackCalledFor.AddLast(value)), "Exceptions should be passed through after rollback.");
+            }, rollbackCalledFor.Add), "Exceptions should be passed through after rollback.");
 
             CollectionAssert.AreEqual(new[] {1, 2}, applyCalledFor);
             CollectionAssert.AreEqual(new[] {2, 1}, rollbackCalledFor);
@@ -69,9 +70,9 @@ namespace Common.Collections
 
             public DateTime Timestamp { get; set; }
 
-            public static MergeTest[] BuildArray(params string[] mergeIDs)
+            public static IEnumerable<MergeTest> BuildList(params string[] mergeIDs)
             {
-                return Array.ConvertAll(mergeIDs, value => new MergeTest {MergeID = value});
+                return mergeIDs.Select(value => new MergeTest {MergeID = value});
             }
 
             public override string ToString()
@@ -114,8 +115,8 @@ namespace Common.Collections
             var mineList = new[] {1, 2, 4};
             var theirsList = new[] {16, 8, 4};
 
-            ICollection<int> toRemove = new LinkedList<int>();
-            ICollection<int> toAdd = new LinkedList<int>();
+            ICollection<int> toRemove = new List<int>();
+            ICollection<int> toAdd = new List<int>();
             EnumerableUtils.Merge(theirsList, mineList, toAdd.Add, toRemove.Add);
 
             CollectionAssert.AreEqual(new[] {16, 8}, toAdd);
@@ -123,7 +124,7 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.Merge{T}(System.Collections.Generic.ICollection{T},System.Collections.Generic.IEnumerable{T},System.Collections.Generic.IEnumerable{T},System.Action{T},System.Action{T})"/> correctly detects unchanged lists.
+        /// Ensures that <see cref="EnumerableUtils.Merge{T}(System.Collections.Generic.IEnumerable{T},System.Collections.Generic.IEnumerable{T},System.Collections.Generic.IEnumerable{T},System.Action{T},System.Action{T})"/> correctly detects unchanged lists.
         /// </summary>
         [Test]
         public void TestMergeEquals()
@@ -136,30 +137,30 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.Merge{T}(System.Collections.Generic.ICollection{T},System.Collections.Generic.IEnumerable{T},System.Collections.Generic.IEnumerable{T},System.Action{T},System.Action{T})"/> correctly detects added and removed elements.
+        /// Ensures that <see cref="EnumerableUtils.Merge{T}(System.Collections.Generic.IEnumerable{T},System.Collections.Generic.IEnumerable{T},System.Collections.Generic.IEnumerable{T},System.Action{T},System.Action{T})"/> correctly detects added and removed elements.
         /// </summary>
         [Test]
         public void TestMergeAddAndRemove()
         {
-            var baseList = MergeTest.BuildArray("a", "b", "c");
-            var theirsList = MergeTest.BuildArray("a", "b", "d");
-            var mineList = MergeTest.BuildArray("a", "c", "e");
+            var baseList = MergeTest.BuildList("a", "b", "c");
+            var theirsList = MergeTest.BuildList("a", "b", "d");
+            var mineList = MergeTest.BuildList("a", "c", "e");
 
-            ICollection<MergeTest> toRemove = new LinkedList<MergeTest>();
-            ICollection<MergeTest> toAdd = new LinkedList<MergeTest>();
+            ICollection<MergeTest> toRemove = new List<MergeTest>();
+            ICollection<MergeTest> toAdd = new List<MergeTest>();
             EnumerableUtils.Merge(baseList, theirsList, mineList, toAdd.Add, toRemove.Add);
 
-            CollectionAssert.AreEqual(MergeTest.BuildArray("d"), toAdd);
-            CollectionAssert.AreEqual(MergeTest.BuildArray("c"), toRemove);
+            CollectionAssert.AreEqual(MergeTest.BuildList("d"), toAdd);
+            CollectionAssert.AreEqual(MergeTest.BuildList("c"), toRemove);
         }
 
         /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.Merge{T}(System.Collections.Generic.ICollection{T},System.Collections.Generic.IEnumerable{T},System.Collections.Generic.IEnumerable{T},System.Action{T},System.Action{T})"/> correctly modified elements.
+        /// Ensures that <see cref="EnumerableUtils.Merge{T}(System.Collections.Generic.IEnumerable{T},System.Collections.Generic.IEnumerable{T},System.Collections.Generic.IEnumerable{T},System.Action{T},System.Action{T})"/> correctly modified elements.
         /// </summary>
         [Test]
         public void TestMergeModify()
         {
-            var baseList = MergeTest.BuildArray("a", "b", "c", "d", "e");
+            var baseList = MergeTest.BuildList("a", "b", "c", "d", "e");
             var theirsList = new[]
             {
                 new MergeTest {MergeID = "a"},
@@ -177,8 +178,8 @@ namespace Common.Collections
                 new MergeTest {MergeID = "e", Data = "ghi", Timestamp = new DateTime(2000, 1, 1)}
             };
 
-            ICollection<MergeTest> toRemove = new LinkedList<MergeTest>();
-            ICollection<MergeTest> toAdd = new LinkedList<MergeTest>();
+            ICollection<MergeTest> toRemove = new List<MergeTest>();
+            ICollection<MergeTest> toAdd = new List<MergeTest>();
             EnumerableUtils.Merge(baseList, theirsList, mineList, toAdd.Add, toRemove.Add);
 
             CollectionAssert.AreEqual(new[] {mineList[1], mineList[4]}, toRemove);
