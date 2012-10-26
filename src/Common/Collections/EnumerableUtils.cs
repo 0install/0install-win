@@ -32,39 +32,6 @@ namespace Common.Collections
     /// </summary>
     public static class EnumerableUtils
     {
-        #region First
-        /// <summary>
-        /// Returns the first element in a list or throws a custom exception if no element exists.
-        /// </summary>
-        public static T First<T>(this IEnumerable<T> source, Exception noneException) where T : class
-        {
-            #region Sanity checks
-            if (source == null) throw new ArgumentNullException("source");
-            if (noneException == null) throw new ArgumentNullException("noneException");
-            #endregion
-
-            var result = source.FirstOrDefault();
-            if (result == null) throw noneException;
-            return result;
-        }
-
-        /// <summary>
-        /// Returns the first element in a list or that matches a predicate or throws a custom exception if no such element exists.
-        /// </summary>
-        public static T First<T>(this IEnumerable<T> source, Func<T, bool> predicate, Exception noneException) where T : class
-        {
-            #region Sanity checks
-            if (source == null) throw new ArgumentNullException("source");
-            if (noneException == null) throw new ArgumentNullException("noneException");
-            if (noneException == null) throw new ArgumentNullException("noneException");
-            #endregion
-
-            var result = source.FirstOrDefault(predicate);
-            if (result == null) throw noneException;
-            return result;
-        }
-        #endregion
-
         #region Added elements
         /// <summary>
         /// Assumes two sorted arrays. Determines which elements are present in <paramref name="newArray"/> but not in <paramref name="oldArray"/>.
@@ -213,25 +180,15 @@ namespace Common.Collections
             #endregion
 
             // ReSharper disable CompareNonConstrainedGenericWithNull
-            foreach (var mine in mineList)
-            {
-                if (mine == null) continue;
+            foreach (var mine in mineList.Where(mine => mine != null).
+                // Entry in mineList, but not in theirsList
+                Where(mine => !theirsList.Contains(mine)))
+                removed(mine);
 
-                if (!theirsList.Contains(mine))
-                { // Entry in mineList, but not in theirsList
-                    removed(mine);
-                }
-            }
-
-            foreach (var theirs in theirsList)
-            {
-                if (theirs == null) continue;
-
-                if (!mineList.Contains(theirs))
-                { // Entry in theirsList, but not in mineList
-                    added(theirs);
-                }
-            }
+            foreach (var theirs in theirsList.Where(theirs => theirs != null).
+                // Entry in theirsList, but not in mineList
+                Where(theirs => !mineList.Contains(theirs)))
+                added(theirs);
             // ReSharper restore CompareNonConstrainedGenericWithNull
         }
 
@@ -247,7 +204,7 @@ namespace Common.Collections
         /// Modified elements are handled by calling <paramref name="removed"/> for the old state and <paramref name="added"/> for the new state.
         /// <see langword="null"/> elements are completely ignored.
         /// </remarks>
-        public static void Merge<T>(ICollection<T> baseList, IEnumerable<T> theirsList, IEnumerable<T> mineList, Action<T> added, Action<T> removed)
+        public static void Merge<T>(IEnumerable<T> baseList, IEnumerable<T> theirsList, IEnumerable<T> mineList, Action<T> added, Action<T> removed)
             where T : class, IMergeable<T>
         {
             #region Sanity checks
@@ -258,14 +215,13 @@ namespace Common.Collections
             if (removed == null) throw new ArgumentNullException("removed");
             #endregion
 
-            foreach (var theirs in theirsList.Where(theirs => theirs != null))
-            {
-                var matchingMine = FindMergeID(mineList, theirs.MergeID);
-                if (matchingMine == null)
-                { // Entry in theirsList, but not in mineList
-                    if (!baseList.Contains(theirs)) added(theirs); // Added in theirsList
-                }
-            }
+            foreach (var theirs in (
+                from theirs in theirsList.Where(theirs => theirs != null)
+                // Entry in theirsList, but not in mineList
+                let matchingMine = FindMergeID(mineList, theirs.MergeID)
+                where matchingMine == null
+                select theirs).Where(theirs => !baseList.Contains(theirs)))
+                added(theirs); // Added in theirsList
 
             foreach (var mine in mineList)
             {
@@ -297,5 +253,45 @@ namespace Common.Collections
             return elements.FirstOrDefault(element => element != null && element.MergeID == id);
         }
         #endregion
+    }
+}
+
+namespace System.Linq
+{
+    /// <summary>
+    /// Provides helper methods for enumerable collections.
+    /// </summary>
+    public static class EnumerableUtils
+    {
+        /// <summary>
+        /// Returns the first element in a list or throws a custom exception if no element exists.
+        /// </summary>
+        public static T First<T>(this IEnumerable<T> source, Exception noneException) where T : class
+        {
+            #region Sanity checks
+            if (source == null) throw new ArgumentNullException("source");
+            if (noneException == null) throw new ArgumentNullException("noneException");
+            #endregion
+
+            var result = source.FirstOrDefault();
+            if (result == null) throw noneException;
+            return result;
+        }
+
+        /// <summary>
+        /// Returns the first element in a list or that matches a predicate or throws a custom exception if no such element exists.
+        /// </summary>
+        public static T First<T>(this IEnumerable<T> source, Func<T, bool> predicate, Exception noneException) where T : class
+        {
+            #region Sanity checks
+            if (source == null) throw new ArgumentNullException("source");
+            if (noneException == null) throw new ArgumentNullException("noneException");
+            if (noneException == null) throw new ArgumentNullException("noneException");
+            #endregion
+
+            var result = source.FirstOrDefault(predicate);
+            if (result == null) throw noneException;
+            return result;
+        }
     }
 }
