@@ -19,7 +19,6 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
-using Common;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 using System.Collections.Generic;
@@ -36,32 +35,32 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <summary>
         /// Raised when a new <see cref="Feed"/> shall be created.
         /// </summary>
-        public event SimpleEventHandler New;
+        public event Action New;
 
         /// <summary>
         /// Raised when an existing <see cref="Feed"/> shall be opened.
         /// </summary>
-        public event SimpleEventHandler Open;
+        public event Action Open;
 
         /// <summary>
         /// Raised when an the current editted <see cref="Feed"/> shall be saved.
         /// </summary>
-        public event SimpleEventHandler Save;
+        public event Action Save;
 
         /// <summary>
         /// Raised when an the current editted <see cref="Feed"/> shall be saved on a new place.
         /// </summary>
-        public event SimpleEventHandler SaveAs;
+        public event Action SaveAs;
 
         /// <summary>
         /// Raised when the last action on the <see cref="Feed"/> shall be undone.
         /// </summary>
-        public event SimpleEventHandler Undo;
+        public event Action Undo;
 
         /// <summary>
         /// Raised when the last undo on the <see cref="Feed"/> shall be redone.
         /// </summary>
-        public event SimpleEventHandler Redo;
+        public event Action Redo;
 
         /// <summary>
         /// Raised when the user selected an other <see cref="OpenPgpSecretKey"/>.

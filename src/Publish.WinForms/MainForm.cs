@@ -39,10 +39,10 @@ namespace ZeroInstall.Publish.WinForms
     {
         #region Events
         /// <summary>To be called when the controls on the form need to filled with content from the feed.</summary>
-        private event SimpleEventHandler Populate;
+        private event Action Populate;
 
         /// <summary>To be called when the <see cref="treeViewFeedStructure"/> on the form need to filled with content from the feed.</summary>
-        private event SimpleEventHandler UpdateStructureButtons;
+        private event Action UpdateStructureButtons;
         #endregion
 
         #region Constants

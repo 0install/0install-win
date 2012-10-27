@@ -19,7 +19,6 @@ using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 using C5;
-using Common;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
@@ -33,7 +32,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <summary>
         /// Stores the shortcuts as keys and the associated events as values. 
         /// </summary>
-        private readonly HashDictionary<Keys, SimpleEventHandler> _shortcuts = new HashDictionary<Keys, SimpleEventHandler>();
+        private readonly HashDictionary<Keys, Action> _shortcuts = new HashDictionary<Keys, Action>();
         #endregion
 
         #region Constructor
@@ -78,7 +77,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// </summary>
         /// <param name="shortcut">That shall execute a method.</param>
         /// <param name="toExecute">Method that will be executed.</param>
-        public void LinkShortcut(Keys shortcut, SimpleEventHandler toExecute)
+        public void LinkShortcut(Keys shortcut, Action toExecute)
         {
             #region Sanity checks
             if (toExecute == null) throw new ArgumentNullException("toExecute");

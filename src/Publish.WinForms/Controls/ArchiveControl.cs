@@ -21,12 +21,14 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
 using Common.Tasks;
 using Common.Utils;
+using Common.Values.Design;
 using ZeroInstall.Store.Implementation.Archive;
 using ZeroInstall.Model;
 
@@ -83,6 +85,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <summary>
         /// Mime types of archives 0install supports.
         /// </summary>
+        [TypeConverter(typeof(EnumDescriptionConverter<ArchiveMimeTypes>))]
         private enum ArchiveMimeTypes
         {
             [Description("(auto detect)")]
@@ -128,14 +131,11 @@ namespace ZeroInstall.Publish.WinForms.Controls
             /// <returns><see langword="true"/> when the creation succeeded, else <see langword="false"/>.</returns>
             public static bool TryCreateFromDescription(string mimeTypeDescription, out ArchiveMimeType toCreate)
             {
-                foreach (ArchiveMimeTypes archiveMimeType in Enum.GetValues(typeof(ArchiveMimeTypes)))
-                {
-                    if (ControlHelpers.GetEnumDescription(archiveMimeType) != mimeTypeDescription) continue;
-                    toCreate = new ArchiveMimeType {MimeType = archiveMimeType};
-                    return true;
-                }
-                toCreate = null;
-                return false;
+                toCreate = (
+                    from ArchiveMimeTypes archiveMimeType in Enum.GetValues(typeof(ArchiveMimeTypes))
+                    where archiveMimeType.ConvertToString() == mimeTypeDescription
+                    select new ArchiveMimeType {MimeType = archiveMimeType}).FirstOrDefault();
+                return (toCreate != null);
             }
 
             /// <summary>
@@ -144,7 +144,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             /// <returns>Description of <see cref="MimeType"/>.</returns>
             public override string ToString()
             {
-                return ControlHelpers.GetEnumDescription(MimeType);
+                return MimeType.ConvertToString();
             }
         }
         #endregion
@@ -155,12 +155,12 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <summary>
         /// Raised when NO valid <see cref="Archive"/> was created.
         /// </summary>
-        public event SimpleEventHandler NoValidArchive;
+        public event Action NoValidArchive;
 
         /// <summary>
         /// Raised when a vaild <see cref="Archive"/> was created.
         /// </summary>
-        public event SimpleEventHandler ValidArchive;
+        public event Action ValidArchive;
         #endregion
 
         #region Initialization
@@ -211,8 +211,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             splittedPath.RemoveFirst();
             var currentNode = treeViewSubDirectory.Nodes[0];
             treeViewSubDirectory.BeginUpdate();
-            foreach (var folder in splittedPath)
-                currentNode = currentNode.Nodes.Add(folder);
+            splittedPath.Aggregate(currentNode, (current, folder) => current.Nodes.Add(folder));
             treeViewSubDirectory.ExpandAll();
             treeViewSubDirectory.EndUpdate();
 
