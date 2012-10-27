@@ -72,10 +72,11 @@ namespace ZeroInstall.Model
                 @"https://0install.de/",
                 Path.GetFullPath(@"absolute")
             };
-            // ReSharper disable AccessToModifiedClosure
+
+            // ReSharper disable AccessToForEachVariableInClosure
             foreach (var id in validIDs)
                 Assert.DoesNotThrow(() => ModelUtils.ValidateInterfaceID(id), "Should accept " + id);
-            // ReSharper restore AccessToModifiedClosure
+            // ReSharper restore AccessToForEachVariableInClosure
         }
 
         [Test]
