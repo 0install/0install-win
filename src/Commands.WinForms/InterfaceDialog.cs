@@ -340,8 +340,10 @@ namespace ZeroInstall.Commands.WinForms
 
         private void buttonRemoveFeed_Click(object sender, EventArgs e)
         {
-            foreach (var feed in listBoxFeeds.SelectedItems.OfType<FeedReference>().ToList())
-                RemoveFeed(feed);
+            var toRemove = listBoxFeeds.SelectedItems.OfType<FeedReference>().ToList();
+
+            if (!Msg.YesNo(this, string.Format(Resources.RemoveSelectedEntries, toRemove.Count), MsgSeverity.Warn)) return;
+            foreach (var feed in toRemove) RemoveFeed(feed);
         }
         #endregion
 

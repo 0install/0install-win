@@ -78,9 +78,8 @@ namespace ZeroInstall.Store.Feeds
         {
             if (!Directory.Exists(DirectoryPath)) return new string[0];
 
-            var files =
-                // Find all files whose names begin with an URL protocol
-                Directory.GetFiles(DirectoryPath, "http*").
+            // Find all files whose names begin with an URL protocol
+            var files = Directory.GetFiles(DirectoryPath, "http*").
                 // Take the file name itself and use URL encoding to get the original URL
                 Select(path => ModelUtils.Unescape(Path.GetFileName(path) ?? "")).
                 // Filter out temporary/junk files

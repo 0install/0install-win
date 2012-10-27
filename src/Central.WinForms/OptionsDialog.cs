@@ -310,16 +310,15 @@ namespace ZeroInstall.Central.WinForms
         private void _treeViewTrustedKeys_CheckedEntriesChanged(object sender, EventArgs e)
         {
             // Enable remove button when there are checked elements
-            buttonRemoveTrustedKey.Enabled = (_treeViewTrustedKeys.CheckedEntries.Length != 0);
+            buttonRemoveTrustedKey.Enabled = (_treeViewTrustedKeys.CheckedEntries.Count != 0);
         }
 
         private void buttonRemoveTrustedKey_Click(object sender, EventArgs e)
         {
-            var checkedNodes = _treeViewTrustedKeys.CheckedEntries;
-            if (!Msg.YesNo(this, string.Format(Resources.RemoveCheckedKeys, checkedNodes.Length), MsgSeverity.Warn)) return;
+            var checkedNodes = _treeViewTrustedKeys.CheckedEntries.ToList();
 
-            foreach (var node in checkedNodes)
-                _treeViewTrustedKeys.Entries.Remove(node);
+            if (!Msg.YesNo(this, string.Format(Resources.RemoveCheckedKeys, checkedNodes.Count), MsgSeverity.Warn)) return;
+            foreach (var node in checkedNodes.ToList()) _treeViewTrustedKeys.Entries.Remove(node);
         }
         #endregion
 

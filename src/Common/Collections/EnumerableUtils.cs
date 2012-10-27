@@ -55,7 +55,7 @@ namespace Common.Collections
         {
             #region Sanity checks
             if (source == null) throw new ArgumentNullException("source");
-            if (noneException == null) throw new ArgumentNullException("noneException");
+            if (predicate == null) throw new ArgumentNullException("predicate");
             if (noneException == null) throw new ArgumentNullException("noneException");
             #endregion
 
@@ -251,8 +251,7 @@ namespace Common.Collections
             foreach (var theirs in (
                 from theirs in theirsList.Where(theirs => theirs != null)
                 // Entry in theirsList, but not in mineList
-                let matchingMine = FindMergeID(mineList, theirs.MergeID)
-                where matchingMine == null
+                where FindMergeID(mineList, theirs.MergeID) == null
                 select theirs).Where(theirs => !baseList.Contains(theirs)))
                 added(theirs); // Added in theirsList
 

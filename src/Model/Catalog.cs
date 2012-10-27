@@ -67,7 +67,10 @@ namespace ZeroInstall.Model
             var newCatalog = new Catalog();
             var feedUris = new C5.HashSet<Uri>(); // Hash interface URIs to detect duplicates quicker
 
-            foreach (var feed in catalogs.SelectMany(catalog => catalog.Feeds.Where(feed => !feedUris.Contains(feed.Uri))))
+            // Merge multiple catalogs
+            foreach (var feed in catalogs.SelectMany(catalog => catalog.Feeds.
+                // Filter out duplicates
+                Where(feed => !feedUris.Contains(feed.Uri))))
             {
                 newCatalog.Feeds.Add(feed);
                 feedUris.Add(feed.Uri);
