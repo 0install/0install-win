@@ -69,7 +69,7 @@ namespace Common.Controls
                 task.StateChanged += delegate
                 {
                     // Close window when the task has been completed or cancelled (and thus become ready again)
-                    if (task.State >= TaskState.Complete || task.State == TaskState.Ready) Invoke(new SimpleEventHandler(Close));
+                    if (task.State >= TaskState.Complete || task.State == TaskState.Ready) Invoke(new Action(Close));
                 };
 
                 task.Start();

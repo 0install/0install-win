@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System;
 using System.IO;
 
 namespace Common.Streams
@@ -30,14 +31,14 @@ namespace Common.Streams
     public class DisposeWarpperStream : Stream
     {
         private readonly Stream _baseStream;
-        private readonly SimpleEventHandler _disposeHandler;
+        private readonly Action _disposeHandler;
 
         /// <summary>
         /// Creates a new dispose wrapper stream.
         /// </summary>
         /// <param name="baseStream">The underlying <see cref="Stream"/> providing the actual data. Will be disposed.</param>
         /// <param name="disposeHandler">Executed before <paramref name="baseStream"/> is disposed.</param>
-        public DisposeWarpperStream(Stream baseStream, SimpleEventHandler disposeHandler)
+        public DisposeWarpperStream(Stream baseStream, Action disposeHandler)
         {
             _baseStream = baseStream;
             _disposeHandler = disposeHandler;

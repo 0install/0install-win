@@ -188,7 +188,7 @@ namespace ZeroInstall.Store.Management.WinForms
 
         private void OnCheckedEntriesChanged(object sender, EventArgs e)
         {
-            if (_treeView.CheckedEntries.Length == 0)
+            if (_treeView.CheckedEntries.Count == 0)
             {
                 buttonVerify.Enabled = buttonRemove.Enabled = false;
                 textCheckedSize.Text = @"-";
@@ -205,7 +205,7 @@ namespace ZeroInstall.Store.Management.WinForms
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
-            if (Msg.YesNo(this, string.Format(Resources.DeleteCheckedEntries, _treeView.CheckedEntries.Length), MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
+            if (Msg.YesNo(this, string.Format(Resources.DeleteCheckedEntries, _treeView.CheckedEntries.Count), MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
             {
                 try
                 {
@@ -286,7 +286,7 @@ namespace ZeroInstall.Store.Management.WinForms
         public void RunTask(ITask task, object tag)
         {
             // Handle events coming from a non-UI thread, block caller
-            Invoke((SimpleEventHandler)(() => TrackingDialog.Run(this, task, Icon)));
+            Invoke(new Action(() => TrackingDialog.Run(this, task, Icon)));
         }
         #endregion
     }

@@ -17,7 +17,6 @@
 
 using System;
 using System.Windows.Forms;
-using Common;
 using Common.Controls;
 using Common.Tasks;
 using ZeroInstall.Central.WinForms.Properties;
@@ -58,7 +57,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         {
             lock (_taskLock) // Prevent multiple concurrent tasks
             {
-                Invoke((SimpleEventHandler)(() => TrackingDialog.Run(this, task, null)));
+                Invoke(new Action(() => TrackingDialog.Run(this, task, null)));
             }
         }
 
@@ -75,7 +74,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
 
         public void ShowProgressUI()
         {
-            Invoke((SimpleEventHandler)(() => labelWorking.Visible = true));
+            Invoke(new Action(() => labelWorking.Visible = true));
         }
 
         public void DisableProgressUI()
@@ -83,7 +82,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
 
         public void CloseProgressUI()
         {
-            Invoke((SimpleEventHandler)(() => labelWorking.Visible = false));
+            Invoke(new Action(() => labelWorking.Visible = false));
         }
 
         public bool AskQuestion(string question, string batchInformation)

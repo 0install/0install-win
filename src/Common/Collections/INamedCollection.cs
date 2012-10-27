@@ -62,7 +62,7 @@ namespace Common.Collections
         /// <summary>
         /// Is raised after the content of the collection has changed in any way (adding, removing, renaming, etc.).
         /// </summary>
-        event SimpleEventHandler CollectionChanged;
+        event Action CollectionChanged;
     }
 
     // ReSharper restore UnusedParameter.Global

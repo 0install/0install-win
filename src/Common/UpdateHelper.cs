@@ -20,15 +20,12 @@
  * THE SOFTWARE.
  */
 
+using System;
+
 namespace Common
 {
 
     #region Delegates
-    /// <summary>
-    /// Generic delegate for handling an event without passing any parameters.
-    /// </summary>
-    public delegate void SimpleEventHandler();
-
     /// <summary>
     /// Generic delegate for "mapping" one type of object on to another.
     /// </summary>
@@ -128,7 +125,7 @@ namespace Common
         /// <param name="original">The original value to update</param>
         /// <param name="value">The new value</param>
         /// <param name="updated">Gets called if value is different from original</param>
-        public static void Do<T>(ref T original, T value, SimpleEventHandler updated) where T : struct
+        public static void Do<T>(ref T original, T value, Action updated) where T : struct
         {
             // If the values already match, nothing needs to be done
             if (original.Equals(value)) return;
@@ -163,7 +160,7 @@ namespace Common
         /// <param name="original">The original value to update</param>
         /// <param name="value">The new value</param>
         /// <param name="updated">Gets called if value is different from original</param>
-        public static void Do(ref string original, string value, SimpleEventHandler updated)
+        public static void Do(ref string original, string value, Action updated)
         {
             // If the values already match, nothing needs to be done
             if (original == value) return;

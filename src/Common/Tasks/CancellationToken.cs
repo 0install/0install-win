@@ -23,7 +23,7 @@ namespace Common.Tasks
         ///   <para>This event is raised from a background thread. Wrap via <see cref="Control.Invoke(System.Delegate)"/> to update UI elements.</para>
         ///   <para>Handling this blocks the task, therefore observers should handle the event quickly.</para>
         /// </remarks>
-        public event SimpleEventHandler CancellationRequested;
+        public event Action CancellationRequested;
 
         private readonly object _lock = new object();
 

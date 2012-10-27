@@ -71,6 +71,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             var target = new InterfaceFeed(appEntry.InterfaceID, feed);
             foreach (var capabilityList in appEntry.CapabilityLists.Filter(AreCapabilitiesApplicable))
             {
+                // ReSharper disable AccessToForEachVariableInClosure
                 var dispatcher = new PerTypeDispatcher<Capabilities.Capability>(true);
                 if (WindowsUtils.IsWindows)
                 {
@@ -85,6 +86,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                         dispatcher.Add((Capabilities.DefaultProgram defaultProgram) => Windows.DefaultProgram.Register(target, defaultProgram, false, handler));
                 }
                 dispatcher.Dispatch(capabilityList.Entries);
+                // ReSharper restore AccessToForEachVariableInClosure
             }
         }
 

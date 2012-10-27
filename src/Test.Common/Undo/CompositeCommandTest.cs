@@ -34,9 +34,9 @@ namespace Common.Undo
     {
         private class MockCommand : IUndoCommand
         {
-            private readonly SimpleEventHandler _executeCallback, _undoCallback;
+            private readonly Action _executeCallback, _undoCallback;
 
-            public MockCommand(SimpleEventHandler executeCallback, SimpleEventHandler undoCallback)
+            public MockCommand(Action executeCallback, Action undoCallback)
             {
                 _executeCallback = executeCallback;
                 _undoCallback = undoCallback;

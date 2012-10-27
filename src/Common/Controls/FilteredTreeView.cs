@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
@@ -128,21 +129,12 @@ namespace Common.Controls
         }
 
         private readonly C5.HashSet<T> _checkedEntries = new C5.HashSet<T>();
-        private T[] _checkedEntriesArrayCache;
 
         /// <summary>
         /// Returns an array of all <see cref="INamed{T}"/> objects currently marked with a check box.
         /// </summary>
         /// <see cref="CheckBoxes"/>
-        [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Caching is employed to prevent constant array creation")]
-        public T[] CheckedEntries
-        {
-            get
-            {
-                // Use the array cache when possible
-                return _checkedEntriesArrayCache ?? (_checkedEntriesArrayCache = _checkedEntries.ToArray());
-            }
-        }
+        public ICollection<T> CheckedEntries { get { return new C5.GuardedCollection<T>(_checkedEntries); } }
 
         private char _separator = '.';
 
@@ -173,9 +165,6 @@ namespace Common.Controls
         {
             InitializeComponent();
             textSearch.HintText = Resources.Search;
-
-            // Ensure the checked entries cache gets flushed
-            _checkedEntries.CollectionChanged += delegate { _checkedEntriesArrayCache = null; };
         }
         #endregion
 

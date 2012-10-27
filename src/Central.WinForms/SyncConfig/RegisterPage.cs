@@ -27,7 +27,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
 {
     internal partial class RegisterPage : UserControl
     {
-        public event SimpleEventHandler Continue;
+        public event Action Continue;
 
         public RegisterPage()
         {

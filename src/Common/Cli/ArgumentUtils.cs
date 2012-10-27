@@ -60,9 +60,7 @@ namespace Common.Cli
                 }
                 else if (File.Exists(entry)) result.Add(new FileInfo(Path.GetFullPath(entry)));
                 else if (Directory.Exists(entry))
-                {
                     result.AddRange(Directory.GetFiles(entry, defaultPattern).Select(file => new FileInfo(file)));
-                }
                 else throw new FileNotFoundException(string.Format(Properties.Resources.FileNotFound, entry), entry);
             }
 

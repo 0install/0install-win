@@ -106,14 +106,14 @@ namespace ZeroInstall.Commands.WinForms
             if (tag is ManifestDigest)
             {
                 // Handle events coming from a non-UI thread, don't block caller
-                _form.BeginInvoke(new SimpleEventHandler(() => { if (_form.IsHandleCreated) _form.TrackTask(task, (ManifestDigest)tag); }));
+                _form.BeginInvoke(new Action(() => { if (_form.IsHandleCreated) _form.TrackTask(task, (ManifestDigest)tag); }));
             }
             else
             {
                 lock (_genericTaskLock) // Prevent multiple concurrent generic tasks
                 {
                     // Handle events coming from a non-UI thread, don't block caller
-                    _form.BeginInvoke(new SimpleEventHandler(() => { if (_form.IsHandleCreated) _form.TrackTask(task); }));
+                    _form.BeginInvoke(new Action(() => { if (_form.IsHandleCreated) _form.TrackTask(task); }));
                 }
             }
 
@@ -166,7 +166,7 @@ namespace ZeroInstall.Commands.WinForms
             if (_form == null) return;
             _guiReady.WaitOne();
 
-            _form.Invoke((SimpleEventHandler)(() => { if (_form.IsHandleCreated) _form.Enabled = false; }));
+            _form.Invoke(new Action(() => { if (_form.IsHandleCreated) _form.Enabled = false; }));
         }
 
         /// <inheritdoc/>
@@ -178,7 +178,7 @@ namespace ZeroInstall.Commands.WinForms
 
             try
             {
-                _form.Invoke((SimpleEventHandler)(() =>
+                _form.Invoke(new Action(() =>
                 {
                     if (_form.IsHandleCreated) _form.HideTrayIcon();
                     Application.ExitThread();
@@ -208,7 +208,7 @@ namespace ZeroInstall.Commands.WinForms
 
             // Handle events coming from a non-UI thread, block caller until user has answered
             bool result = false;
-            _form.Invoke(new SimpleEventHandler(delegate
+            _form.Invoke(new Action(delegate
             {
                 if (!_form.IsHandleCreated) return;
 
@@ -248,7 +248,7 @@ namespace ZeroInstall.Commands.WinForms
 
             try
             {
-                _form.Invoke((SimpleEventHandler)(() => { if (_form.IsHandleCreated) _form.ShowSelections(selections, feedCache); }));
+                _form.Invoke(new Action(() => { if (_form.IsHandleCreated) _form.ShowSelections(selections, feedCache); }));
             }
             catch (InvalidOperationException)
             {
@@ -269,8 +269,8 @@ namespace ZeroInstall.Commands.WinForms
             if (!_form.IsHandleCreated) return;
 
             // Show selection auditing screen and then asynchronously wait until its done
-            _form.Invoke((SimpleEventHandler)(() => { if (_form.IsHandleCreated) _form.Show(); })); // Leave tray icon mode
-            _form.Invoke(new SimpleEventHandler(() => _form.BeginAuditSelections(solveCallback, _auditWaitHandle)));
+            _form.Invoke(new Action(() => { if (_form.IsHandleCreated) _form.Show(); })); // Leave tray icon mode
+            _form.Invoke(new Action(() => _form.BeginAuditSelections(solveCallback, _auditWaitHandle)));
             _auditWaitHandle.WaitOne();
         }
         #endregion
@@ -292,7 +292,7 @@ namespace ZeroInstall.Commands.WinForms
         private void ShowBalloonMessage(string title, string information)
         {
             // Remove existing tray icon to give new balloon priority
-            _form.Invoke((SimpleEventHandler)(() => { if (_form.IsHandleCreated) _form.HideTrayIcon(); }));
+            _form.Invoke(new Action(() => { if (_form.IsHandleCreated) _form.HideTrayIcon(); }));
 
             var icon = new NotifyIcon {Visible = true, Icon = Resources.TrayIcon};
             icon.ShowBalloonTip(10000, title, information, ToolTipIcon.Info);
@@ -317,12 +317,12 @@ namespace ZeroInstall.Commands.WinForms
             var integrationForm = new IntegrateAppForm(integrationManager, appEntry, feed);
             integrationForm.VisibleChanged += delegate
             { // The IntegrateAppForm and ProgressForm take turns in being visible
-                _form.Invoke((SimpleEventHandler)delegate
+                _form.Invoke(new Action(delegate
                 {
                     // Prevent ProgressForm from flashing up again when the user cancels
                     _form.Visible = !integrationForm.Visible && (integrationForm.DialogResult != DialogResult.Cancel);
                     if (integrationForm.Visible) _form.HideTrayIcon();
-                });
+                }));
             };
             integrationForm.ShowDialog();
         }

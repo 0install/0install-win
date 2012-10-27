@@ -17,13 +17,12 @@
 
 using System;
 using System.Windows.Forms;
-using Common;
 
 namespace ZeroInstall.Central.WinForms.SyncConfig
 {
     internal partial class CryptoKeyChangedPage : UserControl
     {
-        public event SimpleEventHandler OK;
+        public event Action OK;
 
         public CryptoKeyChangedPage()
         {

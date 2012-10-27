@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
@@ -89,7 +90,7 @@ namespace Common.Controls
             // Window must have finished opening before it can be closed again
             _handleReady.WaitOne();
 
-            Invoke(new SimpleEventHandler(Close));
+            Invoke(new Action(Close));
             _thread.Join();
         }
         #endregion

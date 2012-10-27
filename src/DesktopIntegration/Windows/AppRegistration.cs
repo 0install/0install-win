@@ -21,7 +21,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using Common.Collections;
 using Common.Tasks;
 using Microsoft.Win32;
 using ZeroInstall.Model;
@@ -107,8 +106,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 {
                     foreach (var fileType in verbCapabilities.OfType<Capabilities.FileType>())
                     {
+                        // ReSharper disable AccessToForEachVariableInClosure
                         foreach (var extension in fileType.Extensions.Where(extension => !string.IsNullOrEmpty(extension.Value) && !string.IsNullOrEmpty(fileType.ID)))
                             fileAssocsKey.SetValue(extension.Value, FileType.RegKeyPrefix + fileType.ID);
+                        // ReSharper restore AccessToForEachVariableInClosure
                     }
                 }
 

@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using Common;
 using Common.Cli;
 using Common.Undo;
 using ZeroInstall.Model;
@@ -36,7 +35,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Is raised when the content of the <see cref="Feed"/> has been updated.
         /// </summary>
-        public event SimpleEventHandler Update;
+        public event Action Update;
 
         /// <summary>
         /// Is raised when the availability of the <see cref="Undo"/> operation has changed.

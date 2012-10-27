@@ -80,7 +80,8 @@ namespace ZeroInstall.DesktopIntegration
                     where capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)
                     from capability in capabilityList.Entries.OfType<Capabilities.DefaultCapability>()
                     where !capability.WindowsMachineWideOnly || MachineWide || !WindowsUtils.IsWindows
-                    where !capability.ExplicitOnly select DefaultAccessPoint.FromCapability(capability)).Cast<AccessPoint>());
+                    where !capability.ExplicitOnly
+                    select DefaultAccessPoint.FromCapability(capability)).Cast<AccessPoint>());
             }
             if (icons)
             {

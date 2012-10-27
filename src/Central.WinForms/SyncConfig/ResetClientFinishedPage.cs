@@ -17,13 +17,12 @@
 
 using System;
 using System.Windows.Forms;
-using Common;
 
 namespace ZeroInstall.Central.WinForms.SyncConfig
 {
     internal partial class ResetClientFinishedPage : UserControl
     {
-        public event SimpleEventHandler Done;
+        public event Action Done;
 
         public ResetClientFinishedPage()
         {

@@ -33,7 +33,7 @@ namespace Common.Tasks
     {
         #region Variables
         /// <summary>The code to be executed by the task. May throw <see cref="WebException"/>, <see cref="IOException"/> or <see cref="OperationCanceledException"/>.</summary>
-        private readonly SimpleEventHandler _work;
+        private readonly Action _work;
         #endregion
 
         #region Properties
@@ -55,7 +55,7 @@ namespace Common.Tasks
         /// </summary>
         /// <param name="name">A name describing the task in human-readable form.</param>
         /// <param name="work">The code to be executed by the task. May throw <see cref="WebException"/>, <see cref="IOException"/> or <see cref="OperationCanceledException"/>.</param>
-        public SimpleTask(string name, SimpleEventHandler work)
+        public SimpleTask(string name, Action work)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");

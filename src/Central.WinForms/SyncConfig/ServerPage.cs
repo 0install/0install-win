@@ -27,7 +27,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
 {
     internal partial class ServerPage : UserControl
     {
-        public event SimpleEventHandler OfficialServer;
+        public event Action OfficialServer;
         public event Action<Uri> CustomServer;
 
         public ServerPage()

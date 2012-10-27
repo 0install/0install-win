@@ -273,7 +273,7 @@ namespace ZeroInstall.Central.WinForms
         {
             try
             {
-                Invoke((SimpleEventHandler)UpdateButtons);
+                Invoke(new Action(UpdateButtons));
             }
             catch (InvalidOperationException)
             {

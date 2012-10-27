@@ -1245,6 +1245,9 @@ A &lt;feed-for&gt; tag indicates feed compatibility.</value>
   <data name="PropertiesFor" xml:space="preserve">
     <value>Properties for {0}</value>
   </data>
+  <data name="RemoveSelectedEntries" xml:space="preserve">
+    <value>Do you want to remove the {0} selected entries from the list?</value>
+  </data>
   <data name="TryHelp" xml:space="preserve">
     <value>Try {0} --help</value>
   </data>

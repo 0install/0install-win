@@ -188,7 +188,9 @@ namespace ZeroInstall.Capture
                         fileAssocsList.Add(new ComparableTuple<string>(keyName, assocKey.GetValue("", "").ToString()));
 
                         // Get additional ProgIDs
+                        // ReSharper disable AccessToForEachVariableInClosure
                         fileAssocsList.AddRange(RegUtils.GetValueNames(assocKey, FileType.RegSubKeyOpenWith).Select(progID => new ComparableTuple<string>(keyName, progID)));
+                        // ReSharper restore AccessToForEachVariableInClosure
                     }
                 }
                 else progIDsList.Add(keyName);

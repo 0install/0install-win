@@ -122,7 +122,7 @@ namespace ZeroInstall.Updater.WinForms
         /// <param name="message">The message to display to the user.</param>
         private void SetStatus(string message)
         {
-            Invoke((SimpleEventHandler)(() => statusLabel.Text = message));
+            Invoke(new Action(() => statusLabel.Text = message));
         }
         #endregion
 

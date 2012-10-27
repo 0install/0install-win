@@ -280,7 +280,7 @@ namespace ZeroInstall.Central.WinForms
 
                     // Send it to the UI thread
                     var tile = pair.Key;
-                    BeginInvoke((SimpleEventHandler)(() => tile.Feed = feed));
+                    BeginInvoke(new Action(() => tile.Feed = feed));
                 }
                     #region Error handling
                 catch (OperationCanceledException)

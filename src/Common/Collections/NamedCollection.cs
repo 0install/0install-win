@@ -36,7 +36,7 @@ namespace Common.Collections
     {
         #region Events
         /// <inheritdoc/>
-        public event SimpleEventHandler CollectionChanged;
+        public event Action CollectionChanged;
 
         private void OnAfterChanged()
         {

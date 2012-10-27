@@ -19,7 +19,6 @@ using System;
 using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
-using Common;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Commands.WinForms.Properties;
@@ -37,7 +36,7 @@ namespace ZeroInstall.Commands.WinForms
     {
         #region Variables
         /// <summary>To be called when the user wishes to cancel the current process.</summary>
-        private readonly SimpleEventHandler _cancelCallback;
+        private readonly Action _cancelCallback;
 
         /// <summary>A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/> after <see cref="BeginAuditSelections"/>.</summary>
         private EventWaitHandle _auditWaitHandle;
@@ -48,7 +47,7 @@ namespace ZeroInstall.Commands.WinForms
         /// Creates a new progress tracking form.
         /// </summary>
         /// <param name="cancelCallback">To be called when the user wishes to cancel the current process.</param>
-        public ProgressForm(SimpleEventHandler cancelCallback)
+        public ProgressForm(Action cancelCallback)
         {
             #region Sanity checks
             if (cancelCallback == null) throw new ArgumentNullException("cancelCallback");

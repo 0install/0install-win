@@ -62,7 +62,7 @@ namespace Common.Controls
             _exception = exception;
 
             // A missing file as the root is more important than the secondary exceptions it causes
-            if (exception.InnerException != null && exception.InnerException is FileNotFoundException)
+            if (exception.InnerException is FileNotFoundException)
                 exception = exception.InnerException;
 
             // Make the message simpler for missing files
@@ -100,7 +100,7 @@ namespace Common.Controls
             {
                 // Prevent any further user interaction with the crashing application
                 foreach (Form form in Application.OpenForms)
-                    form.Invoke((SimpleEventHandler)form.Hide);
+                    form.Invoke(new Action(form.Hide));
 
                 Report((e.ExceptionObject as Exception) ?? new Exception("Unknown error"), uploadUri);
                 Process.GetCurrentProcess().Kill();
@@ -111,7 +111,7 @@ namespace Common.Controls
             {
                 // Prevent any further user interaction with the crashing application
                 foreach (Form form in Application.OpenForms)
-                    form.Invoke((SimpleEventHandler)form.Hide);
+                    form.Invoke(new Action(form.Hide));
 
                 Report(e.Exception ?? new Exception("Unknown error"), uploadUri);
                 Process.GetCurrentProcess().Kill();

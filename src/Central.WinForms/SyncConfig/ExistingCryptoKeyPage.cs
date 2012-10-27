@@ -36,7 +36,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         public SyncCredentials SyncCredentials;
 
         public event Action<string> Continue;
-        public event SimpleEventHandler ResetKey;
+        public event Action ResetKey;
 
         public ExistingCryptoKeyPage()
         {

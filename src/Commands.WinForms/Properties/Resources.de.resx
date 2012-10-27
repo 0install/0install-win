@@ -145,6 +145,9 @@ Ein &lt;feed-for&gt; Tag zeigt Feed-Kompatibilität an.</value>
   <data name="PropertiesFor" xml:space="preserve">
     <value>Eigenschaften für {0}</value>
   </data>
+  <data name="RemoveSelectedEntries" xml:space="preserve">
+    <value>Möchten Sie die {0} ausgewählten Einträge aus der Liste entfernen?</value>
+  </data>
   <data name="TryHelp" xml:space="preserve">
     <value>Probieren Sie {0} --help</value>
   </data>

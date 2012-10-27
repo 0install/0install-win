@@ -23,7 +23,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
 {
     internal partial class ResetWelcomePage : UserControl
     {
-        public event SimpleEventHandler ChangeCryptoKey , ResetServer , ResetClient;
+        public event Action ChangeCryptoKey , ResetServer , ResetClient;
 
         public ResetWelcomePage()
         {

@@ -25,7 +25,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
 {
     internal partial class ResetClientPage : HandlerPage
     {
-        public event SimpleEventHandler Continue;
+        public event Action Continue;
 
         public ResetClientPage(bool machineWide) : base(machineWide)
         {
