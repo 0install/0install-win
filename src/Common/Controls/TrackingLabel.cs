@@ -75,11 +75,11 @@ namespace Common.Controls
         private void HookIn()
         {
             // Get the initial values
-            StateChanged(_task);
-            ProgressChanged(_task);
+            OnStateChanged(_task);
+            OnProgressChanged(_task);
 
-            _task.StateChanged += StateChanged;
-            _task.ProgressChanged += ProgressChanged;
+            _task.StateChanged += OnStateChanged;
+            _task.ProgressChanged += OnProgressChanged;
         }
 
         /// <summary>
@@ -87,8 +87,8 @@ namespace Common.Controls
         /// </summary>
         private void HookOut()
         {
-            _task.StateChanged -= StateChanged;
-            _task.ProgressChanged -= ProgressChanged;
+            _task.StateChanged -= OnStateChanged;
+            _task.ProgressChanged -= OnProgressChanged;
         }
 
         /// <summary>
@@ -104,13 +104,16 @@ namespace Common.Controls
         /// Changes the <see cref="Label.Text"/> based on the <see cref="TaskState"/> of <see cref="_task"/>.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
-        private void StateChanged(ITask sender)
+        // Must be public for IPC
+        // ReSharper disable MemberCanBePrivate.Global
+        public void OnStateChanged(ITask sender)
+            // ReSharper restore MemberCanBePrivate.Global
         {
             // Copy value so it can be safely accessed from another thread
             TaskState state = sender.State;
 
             // Handle events coming from a non-UI thread, block caller
-            Invoke(new Action(delegate
+            BeginInvoke(new Action(delegate
             {
                 CurrentState = state;
                 switch (state)
@@ -157,7 +160,10 @@ namespace Common.Controls
         /// Changes the <see cref="Label.Text"/> based on the already processed units.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
-        private void ProgressChanged(ITask sender)
+        // ReSharper disable MemberCanBePrivate.Global
+        // Must be public for IPC
+        public void OnProgressChanged(ITask sender)
+            // ReSharper restore MemberCanBePrivate.Global
         {
             // Only track units in data state
             if (sender.State != TaskState.Data) return;
@@ -167,7 +173,7 @@ namespace Common.Controls
             long unitsTotal = sender.UnitsTotal;
 
             // Handle events coming from a non-UI thread, block caller
-            Invoke(new Action(delegate
+            BeginInvoke(new Action(delegate
             {
                 Text = (sender.UnitsByte
                     ? unitsProcessed.FormatBytes(CultureInfo.CurrentCulture)

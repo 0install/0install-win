@@ -72,11 +72,11 @@ namespace Common.Controls
         private void HookIn()
         {
             // Get the initial values
-            StateChanged(_task);
-            ProgressChanged(_task);
+            OnStateChanged(_task);
+            OnProgressChanged(_task);
 
-            _task.StateChanged += StateChanged;
-            _task.ProgressChanged += ProgressChanged;
+            _task.StateChanged += OnStateChanged;
+            _task.ProgressChanged += OnProgressChanged;
         }
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Common.Controls
         /// </summary>
         private void HookOut()
         {
-            _task.StateChanged -= StateChanged;
-            _task.ProgressChanged -= ProgressChanged;
+            _task.StateChanged -= OnStateChanged;
+            _task.ProgressChanged -= OnProgressChanged;
         }
 
         /// <summary>
@@ -117,13 +117,16 @@ namespace Common.Controls
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
-        private void StateChanged(ITask sender)
+        // Must be public for IPC
+        // ReSharper disable MemberCanBePrivate.Global
+        public void OnStateChanged(ITask sender)
+            // ReSharper restore MemberCanBePrivate.Global
         {
             // Copy value so it can be safely accessed from another thread
             TaskState state = sender.State;
 
             // Handle events coming from a non-UI thread, block caller
-            Invoke(new Action(delegate
+            BeginInvoke(new Action(delegate
             {
                 IntPtr formHandle = ParentHandle;
                 switch (state)
@@ -174,7 +177,7 @@ namespace Common.Controls
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
-        private void ProgressChanged(ITask sender)
+        public void OnProgressChanged(ITask sender)
         {
             // Clamp the progress to values between 0 and 1
             double progress = sender.Progress;
@@ -190,7 +193,7 @@ namespace Common.Controls
             if (sender.State == TaskState.Data)
             {
                 // Handle events coming from a non-UI thread, block caller
-                Invoke(new Action(delegate
+                BeginInvoke(new Action(delegate
                 {
                     Value = currentValue;
                     IntPtr formHandle = ParentHandle;

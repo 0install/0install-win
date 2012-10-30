@@ -66,11 +66,7 @@ namespace Common.Controls
                 // Hook up event tracking
                 trackingProgressBar.Task = task;
                 labelProgress.Task = task;
-                task.StateChanged += delegate
-                {
-                    // Close window when the task has been completed or cancelled (and thus become ready again)
-                    if (task.State >= TaskState.Complete || task.State == TaskState.Ready) Invoke(new Action(Close));
-                };
+                task.StateChanged += OnTaskStateChanged;
 
                 task.Start();
             };
@@ -96,6 +92,15 @@ namespace Common.Controls
 
                 e.Cancel = true; // Window cannot be closed yet
             };
+        }
+
+        // Must be public for IPC
+        // ReSharper disable MemberCanBePrivate.Global
+        public void OnTaskStateChanged(ITask sender)
+            // ReSharper restore MemberCanBePrivate.Global
+        {
+            // Close window when the task has been completed or cancelled (and thus become ready again)
+            if (sender.State >= TaskState.Complete || sender.State == TaskState.Ready) Invoke(new Action(Close));
         }
         #endregion
 

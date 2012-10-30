@@ -47,8 +47,8 @@ namespace Common.Cli
 
             _task = task;
 
-            _task.StateChanged += StateChanged;
-            _task.ProgressChanged += ProgressChanged;
+            _task.StateChanged += OnStateChanged;
+            _task.ProgressChanged += OnProgressChanged;
         }
         #endregion
 
@@ -59,7 +59,10 @@ namespace Common.Cli
         /// Changes the look of the progress bar depending on the <see cref="TaskState"/> of <see cref="_task"/>.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
-        private void StateChanged(ITask sender)
+        // Must be public for IPC
+        // ReSharper disable MemberCanBePrivate.Global
+        public void OnStateChanged(ITask sender)
+            // ReSharper restore MemberCanBePrivate.Global
         {
             State = sender.State;
 
@@ -71,7 +74,10 @@ namespace Common.Cli
         /// Changes the value of the progress bar depending on the number of already processed bytes.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
-        private void ProgressChanged(ITask sender)
+        // Must be public for IPC
+        // ReSharper disable MemberCanBePrivate.Global
+        public void OnProgressChanged(ITask sender)
+            // ReSharper restore MemberCanBePrivate.Global
         {
             // Clamp the progress to values between 0 and 1
             double progress = sender.Progress;
@@ -87,8 +93,8 @@ namespace Common.Cli
         public override void Done()
         {
             // Stop tracking
-            _task.StateChanged -= StateChanged;
-            _task.ProgressChanged -= ProgressChanged;
+            _task.StateChanged -= OnStateChanged;
+            _task.ProgressChanged -= OnProgressChanged;
 
             base.Done();
         }
