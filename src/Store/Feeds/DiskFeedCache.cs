@@ -201,5 +201,11 @@ namespace ZeroInstall.Store.Feeds
             File.Delete(Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)));
         }
         #endregion
+
+        #region Flush
+        // No in-memory cache
+        void IFeedCache.Flush()
+        {}
+        #endregion
     }
 }

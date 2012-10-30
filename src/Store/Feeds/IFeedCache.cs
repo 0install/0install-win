@@ -79,5 +79,10 @@ namespace ZeroInstall.Store.Feeds
         /// <exception cref="IOException">Thrown if the feed could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the cache is not permitted.</exception>
         void Remove(string feedID);
+
+        /// <summary>
+        /// Flush/purge any in-memory caches.
+        /// </summary>
+        void Flush();
     }
 }

@@ -46,6 +46,9 @@ namespace ZeroInstall.Injector.Solver
             string arguments = GetSolverArguments(requirements, policy);
             string result = control.ExecuteSolver(arguments, policy.Handler);
 
+            // Flush in-memory cache in case external solver updated something on-disk
+            policy.FeedManager.Cache.Flush();
+
             // Detect when feeds get out-of-date
             staleFeeds = result.Contains("<!-- STALE_FEEDS -->");
 

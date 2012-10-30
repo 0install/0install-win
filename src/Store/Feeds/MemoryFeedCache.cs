@@ -145,5 +145,14 @@ namespace ZeroInstall.Store.Feeds
             _backingCache.Remove(feedID);
         }
         #endregion
+
+        #region Flush
+        /// <inheritdoc/>
+        public void Flush()
+        {
+            lock (_feedDictionary) _feedDictionary.Clear();
+            _backingCache.Flush();
+        }
+        #endregion
     }
 }
