@@ -8,7 +8,7 @@ namespace Common.Tasks
     /// Propagates notification that operations should be canceled.<br/>
     /// Once a token has been signaled it remains in that state and cannot be reused.
     /// </summary>
-    public sealed class CancellationToken
+    public sealed class CancellationToken : MarshalByRefObject
     {
         private volatile bool _isCancellationRequested; // Volatile justification: Write access is locked, many reads
 

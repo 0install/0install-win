@@ -22,6 +22,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
+using Common.Utils;
 using ZeroInstall.Model.Design;
 
 namespace ZeroInstall.Model
@@ -151,11 +152,16 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the manifest digests in the form "Algorithm1=Hash1, Algorithm2=Hash2, ...". Safe for parsing.
+        /// Returns the manifest digests in the form "Algorithm1=Hash1, Algorithm2=Hash2, ...". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("sha1={0}, sha1new={1}, sha256={2}, sha256new_{3}", Sha1, Sha1New, Sha256, Sha256New);
+            var parts = new List<string>();
+            if (!string.IsNullOrEmpty(Sha1)) parts.Add("sha1=" + Sha1);
+            if (!string.IsNullOrEmpty(Sha1New)) parts.Add("sha1new=" + Sha1New);
+            if (!string.IsNullOrEmpty(Sha256)) parts.Add("sha256=" + Sha256);
+            if (!string.IsNullOrEmpty(Sha256New)) parts.Add("sha256new=" + Sha256New);
+            return ", ".Join(parts);
         }
         #endregion
 
