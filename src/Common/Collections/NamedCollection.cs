@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using Common.Properties;
 
 namespace Common.Collections
@@ -36,6 +37,7 @@ namespace Common.Collections
     {
         #region Events
         /// <inheritdoc/>
+        [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
         public event Action CollectionChanged;
 
         private void OnAfterChanged()

@@ -33,6 +33,11 @@ namespace ZeroInstall.Commands
         [CLSCompliant(false)]
         public static void FromCommandLine(this Requirements requirements, OptionSet options)
         {
+            #region Sanity checks
+            if (requirements == null) throw new ArgumentNullException("requirements");
+            if (options == null) throw new ArgumentNullException("options");
+            #endregion
+
             options.Add("command=", Resources.OptionCommand, command => requirements.CommandName = command);
             options.Add("version=", Resources.OptionVersionRange,
                 (VersionRange range) => requirements.Versions = range);

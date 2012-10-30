@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 
 namespace Common.Tasks
@@ -23,6 +24,7 @@ namespace Common.Tasks
         ///   <para>This event is raised from a background thread. Wrap via <see cref="Control.Invoke(System.Delegate)"/> to update UI elements.</para>
         ///   <para>Handling this blocks the task, therefore observers should handle the event quickly.</para>
         /// </remarks>
+        [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
         public event Action CancellationRequested;
 
         private readonly object _lock = new object();

@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -39,6 +40,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <param name="data">The data of the file.</param>
         /// <param name="policy">Provides additional class dependencies.</param>
         /// <exception cref="SignatureException">Thrown if no trusted signature was found.</exception>
+        [SuppressMessage("Microsoft.Usage", "CA2234:PassSystemUriObjectsInsteadOfStrings")]
         public static ValidSignature CheckTrust(Uri uri, Uri mirrorUri, byte[] data, Policy policy)
         {
             #region Sanity checks
@@ -53,11 +55,13 @@ namespace ZeroInstall.Injector.Feeds
             var signatures = FeedUtils.GetSignatures(policy.OpenPgp, data);
 
             // Try to find already trusted key
-            var validSignatures = signatures.OfType<ValidSignature>().ToList();
+            // ReSharper disable PossibleMultipleEnumeration
             // ReSharper disable AccessToModifiedClosure
+            var validSignatures = signatures.OfType<ValidSignature>().ToList();
             var trustedSignature = validSignatures.FirstOrDefault(sig => trustDB.IsTrusted(sig.Fingerprint, domain));
-            // ReSharper restore AccessToModifiedClosure
             if (trustedSignature != null) return trustedSignature;
+            // ReSharper restore PossibleMultipleEnumeration
+            // ReSharper restore AccessToModifiedClosure
 
             // Try to find valid key and ask user to approve it
             trustedSignature = validSignatures.FirstOrDefault(sig =>
@@ -80,7 +84,9 @@ namespace ZeroInstall.Injector.Feeds
             }
 
             // Download missing key file
+            // ReSharper disable PossibleMultipleEnumeration
             var missingKey = signatures.OfType<MissingKeySignature>().FirstOrDefault();
+            // ReSharper restore PossibleMultipleEnumeration
             if (missingKey != null)
             {
                 var keyUri = new Uri(mirrorUri ?? uri, missingKey.KeyID + ".gpg");
