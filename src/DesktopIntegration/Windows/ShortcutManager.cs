@@ -47,7 +47,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             if (string.IsNullOrEmpty(command)) command = Command.NameRun;
 
-#if !MONO
+#if !__MonoCS__
             if (File.Exists(path)) File.Delete(path);
 
             var wshShell = new IWshRuntimeLibrary.WshShellClass();

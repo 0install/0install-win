@@ -39,7 +39,7 @@ namespace ZeroInstall.Store.Service
         private readonly IChannelReceiver _serverChannel = new IpcServerChannel(
             new Dictionary<string, string> {{"name", null}, {"portName", RemoteStoreProvider.IpcPortName}},
             new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full} // Allow deserialization of custom types);
-#if !MONO
+#if !__MonoCS__
             , RemoteStoreProvider.LiberalAcl
 #endif
             );
