@@ -43,7 +43,7 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <summary>
-        /// Returns a list of <see cref="IStore"/>s representing all local cache directories and the <see cref="ServiceStore"/>.
+        /// Returns a list of <see cref="IStore"/>s representing all local cache directories.
         /// </summary>
         /// <exception cref="IOException">Thrown if a directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory was not permitted.</exception>
@@ -69,7 +69,7 @@ namespace ZeroInstall.Store.Implementation
                 }
                 #endregion
             }
-            //stores.Add(new ServiceStore());
+            //stores.Add(new RemoteStoreProvider().StoreProxy);
 
             return stores;
         }

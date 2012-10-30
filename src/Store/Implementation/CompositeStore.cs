@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting;
 using Common;
 using Common.Tasks;
 using ZeroInstall.Model;
@@ -75,10 +76,16 @@ namespace ZeroInstall.Store.Implementation
                 {
                     result.AddSorted(store.ListAll());
                 }
+                    #region Error handling
                 catch (UnauthorizedAccessException)
                 {
                     // Ignore authorization errors, since listing is not a critical task
                 }
+                catch (RemotingException)
+                {
+                    // Ignore remoting errors, since listing is not a critical task
+                }
+                #endregion
             }
 
             return result;
@@ -95,10 +102,16 @@ namespace ZeroInstall.Store.Implementation
                 {
                     result.AddSorted(store.ListAllTemp());
                 }
+                    #region Error handling
                 catch (UnauthorizedAccessException)
                 {
                     // Ignore authorization errors, since listing is not a critical task
                 }
+                catch (RemotingException)
+                {
+                    // Ignore remoting errors, since listing is not a critical task
+                }
+                #endregion
             }
 
             return result;
@@ -174,6 +187,10 @@ namespace ZeroInstall.Store.Implementation
                 {
                     innerException = ex; // Remember the last error
                 }
+                catch (RemotingException ex)
+                {
+                    innerException = ex; // Remember the last error
+                }
                 #endregion
             }
 
@@ -212,6 +229,10 @@ namespace ZeroInstall.Store.Implementation
                     innerException = ex; // Remember the last error
                 }
                 catch (UnauthorizedAccessException ex)
+                {
+                    innerException = ex; // Remember the last error
+                }
+                catch (RemotingException ex)
                 {
                     innerException = ex; // Remember the last error
                 }
@@ -262,6 +283,10 @@ namespace ZeroInstall.Store.Implementation
                     Log.Error(ex);
                 }
                 catch (UnauthorizedAccessException ex)
+                {
+                    Log.Error(ex);
+                }
+                catch (RemotingException ex)
                 {
                     Log.Error(ex);
                 }
