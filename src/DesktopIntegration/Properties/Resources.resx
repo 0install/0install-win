@@ -124,7 +124,7 @@
     <value>The application '{0}' is already in the application list.</value>
   </data>
   <data name="AppNotInList" xml:space="preserve">
-    <value>The application '{0}' is not in the application list.</value>
+    <value>Unable to find application '{0}' in the application list.</value>
   </data>
   <data name="IntegrationMutex" xml:space="preserve">
     <value>You can only perform one desktop integration operation at a time.</value>

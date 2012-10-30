@@ -397,7 +397,7 @@ namespace ZeroInstall.Central.WinForms
             try
             {
                 string interfaceID = feed.UriString;
-                var status = _currentAppList.ContainsEntry(interfaceID)
+                var status = _currentAppList.Contains(interfaceID)
                     ? ((_currentAppList[interfaceID].AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated)
                     : AppStatus.Candidate;
                 var tile = catalogList.QueueNewTile(_machineWide, interfaceID, feed.Name, status);

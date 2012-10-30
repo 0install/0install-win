@@ -220,7 +220,7 @@ namespace ZeroInstall.Commands.WinForms
 
             // Ensure a matching <feed-for> is present for online feeds
             Uri interfaceUri;
-            if (ModelUtils.TryParseUri(_interfaceID, out interfaceUri) && !feed.FeedFor.Exists(entry => entry.Target == interfaceUri))
+            if (ModelUtils.TryParseUri(_interfaceID, out interfaceUri) && feed.FeedFor.All(entry => entry.Target != interfaceUri))
                 if (!Msg.YesNo(this, Resources.IgnoreMissingFeedFor, MsgSeverity.Warn)) return;
 
 #if NO_SOLVER_CANDIDATES

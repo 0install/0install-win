@@ -156,6 +156,9 @@ Wechsle zu Mirror.</value>
   <data name="IllegalCharInBindingName" xml:space="preserve">
     <value>Ungültiges Zeichen im {0} Binding Namen.</value>
   </data>
+  <data name="ImplementationNotInSelection" xml:space="preserve">
+    <value>Die Implementierung für das Interface '{0}' konnte in den Selections nicht gefunden werden.</value>
+  </data>
   <data name="MissingBindingName" xml:space="preserve">
     <value>Fehlender Name in {0} Binding.</value>
   </data>

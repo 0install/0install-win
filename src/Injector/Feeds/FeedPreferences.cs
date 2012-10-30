@@ -76,8 +76,8 @@ namespace ZeroInstall.Injector.Feeds
         {
             get
             {
-                ImplementationPreferences result;
-                if (!Implementations.Find(implementation => implementation.ID == id, out result))
+                var result = Implementations.FirstOrDefault(implementation => implementation.ID == id);
+                if (result == null)
                 {
                     result = new ImplementationPreferences {ID = id};
                     Implementations.Add(result);

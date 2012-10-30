@@ -175,13 +175,12 @@ namespace ZeroInstall.Capture
             #endregion
 
             // Find the matching existing file type
-            var fileType = capabilities.Entries.OfType<FileType>().First(type => type.ID == progID);
+            var fileType = capabilities.Entries.OfType<FileType>().FirstOrDefault(type => type.ID == progID);
 
             if (fileType != null)
             {
                 // Check if the file type already has the extension and add it if not
-                FileTypeExtension temp;
-                if (!fileType.Extensions.Find(element => StringUtils.EqualsIgnoreCase(element.Value, extension), out temp))
+                if (!fileType.Extensions.Any(element => StringUtils.EqualsIgnoreCase(element.Value, extension)))
                     fileType.Extensions.Add(new FileTypeExtension {Value = extension.ToLower()});
             }
         }

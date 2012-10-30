@@ -72,7 +72,7 @@ namespace ZeroInstall.Commands
 
             var mainImplementation = executor.Selections.MainImplementation;
             _implementationDir = executor.GetImplementationPath(mainImplementation);
-            _mainImplementation = _target.Feed.GetImplementation(mainImplementation.ID);
+            _mainImplementation = _target.Feed[mainImplementation.ID];
 
             _registryFilter = GetRegistryFilter();
             _relaunchControl = GetRelaunchControl();

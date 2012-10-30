@@ -120,6 +120,12 @@
   <data name="ArchitectureStringFormat" xml:space="preserve">
     <value>The string must be in the form "os-cpu".</value>
   </data>
+  <data name="CommandNotFound" xml:space="preserve">
+    <value>Unable to find command '{0}'.</value>
+  </data>
+  <data name="FeedNotInCatalog" xml:space="preserve">
+    <value>Unable to find feed '{0}' in catalog.</value>
+  </data>
   <data name="InvalidDigest" xml:space="preserve">
     <value>Digest '{0}' is not in the form 'algorithm=value'.</value>
   </data>

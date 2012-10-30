@@ -128,8 +128,8 @@ namespace ZeroInstall.DesktopIntegration
         public void TestContainsEntry()
         {
             var appList = CreateTestAppListWithAPs();
-            Assert.IsTrue(appList.ContainsEntry("http://0install.de/feeds/test/test1.xml"));
-            Assert.IsFalse(appList.ContainsEntry("http://0install.de/feeds/test/test2.xml"));
+            Assert.IsTrue(appList.Contains("http://0install.de/feeds/test/test1.xml"));
+            Assert.IsFalse(appList.Contains("http://0install.de/feeds/test/test2.xml"));
         }
 
         [Test]

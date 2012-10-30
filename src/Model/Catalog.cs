@@ -23,6 +23,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using Common.Collections;
 using Common.Storage;
+using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model
 {
@@ -89,9 +90,17 @@ namespace ZeroInstall.Model
         /// <param name="uri">The <see cref="Feed.Uri"/> to look for.</param>
         /// <returns>The identified <see cref="Feed"/>.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if no <see cref="Feed"/> matching <paramref name="uri"/> was found in <see cref="Feeds"/>.</exception>
-        public Feed GetFeed(Uri uri)
+        public Feed this[Uri uri]
         {
-            return Feeds.First(feed => feed.Uri == uri, new KeyNotFoundException());
+            get
+            {
+                #region Sanity checks
+                if (uri == null) throw new ArgumentNullException("uri");
+                #endregion
+
+                return Feeds.First(feed => feed.Uri == uri,
+                    new KeyNotFoundException(string.Format(Resources.FeedNotInCatalog, uri)));
+            }
         }
         #endregion
 

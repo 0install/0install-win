@@ -70,7 +70,7 @@ namespace ZeroInstall.Injector.Feeds
             if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException("fingerprint");
             #endregion
 
-            return Keys.Exists(key => key.Fingerprint == fingerprint && key.Domains.Contains(domain));
+            return Keys.Any(key => key.Fingerprint == fingerprint && key.Domains.Contains(domain));
         }
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace ZeroInstall.Injector.Feeds
             if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException("fingerprint");
             #endregion
 
-            Key targetKey;
-            if (!Keys.Find(key => key.Fingerprint == fingerprint, out targetKey))
+            Key targetKey = Keys.FirstOrDefault(key => key.Fingerprint == fingerprint);
+            if (targetKey == null)
             {
                 targetKey = new Key {Fingerprint = fingerprint};
                 Keys.Add(targetKey);

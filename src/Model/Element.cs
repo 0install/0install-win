@@ -20,9 +20,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Linq;
 using System.Xml.Serialization;
 using Common.Collections;
+using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model
 {
@@ -245,9 +245,17 @@ namespace ZeroInstall.Model
         /// <param name="name">The <see cref="Command.Name"/> to look for.</param>
         /// <exception cref="KeyNotFoundException">Thrown if no matching <see cref="Command"/> was found.</exception>
         /// <remarks>Should only be called after <see cref="Normalize"/> has been called, otherwise nested <see cref="Implementation"/>s will not be considered.</remarks>
-        public Command GetCommand(string name)
+        public Command this[string name]
         {
-            return Commands.First(command => command != null && command.Name == name, new KeyNotFoundException());
+            get
+            {
+                #region Sanity checks
+                if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+                #endregion
+
+                return Commands.First(command => command != null && command.Name == name,
+                    new KeyNotFoundException(string.Format(Resources.CommandNotFound, name)));
+            }
         }
         #endregion
 

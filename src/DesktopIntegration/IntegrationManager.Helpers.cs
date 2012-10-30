@@ -51,7 +51,7 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             // Prevent double entries
-            if (AppList.ContainsEntry(interfaceID)) throw new InvalidOperationException(string.Format(Resources.AppAlreadyInList, feed.Name));
+            if (AppList.Contains(interfaceID)) throw new InvalidOperationException(string.Format(Resources.AppAlreadyInList, feed.Name));
 
             // Get basic metadata and copy of capabilities from feed
             var appEntry = new AppEntry {InterfaceID = interfaceID, Name = feed.Name, Timestamp = DateTime.UtcNow};

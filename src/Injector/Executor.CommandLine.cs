@@ -88,7 +88,7 @@ namespace ZeroInstall.Injector
             if (startInfo == null) throw new ArgumentNullException("startInfo");
             #endregion
 
-            Command command = implementation.GetCommand(commandName ?? Command.NameRun);
+            Command command = implementation[commandName ?? Command.NameRun];
 
             // Apply bindings implementations use to find themselves and their dependencies
             ApplyBindings(command, implementation, startInfo);

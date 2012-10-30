@@ -120,6 +120,12 @@
   <data name="ArchitectureStringFormat" xml:space="preserve">
     <value>Der String muss die Form "os-cpu" haben.</value>
   </data>
+  <data name="CommandNotFound" xml:space="preserve">
+    <value>Der Command '{0}' konnte nicht gefunden werden.</value>
+  </data>
+  <data name="FeedNotInCatalog" xml:space="preserve">
+    <value>Feed '{0}' konnte nicht im Katalog gefunden werden.</value>
+  </data>
   <data name="InvalidDigest" xml:space="preserve">
     <value>Der Digest '{0}' hat nicht die Form 'Algorithmus=Wert'.</value>
   </data>
@@ -157,6 +163,6 @@
     <value>Unbekanntes Betriebssystem.</value>
   </data>
   <data name="VersionRangeEndNotExclusive" xml:space="preserve">
-    <value>Ende des Versionsbereich muss ausschließend sein. Verwenden Sie '..!{0}' anstelle von '..{0}'.</value>
+    <value>Ende des Versionsbereich muss exklusiv sein. Verwenden Sie '..!{0}' anstelle von '..{0}'.</value>
   </data>
 </root>

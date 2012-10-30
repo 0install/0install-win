@@ -45,7 +45,7 @@ namespace ZeroInstall.Commands
             var selectionsOld = SelectionsTest.CreateTestSelections();
             var selectionsNew = SelectionsTest.CreateTestSelections();
             selectionsNew.Implementations[1].Version = new ImplementationVersion("2.0");
-            selectionsNew.Implementations.Add(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/sub3.xml", Version = new ImplementationVersion("0.1")});
+            selectionsNew.Implementations.Add(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/sub3.xml", ID = "id3", Version = new ImplementationVersion("0.1")});
 
             var noRefreshPolicy = Policy.Clone();
             noRefreshPolicy.FeedManager.Refresh = false;
@@ -55,9 +55,9 @@ namespace ZeroInstall.Commands
             bool stale;
             SolverMock.Setup(x => x.Solve(requirements, noRefreshPolicy, out stale)).Returns(selectionsOld).Verifiable(); // No refresh Solve()
             SolverMock.Setup(x => x.Solve(requirements, Policy, out stale)).Returns(selectionsNew).Verifiable(); // Refresh Solve()
-            CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub1.xml")).Returns(FeedTest.CreateTestFeed());
-            CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(FeedTest.CreateTestFeed());
-            CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub3.xml")).Returns(FeedTest.CreateTestFeed());
+            CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub1.xml")).Returns(new Feed {Uri = new Uri("http://0install.de/feeds/test/sub1.xml"), Elements = {new Implementation {ID = "id1"}}});
+            CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(new Feed {Uri = new Uri("http://0install.de/feeds/test/sub2.xml"), Elements = {new Implementation {ID = "id2"}}});
+            CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub3.xml")).Returns(new Feed {Uri = new Uri("http://0install.de/feeds/test/sub3.xml"), Elements = {new Implementation {ID = "id3"}}});
 
             // Download uncached implementations
             FetcherMock.Setup(x => x.FetchImplementations(It.IsAny<IEnumerable<Implementation>>(), It.IsAny<ITaskHandler>())).Verifiable();

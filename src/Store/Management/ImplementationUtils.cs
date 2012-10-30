@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Management
@@ -41,11 +42,12 @@ namespace ZeroInstall.Store.Management
 
             foreach (var curFeed in feeds)
             {
-                var implementation = curFeed.GetImplementation(digest);
-                if (implementation != null)
+                var impl = curFeed.Elements.OfType<Model.Implementation>().
+                    FirstOrDefault(implementation => implementation.ManifestDigest.PartialEquals(digest));
+                if (impl != null)
                 {
                     feed = curFeed;
-                    return implementation;
+                    return impl;
                 }
             }
 

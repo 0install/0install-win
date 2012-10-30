@@ -22,6 +22,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
+using Common.Collections;
 using Common.Storage;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
@@ -64,13 +65,13 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="interfaceID">The <see cref="AppEntry.InterfaceID"/> to look for.</param>
         /// <returns><see langword="true"/> if a matching entry was found; <see langword="false"/> otherwise.</returns>
-        public bool ContainsEntry(string interfaceID)
+        public bool Contains(string interfaceID)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             #endregion
 
-            return Entries.Exists(entry => ModelUtils.IDEquals(entry.InterfaceID, interfaceID));
+            return Entries.Any(entry => ModelUtils.IDEquals(entry.InterfaceID, interfaceID));
         }
 
         /// <summary>
@@ -87,9 +88,8 @@ namespace ZeroInstall.DesktopIntegration
                 if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
                 #endregion
 
-                AppEntry appEntry;
-                if (!Entries.Find(entry => ModelUtils.IDEquals(entry.InterfaceID, interfaceID), out appEntry)) throw new KeyNotFoundException(string.Format(Resources.AppNotInList, interfaceID));
-                return appEntry;
+                return Entries.First(entry => ModelUtils.IDEquals(entry.InterfaceID, interfaceID),
+                    new KeyNotFoundException(string.Format(Resources.AppNotInList, interfaceID)));
             }
         }
         #endregion

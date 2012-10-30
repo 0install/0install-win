@@ -53,7 +53,7 @@ namespace ZeroInstall.Injector.Feeds
             var signatures = FeedUtils.GetSignatures(policy.OpenPgp, data);
 
             // Try to find already trusted key
-            var validSignatures = signatures.OfType<ValidSignature>();
+            var validSignatures = signatures.OfType<ValidSignature>().ToList();
             // ReSharper disable AccessToModifiedClosure
             var trustedSignature = validSignatures.FirstOrDefault(sig => trustDB.IsTrusted(sig.Fingerprint, domain));
             // ReSharper restore AccessToModifiedClosure

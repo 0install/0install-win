@@ -104,7 +104,7 @@ namespace ZeroInstall.Injector.Solver
                 if (bestCandidate.FeedID != requirements.InterfaceID) selection.FromFeed = bestCandidate.FeedID;
                 if (!string.IsNullOrEmpty(requirements.CommandName))
                 {
-                    var command = implementation.GetCommand(requirements.CommandName);
+                    var command = implementation[requirements.CommandName];
                     if (command.Runner != null) throw new SolverException("Unable to handle <runner>s!");
                     selection.Commands.Add(command);
                 }
@@ -134,7 +134,7 @@ namespace ZeroInstall.Injector.Solver
 
                     // Only list implementations that provide the requested command
                     if (!string.IsNullOrEmpty(requirements.CommandName))
-                        if (!implementation.Commands.Exists(command => command.Name == requirements.CommandName)) continue;
+                        if (implementation.Commands.All(command => command.Name != requirements.CommandName)) continue;
 
                     var candidate = new SelectionCandidate(feedID, implementation, feedPreferences[implementation.ID], requirements);
 

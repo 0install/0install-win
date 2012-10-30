@@ -156,6 +156,9 @@ Switching to mirror.</value>
   <data name="IllegalCharInBindingName" xml:space="preserve">
     <value>Illegal character in {0} binding name.</value>
   </data>
+  <data name="ImplementationNotInSelection" xml:space="preserve">
+    <value>Unable to find implementation for interface '{0}' in the selection.</value>
+  </data>
   <data name="MissingBindingName" xml:space="preserve">
     <value>Missing name in {0} binding.</value>
   </data>

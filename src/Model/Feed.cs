@@ -263,11 +263,20 @@ namespace ZeroInstall.Model
         /// Returns the <see cref="Implementation"/> with a specific ID string.
         /// </summary>
         /// <param name="id">The <see cref="ImplementationBase.ID"/> to look for.</param>
-        /// <returns>The identified <see cref="Implementation"/> or <see langword="null"/> no matching one was found.</returns>
+        /// <returns>The identified <see cref="Implementation"/>.</returns>
+        /// <exception cref="KeyNotFoundException">Thrown if no <see cref="Implementation"/> matching <paramref name="id"/> was found in <see cref="Elements"/>.</exception>
         /// <remarks>Should only be called after <see cref="Normalize"/> has been called, otherwise nested <see cref="Implementation"/>s will be missed.</remarks>
-        public Implementation GetImplementation(string id)
+        public Implementation this[string id]
         {
-            return Elements.OfType<Implementation>().FirstOrDefault(implementation => implementation.ID == id);
+            get
+            {
+                #region Sanity checks
+                if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
+                #endregion
+
+                return Elements.OfType<Implementation>().First(implementation => implementation.ID == id,
+                    new KeyNotFoundException(string.Format("Unable to find implementation '{0}' in feed '{1}'.", id, Name)));
+            }
         }
 
         /// <summary>
@@ -276,9 +285,13 @@ namespace ZeroInstall.Model
         /// <param name="digest">The <see cref="ManifestDigest"/> to look for.</param>
         /// <returns>The identified <see cref="Implementation"/> or <see langword="null"/> no matching one was found.</returns>
         /// <remarks>Should only be called after <see cref="Normalize"/> has been called, otherwise nested <see cref="Implementation"/>s will be missed.</remarks>
-        public Implementation GetImplementation(ManifestDigest digest)
+        public Implementation this[ManifestDigest digest]
         {
-            return Elements.OfType<Implementation>().FirstOrDefault(implementation => implementation.ManifestDigest.PartialEquals(digest));
+            get
+            {
+                return Elements.OfType<Implementation>().First(implementation => implementation.ManifestDigest.PartialEquals(digest),
+                    new KeyNotFoundException(string.Format("Unable to find implementation '{0}' in feed '{1}'.", digest, Name)));
+            }
         }
 
         /// <summary>
@@ -292,9 +305,7 @@ namespace ZeroInstall.Model
             if (string.IsNullOrEmpty(command)) throw new ArgumentNullException("command");
             #endregion
 
-            EntryPoint foundEntryPoint;
-            EntryPoints.Find(entryPoint => entryPoint.Command == command, out foundEntryPoint);
-            return foundEntryPoint;
+            return EntryPoints.FirstOrDefault(entryPoint => entryPoint.Command == command);
         }
 
         /// <summary>

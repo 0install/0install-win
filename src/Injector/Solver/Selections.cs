@@ -153,7 +153,18 @@ namespace ZeroInstall.Injector.Solver
         /// </summary>
         /// <param name="interfaceID">The <see cref="ImplementationSelection.InterfaceID"/> to look for.</param>
         /// <exception cref="KeyNotFoundException">Thrown if no <see cref="ImplementationSelection"/> matching <paramref name="interfaceID"/> was found in <see cref="Implementations"/>.</exception>
-        public ImplementationSelection this[string interfaceID] { get { return _implementations.First(implementation => implementation.InterfaceID == interfaceID, new KeyNotFoundException()); } }
+        public ImplementationSelection this[string interfaceID]
+        {
+            get
+            {
+                #region Sanity checks
+                if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+                #endregion
+
+                return _implementations.First(implementation => implementation.InterfaceID == interfaceID,
+                    new KeyNotFoundException(string.Format(Resources.ImplementationNotInSelection, InterfaceID)));
+            }
+        }
 
         /// <summary>
         /// Determines whether an <see cref="ImplementationSelection"/> for a specific interface is listed in the selection.
@@ -174,7 +185,7 @@ namespace ZeroInstall.Injector.Solver
         /// <param name="feedCache">The cache to retrieve <see cref="Model.Feed"/>s from.</param>
         /// <returns>An object that allows the main <see cref="ImplementationBase"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
         /// <remarks>Feed files may be downloaded, no implementations are downloaded.</remarks>
-        /// <exception cref="KeyNotFoundException">Thrown if the requested feed was not found in the cache.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if a <see cref="Feed"/> or <see cref="Implementation"/> is missing.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the feed file could not be parsed.</exception>
@@ -185,19 +196,22 @@ namespace ZeroInstall.Injector.Solver
             if (feedCache == null) throw new ArgumentNullException("feedCache");
             #endregion
 
-            return (
+            var uncachedImplementations =
                 from implementation in Implementations
                 // Local paths are considered to be always available
-                where string.IsNullOrEmpty(implementation.LocalPath)
-                // Don't try to download PackageImplementations
-                where string.IsNullOrEmpty(implementation.Package)
-                // Don't try to fetch virutal feeds
-                where string.IsNullOrEmpty(implementation.FromFeed) || !implementation.FromFeed.StartsWith(ImplementationSelection.DistributionFeedPrefix)
-                // Check if an implementation with a matching digest is available in the cache
-                where !searchStore.Contains(implementation.ManifestDigest)
-                // If not, get download information for the implementation by checking the original feed
-                let feed = feedCache.GetFeed(implementation.FromFeed ?? implementation.InterfaceID)
-                select feed.GetImplementation(implementation.ID)).Where(impl => impl != null).ToList();
+                where string.IsNullOrEmpty(implementation.LocalPath) &&
+                    // Don't try to download PackageImplementations
+                    string.IsNullOrEmpty(implementation.Package) &&
+                    // Don't try to fetch virutal feeds
+                    (string.IsNullOrEmpty(implementation.FromFeed) || !implementation.FromFeed.StartsWith(ImplementationSelection.DistributionFeedPrefix)) &&
+                    // Don't download implementations that are already in the store
+                    !searchStore.Contains(implementation.ManifestDigest) &&
+                    // Ignore implementations without an ID
+                    !string.IsNullOrEmpty(implementation.ID)
+                // Get download information for the implementation by checking the original feed
+                select feedCache.GetFeed(implementation.FromFeed ?? implementation.InterfaceID)[implementation.ID];
+
+            return uncachedImplementations.ToList();
         }
 
         /// <summary>

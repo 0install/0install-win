@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Common.Storage;
 using NUnit.Framework;
@@ -212,14 +213,14 @@ namespace ZeroInstall.Model
             Assert.AreEqual("de", implementation.Languages.ToString());
             Assert.AreEqual("GPL", implementation.License);
             Assert.AreEqual(Stability.Developer, implementation.Stability);
-            Assert.AreEqual("main1", implementation.GetCommand(Command.NameRun).Path);
+            Assert.AreEqual("main1", implementation[Command.NameRun].Path);
 
             implementation = feed.Elements[1];
             Assert.AreEqual(new Architecture(OS.Solaris, Cpu.I586), implementation.Architecture);
             Assert.AreEqual("de", implementation.Languages.ToString());
             Assert.AreEqual("GPL", implementation.License);
             Assert.AreEqual(Stability.Developer, implementation.Stability);
-            Assert.AreEqual("main2", implementation.GetCommand(Command.NameRun).Path);
+            Assert.AreEqual("main2", implementation[Command.NameRun].Path);
         }
 
         /// <summary>
@@ -257,27 +258,27 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Ensures that <see cref="Feed.GetImplementation(string)"/> correctly identifies contained <see cref="Implementation"/>s.
+        /// Ensures that <see cref="Feed.this(string)"/> correctly identifies contained <see cref="Implementation"/>s.
         /// </summary>
         [Test]
         public void TestGetImplementationString()
         {
             var feed = CreateTestFeed();
 
-            Assert.AreEqual(CreateTestImplementation(), feed.GetImplementation("id1"));
-            Assert.IsNull(feed.GetImplementation("invalid"));
+            Assert.AreEqual(CreateTestImplementation(), feed["id1"]);
+            Assert.Throws<KeyNotFoundException>(() => { var dummy = feed["invalid"]; });
         }
 
         /// <summary>
-        /// Ensures that <see cref="Feed.GetImplementation(ManifestDigest)"/> correctly identifies contained <see cref="Implementation"/>s.
+        /// Ensures that <see cref="Feed.this(ManifestDigest)"/> correctly identifies contained <see cref="Implementation"/>s.
         /// </summary>
         [Test]
         public void TestGetImplementationDigest()
         {
             var feed = CreateTestFeed();
 
-            Assert.AreEqual(CreateTestImplementation(), feed.GetImplementation(new ManifestDigest(sha256: "123")));
-            Assert.IsNull(feed.GetImplementation(new ManifestDigest(sha256: "456")));
+            Assert.AreEqual(CreateTestImplementation(), feed[new ManifestDigest(sha256: "123")]);
+            Assert.Throws<KeyNotFoundException>(() => { var dummy = feed[new ManifestDigest(sha256: "456")]; });
         }
 
         /// <summary>
