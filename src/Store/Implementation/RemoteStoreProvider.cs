@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections;
-using System.IO;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Ipc;
 using System.Runtime.Serialization.Formatters;
@@ -42,16 +41,18 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         public const string IpcObjectUri = "Store";
 
-        /// <summary>ACL that allows object owners, administrators and the system write access.</summary>
-        private static readonly CommonSecurityDescriptor _aclAllowOwnerAndSystem;
+        /// <summary>
+        /// ACL that allows object owners, normal users and the system write access.
+        /// </summary>
+        public static readonly CommonSecurityDescriptor LiberalAcl;
 
         static RemoteStoreProvider()
         {
             var dacl = new DiscretionaryAcl(false, false, 1);
             dacl.AddAccess(AccessControlType.Allow, new SecurityIdentifier(WellKnownSidType.CreatorOwnerSid, null), -1, InheritanceFlags.None, PropagationFlags.None);
+            dacl.AddAccess(AccessControlType.Allow, new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null), -1, InheritanceFlags.None, PropagationFlags.None);
             dacl.AddAccess(AccessControlType.Allow, new SecurityIdentifier(WellKnownSidType.LocalSystemSid, null), -1, InheritanceFlags.None, PropagationFlags.None);
-            dacl.AddAccess(AccessControlType.Allow, new SecurityIdentifier(WellKnownSidType.BuiltinAdministratorsSid, null), -1, InheritanceFlags.None, PropagationFlags.None);
-            _aclAllowOwnerAndSystem = new CommonSecurityDescriptor(false, false, ControlFlags.GroupDefaulted | ControlFlags.OwnerDefaulted | ControlFlags.DiscretionaryAclPresent, null, null, null, dacl);
+            LiberalAcl = new CommonSecurityDescriptor(false, false, ControlFlags.GroupDefaulted | ControlFlags.OwnerDefaulted | ControlFlags.DiscretionaryAclPresent, null, null, null, dacl);
         }
         #endregion
 
@@ -63,7 +64,7 @@ namespace ZeroInstall.Store.Implementation
         private readonly IChannelReceiver _callbackChannel = new IpcServerChannel(
             new Hashtable {{"name", null}, {"portName", IpcPortName + ".Callback"}},
             new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full}, // Allow deserialization of custom types
-            _aclAllowOwnerAndSystem);
+            LiberalAcl);
         #endregion
 
         #region Properties

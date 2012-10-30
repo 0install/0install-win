@@ -33,12 +33,14 @@
             // 
             // serviceProcessInstaller
             // 
+            this.serviceProcessInstaller.Account = System.ServiceProcess.ServiceAccount.LocalSystem;
             this.serviceProcessInstaller.Password = null;
             this.serviceProcessInstaller.Username = null;
             // 
             // serviceInstaller
             // 
-            this.serviceInstaller.ServiceName = "Zero Install Store Service";
+            this.serviceInstaller.DisplayName = "Zero Install Store Service";
+            this.serviceInstaller.ServiceName = "ZeroInstall.Store.Service";
             this.serviceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller

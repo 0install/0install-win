@@ -15,32 +15,82 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.Collections;
+using System.Diagnostics;
+using System.IO;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Ipc;
+using System.Runtime.Serialization.Formatters;
+using System.Security;
 using System.ServiceProcess;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Store.Service
 {
+    /// <summary>
+    /// Represents a Windows service.
+    /// </summary>
     public partial class Service : ServiceBase
     {
-        private readonly IChannel _channel = new IpcChannel(ServiceStore.IpcPortName);
+        #region Variables
+        /// <summary>IPC channel for providing services to clients.</summary>
+        private readonly IChannelReceiver _serverChannel = new IpcServerChannel(
+            new Hashtable {{"name", null}, {"portName", RemoteStoreProvider.IpcPortName}},
+            new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full}, // Allow deserialization of custom types
+            RemoteStoreProvider.LiberalAcl);
+        #endregion
 
+        #region Constructor
         public Service()
         {
             InitializeComponent();
+
+            // Ensure the event log accepts messages from this service
+            if (!EventLog.SourceExists(eventLog.Source)) EventLog.CreateEventSource(eventLog.Source, eventLog.Log);
+            ServiceStore.EventLog = eventLog;
         }
+        #endregion
 
         protected override void OnStart(string[] args)
         {
-            ChannelServices.RegisterChannel(_channel, true);
-            RemotingConfiguration.RegisterWellKnownServiceType(typeof(SecureStore), ServiceStore.IpcObjectUri, WellKnownObjectMode.Singleton);
+            try
+            {
+                ChannelServices.RegisterChannel(_serverChannel, false);
+                RemotingConfiguration.RegisterWellKnownServiceType(typeof(ServiceStore), RemoteStoreProvider.IpcObjectUri, WellKnownObjectMode.Singleton);
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                eventLog.WriteEntry(string.Format("Failed to open cache directory:\n{0}", ex), EventLogEntryType.Error);
+                ExitCode = 1;
+                Stop();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                eventLog.WriteEntry(string.Format("Failed to open cache directory:\n{0}", ex), EventLogEntryType.Error);
+                ExitCode = 1;
+                Stop();
+            }
+            catch (RemotingException ex)
+            {
+                eventLog.WriteEntry(string.Format("Failed to open IPC connection:\n{0}", ex), EventLogEntryType.Error);
+                ExitCode = 2;
+                Stop();
+            }
+            catch (SecurityException ex)
+            {
+                eventLog.WriteEntry(string.Format("Failed to open IPC connection:\n{0}", ex), EventLogEntryType.Error);
+                ExitCode = 2;
+                Stop();
+            }
+            #endregion
         }
 
         protected override void OnStop()
         {
-            ChannelServices.UnregisterChannel(_channel);
+            ChannelServices.UnregisterChannel(_serverChannel);
         }
     }
 }

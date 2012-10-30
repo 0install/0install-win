@@ -28,13 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.eventLog = new System.Diagnostics.EventLog();
+            ((System.ComponentModel.ISupportInitialize)(this.eventLog)).BeginInit();
+            // 
+            // eventLog
+            // 
+            this.eventLog.Log = "Application";
+            this.eventLog.Source = "Zero Install Store Service";
             // 
             // Service
             // 
             this.ServiceName = "Zero Install Store Service";
+            ((System.ComponentModel.ISupportInitialize)(this.eventLog)).EndInit();
 
         }
 
         #endregion
+
+        private System.Diagnostics.EventLog eventLog;
+
     }
 }
