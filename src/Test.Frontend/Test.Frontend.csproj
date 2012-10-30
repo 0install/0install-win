@@ -109,7 +109,6 @@
     <Compile Include="Commands\RequirementsUtilsTest.cs" />
     <Compile Include="Commands\SelectionTest.cs" />
     <Compile Include="Commands\UpdateTest.cs" />
-    <Compile Include="Store\Service\SecureStoreTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
