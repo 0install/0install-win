@@ -22,7 +22,7 @@ using NUnit.Framework;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Contains code for testing <see cref="List"/>.
+    /// Contains integration tests for <see cref="List"/>.
     /// </summary>
     [TestFixture]
     public class ListTest : FrontendCommandTest

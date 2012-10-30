@@ -27,7 +27,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Contains code for testing <see cref="Update"/>.
+    /// Contains integration tests for <see cref="Update"/>.
     /// </summary>
     [TestFixture]
     public class UpdateTest : SelectionTest

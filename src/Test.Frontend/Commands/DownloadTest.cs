@@ -24,7 +24,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Contains code for testing <see cref="Download"/>.
+    /// Contains integration tests for <see cref="Download"/>.
     /// </summary>
     [TestFixture]
     public class DownloadTest : SelectionTest

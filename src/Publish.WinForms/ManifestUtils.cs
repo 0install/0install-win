@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Common.Controls;
 using Common.Tasks;
@@ -43,10 +44,9 @@ namespace ZeroInstall.Publish.WinForms
             var digest = new ManifestDigest();
 
             // Generate manifest for each available format...
-            foreach (var format in ManifestFormat.Recommended)
+            foreach (var generator in ManifestFormat.Recommended.Select(format => new ManifestGenerator(path, format)))
             {
                 // ... and add the resulting digest to the return value
-                var generator = new ManifestGenerator(path, format);
                 TrackingDialog.Run(owner, generator, null);
                 ManifestDigest.ParseID(generator.Result.CalculateDigest(), ref digest);
             }

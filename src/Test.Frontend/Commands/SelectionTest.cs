@@ -24,7 +24,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Contains code for testing <see cref="Selection"/>.
+    /// Contains integration tests for <see cref="Selection"/>.
     /// </summary>
     [TestFixture]
     public class SelectionTest : FrontendCommandTest
