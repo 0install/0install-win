@@ -16,7 +16,7 @@
  */
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Ipc;
 using System.Runtime.Serialization.Formatters;
@@ -62,7 +62,7 @@ namespace ZeroInstall.Store.Implementation
 
         /// <summary>IPC channel for providing callbacks to the server.</summary>
         private readonly IChannelReceiver _callbackChannel = new IpcServerChannel(
-            new Hashtable {{"name", null}, {"portName", IpcPortName + ".Callback"}},
+            new Dictionary<string, string> {{"name", null}, {"portName", IpcPortName + ".Callback"}},
             new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full}, // Allow deserialization of custom types
             LiberalAcl);
         #endregion
