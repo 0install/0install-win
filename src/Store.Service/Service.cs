@@ -37,9 +37,12 @@ namespace ZeroInstall.Store.Service
         #region Variables
         /// <summary>IPC channel for providing services to clients.</summary>
         private readonly IChannelReceiver _serverChannel = new IpcServerChannel(
-            new Dictionary<string, string> { { "name", null }, { "portName", RemoteStoreProvider.IpcPortName } },
-            new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full}, // Allow deserialization of custom types
-            RemoteStoreProvider.LiberalAcl);
+            new Dictionary<string, string> {{"name", null}, {"portName", RemoteStoreProvider.IpcPortName}},
+            new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full} // Allow deserialization of custom types);
+#if !MONO
+            , RemoteStoreProvider.LiberalAcl
+#endif
+            );
         #endregion
 
         #region Constructor

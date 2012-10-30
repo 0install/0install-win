@@ -63,8 +63,11 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>IPC channel for providing callbacks to the server.</summary>
         private readonly IChannelReceiver _callbackChannel = new IpcServerChannel(
             new Dictionary<string, string> {{"name", null}, {"portName", IpcPortName + ".Callback"}},
-            new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full}, // Allow deserialization of custom types
-            LiberalAcl);
+            new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full} // Allow deserialization of custom types
+#if !MONO
+            , LiberalAcl
+#endif
+            );
         #endregion
 
         #region Properties
