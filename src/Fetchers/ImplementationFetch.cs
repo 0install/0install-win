@@ -84,7 +84,7 @@ namespace ZeroInstall.Fetchers
                 try
                 {
                     // Check if another process added the implementation in the meantime
-                    _fetcherInstance.Store.ClearCaches();
+                    _fetcherInstance.Store.Flush();
                     if (_fetcherInstance.Store.Contains(_digest))
                     {
                         Completed = true;

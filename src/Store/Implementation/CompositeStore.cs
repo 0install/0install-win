@@ -153,7 +153,7 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            ClearCaches();
+            Flush();
 
             // Find the last store the implementation can be added to (some might be write-protected)
             Exception innerException = null;
@@ -192,7 +192,7 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            ClearCaches();
+            Flush();
 
             // Find the last store the implementation can be added to (some might be write-protected)
             Exception innerException = null;
@@ -228,7 +228,7 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public void Remove(ManifestDigest manifestDigest)
         {
-            ClearCaches();
+            Flush();
 
             // Remove from every store that contains the implementation
             bool removed = false;
@@ -309,7 +309,7 @@ namespace ZeroInstall.Store.Implementation
         private readonly Dictionary<ManifestDigest, bool> _containsCache = new Dictionary<ManifestDigest, bool>();
 
         /// <inheritdoc />
-        public void ClearCaches()
+        public void Flush()
         {
             lock (_containsCache) _containsCache.Clear();
         }

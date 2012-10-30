@@ -181,7 +181,7 @@ namespace ZeroInstall.Store.Service
 
         #region Caches
         /// <inheritdoc />
-        public void ClearCaches()
+        public void Flush()
         {
             // No internal caching
         }

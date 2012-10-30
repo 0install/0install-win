@@ -153,8 +153,8 @@ namespace ZeroInstall.Store.Implementation
         IEnumerable<DigestMismatchException> Audit(ITaskHandler handler);
 
         /// <summary>
-        /// Clears any internal memory caches.
+        /// Clears any in-memory caches.
         /// </summary>
-        void ClearCaches();
+        void Flush();
     }
 }

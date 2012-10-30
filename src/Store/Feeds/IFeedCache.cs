@@ -81,7 +81,7 @@ namespace ZeroInstall.Store.Feeds
         void Remove(string feedID);
 
         /// <summary>
-        /// Flush/purge any in-memory caches.
+        /// Clears any in-memory caches.
         /// </summary>
         void Flush();
     }
