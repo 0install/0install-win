@@ -198,7 +198,7 @@ namespace ZeroInstall.Store.Implementation
                 // Get all digests...
                 Select(path => new ManifestDigest(Path.GetFileName(path))).
                 // ... that are valid
-                Where(digest => digest != default(ManifestDigest));
+                Where(digest => digest != default(ManifestDigest)).ToList();
         }
 
         /// <inheritdoc />
@@ -209,7 +209,7 @@ namespace ZeroInstall.Store.Implementation
             // Get all directory paths...
             return FileUtils.GetSubdirectoryPaths(DirectoryPath).
                 // ... that are valid
-                Where(path => new ManifestDigest(Path.GetFileName(path)) == default(ManifestDigest));
+                Where(path => new ManifestDigest(Path.GetFileName(path)) == default(ManifestDigest)).ToList();
         }
         #endregion
 
@@ -237,9 +237,9 @@ namespace ZeroInstall.Store.Implementation
         }
         #endregion
 
-        #region Add directory
+        #region Add
         /// <inheritdoc />
-        public void AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler)
+        public virtual void AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -248,7 +248,7 @@ namespace ZeroInstall.Store.Implementation
 
             if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
 
-            string tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
+            string tempDir = GetTempDir();
             try
             {
                 // Copy the source directory inside the cache so it can be validated safely (no manipulation of directory while validating)
@@ -279,11 +279,9 @@ namespace ZeroInstall.Store.Implementation
             }
             #endregion
         }
-        #endregion
 
-        #region Add archive
         /// <inheritdoc />
-        public void AddArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
+        public virtual void AddArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
@@ -293,7 +291,7 @@ namespace ZeroInstall.Store.Implementation
             if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
 
             // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
-            string tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
+            string tempDir = GetTempDir();
             Directory.CreateDirectory(tempDir);
 
             try
@@ -319,11 +317,20 @@ namespace ZeroInstall.Store.Implementation
             }
             #endregion
         }
+
+        /// <summary>
+        /// Creates a temporary directory within <see cref="DirectoryPath"/>.
+        /// </summary>
+        /// <returns>The path to the new temporary directory.</returns>
+        protected virtual string GetTempDir()
+        {
+            return Path.Combine(DirectoryPath, Path.GetRandomFileName());
+        }
         #endregion
 
         #region Remove
         /// <inheritdoc />
-        public void Remove(ManifestDigest manifestDigest)
+        public virtual void Remove(ManifestDigest manifestDigest)
         {
             string path = GetPath(manifestDigest);
             if (path == null) throw new ImplementationNotFoundException(manifestDigest);
