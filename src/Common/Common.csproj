@@ -71,6 +71,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
+    <Compile Include="AppInfo.cs" />
+    <Compile Include="AppMutex.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="MutexLock.cs" />
     <Compile Include="PropertyPointer.cs" />
@@ -109,16 +111,14 @@
     <Compile Include="Collections\NamedCollection.cs" />
     <Compile Include="Collections\LocalizableStringCollection.cs" />
     <Compile Include="Collections\LocalizableString.cs" />
-    <Compile Include="Utils\StreamUtils.cs" />
     <Compile Include="Streams\OffsetStream.cs" />
     <Compile Include="Streams\CircularBufferStream.cs" />
     <Compile Include="Streams\DisposeWrapperStream.cs" />
-    <Compile Include="AppInfo.cs" />
-    <Compile Include="AppMutex.cs" />
     <Compile Include="Utils\AttributeUtils.cs" />
     <Compile Include="Utils\ProcessUtils.cs" />
     <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
+    <Compile Include="Utils\StreamUtils.cs" />
     <Compile Include="Utils\WindowsUtils.cs" />
     <Compile Include="Utils\WindowsUtils.NativeMethods.cs" />
     <Compile Include="Utils\WindowsUtils.Platform.cs" />
