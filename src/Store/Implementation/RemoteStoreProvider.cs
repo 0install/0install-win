@@ -94,6 +94,9 @@ namespace ZeroInstall.Store.Implementation
             StoreProxy = (IStore)Activator.GetObject(typeof(IStore), "ipc://" + ipcPortName + "/" + IpcObjectUri);
         }
 
+        /// <summary>
+        /// Closes any active IPC channels.
+        /// </summary>
         ~RemoteStoreProvider()
         {
             ChannelServices.UnregisterChannel(_callbackChannel);
