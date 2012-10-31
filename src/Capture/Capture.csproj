@@ -46,8 +46,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Core" Condition=" '$(OS)' != 'Windows_NT' " />
-    <Reference Include="LinqBridge" Condition=" '$(OS)' == 'Windows_NT' ">
+    <Reference Include="LinqBridge">
       <HintPath>..\..\lib\LinqBridge.dll</HintPath>
     </Reference>
     <Reference Include="C5">
