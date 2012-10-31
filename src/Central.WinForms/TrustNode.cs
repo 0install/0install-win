@@ -50,7 +50,6 @@ namespace ZeroInstall.Central.WinForms
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException("fingerprint");
-            if (domain == null) throw new ArgumentNullException("domain");
             #endregion
 
             Fingerprint = fingerprint;

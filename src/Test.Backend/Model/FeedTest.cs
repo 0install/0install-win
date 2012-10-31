@@ -258,7 +258,7 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Ensures that <see cref="Feed.this(string)"/> correctly identifies contained <see cref="Implementation"/>s.
+        /// Ensures that contained <see cref="Implementation"/>s are correctly returned by ID.
         /// </summary>
         [Test]
         public void TestGetImplementationString()
@@ -270,7 +270,7 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Ensures that <see cref="Feed.this(ManifestDigest)"/> correctly identifies contained <see cref="Implementation"/>s.
+        /// Ensures that contained <see cref="Implementation"/>s are correctly returned by <see cref="ManifestDigest"/>.
         /// </summary>
         [Test]
         public void TestGetImplementationDigest()
