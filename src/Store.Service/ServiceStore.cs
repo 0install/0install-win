@@ -81,8 +81,6 @@ namespace ZeroInstall.Store.Service
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            if (EventLog != null) EventLog.WriteEntry(string.Format("Adding directory '{0}' with expected digest '{1}'.", path, manifestDigest));
-
             try
             {
                 base.AddDirectory(path, manifestDigest, handler);
@@ -95,7 +93,7 @@ namespace ZeroInstall.Store.Service
             }
             #endregion
 
-            if (EventLog != null) EventLog.WriteEntry(string.Format("Successfully added directory '{0}' with expected digest '{1}'.", path, manifestDigest));
+            if (EventLog != null) EventLog.WriteEntry(string.Format("Added directory '{0}' with expected digest '{1}'.", path, manifestDigest));
         }
 
         /// <inheritdoc />
@@ -105,8 +103,6 @@ namespace ZeroInstall.Store.Service
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
-
-            if (EventLog != null) EventLog.WriteEntry(string.Format("Adding archives with expected digest '{0}'.", manifestDigest));
 
             try
             {
@@ -120,7 +116,7 @@ namespace ZeroInstall.Store.Service
             }
             #endregion
 
-            if (EventLog != null) EventLog.WriteEntry(string.Format("Successfully added archives with expected digest '{0}'.", manifestDigest));
+            if (EventLog != null) EventLog.WriteEntry(string.Format("Added archives with expected digest '{0}'.", manifestDigest));
         }
 
         /// <inheritdoc />
@@ -132,13 +128,13 @@ namespace ZeroInstall.Store.Service
         #endregion
 
         #region Remove
-        /// <summary>
-        /// Use <see cref="DirectoryStore.Remove"/> instead!
-        /// </summary>
-        /// <exception cref="UnauthorizedAccessException">Always thrown.</exception>
+        /// <inheritdoc />
         public override void Remove(ManifestDigest manifestDigest)
         {
-            throw new UnauthorizedAccessException("Use direct store access to remove implementations.");
+            // ToDo: Restrict access
+            base.Remove(manifestDigest);
+
+            if (EventLog != null) EventLog.WriteEntry(string.Format("Removed implementation with digest '{0}'.", manifestDigest));
         }
         #endregion
 

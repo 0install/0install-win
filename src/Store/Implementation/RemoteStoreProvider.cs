@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Ipc;
 using System.Runtime.Serialization.Formatters;
@@ -26,82 +27,57 @@ using System.Security.Principal;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Access an <see cref="IStore"/> running on a background service via IPC.
+    /// Access <see cref="IStore"/> running in other proccesses via IPC.
     /// </summary>
-    public sealed class RemoteStoreProvider
+    public static class RemoteStoreProvider
     {
         #region Constants
         /// <summary>
-        /// The default port name to use to contact the service process.
+        /// The default port name to use to contact the background service process.
         /// </summary>
-        public const string IpcPortName = "ZeroInstall.Store.Service";
+        public const string ServiceIpcPortName = "ZeroInstall.Store.Service";
 
         /// <summary>
-        /// The Uri fragment to use to request an <see cref="IStore"/> object from the service.
+        /// The Uri fragment to use to request an <see cref="IStore"/> object from another proccess.
         /// </summary>
         public const string IpcObjectUri = "Store";
 
         /// <summary>
-        /// ACL that allows object owners, normal users and the system write access.
+        /// ACL used for IPC named pipes. Allows object owners, normal users and the system write access.
         /// </summary>
-        public static readonly CommonSecurityDescriptor LiberalAcl;
+        public static readonly CommonSecurityDescriptor IpcAcl;
+        #endregion
 
+        #region Constructor
         static RemoteStoreProvider()
         {
             var dacl = new DiscretionaryAcl(false, false, 1);
             dacl.AddAccess(AccessControlType.Allow, new SecurityIdentifier(WellKnownSidType.CreatorOwnerSid, null), -1, InheritanceFlags.None, PropagationFlags.None);
             dacl.AddAccess(AccessControlType.Allow, new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null), -1, InheritanceFlags.None, PropagationFlags.None);
             dacl.AddAccess(AccessControlType.Allow, new SecurityIdentifier(WellKnownSidType.LocalSystemSid, null), -1, InheritanceFlags.None, PropagationFlags.None);
-            LiberalAcl = new CommonSecurityDescriptor(false, false, ControlFlags.GroupDefaulted | ControlFlags.OwnerDefaulted | ControlFlags.DiscretionaryAclPresent, null, null, null, dacl);
-        }
-        #endregion
+            IpcAcl = new CommonSecurityDescriptor(false, false, ControlFlags.GroupDefaulted | ControlFlags.OwnerDefaulted | ControlFlags.DiscretionaryAclPresent, null, null, null, dacl);
 
-        #region Variables
-        /// <summary>IPC channel for accessing the server.</summary>
-        private readonly IChannelSender _clientChannel = new IpcClientChannel();
+            // IPC channel for accessing the server
+            ChannelServices.RegisterChannel(new IpcClientChannel("", new BinaryClientFormatterSinkProvider()), false);
 
-        /// <summary>IPC channel for providing callbacks to the server.</summary>
-        private readonly IChannelReceiver _callbackChannel = new IpcServerChannel(
-            new Dictionary<string, string> {{"name", null}, {"portName", IpcPortName + ".Callback"}},
-            new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full} // Allow deserialization of custom types
+            // IPC channel for providing callbacks to the server
+            ChannelServices.RegisterChannel(new IpcServerChannel(
+                new Dictionary<string, string> {{"name", ""}, {"portName", ServiceIpcPortName + ".Callback"}},
+                new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full} // Allow deserialization of custom types
 #if !__MonoCS__
-            , LiberalAcl
+                , IpcAcl
 #endif
-            );
-        #endregion
-
-        #region Properties
-        /// <summary>The store to use for read-access.</summary>
-        public IStore StoreProxy { get; private set; }
-        #endregion
-
-        #region Constructor
-        /// <summary>
-        /// Initializes the IPC subsystem using the default IPC port name. No actual connection is established yet.
-        /// </summary>
-        public RemoteStoreProvider() : this(IpcPortName)
-        {}
-
-        /// <summary>
-        /// Initializes the IPC subsystem using a custom IPC port name. No actual connection is established yet.
-        /// </summary>
-        /// <param name="ipcPortName">The port name to use to contact the service process.</param>
-        public RemoteStoreProvider(string ipcPortName)
-        {
-            ChannelServices.RegisterChannel(_clientChannel, false);
-            ChannelServices.RegisterChannel(_callbackChannel, false);
-
-            StoreProxy = (IStore)Activator.GetObject(typeof(IStore), "ipc://" + ipcPortName + "/" + IpcObjectUri);
-        }
-
-        /// <summary>
-        /// Closes any active IPC channels.
-        /// </summary>
-        ~RemoteStoreProvider()
-        {
-            ChannelServices.UnregisterChannel(_callbackChannel);
-            ChannelServices.UnregisterChannel(_clientChannel);
+                ), false);
         }
         #endregion
+
+        /// <summary>
+        /// Creates a new proxy object for accessing the <see cref="IStore"/> in the background service.
+        /// </summary>
+        /// <exception cref="RemotingException">Thrown if there is a problem connecting with the background service.</exception>
+        public static IStore GetServiceProxy()
+        {
+            return (IStore)Activator.GetObject(typeof(IStore), "ipc://" + ServiceIpcPortName + "/" + IpcObjectUri);
+        }
     }
 }
