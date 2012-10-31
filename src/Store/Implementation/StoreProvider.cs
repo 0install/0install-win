@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting;
 using System.Text;
 using Common.Storage;
 using Common.Utils;
@@ -50,6 +51,8 @@ namespace ZeroInstall.Store.Implementation
         private static IEnumerable<IStore> GetStores()
         {
             var stores = new List<IStore>();
+
+            // Directories
             foreach (var path in GetImplementationDirs())
             {
                 try
@@ -69,7 +72,21 @@ namespace ZeroInstall.Store.Implementation
                 }
                 #endregion
             }
-            //stores.Add(new RemoteStoreProvider().StoreProxy);
+
+            // Background service
+            if (WindowsUtils.IsWindowsNT && !Locations.IsPortable)
+            {
+                try
+                {
+                    stores.Add(RemoteStoreProvider.GetServiceProxy());
+                }
+                    #region Error handling
+                catch (RemotingException)
+                {
+                    // Ignore remoting errors in case service is offline
+                }
+                #endregion
+            }
 
             return stores;
         }

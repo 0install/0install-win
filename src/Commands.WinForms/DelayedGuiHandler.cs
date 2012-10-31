@@ -29,7 +29,7 @@ namespace ZeroInstall.Commands.WinForms
     /// <summary>
     /// Wraps <see cref="GuiHandler"/> and displays it only after a certain delay (or immediately when it is required).
     /// </summary>
-    public class DelayedGuiHandler : IHandler
+    public class DelayedGuiHandler : MarshalByRefObject, IHandler
     {
         #region Variables
         /// <summary>The actual GUI to show with a delay.</summary>

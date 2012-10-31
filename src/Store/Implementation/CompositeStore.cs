@@ -79,11 +79,11 @@ namespace ZeroInstall.Store.Implementation
                     #region Error handling
                 catch (UnauthorizedAccessException)
                 {
-                    // Ignore authorization errors, since listing is not a critical task
+                    // Ignore authorization errors since listing is not a critical task
                 }
                 catch (RemotingException)
                 {
-                    // Ignore remoting errors, since listing is not a critical task
+                    // Ignore remoting errors in case service is offline
                 }
                 #endregion
             }
@@ -105,11 +105,11 @@ namespace ZeroInstall.Store.Implementation
                     #region Error handling
                 catch (UnauthorizedAccessException)
                 {
-                    // Ignore authorization errors, since listing is not a critical task
+                    // Ignore authorization errors since listing is not a critical task
                 }
                 catch (RemotingException)
                 {
-                    // Ignore remoting errors, since listing is not a critical task
+                    // Ignore remoting errors in case service is offline
                 }
                 #endregion
             }
@@ -129,10 +129,20 @@ namespace ZeroInstall.Store.Implementation
             }
 
             // Check if any store contains the implementation
-            if (_stores.Any(store => store.Contains(manifestDigest)))
+            foreach (IStore store in _stores)
             {
-                lock (_containsCache) _containsCache[manifestDigest] = true;
-                return true;
+                try
+                {
+                    if (store.Contains(manifestDigest))
+                    {
+                        lock (_containsCache) _containsCache[manifestDigest] = true;
+                        return true;
+                    }
+                }
+                catch (RemotingException)
+                {
+                    // Ignore remoting errors in case service is offline
+                }
             }
 
             // If we reach this, none of the stores contains the implementation
@@ -253,10 +263,22 @@ namespace ZeroInstall.Store.Implementation
 
             // Remove from every store that contains the implementation
             bool removed = false;
-            foreach (var store in _stores.Where(store => store.Contains(manifestDigest)))
+            for (int i = _stores.Length - 1; i >= 0; i--) // Iterate backwards
             {
-                store.Remove(manifestDigest);
-                removed = true;
+                try
+                {
+                    if (_stores[i].Contains(manifestDigest))
+                    {
+                        _stores[i].Remove(manifestDigest);
+                        removed = true;
+                    }
+                }
+                    #region Error handling
+                catch (RemotingException)
+                {
+                    // Ignore remoting errors in case service is offline
+                }
+                #endregion
             }
             if (!removed) throw new ImplementationNotFoundException(manifestDigest);
         }
@@ -286,9 +308,9 @@ namespace ZeroInstall.Store.Implementation
                 {
                     Log.Error(ex);
                 }
-                catch (RemotingException ex)
+                catch (RemotingException)
                 {
-                    Log.Error(ex);
+                    // Ignore remoting errors in case service is offline
                 }
                 #endregion
             }
