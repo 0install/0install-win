@@ -68,7 +68,8 @@ namespace Common.Controls
                 labelProgress.Task = task;
                 task.StateChanged += OnTaskStateChanged;
 
-                task.Start();
+                // Note: Must perform task start on a separate thread because it might send messages back to the GUI thread (which therefore must not be blocked)
+                new Thread(task.Start).Start();
             };
 
             bool cancellationStarted = false;

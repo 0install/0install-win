@@ -126,7 +126,8 @@ namespace Common.Controls
             TaskState state = sender.State;
 
             // Handle events coming from a non-UI thread, block caller
-            BeginInvoke(new Action(delegate
+// TODO!!!
+            Invoke(new Action(delegate
             {
                 IntPtr formHandle = ParentHandle;
                 switch (state)
@@ -193,7 +194,8 @@ namespace Common.Controls
             if (sender.State == TaskState.Data)
             {
                 // Handle events coming from a non-UI thread, block caller
-                BeginInvoke(new Action(delegate
+// TODO!!!
+                Invoke(new Action(delegate
                 {
                     Value = currentValue;
                     IntPtr formHandle = ParentHandle;

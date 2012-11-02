@@ -113,7 +113,8 @@ namespace Common.Controls
             TaskState state = sender.State;
 
             // Handle events coming from a non-UI thread, block caller
-            BeginInvoke(new Action(delegate
+// TODO!!!
+            Invoke(new Action(delegate
             {
                 CurrentState = state;
                 switch (state)
@@ -173,7 +174,8 @@ namespace Common.Controls
             long unitsTotal = sender.UnitsTotal;
 
             // Handle events coming from a non-UI thread, block caller
-            BeginInvoke(new Action(delegate
+// TODO!!!
+            Invoke(new Action(delegate
             {
                 Text = (sender.UnitsByte
                     ? unitsProcessed.FormatBytes(CultureInfo.CurrentCulture)
