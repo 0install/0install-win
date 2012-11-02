@@ -190,7 +190,7 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                return _parts.Aggregate(397, (current, part) => (current * 397) ^ part.GetHashCode());
+                return _parts.Aggregate(397, (accumulated, part) => (accumulated * 397) ^ part.GetHashCode());
             }
         }
 
