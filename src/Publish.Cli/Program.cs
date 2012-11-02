@@ -22,7 +22,6 @@ using System.Linq;
 using System.Net;
 using Common;
 using Common.Cli;
-using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.Cli.Properties;

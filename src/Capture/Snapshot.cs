@@ -165,7 +165,9 @@ namespace ZeroInstall.Capture
 
                 return (
                     from serviceName in clientsKey.GetSubKeyNames()
+                    // ReSharper disable AccessToDisposedClosure
                     from clientName in RegUtils.GetSubKeyNames(clientsKey, serviceName)
+                    // ReSharper restore AccessToDisposedClosure
                     select new ComparableTuple<string>(serviceName, clientName)).ToArray();
             }
         }
@@ -227,7 +229,9 @@ namespace ZeroInstall.Capture
 
                 return (
                     from eventName in eventsKey.GetSubKeyNames()
+                    // ReSharper disable AccessToDisposedClosure
                     from handlerName in RegUtils.GetValueNames(eventsKey, eventName)
+                    // ReSharper restore AccessToDisposedClosure
                     select new ComparableTuple<string>(eventName, handlerName)).ToArray();
             }
         }

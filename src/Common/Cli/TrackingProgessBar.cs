@@ -64,6 +64,10 @@ namespace Common.Cli
         public void OnStateChanged(ITask sender)
             // ReSharper restore MemberCanBePrivate.Global
         {
+            #region Sanity checks
+            if (sender == null) throw new ArgumentNullException("sender");
+            #endregion
+
             State = sender.State;
 
             // When the status is complete the bar should always be full
@@ -79,6 +83,10 @@ namespace Common.Cli
         public void OnProgressChanged(ITask sender)
             // ReSharper restore MemberCanBePrivate.Global
         {
+            #region Sanity checks
+            if (sender == null) throw new ArgumentNullException("sender");
+            #endregion
+
             // Clamp the progress to values between 0 and 1
             double progress = sender.Progress;
             if (progress < 0) progress = 0;

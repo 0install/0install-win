@@ -17,7 +17,6 @@
 
 using System;
 using System.Windows.Forms;
-using Common;
 
 namespace ZeroInstall.Central.WinForms.SyncConfig
 {

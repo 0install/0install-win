@@ -18,7 +18,7 @@
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// An abstract base class for entries in <see cref="Manifest.Nodes"/>.
+    /// An abstract base class for entries in <see cref="Manifest"/>.
     /// </summary>
     /// <remarks>This class and the derived classes are immutable. They should only be used as a part of a <see cref="Manifest"/>.</remarks>
     public abstract class ManifestNode

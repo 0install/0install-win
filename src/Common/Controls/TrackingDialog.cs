@@ -100,6 +100,10 @@ namespace Common.Controls
         public void OnTaskStateChanged(ITask sender)
             // ReSharper restore MemberCanBePrivate.Global
         {
+            #region Sanity checks
+            if (sender == null) throw new ArgumentNullException("sender");
+            #endregion
+
             // Close window when the task has been completed or cancelled (and thus become ready again)
             if (sender.State >= TaskState.Complete || sender.State == TaskState.Ready) Invoke(new Action(Close));
         }

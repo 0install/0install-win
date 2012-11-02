@@ -24,7 +24,6 @@ using System.Text;
 using Common;
 using Common.Cli;
 using Common.Storage;
-using Common.Streams;
 using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.Properties;

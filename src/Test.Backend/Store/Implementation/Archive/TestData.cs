@@ -17,7 +17,6 @@
 
 using System.Reflection;
 using System.IO;
-using Common.Streams;
 
 namespace ZeroInstall.Store.Implementation.Archive
 {

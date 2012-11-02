@@ -501,30 +501,6 @@
   <data name="tabOptions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="&gt;&gt;checkBoxHelpWithTesting.Name" xml:space="preserve">
-    <value>checkBoxHelpWithTesting</value>
-  </data>
-  <data name="&gt;&gt;checkBoxHelpWithTesting.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxHelpWithTesting.Parent" xml:space="preserve">
-    <value>tabPageUpdates</value>
-  </data>
-  <data name="&gt;&gt;checkBoxHelpWithTesting.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;groupNetworkUse.Name" xml:space="preserve">
-    <value>groupNetworkUse</value>
-  </data>
-  <data name="&gt;&gt;groupNetworkUse.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupNetworkUse.Parent" xml:space="preserve">
-    <value>tabPageUpdates</value>
-  </data>
-  <data name="&gt;&gt;groupNetworkUse.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="tabPageUpdates.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
@@ -550,18 +526,6 @@
     <value>tabOptions</value>
   </data>
   <data name="&gt;&gt;tabPageUpdates.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;groupImplDirs.Name" xml:space="preserve">
-    <value>groupImplDirs</value>
-  </data>
-  <data name="&gt;&gt;groupImplDirs.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupImplDirs.Parent" xml:space="preserve">
-    <value>tabPageStorage</value>
-  </data>
-  <data name="&gt;&gt;groupImplDirs.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="tabPageStorage.Location" type="System.Drawing.Point, System.Drawing">
@@ -792,30 +756,6 @@
   <data name="&gt;&gt;tabPageCatalog.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;checkBoxAutoApproveKeys.Name" xml:space="preserve">
-    <value>checkBoxAutoApproveKeys</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoApproveKeys.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoApproveKeys.Parent" xml:space="preserve">
-    <value>tabPageTrust</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoApproveKeys.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;groupTrustedKeys.Name" xml:space="preserve">
-    <value>groupTrustedKeys</value>
-  </data>
-  <data name="&gt;&gt;groupTrustedKeys.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupTrustedKeys.Parent" xml:space="preserve">
-    <value>tabPageTrust</value>
-  </data>
-  <data name="&gt;&gt;groupTrustedKeys.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="tabPageTrust.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
@@ -920,42 +860,6 @@
   </data>
   <data name="groupNetworkUse.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseOffline.Name" xml:space="preserve">
-    <value>radioNetworkUseOffline</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseOffline.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseOffline.Parent" xml:space="preserve">
-    <value>groupNetworkUse</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseOffline.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseMinimal.Name" xml:space="preserve">
-    <value>radioNetworkUseMinimal</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseMinimal.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseMinimal.Parent" xml:space="preserve">
-    <value>groupNetworkUse</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseMinimal.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseFull.Name" xml:space="preserve">
-    <value>radioNetworkUseFull</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseFull.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseFull.Parent" xml:space="preserve">
-    <value>groupNetworkUse</value>
-  </data>
-  <data name="&gt;&gt;radioNetworkUseFull.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="groupNetworkUse.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>
@@ -1065,54 +969,7 @@
   <data name="groupImplDirs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="&gt;&gt;buttonRemoveImplDir.Name" xml:space="preserve">
-    <value>buttonRemoveImplDir</value>
-  </data>
-  <data name="&gt;&gt;buttonRemoveImplDir.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonRemoveImplDir.Parent" xml:space="preserve">
-    <value>groupImplDirs</value>
-  </data>
-  <data name="&gt;&gt;buttonRemoveImplDir.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;buttonGoToImplDir.Name" xml:space="preserve">
-    <value>buttonGoToImplDir</value>
-  </data>
-  <data name="&gt;&gt;buttonGoToImplDir.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonGoToImplDir.Parent" xml:space="preserve">
-    <value>groupImplDirs</value>
-  </data>
-  <data name="&gt;&gt;buttonGoToImplDir.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;buttonAddImplDir.Name" xml:space="preserve">
-    <value>buttonAddImplDir</value>
-  </data>
-  <data name="&gt;&gt;buttonAddImplDir.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAddImplDir.Parent" xml:space="preserve">
-    <value>groupImplDirs</value>
-  </data>
-  <data name="&gt;&gt;buttonAddImplDir.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;listBoxImplDirs.Name" xml:space="preserve">
-    <value>listBoxImplDirs</value>
-  </data>
-  <data name="&gt;&gt;listBoxImplDirs.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;listBoxImplDirs.Parent" xml:space="preserve">
-    <value>groupImplDirs</value>
-  </data>
-  <data name="&gt;&gt;listBoxImplDirs.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
+
   <data name="groupImplDirs.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>
   </data>
@@ -1289,30 +1146,6 @@
   </data>
   <data name="groupTrustedKeys.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;panelTrustedKeys.Name" xml:space="preserve">
-    <value>panelTrustedKeys</value>
-  </data>
-  <data name="&gt;&gt;panelTrustedKeys.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelTrustedKeys.Parent" xml:space="preserve">
-    <value>groupTrustedKeys</value>
-  </data>
-  <data name="&gt;&gt;panelTrustedKeys.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;buttonRemoveTrustedKey.Name" xml:space="preserve">
-    <value>buttonRemoveTrustedKey</value>
-  </data>
-  <data name="&gt;&gt;buttonRemoveTrustedKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonRemoveTrustedKey.Parent" xml:space="preserve">
-    <value>groupTrustedKeys</value>
-  </data>
-  <data name="&gt;&gt;buttonRemoveTrustedKey.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="groupTrustedKeys.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>

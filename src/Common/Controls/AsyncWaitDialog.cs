@@ -61,7 +61,7 @@ namespace Common.Controls
         #endregion
 
         #region Event handlers
-        private void AsyncWaitDialog_Shown(object sender, System.EventArgs e)
+        private void AsyncWaitDialog_Shown(object sender, EventArgs e)
         {
             WindowsUtils.SetProgressState(Handle, WindowsUtils.TaskbarProgressBarState.Indeterminate);
         }

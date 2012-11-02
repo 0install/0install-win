@@ -66,10 +66,6 @@ namespace Common.Utils
         /// </summary>
         public static TType ConvertFromString<TType>(this string value)
         {
-            #region Sanity checks
-            if (value == null) throw new ArgumentNullException("value");
-            #endregion
-
             return (TType)(TypeDescriptor.GetConverter(typeof(TType)).ConvertFromInvariantString(value));
         }
 
@@ -78,10 +74,6 @@ namespace Common.Utils
         /// </summary>
         public static string ConvertToString<TType>(this TType value)
         {
-            #region Sanity checks
-            if (value == null) throw new ArgumentNullException("value");
-            #endregion
-
             return TypeDescriptor.GetConverter(typeof(TType)).ConvertToInvariantString(value);
         }
     }

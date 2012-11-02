@@ -109,11 +109,14 @@ namespace Common.Controls
         public void OnStateChanged(ITask sender)
             // ReSharper restore MemberCanBePrivate.Global
         {
+            #region Sanity checks
+            if (sender == null) throw new ArgumentNullException("sender");
+            #endregion
+
             // Copy value so it can be safely accessed from another thread
             TaskState state = sender.State;
 
             // Handle events coming from a non-UI thread, block caller
-// TODO!!!
             Invoke(new Action(delegate
             {
                 CurrentState = state;
@@ -166,6 +169,10 @@ namespace Common.Controls
         public void OnProgressChanged(ITask sender)
             // ReSharper restore MemberCanBePrivate.Global
         {
+            #region Sanity checks
+            if (sender == null) throw new ArgumentNullException("sender");
+            #endregion
+
             // Only track units in data state
             if (sender.State != TaskState.Data) return;
 
@@ -174,7 +181,6 @@ namespace Common.Controls
             long unitsTotal = sender.UnitsTotal;
 
             // Handle events coming from a non-UI thread, block caller
-// TODO!!!
             Invoke(new Action(delegate
             {
                 Text = (sender.UnitsByte

@@ -265,6 +265,10 @@ namespace Common.Controls
             if (_checkedEntries.Contains(entry)) finalNode.Checked = true;
 
             #region Highlight color
+            // ReSharper disable SuspiciousTypeConversion.Global
+            // ReSharper disable ExpressionIsAlwaysNull
+            // ReSharper disable ConditionIsAlwaysTrueOrFalse
+            // ReSharper disable HeuristicUnreachableCode
             var highlightColorProvider = entry as IHighlightColor;
             if (highlightColorProvider != null && highlightColorProvider.HighlightColor != Color.Empty)
             {
@@ -272,6 +276,10 @@ namespace Common.Controls
                 finalNode.ForeColor = highlightColorProvider.HighlightColor;
                 finalNode.NodeFont = new Font(treeView.Font, FontStyle.Bold);
             }
+            // ReSharper restore HeuristicUnreachableCode
+            // ReSharper restore ConditionIsAlwaysTrueOrFalse
+            // ReSharper restore ExpressionIsAlwaysNull
+            // ReSharper restore SuspiciousTypeConversion.Global
             #endregion
 
             #region Context menu

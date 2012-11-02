@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Globalization;
 using System.IO;
 using System.Security;
 using Common;

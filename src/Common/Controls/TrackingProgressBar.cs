@@ -122,11 +122,14 @@ namespace Common.Controls
         public void OnStateChanged(ITask sender)
             // ReSharper restore MemberCanBePrivate.Global
         {
+            #region Sanity checks
+            if (sender == null) throw new ArgumentNullException("sender");
+            #endregion
+
             // Copy value so it can be safely accessed from another thread
             TaskState state = sender.State;
 
             // Handle events coming from a non-UI thread, block caller
-// TODO!!!
             Invoke(new Action(delegate
             {
                 IntPtr formHandle = ParentHandle;
@@ -180,6 +183,10 @@ namespace Common.Controls
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
         public void OnProgressChanged(ITask sender)
         {
+            #region Sanity checks
+            if (sender == null) throw new ArgumentNullException("sender");
+            #endregion
+
             // Clamp the progress to values between 0 and 1
             double progress = sender.Progress;
             if (progress < 0) progress = 0;
@@ -194,7 +201,6 @@ namespace Common.Controls
             if (sender.State == TaskState.Data)
             {
                 // Handle events coming from a non-UI thread, block caller
-// TODO!!!
                 Invoke(new Action(delegate
                 {
                     Value = currentValue;

@@ -223,15 +223,6 @@
   <data name="groupCatalogSources.Text" xml:space="preserve">
     <value>Katalog&amp;quellen</value>
   </data>
-  <data name="buttonRemoveCatalogSources.Text" xml:space="preserve">
-    <value>&amp;Entfernen</value>
-  </data>
-  <data name="buttonGoToCatalogSources.Text" xml:space="preserve">
-    <value>&amp;Gehe zu</value>
-  </data>
-  <data name="buttonAddCatalogSources.Text" xml:space="preserve">
-    <value>&amp;Hinzufügen</value>
-  </data>
   <data name="tabPageTrust.Text" xml:space="preserve">
     <value>Vertrauen</value>
   </data>
