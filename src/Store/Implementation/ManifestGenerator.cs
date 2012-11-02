@@ -94,7 +94,7 @@ namespace ZeroInstall.Store.Implementation
                 lock (StateLock) State = TaskState.Data;
 
                 // Iterate through the directory listing to build a list of manifets entries
-                var nodes = new C5.ArrayList<ManifestNode>(entries.Length);
+                var nodes = new List<ManifestNode>(entries.Length);
                 foreach (var entry in entries)
                 {
                     var file = entry as FileInfo;

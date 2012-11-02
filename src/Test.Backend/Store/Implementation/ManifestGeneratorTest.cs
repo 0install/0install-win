@@ -86,7 +86,7 @@ namespace ZeroInstall.Store.Implementation
             var theManifest = _someGenerator.Result;
 
             string currentSubdir = "";
-            foreach (var node in theManifest.Nodes)
+            foreach (var node in theManifest)
             {
                 if (node is ManifestDirectory)
                 {

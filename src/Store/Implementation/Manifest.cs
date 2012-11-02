@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -33,7 +34,7 @@ namespace ZeroInstall.Store.Implementation
     /// <remarks>This class is immutable and thread-safe.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
-    public sealed class Manifest : IEquatable<Manifest>
+    public sealed class Manifest : IEquatable<Manifest>, IEnumerable<ManifestNode>
     {
         #region Properties
         /// <summary>
@@ -41,13 +42,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         public ManifestFormat Format { get; private set; }
 
-        private readonly C5.IList<ManifestNode> _nodes;
-
-        // ReSharper disable ReturnTypeCanBeEnumerable.Global
-        /// <summary>
-        /// A list of all elements in the tree this manifest represents.
-        /// </summary>
-        public IList<ManifestNode> Nodes { get { return _nodes; } }
+        private readonly ManifestNode[] _nodes;
 
         // ReSharper restore ReturnTypeCanBeEnumerable.Global
 
@@ -75,7 +70,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="nodes">A list of all elements in the tree this manifest represents.</param>
         /// <param name="format">The format used for <see cref="Save(Stream)"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Digest"/>.</param>
-        internal Manifest(C5.IList<ManifestNode> nodes, ManifestFormat format)
+        public Manifest(IEnumerable<ManifestNode> nodes, ManifestFormat format)
         {
             #region Sanity checks
             if (nodes == null) throw new ArgumentNullException("nodes");
@@ -85,7 +80,7 @@ namespace ZeroInstall.Store.Implementation
             Format = format;
 
             // Make the collection immutable
-            _nodes = new C5.GuardedList<ManifestNode>(nodes);
+            _nodes = nodes.ToArray();
         }
         #endregion
 
@@ -134,7 +129,7 @@ namespace ZeroInstall.Store.Implementation
             var writer = new StreamWriter(stream, new UTF8Encoding(false)) {NewLine = "\n"};
 
             // Write one line for each node
-            foreach (ManifestNode node in Nodes)
+            foreach (ManifestNode node in _nodes)
                 writer.WriteLine(Format.GenerateEntryForNode(node));
 
             writer.Flush();
@@ -157,7 +152,7 @@ namespace ZeroInstall.Store.Implementation
             if (format == null) throw new ArgumentNullException("format");
             #endregion
 
-            var nodes = new C5.ArrayList<ManifestNode>();
+            var nodes = new List<ManifestNode>();
 
             var reader = new StreamReader(stream);
             while (!reader.EndOfStream)
@@ -279,6 +274,27 @@ namespace ZeroInstall.Store.Implementation
 
         //--------------------//
 
+        #region Enumeration
+        IEnumerator<ManifestNode> IEnumerable<ManifestNode>.GetEnumerator()
+        {
+            return ((IEnumerable<ManifestNode>)_nodes).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _nodes.GetEnumerator();
+        }
+
+        /// <summary>
+        /// Retreives a specific <see cref="ManifestNode"/>.
+        /// </summary>
+        /// <param name="i">The index of the node to retreive.</param>
+        public ManifestNode this[int i]
+        {
+            get { return _nodes[i]; }
+        }
+        #endregion
+
         #region Conversion
         /// <summary>
         /// Returns the manifest in the same text representation format used by <see cref="Save(System.IO.Stream)"/>.
@@ -299,11 +315,11 @@ namespace ZeroInstall.Store.Implementation
         {
             if (other == null) return false;
 
-            if (_nodes.Count != other._nodes.Count) return false;
+            if (_nodes.Length != other._nodes.Length) return false;
 
             // If any node pair does not match, the manifests are not equal
             // ReSharper disable LoopCanBeConvertedToQuery
-            for (int i = 0; i < _nodes.Count; i++)
+            for (int i = 0; i < _nodes.Length; i++)
                 if (!Equals(_nodes[i], other._nodes[i])) return false;
             // ReSharper restore LoopCanBeConvertedToQuery
 
@@ -324,9 +340,9 @@ namespace ZeroInstall.Store.Implementation
         {
             unchecked
             {
-                int result = (Format != null ? Format.GetHashCode() : 0);
-                result = (result * 397) ^ _nodes.GetSequencedHashCode();
-                return result;
+                return _nodes.Aggregate(
+                    (Format != null ? Format.GetHashCode() : 0),
+                    (accumulated, node) => (accumulated * 397) ^ node.GetHashCode());
             }
         }
         #endregion

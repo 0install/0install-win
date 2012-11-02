@@ -311,10 +311,10 @@ namespace ZeroInstall.Store.Implementation
                 FileUtils.CreateSymlink(Path.Combine(package.Path, "source"), "target");
                 var manifest = Manifest.Generate(package.Path, ManifestFormat.Sha256New, new SilentHandler(), null);
 
-                Assert.IsTrue(manifest.Nodes[0] is ManifestSymlink, "Unexpected manifest:\n" + manifest);
-                Assert.AreEqual("source", ((ManifestSymlink)manifest.Nodes[0]).SymlinkName, "Unexpected manifest:\n" + manifest);
-                Assert.IsTrue(manifest.Nodes[1] is ManifestDirectory, "Unexpected manifest:\n" + manifest);
-                Assert.AreEqual("/target", ((ManifestDirectory)manifest.Nodes[1]).FullPath, "Unexpected manifest:\n" + manifest);
+                Assert.IsTrue(manifest[0] is ManifestSymlink, "Unexpected manifest:\n" + manifest);
+                Assert.AreEqual("source", ((ManifestSymlink)manifest[0]).SymlinkName, "Unexpected manifest:\n" + manifest);
+                Assert.IsTrue(manifest[1] is ManifestDirectory, "Unexpected manifest:\n" + manifest);
+                Assert.AreEqual("/target", ((ManifestDirectory)manifest[1]).FullPath, "Unexpected manifest:\n" + manifest);
             }
         }
     }
