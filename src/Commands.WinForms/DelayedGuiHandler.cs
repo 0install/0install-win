@@ -63,7 +63,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private GuiHandler InitTarget()
         {
-            // Double locking
+            // Thread-safe singleton with double-check
             if (_target != null) return _target;
             lock (_targetLock)
             {
@@ -82,7 +82,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private void ApplyToTarget(Action<GuiHandler> action)
         {
-            // Double locking
+            // Thread-safe singleton with double-check
             if (_target != null) action(_target);
             lock (_targetLock)
             {

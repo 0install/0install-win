@@ -38,7 +38,7 @@ namespace ZeroInstall.Store.Feeds
         public static IIconCache CreateDefault()
         {
             // Share one instance globally to prevent race-conditions
-            // Double locking for thread-safe singleton pattern
+            // Thread-safe singleton with double-check
             if (_iconCache == null)
             {
                 lock (_lock)
