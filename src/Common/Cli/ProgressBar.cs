@@ -33,7 +33,7 @@ namespace Common.Cli
     /// A progress bar rendered on the <see cref="Console"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "IDisposable is only implemented here to support using() blocks.")]
-    public class ProgressBar : IDisposable
+    public class ProgressBar : MarshalByRefObject, IDisposable
     {
         #region Properties
         private TaskState _state;
