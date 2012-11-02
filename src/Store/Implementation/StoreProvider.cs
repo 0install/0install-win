@@ -73,12 +73,12 @@ namespace ZeroInstall.Store.Implementation
                 #endregion
             }
 
-            // Background service
+            // Store service
             if (WindowsUtils.IsWindowsNT && !Locations.IsPortable)
             {
                 try
                 {
-                    stores.Add(RemoteStoreProvider.GetServiceProxy());
+                    stores.Add(IpcStoreProvider.GetServiceProxy());
                 }
                     #region Error handling
                 catch (RemotingException)

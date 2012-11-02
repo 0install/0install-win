@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Security.Principal;
 using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
@@ -29,7 +30,7 @@ using ZeroInstall.Store.Implementation.Archive;
 namespace ZeroInstall.Store.Service
 {
     /// <summary>
-    /// Provides a background service to add new entries to a store that requires elevated privileges to write.
+    /// Provides a service to add new entries to a store that requires elevated privileges to write.
     /// </summary>
     /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
     public class ServiceStore : DirectoryStore, IEquatable<ServiceStore>
@@ -37,6 +38,20 @@ namespace ZeroInstall.Store.Service
         #region Variables
         /// <summary>Writes to the Windows event log.</summary>
         internal static EventLog EventLog;
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// TODO
+        /// </summary>
+        public static string DefaultPath
+        {
+            get
+            {
+                //return StoreProvider.GetImplementationDirs().Last();
+                return FileUtils.PathCombine(Locations.SystemCacheDir, "0install.net", "implementations");
+            }
+        }
         #endregion
 
         #region Constructor
@@ -58,7 +73,7 @@ namespace ZeroInstall.Store.Service
         /// </summary>
         /// <exception cref="IOException">Thrown if the directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating the directory path is not permitted.</exception>
-        public ServiceStore() : this(FileUtils.PathCombine(Locations.SystemCacheDir, "0install.net", "implementations"))
+        public ServiceStore() : this(DefaultPath)
         {}
         #endregion
 
@@ -81,19 +96,24 @@ namespace ZeroInstall.Store.Service
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            try
-            {
-                base.AddDirectory(path, manifestDigest, handler);
-            }
-                #region Error handling
-            catch (Exception ex)
-            {
-                if (EventLog != null) EventLog.WriteEntry(string.Format("Failed to add directory '{0}' with expected digest '{1}':\n{2}", path, manifestDigest, ex), EventLogEntryType.Warning);
-                throw; // Pass on to caller
-            }
-            #endregion
+            // ToDo: Check access
 
-            if (EventLog != null) EventLog.WriteEntry(string.Format("Added directory '{0}' with expected digest '{1}'.", path, manifestDigest));
+            using (Service.Identity.Impersonate())
+            {
+                try
+                {
+                    base.AddDirectory(path, manifestDigest, handler);
+                }
+                    #region Error handling
+                catch (Exception ex)
+                {
+                    if (EventLog != null) EventLog.WriteEntry(string.Format("Failed to add directory '{0}' with expected digest '{1}':\n{2}", path, manifestDigest, ex), EventLogEntryType.Warning);
+                    throw; // Pass on to caller
+                }
+                #endregion
+
+                if (EventLog != null) EventLog.WriteEntry(string.Format("Added directory '{0}' with expected digest '{1}'.", path, manifestDigest));
+            }
         }
 
         /// <inheritdoc />
@@ -104,26 +124,24 @@ namespace ZeroInstall.Store.Service
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            try
-            {
-                base.AddArchives(archiveInfos, manifestDigest, handler);
-            }
-                #region Error handling
-            catch (Exception ex)
-            {
-                if (EventLog != null) EventLog.WriteEntry(string.Format("Failed to add archives with expected digest '{0}':\n{1}", manifestDigest, ex), EventLogEntryType.Warning);
-                throw; // Pass on to caller
-            }
-            #endregion
+            // ToDo: Check access
 
-            if (EventLog != null) EventLog.WriteEntry(string.Format("Added archives with expected digest '{0}'.", manifestDigest));
-        }
+            using (Service.Identity.Impersonate())
+            {
+                try
+                {
+                    base.AddArchives(archiveInfos, manifestDigest, handler);
+                }
+                    #region Error handling
+                catch (Exception ex)
+                {
+                    if (EventLog != null) EventLog.WriteEntry(string.Format("Failed to add archives with expected digest '{0}':\n{1}", manifestDigest, ex), EventLogEntryType.Warning);
+                    throw; // Pass on to caller
+                }
+                #endregion
 
-        /// <inheritdoc />
-        protected override string GetTempDir()
-        {
-            // ToDo: Prevent public read access with ACLs
-            return base.GetTempDir();
+                if (EventLog != null) EventLog.WriteEntry(string.Format("Added archives with expected digest '{0}'.", manifestDigest));
+            }
         }
         #endregion
 
@@ -131,10 +149,26 @@ namespace ZeroInstall.Store.Service
         /// <inheritdoc />
         public override void Remove(ManifestDigest manifestDigest)
         {
-            // ToDo: Restrict access
-            base.Remove(manifestDigest);
+            var callingIdentity = WindowsIdentity.GetCurrent(true);
+            if (callingIdentity != null && !new WindowsPrincipal(callingIdentity).IsInRole(WindowsBuiltInRole.Administrator))
+                throw new UnauthorizedAccessException("Must be admin to delete.");
 
-            if (EventLog != null) EventLog.WriteEntry(string.Format("Removed implementation with digest '{0}'.", manifestDigest));
+            using (Service.Identity.Impersonate())
+            {
+                try
+                {
+                    base.Remove(manifestDigest);
+                }
+                    #region Error handling
+                catch (Exception ex)
+                {
+                    if (EventLog != null) EventLog.WriteEntry(string.Format("Failed to remove implementation with digest '{0}':\n{1}", manifestDigest, ex), EventLogEntryType.Warning);
+                    throw; // Pass on to caller
+                }
+                #endregion
+
+                if (EventLog != null) EventLog.WriteEntry(string.Format("Removed implementation with digest '{0}'.", manifestDigest));
+            }
         }
         #endregion
 

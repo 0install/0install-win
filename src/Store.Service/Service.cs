@@ -16,7 +16,7 @@
  */
 
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.Remoting;
@@ -24,6 +24,7 @@ using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Ipc;
 using System.Runtime.Serialization.Formatters;
 using System.Security;
+using System.Security.Principal;
 using System.ServiceProcess;
 using ZeroInstall.Store.Implementation;
 
@@ -36,13 +37,12 @@ namespace ZeroInstall.Store.Service
     {
         #region Variables
         /// <summary>IPC channel for providing services to clients.</summary>
-        private readonly IChannelReceiver _serverChannel = new IpcServerChannel(
-            new Dictionary<string, string> {{"name", ""}, {"portName", RemoteStoreProvider.ServiceIpcPortName}},
-            new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full} // Allow deserialization of custom types);
-#if !__MonoCS__
-            , RemoteStoreProvider.IpcAcl
-#endif
-            );
+        private readonly IChannelReceiver _serverChannel;
+
+        /// <summary>
+        /// The identity the service is running under.
+        /// </summary>
+        public static readonly WindowsIdentity Identity = WindowsIdentity.GetCurrent();
         #endregion
 
         #region Constructor
@@ -53,6 +53,18 @@ namespace ZeroInstall.Store.Service
             // Ensure the event log accepts messages from this service
             if (!EventLog.SourceExists(eventLog.Source)) EventLog.CreateEventSource(eventLog.Source, eventLog.Log);
             ServiceStore.EventLog = eventLog;
+
+            _serverChannel = new IpcServerChannel(
+                new Hashtable
+                {
+                    {"portName", IpcStoreProvider.IpcPortName},
+                    {"secure", true}, {"impersonate", true}
+                },
+                new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full} // Allow deserialization of custom types
+#if !__MonoCS__
+                , IpcStoreProvider.IpcAcl
+#endif
+                );
         }
         #endregion
 
@@ -61,7 +73,7 @@ namespace ZeroInstall.Store.Service
             try
             {
                 ChannelServices.RegisterChannel(_serverChannel, false);
-                RemotingConfiguration.RegisterWellKnownServiceType(typeof(ServiceStore), RemoteStoreProvider.IpcObjectUri, WellKnownObjectMode.Singleton);
+                RemotingConfiguration.RegisterWellKnownServiceType(typeof(ServiceStore), IpcStoreProvider.IpcObjectUri, WellKnownObjectMode.Singleton);
             }
                 #region Error handling
             catch (IOException ex)

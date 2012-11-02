@@ -322,7 +322,7 @@ namespace ZeroInstall.Store.Implementation
         /// Creates a temporary directory within <see cref="DirectoryPath"/>.
         /// </summary>
         /// <returns>The path to the new temporary directory.</returns>
-        protected virtual string GetTempDir()
+        private string GetTempDir()
         {
             return Path.Combine(DirectoryPath, Path.GetRandomFileName());
         }
