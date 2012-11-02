@@ -105,15 +105,15 @@ namespace ZeroInstall.Commands.WinForms
 
             if (tag is ManifestDigest)
             {
-                // Handle events coming from a non-UI thread, don't block caller
-                _form.BeginInvoke(new Action(() => { if (_form.IsHandleCreated) _form.TrackTask(task, (ManifestDigest)tag); }));
+                // Handle events coming from a non-UI thread
+                _form.Invoke(new Action(() => { if (_form.IsHandleCreated) _form.TrackTask(task, (ManifestDigest)tag); }));
             }
             else
             {
                 lock (_genericTaskLock) // Prevent multiple concurrent generic tasks
                 {
-                    // Handle events coming from a non-UI thread, don't block caller
-                    _form.BeginInvoke(new Action(() => { if (_form.IsHandleCreated) _form.TrackTask(task); }));
+                    // Handle events coming from a non-UI thread
+                    _form.Invoke(new Action(() => { if (_form.IsHandleCreated) _form.TrackTask(task); }));
                 }
             }
 
