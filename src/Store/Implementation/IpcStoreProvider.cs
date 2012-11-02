@@ -110,6 +110,7 @@ namespace ZeroInstall.Store.Implementation
 #endif
                 ), false);
 
+            // Create proxy object
             return (IStore)Activator.GetObject(typeof(IStore), "ipc://" + IpcPortName + "/" + IpcObjectUri);
         }
         #endregion
