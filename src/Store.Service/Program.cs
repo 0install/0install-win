@@ -43,8 +43,6 @@ namespace ZeroInstall.Store.Service
             AppMutex.Create("Zero Install");
 #endif
 
-            // ToDo: Installation logic
-
             ServiceBase.Run(new ServiceBase[] {new Service()});
         }
     }

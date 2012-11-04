@@ -40,7 +40,7 @@
             // serviceInstaller
             // 
             this.serviceInstaller.DisplayName = "Zero Install Store Service";
-            this.serviceInstaller.ServiceName = "ZeroInstall.Store.Service";
+            this.serviceInstaller.ServiceName = "ZeroInstallStoreSvc";
             this.serviceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller
