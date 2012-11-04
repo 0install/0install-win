@@ -181,11 +181,15 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(sourcePath)) throw new ArgumentNullException("sourcePath");
             if (string.IsNullOrEmpty(destinationPath)) throw new ArgumentNullException("destinationPath");
             if (sourcePath == destinationPath) throw new ArgumentException(Resources.SourceDestinationEqual);
-            if (!Directory.Exists(sourcePath)) throw new DirectoryNotFoundException(Resources.SourceDirNotExist);
-            if (!overwrite && Directory.Exists(destinationPath)) throw new IOException(Resources.DestinationDirExist);
             #endregion
 
-            if (!Directory.Exists(destinationPath)) Directory.CreateDirectory(destinationPath);
+            if (!Directory.Exists(sourcePath)) throw new DirectoryNotFoundException(Resources.SourceDirNotExist);
+            if (Directory.Exists(destinationPath))
+            { // Fail if overwrite is off but the target directory already exists and contains elements
+                if (!overwrite && Directory.GetFileSystemEntries(destinationPath).Length > 0)
+                    throw new IOException(Resources.DestinationDirExist);
+            }
+            else Directory.CreateDirectory(destinationPath);
 
             // Copy individual files
             foreach (string sourceSubPath in Directory.GetFiles(sourcePath))
