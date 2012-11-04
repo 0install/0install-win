@@ -16,16 +16,13 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Security.AccessControl;
 using System.Security.Principal;
-using Common.Storage;
 using Common.Tasks;
-using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
-using ZeroInstall.Store.Implementation.Archive;
 
 namespace ZeroInstall.Store.Service
 {
@@ -37,21 +34,7 @@ namespace ZeroInstall.Store.Service
     {
         #region Variables
         /// <summary>Writes to the Windows event log.</summary>
-        internal static EventLog EventLog;
-        #endregion
-
-        #region Properties
-        /// <summary>
-        /// TODO
-        /// </summary>
-        public static string DefaultPath
-        {
-            get
-            {
-                //return StoreProvider.GetImplementationDirs().Last();
-                return FileUtils.PathCombine(Locations.SystemCacheDir, "0install.net", "implementations");
-            }
-        }
+        private readonly EventLog _eventLog;
         #endregion
 
         #region Constructor
@@ -59,22 +42,19 @@ namespace ZeroInstall.Store.Service
         /// Creates a new store using a specific path to a cache directory.
         /// </summary>
         /// <param name="path">A fully qualified directory path. The directory will be created if it doesn't exist yet.</param>
+        /// <param name="eventLog">Writes to the Windows event log.</param>
         /// <exception cref="IOException">Thrown if the directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating the directory <paramref name="path"/> is not permitted.</exception>
-        public ServiceStore(string path) : base(path)
+        public ServiceStore(string path, EventLog eventLog) : base(path)
         {
-            if (EventLog != null) EventLog.WriteEntry(string.Format("Using '{0}' as store directory.", path));
+            #region Sanity checks
+            if (eventLog == null) throw new ArgumentNullException("eventLog");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
 
-            // ToDo: Prevent public write access with ACLs
+            _eventLog = eventLog;
+            eventLog.WriteEntry(string.Format("Using '{0}' as store directory.", path));
         }
-
-        /// <summary>
-        /// Creates a new store using the default system cache directory.
-        /// </summary>
-        /// <exception cref="IOException">Thrown if the directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if creating the directory path is not permitted.</exception>
-        public ServiceStore() : this(DefaultPath)
-        {}
         #endregion
 
         #region Lifetime
@@ -87,63 +67,40 @@ namespace ZeroInstall.Store.Service
 
         //--------------------//
 
-        #region Add
         /// <inheritdoc />
-        public override void AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler)
+        protected override string GetTempDir()
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (handler == null) throw new ArgumentNullException("handler");
-            #endregion
-
-            // ToDo: Check access
+            var callingUser = WindowsIdentity.GetCurrent().User;
 
             using (Service.Identity.Impersonate())
             {
-                try
-                {
-                    base.AddDirectory(path, manifestDigest, handler);
-                }
-                    #region Error handling
-                catch (Exception ex)
-                {
-                    if (EventLog != null) EventLog.WriteEntry(string.Format("Failed to add directory '{0}' with expected digest '{1}':\n{2}", path, manifestDigest, ex), EventLogEntryType.Warning);
-                    throw; // Pass on to caller
-                }
-                #endregion
+                string path = base.GetTempDir();
 
-                if (EventLog != null) EventLog.WriteEntry(string.Format("Added directory '{0}' with expected digest '{1}'.", path, manifestDigest));
+                // Give the calling user write access
+                var acl = Directory.GetAccessControl(path);
+                acl.AddAccessRule(new FileSystemAccessRule(callingUser, FileSystemRights.Modify, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
+                Directory.SetAccessControl(path, acl);
+
+                return path;
             }
         }
 
         /// <inheritdoc />
-        public override void AddArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
+        protected override void VerifyAndAdd(string tempID, ManifestDigest expectedDigest, ITaskHandler handler)
         {
-            #region Sanity checks
-            if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
-            if (handler == null) throw new ArgumentNullException("handler");
-            #endregion
-
-            // ToDo: Check access
+            var callingUser = WindowsIdentity.GetCurrent().User;
 
             using (Service.Identity.Impersonate())
             {
-                try
-                {
-                    base.AddArchives(archiveInfos, manifestDigest, handler);
-                }
-                    #region Error handling
-                catch (Exception ex)
-                {
-                    if (EventLog != null) EventLog.WriteEntry(string.Format("Failed to add archives with expected digest '{0}':\n{1}", manifestDigest, ex), EventLogEntryType.Warning);
-                    throw; // Pass on to caller
-                }
-                #endregion
+                // Take write access away from the calling user
+                string path = Path.Combine(DirectoryPath, tempID);
+                var acl = Directory.GetAccessControl(path);
+                acl.RemoveAccessRule(new FileSystemAccessRule(callingUser, FileSystemRights.Modify, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
+                Directory.SetAccessControl(path, acl);
 
-                if (EventLog != null) EventLog.WriteEntry(string.Format("Added archives with expected digest '{0}'.", manifestDigest));
+                base.VerifyAndAdd(tempID, expectedDigest, handler);
             }
         }
-        #endregion
 
         #region Remove
         /// <inheritdoc />
@@ -162,12 +119,12 @@ namespace ZeroInstall.Store.Service
                     #region Error handling
                 catch (Exception ex)
                 {
-                    if (EventLog != null) EventLog.WriteEntry(string.Format("Failed to remove implementation with digest '{0}':\n{1}", manifestDigest, ex), EventLogEntryType.Warning);
+                    _eventLog.WriteEntry(string.Format("Failed to remove implementation with digest '{0}':\n{1}", manifestDigest, ex), EventLogEntryType.Warning);
                     throw; // Pass on to caller
                 }
                 #endregion
 
-                if (EventLog != null) EventLog.WriteEntry(string.Format("Removed implementation with digest '{0}'.", manifestDigest));
+                _eventLog.WriteEntry(string.Format("Removed implementation with digest '{0}'.", manifestDigest));
             }
         }
         #endregion

@@ -39,17 +39,18 @@ namespace Common.Storage
     /// </remarks>
     public static class Locations
     {
-        #region Helpers
+        #region Constants
         /// <summary>
-        /// Returns the value of an environment variable or a default value if it isn't set.
+        /// ACL that gives normal users read and execute access and admins and the the system full access.
         /// </summary>
-        /// <param name="variable">The name of the environment variable to retrieve.</param>
-        /// <param name="defaultValue">The default value to return if the environment variable was not set.</param>
-        /// <returns>The value of the environment variable or <paramref name="defaultValue"/>.</returns>
-        private static string GetEnvironmentVariable(string variable, string defaultValue)
+        private static readonly DirectorySecurity _secureSharedAcl = new DirectorySecurity();
+
+        static Locations()
         {
-            string value = Environment.GetEnvironmentVariable(variable);
-            return (string.IsNullOrEmpty(value)) ? defaultValue : value;
+            _secureSharedAcl.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier("S-1-1-0" /*Everyone*/), FileSystemRights.ReadAndExecute, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
+            _secureSharedAcl.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null), FileSystemRights.ReadAndExecute, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
+            _secureSharedAcl.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.BuiltinAdministratorsSid, null), FileSystemRights.FullControl, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
+            _secureSharedAcl.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.LocalSystemSid, null), FileSystemRights.FullControl, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
         }
         #endregion
 
@@ -141,7 +142,7 @@ namespace Common.Storage
         /// The directory to store per-user non-essential data (should not roam across different machines).
         /// </summary>
         /// <remarks>On Windows this is <c>%localappdata%</c>, on Linux it usually is <c>~/.cache</c>.</remarks>
-        public static string CacheDir
+        public static string UserCacheDir
         {
             get
             {
@@ -233,19 +234,44 @@ namespace Common.Storage
                         // ToDo: Use MacOS X-specific locations instead of POSIX subsytem
 
                     case PlatformID.Unix:
-                        // Use XDG specification
                         return "/var/cache";
 
                     default:
                     case PlatformID.Win32Windows:
                     case PlatformID.Win32NT:
-                        // Use XDG specification or Win32 API
                         return Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
                 }
             }
         }
         #endregion
 
+        #endregion
+
+        #region Helpers
+        /// <summary>
+        /// Returns the value of an environment variable or a default value if it isn't set.
+        /// </summary>
+        /// <param name="variable">The name of the environment variable to retrieve.</param>
+        /// <param name="defaultValue">The default value to return if the environment variable was not set.</param>
+        /// <returns>The value of the environment variable or <paramref name="defaultValue"/>.</returns>
+        private static string GetEnvironmentVariable(string variable, string defaultValue)
+        {
+            string value = Environment.GetEnvironmentVariable(variable);
+            return (string.IsNullOrEmpty(value)) ? defaultValue : value;
+        }
+
+        /// <summary>
+        /// Ensures that a directory used by multiple users on a machine is created with appropriate ACLs.
+        /// </summary>
+        /// <exception cref="UnauthorizedAccessException">Thrown if a directory needs to be created with protecting ACLs but the current user has insufficient rights.</exception>
+        private static void SecureMachineWideDir(string path)
+        {
+            if (WindowsUtils.IsWindowsNT && !Directory.Exists(path))
+            {
+                if (!WindowsUtils.IsAdministrator) throw new UnauthorizedAccessException("Must be admin!");
+                Directory.CreateDirectory(path, _secureSharedAcl);
+            }
+        }
         #endregion
 
         //--------------------//
@@ -284,11 +310,10 @@ namespace Common.Storage
             #endregion
 
             // Ensure the directory part of the path exists
-            path = Path.GetFullPath(path);
             string dirPath = isFile ? (Path.GetDirectoryName(path) ?? path) : path;
             if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
 
-            return path;
+            return Path.GetFullPath(path);
         }
 
         /// <summary>
@@ -314,8 +339,8 @@ namespace Common.Storage
             {
                 // Check in portable base directory
                 path = FileUtils.PathCombine(_portableBase, "config", resourceCombined);
-                path = Path.GetFullPath(path);
-                if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
+                if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path)))
+                    yield return Path.GetFullPath(path);
             }
             else
             {
@@ -334,8 +359,8 @@ namespace Common.Storage
                     }
                     #endregion
 
-                    path = Path.GetFullPath(path);
-                    if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
+                    if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path)))
+                        yield return Path.GetFullPath(path);
                 }
             }
         }
@@ -373,11 +398,10 @@ namespace Common.Storage
             #endregion
 
             // Ensure the directory part of the path exists
-            path = Path.GetFullPath(path);
             string dirPath = isFile ? (Path.GetDirectoryName(path) ?? path) : path;
             if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
 
-            return path;
+            return Path.GetFullPath(path);
         }
 
         /// <summary>
@@ -403,8 +427,8 @@ namespace Common.Storage
             {
                 // Check in portable base directory
                 path = FileUtils.PathCombine(_portableBase, "data", resourceCombined);
-                path = Path.GetFullPath(path);
-                if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
+                if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path)))
+                    yield return Path.GetFullPath(path);
             }
             else
             {
@@ -423,8 +447,8 @@ namespace Common.Storage
                     }
                     #endregion
 
-                    path = Path.GetFullPath(path);
-                    if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path))) yield return path;
+                    if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path)))
+                        yield return Path.GetFullPath(path);
                 }
             }
         }
@@ -435,11 +459,12 @@ namespace Common.Storage
         /// Returns a path for a cache directory (should not roam across different machines).
         /// </summary>
         /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
+        /// <param name="machineWide"><see langword="true"/> if the directory should be machine-wide.</param>
         /// <param name="resource">The directory name of the resource to be stored.</param>
         /// <returns>A fully qualified directory path. The directory is guaranteed to already exist.</returns>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        public static string GetCacheDirPath(string appName, params string[] resource)
+        public static string GetCacheDirPath(string appName, bool machineWide, params string[] resource)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
@@ -447,26 +472,35 @@ namespace Common.Storage
             #endregion
 
             string resourceCombined = FileUtils.PathCombine(resource);
-            string path;
+            string appPath;
             try
             {
-                path = _isPortable
-                    ? FileUtils.PathCombine(_portableBase, "cache", resourceCombined)
-                    : FileUtils.PathCombine(CacheDir, appName, resourceCombined);
+                if (machineWide)
+                {
+                    appPath = Path.Combine(SystemCacheDir, appName);
+                    SecureMachineWideDir(appPath);
+                }
+                else
+                {
+                    appPath = _isPortable
+                        ? Path.Combine(_portableBase, "cache")
+                        : Path.Combine(UserCacheDir, appName);
+                }
             }
                 #region Error handling
             catch (ArgumentException ex)
             {
                 // Wrap exception to add context information
-                throw new IOException(string.Format(Resources.InvalidConfigDir, CacheDir) + "\n" + ex.Message, ex);
+                throw new IOException(string.Format(Resources.InvalidConfigDir, UserCacheDir) + "\n" + ex.Message, ex);
             }
             #endregion
+
+            string path = Path.Combine(appPath, resourceCombined);
 
             // Ensure the directory exists
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
-            path = Path.GetFullPath(path);
-            return path;
+            return Path.GetFullPath(path);
         }
 
         /// <summary>
@@ -481,29 +515,22 @@ namespace Common.Storage
         /// <remarks>If a new directory is created with <paramref name="machineWide"/> set to <see langword="true"/> on Windows, ACLs are set to deny write access for non-Administrator users.</remarks>
         public static string GetIntegrationDirPath(string appName, bool machineWide, params string[] resource)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
+            if (resource == null) throw new ArgumentNullException("resource");
+            #endregion
+
             string resourceCombined = FileUtils.PathCombine(resource);
-            string path = FileUtils.PathCombine(
+            string appPath = Path.Combine(
                 Environment.GetFolderPath(machineWide ? Environment.SpecialFolder.CommonApplicationData : Environment.SpecialFolder.ApplicationData),
-                appName, resourceCombined);
+                appName);
+            if (machineWide) SecureMachineWideDir(appPath);
+            string path = Path.Combine(appPath, resourceCombined);
 
-            var directory = new DirectoryInfo(path);
-            if (!directory.Exists)
-            {
-                if (WindowsUtils.IsWindowsNT && machineWide)
-                {
-                    // Set ACLs for new directory to: Admins/System = Full access, Users/Everyone = Read+Execute
-                    var security = new DirectorySecurity();
-                    security.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.LocalSystemSid, null), FileSystemRights.FullControl, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
-                    security.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.BuiltinAdministratorsSid, null), FileSystemRights.FullControl, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
-                    security.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null), FileSystemRights.ReadAndExecute, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
-                    security.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier("S-1-1-0" /*Everyone*/), FileSystemRights.ReadAndExecute, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
-                    directory.Create(security);
-                }
-                else directory.Create();
-            }
+            // Ensure the directory exists
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
-            path = Path.GetFullPath(path);
-            return path;
+            return Path.GetFullPath(path);
         }
         #endregion
     }

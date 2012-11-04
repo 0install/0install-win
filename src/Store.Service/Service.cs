@@ -19,6 +19,7 @@ using System;
 using System.Collections;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Ipc;
@@ -26,6 +27,7 @@ using System.Runtime.Serialization.Formatters;
 using System.Security;
 using System.Security.Principal;
 using System.ServiceProcess;
+using Common.Storage;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Store.Service
@@ -36,13 +38,19 @@ namespace ZeroInstall.Store.Service
     public partial class Service : ServiceBase
     {
         #region Variables
-        /// <summary>IPC channel for providing services to clients.</summary>
-        private readonly IChannelReceiver _serverChannel;
-
         /// <summary>
         /// The identity the service is running under.
         /// </summary>
         public static readonly WindowsIdentity Identity = WindowsIdentity.GetCurrent();
+
+        /// <summary>IPC channel for providing services to clients.</summary>
+        private readonly IChannelReceiver _serverChannel;
+
+        /// <summary>The store to provide to clients as a service.</summary>
+        private readonly CompositeStore _store;
+
+        /// <summary>The IPC remoting reference for <see cref="_store"/>.</summary>
+        private ObjRef _objRef;
         #endregion
 
         #region Constructor
@@ -52,7 +60,6 @@ namespace ZeroInstall.Store.Service
 
             // Ensure the event log accepts messages from this service
             if (!EventLog.SourceExists(eventLog.Source)) EventLog.CreateEventSource(eventLog.Source, eventLog.Log);
-            ServiceStore.EventLog = eventLog;
 
             _serverChannel = new IpcServerChannel(
                 new Hashtable
@@ -65,6 +72,11 @@ namespace ZeroInstall.Store.Service
                 , IpcStoreProvider.IpcAcl
 #endif
                 );
+
+            var stores = StoreProvider.GetImplementationDirs().Select(path => new ServiceStore(path, eventLog));
+            // ReSharper disable CoVariantArrayConversion
+            _store = new CompositeStore(stores.ToArray());
+            // ReSharper restore CoVariantArrayConversion
         }
         #endregion
 
@@ -73,7 +85,7 @@ namespace ZeroInstall.Store.Service
             try
             {
                 ChannelServices.RegisterChannel(_serverChannel, false);
-                RemotingConfiguration.RegisterWellKnownServiceType(typeof(ServiceStore), IpcStoreProvider.IpcObjectUri, WellKnownObjectMode.Singleton);
+                _objRef = RemotingServices.Marshal(_store, IpcStoreProvider.IpcObjectUri, typeof(IStore));
             }
                 #region Error handling
             catch (IOException ex)
@@ -105,6 +117,7 @@ namespace ZeroInstall.Store.Service
 
         protected override void OnStop()
         {
+            RemotingServices.Unmarshal(_objRef);
             ChannelServices.UnregisterChannel(_serverChannel);
         }
     }

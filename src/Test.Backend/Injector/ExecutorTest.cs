@@ -129,7 +129,7 @@ namespace ZeroInstall.Injector
             Assert.AreEqual(execArgs, startInfo.EnvironmentVariables["0install-runenv-args-exec-in-var"]);
             Assert.AreEqual(execFile, startInfo.EnvironmentVariables["0install-runenv-file-exec-in-path"]);
             Assert.AreEqual(execArgs, startInfo.EnvironmentVariables["0install-runenv-args-exec-in-path"]);
-            Assert.AreEqual(Locations.GetCacheDirPath("0install.net", "injector", "executables", "exec-in-path") + Path.PathSeparator + new ProcessStartInfo().EnvironmentVariables["PATH"], startInfo.EnvironmentVariables["PATH"]);
+            Assert.AreEqual(Locations.GetCacheDirPath("0install.net", false, "injector", "executables", "exec-in-path") + Path.PathSeparator + new ProcessStartInfo().EnvironmentVariables["PATH"], startInfo.EnvironmentVariables["PATH"]);
         }
 
         /// <summary>

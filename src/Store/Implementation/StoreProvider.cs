@@ -100,7 +100,7 @@ namespace ZeroInstall.Store.Implementation
         public static IEnumerable<string> GetImplementationDirs()
         {
             // Always add the user cache to have a reliable fallback location for storage
-            yield return Locations.GetCacheDirPath("0install.net", "implementations");
+            yield return Locations.GetCacheDirPath("0install.net", false, "implementations");
 
             // Add custom cache locations
             foreach (string configFile in Locations.GetLoadConfigPaths("0install.net", true, "injector", "implementation-dirs"))
@@ -134,9 +134,16 @@ namespace ZeroInstall.Store.Implementation
             // Add the system cache when not in portable mode
             if (!Locations.IsPortable)
             {
-                // Only use pre-existing system cache, do not create new one
-                string systemCache = FileUtils.PathCombine(Locations.SystemCacheDir, "0install.net", "implementations");
-                if (Directory.Exists(systemCache)) yield return systemCache;
+                string systemCache;
+                try
+                {
+                    systemCache = Locations.GetCacheDirPath("0install.net", true, "implementations");
+                }
+                catch (UnauthorizedAccessException)
+                { // Standard users cannot create machine-wide directories, only use them if they already exist
+                    systemCache = null;
+                }
+                if (systemCache != null) yield return systemCache;
             }
         }
     }

@@ -44,7 +44,7 @@ namespace ZeroInstall.Store.Feeds
                 lock (_lock)
                 {
                     if (_iconCache == null)
-                        _iconCache = new DiskIconCache(Locations.GetCacheDirPath("0install.net", "interface_icons"));
+                        _iconCache = new DiskIconCache(Locations.GetCacheDirPath("0install.net", false, "interface_icons"));
                 }
             }
             return _iconCache;

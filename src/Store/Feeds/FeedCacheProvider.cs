@@ -34,7 +34,7 @@ namespace ZeroInstall.Store.Feeds
         public static IFeedCache CreateDefault()
         {
             // Recreate memory-caching layer for each call to prevent long-running caches from going out of sync with disk because of changes made by other processes
-            return new MemoryFeedCache(new DiskFeedCache(Locations.GetCacheDirPath("0install.net", "interfaces")));
+            return new MemoryFeedCache(new DiskFeedCache(Locations.GetCacheDirPath("0install.net", false, "interfaces")));
         }
     }
 }

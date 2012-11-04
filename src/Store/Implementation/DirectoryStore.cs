@@ -103,7 +103,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="DigestMismatchException">Thrown if the temporary directory doesn't match the <paramref name="expectedDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if <paramref name="tempID"/> cannot be moved or the digest cannot be calculated.</exception>
         /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Model.Implementation"/> with the specified <paramref name="expectedDigest"/> in the store.</exception>
-        private void VerifyAndAdd(string tempID, ManifestDigest expectedDigest, ITaskHandler handler)
+        protected virtual void VerifyAndAdd(string tempID, ManifestDigest expectedDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(tempID)) throw new ArgumentNullException("tempID");
@@ -111,7 +111,8 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Determine the digest method to use
-            string expectedDigestValue = expectedDigest.AvailableDigests.First(new ArgumentException(Resources.NoKnownDigestMethod, "expectedDigest"));
+            string expectedDigestValue = expectedDigest.AvailableDigests.First(
+                () => new ArgumentException(Resources.NoKnownDigestMethod, "expectedDigest"));
 
             // Determine the source and target directories
             string source = Path.Combine(DirectoryPath, tempID);
@@ -174,10 +175,12 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var format = ManifestFormat.FromPrefix(expectedDigest.AvailableDigests.First(new ArgumentException(Resources.NoKnownDigestMethod, "expectedDigest")));
+            var format = ManifestFormat.FromPrefix(expectedDigest.AvailableDigests.First(
+                () => new ArgumentException(Resources.NoKnownDigestMethod, "expectedDigest")));
             var actualManifest = Manifest.Generate(directory, format, handler, expectedDigest);
 
-            string expectedDigestValue = expectedDigest.AvailableDigests.First(new ArgumentException(Resources.NoKnownDigestMethod, "expectedDigest"));
+            string expectedDigestValue = expectedDigest.AvailableDigests.First(
+                () => new ArgumentException(Resources.NoKnownDigestMethod, "expectedDigest"));
             string actualDigestValue = actualManifest.CalculateDigest();
             if (actualDigestValue != expectedDigestValue)
                 throw new DigestMismatchException(expectedDigestValue, null, actualDigestValue, actualManifest);
@@ -239,7 +242,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add
         /// <inheritdoc />
-        public virtual void AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler)
+        public void AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -248,6 +251,7 @@ namespace ZeroInstall.Store.Implementation
 
             if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
 
+            // Copy to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
             string tempDir = GetTempDir();
             try
             {
@@ -281,7 +285,7 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <inheritdoc />
-        public virtual void AddArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
+        public void AddArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
@@ -292,8 +296,6 @@ namespace ZeroInstall.Store.Implementation
 
             // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
             string tempDir = GetTempDir();
-            Directory.CreateDirectory(tempDir);
-
             try
             {
                 // Extract archives "over each other" in order
@@ -322,9 +324,11 @@ namespace ZeroInstall.Store.Implementation
         /// Creates a temporary directory within <see cref="DirectoryPath"/>.
         /// </summary>
         /// <returns>The path to the new temporary directory.</returns>
-        private string GetTempDir()
+        protected virtual string GetTempDir()
         {
-            return Path.Combine(DirectoryPath, Path.GetRandomFileName());
+            string path = Path.Combine(DirectoryPath, Path.GetRandomFileName());
+            Directory.CreateDirectory(path);
+            return path;
         }
         #endregion
 
@@ -367,7 +371,8 @@ namespace ZeroInstall.Store.Implementation
 
             if (!Contains(manifestDigest)) throw new ImplementationNotFoundException(manifestDigest);
 
-            string target = Path.Combine(DirectoryPath, manifestDigest.AvailableDigests.First(new ArgumentException(Resources.NoKnownDigestMethod, "manifestDigest")));
+            string target = Path.Combine(DirectoryPath, manifestDigest.AvailableDigests.First(
+                () => new ArgumentException(Resources.NoKnownDigestMethod, "manifestDigest")));
             VerifyDirectory(target, manifestDigest, handler);
 
             // Reseal the directory in case the write protection got lost

@@ -38,7 +38,7 @@ namespace ZeroInstall.Injector.Feeds
         private const string CacheMutexName = "ZeroInstall.Injector.Feeds.CatalogManager.Cache";
 
         /// <summary>The file used to cache a merged view of all used catalogs.</summary>
-        private static string CacheFilePath { get { return Path.Combine(Locations.GetCacheDirPath("0install.net"), "catalog.xml"); } }
+        private static string CacheFilePath { get { return Path.Combine(Locations.GetCacheDirPath("0install.net", false), "catalog.xml"); } }
 
         /// <summary>
         /// Loads the last result of <see cref="GetOnline"/>.

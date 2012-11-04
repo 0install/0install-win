@@ -280,7 +280,7 @@ namespace ZeroInstall.Injector
         private static string DeployRunEnvExecutable(string name)
         {
             string templatePath = GetRunEnvTemplate();
-            string deployedPath = FileUtils.PathCombine(Locations.GetCacheDirPath("0install.net", "injector", "executables", name), name);
+            string deployedPath = FileUtils.PathCombine(Locations.GetCacheDirPath("0install.net", false, "injector", "executables", name), name);
             if (WindowsUtils.IsWindows) deployedPath += ".exe";
 
             try
@@ -326,7 +326,7 @@ namespace ZeroInstall.Injector
             else if (MonoUtils.IsUnix) templateName = "runenv.sh.template";
             else throw new NotSupportedException(string.Format(Resources.BindingNotSupportedOnCurrentOS, @"<executable-in-*>"));
 
-            string path = Path.Combine(Locations.GetCacheDirPath("0install.net", "injector", "executables"), templateName);
+            string path = Path.Combine(Locations.GetCacheDirPath("0install.net", false, "injector", "executables"), templateName);
             try
             {
                 WriteOutEmbeddedResource(templateName, path);
