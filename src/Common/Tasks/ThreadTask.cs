@@ -24,7 +24,9 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
+using System.Security.Principal;
 using System.Threading;
+using Common.Utils;
 
 namespace Common.Tasks
 {
@@ -43,28 +45,9 @@ namespace Common.Tasks
 
         /// <summary>The background thread used for executing the task. Sub-classes must initalize this member.</summary>
         protected Thread Thread;
-        #endregion
 
-        #region Events
-        /// <inheritdoc />
-        public event TaskEventHandler StateChanged;
-
-        private void OnStateChanged()
-        {
-            // Copy to local variable to prevent threading issues
-            TaskEventHandler stateChanged = StateChanged;
-            if (stateChanged != null) stateChanged(this);
-        }
-
-        /// <inheritdoc />
-        public event TaskEventHandler ProgressChanged;
-
-        private void OnProgressChanged()
-        {
-            // Copy to local variable to prevent threading issues
-            TaskEventHandler progressChanged = ProgressChanged;
-            if (progressChanged != null) progressChanged(this);
-        }
+        /// <summary>The identity of the user that originally created this task.</summary>
+        private readonly WindowsIdentity _originalIdentity;
         #endregion
 
         #region Properties
@@ -113,10 +96,35 @@ namespace Common.Tasks
         }
         #endregion
 
+        #region Events
+        /// <inheritdoc />
+        public event TaskEventHandler StateChanged;
+
+        private void OnStateChanged()
+        {
+            // Copy to local variable to prevent threading issues
+            TaskEventHandler stateChanged = StateChanged;
+            if (stateChanged != null) stateChanged(this);
+        }
+
+        /// <inheritdoc />
+        public event TaskEventHandler ProgressChanged;
+
+        private void OnProgressChanged()
+        {
+            // Copy to local variable to prevent threading issues
+            TaskEventHandler progressChanged = ProgressChanged;
+            if (progressChanged != null) progressChanged(this);
+        }
+        #endregion
+
         #region Constructor
         protected ThreadTask()
         {
             PrepareThread();
+
+            if (WindowsUtils.IsWindowsNT)
+                _originalIdentity = WindowsIdentity.GetCurrent();
         }
 
         /// <summary>
@@ -179,7 +187,14 @@ namespace Common.Tasks
             try
             {
                 lock (StateLock) State = TaskState.Started;
-                RunTask();
+
+                // Run task with prevliges of original user if possible
+                if (_originalIdentity != null)
+                {
+                    using (_originalIdentity.Impersonate())
+                        RunTask();
+                }
+                else RunTask();
             }
             catch (OperationCanceledException)
             {
