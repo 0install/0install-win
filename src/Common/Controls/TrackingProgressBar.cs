@@ -136,8 +136,11 @@ namespace Common.Controls
                 switch (state)
                 {
                     case TaskState.Ready:
+                        // When the status is complete the bar should always be empty
                         Style = ProgressBarStyle.Continuous;
-                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(formHandle, WindowsUtils.TaskbarProgressBarState.Paused);
+                        Value = 0;
+
+                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(formHandle, WindowsUtils.TaskbarProgressBarState.NoProgress);
                         break;
 
                     case TaskState.Started:
