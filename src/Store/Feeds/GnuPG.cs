@@ -84,7 +84,7 @@ namespace ZeroInstall.Store.Feeds
             // Find the first secret key that matches the key specifier
             return secretKeys.First(
                 key => key.Fingerprint == keySpecifier || key.KeyID == keySpecifier || key.UserID.ContainsIgnoreCase(keySpecifier),
-                new KeyNotFoundException(Resources.UnableToFindSecretKey));
+                () => new KeyNotFoundException(Resources.UnableToFindSecretKey));
         }
 
         /// <inheritdoc/>

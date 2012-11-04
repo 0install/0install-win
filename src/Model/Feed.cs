@@ -275,7 +275,7 @@ namespace ZeroInstall.Model
                 #endregion
 
                 return Elements.OfType<Implementation>().First(implementation => implementation.ID == id,
-                    new KeyNotFoundException(string.Format("Unable to find implementation '{0}' in feed '{1}'.", id, Name)));
+                    () => new KeyNotFoundException(string.Format("Unable to find implementation '{0}' in feed '{1}'.", id, Name)));
             }
         }
 
@@ -290,7 +290,7 @@ namespace ZeroInstall.Model
             get
             {
                 return Elements.OfType<Implementation>().First(implementation => implementation.ManifestDigest.PartialEquals(digest),
-                    new KeyNotFoundException(string.Format("Unable to find implementation '{0}' in feed '{1}'.", digest, Name)));
+                    () => new KeyNotFoundException(string.Format("Unable to find implementation '{0}' in feed '{1}'.", digest, Name)));
             }
         }
 

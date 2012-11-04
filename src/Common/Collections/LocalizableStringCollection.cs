@@ -106,7 +106,8 @@ namespace Common.Collections
             if (language == null) throw new ArgumentNullException("language");
             #endregion
 
-            return this.First(entry => Equals(language, entry.Language), new KeyNotFoundException()).Value;
+            return this.First(entry => Equals(language, entry.Language),
+                () => new KeyNotFoundException()).Value;
         }
 
         /// <summary>

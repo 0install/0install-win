@@ -162,7 +162,7 @@ namespace ZeroInstall.Injector.Solver
                 #endregion
 
                 return _implementations.First(implementation => implementation.InterfaceID == interfaceID,
-                    new KeyNotFoundException(string.Format(Resources.ImplementationNotInSelection, InterfaceID)));
+                    () => new KeyNotFoundException(string.Format(Resources.ImplementationNotInSelection, InterfaceID)));
             }
         }
 

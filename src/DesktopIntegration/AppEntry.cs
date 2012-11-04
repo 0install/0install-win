@@ -117,11 +117,11 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="KeyNotFoundException">Thrown if no capability matching <paramref name="id"/> and <typeparamref name="T"/> was found.</exception>
         public T GetCapability<T>(string id) where T : Capability
         {
-            foreach (var specificCapability in _capabilityLists.
+            return _capabilityLists.
                 Where(capabilityList => capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)).
-                SelectMany(capabilityList => capabilityList.Entries.OfType<T>().Where(specificCapability => specificCapability.ID == id)))
-                return specificCapability;
-            throw new KeyNotFoundException(string.Format(Resources.UnableToFindTypeID, typeof(T).Name, id));
+                SelectMany(capabilityList => capabilityList.Entries.OfType<T>().
+                    Where(specificCapability => specificCapability.ID == id)).
+                First(() => new KeyNotFoundException(string.Format(Resources.UnableToFindTypeID, typeof(T).Name, id)));
         }
         #endregion
 
