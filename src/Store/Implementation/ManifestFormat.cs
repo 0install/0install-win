@@ -194,6 +194,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// An abstract base class for <see cref="ManifestFormat"/>s using the old manifest format.
         /// </summary>
+        [Serializable]
         private abstract class OldFormat : ManifestFormat
         {
             public override string GenerateEntryForNode(ManifestNode node)
@@ -246,6 +247,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// A specific <see cref="ManifestFormat"/>s using the old manifest format and <see cref="SHA1"/> digests.
         /// </summary>
+        [Serializable]
         private class Sha1Format : OldFormat
         {
             public override string Prefix { get { return "sha1"; } }
@@ -261,6 +263,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// An abstract base class for <see cref="ManifestFormat"/>s using the new manifest format.
         /// </summary>
+        [Serializable]
         private abstract class NewFormat : ManifestFormat
         {
             public override string GenerateEntryForNode(ManifestNode node)
@@ -311,6 +314,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// A specific <see cref="ManifestFormat"/>s using the new manifest format and <see cref="SHA1"/> digests.
         /// </summary>
+        [Serializable]
         private class Sha1NewFormat : NewFormat
         {
             public override string Prefix { get { return "sha1new"; } }
@@ -324,6 +328,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// A specific <see cref="ManifestFormat"/>s using the new manifest format and <see cref="SHA256"/> digests.
         /// </summary>
+        [Serializable]
         private class Sha256Format : NewFormat
         {
             public override string Prefix { get { return "sha256"; } }
@@ -337,6 +342,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// A specific <see cref="ManifestFormat"/>s using the new manifest format and <see cref="SHA256"/> digests.
         /// </summary>
+        [Serializable]
         private class Sha256NewFormat : NewFormat
         {
             public override string Prefix { get { return "sha256new"; } }

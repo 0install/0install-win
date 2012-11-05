@@ -24,6 +24,7 @@ namespace ZeroInstall.Store.Implementation
     /// An abstract base class for file-entries in a <see cref="Manifest"/>.
     /// </summary>
     /// <remarks>This class and the derived classes are immutable. They should only be used as a part of a <see cref="Manifest"/>.</remarks>
+    [Serializable]
     public abstract class ManifestFileBase : ManifestNode
     {
         #region Properties
