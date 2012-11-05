@@ -21,6 +21,7 @@ using System.IO;
 using System.Security.AccessControl;
 using System.Security.Principal;
 using Common.Tasks;
+using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 
@@ -67,6 +68,7 @@ namespace ZeroInstall.Store.Service
 
         //--------------------//
 
+        #region Temp dir
         /// <inheritdoc />
         protected override string GetTempDir()
         {
@@ -86,48 +88,60 @@ namespace ZeroInstall.Store.Service
         }
 
         /// <inheritdoc />
+        protected override void DeleteTempDir(string path)
+        {
+            using (Service.Identity.Impersonate())
+                base.DeleteTempDir(path);
+        }
+        #endregion
+
+        #region Verify directory
+        /// <inheritdoc />
         protected override void VerifyAndAdd(string tempID, ManifestDigest expectedDigest, ITaskHandler handler)
         {
-            var callingUser = WindowsIdentity.GetCurrent().User;
-
             using (Service.Identity.Impersonate())
             {
-                // Take write access away from the calling user
-                string path = Path.Combine(DirectoryPath, tempID);
-                var acl = Directory.GetAccessControl(path);
-                acl.RemoveAccessRule(new FileSystemAccessRule(callingUser, FileSystemRights.Modify, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
-                Directory.SetAccessControl(path, acl);
+                // Recursivley reset any ACLs the user may have modified
+                new DirectoryInfo(Path.Combine(DirectoryPath, tempID)).WalkDirectory(
+                    dir =>
+                    {
+                        var acl = dir.GetAccessControl();
+                        ResetAcl(acl);
+                        dir.SetAccessControl(acl);
+                    },
+                    file =>
+                    {
+                        var acl = file.GetAccessControl();
+                        ResetAcl(acl);
+                        file.SetAccessControl(acl);
+                    });
 
                 base.VerifyAndAdd(tempID, expectedDigest, handler);
             }
         }
 
-        #region Remove
-        /// <inheritdoc />
-        public override void Remove(ManifestDigest manifestDigest)
+        private static void ResetAcl(FileSystemSecurity acl)
         {
-            var callingIdentity = WindowsIdentity.GetCurrent(true);
-            if (callingIdentity != null && !new WindowsPrincipal(callingIdentity).IsInRole(WindowsBuiltInRole.Administrator))
-                throw new UnauthorizedAccessException("Must be admin to delete.");
+            // Take over ownership
+            acl.SetOwner(Service.Identity.User);
 
-            using (Service.Identity.Impersonate())
-            {
-                try
-                {
-                    base.Remove(manifestDigest);
-                }
-                    #region Error handling
-                catch (Exception ex)
-                {
-                    _eventLog.WriteEntry(string.Format("Failed to remove implementation with digest '{0}':\n{1}", manifestDigest, ex), EventLogEntryType.Warning);
-                    throw; // Pass on to caller
-                }
-                #endregion
+            // Inherit rules from container
+            acl.SetAccessRuleProtection(false, true);
 
-                _eventLog.WriteEntry(string.Format("Removed implementation with digest '{0}'.", manifestDigest));
-            }
+            // Remove any custom rules
+            foreach (FileSystemAccessRule rule in acl.GetAccessRules(true, false, typeof(NTAccount)))
+                acl.RemoveAccessRule(rule);
         }
         #endregion
+
+        /// <inheritdoc/>
+        public override void Remove(ManifestDigest manifestDigest)
+        {
+            if (!WindowsUtils.IsAdministrator)
+                throw new UnauthorizedAccessException("Must be admin!");
+
+            base.Remove(manifestDigest);
+        }
 
         //--------------------//
 

@@ -90,6 +90,28 @@ namespace ZeroInstall.Store.Implementation
 
         //--------------------//
 
+        #region Temp dir
+        /// <summary>
+        /// Creates a temporary directory within <see cref="DirectoryPath"/>.
+        /// </summary>
+        /// <returns>The path to the new temporary directory.</returns>
+        protected virtual string GetTempDir()
+        {
+            string path = Path.Combine(DirectoryPath, Path.GetRandomFileName());
+            Directory.CreateDirectory(path);
+            return path;
+        }
+
+        /// <summary>
+        /// Deletes a temporary directory.
+        /// </summary>
+        /// <param name="path">The path to the temporary directory.</param>
+        protected virtual void DeleteTempDir(string path)
+        {
+            if (Directory.Exists(path)) Directory.Delete(path, true);
+        }
+        #endregion
+
         #region Verify and add
         private readonly object _renameLock = new object();
 
@@ -274,14 +296,11 @@ namespace ZeroInstall.Store.Implementation
 
                 VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);
             }
-                #region Error handling
-            catch (Exception)
+            finally
             {
                 // Remove temporary directory before passing exception on
-                if (Directory.Exists(tempDir)) Directory.Delete(tempDir, true);
-                throw;
+                DeleteTempDir(tempDir);
             }
-            #endregion
         }
 
         /// <inheritdoc />
@@ -310,25 +329,11 @@ namespace ZeroInstall.Store.Implementation
 
                 VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);
             }
-                #region Error handling
-            catch (Exception)
+            finally
             {
                 // Remove extracted directory if validation or something else failed
-                if (Directory.Exists(tempDir)) Directory.Delete(tempDir, true);
-                throw;
+                DeleteTempDir(tempDir);
             }
-            #endregion
-        }
-
-        /// <summary>
-        /// Creates a temporary directory within <see cref="DirectoryPath"/>.
-        /// </summary>
-        /// <returns>The path to the new temporary directory.</returns>
-        protected virtual string GetTempDir()
-        {
-            string path = Path.Combine(DirectoryPath, Path.GetRandomFileName());
-            Directory.CreateDirectory(path);
-            return path;
         }
         #endregion
 
