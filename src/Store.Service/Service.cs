@@ -27,7 +27,6 @@ using System.Runtime.Serialization.Formatters;
 using System.Security;
 using System.Security.Principal;
 using System.ServiceProcess;
-using Common.Storage;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Store.Service
@@ -73,9 +72,12 @@ namespace ZeroInstall.Store.Service
 #endif
                 );
 
-            var stores = StoreProvider.GetImplementationDirs().Select(path => new ServiceStore(path, eventLog));
+            // Create service stores for all locations except the first (current user profile)
+            var stores = StoreProvider.GetImplementationDirs().Skip(1).Select(path => new ServiceStore(path, eventLog));
+
             // ReSharper disable CoVariantArrayConversion
-            _store = new CompositeStore(stores.ToArray());
+            // Reverse order to prefer custom over pre-defined locations
+            _store = new CompositeStore(stores.Reverse().ToArray());
             // ReSharper restore CoVariantArrayConversion
         }
         #endregion
