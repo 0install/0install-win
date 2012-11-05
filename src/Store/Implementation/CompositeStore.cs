@@ -180,12 +180,12 @@ namespace ZeroInstall.Store.Implementation
 
             // Find the last store the implementation can be added to (some might be write-protected)
             Exception innerException = null;
-            for (int i = _stores.Length - 1; i >= 0; i--) // Iterate backwards
+            foreach (var store in _stores.Reverse())
             {
                 try
                 {
                     // Try to add implementation to this store
-                    _stores[i].AddDirectory(path, manifestDigest, handler);
+                    store.AddDirectory(path, manifestDigest, handler);
                     return;
                 }
                     #region Error handling
@@ -223,13 +223,13 @@ namespace ZeroInstall.Store.Implementation
 
             // Find the last store the implementation can be added to (some might be write-protected)
             Exception innerException = null;
-            for (int i = _stores.Length - 1; i >= 0; i--) // Iterate backwards
+            foreach (var store in _stores.Reverse())
             {
                 try
                 {
                     // Try to add implementation to this store
                     // ReSharper disable PossibleMultipleEnumeration
-                    _stores[i].AddArchives(archiveInfos, manifestDigest, handler);
+                    store.AddArchives(archiveInfos, manifestDigest, handler);
                     // ReSharper restore PossibleMultipleEnumeration
                     return;
                 }
@@ -263,13 +263,13 @@ namespace ZeroInstall.Store.Implementation
 
             // Remove from every store that contains the implementation
             bool removed = false;
-            for (int i = _stores.Length - 1; i >= 0; i--) // Iterate backwards
+            foreach (var store in _stores.Reverse())
             {
                 try
                 {
-                    if (_stores[i].Contains(manifestDigest))
+                    if (store.Contains(manifestDigest))
                     {
-                        _stores[i].Remove(manifestDigest);
+                        store.Remove(manifestDigest);
                         removed = true;
                     }
                 }

@@ -66,7 +66,7 @@ namespace Common.Tasks
             // Read the file
             string fileContent = File.ReadAllText(_tempFile.Path);
 
-            // Ensure the download was successfull and the file is identical
+            // Ensure the download was successful and the file is identical
             Assert.AreEqual(TaskState.Complete, download.State, download.ErrorMessage);
             Assert.AreEqual(TestFileContent, fileContent, "Downloaded file doesn't match original");
         }
@@ -82,7 +82,7 @@ namespace Common.Tasks
             // Read the file
             string fileContent = File.ReadAllText(_tempFile.Path);
 
-            // Ensure the download was successfull and the file is identical
+            // Ensure the download was successful and the file is identical
             Assert.AreEqual(TaskState.Complete, download.State, download.ErrorMessage);
             Assert.AreEqual(TestFileContent, fileContent, "Downloaded file doesn't match original");
         }
@@ -144,7 +144,7 @@ namespace Common.Tasks
             // Read the file
             string fileContent = File.ReadAllText(_tempFile.Path);
 
-            // Ensure the download was successfull and the file is identical
+            // Ensure the download was successful and the file is identical
             Assert.AreEqual(TaskState.Complete, download.State, download.ErrorMessage);
             Assert.AreEqual(TestFileContent, fileContent, "Downloaded file doesn't match original");
         }
