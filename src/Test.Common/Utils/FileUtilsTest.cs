@@ -34,17 +34,6 @@ namespace Common.Utils
     [TestFixture]
     public class FileUtilsTest
     {
-        #region Paths
-        /// <summary>
-        /// Ensures <see cref="FileUtils.PathCombine"/> correctly combines multiple paths segments, skiping null blocks.
-        /// </summary>
-        [Test]
-        public void TestPathCombine()
-        {
-            Assert.AreEqual("a" + Path.DirectorySeparatorChar + "b" + Path.DirectorySeparatorChar + "c", FileUtils.PathCombine("a", null, "b", "c"));
-        }
-        #endregion
-
         #region Time
         /// <summary>
         /// Ensures <see cref="FileUtils.ToUnixTime"/> correctly converts a <see cref="DateTime"/> value to a Unix epoch value.

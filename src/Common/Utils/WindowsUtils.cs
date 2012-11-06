@@ -24,6 +24,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Common.Properties;
@@ -64,7 +65,7 @@ namespace Common.Utils
         /// <remarks>Automatically uses 64-bit directories if <see cref="Is64BitProcess"/> is <see langword="true"/>.</remarks>
         public static string GetNetFxDirectory(string version)
         {
-            return FileUtils.PathCombine(Environment.GetEnvironmentVariable("windir"), "Microsoft.NET", (Is64BitProcess ? "Framework64" : "Framework"), version);
+            return new [] {Environment.GetEnvironmentVariable("windir"), "Microsoft.NET", (Is64BitProcess ? "Framework64" : "Framework"), version}.Aggregate(Path.Combine);
         }
         #endregion
 

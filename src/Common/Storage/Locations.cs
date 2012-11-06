@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.AccessControl;
 using System.Security.Principal;
 using Common.Properties;
@@ -297,13 +298,13 @@ namespace Common.Storage
             if (resource == null) throw new ArgumentNullException("resource");
             #endregion
 
-            string resourceCombined = FileUtils.PathCombine(resource);
+            string resourceCombined = resource.Aggregate(Path.Combine);
             string path;
             try
             {
-                path = _isPortable
-                    ? FileUtils.PathCombine(_portableBase, "config", resourceCombined)
-                    : FileUtils.PathCombine(UserConfigDir, appName, resourceCombined);
+                path = (_isPortable
+                    ? new[] {_portableBase, "config", resourceCombined}
+                    : new[] {UserConfigDir, appName, resourceCombined}).Aggregate(Path.Combine);
             }
                 #region Error handling
             catch (ArgumentException ex)
@@ -337,12 +338,12 @@ namespace Common.Storage
             if (resource == null) throw new ArgumentNullException("resource");
             #endregion
 
-            string resourceCombined = FileUtils.PathCombine(resource);
+            string resourceCombined = resource.Aggregate(Path.Combine);
             string path;
             if (_isPortable)
             {
                 // Check in portable base directory
-                path = FileUtils.PathCombine(_portableBase, "config", resourceCombined);
+                path = new[] {_portableBase, "config", resourceCombined}.Aggregate(Path.Combine);
                 if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path)))
                     yield return Path.GetFullPath(path);
             }
@@ -353,7 +354,7 @@ namespace Common.Storage
                 {
                     try
                     {
-                        path = FileUtils.PathCombine(dirPath, appName, resourceCombined);
+                        path = new[] {dirPath, appName, resourceCombined}.Aggregate(Path.Combine);
                     }
                         #region Error handling
                     catch (ArgumentException ex)
@@ -385,13 +386,13 @@ namespace Common.Storage
             if (resource == null) throw new ArgumentNullException("resource");
             #endregion
 
-            string resourceCombined = FileUtils.PathCombine(resource);
+            string resourceCombined = resource.Aggregate(Path.Combine);
             string path;
             try
             {
-                path = _isPortable
-                    ? FileUtils.PathCombine(_portableBase, "data", resourceCombined)
-                    : FileUtils.PathCombine(UserDataDir, appName, resourceCombined);
+                path = (_isPortable
+                    ? new[] {_portableBase, "data", resourceCombined}
+                    : new[] {UserDataDir, appName, resourceCombined}).Aggregate(Path.Combine);
             }
                 #region Error handling
             catch (ArgumentException ex)
@@ -425,12 +426,12 @@ namespace Common.Storage
             if (resource == null) throw new ArgumentNullException("resource");
             #endregion
 
-            string resourceCombined = FileUtils.PathCombine(resource);
+            string resourceCombined = resource.Aggregate(Path.Combine);
             string path;
             if (_isPortable)
             {
                 // Check in portable base directory
-                path = FileUtils.PathCombine(_portableBase, "data", resourceCombined);
+                path = new[] {_portableBase, "data", resourceCombined}.Aggregate(Path.Combine);
                 if ((isFile && File.Exists(path)) || (!isFile && Directory.Exists(path)))
                     yield return Path.GetFullPath(path);
             }
@@ -441,7 +442,7 @@ namespace Common.Storage
                 {
                     try
                     {
-                        path = FileUtils.PathCombine(dirPath, appName, resourceCombined);
+                        path = new[] {dirPath, appName, resourceCombined}.Aggregate(Path.Combine);
                     }
                         #region Error handling
                     catch (ArgumentException ex)
@@ -475,7 +476,7 @@ namespace Common.Storage
             if (resource == null) throw new ArgumentNullException("resource");
             #endregion
 
-            string resourceCombined = FileUtils.PathCombine(resource);
+            string resourceCombined = resource.Aggregate(Path.Combine);
             string appPath;
             try
             {
@@ -524,7 +525,7 @@ namespace Common.Storage
             if (resource == null) throw new ArgumentNullException("resource");
             #endregion
 
-            string resourceCombined = FileUtils.PathCombine(resource);
+            string resourceCombined = resource.Aggregate(Path.Combine);
             string appPath = Path.Combine(
                 Environment.GetFolderPath(machineWide ? Environment.SpecialFolder.CommonApplicationData : Environment.SpecialFolder.ApplicationData),
                 appName);

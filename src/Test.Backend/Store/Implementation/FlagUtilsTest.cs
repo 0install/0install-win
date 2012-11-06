@@ -16,8 +16,8 @@
  */
 
 using System.IO;
+using System.Linq;
 using Common.Storage;
-using Common.Utils;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Implementation
@@ -40,7 +40,11 @@ namespace ZeroInstall.Store.Implementation
                 File.WriteAllText(Path.Combine(flagDir.Path, ".xbit"), "/dir1/file1\n/dir2/file2\n");
                 // ReSharper restore LocalizableElement
 
-                var expectedResult = new[] {FileUtils.PathCombine(flagDir.Path, "dir1", "file1"), FileUtils.PathCombine(flagDir.Path, "dir2", "file2")};
+                var expectedResult = new[]
+                {
+                    new[] {flagDir.Path, "dir1", "file1"}.Aggregate(Path.Combine),
+                    new[] {flagDir.Path, "dir2", "file2"}.Aggregate(Path.Combine)
+                };
 
                 CollectionAssert.AreEquivalent(expectedResult, FlagUtils.GetExternalFlags(".xbit", flagDir.Path), "Should find .xbit file in same directory");
                 CollectionAssert.AreEquivalent(expectedResult, FlagUtils.GetExternalFlags(".xbit", Path.Combine(flagDir.Path, "subdir")), "Should find .xbit file in parent directory");

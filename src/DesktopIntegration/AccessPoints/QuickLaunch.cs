@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 using Common.Tasks;
 using Common.Utils;
@@ -47,7 +48,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (string.IsNullOrEmpty(Name) || Name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
                 throw new IOException(string.Format(Resources.NameInvalidChars, Name));
 
-            return FileUtils.PathCombine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Microsoft", "Internet Explorer", "Quick Launch", Name + ".lnk");
+            return new[] {Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Microsoft", "Internet Explorer", "Quick Launch", Name + ".lnk"}.Aggregate(Path.Combine);
         }
 
         /// <inheritdoc/>

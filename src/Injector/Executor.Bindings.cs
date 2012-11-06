@@ -280,7 +280,7 @@ namespace ZeroInstall.Injector
         private static string DeployRunEnvExecutable(string name)
         {
             string templatePath = GetRunEnvTemplate();
-            string deployedPath = FileUtils.PathCombine(Locations.GetCacheDirPath("0install.net", false, "injector", "executables", name), name);
+            string deployedPath = Path.Combine(Locations.GetCacheDirPath("0install.net", false, "injector", "executables", name), name);
             if (WindowsUtils.IsWindows) deployedPath += ".exe";
 
             try

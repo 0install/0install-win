@@ -18,6 +18,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using Common.Storage;
 using Common.Utils;
 using NUnit.Framework;
@@ -213,7 +214,7 @@ namespace ZeroInstall.Injector
                 {
                     selections.Implementations[2].Commands[0].Arguments[0],
                     selections.Implementations[1].Commands[0].Runner.Arguments[0],
-                    FileUtils.PathCombine(Test1Path, "dir 1", "main"),
+                    new [] {Test1Path, "dir 1", "main"}.Aggregate(Path.Combine),
                     "--custom"
                 }.JoinEscapeArguments(),
                 startInfo.Arguments,
@@ -242,7 +243,7 @@ namespace ZeroInstall.Injector
                 {
                     selections.Implementations[2].Commands[0].Arguments[0],
                     selections.Implementations[1].Commands[0].Runner.Arguments[0],
-                    FileUtils.PathCombine(Test1Path, "main"),
+                    Path.Combine(Test1Path, "main"),
                     "--custom"
                 }.JoinEscapeArguments(),
                 startInfo.Arguments,

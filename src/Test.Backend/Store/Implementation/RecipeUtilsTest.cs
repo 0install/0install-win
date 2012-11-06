@@ -16,6 +16,7 @@
  */
 
 using System.IO;
+using System.Linq;
 using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
@@ -62,48 +63,48 @@ namespace ZeroInstall.Store.Implementation
                     {
                         CollectionAssert.AreEquivalent(new[]
                         {
-                            FileUtils.PathCombine(recipeDir.Path, "subdir2", "executable2")
+                            new [] {recipeDir.Path, "subdir2", "executable2"}.Aggregate(Path.Combine)
                         }, FlagUtils.GetExternalFlags(".xbit", recipeDir.Path));
                         CollectionAssert.AreEquivalent(new[]
                         {
-                            FileUtils.PathCombine(recipeDir.Path, "symlink"),
-                            FileUtils.PathCombine(recipeDir.Path, "toplevel", "symlink")
+                            new [] {recipeDir.Path, "symlink"}.Aggregate(Path.Combine),
+                            new [] {recipeDir.Path, "toplevel", "symlink"}.Aggregate(Path.Combine)
                         }, FlagUtils.GetExternalFlags(".symlink", recipeDir.Path));
                     }
 
                     // /symlink [S]
-                    string path = FileUtils.PathCombine(recipeDir.Path, "symlink");
+                    string path = Path.Combine(recipeDir.Path, "symlink");
                     Assert.IsTrue(File.Exists(path), "Missing file: " + path);
                     if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsSymlink(path), "Not symlink: " + path);
 
                     // /subdir1/regular
-                    path = FileUtils.PathCombine(recipeDir.Path, "subdir1", "regular");
+                    path = new [] {recipeDir.Path, "subdir1", "regular"}.Aggregate(Path.Combine);
                     Assert.IsTrue(File.Exists(path), "Missing file: " + path);
 
                     // /subdir2/executable [deleted]
-                    path = FileUtils.PathCombine(recipeDir.Path, "subdir2", "executable");
+                    path = new [] {recipeDir.Path, "subdir2", "executable"}.Aggregate(Path.Combine);
                     Assert.IsFalse(File.Exists(path), "File should not exist: " + path);
 
                     // /subdir2/executable2 [X]
-                    path = FileUtils.PathCombine(recipeDir.Path, "subdir2", "executable2");
+                    path = new [] {recipeDir.Path, "subdir2", "executable2"}.Aggregate(Path.Combine);
                     Assert.IsTrue(File.Exists(path), "Missing file: " + path);
                     if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsExecutable(path), "Not executable: " + path);
 
                     // /toplevel/symlink [S]
-                    path = FileUtils.PathCombine(recipeDir.Path, "toplevel", "symlink");
+                    path = new [] {recipeDir.Path, "toplevel", "symlink"}.Aggregate(Path.Combine);
                     Assert.IsTrue(File.Exists(path), "Missing file: " + path);
                     if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsSymlink(path), "Not symlink: " + path);
 
                     // /toplevel/subdir1/regular
-                    path = FileUtils.PathCombine(recipeDir.Path, "toplevel", "subdir1", "regular");
+                    path = new [] {recipeDir.Path, "toplevel", "subdir1", "regular"}.Aggregate(Path.Combine);
                     Assert.IsTrue(File.Exists(path), "Missing file: " + path);
 
                     // /toplevel/subdir2 [deleted]
-                    path = FileUtils.PathCombine(recipeDir.Path, "toplevel", "subdir2");
+                    path = new [] {recipeDir.Path, "toplevel", "subdir2"}.Aggregate(Path.Combine);
                     Assert.IsFalse(Directory.Exists(path), "Directory should not exist: " + path);
 
                     // /toplevel/subdir3 [D]
-                    path = FileUtils.PathCombine(recipeDir.Path, "toplevel", "subdir3");
+                    path = new[] { recipeDir.Path, "toplevel", "subdir3" }.Aggregate(Path.Combine);
                     Assert.IsTrue(Directory.Exists(path), "Missing directory: " + path);
                 }
             }

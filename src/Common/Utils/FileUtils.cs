@@ -50,24 +50,6 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Works like <see cref="Path.Combine"/> but supports an arbitrary number of arguments.
-        /// </summary>
-        /// <returns><see langword="null"/> if <paramref name="parts"/> was <see langword="null"/> or empty.</returns>
-        /// <exception cref="ArgumentException">Thrown if any of the <paramref name="parts"/> contains charachters <see cref="Path.GetInvalidPathChars"/>.</exception>
-        public static string PathCombine(params string[] parts)
-        {
-            if (parts == null || parts.Length == 0) return null;
-
-            string temp = parts[0];
-            for (int i = 1; i < parts.Length; i++)
-            {
-                if (parts[i] != null)
-                    temp = Path.Combine(temp, parts[i]);
-            }
-            return temp;
-        }
-
-        /// <summary>
         /// Determines whether a path might escape its parent directory (by being absolute or using ..).
         /// </summary>
         public static bool IsBreakoutPath(string path)

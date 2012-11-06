@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Common.Storage;
 using Common.Utils;
 using NUnit.Framework;
@@ -167,8 +168,12 @@ namespace ZeroInstall.Commands
             }
 
             // Relative paths
-            Assert.AreEqual(FileUtils.PathCombine(Environment.CurrentDirectory, "test", "file"), FrontendCommand.GetCanonicalID("file:test/file"));
-            Assert.AreEqual(FileUtils.PathCombine(Environment.CurrentDirectory, "test", "file"), FrontendCommand.GetCanonicalID(Path.Combine("test", "file")));
+            Assert.AreEqual(
+                new[] {Environment.CurrentDirectory, "test", "file"}.Aggregate(Path.Combine),
+                FrontendCommand.GetCanonicalID("file:test/file"));
+            Assert.AreEqual(
+                new[] {Environment.CurrentDirectory, "test", "file"}.Aggregate(Path.Combine),
+                FrontendCommand.GetCanonicalID(Path.Combine("test", "file")));
 
             // Invalid paths
             Assert.Throws<InvalidInterfaceIDException>(() => FrontendCommand.GetCanonicalID("file:/test/file"));
