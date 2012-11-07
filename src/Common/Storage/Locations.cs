@@ -298,7 +298,7 @@ namespace Common.Storage
             if (resource == null) throw new ArgumentNullException("resource");
             #endregion
 
-            string resourceCombined = resource.Aggregate(Path.Combine);
+            string resourceCombined = (resource.Length == 0) ? "" : resource.Aggregate(Path.Combine);
             string path;
             try
             {
@@ -338,7 +338,7 @@ namespace Common.Storage
             if (resource == null) throw new ArgumentNullException("resource");
             #endregion
 
-            string resourceCombined = resource.Aggregate(Path.Combine);
+            string resourceCombined = (resource.Length == 0) ? "" : resource.Aggregate(Path.Combine);
             string path;
             if (_isPortable)
             {
@@ -386,7 +386,7 @@ namespace Common.Storage
             if (resource == null) throw new ArgumentNullException("resource");
             #endregion
 
-            string resourceCombined = resource.Aggregate(Path.Combine);
+            string resourceCombined = (resource.Length == 0) ? "" : resource.Aggregate(Path.Combine);
             string path;
             try
             {
@@ -426,7 +426,7 @@ namespace Common.Storage
             if (resource == null) throw new ArgumentNullException("resource");
             #endregion
 
-            string resourceCombined = resource.Aggregate(Path.Combine);
+            string resourceCombined = (resource.Length == 0) ? "" : resource.Aggregate(Path.Combine);
             string path;
             if (_isPortable)
             {
@@ -476,7 +476,7 @@ namespace Common.Storage
             if (resource == null) throw new ArgumentNullException("resource");
             #endregion
 
-            string resourceCombined = resource.Aggregate(Path.Combine);
+            string resourceCombined = (resource.Length == 0) ? "" : resource.Aggregate(Path.Combine);
             string appPath;
             try
             {
@@ -525,7 +525,7 @@ namespace Common.Storage
             if (resource == null) throw new ArgumentNullException("resource");
             #endregion
 
-            string resourceCombined = resource.Aggregate(Path.Combine);
+            string resourceCombined = (resource.Length == 0) ? "" : resource.Aggregate(Path.Combine);
             string appPath = Path.Combine(
                 Environment.GetFolderPath(machineWide ? Environment.SpecialFolder.CommonApplicationData : Environment.SpecialFolder.ApplicationData),
                 appName);
