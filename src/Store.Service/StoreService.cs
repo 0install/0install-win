@@ -34,7 +34,7 @@ namespace ZeroInstall.Store.Service
     /// <summary>
     /// Represents a Windows service.
     /// </summary>
-    public partial class Service : ServiceBase
+    public partial class StoreService : ServiceBase
     {
         #region Variables
         /// <summary>
@@ -56,7 +56,7 @@ namespace ZeroInstall.Store.Service
         #endregion
 
         #region Constructor
-        public Service()
+        public StoreService()
         {
             InitializeComponent();
 
@@ -94,7 +94,7 @@ namespace ZeroInstall.Store.Service
         {
             var stores = StoreProvider.GetImplementationDirs().
                 // Create service stores for all locations except the first (current user profile)
-                Skip(1).Select(path => new ServiceStore(path, eventLog)).
+                Skip(1).Select(path => new SecureStore(path, eventLog)).
                 // Reverse the order to prefer custom over pre-defined locations
                 Reverse();
 

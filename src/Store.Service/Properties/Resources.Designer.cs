@@ -61,11 +61,47 @@ namespace ZeroInstall.Store.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The user &apos;{0}&apos; failed to add the implementation &apos;{1}&apos; to &apos;{2}&apos;..
+        /// </summary>
+        internal static string FailedToAdd {
+            get {
+                return ResourceManager.GetString("FailedToAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user &apos;{0}&apos; failed to removed the implementation &apos;{1}&apos; from &apos;{2}&apos;..
+        /// </summary>
+        internal static string FailedToRemove {
+            get {
+                return ResourceManager.GetString("FailedToRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Only administrators can remove elements from a shared store..
         /// </summary>
         internal static string NotAdminRemove {
             get {
                 return ResourceManager.GetString("NotAdminRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user &apos;{0}&apos; successfully added the implementation &apos;{1}&apos; to &apos;{2}&apos;..
+        /// </summary>
+        internal static string SuccessfullyAdded {
+            get {
+                return ResourceManager.GetString("SuccessfullyAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user &apos;{0}&apos; successfully removed the implementation &apos;{1}&apos; from &apos;{2}&apos;..
+        /// </summary>
+        internal static string SuccessfullyRemoved {
+            get {
+                return ResourceManager.GetString("SuccessfullyRemoved", resourceCulture);
             }
         }
     }

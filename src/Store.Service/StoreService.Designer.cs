@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Store.Service
 {
-    partial class Service
+    partial class StoreService
     {
         /// <summary> 
         /// Required designer variable.

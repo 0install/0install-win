@@ -18,7 +18,9 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Security.AccessControl;
+using System.Security.Permissions;
 using System.Security.Principal;
 using Common;
 using Common.Tasks;
@@ -30,10 +32,10 @@ using ZeroInstall.Store.Service.Properties;
 namespace ZeroInstall.Store.Service
 {
     /// <summary>
-    /// Provides a service to add new entries to a store that requires elevated privileges to write.
+    /// Models a cache directory that stores <see cref="Model.Implementation"/>s using ACLs and impersonation to ensure security in IPC scenarios.
     /// </summary>
     /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
-    public class ServiceStore : DirectoryStore, IEquatable<ServiceStore>
+    public class SecureStore : DirectoryStore, IEquatable<SecureStore>
     {
         #region Variables
         /// <summary>Writes to the Windows event log.</summary>
@@ -48,7 +50,7 @@ namespace ZeroInstall.Store.Service
         /// <param name="eventLog">Writes to the Windows event log.</param>
         /// <exception cref="IOException">Thrown if the directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating the directory <paramref name="path"/> is not permitted.</exception>
-        public ServiceStore(string path, EventLog eventLog) : base(path)
+        public SecureStore(string path, EventLog eventLog) : base(path)
         {
             #region Sanity checks
             if (eventLog == null) throw new ArgumentNullException("eventLog");
@@ -56,11 +58,12 @@ namespace ZeroInstall.Store.Service
             #endregion
 
             _eventLog = eventLog;
-            _eventLog.WriteEntry(string.Format("Using '{0}' as store directory.", path));
         }
         #endregion
 
         #region Lifetime
+        /// <inheritdoc />
+        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.Infrastructure)]
         public override object InitializeLifetimeService()
         {
             // Keep remoting object alive indefinitely
@@ -74,15 +77,14 @@ namespace ZeroInstall.Store.Service
         /// <inheritdoc />
         protected override string GetTempDir()
         {
-            var callingUser = WindowsIdentity.GetCurrent().User;
-
-            using (Service.Identity.Impersonate())
+            var callingIdentity = WindowsIdentity.GetCurrent();
+            using (StoreService.Identity.Impersonate())
             {
                 string path = base.GetTempDir();
 
                 // Give the calling user write access
                 var acl = Directory.GetAccessControl(path);
-                acl.AddAccessRule(new FileSystemAccessRule(callingUser, FileSystemRights.Modify, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
+                acl.AddAccessRule(new FileSystemAccessRule(callingIdentity.User, FileSystemRights.Modify, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
                 Directory.SetAccessControl(path, acl);
 
                 return path;
@@ -92,7 +94,7 @@ namespace ZeroInstall.Store.Service
         /// <inheritdoc />
         protected override void DeleteTempDir(string path)
         {
-            using (Service.Identity.Impersonate())
+            using (StoreService.Identity.Impersonate())
                 base.DeleteTempDir(path);
         }
         #endregion
@@ -101,7 +103,8 @@ namespace ZeroInstall.Store.Service
         /// <inheritdoc />
         protected override void VerifyAndAdd(string tempID, ManifestDigest expectedDigest, ITaskHandler handler)
         {
-            using (Service.Identity.Impersonate())
+            var callingIdentity = WindowsIdentity.GetCurrent();
+            using (StoreService.Identity.Impersonate())
             {
                 // Recursivley reset any ACLs the user may have modified
                 new DirectoryInfo(Path.Combine(DirectoryPath, tempID)).WalkDirectory(
@@ -118,14 +121,26 @@ namespace ZeroInstall.Store.Service
                         file.SetAccessControl(acl);
                     });
 
-                base.VerifyAndAdd(tempID, expectedDigest, handler);
+                try
+                {
+                    base.VerifyAndAdd(tempID, expectedDigest, handler);
+                }
+                    #region Error handling
+                catch (Exception ex)
+                {
+                    _eventLog.WriteEntry(string.Format(Resources.FailedToAdd, callingIdentity.Name, expectedDigest.AvailableDigests.First(), DirectoryPath) + Environment.NewLine + ex.Message, EventLogEntryType.Error);
+                    throw;
+                }
+                #endregion
+
+                _eventLog.WriteEntry(string.Format(Resources.SuccessfullyAdded, callingIdentity.Name, expectedDigest.AvailableDigests.First(), DirectoryPath));
             }
         }
 
         private static void ResetAcl(FileSystemSecurity acl)
         {
             // Take over ownership
-            acl.SetOwner(Service.Identity.User);
+            acl.SetOwner(StoreService.Identity.User);
 
             // Inherit rules from container
             acl.SetAccessRuleProtection(false, true);
@@ -136,14 +151,31 @@ namespace ZeroInstall.Store.Service
         }
         #endregion
 
+        #region Remove
         /// <inheritdoc/>
         public override void Remove(ManifestDigest manifestDigest)
         {
             if (!WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.NotAdminRemove);
 
-            using (Service.Identity.Impersonate())
-                base.Remove(manifestDigest);
+            var callingIdentity = WindowsIdentity.GetCurrent();
+            using (StoreService.Identity.Impersonate())
+            {
+                try
+                {
+                    base.Remove(manifestDigest);
+                }
+                    #region Error handling
+                catch (Exception ex)
+                {
+                    _eventLog.WriteEntry(string.Format(Resources.FailedToRemove, callingIdentity.Name, manifestDigest, DirectoryPath) + Environment.NewLine + ex.Message, EventLogEntryType.Error);
+                    throw;
+                }
+                #endregion
+
+                _eventLog.WriteEntry(string.Format(Resources.SuccessfullyRemoved, callingIdentity.Name, manifestDigest, DirectoryPath));
+            }
         }
+        #endregion
 
         //--------------------//
 
@@ -159,7 +191,7 @@ namespace ZeroInstall.Store.Service
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(ServiceStore other)
+        public bool Equals(SecureStore other)
         {
             return base.Equals(other);
         }
@@ -169,7 +201,7 @@ namespace ZeroInstall.Store.Service
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(ServiceStore) && Equals((ServiceStore)obj);
+            return obj.GetType() == typeof(SecureStore) && Equals((SecureStore)obj);
         }
 
         /// <inheritdoc/>

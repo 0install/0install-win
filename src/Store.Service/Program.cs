@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Service
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        public static void Main(string[] args)
+        public static void Main()
         {
             // Encode installation path into mutex name to allow instance detection during updates
             string mutexName = "mutex-" + Locations.InstallBase.Hash(MD5.Create());
@@ -43,7 +43,7 @@ namespace ZeroInstall.Store.Service
             AppMutex.Create("Zero Install");
 #endif
 
-            ServiceBase.Run(new ServiceBase[] {new Service()});
+            ServiceBase.Run(new ServiceBase[] {new StoreService()});
         }
     }
 }

@@ -117,7 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FailedToAdd" xml:space="preserve">
+    <value>Der Benutzer '{0}' konnte die Implementierung '{1}' nicht in '{2}' hinzufügen.</value>
+  </data>
+  <data name="FailedToRemove" xml:space="preserve">
+    <value>Der Benutzer '{0}' konnte die Implementierung '{1}' nicht aus '{2}' entfernen.</value>
+  </data>
   <data name="NotAdminRemove" xml:space="preserve">
     <value>Nur Administratoren können Elemente aus einem geteilten Store entferneb.</value>
+  </data>
+  <data name="SuccessfullyAdded" xml:space="preserve">
+    <value>Der Benutzer '{0}' hat die Implementierung '{1}' erfolgreich in '{2}' hinzugefügt.</value>
+  </data>
+  <data name="SuccessfullyRemoved" xml:space="preserve">
+    <value>Der Benutzer '{0}' hat die Implementierung '{1}' erfolgreich aus '{2}' entfernt.</value>
   </data>
 </root>
