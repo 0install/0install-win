@@ -136,6 +136,10 @@ namespace ZeroInstall.Store.Service
                     base.VerifyAndAdd(tempID, expectedDigest, handler);
                 }
                     #region Error handling
+                catch (OperationCanceledException)
+                {
+                    throw;
+                }
                 catch (Exception ex)
                 {
                     _eventLog.WriteEntry(string.Format(Resources.FailedToAddImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.First(), DirectoryPath) + Environment.NewLine + ex.Message, EventLogEntryType.Error);
