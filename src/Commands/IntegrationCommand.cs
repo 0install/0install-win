@@ -44,7 +44,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="PlatformNotSupportedException">When called on a non-Windows platform.</exception>
         protected static int RerunAsAdmin()
         {
-            if (!WindowsUtils.IsWindows) throw new PlatformNotSupportedException();
+            if (!WindowsUtils.IsWindowsNT) throw new PlatformNotSupportedException();
 
             var commandLine = new LinkedList<string>(Environment.GetCommandLineArgs());
             string executable = commandLine.First.Value;

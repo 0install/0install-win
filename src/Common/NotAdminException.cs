@@ -23,6 +23,7 @@ namespace Common
     /// <summary>
     /// Like a <see cref="UnauthorizedAccessException"/> but with the additional hint that retrying the operation as an administrator would fix the problem.
     /// </summary>
+    [Serializable]
     public class NotAdminException : UnauthorizedAccessException
     {
         /// <inheritdoc/>

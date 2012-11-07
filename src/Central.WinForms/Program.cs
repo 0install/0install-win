@@ -90,7 +90,7 @@ namespace ZeroInstall.Central.WinForms
             }
 
             bool machineWide = args.Any(arg => arg == "-m" || arg == "--machine");
-            if (machineWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
+            if (machineWide && WindowsUtils.IsWindowsNT && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
 
             Application.Run(new MainForm(machineWide));
             return 0;
@@ -103,7 +103,7 @@ namespace ZeroInstall.Central.WinForms
         /// <remarks>The command-line arguments are pulled from the current process.</remarks>
         private static int RerunAsAdmin()
         {
-            if (!WindowsUtils.IsWindows) throw new PlatformNotSupportedException();
+            if (!WindowsUtils.IsWindowsNT) throw new PlatformNotSupportedException();
 
             var commandLine = new LinkedList<string>(Environment.GetCommandLineArgs());
             string executable = commandLine.First.Value;

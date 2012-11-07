@@ -88,17 +88,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                 }
                 #endregion
 
-                try
-                {
-                    Directory.Delete(_path, true);
-                }
-                    #region Error handling
-                catch (UnauthorizedAccessException ex)
-                {
-                    // Wrap exception since only certain exception types are allowed in tasks
-                    throw new IOException(ex.Message, ex);
-                }
-                #endregion
+                Directory.Delete(_path, true);
             }
                 #region Error handling
             catch (ImplementationNotFoundException ex)

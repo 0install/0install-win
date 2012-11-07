@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
@@ -46,6 +47,7 @@ namespace Common.Storage
         /// </summary>
         private static readonly DirectorySecurity _secureSharedAcl;
 
+        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static Locations()
         {
             if (WindowsUtils.IsWindowsNT)
