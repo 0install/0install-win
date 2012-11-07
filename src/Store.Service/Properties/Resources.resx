@@ -117,10 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="InsufficientFSTimeAccuracy" xml:space="preserve">
-    <value>The underlying file system does not store file change times with sufficient accuracy.</value>
-  </data>
-  <data name="MissingPath" xml:space="preserve">
-    <value>No path specified.</value>
+  <data name="NotAdminRemove" xml:space="preserve">
+    <value>Only administrators can remove elements from a shared store.</value>
   </data>
 </root>

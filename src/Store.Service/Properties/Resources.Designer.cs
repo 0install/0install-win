@@ -61,20 +61,11 @@ namespace ZeroInstall.Store.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The underlying file system does not store file change times with sufficient accuracy..
+        ///   Looks up a localized string similar to Only administrators can remove elements from a shared store..
         /// </summary>
-        internal static string InsufficientFSTimeAccuracy {
+        internal static string NotAdminRemove {
             get {
-                return ResourceManager.GetString("InsufficientFSTimeAccuracy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No path specified..
-        /// </summary>
-        internal static string MissingPath {
-            get {
-                return ResourceManager.GetString("MissingPath", resourceCulture);
+                return ResourceManager.GetString("NotAdminRemove", resourceCulture);
             }
         }
     }

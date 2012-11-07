@@ -20,10 +20,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Security.AccessControl;
 using System.Security.Principal;
+using Common;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Service.Properties;
 
 namespace ZeroInstall.Store.Service
 {
@@ -54,7 +56,7 @@ namespace ZeroInstall.Store.Service
             #endregion
 
             _eventLog = eventLog;
-            eventLog.WriteEntry(string.Format("Using '{0}' as store directory.", path));
+            _eventLog.WriteEntry(string.Format("Using '{0}' as store directory.", path));
         }
         #endregion
 
@@ -137,10 +139,10 @@ namespace ZeroInstall.Store.Service
         /// <inheritdoc/>
         public override void Remove(ManifestDigest manifestDigest)
         {
-            if (!WindowsUtils.IsAdministrator)
-                throw new UnauthorizedAccessException("Must be admin!");
+            if (!WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.NotAdminRemove);
 
-            base.Remove(manifestDigest);
+            using (Service.Identity.Impersonate())
+                base.Remove(manifestDigest);
         }
 
         //--------------------//

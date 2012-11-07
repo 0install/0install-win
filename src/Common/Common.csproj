@@ -73,6 +73,7 @@
     <Compile Include="AppInfo.cs" />
     <Compile Include="AppMutex.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="NotAdminException.cs" />
     <Compile Include="MutexLock.cs" />
     <Compile Include="PropertyPointer.cs" />
     <Compile Include="TimedLogEvent.cs" />
