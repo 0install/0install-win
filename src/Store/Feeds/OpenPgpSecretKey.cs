@@ -118,15 +118,15 @@ namespace ZeroInstall.Store.Feeds
             #endregion
 
             string[] sec = secLine.Split(':');
-            if (sec.Length != 16) throw new FormatException("The 'sec' line must contain 16 colon-separated blocks.");
+            if (sec.Length != 16) throw new FormatException("The 'sec' line must contain 16 colon-separated blocks.Was:\n" + secLine);
             if (sec[0] != "sec") throw new FormatException("The 'sec' line must start with \"sec\".");
 
             string[] fpr = fprLine.Split(':');
-            if (fpr.Length != 11) throw new FormatException("The 'fpr' line must contain 11 colon-separated blocks.");
+            if (fpr.Length != 11) throw new FormatException("The 'fpr' line must contain 11 colon-separated blocks.Was:\n" + fprLine);
             if (fpr[0] != "fpr") throw new FormatException("The 'fpr' line must start with \"fpr\".");
 
             string[] uid = uidLine.Split(':');
-            if (uid.Length != 11) throw new FormatException("The 'uid' line must contain 11 colon-separated blocks.");
+            if (uid.Length != 11) throw new FormatException("The 'uid' line must contain 11 colon-separated blocks.Was:\n" + uidLine);
             if (uid[0] != "uid") throw new FormatException("The 'uid' line must start with \"uid\".");
 
             return new OpenPgpSecretKey(
