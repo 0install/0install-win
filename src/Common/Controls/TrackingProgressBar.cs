@@ -71,9 +71,9 @@ namespace Common.Controls
         /// </summary>
         private void HookIn()
         {
-            // Get the initial values
-            OnStateChanged(_task);
-            OnProgressChanged(_task);
+            // Handle the initial values
+            OnStateChanged(_task.State, _task.UnitsTotal);
+            if (_task.State == TaskState.Data) OnProgressChanged(_task.State, _task.Progress);
 
             _task.StateChanged += OnStateChanged;
             _task.ProgressChanged += OnProgressChanged;
@@ -113,10 +113,10 @@ namespace Common.Controls
 
         #region Event callbacks
         /// <summary>
-        /// Changes the <see cref="ProgressBarStyle"/> and the taskbar based on the <see cref="TaskState"/> of <see cref="_task"/>.
+        /// Handles <see cref="ITask.StateChanged"/> events.
         /// </summary>
-        /// <param name="sender">Object that called this method.</param>
-        /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
+        /// <param name="sender">The <see cref="ITask"/> that called this method.</param>
+        /// <remarks>May be called from any thread.</remarks>
         // Must be public for IPC
         // ReSharper disable MemberCanBePrivate.Global
         public void OnStateChanged(ITask sender)
@@ -126,91 +126,107 @@ namespace Common.Controls
             if (sender == null) throw new ArgumentNullException("sender");
             #endregion
 
-            // Copy value so it can be safely accessed from another thread
+            // Copy values so they can be safely accessed from another thread
             TaskState state = sender.State;
+            long unitsTotal = sender.UnitsTotal;
 
             // Handle events coming from a non-UI thread, block caller
-            Invoke(new Action(delegate
-            {
-                IntPtr formHandle = ParentHandle;
-                switch (state)
-                {
-                    case TaskState.Ready:
-                        // When the status is complete the bar should always be empty
-                        Style = ProgressBarStyle.Continuous;
-                        Value = 0;
-
-                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(formHandle, WindowsUtils.TaskbarProgressBarState.NoProgress);
-                        break;
-
-                    case TaskState.Started:
-                    case TaskState.Header:
-                        Style = ProgressBarStyle.Marquee;
-                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(formHandle, WindowsUtils.TaskbarProgressBarState.Indeterminate);
-                        break;
-
-                    case TaskState.Data:
-                        if (sender.UnitsTotal == -1)
-                        {
-                            Style = ProgressBarStyle.Marquee;
-                            if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(formHandle, WindowsUtils.TaskbarProgressBarState.Indeterminate);
-                        }
-                        else
-                        {
-                            Style = ProgressBarStyle.Continuous;
-                            if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(formHandle, WindowsUtils.TaskbarProgressBarState.Normal);
-                        }
-                        break;
-
-                    case TaskState.IOError:
-                    case TaskState.WebError:
-                        Style = ProgressBarStyle.Continuous;
-                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(formHandle, WindowsUtils.TaskbarProgressBarState.Error);
-                        break;
-
-                    case TaskState.Complete:
-                        // When the status is complete the bar should always be full
-                        Style = ProgressBarStyle.Continuous;
-                        Value = 100;
-
-                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(formHandle, WindowsUtils.TaskbarProgressBarState.NoProgress);
-                        break;
-                }
-            }));
+            Invoke(new Action(() => OnStateChanged(state, unitsTotal)));
         }
 
         /// <summary>
-        /// Changes the <see cref="ProgressBar.Value"/> and the taskbar depending on the number of already processed bytes.
+        /// Updates the <see cref="ProgressBarStyle"/> and the taskbar (on Windows 7 and later). Called internally by <see cref="OnStateChanged(ITask)"/>.
         /// </summary>
-        /// <param name="sender">Object that called this method.</param>
-        /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
+        /// <remarks>Must be called from the UI thread.</remarks>
+        private void OnStateChanged(TaskState state, long unitsTotal)
+        {
+            switch (state)
+            {
+                case TaskState.Ready:
+                    // When the status is complete the bar should always be empty
+                    Style = ProgressBarStyle.Continuous;
+                    Value = 0;
+
+                    if (UseTaskbar && ParentHandle != IntPtr.Zero) WindowsUtils.SetProgressState(ParentHandle, WindowsUtils.TaskbarProgressBarState.NoProgress);
+                    break;
+
+                case TaskState.Started:
+                case TaskState.Header:
+                    Style = ProgressBarStyle.Marquee;
+                    if (UseTaskbar && ParentHandle != IntPtr.Zero) WindowsUtils.SetProgressState(ParentHandle, WindowsUtils.TaskbarProgressBarState.Indeterminate);
+                    break;
+
+                case TaskState.Data:
+                    if (unitsTotal == -1)
+                    {
+                        Style = ProgressBarStyle.Marquee;
+                        if (UseTaskbar && ParentHandle != IntPtr.Zero) WindowsUtils.SetProgressState(ParentHandle, WindowsUtils.TaskbarProgressBarState.Indeterminate);
+                    }
+                    else
+                    {
+                        Style = ProgressBarStyle.Continuous;
+                        if (UseTaskbar && ParentHandle != IntPtr.Zero) WindowsUtils.SetProgressState(ParentHandle, WindowsUtils.TaskbarProgressBarState.Normal);
+                    }
+                    break;
+
+                case TaskState.IOError:
+                case TaskState.WebError:
+                    Style = ProgressBarStyle.Continuous;
+                    if (UseTaskbar && ParentHandle != IntPtr.Zero) WindowsUtils.SetProgressState(ParentHandle, WindowsUtils.TaskbarProgressBarState.Error);
+                    break;
+
+                case TaskState.Complete:
+                    // When the status is complete the bar should always be full
+                    Style = ProgressBarStyle.Continuous;
+                    Value = 100;
+
+                    if (UseTaskbar && ParentHandle != IntPtr.Zero) WindowsUtils.SetProgressState(ParentHandle, WindowsUtils.TaskbarProgressBarState.NoProgress);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Handles <see cref="ITask.ProgressChanged"/> events.
+        /// </summary>
+        /// <param name="sender">The <see cref="ITask"/> that called this method.</param>
+        /// <remarks>May be called from any thread.</remarks>
+        // ReSharper disable MemberCanBePrivate.Global
+        // Must be public for IPC
         public void OnProgressChanged(ITask sender)
+            // ReSharper restore MemberCanBePrivate.Global
         {
             #region Sanity checks
             if (sender == null) throw new ArgumentNullException("sender");
             #endregion
 
-            // Clamp the progress to values between 0 and 1
+            // Only track units in data state
+            if (sender.State != TaskState.Data) return;
+
+            // Copy values so they can be safely accessed from another thread
+            TaskState state = sender.State;
             double progress = sender.Progress;
+
+            // Handle events coming from a non-UI thread, block caller
+            Invoke(new Action(() => OnProgressChanged(state, progress)));
+        }
+
+        /// <summary>
+        /// Updates the <see cref="ProgressBarStyle"/> and the taskbar (on Windows 7 and later). Called internally by <see cref="OnProgressChanged(ITask)"/>.
+        /// </summary>
+        /// <remarks>Must be called from the UI thread. Only call if <see cref="ITask.State"/> is <see cref="TaskState.Data"/>.</remarks>
+        private void OnProgressChanged(TaskState state, double progress)
+        {
+            // Clamp the progress to values between 0 and 1
             if (progress < 0) progress = 0;
             else if (progress > 1) progress = 1;
-
-            // Copy value so it can be safely accessed from another thread
             var currentValue = (int)(progress * 100);
 
             // When the status is complete the bar should always be full
-            if (sender.State == TaskState.Complete) currentValue = 100;
+            if (state == TaskState.Complete) currentValue = 100;
 
-            if (sender.State == TaskState.Data)
-            {
-                // Handle events coming from a non-UI thread, block caller
-                Invoke(new Action(delegate
-                {
-                    Value = currentValue;
-                    IntPtr formHandle = ParentHandle;
-                    if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressValue(formHandle, currentValue, 100);
-                }));
-            }
+            Value = currentValue;
+            IntPtr formHandle = ParentHandle;
+            if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressValue(formHandle, currentValue, 100);
         }
         #endregion
 

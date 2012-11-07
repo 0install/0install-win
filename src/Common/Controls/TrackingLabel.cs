@@ -74,9 +74,9 @@ namespace Common.Controls
         /// </summary>
         private void HookIn()
         {
-            // Get the initial values
-            OnStateChanged(_task);
-            OnProgressChanged(_task);
+            // Handle the initial values
+            OnStateChanged(_task.State);
+            if (_task.State == TaskState.Data) OnProgressChanged(_task.UnitsByte, _task.UnitsProcessed, _task.UnitsTotal);
 
             _task.StateChanged += OnStateChanged;
             _task.ProgressChanged += OnProgressChanged;
@@ -101,9 +101,10 @@ namespace Common.Controls
 
         #region Event callbacks
         /// <summary>
-        /// Changes the <see cref="Label.Text"/> based on the <see cref="TaskState"/> of <see cref="_task"/>.
+        /// Handles <see cref="ITask.StateChanged"/> events.
         /// </summary>
-        /// <param name="sender">Object that called this method.</param>
+        /// <param name="sender">The <see cref="ITask"/> that called this method.</param>
+        /// <remarks>May be called from any thread.</remarks>
         // Must be public for IPC
         // ReSharper disable MemberCanBePrivate.Global
         public void OnStateChanged(ITask sender)
@@ -113,57 +114,64 @@ namespace Common.Controls
             if (sender == null) throw new ArgumentNullException("sender");
             #endregion
 
-            // Copy value so it can be safely accessed from another thread
+            // Copy values so they can be safely accessed from another thread
             TaskState state = sender.State;
 
             // Handle events coming from a non-UI thread, block caller
-            Invoke(new Action(delegate
-            {
-                CurrentState = state;
-                switch (state)
-                {
-                    case TaskState.Ready:
-                        Text = Resources.StateReady;
-                        ForeColor = SystemColors.ControlText;
-                        break;
-
-                    case TaskState.Started:
-                        Text = "";
-                        ForeColor = SystemColors.ControlText;
-                        break;
-
-                    case TaskState.Header:
-                        Text = Resources.StateHeader;
-                        ForeColor = SystemColors.ControlText;
-                        break;
-
-                    case TaskState.Data:
-                        Text = Resources.StateData;
-                        ForeColor = SystemColors.ControlText;
-                        break;
-
-                    case TaskState.Complete:
-                        Text = Resources.StateComplete;
-                        ForeColor = Color.Green;
-                        break;
-
-                    case TaskState.WebError:
-                        Text = Resources.StateWebError;
-                        ForeColor = Color.Red;
-                        break;
-
-                    case TaskState.IOError:
-                        Text = Resources.StateIOError;
-                        ForeColor = Color.Red;
-                        break;
-                }
-            }));
+            Invoke(new Action(() => OnStateChanged(state)));
         }
 
         /// <summary>
-        /// Changes the <see cref="Label.Text"/> based on the already processed units.
+        /// Updates the <see cref="Label.Text"/>. Called internally by <see cref="OnStateChanged(ITask)"/>.
         /// </summary>
-        /// <param name="sender">Object that called this method.</param>
+        /// <remarks>Must be called from the UI thread.</remarks>
+        private void OnStateChanged(TaskState state)
+        {
+            CurrentState = state;
+            switch (state)
+            {
+                case TaskState.Ready:
+                    Text = Resources.StateReady;
+                    ForeColor = SystemColors.ControlText;
+                    break;
+
+                case TaskState.Started:
+                    Text = "";
+                    ForeColor = SystemColors.ControlText;
+                    break;
+
+                case TaskState.Header:
+                    Text = Resources.StateHeader;
+                    ForeColor = SystemColors.ControlText;
+                    break;
+
+                case TaskState.Data:
+                    Text = Resources.StateData;
+                    ForeColor = SystemColors.ControlText;
+                    break;
+
+                case TaskState.Complete:
+                    Text = Resources.StateComplete;
+                    ForeColor = Color.Green;
+                    break;
+
+                case TaskState.WebError:
+                    Text = Resources.StateWebError;
+                    ForeColor = Color.Red;
+                    break;
+
+                case TaskState.IOError:
+                    Text = Resources.StateIOError;
+                    ForeColor = Color.Red;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Handles <see cref="ITask.ProgressChanged"/> events.
+        /// </summary>
+        /// <param name="sender">The <see cref="ITask"/> that called this method.</param>
+        /// <remarks>May be called from any thread.</remarks>
         // ReSharper disable MemberCanBePrivate.Global
         // Must be public for IPC
         public void OnProgressChanged(ITask sender)
@@ -176,23 +184,29 @@ namespace Common.Controls
             // Only track units in data state
             if (sender.State != TaskState.Data) return;
 
-            // Copy value so it can be safely accessed from another thread
+            // Copy values so they can be safely accessed from another thread
             long unitsProcessed = sender.UnitsProcessed;
             long unitsTotal = sender.UnitsTotal;
 
             // Handle events coming from a non-UI thread, block caller
-            Invoke(new Action(delegate
+            Invoke(new Action(() => OnProgressChanged(sender.UnitsByte, unitsProcessed, unitsTotal)));
+        }
+
+        /// <summary>
+        /// Updates the <see cref="Label.Text"/>. Called internally by <see cref="OnProgressChanged(ITask)"/>.
+        /// </summary>
+        /// <remarks>Must be called from the UI thread. Only call if <see cref="ITask.State"/> is <see cref="TaskState.Data"/>.</remarks>
+        private void OnProgressChanged(bool unitsByte, long unitsProcessed, long unitsTotal)
+        {
+            Text = (unitsByte
+                ? unitsProcessed.FormatBytes(CultureInfo.CurrentCulture)
+                : unitsProcessed.ToString(CultureInfo.CurrentCulture));
+            if (unitsTotal != -1)
             {
-                Text = (sender.UnitsByte
-                    ? unitsProcessed.FormatBytes(CultureInfo.CurrentCulture)
-                    : unitsProcessed.ToString(CultureInfo.CurrentCulture));
-                if (unitsTotal != -1)
-                {
-                    Text += @" / " + (sender.UnitsByte
-                        ? unitsTotal.FormatBytes(CultureInfo.CurrentCulture)
-                        : unitsTotal.ToString(CultureInfo.CurrentCulture));
-                }
-            }));
+                Text += @" / " + (unitsByte
+                    ? unitsTotal.FormatBytes(CultureInfo.CurrentCulture)
+                    : unitsTotal.ToString(CultureInfo.CurrentCulture));
+            }
         }
         #endregion
 
