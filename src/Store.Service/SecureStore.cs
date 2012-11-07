@@ -82,10 +82,20 @@ namespace ZeroInstall.Store.Service
             {
                 string path = base.GetTempDir();
 
-                // Give the calling user write access
-                var acl = Directory.GetAccessControl(path);
-                acl.AddAccessRule(new FileSystemAccessRule(callingIdentity.User, FileSystemRights.Modify, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
-                Directory.SetAccessControl(path, acl);
+                try
+                {
+                    // Give the calling user write access
+                    var acl = Directory.GetAccessControl(path);
+                    acl.AddAccessRule(new FileSystemAccessRule(callingIdentity.User, FileSystemRights.Modify, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
+                    Directory.SetAccessControl(path, acl);
+                }
+                    #region Error handling
+                catch (Exception ex)
+                {
+                    _eventLog.WriteEntry(string.Format(Resources.FailedToAddUserAcl, callingIdentity.Name, path) + Environment.NewLine + ex.Message, EventLogEntryType.Error);
+                    throw;
+                }
+                #endregion
 
                 return path;
             }
@@ -128,12 +138,12 @@ namespace ZeroInstall.Store.Service
                     #region Error handling
                 catch (Exception ex)
                 {
-                    _eventLog.WriteEntry(string.Format(Resources.FailedToAdd, callingIdentity.Name, expectedDigest.AvailableDigests.First(), DirectoryPath) + Environment.NewLine + ex.Message, EventLogEntryType.Error);
+                    _eventLog.WriteEntry(string.Format(Resources.FailedToAddImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.First(), DirectoryPath) + Environment.NewLine + ex.Message, EventLogEntryType.Error);
                     throw;
                 }
                 #endregion
 
-                _eventLog.WriteEntry(string.Format(Resources.SuccessfullyAdded, callingIdentity.Name, expectedDigest.AvailableDigests.First(), DirectoryPath));
+                _eventLog.WriteEntry(string.Format(Resources.SuccessfullyAddedImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.First(), DirectoryPath));
             }
         }
 
@@ -155,7 +165,7 @@ namespace ZeroInstall.Store.Service
         /// <inheritdoc/>
         public override void Remove(ManifestDigest manifestDigest)
         {
-            if (!WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.NotAdminRemove);
+            if (!WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminToRemove);
 
             var callingIdentity = WindowsIdentity.GetCurrent();
             using (StoreService.Identity.Impersonate())
@@ -167,12 +177,12 @@ namespace ZeroInstall.Store.Service
                     #region Error handling
                 catch (Exception ex)
                 {
-                    _eventLog.WriteEntry(string.Format(Resources.FailedToRemove, callingIdentity.Name, manifestDigest, DirectoryPath) + Environment.NewLine + ex.Message, EventLogEntryType.Error);
+                    _eventLog.WriteEntry(string.Format(Resources.FailedToRemoveImplementation, callingIdentity.Name, manifestDigest, DirectoryPath) + Environment.NewLine + ex.Message, EventLogEntryType.Error);
                     throw;
                 }
                 #endregion
 
-                _eventLog.WriteEntry(string.Format(Resources.SuccessfullyRemoved, callingIdentity.Name, manifestDigest, DirectoryPath));
+                _eventLog.WriteEntry(string.Format(Resources.SuccessfullyRemovedImplementation, callingIdentity.Name, manifestDigest, DirectoryPath));
             }
         }
         #endregion
