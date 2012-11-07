@@ -139,11 +139,13 @@ namespace ZeroInstall.Updater
         /// </summary>
         public void DeleteFiles()
         {
-            if (NewVersion >= new Version("0.54.4"))
+            var filesToDelete = new[]
             {
-                foreach (string file in new[] {"ZeroInstall.MyApps.dll", Path.Combine("de", "ZeroInstall.MyApps.resources.dll")}.Where(File.Exists))
-                    File.Delete(file);
-            }
+                "StoreService.exe", Path.Combine("de", "StoreService.resources.dll")
+            }.Select(name => Path.Combine(Target, name));
+
+            foreach (string file in filesToDelete.Where(File.Exists))
+                File.Delete(file);
         }
         #endregion
 
