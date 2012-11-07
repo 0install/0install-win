@@ -91,8 +91,8 @@ namespace ZeroInstall.Store.Implementation
             ChannelServices.RegisterChannel(new IpcClientChannel(
                 new Hashtable
                 {
-                    {"name", IpcPortName + ".Client"},
-                    {"secure", true}, {"tokenImpersonationLevel", "impersonation"}
+                    {"name", IpcPortName},
+                    {"secure", true}, {"tokenImpersonationLevel", "impersonation"} // Allow server to use identity of client
                 },
                 new BinaryClientFormatterSinkProvider()),
                 false);

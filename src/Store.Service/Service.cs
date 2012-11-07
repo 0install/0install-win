@@ -45,8 +45,11 @@ namespace ZeroInstall.Store.Service
         /// <summary>IPC channel for providing services to clients.</summary>
         private readonly IChannelReceiver _serverChannel;
 
+        /// <summary>IPC channel for launching callbacks in clients.</summary>
+        private readonly IChannelSender _clientChannel;
+
         /// <summary>The store to provide to clients as a service.</summary>
-        private readonly CompositeStore _store;
+        private readonly MarshalByRefObject _store;
 
         /// <summary>The IPC remoting reference for <see cref="_store"/>.</summary>
         private ObjRef _objRef;
@@ -63,30 +66,51 @@ namespace ZeroInstall.Store.Service
             _serverChannel = new IpcServerChannel(
                 new Hashtable
                 {
+                    {"name", IpcStoreProvider.IpcPortName},
                     {"portName", IpcStoreProvider.IpcPortName},
-                    {"secure", true}, {"impersonate", true}
+                    {"secure", true}, {"impersonate", true} // Use identity of client in server threads
                 },
                 new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full} // Allow deserialization of custom types
 #if !__MonoCS__
                 , IpcStoreProvider.IpcAcl
 #endif
-                );
+);
+            _clientChannel = new IpcClientChannel(
+                new Hashtable
+                {
+                    {"name", IpcStoreProvider.IpcPortName + ".Callback"},
+                },
+                new BinaryClientFormatterSinkProvider());
 
-            // Create service stores for all locations except the first (current user profile)
-            var stores = StoreProvider.GetImplementationDirs().Skip(1).Select(path => new ServiceStore(path, eventLog));
+            _store = CreateStore();
+        }
+        #endregion
+
+        #region Store
+        /// <summary>
+        /// Creates the store to provide to clients as a service.
+        /// </summary>
+        private MarshalByRefObject CreateStore()
+        {
+            var stores = StoreProvider.GetImplementationDirs().
+                // Create service stores for all locations except the first (current user profile)
+                Skip(1).Select(path => new ServiceStore(path, eventLog)).
+                // Reverse the order to prefer custom over pre-defined locations
+                Reverse();
 
             // ReSharper disable CoVariantArrayConversion
-            // Reverse order to prefer custom over pre-defined locations
-            _store = new CompositeStore(stores.Reverse().ToArray());
+            return new CompositeStore(stores.ToArray());
             // ReSharper restore CoVariantArrayConversion
         }
         #endregion
 
+        #region Service events
         protected override void OnStart(string[] args)
         {
             try
             {
                 ChannelServices.RegisterChannel(_serverChannel, false);
+                ChannelServices.RegisterChannel(_clientChannel, false);
                 _objRef = RemotingServices.Marshal(_store, IpcStoreProvider.IpcObjectUri, typeof(IStore));
             }
                 #region Error handling
@@ -120,7 +144,9 @@ namespace ZeroInstall.Store.Service
         protected override void OnStop()
         {
             RemotingServices.Unmarshal(_objRef);
+            ChannelServices.UnregisterChannel(_clientChannel);
             ChannelServices.UnregisterChannel(_serverChannel);
         }
+        #endregion
     }
 }
