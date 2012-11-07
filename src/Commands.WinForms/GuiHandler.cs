@@ -99,8 +99,7 @@ namespace ZeroInstall.Commands.WinForms
             if (task == null) throw new ArgumentNullException("task");
             #endregion
 
-            // If GUI does not exist or was closed cancel, otherwise wait until it is ready
-            if (_form == null) return;
+            // Wait until the GUI is ready
             _guiReady.WaitOne();
 
             if (tag is ManifestDigest)
@@ -135,7 +134,7 @@ namespace ZeroInstall.Commands.WinForms
                 _auditWaitHandle.Set();
             });
 
-            // Initialize GUI with a low priority
+            // Start GUI thread
             var thread = new Thread(GuiThread);
             thread.SetApartmentState(ApartmentState.STA); // Make COM work
             thread.Start();

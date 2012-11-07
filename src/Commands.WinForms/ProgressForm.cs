@@ -154,7 +154,6 @@ namespace ZeroInstall.Commands.WinForms
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
-            // Defer execution while in tray-icon mode
             if (IsHandleCreated)
             {
                 trackingControl.Visible = true;
@@ -162,7 +161,7 @@ namespace ZeroInstall.Commands.WinForms
                 labelWorking.Visible = progressBarWorking.Visible = false;
             }
             else
-            {
+            { // Defer execution while in tray-icon mode
                 Shown += delegate
                 {
                     trackingControl.Visible = true;
@@ -185,9 +184,17 @@ namespace ZeroInstall.Commands.WinForms
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
-            // Defer execution while in tray-icon mode
-            if (selectionsControl.IsHandleCreated) selectionsControl.TrackTask(task, tag);
-            else Shown += delegate { selectionsControl.TrackTask(task, tag); };
+            if (IsHandleCreated)
+            {
+                if (selectionsControl.IsHandleCreated) selectionsControl.TrackTask(task, tag);
+                else TrackTask(task);
+            }
+
+            else
+            { // Defer execution while in tray-icon mode
+                if (selectionsControl.IsHandleCreated) selectionsControl.TrackTask(task, tag);
+                else TrackTask(task);
+            }
         }
         #endregion
 
