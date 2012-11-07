@@ -65,7 +65,7 @@ namespace Common.Utils
         /// <remarks>Automatically uses 64-bit directories if <see cref="Is64BitProcess"/> is <see langword="true"/>.</remarks>
         public static string GetNetFxDirectory(string version)
         {
-            return new [] {Environment.GetEnvironmentVariable("windir"), "Microsoft.NET", (Is64BitProcess ? "Framework64" : "Framework"), version}.Aggregate(Path.Combine);
+            return new[] {Environment.GetEnvironmentVariable("windir"), "Microsoft.NET", (Is64BitProcess ? "Framework64" : "Framework"), version}.Aggregate(Path.Combine);
         }
         #endregion
 
@@ -314,6 +314,21 @@ namespace Common.Utils
         #endregion
 
         #region Window messages
+        /// <summary>
+        /// Adds a UAC shield icon to a button. Does nothing if not running Windows Vista or newer.
+        /// </summary>
+        /// <remarks>This is purely cosmetic. UAC elevation is a separate concern.</remarks>
+        public static void AddShieldIcon(Button button)
+        {
+            // ReSharper disable InconsistentNaming
+            const int BCM_FIRST = 0x1600, BCM_SETSHIELD = 0x000C;
+            // ReSharper restore InconsistentNaming
+
+            if (!IsWindowsVista) return;
+            button.FlatStyle = FlatStyle.System;
+            UnsafeNativeMethods.SendMessage(button.Handle, BCM_FIRST + BCM_SETSHIELD, 0, 0xFFFFFFFF);
+        }
+
         /// <summary>
         /// Registers a new message type that can be sent to windows.
         /// </summary>

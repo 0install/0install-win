@@ -44,6 +44,7 @@ namespace ZeroInstall.Store.Management.WinForms
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.buttonRemove = new System.Windows.Forms.Button();
             this.buttonVerify = new System.Windows.Forms.Button();
+            this.buttonRunAsAdmin = new System.Windows.Forms.Button();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.tableLayoutPanelSize.SuspendLayout();
@@ -142,11 +143,19 @@ namespace ZeroInstall.Store.Management.WinForms
             this.buttonVerify.UseVisualStyleBackColor = true;
             this.buttonVerify.Click += new System.EventHandler(this.buttonVerify_Click);
             // 
+            // buttonRunAsAdmin
+            // 
+            resources.ApplyResources(this.buttonRunAsAdmin, "buttonRunAsAdmin");
+            this.buttonRunAsAdmin.Name = "buttonRunAsAdmin";
+            this.buttonRunAsAdmin.UseVisualStyleBackColor = true;
+            this.buttonRunAsAdmin.Click += new System.EventHandler(this.buttonRunAsAdmin_Click);
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonClose;
+            this.Controls.Add(this.buttonRunAsAdmin);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.buttonVerify);
             this.Controls.Add(this.buttonRemove);
@@ -176,6 +185,7 @@ namespace ZeroInstall.Store.Management.WinForms
         private System.Windows.Forms.Label labelCheckedSize;
         private System.Windows.Forms.Label labelTotalSize;
         private System.Windows.Forms.Button buttonVerify;
+        private System.Windows.Forms.Button buttonRunAsAdmin;
 
     }
 }

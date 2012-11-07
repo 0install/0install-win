@@ -17,6 +17,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -50,9 +52,13 @@ namespace ZeroInstall.Store.Management.WinForms
         public MainForm()
         {
             InitializeComponent();
-            if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
-            Shown += delegate { RefreshList(); };
+            WindowsUtils.AddShieldIcon(buttonRunAsAdmin);
 
+            if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
+            if (WindowsUtils.IsAdministrator) Text += @" (Administrator)";
+            else if (WindowsUtils.IsWindowsNT) buttonRunAsAdmin.Visible = true;
+
+            Shown += delegate { RefreshList(); };
             HandleCreated += delegate { Program.ConfigureTaskbar(this, Text, null, null); };
 
             _treeView.SelectedEntryChanged += OnSelectedEntryChanged;
@@ -201,6 +207,19 @@ namespace ZeroInstall.Store.Management.WinForms
                 long totalSize = _treeView.CheckedEntries.OfType<ImplementationNode>().Sum(implementationEntry => implementationEntry.Size);
                 textCheckedSize.Text = totalSize.FormatBytes(CultureInfo.CurrentCulture);
             }
+        }
+
+        private void buttonRunAsAdmin_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo(Path.Combine(Locations.InstallBase, "0store-win.exe")) { Verb = "runas", ErrorDialog = true });
+                Close();
+            }
+            catch (FileNotFoundException)
+            { }
+            catch (Win32Exception)
+            { }
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
