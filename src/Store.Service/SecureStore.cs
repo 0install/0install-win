@@ -48,7 +48,7 @@ namespace ZeroInstall.Store.Service
         /// </summary>
         /// <param name="path">A fully qualified directory path. The directory will be created if it doesn't exist yet.</param>
         /// <param name="eventLog">Writes to the Windows event log.</param>
-        /// <exception cref="IOException">Thrown if the directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
+        /// <exception cref="IOException">Thrown if the directory <paramref name="path"/> could not be created or if the underlying filesystem can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating the directory <paramref name="path"/> is not permitted.</exception>
         public SecureStore(string path, EventLog eventLog) : base(path)
         {

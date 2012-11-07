@@ -63,45 +63,63 @@ namespace ZeroInstall.Store.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The user &apos;{0}&apos; failed to add the implementation &apos;{1}&apos; to &apos;{2}&apos;..
         /// </summary>
-        internal static string FailedToAdd {
+        internal static string FailedToAddImplementation {
             get {
-                return ResourceManager.GetString("FailedToAdd", resourceCulture);
+                return ResourceManager.GetString("FailedToAddImplementation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to give the user &apos;{0}&apos; write access to &apos;{1}&apos;..
+        /// </summary>
+        internal static string FailedToAddUserAcl {
+            get {
+                return ResourceManager.GetString("FailedToAddUserAcl", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The user &apos;{0}&apos; failed to removed the implementation &apos;{1}&apos; from &apos;{2}&apos;..
         /// </summary>
-        internal static string FailedToRemove {
+        internal static string FailedToRemoveImplementation {
             get {
-                return ResourceManager.GetString("FailedToRemove", resourceCulture);
+                return ResourceManager.GetString("FailedToRemoveImplementation", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Only administrators can remove elements from a shared store..
         /// </summary>
-        internal static string NotAdminRemove {
+        internal static string MustBeAdminToRemove {
             get {
-                return ResourceManager.GetString("NotAdminRemove", resourceCulture);
+                return ResourceManager.GetString("MustBeAdminToRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The service cannot run in portable mode!.
+        /// </summary>
+        internal static string NoPortableMode {
+            get {
+                return ResourceManager.GetString("NoPortableMode", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The user &apos;{0}&apos; successfully added the implementation &apos;{1}&apos; to &apos;{2}&apos;..
         /// </summary>
-        internal static string SuccessfullyAdded {
+        internal static string SuccessfullyAddedImplementation {
             get {
-                return ResourceManager.GetString("SuccessfullyAdded", resourceCulture);
+                return ResourceManager.GetString("SuccessfullyAddedImplementation", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The user &apos;{0}&apos; successfully removed the implementation &apos;{1}&apos; from &apos;{2}&apos;..
         /// </summary>
-        internal static string SuccessfullyRemoved {
+        internal static string SuccessfullyRemovedImplementation {
             get {
-                return ResourceManager.GetString("SuccessfullyRemoved", resourceCulture);
+                return ResourceManager.GetString("SuccessfullyRemovedImplementation", resourceCulture);
             }
         }
     }

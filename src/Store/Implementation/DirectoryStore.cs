@@ -44,10 +44,10 @@ namespace ZeroInstall.Store.Implementation
 
         #region Constructor
         /// <summary>
-        /// Creates a new store based on the given path to a cache directory.
+        /// Creates a new store using a specific path to a cache directory.
         /// </summary>
-        /// <param name="path">A directory path. The directory will be created if it doesn't exist yet.</param>
-        /// <exception cref="IOException">Thrown if the directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
+        /// <param name="path">A fully qualified directory path. The directory will be created if it doesn't exist yet.</param>
+        /// <exception cref="IOException">Thrown if the directory <paramref name="path"/> could not be created or if the underlying filesystem can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating the directory <paramref name="path"/> is not permitted.</exception>
         public DirectoryStore(string path)
         {

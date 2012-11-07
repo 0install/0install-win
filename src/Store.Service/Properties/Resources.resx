@@ -117,19 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FailedToAdd" xml:space="preserve">
+  <data name="FailedToAddImplementation" xml:space="preserve">
     <value>The user '{0}' failed to add the implementation '{1}' to '{2}'.</value>
   </data>
-  <data name="FailedToRemove" xml:space="preserve">
+  <data name="FailedToAddUserAcl" xml:space="preserve">
+    <value>Unable to give the user '{0}' write access to '{1}'.</value>
+  </data>
+  <data name="FailedToRemoveImplementation" xml:space="preserve">
     <value>The user '{0}' failed to removed the implementation '{1}' from '{2}'.</value>
   </data>
-  <data name="NotAdminRemove" xml:space="preserve">
+  <data name="MustBeAdminToRemove" xml:space="preserve">
     <value>Only administrators can remove elements from a shared store.</value>
   </data>
-  <data name="SuccessfullyAdded" xml:space="preserve">
+  <data name="NoPortableMode" xml:space="preserve">
+    <value>The service cannot run in portable mode!</value>
+  </data>
+  <data name="SuccessfullyAddedImplementation" xml:space="preserve">
     <value>The user '{0}' successfully added the implementation '{1}' to '{2}'.</value>
   </data>
-  <data name="SuccessfullyRemoved" xml:space="preserve">
+  <data name="SuccessfullyRemovedImplementation" xml:space="preserve">
     <value>The user '{0}' successfully removed the implementation '{1}' from '{2}'.</value>
   </data>
 </root>

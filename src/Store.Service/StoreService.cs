@@ -27,7 +27,9 @@ using System.Runtime.Serialization.Formatters;
 using System.Security;
 using System.Security.Principal;
 using System.ServiceProcess;
+using Common.Storage;
 using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Service.Properties;
 
 namespace ZeroInstall.Store.Service
 {
@@ -36,6 +38,13 @@ namespace ZeroInstall.Store.Service
     /// </summary>
     public partial class StoreService : ServiceBase
     {
+        #region Constants
+        private const int IncorrectFunction = 1;
+        private const int AccessDenied = 5;
+        private const int InvalidHandle = 6;
+        private const int UnableToWriteToDevice = 29;
+        #endregion
+
         #region Variables
         /// <summary>
         /// The identity the service is running under.
@@ -49,7 +58,7 @@ namespace ZeroInstall.Store.Service
         private readonly IChannelSender _clientChannel;
 
         /// <summary>The store to provide to clients as a service.</summary>
-        private readonly MarshalByRefObject _store;
+        private MarshalByRefObject _store;
 
         /// <summary>The IPC remoting reference for <see cref="_store"/>.</summary>
         private ObjRef _objRef;
@@ -74,15 +83,13 @@ namespace ZeroInstall.Store.Service
 #if !__MonoCS__
                 , IpcStoreProvider.IpcAcl
 #endif
-);
+                );
             _clientChannel = new IpcClientChannel(
                 new Hashtable
                 {
                     {"name", IpcStoreProvider.IpcPortName + ".Callback"},
                 },
                 new BinaryClientFormatterSinkProvider());
-
-            _store = CreateStore();
         }
         #endregion
 
@@ -90,6 +97,8 @@ namespace ZeroInstall.Store.Service
         /// <summary>
         /// Creates the store to provide to clients as a service.
         /// </summary>
+        /// <exception cref="IOException">Thrown if a cache directory could not be created or if the underlying filesystem can not store file-changed times accurate to the second.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating a cache directory is not permitted.</exception>
         private MarshalByRefObject CreateStore()
         {
             var stores = StoreProvider.GetImplementationDirs().
@@ -107,35 +116,44 @@ namespace ZeroInstall.Store.Service
         #region Service events
         protected override void OnStart(string[] args)
         {
+            if (Locations.IsPortable)
+            {
+                eventLog.WriteEntry(Resources.NoPortableMode, EventLogEntryType.Error);
+                ExitCode = IncorrectFunction;
+                Stop();
+                return;
+            }
+
             try
             {
                 ChannelServices.RegisterChannel(_serverChannel, false);
                 ChannelServices.RegisterChannel(_clientChannel, false);
+                _store = CreateStore();
                 _objRef = RemotingServices.Marshal(_store, IpcStoreProvider.IpcObjectUri, typeof(IStore));
             }
                 #region Error handling
             catch (IOException ex)
             {
                 eventLog.WriteEntry(string.Format("Failed to open cache directory:\n{0}", ex), EventLogEntryType.Error);
-                ExitCode = 1;
+                ExitCode = UnableToWriteToDevice;
                 Stop();
             }
             catch (UnauthorizedAccessException ex)
             {
                 eventLog.WriteEntry(string.Format("Failed to open cache directory:\n{0}", ex), EventLogEntryType.Error);
-                ExitCode = 1;
+                ExitCode = AccessDenied;
                 Stop();
             }
             catch (RemotingException ex)
             {
                 eventLog.WriteEntry(string.Format("Failed to open IPC connection:\n{0}", ex), EventLogEntryType.Error);
-                ExitCode = 2;
+                ExitCode = InvalidHandle;
                 Stop();
             }
             catch (SecurityException ex)
             {
                 eventLog.WriteEntry(string.Format("Failed to open IPC connection:\n{0}", ex), EventLogEntryType.Error);
-                ExitCode = 2;
+                ExitCode = InvalidHandle;
                 Stop();
             }
             #endregion
@@ -143,9 +161,14 @@ namespace ZeroInstall.Store.Service
 
         protected override void OnStop()
         {
-            RemotingServices.Unmarshal(_objRef);
-            ChannelServices.UnregisterChannel(_clientChannel);
-            ChannelServices.UnregisterChannel(_serverChannel);
+            if (_objRef != null) RemotingServices.Unmarshal(_objRef);
+            try
+            {
+                ChannelServices.UnregisterChannel(_clientChannel);
+                ChannelServices.UnregisterChannel(_serverChannel);
+            }
+            catch (RemotingException)
+            {}
         }
         #endregion
     }
