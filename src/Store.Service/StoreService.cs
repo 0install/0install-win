@@ -101,15 +101,10 @@ namespace ZeroInstall.Store.Service
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a cache directory is not permitted.</exception>
         private MarshalByRefObject CreateStore()
         {
-            var stores = StoreProvider.GetImplementationDirs().
-                // Create service stores for all locations except the first (current user profile)
-                Skip(1).Select(path => new SecureStore(path, eventLog)).
-                // Reverse the order to prefer custom over pre-defined locations
-                Reverse();
+            // Use first custom machine-wide location or fallback to default
+            string path = StoreProvider.GetImplementationDirs(false).First();
 
-            // ReSharper disable CoVariantArrayConversion
-            return new CompositeStore(stores.ToArray());
-            // ReSharper restore CoVariantArrayConversion
+            return new SecureStore(path, eventLog);
         }
         #endregion
 

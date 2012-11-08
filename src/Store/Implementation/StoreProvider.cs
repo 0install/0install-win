@@ -53,7 +53,7 @@ namespace ZeroInstall.Store.Implementation
             var stores = new List<IStore>();
 
             // Directories
-            foreach (var path in GetImplementationDirs())
+            foreach (var path in GetImplementationDirs(true))
             {
                 try
                 {
@@ -94,13 +94,17 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Returns a list of paths for implementation directories / stores as defined by configuration files including the default locations.
         /// </summary>
+        /// <param name="includeUserProfile"><see langword="true"/> to include the default location in the user profile. Use <see langword="false"/> for system services.</param>
         /// <exception cref="IOException">Thrown if there was a problem accessing a configuration file or one of the stores.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to a configuration file was not permitted.</exception>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reads data from a config file with no caching")]
-        public static IEnumerable<string> GetImplementationDirs()
+        public static IEnumerable<string> GetImplementationDirs(bool includeUserProfile)
         {
-            // Always add the user cache to have a reliable fallback location for storage
-            yield return Locations.GetCacheDirPath("0install.net", false, "implementations");
+            if (includeUserProfile)
+            {
+                // Add the user cache to have a reliable fallback location for storage
+                yield return Locations.GetCacheDirPath("0install.net", false, "implementations");
+            }
 
             // Add custom cache locations
             foreach (string configFile in Locations.GetLoadConfigPaths("0install.net", true, "injector", "implementation-dirs"))
