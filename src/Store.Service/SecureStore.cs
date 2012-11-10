@@ -38,7 +38,10 @@ namespace ZeroInstall.Store.Service
     public class SecureStore : DirectoryStore, IEquatable<SecureStore>
     {
         #region Variables
-        /// <summary>Writes to the Windows event log.</summary>
+        /// <summary>The identity the service was launched with.</summary>
+        private readonly WindowsIdentity _serviceIdentity;
+
+        /// <summary>Writes messages to the Windows Event Log.</summary>
         private readonly EventLog _eventLog;
         #endregion
 
@@ -47,16 +50,18 @@ namespace ZeroInstall.Store.Service
         /// Creates a new store using a specific path to a cache directory.
         /// </summary>
         /// <param name="path">A fully qualified directory path. The directory will be created if it doesn't exist yet.</param>
-        /// <param name="eventLog">Writes to the Windows event log.</param>
+        /// <param name="serviceIdentity">The identity the service was launched with.</param>
+        /// <param name="eventLog">Writes messages to the Windows Event Log.</param>
         /// <exception cref="IOException">Thrown if the directory <paramref name="path"/> could not be created or if the underlying filesystem can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating the directory <paramref name="path"/> is not permitted.</exception>
-        public SecureStore(string path, EventLog eventLog) : base(path)
+        public SecureStore(string path, WindowsIdentity serviceIdentity, EventLog eventLog) : base(path)
         {
             #region Sanity checks
             if (eventLog == null) throw new ArgumentNullException("eventLog");
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
+            _serviceIdentity = serviceIdentity;
             _eventLog = eventLog;
         }
         #endregion
@@ -73,39 +78,82 @@ namespace ZeroInstall.Store.Service
 
         //--------------------//
 
+        // ReSharper disable PossibleNullReferenceException
+        // ReSharper disable AssignNullToNotNullAttribute
+
+        #region Helpers
+        private static void ResetAcl(string path)
+        {
+            new DirectoryInfo(path).WalkDirectory(
+                dir => ResetAcl(dir.GetAccessControl, dir.SetAccessControl),
+                file => ResetAcl(file.GetAccessControl, file.SetAccessControl));
+        }
+
+        private static void ResetAcl<T>(Func<T> getAcl, Action<T> setAcl) where T : FileSystemSecurity
+        {
+            // Give ownership to administrators
+            var acl = getAcl();
+            acl.SetOwner(new SecurityIdentifier(WellKnownSidType.BuiltinAdministratorsSid, null));
+            setAcl(acl);
+
+            // Inherit rules from container and remove any custom rules
+            acl = getAcl();
+            acl.SetAccessRuleProtection(false, true);
+            foreach (FileSystemAccessRule rule in acl.GetAccessRules(true, false, typeof(NTAccount)))
+                acl.RemoveAccessRule(rule);
+            setAcl(acl);
+        }
+        #endregion
+
         #region Temp dir
         /// <inheritdoc />
         protected override string GetTempDir()
         {
             var callingIdentity = WindowsIdentity.GetCurrent();
-            using (StoreService.Identity.Impersonate())
+            using (_serviceIdentity.Impersonate()) // Use system rights instead of calling user
             {
-                string path = base.GetTempDir();
-
                 try
                 {
+                    string path = base.GetTempDir();
+
                     // Give the calling user write access
                     var acl = Directory.GetAccessControl(path);
                     acl.AddAccessRule(new FileSystemAccessRule(callingIdentity.User, FileSystemRights.Modify, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
                     Directory.SetAccessControl(path, acl);
+                    return path;
                 }
                     #region Error handling
                 catch (Exception ex)
                 {
-                    _eventLog.WriteEntry(string.Format(Resources.FailedToAddUserAcl, callingIdentity.Name, path) + Environment.NewLine + ex.Message, EventLogEntryType.Error);
+                    _eventLog.WriteEntry(string.Format(Resources.FailedToCreateTempDir, callingIdentity.Name, DirectoryPath) + Environment.NewLine + ex.Message, EventLogEntryType.Error);
                     throw;
                 }
                 #endregion
-
-                return path;
             }
         }
 
         /// <inheritdoc />
         protected override void DeleteTempDir(string path)
         {
-            using (StoreService.Identity.Impersonate())
-                base.DeleteTempDir(path);
+            var callingIdentity = WindowsIdentity.GetCurrent();
+            using (_serviceIdentity.Impersonate()) // Use system rights instead of calling user
+            {
+                try
+                {
+                    if (Directory.Exists(path))
+                    {
+                        ResetAcl(path);
+                        Directory.Delete(path, true);
+                    }
+                }
+                    #region Error handling
+                catch (Exception ex)
+                {
+                    _eventLog.WriteEntry(string.Format(Resources.FailedToRemoveTempDir, callingIdentity.Name, DirectoryPath) + Environment.NewLine + ex.Message, EventLogEntryType.Error);
+                    throw;
+                }
+                #endregion
+            }
         }
         #endregion
 
@@ -114,25 +162,11 @@ namespace ZeroInstall.Store.Service
         protected override void VerifyAndAdd(string tempID, ManifestDigest expectedDigest, ITaskHandler handler)
         {
             var callingIdentity = WindowsIdentity.GetCurrent();
-            using (StoreService.Identity.Impersonate())
+            using (_serviceIdentity.Impersonate()) // Use system rights instead of calling user
             {
-                // Recursivley reset any ACLs the user may have modified
-                new DirectoryInfo(Path.Combine(DirectoryPath, tempID)).WalkDirectory(
-                    dir =>
-                    {
-                        var acl = dir.GetAccessControl();
-                        ResetAcl(acl);
-                        dir.SetAccessControl(acl);
-                    },
-                    file =>
-                    {
-                        var acl = file.GetAccessControl();
-                        ResetAcl(acl);
-                        file.SetAccessControl(acl);
-                    });
-
                 try
                 {
+                    ResetAcl(Path.Combine(DirectoryPath, tempID));
                     base.VerifyAndAdd(tempID, expectedDigest, handler);
                 }
                     #region Error handling
@@ -150,19 +184,6 @@ namespace ZeroInstall.Store.Service
                 _eventLog.WriteEntry(string.Format(Resources.SuccessfullyAddedImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.First(), DirectoryPath));
             }
         }
-
-        private static void ResetAcl(FileSystemSecurity acl)
-        {
-            // Take over ownership
-            acl.SetOwner(StoreService.Identity.User);
-
-            // Inherit rules from container
-            acl.SetAccessRuleProtection(false, true);
-
-            // Remove any custom rules
-            foreach (FileSystemAccessRule rule in acl.GetAccessRules(true, false, typeof(NTAccount)))
-                acl.RemoveAccessRule(rule);
-        }
         #endregion
 
         #region Remove
@@ -172,7 +193,7 @@ namespace ZeroInstall.Store.Service
             if (!WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminToRemove);
 
             var callingIdentity = WindowsIdentity.GetCurrent();
-            using (StoreService.Identity.Impersonate())
+            using (_serviceIdentity.Impersonate()) // Use system rights instead of calling user
             {
                 try
                 {
@@ -190,6 +211,9 @@ namespace ZeroInstall.Store.Service
             }
         }
         #endregion
+
+        // ReSharper restore PossibleNullReferenceException
+        // ReSharper restore AssignNullToNotNullAttribute
 
         //--------------------//
 

@@ -46,11 +46,6 @@ namespace ZeroInstall.Store.Service
         #endregion
 
         #region Variables
-        /// <summary>
-        /// The identity the service is running under.
-        /// </summary>
-        public static readonly WindowsIdentity Identity = WindowsIdentity.GetCurrent();
-
         /// <summary>IPC channel for providing services to clients.</summary>
         private readonly IChannelReceiver _serverChannel;
 
@@ -104,7 +99,7 @@ namespace ZeroInstall.Store.Service
             // Use first custom machine-wide location or fallback to default
             string path = StoreProvider.GetImplementationDirs(false).First();
 
-            return new SecureStore(path, eventLog);
+            return new SecureStore(path, WindowsIdentity.GetCurrent(), eventLog);
         }
         #endregion
 
