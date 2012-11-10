@@ -43,6 +43,13 @@ public class RunEnv
         string envArgs = Environment.GetEnvironmentVariable("0install-runenv-args-" + envName);
         string userArgs = ConcatenateEscapeArgument(args);
 
+        // Detect missing environment variables
+        if (string.IsNullOrEmpty(envFile))
+        {
+            Console.Error.WriteLine(string.Format("Environment variable '{0}' not set!", "0install-runenv-file-" + envName));
+            return 1;
+        }
+
         // Launch child process
         ProcessStartInfo startInfo = new ProcessStartInfo(envFile, string.IsNullOrEmpty(userArgs) ? envArgs : envArgs + " " + userArgs);
         startInfo.UseShellExecute = false;
