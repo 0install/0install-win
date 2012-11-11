@@ -82,6 +82,9 @@ namespace ZeroInstall.Store.Service
         // ReSharper disable AssignNullToNotNullAttribute
 
         #region Helpers
+        /// <summary>
+        /// Removes any custom ACLs a user may have set, restores ACL inheritance and sets the Administrators group as the owner.
+        /// </summary>
         private static void ResetAcl(string path)
         {
             new DirectoryInfo(path).WalkDirectory(
@@ -89,6 +92,9 @@ namespace ZeroInstall.Store.Service
                 file => ResetAcl(file.GetAccessControl, file.SetAccessControl));
         }
 
+        /// <summary>
+        /// Helper method for <see cref="ResetAcl(string)"/>.
+        /// </summary>
         private static void ResetAcl<T>(Func<T> getAcl, Action<T> setAcl) where T : FileSystemSecurity
         {
             // Give ownership to administrators

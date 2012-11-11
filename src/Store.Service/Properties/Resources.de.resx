@@ -129,16 +129,38 @@
   <data name="FailedToRemoveTempDir" xml:space="preserve">
     <value>Konnte das temporäre Verzeichnis '{1}' (für den Benutzer '{0}' angelegt) nicht enfernen.</value>
   </data>
+  <data name="InstallFail" xml:space="preserve">
+    <value>Konnte den Zero Install Store Dienst nicht installieren. Weitere Informationen in der Log-Datei im Installationsverzeichnis.</value>
+  </data>
+  <data name="InstallSuccess" xml:space="preserve">
+    <value>Der Zero Install Store Dienst wurde erfolgreich installiert.</value>
+  </data>
   <data name="MustBeAdminToRemove" xml:space="preserve">
     <value>Nur Administratoren können Elemente aus einem geteilten Store entfernen.</value>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
     <value>Der Dienst kann nicht im Portable Modus laufen!</value>
   </data>
+  <data name="StartSuccess" xml:space="preserve">
+    <value>Der Zero Install Store Dienst wurde erfolgreich gestartet.</value>
+  </data>
+  <data name="StopSuccess" xml:space="preserve">
+    <value>Der Zero Install Store Dienst wurde erfolgreich gestoppt.</value>
+  </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
     <value>Der Benutzer '{0}' hat die Implementierung '{1}' erfolgreich in '{2}' hinzugefügt.</value>
   </data>
   <data name="SuccessfullyRemovedImplementation" xml:space="preserve">
     <value>Der Benutzer '{0}' hat die Implementierung '{1}' erfolgreich aus '{2}' entfernt.</value>
+  </data>
+  <data name="UninstallFail" xml:space="preserve">
+    <value>Konnte den Zero Install Store Dienst nicht deinstallieren. Weitere Informationen in der Log-Datei im Installationsverzeichnis.</value>
+  </data>
+  <data name="UninstallSuccess" xml:space="preserve">
+    <value>Der Zero Install Store Dienst wurde erfolgreich deinstalliert.</value>
+  </data>
+  <data name="UnkownCommand" xml:space="preserve">
+    <value>Unbekannter Befehl!
+Verwendung: {0}</value>
   </data>
 </root>

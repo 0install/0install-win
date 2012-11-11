@@ -53,6 +53,7 @@
     <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="LinqBridge">
       <HintPath>..\..\lib\LinqBridge.dll</HintPath>

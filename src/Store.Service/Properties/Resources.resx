@@ -129,16 +129,38 @@
   <data name="FailedToRemoveTempDir" xml:space="preserve">
     <value>Failed to remove the temporary directory '{1}' (created for the user '{0}').</value>
   </data>
+  <data name="InstallFail" xml:space="preserve">
+    <value>Failed to install the Zero Install Store Service. See log file in installation directory for details.</value>
+  </data>
+  <data name="InstallSuccess" xml:space="preserve">
+    <value>Successfully installed the Zero Install Store Service.</value>
+  </data>
   <data name="MustBeAdminToRemove" xml:space="preserve">
     <value>Only administrators can remove elements from a shared store.</value>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
     <value>The service cannot run in portable mode!</value>
   </data>
+  <data name="StartSuccess" xml:space="preserve">
+    <value>Successfully started the Zero Install Store Service.</value>
+  </data>
+  <data name="StopSuccess" xml:space="preserve">
+    <value>Successfully stopped the Zero Install Store Service.</value>
+  </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
     <value>The user '{0}' successfully added the implementation '{1}' to '{2}'.</value>
   </data>
   <data name="SuccessfullyRemovedImplementation" xml:space="preserve">
     <value>The user '{0}' successfully removed the implementation '{1}' from '{2}'.</value>
+  </data>
+  <data name="UninstallFail" xml:space="preserve">
+    <value>Failed to uninstall the Zero Install Store Service. See log file in installation directory for details.</value>
+  </data>
+  <data name="UninstallSuccess" xml:space="preserve">
+    <value>Successfully uninstalled the Zero Install Store Service.</value>
+  </data>
+  <data name="UnkownCommand" xml:space="preserve">
+    <value>Unknown command!
+Usage: {0}</value>
   </data>
 </root>

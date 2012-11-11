@@ -97,6 +97,24 @@ namespace ZeroInstall.Store.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to install the Zero Install Store Service. See log file in installation directory for details..
+        /// </summary>
+        internal static string InstallFail {
+            get {
+                return ResourceManager.GetString("InstallFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully installed the Zero Install Store Service..
+        /// </summary>
+        internal static string InstallSuccess {
+            get {
+                return ResourceManager.GetString("InstallSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Only administrators can remove elements from a shared store..
         /// </summary>
         internal static string MustBeAdminToRemove {
@@ -115,6 +133,24 @@ namespace ZeroInstall.Store.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Successfully started the Zero Install Store Service..
+        /// </summary>
+        internal static string StartSuccess {
+            get {
+                return ResourceManager.GetString("StartSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully stopped the Zero Install Store Service..
+        /// </summary>
+        internal static string StopSuccess {
+            get {
+                return ResourceManager.GetString("StopSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The user &apos;{0}&apos; successfully added the implementation &apos;{1}&apos; to &apos;{2}&apos;..
         /// </summary>
         internal static string SuccessfullyAddedImplementation {
@@ -129,6 +165,34 @@ namespace ZeroInstall.Store.Service.Properties {
         internal static string SuccessfullyRemovedImplementation {
             get {
                 return ResourceManager.GetString("SuccessfullyRemovedImplementation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to uninstall the Zero Install Store Service. See log file in installation directory for details..
+        /// </summary>
+        internal static string UninstallFail {
+            get {
+                return ResourceManager.GetString("UninstallFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully uninstalled the Zero Install Store Service..
+        /// </summary>
+        internal static string UninstallSuccess {
+            get {
+                return ResourceManager.GetString("UninstallSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown command!
+        ///Usage: {0}.
+        /// </summary>
+        internal static string UnkownCommand {
+            get {
+                return ResourceManager.GetString("UnkownCommand", resourceCulture);
             }
         }
     }
