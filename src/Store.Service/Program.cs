@@ -43,15 +43,18 @@ namespace ZeroInstall.Store.Service
             // Encode installation path into mutex name to allow instance detection during updates
             string mutexName = "mutex-" + Locations.InstallBase.Hash(MD5.Create());
             if (AppMutex.Probe(mutexName + "-update")) return 1;
-            AppMutex.Create(mutexName + "-service");
 
             if (args.Length == 0)
             {
+                AppMutex.Create(mutexName + "-service");
+
                 ServiceBase.Run(new ServiceBase[] {new StoreService()});
                 return 0;
             }
             else
             {
+                AppMutex.Create(mutexName);
+
                 string command = args[0].ToLowerInvariant();
                 bool silent = args.Contains("--silent", StringComparer.InvariantCultureIgnoreCase);
                 try

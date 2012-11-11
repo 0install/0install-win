@@ -75,6 +75,9 @@ namespace ZeroInstall.Updater.WinForms
 
             try
             {
+                SetStatus(Resources.StopService);
+                bool serviceWasRunning = _updateProcess.StopService();
+
                 SetStatus(Resources.CopyFiles);
                 _updateProcess.CopyFiles();
 
@@ -88,6 +91,12 @@ namespace ZeroInstall.Updater.WinForms
 
                     SetStatus(Resources.UpdateRegistry);
                     _updateProcess.UpdateRegistry();
+                }
+
+                if (serviceWasRunning)
+                {
+                    SetStatus(Resources.StartService);
+                    _updateProcess.StartService();
                 }
             }
             catch (UnauthorizedAccessException)

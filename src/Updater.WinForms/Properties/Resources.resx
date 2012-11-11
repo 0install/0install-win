@@ -135,6 +135,12 @@
   <data name="RunNgen" xml:space="preserve">
     <value>Pre-compiling .NET assemblies for faster application startup...</value>
   </data>
+  <data name="StartService" xml:space="preserve">
+    <value>Starting Zero Install Store Service...</value>
+  </data>
+  <data name="StopService" xml:space="preserve">
+    <value>Stopping Zero Install Store Service...</value>
+  </data>
   <data name="UpdateRegistry" xml:space="preserve">
     <value>Updating registry...</value>
   </data>

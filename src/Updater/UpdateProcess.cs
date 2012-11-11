@@ -22,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Security;
 using System.Security.Cryptography;
+using System.ServiceProcess;
 using System.Threading;
 using Common;
 using Common.Utils;
@@ -133,10 +134,40 @@ namespace ZeroInstall.Updater
         }
         #endregion
 
+        #region Stop service
+        /// <summary>
+        /// Stops the Zero Install Store Service if it is running from the <see cref="Target"/> directory.
+        /// </summary>
+        /// <returns><see langword="true"/> if the service was running from the <see cref="Target"/> directory; <see langword="false"/> if it was not running or was running from elsewhere.</returns>
+        /// <exception cref="UnauthorizedAccessException">Thrown if administrator rights are missing.</exception>
+        public bool StopService()
+        {
+            // Check if service is running from target directory
+            if (!AppMutex.Probe(Target.Hash(MD5.Create()) + "-service")) return false;
+
+            if (!WindowsUtils.IsAdministrator) throw new UnauthorizedAccessException();
+
+            new ServiceController("0store-service").Stop();
+            return true;
+        }
+        #endregion
+
+        #region Copy files
+        /// <summary>
+        /// Copies the content of <see cref="Source"/> to <see cref="Target"/>.
+        /// </summary>
+        /// <exception cref="UnauthorizedAccessException">Thrown if administrator rights are missing.</exception>
+        public void CopyFiles()
+        {
+            FileUtils.CopyDirectory(Source, Target, false, true);
+        }
+        #endregion
+
         #region Delete files
         /// <summary>
         /// Deletes obsolete files from <see cref="Target"/>.
         /// </summary>
+        /// <exception cref="UnauthorizedAccessException">Thrown if administrator rights are missing.</exception>
         public void DeleteFiles()
         {
             var filesToDelete = new[]
@@ -146,16 +177,6 @@ namespace ZeroInstall.Updater
 
             foreach (string file in filesToDelete.Where(File.Exists))
                 File.Delete(file);
-        }
-        #endregion
-
-        #region Copy files
-        /// <summary>
-        /// Copies the content of <see cref="Source"/> to <see cref="Target"/>.
-        /// </summary>
-        public void CopyFiles()
-        {
-            FileUtils.CopyDirectory(Source, Target, false, true);
         }
         #endregion
 
@@ -216,6 +237,7 @@ namespace ZeroInstall.Updater
         /// <summary>
         /// Update the registry entries.
         /// </summary>
+        /// <exception cref="UnauthorizedAccessException">Thrown if administrator rights are missing.</exception>
         public void UpdateRegistry()
         {
             try
@@ -234,6 +256,19 @@ namespace ZeroInstall.Updater
                 throw new UnauthorizedAccessException(ex.Message, ex);
             }
             #endregion
+        }
+        #endregion
+
+        #region Start service
+        /// <summary>
+        /// Starts the Zero Install Store Service.
+        /// </summary>
+        /// <exception cref="UnauthorizedAccessException">Thrown if administrator rights are missing.</exception>
+        public void StartService()
+        {
+            if (!WindowsUtils.IsAdministrator) throw new UnauthorizedAccessException();
+
+            new ServiceController("0store-service").Start();
         }
         #endregion
 

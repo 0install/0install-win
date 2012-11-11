@@ -135,6 +135,12 @@
   <data name="RunNgen" xml:space="preserve">
     <value>.NET Assemblies zum schnelleren Anwendugsstart vorkompilieren...</value>
   </data>
+  <data name="StartService" xml:space="preserve">
+    <value>Starte Zero Install Store Dienst...</value>
+  </data>
+  <data name="StopService" xml:space="preserve">
+    <value>Beende Zero Install Store Dienst...</value>
+  </data>
   <data name="UpdateRegistry" xml:space="preserve">
     <value>Aktualisiere Registrierung...</value>
   </data>
