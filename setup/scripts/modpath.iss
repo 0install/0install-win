@@ -70,19 +70,3 @@ begin
 			SaveStringToFile(ExpandConstant('{app}') + '\uninsTasks.txt', WizardSelectedTasks(False), False);
 	end;
 end;
-
-procedure CurStepChanged(CurStep: TSetupStep);
-begin
-	if CurStep = ssPostInstall then
-		if IsTaskSelected('modifypath') then
-			ModPath();
-end;
-
-function NeedRestart(): Boolean;
-begin
-	if IsTaskSelected('modifypath') and not UsingWinNT() then begin
-		Result := True;
-	end else begin
-		Result := False;
-	end;
-end;

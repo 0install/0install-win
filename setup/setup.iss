@@ -114,7 +114,10 @@ Name: {commondesktop}\Zero Install; Filename: {app}\ZeroInstall.exe; Tasks: desk
 ;Filename: {dotnet20}\ngen.exe; Parameters: install 0launch.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
 ;Filename: {dotnet20}\ngen.exe; Parameters: install 0store.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
 ;Filename: {dotnet20}\ngen.exe; Parameters: install 0store-win.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
-;Filename: {dotnet20}\ngen.exe; Parameters: install StoreService.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+;Filename: {dotnet20}\ngen.exe; Parameters: install 0store-service.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+
+;Restart the Zero Install Store Service if it is installed
+Filename: {app}\0store-service.exe; Parameters: start --silent
 
 ;Pre-compile XML serialization assemblies (are not explicit dependencies, therefore need to be listed separately)
 ;Filename: {dotnet20}\ngen.exe; Parameters: install ZeroInstall.Model.XmlSerializers.dll /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
@@ -131,7 +134,7 @@ Filename: {app}\ZeroInstall.exe; Description: {cm:LaunchProgram,Zero Install}; F
 ;Filename: {dotnet20}\ngen.exe; Parameters: uninstall 0launch.exe; WorkingDir: {app}; Flags: runhidden
 ;Filename: {dotnet20}\ngen.exe; Parameters: uninstall 0store.exe; WorkingDir: {app}; Flags: runhidden
 ;Filename: {dotnet20}\ngen.exe; Parameters: uninstall 0store-win.exe; WorkingDir: {app}; Flags: runhidden
-;Filename: {dotnet20}\ngen.exe; Parameters: uninstall StoreService.exe; WorkingDir: {app}; Flags: runhidden
+;Filename: {dotnet20}\ngen.exe; Parameters: uninstall 0store-service.exe; WorkingDir: {app}; Flags: runhidden
 ;Filename: {dotnet20}\ngen.exe; Parameters: uninstall ZeroInstall.Model.XmlSerializers.dll; WorkingDir: {app}; Flags: runhidden
 ;Filename: {dotnet20}\ngen.exe; Parameters: uninstall ZeroInstall.Injector.XmlSerializers.dll; WorkingDir: {app}; Flags: runhidden
 ;Filename: {dotnet20}\ngen.exe; Parameters: uninstall ZeroInstall.DesktopIntegration.XmlSerializers.dll WorkingDir: {app}; Flags: runhidden
@@ -145,6 +148,7 @@ Name: {app}\ZeroInstall.*; Type: files
 Name: {app}\.manifest; Type: files
 Name: {app}\.xbit; Type: files
 Name: {app}\.symlink; Type: files
+Name: {app}\*.InstallLog; Type: files
 Name: {app}; Type: dirifempty
 
 [Code]
@@ -184,16 +188,32 @@ begin
 	Result := true;
 end;
 
+procedure CurStepChanged(CurStep: TSetupStep);
+var
+	ResultCode: Integer;
+begin
+	if CurStep = ssInstall then begin
+		// Stop the Zero Install Store Service if it is running
+		Exec(ExpandConstant('{app}\0store-service.exe'), 'stop --silent', '', SW_SHOW, ewWaitUntilTerminated, ResultCode);
+	end else if CurStep = ssPostInstall then begin
+		if IsTaskSelected('modifypath') then ModPath();
+	end;
+end;
+
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 var
-	appdir:			String;
-	selectedTasks:	String;
+	ResultCode: Integer;
+	appdir: String;
+	selectedTasks: String;
 begin
 	if CurUninstallStep = usUninstall then begin
+		// Uninstall the Zero Install Store Service if it is installed
+		Exec(ExpandConstant('{app}\0store-service.exe'), 'uninstall --silent', '', SW_SHOW, ewWaitUntilTerminated, ResultCode);
+
 		// Remove Zero Install from PATH
-		if LoadStringFromFile(ExpandConstant('{app}\uninsTasks.txt'), selectedTasks) then
-			if Pos('modifypath', selectedTasks) > 0 then
-				ModPath();
+		if LoadStringFromFile(ExpandConstant('{app}\uninsTasks.txt'), selectedTasks) then begin
+			if Pos('modifypath', selectedTasks) > 0 then ModPath();
+		end;
 		DeleteFile(ExpandConstant('{app}\\uninsTasks.txt'))
 
 		// Clean implementation cache
