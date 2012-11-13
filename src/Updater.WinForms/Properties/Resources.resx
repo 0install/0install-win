@@ -145,6 +145,7 @@
     <value>Updating registry...</value>
   </data>
   <data name="WrongNoArguments" xml:space="preserve">
-    <value>Wrong number of arguments.</value>
+    <value>Wrong number of arguments.
+Usage: {0}</value>
   </data>
 </root>

@@ -145,6 +145,7 @@
     <value>Aktualisiere Registrierung...</value>
   </data>
   <data name="WrongNoArguments" xml:space="preserve">
-    <value>Falsche Anzahl an Argumenten.</value>
+    <value>Falsche Anzahl an Argumenten.
+Verwendung: {0}</value>
   </data>
 </root>

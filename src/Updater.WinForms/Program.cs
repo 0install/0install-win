@@ -16,8 +16,8 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
@@ -43,7 +43,7 @@ namespace ZeroInstall.Updater.WinForms
             if (args == null) args = new string[0];
             if (args.Length < 3 || args.Length > 4)
             {
-                Msg.Inform(null, Resources.WrongNoArguments, MsgSeverity.Error);
+                Msg.Inform(null, string.Format(Resources.WrongNoArguments, "0updsate-win SOURCE-PATH NEW-VERSION TARGET-PATH"), MsgSeverity.Error);
                 return;
             }
 
@@ -65,9 +65,7 @@ namespace ZeroInstall.Updater.WinForms
             }
             #endregion
 
-            bool rerun = ((ICollection<string>)args).Contains("--rerun");
-
-            Application.Run(new MainForm(updateProcess, rerun));
+            Application.Run(new MainForm(updateProcess, args.Contains("--rerun")));
         }
     }
 }

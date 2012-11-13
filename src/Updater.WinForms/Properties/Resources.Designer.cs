@@ -142,7 +142,8 @@ namespace ZeroInstall.Updater.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wrong number of arguments..
+        ///   Looks up a localized string similar to Wrong number of arguments.
+        ///Usage: {0}.
         /// </summary>
         internal static string WrongNoArguments {
             get {

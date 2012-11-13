@@ -46,7 +46,7 @@ namespace ZeroInstall.Store.Service
 
             if (args.Length == 0)
             {
-                AppMutex.Create(mutexName + "-service");
+                // NOTE: Do not block updater from starting because it will automatically stop service
 
                 ServiceBase.Run(new ServiceBase[] {new StoreService()});
                 return 0;
