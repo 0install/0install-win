@@ -81,36 +81,6 @@ namespace ZeroInstall.Store.Service
         // ReSharper disable PossibleNullReferenceException
         // ReSharper disable AssignNullToNotNullAttribute
 
-        #region Helpers
-        /// <summary>
-        /// Removes any custom ACLs a user may have set, restores ACL inheritance and sets the Administrators group as the owner.
-        /// </summary>
-        private static void ResetAcl(string path)
-        {
-            new DirectoryInfo(path).WalkDirectory(
-                dir => ResetAcl(dir.GetAccessControl, dir.SetAccessControl),
-                file => ResetAcl(file.GetAccessControl, file.SetAccessControl));
-        }
-
-        /// <summary>
-        /// Helper method for <see cref="ResetAcl(string)"/>.
-        /// </summary>
-        private static void ResetAcl<T>(Func<T> getAcl, Action<T> setAcl) where T : FileSystemSecurity
-        {
-            // Give ownership to administrators
-            var acl = getAcl();
-            acl.SetOwner(new SecurityIdentifier(WellKnownSidType.BuiltinAdministratorsSid, null));
-            setAcl(acl);
-
-            // Inherit rules from container and remove any custom rules
-            acl = getAcl();
-            acl.SetAccessRuleProtection(false, true);
-            foreach (FileSystemAccessRule rule in acl.GetAccessRules(true, false, typeof(NTAccount)))
-                acl.RemoveAccessRule(rule);
-            setAcl(acl);
-        }
-        #endregion
-
         #region Temp dir
         /// <inheritdoc />
         protected override string GetTempDir()
@@ -146,10 +116,11 @@ namespace ZeroInstall.Store.Service
             {
                 try
                 {
-                    if (Directory.Exists(path))
+                    var directory = new DirectoryInfo(path);
+                    if (directory.Exists)
                     {
-                        ResetAcl(path);
-                        Directory.Delete(path, true);
+                        directory.ResetAcl();
+                        directory.Delete(true);
                     }
                 }
                     #region Error handling
@@ -172,7 +143,7 @@ namespace ZeroInstall.Store.Service
             {
                 try
                 {
-                    ResetAcl(Path.Combine(DirectoryPath, tempID));
+                    new DirectoryInfo(Path.Combine(DirectoryPath, tempID)).ResetAcl();
                     base.VerifyAndAdd(tempID, expectedDigest, handler);
                 }
                     #region Error handling

@@ -299,7 +299,37 @@ namespace Common.Utils
 
 #if FS_SECURITY
 
-        #region Permssions
+        #region ACLs
+        /// <summary>
+        /// Removes any custom ACLs a user may have set, restores ACL inheritance and sets the Administrators group as the owner.
+        /// </summary>
+        public static void ResetAcl(this DirectoryInfo directoryInfo)
+        {
+            directoryInfo.WalkDirectory(
+                dir => ResetAcl(dir.GetAccessControl, dir.SetAccessControl),
+                file => ResetAcl(file.GetAccessControl, file.SetAccessControl));
+        }
+
+        /// <summary>
+        /// Helper method for <see cref="ResetAcl(DirectoryInfo)"/>.
+        /// </summary>
+        private static void ResetAcl<T>(Func<T> getAcl, Action<T> setAcl) where T : FileSystemSecurity
+        {
+            // Give ownership to administrators
+            var acl = getAcl();
+            acl.SetOwner(new SecurityIdentifier(WellKnownSidType.BuiltinAdministratorsSid, null));
+            setAcl(acl);
+
+            // Inherit rules from container and remove any custom rules
+            acl = getAcl();
+            acl.SetAccessRuleProtection(false, true);
+            foreach (FileSystemAccessRule rule in acl.GetAccessRules(true, false, typeof(NTAccount)))
+                acl.RemoveAccessRule(rule);
+            setAcl(acl);
+        }
+        #endregion
+
+        #region Write protection
         /// <summary>
         /// Uses the best means the current platform provides to prevent further write access to a directory (read-only attribute, ACLs, Unix octals, etc.).
         /// </summary>
