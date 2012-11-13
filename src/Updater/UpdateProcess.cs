@@ -281,6 +281,7 @@ namespace ZeroInstall.Updater
         /// Starts the Zero Install Store Service.
         /// </summary>
         /// <exception cref="UnauthorizedAccessException">Thrown if administrator rights are missing.</exception>
+        /// <remarks>Must call this after <see cref="Done"/>, otherwise <see cref="_blockingMutexNew"/> would prevent the service from starting.</remarks>
         public void StartService()
         {
             if (!WindowsUtils.IsAdministrator) throw new UnauthorizedAccessException();
