@@ -136,18 +136,24 @@ namespace ZeroInstall.Updater
 
         #region Stop service
         /// <summary>
-        /// Stops the Zero Install Store Service if it is running from the <see cref="Target"/> directory.
+        /// Stops the Zero Install Store Service if it is running.
         /// </summary>
-        /// <returns><see langword="true"/> if the service was running from the <see cref="Target"/> directory; <see langword="false"/> if it was not running or was running from elsewhere.</returns>
+        /// <returns><see langword="true"/> if the service was running; <see langword="false"/> otherwise.</returns>
         /// <exception cref="UnauthorizedAccessException">Thrown if administrator rights are missing.</exception>
         public bool StopService()
         {
-            // Check if service is running from target directory
-            if (!AppMutex.Probe(Target.Hash(MD5.Create()) + "-service")) return false;
+            // Do not touch the service in portable mode
+            if (File.Exists(Path.Combine(Target, "_portable"))) return false;
+
+            // Determine whether the service is installed and running
+            var controller = ServiceController.GetServices().FirstOrDefault(service => service.ServiceName == "0store-service");
+            if (controller == null) return false;
+            if (controller.Status == ServiceControllerStatus.Stopped) return false;
 
             if (!WindowsUtils.IsAdministrator) throw new UnauthorizedAccessException();
 
-            new ServiceController("0store-service").Stop();
+            // Stop the service
+            controller.Stop();
             return true;
         }
         #endregion
@@ -259,6 +265,17 @@ namespace ZeroInstall.Updater
         }
         #endregion
 
+        #region Done
+        /// <summary>
+        /// Finishes the update process. Counterpart to <see cref="MutexWait"/>.
+        /// </summary>
+        public void Done()
+        {
+            _blockingMutexOld.Close();
+            _blockingMutexNew.Close();
+        }
+        #endregion
+
         #region Start service
         /// <summary>
         /// Starts the Zero Install Store Service.
@@ -268,18 +285,13 @@ namespace ZeroInstall.Updater
         {
             if (!WindowsUtils.IsAdministrator) throw new UnauthorizedAccessException();
 
-            new ServiceController("0store-service").Start();
-        }
-        #endregion
+            // Ensure the service executable exists
+            string servicePath = Path.Combine(Target, "0store-service.exe");
+            if (!File.Exists(servicePath)) return;
 
-        #region Done
-        /// <summary>
-        /// Finishes the update process. Counterpart to <see cref="MutexWait"/>.
-        /// </summary>
-        public void Done()
-        {
-            _blockingMutexOld.Close();
-            _blockingMutexNew.Close();
+            // Start the service
+            var controller = new ServiceController("0store-service");
+            controller.Start();
         }
         #endregion
     }

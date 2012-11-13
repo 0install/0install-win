@@ -93,11 +93,13 @@ namespace ZeroInstall.Updater.WinForms
                     _updateProcess.UpdateRegistry();
                 }
 
+                _updateProcess.Done();
                 if (serviceWasRunning)
                 {
                     SetStatus(Resources.StartService);
                     _updateProcess.StartService();
                 }
+                SetStatus(Resources.Done);
             }
             catch (UnauthorizedAccessException)
             {
@@ -106,18 +108,20 @@ namespace ZeroInstall.Updater.WinForms
                 SetStatus(Resources.RerunElevated);
                 RerunElevated();
             }
-
-            SetStatus(Resources.Done);
-            _updateProcess.Done();
         }
 
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
             {
-                if (e.Error is IOException || e.Error is UnauthorizedAccessException)
-                    Msg.Inform(this, e.Error.Message, MsgSeverity.Error);
-                else ErrorReportForm.Report(e.Error, new Uri("http://0install.de/error-report/"));
+                if (e.Error is IOException || e.Error is UnauthorizedAccessException || e.Error is InvalidOperationException)
+                { // Expected error
+                    Msg.Inform(null, (e.Error.InnerException ?? e.Error).Message, MsgSeverity.Error);
+                }
+                else
+                { // Unexpected error
+                    ErrorReportForm.Report(e.Error, new Uri("http://0install.de/error-report/"));
+                }
             }
 
             if (!_rerun) RestoreGui();
