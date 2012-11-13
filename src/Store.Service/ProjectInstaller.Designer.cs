@@ -39,6 +39,7 @@
             // 
             // serviceInstaller
             // 
+            this.serviceInstaller.Description = "Maintains a Zero Install implementation store shared by multiple users.";
             this.serviceInstaller.DisplayName = "Zero Install Store Service";
             this.serviceInstaller.ServiceName = "0store-service";
             this.serviceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
