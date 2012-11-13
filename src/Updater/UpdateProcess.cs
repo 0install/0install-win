@@ -22,9 +22,11 @@ using System.IO;
 using System.Linq;
 using System.Security;
 using System.Security.Cryptography;
+using System.Security.Principal;
 using System.ServiceProcess;
 using System.Threading;
 using Common;
+using Common.Storage;
 using Common.Utils;
 using Microsoft.Win32;
 using ZeroInstall.Updater.Properties;
@@ -262,6 +264,32 @@ namespace ZeroInstall.Updater
                 throw new UnauthorizedAccessException(ex.Message, ex);
             }
             #endregion
+        }
+        #endregion
+
+        #region Fix Permissions
+        /// <summary>
+        /// Fixes NTFS ACLs (permissions) for shared directories.
+        /// </summary>
+        /// <exception cref="UnauthorizedAccessException">Thrown if administrator rights are missing.</exception>
+        public void FixPermissions()
+        {
+            // Do not touch ACLs in portable mode
+            if (File.Exists(Path.Combine(Target, "_portable"))) return;
+
+            var directory = new DirectoryInfo(Locations.GetCacheDirPath("0install.net", true));
+            if (directory.Exists)
+            {
+                // Only reset ACLs if directory is not already under admin control
+                var owner = directory.GetAccessControl().GetOwner(typeof(SecurityIdentifier));
+                if (!owner.Equals(new SecurityIdentifier(WellKnownSidType.BuiltinAdministratorsSid, null)))
+                {
+                    if (!WindowsUtils.IsAdministrator) throw new UnauthorizedAccessException();
+
+                    directory.ResetAcl();
+                    directory.SetAccessControl(Locations.SecureSharedAcl);
+                }
+            }
         }
         #endregion
 

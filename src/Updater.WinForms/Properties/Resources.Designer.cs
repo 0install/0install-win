@@ -88,6 +88,15 @@ namespace ZeroInstall.Updater.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fixing NTFS security permissions....
+        /// </summary>
+        internal static string FixPermissions {
+            get {
+                return ResourceManager.GetString("FixPermissions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Waiting for all Zero Install instances to end....
         /// </summary>
         internal static string MutexWait {

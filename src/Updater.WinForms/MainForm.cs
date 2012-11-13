@@ -93,6 +93,9 @@ namespace ZeroInstall.Updater.WinForms
                     _updateProcess.UpdateRegistry();
                 }
 
+                SetStatus(Resources.FixPermissions);
+                _updateProcess.FixPermissions();
+
                 _updateProcess.Done();
                 if (serviceWasRunning)
                 {
