@@ -116,12 +116,14 @@ namespace ZeroInstall.Fetchers
 
             Ranking result = null;
 
-            if (subject is Archive)
-                result = new ArchiveRanking((Archive)subject);
-            else if (subject is Recipe)
-                result = new RecipeRanking((Recipe)subject);
+            var archive = subject as Archive;
+            if (archive != null) result = new ArchiveRanking(archive);
             else
-                Debug.Fail("subject (RetrievalMethod) has unknown type");
+            {
+                var recipe = subject as Recipe;
+                if (recipe != null) result = new RecipeRanking(recipe);
+                else Debug.Fail("subject (RetrievalMethod) has unknown type");
+            }
             return result;
         }
         #endregion

@@ -63,7 +63,9 @@ namespace ZeroInstall.Model
             var catalog = CreateTestCatalog();
 
             Assert.AreEqual(FeedTest.CreateTestFeed(), catalog[new Uri("http://0install.de/feeds/test/test1.xml")]);
+            // ReSharper disable UnusedVariable
             Assert.Throws<KeyNotFoundException>(() => { var dummy = catalog[new Uri("http://invalid")]; });
+            // ReSharper restore UnusedVariable
         }
 
         /// <summary>

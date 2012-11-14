@@ -137,7 +137,9 @@ namespace ZeroInstall.DesktopIntegration
         {
             var appList = CreateTestAppListWithAPs();
             Assert.AreEqual(appList.Entries.First, appList["http://0install.de/feeds/test/test1.xml"]);
-            Assert.Throws<KeyNotFoundException>(() => { var ferz = appList["http://0install.de/feeds/test/test2.xml"]; });
+            // ReSharper disable UnusedVariable
+            Assert.Throws<KeyNotFoundException>(() => { var dummy = appList["http://0install.de/feeds/test/test2.xml"]; });
+            // ReSharper restore UnusedVariable
         }
 
         [Test(Description = "Ensures that the class can be correctly cloned without AccessPoints.")]

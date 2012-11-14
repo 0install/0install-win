@@ -88,17 +88,22 @@ namespace ZeroInstall.Store.Implementation
             string currentSubdir = "";
             foreach (var node in theManifest)
             {
-                if (node is ManifestDirectory)
+                var manifestDirectory = node as ManifestDirectory;
+                if (manifestDirectory != null)
                 {
-                    DirectoryMustExistInDirectory((ManifestDirectory)node, PackageFolder);
-                    currentSubdir = ((ManifestDirectory)node).FullPath.Replace('/', Path.DirectorySeparatorChar).Substring(1);
+                    DirectoryMustExistInDirectory(manifestDirectory, PackageFolder);
+                    currentSubdir = manifestDirectory.FullPath.Replace('/', Path.DirectorySeparatorChar).Substring(1);
                 }
-                else if (node is ManifestFileBase)
+                else
                 {
-                    string directory = Path.Combine(PackageFolder, currentSubdir);
-                    FileMustExistInDirectory((ManifestFileBase)node, directory);
+                    var manifestFile = node as ManifestFileBase;
+                    if (manifestFile != null)
+                    {
+                        string directory = Path.Combine(PackageFolder, currentSubdir);
+                        FileMustExistInDirectory(manifestFile, directory);
+                    }
+                    else Debug.Fail("Unknown manifest node found: " + node);
                 }
-                else Debug.Fail("Unknown manifest node found: " + node);
             }
         }
 

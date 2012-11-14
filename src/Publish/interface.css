@@ -36,9 +36,6 @@ img {
 	border:0;
 }
 
-.post img {
-}
-
 .post img.alpha {
 	background:none;
 	border:none;
@@ -50,7 +47,7 @@ img {
 }
 
 .inner {
-	margin:0px auto;
+	margin:0 auto;
 	padding-left: 7em;
 	position:relative;
 	right:7em;
@@ -92,7 +89,7 @@ a:hover {
 }
 
 .footer {
-	padding: 0em 0 1em 0;
+	padding: 0 0 1em 0;
 	color:#444;
 	text-align:center;
 }

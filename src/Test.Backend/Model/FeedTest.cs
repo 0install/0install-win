@@ -266,7 +266,9 @@ namespace ZeroInstall.Model
             var feed = CreateTestFeed();
 
             Assert.AreEqual(CreateTestImplementation(), feed["id1"]);
+            // ReSharper disable UnusedVariable
             Assert.Throws<KeyNotFoundException>(() => { var dummy = feed["invalid"]; });
+            // ReSharper restore UnusedVariable
         }
 
         /// <summary>

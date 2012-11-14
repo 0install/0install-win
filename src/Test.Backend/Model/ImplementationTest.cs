@@ -54,7 +54,9 @@ namespace ZeroInstall.Model
         {
             var implementation = CreateTestImplementation();
             Assert.AreEqual(implementation.Commands[0], implementation[Command.NameRun]);
+            // ReSharper disable UnusedVariable
             Assert.Throws<KeyNotFoundException>(() => { var dummy = implementation["invalid"]; });
+            // ReSharper restore UnusedVariable
         }
 
         /// <summary>
