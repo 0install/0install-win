@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Common.Properties;
 
 namespace Common.Collections
 {
@@ -187,7 +188,8 @@ namespace Common.Collections
                     catch (Exception ex)
                     {
                         // Suppress exceptions during rollback since they would hide the actual exception that caused the rollback in the first place
-                        Log.Error("Failed to rollback " + element + ":\n" + ex.Message);
+                        Log.Error(string.Format(Resources.FailedToRollback, element));
+                        Log.Error(ex);
                     }
                 }
 

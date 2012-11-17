@@ -68,5 +68,14 @@ namespace ZeroInstall.Publish.Properties {
                 return ResourceManager.GetString("FileNotFound", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The secret key is not in the user&apos;s keyring..
+        /// </summary>
+        internal static string SecretKeyNotInKeyring {
+            get {
+                return ResourceManager.GetString("SecretKeyNotInKeyring", resourceCulture);
+            }
+        }
     }
 }

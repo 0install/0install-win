@@ -141,6 +141,9 @@
   <data name="ErrorReportSent" xml:space="preserve">
     <value>Der Fehlerbericht wurde erfolgreich versendet.</value>
   </data>
+  <data name="FailedToRollback" xml:space="preserve">
+    <value>Konnte '{0}' nicht rückgängig machen.</value>
+  </data>
   <data name="FileNotExpectedSize" xml:space="preserve">
     <value>Die Datei die von {0} runtergeladen werden sollte, hat nicht die erwartete Größe. Sollten {1} Bytes sein, waren aber {2} Bytes.</value>
   </data>
@@ -224,6 +227,9 @@
   </data>
   <data name="TargetsOldValuesLength" xml:space="preserve">
     <value>Length von targets muss gleich Length von oldValues sein</value>
+  </data>
+  <data name="UnableToCreateMutex" xml:space="preserve">
+    <value>Konnte Mutex nicht erstellen.</value>
   </data>
   <data name="UnableToGenerateErrorReportFile" xml:space="preserve">
     <value>Konnte Fehlerberichtdatei nicht erstellen. Bitte senden Sie die technischen Details per E-Mail.</value>

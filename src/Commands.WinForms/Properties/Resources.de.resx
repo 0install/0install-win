@@ -154,4 +154,7 @@ Ein &lt;feed-for&gt; Tag zeigt Feed-Kompatibilität an.</value>
   <data name="Working" xml:space="preserve">
     <value>Arbeite...</value>
   </data>
+  <data name="UnableToLoadFeed" xml:space="preserve">
+    <value>Konnte Feed '{0}' nicht laden; überspringe.</value>
+  </data>
 </root>

@@ -240,4 +240,25 @@ Anwendung entfernen</value>
     <value>Ja
 Mit dem Assistent forfahren</value>
   </data>
+  <data name="UnableToSelfUpdate" xml:space="preserve">
+    <value>Konnte Selbstupdate-Prüfung nicht durchführen.</value>
+  </data>
+  <data name="UnableToStoreIcon" xml:space="preserve">
+    <value>Konnte Anwendungsicon nicht speichern.</value>
+  </data>
+  <data name="UnableToLoadAppList" xml:space="preserve">
+    <value>Konnte Anwendungsliste nicht alden.</value>
+  </data>
+  <data name="UnableToDownloadCatalog" xml:space="preserve">
+    <value>Konnte Anwendungskatalog nicht runterladen.</value>
+  </data>
+  <data name="UnableToLoadFeedForApp" xml:space="preserve">
+    <value>Konnte Feed für Anwendungslisteneintrag '{0}' nicht laden.</value>
+  </data>
+  <data name="UnableToLoadIcon" xml:space="preserve">
+    <value>Konnte Anwendungsicon nicht laden.</value>
+  </data>
+  <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
+    <value>Ignoriere doppelten Anwendungslisteneintrag für '{0}'.</value>
+  </data>
 </root>

@@ -267,32 +267,32 @@ namespace ZeroInstall.Commands.WinForms
                     #region Error handling
                 catch (InvalidInterfaceIDException ex)
                 {
-                    Log.Warn("Unable to load feed '" + feedID + "'; skipping.");
-                    Log.Error(ex);
+                    Log.Warn(string.Format(Resources.UnableToLoadFeed, feedID));
+                    Log.Warn(ex);
                     continue;
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    Log.Warn("Unable to load feed '" + feedID + "'; skipping.");
-                    Log.Error(ex);
+                    Log.Warn(string.Format(Resources.UnableToLoadFeed, feedID));
+                    Log.Warn(ex);
                     continue;
                 }
                 catch (IOException ex)
                 {
-                    Log.Warn("Unable to load feed '" + feedID + "'; skipping.");
-                    Log.Error(ex);
+                    Log.Warn(string.Format(Resources.UnableToLoadFeed, feedID));
+                    Log.Warn(ex);
                     continue;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    Log.Warn("Unable to load feed '" + feedID + "'; skipping.");
-                    Log.Error(ex);
+                    Log.Warn(string.Format(Resources.UnableToLoadFeed, feedID));
+                    Log.Warn(ex);
                     continue;
                 }
                 catch (InvalidDataException ex)
                 {
-                    Log.Warn("Unable to load feed '" + feedID + "'; skipping.");
-                    Log.Error(ex);
+                    Log.Warn(string.Format(Resources.UnableToLoadFeed, feedID));
+                    Log.Warn(ex);
                     continue;
                 }
                 #endregion

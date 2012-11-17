@@ -294,6 +294,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="MissingOptionValue" xml:space="preserve">
     <value>Fehlender benötigter Wert für die Option {0}.</value>
   </data>
+  <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
+    <value>API hooking nicht möglich wegen einer nicht gecachten Implementierung.</value>
+  </data>
   <data name="NoInterfaceSpecified" xml:space="preserve">
     <value>Es wurde keine Interface ID (Feed URI oder Dateipfad) angegeben.</value>
   </data>
@@ -437,7 +440,7 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
     <value>Portable Modus</value>
   </data>
   <data name="ResolvedUsingCatalog" xml:space="preserve">
-    <value>'{0}' nach '{1}', unter der verwendung eines Katalogs, aufgelöst.</value>
+    <value>'{0}' nach '{1}', unter der verwendung eines Katalogs, aufgelöst</value>
   </data>
   <data name="SelectedImplementations" xml:space="preserve">
     <value>Ausgewählte Implementierungen:</value>

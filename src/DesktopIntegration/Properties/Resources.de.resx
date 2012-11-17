@@ -152,4 +152,7 @@ Sie können die Daten die auf dem Server gespeichert sind ersetzen, indem Sie de
   <data name="UnableToFindTypeID" xml:space="preserve">
     <value>Konnte kein {0} mit der ID '{1}' finden.</value>
   </data>
+  <data name="UnableToReplaceStub" xml:space="preserve">
+    <value>Konnte veraltete Stub EXE '{0}' nicht ersetzen.</value>
+  </data>
 </root>

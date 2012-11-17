@@ -22,6 +22,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using Common;
 using Common.Storage;
+using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Injector.Feeds
@@ -154,20 +155,20 @@ namespace ZeroInstall.Injector.Feeds
             }
             catch (IOException ex)
             {
-                Log.Warn("Error loading trust DB. Reverting to default values.");
-                Log.Error(ex);
+                Log.Warn(Resources.ErrorLoadingTrustDB);
+                Log.Warn(ex);
                 return new TrustDB();
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Warn("Error loading trust DB. Reverting to default values.");
-                Log.Error(ex);
+                Log.Warn(Resources.ErrorLoadingTrustDB);
+                Log.Warn(ex);
                 return new TrustDB();
             }
             catch (InvalidDataException ex)
             {
-                Log.Warn("Error loading trust DB. Reverting to default values.");
-                Log.Error(ex);
+                Log.Warn(Resources.ErrorLoadingTrustDB);
+                Log.Warn(ex);
                 return new TrustDB();
             }
             #endregion

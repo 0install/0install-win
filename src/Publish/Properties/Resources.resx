@@ -120,4 +120,7 @@
   <data name="FileNotFound" xml:space="preserve">
     <value>The file '{0}' could not be found.</value>
   </data>
+  <data name="SecretKeyNotInKeyring" xml:space="preserve">
+    <value>The secret key is not in the user's keyring.</value>
+  </data>
 </root>

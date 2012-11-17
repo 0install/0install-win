@@ -29,6 +29,7 @@ using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using Microsoft.CSharp;
+using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 
@@ -218,12 +219,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         #region Error handling
                     catch (IOException ex)
                     {
-                        Log.Warn("Unable to replace stale stub: " + exePath + "\n" + ex.Message);
+                        Log.Warn(string.Format(Resources.UnableToReplaceStub, exePath));
+                        Log.Warn(ex);
                         return exePath;
                     }
                     catch (UnauthorizedAccessException ex)
                     {
-                        Log.Warn("Unable to replace stale stub: " + exePath + "\n" + ex.Message);
+                        Log.Warn(string.Format(Resources.UnableToReplaceStub, exePath));
+                        Log.Warn(ex);
                         return exePath;
                     }
                     #endregion

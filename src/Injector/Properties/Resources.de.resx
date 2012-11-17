@@ -130,6 +130,15 @@ Möchten Sie diesem Key zum Signieren von Feeds von '{3}' vertrauen?
   <data name="EnvironmentBindingValueInvalid" xml:space="preserve">
     <value>&lt;environment&gt; Bindings müssen entweder ein 'value' oder ein 'insert' Attribut enthalten.</value>
   </data>
+  <data name="ErrorLoadingFeedPrefs" xml:space="preserve">
+    <value>Fehler beim Laden der Feed-Präfernzen für '{0}'. Falle auf Standardwerte zurück.</value>
+  </data>
+  <data name="ErrorLoadingInterfacePrefs" xml:space="preserve">
+    <value>Fehler beim Laden der Interface-Präfernzen für '{0}'. Falle auf Standardwerte zurück.</value>
+  </data>
+  <data name="ErrorLoadingTrustDB" xml:space="preserve">
+    <value>Fehler beim Laden der Trust Datenbank. Falle auf Standardwerte zurück.</value>
+  </data>
   <data name="ExternalSolverOutputErrror" xml:space="preserve">
     <value>Die Ausgabe des externen Solvers konnte nicht verarbeitet werden.</value>
   </data>
@@ -210,8 +219,20 @@ Neue Zeit: {2}</value>
   <data name="SolverProblem" xml:space="preserve">
     <value>Der Solver ist auf ein unerwartetes Problem gestoßen.</value>
   </data>
+  <data name="UnableToCacheCatalog" xml:space="preserve">
+    <value>Konnte den runtergeladenen Anwendungskatalog nicht cachen.</value>
+  </data>
+  <data name="UnableToLoadCachedCatalog" xml:space="preserve">
+    <value>Konnte den gecachten Anwendungskatalog nicht von der Festplatte laden.</value>
+  </data>
   <data name="UnableToLoadKeyFile" xml:space="preserve">
     <value>Konnte GnuPG Schlüsseldatei für '{0}' nicht laden.</value>
+  </data>
+  <data name="UnableToParseKeyInfo" xml:space="preserve">
+    <value>Konnte Schlüsselinformationen für '{0}' nicht verarbeiten.</value>
+  </data>
+  <data name="UnableToRetrieveKeyInfo" xml:space="preserve">
+    <value>Konnte Schlüsselinformationen für '{0}' nicht abfragen.</value>
   </data>
   <data name="UntrustedKeys" xml:space="preserve">
     <value>Der Feed ist mit nicht-vertrauten Keys signiert!</value>

@@ -1254,4 +1254,7 @@ A &lt;feed-for&gt; tag indicates feed compatibility.</value>
   <data name="Working" xml:space="preserve">
     <value>Working...</value>
   </data>
+  <data name="UnableToLoadFeed" xml:space="preserve">
+    <value>Unable to load feed '{0}'; skipping.</value>
+  </data>
 </root>

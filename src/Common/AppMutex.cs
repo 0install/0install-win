@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Common.Properties;
 using Common.Utils;
 
 namespace Common
@@ -82,7 +83,8 @@ namespace Common
             }
             catch (Win32Exception ex)
             {
-                Log.Warn("Unable to create mutex:\n" + ex.Message);
+                Log.Warn(Resources.UnableToCreateMutex);
+                Log.Warn(ex);
             }
 
             return result;

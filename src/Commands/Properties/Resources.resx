@@ -294,6 +294,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="MissingOptionValue" xml:space="preserve">
     <value>Missing required value for option {0}.</value>
   </data>
+  <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
+    <value>API hooking not possible due to non-cached implementation.</value>
+  </data>
   <data name="NoInterfaceSpecified" xml:space="preserve">
     <value>No interface ID (feed URI or file path) was specified.</value>
   </data>

@@ -23,6 +23,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using Common;
 using Common.Storage;
+using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Injector.Feeds
@@ -127,25 +128,24 @@ namespace ZeroInstall.Injector.Feeds
                 #region Error handling
             catch (FileNotFoundException)
             {
-                Log.Info("Creating new interface preferences file for '" + interfaceID + "'.");
                 return new InterfacePreferences();
             }
             catch (IOException ex)
             {
-                Log.Warn("Error loading interface preferences for '" + interfaceID + "'. Reverting to default values.");
-                Log.Error(ex);
+                Log.Warn(string.Format(Resources.ErrorLoadingInterfacePrefs, interfaceID));
+                Log.Warn(ex);
                 return new InterfacePreferences();
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Warn("Error loading interface preferences for '" + interfaceID + "'. Reverting to default values.");
-                Log.Error(ex);
+                Log.Warn(string.Format(Resources.ErrorLoadingInterfacePrefs, interfaceID));
+                Log.Warn(ex);
                 return new InterfacePreferences();
             }
             catch (InvalidDataException ex)
             {
-                Log.Warn("Error loading interface preferences for '" + interfaceID + "'. Reverting to default values.");
-                Log.Error(ex);
+                Log.Warn(string.Format(Resources.ErrorLoadingInterfacePrefs, interfaceID));
+                Log.Warn(ex);
                 return new InterfacePreferences();
             }
             #endregion

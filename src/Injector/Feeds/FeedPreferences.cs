@@ -24,6 +24,7 @@ using System.Xml.Serialization;
 using Common;
 using Common.Storage;
 using Common.Utils;
+using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Injector.Feeds
@@ -149,25 +150,24 @@ namespace ZeroInstall.Injector.Feeds
                 #region Error handling
             catch (FileNotFoundException)
             {
-                Log.Info("Creating new feed preferences file for '" + feedID + "'.");
                 return new FeedPreferences();
             }
             catch (IOException ex)
             {
-                Log.Warn("Error loading feed preferences for '" + feedID + "'. Reverting to default values.");
-                Log.Error(ex);
+                Log.Warn(string.Format(Resources.ErrorLoadingFeedPrefs, feedID));
+                Log.Warn(ex);
                 return new FeedPreferences();
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Warn("Error loading feed preferences for '" + feedID + "'. Reverting to default values.");
-                Log.Error(ex);
+                Log.Warn(string.Format(Resources.ErrorLoadingFeedPrefs, feedID));
+                Log.Warn(ex);
                 return new FeedPreferences();
             }
             catch (InvalidDataException ex)
             {
-                Log.Warn("Error loading feed preferences for '" + feedID + "'. Reverting to default values.");
-                Log.Error(ex);
+                Log.Warn(string.Format(Resources.ErrorLoadingFeedPrefs, feedID));
+                Log.Warn(ex);
                 return new FeedPreferences();
             }
             #endregion

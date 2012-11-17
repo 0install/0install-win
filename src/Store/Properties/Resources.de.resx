@@ -221,6 +221,9 @@ Festgelegt in der Konfigurationsdatei '{1}'.</value>
   <data name="UnableToFindSecretKey" xml:space="preserve">
     <value>Es konnte kein geheimer Schlüssel mit dem angegebenen Namen gefunden werden.</value>
   </data>
+  <data name="UnableToWriteProtect" xml:space="preserve">
+    <value>Konnte den Schreibschutz für '{0}' nicht aktivieren.</value>
+  </data>
   <data name="UnknownMimeType" xml:space="preserve">
     <value>Der angegebene MIME Typ ist unbekannt.</value>
   </data>

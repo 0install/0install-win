@@ -153,6 +153,15 @@ namespace Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to rollback &apos;{0}&apos;..
+        /// </summary>
+        internal static string FailedToRollback {
+            get {
+                return ResourceManager.GetString("FailedToRollback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file that was supposed to be downloaded from {0} doesn&apos;t have the expected size. Was supposed to be {1} bytes but was actually {2} bytes..
         /// </summary>
         internal static string FileNotExpectedSize {
@@ -411,6 +420,15 @@ namespace Common.Properties {
         internal static string TargetsOldValuesLength {
             get {
                 return ResourceManager.GetString("TargetsOldValuesLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to create mutex..
+        /// </summary>
+        internal static string UnableToCreateMutex {
+            get {
+                return ResourceManager.GetString("UnableToCreateMutex", resourceCulture);
             }
         }
         

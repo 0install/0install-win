@@ -127,6 +127,15 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ignoring duplicate application list entry for &apos;{0}&apos;..
+        /// </summary>
+        internal static string IgnoringDuplicateAppListEntry {
+            get {
+                return ResourceManager.GetString("IgnoringDuplicateAppListEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Logo {
@@ -414,6 +423,60 @@ namespace ZeroInstall.Central.WinForms.Properties {
         internal static string SyncServerDataDamaged {
             get {
                 return ResourceManager.GetString("SyncServerDataDamaged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to download appliaction catalog..
+        /// </summary>
+        internal static string UnableToDownloadCatalog {
+            get {
+                return ResourceManager.GetString("UnableToDownloadCatalog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to load the application list..
+        /// </summary>
+        internal static string UnableToLoadAppList {
+            get {
+                return ResourceManager.GetString("UnableToLoadAppList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to load feed for application list entry &apos;{0}&apos;..
+        /// </summary>
+        internal static string UnableToLoadFeedForApp {
+            get {
+                return ResourceManager.GetString("UnableToLoadFeedForApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to load application icon..
+        /// </summary>
+        internal static string UnableToLoadIcon {
+            get {
+                return ResourceManager.GetString("UnableToLoadIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to perform self-update check..
+        /// </summary>
+        internal static string UnableToSelfUpdate {
+            get {
+                return ResourceManager.GetString("UnableToSelfUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to store application icon..
+        /// </summary>
+        internal static string UnableToStoreIcon {
+            get {
+                return ResourceManager.GetString("UnableToStoreIcon", resourceCulture);
             }
         }
         

@@ -138,19 +138,23 @@ namespace ZeroInstall.Central.WinForms
             {}
             catch (IOException ex)
             {
-                Log.Warn("Unable to perform self-update check:\n" + ex.Message);
+                Log.Warn(Resources.UnableToSelfUpdate);
+                Log.Warn(ex);
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Warn("Unable to perform self-update check:\n" + ex.Message);
+                Log.Warn(Resources.UnableToSelfUpdate);
+                Log.Warn(ex);
             }
             catch (InvalidDataException ex)
             {
-                Log.Warn("Unable to perform self-update check:\n" + ex.Message);
+                Log.Warn(Resources.UnableToSelfUpdate);
+                Log.Warn(ex);
             }
             catch (SolverException ex)
             {
-                Log.Warn("Unable to perform self-update check:\n" + ex.Message);
+                Log.Warn(Resources.UnableToSelfUpdate);
+                Log.Warn(ex);
             }
             #endregion
         }
@@ -204,17 +208,20 @@ namespace ZeroInstall.Central.WinForms
             }
             catch (IOException ex)
             {
-                Log.Warn("Unable to load application list XML:\n" + ex.Message);
+                Log.Warn(Resources.UnableToLoadAppList);
+                Log.Warn(ex);
                 newAppList = new AppList();
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Warn("Unable to load application list XML:\n" + ex.Message);
+                Log.Warn(Resources.UnableToLoadAppList);
+                Log.Warn(ex);
                 newAppList = new AppList();
             }
             catch (InvalidDataException ex)
             {
-                Log.Warn("Unable to load application list XML:\n" + ex.Message);
+                Log.Warn(Resources.UnableToLoadAppList);
+                Log.Warn(ex);
                 newAppList = new AppList();
             }
             #endregion
@@ -240,11 +247,11 @@ namespace ZeroInstall.Central.WinForms
                         #region Error handling
                     catch (KeyNotFoundException)
                     {
-                        Log.Warn("Unable to load feed for: " + addedEntry.InterfaceID);
+                        Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, addedEntry.InterfaceID));
                     }
                     catch (C5.DuplicateNotAllowedException)
                     {
-                        Log.Warn("Ignoring duplicate application list entry for: " + addedEntry.InterfaceID);
+                        Log.Warn(string.Format(Resources.IgnoringDuplicateAppListEntry, addedEntry.InterfaceID));
                     }
                     #endregion
                 },
@@ -287,23 +294,28 @@ namespace ZeroInstall.Central.WinForms
                 {}
                 catch (InvalidInterfaceIDException ex)
                 {
-                    Log.Warn("Unable to load feed for application list entry '" + pair.Value + "':\n" + ex.Message);
+                    Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, pair.Value));
+                    Log.Warn(ex);
                 }
                 catch (IOException ex)
                 {
-                    Log.Warn("Unable to load feed for application list entry '" + pair.Value + "':\n" + ex.Message);
+                    Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, pair.Value));
+                    Log.Warn(ex);
                 }
                 catch (WebException ex)
                 {
-                    Log.Warn("Unable to load feed for application list entry '" + pair.Value + "':\n" + ex.Message);
+                    Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, pair.Value));
+                    Log.Warn(ex);
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    Log.Warn("Unable to load feed for application list entry '" + pair.Value + "':\n" + ex.Message);
+                    Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, pair.Value));
+                    Log.Warn(ex);
                 }
                 catch (SignatureException ex)
                 {
-                    Log.Warn("Unable to load feed for application list entry '" + pair.Value + "':\n" + ex.Message);
+                    Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, pair.Value));
+                    Log.Warn(ex);
                 }
                 #endregion
             }
@@ -356,7 +368,8 @@ namespace ZeroInstall.Central.WinForms
                 #region Error handling
             catch (WebException ex)
             {
-                Log.Warn("Unable to download application catalog:\n" + ex.Message);
+                Log.Warn(Resources.UnableToDownloadCatalog);
+                Log.Warn(ex);
             }
             #endregion
         }
@@ -406,7 +419,7 @@ namespace ZeroInstall.Central.WinForms
                 #region Error handling
             catch (C5.DuplicateNotAllowedException)
             {
-                Log.Warn("Ignoring duplicate application list entry for: " + feed.Uri);
+                Log.Warn(string.Format(Resources.IgnoringDuplicateAppListEntry, feed.Uri));
             }
             #endregion
         }

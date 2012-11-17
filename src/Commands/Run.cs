@@ -149,7 +149,7 @@ namespace ZeroInstall.Commands
                     #region Error handling
                 catch (ImplementationNotFoundException)
                 {
-                    Log.Warn("API hooking not possible due to non-cached implementation");
+                    Log.Warn(Resources.NoApiHookingNonCacheImpl);
                 }
                 #endregion
             }

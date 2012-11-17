@@ -206,15 +206,18 @@ namespace ZeroInstall.Central.WinForms
             {}
             catch (IOException ex)
             {
-                Log.Warn("Unable to store application icon:\n" + ex.Message);
+                Log.Warn(Resources.UnableToStoreIcon);
+                Log.Warn(ex);
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Warn("Unable to store application icon:\n" + ex.Message);
+                Log.Warn(Resources.UnableToStoreIcon);
+                Log.Warn(ex);
             }
             catch (WebException ex)
             {
-                Log.Warn("Unable to download application icon:\n" + ex.Message);
+                Log.Warn(Resources.UnableToStoreIcon);
+                Log.Warn(ex);
             }
             #endregion
         }
@@ -227,7 +230,10 @@ namespace ZeroInstall.Central.WinForms
                 if (image != null) pictureBoxIcon.Image = image;
             }
             else
-                Log.Error("Error while loading application icon:\n" + e.Error.Message);
+            {
+                Log.Error(Resources.UnableToLoadIcon);
+                Log.Error(e.Error);
+            }
         }
         #endregion
 

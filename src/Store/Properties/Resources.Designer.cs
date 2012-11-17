@@ -363,6 +363,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to enable write protection for &apos;{0}&apos;..
+        /// </summary>
+        internal static string UnableToWriteProtect {
+            get {
+                return ResourceManager.GetString("UnableToWriteProtect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The specified MIME type is unknown..
         /// </summary>
         internal static string UnknownMimeType {

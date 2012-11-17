@@ -152,7 +152,7 @@ namespace ZeroInstall.Publish
                 #region Error handling
             catch (KeyNotFoundException)
             {
-                Log.Info("Secret key not in the user's keyring");
+                Log.Info(Resources.SecretKeyNotInKeyring);
             }
             catch (SignatureException ex)
             {

@@ -271,6 +271,16 @@ namespace Common
         }
 
         /// <summary>
+        /// Writes an exception as a <see cref="Warn(string)"/>. Recursivley handles <see cref="Exception.InnerException"/>s.
+        /// </summary>
+        public static void Warn(Exception ex)
+        {
+            if (ex == null) return;
+            Warn(ex.Message);
+            if (ex.InnerException != null) Warn(ex.InnerException);
+        }
+
+        /// <summary>
         /// Writes a critical error that should be attended to to the log.
         /// </summary>
 #if LUA

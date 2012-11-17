@@ -24,6 +24,7 @@ using System.Net;
 using System.Text;
 using Common;
 using Common.Storage;
+using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 
@@ -57,15 +58,18 @@ namespace ZeroInstall.Injector.Feeds
             {}
             catch (IOException ex)
             {
-                Log.Warn("Unable to load cached application catalog from disk:\n" + ex.Message);
+                Log.Warn(Resources.UnableToLoadCachedCatalog);
+                Log.Warn(ex.Message);
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Warn("Unable to load cached application catalog from disk:\n" + ex.Message);
+                Log.Warn(Resources.UnableToLoadCachedCatalog);
+                Log.Warn(ex.Message);
             }
             catch (InvalidDataException ex)
             {
-                Log.Warn("Unable to parse cached application catalog:\n" + ex.Message);
+                Log.Warn(Resources.UnableToLoadCachedCatalog);
+                Log.Warn(ex.Message);
             }
             #endregion
 
@@ -106,11 +110,13 @@ namespace ZeroInstall.Injector.Feeds
                 #region Error handling
             catch (IOException ex)
             {
-                Log.Warn("Unable to cache downloaded application catalog:\n" + ex.Message);
+                Log.Warn(Resources.UnableToCacheCatalog);
+                Log.Warn(ex.Message);
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Warn("Unable to cache downloaded application catalog:\n" + ex.Message);
+                Log.Warn(Resources.UnableToCacheCatalog);
+                Log.Warn(ex.Message);
             }
             #endregion
 

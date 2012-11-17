@@ -221,6 +221,9 @@ Specified in the configuration file '{1}'.</value>
   <data name="UnableToFindSecretKey" xml:space="preserve">
     <value>Unable to find a secret key with the specified name.</value>
   </data>
+  <data name="UnableToWriteProtect" xml:space="preserve">
+    <value>Unable to enable write protection for '{0}'.</value>
+  </data>
   <data name="UnknownMimeType" xml:space="preserve">
     <value>The specified MIME type is unknown.</value>
   </data>

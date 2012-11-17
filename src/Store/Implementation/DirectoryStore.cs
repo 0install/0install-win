@@ -168,11 +168,11 @@ namespace ZeroInstall.Store.Implementation
                 #region Error handling
             catch (IOException)
             {
-                Log.Warn("Unable to enable write protection for " + target);
+                Log.Warn(string.Format(Resources.UnableToWriteProtect, target));
             }
             catch (UnauthorizedAccessException)
             {
-                Log.Warn("Unable to enable write protection for " + target);
+                Log.Warn(string.Format(Resources.UnableToWriteProtect, target));
             }
             #endregion
         }
@@ -388,11 +388,11 @@ namespace ZeroInstall.Store.Implementation
                 #region Error handling
             catch (IOException)
             {
-                Log.Warn("Unable to enable write protection for " + target);
+                Log.Warn(string.Format(Resources.UnableToWriteProtect, target));
             }
             catch (UnauthorizedAccessException)
             {
-                Log.Warn("Unable to enable write protection for " + target);
+                Log.Warn(string.Format(Resources.UnableToWriteProtect, target));
             }
             #endregion
         }

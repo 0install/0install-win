@@ -147,13 +147,15 @@ namespace ZeroInstall.Injector.Feeds
                 #region Error handling
             catch (XmlException ex)
             {
-                Log.Error("Unable to parse key information for: " + fingerprint + "\n" + ex.Message);
+                Log.Error(string.Format(Resources.UnableToParseKeyInfo, fingerprint));
+                Log.Error(ex);
                 goodVote = false;
                 return null;
             }
             catch (WebException ex)
             {
-                Log.Error("Unable to retrieve key information for: " + fingerprint + "\n" + ex.Message);
+                Log.Error(string.Format(Resources.UnableToRetrieveKeyInfo, fingerprint));
+                Log.Error(ex);
                 goodVote = false;
                 return null;
             }
