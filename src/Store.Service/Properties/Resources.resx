@@ -144,6 +144,12 @@
   <data name="StartSuccess" xml:space="preserve">
     <value>Successfully started the Zero Install Store Service.</value>
   </data>
+  <data name="StatusRunning" xml:space="preserve">
+    <value>The Zero Install Store Service is runnig.</value>
+  </data>
+  <data name="StatusStopped" xml:space="preserve">
+    <value>The Zero Install Store Service is not runnig.</value>
+  </data>
   <data name="StopSuccess" xml:space="preserve">
     <value>Successfully stopped the Zero Install Store Service.</value>
   </data>

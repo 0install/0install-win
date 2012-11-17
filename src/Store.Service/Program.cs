@@ -54,6 +54,11 @@ namespace ZeroInstall.Store.Service
             else
             {
                 AppMutex.Create(mutexName);
+                if (Locations.IsPortable)
+                {
+                    Msg.Inform(null, Resources.NoPortableMode, MsgSeverity.Error);
+                    return 1;
+                }
 
                 string command = args[0].ToLowerInvariant();
                 bool silent = args.Contains("--silent", StringComparer.InvariantCultureIgnoreCase);
@@ -90,12 +95,6 @@ namespace ZeroInstall.Store.Service
             {
                 case "install":
                 {
-                    if (Locations.IsPortable)
-                    {
-                        Msg.Inform(null, Resources.NoPortableMode, MsgSeverity.Error);
-                        return 1;
-                    }
-
                     var process = Process.Start(
                         new ProcessStartInfo(InstallUtilPath, Application.ExecutablePath.EscapeArgument())
                         {WindowStyle = (silent ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal)});
@@ -136,8 +135,12 @@ namespace ZeroInstall.Store.Service
                     if (!silent) Msg.Inform(null, Resources.StopSuccess, MsgSeverity.Info);
                     return 0;
 
+                case "status":
+                    Msg.Inform(null, (controller.Status == ServiceControllerStatus.Running ? Resources.StatusRunning : Resources.StatusStopped), MsgSeverity.Info);
+                    return 0;
+
                 default:
-                    Msg.Inform(null, string.Format(Resources.UnkownCommand, "0store-service (install|uninstall|start|stop) [--silent]"), MsgSeverity.Error);
+                    Msg.Inform(null, string.Format(Resources.UnkownCommand, "0store-service (install|uninstall|start|stop|status) [--silent]"), MsgSeverity.Error);
                     return 1;
             }
         }
