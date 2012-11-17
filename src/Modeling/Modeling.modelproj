@@ -179,6 +179,13 @@
       <SubType>Content</SubType>
       <DependentUpon>UML\Sequence\ManifestGenerator_RunTask.sequencediagram</DependentUpon>
     </Content>
+    <Content Include="UML\Sequence\StoreService_AddArchives.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="UML\Sequence\StoreService_AddArchives.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>UML\Sequence\StoreService_AddArchives.sequencediagram</DependentUpon>
+    </Content>
     <Folder Include="ModelDefinition\" />
     <Content Include="ModelDefinition\Architecture.uml">
       <SubType>Content</SubType>
