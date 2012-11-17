@@ -3036,12 +3036,6 @@
         Id="a94d59db-324e-44bc-a862-50413072130b"
         name="ExecutionEvent" />
     </packageHasNamedElement>
-    <packageHasNamedElement>
-      <packageMoniker
-        Id="3e1512eb-a14e-44e3-968c-5fa6b783b036"
-        LastKnownName="System"
-        LastKnownLocation="Package_1145.uml" />
-    </packageHasNamedElement>
   </packagedElements>
   <primitiveType
     Id="220a3521-e091-4221-bae9-3ef9018e845c"
