@@ -436,6 +436,9 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   <data name="PortableMode" xml:space="preserve">
     <value>Portable mode</value>
   </data>
+  <data name="ResolvedUsingCatalog" xml:space="preserve">
+    <value>Resolved '{0}' to '{1}' using a catalog.</value>
+  </data>
   <data name="SelectedImplementations" xml:space="preserve">
     <value>Selected implementations:</value>
   </data>

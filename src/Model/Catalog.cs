@@ -23,6 +23,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using Common.Collections;
 using Common.Storage;
+using Common.Utils;
 using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model
@@ -68,10 +69,8 @@ namespace ZeroInstall.Model
             var newCatalog = new Catalog();
             var feedUris = new C5.HashSet<Uri>(); // Hash interface URIs to detect duplicates quicker
 
-            // Merge multiple catalogs
-            foreach (var feed in catalogs.SelectMany(catalog => catalog.Feeds.
-                // Filter out duplicates
-                Where(feed => !feedUris.Contains(feed.Uri))))
+            // Merge multiple catalogs and filter out duplicates
+            foreach (var feed in catalogs.SelectMany(catalog => catalog.Feeds.Where(feed => !feedUris.Contains(feed.Uri))))
             {
                 newCatalog.Feeds.Add(feed);
                 feedUris.Add(feed.Uri);
@@ -101,6 +100,30 @@ namespace ZeroInstall.Model
                 return Feeds.First(feed => feed.Uri == uri,
                     () => new KeyNotFoundException(string.Format(Resources.FeedNotInCatalog, uri)));
             }
+        }
+
+        /// <summary>
+        /// Retruns the first <see cref="Feed"/> that matches a sepecific short name and has <see cref="Feed.Uri"/> set.
+        /// </summary>
+        /// <param name="shortName">The short name to look for. Must match either <see cref="Feed.Name"/> or <see cref="EntryPoint.BinaryName"/> of <see cref="Command.NameRun"/>.</param>
+        /// <returns>The first matching <see cref="Feed"/> or <see langword="null"/> if no match was found.</returns>
+        public Feed FindByShortName(string shortName)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(shortName)) throw new ArgumentNullException("shortName");
+            #endregion
+
+            return Feeds.FirstOrDefault(feed =>
+            {
+                if (feed.Uri == null) return false;
+
+                // Short name matches application name
+                if (StringUtils.EqualsIgnoreCase(feed.Name, shortName)) return true;
+
+                // Short name matches binary name
+                var entryPoint = feed.GetEntryPoint(Command.NameRun);
+                return entryPoint != null && StringUtils.EqualsIgnoreCase(entryPoint.BinaryName, shortName);
+            });
         }
         #endregion
 

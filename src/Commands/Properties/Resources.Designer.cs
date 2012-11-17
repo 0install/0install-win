@@ -986,6 +986,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resolved &apos;{0}&apos; to &apos;{1}&apos; using a catalog..
+        /// </summary>
+        internal static string ResolvedUsingCatalog {
+            get {
+                return ResourceManager.GetString("ResolvedUsingCatalog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selected implementations:.
         /// </summary>
         internal static string SelectedImplementations {

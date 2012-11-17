@@ -436,6 +436,9 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   <data name="PortableMode" xml:space="preserve">
     <value>Portable Modus</value>
   </data>
+  <data name="ResolvedUsingCatalog" xml:space="preserve">
+    <value>'{0}' nach '{1}', unter der verwendung eines Katalogs, aufgelöst.</value>
+  </data>
   <data name="SelectedImplementations" xml:space="preserve">
     <value>Ausgewählte Implementierungen:</value>
   </data>

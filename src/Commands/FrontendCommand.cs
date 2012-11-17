@@ -23,11 +23,13 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using Common;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
+using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
@@ -208,7 +210,17 @@ namespace ZeroInstall.Commands
                     //else if (IsShortName(id))
                     //{}
                 else if (ModelUtils.IsValidUri(id)) return id;
-                else return Path.GetFullPath(id); // Assume invalid URIs are local paths
+                else
+                {
+                    // Assume invalid URIs are short names or local paths
+                    var feed = CatalogManager.GetCached().FindByShortName(id);
+                    if (feed != null)
+                    {
+                        Log.Info(string.Format(Resources.ResolvedUsingCatalog, id, feed.Uri));
+                        return feed.Uri.ToString();
+                    }
+                    else return Path.GetFullPath(id);
+                }
             }
                 #region Error handling
             catch (ArgumentException ex)
