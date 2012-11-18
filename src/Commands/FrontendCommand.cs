@@ -212,14 +212,19 @@ namespace ZeroInstall.Commands
                 else if (ModelUtils.IsValidUri(id)) return id;
                 else
                 {
-                    // Assume invalid URIs are short names or local paths
-                    var feed = CatalogManager.GetCached().FindByShortName(id);
-                    if (feed != null)
+                    // Assume invalid URIs are short names or...
+                    if (!id.EndsWithIgnoreCase(".xml"))
                     {
-                        Log.Info(string.Format(Resources.ResolvedUsingCatalog, id, feed.Uri));
-                        return feed.Uri.ToString();
+                        var feed = CatalogManager.GetCached().FindByShortName(id);
+                        if (feed != null)
+                        {
+                            Log.Info(string.Format(Resources.ResolvedUsingCatalog, id, feed.Uri));
+                            return feed.Uri.ToString();
+                        }
                     }
-                    else return Path.GetFullPath(id);
+
+                    // ... local paths
+                    return Path.GetFullPath(id);
                 }
             }
                 #region Error handling

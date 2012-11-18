@@ -118,7 +118,7 @@ namespace ZeroInstall.Model
                 if (feed.Uri == null) return false;
 
                 // Short name matches application name
-                if (StringUtils.EqualsIgnoreCase(feed.Name, shortName)) return true;
+                if (StringUtils.EqualsIgnoreCase(feed.Name.Replace(' ', '-'), shortName)) return true;
 
                 // Short name matches binary name
                 var entryPoint = feed.GetEntryPoint(Command.NameRun);
