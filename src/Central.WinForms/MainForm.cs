@@ -28,6 +28,7 @@ using Common.Controls;
 using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
+using ZeroInstall.Commands.WinForms;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Feeds;
@@ -272,7 +273,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void appListWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var policy = Policy.CreateDefault(new SilentHandler());
+            var policy = Policy.CreateDefault(new MinimalHandler(this));
             policy.Config.NetworkUse = NetworkLevel.Minimal; // Don't update already cached feeds, even if they are stale
 
             var feedsToLoad = (IDictionary<AppTile, string>)e.Argument;
@@ -363,7 +364,7 @@ namespace ZeroInstall.Central.WinForms
         {
             try
             {
-                e.Result = CatalogManager.GetOnline(Policy.CreateDefault(new SilentHandler()));
+                e.Result = CatalogManager.GetOnline(Policy.CreateDefault(new MinimalHandler(this)));
             }
                 #region Error handling
             catch (WebException ex)

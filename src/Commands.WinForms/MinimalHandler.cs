@@ -27,13 +27,13 @@ namespace ZeroInstall.Commands.WinForms
     /// </summary>
     public class MinimalHandler : SilentHandler
     {
-        private readonly IWin32Window _owner;
+        private readonly Control _owner;
 
         /// <summary>
         /// Creates a new minimal handler.
         /// </summary>
         /// <param name="owner">The parent window owning the handler.</param>
-        public MinimalHandler(IWin32Window owner)
+        public MinimalHandler(Control owner)
         {
             _owner = owner;
         }
@@ -41,15 +41,9 @@ namespace ZeroInstall.Commands.WinForms
         /// <inheritdoc/>
         public override bool AskQuestion(string question, string batchInformation)
         {
-            switch (Msg.YesNoCancel(_owner, question, MsgSeverity.Info))
-            {
-                case DialogResult.Yes:
-                    return true;
-                case DialogResult.No:
-                    return false;
-                default:
-                    throw new OperationCanceledException();
-            }
+            bool result = false;
+            _owner.Invoke((Action)(() => result = Msg.YesNo(_owner, question, MsgSeverity.Info)));
+            return result;
         }
     }
 }
