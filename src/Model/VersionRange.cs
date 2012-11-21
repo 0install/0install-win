@@ -190,7 +190,12 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                return _parts.Aggregate(397, (accumulated, part) => (accumulated * 397) ^ part.GetHashCode());
+                // ReSharper disable LoopCanBeConvertedToQuery
+                int result = 397;
+                foreach (VersionRangePart part in _parts)
+                    result = (result * 397) ^ part.GetHashCode();
+                return result;
+                // ReSharper restore LoopCanBeConvertedToQuery
             }
         }
 

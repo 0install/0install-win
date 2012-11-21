@@ -289,10 +289,7 @@ namespace ZeroInstall.Store.Implementation
         /// Retreives a specific <see cref="ManifestNode"/>.
         /// </summary>
         /// <param name="i">The index of the node to retreive.</param>
-        public ManifestNode this[int i]
-        {
-            get { return _nodes[i]; }
-        }
+        public ManifestNode this[int i] { get { return _nodes[i]; } }
         #endregion
 
         #region Conversion
@@ -340,9 +337,12 @@ namespace ZeroInstall.Store.Implementation
         {
             unchecked
             {
-                return _nodes.Aggregate(
-                    (Format != null ? Format.GetHashCode() : 0),
-                    (accumulated, node) => (accumulated * 397) ^ node.GetHashCode());
+                // ReSharper disable LoopCanBeConvertedToQuery
+                int result = (Format != null ? Format.GetHashCode() : 0);
+                foreach (ManifestNode node in _nodes)
+                    result = (result * 397) ^ node.GetHashCode();
+                return result;
+                // ReSharper restore LoopCanBeConvertedToQuery
             }
         }
         #endregion
