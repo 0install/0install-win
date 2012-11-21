@@ -357,7 +357,7 @@ namespace ZeroInstall.Injector
             TransferToIni();
 
             using (var atomic = new AtomicWrite(path))
-            using (var writer = new StreamWriter(atomic.WritePath, false, Encoding.UTF8))
+            using (var writer = new StreamWriter(atomic.WritePath, false, new UTF8Encoding(false)))
             {
                 new StreamIniDataParser().WriteData(writer, _iniData);
                 atomic.Commit();
