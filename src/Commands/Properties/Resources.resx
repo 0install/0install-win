@@ -132,6 +132,9 @@
   <data name="ActionRemoveFeed" xml:space="preserve">
     <value>Removing additional feed association</value>
   </data>
+  <data name="ActionRepairApps" xml:space="preserve">
+    <value>Repairing desktop integration</value>
+  </data>
   <data name="ActionRun" xml:space="preserve">
     <value>Preparing to launch application</value>
   </data>

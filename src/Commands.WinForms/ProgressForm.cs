@@ -192,7 +192,7 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             notifyIcon.Visible = true;
-            notifyIcon.ShowBalloonTip(7500, "Zero Install", information, messageType);
+            if (!string.IsNullOrEmpty(information)) notifyIcon.ShowBalloonTip(7500, "Zero Install", information, messageType);
         }
 
         /// <summary>

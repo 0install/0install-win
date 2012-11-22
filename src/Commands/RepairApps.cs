@@ -41,6 +41,9 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         protected override string Usage { get { return "[PATTERN]"; } }
+
+        /// <inheritdoc/>
+        public override string ActionTitle { get { return Resources.ActionRepairApps; } }
         #endregion
 
         #region Constructor

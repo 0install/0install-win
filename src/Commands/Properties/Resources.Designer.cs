@@ -106,6 +106,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Repairing desktop integration.
+        /// </summary>
+        internal static string ActionRepairApps {
+            get {
+                return ResourceManager.GetString("ActionRepairApps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preparing to launch application.
         /// </summary>
         internal static string ActionRun {

@@ -132,6 +132,9 @@
   <data name="ActionRemoveFeed" xml:space="preserve">
     <value>Entferne zusätzliche Feedzuordnung</value>
   </data>
+  <data name="ActionRepairApps" xml:space="preserve">
+    <value>Repariere Desktopintegration</value>
+  </data>
   <data name="ActionRun" xml:space="preserve">
     <value>Bereite Anwendungsstart vor</value>
   </data>
