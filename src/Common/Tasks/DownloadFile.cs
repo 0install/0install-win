@@ -188,7 +188,7 @@ namespace Common.Tasks
             }
         }
 
-        private readonly byte[] _buffer = new byte[64 * 1024];
+        private readonly byte[] _buffer = new byte[8 * 1024];
 
         /// <summary>
         /// Writes the content of <paramref name="webStream"/> to <paramref name="fileStream"/>.
