@@ -76,7 +76,6 @@ namespace ZeroInstall.Commands.WinForms
             #region Sanity checks
             if (selections == null) throw new ArgumentNullException("selections");
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
-            if (!IsHandleCreated) throw new InvalidOperationException("Method called before control handle was created.");
             #endregion
 
             _selections = selections;
@@ -116,7 +115,6 @@ namespace ZeroInstall.Commands.WinForms
             #region Sanity checks
             if (solveCallback == null) throw new ArgumentNullException("solveCallback");
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
-            if (!IsHandleCreated) throw new InvalidOperationException("Method called before control handle was created.");
             #endregion
 
             for (int i = 0; i < _selections.Implementations.Count; i++)
@@ -184,7 +182,6 @@ namespace ZeroInstall.Commands.WinForms
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
-            if (!IsHandleCreated) throw new InvalidOperationException("Method called before control handle was created.");
             #endregion
 
             for (int i = 0; i < _selections.Implementations.Count; i++)

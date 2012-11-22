@@ -40,6 +40,9 @@ namespace ZeroInstall.Commands.WinForms
 
         /// <summary>A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/> after <see cref="BeginAuditSelections"/>.</summary>
         private EventWaitHandle _auditWaitHandle;
+
+        /// <summary>Indicates whether <see cref="selectionsControl"/> is intended to be visible or not. Will work even if the form itself is invisible (tray icon mode).</summary>
+        private bool _selectionsShown;
         #endregion
 
         #region Constructor
@@ -92,11 +95,8 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             //labelSolving.Visible = progressBarSolving.Visible = false;
-            selectionsControl.Visible = true;
-
-            // Defer execution while in tray-icon mode
-            if (selectionsControl.IsHandleCreated) selectionsControl.SetSelections(selections, feedCache);
-            else Shown += delegate { selectionsControl.SetSelections(selections, feedCache); };
+            _selectionsShown = selectionsControl.Visible = true;
+            selectionsControl.SetSelections(selections, feedCache);
         }
 
         /// <summary>
@@ -154,21 +154,9 @@ namespace ZeroInstall.Commands.WinForms
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
-            if (IsHandleCreated)
-            {
-                trackingControl.Visible = true;
-                trackingControl.Task = task;
-                labelWorking.Visible = progressBarWorking.Visible = false;
-            }
-            else
-            { // Defer execution while in tray-icon mode
-                Shown += delegate
-                {
-                    trackingControl.Visible = true;
-                    trackingControl.Task = task;
-                    labelWorking.Visible = progressBarWorking.Visible = false;
-                };
-            }
+            trackingControl.Visible = true;
+            trackingControl.Task = task;
+            labelWorking.Visible = progressBarWorking.Visible = false;
         }
 
         /// <summary>
@@ -184,17 +172,8 @@ namespace ZeroInstall.Commands.WinForms
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
-            if (IsHandleCreated)
-            {
-                if (selectionsControl.IsHandleCreated) selectionsControl.TrackTask(task, tag);
-                else TrackTask(task);
-            }
-
-            else
-            { // Defer execution while in tray-icon mode
-                if (selectionsControl.IsHandleCreated) selectionsControl.TrackTask(task, tag);
-                else TrackTask(task);
-            }
+            if (_selectionsShown) selectionsControl.TrackTask(task, tag);
+            else TrackTask(task);
         }
         #endregion
 
@@ -271,7 +250,7 @@ namespace ZeroInstall.Commands.WinForms
             HideTrayIcon();
 
             // Stop tracking selction tasks
-            if (IsHandleCreated) selectionsControl.StopTracking();
+            selectionsControl.StopTracking();
 
             // Note: Must perform cancellation on a separate thread because it might send messages back to the GUI thread (which therefore must not be blocked)
             new Thread(() => _cancelCallback()).Start();

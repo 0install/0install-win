@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Windows.Forms;
 using Common;
@@ -35,11 +34,7 @@ namespace ZeroInstall.Commands.WinForms
     /// <summary>
     /// Uses <see cref="System.Windows.Forms"/> to inform the user about the progress of tasks and ask the user questions.
     /// </summary>
-    /// <remarks>
-    /// This class is heavily multi-threaded. The UI is prepared in a background thread to allow simultaneous continuation of computation.
-    /// Any calls relying on the UI to aquire user input will block automatically.
-    /// </remarks>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Disposal is handled sufficiently by GC in this case")]
+    /// <remarks>This class manages a GUI thread with an independent message queue. Invoking methods on the right thread is handled automatically.</remarks>
     public class GuiHandler : MarshalByRefObject, IHandler
     {
         #region Variables
@@ -47,9 +42,6 @@ namespace ZeroInstall.Commands.WinForms
 
         /// <summary>Synchronization object used to prevent multiple concurrent generic <see cref="ITask"/>s.</summary>
         private readonly object _genericTaskLock = new object();
-
-        /// <summary>A barrier that blocks threads until the <see cref="_form"/>'s handle is ready.</summary>
-        private readonly ManualResetEvent _guiReady = new ManualResetEvent(false);
 
         /// <summary>A wait handle used by <see cref="AuditSelections"/> to be signaled once the user is satisfied with the <see cref="Selections"/>.</summary>
         private readonly AutoResetEvent _auditWaitHandle = new AutoResetEvent(false);
@@ -99,20 +91,17 @@ namespace ZeroInstall.Commands.WinForms
             if (task == null) throw new ArgumentNullException("task");
             #endregion
 
-            // Wait until the GUI is ready
-            _guiReady.WaitOne();
-
             if (tag is ManifestDigest)
             {
                 // Handle events coming from a non-UI thread
-                _form.Invoke(new Action(() => { if (_form.IsHandleCreated) _form.TrackTask(task, (ManifestDigest)tag); }));
+                _form.Invoke(new Action(() => _form.TrackTask(task, (ManifestDigest)tag)));
             }
             else
             {
                 lock (_genericTaskLock) // Prevent multiple concurrent generic tasks
                 {
                     // Handle events coming from a non-UI thread
-                    _form.Invoke(new Action(() => { if (_form.IsHandleCreated) _form.TrackTask(task); }));
+                    _form.Invoke(new Action(() => _form.TrackTask(task)));
                 }
             }
 
@@ -135,56 +124,52 @@ namespace ZeroInstall.Commands.WinForms
             });
 
             // Start GUI thread
-            var thread = new Thread(GuiThread);
-            thread.SetApartmentState(ApartmentState.STA); // Make COM work
-            thread.Start();
-        }
+            using (var guiReady = new ManualResetEvent(false))
+            {
+                var thread = new Thread(() =>
+                {
+                    _form.Initialize();
+                    if (_actionTitle != null) _form.Text = _actionTitle;
+                    if (Locations.IsPortable) _form.Text += @" - " + Resources.PortableMode;
 
-        /// <summary>
-        /// Runs a message pump for the GUI.
-        /// </summary>
-        private void GuiThread()
-        {
-            _form.Initialize();
-            if (_actionTitle != null) _form.Text = _actionTitle;
-            if (Locations.IsPortable) _form.Text += @" - " + Resources.PortableMode;
+                    // Show the tray icon or the form
+                    if (Batch) _form.ShowTrayIcon(_actionTitle, ToolTipIcon.None);
+                    else _form.Show();
+                    // ReSharper disable AccessToDisposedClosure
+                    guiReady.Set(); // Signal that the GUI handles have been created
+                    // ReSharper restore AccessToDisposedClosure
 
-            // Show the tray icon or the form
-            if (Batch) _form.ShowTrayIcon(_actionTitle, ToolTipIcon.None);
-            else _form.Show();
-
-            // Start the message loop and set the wait handle as soon as it is running
-            Application.Idle += delegate { _guiReady.Set(); };
-            Application.Run();
+                    Application.Run();
+                });
+                thread.SetApartmentState(ApartmentState.STA); // Make COM work
+                thread.Start();
+                guiReady.WaitOne(); // Wait until the GUI handles have been created
+            }
         }
 
         /// <inheritdoc/>
         public void DisableProgressUI()
         {
-            // If GUI does not exist or was closed cancel, otherwise wait until it is ready
             if (_form == null) return;
-            _guiReady.WaitOne();
 
-            _form.Invoke(new Action(() => { if (_form.IsHandleCreated) _form.Enabled = false; }));
+            _form.Invoke(new Action(() => _form.Enabled = false));
         }
 
         /// <inheritdoc/>
         public void CloseProgressUI()
         {
-            // If GUI does not exist or was closed cancel, otherwise wait until it is ready
             if (_form == null) return;
-            _guiReady.WaitOne();
 
             try
             {
-                _form.Invoke(new Action(() =>
-                {
-                    if (_form.IsHandleCreated) _form.HideTrayIcon();
-                    Application.ExitThread();
-                    _form.Dispose();
-                }));
+                var form = _form;
                 _form = null;
-                _guiReady.Reset();
+                form.Invoke(new Action(() =>
+                {
+                    form.HideTrayIcon();
+                    Application.ExitThread();
+                    form.Dispose();
+                }));
             }
             catch (InvalidOperationException)
             {
@@ -201,16 +186,12 @@ namespace ZeroInstall.Commands.WinForms
             if (string.IsNullOrEmpty(question)) throw new ArgumentNullException("question");
             #endregion
 
-            // If GUI does not exist or was closed cancel, otherwise wait until it is ready
             if (_form == null) return false;
-            _guiReady.WaitOne();
 
             // Handle events coming from a non-UI thread, block caller until user has answered
             bool result = false;
             _form.Invoke(new Action(delegate
             {
-                if (!_form.IsHandleCreated) return;
-
                 // Auto-deny unknown keys and inform via tray icon when in batch mode
                 if (Batch && !string.IsNullOrEmpty(batchInformation)) _form.ShowTrayIcon(batchInformation, ToolTipIcon.Warning);
                 else
@@ -241,13 +222,11 @@ namespace ZeroInstall.Commands.WinForms
             if (feedCache == null) throw new ArgumentNullException("feedCache");
             #endregion
 
-            // If GUI does not exist or was closed cancel, otherwise wait until it is ready
             if (_form == null) return;
-            _guiReady.WaitOne();
 
             try
             {
-                _form.Invoke(new Action(() => { if (_form.IsHandleCreated) _form.ShowSelections(selections, feedCache); }));
+                _form.Invoke(new Action(() => _form.ShowSelections(selections, feedCache)));
             }
             catch (InvalidOperationException)
             {
@@ -262,14 +241,17 @@ namespace ZeroInstall.Commands.WinForms
             if (solveCallback == null) throw new ArgumentNullException("solveCallback");
             #endregion
 
-            // If GUI does not exist or was closed cancel, otherwise wait until it is ready
             if (_form == null) return;
-            _guiReady.WaitOne();
-            if (!_form.IsHandleCreated) return;
 
             // Show selection auditing screen and then asynchronously wait until its done
-            _form.Invoke(new Action(() => { if (_form.IsHandleCreated) _form.Show(); })); // Leave tray icon mode
-            _form.Invoke(new Action(() => _form.BeginAuditSelections(solveCallback, _auditWaitHandle)));
+            _form.Invoke(new Action(() =>
+            {
+                // Leave tray icon mode
+                _form.Show();
+                Application.DoEvents();
+
+                _form.BeginAuditSelections(solveCallback, _auditWaitHandle);
+            }));
             _auditWaitHandle.WaitOne();
         }
         #endregion
@@ -290,8 +272,10 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="information">The balloon message text.</param>
         private void ShowBalloonMessage(string title, string information)
         {
+            if (_form == null) return;
+
             // Remove existing tray icon to give new balloon priority
-            _form.Invoke(new Action(() => { if (_form.IsHandleCreated) _form.HideTrayIcon(); }));
+            _form.Invoke(new Action(() => _form.HideTrayIcon()));
 
             var icon = new NotifyIcon {Visible = true, Icon = Resources.TrayIcon};
             icon.ShowBalloonTip(10000, title, information, ToolTipIcon.Info);
@@ -308,14 +292,15 @@ namespace ZeroInstall.Commands.WinForms
             if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
-            // If GUI does not exist or was closed cancel, otherwise wait until it is ready
             if (_form == null) return;
-            _guiReady.WaitOne();
-            if (!_form.IsHandleCreated) return;
 
             var integrationForm = new IntegrateAppForm(integrationManager, appEntry, feed);
             integrationForm.VisibleChanged += delegate
             { // The IntegrateAppForm and ProgressForm take turns in being visible
+                // Leave tray icon mode
+                _form.Show();
+                Application.DoEvents();
+
                 _form.Invoke(new Action(delegate
                 {
                     // Prevent ProgressForm from flashing up again when the user cancels

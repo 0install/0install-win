@@ -28,7 +28,7 @@ using ZeroInstall.Store.Feeds;
 namespace ZeroInstall.Commands.WinForms
 {
     /// <summary>
-    /// Wraps <see cref="GuiHandler"/> and displays it only after a certain delay (or immediately when it is required).
+    /// Wraps a <see cref="GuiHandler"/> and displays it only after a certain delay (or immediately when it is required).
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Disposal is handled sufficiently by GC in this case")]
     public class DelayedGuiHandler : MarshalByRefObject, IHandler

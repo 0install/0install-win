@@ -46,7 +46,6 @@ namespace Common.Controls
         ///   <para>Setting this property will hook up event handlers to monitor the task.</para>
         ///   <para>Remember to set it back to <see langword="null"/> or to call <see cref="IDisposable.Dispose"/> when done, to remove the event handlers again.</para>
         ///   <para>The value must not be set from a background thread.</para>
-        ///   <para>The value must not be set before <see cref="Control.Handle"/> has been created.</para>
         /// </remarks>
         /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread or before the <see cref="Control.Handle"/> is created.</exception>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -56,7 +55,6 @@ namespace Common.Controls
             {
                 #region Sanity checks
                 if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
-                if (!IsHandleCreated) throw new InvalidOperationException("Method called before control handle was created.");
                 #endregion
 
                 // Remove all delegates from old _task
