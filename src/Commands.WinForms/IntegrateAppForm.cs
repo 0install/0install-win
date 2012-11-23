@@ -346,9 +346,9 @@ namespace ZeroInstall.Commands.WinForms
         {
             if (checkBox.Checked)
             {
-                if (!model.Any(element => element.Use)) DefaultCapabilityUseAll(model, true);
+                if (!model.Any(element => element.Use)) CapabilityModelSetAll(model, true);
             }
-            else DefaultCapabilityUseAll(model, false);
+            else CapabilityModelSetAll(model, false);
         }
         #endregion
 
@@ -423,36 +423,36 @@ namespace ZeroInstall.Commands.WinForms
         #region Select all checkboxes
         private void checkBoxFileTypesAll_CheckedChanged(object sender, EventArgs e)
         {
-            DefaultCapabilityUseAll(_fileTypesBinding, checkBoxFileTypesAll.Checked);
+            CapabilityModelSetAll(_fileTypesBinding, checkBoxFileTypesAll.Checked);
         }
 
         private void checkBoxUrlProtocolsAll_CheckedChanged(object sender, EventArgs e)
         {
-            DefaultCapabilityUseAll(_urlProtocolsBinding, checkBoxUrlProtocolsAll.Checked);
+            CapabilityModelSetAll(_urlProtocolsBinding, checkBoxUrlProtocolsAll.Checked);
         }
 
         private void checkBoxAutoPlayAll_CheckedChanged(object sender, EventArgs e)
         {
-            DefaultCapabilityUseAll(_autoPlayBinding, checkBoxAutoPlayAll.Checked);
+            CapabilityModelSetAll(_autoPlayBinding, checkBoxAutoPlayAll.Checked);
         }
 
         private void checkBoxContextMenuAll_CheckedChanged(object sender, EventArgs e)
         {
-            DefaultCapabilityUseAll(_autoPlayBinding, checkBoxAutoPlayAll.Checked);
+            CapabilityModelSetAll(_autoPlayBinding, checkBoxAutoPlayAll.Checked);
         }
 
         private void checkBoxDefaultProgramsAll_CheckedChanged(object sender, EventArgs e)
         {
-            DefaultCapabilityUseAll(_defaultProgramBinding, checkBoxDefaultProgramsAll.Checked);
+            CapabilityModelSetAll(_defaultProgramBinding, checkBoxDefaultProgramsAll.Checked);
         }
 
         /// <summary>
-        /// TODO
+        /// Sets all <see cref="CapabilityModel.Use"/> values within a list/model to a specific value.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="model"></param>
-        /// <param name="value"></param>
-        private static void DefaultCapabilityUseAll<T>(BindingList<T> model, bool value) where T : CapabilityModel
+        /// <typeparam name="T">The specific kind of <see cref="AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
+        /// <param name="model">A model represeting the underlying <see cref="Capabilities.DefaultCapability"/>s and their selection statet.</param>
+        /// <param name="value">The value to set.</param>
+        private static void CapabilityModelSetAll<T>(BindingList<T> model, bool value) where T : CapabilityModel
         {
             foreach (var element in model.Where(element => !element.Capability.ExplicitOnly))
                 element.Use = value;
