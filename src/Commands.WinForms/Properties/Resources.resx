@@ -1217,11 +1217,22 @@
         /AesQfADrEHgB6xB4H+sQf//rEE=
 </value>
   </data>
+  <data name="AdvancedSettings" xml:space="preserve">
+    <value>Ad&amp;vanced settings</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
   <data name="Change" xml:space="preserve">
     <value>Change</value>
+  </data>
+  <data name="DataGridCommandAccessPointHelp" xml:space="preserve">
+    <value>Start entering text in the last line to create a new entry.
+Select an entire line by clicking in the first column and then press DEL on the keyboard to remove an entry.</value>
+  </data>
+  <data name="DataGridDefaultAccessPointHelp" xml:space="preserve">
+    <value>Set a checkbox to make a capability your desired default handler.
+Remove a checkbox to remove a capability's default status (it still remains available).</value>
   </data>
   <data name="DownloadDamaged" xml:space="preserve">
     <value>A downloaded file is damaged or invalid.</value>
@@ -1248,13 +1259,16 @@ A &lt;feed-for&gt; tag indicates feed compatibility.</value>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Do you want to remove the {0} selected entries from the list?</value>
   </data>
+  <data name="Basic" xml:space="preserve">
+    <value>&amp;Basic settings</value>
+  </data>
   <data name="TryHelp" xml:space="preserve">
     <value>Try {0} --help</value>
   </data>
-  <data name="Working" xml:space="preserve">
-    <value>Working...</value>
-  </data>
   <data name="UnableToLoadFeed" xml:space="preserve">
     <value>Unable to load feed '{0}'; skipping.</value>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Working</value>
   </data>
 </root>

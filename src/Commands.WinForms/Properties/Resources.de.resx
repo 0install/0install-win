@@ -117,11 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AdvancedSettings" xml:space="preserve">
+    <value>&amp;Erweiterte Einstellungen</value>
+  </data>
+  <data name="BasicSettings" xml:space="preserve">
+    <value>&amp;Basiseinstellungen</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
   <data name="Change" xml:space="preserve">
     <value>Ändern</value>
+  </data>
+  <data name="DataGridCommandAccessPointHelp" xml:space="preserve">
+    <value>Beginnen Sie Text in der letzten Zeile einzugeben um einen neuen Eintrag anzulegen.
+Wählen Sie eine komplette Zeile aus, indem Sie in die erste Spalte klicken, und drücken sie dann ENTF auf der Tastatur um einen Eintrag zu entfernen.</value>
+  </data>
+  <data name="DataGridDefaultAccessPointHelp" xml:space="preserve">
+    <value>Setzen Sie ein Häkchen um eine Fähigkeit als Ihren bevorzugten Standardhandler zu markieren.
+Entfernen Sie ein Häckchen um den Standard-Status einer Fähigkeit zu entfernen (die Fähigkeit selber bleibt weiterhin verfügbar).</value>
   </data>
   <data name="DownloadDamaged" xml:space="preserve">
     <value>Eine heruntergeladene Datei ist beschädigt oder ungültig.</value>
@@ -151,10 +165,10 @@ Ein &lt;feed-for&gt; Tag zeigt Feed-Kompatibilität an.</value>
   <data name="TryHelp" xml:space="preserve">
     <value>Probieren Sie {0} --help</value>
   </data>
-  <data name="Working" xml:space="preserve">
-    <value>Arbeite...</value>
-  </data>
   <data name="UnableToLoadFeed" xml:space="preserve">
     <value>Konnte Feed '{0}' nicht laden; überspringe.</value>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Arbeite</value>
   </data>
 </root>

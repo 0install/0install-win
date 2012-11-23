@@ -125,6 +125,7 @@ namespace ZeroInstall.Commands.WinForms
 
             SetupCommandAccessPoints();
             SetupDefaultAccessPoints();
+            SwitchToSimpleView();
         }
 
         /// <summary>
@@ -141,54 +142,18 @@ namespace ZeroInstall.Commands.WinForms
             dataGridAliasesColumnCommand.Items.AddRange(commandsArray);
             // ReSharper restore CoVariantArrayConversion
 
-            if (_appEntry.AccessPoints == null) SuggestCommandAccessPoints();
+            if (_appEntry.AccessPoints == null)
+            { // Fill in useful default values
+                foreach (var entry in SuggestMenuEntries()) _menuEntries.Add(entry);
+                foreach (var desktopIcon in SuggestDesktopIcons()) _desktopIcons.Add(desktopIcon);
+                foreach (var alias in SuggestAliases()) _aliases.Add(alias);
+            }
             else ReadCommandAccessPoints();
 
             // Apply data to DataGrids in bulk for better performance
             dataGridStartMenu.DataSource = _menuEntries;
             dataGridDesktop.DataSource = _desktopIcons;
             dataGridAliases.DataSource = _aliases;
-        }
-
-        /// <summary>
-        /// Creates default <see cref="AccessPoints.CommandAccessPoint"/>s as a usuefull basis for the first integration.
-        /// </summary>
-        private void SuggestCommandAccessPoints()
-        {
-            string category = _feed.Categories.FirstOrDefault();
-            if (_feed.EntryPoints.IsEmpty)
-            { // Only one entry point
-                _menuEntries.Add(new AccessPoints.MenuEntry {Name = _appEntry.Name, Category = category, Command = Command.NameRun});
-
-                // Try to guess reasonable alias name of command-line applications
-                if (_feed.NeedsTerminal)
-                    _aliases.Add(new AccessPoints.AppAlias {Name = _appEntry.Name.Replace(' ', '-').ToLower(), Command = Command.NameRun});
-            }
-            else
-            { // Multiple entry points
-                foreach (var entryPoint in _feed.EntryPoints.Where(entryPoint => !string.IsNullOrEmpty(entryPoint.Command)))
-                {
-                    _menuEntries.Add(new AccessPoints.MenuEntry
-                    {
-                        // Try to get a localized name for the command
-                        Name = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture) ??
-                            // If that fails...
-                            ((entryPoint.Command == Command.NameRun)
-                                // ... use the application's name
-                                ? _appEntry.Name
-                                // ... or the application's name and the command
-                                : _appEntry.Name + " " + entryPoint.Command),
-                        // Group all entry points in a single folder
-                        Category = string.IsNullOrEmpty(category) ? _appEntry.Name : category + Path.DirectorySeparatorChar + _appEntry.Name,
-                        Command = entryPoint.Command
-                    });
-
-                    if (_feed.NeedsTerminal || entryPoint.NeedsTerminal)
-                        _aliases.Add(new AccessPoints.AppAlias {Name = entryPoint.BinaryName ?? entryPoint.Command, Command = entryPoint.Command});
-                }
-            }
-
-            _desktopIcons.Add(new AccessPoints.DesktopIcon {Name = _appEntry.Name, Command = Command.NameRun});
         }
 
         /// <summary>
@@ -290,6 +255,229 @@ namespace ZeroInstall.Commands.WinForms
         }
         #endregion
 
+        #region Simple/advanced view
+        private void buttonAdvanced_Click(object sender, EventArgs e)
+        {
+            // Toggle between simple and advanced view
+            if (flowLayoutSimple.Visible) SwitchToAdvancedView();
+            else SwitchToSimpleView();
+        }
+
+        /// <summary>
+        /// Displays the simple configuration view. Initializes the checkboxes with data from the DataGrids.
+        /// </summary>
+        private void SwitchToSimpleView()
+        {
+            SetCommandAccessPointCheckBox(checkBoxStartMenuSimple, _menuEntries, SuggestMenuEntries);
+            SetCommandAccessPointCheckBox(checkBoxDesktopSimple, _desktopIcons, SuggestDesktopIcons);
+            SetCommandAccessPointCheckBox(checkBoxAliasesSimple, _aliases, SuggestAliases);
+            SetDefaultAccessPointCheckBox(checkBoxFileTypesSimple, _fileTypesBinding);
+            SetDefaultAccessPointCheckBox(checkBoxAutoPlaySimple, _autoPlayBinding);
+
+            flowLayoutSimple.Visible = true;
+            checkBoxAutoUpdate.Visible = checkBoxCapabilities.Visible = tabControl.Visible = false;
+            buttonAdvanced.Text = Resources.AdvancedSettings;
+        }
+
+        /// <summary>
+        /// Configures the visibility and check state of <see cref="AccessPoints.CommandAccessPoint"/> <see cref="CheckBox"/>.
+        /// </summary>
+        /// <typeparam name="T">The specific kind of <see cref="AccessPoints.CommandAccessPoint"/> to handle.</typeparam>
+        /// <param name="checkBox">The <see cref="CheckBox"/> to configure.</param>
+        /// <param name="current">The currently applied <see cref="AccessPoints.CommandAccessPoint"/>.</param>
+        /// <param name="getSuggestions">Retrieves a list of default <see cref="AccessPoints.CommandAccessPoint"/> suggested by the system.</param>
+        private static void SetCommandAccessPointCheckBox<T>(CheckBox checkBox, IEnumerable<T> current, Func<IEnumerable<T>> getSuggestions) where T : AccessPoints.CommandAccessPoint
+        {
+            checkBox.Checked = current.Any();
+            checkBox.Visible = getSuggestions().Any();
+        }
+
+        /// <summary>
+        /// Configures the visibility and check state of <see cref="AccessPoints.DefaultAccessPoint"/> <see cref="CheckBox"/>.
+        /// </summary>
+        /// <typeparam name="T">The specific kind of <see cref="AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
+        /// <param name="checkBox">The <see cref="CheckBox"/> to configure.</param>
+        /// <param name="model">A model represeting the underlying <see cref="Capabilities.DefaultCapability"/>s and their selection statet.</param>
+        private static void SetDefaultAccessPointCheckBox<T>(CheckBox checkBox, BindingList<T> model) where T : CapabilityModel
+        {
+            checkBox.Checked = model.Any(element => element.Use);
+            checkBox.Visible = model.Any();
+        }
+
+        /// <summary>
+        /// Displays the advanced configuration view. Applies changes made in the basic view back to the DataGrids.
+        /// </summary>
+        private void SwitchToAdvancedView()
+        {
+            ApplyCommandAccessPointCheckBox(checkBoxStartMenuSimple, _menuEntries, SuggestMenuEntries);
+            ApplyCommandAccessPointCheckBox(checkBoxDesktopSimple, _desktopIcons, SuggestDesktopIcons);
+            ApplyCommandAccessPointCheckBox(checkBoxAliasesSimple, _aliases, SuggestAliases);
+            ApplyDefaultAccessPointCheckBox(checkBoxFileTypesSimple, _fileTypesBinding);
+            ApplyDefaultAccessPointCheckBox(checkBoxAutoPlaySimple, _autoPlayBinding);
+
+            checkBoxAutoUpdate.Visible = checkBoxCapabilities.Visible = tabControl.Visible = true;
+            flowLayoutSimple.Visible = false;
+            buttonAdvanced.Text = Resources.Basic;
+        }
+
+        /// <summary>
+        /// Applies the state of a <see cref="AccessPoints.CommandAccessPoint"/> <see cref="CheckBox"/>.
+        /// </summary>
+        /// <typeparam name="T">The specific kind of <see cref="AccessPoints.CommandAccessPoint"/> to handle.</typeparam>
+        /// <param name="checkBox">The <see cref="CheckBox"/> to read.</param>
+        /// <param name="current">The currently applied <see cref="AccessPoints.CommandAccessPoint"/>.</param>
+        /// <param name="getSuggestions">Retrieves a list of default <see cref="AccessPoints.CommandAccessPoint"/> suggested by the system.</param>
+        private static void ApplyCommandAccessPointCheckBox<T>(CheckBox checkBox, ICollection<T> current, Func<IEnumerable<T>> getSuggestions) where T : AccessPoints.CommandAccessPoint
+        {
+            if (checkBox.Checked)
+            {
+                if (current.Count == 0) foreach (var entry in getSuggestions()) current.Add(entry);
+            }
+            else current.Clear();
+        }
+
+        /// <summary>
+        /// Applies the state of a <see cref="AccessPoints.DefaultAccessPoint"/> <see cref="CheckBox"/>.
+        /// </summary>
+        /// <typeparam name="T">The specific kind of <see cref="AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
+        /// <param name="checkBox">The <see cref="CheckBox"/> to read.</param>
+        /// <param name="model">A model represeting the underlying <see cref="Capabilities.DefaultCapability"/>s and their selection statet.</param>
+        private static void ApplyDefaultAccessPointCheckBox<T>(CheckBox checkBox, BindingList<T> model) where T : CapabilityModel
+        {
+            if (checkBox.Checked)
+            {
+                if (!model.Any(element => element.Use)) DefaultCapabilityUseAll(model, true);
+            }
+            else DefaultCapabilityUseAll(model, false);
+        }
+        #endregion
+
+        #region Suggestions
+        /// <summary>
+        /// Returns a list of suitable default <see cref="AccessPoints.MenuEntry"/>s.
+        /// </summary>
+        private IEnumerable<AccessPoints.MenuEntry> SuggestMenuEntries()
+        {
+            string category = _feed.Categories.FirstOrDefault();
+            if (_feed.EntryPoints.IsEmpty)
+            { // Only one entry point
+                return new[] {new AccessPoints.MenuEntry {Name = _appEntry.Name, Category = category, Command = Command.NameRun}};
+            }
+            else
+            { // Multiple entry points
+                return
+                    from entryPoint in _feed.EntryPoints
+                    where !string.IsNullOrEmpty(entryPoint.Command)
+                    select new AccessPoints.MenuEntry
+                    {
+                        // Try to get a localized name for the command
+                        Name = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture) ?? // If that fails...
+                            ((entryPoint.Command == Command.NameRun)
+                                // ... use the application's name
+                                ? _appEntry.Name
+                                // ... or the application's name and the command
+                                : _appEntry.Name + " " + entryPoint.Command),
+                        // Group all entry points in a single folder
+                        Category = string.IsNullOrEmpty(category) ? _appEntry.Name : category + Path.DirectorySeparatorChar + _appEntry.Name,
+                        Command = entryPoint.Command
+                    };
+            }
+        }
+
+        /// <summary>
+        /// Returns a list of suitable default <see cref="AccessPoints.DesktopIcon"/>s.
+        /// </summary>
+        private IEnumerable<AccessPoints.DesktopIcon> SuggestDesktopIcons()
+        {
+            return new[] {new AccessPoints.DesktopIcon {Name = _appEntry.Name, Command = Command.NameRun}};
+        }
+
+        /// <summary>
+        /// Returns a list of suitable default <see cref="AccessPoints.AppAlias"/>s.
+        /// </summary>
+        private IEnumerable<AccessPoints.AppAlias> SuggestAliases()
+        {
+            if (_feed.EntryPoints.IsEmpty)
+            { // Only one entry point
+                if (_feed.NeedsTerminal)
+                {
+                    // Try to guess reasonable alias name of command-line applications
+                    return new[] {new AccessPoints.AppAlias {Name = _appEntry.Name.Replace(' ', '-').ToLower(), Command = Command.NameRun}};
+                }
+                else return new AccessPoints.AppAlias[0];
+            }
+            else
+            { // Multiple entry points
+                return
+                    from entryPoint in _feed.EntryPoints
+                    where !string.IsNullOrEmpty(entryPoint.Command) && (entryPoint.NeedsTerminal || _feed.NeedsTerminal)
+                    select new AccessPoints.AppAlias
+                    {
+                        Name = entryPoint.BinaryName ?? entryPoint.Command,
+                        Command = entryPoint.Command
+                    };
+            }
+        }
+        #endregion
+
+        #region Select all checkboxes
+        private void checkBoxFileTypesAll_CheckedChanged(object sender, EventArgs e)
+        {
+            DefaultCapabilityUseAll(_fileTypesBinding, checkBoxFileTypesAll.Checked);
+        }
+
+        private void checkBoxUrlProtocolsAll_CheckedChanged(object sender, EventArgs e)
+        {
+            DefaultCapabilityUseAll(_urlProtocolsBinding, checkBoxUrlProtocolsAll.Checked);
+        }
+
+        private void checkBoxAutoPlayAll_CheckedChanged(object sender, EventArgs e)
+        {
+            DefaultCapabilityUseAll(_autoPlayBinding, checkBoxAutoPlayAll.Checked);
+        }
+
+        private void checkBoxContextMenuAll_CheckedChanged(object sender, EventArgs e)
+        {
+            DefaultCapabilityUseAll(_autoPlayBinding, checkBoxAutoPlayAll.Checked);
+        }
+
+        private void checkBoxDefaultProgramsAll_CheckedChanged(object sender, EventArgs e)
+        {
+            DefaultCapabilityUseAll(_defaultProgramBinding, checkBoxDefaultProgramsAll.Checked);
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="model"></param>
+        /// <param name="value"></param>
+        private static void DefaultCapabilityUseAll<T>(BindingList<T> model, bool value) where T : CapabilityModel
+        {
+            foreach (var element in model.Where(element => !element.Capability.ExplicitOnly))
+                element.Use = value;
+            model.ResetBindings();
+        }
+        #endregion
+
+        #region Misc events
+        private void buttonHelpCommandAccessPoint_Click(object sender, EventArgs e)
+        {
+            Msg.Inform(this, Resources.DataGridCommandAccessPointHelp, MsgSeverity.Info);
+        }
+
+        private void buttonHelpDefaultAccessPoint_Click(object sender, EventArgs e)
+        {
+            Msg.Inform(this, Resources.DataGridDefaultAccessPointHelp, MsgSeverity.Info);
+        }
+
+        private void accessPointDataGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            labelLastDataError.Visible = true;
+            labelLastDataError.Text = e.Exception.Message;
+        }
+        #endregion
+
         #region Apply
         /// <summary>
         /// Integrates all <see cref="Capabilities.Capability"/>s chosen by the user.
@@ -305,6 +493,7 @@ namespace ZeroInstall.Commands.WinForms
             _appEntry.AutoUpdate = checkBoxAutoUpdate.Checked;
             (checkBoxCapabilities.Checked ? toAdd : toRemove).Add(new AccessPoints.CapabilityRegistration());
 
+            SwitchToAdvancedView(); // Must do this to apply changes made in simple view
             HandleCommandAccessPointChanges(toAdd, toRemove);
             HandleDefaultAccessPointChanges(toAdd, toRemove);
 
@@ -313,7 +502,7 @@ namespace ZeroInstall.Commands.WinForms
                 if (toRemove.Any()) _integrationManager.RemoveAccessPoints(_appEntry, toRemove);
                 if (toAdd.Any()) _integrationManager.AddAccessPoints(_appEntry, _feed, toAdd);
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {
                 Visible = true; // Allow user to fix input
@@ -399,76 +588,6 @@ namespace ZeroInstall.Commands.WinForms
                     else toRemove.Add(accessPoint);
                 }
             }
-        }
-        #endregion
-
-        #region Select all checkboxes
-        private void checkBoxFileTypesAll_CheckedChanged(object sender, EventArgs e)
-        {
-            int lastColumn = dataGridFileTypes.Columns.Count - 1;
-            dataGridFileTypes.BeginEdit(false);
-            for (int i = 0; i < dataGridFileTypes.RowCount; i++)
-            {
-                if (_fileTypesBinding[i].Capability.ExplicitOnly) continue;
-                dataGridFileTypes[lastColumn, i].Value = checkBoxFileTypesAll.Checked;
-            }
-            dataGridFileTypes.EndEdit();
-        }
-
-        private void checkBoxUrlProtocolsAll_CheckedChanged(object sender, EventArgs e)
-        {
-            int lastColumn = dataGridUrlProtocols.Columns.Count - 1;
-            dataGridUrlProtocols.BeginEdit(false);
-            for (int i = 0; i < dataGridUrlProtocols.RowCount; i++)
-            {
-                if (_urlProtocolsBinding[i].Capability.ExplicitOnly) continue;
-                dataGridUrlProtocols[lastColumn, i].Value = checkBoxUrlProtocolsAll.Checked;
-            }
-            dataGridUrlProtocols.EndEdit();
-        }
-
-        private void checkBoxAutoPlayAll_CheckedChanged(object sender, EventArgs e)
-        {
-            int lastColumn = dataGridAutoPlay.Columns.Count - 1;
-            dataGridAutoPlay.BeginEdit(false);
-            for (int i = 0; i < dataGridAutoPlay.RowCount; i++)
-            {
-                if (_autoPlayBinding[i].Capability.ExplicitOnly) continue;
-                dataGridAutoPlay[lastColumn, i].Value = checkBoxAutoPlayAll.Checked;
-            }
-            dataGridAutoPlay.EndEdit();
-        }
-
-        private void checkBoxContextMenuAll_CheckedChanged(object sender, EventArgs e)
-        {
-            int lastColumn = dataGridContextMenu.Columns.Count - 1;
-            dataGridContextMenu.BeginEdit(false);
-            for (int i = 0; i < dataGridContextMenu.RowCount; i++)
-            {
-                if (_contextMenuBinding[i].Capability.ExplicitOnly) continue;
-                dataGridContextMenu[lastColumn, i].Value = checkBoxContextMenuAll.Checked;
-            }
-            dataGridContextMenu.EndEdit();
-        }
-
-        private void checkBoxDefaultProgramsAll_CheckedChanged(object sender, EventArgs e)
-        {
-            int lastColumn = dataGridDefaultPrograms.Columns.Count - 1;
-            dataGridDefaultPrograms.BeginEdit(false);
-            for (int i = 0; i < dataGridDefaultPrograms.RowCount; i++)
-            {
-                if (_defaultProgramBinding[i].Capability.ExplicitOnly) continue;
-                dataGridDefaultPrograms[lastColumn, i].Value = checkBoxDefaultProgramsAll.Checked;
-            }
-            dataGridDefaultPrograms.EndEdit();
-        }
-        #endregion
-
-        #region Error handling
-        private void accessPointDataGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            labelLastDataError.Visible = true;
-            labelLastDataError.Text = e.Exception.Message;
         }
         #endregion
     }

@@ -20,7 +20,6 @@ using System.Threading;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
-using Common.Storage;
 using Common.Tasks;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
@@ -121,7 +120,7 @@ namespace ZeroInstall.Commands.WinForms
             { // Cancel callback
                 _cancellationToken.RequestCancellation();
                 _auditWaitHandle.Set();
-            });
+            }, _actionTitle);
 
             // Start GUI thread
             using (var guiReady = new ManualResetEvent(false))
@@ -129,8 +128,6 @@ namespace ZeroInstall.Commands.WinForms
                 var thread = new Thread(() =>
                 {
                     _form.Initialize();
-                    if (_actionTitle != null) _form.Text = _actionTitle;
-                    if (Locations.IsPortable) _form.Text += @" - " + Resources.PortableMode;
 
                     // Show the tray icon or the form
                     if (Batch) _form.ShowTrayIcon(_actionTitle, ToolTipIcon.None);
@@ -297,16 +294,15 @@ namespace ZeroInstall.Commands.WinForms
             var integrationForm = new IntegrateAppForm(integrationManager, appEntry, feed);
             integrationForm.VisibleChanged += delegate
             { // The IntegrateAppForm and ProgressForm take turns in being visible
-                // Leave tray icon mode
-                _form.Show();
-                Application.DoEvents();
-
-                _form.Invoke(new Action(delegate
+                if (integrationForm.Visible || (integrationForm.DialogResult == DialogResult.Cancel))
                 {
-                    // Prevent ProgressForm from flashing up again when the user cancels
-                    _form.Visible = !integrationForm.Visible && (integrationForm.DialogResult != DialogResult.Cancel);
-                    if (integrationForm.Visible) _form.HideTrayIcon();
-                }));
+                    _form.Invoke(new Action(() =>
+                    {
+                        _form.Visible = false;
+                        _form.HideTrayIcon();
+                    }));
+                }
+                else _form.Invoke(new Action(_form.Show));
             };
             integrationForm.ShowDialog();
         }

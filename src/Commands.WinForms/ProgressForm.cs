@@ -38,6 +38,9 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>To be called when the user wishes to cancel the current process.</summary>
         private readonly Action _cancelCallback;
 
+        /// <summary>A short title describing what the command being executed does.</summary>
+        private readonly string _actionTitle;
+
         /// <summary>A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/> after <see cref="BeginAuditSelections"/>.</summary>
         private EventWaitHandle _auditWaitHandle;
 
@@ -50,13 +53,15 @@ namespace ZeroInstall.Commands.WinForms
         /// Creates a new progress tracking form.
         /// </summary>
         /// <param name="cancelCallback">To be called when the user wishes to cancel the current process.</param>
-        public ProgressForm(Action cancelCallback)
+        /// <param name="actionTitle">A short title describing what the command being executed does; may be <see langword="null"/>.</param>
+        public ProgressForm(Action cancelCallback, string actionTitle)
         {
             #region Sanity checks
             if (cancelCallback == null) throw new ArgumentNullException("cancelCallback");
             #endregion
 
             _cancelCallback = cancelCallback;
+            _actionTitle = actionTitle ?? Resources.Working;
 
             Shown += delegate { WindowsUtils.SetForegroundWindow(this); };
         }
@@ -67,9 +72,10 @@ namespace ZeroInstall.Commands.WinForms
         public void Initialize()
         {
             InitializeComponent();
-            labelWorking.Text = Resources.Working;
+            labelWorking.Text = _actionTitle;
             buttonHide.Text = Resources.Hide;
             buttonCancel.Text = Resources.Cancel;
+            Text += @" - " + Resources.PortableMode;
 
             CreateHandle();
             CreateControl();
@@ -218,7 +224,7 @@ namespace ZeroInstall.Commands.WinForms
 
         private void buttonHide_Click(object sender, EventArgs e)
         {
-            ShowTrayIcon(Text, ToolTipIcon.None);
+            ShowTrayIcon(_actionTitle, ToolTipIcon.None);
             Visible = false;
         }
         #endregion

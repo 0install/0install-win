@@ -61,6 +61,24 @@ namespace ZeroInstall.Commands.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ad&amp;vanced settings.
+        /// </summary>
+        internal static string AdvancedSettings {
+            get {
+                return ResourceManager.GetString("AdvancedSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Basic settings.
+        /// </summary>
+        internal static string Basic {
+            get {
+                return ResourceManager.GetString("Basic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Cancel {
@@ -75,6 +93,26 @@ namespace ZeroInstall.Commands.WinForms.Properties {
         internal static string Change {
             get {
                 return ResourceManager.GetString("Change", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start entering text in the last line to create a new entry.
+        ///Select an entire line by clicking in the first column and then press DEL on the keyboard to remove an entry..
+        /// </summary>
+        internal static string DataGridCommandAccessPointHelp {
+            get {
+                return ResourceManager.GetString("DataGridCommandAccessPointHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set a checkbox to make a capability your desired default handler.
+        ///Remove a checkbox to remove a capability&apos;s default status (it still remains available)..
+        /// </summary>
+        internal static string DataGridDefaultAccessPointHelp {
+            get {
+                return ResourceManager.GetString("DataGridDefaultAccessPointHelp", resourceCulture);
             }
         }
         
@@ -180,7 +218,7 @@ namespace ZeroInstall.Commands.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Working....
+        ///   Looks up a localized string similar to Working.
         /// </summary>
         internal static string Working {
             get {
