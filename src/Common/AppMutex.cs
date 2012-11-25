@@ -49,8 +49,11 @@ namespace Common
         /// </summary>
         public void Close()
         {
-            foreach (var handle in _handles.Where(handle => handle != IntPtr.Zero))
+            foreach (var handle in _handles.Where(handle => handle != IntPtr.Zero).ToList())
+            {
                 WindowsUtils.CloseMutex(handle);
+                _handles.Remove(handle);
+            }
         }
         #endregion
 

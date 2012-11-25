@@ -96,7 +96,7 @@ namespace ZeroInstall.Updater.WinForms
                 SetStatus(Resources.FixPermissions);
                 _updateProcess.FixPermissions();
 
-                _updateProcess.Done();
+                _updateProcess.Done(); // Must release blocking mutexes before restarting the service
                 if (serviceWasRunning)
                 {
                     SetStatus(Resources.StartService);
@@ -110,6 +110,9 @@ namespace ZeroInstall.Updater.WinForms
 
                 SetStatus(Resources.RerunElevated);
                 RerunElevated();
+
+                SetStatus(Resources.Done);
+                _updateProcess.Done();
             }
         }
 
