@@ -798,15 +798,6 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apply the configuration machine-wide instead of just for the current user..
-        /// </summary>
-        internal static string OptionGlobal {
-            get {
-                return ResourceManager.GetString("OptionGlobal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Show the graphical policy editor. This allows you to select which version of a program or library to use..
         /// </summary>
         internal static string OptionGui {
@@ -821,6 +812,15 @@ namespace ZeroInstall.Commands.Properties {
         internal static string OptionHelp {
             get {
                 return ResourceManager.GetString("OptionHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply the configuration machine-wide (for the entire computer) instead of just for the current user..
+        /// </summary>
+        internal static string OptionMachine {
+            get {
+                return ResourceManager.GetString("OptionMachine", resourceCulture);
             }
         }
         

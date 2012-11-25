@@ -368,14 +368,14 @@ Set to empty ("") to ignore the command during selection.</value>
   <data name="OptionForceSelfUpdate" xml:space="preserve">
     <value>Perform the update even if the currently installed version is the same or newer.</value>
   </data>
-  <data name="OptionGlobal" xml:space="preserve">
-    <value>Apply the configuration machine-wide instead of just for the current user.</value>
-  </data>
   <data name="OptionGui" xml:space="preserve">
     <value>Show the graphical policy editor. This allows you to select which version of a program or library to use.</value>
   </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Show the built-in help text.</value>
+  </data>
+  <data name="OptionMachine" xml:space="preserve">
+    <value>Apply the configuration machine-wide (for the entire computer) instead of just for the current user.</value>
   </data>
   <data name="OptionMain" xml:space="preserve">
     <value>Run the specified executable {MAIN} instead of the default. If it starts with '/' or '\' then the path is relative to the implementation's top-level directory, whereas otherwise it is relative to the directory containing the default main program.

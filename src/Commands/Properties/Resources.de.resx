@@ -368,14 +368,14 @@ Auf leer ("") setzen um den Command bei der Auswahl zu ignorieren.</value>
   <data name="OptionForceSelfUpdate" xml:space="preserve">
     <value>Führe das Update durch, auch wenn die derzeit installierte Version die gleiche oder neuer ist.</value>
   </data>
-  <data name="OptionGlobal" xml:space="preserve">
-    <value>Wende die Konfiguration System-weit anstatt nur für den aktuellen User an.</value>
-  </data>
   <data name="OptionGui" xml:space="preserve">
     <value>Zeigt den grafischen Versionseditor an. Dies gestattet Ihnen die Version des Programmes oder der Bibliothek auszuwählen.</value>
   </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Zeigt den eingebauten Hilfe-Text an.</value>
+  </data>
+  <data name="OptionMachine" xml:space="preserve">
+    <value>Wende die Konfiguration Maschinenweit (auf dem ganzen Computer) anstatt nur für den aktuellen User an.</value>
   </data>
   <data name="OptionMain" xml:space="preserve">
     <value>Starte die spezifizierte ausführbare Datei {MAIN} anstellte des Standards. Beginnt der Pfad mit '/' oder '\', ist er relativ zum obersten Verzeichnis der Implementierung. Andernfalls ist er relativ zum Verzeichnis welches das Standardhauptprogramm enthält.

@@ -134,7 +134,7 @@ Dabei werden auch alle Desktopintegrationen für die Anwendung entfernt.</value>
     <value>Konnte {0} nicht starten.</value>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
-    <value>Maschienenweiter Modus</value>
+    <value>Maschinenweiter Modus</value>
   </data>
   <data name="ModifyButtonTooltip" xml:space="preserve">
     <value>Integration ändern</value>
