@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -191,6 +192,28 @@ namespace ZeroInstall.Store.Service
 
         // ReSharper restore PossibleNullReferenceException
         // ReSharper restore AssignNullToNotNullAttribute
+
+        #region Nop
+        /// <summary>
+        /// Does nothing. Should be handled by an administrator directly instead of using the service.
+        /// </summary>
+        public override void Verify(ManifestDigest manifestDigest, ITaskHandler handler)
+        {}
+
+        /// <summary>
+        /// Does nothing. Should be handled by an administrator directly instead of using the service.
+        /// </summary>
+        public override IEnumerable<DigestMismatchException> Audit(ITaskHandler handler)
+        {
+            return new DigestMismatchException[0];
+        }
+
+        /// <summary>
+        /// Does nothing. Should be handled by an administrator directly instead of using the service.
+        /// </summary>
+        public override void Optimise(ITaskHandler handler)
+        {}
+        #endregion
 
         //--------------------//
 

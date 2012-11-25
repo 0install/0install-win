@@ -356,7 +356,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Optimise
         /// <inheritdoc />
-        public void Optimise(ITaskHandler handler)
+        public virtual void Optimise(ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -368,7 +368,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Verify
         /// <inheritdoc />
-        public void Verify(ManifestDigest manifestDigest, ITaskHandler handler)
+        public virtual void Verify(ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -400,7 +400,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Audit
         /// <inheritdoc />
-        public IEnumerable<DigestMismatchException> Audit(ITaskHandler handler)
+        public virtual IEnumerable<DigestMismatchException> Audit(ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
