@@ -165,12 +165,12 @@ namespace ZeroInstall.Capture.Cli
                         catch (ArgumentException ex)
                         {
                             // Wrap exception since only certain exception types are allowed
-                            throw new OptionException(ex.Message, "installation-dir", ex);
+                            throw new OptionException(ex.Message, "installation-dir");
                         }
                         catch (NotSupportedException ex)
                         {
                             // Wrap exception since only certain exception types are allowed
-                            throw new OptionException(ex.Message, "installation-dir", ex);
+                            throw new OptionException(ex.Message, "installation-dir");
                         }
                         #endregion
                     }
@@ -207,12 +207,12 @@ namespace ZeroInstall.Capture.Cli
             catch (ArgumentException ex)
             {
                 // Wrap exception since only certain exception types are allowed
-                throw new OptionException(ex.Message, "", ex);
+                throw new OptionException(ex.Message, "");
             }
             catch (NotSupportedException ex)
             {
                 // Wrap exception since only certain exception types are allowed
-                throw new OptionException(ex.Message, "", ex);
+                throw new OptionException(ex.Message, "");
             }
             #endregion
 

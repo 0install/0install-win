@@ -72,7 +72,7 @@ namespace ZeroInstall.Commands
                     catch (ArgumentException ex)
                     {
                         // Wrap exception since only certain exception types are allowed
-                        throw new OptionException(ex.Message, "algorithm", ex);
+                        throw new OptionException(ex.Message, "algorithm");
                     }
                     #endregion
                 });
