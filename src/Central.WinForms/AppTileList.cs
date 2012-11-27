@@ -75,14 +75,14 @@ namespace ZeroInstall.Central.WinForms
         [DefaultValue(typeof(Color), "White")]
         public Color TileColorLight { get { return _tileColorLight; } set { _tileColorLight = value; } }
 
-        private Color _tileColorDark = Color.LightSteelBlue;
+        private Color _tileColorDark = Color.Gainsboro;
 
         /// <summary>
         /// The dark background color (one of two colors the list toggles between) for <see cref="AppTile"/>s.
         /// </summary>
         /// <seealso cref="TileColorLight"/>
         [Category("Appearance"), Description("The dark background color (one of two colors the list toggles between) for AppTiles.")]
-        [DefaultValue(typeof(Color), "LightSteelBlue")]
+        [DefaultValue(typeof(Color), "Gainsboro")]
         public Color TileColorDark { get { return _tileColorDark; } set { _tileColorDark = value; } }
         #endregion
 
