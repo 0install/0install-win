@@ -329,6 +329,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="getSuggestions">Retrieves a list of default <see cref="AccessPoints.CommandAccessPoint"/> suggested by the system.</param>
         private static void ApplyCommandAccessPointCheckBox<T>(CheckBox checkBox, ICollection<T> current, Func<IEnumerable<T>> getSuggestions) where T : AccessPoints.CommandAccessPoint
         {
+            if (!checkBox.Visible) return;
             if (checkBox.Checked)
             {
                 if (current.Count == 0) foreach (var entry in getSuggestions()) current.Add(entry);
@@ -344,6 +345,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="model">A model represeting the underlying <see cref="Capabilities.DefaultCapability"/>s and their selection statet.</param>
         private static void ApplyDefaultAccessPointCheckBox<T>(CheckBox checkBox, BindingList<T> model) where T : CapabilityModel
         {
+            if (!checkBox.Visible) return;
             if (checkBox.Checked)
             {
                 if (!model.Any(element => element.Use)) CapabilityModelSetAll(model, true);
