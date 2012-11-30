@@ -94,12 +94,15 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static Catalog GetOnline(Policy policy)
         {
-            // Load and megre all catalogs
-            var catalog = Catalog.Merge(GetCatalogSources().Select(delegate(string source)
+            var catalogs = GetCatalogSources().Select(delegate(string source)
             {
+                // Download remote catalogs and open local catalogs
                 Uri catalogUrl;
-                return ModelUtils.TryParseUri(source, out catalogUrl) ? DownloadCatalog(catalogUrl, policy) : Catalog.Load(source);
-            }));
+                return ModelUtils.TryParseUri(source, out catalogUrl)
+                    ? DownloadCatalog(catalogUrl, policy)
+                    : Catalog.Load(source);
+            });
+            var catalog = Catalog.Merge(catalogs);
 
             // Cache the result
             try
