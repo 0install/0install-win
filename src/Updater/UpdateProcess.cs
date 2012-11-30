@@ -111,7 +111,7 @@ namespace ZeroInstall.Updater
         /// <summary>
         /// Waits for any Zero Install instances running in <see cref="Target"/> to terminate and then prevents new ones from starting.
         /// </summary>
-        public void MutexWait()
+        public void MutexAquire()
         {
             // Installation paths are encoded into mutex names to allow instance detection
             // Support old versions that used SHA256 for mutex names (unnecessarily complex since not security-relevant)
@@ -133,6 +133,15 @@ namespace ZeroInstall.Updater
                 Thread.Sleep(1000);
             while (AppMutex.Probe(targetMutexNew))
                 Thread.Sleep(1000);
+        }
+        
+        /// <summary>
+        /// Counterpart to <see cref="MutexAquire"/>.
+        /// </summary>
+        public void MutexRelease()
+        {
+            _blockingMutexOld.Close();
+            _blockingMutexNew.Close();
         }
         #endregion
 
@@ -290,17 +299,6 @@ namespace ZeroInstall.Updater
                     directory.SetAccessControl(Locations.SecureSharedAcl);
                 }
             }
-        }
-        #endregion
-
-        #region Done
-        /// <summary>
-        /// Finishes the update process. Counterpart to <see cref="MutexWait"/>.
-        /// </summary>
-        public void Done()
-        {
-            _blockingMutexOld.Close();
-            _blockingMutexNew.Close();
         }
         #endregion
 

@@ -71,7 +71,7 @@ namespace ZeroInstall.Updater.WinForms
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             SetStatus(Resources.MutexWait);
-            _updateProcess.MutexWait();
+            _updateProcess.MutexAquire();
 
             try
             {
@@ -96,12 +96,13 @@ namespace ZeroInstall.Updater.WinForms
                 SetStatus(Resources.FixPermissions);
                 _updateProcess.FixPermissions();
 
-                _updateProcess.Done(); // Must release blocking mutexes before restarting the service
+                _updateProcess.MutexRelease(); // Must release blocking mutexes before restarting the service
                 if (serviceWasRunning)
                 {
                     SetStatus(Resources.StartService);
                     _updateProcess.StartService();
                 }
+
                 SetStatus(Resources.Done);
             }
             catch (UnauthorizedAccessException)
@@ -109,10 +110,10 @@ namespace ZeroInstall.Updater.WinForms
                 if (_rerun || WindowsUtils.IsAdministrator) throw;
 
                 SetStatus(Resources.RerunElevated);
+                _updateProcess.MutexRelease(); // Must release blocking mutexes in case the child process needs them
                 RerunElevated();
 
                 SetStatus(Resources.Done);
-                _updateProcess.Done();
             }
         }
 
