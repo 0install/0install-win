@@ -139,10 +139,12 @@ namespace ZeroInstall.Store.Implementation
                         return true;
                     }
                 }
+                    #region Error handling
                 catch (RemotingException)
                 {
                     // Ignore remoting errors in case service is offline
                 }
+                #endregion
             }
 
             // If we reach this, none of the stores contains the implementation
@@ -158,12 +160,31 @@ namespace ZeroInstall.Store.Implementation
         }
         #endregion
 
-        #region Get
+        #region Get path
         /// <inheritdoc />
         public string GetPath(ManifestDigest manifestDigest)
         {
             // Use the first store that contains the implementation
-            return _stores.Select(store => store.GetPath(manifestDigest)).FirstOrDefault(path => path != null);
+            return _stores.Select(store => GetPathSafe(store, manifestDigest)).FirstOrDefault(path => path != null);
+        }
+
+        private static string GetPathSafe(IStore store, ManifestDigest manifestDigest)
+        {
+            try
+            {
+                return store.GetPath(manifestDigest);
+            }
+                #region Error handling
+            catch (UnauthorizedAccessException)
+            {
+                return null;
+            }
+            catch (RemotingException)
+            {
+                // Ignore remoting errors in case service is offline
+                return null;
+            }
+            #endregion
         }
         #endregion
 
@@ -332,8 +353,6 @@ namespace ZeroInstall.Store.Implementation
                 store.Verify(manifestDigest, handler);
                 verified = true;
             }
-
-            // If we reach this, none of the stores contains the implementation
             if (!verified) throw new ImplementationNotFoundException(manifestDigest);
         }
         #endregion
