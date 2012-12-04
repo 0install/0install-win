@@ -72,9 +72,9 @@ namespace ZeroInstall.Commands.WinForms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &amp;Basic settings.
         /// </summary>
-        internal static string Basic {
+        internal static string BasicSettings {
             get {
-                return ResourceManager.GetString("Basic", resourceCulture);
+                return ResourceManager.GetString("BasicSettings", resourceCulture);
             }
         }
         

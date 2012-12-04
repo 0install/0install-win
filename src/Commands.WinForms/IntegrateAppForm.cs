@@ -317,7 +317,7 @@ namespace ZeroInstall.Commands.WinForms
 
             checkBoxAutoUpdate.Visible = checkBoxCapabilities.Visible = tabControl.Visible = true;
             flowLayoutSimple.Visible = false;
-            buttonAdvanced.Text = Resources.Basic;
+            buttonAdvanced.Text = Resources.BasicSettings;
         }
 
         /// <summary>
