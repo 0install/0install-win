@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
+using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Commands.WinForms.Properties;
@@ -75,7 +76,7 @@ namespace ZeroInstall.Commands.WinForms
             labelWorking.Text = _actionTitle;
             buttonHide.Text = Resources.Hide;
             buttonCancel.Text = Resources.Cancel;
-            Text += @" - " + Resources.PortableMode;
+            if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
 
             CreateHandle();
             CreateControl();
