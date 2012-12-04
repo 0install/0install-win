@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdvancedSettings" xml:space="preserve">
-    <value>&amp;Erweiterte Einstellungen</value>
-  </data>
-  <data name="BasicSettings" xml:space="preserve">
-    <value>&amp;Basiseinstellungen</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Abbrechen</value>
   </data>

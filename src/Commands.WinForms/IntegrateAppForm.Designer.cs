@@ -83,14 +83,18 @@
             this.checkBoxCapabilities = new System.Windows.Forms.CheckBox();
             this.checkBoxAutoUpdate = new System.Windows.Forms.CheckBox();
             this.labelLastDataError = new System.Windows.Forms.Label();
-            this.buttonAdvanced = new System.Windows.Forms.Button();
-            this.flowLayoutSimple = new System.Windows.Forms.FlowLayoutPanel();
+            this.buttonAdvancedMode = new System.Windows.Forms.Button();
+            this.flowLayoutBasic = new System.Windows.Forms.FlowLayoutPanel();
             this.labelSimple = new System.Windows.Forms.Label();
             this.checkBoxStartMenuSimple = new System.Windows.Forms.CheckBox();
             this.checkBoxDesktopSimple = new System.Windows.Forms.CheckBox();
             this.checkBoxAliasesSimple = new System.Windows.Forms.CheckBox();
             this.checkBoxFileTypesSimple = new System.Windows.Forms.CheckBox();
+            this.checkBoxUrlProtocolsSimple = new System.Windows.Forms.CheckBox();
             this.checkBoxAutoPlaySimple = new System.Windows.Forms.CheckBox();
+            this.checkBoxContextMenuSimple = new System.Windows.Forms.CheckBox();
+            this.checkBoxDefaultProgramsSimple = new System.Windows.Forms.CheckBox();
+            this.buttonBasicMode = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPageStartMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStartMenu)).BeginInit();
@@ -108,13 +112,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridContextMenu)).BeginInit();
             this.tabPageDefaultPrograms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridDefaultPrograms)).BeginInit();
-            this.flowLayoutSimple.SuspendLayout();
+            this.flowLayoutBasic.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
-            resources.ApplyResources(this.buttonOK, "buttonOK");
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.None;
+            resources.ApplyResources(this.buttonOK, "buttonOK");
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // buttonCancel
@@ -137,9 +141,9 @@
             // 
             // tabPageStartMenu
             // 
-            resources.ApplyResources(this.tabPageStartMenu, "tabPageStartMenu");
             this.tabPageStartMenu.Controls.Add(this.buttonHelpStartMenu);
             this.tabPageStartMenu.Controls.Add(this.dataGridStartMenu);
+            resources.ApplyResources(this.tabPageStartMenu, "tabPageStartMenu");
             this.tabPageStartMenu.Name = "tabPageStartMenu";
             this.tabPageStartMenu.UseVisualStyleBackColor = true;
             // 
@@ -152,12 +156,12 @@
             // 
             // dataGridStartMenu
             // 
-            resources.ApplyResources(this.dataGridStartMenu, "dataGridStartMenu");
             this.dataGridStartMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridStartMenu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridStartMenuColumnName,
             this.dataGridStartMenuColumnCategory,
             this.dataGridStartMenuColumnCommand});
+            resources.ApplyResources(this.dataGridStartMenu, "dataGridStartMenu");
             this.dataGridStartMenu.Name = "dataGridStartMenu";
             this.dataGridStartMenu.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.accessPointDataGrid_DataError);
             // 
@@ -189,9 +193,9 @@
             // 
             // tabPageDesktop
             // 
-            resources.ApplyResources(this.tabPageDesktop, "tabPageDesktop");
             this.tabPageDesktop.Controls.Add(this.buttonHelpDesktop);
             this.tabPageDesktop.Controls.Add(this.dataGridDesktop);
+            resources.ApplyResources(this.tabPageDesktop, "tabPageDesktop");
             this.tabPageDesktop.Name = "tabPageDesktop";
             this.tabPageDesktop.UseVisualStyleBackColor = true;
             // 
@@ -204,11 +208,11 @@
             // 
             // dataGridDesktop
             // 
-            resources.ApplyResources(this.dataGridDesktop, "dataGridDesktop");
             this.dataGridDesktop.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridDesktop.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridDesktopColumnName,
             this.dataGridDesktopColumnCommand});
+            resources.ApplyResources(this.dataGridDesktop, "dataGridDesktop");
             this.dataGridDesktop.Name = "dataGridDesktop";
             this.dataGridDesktop.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.accessPointDataGrid_DataError);
             // 
@@ -232,9 +236,9 @@
             // 
             // tabPageAliases
             // 
-            resources.ApplyResources(this.tabPageAliases, "tabPageAliases");
             this.tabPageAliases.Controls.Add(this.buttonHelpAliases);
             this.tabPageAliases.Controls.Add(this.dataGridAliases);
+            resources.ApplyResources(this.tabPageAliases, "tabPageAliases");
             this.tabPageAliases.Name = "tabPageAliases";
             this.tabPageAliases.UseVisualStyleBackColor = true;
             // 
@@ -247,11 +251,11 @@
             // 
             // dataGridAliases
             // 
-            resources.ApplyResources(this.dataGridAliases, "dataGridAliases");
             this.dataGridAliases.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridAliases.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridAliasesColumnName,
             this.dataGridAliasesColumnCommand});
+            resources.ApplyResources(this.dataGridAliases, "dataGridAliases");
             this.dataGridAliases.Name = "dataGridAliases";
             this.dataGridAliases.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.accessPointDataGrid_DataError);
             // 
@@ -275,10 +279,10 @@
             // 
             // tabPageFileTypes
             // 
-            resources.ApplyResources(this.tabPageFileTypes, "tabPageFileTypes");
             this.tabPageFileTypes.Controls.Add(this.buttonHelpFileTypes);
             this.tabPageFileTypes.Controls.Add(this.checkBoxFileTypesAll);
             this.tabPageFileTypes.Controls.Add(this.dataGridFileTypes);
+            resources.ApplyResources(this.tabPageFileTypes, "tabPageFileTypes");
             this.tabPageFileTypes.Name = "tabPageFileTypes";
             this.tabPageFileTypes.UseVisualStyleBackColor = true;
             // 
@@ -294,14 +298,13 @@
             resources.ApplyResources(this.checkBoxFileTypesAll, "checkBoxFileTypesAll");
             this.checkBoxFileTypesAll.Name = "checkBoxFileTypesAll";
             this.checkBoxFileTypesAll.UseVisualStyleBackColor = true;
-            this.checkBoxFileTypesAll.CheckedChanged += new System.EventHandler(this.checkBoxFileTypesAll_CheckedChanged);
             // 
             // dataGridFileTypes
             // 
-            resources.ApplyResources(this.dataGridFileTypes, "dataGridFileTypes");
             this.dataGridFileTypes.AllowUserToAddRows = false;
             this.dataGridFileTypes.AllowUserToDeleteRows = false;
             this.dataGridFileTypes.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.dataGridFileTypes, "dataGridFileTypes");
             this.dataGridFileTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridFileTypes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridFileTypesColumnDefault,
@@ -339,10 +342,10 @@
             // 
             // tabPageUrlProtocols
             // 
-            resources.ApplyResources(this.tabPageUrlProtocols, "tabPageUrlProtocols");
             this.tabPageUrlProtocols.Controls.Add(this.buttonHelpUrlProtocols);
             this.tabPageUrlProtocols.Controls.Add(this.checkBoxUrlProtocolsAll);
             this.tabPageUrlProtocols.Controls.Add(this.dataGridUrlProtocols);
+            resources.ApplyResources(this.tabPageUrlProtocols, "tabPageUrlProtocols");
             this.tabPageUrlProtocols.Name = "tabPageUrlProtocols";
             this.tabPageUrlProtocols.UseVisualStyleBackColor = true;
             // 
@@ -358,14 +361,13 @@
             resources.ApplyResources(this.checkBoxUrlProtocolsAll, "checkBoxUrlProtocolsAll");
             this.checkBoxUrlProtocolsAll.Name = "checkBoxUrlProtocolsAll";
             this.checkBoxUrlProtocolsAll.UseVisualStyleBackColor = true;
-            this.checkBoxUrlProtocolsAll.CheckedChanged += new System.EventHandler(this.checkBoxUrlProtocolsAll_CheckedChanged);
             // 
             // dataGridUrlProtocols
             // 
-            resources.ApplyResources(this.dataGridUrlProtocols, "dataGridUrlProtocols");
             this.dataGridUrlProtocols.AllowUserToAddRows = false;
             this.dataGridUrlProtocols.AllowUserToDeleteRows = false;
             this.dataGridUrlProtocols.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.dataGridUrlProtocols, "dataGridUrlProtocols");
             this.dataGridUrlProtocols.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridUrlProtocols.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridUrlProtocolsColumnDefault,
@@ -403,10 +405,10 @@
             // 
             // tabPageAutoPlay
             // 
-            resources.ApplyResources(this.tabPageAutoPlay, "tabPageAutoPlay");
             this.tabPageAutoPlay.Controls.Add(this.buttonHelpAutoPlay);
             this.tabPageAutoPlay.Controls.Add(this.checkBoxAutoPlayAll);
             this.tabPageAutoPlay.Controls.Add(this.dataGridAutoPlay);
+            resources.ApplyResources(this.tabPageAutoPlay, "tabPageAutoPlay");
             this.tabPageAutoPlay.Name = "tabPageAutoPlay";
             this.tabPageAutoPlay.UseVisualStyleBackColor = true;
             // 
@@ -422,14 +424,13 @@
             resources.ApplyResources(this.checkBoxAutoPlayAll, "checkBoxAutoPlayAll");
             this.checkBoxAutoPlayAll.Name = "checkBoxAutoPlayAll";
             this.checkBoxAutoPlayAll.UseVisualStyleBackColor = true;
-            this.checkBoxAutoPlayAll.CheckedChanged += new System.EventHandler(this.checkBoxAutoPlayAll_CheckedChanged);
             // 
             // dataGridAutoPlay
             // 
-            resources.ApplyResources(this.dataGridAutoPlay, "dataGridAutoPlay");
             this.dataGridAutoPlay.AllowUserToAddRows = false;
             this.dataGridAutoPlay.AllowUserToDeleteRows = false;
             this.dataGridAutoPlay.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.dataGridAutoPlay, "dataGridAutoPlay");
             this.dataGridAutoPlay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridAutoPlay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridAutoPlayColumnDefault,
@@ -467,10 +468,10 @@
             // 
             // tabPageContextMenu
             // 
-            resources.ApplyResources(this.tabPageContextMenu, "tabPageContextMenu");
             this.tabPageContextMenu.Controls.Add(this.buttonHelpContextMenu);
             this.tabPageContextMenu.Controls.Add(this.checkBoxContextMenuAll);
             this.tabPageContextMenu.Controls.Add(this.dataGridContextMenu);
+            resources.ApplyResources(this.tabPageContextMenu, "tabPageContextMenu");
             this.tabPageContextMenu.Name = "tabPageContextMenu";
             this.tabPageContextMenu.UseVisualStyleBackColor = true;
             // 
@@ -486,14 +487,13 @@
             resources.ApplyResources(this.checkBoxContextMenuAll, "checkBoxContextMenuAll");
             this.checkBoxContextMenuAll.Name = "checkBoxContextMenuAll";
             this.checkBoxContextMenuAll.UseVisualStyleBackColor = true;
-            this.checkBoxContextMenuAll.CheckedChanged += new System.EventHandler(this.checkBoxContextMenuAll_CheckedChanged);
             // 
             // dataGridContextMenu
             // 
-            resources.ApplyResources(this.dataGridContextMenu, "dataGridContextMenu");
             this.dataGridContextMenu.AllowUserToAddRows = false;
             this.dataGridContextMenu.AllowUserToDeleteRows = false;
             this.dataGridContextMenu.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.dataGridContextMenu, "dataGridContextMenu");
             this.dataGridContextMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridContextMenu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridContextMenuColumnDefault,
@@ -522,10 +522,10 @@
             // 
             // tabPageDefaultPrograms
             // 
-            resources.ApplyResources(this.tabPageDefaultPrograms, "tabPageDefaultPrograms");
             this.tabPageDefaultPrograms.Controls.Add(this.buttonHelpDefaultPrograms);
             this.tabPageDefaultPrograms.Controls.Add(this.checkBoxDefaultProgramsAll);
             this.tabPageDefaultPrograms.Controls.Add(this.dataGridDefaultPrograms);
+            resources.ApplyResources(this.tabPageDefaultPrograms, "tabPageDefaultPrograms");
             this.tabPageDefaultPrograms.Name = "tabPageDefaultPrograms";
             this.tabPageDefaultPrograms.UseVisualStyleBackColor = true;
             // 
@@ -541,14 +541,13 @@
             resources.ApplyResources(this.checkBoxDefaultProgramsAll, "checkBoxDefaultProgramsAll");
             this.checkBoxDefaultProgramsAll.Name = "checkBoxDefaultProgramsAll";
             this.checkBoxDefaultProgramsAll.UseVisualStyleBackColor = true;
-            this.checkBoxDefaultProgramsAll.CheckedChanged += new System.EventHandler(this.checkBoxDefaultProgramsAll_CheckedChanged);
             // 
             // dataGridDefaultPrograms
             // 
-            resources.ApplyResources(this.dataGridDefaultPrograms, "dataGridDefaultPrograms");
             this.dataGridDefaultPrograms.AllowUserToAddRows = false;
             this.dataGridDefaultPrograms.AllowUserToDeleteRows = false;
             this.dataGridDefaultPrograms.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.dataGridDefaultPrograms, "dataGridDefaultPrograms");
             this.dataGridDefaultPrograms.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridDefaultPrograms.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridDefaultProgramsColumnDefault,
@@ -603,23 +602,26 @@
             this.labelLastDataError.ForeColor = System.Drawing.Color.Red;
             this.labelLastDataError.Name = "labelLastDataError";
             // 
-            // buttonAdvanced
+            // buttonAdvancedMode
             // 
-            resources.ApplyResources(this.buttonAdvanced, "buttonAdvanced");
-            this.buttonAdvanced.Name = "buttonAdvanced";
-            this.buttonAdvanced.UseVisualStyleBackColor = true;
-            this.buttonAdvanced.Click += new System.EventHandler(this.buttonAdvanced_Click);
+            resources.ApplyResources(this.buttonAdvancedMode, "buttonAdvancedMode");
+            this.buttonAdvancedMode.Name = "buttonAdvancedMode";
+            this.buttonAdvancedMode.UseVisualStyleBackColor = true;
+            this.buttonAdvancedMode.Click += new System.EventHandler(this.buttonAdvancedMode_Click);
             // 
-            // flowLayoutSimple
+            // flowLayoutBasic
             // 
-            resources.ApplyResources(this.flowLayoutSimple, "flowLayoutSimple");
-            this.flowLayoutSimple.Controls.Add(this.labelSimple);
-            this.flowLayoutSimple.Controls.Add(this.checkBoxStartMenuSimple);
-            this.flowLayoutSimple.Controls.Add(this.checkBoxDesktopSimple);
-            this.flowLayoutSimple.Controls.Add(this.checkBoxAliasesSimple);
-            this.flowLayoutSimple.Controls.Add(this.checkBoxFileTypesSimple);
-            this.flowLayoutSimple.Controls.Add(this.checkBoxAutoPlaySimple);
-            this.flowLayoutSimple.Name = "flowLayoutSimple";
+            resources.ApplyResources(this.flowLayoutBasic, "flowLayoutBasic");
+            this.flowLayoutBasic.Controls.Add(this.labelSimple);
+            this.flowLayoutBasic.Controls.Add(this.checkBoxStartMenuSimple);
+            this.flowLayoutBasic.Controls.Add(this.checkBoxDesktopSimple);
+            this.flowLayoutBasic.Controls.Add(this.checkBoxAliasesSimple);
+            this.flowLayoutBasic.Controls.Add(this.checkBoxFileTypesSimple);
+            this.flowLayoutBasic.Controls.Add(this.checkBoxUrlProtocolsSimple);
+            this.flowLayoutBasic.Controls.Add(this.checkBoxAutoPlaySimple);
+            this.flowLayoutBasic.Controls.Add(this.checkBoxContextMenuSimple);
+            this.flowLayoutBasic.Controls.Add(this.checkBoxDefaultProgramsSimple);
+            this.flowLayoutBasic.Name = "flowLayoutBasic";
             // 
             // labelSimple
             // 
@@ -650,18 +652,44 @@
             this.checkBoxFileTypesSimple.Name = "checkBoxFileTypesSimple";
             this.checkBoxFileTypesSimple.UseVisualStyleBackColor = true;
             // 
+            // checkBoxUrlProtocolsSimple
+            // 
+            resources.ApplyResources(this.checkBoxUrlProtocolsSimple, "checkBoxUrlProtocolsSimple");
+            this.checkBoxUrlProtocolsSimple.Name = "checkBoxUrlProtocolsSimple";
+            this.checkBoxUrlProtocolsSimple.UseVisualStyleBackColor = true;
+            // 
             // checkBoxAutoPlaySimple
             // 
             resources.ApplyResources(this.checkBoxAutoPlaySimple, "checkBoxAutoPlaySimple");
             this.checkBoxAutoPlaySimple.Name = "checkBoxAutoPlaySimple";
             this.checkBoxAutoPlaySimple.UseVisualStyleBackColor = true;
             // 
+            // checkBoxContextMenuSimple
+            // 
+            resources.ApplyResources(this.checkBoxContextMenuSimple, "checkBoxContextMenuSimple");
+            this.checkBoxContextMenuSimple.Name = "checkBoxContextMenuSimple";
+            this.checkBoxContextMenuSimple.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxDefaultProgramsSimple
+            // 
+            resources.ApplyResources(this.checkBoxDefaultProgramsSimple, "checkBoxDefaultProgramsSimple");
+            this.checkBoxDefaultProgramsSimple.Name = "checkBoxDefaultProgramsSimple";
+            this.checkBoxDefaultProgramsSimple.UseVisualStyleBackColor = true;
+            // 
+            // buttonBasicMode
+            // 
+            resources.ApplyResources(this.buttonBasicMode, "buttonBasicMode");
+            this.buttonBasicMode.Name = "buttonBasicMode";
+            this.buttonBasicMode.UseVisualStyleBackColor = true;
+            this.buttonBasicMode.Click += new System.EventHandler(this.buttonBasicMode_Click);
+            // 
             // IntegrateAppForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.flowLayoutSimple);
-            this.Controls.Add(this.buttonAdvanced);
+            this.Controls.Add(this.buttonBasicMode);
+            this.Controls.Add(this.flowLayoutBasic);
+            this.Controls.Add(this.buttonAdvancedMode);
             this.Controls.Add(this.labelLastDataError);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.checkBoxAutoUpdate);
@@ -679,8 +707,9 @@
             this.Controls.SetChildIndex(this.buttonOK, 0);
             this.Controls.SetChildIndex(this.buttonCancel, 0);
             this.Controls.SetChildIndex(this.labelLastDataError, 0);
-            this.Controls.SetChildIndex(this.buttonAdvanced, 0);
-            this.Controls.SetChildIndex(this.flowLayoutSimple, 0);
+            this.Controls.SetChildIndex(this.buttonAdvancedMode, 0);
+            this.Controls.SetChildIndex(this.flowLayoutBasic, 0);
+            this.Controls.SetChildIndex(this.buttonBasicMode, 0);
             this.tabControl.ResumeLayout(false);
             this.tabPageStartMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStartMenu)).EndInit();
@@ -703,8 +732,8 @@
             this.tabPageDefaultPrograms.ResumeLayout(false);
             this.tabPageDefaultPrograms.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridDefaultPrograms)).EndInit();
-            this.flowLayoutSimple.ResumeLayout(false);
-            this.flowLayoutSimple.PerformLayout();
+            this.flowLayoutBasic.ResumeLayout(false);
+            this.flowLayoutBasic.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -765,14 +794,18 @@
         private System.Windows.Forms.Button buttonHelpContextMenu;
         private System.Windows.Forms.Button buttonHelpDefaultPrograms;
         private System.Windows.Forms.Button buttonHelpDesktop;
-        private System.Windows.Forms.Button buttonAdvanced;
+        private System.Windows.Forms.Button buttonAdvancedMode;
         private System.Windows.Forms.Button buttonHelpStartMenu;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutSimple;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutBasic;
         private System.Windows.Forms.CheckBox checkBoxStartMenuSimple;
         private System.Windows.Forms.CheckBox checkBoxDesktopSimple;
         private System.Windows.Forms.CheckBox checkBoxAliasesSimple;
         private System.Windows.Forms.CheckBox checkBoxFileTypesSimple;
         private System.Windows.Forms.CheckBox checkBoxAutoPlaySimple;
         private System.Windows.Forms.Label labelSimple;
+        private System.Windows.Forms.CheckBox checkBoxUrlProtocolsSimple;
+        private System.Windows.Forms.CheckBox checkBoxContextMenuSimple;
+        private System.Windows.Forms.CheckBox checkBoxDefaultProgramsSimple;
+        private System.Windows.Forms.Button buttonBasicMode;
     }
 }

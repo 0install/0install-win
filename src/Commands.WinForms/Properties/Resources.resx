@@ -1217,12 +1217,6 @@
         /AesQfADrEHgB6xB4H+sQf//rEE=
 </value>
   </data>
-  <data name="AdvancedSettings" xml:space="preserve">
-    <value>Ad&amp;vanced settings</value>
-  </data>
-  <data name="BasicSettings" xml:space="preserve">
-    <value>&amp;Basic settings</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
