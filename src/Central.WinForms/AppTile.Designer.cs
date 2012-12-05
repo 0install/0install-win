@@ -133,6 +133,7 @@
             // 
             this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAdd.AutoSize = true;
+            this.buttonIntegrate.BackColor = System.Drawing.SystemColors.Control;
             this.buttonAdd.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.buttonAdd.Location = new System.Drawing.Point(363, 32);
             this.buttonAdd.Name = "buttonAdd";
