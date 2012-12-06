@@ -101,7 +101,7 @@ namespace Common
         /// <summary>
         /// Wraps a <see cref="bool"/> pointer in a <see cref="string"/> pointer (using parsing and <see cref="object.ToString"/>.
         /// </summary>
-        public static PropertyPointer<string> GetBoolConverter(PropertyPointer<bool> pointer)
+        public static PropertyPointer<string> ToStringPointer(this PropertyPointer<bool> pointer)
         {
             #region Sanity checks
             if (pointer == null) throw new ArgumentNullException("pointer");
@@ -116,7 +116,7 @@ namespace Common
         /// <summary>
         /// Wraps an <see cref="int"/> pointer in a <see cref="string"/> pointer (using parsing and <see cref="object.ToString"/>.
         /// </summary>
-        public static PropertyPointer<string> GetIntegerConverter(PropertyPointer<int> pointer)
+        public static PropertyPointer<string> ToStringPointer(this PropertyPointer<int> pointer)
         {
             #region Sanity checks
             if (pointer == null) throw new ArgumentNullException("pointer");
@@ -131,7 +131,7 @@ namespace Common
         /// <summary>
         /// Wraps a <see cref="TimeSpan"/> pointer in a <see cref="string"/> pointer (using parsing and <see cref="object.ToString"/>.
         /// </summary>
-        public static PropertyPointer<string> GetTimespanConverter(PropertyPointer<TimeSpan> pointer)
+        public static PropertyPointer<string> ToStringPointer(this PropertyPointer<TimeSpan> pointer)
         {
             #region Sanity checks
             if (pointer == null) throw new ArgumentNullException("pointer");
@@ -146,14 +146,14 @@ namespace Common
         /// <summary>
         /// Wraps an <see cref="Uri"/> pointer in a <see cref="string"/> pointer (using parsing and <see cref="object.ToString"/>.
         /// </summary>
-        public static PropertyPointer<string> GetUriConverter(PropertyPointer<Uri> pointer)
+        public static PropertyPointer<string> ToStringPointer(this PropertyPointer<Uri> pointer)
         {
             #region Sanity checks
             if (pointer == null) throw new ArgumentNullException("pointer");
             #endregion
 
             return new PropertyPointer<string>(
-                () => pointer.Value.ToString(),
+                () => (pointer.Value == null) ? null : pointer.Value.ToString(),
                 value => pointer.Value = new Uri(value),
                 pointer.DefaultValue == null ? null : pointer.DefaultValue.ToString().ToLowerInvariant());
         }

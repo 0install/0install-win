@@ -137,7 +137,7 @@ namespace ZeroInstall.Injector
         /// The base URL of a mirror site for keys and feeds.
         /// </summary>
         [DefaultValue(typeof(Uri), DefaultFeedMirror), Category("Sources"), DisplayName("Feed mirror"), Description("The base URL of a mirror site for keys and feeds.")]
-        public Uri FeedMirror { get { return _feedMirror; } set { _feedMirror = value; } }
+        public Uri FeedMirror { get { return _feedMirror; } set { _feedMirror = new Uri(value.OriginalString, UriKind.Absolute); } }
 
         /// <summary>
         /// The default value for <see cref="KeyInfoServer"/>.
@@ -150,7 +150,7 @@ namespace ZeroInstall.Injector
         /// The base URL of a key information server.
         /// </summary>
         [DefaultValue(typeof(Uri), DefaultKeyInfoServer), Category("Sources"), DisplayName("Key info server"), Description("The base URL of a key information server.")]
-        public Uri KeyInfoServer { get { return _keyInfoServer; } set { _keyInfoServer = value; } }
+        public Uri KeyInfoServer { get { return _keyInfoServer; } set { _keyInfoServer = new Uri(value.OriginalString, UriKind.Absolute); } }
 
         /// <summary>
         /// The default value for <see cref="SelfUpdateID"/>.
@@ -178,7 +178,7 @@ namespace ZeroInstall.Injector
         /// <seealso cref="SyncServerUsername"/>
         /// <seealso cref="SyncServerPassword"/>
         [DefaultValue(typeof(Uri), DefaultSyncServer), Category("Sync"), DisplayName("Server"), Description("The base URL of the sync server.")]
-        public Uri SyncServer { get { return _syncServer; } set { _syncServer = value; } }
+        public Uri SyncServer { get { return _syncServer; } set { _syncServer = new Uri(value.OriginalString, UriKind.Absolute); } }
 
         private string _syncServerUsername = "";
 
@@ -218,15 +218,15 @@ namespace ZeroInstall.Injector
         {
             _metaData = new Dictionary<string, PropertyPointer<string>>
             {
-                {"freshness", PropertyPointer.GetTimespanConverter(new PropertyPointer<TimeSpan>(() => Freshness, value => Freshness = value, _defaultFreshness))},
-                {"help_with_testing", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => HelpWithTesting, value => HelpWithTesting = value, false))},
+                {"freshness", new PropertyPointer<TimeSpan>(() => Freshness, value => Freshness = value, _defaultFreshness).ToStringPointer()},
+                {"help_with_testing", new PropertyPointer<bool>(() => HelpWithTesting, value => HelpWithTesting = value, false).ToStringPointer()},
                 {"network_use", GetNetworkUseConverter()},
-                {"auto_approve_keys", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => AutoApproveKeys, value => AutoApproveKeys = value, true))},
-                {"allow_api_hooking", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => AllowApiHooking, value => AllowApiHooking = value, false))},
-                {"feed_mirror", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => FeedMirror, value => FeedMirror = value, new Uri(DefaultFeedMirror)))},
-                {"key_info_server", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => KeyInfoServer, value => KeyInfoServer = value, new Uri(DefaultKeyInfoServer)))},
+                {"auto_approve_keys", new PropertyPointer<bool>(() => AutoApproveKeys, value => AutoApproveKeys = value, true).ToStringPointer()},
+                {"allow_api_hooking", new PropertyPointer<bool>(() => AllowApiHooking, value => AllowApiHooking = value, false).ToStringPointer()},
+                {"feed_mirror", new PropertyPointer<Uri>(() => FeedMirror, value => FeedMirror = value, new Uri(DefaultFeedMirror)).ToStringPointer()},
+                {"key_info_server", new PropertyPointer<Uri>(() => KeyInfoServer, value => KeyInfoServer = value, new Uri(DefaultKeyInfoServer)).ToStringPointer()},
                 {"self_update_id", new PropertyPointer<string>(() => SelfUpdateID, value => SelfUpdateID = value, DefaultSelfUpdateID)},
-                {"sync_server", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => SyncServer, value => SyncServer = value, new Uri(DefaultSyncServer)))},
+                {"sync_server", new PropertyPointer<Uri>(() => SyncServer, value => SyncServer = value, new Uri(DefaultSyncServer)).ToStringPointer()},
                 {"sync_server_user", new PropertyPointer<string>(() => SyncServerUsername, value => SyncServerUsername = value, "")},
                 {"sync_server_pw", new PropertyPointer<string>(() => SyncServerPassword, value => SyncServerPassword = value, "", true)},
                 {"sync_crypto_key", new PropertyPointer<string>(() => SyncCryptoKey, value => SyncCryptoKey = value, "", true)},
