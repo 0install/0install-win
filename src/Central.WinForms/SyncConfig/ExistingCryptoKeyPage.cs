@@ -41,7 +41,24 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         public ExistingCryptoKeyPage()
         {
             InitializeComponent();
-            textBoxCryptoKey.Text = Config.Load().SyncCryptoKey;
+            try
+            {
+                textBoxCryptoKey.Text = Config.Load().SyncCryptoKey;
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Log.Error(ex);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Error(ex);
+            }
+            catch (InvalidDataException ex)
+            {
+                Log.Error(ex);
+            }
+            #endregion
         }
 
         private void textBoxCryptoKey_TextChanged(object sender, EventArgs e)

@@ -92,6 +92,12 @@ namespace ZeroInstall.Central.WinForms
                     Msg.Inform(this, ex.Message, MsgSeverity.Error);
                     Close();
                 }
+                catch (InvalidDataException ex)
+                {
+                    Msg.Inform(this, ex.Message +
+                        (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
+                    Close();
+                }
                 #endregion
             };
 
@@ -431,18 +437,39 @@ namespace ZeroInstall.Central.WinForms
         #region Buttons
         private void buttonSync_Click(object sender, EventArgs e)
         {
-            var config = Config.Load();
-            if (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey))
+            try
             {
-                using (var wizard = new SyncConfig.SetupWizard(_machineWide))
-                    wizard.ShowDialog(this);
+                var config = Config.Load();
+                if (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey))
+                {
+                    using (var wizard = new SyncConfig.SetupWizard(_machineWide))
+                        wizard.ShowDialog(this);
+                }
+                else
+                {
+                    ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
+                        ? new[] {"sync", "--machine"}
+                        : new[] {"sync"}));
+                }
             }
-            else
+                #region Error handling
+            catch (IOException ex)
             {
-                ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
-                    ? new[] {"sync", "--machine"}
-                    : new[] {"sync"}));
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                Close();
             }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                Close();
+            }
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(this, ex.Message +
+                    (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
+                Close();
+            }
+            #endregion
         }
 
         private void buttonRefreshCatalog_Click(object sender, EventArgs e)

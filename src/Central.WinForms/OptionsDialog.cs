@@ -123,7 +123,8 @@ namespace ZeroInstall.Central.WinForms
             }
             catch (InvalidDataException ex)
             {
-                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
+                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message +
+                    (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
             }
             #endregion
         }
@@ -348,7 +349,8 @@ namespace ZeroInstall.Central.WinForms
             }
             catch (InvalidDataException ex)
             {
-                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
+                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message +
+                    (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
             }
             #endregion
         }
@@ -385,9 +387,27 @@ namespace ZeroInstall.Central.WinForms
                     return;
             }
 
-            using (var wizard = new SyncConfig.ResetWizard(_machineWide))
-                wizard.ShowDialog(this);
-            Close();
+            try
+            {
+                using (var wizard = new SyncConfig.ResetWizard(_machineWide))
+                    wizard.ShowDialog(this);
+                Close();
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(this, ex.Message +
+                    (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
+            }
+            #endregion
         }
         #endregion
 

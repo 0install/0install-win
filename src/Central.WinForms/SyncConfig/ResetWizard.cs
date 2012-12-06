@@ -15,6 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.IO;
+using Common;
 using Common.Controls;
 using ZeroInstall.Injector;
 
@@ -26,6 +29,9 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
     /// <remarks>Modifies the default <see cref="Config"/>.</remarks>
     public partial class ResetWizard : Wizard
     {
+        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the config data.</exception>
         public ResetWizard(bool machineWide)
         {
             InitializeComponent();
@@ -75,10 +81,31 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             };
             cryptoKeyChangedPaged.OK += delegate
             {
-                config = Config.Load();
-                config.SyncCryptoKey = cryptoKey;
-                config.Save();
-                Close();
+                try
+                {
+                    config = Config.Load();
+                    config.SyncCryptoKey = cryptoKey;
+                    config.Save();
+                    Close();
+                }
+                    #region Error handling
+                catch (IOException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                    Close();
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                    Close();
+                }
+                catch (InvalidDataException ex)
+                {
+                    Msg.Inform(this, ex.Message +
+                        (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
+                    Close();
+                }
+                #endregion
             };
             resetServerPage.Continue += () => PushPage(resetServerFinishedPage);
             resetServerFinishedPage.Done += Close;

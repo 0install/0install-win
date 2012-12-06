@@ -53,6 +53,7 @@ namespace ZeroInstall.Central
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the operation.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if an operation failed due to insufficient rights.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a configuration file is damaged.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
         public static ImplementationVersion Check()
         {

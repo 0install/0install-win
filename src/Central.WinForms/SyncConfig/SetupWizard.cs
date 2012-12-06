@@ -16,6 +16,8 @@
  */
 
 using System;
+using System.IO;
+using Common;
 using Common.Controls;
 using Common.Utils;
 using ZeroInstall.Injector;
@@ -92,15 +94,36 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             };
             finishedPage.Done += delegate
             {
-                var config = Config.Load();
-                config.SyncServer = syncServer;
-                config.SyncServerUsername = syncCredentials.Username;
-                config.SyncServerPassword = syncCredentials.Password;
-                config.SyncCryptoKey = cryptoKey;
-                config.Save();
-                Close();
+                try
+                {
+                    var config = Config.Load();
+                    config.SyncServer = syncServer;
+                    config.SyncServerUsername = syncCredentials.Username;
+                    config.SyncServerPassword = syncCredentials.Password;
+                    config.SyncCryptoKey = cryptoKey;
+                    config.Save();
+                    Close();
 
-                ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"sync"}));
+                    ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"sync"}));
+                }
+                    #region Error handling
+                catch (IOException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                    Close();
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                    Close();
+                }
+                catch (InvalidDataException ex)
+                {
+                    Msg.Inform(this, ex.Message +
+                        (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
+                    Close();
+                }
+                #endregion
             };
 
             // Load first page
