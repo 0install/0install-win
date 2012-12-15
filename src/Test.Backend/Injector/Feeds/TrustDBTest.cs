@@ -56,11 +56,11 @@ namespace ZeroInstall.Injector.Feeds
         [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
         public void TestSaveLoad()
         {
-            TrustDB trust1, trust2;
+            TrustDB trust1 = CreateTestTrust(), trust2;
+            Assert.That(trust1, Is.XmlSerializable);
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
-                trust1 = CreateTestTrust();
                 trust1.Save(tempFile.Path);
                 trust2 = TrustDB.Load(tempFile.Path);
             }

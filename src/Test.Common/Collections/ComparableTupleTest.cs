@@ -39,17 +39,10 @@ namespace Common.Collections
 
             Assert.AreEqual(tuple1, tuple1);
 
-            Assert.IsTrue(tuple1 < tuple2);
-            Assert.IsFalse(tuple1 > tuple2);
-
-            Assert.IsTrue(tuple2 < tuple3);
-            Assert.IsFalse(tuple2 > tuple3);
-
-            Assert.IsTrue(tuple2 > tuple1);
-            Assert.IsFalse(tuple2 < tuple1);
-
-            Assert.IsTrue(tuple3 > tuple2);
-            Assert.IsFalse(tuple3 < tuple2);
+            Assert.That(tuple1, Is.LessThan(tuple2));
+            Assert.That(tuple2, Is.LessThan(tuple3));
+            Assert.That(tuple3, Is.GreaterThan(tuple2));
+            Assert.That(tuple2, Is.GreaterThan(tuple1));
         }
     }
 }

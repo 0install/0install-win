@@ -51,6 +51,8 @@ namespace ZeroInstall.Model
             var catalog2 = new Catalog {Feeds = {feed2, feed3}};
 
             var mergedCatalog = Catalog.Merge(new[] {catalog1, catalog2});
+            CollectionAssert.IsSubsetOf(catalog1.Feeds, mergedCatalog.Feeds);
+            CollectionAssert.IsSubsetOf(catalog2.Feeds, mergedCatalog.Feeds);
             CollectionAssert.AreEqual(new[] {feed1, feed2, feed3}, mergedCatalog.Feeds);
         }
 
@@ -74,11 +76,11 @@ namespace ZeroInstall.Model
         [Test]
         public void TestSaveLoad()
         {
-            Catalog catalog1, catalog2;
+            Catalog catalog1 = CreateTestCatalog(), catalog2;
+            Assert.That(catalog1, Is.XmlSerializable);
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
-                catalog1 = CreateTestCatalog();
                 catalog1.Save(tempFile.Path);
                 catalog2 = Catalog.Load(tempFile.Path);
             }

@@ -110,6 +110,8 @@ namespace ZeroInstall.DesktopIntegration
 
         private static void TestSaveLoad(AppList appList)
         {
+            Assert.That(appList, Is.XmlSerializable);
+
             AppList appList2;
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {

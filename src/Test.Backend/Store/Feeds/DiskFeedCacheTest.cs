@@ -138,7 +138,7 @@ namespace ZeroInstall.Store.Feeds
         //[Test]
         public void TestTooLongFilename()
         {
-            if (!WindowsUtils.IsWindows) throw new InconclusiveException("Windows systems have a specific upper limit to file path lengths");
+            if (!WindowsUtils.IsWindows) Assert.Ignore("Windows systems have a specific upper limit to file path lengths");
 
             var longHttpUrlBuilder = new StringBuilder(255);
             for (int i = 0; i < 255; i++)

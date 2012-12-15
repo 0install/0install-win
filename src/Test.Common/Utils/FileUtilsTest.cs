@@ -260,7 +260,7 @@ namespace Common.Utils
         [Test]
         public void TestCreateSymlinkPosixFile()
         {
-            if (!MonoUtils.IsUnix) throw new InconclusiveException("Can only test POSIX symlinks on Unixoid system");
+            if (!MonoUtils.IsUnix) Assert.Ignore("Can only test POSIX symlinks on Unixoid system");
 
             using (var tempDir = new TemporaryDirectory("unit-tests"))
             {
@@ -281,7 +281,7 @@ namespace Common.Utils
         [Test]
         public void TestCreateSymlinkPosixDirectory()
         {
-            if (!MonoUtils.IsUnix) throw new InconclusiveException("Can only test POSIX symlinks on Unixoid system");
+            if (!MonoUtils.IsUnix) Assert.Ignore("Can only test POSIX symlinks on Unixoid system");
 
             using (var tempDir = new TemporaryDirectory("unit-tests"))
             {
@@ -300,8 +300,8 @@ namespace Common.Utils
         [Test]
         public void TestCreateSymlinkNtfsFile()
         {
-            if (!WindowsUtils.IsWindowsVista) throw new InconclusiveException("Can only test NTFS symlinks on Windows Vista or newer");
-            if (!WindowsUtils.IsAdministrator) throw new InconclusiveException("Can only test NTFS symlinks with Administrator privileges");
+            if (!WindowsUtils.IsWindowsVista) Assert.Ignore("Can only test NTFS symlinks on Windows Vista or newer");
+            if (!WindowsUtils.IsAdministrator) Assert.Ignore("Can only test NTFS symlinks with Administrator privileges");
 
             using (var tempDir = new TemporaryDirectory("unit-tests"))
             {
@@ -317,8 +317,8 @@ namespace Common.Utils
         [Test]
         public void TestCreateSymlinkNtfsDirectory()
         {
-            if (!WindowsUtils.IsWindowsVista) throw new InconclusiveException("Can only test NTFS symlinks on Windows Vista or newer");
-            if (!WindowsUtils.IsAdministrator) throw new InconclusiveException("Can only test NTFS symlinks with Administrator privileges");
+            if (!WindowsUtils.IsWindowsVista) Assert.Ignore("Can only test NTFS symlinks on Windows Vista or newer");
+            if (!WindowsUtils.IsAdministrator) Assert.Ignore("Can only test NTFS symlinks with Administrator privileges");
 
             using (var tempDir = new TemporaryDirectory("unit-tests"))
             {
@@ -376,7 +376,7 @@ namespace Common.Utils
         [Test]
         public void TestSetExecutable()
         {
-            if (!MonoUtils.IsUnix) throw new InconclusiveException("Can only test executable bits on Unixoid system");
+            if (!MonoUtils.IsUnix) Assert.Ignore("Can only test executable bits on Unixoid system");
 
             using (var tempFile = new TemporaryFile("unit-tests"))
             {

@@ -58,11 +58,10 @@ namespace ZeroInstall.Store.Implementation
         [Test(Description = "Ensures that Manifest is correctly generated, serialized and deserialized.")]
         public void TestSaveLoad()
         {
-            Manifest manifest1, manifest2;
+            Manifest manifest1 = CreateTestManifest(), manifest2;
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Generate manifest, write it to a file and read the file again
-                manifest1 = CreateTestManifest();
                 manifest1.Save(tempFile.Path);
                 manifest2 = Manifest.Load(tempFile.Path, ManifestFormat.Sha1New);
             }
@@ -303,7 +302,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldNotFollowDirectorySymlinks()
         {
-            if (!MonoUtils.IsUnix) throw new InconclusiveException("Can only test symlinks on Unixoid system");
+            if (!MonoUtils.IsUnix) Assert.Ignore("Can only test symlinks on Unixoid system");
 
             using (var package = new TemporaryDirectory("0install-unit-tests"))
             {

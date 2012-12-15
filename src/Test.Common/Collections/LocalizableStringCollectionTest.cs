@@ -46,6 +46,7 @@ namespace Common.Collections
             };
 
             // Serialize and deserialize data
+            Assert.That(collection1, Is.XmlSerializable);
             string data = XmlStorage.ToString(collection1);
             var collection2 = XmlStorage.FromString<LocalizableStringCollection>(data);
 

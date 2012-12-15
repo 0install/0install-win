@@ -164,11 +164,11 @@ namespace ZeroInstall.Model
         [Test]
         public void TestSaveLoad()
         {
-            Feed feed1, feed2;
+            Feed feed1 = CreateTestFeed(), feed2;
+            Assert.That(feed1, Is.XmlSerializable);
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
-                feed1 = CreateTestFeed();
                 feed1.Save(tempFile.Path);
                 feed2 = Feed.Load(tempFile.Path);
             }

@@ -57,11 +57,11 @@ namespace ZeroInstall.Model.Capabilities
         [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
         public void TestSaveLoad()
         {
-            CapabilityList capabilityList1, capabilityList2;
+            CapabilityList capabilityList1 = CreateTestCapabilityList(), capabilityList2;
+            Assert.That(capabilityList1, Is.XmlSerializable);
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
-                capabilityList1 = CreateTestCapabilityList();
                 capabilityList1.Save(tempFile.Path);
                 capabilityList2 = CapabilityList.Load(tempFile.Path);
             }

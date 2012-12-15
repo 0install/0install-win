@@ -46,6 +46,7 @@ namespace ZeroInstall.Injector.Feeds
         public void TestSaveLoad()
         {
             FeedPreferences preferences1 = CreateTestFeedPreferences(), preferences2;
+            Assert.That(preferences1, Is.XmlSerializable);
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
