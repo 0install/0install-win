@@ -35,7 +35,7 @@ namespace ZeroInstall.Commands
     {
         #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
-        public const string Name = "add-alias";
+        public new const string Name = "add-alias";
         #endregion
 
         #region Variables
@@ -191,18 +191,24 @@ namespace ZeroInstall.Commands
         /// <returns>The first <see cref="AppAlias"/> in <paramref name="appList"/> matching <paramref name="aliasName"/>; <see langword="null"/> if none was found.</returns>
         internal static AppAlias GetAppAlias(AppList appList, string aliasName, out AppEntry foundAppEntry)
         {
-            foreach (var appEntry in appList.Entries)
-            {
-                if (appEntry.AccessPoints == null) continue;
-                foreach (var appAlias in appEntry.AccessPoints.Entries.OfType<AppAlias>().Where(appAlias => appAlias.Name == aliasName))
-                {
-                    foundAppEntry = appEntry;
-                    return appAlias;
-                }
-            }
+            var results =
+                from entry in appList.Entries
+                where entry.AccessPoints != null
+                from alias in entry.AccessPoints.Entries.OfType<AppAlias>()
+                where alias.Name == aliasName
+                select new {entry, alias};
 
-            foundAppEntry = null;
-            return null;
+            var result = results.FirstOrDefault();
+            if (result == null)
+            {
+                foundAppEntry = null;
+                return null;
+            }
+            else
+            {
+                foundAppEntry = result.entry;
+                return result.alias;
+            }
         }
         #endregion
     }

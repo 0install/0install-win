@@ -30,7 +30,7 @@ namespace ZeroInstall.Commands
     {
         #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
-        public const string Name = "add-app";
+        public new const string Name = "add-app";
         #endregion
 
         #region Properties

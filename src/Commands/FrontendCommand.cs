@@ -59,9 +59,16 @@ namespace ZeroInstall.Commands
 
         #region Properties
         /// <summary>
-        /// Combines UI access, preferences and resources used to solve dependencies and download implementations.
+        /// The name of this command as used in command-line arguments in lower-case.
         /// </summary>
-        public Policy Policy { get; private set; }
+        public string Name
+        {
+            get
+            {
+                var field = GetType().GetField("Name", BindingFlags.Public | BindingFlags.Static);
+                return (field == null) ? null : field.GetValue(null).ToString();
+            }
+        }
 
         /// <summary>
         /// A short description of what this command does.
@@ -86,7 +93,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// The help text describing the available command-line options and their effects.
         /// </summary>
-        public string HelpText
+        private string HelpText
         {
             get
             {
@@ -97,7 +104,7 @@ namespace ZeroInstall.Commands
                     writer.Flush();
 
                     // ToDo: Add flow formatting for better readability on console
-                    return Resources.Usage + " 0install " + GetName() + " " + Usage + Environment.NewLine + Environment.NewLine +
+                    return Resources.Usage + " 0install " + Name + " " + Usage + Environment.NewLine + Environment.NewLine +
                         Description + Environment.NewLine + Environment.NewLine +
                         Resources.Options + Environment.NewLine + buffer.ReadToString();
                 }
@@ -105,14 +112,18 @@ namespace ZeroInstall.Commands
         }
 
         /// <summary>
-        /// Uses reflection
+        /// Combines UI access, preferences and resources used to solve dependencies and download implementations.
         /// </summary>
-        private string GetName()
+        public Policy Policy { get; private set; }
+
+        private AppList _appList;
+
+        /// <summary>
+        /// Lazy-loaded <see cref="AppList"/>. Not thread-safe!
+        /// </summary>
+        protected AppList AppList
         {
-            var field = GetType().GetField("Name", BindingFlags.Public | BindingFlags.Static);
-            // ReSharper disable AssignNullToNotNullAttribute
-            return (field == null) ? null : field.GetValue(null).ToString();
-            // ReSharper restore AssignNullToNotNullAttribute
+            get { return _appList ?? (_appList = AppList.Load(AppList.GetDefaultPath(false))); }
         }
         #endregion
 
@@ -186,7 +197,7 @@ namespace ZeroInstall.Commands
         /// <remarks>Aliases prefixed by "alias:" are resolved to the IDs they represent and relative local paths are converted to absolute paths. Everything else stays unchanged.</remarks>
         /// <exception cref="InvalidInterfaceIDException">Thrown if the <paramref name="id"/> is invalid.</exception>
         /// <exception cref="IOException">Thrown if there was a problem checking a local file path.</exception>
-        public static string GetCanonicalID(string id)
+        public string GetCanonicalID(string id)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
@@ -198,23 +209,22 @@ namespace ZeroInstall.Commands
                 { // Look up AppEntry (and thus interface ID) belonging to an alias
                     string aliasName = id.Substring("alias:".Length);
                     AppEntry appEntry;
-                    AddAlias.GetAppAlias(AppList.Load(AppList.GetDefaultPath(false)), aliasName, out appEntry);
+                    AddAlias.GetAppAlias(AppList, aliasName, out appEntry);
                     if (appEntry == null) throw new InvalidInterfaceIDException(string.Format(Resources.AliasNotFound, aliasName));
                     return appEntry.InterfaceID;
                 }
                 else if (id.StartsWith("file:///")) return FileUtils.UnifySlashes(id.Substring(WindowsUtils.IsWindows ? 8 : 7));
                 else if (id.StartsWith("file:/")) throw new ArgumentException(Resources.FilePrefixAbsoluteUsage);
                 else if (id.StartsWith("file:")) return Path.GetFullPath(FileUtils.UnifySlashes(id.Substring(5)));
-                    //else if (IsApp(id))
-                    //{}
-                    //else if (IsShortName(id))
-                    //{}
                 else if (ModelUtils.IsValidUri(id)) return id;
                 else
-                {
-                    // Assume invalid URIs are short names or...
+                { // Assume invalid URIs are...
                     if (!id.EndsWithIgnoreCase(".xml"))
                     {
+                        // ... pet names or...
+                        if (AppList.Contains(id)) return id;
+
+                        // ... short names...
                         var feed = CatalogManager.GetCached().FindByShortName(id);
                         if (feed != null)
                         {

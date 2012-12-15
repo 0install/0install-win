@@ -33,7 +33,7 @@ namespace ZeroInstall.Commands
     {
         #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
-        public const string Name = "list-feeds";
+        public new const string Name = "list-feeds";
         #endregion
 
         #region Properties

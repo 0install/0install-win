@@ -158,29 +158,29 @@ namespace ZeroInstall.Commands
             // Absolute paths
             if (WindowsUtils.IsWindows)
             {
-                Assert.AreEqual(@"C:\test\file", FrontendCommand.GetCanonicalID("file:///C:/test/file"));
-                Assert.AreEqual(@"C:\test\file", FrontendCommand.GetCanonicalID(@"C:\test\file"));
+                Assert.AreEqual(@"C:\test\file", Command.GetCanonicalID("file:///C:/test/file"));
+                Assert.AreEqual(@"C:\test\file", Command.GetCanonicalID(@"C:\test\file"));
             }
             if (MonoUtils.IsUnix)
             {
-                Assert.AreEqual("/var/test/file", FrontendCommand.GetCanonicalID("file:///var/test/file"));
-                Assert.AreEqual("/var/test/file", FrontendCommand.GetCanonicalID("/var/test/file"));
+                Assert.AreEqual("/var/test/file", Command.GetCanonicalID("file:///var/test/file"));
+                Assert.AreEqual("/var/test/file", Command.GetCanonicalID("/var/test/file"));
             }
 
             // Relative paths
             Assert.AreEqual(
                 new[] {Environment.CurrentDirectory, "test", "file"}.Aggregate(Path.Combine),
-                FrontendCommand.GetCanonicalID("file:test/file"));
+                Command.GetCanonicalID("file:test/file"));
             Assert.AreEqual(
                 new[] {Environment.CurrentDirectory, "test", "file"}.Aggregate(Path.Combine),
-                FrontendCommand.GetCanonicalID(Path.Combine("test", "file")));
+                Command.GetCanonicalID(Path.Combine("test", "file")));
 
             // Invalid paths
-            Assert.Throws<InvalidInterfaceIDException>(() => FrontendCommand.GetCanonicalID("file:/test/file"));
-            if (WindowsUtils.IsWindows) Assert.Throws<InvalidInterfaceIDException>(() => FrontendCommand.GetCanonicalID(":::"));
+            Assert.Throws<InvalidInterfaceIDException>(() => Command.GetCanonicalID("file:/test/file"));
+            if (WindowsUtils.IsWindows) Assert.Throws<InvalidInterfaceIDException>(() => Command.GetCanonicalID(":::"));
 
             // URIs
-            Assert.AreEqual("http://0install.de/feeds/test/test1.xml", FrontendCommand.GetCanonicalID("http://0install.de/feeds/test/test1.xml"));
+            Assert.AreEqual("http://0install.de/feeds/test/test1.xml", Command.GetCanonicalID("http://0install.de/feeds/test/test1.xml"));
         }
 
         [Test]
@@ -201,8 +201,8 @@ namespace ZeroInstall.Commands
                     }
                 }.Save(AppList.GetDefaultPath(false));
 
-                Assert.AreEqual("http://0install.de/feeds/test/test1.xml", FrontendCommand.GetCanonicalID("alias:test"));
-                Assert.Throws<InvalidInterfaceIDException>(() => FrontendCommand.GetCanonicalID("alias:invalid"));
+                Assert.AreEqual("http://0install.de/feeds/test/test1.xml", Command.GetCanonicalID("alias:test"));
+                Assert.Throws<InvalidInterfaceIDException>(() => Command.GetCanonicalID("alias:invalid"));
             }
         }
     }

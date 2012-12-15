@@ -34,7 +34,7 @@ namespace ZeroInstall.Commands
     {
         #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
-        public const string Name = "digest";
+        public new const string Name = "digest";
         #endregion
 
         #region Variables
