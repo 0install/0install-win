@@ -93,6 +93,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Suggest.cs" />
     <Compile Include="SyncIntegrationManager.cs" />
     <Compile Include="Windows\AppRegistration.cs" />
     <Compile Include="Windows\FileType.cs" />

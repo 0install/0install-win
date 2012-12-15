@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -134,9 +133,9 @@ namespace ZeroInstall.Commands.WinForms
         /// <remarks>Users create <see cref="AccessPoints.CommandAccessPoint"/>s themselves based on <see cref="EntryPoint"/>s.</remarks>
         private void SetupCommandAccessPoints()
         {
-            SetupCommandAccessPoint(checkBoxStartMenuSimple, _menuEntries, SuggestMenuEntries);
-            SetupCommandAccessPoint(checkBoxDesktopSimple, _desktopIcons, SuggestDesktopIcons);
-            SetupCommandAccessPoint(checkBoxAliasesSimple, _aliases, SuggestAliases);
+            SetupCommandAccessPoint(checkBoxStartMenuSimple, _menuEntries, () => Suggest.MenuEntries(_feed));
+            SetupCommandAccessPoint(checkBoxDesktopSimple, _desktopIcons, () => Suggest.DesktopIcons(_feed));
+            SetupCommandAccessPoint(checkBoxAliasesSimple, _aliases, () => Suggest.Aliases(_feed));
 
             SetupCommandComboBoxes();
             LoadCommandAccessPoints();
@@ -165,9 +164,9 @@ namespace ZeroInstall.Commands.WinForms
         {
             if (_appEntry.AccessPoints == null)
             { // Fill in default values for first integration
-                foreach (var entry in SuggestMenuEntries()) _menuEntries.Add(entry);
-                foreach (var desktopIcon in SuggestDesktopIcons()) _desktopIcons.Add(desktopIcon);
-                foreach (var alias in SuggestAliases()) _aliases.Add(alias);
+                foreach (var entry in Suggest.MenuEntries(_feed)) _menuEntries.Add(entry);
+                foreach (var desktopIcon in Suggest.DesktopIcons(_feed)) _desktopIcons.Add(desktopIcon);
+                foreach (var alias in Suggest.Aliases(_feed)) _aliases.Add(alias);
             }
             else
             { // Distribute existing CommandAccessPoints among type-specific binding lists
@@ -427,76 +426,6 @@ namespace ZeroInstall.Commands.WinForms
             else CapabilityModelSetAll(model, false);
         }
         #endregion
-
-        #region Suggestions
-        /// <summary>
-        /// Returns a list of suitable default <see cref="AccessPoints.MenuEntry"/>s.
-        /// </summary>
-        private IEnumerable<AccessPoints.MenuEntry> SuggestMenuEntries()
-        {
-            string category = _feed.Categories.FirstOrDefault();
-            if (_feed.EntryPoints.IsEmpty)
-            { // Only one entry point
-                return new[] {new AccessPoints.MenuEntry {Name = _appEntry.Name, Category = category, Command = Command.NameRun}};
-            }
-            else
-            { // Multiple entry points
-                return
-                    from entryPoint in _feed.EntryPoints
-                    where !string.IsNullOrEmpty(entryPoint.Command)
-                    select new AccessPoints.MenuEntry
-                    {
-                        // Try to get a localized name for the command
-                        Name = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture) ?? // If that fails...
-                            ((entryPoint.Command == Command.NameRun)
-                                // ... use the application's name
-                                ? _appEntry.Name
-                                // ... or the application's name and the command
-                                : _appEntry.Name + " " + entryPoint.Command),
-                        // Group all entry points in a single folder
-                        Category = string.IsNullOrEmpty(category) ? _appEntry.Name : category + Path.DirectorySeparatorChar + _appEntry.Name,
-                        Command = entryPoint.Command
-                    };
-            }
-        }
-
-        /// <summary>
-        /// Returns a list of suitable default <see cref="AccessPoints.DesktopIcon"/>s.
-        /// </summary>
-        private IEnumerable<AccessPoints.DesktopIcon> SuggestDesktopIcons()
-        {
-            return new[] {new AccessPoints.DesktopIcon {Name = _appEntry.Name, Command = Command.NameRun}};
-        }
-
-        /// <summary>
-        /// Returns a list of suitable default <see cref="AccessPoints.AppAlias"/>s.
-        /// </summary>
-        private IEnumerable<AccessPoints.AppAlias> SuggestAliases()
-        {
-            if (_feed.EntryPoints.IsEmpty)
-            { // Only one entry point
-                if (_feed.NeedsTerminal)
-                {
-                    // Try to guess reasonable alias name of command-line applications
-                    return new[] {new AccessPoints.AppAlias {Name = _appEntry.Name.Replace(' ', '-').ToLower(), Command = Command.NameRun}};
-                }
-                else return new AccessPoints.AppAlias[0];
-            }
-            else
-            { // Multiple entry points
-                return
-                    from entryPoint in _feed.EntryPoints
-                    where !string.IsNullOrEmpty(entryPoint.Command) && (entryPoint.NeedsTerminal || _feed.NeedsTerminal)
-                    select new AccessPoints.AppAlias
-                    {
-                        Name = entryPoint.BinaryName ?? entryPoint.Command,
-                        Command = entryPoint.Command
-                    };
-            }
-        }
-        #endregion
-
-        //--------------------//
 
         #region Apply
         /// <summary>
