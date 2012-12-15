@@ -154,7 +154,7 @@ namespace Common
 
             return new PropertyPointer<string>(
                 () => (pointer.Value == null) ? null : pointer.Value.ToString(),
-                value => pointer.Value = new Uri(value),
+                value => pointer.Value = (value == null) ? null : new Uri(value),
                 pointer.DefaultValue == null ? null : pointer.DefaultValue.ToString().ToLowerInvariant());
         }
     }

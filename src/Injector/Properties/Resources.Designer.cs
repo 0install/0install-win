@@ -265,11 +265,22 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was a problem loading configuration value &apos;{0}&apos;..
+        ///   Looks up a localized string similar to There was a problem loading a configuration file.
+        ///You can delete the file &apos;{0}&apos; to fix the problem..
         /// </summary>
-        internal static string ProblemLoadingConfig {
+        internal static string ProblemLoadingConfigFile {
             get {
-                return ResourceManager.GetString("ProblemLoadingConfig", resourceCulture);
+                return ResourceManager.GetString("ProblemLoadingConfigFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was a problem loading the configuration value &apos;{0}&apos;.
+        ///You can delete the file &apos;{1}&apos; to fix the problem. Other settings may also be lost..
+        /// </summary>
+        internal static string ProblemLoadingConfigValue {
+            get {
+                return ResourceManager.GetString("ProblemLoadingConfigValue", resourceCulture);
             }
         }
         

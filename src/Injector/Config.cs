@@ -30,6 +30,7 @@ using Common.Utils;
 using Common.Values.Design;
 using IniParser;
 using ZeroInstall.Injector.Properties;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Injector
 {
@@ -137,7 +138,7 @@ namespace ZeroInstall.Injector
         /// The base URL of a mirror site for keys and feeds.
         /// </summary>
         [DefaultValue(typeof(Uri), DefaultFeedMirror), Category("Sources"), DisplayName("Feed mirror"), Description("The base URL of a mirror site for keys and feeds.")]
-        public Uri FeedMirror { get { return _feedMirror; } set { _feedMirror = new Uri(value.OriginalString, UriKind.Absolute); } }
+        public Uri FeedMirror { get { return _feedMirror; } set { _feedMirror = value.Sanitize(); } }
 
         /// <summary>
         /// The default value for <see cref="KeyInfoServer"/>.
@@ -150,7 +151,7 @@ namespace ZeroInstall.Injector
         /// The base URL of a key information server.
         /// </summary>
         [DefaultValue(typeof(Uri), DefaultKeyInfoServer), Category("Sources"), DisplayName("Key info server"), Description("The base URL of a key information server.")]
-        public Uri KeyInfoServer { get { return _keyInfoServer; } set { _keyInfoServer = new Uri(value.OriginalString, UriKind.Absolute); } }
+        public Uri KeyInfoServer { get { return _keyInfoServer; } set { _keyInfoServer = value.Sanitize(); } }
 
         /// <summary>
         /// The default value for <see cref="SelfUpdateID"/>.
@@ -178,7 +179,7 @@ namespace ZeroInstall.Injector
         /// <seealso cref="SyncServerUsername"/>
         /// <seealso cref="SyncServerPassword"/>
         [DefaultValue(typeof(Uri), DefaultSyncServer), Category("Sync"), DisplayName("Server"), Description("The base URL of the sync server.")]
-        public Uri SyncServer { get { return _syncServer; } set { _syncServer = new Uri(value.OriginalString, UriKind.Absolute); } }
+        public Uri SyncServer { get { return _syncServer; } set { _syncServer = value.Sanitize(); } }
 
         private string _syncServerUsername = "";
 
@@ -335,13 +336,12 @@ namespace ZeroInstall.Injector
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the config data.</exception>
         public static Config Load()
         {
-            // Locate all applicable config files and order them from least to most important
-            var paths = new List<string>(Locations.GetLoadConfigPaths("0install.net", true, "injector", "global"));
-            paths.Reverse();
+            // Locate all applicable config files
+            var paths = Locations.GetLoadConfigPaths("0install.net", true, "injector", "global");
 
             // Accumulate values from all files
             var config = new Config();
-            foreach (var path in paths)
+            foreach (var path in paths.Reverse()) // Read least important first
                 config.ReadFromIniFile(path);
             return config;
         }
@@ -390,8 +390,8 @@ namespace ZeroInstall.Injector
                 #region Error handling
             catch (ParsingException ex)
             {
-                // Wrap exception since only certain exception types are allowed
-                throw new InvalidDataException(ex.Message);
+                // Wrap exception to add context information
+                throw new InvalidDataException(string.Format(Resources.ProblemLoadingConfigFile, path), ex);
             }
             #endregion
 
@@ -413,7 +413,7 @@ namespace ZeroInstall.Injector
                     catch (FormatException ex)
                     {
                         // Wrap exception to add context information
-                        throw new InvalidDataException(string.Format(Resources.ProblemLoadingConfig, property.Key), ex);
+                        throw new InvalidDataException(string.Format(Resources.ProblemLoadingConfigValue, property.Key, path), ex);
                     }
                     #endregion
                 }

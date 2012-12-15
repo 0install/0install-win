@@ -151,5 +151,15 @@ namespace ZeroInstall.Model
             else return idA == idB;
         }
         #endregion
+
+        #region URI sanitization
+        /// <summary>
+        /// Reparses a URI (generated via conversion) to ensure it is a valid absolute URI.
+        /// </summary>
+        public static Uri Sanitize(this Uri uri)
+        {
+            return (uri == null) ? null : new Uri(uri.OriginalString, UriKind.Absolute);
+        }
+        #endregion
     }
 }
