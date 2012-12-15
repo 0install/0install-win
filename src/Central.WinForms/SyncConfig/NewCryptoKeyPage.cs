@@ -17,6 +17,7 @@
 
 using System;
 using System.Windows.Forms;
+using Common.Utils;
 
 namespace ZeroInstall.Central.WinForms.SyncConfig
 {
@@ -27,6 +28,8 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         public NewCryptoKeyPage()
         {
             InitializeComponent();
+
+            textBoxCryptoKey.Text = StringUtils.Random(16);
         }
 
         private void textBoxCryptoKey_TextChanged(object sender, EventArgs e)

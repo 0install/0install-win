@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -505,6 +506,21 @@ namespace Common.Utils
 
             var hash = algorithm.ComputeHash(Encoding.UTF8.GetBytes(value));
             return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+        }
+        #endregion
+
+        #region Random
+        /// <summary>
+        /// Returns a string filled with random base-64 characters based on a cryptographic random number generator.
+        /// </summary>
+        /// <param name="length">The length of the string to be generated.</param>
+        public static string Random(int length)
+        {
+            var generator = RandomNumberGenerator.Create();
+            var array = new byte[(int)Math.Round(length * 3 / 4f)];
+            generator.GetBytes(array);
+            string untrimmedString = Convert.ToBase64String(array);
+            return untrimmedString.Substring(0, length);
         }
         #endregion
 

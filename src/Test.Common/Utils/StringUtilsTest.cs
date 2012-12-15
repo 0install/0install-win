@@ -165,6 +165,17 @@ namespace Common.Utils
         }
 
         [Test]
+        public void TestRandom()
+        {
+            for (int i = 0; i < 128; i++)
+            {
+                string result = StringUtils.Random(i);
+                Assert.That(result, Is.Not.StringContaining("="));
+                Assert.AreEqual(result.Length, i);
+            }
+        }
+
+        [Test]
         public void TestExpandUnixVariables()
         {
             var variables = new StringDictionary
