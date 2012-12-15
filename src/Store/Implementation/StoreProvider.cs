@@ -78,7 +78,7 @@ namespace ZeroInstall.Store.Implementation
             {
                 try
                 {
-                    stores.Add(IpcStoreProvider.GetServiceProxy());
+                    stores.Add(IpcStoreProvider.ServiceProxy);
                 }
                     #region Error handling
                 catch (RemotingException)

@@ -142,7 +142,7 @@ namespace ZeroInstall.Store.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Zero Install Store Service is runnig..
+        ///   Looks up a localized string similar to The Zero Install Store Service is running..
         /// </summary>
         internal static string StatusRunning {
             get {
@@ -151,7 +151,7 @@ namespace ZeroInstall.Store.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Zero Install Store Service is not runnig..
+        ///   Looks up a localized string similar to The Zero Install Store Service is not running..
         /// </summary>
         internal static string StatusStopped {
             get {

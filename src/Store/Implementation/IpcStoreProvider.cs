@@ -68,17 +68,20 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <exception cref="RemotingException">Thrown if there is a problem connecting with the store service.</exception>
         /// <remarks>Always returns the same instance. Opens named pipes on first call. Connection is only established on demand.</remarks>
-        public static IStore GetServiceProxy()
+        public static IStore ServiceProxy
         {
-            // Thread-safe singleton with double-check
-            if (_store == null)
+            get
             {
-                lock (_lock)
+                // Thread-safe singleton with double-check
+                if (_store == null)
                 {
-                    if (_store == null) _store = CreateServiceProxy();
+                    lock (_lock)
+                    {
+                        if (_store == null) _store = CreateServiceProxy();
+                    }
                 }
+                return _store;
             }
-            return _store;
         }
 
         /// <summary>

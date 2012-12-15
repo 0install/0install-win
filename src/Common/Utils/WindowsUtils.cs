@@ -318,15 +318,20 @@ namespace Common.Utils
         /// Adds a UAC shield icon to a button. Does nothing if not running Windows Vista or newer.
         /// </summary>
         /// <remarks>This is purely cosmetic. UAC elevation is a separate concern.</remarks>
+        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Native API only applies to buttons.")]
         public static void AddShieldIcon(Button button)
         {
+            #region Sanity checks
+            if (button == null) throw new ArgumentNullException("button");
+            #endregion
+
             // ReSharper disable InconsistentNaming
             const int BCM_FIRST = 0x1600, BCM_SETSHIELD = 0x000C;
             // ReSharper restore InconsistentNaming
 
             if (!IsWindowsVista) return;
             button.FlatStyle = FlatStyle.System;
-            UnsafeNativeMethods.SendMessage(button.Handle, BCM_FIRST + BCM_SETSHIELD, 0, 0xFFFFFFFF);
+            UnsafeNativeMethods.SendMessage(button.Handle, BCM_FIRST + BCM_SETSHIELD, IntPtr.Zero, new IntPtr(0xFFFFFFFF));
         }
 
         /// <summary>

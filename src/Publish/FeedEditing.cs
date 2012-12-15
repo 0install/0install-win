@@ -35,6 +35,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Is raised when the content of the <see cref="Feed"/> has been updated.
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
         public event Action Update;
 
         /// <summary>

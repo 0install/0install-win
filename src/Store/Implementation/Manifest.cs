@@ -32,7 +32,7 @@ namespace ZeroInstall.Store.Implementation
     /// A manifest lists every file, directory and symlink in the tree and contains a digest of each file's content.
     /// </summary>
     /// <remarks>This class is immutable and thread-safe.</remarks>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
     [Serializable]
     public sealed class Manifest : IEquatable<Manifest>, IEnumerable<ManifestNode>
     {

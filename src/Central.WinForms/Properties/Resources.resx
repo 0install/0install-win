@@ -269,7 +269,7 @@ Continue wizard</value>
     <value>Unable to load the application list.</value>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
-    <value>Unable to download appliaction catalog.</value>
+    <value>Unable to download application catalog.</value>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
     <value>Unable to load feed for application list entry '{0}'.</value>

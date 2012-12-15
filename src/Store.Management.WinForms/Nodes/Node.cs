@@ -94,7 +94,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         #endregion
 
         #region Comparison
-        int IComparable<Node>.CompareTo(Node other)
+        public int CompareTo(Node other)
         {
             #region Sanity checks
             if (other == null) throw new ArgumentNullException("other");

@@ -427,7 +427,7 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to download appliaction catalog..
+        ///   Looks up a localized string similar to Unable to download application catalog..
         /// </summary>
         internal static string UnableToDownloadCatalog {
             get {

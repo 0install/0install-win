@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using Common;
@@ -95,6 +96,7 @@ namespace ZeroInstall.Store.Implementation
         /// Creates a temporary directory within <see cref="DirectoryPath"/>.
         /// </summary>
         /// <returns>The path to the new temporary directory.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Returns a new value on each call.")]
         protected virtual string GetTempDir()
         {
             string path = Path.Combine(DirectoryPath, Path.GetRandomFileName());
@@ -125,6 +127,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="DigestMismatchException">Thrown if the temporary directory doesn't match the <paramref name="expectedDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if <paramref name="tempID"/> cannot be moved or the digest cannot be calculated.</exception>
         /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Model.Implementation"/> with the specified <paramref name="expectedDigest"/> in the store.</exception>
+        [SuppressMessage("Microsoft.Usage", "CA2208:InstantiateArgumentExceptionsCorrectly")]
         protected virtual void VerifyAndAdd(string tempID, ManifestDigest expectedDigest, ITaskHandler handler)
         {
             #region Sanity checks
@@ -190,6 +193,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="IOException">Thrown if the <paramref name="directory"/> could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the <paramref name="directory"/> is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the <paramref name="directory"/> doesn't match the <paramref name="expectedDigest"/>.</exception>
+        [SuppressMessage("Microsoft.Usage", "CA2208:InstantiateArgumentExceptionsCorrectly")]
         public static Manifest VerifyDirectory(string directory, ManifestDigest expectedDigest, ITaskHandler handler)
         {
             #region Sanity checks
@@ -368,6 +372,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Verify
         /// <inheritdoc />
+        [SuppressMessage("Microsoft.Usage", "CA2208:InstantiateArgumentExceptionsCorrectly")]
         public virtual void Verify(ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks

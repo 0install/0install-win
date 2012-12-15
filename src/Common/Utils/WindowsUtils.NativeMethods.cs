@@ -126,7 +126,7 @@ namespace Common.Utils
             public static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
 
             [DllImport("user32")]
-            public static extern IntPtr SendMessage(IntPtr hWnd, UInt32 msg, UInt32 wParam, UInt32 lParam);
+            public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
             [DllImport("user32", CharSet = CharSet.Unicode, SetLastError = true)]
             public static extern IntPtr SendMessageTimeout(IntPtr hwnd, int msg, IntPtr wParam, string lParam, int flags, uint timeout, out IntPtr lpdwResult);
