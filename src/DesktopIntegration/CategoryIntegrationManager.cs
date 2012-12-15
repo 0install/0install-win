@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using Common.Tasks;
@@ -42,7 +41,7 @@ namespace ZeroInstall.DesktopIntegration
         private const string AllCategoryName = "all";
 
         /// <summary>A list of all known <see cref="AccessPoint"/> categories.</summary>
-        public static readonly ICollection<string> Categories = new[] {CapabilityRegistration.CategoryName, DefaultAccessPoint.CategoryName, IconAccessPoint.CategoryName, AllCategoryName};
+        public static readonly ICollection<string> Categories = new[] {CapabilityRegistration.CategoryName, DefaultAccessPoint.CategoryName, IconAccessPoint.CategoryName, AppAlias.CategoryName, AllCategoryName};
         #endregion
 
         #region Constructor
@@ -68,6 +67,7 @@ namespace ZeroInstall.DesktopIntegration
             bool capabilities = categories.Contains(CapabilityRegistration.CategoryName) || all;
             bool defaults = categories.Contains(DefaultAccessPoint.CategoryName) || all;
             bool icons = categories.Contains(IconAccessPoint.CategoryName) || all;
+            bool aliases = categories.Contains(AppAlias.CategoryName) || all;
 
             // Build capability list
             var accessPointsToAdd = new List<AccessPoint>();
@@ -85,28 +85,11 @@ namespace ZeroInstall.DesktopIntegration
             }
             if (icons)
             {
-                accessPointsToAdd.Add(new DesktopIcon {Name = appEntry.Name, Command = Command.NameRun});
-
-                string category = feed.Categories.FirstOrDefault();
-                if (feed.EntryPoints.IsEmpty)
-                { // Only one entry point
-                    accessPointsToAdd.Add(new MenuEntry {Name = appEntry.Name, Category = category, Command = Command.NameRun});
-                }
-                else
-                { // Multiple entry points
-                    accessPointsToAdd.AddRange((
-                        from entryPoint in feed.EntryPoints
-                        let entryPointName = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture)
-                        where !string.IsNullOrEmpty(entryPoint.Command) && !string.IsNullOrEmpty(entryPointName)
-                        select new MenuEntry
-                        {
-                            Name = entryPointName,
-                            // Group all entry points in a single folder
-                            Category = string.IsNullOrEmpty(category) ? appEntry.Name : category + Path.DirectorySeparatorChar + appEntry.Name,
-                            Command = entryPoint.Command
-                        }).Cast<AccessPoint>());
-                }
+                accessPointsToAdd.AddRange(Suggest.MenuEntries(feed).Cast<AccessPoint>());
+                accessPointsToAdd.AddRange(Suggest.DesktopIcons(feed).Cast<AccessPoint>());
             }
+            if (aliases)
+                accessPointsToAdd.AddRange(Suggest.Aliases(feed).Cast<AccessPoint>());
 
             try
             {
@@ -141,12 +124,14 @@ namespace ZeroInstall.DesktopIntegration
             bool capabilities = categories.Contains(CapabilityRegistration.CategoryName) || all;
             bool defaults = categories.Contains(DefaultAccessPoint.CategoryName) || all;
             bool icons = categories.Contains(IconAccessPoint.CategoryName) || all;
+            bool aliases = categories.Contains(AppAlias.CategoryName) || all;
 
             // Build capability list
             var accessPointsToRemove = new C5.LinkedList<AccessPoint>();
             if (capabilities) accessPointsToRemove.AddAll(appEntry.AccessPoints.Entries.OfType<CapabilityRegistration>());
             if (defaults) accessPointsToRemove.AddAll(appEntry.AccessPoints.Entries.OfType<DefaultAccessPoint>());
             if (icons) accessPointsToRemove.AddAll(appEntry.AccessPoints.Entries.OfType<IconAccessPoint>());
+            if (aliases) accessPointsToRemove.AddAll(appEntry.AccessPoints.Entries.OfType<AppAlias>());
 
             try
             {

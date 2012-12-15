@@ -31,6 +31,13 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("alias", Namespace = AppList.XmlNamespace)]
     public class AppAlias : CommandAccessPoint, IEquatable<AppAlias>
     {
+        #region Constants
+        /// <summary>
+        /// The name of this category of <see cref="AccessPoint"/>s as used by command-line interfaces.
+        /// </summary>
+        public const string CategoryName = "aliases";
+        #endregion
+
         #region Properties
         /// <summary>
         /// The name of the command-line command (without a file extension).

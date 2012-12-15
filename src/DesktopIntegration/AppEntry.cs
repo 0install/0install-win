@@ -39,9 +39,9 @@ namespace ZeroInstall.DesktopIntegration
     {
         #region Properties
         /// <summary>
-        /// The URI or local path of the interface defining the application or the pet name if <see cref="Requirements"/> is set.
+        /// The URI or local path of the interface defining the application or the pet-name if <see cref="Requirements"/> is set.
         /// </summary>
-        [Description("The URI or local path of the interface defining the application or the pet name if Requirements is set.")]
+        [Description("The URI or local path of the interface defining the application or the pet-name if Requirements is set.")]
         [XmlAttribute("interface")]
         public string InterfaceID { get; set; }
 
@@ -64,9 +64,9 @@ namespace ZeroInstall.DesktopIntegration
         public bool AutoUpdate { get { return _autoUpdate; } set { _autoUpdate = value; } }
 
         /// <summary>
-        /// A set of requirements/restrictions imposed by the user on the implementation selection process. May be <see langword="null"/> if <see cref="InterfaceID"/> is not a pet name.
+        /// A set of requirements/restrictions imposed by the user on the implementation selection process. May be <see langword="null"/> if <see cref="InterfaceID"/> is not a pet-name.
         /// </summary>
-        [Description("A set of requirements/restrictions imposed by the user on the implementation selection process. May be null if InterfaceID is not a pet name.")]
+        [Description("A set of requirements/restrictions imposed by the user on the implementation selection process. May be null if InterfaceID is not a pet-name.")]
         [XmlElement("requirements", Namespace = Feed.XmlNamespace)]
         public Requirements Requirements { get; set; }
 
