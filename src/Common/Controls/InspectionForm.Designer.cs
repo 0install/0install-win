@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.propertyGrid = new System.Windows.Forms.PropertyGrid();
+            this.propertyGrid = new Common.Controls.ResettablePropertyGrid();
             this.SuspendLayout();
             // 
             // propertyGrid
@@ -55,6 +55,6 @@
 
         #endregion
 
-        private System.Windows.Forms.PropertyGrid propertyGrid;
+        private Common.Controls.ResettablePropertyGrid propertyGrid;
     }
 }

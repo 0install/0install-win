@@ -316,6 +316,15 @@ namespace Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Reset value.
+        /// </summary>
+        internal static string ResetValue {
+            get {
+                return ResourceManager.GetString("ResetValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         internal static string Search {

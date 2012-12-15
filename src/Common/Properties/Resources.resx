@@ -268,4 +268,7 @@
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="ResetValue" xml:space="preserve">
+    <value>&amp;Reset value</value>
+  </data>
 </root>
