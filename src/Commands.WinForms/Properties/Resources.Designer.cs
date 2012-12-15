@@ -79,6 +79,15 @@ namespace ZeroInstall.Commands.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configuration.
+        /// </summary>
+        internal static string Configuration {
+            get {
+                return ResourceManager.GetString("Configuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start entering text in the last line to create a new entry.
         ///Select an entire line by clicking in the first column and then press DEL on the keyboard to remove an entry..
         /// </summary>

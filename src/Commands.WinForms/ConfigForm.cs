@@ -27,38 +27,31 @@ namespace ZeroInstall.Commands.WinForms
     /// <summary>
     /// A dialog form used for displaying and manipulating <see cref="Config"/> settings.
     /// </summary>
-    public partial class ConfigForm : OKCancelDialog
+    public sealed class ConfigForm : EditDialog<Config>
     {
-        private ConfigForm(Config config)
+        private ConfigForm()
         {
-            InitializeComponent();
-            propertyGrid.SelectedObject = config;
-
+            Load += delegate
+            {
+                Text = @"Zero Install" + Resources.Configuration +
+                    (Locations.IsPortable ? "" : @" - " + Resources.PortableMode);
+            };
             HandleCreated += delegate { Program.ConfigureTaskbar(this, Text, "Config", "config"); };
         }
 
         /// <summary>
-        /// Displays the form as a modal dialog.
+        /// Displays a dialog for editing <see cref="Config"/>.
         /// </summary>
-        /// <param name="config">The settings to display.</param>
-        public static DialogResult ShowDialog(Config config)
+        /// <param name="config"></param>
+        /// <returns>Save changes if <see langword="true"/>; discard changes if <see langword="false"/>.</returns>
+        public static bool Edit(Config config)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");
             #endregion
 
-            using (var form = new ConfigForm(config))
-            {
-                if (Locations.IsPortable) form.Text += @" - " + Resources.PortableMode;
-                return form.ShowDialog();
-            }
-        }
-
-        private void resetValueMenuItem_Click(object sender, EventArgs e)
-        {
-            var item = propertyGrid.SelectedGridItem;
-            if (item.PropertyDescriptor != null && item.PropertyDescriptor.CanResetValue(item.Parent.Value))
-                propertyGrid.ResetSelectedProperty();
+            using (var form = new ConfigForm())
+                return (form.ShowDialog(config) == DialogResult.OK);
         }
     }
 }

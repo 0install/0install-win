@@ -34,7 +34,7 @@ namespace ZeroInstall.Commands.WinForms
     /// Uses <see cref="System.Windows.Forms"/> to inform the user about the progress of tasks and ask the user questions.
     /// </summary>
     /// <remarks>This class manages a GUI thread with an independent message queue. Invoking methods on the right thread is handled automatically.</remarks>
-    public class GuiHandler : MarshalByRefObject, IHandler
+    public sealed class GuiHandler : MarshalByRefObject, IHandler, IDisposable
     {
         #region Variables
         private ProgressForm _form;
@@ -78,6 +78,15 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         public GuiHandler() : this(new CancellationToken())
         {}
+        #endregion
+
+        #region Dispose
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            _auditWaitHandle.Close();
+            if (_form != null) _form.Dispose();
+        }
         #endregion
 
         //--------------------//
@@ -314,7 +323,7 @@ namespace ZeroInstall.Commands.WinForms
             if (config == null) throw new ArgumentNullException("config");
             #endregion
 
-            return (ConfigForm.ShowDialog(config) == DialogResult.OK);
+            return ConfigForm.Edit(config);
         }
         #endregion
     }

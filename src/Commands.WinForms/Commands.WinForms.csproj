@@ -73,9 +73,6 @@
     <Compile Include="ConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ConfigForm.Designer.cs">
-      <DependentUpon>ConfigForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="DelayedGuiHandler.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GuiHandler.cs" />
@@ -117,13 +114,6 @@
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ConfigForm.de.resx">
-      <DependentUpon>ConfigForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ConfigForm.resx">
-      <DependentUpon>ConfigForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="IntegrateAppForm.de.resx">
       <DependentUpon>IntegrateAppForm.cs</DependentUpon>
       <SubType>Designer</SubType>
