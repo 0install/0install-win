@@ -84,13 +84,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (!needsTerminal) compilerParameters.CompilerOptions += " /target:winexe";
 
             // Set icon if available
-            try
+            var icon = target.Feed.GetIcon(Icon.MimeTypeIco, command);
+            if (icon.HasValue)
             {
-                string iconPath = IconCacheProvider.CreateDefault().GetIcon(target.Feed.GetIcon(Icon.MimeTypeIco, command).Location, handler);
+                string iconPath = IconCacheProvider.CreateDefault().GetIcon(icon.Value.Location, handler);
                 compilerParameters.CompilerOptions += " /win32icon:" + iconPath.EscapeArgument();
             }
-            catch (KeyNotFoundException)
-            {}
 
             using (var manifestFile = new TemporaryFile("0install"))
             {

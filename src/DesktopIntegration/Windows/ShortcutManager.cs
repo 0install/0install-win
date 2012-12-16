@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using Common.Storage;
@@ -69,13 +68,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
             shortcut.Description = description.Substring(0, Math.Min(description.Length, maxDescriptionLength));
 
             // Set icon if available
-            try
-            {
-                var icon = target.Feed.GetIcon(Icon.MimeTypeIco, command);
-                shortcut.IconLocation = IconProvider.GetIconPath(icon, machineWide, handler);
-            }
-            catch (KeyNotFoundException)
-            {}
+            var icon = target.Feed.GetIcon(Icon.MimeTypeIco, command);
+            if (icon.HasValue) shortcut.IconLocation = IconProvider.GetIconPath(icon.Value, machineWide, handler);
 
             shortcut.Save();
 #endif

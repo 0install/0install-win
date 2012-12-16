@@ -332,6 +332,7 @@ namespace ZeroInstall.Model
 
             Assert.AreEqual(commandIcon, feed.GetIcon(Icon.MimeTypeIco, Command.NameRun));
             Assert.AreEqual(feedIcon, feed.GetIcon(Icon.MimeTypeIco, "unknown"));
+            Assert.AreEqual(null, feed.GetIcon("wrong", "unknown"));
         }
     }
 }

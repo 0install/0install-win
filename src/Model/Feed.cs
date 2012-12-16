@@ -28,7 +28,6 @@ using Common.Collections;
 using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Model.Capabilities;
-using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model
 {
@@ -353,9 +352,8 @@ namespace ZeroInstall.Model
         /// </summary>
         /// <param name="mimeType">The <see cref="Icon.MimeType"/> to try to find. Will only return exact matches.</param>
         /// <param name="command">The name of the command the icon should represent; may be <see langword="null"/>.</param>
-        /// <returns>The best matching icon that was found.</returns>
-        /// <exception cref="KeyNotFoundException">Thrown if no matching icon was found.</exception>
-        public Icon GetIcon(string mimeType, string command)
+        /// <returns>The best matching icon that was found or <see langword="null"/> if no matching icon was found.</returns>
+        public Icon? GetIcon(string mimeType, string command)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
@@ -373,7 +371,7 @@ namespace ZeroInstall.Model
             var suitableFeedIcons = Icons.FindAll(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Location != null);
             if (!suitableFeedIcons.IsEmpty) return suitableFeedIcons.First;
 
-            throw new KeyNotFoundException(Resources.NoSuitableIconFound);
+            return null;
         }
         #endregion
 

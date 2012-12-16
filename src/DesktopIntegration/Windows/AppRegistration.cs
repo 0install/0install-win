@@ -94,13 +94,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 capabilitiesKey.SetValue(RegValueAppDescription, target.Feed.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture) ?? "");
 
                 // Set icon if available
-                try
-                {
                     var icon = target.Feed.GetIcon(Icon.MimeTypeIco, null);
-                    capabilitiesKey.SetValue(RegValueAppIcon, IconProvider.GetIconPath(icon, machineWide, handler) + ",0");
-                }
-                catch (KeyNotFoundException)
-                {}
+                    if (icon.HasValue) capabilitiesKey.SetValue(RegValueAppIcon, IconProvider.GetIconPath(icon.Value, machineWide, handler) + ",0");
 
                 using (var fileAssocsKey = capabilitiesKey.CreateSubKey(RegSubKeyFileAssocs))
                 {

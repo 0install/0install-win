@@ -192,15 +192,9 @@ namespace ZeroInstall.Commands
         /// <returns>The path to the icon file; <see langword="null"/> if no suitable icon was found.</returns>
         private string GetIconPath(string command)
         {
-            try
-            {
-                var icon = _target.Feed.GetIcon(Icon.MimeTypeIco, command);
-                return IconProvider.GetIconPath(icon, false, _policy.Handler);
-            }
-            catch (KeyNotFoundException)
-            {
-                return null;
-            }
+            var icon = _target.Feed.GetIcon(Icon.MimeTypeIco, command);
+            if (icon.HasValue) return IconProvider.GetIconPath(icon.Value, false, _policy.Handler);
+            else return null;
         }
         #endregion
 
