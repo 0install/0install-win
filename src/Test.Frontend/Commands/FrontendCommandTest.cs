@@ -97,10 +97,15 @@ namespace ZeroInstall.Commands
 
         /// <summary>Creates an instance of the command type to be tested using <see cref="_handler"/> and <see cref="Policy"/>.</summary>
         protected abstract FrontendCommand GetCommand();
+        
+        private LocationsRedirect _redirect;
 
         [SetUp]
         public void SetUp()
         {
+            // Don't store generated executables settings in real user profile
+            _redirect = new LocationsRedirect("0install-unit-tests");
+
             _selections = null;
             _output = null;
 
@@ -123,6 +128,7 @@ namespace ZeroInstall.Commands
         [TearDown]
         public void TearDown()
         {
+            _redirect.Dispose();
             _mockRepository.Verify();
         }
 
@@ -186,8 +192,6 @@ namespace ZeroInstall.Commands
         [Test]
         public void TestGetCanonicalIDAliases()
         {
-            using (new LocationsRedirect("0install-unit-tests"))
-            {
                 // Fake an alias
                 new AppList
                 {
@@ -203,7 +207,6 @@ namespace ZeroInstall.Commands
 
                 Assert.AreEqual("http://0install.de/feeds/test/test1.xml", Command.GetCanonicalID("alias:test"));
                 Assert.Throws<InvalidInterfaceIDException>(() => Command.GetCanonicalID("alias:invalid"));
-            }
         }
     }
 }

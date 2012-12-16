@@ -123,7 +123,39 @@ namespace ZeroInstall.Commands
         /// </summary>
         protected AppList AppList
         {
-            get { return _appList ?? (_appList = AppList.Load(AppList.GetDefaultPath(false))); }
+            get
+            {
+                if (_appList == null)
+                {
+                    try
+                    {
+                        _appList = AppList.Load(AppList.GetDefaultPath(false));
+                    }
+                        #region Error handling
+                    catch (FileNotFoundException)
+                    {
+                        _appList = new AppList();
+                    }
+                    catch (IOException ex)
+                    {
+                        Log.Warn(ex);
+                        _appList = new AppList();
+                    }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        Log.Warn(ex);
+                        _appList = new AppList();
+                    }
+                    catch (InvalidDataException ex)
+                    {
+                        Log.Warn(ex);
+                        _appList = new AppList();
+                    }
+                    #endregion
+                }
+
+                return _appList;
+            }
         }
         #endregion
 
