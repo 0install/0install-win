@@ -29,7 +29,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         {
             InitializeComponent();
 
-            textBoxCryptoKey.Text = StringUtils.Random(16);
+            textBoxCryptoKey.Text = StringUtils.GeneratePassword(16);
         }
 
         private void textBoxCryptoKey_TextChanged(object sender, EventArgs e)

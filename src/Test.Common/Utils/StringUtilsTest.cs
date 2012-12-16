@@ -165,12 +165,13 @@ namespace Common.Utils
         }
 
         [Test]
-        public void TestRandom()
+        public void TestGeneratePassword()
         {
             for (int i = 0; i < 128; i++)
             {
-                string result = StringUtils.Random(i);
+                string result = StringUtils.GeneratePassword(i);
                 Assert.That(result, Is.Not.StringContaining("="));
+                Assert.That(result, Is.Not.StringContaining("l"));
                 Assert.AreEqual(result.Length, i);
             }
         }

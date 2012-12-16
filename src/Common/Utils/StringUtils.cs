@@ -23,7 +23,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -390,9 +389,9 @@ namespace Common.Utils
         }
         #endregion
 
-        #region Base 64
+        #region base64
         /// <summary> 
-        /// Encodes a string as UTF-8 in base 64.
+        /// Encodes a string as UTF-8 in base64.
         /// </summary>
         public static string Base64Utf8Encode(this string value)
         {
@@ -400,7 +399,7 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Decodes a UTF-8 in base 64 string.
+        /// Decodes a UTF-8 in base64 string.
         /// </summary>
         /// <exception cref="FormatException">Thrown if <paramref name="value"/> is not a valid base 64 string.</exception>
         public static string Base64Utf8Decode(this string value)
@@ -409,12 +408,12 @@ namespace Common.Utils
         }
         #endregion
 
-        #region Base 32
+        #region base32
         private static readonly char[] _base32Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".ToCharArray();
         private const int NormaleByteSize = 8, Base32ByteSize = 5;
 
         /// <summary>
-        /// Encodes a byte array in base 32 without padding.
+        /// Encodes a byte array in base32 without padding.
         /// </summary>
         public static string Base32Encode(this byte[] data)
         {
@@ -460,9 +459,9 @@ namespace Common.Utils
         }
         #endregion
 
-        #region Base 16
+        #region base16
         /// <summary>
-        /// Encodes a byte array in base 16 (hexadecimal).
+        /// Encodes a byte array in base16 (hexadecimal).
         /// </summary>
         public static string Base16Encode(this byte[] data)
         {
@@ -475,7 +474,7 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Decodes a base 16 (hexadecimal) to a byte array.
+        /// Decodes a base16 (hexadecimal) to a byte array.
         /// </summary>
         public static byte[] Base16Decode(this string encoded)
         {
@@ -509,18 +508,19 @@ namespace Common.Utils
         }
         #endregion
 
-        #region Random
+        #region Generate password
         /// <summary>
-        /// Returns a string filled with random base-64 characters based on a cryptographic random number generator.
+        /// Returns a string filled with random human-readable ASCII characters based on a cryptographic random number generator.
         /// </summary>
         /// <param name="length">The length of the string to be generated.</param>
-        public static string Random(int length)
+        public static string GeneratePassword(int length)
         {
             var generator = RandomNumberGenerator.Create();
             var array = new byte[(int)Math.Round(length * 3 / 4f)];
             generator.GetBytes(array);
-            string untrimmedString = Convert.ToBase64String(array);
-            return untrimmedString.Substring(0, length);
+
+            // Use base64 encoding without '=' padding and with '-' instead of 'l'
+            return Convert.ToBase64String(array).Substring(0, length).Replace('l', '-');
         }
         #endregion
 
