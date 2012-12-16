@@ -64,6 +64,7 @@
             // 
             this.labelName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelName.AutoEllipsis = true;
             this.labelName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             this.labelName.Location = new System.Drawing.Point(60, 6);
             this.labelName.Name = "labelName";
@@ -75,6 +76,7 @@
             this.labelSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelSummary.AutoEllipsis = true;
             this.labelSummary.Location = new System.Drawing.Point(60, 24);
             this.labelSummary.Name = "labelSummary";
             this.labelSummary.Size = new System.Drawing.Size(264, 26);
@@ -84,7 +86,6 @@
             // 
             this.buttonRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRun.AutoSize = true;
-            this.buttonRun.BackColor = System.Drawing.SystemColors.Control;
             this.buttonRun.ContextMenuStrip = this.contextMenuRun;
             this.buttonRun.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.buttonRun.Location = new System.Drawing.Point(330, 5);
@@ -133,7 +134,6 @@
             // 
             this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAdd.AutoSize = true;
-            this.buttonIntegrate.BackColor = System.Drawing.SystemColors.Control;
             this.buttonAdd.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.buttonAdd.Location = new System.Drawing.Point(363, 32);
             this.buttonAdd.Name = "buttonAdd";
@@ -173,7 +173,6 @@
             // 
             this.buttonRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRemove.AutoSize = true;
-            this.buttonRemove.BackColor = System.Drawing.SystemColors.Control;
             this.buttonRemove.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.buttonRemove.Location = new System.Drawing.Point(363, 32);
             this.buttonRemove.Name = "buttonRemove";
@@ -186,7 +185,6 @@
             // 
             this.buttonIntegrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonIntegrate.AutoSize = true;
-            this.buttonIntegrate.BackColor = System.Drawing.SystemColors.Control;
             this.buttonIntegrate.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.buttonIntegrate.Location = new System.Drawing.Point(330, 32);
             this.buttonIntegrate.Name = "buttonIntegrate";

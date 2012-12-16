@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -101,18 +100,12 @@ namespace ZeroInstall.Central.WinForms
 
                 if (_iconCache != null)
                 {
-                    try
-                    {
-                        // Load application icon in background
-                        var icon = value.GetIcon(Icon.MimeTypePng, null);
-                        iconDownloadWorker.RunWorkerAsync(icon.Location);
-                    }
-                    catch (KeyNotFoundException)
-                    {
-                        // Fall back to default icon
-                        pictureBoxIcon.Image = Resources.App;
-                    }
+                    // Load application icon in background
+                    var icon = value.GetIcon(Icon.MimeTypePng, null);
+                    if (icon.HasValue) iconDownloadWorker.RunWorkerAsync(icon.Value.Location);
+                    else pictureBoxIcon.Image = Resources.App; // Fall back to default icon
                 }
+                else pictureBoxIcon.Image = Resources.App; // Fall back to default icon
             }
         }
 
@@ -289,21 +282,26 @@ namespace ZeroInstall.Central.WinForms
 
         private void linkLabelDetails_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            if (InterfaceID.StartsWith("fake:")) return;
             OpenInBrowser(InterfaceID);
         }
 
         private void buttonRun_Click(object sender, EventArgs e)
         {
+            if (InterfaceID.StartsWith("fake:")) return;
             ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"run", "--no-wait", InterfaceID}));
         }
 
         private void buttonSelectVersion_Click(object sender, EventArgs e)
         {
+            if (InterfaceID.StartsWith("fake:")) return;
             ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"run", "--no-wait", "--gui", InterfaceID}));
         }
 
         private void buttonSelectCommmand_Click(object sender, EventArgs e)
         {
+            if (InterfaceID.StartsWith("fake:")) return;
+
             string args;
             string command = SelectCommandDialog.ShowDialog(this, _feed, out args);
             if (command != null)
@@ -328,11 +326,14 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
+            if (InterfaceID.StartsWith("fake:")) return;
             ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"update", InterfaceID}));
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
+            if (InterfaceID.StartsWith("fake:")) return;
+
             // Disable button while operation is running
             buttonAdd.Enabled = false;
 
@@ -347,6 +348,8 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonIntegrate_Click(object sender, EventArgs e)
         {
+            if (InterfaceID.StartsWith("fake:")) return;
+
             // Disable buttons while operation is running
             buttonRemove.Enabled = buttonIntegrate.Enabled = false;
 
@@ -361,6 +364,8 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
+            if (InterfaceID.StartsWith("fake:")) return;
+
             if (!Msg.YesNo(this, string.Format(Resources.AppRemoveConfirm, AppName), MsgSeverity.Warn, Resources.YesRemoveApp, Resources.NoKeepApp)) return;
 
             // Disable buttons while operation is running

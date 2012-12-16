@@ -35,8 +35,10 @@ namespace ZeroInstall.Central.WinForms
     public sealed class AppTileList : UserControl
     {
         #region Variables
-        /// <summary>Allows the user to search/filter the <see cref="AppTile"/>s.</summary>
-        private readonly HintTextBox _textSearch;
+        /// <summary>
+        /// Allows the user to search/filter the <see cref="AppTile"/>s.
+        /// </summary>
+        public readonly HintTextBox TextSearch;
 
         /// <summary>Displays <see cref="AppTile"/>s in top-bottom list.</summary>
         private readonly FlowLayoutPanel _flowLayout;
@@ -98,13 +100,13 @@ namespace ZeroInstall.Central.WinForms
 
             SuspendLayout();
 
-            _textSearch = new HintTextBox
+            TextSearch = new HintTextBox
             {
                 Dock = DockStyle.Top, Height = 20,
                 HintText = Resources.Search, ShowClearButton = true,
                 TabIndex = 0
             };
-            _textSearch.TextChanged += delegate { RefilterTiles(); };
+            TextSearch.TextChanged += delegate { RefilterTiles(); };
 
             _flowLayout = new FlowLayoutPanel
             {
@@ -120,7 +122,7 @@ namespace ZeroInstall.Central.WinForms
 
             // Must add scroll panel first for docking to work correctly
             Controls.Add(_scrollPanel);
-            Controls.Add(_textSearch);
+            Controls.Add(TextSearch);
 
             Resize += delegate
             {
@@ -154,7 +156,7 @@ namespace ZeroInstall.Central.WinForms
 
             var tile = new AppTile(machineWide, interfaceID, appName, status, IconCache) {Width = _flowLayout.Width};
 
-            if (appName.ContainsIgnoreCase(_textSearch.Text))
+            if (appName.ContainsIgnoreCase(TextSearch.Text))
             {
                 _appTileQueueHeight += tile.Height;
 
@@ -282,7 +284,7 @@ namespace ZeroInstall.Central.WinForms
             foreach (var tile in _tileDictionary.Values)
             {
                 // Check if new filter changes visibility
-                bool shouldBeVisible = tile.AppName.ContainsIgnoreCase(_textSearch.Text);
+                bool shouldBeVisible = tile.AppName.ContainsIgnoreCase(TextSearch.Text);
                 if (tile.Visible != shouldBeVisible)
                 {
                     // Update list length
