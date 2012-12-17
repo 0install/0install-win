@@ -117,16 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonIntro.Text" xml:space="preserve">
-    <value>&amp;Einführungsvideo</value>
+  <data name="tabPageAppList.Text" xml:space="preserve">
+    <value>Meine Anwendungen</value>
   </data>
-  <data name="buttonDocumentation.Text" xml:space="preserve">
-    <value>&amp;Dokumentation</value>
+  <data name="tabPageCatalog.Text" xml:space="preserve">
+    <value>Katalog</value>
+  </data>
+  <data name="labelVideo.Text" xml:space="preserve">
+    <value>Ein kurzes Einführungsvideo</value>
+  </data>
+  <data name="buttonReplay.Text" xml:space="preserve">
+    <value>&amp;Erneut abspielen</value>
   </data>
   <data name="buttonClose.Text" xml:space="preserve">
-    <value>Schließen</value>
+    <value>&amp;Schließen</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Hilfe</value>
+    <value>Einführung</value>
   </data>
 </root>

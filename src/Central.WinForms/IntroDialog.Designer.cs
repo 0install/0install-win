@@ -66,17 +66,17 @@
             // 
             // tabPageAppList
             // 
+            resources.ApplyResources(this.tabPageAppList, "tabPageAppList");
             this.tabPageAppList.Controls.Add(this.arrowIntegrate);
             this.tabPageAppList.Controls.Add(this.appList);
-            resources.ApplyResources(this.tabPageAppList, "tabPageAppList");
             this.tabPageAppList.Name = "tabPageAppList";
             this.tabPageAppList.UseVisualStyleBackColor = true;
             // 
             // arrowIntegrate
             // 
+            resources.ApplyResources(this.arrowIntegrate, "arrowIntegrate");
             this.arrowIntegrate.BackColor = System.Drawing.Color.Transparent;
             this.arrowIntegrate.Image = global::ZeroInstall.Central.WinForms.Properties.Resources.ArrowUp;
-            resources.ApplyResources(this.arrowIntegrate, "arrowIntegrate");
             this.arrowIntegrate.Name = "arrowIntegrate";
             this.arrowIntegrate.TabStop = false;
             // 
@@ -87,26 +87,26 @@
             // 
             // tabPageCatalog
             // 
+            resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
             this.tabPageCatalog.Controls.Add(this.arrowAdd);
             this.tabPageCatalog.Controls.Add(this.arrowRun);
             this.tabPageCatalog.Controls.Add(this.catalogList);
-            resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
             this.tabPageCatalog.Name = "tabPageCatalog";
             this.tabPageCatalog.UseVisualStyleBackColor = true;
             // 
             // arrowAdd
             // 
+            resources.ApplyResources(this.arrowAdd, "arrowAdd");
             this.arrowAdd.BackColor = System.Drawing.Color.Transparent;
             this.arrowAdd.Image = global::ZeroInstall.Central.WinForms.Properties.Resources.ArrowUp;
-            resources.ApplyResources(this.arrowAdd, "arrowAdd");
             this.arrowAdd.Name = "arrowAdd";
             this.arrowAdd.TabStop = false;
             // 
             // arrowRun
             // 
+            resources.ApplyResources(this.arrowRun, "arrowRun");
             this.arrowRun.BackColor = System.Drawing.Color.Transparent;
             this.arrowRun.Image = global::ZeroInstall.Central.WinForms.Properties.Resources.ArrowRight;
-            resources.ApplyResources(this.arrowRun, "arrowRun");
             this.arrowRun.Name = "arrowRun";
             this.arrowRun.TabStop = false;
             // 
