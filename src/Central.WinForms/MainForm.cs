@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
@@ -108,8 +107,15 @@ namespace ZeroInstall.Central.WinForms
                 LoadCatalogCached();
                 LoadCatalogAsync();
 
-                // Show "new apps" list if "my apps" list is empty
-                if (_currentAppList.Entries.IsEmpty) tabControlApps.SelectedTab = tabPageCatalog;
+                if (_currentAppList.Entries.IsEmpty)
+                {
+                    // Show intro video automatically on first start
+                    if (!File.Exists(Locations.GetSaveConfigPath("0install.net", true, "central", "intro_seen")))
+                        new IntroDialog().ShowDialog(this);
+
+                    // Show catalog automatically if AppList is empty
+                    tabControlApps.SelectTab(tabPageCatalog);
+                }
             };
 
             FormClosing += delegate
@@ -499,7 +505,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            OpenInBrowser("http://0install.de/help/");
+            new HelpDialog().ShowDialog(this);
         }
         #endregion
 
@@ -534,28 +540,6 @@ namespace ZeroInstall.Central.WinForms
                 ? new[] {"add-app", "--machine", interfaceID}
                 : new[] {"add-app", interfaceID}));
             tabControlApps.SelectTab(tabPageAppList);
-        }
-
-        /// <summary>
-        /// Opens a URL in the system's default browser.
-        /// </summary>
-        /// <param name="url">The URL to open.</param>
-        private void OpenInBrowser(string url)
-        {
-            try
-            {
-                Process.Start(url);
-            }
-                #region Error handling
-            catch (FileNotFoundException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            catch (Win32Exception ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            #endregion
         }
         #endregion
     }

@@ -100,6 +100,26 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ArrowRight {
+            get {
+                object obj = ResourceManager.GetObject("ArrowRight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ArrowUp {
+            get {
+                object obj = ResourceManager.GetObject("ArrowUp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter the URL or local file path of the feed catalog to add:.
         /// </summary>
         internal static string EnterCatalogUrl {
@@ -132,6 +152,71 @@ namespace ZeroInstall.Central.WinForms.Properties {
         internal static string IgnoringDuplicateAppListEntry {
             get {
                 return ResourceManager.GetString("IgnoringDuplicateAppListEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you like an app,
+        ///add it to &quot;My applications&quot;..
+        /// </summary>
+        internal static string IntroSubtitlesAddApp {
+            get {
+                return ResourceManager.GetString("IntroSubtitlesAddApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Just search for an app in the &quot;Catalog&quot;....
+        /// </summary>
+        internal static string IntroSubtitlesCatalogSearch {
+            get {
+                return ResourceManager.GetString("IntroSubtitlesCatalogSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Intgerate&quot; an app to put it
+        ///in the start menu or on the desktop..
+        /// </summary>
+        internal static string IntroSubtitlesIntegrateApp {
+            get {
+                return ResourceManager.GetString("IntroSubtitlesIntegrateApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can manage your list of favorite apps here..
+        /// </summary>
+        internal static string IntroSubtitlesMyApps {
+            get {
+                return ResourceManager.GetString("IntroSubtitlesMyApps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ... and run it!.
+        /// </summary>
+        internal static string IntroSubtitlesRunApp {
+            get {
+                return ResourceManager.GetString("IntroSubtitlesRunApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thank you for watching!.
+        /// </summary>
+        internal static string IntroSubtitlesThanks {
+            get {
+                return ResourceManager.GetString("IntroSubtitlesThanks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With Zero Install you don&apos;t have to install apps..
+        /// </summary>
+        internal static string IntroSubtitlesWelcome {
+            get {
+                return ResourceManager.GetString("IntroSubtitlesWelcome", resourceCulture);
             }
         }
         

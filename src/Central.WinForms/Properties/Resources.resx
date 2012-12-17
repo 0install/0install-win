@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="RemoveButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RemoveButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -151,6 +151,32 @@ This will also remove any desktop integration applied for this application.</val
   </data>
   <data name="FailedToRun" xml:space="preserve">
     <value>Failed to run {0}.</value>
+  </data>
+  <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
+    <value>Ignoring duplicate application list entry for '{0}'.</value>
+  </data>
+  <data name="IntroSubtitlesAddApp" xml:space="preserve">
+    <value>If you like an app,
+add it to "My applications".</value>
+  </data>
+  <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
+    <value>Just search for an app in the "Catalog"...</value>
+  </data>
+  <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
+    <value>"Intgerate" an app to put it
+in the start menu or on the desktop.</value>
+  </data>
+  <data name="IntroSubtitlesMyApps" xml:space="preserve">
+    <value>You can manage your list of favorite apps here.</value>
+  </data>
+  <data name="IntroSubtitlesRunApp" xml:space="preserve">
+    <value>... and run it!</value>
+  </data>
+  <data name="IntroSubtitlesThanks" xml:space="preserve">
+    <value>Thank you for watching!</value>
+  </data>
+  <data name="IntroSubtitlesWelcome" xml:space="preserve">
+    <value>With Zero Install you don't have to install apps.</value>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
     <value>Machine-wide mode</value>
@@ -241,6 +267,24 @@ Keep this key secret and use something different for your password. This way nob
     <value>The data currently stored on the Sync server is damaged.
 You can replace the data stored on the server by choosing that you don't remember the Crypto key.</value>
   </data>
+  <data name="UnableToDownloadCatalog" xml:space="preserve">
+    <value>Unable to download application catalog.</value>
+  </data>
+  <data name="UnableToLoadAppList" xml:space="preserve">
+    <value>Unable to load the application list.</value>
+  </data>
+  <data name="UnableToLoadFeedForApp" xml:space="preserve">
+    <value>Unable to load feed for application list entry '{0}'.</value>
+  </data>
+  <data name="UnableToLoadIcon" xml:space="preserve">
+    <value>Unable to load application icon.</value>
+  </data>
+  <data name="UnableToSelfUpdate" xml:space="preserve">
+    <value>Unable to perform self-update check.</value>
+  </data>
+  <data name="UnableToStoreIcon" xml:space="preserve">
+    <value>Unable to store application icon.</value>
+  </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Are you sure you want to use an unencrypted connection to a Sync server?
 Encrypted connections use an https:// prefix.</value>
@@ -259,25 +303,10 @@ Remove the application</value>
     <value>Yes
 Continue wizard</value>
   </data>
-  <data name="UnableToSelfUpdate" xml:space="preserve">
-    <value>Unable to perform self-update check.</value>
+  <data name="ArrowRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ArrowRight.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="UnableToStoreIcon" xml:space="preserve">
-    <value>Unable to store application icon.</value>
-  </data>
-  <data name="UnableToLoadAppList" xml:space="preserve">
-    <value>Unable to load the application list.</value>
-  </data>
-  <data name="UnableToDownloadCatalog" xml:space="preserve">
-    <value>Unable to download application catalog.</value>
-  </data>
-  <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>Unable to load feed for application list entry '{0}'.</value>
-  </data>
-  <data name="UnableToLoadIcon" xml:space="preserve">
-    <value>Unable to load application icon.</value>
-  </data>
-  <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Ignoring duplicate application list entry for '{0}'.</value>
+  <data name="ArrowUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ArrowUp.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

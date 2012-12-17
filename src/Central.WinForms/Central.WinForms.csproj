@@ -77,6 +77,18 @@
     <Compile Include="AppTileList.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="IntroDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IntroDialog.Designer.cs">
+      <DependentUpon>IntroDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelpDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HelpDialog.Designer.cs">
+      <DependentUpon>HelpDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectCommandDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -215,6 +227,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
+    <None Include="Resources\ArrowUp.png" />
+    <None Include="Resources\ArrowRight.png" />
     <None Include="Properties\App.config" />
     <None Include="Resources\SetupButton.png" />
     <None Include="Resources\ModifyButton.png" />
@@ -224,6 +238,16 @@
     <None Include="Resources\Logo.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="HelpDialog.de.resx">
+      <DependentUpon>HelpDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IntroDialog.resx">
+      <DependentUpon>IntroDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HelpDialog.resx">
+      <DependentUpon>HelpDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.de.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
