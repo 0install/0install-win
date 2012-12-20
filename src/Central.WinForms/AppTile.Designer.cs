@@ -68,7 +68,7 @@
             this.labelName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             this.labelName.Location = new System.Drawing.Point(60, 6);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(264, 18);
+            this.labelName.Size = new System.Drawing.Size(266, 18);
             this.labelName.TabIndex = 0;
             // 
             // labelSummary
@@ -79,7 +79,7 @@
             this.labelSummary.AutoEllipsis = true;
             this.labelSummary.Location = new System.Drawing.Point(60, 24);
             this.labelSummary.Name = "labelSummary";
-            this.labelSummary.Size = new System.Drawing.Size(264, 26);
+            this.labelSummary.Size = new System.Drawing.Size(266, 31);
             this.labelSummary.TabIndex = 1;
             // 
             // buttonRun
@@ -88,10 +88,10 @@
             this.buttonRun.AutoSize = true;
             this.buttonRun.ContextMenuStrip = this.contextMenuRun;
             this.buttonRun.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonRun.Location = new System.Drawing.Point(330, 5);
+            this.buttonRun.Location = new System.Drawing.Point(332, 6);
             this.buttonRun.Name = "buttonRun";
             this.buttonRun.ShowSplit = true;
-            this.buttonRun.Size = new System.Drawing.Size(64, 25);
+            this.buttonRun.Size = new System.Drawing.Size(61, 23);
             this.buttonRun.SplitMenuStrip = this.contextMenuRun;
             this.buttonRun.TabIndex = 4;
             this.buttonRun.UseVisualStyleBackColor = true;
@@ -105,29 +105,29 @@
             this.runMenuSeparator,
             this.buttonUpdate});
             this.contextMenuRun.Name = "contextMenuRun";
-            this.contextMenuRun.Size = new System.Drawing.Size(164, 76);
+            this.contextMenuRun.Size = new System.Drawing.Size(68, 76);
             // 
             // buttonSelectCommand
             // 
             this.buttonSelectCommand.Name = "buttonSelectCommand";
-            this.buttonSelectCommand.Size = new System.Drawing.Size(163, 22);
+            this.buttonSelectCommand.Size = new System.Drawing.Size(67, 22);
             this.buttonSelectCommand.Click += new System.EventHandler(this.buttonSelectCommmand_Click);
             // 
             // buttonSelectVersion
             // 
             this.buttonSelectVersion.Name = "buttonSelectVersion";
-            this.buttonSelectVersion.Size = new System.Drawing.Size(163, 22);
+            this.buttonSelectVersion.Size = new System.Drawing.Size(67, 22);
             this.buttonSelectVersion.Click += new System.EventHandler(this.buttonSelectVersion_Click);
             // 
             // runMenuSeparator
             // 
             this.runMenuSeparator.Name = "runMenuSeparator";
-            this.runMenuSeparator.Size = new System.Drawing.Size(160, 6);
+            this.runMenuSeparator.Size = new System.Drawing.Size(64, 6);
             // 
             // buttonUpdate
             // 
             this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(163, 22);
+            this.buttonUpdate.Size = new System.Drawing.Size(67, 22);
             this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
             // 
             // buttonAdd
@@ -135,9 +135,9 @@
             this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAdd.AutoSize = true;
             this.buttonAdd.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonAdd.Location = new System.Drawing.Point(363, 32);
+            this.buttonAdd.Location = new System.Drawing.Point(364, 32);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(31, 25);
+            this.buttonAdd.Size = new System.Drawing.Size(29, 23);
             this.buttonAdd.TabIndex = 6;
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
@@ -174,9 +174,9 @@
             this.buttonRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRemove.AutoSize = true;
             this.buttonRemove.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonRemove.Location = new System.Drawing.Point(363, 32);
+            this.buttonRemove.Location = new System.Drawing.Point(364, 32);
             this.buttonRemove.Name = "buttonRemove";
-            this.buttonRemove.Size = new System.Drawing.Size(31, 25);
+            this.buttonRemove.Size = new System.Drawing.Size(29, 23);
             this.buttonRemove.TabIndex = 7;
             this.buttonRemove.UseVisualStyleBackColor = true;
             this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
@@ -186,9 +186,9 @@
             this.buttonIntegrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonIntegrate.AutoSize = true;
             this.buttonIntegrate.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonIntegrate.Location = new System.Drawing.Point(330, 32);
+            this.buttonIntegrate.Location = new System.Drawing.Point(332, 32);
             this.buttonIntegrate.Name = "buttonIntegrate";
-            this.buttonIntegrate.Size = new System.Drawing.Size(31, 25);
+            this.buttonIntegrate.Size = new System.Drawing.Size(29, 23);
             this.buttonIntegrate.TabIndex = 5;
             this.buttonIntegrate.UseVisualStyleBackColor = true;
             this.buttonIntegrate.Click += new System.EventHandler(this.buttonIntegrate_Click);
