@@ -401,7 +401,6 @@ namespace ZeroInstall.Commands.WinForms
         private static void ApplyCommandAccessPointCheckBox<T>(CheckBox checkBox, ICollection<T> current, Func<IEnumerable<T>> getSuggestions)
             where T : AccessPoints.CommandAccessPoint
         {
-            if (!checkBox.Visible) return;
             if (checkBox.Checked)
             {
                 if (current.Count == 0) foreach (var entry in getSuggestions()) current.Add(entry);
@@ -418,7 +417,6 @@ namespace ZeroInstall.Commands.WinForms
         private static void ApplyDefaultAccessPointCheckBox<T>(CheckBox checkBox, BindingList<T> model)
             where T : CapabilityModel
         {
-            if (!checkBox.Visible) return;
             if (checkBox.Checked)
             {
                 if (!model.Any(element => element.Use)) CapabilityModelSetAll(model, true);
