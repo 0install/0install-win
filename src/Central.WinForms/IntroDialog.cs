@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Common.Storage;
@@ -110,14 +111,14 @@ namespace ZeroInstall.Central.WinForms
                 {3000, labelSubtitles.Hide},
                 // Run app
                 {1000, () => PrintSubtitles(Resources.IntroSubtitlesRunApp)},
-                {2000, arrowRun.Show},
-                {3500, arrowRun.Hide},
+                {2000, () => DrawRectangle(catalogList.GetTile("fake:cool_app"), new Rectangle(247, 6, 61, 23))},
+                {3500, catalogList.GetTile("fake:cool_app").Refresh},
                 {1500, labelSubtitles.Hide},
                 // Add app
                 {2000, () => PrintSubtitles(Resources.IntroSubtitlesAddApp)},
-                {4000, arrowAdd.Show},
-                {2000, () => {catalogList.GetTile("fake:cool_app").Status = AppStatus.Added;}},
-                {2500, arrowAdd.Hide},
+                {4000, () => DrawRectangle(catalogList.GetTile("fake:cool_app"), new Rectangle(279, 32, 29, 23))},
+                {2000, () => { catalogList.GetTile("fake:cool_app").Status = AppStatus.Added; }},
+                {2500, catalogList.GetTile("fake:cool_app").Refresh},
                 {1500, labelSubtitles.Hide},
                 // My apps
                 {2000, () => tabControlApps.SelectTab(tabPageAppList)},
@@ -125,18 +126,20 @@ namespace ZeroInstall.Central.WinForms
                 {5000, labelSubtitles.Hide},
                 // Integrate app
                 {1000, () => PrintSubtitles(Resources.IntroSubtitlesIntegrateApp)},
-                {5000, arrowIntegrate.Show},
-                {2000, () => {appList.GetTile("fake:cool_app").Status = AppStatus.Integrated;}},
-                {2500, arrowIntegrate.Hide},
+                {5000, () => DrawRectangle(appList.GetTile("fake:cool_app"), new Rectangle(247, 32, 29, 23))},
+                {2000, () => { appList.GetTile("fake:cool_app").Status = AppStatus.Integrated; }},
+                {2500, appList.GetTile("fake:cool_app").Refresh},
                 {1500, labelSubtitles.Hide},
                 // Thanks
                 {2000, () => PrintSubtitles(Resources.IntroSubtitlesThanks)},
-                {4000, () =>
                 {
-                    tabControlApps.Hide();
-                    labelVideo.Hide();
-                    buttonReplay.Visible = buttonClose.Visible = true;
-                }}
+                    4000, () =>
+                    {
+                        tabControlApps.Hide();
+                        labelVideo.Hide();
+                        buttonReplay.Visible = buttonClose.Visible = true;
+                    }
+                }
             };
         }
         #endregion
@@ -161,6 +164,13 @@ namespace ZeroInstall.Central.WinForms
             textBox.Text = text;
             textBox.SelectionStart = text.Length;
             textBox.SelectionLength = 0;
+        }
+
+        private static void DrawRectangle(Control target, Rectangle rectangle)
+        {
+            using (var graphics = target.CreateGraphics())
+            using (var brush = new SolidBrush(Color.Red))
+                graphics.FillRectangle(brush, new Rectangle(rectangle.X - 2, rectangle.Y - 2, rectangle.Width + 4, rectangle.Height + 4));
         }
 
         private void ScheduleNextAction()
