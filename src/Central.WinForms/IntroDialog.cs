@@ -108,27 +108,29 @@ namespace ZeroInstall.Central.WinForms
                 {500, () => TypeText(catalogList.TextSearch, "Co")},
                 {500, () => TypeText(catalogList.TextSearch, "Coo")},
                 {500, () => TypeText(catalogList.TextSearch, "Cool")},
-                {3000, labelSubtitles.Hide},
+                {2000, labelSubtitles.Hide},
                 // Run app
                 {1000, () => PrintSubtitles(Resources.IntroSubtitlesRunApp)},
                 {2000, () => DrawRectangle(catalogList.GetTile("fake:cool_app"), new Rectangle(247, 6, 61, 23))},
-                {3500, catalogList.GetTile("fake:cool_app").Refresh},
-                {1500, labelSubtitles.Hide},
+                {4000, catalogList.GetTile("fake:cool_app").Refresh},
+                {1000, labelSubtitles.Hide},
                 // Add app
                 {2000, () => PrintSubtitles(Resources.IntroSubtitlesAddApp)},
                 {4000, () => DrawRectangle(catalogList.GetTile("fake:cool_app"), new Rectangle(279, 32, 29, 23))},
-                {2000, () => { catalogList.GetTile("fake:cool_app").Status = AppStatus.Added; }},
-                {2500, catalogList.GetTile("fake:cool_app").Refresh},
-                {1500, labelSubtitles.Hide},
+                {2500, () => { catalogList.GetTile("fake:cool_app").Status = AppStatus.Added; }},
+                {2000, catalogList.GetTile("fake:cool_app").Refresh},
+                {1000, labelSubtitles.Hide},
                 // My apps
+                {2000, arrowMyApps.Show},
                 {2000, () => tabControlApps.SelectTab(tabPageAppList)},
-                {2000, () => PrintSubtitles(Resources.IntroSubtitlesMyApps)},
-                {5000, labelSubtitles.Hide},
+                {1000, () => PrintSubtitles(Resources.IntroSubtitlesMyApps)},
+                {4000, arrowMyApps.Hide},
+                {1000, labelSubtitles.Hide},
                 // Integrate app
                 {1000, () => PrintSubtitles(Resources.IntroSubtitlesIntegrateApp)},
                 {5000, () => DrawRectangle(appList.GetTile("fake:cool_app"), new Rectangle(247, 32, 29, 23))},
-                {2000, () => { appList.GetTile("fake:cool_app").Status = AppStatus.Integrated; }},
-                {2500, appList.GetTile("fake:cool_app").Refresh},
+                {2500, () => { appList.GetTile("fake:cool_app").Status = AppStatus.Integrated; }},
+                {2000, appList.GetTile("fake:cool_app").Refresh},
                 {1500, labelSubtitles.Hide},
                 // Thanks
                 {2000, () => PrintSubtitles(Resources.IntroSubtitlesThanks)},
@@ -169,8 +171,8 @@ namespace ZeroInstall.Central.WinForms
         private static void DrawRectangle(Control target, Rectangle rectangle)
         {
             using (var graphics = target.CreateGraphics())
-            using (var brush = new SolidBrush(Color.Red))
-                graphics.FillRectangle(brush, new Rectangle(rectangle.X - 2, rectangle.Y - 2, rectangle.Width + 4, rectangle.Height + 4));
+            using (var pen = new Pen(Color.Red, 2))
+                graphics.DrawRectangle(pen, new Rectangle(rectangle.X - 1, rectangle.Y - 1, rectangle.Width + 2, rectangle.Height + 2));
         }
 
         private void ScheduleNextAction()

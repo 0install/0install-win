@@ -40,9 +40,11 @@
             this.labelVideo = new System.Windows.Forms.Label();
             this.buttonReplay = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
+            this.arrowMyApps = new System.Windows.Forms.PictureBox();
             this.tabControlApps.SuspendLayout();
             this.tabPageAppList.SuspendLayout();
             this.tabPageCatalog.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.arrowMyApps)).BeginInit();
             this.SuspendLayout();
             // 
             // labelSubtitles
@@ -105,10 +107,18 @@
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
+            // arrowMyApps
+            // 
+            this.arrowMyApps.Image = global::ZeroInstall.Central.WinForms.Properties.Resources.ArrowDown;
+            resources.ApplyResources(this.arrowMyApps, "arrowMyApps");
+            this.arrowMyApps.Name = "arrowMyApps";
+            this.arrowMyApps.TabStop = false;
+            // 
             // IntroDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.arrowMyApps);
             this.Controls.Add(this.tabControlApps);
             this.Controls.Add(this.labelSubtitles);
             this.Controls.Add(this.labelVideo);
@@ -123,6 +133,7 @@
             this.tabControlApps.ResumeLayout(false);
             this.tabPageAppList.ResumeLayout(false);
             this.tabPageCatalog.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.arrowMyApps)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -139,5 +150,6 @@
         private System.Windows.Forms.Label labelVideo;
         private System.Windows.Forms.Button buttonReplay;
         private System.Windows.Forms.Button buttonClose;
+        private System.Windows.Forms.PictureBox arrowMyApps;
     }
 }
