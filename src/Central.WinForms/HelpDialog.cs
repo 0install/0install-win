@@ -33,11 +33,13 @@ namespace ZeroInstall.Central.WinForms
         private void buttonIntro_Click(object sender, System.EventArgs e)
         {
             new IntroDialog().ShowDialog(this);
+            Close();
         }
 
         private void buttonDocumentation_Click(object sender, System.EventArgs e)
         {
             OpenInBrowser("http://0install.de/help/");
+            Close();
         }
 
         private void buttonClose_Click(object sender, System.EventArgs e)
@@ -56,7 +58,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 Process.Start(url);
             }
-            #region Error handling
+                #region Error handling
             catch (FileNotFoundException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);

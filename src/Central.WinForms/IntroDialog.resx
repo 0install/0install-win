@@ -132,7 +132,7 @@
     <value>12, 219</value>
   </data>
   <data name="labelSubtitles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>352, 47</value>
+    <value>356, 47</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="labelSubtitles.TabIndex" type="System.Int32, mscorlib">
@@ -154,7 +154,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelSubtitles.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="tabControlApps.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -241,7 +241,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPageCatalog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>344, 178</value>
+    <value>344, 174</value>
   </data>
   <data name="tabPageCatalog.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -262,7 +262,7 @@
     <value>1</value>
   </data>
   <data name="tabControlApps.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 16</value>
+    <value>16, 16</value>
   </data>
   <data name="tabControlApps.Size" type="System.Drawing.Size, System.Drawing">
     <value>352, 200</value>
@@ -280,7 +280,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tabControlApps.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <metadata name="timerActions.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -316,7 +316,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelVideo.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="buttonReplay.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -328,7 +328,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonReplay.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 105</value>
+    <value>21, 105</value>
   </data>
   <data name="buttonReplay.Size" type="System.Drawing.Size, System.Drawing">
     <value>166, 31</value>
@@ -352,7 +352,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonReplay.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="buttonClose.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -364,7 +364,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonClose.Location" type="System.Drawing.Point, System.Drawing">
-    <value>191, 105</value>
+    <value>193, 105</value>
   </data>
   <data name="buttonClose.Size" type="System.Drawing.Size, System.Drawing">
     <value>166, 31</value>
@@ -388,10 +388,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonClose.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
+  </data>
+  <data name="arrowMyApps.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="arrowMyApps.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 0</value>
+    <value>28, 0</value>
   </data>
   <data name="arrowMyApps.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -412,6 +415,33 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;arrowMyApps.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="arrowSearch.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="arrowSearch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 42</value>
+  </data>
+  <data name="arrowSearch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="arrowSearch.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="arrowSearch.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;arrowSearch.Name" xml:space="preserve">
+    <value>arrowSearch</value>
+  </data>
+  <data name="&gt;&gt;arrowSearch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;arrowSearch.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;arrowSearch.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -421,7 +451,10 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>376, 275</value>
+    <value>380, 275</value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>

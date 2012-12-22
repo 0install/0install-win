@@ -33,18 +33,20 @@
             this.labelSubtitles = new System.Windows.Forms.Label();
             this.tabControlApps = new System.Windows.Forms.TabControl();
             this.tabPageAppList = new System.Windows.Forms.TabPage();
-            this.appList = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
-            this.catalogList = new ZeroInstall.Central.WinForms.AppTileList();
             this.timerActions = new System.Windows.Forms.Timer(this.components);
             this.labelVideo = new System.Windows.Forms.Label();
             this.buttonReplay = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
             this.arrowMyApps = new System.Windows.Forms.PictureBox();
+            this.arrowSearch = new System.Windows.Forms.PictureBox();
+            this.appList = new ZeroInstall.Central.WinForms.AppTileList();
+            this.catalogList = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabControlApps.SuspendLayout();
             this.tabPageAppList.SuspendLayout();
             this.tabPageCatalog.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.arrowMyApps)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.arrowSearch)).BeginInit();
             this.SuspendLayout();
             // 
             // labelSubtitles
@@ -67,22 +69,12 @@
             this.tabPageAppList.Name = "tabPageAppList";
             this.tabPageAppList.UseVisualStyleBackColor = true;
             // 
-            // appList
-            // 
-            resources.ApplyResources(this.appList, "appList");
-            this.appList.Name = "appList";
-            // 
             // tabPageCatalog
             // 
             this.tabPageCatalog.Controls.Add(this.catalogList);
             resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
             this.tabPageCatalog.Name = "tabPageCatalog";
             this.tabPageCatalog.UseVisualStyleBackColor = true;
-            // 
-            // catalogList
-            // 
-            resources.ApplyResources(this.catalogList, "catalogList");
-            this.catalogList.Name = "catalogList";
             // 
             // timerActions
             // 
@@ -114,10 +106,28 @@
             this.arrowMyApps.Name = "arrowMyApps";
             this.arrowMyApps.TabStop = false;
             // 
+            // arrowSearch
+            // 
+            this.arrowSearch.Image = global::ZeroInstall.Central.WinForms.Properties.Resources.ArrowRight;
+            resources.ApplyResources(this.arrowSearch, "arrowSearch");
+            this.arrowSearch.Name = "arrowSearch";
+            this.arrowSearch.TabStop = false;
+            // 
+            // appList
+            // 
+            resources.ApplyResources(this.appList, "appList");
+            this.appList.Name = "appList";
+            // 
+            // catalogList
+            // 
+            resources.ApplyResources(this.catalogList, "catalogList");
+            this.catalogList.Name = "catalogList";
+            // 
             // IntroDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.arrowSearch);
             this.Controls.Add(this.arrowMyApps);
             this.Controls.Add(this.tabControlApps);
             this.Controls.Add(this.labelSubtitles);
@@ -134,6 +144,7 @@
             this.tabPageAppList.ResumeLayout(false);
             this.tabPageCatalog.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.arrowMyApps)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.arrowSearch)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -151,5 +162,6 @@
         private System.Windows.Forms.Button buttonReplay;
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.PictureBox arrowMyApps;
+        private System.Windows.Forms.PictureBox arrowSearch;
     }
 }

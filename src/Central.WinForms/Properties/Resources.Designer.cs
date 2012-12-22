@@ -213,7 +213,7 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thank you for watching!.
+        ///   Looks up a localized string similar to Have fun!.
         /// </summary>
         internal static string IntroSubtitlesThanks {
             get {
