@@ -113,6 +113,12 @@ namespace Common.Utils
         }
 
         [Test]
+        public void TestRemoveAll()
+        {
+            Assert.AreEqual("ac", "abcd".RemoveAll("bd"));
+        }
+
+        [Test]
         public void TestEscapeArgument()
         {
             Assert.AreEqual("test", "test".EscapeArgument(), "Simple strings shouldn't be modified");

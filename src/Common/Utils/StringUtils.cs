@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -155,6 +156,14 @@ namespace Common.Utils
             if (value == lastWord) return "";
             if (lastWord.Length == 0 || value.Length == 0 || value.Length - lastWord.Length - 1 <= 0) return value;
             return value.Substring(0, value.Length - lastWord.Length - 1);
+        }
+
+        /// <summary>
+        /// Removes all occurences of a set of characters from a string.
+        /// </summary>
+        public static string RemoveAll(this string value, IEnumerable<char> toRemove)
+        {
+            return toRemove.Aggregate(value, (acc, target) => acc.Replace(target.ToString(CultureInfo.InvariantCulture), ""));
         }
         #endregion
 

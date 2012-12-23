@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Model;
 
@@ -37,7 +38,7 @@ namespace ZeroInstall.DesktopIntegration
             string category = feed.Categories.FirstOrDefault();
             if (feed.EntryPoints.IsEmpty)
             { // Only one entry point
-                return new[] {new MenuEntry {Name = feed.Name, Category = category, Command = Command.NameRun}};
+                return new[] {new MenuEntry {Name = feed.Name.RemoveAll(Path.GetInvalidFileNameChars()), Category = category, Command = Command.NameRun}};
             }
             else
             { // Multiple entry points
@@ -50,9 +51,9 @@ namespace ZeroInstall.DesktopIntegration
                         Name = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture) ?? // If that fails...
                             ((entryPoint.Command == Command.NameRun)
                                 // ... use the application's name
-                                ? feed.Name
+                                ? feed.Name.RemoveAll(Path.GetInvalidFileNameChars())
                                 // ... or the application's name and the command
-                                : feed.Name + " " + entryPoint.Command),
+                                : feed.Name.RemoveAll(Path.GetInvalidFileNameChars()) + " " + entryPoint.Command),
                         // Group all entry points in a single folder
                         Category = string.IsNullOrEmpty(category) ? feed.Name : category + Path.DirectorySeparatorChar + feed.Name,
                         Command = entryPoint.Command
@@ -65,7 +66,7 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         public static IEnumerable<DesktopIcon> DesktopIcons(Feed feed)
         {
-            return new[] {new DesktopIcon {Name = feed.Name, Command = Command.NameRun}};
+            return new[] {new DesktopIcon {Name = feed.Name.RemoveAll(Path.GetInvalidFileNameChars()), Command = Command.NameRun}};
         }
 
         /// <summary>
@@ -78,7 +79,7 @@ namespace ZeroInstall.DesktopIntegration
                 if (feed.NeedsTerminal)
                 {
                     // Try to guess reasonable alias name of command-line applications
-                    return new[] {new AppAlias {Name = feed.Name.Replace(' ', '-').ToLower(), Command = Command.NameRun}};
+                    return new[] {new AppAlias {Name = feed.Name.RemoveAll(Path.GetInvalidFileNameChars()).Replace(' ', '-').ToLower(), Command = Command.NameRun}};
                 }
                 else return new AppAlias[0];
             }
