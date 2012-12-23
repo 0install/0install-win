@@ -76,17 +76,17 @@ namespace ZeroInstall.Central.WinForms
         private void SetupTiles()
         {
             catalogList.Clear();
-            catalogList.QueueNewTile(false, "fake:cool_app", "Cool app", AppStatus.Candidate).Feed =
-                new Feed {Summaries = {"Does something cool"}};
-            catalogList.QueueNewTile(false, "fake:common_app", "Common app", AppStatus.Candidate).Feed =
-                new Feed {Summaries = {"Does the usual stuff"}};
-            catalogList.QueueNewTile(false, "fake:other_app", "Other app", AppStatus.Candidate).Feed =
-                new Feed {Summaries = {"Does something else"}};
+            catalogList.QueueNewTile(false, "fake:cool_app", Resources.IntroCoolApp, AppStatus.Candidate).Feed =
+                new Feed {Summaries = {Resources.IntroCoolAppSummary}};
+            catalogList.QueueNewTile(false, "fake:common_app", Resources.IntroCommonApp, AppStatus.Candidate).Feed =
+                new Feed {Summaries = {Resources.IntroCommonAppSummary}};
+            catalogList.QueueNewTile(false, "fake:other_app", Resources.IntroOtherApp, AppStatus.Candidate).Feed =
+                new Feed {Summaries = {Resources.IntroOtherAppSummary}};
             catalogList.AddQueuedTiles();
 
             appList.Clear();
-            appList.QueueNewTile(false, "fake:cool_app", "Cool app", AppStatus.Added).Feed =
-                new Feed {Summaries = {"Does something cool"}};
+            appList.QueueNewTile(false, "fake:cool_app", Resources.IntroCoolApp, AppStatus.Added).Feed =
+                new Feed {Summaries = {Resources.IntroCoolAppSummary}};
             appList.AddQueuedTiles();
         }
         #endregion

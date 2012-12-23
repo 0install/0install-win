@@ -338,8 +338,7 @@ namespace ZeroInstall.Central.WinForms
         {
             // Detect changes made to the AppList by other threads or processes
             if (m.Msg == IntegrationManager.ChangedWindowMessageID) LoadAppList();
-
-            base.WndProc(ref m);
+            else base.WndProc(ref m);
         }
         #endregion
 

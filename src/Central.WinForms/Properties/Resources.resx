@@ -164,6 +164,24 @@ This will also remove any desktop integration applied for this application.</val
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>Ignoring duplicate application list entry for '{0}'.</value>
   </data>
+  <data name="IntroCommonApp" xml:space="preserve">
+    <value>Common app</value>
+  </data>
+  <data name="IntroCommonAppSummary" xml:space="preserve">
+    <value>does the usual stuff</value>
+  </data>
+  <data name="IntroCoolApp" xml:space="preserve">
+    <value>Cool app</value>
+  </data>
+  <data name="IntroCoolAppSummary" xml:space="preserve">
+    <value>does something cool</value>
+  </data>
+  <data name="IntroOtherApp" xml:space="preserve">
+    <value>Other app</value>
+  </data>
+  <data name="IntroOtherAppSummary" xml:space="preserve">
+    <value>does something else</value>
+  </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
     <value>If you like an app,
 add it to "My applications".</value>

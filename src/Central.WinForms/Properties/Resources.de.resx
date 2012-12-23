@@ -136,6 +136,24 @@ Dabei werden auch alle Desktopintegrationen für die Anwendung entfernt.</value>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>Ignoriere doppelten Anwendungslisteneintrag für '{0}'.</value>
   </data>
+  <data name="IntroCommonApp" xml:space="preserve">
+    <value>Normale App</value>
+  </data>
+  <data name="IntroCommonAppSummary" xml:space="preserve">
+    <value>tut das Übliche</value>
+  </data>
+  <data name="IntroCoolApp" xml:space="preserve">
+    <value>Cool App</value>
+  </data>
+  <data name="IntroCoolAppSummary" xml:space="preserve">
+    <value>tut etwas Cooles</value>
+  </data>
+  <data name="IntroOtherApp" xml:space="preserve">
+    <value>Andere App</value>
+  </data>
+  <data name="IntroOtherAppSummary" xml:space="preserve">
+    <value>tut etwas Anderes</value>
+  </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
     <value>Wenn Ihnen eine Anwendung gefällt,
 fügen Sie sie zu "Meine Anwendungen" hinzu.</value>
@@ -144,7 +162,7 @@ fügen Sie sie zu "Meine Anwendungen" hinzu.</value>
     <value>Suchen Sie einfach nach einer Anwendung im "Katalog"...</value>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>"Integrieren" Sie eine Anwendung um sie dem Startmenü oder dem Desktop hinzuzufügen.</value>
+    <value>"Integrieren" Sie eine Anwendung, um sie dem Startmenü oder dem Desktop hinzuzufügen.</value>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
     <value>Hier können Sie Ihre Liste an Lieblingsanwendungen verwalten.</value>

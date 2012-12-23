@@ -166,6 +166,60 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Common app.
+        /// </summary>
+        internal static string IntroCommonApp {
+            get {
+                return ResourceManager.GetString("IntroCommonApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to does the usual stuff.
+        /// </summary>
+        internal static string IntroCommonAppSummary {
+            get {
+                return ResourceManager.GetString("IntroCommonAppSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cool app.
+        /// </summary>
+        internal static string IntroCoolApp {
+            get {
+                return ResourceManager.GetString("IntroCoolApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to does something cool.
+        /// </summary>
+        internal static string IntroCoolAppSummary {
+            get {
+                return ResourceManager.GetString("IntroCoolAppSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other app.
+        /// </summary>
+        internal static string IntroOtherApp {
+            get {
+                return ResourceManager.GetString("IntroOtherApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to does something else.
+        /// </summary>
+        internal static string IntroOtherAppSummary {
+            get {
+                return ResourceManager.GetString("IntroOtherAppSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If you like an app,
         ///add it to &quot;My applications&quot;..
         /// </summary>
