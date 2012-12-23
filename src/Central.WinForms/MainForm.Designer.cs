@@ -34,9 +34,9 @@
             this.buttonSync = new System.Windows.Forms.Button();
             this.appList = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
+            this.labelLoadingCatalog = new System.Windows.Forms.Label();
             this.labelLastCatalogError = new System.Windows.Forms.Label();
             this.buttonAddOtherApp = new System.Windows.Forms.Button();
-            this.labelLoadingCatalog = new System.Windows.Forms.Label();
             this.buttonRefreshCatalog = new System.Windows.Forms.Button();
             this.catalogList = new ZeroInstall.Central.WinForms.AppTileList();
             this.buttonOptions = new System.Windows.Forms.Button();
@@ -87,18 +87,24 @@
             // 
             // tabPageCatalog
             // 
+            this.tabPageCatalog.Controls.Add(this.labelLoadingCatalog);
             this.tabPageCatalog.Controls.Add(this.labelLastCatalogError);
             this.tabPageCatalog.Controls.Add(this.buttonAddOtherApp);
-            this.tabPageCatalog.Controls.Add(this.labelLoadingCatalog);
             this.tabPageCatalog.Controls.Add(this.buttonRefreshCatalog);
             this.tabPageCatalog.Controls.Add(this.catalogList);
             resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
             this.tabPageCatalog.Name = "tabPageCatalog";
             this.tabPageCatalog.UseVisualStyleBackColor = true;
             // 
+            // labelLoadingCatalog
+            // 
+            resources.ApplyResources(this.labelLoadingCatalog, "labelLoadingCatalog");
+            this.labelLoadingCatalog.Name = "labelLoadingCatalog";
+            // 
             // labelLastCatalogError
             // 
             resources.ApplyResources(this.labelLastCatalogError, "labelLastCatalogError");
+            this.labelLastCatalogError.AutoEllipsis = true;
             this.labelLastCatalogError.ForeColor = System.Drawing.Color.Red;
             this.labelLastCatalogError.Name = "labelLastCatalogError";
             // 
@@ -108,11 +114,6 @@
             this.buttonAddOtherApp.Name = "buttonAddOtherApp";
             this.buttonAddOtherApp.UseVisualStyleBackColor = true;
             this.buttonAddOtherApp.Click += new System.EventHandler(this.buttonAddOtherApp_Click);
-            // 
-            // labelLoadingCatalog
-            // 
-            resources.ApplyResources(this.labelLoadingCatalog, "labelLoadingCatalog");
-            this.labelLoadingCatalog.Name = "labelLoadingCatalog";
             // 
             // buttonRefreshCatalog
             // 
@@ -227,12 +228,12 @@
         private System.Windows.Forms.PictureBox pictureBoxLogo;
         private System.Windows.Forms.Button buttonRefreshCatalog;
         private System.ComponentModel.BackgroundWorker appListWorker;
-        private System.Windows.Forms.Label labelLoadingCatalog;
         private System.Windows.Forms.Button buttonAddOtherApp;
         private System.Windows.Forms.Button buttonSync;
         private System.Windows.Forms.Panel panelBottom;
         private System.Windows.Forms.TableLayoutPanel rootTable;
         private System.Windows.Forms.Label labelLastCatalogError;
+        private System.Windows.Forms.Label labelLoadingCatalog;
 
     }
 }
