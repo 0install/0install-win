@@ -153,9 +153,6 @@
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
     <value>Fähigkeiten &amp;registrieren</value>
   </data>
-  <data name="labelSimple.Text" xml:space="preserve">
-    <value>Bitte wählen Sie die Teile Ihres Systems aus, in die Sie die Anwendung integrieren möchten:</value>
-  </data>
   <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
     <value>Startmenü Einträge</value>
   </data>
@@ -166,7 +163,7 @@
     <value>Befehlszeilenaliase</value>
   </data>
   <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
-    <value>Dateitypzuordnungen ("Öffnen mit" funktioniert auch ohne)</value>
+    <value>Standardhandler für Dateitypen</value>
   </data>
   <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
     <value>URL Protokolle</value>

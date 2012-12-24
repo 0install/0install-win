@@ -1638,17 +1638,26 @@
   <data name="flowLayoutBasic.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;labelSimple.Name" xml:space="preserve">
-    <value>labelSimple</value>
+  <data name="checkBoxStartMenuSimple.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;labelSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="checkBoxStartMenuSimple.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
   </data>
-  <data name="&gt;&gt;labelSimple.Parent" xml:space="preserve">
-    <value>flowLayoutBasic</value>
+  <data name="checkBoxStartMenuSimple.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
   </data>
-  <data name="&gt;&gt;labelSimple.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="checkBoxStartMenuSimple.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 0, 0</value>
+  </data>
+  <data name="checkBoxStartMenuSimple.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 23</value>
+  </data>
+  <data name="checkBoxStartMenuSimple.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
+    <value>Start menu entries</value>
   </data>
   <data name="&gt;&gt;checkBoxStartMenuSimple.Name" xml:space="preserve">
     <value>checkBoxStartMenuSimple</value>
@@ -1660,7 +1669,28 @@
     <value>flowLayoutBasic</value>
   </data>
   <data name="&gt;&gt;checkBoxStartMenuSimple.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
+  </data>
+  <data name="checkBoxDesktopSimple.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxDesktopSimple.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="checkBoxDesktopSimple.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 32</value>
+  </data>
+  <data name="checkBoxDesktopSimple.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 0, 0</value>
+  </data>
+  <data name="checkBoxDesktopSimple.Size" type="System.Drawing.Size, System.Drawing">
+    <value>137, 23</value>
+  </data>
+  <data name="checkBoxDesktopSimple.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="checkBoxDesktopSimple.Text" xml:space="preserve">
+    <value>Desktop shortcuts</value>
   </data>
   <data name="&gt;&gt;checkBoxDesktopSimple.Name" xml:space="preserve">
     <value>checkBoxDesktopSimple</value>
@@ -1672,7 +1702,28 @@
     <value>flowLayoutBasic</value>
   </data>
   <data name="&gt;&gt;checkBoxDesktopSimple.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
+  </data>
+  <data name="checkBoxAliasesSimple.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxAliasesSimple.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="checkBoxAliasesSimple.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 61</value>
+  </data>
+  <data name="checkBoxAliasesSimple.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 0, 0</value>
+  </data>
+  <data name="checkBoxAliasesSimple.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 23</value>
+  </data>
+  <data name="checkBoxAliasesSimple.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
+    <value>Command-line aliases</value>
   </data>
   <data name="&gt;&gt;checkBoxAliasesSimple.Name" xml:space="preserve">
     <value>checkBoxAliasesSimple</value>
@@ -1684,7 +1735,28 @@
     <value>flowLayoutBasic</value>
   </data>
   <data name="&gt;&gt;checkBoxAliasesSimple.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
+  </data>
+  <data name="checkBoxFileTypesSimple.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxFileTypesSimple.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="checkBoxFileTypesSimple.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 90</value>
+  </data>
+  <data name="checkBoxFileTypesSimple.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 0, 0</value>
+  </data>
+  <data name="checkBoxFileTypesSimple.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 23</value>
+  </data>
+  <data name="checkBoxFileTypesSimple.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
+    <value>Default handler for file types</value>
   </data>
   <data name="&gt;&gt;checkBoxFileTypesSimple.Name" xml:space="preserve">
     <value>checkBoxFileTypesSimple</value>
@@ -1696,7 +1768,31 @@
     <value>flowLayoutBasic</value>
   </data>
   <data name="&gt;&gt;checkBoxFileTypesSimple.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
+  </data>
+  <data name="checkBoxUrlProtocolsSimple.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxUrlProtocolsSimple.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="checkBoxUrlProtocolsSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxUrlProtocolsSimple.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 119</value>
+  </data>
+  <data name="checkBoxUrlProtocolsSimple.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 0, 0</value>
+  </data>
+  <data name="checkBoxUrlProtocolsSimple.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 23</value>
+  </data>
+  <data name="checkBoxUrlProtocolsSimple.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
+    <value>URL protocols</value>
   </data>
   <data name="&gt;&gt;checkBoxUrlProtocolsSimple.Name" xml:space="preserve">
     <value>checkBoxUrlProtocolsSimple</value>
@@ -1708,7 +1804,28 @@
     <value>flowLayoutBasic</value>
   </data>
   <data name="&gt;&gt;checkBoxUrlProtocolsSimple.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="checkBoxAutoPlaySimple.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxAutoPlaySimple.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="checkBoxAutoPlaySimple.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 148</value>
+  </data>
+  <data name="checkBoxAutoPlaySimple.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 0, 0</value>
+  </data>
+  <data name="checkBoxAutoPlaySimple.Size" type="System.Drawing.Size, System.Drawing">
+    <value>139, 23</value>
+  </data>
+  <data name="checkBoxAutoPlaySimple.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
+  </data>
+  <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
+    <value>AutoPlay handlers</value>
   </data>
   <data name="&gt;&gt;checkBoxAutoPlaySimple.Name" xml:space="preserve">
     <value>checkBoxAutoPlaySimple</value>
@@ -1720,7 +1837,31 @@
     <value>flowLayoutBasic</value>
   </data>
   <data name="&gt;&gt;checkBoxAutoPlaySimple.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
+  </data>
+  <data name="checkBoxContextMenuSimple.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxContextMenuSimple.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="checkBoxContextMenuSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxContextMenuSimple.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 177</value>
+  </data>
+  <data name="checkBoxContextMenuSimple.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 0, 0</value>
+  </data>
+  <data name="checkBoxContextMenuSimple.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 23</value>
+  </data>
+  <data name="checkBoxContextMenuSimple.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
+    <value>Context menu entries</value>
   </data>
   <data name="&gt;&gt;checkBoxContextMenuSimple.Name" xml:space="preserve">
     <value>checkBoxContextMenuSimple</value>
@@ -1732,7 +1873,31 @@
     <value>flowLayoutBasic</value>
   </data>
   <data name="&gt;&gt;checkBoxContextMenuSimple.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
+  </data>
+  <data name="checkBoxDefaultProgramsSimple.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxDefaultProgramsSimple.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="checkBoxDefaultProgramsSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxDefaultProgramsSimple.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 206</value>
+  </data>
+  <data name="checkBoxDefaultProgramsSimple.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 0, 0</value>
+  </data>
+  <data name="checkBoxDefaultProgramsSimple.Size" type="System.Drawing.Size, System.Drawing">
+    <value>330, 23</value>
+  </data>
+  <data name="checkBoxDefaultProgramsSimple.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
+    <value>Default program (e.g. default browser or mail client)</value>
   </data>
   <data name="&gt;&gt;checkBoxDefaultProgramsSimple.Name" xml:space="preserve">
     <value>checkBoxDefaultProgramsSimple</value>
@@ -1744,7 +1909,7 @@
     <value>flowLayoutBasic</value>
   </data>
   <data name="&gt;&gt;checkBoxDefaultProgramsSimple.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="flowLayoutBasic.FlowDirection" type="System.Windows.Forms.FlowDirection, System.Windows.Forms">
     <value>TopDown</value>
@@ -1769,258 +1934,6 @@
   </data>
   <data name="&gt;&gt;flowLayoutBasic.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="labelSimple.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 0</value>
-  </data>
-  <data name="labelSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>379, 13</value>
-  </data>
-  <data name="labelSimple.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelSimple.Text" xml:space="preserve">
-    <value>Please select the parts of your system you wish to integrate the application into:</value>
-  </data>
-  <data name="&gt;&gt;labelSimple.Name" xml:space="preserve">
-    <value>labelSimple</value>
-  </data>
-  <data name="&gt;&gt;labelSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelSimple.Parent" xml:space="preserve">
-    <value>flowLayoutBasic</value>
-  </data>
-  <data name="&gt;&gt;labelSimple.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="checkBoxStartMenuSimple.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxStartMenuSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
-  </data>
-  <data name="checkBoxStartMenuSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 17</value>
-  </data>
-  <data name="checkBoxStartMenuSimple.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
-    <value>Start menu entries</value>
-  </data>
-  <data name="&gt;&gt;checkBoxStartMenuSimple.Name" xml:space="preserve">
-    <value>checkBoxStartMenuSimple</value>
-  </data>
-  <data name="&gt;&gt;checkBoxStartMenuSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxStartMenuSimple.Parent" xml:space="preserve">
-    <value>flowLayoutBasic</value>
-  </data>
-  <data name="&gt;&gt;checkBoxStartMenuSimple.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="checkBoxDesktopSimple.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxDesktopSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 39</value>
-  </data>
-  <data name="checkBoxDesktopSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 17</value>
-  </data>
-  <data name="checkBoxDesktopSimple.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="checkBoxDesktopSimple.Text" xml:space="preserve">
-    <value>Desktop shortcuts</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDesktopSimple.Name" xml:space="preserve">
-    <value>checkBoxDesktopSimple</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDesktopSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDesktopSimple.Parent" xml:space="preserve">
-    <value>flowLayoutBasic</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDesktopSimple.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="checkBoxAliasesSimple.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxAliasesSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 62</value>
-  </data>
-  <data name="checkBoxAliasesSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>127, 17</value>
-  </data>
-  <data name="checkBoxAliasesSimple.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
-    <value>Command-line aliases</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAliasesSimple.Name" xml:space="preserve">
-    <value>checkBoxAliasesSimple</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAliasesSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAliasesSimple.Parent" xml:space="preserve">
-    <value>flowLayoutBasic</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAliasesSimple.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="checkBoxFileTypesSimple.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxFileTypesSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 85</value>
-  </data>
-  <data name="checkBoxFileTypesSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 17</value>
-  </data>
-  <data name="checkBoxFileTypesSimple.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
-    <value>File type associations ("Open with" works anyway)</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFileTypesSimple.Name" xml:space="preserve">
-    <value>checkBoxFileTypesSimple</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFileTypesSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFileTypesSimple.Parent" xml:space="preserve">
-    <value>flowLayoutBasic</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFileTypesSimple.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="checkBoxUrlProtocolsSimple.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxUrlProtocolsSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="checkBoxUrlProtocolsSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 108</value>
-  </data>
-  <data name="checkBoxUrlProtocolsSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 17</value>
-  </data>
-  <data name="checkBoxUrlProtocolsSimple.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>URL protocols</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUrlProtocolsSimple.Name" xml:space="preserve">
-    <value>checkBoxUrlProtocolsSimple</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUrlProtocolsSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUrlProtocolsSimple.Parent" xml:space="preserve">
-    <value>flowLayoutBasic</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUrlProtocolsSimple.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="checkBoxAutoPlaySimple.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxAutoPlaySimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 131</value>
-  </data>
-  <data name="checkBoxAutoPlaySimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 17</value>
-  </data>
-  <data name="checkBoxAutoPlaySimple.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
-    <value>AutoPlay handlers</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoPlaySimple.Name" xml:space="preserve">
-    <value>checkBoxAutoPlaySimple</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoPlaySimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoPlaySimple.Parent" xml:space="preserve">
-    <value>flowLayoutBasic</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoPlaySimple.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="checkBoxContextMenuSimple.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxContextMenuSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="checkBoxContextMenuSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 154</value>
-  </data>
-  <data name="checkBoxContextMenuSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 17</value>
-  </data>
-  <data name="checkBoxContextMenuSimple.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
-    <value>Context menu entries</value>
-  </data>
-  <data name="&gt;&gt;checkBoxContextMenuSimple.Name" xml:space="preserve">
-    <value>checkBoxContextMenuSimple</value>
-  </data>
-  <data name="&gt;&gt;checkBoxContextMenuSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxContextMenuSimple.Parent" xml:space="preserve">
-    <value>flowLayoutBasic</value>
-  </data>
-  <data name="&gt;&gt;checkBoxContextMenuSimple.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="checkBoxDefaultProgramsSimple.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxDefaultProgramsSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="checkBoxDefaultProgramsSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 177</value>
-  </data>
-  <data name="checkBoxDefaultProgramsSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>264, 17</value>
-  </data>
-  <data name="checkBoxDefaultProgramsSimple.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Default program (e.g. default browser or mail client)</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDefaultProgramsSimple.Name" xml:space="preserve">
-    <value>checkBoxDefaultProgramsSimple</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDefaultProgramsSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDefaultProgramsSimple.Parent" xml:space="preserve">
-    <value>flowLayoutBasic</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDefaultProgramsSimple.ZOrder" xml:space="preserve">
-    <value>8</value>
   </data>
   <data name="buttonBasicMode.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -3163,8 +3076,14 @@
         /AesQfADrEHgB6xB4H+sQf//rEE=
 </value>
   </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>300, 230</value>
+    <value>330, 230</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>WindowsDefaultLocation</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Integrate application</value>
@@ -3299,6 +3218,6 @@
     <value>IntegrateAppForm</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>Common.Controls.OKCancelDialog, Common, Version=1.13.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>Common.Controls.OKCancelDialog, Common, Version=1.13.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
 </root>

@@ -85,7 +85,6 @@
             this.labelLastDataError = new System.Windows.Forms.Label();
             this.buttonAdvancedMode = new System.Windows.Forms.Button();
             this.flowLayoutBasic = new System.Windows.Forms.FlowLayoutPanel();
-            this.labelSimple = new System.Windows.Forms.Label();
             this.checkBoxStartMenuSimple = new System.Windows.Forms.CheckBox();
             this.checkBoxDesktopSimple = new System.Windows.Forms.CheckBox();
             this.checkBoxAliasesSimple = new System.Windows.Forms.CheckBox();
@@ -612,7 +611,6 @@
             // flowLayoutBasic
             // 
             resources.ApplyResources(this.flowLayoutBasic, "flowLayoutBasic");
-            this.flowLayoutBasic.Controls.Add(this.labelSimple);
             this.flowLayoutBasic.Controls.Add(this.checkBoxStartMenuSimple);
             this.flowLayoutBasic.Controls.Add(this.checkBoxDesktopSimple);
             this.flowLayoutBasic.Controls.Add(this.checkBoxAliasesSimple);
@@ -622,11 +620,6 @@
             this.flowLayoutBasic.Controls.Add(this.checkBoxContextMenuSimple);
             this.flowLayoutBasic.Controls.Add(this.checkBoxDefaultProgramsSimple);
             this.flowLayoutBasic.Name = "flowLayoutBasic";
-            // 
-            // labelSimple
-            // 
-            resources.ApplyResources(this.labelSimple, "labelSimple");
-            this.labelSimple.Name = "labelSimple";
             // 
             // checkBoxStartMenuSimple
             // 
@@ -802,7 +795,6 @@
         private System.Windows.Forms.CheckBox checkBoxAliasesSimple;
         private System.Windows.Forms.CheckBox checkBoxFileTypesSimple;
         private System.Windows.Forms.CheckBox checkBoxAutoPlaySimple;
-        private System.Windows.Forms.Label labelSimple;
         private System.Windows.Forms.CheckBox checkBoxUrlProtocolsSimple;
         private System.Windows.Forms.CheckBox checkBoxContextMenuSimple;
         private System.Windows.Forms.CheckBox checkBoxDefaultProgramsSimple;
