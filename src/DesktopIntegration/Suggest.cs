@@ -36,8 +36,8 @@ namespace ZeroInstall.DesktopIntegration
         public static IEnumerable<MenuEntry> MenuEntries(Feed feed)
         {
             string category = feed.Categories.FirstOrDefault();
-            if (feed.EntryPoints.IsEmpty)
-            { // Only one entry point
+            if (feed.EntryPoints.Count < 2)
+            { // Only a single entry point
                 return new[] {new MenuEntry {Name = feed.Name.RemoveAll(Path.GetInvalidFileNameChars()), Category = category, Command = Command.NameRun}};
             }
             else
