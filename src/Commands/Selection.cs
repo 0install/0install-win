@@ -136,6 +136,7 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs.JoinEscapeArguments(), "");
 
             Policy.Handler.ShowProgressUI();
+
             Solve();
             SelectionsUI();
 

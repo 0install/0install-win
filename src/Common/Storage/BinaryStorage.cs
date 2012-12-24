@@ -176,7 +176,7 @@ namespace Common.Storage
             {
                 foreach (ZipEntry zipEntry in zipFile)
                 {
-                    if (zipEntry.Name == "Data")
+                    if (StringUtils.EqualsIgnoreCase(zipEntry.Name, "data"))
                     {
                         // Read the binary file from the ZIP archive
                         var inputStream = zipFile.GetInputStream(zipEntry);
@@ -190,7 +190,7 @@ namespace Common.Storage
                             // Read additional files from the ZIP archive
                             foreach (EmbeddedFile file in additionalFiles)
                             {
-                                if (zipEntry.Name == file.Filename)
+                                if (StringUtils.EqualsIgnoreCase(zipEntry.Name, file.Filename))
                                 {
                                     var inputStream = zipFile.GetInputStream(zipEntry);
                                     file.StreamDelegate(inputStream);

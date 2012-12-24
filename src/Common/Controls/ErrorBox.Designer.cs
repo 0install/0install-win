@@ -52,10 +52,11 @@
             // 
             this.labelMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelMessage.AutoEllipsis = true;
             this.labelMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelMessage.Location = new System.Drawing.Point(70, 9);
             this.labelMessage.Name = "labelMessage";
-            this.labelMessage.Size = new System.Drawing.Size(385, 48);
+            this.labelMessage.Size = new System.Drawing.Size(402, 48);
             this.labelMessage.TabIndex = 0;
             this.labelMessage.Text = "(Title)";
             // 
