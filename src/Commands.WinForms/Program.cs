@@ -154,83 +154,83 @@ namespace ZeroInstall.Commands.WinForms
                 {}
                 catch (OptionException ex)
                 {
-                    handler.DisableProgressUI();
+                    handler.CloseProgressUI();
                     Msg.Inform(null, ex.Message + "\n" + string.Format(Resources.TryHelp, ExeName), MsgSeverity.Error);
                 }
                 catch (Win32Exception ex)
                 {
-                    handler.DisableProgressUI();
+                    handler.CloseProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                 }
                 catch (BadImageFormatException ex)
                 {
-                    handler.DisableProgressUI();
+                    handler.CloseProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                 }
                 catch (WebException ex)
                 {
-                    handler.DisableProgressUI();
+                    handler.CloseProgressUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
                 }
                 catch (NotSupportedException ex)
                 {
-                    handler.DisableProgressUI();
+                    handler.CloseProgressUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
                 }
                 catch (IOException ex)
                 {
-                    handler.DisableProgressUI();
+                    handler.CloseProgressUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    handler.DisableProgressUI();
+                    handler.CloseProgressUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
                 }
                 catch (InvalidDataException ex)
                 {
-                    handler.DisableProgressUI();
+                    handler.CloseProgressUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
                 }
                 catch (SignatureException ex)
                 {
-                    handler.DisableProgressUI();
+                    handler.CloseProgressUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
                 }
                 catch (InvalidInterfaceIDException ex)
                 {
-                    handler.DisableProgressUI();
+                    handler.CloseProgressUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
                 }
                 catch (DigestMismatchException ex)
                 {
-                    handler.DisableProgressUI();
+                    handler.CloseProgressUI();
                     Log.Error(ex);
                     Log.Info("Generated manifest:\n" + ex.ActualManifest);
                     ErrorBox.Show(Resources.DownloadDamaged, errorLog);
                 }
                 catch (SolverException ex)
                 {
-                    handler.DisableProgressUI();
+                    handler.CloseProgressUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message.GetLeftPartAtFirstOccurrence(Environment.NewLine), errorLog);
                 }
                 catch (ImplementationNotFoundException ex)
                 {
-                    handler.DisableProgressUI();
+                    handler.CloseProgressUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
                 }
                 catch (CommandException ex)
                 {
-                    handler.DisableProgressUI();
+                    handler.CloseProgressUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
                 }
