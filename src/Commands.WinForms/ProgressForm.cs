@@ -74,6 +74,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             InitializeComponent();
             labelWorking.Text = _actionTitle;
+            buttonAuditDone.Text = Resources.Done;
             buttonHide.Text = Resources.Hide;
             buttonCancel.Text = Resources.Cancel;
             if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;

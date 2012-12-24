@@ -131,6 +131,9 @@ Wählen Sie eine komplette Zeile aus, indem Sie in die erste Spalte klicken, und
     <value>Setzen Sie ein Häkchen um eine Fähigkeit als Ihren bevorzugten Standardhandler zu markieren.
 Entfernen Sie ein Häckchen um den Standard-Status einer Fähigkeit zu entfernen (die Fähigkeit selber bleibt weiterhin verfügbar).</value>
   </data>
+  <data name="Done" xml:space="preserve">
+    <value>Fertig</value>
+  </data>
   <data name="DownloadDamaged" xml:space="preserve">
     <value>Eine heruntergeladene Datei ist beschädigt oder ungültig.</value>
   </data>

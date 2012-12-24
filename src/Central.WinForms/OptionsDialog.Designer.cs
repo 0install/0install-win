@@ -57,6 +57,7 @@
             this.listBoxImplDirs = new System.Windows.Forms.ListBox();
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
             this.groupCatalogSources = new System.Windows.Forms.GroupBox();
+            this.buttonResetCatalogSources = new System.Windows.Forms.Button();
             this.buttonRemoveCatalogSource = new System.Windows.Forms.Button();
             this.buttonGoToCatalogSource = new System.Windows.Forms.Button();
             this.buttonAddCatalogSource = new System.Windows.Forms.Button();
@@ -69,7 +70,6 @@
             this.tabPageSync = new System.Windows.Forms.TabPage();
             this.implDirBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.buttonApply = new System.Windows.Forms.Button();
-            this.buttonResetCatalogSources = new System.Windows.Forms.Button();
             this.tabOptions.SuspendLayout();
             this.tabPageUpdates.SuspendLayout();
             this.groupNetworkUse.SuspendLayout();
@@ -151,8 +151,8 @@
             // 
             // textBoxSyncServer
             // 
-            this.textBoxSyncServer.AllowDrop = true;
             resources.ApplyResources(this.textBoxSyncServer, "textBoxSyncServer");
+            this.textBoxSyncServer.AllowDrop = true;
             this.textBoxSyncServer.HttpOnly = true;
             this.textBoxSyncServer.Name = "textBoxSyncServer";
             this.textBoxSyncServer.TextChanged += new System.EventHandler(this.textBoxSync_TextChanged);
@@ -186,9 +186,9 @@
             // 
             // tabPageUpdates
             // 
+            resources.ApplyResources(this.tabPageUpdates, "tabPageUpdates");
             this.tabPageUpdates.Controls.Add(this.checkBoxHelpWithTesting);
             this.tabPageUpdates.Controls.Add(this.groupNetworkUse);
-            resources.ApplyResources(this.tabPageUpdates, "tabPageUpdates");
             this.tabPageUpdates.Name = "tabPageUpdates";
             this.tabPageUpdates.UseVisualStyleBackColor = true;
             // 
@@ -230,8 +230,8 @@
             // 
             // tabPageStorage
             // 
-            this.tabPageStorage.Controls.Add(this.groupImplDirs);
             resources.ApplyResources(this.tabPageStorage, "tabPageStorage");
+            this.tabPageStorage.Controls.Add(this.groupImplDirs);
             this.tabPageStorage.Name = "tabPageStorage";
             this.tabPageStorage.UseVisualStyleBackColor = true;
             // 
@@ -268,8 +268,8 @@
             // 
             // listBoxImplDirs
             // 
-            this.listBoxImplDirs.AllowDrop = true;
             resources.ApplyResources(this.listBoxImplDirs, "listBoxImplDirs");
+            this.listBoxImplDirs.AllowDrop = true;
             this.listBoxImplDirs.DisplayMember = "Source";
             this.listBoxImplDirs.FormattingEnabled = true;
             this.listBoxImplDirs.Name = "listBoxImplDirs";
@@ -279,8 +279,8 @@
             // 
             // tabPageCatalog
             // 
-            this.tabPageCatalog.Controls.Add(this.groupCatalogSources);
             resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
+            this.tabPageCatalog.Controls.Add(this.groupCatalogSources);
             this.tabPageCatalog.Name = "tabPageCatalog";
             this.tabPageCatalog.UseVisualStyleBackColor = true;
             // 
@@ -294,6 +294,13 @@
             this.groupCatalogSources.Controls.Add(this.listBoxCatalogSources);
             this.groupCatalogSources.Name = "groupCatalogSources";
             this.groupCatalogSources.TabStop = false;
+            // 
+            // buttonResetCatalogSources
+            // 
+            resources.ApplyResources(this.buttonResetCatalogSources, "buttonResetCatalogSources");
+            this.buttonResetCatalogSources.Name = "buttonResetCatalogSources";
+            this.buttonResetCatalogSources.UseVisualStyleBackColor = true;
+            this.buttonResetCatalogSources.Click += new System.EventHandler(this.buttonResetCatalogSources_Click);
             // 
             // buttonRemoveCatalogSource
             // 
@@ -318,8 +325,8 @@
             // 
             // listBoxCatalogSources
             // 
-            this.listBoxCatalogSources.AllowDrop = true;
             resources.ApplyResources(this.listBoxCatalogSources, "listBoxCatalogSources");
+            this.listBoxCatalogSources.AllowDrop = true;
             this.listBoxCatalogSources.DisplayMember = "Source";
             this.listBoxCatalogSources.FormattingEnabled = true;
             this.listBoxCatalogSources.Name = "listBoxCatalogSources";
@@ -329,9 +336,9 @@
             // 
             // tabPageTrust
             // 
+            resources.ApplyResources(this.tabPageTrust, "tabPageTrust");
             this.tabPageTrust.Controls.Add(this.checkBoxAutoApproveKeys);
             this.tabPageTrust.Controls.Add(this.groupTrustedKeys);
-            resources.ApplyResources(this.tabPageTrust, "tabPageTrust");
             this.tabPageTrust.Name = "tabPageTrust";
             this.tabPageTrust.UseVisualStyleBackColor = true;
             // 
@@ -363,6 +370,7 @@
             // 
             // tabPageSync
             // 
+            resources.ApplyResources(this.tabPageSync, "tabPageSync");
             this.tabPageSync.Controls.Add(this.buttonSyncReset);
             this.tabPageSync.Controls.Add(this.textBoxSyncServer);
             this.tabPageSync.Controls.Add(this.buttonSyncSetup);
@@ -375,7 +383,6 @@
             this.tabPageSync.Controls.Add(this.labelSyncPassword);
             this.tabPageSync.Controls.Add(this.labelSyncCryptoKey);
             this.tabPageSync.Controls.Add(this.textBoxSyncPassword);
-            resources.ApplyResources(this.tabPageSync, "tabPageSync");
             this.tabPageSync.Name = "tabPageSync";
             this.tabPageSync.UseVisualStyleBackColor = true;
             // 
@@ -390,13 +397,6 @@
             this.buttonApply.Name = "buttonApply";
             this.buttonApply.UseVisualStyleBackColor = true;
             this.buttonApply.Click += new System.EventHandler(this.buttonApplyOK_Click);
-            // 
-            // buttonResetCatalogSources
-            // 
-            resources.ApplyResources(this.buttonResetCatalogSources, "buttonResetCatalogSources");
-            this.buttonResetCatalogSources.Name = "buttonResetCatalogSources";
-            this.buttonResetCatalogSources.UseVisualStyleBackColor = true;
-            this.buttonResetCatalogSources.Click += new System.EventHandler(this.buttonResetCatalogSources_Click);
             // 
             // OptionsDialog
             // 

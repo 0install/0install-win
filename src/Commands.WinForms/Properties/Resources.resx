@@ -1231,6 +1231,9 @@ Select an entire line by clicking in the first column and then press DEL on the 
     <value>Set a checkbox to make a capability your desired default handler.
 Remove a checkbox to remove a capability's default status (it still remains available).</value>
   </data>
+  <data name="Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
   <data name="DownloadDamaged" xml:space="preserve">
     <value>A downloaded file is damaged or invalid.</value>
   </data>

@@ -108,6 +108,15 @@ namespace ZeroInstall.Commands.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Done.
+        /// </summary>
+        internal static string Done {
+            get {
+                return ResourceManager.GetString("Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A downloaded file is damaged or invalid..
         /// </summary>
         internal static string DownloadDamaged {

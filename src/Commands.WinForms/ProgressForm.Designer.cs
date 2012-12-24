@@ -120,7 +120,7 @@
             this.buttonAuditDone.Name = "buttonAuditDone";
             this.buttonAuditDone.Size = new System.Drawing.Size(75, 23);
             this.buttonAuditDone.TabIndex = 6;
-            this.buttonAuditDone.Text = "Done";
+            this.buttonAuditDone.Text = "(Done)";
             this.buttonAuditDone.UseVisualStyleBackColor = true;
             this.buttonAuditDone.Visible = false;
             this.buttonAuditDone.Click += new System.EventHandler(this.buttonAuditDone_Click);

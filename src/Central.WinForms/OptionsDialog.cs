@@ -414,14 +414,14 @@ namespace ZeroInstall.Central.WinForms
         #region Global buttons
         private void buttonAdvanced_Click(object sender, EventArgs e)
         {
-            switch (Msg.YesNoCancel(this, Resources.SaveChanges, MsgSeverity.Info, Resources.SaveChangesYes, Resources.SaveChangesNo))
-            {
-                case DialogResult.Yes:
-                    SaveConfig();
-                    break;
-                case DialogResult.Cancel:
-                    return;
-            }
+            //switch (Msg.YesNoCancel(this, Resources.SaveChanges, MsgSeverity.Info, Resources.SaveChangesYes, Resources.SaveChangesNo))
+            //{
+            //    case DialogResult.Yes:
+            //        SaveConfig();
+            //        break;
+            //    case DialogResult.Cancel:
+            //        return;
+            //}
 
             ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"config"}));
             Close();
