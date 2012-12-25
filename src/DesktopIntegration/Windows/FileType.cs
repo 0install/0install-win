@@ -134,16 +134,27 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
                         if (accessPoint)
                         {
-                            if (!machineWide && WindowsUtils.IsWindowsVista && !WindowsUtils.IsWindows8)
-                            {
-                                // Windows Vista and later store per-user file extension overrides, Windows 8 blocks programmatic modification with hash values
+                            if (!machineWide && WindowsUtils.IsWindowsVista)
+                            { // Windows Vista and later store per-user file extension overrides
                                 using (var overridesKey = hive.OpenSubKey(RegKeyOverrides, true))
                                 using (var extensionOverrideKey = overridesKey.CreateSubKey(extension.Value))
                                 {
-                                    // Must delete and recreate instead of direct modification due to wicked ACLs
-                                    extensionOverrideKey.DeleteSubKey("UserChoice", false);
-                                    using (var userChoiceKey = extensionOverrideKey.CreateSubKey("UserChoice"))
-                                        userChoiceKey.SetValue("Progid", RegKeyPrefix + fileType.ID);
+                                    // Only mess with this part of the registry when necessary
+                                    bool alreadySet;
+                                    using (var userChoiceKey = extensionOverrideKey.OpenSubKey("UserChoice", false))
+                                    {
+                                        if (userChoiceKey == null) alreadySet = false;
+                                        else alreadySet = ((userChoiceKey.GetValue("Progid") ?? "").ToString() == RegKeyPrefix + fileType.ID);
+                                    }
+
+                                    if (!alreadySet)
+                                    {
+                                        // Must delete and recreate instead of direct modification due to wicked ACLs
+                                        extensionOverrideKey.DeleteSubKey("UserChoice", false);
+
+                                        using (var userChoiceKey = extensionOverrideKey.CreateSubKey("UserChoice"))
+                                            userChoiceKey.SetValue("Progid", RegKeyPrefix + fileType.ID);
+                                    }
                                 }
                             }
                             else extensionKey.SetValue("", RegKeyPrefix + fileType.ID);
