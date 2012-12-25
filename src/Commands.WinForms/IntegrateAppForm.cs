@@ -213,6 +213,9 @@ namespace ZeroInstall.Commands.WinForms
             SetupDefaultAccessPoint(checkBoxContextMenuSimple, checkBoxContextMenuAll, _contextMenuBinding);
             SetupDefaultAccessPoint(checkBoxDefaultProgramsSimple, checkBoxDefaultProgramsAll, _defaultProgramBinding);
 
+            // File type associations cannot be set programmatically on Windows 8, so hide the option
+            _switchToBasicMode += () => { if (WindowsUtils.IsWindows8) checkBoxFileTypesSimple.Visible = false; };
+
             LoadDefaultAccessPoints();
         }
 
