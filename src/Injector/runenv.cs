@@ -53,9 +53,11 @@ public class RunEnv
         // Launch child process
         ProcessStartInfo startInfo = new ProcessStartInfo(envFile, string.IsNullOrEmpty(userArgs) ? envArgs : envArgs + " " + userArgs);
         startInfo.UseShellExecute = false;
-        Process process = Process.Start(startInfo);
-        process.WaitForExit();
-        return process.ExitCode;
+        using (Process process = Process.Start(startInfo))
+        {
+            process.WaitForExit();
+            return process.ExitCode;
+        }
     }
 
     #region StringUtils

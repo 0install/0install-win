@@ -134,7 +134,7 @@ namespace ZeroInstall.Updater
             while (AppMutex.Probe(targetMutexNew))
                 Thread.Sleep(1000);
         }
-        
+
         /// <summary>
         /// Counterpart to <see cref="MutexAquire"/>.
         /// </summary>
@@ -244,7 +244,8 @@ namespace ZeroInstall.Updater
             {
                 string arguments = new[] {"install", Path.Combine(Target, assembly), "/queue"}.JoinEscapeArguments();
                 var startInfo = new ProcessStartInfo(ngenPath, arguments) {WindowStyle = ProcessWindowStyle.Hidden};
-                Process.Start(startInfo).WaitForExit();
+                using (var process = Process.Start(startInfo))
+                    process.WaitForExit();
             }
             // ReSharper restore LoopCanBePartlyConvertedToQuery
         }

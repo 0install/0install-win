@@ -52,9 +52,11 @@ namespace ZeroInstall.Commands
             if (executable.StartsWith("0alias")) commandLine.AddFirst(AddAlias.Name);
 
             var startInfo = new ProcessStartInfo(Path.Combine(Locations.InstallBase, "0install-win.exe"), commandLine.JoinEscapeArguments()) {Verb = "runas"};
-            var process = Process.Start(startInfo);
-            process.WaitForExit();
-            return process.ExitCode;
+            using (var process = Process.Start(startInfo))
+            {
+                process.WaitForExit();
+                return process.ExitCode;
+            }
         }
 
         /// <summary>

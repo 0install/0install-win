@@ -134,6 +134,7 @@ namespace Common.Cli
             // Finish any pending async operations
             outputReadThread.Join();
             errorReadThread.Join();
+            process.Close();
 
             // Handle any left over StandardError messages
             if (errorHandler != null)

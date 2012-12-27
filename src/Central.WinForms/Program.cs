@@ -111,9 +111,11 @@ namespace ZeroInstall.Central.WinForms
             try
             {
                 var startInfo = new ProcessStartInfo(executable, commandLine.JoinEscapeArguments()) {Verb = "runas"};
-                var process = Process.Start(startInfo);
-                process.WaitForExit();
-                return process.ExitCode;
+                using (var process = Process.Start(startInfo))
+                {
+                    process.WaitForExit();
+                    return process.ExitCode;
+                }
             }
             catch (Win32Exception)
             {
