@@ -96,6 +96,7 @@
     <Compile Include="Suggest.cs" />
     <Compile Include="SyncIntegrationManager.cs" />
     <Compile Include="Windows\AppRegistration.cs" />
+    <EmbeddedResource Include="Windows\stub.template.cs" />
     <Compile Include="Windows\FileType.cs" />
     <Compile Include="Windows\IconProvider.cs" />
     <Compile Include="Windows\ShortcutManager.cs" />
@@ -137,7 +138,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="ClassDiagram.cd" />
-    <EmbeddedResource Include="Windows\Stub.template" />
     <EmbeddedResource Include="Windows\Stub.manifest" />
   </ItemGroup>
   <ItemGroup>
