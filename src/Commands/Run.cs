@@ -168,9 +168,17 @@ namespace ZeroInstall.Commands
 
             Policy.Handler.CloseProgressUI();
 
-            if (NoWait || process == null) return 0;
-            process.WaitForExit();
-            return process.ExitCode;
+            if (process == null) return 0;
+            try
+            {
+                if (NoWait) return (WindowsUtils.IsWindows ? process.Id : 0);
+                process.WaitForExit();
+                return process.ExitCode;
+            }
+            finally
+            {
+                process.Close();
+            }
         }
         #endregion
     }

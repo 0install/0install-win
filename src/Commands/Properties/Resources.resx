@@ -388,7 +388,7 @@ May not contain command-line arguments! Whitespaces do not need to be escaped.</
     <value>Require a version of the main program not earlier than {VERSION}. E.g., if you want to run version 2.0 or later, use --not-before=2.0.</value>
   </data>
   <data name="OptionNoWait" xml:space="preserve">
-    <value>Immediately returns once the chosen program has been launched instead of waiting for it to finish executing.</value>
+    <value>Immediately returns once the chosen program has been launched instead of waiting for it to finish executing. On Windows the exit code is the process ID of the launched program.</value>
   </data>
   <data name="OptionOffline" xml:space="preserve">
     <value>Run in off-line mode, overriding the default setting.

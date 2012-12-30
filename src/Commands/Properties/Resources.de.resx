@@ -388,7 +388,7 @@ Darf keine Befehlszeilenargumente enthalten! Leerzeichen müssen nicht escaped w
     <value>Die Version der ausgewählten Implementierung muss nach {VERSION} liegen. Zum Beispiel können Sie damit eine Version 2.0 oder eine spätere starten, in dem Sie '--not-before=2.0' angeben.</value>
   </data>
   <data name="OptionNoWait" xml:space="preserve">
-    <value>Der Befehlt wird sofort beendet, sobald das Programm gestartet wurde, anstelle auf dessen Beendigung zu warten.</value>
+    <value>Der Befehlt wird sofort beendet, sobald das Programm gestartet wurde, anstelle auf dessen Beendigung zu warten. Unter Windows ist der Exit-Code die Prozess ID des gestarteten Programms.</value>
   </data>
   <data name="OptionOffline" xml:space="preserve">
     <value>Startet im Offline-Modus und überschreibt dabei die Standardeinstellung.

@@ -853,7 +853,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Immediately returns once the chosen program has been launched instead of waiting for it to finish executing..
+        ///   Looks up a localized string similar to Immediately returns once the chosen program has been launched instead of waiting for it to finish executing. On Windows the exit code is the process ID of the launched program..
         /// </summary>
         internal static string OptionNoWait {
             get {
