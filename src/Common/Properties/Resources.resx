@@ -205,6 +205,9 @@
   <data name="RedoNotAvailable" xml:space="preserve">
     <value>This command cannot be performed again until the undo command has been performed.</value>
   </data>
+  <data name="ResetValue" xml:space="preserve">
+    <value>&amp;Reset value</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
@@ -267,8 +270,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
-  </data>
-  <data name="ResetValue" xml:space="preserve">
-    <value>&amp;Reset value</value>
   </data>
 </root>
