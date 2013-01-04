@@ -16,10 +16,10 @@ MIT license: http://www.opensource.org/licenses/mit-license
 Source unmodified
 Pre-compiled managed DLL: LinqBridge.dll
 
-NDesk.Options 0.2.1
+NDesk.Options post-0.2.1-GIT-checkout
 http://ndesk.org/Options
 MIT license: http://www.opensource.org/licenses/mit-license
-Source unmodified
+Applied patches: NDesk.Options.*.patch
 Self-compiled managed DLL: NDesk.Options.dll
 
 SharpZipLib 0.86.0
