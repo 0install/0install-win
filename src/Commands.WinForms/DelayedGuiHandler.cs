@@ -61,7 +61,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <inheritdoc/>
         public void Dispose()
         {
-            _uiDone.Close();
+            // NOTE: Do not dispose _uiDone because of possible race conditions. Let the GC handle it.
             if (_target != null) _target.Dispose();
         }
         #endregion
