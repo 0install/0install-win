@@ -89,7 +89,7 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         private void UpdateFormControls()
         {
             ClearFormControls();
-            if (_group.Version != null) hintTextBoxVersion.Text = _group.VersionsString;
+            if (_group.Version != null) hintTextBoxVersion.Text = _group.VersionString;
             if (_group.Released != default(DateTime))
             {
                 checkBoxEnableSettingDate.Checked = true;

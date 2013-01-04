@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 using C5;
 using Common;
@@ -137,11 +138,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
         {
             var frameworkCultures = CultureInfo.GetCultures(CultureTypes.FrameworkCultures);
             var sortedToStringWrappers = new ArrayList<ToStringWrapper<CultureInfo>>(frameworkCultures.Length);
-            foreach (var cultureInfo in frameworkCultures)
-            {
-                if (cultureInfo.Equals(CultureInfo.InvariantCulture)) continue;
+            foreach (var cultureInfo in frameworkCultures.Where(cultureInfo => !cultureInfo.Equals(CultureInfo.InvariantCulture)))
                 sortedToStringWrappers.Add(CreateToStringWrapper(cultureInfo, Values.ContainsExactLanguage(cultureInfo)));
-            }
             sortedToStringWrappers.Sort(new ToStringWrapperCultureComparer());
 
             comboBoxLanguages.BeginUpdate();
@@ -187,7 +185,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             }
         }
 
-        private ToStringWrapper<CultureInfo> CreateToStringWrapper(CultureInfo forCulture, bool cultureUsed)
+        private static ToStringWrapper<CultureInfo> CreateToStringWrapper(CultureInfo forCulture, bool cultureUsed)
         {
             return new ToStringWrapper<CultureInfo>(forCulture, () => cultureUsed ? TranslatedLanguageMarker + forCulture.IetfLanguageTag : forCulture.IetfLanguageTag);
         }

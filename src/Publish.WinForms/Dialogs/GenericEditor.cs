@@ -16,25 +16,15 @@
  */
 
 using System.Windows.Forms;
-using Common.Collections;
+using Common.Controls;
+using ZeroInstall.Model;
 
-namespace ZeroInstall.Publish.WinForms.Controls
+namespace ZeroInstall.Publish.WinForms.Dialogs
 {
-    public partial class SummariesTabControl : UserControl
-    {
-        #region Attributes
-        private LocalizableStringCollection _summaries = new LocalizableStringCollection();
-        #endregion
-
-        #region Properties
-        public LocalizableStringCollection Summaries { set { _summaries = value ?? new LocalizableStringCollection(); } get { return _summaries; } }
-        #endregion
-
-        #region Initialization
-        public SummariesTabControl()
-        {
-            InitializeComponent();
-        }
-        #endregion
-    }
+    /// <summary>
+    /// Edits arbritary types of elements in a <see cref="Feed"/> using a <see cref="PropertyGrid"/>.
+    /// </summary>
+    /// <typeparam name="T">The type of element to edit.</typeparam>
+    public sealed class GenericEditor<T> : EditDialog<T>, IEntryEditor<T> where T : class
+    {}
 }

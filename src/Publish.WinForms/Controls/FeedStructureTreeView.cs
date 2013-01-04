@@ -75,10 +75,10 @@ namespace ZeroInstall.Publish.WinForms.Controls
             SetNodeDoubleClickHook<IElementContainer, Element, PackageImplementation>(implementation => new PackageImplementationDialog {PackageImplementation = implementation}, container => container.Elements);
             SetNodeDoubleClickHook<IElementContainer, Element, Group>(group => new GroupDialog {Group = group}, container => container.Elements);
 
-            SetNodeDoubleClickHook<IBindingContainer, Binding, EnvironmentBinding>(binding => new EnvironmentBindingDialog {EnvironmentBinding = binding}, container => container.Bindings);
-            SetNodeDoubleClickHook<IBindingContainer, Binding, OverlayBinding>(binding => new OverlayBindingDialog {OverlayBinding = binding}, container => container.Bindings);
-            SetNodeDoubleClickHook<IBindingContainer, Binding, ExecutableInVar>(binding => new ExecutableInVarDialog {ExecutableInVar = binding}, container => container.Bindings);
-            SetNodeDoubleClickHook<IBindingContainer, Binding, ExecutableInPath>(binding => new ExecutableInPathDialog {ExecutableInPath = binding}, container => container.Bindings);
+            //SetNodeDoubleClickHook<IBindingContainer, Binding, EnvironmentBinding>(binding => new EnvironmentBindingDialog {EnvironmentBinding = binding}, container => container.Bindings);
+            //SetNodeDoubleClickHook<IBindingContainer, Binding, OverlayBinding>(binding => new OverlayBindingDialog {OverlayBinding = binding}, container => container.Bindings);
+            //SetNodeDoubleClickHook<IBindingContainer, Binding, ExecutableInVar>(binding => new ExecutableInVarDialog {ExecutableInVar = binding}, container => container.Bindings);
+            //SetNodeDoubleClickHook<IBindingContainer, Binding, ExecutableInPath>(binding => new ExecutableInPathDialog {ExecutableInPath = binding}, container => container.Bindings);
 
             SetNodeDoubleClickHook<IDependencyContainer, Dependency, Dependency>(dependency => new DependencyDialog {Dependency = dependency}, container => container.Dependencies);
 
@@ -86,7 +86,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             SetNodeDoubleClickHook<Command, Runner, Runner>(runner => new RunnerDialog {Runner = runner}, command => new PropertyPointer<Runner>(() => command.Runner, newValue => command.Runner = newValue));
 
             SetNodeDoubleClickHook<Implementation, RetrievalMethod, Archive>(archive => new ArchiveDialog {Archive = archive}, implementation => implementation.RetrievalMethods);
-            SetNodeDoubleClickHook<Implementation, RetrievalMethod, Recipe>(recipe => new RecipeDialog {Recipe = recipe}, implementation => implementation.RetrievalMethods);
+            //SetNodeDoubleClickHook<Implementation, RetrievalMethod, Recipe>(recipe => new RecipeDialog {Recipe = recipe}, implementation => implementation.RetrievalMethods);
         }
 
         private void WireControlEvents()

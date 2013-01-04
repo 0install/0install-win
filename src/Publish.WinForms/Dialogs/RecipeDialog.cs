@@ -18,6 +18,7 @@
 using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
@@ -160,13 +161,10 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         #region Helper methodes
         private bool AreAllArchivesValid()
         {
-            foreach (TabPage tabPage in tabControlRecipe.TabPages)
-            {
-                if (tabPage.Name == "tabPageAddNew") continue;
-                var control = (ArchiveControl)tabPage.Controls["archiveControl"];
-                if (control.ExtractedArchivePath == null) return false;
-            }
-            return true;
+            return (from TabPage tabPage in tabControlRecipe.TabPages
+                where tabPage.Name != "tabPageAddNew"
+                select (ArchiveControl)tabPage.Controls["archiveControl"]).
+                All(control => control.ExtractedArchivePath != null);
         }
         #endregion
 

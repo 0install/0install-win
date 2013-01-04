@@ -111,6 +111,12 @@
     <Compile Include="Controls\LocalizableTextControl.Designer.cs">
       <DependentUpon>LocalizableTextControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SummariesTabControl.cs" />
+    <Compile Include="Controls\SummariesTabControl.Designer.cs">
+      <DependentUpon>SummariesTabControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\GenericEditor.cs" />
+    <Compile Include="Dialogs\IEntryEditor.cs" />
     <Compile Include="FeedManager.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -252,6 +258,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\LocalizableTextControl.resx">
       <DependentUpon>LocalizableTextControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SummariesTabControl.resx">
+      <DependentUpon>SummariesTabControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FeedManager.resx">
       <DependentUpon>FeedManager.cs</DependentUpon>

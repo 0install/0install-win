@@ -17,6 +17,7 @@
 
 using System;
 using System.Drawing;
+using System.Linq;
 using Common.Controls;
 using ZeroInstall.Model;
 using System.IO;
@@ -77,12 +78,12 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
             if (!string.IsNullOrEmpty(_packageImplementation.DocDir)) hintTextBoxDocDir.Text = _packageImplementation.DocDir;
             if (!string.IsNullOrEmpty(_packageImplementation.Package)) hintTextBoxPackage.Text = _packageImplementation.Package;
             if (!string.IsNullOrEmpty(hintTextBoxMain.Text)) hintTextBoxMain.Text = _packageImplementation.Main;
-            foreach (var distribution in _packageImplementation.Distributions)
-            {
-                if (!checkedListBoxDistribution.Items.Contains(distribution)) continue;
-                var itemIndex = checkedListBoxDistribution.Items.IndexOf(distribution);
+
+            foreach (var itemIndex in
+                from distribution in _packageImplementation.Distributions
+                where checkedListBoxDistribution.Items.Contains(distribution)
+                select checkedListBoxDistribution.Items.IndexOf(distribution))
                 checkedListBoxDistribution.SetItemChecked(itemIndex, true);
-            }
         }
         #endregion
 

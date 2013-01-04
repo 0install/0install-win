@@ -16,8 +16,6 @@
  */
 
 using System;
-using System.ComponentModel;
-using System.Reflection;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms
@@ -37,31 +35,6 @@ namespace ZeroInstall.Publish.WinForms
             if (toCheck == null) throw new ArgumentNullException("toCheck");
 
             return (toCheck.Extract == default(String) && toCheck.Location == default(Uri) && toCheck.MimeType == default(String) && toCheck.Size == default(long) && toCheck.StartOffset == default(long));
-        }
-
-        /// <summary>
-        /// Get the <see cref="DescriptionAttribute.Description"/> text of a <see langword="Enum"/> value.
-        /// </summary>
-        /// <param name="toGetDescriptionFrom">Description of this <see langword="Enum"/></param>
-        /// <returns>A Description of a <see langword="Enum"/>.</returns>
-        public static string GetEnumDescription(Enum toGetDescriptionFrom)
-        {
-            #region Sanity checks
-            if (toGetDescriptionFrom == null) throw new ArgumentNullException("toGetDescriptionFrom");
-            #endregion
-
-            // ReSharper disable SpecifyACultureInStringConversionExplicitly
-            FieldInfo fi = toGetDescriptionFrom.GetType().GetField(toGetDescriptionFrom.ToString());
-            // ReSharper restore SpecifyACultureInStringConversionExplicitly
-
-            var attributes =
-                (DescriptionAttribute[])fi.GetCustomAttributes(
-                    typeof(DescriptionAttribute),
-                    false);
-
-            // ReSharper disable SpecifyACultureInStringConversionExplicitly
-            return attributes.Length > 0 ? attributes[0].Description : toGetDescriptionFrom.ToString();
-            // ReSharper restore SpecifyACultureInStringConversionExplicitly
         }
     }
 }
