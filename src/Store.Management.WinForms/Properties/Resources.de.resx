@@ -145,10 +145,10 @@
     <value>Im Dateimanger &amp;öffnen</value>
   </data>
   <data name="PortableMode" xml:space="preserve">
-    <value>Portable Modus</value>
+    <value>Portabler Modus</value>
   </data>
   <data name="ReadingCache" xml:space="preserve">
-    <value>Lese cache</value>
+    <value>Lese Cache</value>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>Entfernen</value>

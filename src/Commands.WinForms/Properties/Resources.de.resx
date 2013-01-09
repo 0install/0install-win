@@ -151,7 +151,7 @@ Ein &lt;feed-for&gt; Tag zeigt Feed-Kompatibilität an.</value>
     <value>Integriere {0}</value>
   </data>
   <data name="PortableMode" xml:space="preserve">
-    <value>Portable Modus</value>
+    <value>Portabler Modus</value>
   </data>
   <data name="PropertiesFor" xml:space="preserve">
     <value>Eigenschaften für {0}</value>

@@ -191,7 +191,7 @@ Anwendung behalten</value>
 Zurück zur Eingabe</value>
   </data>
   <data name="PortableMode" xml:space="preserve">
-    <value>Portable Modus</value>
+    <value>Portabler Modus</value>
   </data>
   <data name="ProblemLoadingOptions" xml:space="preserve">
     <value>Es gab ein Problem beim Laden der Einstellungen.</value>

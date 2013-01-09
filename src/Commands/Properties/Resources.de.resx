@@ -319,7 +319,7 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
     <value>Diese Zero Install Instanz wurde als Implementierung von einer anderen Zero Install Instanz gestartet. Sie kann sich daher nicht selbst aktualisieren.</value>
   </data>
   <data name="NotAvailableInPortableMode" xml:space="preserve">
-    <value>Dieser Vorgang steht im Portable Modus nicht zur Verfügung.</value>
+    <value>Dieser Vorgang steht im Portablen Modus nicht zur Verfügung.</value>
   </data>
   <data name="NotParsed" xml:space="preserve">
     <value>Parse wurde noch nicht aufgerufen.</value>
@@ -440,7 +440,7 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
     <value>Scheibe ausgewählte Versionen auf die Konsole als Maschinen-lesbares XML.</value>
   </data>
   <data name="PortableMode" xml:space="preserve">
-    <value>Portable Modus</value>
+    <value>Portabler Modus</value>
   </data>
   <data name="ResolvedUsingCatalog" xml:space="preserve">
     <value>'{0}' nach '{1}', unter der verwendung eines Katalogs, aufgelöst</value>

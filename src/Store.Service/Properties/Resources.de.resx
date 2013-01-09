@@ -139,7 +139,7 @@
     <value>Nur Administratoren können Elemente aus einem geteilten Store entfernen.</value>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
-    <value>Der Dienst kann nicht im Portable Modus laufen!</value>
+    <value>Der Dienst kann nicht im Portablen Modus laufen!</value>
   </data>
   <data name="StartSuccess" xml:space="preserve">
     <value>Der Zero Install Store Dienst wurde erfolgreich gestartet.</value>

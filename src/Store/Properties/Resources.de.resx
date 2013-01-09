@@ -184,7 +184,7 @@ Falls Sie ein FAT-formatiertes Laufwerk verwenden, konvertieren Sie es bitte zu 
     <value>Es wurde keine bekannte Digest-Methode definiert.</value>
   </data>
   <data name="NonRootedPathInConfig" xml:space="preserve">
-    <value>Der Pfad '{0}' ist nicht absolut. Relative Pfade sind nur im Portable Modus erlaubt.
+    <value>Der Pfad '{0}' ist nicht absolut. Relative Pfade sind nur im Portablen Modus erlaubt.
 Festgelegt in der Konfigurationsdatei '{1}'.</value>
   </data>
   <data name="NumberTooLarge" xml:space="preserve">
