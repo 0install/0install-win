@@ -59,9 +59,9 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Dispose
         /// <inheritdoc/>
+        [SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "_uiDone", Justification = "Do not dispose _uiDone because of possible race conditions; let the GC handle it")]
         public void Dispose()
         {
-            // NOTE: Do not dispose _uiDone because of possible race conditions. Let the GC handle it.
             if (_target != null) _target.Dispose();
         }
         #endregion

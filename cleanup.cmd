@@ -4,8 +4,9 @@
 rem Clear binaries
 rd /s /q build
 
-rem Clear ReSharper's cache
-rd /s /q src\_ReSharper.ZeroInstall_VS2010 > NUL 2>&1
+rem Clear JetBrains caches
+rd /s /q src\_ReSharper.ZeroInstall_VS2012 > NUL 2>&1
+rd /s /q src\_TeamCity.ZeroInstall_VS2012 > NUL 2>&1
 
 rem Clear caches and per-user preferences
 attrib -h src\*.suo > NUL 2>&1
