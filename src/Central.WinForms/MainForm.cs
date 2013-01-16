@@ -107,15 +107,17 @@ namespace ZeroInstall.Central.WinForms
                 LoadCatalogCached();
                 LoadCatalogAsync();
 
+                string introDoneFlag = Locations.GetSaveConfigPath("0install.net", true, "central", "intro_done");
                 if (_currentAppList.Entries.IsEmpty)
                 {
                     // Show intro video automatically on first start
-                    if (!File.Exists(Locations.GetSaveConfigPath("0install.net", true, "central", "intro_seen")))
+                    if (!File.Exists(introDoneFlag))
                         new IntroDialog().ShowDialog(this);
 
                     // Show catalog automatically if AppList is empty
                     tabControlApps.SelectTab(tabPageCatalog);
                 }
+                File.WriteAllText(introDoneFlag, "");
             };
 
             FormClosing += delegate

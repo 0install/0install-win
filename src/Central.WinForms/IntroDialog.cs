@@ -18,9 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
-using Common.Storage;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Model;
 
@@ -33,7 +31,6 @@ namespace ZeroInstall.Central.WinForms
         {
             InitializeComponent();
             Load += delegate { PlayIntro(); };
-            Shown += delegate { File.WriteAllText(Locations.GetSaveConfigPath("0install.net", true, "central", "intro_seen"), ""); };
         }
 
         private void PlayIntro()
