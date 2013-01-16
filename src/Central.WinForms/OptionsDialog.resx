@@ -526,7 +526,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>Common.Controls.OKCancelDialog, Common, Version=1.13.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>Common.Controls.OKCancelDialog, Common, Version=1.14.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;checkBoxAutoApproveKeys.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -1009,7 +1009,7 @@
     <value>2</value>
   </data>
   <data name="&gt;&gt;textBoxSyncServer.Type" xml:space="preserve">
-    <value>Common.Controls.UriTextBox, Common, Version=1.13.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>Common.Controls.UriTextBox, Common, Version=1.14.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;textBoxSyncCryptoKey.Name" xml:space="preserve">
     <value>textBoxSyncCryptoKey</value>

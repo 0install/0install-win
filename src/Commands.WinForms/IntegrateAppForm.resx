@@ -3218,6 +3218,6 @@
     <value>IntegrateAppForm</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>Common.Controls.OKCancelDialog, Common, Version=1.13.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>Common.Controls.OKCancelDialog, Common, Version=1.14.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
 </root>
