@@ -423,10 +423,17 @@ namespace Common.Utils
 
         private static void ToggleWriteProtectionWinNT(DirectoryInfo directory, bool enable)
         {
-            var acl = directory.GetAccessControl();
-            if (enable) acl.AddAccessRule(_denyEveryoneWrite);
-            else acl.RemoveAccessRule(_denyEveryoneWrite);
-            directory.SetAccessControl(acl);
+            try
+            {
+                var acl = directory.GetAccessControl();
+                if (enable) acl.AddAccessRule(_denyEveryoneWrite);
+                else acl.RemoveAccessRule(_denyEveryoneWrite);
+                directory.SetAccessControl(acl);
+            }
+            catch (ArgumentException)
+            {
+                // NOTE: Workaround for .NET API glitch
+            }
         }
         #endregion
 
