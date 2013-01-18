@@ -38,6 +38,7 @@
             // labelPrompt
             // 
             resources.ApplyResources(this.labelPrompt, "labelPrompt");
+            this.labelPrompt.AutoEllipsis = true;
             this.labelPrompt.BackColor = System.Drawing.SystemColors.Control;
             this.labelPrompt.Name = "labelPrompt";
             // 
