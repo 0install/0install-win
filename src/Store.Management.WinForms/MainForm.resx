@@ -184,7 +184,7 @@
     <value>117, 41</value>
   </data>
   <data name="textTotalSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 13</value>
+    <value>113, 13</value>
   </data>
   <data name="textTotalSize.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -211,7 +211,7 @@
     <value>117, 3</value>
   </data>
   <data name="textCurrentSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 13</value>
+    <value>113, 13</value>
   </data>
   <data name="textCurrentSize.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -238,7 +238,7 @@
     <value>117, 22</value>
   </data>
   <data name="textCheckedSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 13</value>
+    <value>113, 13</value>
   </data>
   <data name="textCheckedSize.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -331,7 +331,7 @@
     <value>3</value>
   </data>
   <data name="tableLayoutPanelSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>240, 58</value>
+    <value>233, 58</value>
   </data>
   <data name="tableLayoutPanelSize.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -358,7 +358,7 @@
     <value>0, 0</value>
   </data>
   <data name="propertyGrid.Size" type="System.Drawing.Size, System.Drawing">
-    <value>240, 354</value>
+    <value>233, 354</value>
   </data>
   <data name="propertyGrid.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -391,7 +391,7 @@
     <value>472, 421</value>
   </data>
   <data name="splitContainer.SplitterDistance" type="System.Int32, mscorlib">
-    <value>252</value>
+    <value>235</value>
   </data>
   <data name="splitContainer.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
