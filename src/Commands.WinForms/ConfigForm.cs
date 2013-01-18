@@ -34,7 +34,7 @@ namespace ZeroInstall.Commands.WinForms
             Load += delegate
             {
                 Text = @"Zero Install " + Resources.Configuration +
-                    (Locations.IsPortable ? "" : @" - " + Resources.PortableMode);
+                    (Locations.IsPortable ? @" - " + Resources.PortableMode : "");
             };
             HandleCreated += delegate { Program.ConfigureTaskbar(this, Text, "Config", "config"); };
         }
