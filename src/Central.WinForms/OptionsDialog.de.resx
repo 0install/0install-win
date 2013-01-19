@@ -245,7 +245,7 @@
     <value>Bitte wählen Sie ein Verzeichnis aus, das als Implementierungscache genutzt werden soll.</value>
   </data>
   <data name="buttonApply.Text" xml:space="preserve">
-    <value>Anwenden</value>
+    <value>Übernehmen</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Optionen</value>
