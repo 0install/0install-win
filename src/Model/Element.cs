@@ -98,6 +98,7 @@ namespace ZeroInstall.Model
         /// <seealso cref="VersionString"/>
         [Obsolete("Use VersionString instead")]
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [XmlIgnore]
         public string VersionsString { get { return VersionString; } set { VersionString = value; } }
 
         /// <summary>
