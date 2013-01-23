@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://0install.de/schema/desktop-integration/app-list" elementFormDefault="qualified" targetNamespace="http://0install.de/schema/desktop-integration/app-list" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import namespace="http://0install.de/schema/desktop-integration/capabilities" />
+  <xs:import namespace="http://0install.de/schema/desktop-integration/capabilities" schemaLocation="http://0install.de/schema/desktop-integration/capabilities/schema.xsd" />
   <xs:element name="app-list" nillable="true" type="tns:app-list" />
   <xs:complexType name="app-list">
     <xs:annotation>

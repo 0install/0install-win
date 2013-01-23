@@ -3,7 +3,7 @@
            targetNamespace="http://0install.de/schema/desktop-integration/capabilities"
            xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
-  <xs:import namespace="http://zero-install.sourceforge.net/2004/injector/interface" />
+  <xs:import namespace="http://zero-install.sourceforge.net/2004/injector/interface" schemaLocation="http://0install.de/schema/injector/interface/schema.xsd" />
   <xs:element name="capabilities" nillable="true" type="tns:capabilities" />
   <xs:complexType name="capabilities">
     <xs:annotation>
