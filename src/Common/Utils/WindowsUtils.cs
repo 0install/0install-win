@@ -325,13 +325,16 @@ namespace Common.Utils
             if (button == null) throw new ArgumentNullException("button");
             #endregion
 
-            // ReSharper disable InconsistentNaming
-            const int BCM_FIRST = 0x1600, BCM_SETSHIELD = 0x000C;
-            // ReSharper restore InconsistentNaming
+            unchecked
+            {
+                // ReSharper disable InconsistentNaming
+                const int BCM_FIRST = 0x1600, BCM_SETSHIELD = 0x000C;
+                // ReSharper restore InconsistentNaming
 
-            if (!IsWindowsVista) return;
-            button.FlatStyle = FlatStyle.System;
-            UnsafeNativeMethods.SendMessage(button.Handle, BCM_FIRST + BCM_SETSHIELD, IntPtr.Zero, new IntPtr(0xFFFFFFFF));
+                if (!IsWindowsVista) return;
+                button.FlatStyle = FlatStyle.System;
+                UnsafeNativeMethods.SendMessage(button.Handle, BCM_FIRST + BCM_SETSHIELD, IntPtr.Zero, new IntPtr(0xFFFFFFFF));
+            }
         }
 
         /// <summary>
