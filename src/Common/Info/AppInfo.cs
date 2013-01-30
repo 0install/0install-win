@@ -54,7 +54,7 @@ namespace Common.Info
         /// <summary>
         /// The copyright information for the entry assembly.
         /// </summary>
-        public string Copyright { get; private set; }
+        public string Copyright { get; set; }
 
         /// <summary>
         /// The command-line arguments the application was started with.
