@@ -59,7 +59,7 @@ namespace Common.Info
         /// <summary>
         /// The service pack level (e.g. "Service Pack 1").
         /// </summary>
-        [XmlAttribute("service-pack")]
+        [XmlAttribute("service-pack"), DefaultValue("")]
         public string ServicePack;
 
         public override string ToString()

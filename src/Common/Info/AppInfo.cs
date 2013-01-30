@@ -54,6 +54,7 @@ namespace Common.Info
         /// <summary>
         /// The copyright information for the entry assembly.
         /// </summary>
+        [XmlIgnore]
         public string Copyright { get; set; }
 
         /// <summary>
