@@ -24,6 +24,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using Common.Utils;
 
 namespace Common.Controls
 {
@@ -41,6 +42,12 @@ namespace Common.Controls
         /// </summary>
         [XmlElement("application")]
         public ApplicationInformation Application { get; set; }
+
+        /// <summary>
+        /// Information about the current operating system.
+        /// </summary>
+        [XmlElement("os")]
+        public OSInformation OS { get; set; }
 
         /// <summary>
         /// Information about the exception that occured.
@@ -134,7 +141,7 @@ namespace Common.Controls
     /// </summary>
     // Note: Must be public, not internal, so XML Serialization will work
     [XmlType("application")]
-    public class ApplicationInformation
+    public struct ApplicationInformation
     {
         #region Properties
         /// <summary>
@@ -159,7 +166,7 @@ namespace Common.Controls
 
         #region Collect
         /// <summary>
-        /// Collects information about the current application
+        /// Collects information about the current application.
         /// </summary>
         public static ApplicationInformation Collect()
         {
@@ -168,6 +175,61 @@ namespace Common.Controls
                 Name = AppInfo.Name,
                 Version = AppInfo.Version.ToString(),
                 Arguments = Environment.GetCommandLineArgs()
+            };
+        }
+        #endregion
+    }
+
+    /// <summary>
+    /// Wraps information about the operating system in a serializer-friendly format.
+    /// </summary>
+    // Note: Must be public, not internal, so XML Serialization will work
+    [XmlType("os")]
+    public struct OSInformation
+    {
+        #region Properties
+        /// <summary>
+        /// The operating system platform (e.g. Windows NT).
+        /// </summary>
+        [XmlAttribute("platform")]
+        public PlatformID Platform;
+
+        /// <summary>
+        /// True if the operating system is a 64-bit version of Windows.
+        /// </summary>
+        [XmlAttribute("is64bit")]
+        public bool Is64Bit;
+
+        /// <summary>
+        /// The version of the operating system (e.g. 6.0 for Vista).
+        /// </summary>
+        [XmlAttribute("version")]
+        public string Version;
+
+        /// <summary>
+        /// The service pack level (e.g. "Service Pack 1").
+        /// </summary>
+        [XmlAttribute("service-pack")]
+        public string ServicePack;
+
+        public override string ToString()
+        {
+            return Platform + " " + (Is64Bit ? "64-bit " : "") + Version + " " + ServicePack;
+        }
+        #endregion
+
+        #region Collect
+        /// <summary>
+        /// Collects information about the current operating system.
+        /// </summary>
+        public static OSInformation Collect()
+        {
+            return new OSInformation
+            {
+                Platform = Environment.OSVersion.Platform,
+                Is64Bit = WindowsUtils.Is64BitOperatingSystem,
+                Version = Environment.OSVersion.VersionString,
+                ServicePack = Environment.OSVersion.ServicePack
             };
         }
         #endregion

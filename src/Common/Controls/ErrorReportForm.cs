@@ -185,6 +185,7 @@ namespace Common.Controls
             var crashInfo = new ErrorReport
             {
                 Application = ApplicationInformation.Collect(),
+                OS = OSInformation.Collect(),
                 Exception = new ExceptionInformation(_exception),
                 Log = Log.Content,
                 Comments = commentBox.Text
