@@ -28,6 +28,7 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Windows.Forms;
+using Common.Info;
 using Common.Properties;
 using Common.Storage;
 
@@ -184,9 +185,9 @@ namespace Common.Controls
         {
             var crashInfo = new ErrorReport
             {
-                Application = ApplicationInformation.Collect(),
-                OS = OSInformation.Collect(),
-                Exception = new ExceptionInformation(_exception),
+                Application = AppInfo.Current,
+                OS = OSInfo.Current,
+                Exception = new ExceptionInfo(_exception),
                 Log = Log.Content,
                 Comments = commentBox.Text
             };

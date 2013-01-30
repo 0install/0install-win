@@ -70,12 +70,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
-    <Compile Include="AppInfo.cs" />
     <Compile Include="AppMutex.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="NotAdminException.cs" />
     <Compile Include="MutexLock.cs" />
     <Compile Include="PropertyPointer.cs" />
+    <Compile Include="Info\AppInfo.cs" />
+    <Compile Include="Info\ExceptionInfo.cs" />
+    <Compile Include="Info\OSInfo.cs" />
     <Compile Include="TimedLogEvent.cs" />
     <Compile Include="Msg.cs" />
     <Compile Include="ToStringWrapper.cs" />

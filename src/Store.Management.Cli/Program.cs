@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using Common;
+using Common.Info;
 using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
@@ -177,7 +178,7 @@ namespace ZeroInstall.Store.Management.Cli
                 {
                     "V|version", Resources.OptionVersion, unused =>
                     {
-                        Console.WriteLine(AppInfo.Name + ' ' + AppInfo.Version + (Locations.IsPortable ? " - " + Resources.PortableMode : "") + Environment.NewLine + AppInfo.Copyright + Environment.NewLine + Resources.LicenseInfo);
+                        Console.WriteLine(AppInfo.Current.Name + ' ' + AppInfo.Current.Version + (Locations.IsPortable ? " - " + Resources.PortableMode : "") + Environment.NewLine + AppInfo.Current.Copyright + Environment.NewLine + Resources.LicenseInfo);
                         throw new OperationCanceledException(); // Don't handle any of the other arguments
                     }
                 },

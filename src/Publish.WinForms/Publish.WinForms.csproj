@@ -111,11 +111,15 @@
     <Compile Include="Controls\LocalizableTextControl.Designer.cs">
       <DependentUpon>LocalizableTextControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SummariesTabControl.cs" />
+    <Compile Include="Controls\SummariesTabControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\SummariesTabControl.Designer.cs">
       <DependentUpon>SummariesTabControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\GenericEditor.cs" />
+    <Compile Include="Dialogs\GenericEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dialogs\IEntryEditor.cs" />
     <Compile Include="FeedManager.cs">
       <SubType>Component</SubType>

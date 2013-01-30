@@ -22,6 +22,7 @@ using System.Linq;
 using System.Net;
 using Common;
 using Common.Cli;
+using Common.Info;
 using NDesk.Options;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.Cli.Properties;
@@ -173,7 +174,7 @@ namespace ZeroInstall.Publish.Cli
                 {
                     "V|version", Resources.OptionVersion, unused =>
                     {
-                        Console.WriteLine(AppInfo.Name + ' ' + AppInfo.Version + Environment.NewLine + AppInfo.Copyright + Environment.NewLine + Resources.LicenseInfo);
+                        Console.WriteLine(AppInfo.Current.Name + ' ' + AppInfo.Current.Version + Environment.NewLine + AppInfo.Current.Copyright + Environment.NewLine + Resources.LicenseInfo);
                         throw new OperationCanceledException(); // Don't handle any of the other arguments
                     }
                 },

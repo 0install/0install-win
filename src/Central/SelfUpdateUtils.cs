@@ -17,7 +17,7 @@
 
 using System;
 using System.IO;
-using Common;
+using Common.Info;
 using Common.Storage;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
@@ -67,7 +67,7 @@ namespace ZeroInstall.Central
             var selections = policy.Solver.Solve(requirements, policy, out staleFeeds);
 
             // Report version of current update if it is newer than the already installed version
-            var currentVersion = new ImplementationVersion(AppInfo.Version);
+            var currentVersion = new ImplementationVersion(AppInfo.Current.Version);
             var newVersion = selections.Implementations[0].Version;
             return (newVersion > currentVersion) ? newVersion : null;
         }

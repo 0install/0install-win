@@ -18,6 +18,7 @@
 using System;
 using System.Text;
 using Common;
+using Common.Info;
 using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
@@ -55,7 +56,7 @@ namespace ZeroInstall.Commands
         {
             Options.Add("V|version", Resources.OptionVersion, unused =>
             {
-                Policy.Handler.Output(Resources.VersionInformation, AppInfo.Name + " " + AppInfo.Version + (Locations.IsPortable ? " - " + Resources.PortableMode : "") + Environment.NewLine + AppInfo.Copyright + Environment.NewLine + Resources.LicenseInfo);
+                Policy.Handler.Output(Resources.VersionInformation, AppInfo.Current.Name + " " + AppInfo.Current.Version + (Locations.IsPortable ? " - " + Resources.PortableMode : "") + Environment.NewLine + AppInfo.Current.Copyright + Environment.NewLine + Resources.LicenseInfo);
                 throw new OperationCanceledException(); // Don't handle any of the other arguments
             });
         }

@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Common;
+using Common.Info;
 using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
@@ -103,7 +104,7 @@ namespace ZeroInstall.Commands
             SelectionsUI();
 
             // Make sure the update is actually a newer version
-            var currentVersion = new ImplementationVersion(AppInfo.Version);
+            var currentVersion = new ImplementationVersion(AppInfo.Current.Version);
             var newVersion = Selections.Implementations[0].Version;
             if (!_force && currentVersion >= newVersion)
             {
