@@ -16,9 +16,11 @@ const
 procedure dotnetfx20sp2();
 var
 	version: cardinal;
+	install4: cardinal;
 begin
 	RegQueryDWordValue(HKLM, 'Software\Microsoft\NET Framework Setup\NDP\v2.0.50727', 'SP', version);
-	if version < 2 then
+	RegQueryDWordValue(HKLM, 'Software\Microsoft\NET Framework Setup\NDP\v4\Full', 'Install', install4);
+	if (version < 2) and (install4 <> 1) then
 		AddProduct(GetPlatformString('NetFx20SP2_x86.exe', 'NetFx20SP2_x64.exe', 'NetFx20SP2_ia64.exe'),
 			'/lang:enu /qb /norestart',
 			CustomMessage('dotnetfx20sp2_title'),

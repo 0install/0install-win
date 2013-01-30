@@ -19,10 +19,12 @@ const
 
 procedure dotnetfx20();
 var
-	version: cardinal;
+	install: cardinal;
+	install4: cardinal;
 begin
-	RegQueryDWordValue(HKEY_LOCAL_MACHINE, 'Software\Microsoft\NET Framework Setup\NDP\v2.0.50727', 'Install', version);
-	if version <> 1 then begin
+	RegQueryDWordValue(HKLM, 'Software\Microsoft\NET Framework Setup\NDP\v2.0.50727', 'Install', install);
+	RegQueryDWordValue(HKLM, 'Software\Microsoft\NET Framework Setup\NDP\v4\Full', 'Install', install4);
+	if (install <> 1) and (install4 <> 1) then begin
 		AddProduct(GetPlatformString('dotnetfx.exe', 'NetFx64.exe', 'NetFx64.exe'),
 			'/q:a /t:' + ExpandConstant('{tmp}{\}') + 'dotnetfx20 /c:"install /qb /l"',
 			CustomMessage('dotnetfx20_title'),

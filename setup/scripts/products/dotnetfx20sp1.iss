@@ -18,9 +18,11 @@ const
 procedure dotnetfx20sp1();
 var
 	version: cardinal;
+	install4: cardinal;
 begin
 	RegQueryDWordValue(HKLM, 'Software\Microsoft\NET Framework Setup\NDP\v2.0.50727', 'SP', version);
-	if version < 1 then
+	RegQueryDWordValue(HKLM, 'Software\Microsoft\NET Framework Setup\NDP\v4\Full', 'Install', install4);
+	if (version < 1) and (install4 <> 1) then
 		AddProduct(GetPlatformString('NetFx20SP1_x86.exe', 'NetFx20SP1_x64.exe', 'NetFx20SP1_ia64.exe'),
 			'/q:a /t:' + ExpandConstant('{tmp}{\}') + 'dotnetfx20sp1 /c:"install /qb /l /msipassthru MSI_PROP_BEGIN" REBOOT=Suppress "MSI_PROP_END"',
 			CustomMessage('dotnetfx20sp1_title'),
