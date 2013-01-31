@@ -18,7 +18,6 @@
 using System;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using Common;
@@ -59,15 +58,6 @@ namespace ZeroInstall.Launcher.Cli
             // Automatically show help for missing args
             if (args == null) args = new string[0];
             if (args.Length == 0) args = new[] {"--help"};
-
-            // Redirect to GUI version of 0install if --gui argument is specified
-            if (args.Contains("--gui"))
-            {
-                // ToDo: Automatically switch to GTK# on Linux
-                var process = ProcessUtils.LaunchHelperAssembly("0install-win", "run " + args.JoinEscapeArguments());
-                process.WaitForExit();
-                return process.ExitCode;
-            }
 
             IHandler handler = new CliHandler();
             FrontendCommand command;

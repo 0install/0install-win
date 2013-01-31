@@ -20,7 +20,9 @@ using System.IO;
 using Common;
 using Common.Cli;
 using Common.Tasks;
+using Common.Utils;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Injector.Properties;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
@@ -115,7 +117,7 @@ namespace ZeroInstall.Injector
         /// <inheritdoc/>
         public virtual void AuditSelections(Func<Selections> solveCallback)
         {
-            // Stub to be overriden
+            throw new NotSupportedException(Resources.NoAuditInCli + (WindowsUtils.IsWindows ? "\n" + Resources.Try0installWin : ""));
         }
         #endregion
 

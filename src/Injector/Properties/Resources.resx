@@ -174,6 +174,9 @@ Switching to mirror.</value>
   <data name="MissingInterfaceID" xml:space="preserve">
     <value>No interface was specified.</value>
   </data>
+  <data name="NoAuditInCli" xml:space="preserve">
+    <value>The graphical policy editor is not available in command-line mode.</value>
+  </data>
   <data name="NoImplementationsPassed" xml:space="preserve">
     <value>At least one implementation must be passed.</value>
   </data>
@@ -223,6 +226,9 @@ New time: {2}</value>
   </data>
   <data name="SolverProblem" xml:space="preserve">
     <value>The solver encountered an unexpected problem.</value>
+  </data>
+  <data name="Try0installWin" xml:space="preserve">
+    <value>Try using the command '0install-win' instead of '0install'.</value>
   </data>
   <data name="UnableToCacheCatalog" xml:space="preserve">
     <value>Unable to cache the downloaded application catalog.</value>
