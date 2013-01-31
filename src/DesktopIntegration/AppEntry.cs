@@ -64,6 +64,13 @@ namespace ZeroInstall.DesktopIntegration
         public bool AutoUpdate { get { return _autoUpdate; } set { _autoUpdate = value; } }
 
         /// <summary>
+        /// A regular expression a computer's hostname must match for this entry to be applied. Enables machine-specific conditional entries.
+        /// </summary>
+        [Description("A regular expression a computer's hostname must match for this entry to be applied. Enables machine-specific conditional entries.")]
+        [XmlAttribute("hostname"), DefaultValue("")]
+        public string Hostname { get; set; }
+
+        /// <summary>
         /// A set of requirements/restrictions imposed by the user on the implementation selection process. May be <see langword="null"/> if <see cref="InterfaceID"/> is not a pet-name.
         /// </summary>
         [Description("A set of requirements/restrictions imposed by the user on the implementation selection process. May be null if InterfaceID is not a pet-name.")]

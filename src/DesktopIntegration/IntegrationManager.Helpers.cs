@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading;
 using Common;
 using Common.Collections;
@@ -148,6 +149,9 @@ namespace ZeroInstall.DesktopIntegration
             if (feed == null) throw new ArgumentNullException("feed");
             if (accessPoints == null) throw new ArgumentNullException("accessPoints");
             #endregion
+
+            // Skip entries with mismatching hostname
+            if (appEntry.Hostname != null && !Regex.IsMatch(Environment.MachineName, appEntry.Hostname)) return;
 
             if (appEntry.AccessPoints == null) appEntry.AccessPoints = new AccessPointList();
 

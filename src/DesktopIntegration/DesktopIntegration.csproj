@@ -134,7 +134,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="AppList.xsd">
+    <None Include="app-list.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="ClassDiagram.cd" />

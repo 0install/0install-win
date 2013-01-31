@@ -33,6 +33,11 @@
         <xs:documentation>Set to true to automatically download the newest available version of the application as a regular background task. Update checks will still be performed when the application is launched when set to false.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
+    <xs:attribute name="hostname" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>A regular expression a computer's hostname must match for this entry to be applied. Enables machine-specific conditional entries.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
     <xs:attribute name="timestamp" type="xs:long">
       <xs:annotation>
         <xs:documentation>The time this entry was last modified encoded as Unix time (number of seconds since the epoch).</xs:documentation>

@@ -139,7 +139,7 @@
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="Feeds\ClassDiagram.cd" />
-    <None Include="Feeds\TrustDB.xsd">
+    <None Include="Feeds\trust.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
