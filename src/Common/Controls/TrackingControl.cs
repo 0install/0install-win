@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Simon E. Silva Lauinger
+ * Copyright 2006-2013 Bastian Eicher
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
