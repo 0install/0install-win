@@ -94,6 +94,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         #endregion
 
         #region Comparison
+        /// <inheritdoc/>
         public int CompareTo(Node other)
         {
             #region Sanity checks
