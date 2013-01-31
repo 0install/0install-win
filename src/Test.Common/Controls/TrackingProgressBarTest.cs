@@ -44,10 +44,10 @@ namespace Common.Controls
             {
                 _progressBar = new TrackingProgressBar();
             }
-            catch (TypeInitializationException ex)
+            catch (TypeInitializationException)
             {
                 // Don't fail on Server systems
-                Assert.Ignore("Cannot test GUI on headless systems", ex);
+                Assert.Ignore("Cannot test GUI on headless systems");
             }
         }
 

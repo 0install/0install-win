@@ -44,10 +44,10 @@ namespace Common.Controls
             {
                 _label = new TrackingLabel();
             }
-            catch (TypeInitializationException ex)
+            catch (TypeInitializationException)
             {
                 // Don't fail on headless systems
-                Assert.Ignore("Cannot test GUI on headless systems", ex);
+                Assert.Ignore("Cannot test GUI on headless systems");
             }
         }
 
