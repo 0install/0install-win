@@ -150,6 +150,9 @@
   <data name="ActionUpdate" xml:space="preserve">
     <value>Suche nach Updates</value>
   </data>
+  <data name="ActionUpdateApps" xml:space="preserve">
+    <value>Aktualisiere Anwendungen</value>
+  </data>
   <data name="AliasCreated" xml:space="preserve">
     <value>Ein Alias namens '{0}' für '{1}' wurde angelegt.</value>
   </data>
@@ -182,6 +185,9 @@ Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.
   </data>
   <data name="ChangesFound" xml:space="preserve">
     <value>Gefundene Änderungen:</value>
+  </data>
+  <data name="CheckingForUpdates" xml:space="preserve">
+    <value>Suche nach Updates</value>
   </data>
   <data name="CommandLineArguments" xml:space="preserve">
     <value>Befehlszeilenargumente</value>
@@ -239,6 +245,9 @@ Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.
   </data>
   <data name="DescriptionUpdate" xml:space="preserve">
     <value>Prüft ob Updates für das Programm vorhanden sind und lädt die gefundenen herunter. Dies ist gleichbedeutend wie '0install download --refresh', mit dem Zusatz, dass Informationen über das Auffinden von Änderungen ausgegeben werden.</value>
+  </data>
+  <data name="DescriptionUpdateApps" xml:space="preserve">
+    <value>Aktualisiert alle Anwendungen in der Anwendungsliste.</value>
   </data>
   <data name="DesktopIntegration" xml:space="preserve">
     <value>Desktopintegration</value>
@@ -355,6 +364,9 @@ Traysymbol im grafischen Modus verwenden.</value>
   <data name="OptionBefore" xml:space="preserve">
     <value>Die Version der ausgewählten Implementierung muss vor {VERSION} liegen. Zum Beispiel können Sie damit die Verwendung einer älteren Version des Programmes erzwingen.</value>
   </data>
+  <data name="OptionClean" xml:space="preserve">
+    <value>Entferne Implementierungen die nach dem Update nicht mehr benötigt werden.</value>
+  </data>
   <data name="OptionCommand" xml:space="preserve">
     <value>Anstelle der Ausführung des Standardkommandos, verwenden Sie {COMMAND}. Mögliche Kommandos sind im Programminterface spezifiziert.
 Auf leer ("") setzen um den Command bei der Auswahl zu ignorieren.</value>
@@ -441,6 +453,9 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Portabler Modus</value>
+  </data>
+  <data name="RemovingOutdated" xml:space="preserve">
+    <value>Entferne veraltete Dateien</value>
   </data>
   <data name="ResolvedUsingCatalog" xml:space="preserve">
     <value>'{0}' nach '{1}', unter der verwendung eines Katalogs, aufgelöst</value>

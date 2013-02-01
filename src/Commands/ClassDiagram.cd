@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Commands.AddFeed">
-    <Position X="6.75" Y="8" Width="1.75" />
+    <Position X="6.75" Y="8.25" Width="1.75" />
     <Members>
       <Method Name="AddFeed" Hidden="true" />
     </Members>
@@ -11,7 +11,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Update">
-    <Position X="1" Y="14.5" Width="2" />
+    <Position X="1" Y="14.25" Width="2" />
     <Members>
       <Method Name="Update" Hidden="true" />
     </Members>
@@ -21,7 +21,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Configure">
-    <Position X="11.75" Y="5.25" Width="1.5" />
+    <Position X="11.75" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAAAAAAAAAgAAQAAAgAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Configure.cs</FileName>
@@ -33,12 +33,12 @@
       <Method Name="Download" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAABAAAAAAgAAQAAAAAAAQIhAAAAAAACAAAAAAAAAA=</HashCode>
+      <HashCode>AAAABAAAAAAgAAQAAAAAAAQIhAAIAAAACAAAAAAAAAA=</HashCode>
       <FileName>Download.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Import">
-    <Position X="4.25" Y="5.25" Width="1.5" />
+    <Position X="4.25" Y="5.5" Width="1.5" />
     <Members>
       <Method Name="Import" Hidden="true" />
     </Members>
@@ -48,7 +48,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.List">
-    <Position X="6" Y="5.25" Width="1.5" />
+    <Position X="6" Y="5.5" Width="1.5" />
     <Members>
       <Method Name="List" Hidden="true" />
     </Members>
@@ -58,7 +58,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.RemoveFeed">
-    <Position X="9" Y="8" Width="1.75" />
+    <Position X="9" Y="8.25" Width="1.75" />
     <Members>
       <Method Name="RemoveFeed" Hidden="true" />
     </Members>
@@ -68,17 +68,17 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Run">
-    <Position X="3.25" Y="14.5" Width="2" />
+    <Position X="3.25" Y="14.25" Width="2" />
     <Members>
       <Method Name="Run" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAEAAAAAAAgAAQAAAAAAAQABQAAAAAAgAACAAAAAAA=</HashCode>
+      <HashCode>AAAEAAAAAAAgAAQAAAAAAAQABQAIAAAAgAACAAAAAAA=</HashCode>
       <FileName>Run.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Selection">
-    <Position X="2.25" Y="5.25" Width="1.75" />
+    <Position X="2.25" Y="5.5" Width="1.75" />
     <Members>
       <Field Name="_requirements" Hidden="true" />
       <Method Name="Selection" Hidden="true" />
@@ -90,13 +90,17 @@
   </Class>
   <Class Name="ZeroInstall.Commands.FrontendCommand">
     <Position X="9.25" Y="0.5" Width="2" />
+    <Members>
+      <Field Name="_appList" Hidden="true" />
+      <Method Name="SupportedValues" Hidden="true" />
+    </Members>
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAAkgAAQAAAIAAAAEBAAAAAAAAAAAAABEBAA=</HashCode>
+      <HashCode>AAAgAIAAAAkgAAQAAAMAAAQEBAAIAAAAAAAAACBEAAA=</HashCode>
       <FileName>FrontendCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.ListFeeds">
-    <Position X="10" Y="5.25" Width="1.5" />
+    <Position X="10" Y="5.5" Width="1.5" />
     <Members>
       <Method Name="ListFeeds" Hidden="true" />
     </Members>
@@ -106,7 +110,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.DefaultCommand">
-    <Position X="0.5" Y="5.25" Width="1.5" />
+    <Position X="0.5" Y="5.5" Width="1.5" />
     <Members>
       <Method Name="DefaultCommand" Hidden="true" />
     </Members>
@@ -123,37 +127,37 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.AddApp">
-    <Position X="16.75" Y="9" Width="1.5" />
+    <Position X="15" Y="9.75" Width="1.5" />
     <Members>
       <Method Name="AddApp" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAIAAAAAAAAAAAAAAE=</HashCode>
       <FileName>AddApp.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.IntegrateApp">
-    <Position X="18.5" Y="9" Width="2" />
+    <Position X="16.75" Y="9.75" Width="2" />
     <Members>
       <Method Name="IntegrateApp" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAgAAQAAAAAAIQAAAAAAgAQABAABAAAAAE=</HashCode>
+      <HashCode>AAACAAAAAAAgAAAAAAAAAIQAAAAIAgAQABAABAAAAAE=</HashCode>
       <FileName>IntegrateApp.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.RemoveApp">
-    <Position X="20.75" Y="9" Width="1.5" />
+    <Position X="19" Y="9.75" Width="1.5" />
     <Members>
       <Method Name="RemoveApp" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAIAAAAAAAAAAAAAAE=</HashCode>
       <FileName>RemoveApp.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.AppCommand">
-    <Position X="18.75" Y="5.25" Width="1.5" />
+    <Position X="17" Y="5.5" Width="1.5" />
     <Members>
       <Method Name="AppCommand" Hidden="true" />
     </Members>
@@ -163,17 +167,17 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.IntegrationCommand">
-    <Position X="17.75" Y="2.75" Width="1.75" />
+    <Position X="18.5" Y="2.75" Width="2" />
     <Members>
       <Method Name="IntegrationCommand" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAABAAAAAgAAAAAAAAAAAEAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAABAAAAAgAAAAAAAAAAAAAAAAAAgAAEAAAAAAAAAA=</HashCode>
       <FileName>IntegrationCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.AddAlias">
-    <Position X="15.25" Y="5.25" Width="1.5" />
+    <Position X="15.25" Y="5.5" Width="1.5" />
     <Members>
       <Method Name="AddAlias" Hidden="true" />
     </Members>
@@ -183,7 +187,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.SyncApps">
-    <Position X="17" Y="5.25" Width="1.5" />
+    <Position X="22.25" Y="5.5" Width="1.5" />
     <Members>
       <Method Name="SyncApps" Hidden="true" />
     </Members>
@@ -193,17 +197,17 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Digest">
-    <Position X="13.5" Y="5.25" Width="1.5" />
+    <Position X="13.5" Y="5.5" Width="1.5" />
     <Members>
       <Method Name="Digest" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEBAAAAAAAAAAAAAAQAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAhQAAAAAAAQEBAAAAAAAAAAAAAAQAAA=</HashCode>
       <FileName>Digest.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.SelfUpdate">
-    <Position X="3.25" Y="18" Width="2" />
+    <Position X="3.25" Y="17.75" Width="2" />
     <Members>
       <Method Name="SelfUpdate" Hidden="true" />
     </Members>
@@ -212,21 +216,28 @@
       <FileName>SelfUpdate.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.RepairApps">
-    <Position X="20.5" Y="5.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>RepairApps.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="ZeroInstall.Commands.AddRemoveFeedCommand">
-    <Position X="7.75" Y="5.25" Width="2" />
+    <Position X="7.75" Y="5.5" Width="2" />
     <Members>
       <Method Name="AddRemoveFeedCommand" Hidden="true" />
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAEAAAAAQAAAAAAAAEACAAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>AddRemoveFeedCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.RepairApps">
+    <Position X="20.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEBAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RepairApps.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.UpdateApps">
+    <Position X="18.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgBAQAAAAAQCQEhAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>UpdateApps.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

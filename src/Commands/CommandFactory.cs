@@ -36,7 +36,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// A list of command names as used in command-line arguments in lower-case.
         /// </summary>
-        internal static readonly string[] ValidCommandNames = new[] {Selection.Name, Download.Name, Update.Name, Run.Name, SelfUpdate.Name, Import.Name, List.Name, Configure.Name, AddFeed.Name, RemoveFeed.Name, ListFeeds.Name, Digest.Name, AddApp.Name, RemoveApp.Name, IntegrateApp.Name, AddAlias.Name, SyncApps.Name, RepairApps.Name};
+        internal static readonly string[] ValidCommandNames = new[] {Selection.Name, Download.Name, Update.Name, Run.Name, SelfUpdate.Name, Import.Name, List.Name, Configure.Name, AddFeed.Name, RemoveFeed.Name, ListFeeds.Name, Digest.Name, AddApp.Name, RemoveApp.Name, IntegrateApp.Name, AddAlias.Name, UpdateApps.Name, RepairApps.Name, SyncApps.Name};
 
         /// <summary>
         /// Creates a nw <see cref="FrontendCommand"/> based on a name.
@@ -86,10 +86,12 @@ namespace ZeroInstall.Commands
                     return new IntegrateApp(policy);
                 case AddAlias.Name:
                     return new AddAlias(policy);
-                case SyncApps.Name:
-                    return new SyncApps(policy);
+                case UpdateApps.Name:
+                    return new UpdateApps(policy);
                 case RepairApps.Name:
                     return new RepairApps(policy);
+                case SyncApps.Name:
+                    return new SyncApps(policy);
                 default:
                     throw new OptionException(string.Format(Resources.UnknownCommand, commandName), null);
             }

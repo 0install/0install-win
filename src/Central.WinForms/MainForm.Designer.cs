@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControlApps = new System.Windows.Forms.TabControl();
             this.tabPageAppList = new System.Windows.Forms.TabPage();
+            this.buttonUpdateAll = new System.Windows.Forms.Button();
             this.buttonSync = new System.Windows.Forms.Button();
             this.appList = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
@@ -59,19 +60,27 @@
             // 
             // tabControlApps
             // 
+            resources.ApplyResources(this.tabControlApps, "tabControlApps");
             this.tabControlApps.Controls.Add(this.tabPageAppList);
             this.tabControlApps.Controls.Add(this.tabPageCatalog);
-            resources.ApplyResources(this.tabControlApps, "tabControlApps");
             this.tabControlApps.Name = "tabControlApps";
             this.tabControlApps.SelectedIndex = 0;
             // 
             // tabPageAppList
             // 
+            resources.ApplyResources(this.tabPageAppList, "tabPageAppList");
+            this.tabPageAppList.Controls.Add(this.buttonUpdateAll);
             this.tabPageAppList.Controls.Add(this.buttonSync);
             this.tabPageAppList.Controls.Add(this.appList);
-            resources.ApplyResources(this.tabPageAppList, "tabPageAppList");
             this.tabPageAppList.Name = "tabPageAppList";
             this.tabPageAppList.UseVisualStyleBackColor = true;
+            // 
+            // buttonUpdateAll
+            // 
+            resources.ApplyResources(this.buttonUpdateAll, "buttonUpdateAll");
+            this.buttonUpdateAll.Name = "buttonUpdateAll";
+            this.buttonUpdateAll.UseVisualStyleBackColor = true;
+            this.buttonUpdateAll.Click += new System.EventHandler(this.buttonUpdateAll_Click);
             // 
             // buttonSync
             // 
@@ -87,12 +96,12 @@
             // 
             // tabPageCatalog
             // 
+            resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
             this.tabPageCatalog.Controls.Add(this.labelLoadingCatalog);
             this.tabPageCatalog.Controls.Add(this.labelLastCatalogError);
             this.tabPageCatalog.Controls.Add(this.buttonAddOtherApp);
             this.tabPageCatalog.Controls.Add(this.buttonRefreshCatalog);
             this.tabPageCatalog.Controls.Add(this.catalogList);
-            resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
             this.tabPageCatalog.Name = "tabPageCatalog";
             this.tabPageCatalog.UseVisualStyleBackColor = true;
             // 
@@ -177,11 +186,11 @@
             // 
             // panelBottom
             // 
+            resources.ApplyResources(this.panelBottom, "panelBottom");
             this.panelBottom.Controls.Add(this.buttonCacheManagement);
             this.panelBottom.Controls.Add(this.buttonHelp);
             this.panelBottom.Controls.Add(this.buttonOptions);
             this.panelBottom.Controls.Add(this.labelVersion);
-            resources.ApplyResources(this.panelBottom, "panelBottom");
             this.panelBottom.Name = "panelBottom";
             // 
             // rootTable
@@ -194,8 +203,8 @@
             // 
             // MainForm
             // 
-            this.AllowDrop = true;
             resources.ApplyResources(this, "$this");
+            this.AllowDrop = true;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.rootTable);
             this.Name = "MainForm";
@@ -234,6 +243,7 @@
         private System.Windows.Forms.TableLayoutPanel rootTable;
         private System.Windows.Forms.Label labelLastCatalogError;
         private System.Windows.Forms.Label labelLoadingCatalog;
+        private System.Windows.Forms.Button buttonUpdateAll;
 
     }
 }

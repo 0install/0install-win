@@ -150,6 +150,9 @@
   <data name="ActionUpdate" xml:space="preserve">
     <value>Checking for updates</value>
   </data>
+  <data name="ActionUpdateApps" xml:space="preserve">
+    <value>Updating applications</value>
+  </data>
   <data name="AliasCreated" xml:space="preserve">
     <value>An alias named '{0}' for '{1}' was created.</value>
   </data>
@@ -182,6 +185,9 @@ If you select 'No' Zero Install will continue to use the old capabilities.</valu
   </data>
   <data name="ChangesFound" xml:space="preserve">
     <value>Changes found:</value>
+  </data>
+  <data name="CheckingForUpdates" xml:space="preserve">
+    <value>Checking for updates</value>
   </data>
   <data name="CommandLineArguments" xml:space="preserve">
     <value>Command-line arguments:</value>
@@ -239,6 +245,9 @@ If you select 'No' Zero Install will continue to use the old capabilities.</valu
   </data>
   <data name="DescriptionUpdate" xml:space="preserve">
     <value>Check for updates to the program and download them if found. This is similar to '0install download --refresh', except that it prints information about whether any changes were found.</value>
+  </data>
+  <data name="DescriptionUpdateApps" xml:space="preserve">
+    <value>Updates all applications in the application list.</value>
   </data>
   <data name="DesktopIntegration" xml:space="preserve">
     <value>Desktop integration</value>
@@ -355,6 +364,9 @@ Use a tray icon when in GUI mode.</value>
   <data name="OptionBefore" xml:space="preserve">
     <value>Require a version of the main program earlier than {VERSION}. i.e., force the use of an old version the program.</value>
   </data>
+  <data name="OptionClean" xml:space="preserve">
+    <value>Remove implementations no longer required after the update.</value>
+  </data>
   <data name="OptionCommand" xml:space="preserve">
     <value>Instead of executing the default command, use {COMMAND} instead. Possible command names are defined in the program's interface.
 Set to empty ("") to ignore the command during selection.</value>
@@ -441,6 +453,9 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Portable mode</value>
+  </data>
+  <data name="RemovingOutdated" xml:space="preserve">
+    <value>Removing outdated implementations</value>
   </data>
   <data name="ResolvedUsingCatalog" xml:space="preserve">
     <value>Resolved '{0}' to '{1}' using a catalog.</value>

@@ -442,6 +442,13 @@ namespace ZeroInstall.Central.WinForms
         //--------------------//
 
         #region Buttons
+        private void buttonUpdateAll_Click(object sender, EventArgs e)
+        {
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
+                ? new[] { "update-apps", "--machine" }
+                : new[] { "update-apps" }));
+        }
+
         private void buttonSync_Click(object sender, EventArgs e)
         {
             try
