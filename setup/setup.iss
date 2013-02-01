@@ -103,7 +103,7 @@ Name: modifypath; Description: {cm:AddToPath}
 ;Name: {group}\{cm:UninstallProgram,Zero Install}; Filename: {uninstallexe}
 ;Name: {group}\Website; Filename: http://0install.de/
 Name: {group}\Zero Install; Filename: {app}\ZeroInstall.exe
-Name: {group}\{cm:CacheManagement}; Filename: {app}\0store-win.exe; IconFilename: {app}\0store-win.exe
+Name: {group}\{cm:CacheManagement}; Filename: {app}\0store-win.exe; IconFilename: {app}\0store-win.exe; Flags: excludefromshowinnewinstall
 Name: {commondesktop}\Zero Install; Filename: {app}\ZeroInstall.exe; Tasks: desktopicon
 
 [Run]
