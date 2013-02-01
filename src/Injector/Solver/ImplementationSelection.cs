@@ -23,6 +23,7 @@ using System.Text;
 using System.Xml.Serialization;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Injector.Solver
@@ -163,6 +164,17 @@ namespace ZeroInstall.Injector.Solver
             return ID.StartsWith("package:")
                 ? "(" + ID + ")"
                 : store.GetPath(ManifestDigest);
+        }
+        #endregion
+
+        #region Original implementation
+        /// <summary>
+        /// Retrieves the original <see cref="Implementation"/> this selection was based on.
+        /// </summary>
+        /// <param name="feedCache">Used to load <see cref="Feed"/>s containing the original <see cref="Implementation"/>s.</param>
+        public Implementation GetOriginalImplementation(IFeedCache feedCache)
+        {
+            return feedCache.GetFeed(FromFeed ?? InterfaceID)[ID];
         }
         #endregion
 

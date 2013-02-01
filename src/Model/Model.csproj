@@ -82,6 +82,7 @@
     <Compile Include="Binding.cs" />
     <Compile Include="Constraint.cs" />
     <Compile Include="Dependency.cs" />
+    <Compile Include="ManifestDigestPartialEqualityComparer.cs" />
     <Compile Include="Requirements.cs" />
     <Compile Include="VersionDottedList.cs" />
     <Compile Include="EntryPoint.cs" />

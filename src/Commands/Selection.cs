@@ -169,12 +169,14 @@ namespace ZeroInstall.Commands
             {
                 Selections = Policy.Solver.Solve(Requirements, Policy, out StaleFeeds);
             }
+                #region Error handling
             catch
             {
                 // Suppress any left-over errors if the user canceled anyway
                 Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
                 throw;
             }
+            #endregion
 
             Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
             return Selections;

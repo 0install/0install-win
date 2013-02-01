@@ -50,13 +50,8 @@ namespace ZeroInstall.Injector.Solver
         [Test(Description = "Ensures that Selections.GetUncachedImplementations() correctly finds Implementations not cached in a store")]
         public void TestGetUncachedImplementations()
         {
-            var feed = FeedTest.CreateTestFeed();
             var selections = CreateTestSelections();
             selections.Implementations.Add(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"});
-
-            // Return the generated feed
-            var cacheMock = new Mock<IFeedCache>(MockBehavior.Strict);
-            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub1.xml")).Returns(feed).Verifiable();
 
             // Pretend the first implementation isn't cached, the second is and the third isn't
             var storeMock = new Mock<IStore>(MockBehavior.Strict);
@@ -64,12 +59,11 @@ namespace ZeroInstall.Injector.Solver
             storeMock.Setup(x => x.Contains(selections.Implementations[1].ManifestDigest)).Returns(true).Verifiable();
             storeMock.Setup(x => x.Contains(default(ManifestDigest))).Returns(false).Verifiable();
 
-            var implementations = selections.GetUncachedImplementations(storeMock.Object, cacheMock.Object);
+            var implementations = selections.GetUncachedImplementations(storeMock.Object);
 
             // Only the first implementation should be listed as uncached
-            CollectionAssert.AreEquivalent(new[] {feed.Elements[0]}, implementations);
+            CollectionAssert.AreEquivalent(new[] {selections.Implementations[0]}, implementations);
 
-            cacheMock.Verify();
             storeMock.Verify();
         }
     }

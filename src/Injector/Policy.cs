@@ -16,8 +16,10 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
@@ -126,6 +128,20 @@ namespace ZeroInstall.Injector
             return new Policy(
                 Config.Load(), new FeedManager(FeedCacheProvider.CreateDefault()),
                 FetcherProvider.CreateDefault(), OpenPgpProvider.CreateDefault(), SolverProvider.Default, handler);
+        }
+        #endregion
+
+        #region Helpers
+        /// <summary>
+        /// Helper utilitiy that combines <see cref="Selections.GetUncachedImplementations"/> and <see cref="ImplementationSelection.GetOriginalImplementation"/>.
+        /// Provides suitable input for <see cref="Fetchers.Fetcher.FetchImplementations"/>.
+        /// </summary>
+        /// <param name="selections">The <see cref="Selections"/> to scan for uncached implementations.</param>
+        /// <returns>Clones of the original <see cref="Implementation"/>s.</returns>
+        public IEnumerable<Implementation> GetUncachedImplementations(Selections selections)
+        {
+            return selections.GetUncachedImplementations(Fetcher.Store).
+                Select(impl => impl.GetOriginalImplementation(FeedManager.Cache).CloneImplementation());
         }
         #endregion
 

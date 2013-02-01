@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -107,7 +108,7 @@ namespace ZeroInstall.Commands
 
             try
             {
-                UncachedImplementations = Selections.GetUncachedImplementations(Policy);
+                UncachedImplementations = Policy.GetUncachedImplementations(Selections).ToList();
             }
                 #region Error handling
             catch (InvalidDataException ex)

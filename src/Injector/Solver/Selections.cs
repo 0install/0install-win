@@ -27,7 +27,6 @@ using Common.Collections;
 using Common.Storage;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Injector.Solver
@@ -73,6 +72,22 @@ namespace ZeroInstall.Injector.Solver
         /// <exception cref="KeyNotFoundException">Thrown if no <see cref="ImplementationSelection"/> matching <see cref="InterfaceID"/>/> was found in <see cref="Implementations"/>.</exception>
         [XmlIgnore]
         public ImplementationSelection MainImplementation { get { return this[InterfaceID]; } }
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Creates an empty selections document.
+        /// </summary>
+        public Selections()
+        {}
+
+        /// <summary>
+        /// Creates a selections document prefilled with <see cref="ImplementationSelection"/>s.
+        /// </summary>
+        public Selections(IEnumerable<ImplementationSelection> implementations)
+        {
+            Implementations.AddRange(implementations);
+        }
         #endregion
 
         //--------------------//
@@ -179,27 +194,23 @@ namespace ZeroInstall.Injector.Solver
 
         #region Implementations
         /// <summary>
-        /// Returns a list of any selected downloadable <see cref="ImplementationBase"/>s that are missing from an <see cref="IStore"/>.
+        /// Returns a list of any downloadable <see cref="ImplementationSelection"/>s that are missing from an <see cref="IStore"/>.
         /// </summary>
         /// <param name="searchStore">The locations to search for cached <see cref="Implementation"/>s.</param>
-        /// <param name="feedCache">The cache to retrieve <see cref="Model.Feed"/>s from.</param>
-        /// <returns>An object that allows the main <see cref="ImplementationBase"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
         /// <remarks>Feed files may be downloaded, no implementations are downloaded.</remarks>
         /// <exception cref="KeyNotFoundException">Thrown if a <see cref="Feed"/> or <see cref="Implementation"/> is missing.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the feed file could not be parsed.</exception>
-        public ICollection<Implementation> GetUncachedImplementations(IStore searchStore, IFeedCache feedCache)
+        public IEnumerable<ImplementationSelection> GetUncachedImplementations(IStore searchStore)
         {
             #region Sanity checks
             if (searchStore == null) throw new ArgumentNullException("searchStore");
-            if (feedCache == null) throw new ArgumentNullException("feedCache");
             #endregion
 
-            var uncachedImplementations =
-                from implementation in Implementations
+            return Implementations.Where(implementation =>
                 // Local paths are considered to be always available
-                where string.IsNullOrEmpty(implementation.LocalPath) &&
+                string.IsNullOrEmpty(implementation.LocalPath) &&
                     // Don't try to download PackageImplementations
                     string.IsNullOrEmpty(implementation.Package) &&
                     // Don't try to fetch virutal feeds
@@ -207,30 +218,7 @@ namespace ZeroInstall.Injector.Solver
                     // Don't download implementations that are already in the store
                     !searchStore.Contains(implementation.ManifestDigest) &&
                     // Ignore implementations without an ID
-                    !string.IsNullOrEmpty(implementation.ID)
-                // Get download information for the implementation by checking the original feed
-                select feedCache.GetFeed(implementation.FromFeed ?? implementation.InterfaceID)[implementation.ID];
-
-            return uncachedImplementations.ToList();
-        }
-
-        /// <summary>
-        /// Returns a list of any selected downloadable <see cref="ImplementationBase"/>s that are missing from an <see cref="IStore"/>.
-        /// </summary>
-        /// <param name="policy">Provides an <see cref="IStore"/> and an <see cref="IFeedCache"/>.</param>
-        /// <returns>An object that allows the main <see cref="ImplementationBase"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
-        /// <remarks>Feed files may be downloaded, no implementations are downloaded.</remarks>
-        /// <exception cref="KeyNotFoundException">Thrown if the requested feed was not found in the cache.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if the feed file could not be parsed.</exception>
-        public ICollection<Implementation> GetUncachedImplementations(Policy policy)
-        {
-            #region Sanity checks
-            if (policy == null) throw new ArgumentNullException("policy");
-            #endregion
-
-            return GetUncachedImplementations(policy.Fetcher.Store, policy.FeedManager.Cache);
+                    !string.IsNullOrEmpty(implementation.ID));
         }
         #endregion
 

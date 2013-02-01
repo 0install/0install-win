@@ -164,7 +164,10 @@ namespace ZeroInstall.Commands.WinForms
 
             trackingControl.Visible = true;
             trackingControl.Task = task;
+
+            // Hide other stuff
             labelWorking.Visible = progressBarWorking.Visible = false;
+            if (_selectionsShown) selectionsControl.Hide();
         }
 
         /// <summary>
@@ -179,6 +182,9 @@ namespace ZeroInstall.Commands.WinForms
             if (task == null) throw new ArgumentNullException("task");
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
+
+            // Hide other stuff
+            trackingControl.Visible = false;
 
             if (_selectionsShown) selectionsControl.TrackTask(task, tag);
             else TrackTask(task);
