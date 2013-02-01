@@ -40,7 +40,7 @@ namespace ZeroInstall.Commands
         protected override string Description { get { return Resources.DescriptionRepairApps; } }
 
         /// <inheritdoc/>
-        protected override string Usage { get { return "[PATTERN]"; } }
+        protected override string Usage { get { return "[OPTIONS]"; } }
 
         /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionRepairApps; } }

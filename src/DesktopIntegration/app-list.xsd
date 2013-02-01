@@ -35,7 +35,7 @@
     </xs:attribute>
     <xs:attribute name="hostname" type="xs:string">
       <xs:annotation>
-        <xs:documentation>A regular expression a computer's hostname must match for this entry to be applied. Enables machine-specific conditional entries.</xs:documentation>
+        <xs:documentation>A regular expression a computer's hostname must match for this entry to be applied. Enables machine-specific entry filtering.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="timestamp" type="xs:long">

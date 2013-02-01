@@ -133,12 +133,14 @@ namespace ZeroInstall.Commands
             {
                 Policy.Fetcher.FetchImplementations(UncachedImplementations, Policy.Handler);
             }
+                #region Error handling
             catch
             {
                 // Suppress any left-over errors if the user canceled anyway
                 Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
                 throw;
             }
+            #endregion
         }
         #endregion
     }

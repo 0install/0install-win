@@ -64,9 +64,9 @@ namespace ZeroInstall.DesktopIntegration
         public bool AutoUpdate { get { return _autoUpdate; } set { _autoUpdate = value; } }
 
         /// <summary>
-        /// A regular expression a computer's hostname must match for this entry to be applied. Enables machine-specific conditional entries.
+        /// A regular expression a computer's hostname must match for this entry to be applied. Enables machine-specific entry filtering.
         /// </summary>
-        [Description("A regular expression a computer's hostname must match for this entry to be applied. Enables machine-specific conditional entries.")]
+        [Description("A regular expression a computer's hostname must match for this entry to be applied. Enables machine-specific entry filtering.")]
         [XmlAttribute("hostname"), DefaultValue("")]
         public string Hostname { get; set; }
 

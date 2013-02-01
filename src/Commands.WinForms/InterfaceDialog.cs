@@ -49,7 +49,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</summary>
         private readonly Func<Selections> _solveCallback;
 
-        /// <summary>The feed cache used to retrieve <see cref="Feed"/>s for additional information about imlementations.</summary>
+        /// <summary>The feed cache used to retrieve <see cref="Feed"/>s for additional information about implementations.</summary>
         private readonly IFeedCache _feedCache;
 
         /// <summary>The interface preferences being modified.</summary>
@@ -70,7 +70,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="interfaceID">The interface to modify the preferences for.</param>
         /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
-        /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about imlementations.</param>
+        /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about implementations.</param>
         private InterfaceDialog(string interfaceID, Func<Selections> solveCallback, IFeedCache feedCache)
         {
             #region Sanity checks
@@ -111,7 +111,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
         /// <param name="interfaceID">The interface to modify the preferences for.</param>
         /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
-        /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about imlementations.</param>
+        /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about implementations.</param>
         /// <returns><see langword="true"/> if the preferences where modified; <see langword="false"/> if everything remained unchanged.</returns>
         public static bool Show(IWin32Window owner, string interfaceID, Func<Selections> solveCallback, IFeedCache feedCache)
         {

@@ -39,7 +39,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>The current selections state as set by <see cref="SetSelections"/> or updated during <see cref="BeginAudit"/>.</summary>
         private Selections _selections;
 
-        /// <summary>The feed cache used to retrieve feeds for additional information about imlementations.</summary>
+        /// <summary>The feed cache used to retrieve feeds for additional information about implementations.</summary>
         private IFeedCache _feedCache;
 
         /// <summary>A list of all <see cref="TrackingControl"/>s used by <see cref="TrackTask"/>. Adressable by associated <see cref="Implementation"/> via <see cref="ManifestDigest"/>.</summary>
@@ -66,7 +66,7 @@ namespace ZeroInstall.Commands.WinForms
         /// Shows the user the <see cref="Selections"/> made by the <see cref="ISolver"/>.
         /// </summary>
         /// <param name="selections">The <see cref="Selections"/> as provided by the <see cref="ISolver"/>.</param>
-        /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about imlementations.</param>
+        /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about implementations.</param>
         /// <remarks>
         ///   <para>This method must not be called from a background thread.</para>
         ///   <para>This method must not be called before <see cref="Control.Handle"/> has been created.</para>

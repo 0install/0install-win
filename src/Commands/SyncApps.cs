@@ -97,12 +97,14 @@ namespace ZeroInstall.Commands
             {
                 _syncManager.Sync(_syncResetMode, feedID => Policy.FeedManager.GetFeed(feedID, Policy));
             }
+                #region Error handling
             catch
             {
                 // Suppress any left-over errors if the user canceled anyway
                 Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
                 throw;
             }
+            #endregion
         }
         #endregion
     }
