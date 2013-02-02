@@ -40,6 +40,13 @@ namespace Common.Storage
     /// <remarks>This class only serializes public properties.</remarks>
     public static class XmlStorage
     {
+        #region Constants
+        /// <summary>
+        /// The XML namespace used for XML Schema instance.
+        /// </summary>
+        public const string XsiNamespace = "http://www.w3.org/2001/XMLSchema-instance";
+        #endregion
+
         #region Load plain
         /// <summary>
         /// Loads an object from an XML file.
@@ -144,7 +151,11 @@ namespace Common.Storage
             }
             else
             { // Set custom namespace
-                var ns = new XmlSerializerNamespaces(new[] {new XmlQualifiedName("", rootAttribute.Namespace)});
+                var ns = new XmlSerializerNamespaces(new[]
+                {
+                    new XmlQualifiedName("", rootAttribute.Namespace),
+                    new XmlQualifiedName("xsi", XsiNamespace)
+                });
                 serializer.Serialize(xmlWriter, data, ns);
             }
 

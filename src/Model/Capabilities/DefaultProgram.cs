@@ -25,7 +25,7 @@ namespace ZeroInstall.Model.Capabilities
     /// <summary>
     /// Represents an application's ability to provide some service (e.g. default web-browser, default e-mail client).
     /// </summary>
-    [XmlType("default-program", Namespace = XmlNamespace)]
+    [XmlType("default-program", Namespace = CapabilityList.XmlNamespace)]
     public sealed class DefaultProgram : VerbCapability, IEquatable<DefaultProgram>
     {
         #region Constants

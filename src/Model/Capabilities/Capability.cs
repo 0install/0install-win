@@ -25,16 +25,9 @@ namespace ZeroInstall.Model.Capabilities
     /// <summary>
     /// A capability tells the desktop environment what an application can do and in which fashion this can be represented to the user. It does not change the behaviour of existing UI elements.
     /// </summary>
-    [XmlType("capability", Namespace = XmlNamespace)]
+    [XmlType("capability", Namespace = CapabilityList.XmlNamespace)]
     public abstract class Capability : XmlUnknown, ICloneable
     {
-        #region Constants
-        /// <summary>
-        /// The XML namespace used for storing application capabilities.
-        /// </summary>
-        public const string XmlNamespace = "http://0install.de/schema/desktop-integration/capabilities";
-        #endregion
-
         #region Properties
         /// <summary>
         /// Indicates whether this capability can be registered only machine-wide and not per-user on Windows systems.

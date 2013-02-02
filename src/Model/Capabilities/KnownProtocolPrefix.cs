@@ -24,7 +24,7 @@ namespace ZeroInstall.Model.Capabilities
     /// <summary>
     /// Names a well-known protocol prefix. Use this for protocols that are shared accross many applications (e.g. HTTP, FTP) but not for application-specific protocols.
     /// </summary>
-    [XmlType("known-prefix", Namespace = Capability.XmlNamespace)]
+    [XmlType("known-prefix", Namespace = CapabilityList.XmlNamespace)]
     public struct KnownProtocolPrefix : IEquatable<KnownProtocolPrefix>
     {
         #region Properties

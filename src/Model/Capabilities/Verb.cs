@@ -27,7 +27,7 @@ namespace ZeroInstall.Model.Capabilities
     /// Describes the mapping of an action/verb (e.g. open, edit) to a <see cref="Model.Command"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    [XmlType("verb", Namespace = Capability.XmlNamespace)]
+    [XmlType("verb", Namespace = CapabilityList.XmlNamespace)]
     public sealed class Verb : XmlUnknown, ICloneable, IEquatable<Verb>
     {
         #region Constants

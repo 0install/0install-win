@@ -27,7 +27,7 @@ namespace ZeroInstall.Model.Capabilities
     /// Represents an application's ability to handle a certain URL protocol (e.g. HTTP).
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
-    [XmlType("url-protocol", Namespace = XmlNamespace)]
+    [XmlType("url-protocol", Namespace = CapabilityList.XmlNamespace)]
     public sealed class UrlProtocol : VerbCapability, IEquatable<UrlProtocol>
     {
         #region Properties

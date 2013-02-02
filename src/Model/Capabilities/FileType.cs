@@ -27,7 +27,7 @@ namespace ZeroInstall.Model.Capabilities
     /// Represents an application's ability to handle a certain file type.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
-    [XmlType("file-type", Namespace = XmlNamespace)]
+    [XmlType("file-type", Namespace = CapabilityList.XmlNamespace)]
     public sealed class FileType : VerbCapability, IEquatable<FileType>
     {
         #region Properties

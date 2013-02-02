@@ -25,7 +25,7 @@ namespace ZeroInstall.Model.Capabilities
     /// Lists the commands the application registeres for use by Windows' "Set Program Access and Defaults". Will be transparently replaced with Zero Install commands at runtime.
     /// </summary>
     /// <remarks>These strings are used for registry filtering. They are never actually executed.</remarks>
-    [XmlType("install-commands", Namespace = Capability.XmlNamespace)]
+    [XmlType("install-commands", Namespace = CapabilityList.XmlNamespace)]
     public struct InstallCommands : IEquatable<InstallCommands>
     {
         #region Properties

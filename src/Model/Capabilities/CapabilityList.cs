@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
+using C5;
 using Common.Storage;
 
 namespace ZeroInstall.Model.Capabilities
@@ -29,10 +30,23 @@ namespace ZeroInstall.Model.Capabilities
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
-    [XmlRoot("capabilities", Namespace = Capability.XmlNamespace)]
-    [XmlType("capabilities", Namespace = Capability.XmlNamespace)]
+    [XmlRoot("capabilities", Namespace = XmlNamespace)]
+    [XmlType("capabilities", Namespace = XmlNamespace)]
     public sealed class CapabilityList : XmlUnknown, ICloneable, IEquatable<CapabilityList>
     {
+        #region Constants
+        /// <summary>
+        /// The XML namespace used for storing application capabilities.
+        /// </summary>
+        public const string XmlNamespace = "http://0install.de/schema/desktop-integration/capabilities";
+
+        /// <summary>
+        /// The location of the XSD file containing the XML Schema for feed files.
+        /// </summary>
+        [XmlAttribute("schemaLocation", Namespace = XmlStorage.XsiNamespace)]
+        public string XsiSchemaLocation = "http://0install.de/schema/desktop-integration/capabilities/capabilities.xsd";
+        #endregion
+
         #region Properties
         /// <summary>
         /// Determines for which operating systems the <see cref="Capability"/>s are applicable.
@@ -48,14 +62,14 @@ namespace ZeroInstall.Model.Capabilities
         public string ArchitectureString { get { return Architecture.ToString(); } set { Architecture = new Architecture(value); } }
 
         // Preserve order
-        private readonly C5.ArrayList<Capability> _entries = new C5.ArrayList<Capability>();
+        private readonly ArrayList<Capability> _entries = new ArrayList<Capability>();
 
         /// <summary>
         /// A list of <see cref="Capability"/>s.
         /// </summary>
         [Description("A list of capabilities.")]
         [XmlElement(typeof(AppRegistration)), XmlElement(typeof(AutoPlay)), XmlElement(typeof(ComServer)), XmlElement(typeof(ContextMenu)), XmlElement(typeof(DefaultProgram)), XmlElement(typeof(FileType)), XmlElement(typeof(GamesExplorer)), XmlElement(typeof(UrlProtocol))]
-        public C5.ArrayList<Capability> Entries { get { return _entries; } }
+        public ArrayList<Capability> Entries { get { return _entries; } }
         #endregion
 
         //--------------------//
@@ -133,7 +147,7 @@ namespace ZeroInstall.Model.Capabilities
         /// </summary>
         public override string ToString()
         {
-            return string.Format("Capabilities for {0}", Architecture);
+            return String.Format("Capabilities for {0}", Architecture);
         }
         #endregion
 

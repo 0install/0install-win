@@ -40,6 +40,12 @@ namespace ZeroInstall.Injector.Feeds
         /// The XML namespace used for storing trust-related data.
         /// </summary>
         public const string XmlNamespace = "http://zero-install.sourceforge.net/2007/injector/trust";
+
+        /// <summary>
+        /// The location of the XSD file containing the XML Schema for feed files.
+        /// </summary>
+        [XmlAttribute("schemaLocation", Namespace = XmlStorage.XsiNamespace)]
+        public string XsiSchemaLocation = "http://0install.de/schema/injector/trust/trust.xsd";
         #endregion
 
         #region Properties
