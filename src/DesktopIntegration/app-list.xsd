@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:tns="http://0install.de/schema/desktop-integration/app-list"
+            xmlns:apps="http://0install.de/schema/desktop-integration/app-list"
+            xmlns:caps="http://0install.de/schema/desktop-integration/capabilities"
             targetNamespace="http://0install.de/schema/desktop-integration/app-list" elementFormDefault="qualified">
-  <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
   <xsd:import namespace="http://0install.de/schema/desktop-integration/capabilities" schemaLocation="http://0install.de/schema/desktop-integration/capabilities/capabilities.xsd" />
 
-  <xsd:element name="app-list" type="tns:app-list" />
+  <xsd:element name="app-list" type="apps:app-list" />
 
   <xsd:complexType name="app-list">
     <xsd:annotation>
       <xsd:documentation>Stores a list of applications and the kind of desktop integration the user chose for them.</xsd:documentation>
     </xsd:annotation>
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element name="app" type="tns:app" />
+      <xsd:element name="app" type="apps:app" />
     </xsd:choice>
   </xsd:complexType>
   <xsd:complexType name="app">
@@ -20,8 +20,8 @@
       <xsd:documentation>Represents an application indentified by its interface URI.</xsd:documentation>
     </xsd:annotation>
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element xmlns:caps="http://0install.de/schema/desktop-integration/capabilities" ref="caps:capabilities" />
-      <xsd:element name="access-points" type="tns:access-points" maxOccurs="1" />
+      <xsd:element ref="caps:capabilities" />
+      <xsd:element name="access-points" type="apps:access-points" maxOccurs="1" />
     </xsd:choice>
     <xsd:attribute name="interface" type="xsd:string" use="required">
       <xsd:annotation>
@@ -54,17 +54,17 @@
       <xsd:documentation>Contains a set of access-points that can be registered in a desktop environment.</xsd:documentation>
     </xsd:annotation>
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element name="capability-registration" type="tns:capability-registration" />
-      <xsd:element name="desktop-icon" type="tns:desktop-icon" />
-      <xsd:element name="quick-launch" type="tns:quick-launch" />
-      <xsd:element name="url-protocol" type="tns:url-protocol" />
-      <xsd:element name="auto-play" type="tns:auto-play" />
-      <xsd:element name="context-menu" type="tns:context-menu" />
-      <xsd:element name="default-program" type="tns:default-program" />
-      <xsd:element name="alias" type="tns:alias" />
-      <xsd:element name="file-type" type="tns:file-type" />
-      <xsd:element name="menu-entry" type="tns:menu-entry" />
-      <xsd:element name="send-to" type="tns:send-to" />
+      <xsd:element name="capability-registration" type="apps:capability-registration" />
+      <xsd:element name="desktop-icon" type="apps:desktop-icon" />
+      <xsd:element name="quick-launch" type="apps:quick-launch" />
+      <xsd:element name="url-protocol" type="apps:url-protocol" />
+      <xsd:element name="auto-play" type="apps:auto-play" />
+      <xsd:element name="context-menu" type="apps:context-menu" />
+      <xsd:element name="default-program" type="apps:default-program" />
+      <xsd:element name="alias" type="apps:alias" />
+      <xsd:element name="file-type" type="apps:file-type" />
+      <xsd:element name="menu-entry" type="apps:menu-entry" />
+      <xsd:element name="send-to" type="apps:send-to" />
     </xsd:choice>
   </xsd:complexType>
   <xsd:complexType name="access-point" abstract="true">
@@ -77,7 +77,7 @@
       <xsd:documentation>Indicates that all compatible capabilities should be registered.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:access-point" />
+      <xsd:extension base="apps:access-point" />
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="default-access-point" abstract="true">
@@ -85,7 +85,7 @@
       <xsd:documentation>Makes an application the default handler for something.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:access-point">
+      <xsd:extension base="apps:access-point">
         <xsd:attribute name="capability" type="xsd:string" use="required">
           <xsd:annotation>
             <xsd:documentation>The ID of the capability to be made the default handler.</xsd:documentation>
@@ -99,7 +99,7 @@
       <xsd:documentation>Makes an application the default AutoPlay handler for a specific event.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:default-access-point" />
+      <xsd:extension base="apps:default-access-point" />
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="context-menu">
@@ -107,7 +107,7 @@
       <xsd:documentation>Integrates an application into a file manager's context menu.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:default-access-point" />
+      <xsd:extension base="apps:default-access-point" />
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="default-program">
@@ -115,7 +115,7 @@
       <xsd:documentation>Makes an application a default program of some kind (e.g. default web-browser, default e-mail client, ...).</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:default-access-point" />
+      <xsd:extension base="apps:default-access-point" />
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="file-type">
@@ -123,7 +123,7 @@
       <xsd:documentation>Makes an application the default handler for a specific file type.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:default-access-point" />
+      <xsd:extension base="apps:default-access-point" />
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="url-protocol">
@@ -131,7 +131,7 @@
       <xsd:documentation>Makes an application the default handler for a specific URL protocol.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:default-access-point" />
+      <xsd:extension base="apps:default-access-point" />
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="command-access-point" abstract="true">
@@ -139,7 +139,7 @@
       <xsd:documentation>Adds a way to explicitly launch the application to the desktop environment.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:access-point">
+      <xsd:extension base="apps:access-point">
         <xsd:attribute name="command" type="xsd:string">
           <xsd:annotation>
             <xsd:documentation>The name of the command to use when launching via this access point. Leave empty or unset to use default.</xsd:documentation>
@@ -153,7 +153,7 @@
       <xsd:documentation>Makes an application discoverable via the system's search PATH.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:command-access-point">
+      <xsd:extension base="apps:command-access-point">
         <xsd:attribute name="name" type="xsd:string" use="required">
           <xsd:annotation>
             <xsd:documentation>The name of the command-line command (without a file extension).</xsd:documentation>
@@ -167,7 +167,7 @@
       <xsd:documentation>Creates some form of icon in the dektop environment.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:command-access-point">
+      <xsd:extension base="apps:command-access-point">
         <xsd:attribute name="name" type="xsd:string">
           <xsd:annotation>
             <xsd:documentation>The user-defined override for name of the icon. Leve empty or unset to use the name from the feed + the entry-point name.</xsd:documentation>
@@ -181,7 +181,7 @@
       <xsd:documentation>Creates an entry for an application in the user's application menu (i.e. Windows start menu, GNOME application menu, etc.).</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:icon-access-point">
+      <xsd:extension base="apps:icon-access-point">
         <xsd:attribute name="category" type="xsd:string">
           <xsd:annotation>
             <xsd:documentation>The category or folder in the menu to add the entry to. Leave unset or empty for top-level entry.</xsd:documentation>
@@ -195,7 +195,7 @@
       <xsd:documentation>Creates an icon for an application on the user's desktop.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:icon-access-point" />
+      <xsd:extension base="apps:icon-access-point" />
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="quick-launch">
@@ -203,7 +203,7 @@
       <xsd:documentation>Creates a shortcut for an application in the Quick Launch bar.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:icon-access-point" />
+      <xsd:extension base="apps:icon-access-point" />
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="send-to">
@@ -211,7 +211,7 @@
       <xsd:documentation>Creates a shortcut for an application in the "Send to" menu.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:icon-access-point" />
+      <xsd:extension base="apps:icon-access-point" />
     </xsd:complexContent>
   </xsd:complexType>
 </xsd:schema>

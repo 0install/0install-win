@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:tns="http://0install.de/schema/desktop-integration/capabilities"
+            xmlns:caps="http://0install.de/schema/desktop-integration/capabilities"
+            xmlns:xml="http://www.w3.org/XML/1998/namespace"
             targetNamespace="http://0install.de/schema/desktop-integration/capabilities" elementFormDefault="qualified">
   <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
 
-  <xsd:element name="capabilities" type="tns:capabilities" />
+  <xsd:element name="capabilities" type="caps:capabilities" />
 
   <xsd:complexType name="capabilities">
     <xsd:annotation>
@@ -13,14 +14,14 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element name="registration" type="tns:registration" />
-      <xsd:element name="com-server" type="tns:com-server" />
-      <xsd:element name="context-menu" type="tns:context-menu" />
-      <xsd:element name="auto-play" type="tns:auto-play" />
-      <xsd:element name="file-type" type="tns:file-type" />
-      <xsd:element name="default-program" type="tns:default-program" />
-      <xsd:element name="url-protocol" type="tns:url-protocol" />
-      <xsd:element name="games-explorer" type="tns:games-explorer" />
+      <xsd:element name="registration" type="caps:registration" />
+      <xsd:element name="com-server" type="caps:com-server" />
+      <xsd:element name="context-menu" type="caps:context-menu" />
+      <xsd:element name="auto-play" type="caps:auto-play" />
+      <xsd:element name="file-type" type="caps:file-type" />
+      <xsd:element name="default-program" type="caps:default-program" />
+      <xsd:element name="url-protocol" type="caps:url-protocol" />
+      <xsd:element name="games-explorer" type="caps:games-explorer" />
     </xsd:choice>
     <xsd:attribute name="arch" type="xsd:string">
       <xsd:annotation>
@@ -53,7 +54,7 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:capability">
+      <xsd:extension base="caps:capability">
         <xsd:attribute name="capability-reg-path" type="xsd:string" use="required">
           <xsd:annotation>
             <xsd:appinfo>
@@ -78,7 +79,7 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:capability">
+      <xsd:extension base="caps:capability">
         <xsd:attribute name="explicit-only" type="xsd:boolean">
           <xsd:annotation>
             <xsd:documentation>
@@ -97,10 +98,10 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:default-capability">
+      <xsd:extension base="caps:default-capability">
         <!-- Use <xsd:sequence> instead of <xsd:choice> to enable usage of <xsd:any> inside -->
         <xsd:sequence minOccurs="0" maxOccurs="unbounded">
-          <xsd:element minOccurs="0" maxOccurs="1" name="description" type="tns:localizable-string">
+          <xsd:element minOccurs="0" maxOccurs="1" name="description" type="caps:localizable-string">
             <xsd:annotation>
               <xsd:documentation>
                 Human-readable descriptions of the AutoPlay operation.
@@ -119,9 +120,9 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:icon-capability">
+      <xsd:extension base="caps:icon-capability">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element name="verb" type="tns:verb" />
+          <xsd:element name="verb" type="caps:verb" />
         </xsd:choice>
       </xsd:extension>
     </xsd:complexContent>
@@ -133,7 +134,7 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element name="description" type="tns:localizable-string">
+      <xsd:element name="description" type="caps:localizable-string">
         <xsd:annotation>
           <xsd:documentation>
             Human-readable description of the verb as an alternative to 'name'.
@@ -177,9 +178,9 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:verb-capability">
+      <xsd:extension base="caps:verb-capability">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element name="extension" type="tns:extension" />
+          <xsd:element name="extension" type="caps:extension" />
         </xsd:choice>
       </xsd:extension>
     </xsd:complexContent>
@@ -219,9 +220,9 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:verb-capability">
+      <xsd:extension base="caps:verb-capability">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element name="known-prefix" type="tns:known-prefix" />
+          <xsd:element name="known-prefix" type="caps:known-prefix" />
         </xsd:choice>
       </xsd:extension>
     </xsd:complexContent>
@@ -247,9 +248,9 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:verb-capability">
+      <xsd:extension base="caps:verb-capability">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element name="install-commands" type="tns:install-commands" maxOccurs="1" />
+          <xsd:element name="install-commands" type="caps:install-commands" maxOccurs="1" />
         </xsd:choice>
         <xsd:attribute name="service" type="xsd:string" use="required">
           <xsd:annotation>
@@ -317,16 +318,16 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:icon-capability">
+      <xsd:extension base="caps:icon-capability">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element name="verb" type="tns:verb" maxOccurs="1">
+          <xsd:element name="verb" type="caps:verb" maxOccurs="1">
             <xsd:annotation>
               <xsd:documentation>
                 The command to execute when the handler gets called. Required!
               </xsd:documentation>
             </xsd:annotation>
           </xsd:element>
-          <xsd:element name="event" type="tns:event">
+          <xsd:element name="event" type="caps:event">
             <xsd:annotation>
               <xsd:documentation>
                 Names a specific AutoPlay event. Required!
@@ -367,9 +368,9 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:default-capability">
+      <xsd:extension base="caps:default-capability">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element name="verb" type="tns:verb" maxOccurs="1">
+          <xsd:element name="verb" type="caps:verb" maxOccurs="1">
             <xsd:annotation>
               <xsd:documentation>
                 The command to execute when the context menu entry is clicked. Required!
@@ -394,7 +395,7 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:capability" />
+      <xsd:extension base="caps:capability" />
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="com-server">
@@ -404,13 +405,13 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="tns:capability" />
+      <xsd:extension base="caps:capability" />
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="localizable-string">
     <xsd:simpleContent>
       <xsd:extension base="xsd:string">
-        <xsd:attribute xmlns:xml="http://www.w3.org/XML/1998/namespace" ref="xml:lang" />
+        <xsd:attribute ref="xml:lang" />
       </xsd:extension>
     </xsd:simpleContent>
   </xsd:complexType>

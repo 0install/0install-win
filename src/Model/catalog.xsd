@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:tns="http://0install.de/schema/injector/catalog"
+            xmlns:cat="http://0install.de/schema/injector/catalog"
+            xmlns:iface="http://zero-install.sourceforge.net/2004/injector/interface"
             targetNamespace="http://0install.de/schema/injector/catalog" elementFormDefault="qualified">
-  <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
   <xsd:import namespace="http://zero-install.sourceforge.net/2004/injector/interface" schemaLocation="http://0install.de/schema/injector/interface/interface.xsd" />
 
-  <xsd:element name="catalog" type="tns:catalog" />
+  <xsd:element name="catalog" type="cat:catalog" />
 
   <xsd:complexType name="catalog">
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element xmlns:zi="http://zero-install.sourceforge.net/2004/injector/interface" ref="zi:interface" />
+      <xsd:element ref="iface:interface" />
     </xsd:choice>
   </xsd:complexType>
 </xsd:schema>

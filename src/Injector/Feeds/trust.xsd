@@ -1,19 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:tns="http://zero-install.sourceforge.net/2007/injector/trust"
+            xmlns:trust="http://zero-install.sourceforge.net/2007/injector/trust"
             targetNamespace="http://zero-install.sourceforge.net/2007/injector/trust" elementFormDefault="qualified">
-  <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-
-  <xsd:element name="trusted-keys" type="tns:trusted-keys" />
+  <xsd:element name="trusted-keys" type="trust:trusted-keys" />
 
   <xsd:complexType name="trusted-keys">
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element name="key" type="tns:key" />
+      <xsd:element name="key" type="trust:key" />
     </xsd:choice>
   </xsd:complexType>
   <xsd:complexType name="key">
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element name="domain" type="tns:domain" />
+      <xsd:element name="domain" type="trust:domain" />
     </xsd:choice>
     <xsd:attribute name="fingerprint" type="xsd:string" use="required" />
   </xsd:complexType>
