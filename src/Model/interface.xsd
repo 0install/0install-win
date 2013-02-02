@@ -5,87 +5,85 @@
   <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
   <xsd:import namespace="http://0install.de/schema/desktop-integration/capabilities" schemaLocation="http://0install.de/schema/desktop-integration/capabilities/capabilities.xsd" />
 
-  <xsd:element name="interface" nillable="true" type="tns:feed" />
-  <xsd:element name="icon" nillable="true" type="tns:icon" />
+  <xsd:element name="interface" type="tns:feed" />
 
   <xsd:complexType name="feed">
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element minOccurs="0" maxOccurs="1" name="name" type="xsd:string">
+      <xsd:element name="name" type="xsd:string" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>
             A short name to identify the interface (e.g. "Foo"). Required!
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="summary" type="tns:localizable-string">
+      <xsd:element name="summary" type="tns:localizable-string">
         <xsd:annotation>
           <xsd:documentation>
             Short one-line description; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills"). Required!
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="description" type="tns:localizable-string">
+      <xsd:element name="description" type="tns:localizable-string">
         <xsd:annotation>
           <xsd:documentation>
             Full description, which can be several paragraphs long.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element minOccurs="0" maxOccurs="1" name="homepage" type="xsd:string">
+      <xsd:element name="homepage" type="xsd:string" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>
             The URL of a web-page describing this interface in more detail.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="icon" type="tns:icon">
+      <xsd:element name="icon" type="tns:icon">
         <xsd:annotation>
           <xsd:documentation>
             An icon to use for the program.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="category" type="xsd:string">
+      <xsd:element name="category" type="xsd:string">
         <xsd:annotation>
           <xsd:documentation>
             A category as defined by the freedesktop.org menu specification.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element minOccurs="0" maxOccurs="1" name="needs-terminal" type="xsd:string">
+      <xsd:element name="needs-terminal" type="xsd:string" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>
             If present, this element indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="feed" type="tns:feed-reference">
+      <xsd:element name="feed" type="tns:feed-reference">
         <xsd:annotation>
           <xsd:documentation>
             An additional feed containing implementations of this interface.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="feed-for" type="tns:interface-reference">
+      <xsd:element name="feed-for" type="tns:interface-reference">
         <xsd:annotation>
           <xsd:documentation>
             The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element minOccurs="0" maxOccurs="1" name="replaced-by" type="tns:interface-reference">
+      <xsd:element name="replaced-by" type="tns:interface-reference" maxOccurs="1" >
         <xsd:annotation>
           <xsd:documentation>
             This feed's interface has been replaced by the given interface. Any references to the old URI should be updated to use the new one.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="implementation" type="tns:implementation" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="package-implementation" type="tns:package-implementation" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="group" type="tns:group" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="entry-point" type="tns:entry-point" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded"
-                  xmlns:caps="http://0install.de/schema/desktop-integration/capabilities" ref="caps:capabilities" />
+      <xsd:element name="implementation" type="tns:implementation" />
+      <xsd:element name="package-implementation" type="tns:package-implementation" />
+      <xsd:element name="group" type="tns:group" />
+      <xsd:element name="entry-point" type="tns:entry-point" />
+      <xsd:element xmlns:caps="http://0install.de/schema/desktop-integration/capabilities" ref="caps:capabilities" />
     </xsd:choice>
     <xsd:attribute name="min-injector-version" type="xsd:string">
       <xsd:annotation>
@@ -101,13 +99,6 @@
         </xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>
-  </xsd:complexType>
-  <xsd:complexType name="localizable-string">
-    <xsd:simpleContent>
-      <xsd:extension base="xsd:string">
-        <xsd:attribute ref="xml:lang" />
-      </xsd:extension>
-    </xsd:simpleContent>
   </xsd:complexType>
   <xsd:complexType name="icon">
     <xsd:attribute name="href" type="xsd:string" use="required">
@@ -166,23 +157,22 @@
     <xsd:complexContent mixed="false">
       <xsd:extension base="tns:element">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element minOccurs="0" maxOccurs="unbounded" name="implementation" type="tns:implementation" />
-          <xsd:element minOccurs="0" maxOccurs="unbounded" name="package-implementation"
-                      type="tns:package-implementation" />
-          <xsd:element minOccurs="0" maxOccurs="unbounded" name="group" type="tns:group" />
+          <xsd:element name="implementation" type="tns:implementation" />
+          <xsd:element name="package-implementation" type="tns:package-implementation" />
+          <xsd:element name="group" type="tns:group" />
         </xsd:choice>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="element" abstract="true">
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="environment" type="tns:environment" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="overlay" type="tns:overlay" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="executable-in-var" type="tns:executable-in-var" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="executable-in-path" type="tns:executable-in-path" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="command" type="tns:command" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="requires" type="tns:dependency" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="restricts" type="tns:restriction" />
+      <xsd:element name="environment" type="tns:environment" />
+      <xsd:element name="overlay" type="tns:overlay" />
+      <xsd:element name="executable-in-var" type="tns:executable-in-var" />
+      <xsd:element name="executable-in-path" type="tns:executable-in-path" />
+      <xsd:element name="command" type="tns:command" />
+      <xsd:element name="requires" type="tns:dependency" />
+      <xsd:element name="restricts" type="tns:restriction" />
     </xsd:choice>
     <xsd:attribute name="langs" type="xsd:string">
       <xsd:annotation>
@@ -262,21 +252,21 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="arg" type="xsd:string">
+      <xsd:element name="arg" type="xsd:string">
         <xsd:annotation>
           <xsd:documentation>
             A single command-line argument to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="environment" type="tns:environment" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="overlay" type="tns:overlay" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="executable-in-var" type="tns:executable-in-var" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="executable-in-path" type="tns:executable-in-path" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="requires" type="tns:dependency" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="restricts" type="tns:restriction" />
-      <xsd:element minOccurs="0" maxOccurs="1" name="working-dir" type="tns:working-dir" />
-      <xsd:element minOccurs="0" maxOccurs="1" name="runner" type="tns:runner" />
+      <xsd:element name="environment" type="tns:environment" />
+      <xsd:element name="overlay" type="tns:overlay" />
+      <xsd:element name="executable-in-var" type="tns:executable-in-var" />
+      <xsd:element name="executable-in-path" type="tns:executable-in-path" />
+      <xsd:element name="requires" type="tns:dependency" />
+      <xsd:element name="restricts" type="tns:restriction" />
+      <xsd:element name="working-dir" type="tns:working-dir" maxOccurs="1" />
+      <xsd:element name="runner" type="tns:runner" maxOccurs="1" />
     </xsd:choice>
     <xsd:attribute name="name" type="xsd:string">
       <xsd:annotation>
@@ -475,7 +465,7 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="version" type="tns:constraint">
+      <xsd:element name="version" type="tns:constraint">
         <xsd:annotation>
           <xsd:documentation>
             Restricts the versions that are allowed.
@@ -574,10 +564,10 @@
     <xsd:complexContent mixed="false">
       <xsd:extension base="tns:restriction">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element minOccurs="0" maxOccurs="unbounded" name="environment" type="tns:environment" />
-          <xsd:element minOccurs="0" maxOccurs="unbounded" name="overlay" type="tns:overlay" />
-          <xsd:element minOccurs="0" maxOccurs="unbounded" name="executable-in-var" type="tns:executable-in-var" />
-          <xsd:element minOccurs="0" maxOccurs="unbounded" name="executable-in-path" type="tns:executable-in-path" />
+          <xsd:element name="environment" type="tns:environment" />
+          <xsd:element name="overlay" type="tns:overlay" />
+          <xsd:element name="executable-in-var" type="tns:executable-in-var" />
+          <xsd:element name="executable-in-path" type="tns:executable-in-path" />
         </xsd:choice>
         <xsd:attribute name="importance" type="tns:importance" default="essential">
           <xsd:annotation>
@@ -628,7 +618,7 @@
     <xsd:complexContent mixed="false">
       <xsd:extension base="tns:dependency">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element minOccurs="0" maxOccurs="unbounded" name="arg" type="xsd:string">
+          <xsd:element name="arg" type="xsd:string">
             <xsd:annotation>
               <xsd:documentation>
                 A single command-line argument to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.
@@ -704,9 +694,9 @@
     <xsd:complexContent mixed="false">
       <xsd:extension base="tns:element">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element minOccurs="0" maxOccurs="1" name="manifest-digest" type="tns:manifest-digest" />
-          <xsd:element minOccurs="0" maxOccurs="unbounded" name="recipe" type="tns:recipe" />
-          <xsd:element minOccurs="0" maxOccurs="unbounded" name="archive" type="tns:archive" />
+          <xsd:element name="manifest-digest" type="tns:manifest-digest" maxOccurs="1" />
+          <xsd:element name="recipe" type="tns:recipe" />
+          <xsd:element name="archive" type="tns:archive" />
         </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required">
           <xsd:annotation>
@@ -800,11 +790,11 @@
     <xsd:complexContent mixed="false">
       <xsd:extension base="tns:retrieval-method">
         <xsd:choice minOccurs="1" maxOccurs="unbounded">
-          <xsd:element minOccurs="0" maxOccurs="unbounded" name="archive" type="tns:archive" />
-          <xsd:element minOccurs="0" maxOccurs="unbounded" name="rename" type="tns:rename" />
-          <xsd:element minOccurs="0" maxOccurs="unbounded" name="remove" type="tns:remove" />
-          <xsd:element minOccurs="0" maxOccurs="unbounded" name="add-directory" type="tns:add-directory" />
-          <xsd:element minOccurs="0" maxOccurs="unbounded" name="add-toplevel" type="tns:add-toplevel" />
+          <xsd:element name="archive" type="tns:archive" />
+          <xsd:element name="rename" type="tns:rename" />
+          <xsd:element name="remove" type="tns:remove" />
+          <xsd:element name="add-directory" type="tns:add-directory" />
+          <xsd:element name="add-toplevel" type="tns:add-toplevel" />
         </xsd:choice>
       </xsd:extension>
     </xsd:complexContent>
@@ -904,35 +894,35 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element minOccurs="0" maxOccurs="1" name="needs-terminal" type="xsd:string">
+      <xsd:element name="needs-terminal" type="xsd:string" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>
             If present, this element indicates that the entry point requires a terminal in order to run. Graphical launchers should therefore execute this entry point in a suitable terminal emulator.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="name" type="tns:localizable-string">
+      <xsd:element name="name" type="tns:localizable-string">
         <xsd:annotation>
           <xsd:documentation>
             Localized user-friendly name for the command. If not present, the command attribute is used instead.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="summary" type="tns:localizable-string">
+      <xsd:element name="summary" type="tns:localizable-string">
         <xsd:annotation>
           <xsd:documentation>
             Short one-line description; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills").
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="description" type="tns:localizable-string">
+      <xsd:element name="description" type="tns:localizable-string">
         <xsd:annotation>
           <xsd:documentation>
             Full description, which can be several paragraphs long.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="icon" type="tns:icon">
+      <xsd:element name="icon" type="tns:icon">
         <xsd:annotation>
           <xsd:documentation>
             An icon to represent the command.
@@ -954,5 +944,12 @@
         </xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="localizable-string">
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute xmlns:xml="http://www.w3.org/XML/1998/namespace" ref="xml:lang" />
+      </xsd:extension>
+    </xsd:simpleContent>
   </xsd:complexType>
 </xsd:schema>

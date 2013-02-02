@@ -3,9 +3,8 @@
             xmlns:tns="http://0install.de/schema/desktop-integration/capabilities"
             targetNamespace="http://0install.de/schema/desktop-integration/capabilities" elementFormDefault="qualified">
   <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-  <xsd:import namespace="http://zero-install.sourceforge.net/2004/injector/interface" schemaLocation="http://0install.de/schema/injector/interface/interface.xsd" />
 
-  <xsd:element name="capabilities" nillable="true" type="tns:capabilities" />
+  <xsd:element name="capabilities" type="tns:capabilities" />
 
   <xsd:complexType name="capabilities">
     <xsd:annotation>
@@ -14,14 +13,14 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element minOccurs="0" maxOccurs="1" name="registration" type="tns:registration" />
-      <xsd:element minOccurs="0" maxOccurs="1" name="com-server" type="tns:com-server" />
-      <xsd:element minOccurs="0" maxOccurs="1" name="context-menu" type="tns:context-menu" />
-      <xsd:element minOccurs="0" maxOccurs="1" name="auto-play" type="tns:auto-play" />
-      <xsd:element minOccurs="0" maxOccurs="1" name="file-type" type="tns:file-type" />
-      <xsd:element minOccurs="0" maxOccurs="1" name="default-program" type="tns:default-program" />
-      <xsd:element minOccurs="0" maxOccurs="1" name="url-protocol" type="tns:url-protocol" />
-      <xsd:element minOccurs="0" maxOccurs="1" name="games-explorer" type="tns:games-explorer" />
+      <xsd:element name="registration" type="tns:registration" />
+      <xsd:element name="com-server" type="tns:com-server" />
+      <xsd:element name="context-menu" type="tns:context-menu" />
+      <xsd:element name="auto-play" type="tns:auto-play" />
+      <xsd:element name="file-type" type="tns:file-type" />
+      <xsd:element name="default-program" type="tns:default-program" />
+      <xsd:element name="url-protocol" type="tns:url-protocol" />
+      <xsd:element name="games-explorer" type="tns:games-explorer" />
     </xsd:choice>
     <xsd:attribute name="arch" type="xsd:string">
       <xsd:annotation>
@@ -99,23 +98,17 @@
     </xsd:annotation>
     <xsd:complexContent mixed="false">
       <xsd:extension base="tns:default-capability">
-        <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element minOccurs="0" maxOccurs="unbounded" name="description" type="tns:localizable-string">
+        <!-- Use <xsd:sequence> instead of <xsd:choice> to enable usage of <xsd:any> inside -->
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+          <xsd:element minOccurs="0" maxOccurs="1" name="description" type="tns:localizable-string">
             <xsd:annotation>
               <xsd:documentation>
                 Human-readable descriptions of the AutoPlay operation.
               </xsd:documentation>
             </xsd:annotation>
           </xsd:element>
-          <xsd:element minOccurs="0" maxOccurs="unbounded"
-                      xmlns:zi="http://zero-install.sourceforge.net/2004/injector/interface" ref="zi:icon">
-            <xsd:annotation>
-              <xsd:documentation>
-                An icon to represent the capability.
-              </xsd:documentation>
-            </xsd:annotation>
-          </xsd:element>
-        </xsd:choice>
+          <xsd:any minOccurs="0" maxOccurs="1" namespace="http://zero-install.sourceforge.net/2004/injector/interface" />
+        </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -128,7 +121,7 @@
     <xsd:complexContent mixed="false">
       <xsd:extension base="tns:icon-capability">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element minOccurs="0" maxOccurs="unbounded" name="verb" type="tns:verb" />
+          <xsd:element name="verb" type="tns:verb" />
         </xsd:choice>
       </xsd:extension>
     </xsd:complexContent>
@@ -140,7 +133,7 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="description" type="tns:localizable-string">
+      <xsd:element name="description" type="tns:localizable-string">
         <xsd:annotation>
           <xsd:documentation>
             Human-readable description of the verb as an alternative to 'name'.
@@ -186,7 +179,7 @@
     <xsd:complexContent mixed="false">
       <xsd:extension base="tns:verb-capability">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element minOccurs="0" maxOccurs="unbounded" name="extension" type="tns:extension" />
+          <xsd:element name="extension" type="tns:extension" />
         </xsd:choice>
       </xsd:extension>
     </xsd:complexContent>
@@ -228,7 +221,7 @@
     <xsd:complexContent mixed="false">
       <xsd:extension base="tns:verb-capability">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element minOccurs="0" maxOccurs="unbounded" name="known-prefix" type="tns:known-prefix" />
+          <xsd:element name="known-prefix" type="tns:known-prefix" />
         </xsd:choice>
       </xsd:extension>
     </xsd:complexContent>
@@ -256,7 +249,7 @@
     <xsd:complexContent mixed="false">
       <xsd:extension base="tns:verb-capability">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element minOccurs="0" maxOccurs="1" name="install-commands" type="tns:install-commands" />
+          <xsd:element name="install-commands" type="tns:install-commands" maxOccurs="1" />
         </xsd:choice>
         <xsd:attribute name="service" type="xsd:string" use="required">
           <xsd:annotation>
@@ -326,14 +319,14 @@
     <xsd:complexContent mixed="false">
       <xsd:extension base="tns:icon-capability">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element minOccurs="0" maxOccurs="1" name="verb" type="tns:verb">
+          <xsd:element name="verb" type="tns:verb" maxOccurs="1">
             <xsd:annotation>
               <xsd:documentation>
                 The command to execute when the handler gets called. Required!
               </xsd:documentation>
             </xsd:annotation>
           </xsd:element>
-          <xsd:element minOccurs="0" maxOccurs="unbounded" name="event" type="tns:event">
+          <xsd:element name="event" type="tns:event">
             <xsd:annotation>
               <xsd:documentation>
                 Names a specific AutoPlay event. Required!
@@ -376,7 +369,7 @@
     <xsd:complexContent mixed="false">
       <xsd:extension base="tns:default-capability">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element minOccurs="0" maxOccurs="1" name="verb" type="tns:verb">
+          <xsd:element name="verb" type="tns:verb" maxOccurs="1">
             <xsd:annotation>
               <xsd:documentation>
                 The command to execute when the context menu entry is clicked. Required!
@@ -417,7 +410,7 @@
   <xsd:complexType name="localizable-string">
     <xsd:simpleContent>
       <xsd:extension base="xsd:string">
-        <xsd:attribute ref="xml:lang" />
+        <xsd:attribute xmlns:xml="http://www.w3.org/XML/1998/namespace" ref="xml:lang" />
       </xsd:extension>
     </xsd:simpleContent>
   </xsd:complexType>

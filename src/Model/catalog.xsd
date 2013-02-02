@@ -5,11 +5,11 @@
   <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
   <xsd:import namespace="http://zero-install.sourceforge.net/2004/injector/interface" schemaLocation="http://0install.de/schema/injector/interface/interface.xsd" />
 
-  <xsd:element name="catalog" nillable="true" type="tns:catalog" />
+  <xsd:element name="catalog" type="tns:catalog" />
 
   <xsd:complexType name="catalog">
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element minOccurs="0" maxOccurs="unbounded" xmlns:interface="http://zero-install.sourceforge.net/2004/injector/interface" ref="interface:interface" />
+      <xsd:element xmlns:zi="http://zero-install.sourceforge.net/2004/injector/interface" ref="zi:interface" />
     </xsd:choice>
   </xsd:complexType>
 </xsd:schema>

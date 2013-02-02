@@ -2,16 +2,17 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             xmlns:tns="http://0install.de/schema/desktop-integration/app-list"
             targetNamespace="http://0install.de/schema/desktop-integration/app-list" elementFormDefault="qualified">
+  <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
   <xsd:import namespace="http://0install.de/schema/desktop-integration/capabilities" schemaLocation="http://0install.de/schema/desktop-integration/capabilities/capabilities.xsd" />
 
-  <xsd:element name="app-list" nillable="true" type="tns:app-list" />
+  <xsd:element name="app-list" type="tns:app-list" />
 
   <xsd:complexType name="app-list">
     <xsd:annotation>
       <xsd:documentation>Stores a list of applications and the kind of desktop integration the user chose for them.</xsd:documentation>
     </xsd:annotation>
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="app" type="tns:app" />
+      <xsd:element name="app" type="tns:app" />
     </xsd:choice>
   </xsd:complexType>
   <xsd:complexType name="app">
@@ -19,8 +20,8 @@
       <xsd:documentation>Represents an application indentified by its interface URI.</xsd:documentation>
     </xsd:annotation>
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element minOccurs="0" maxOccurs="unbounded" xmlns:caps="http://0install.de/schema/desktop-integration/capabilities" ref="caps:capabilities" />
-      <xsd:element minOccurs="0" maxOccurs="1" name="access-points" type="tns:access-points" />
+      <xsd:element xmlns:caps="http://0install.de/schema/desktop-integration/capabilities" ref="caps:capabilities" />
+      <xsd:element name="access-points" type="tns:access-points" maxOccurs="1" />
     </xsd:choice>
     <xsd:attribute name="interface" type="xsd:string" use="required">
       <xsd:annotation>
@@ -53,17 +54,17 @@
       <xsd:documentation>Contains a set of access-points that can be registered in a desktop environment.</xsd:documentation>
     </xsd:annotation>
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="capability-registration" type="tns:capability-registration" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="desktop-icon" type="tns:desktop-icon" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="quick-launch" type="tns:quick-launch" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="url-protocol" type="tns:url-protocol" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="auto-play" type="tns:auto-play" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="context-menu" type="tns:context-menu" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="default-program" type="tns:default-program" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="alias" type="tns:alias" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="file-type" type="tns:file-type" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="menu-entry" type="tns:menu-entry" />
-      <xsd:element minOccurs="0" maxOccurs="unbounded" name="send-to" type="tns:send-to" />
+      <xsd:element name="capability-registration" type="tns:capability-registration" />
+      <xsd:element name="desktop-icon" type="tns:desktop-icon" />
+      <xsd:element name="quick-launch" type="tns:quick-launch" />
+      <xsd:element name="url-protocol" type="tns:url-protocol" />
+      <xsd:element name="auto-play" type="tns:auto-play" />
+      <xsd:element name="context-menu" type="tns:context-menu" />
+      <xsd:element name="default-program" type="tns:default-program" />
+      <xsd:element name="alias" type="tns:alias" />
+      <xsd:element name="file-type" type="tns:file-type" />
+      <xsd:element name="menu-entry" type="tns:menu-entry" />
+      <xsd:element name="send-to" type="tns:send-to" />
     </xsd:choice>
   </xsd:complexType>
   <xsd:complexType name="access-point" abstract="true">
