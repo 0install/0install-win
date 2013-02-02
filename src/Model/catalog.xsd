@@ -1,15 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             xmlns:cat="http://0install.de/schema/injector/catalog"
-            xmlns:iface="http://zero-install.sourceforge.net/2004/injector/interface"
-            targetNamespace="http://0install.de/schema/injector/catalog" elementFormDefault="qualified">
+            xmlns:feed="http://zero-install.sourceforge.net/2004/injector/interface"
+            targetNamespace="http://0install.de/schema/injector/catalog"
+            id="catalog" elementFormDefault="qualified">
   <xsd:import namespace="http://zero-install.sourceforge.net/2004/injector/interface" schemaLocation="http://0install.de/schema/injector/interface/interface.xsd" />
 
   <xsd:element name="catalog" type="cat:catalog" />
 
   <xsd:complexType name="catalog">
+    <xsd:annotation>
+      <xsd:documentation>
+        Contains a list of feeds, reduced to only contain information relevant for overview lists.
+        For specific implementations the original feeds are feteched.
+        Catalogs downloaded from remote locations are protected from tampering by a OpenPGP signature.
+      </xsd:documentation>
+    </xsd:annotation>
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element ref="iface:interface" />
+      <xsd:element ref="feed:interface" />
     </xsd:choice>
   </xsd:complexType>
 </xsd:schema>

@@ -28,7 +28,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Injector.Feeds
 {
     /// <summary>
-    /// A database of trusted OpenPGP signatures for <see cref="Feed"/>s.
+    /// A database of OpenPGP the users trusts to sign <see cref="Feed"/>s.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("trusted-keys", Namespace = XmlNamespace)]

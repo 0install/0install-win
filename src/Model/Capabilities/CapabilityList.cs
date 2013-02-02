@@ -18,14 +18,13 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Xml.Serialization;
 using C5;
 
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Groups a number of <see cref="Capability"/>s that can be registered in a desktop environment.
+    /// Groups a number of application <see cref="Capability"/>s (for a specific operating system) that can be registered in a desktop environment.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]

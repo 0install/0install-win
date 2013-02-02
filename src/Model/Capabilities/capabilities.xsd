@@ -1,16 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             xmlns:caps="http://0install.de/schema/desktop-integration/capabilities"
+            xmlns:feed="http://zero-install.sourceforge.net/2004/injector/interface"
             xmlns:xml="http://www.w3.org/XML/1998/namespace"
-            targetNamespace="http://0install.de/schema/desktop-integration/capabilities" elementFormDefault="qualified">
+            targetNamespace="http://0install.de/schema/desktop-integration/capabilities"
+            id="capabilities" elementFormDefault="qualified">
   <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:import namespace="http://zero-install.sourceforge.net/2004/injector/interface" schemaLocation="http://0install.de/schema/injector/interface/icon.xsd" />
 
   <xsd:element name="capabilities" type="caps:capabilities" />
 
   <xsd:complexType name="capabilities">
     <xsd:annotation>
       <xsd:documentation>
-        Groups a number of capabilities that can be registered in a desktop environment.
+        Groups a number of application capabilities (for a specific operating system) that can be registered in a desktop environment.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
@@ -99,17 +102,22 @@
     </xsd:annotation>
     <xsd:complexContent mixed="false">
       <xsd:extension base="caps:default-capability">
-        <!-- Use <xsd:sequence> instead of <xsd:choice> to enable usage of <xsd:any> inside -->
-        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
-          <xsd:element minOccurs="0" maxOccurs="1" name="description" type="caps:localizable-string">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+          <xsd:element name="description" type="caps:localizable-string">
             <xsd:annotation>
               <xsd:documentation>
                 Human-readable descriptions of the AutoPlay operation.
               </xsd:documentation>
             </xsd:annotation>
           </xsd:element>
-          <xsd:any minOccurs="0" maxOccurs="1" namespace="http://zero-install.sourceforge.net/2004/injector/interface" />
-        </xsd:sequence>
+          <xsd:element name="icon" type="feed:icon">
+            <xsd:annotation>
+              <xsd:documentation>
+                An icon to represent the capability. Used for things like file icons.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:choice>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

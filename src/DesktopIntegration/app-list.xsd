@@ -2,7 +2,8 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             xmlns:apps="http://0install.de/schema/desktop-integration/app-list"
             xmlns:caps="http://0install.de/schema/desktop-integration/capabilities"
-            targetNamespace="http://0install.de/schema/desktop-integration/app-list" elementFormDefault="qualified">
+            targetNamespace="http://0install.de/schema/desktop-integration/app-list"
+            id="app-list" elementFormDefault="qualified">
   <xsd:import namespace="http://0install.de/schema/desktop-integration/capabilities" schemaLocation="http://0install.de/schema/desktop-integration/capabilities/capabilities.xsd" />
 
   <xsd:element name="app-list" type="apps:app-list" />

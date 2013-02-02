@@ -32,9 +32,10 @@ using ZeroInstall.Model.Capabilities;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// Represents a Zero Install feed containing information about an application or library.
+    /// A feed contains all the information required to download and execute an application.
+    /// It is usually downloaded and updated from a specific URI but may also be a local file.
+    /// Feeds downloaded from remote locations are protected from tampering by a OpenPGP signature.
     /// </summary>
-    /// <remarks>A feed contains all the information required to download and execute an application. It is usually downloaded and updated from a specific URI.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlRoot("interface", Namespace = XmlNamespace)]

@@ -21,7 +21,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Injector.Feeds
 {
     /// <summary>
-    /// A domain-name associated to a <see cref="Domain"/>.
+    /// A specific domain with feeds a <see cref="Key"/> is trusted to sign.
     /// </summary>
     [XmlType("domain", Namespace = TrustDB.XmlNamespace)]
     public struct Domain : ICloneable, IEquatable<Domain>

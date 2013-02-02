@@ -22,7 +22,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Injector.Feeds
 {
     /// <summary>
-    /// An entry in the <see cref="TrustDB"/>.
+    /// A known OpenPGP key, trusted to sign feeds from a certain set of domains.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlType("key", Namespace = TrustDB.XmlNamespace)]
@@ -30,7 +30,7 @@ namespace ZeroInstall.Injector.Feeds
     {
         #region Properties
         /// <summary>
-        /// The GPG cryptographic fingerprint of this key.
+        /// The cryptographic fingerprint of this key.
         /// </summary>
         [XmlAttribute("fingerprint")]
         public string Fingerprint { get; set; }

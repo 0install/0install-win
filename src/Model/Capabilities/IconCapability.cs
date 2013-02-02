@@ -47,9 +47,9 @@ namespace ZeroInstall.Model.Capabilities
         private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
 
         /// <summary>
-        /// Zero or more icons to represent the capability.
+        /// Zero or more icons to represent the capability. Used for things like file icons.
         /// </summary>
-        [Description("Zero or more icons to represent the capability.")]
+        [Description("Zero or more icons to represent the capability. Used for things like file icons.")]
         [XmlElement("icon", Namespace = Feed.XmlNamespace)]
         public C5.ArrayList<Icon> Icons { get { return _icons; } }
         #endregion

@@ -29,7 +29,9 @@ using ZeroInstall.Model.Properties;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// Contains a list of <see cref="Feed"/>s, optionally reduced to only contain information relevant for listings.
+    /// Contains a list of <see cref="Feed"/>s, reduced to only contain information relevant for overview lists.
+    /// For specific <see cref="Implementation"/>s the original <see cref="Feed"/>s are feteched.
+    /// Catalogs downloaded from remote locations are protected from tampering by a OpenPGP signature.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]

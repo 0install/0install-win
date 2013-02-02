@@ -1,15 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:iface="http://zero-install.sourceforge.net/2004/injector/interface"
+            xmlns:feed="http://zero-install.sourceforge.net/2004/injector/interface"
             xmlns:xml="http://www.w3.org/XML/1998/namespace"
             xmlns:caps="http://0install.de/schema/desktop-integration/capabilities"
-            targetNamespace="http://zero-install.sourceforge.net/2004/injector/interface" elementFormDefault="qualified">
+            targetNamespace="http://zero-install.sourceforge.net/2004/injector/interface"
+            id="feed" elementFormDefault="qualified">
+  <xsd:include schemaLocation="http://0install.de/schema/injector/interface/icon.xsd" />
   <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
   <xsd:import namespace="http://0install.de/schema/desktop-integration/capabilities" schemaLocation="http://0install.de/schema/desktop-integration/capabilities/capabilities.xsd" />
 
-  <xsd:element name="interface" type="iface:feed" />
+  <xsd:element name="interface" type="feed:feed" />
 
   <xsd:complexType name="feed">
+    <xsd:annotation>
+      <xsd:documentation>
+        A feed/interface contains all the information required to download and execute an application.
+        It is usually downloaded and updated from a specific URI but may also be a local file.
+        Feeds downloaded from remote locations are protected from tampering by a OpenPGP signature.
+      </xsd:documentation>
+    </xsd:annotation>
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
       <xsd:element name="name" type="xsd:string" maxOccurs="1">
         <xsd:annotation>
@@ -18,14 +27,14 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="summary" type="iface:localizable-string">
+      <xsd:element name="summary" type="feed:localizable-string">
         <xsd:annotation>
           <xsd:documentation>
             Short one-line description; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills"). Required!
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="description" type="iface:localizable-string">
+      <xsd:element name="description" type="feed:localizable-string">
         <xsd:annotation>
           <xsd:documentation>
             Full description, which can be several paragraphs long.
@@ -39,7 +48,7 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="icon" type="iface:icon">
+      <xsd:element name="icon" type="feed:icon">
         <xsd:annotation>
           <xsd:documentation>
             An icon to use for the program.
@@ -60,31 +69,31 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="feed" type="iface:feed-reference">
+      <xsd:element name="feed" type="feed:feed-reference">
         <xsd:annotation>
           <xsd:documentation>
             An additional feed containing implementations of this interface.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="feed-for" type="iface:interface-reference">
+      <xsd:element name="feed-for" type="feed:interface-reference">
         <xsd:annotation>
           <xsd:documentation>
             The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="replaced-by" type="iface:interface-reference" maxOccurs="1" >
+      <xsd:element name="replaced-by" type="feed:interface-reference" maxOccurs="1" >
         <xsd:annotation>
           <xsd:documentation>
             This feed's interface has been replaced by the given interface. Any references to the old URI should be updated to use the new one.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="implementation" type="iface:implementation" />
-      <xsd:element name="package-implementation" type="iface:package-implementation" />
-      <xsd:element name="group" type="iface:group" />
-      <xsd:element name="entry-point" type="iface:entry-point" />
+      <xsd:element name="implementation" type="feed:implementation" />
+      <xsd:element name="package-implementation" type="feed:package-implementation" />
+      <xsd:element name="group" type="feed:group" />
+      <xsd:element name="entry-point" type="feed:entry-point" />
       <xsd:element ref="caps:capabilities" />
     </xsd:choice>
     <xsd:attribute name="min-injector-version" type="xsd:string">
@@ -98,22 +107,6 @@
       <xsd:annotation>
         <xsd:documentation>
           This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-  </xsd:complexType>
-  <xsd:complexType name="icon">
-    <xsd:attribute name="href" type="xsd:string" use="required">
-      <xsd:annotation>
-        <xsd:documentation>
-          The URL used to locate the icon.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-    <xsd:attribute name="type" type="xsd:string" use="required">
-      <xsd:annotation>
-        <xsd:documentation>
-          The MIME type of the icon. This value is case-insensitive.
         </xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>
@@ -157,24 +150,24 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="iface:element">
+      <xsd:extension base="feed:element">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element name="implementation" type="iface:implementation" />
-          <xsd:element name="package-implementation" type="iface:package-implementation" />
-          <xsd:element name="group" type="iface:group" />
+          <xsd:element name="implementation" type="feed:implementation" />
+          <xsd:element name="package-implementation" type="feed:package-implementation" />
+          <xsd:element name="group" type="feed:group" />
         </xsd:choice>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="element" abstract="true">
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element name="environment" type="iface:environment" />
-      <xsd:element name="overlay" type="iface:overlay" />
-      <xsd:element name="executable-in-var" type="iface:executable-in-var" />
-      <xsd:element name="executable-in-path" type="iface:executable-in-path" />
-      <xsd:element name="command" type="iface:command" />
-      <xsd:element name="requires" type="iface:dependency" />
-      <xsd:element name="restricts" type="iface:restriction" />
+      <xsd:element name="environment" type="feed:environment" />
+      <xsd:element name="overlay" type="feed:overlay" />
+      <xsd:element name="executable-in-var" type="feed:executable-in-var" />
+      <xsd:element name="executable-in-path" type="feed:executable-in-path" />
+      <xsd:element name="command" type="feed:command" />
+      <xsd:element name="requires" type="feed:dependency" />
+      <xsd:element name="restricts" type="feed:restriction" />
     </xsd:choice>
     <xsd:attribute name="langs" type="xsd:string">
       <xsd:annotation>
@@ -211,7 +204,7 @@
         </xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>
-    <xsd:attribute name="stability" type="iface:stability">
+    <xsd:attribute name="stability" type="feed:stability">
       <xsd:annotation>
         <xsd:documentation>
           The default stability rating for this implementation.
@@ -261,14 +254,14 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="environment" type="iface:environment" />
-      <xsd:element name="overlay" type="iface:overlay" />
-      <xsd:element name="executable-in-var" type="iface:executable-in-var" />
-      <xsd:element name="executable-in-path" type="iface:executable-in-path" />
-      <xsd:element name="requires" type="iface:dependency" />
-      <xsd:element name="restricts" type="iface:restriction" />
-      <xsd:element name="working-dir" type="iface:working-dir" maxOccurs="1" />
-      <xsd:element name="runner" type="iface:runner" maxOccurs="1" />
+      <xsd:element name="environment" type="feed:environment" />
+      <xsd:element name="overlay" type="feed:overlay" />
+      <xsd:element name="executable-in-var" type="feed:executable-in-var" />
+      <xsd:element name="executable-in-path" type="feed:executable-in-path" />
+      <xsd:element name="requires" type="feed:dependency" />
+      <xsd:element name="restricts" type="feed:restriction" />
+      <xsd:element name="working-dir" type="feed:working-dir" maxOccurs="1" />
+      <xsd:element name="runner" type="feed:runner" maxOccurs="1" />
     </xsd:choice>
     <xsd:attribute name="name" type="xsd:string">
       <xsd:annotation>
@@ -299,7 +292,7 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="iface:binding">
+      <xsd:extension base="feed:binding">
         <xsd:attribute name="name" type="xsd:string" use="required">
           <xsd:annotation>
             <xsd:documentation>
@@ -321,7 +314,7 @@
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <xsd:attribute name="mode" type="iface:environment-mode" default="prepend">
+        <xsd:attribute name="mode" type="feed:environment-mode" default="prepend">
           <xsd:annotation>
             <xsd:documentation>
               Controls how 'insert' or 'value' is added to the variable.
@@ -377,7 +370,7 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="iface:binding">
+      <xsd:extension base="feed:binding">
         <xsd:attribute name="src" type="xsd:string">
           <xsd:annotation>
             <xsd:documentation>
@@ -402,7 +395,7 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="iface:binding">
+      <xsd:extension base="feed:binding">
         <xsd:attribute name="name" type="xsd:string" use="required">
           <xsd:annotation>
             <xsd:documentation>
@@ -427,7 +420,7 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="iface:binding">
+      <xsd:extension base="feed:binding">
         <xsd:attribute name="name" type="xsd:string" use="required">
           <xsd:annotation>
             <xsd:documentation>
@@ -467,7 +460,7 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element name="version" type="iface:constraint">
+      <xsd:element name="version" type="feed:constraint">
         <xsd:annotation>
           <xsd:documentation>
             Restricts the versions that are allowed.
@@ -564,14 +557,14 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="iface:restriction">
+      <xsd:extension base="feed:restriction">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element name="environment" type="iface:environment" />
-          <xsd:element name="overlay" type="iface:overlay" />
-          <xsd:element name="executable-in-var" type="iface:executable-in-var" />
-          <xsd:element name="executable-in-path" type="iface:executable-in-path" />
+          <xsd:element name="environment" type="feed:environment" />
+          <xsd:element name="overlay" type="feed:overlay" />
+          <xsd:element name="executable-in-var" type="feed:executable-in-var" />
+          <xsd:element name="executable-in-path" type="feed:executable-in-path" />
         </xsd:choice>
-        <xsd:attribute name="importance" type="iface:importance" default="essential">
+        <xsd:attribute name="importance" type="feed:importance" default="essential">
           <xsd:annotation>
             <xsd:documentation>
               Controls how important this dependency is (i.e. whether ignoring it is an option).
@@ -585,7 +578,7 @@
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <xsd:attribute name="os" type="iface:os" default="*">
+        <xsd:attribute name="os" type="feed:os" default="*">
           <xsd:annotation>
             <xsd:documentation>
               Determines for which operating systems this dependency is required.
@@ -618,7 +611,7 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="iface:dependency">
+      <xsd:extension base="feed:dependency">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
           <xsd:element name="arg" type="xsd:string">
             <xsd:annotation>
@@ -694,11 +687,11 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="iface:element">
+      <xsd:extension base="feed:element">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element name="manifest-digest" type="iface:manifest-digest" maxOccurs="1" />
-          <xsd:element name="recipe" type="iface:recipe" />
-          <xsd:element name="archive" type="iface:archive" />
+          <xsd:element name="manifest-digest" type="feed:manifest-digest" maxOccurs="1" />
+          <xsd:element name="recipe" type="feed:recipe" />
+          <xsd:element name="archive" type="feed:archive" />
         </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required">
           <xsd:annotation>
@@ -743,7 +736,7 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="iface:retrieval-method">
+      <xsd:extension base="feed:retrieval-method">
         <xsd:attribute name="href" type="xsd:string" use="required">
           <xsd:annotation>
             <xsd:documentation>
@@ -790,13 +783,13 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="iface:retrieval-method">
+      <xsd:extension base="feed:retrieval-method">
         <xsd:choice minOccurs="1" maxOccurs="unbounded">
-          <xsd:element name="archive" type="iface:archive" />
-          <xsd:element name="rename" type="iface:rename" />
-          <xsd:element name="remove" type="iface:remove" />
-          <xsd:element name="add-directory" type="iface:add-directory" />
-          <xsd:element name="add-toplevel" type="iface:add-toplevel" />
+          <xsd:element name="archive" type="feed:archive" />
+          <xsd:element name="rename" type="feed:rename" />
+          <xsd:element name="remove" type="feed:remove" />
+          <xsd:element name="add-directory" type="feed:add-directory" />
+          <xsd:element name="add-toplevel" type="feed:add-toplevel" />
         </xsd:choice>
       </xsd:extension>
     </xsd:complexContent>
@@ -871,7 +864,7 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent mixed="false">
-      <xsd:extension base="iface:element">
+      <xsd:extension base="feed:element">
         <xsd:attribute name="package" type="xsd:string" use="required">
           <xsd:annotation>
             <xsd:documentation>
@@ -903,28 +896,28 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="name" type="iface:localizable-string">
+      <xsd:element name="name" type="feed:localizable-string">
         <xsd:annotation>
           <xsd:documentation>
             Localized user-friendly name for the command. If not present, the command attribute is used instead.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="summary" type="iface:localizable-string">
+      <xsd:element name="summary" type="feed:localizable-string">
         <xsd:annotation>
           <xsd:documentation>
             Short one-line description; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills").
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="description" type="iface:localizable-string">
+      <xsd:element name="description" type="feed:localizable-string">
         <xsd:annotation>
           <xsd:documentation>
             Full description, which can be several paragraphs long.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="icon" type="iface:icon">
+      <xsd:element name="icon" type="feed:icon">
         <xsd:annotation>
           <xsd:documentation>
             An icon to represent the command.
