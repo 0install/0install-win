@@ -449,6 +449,13 @@ namespace ZeroInstall.Central.WinForms
                 : new[] { "update-apps" }));
         }
 
+        private void buttonUpdateAllClean_Click(object sender, EventArgs e)
+        {
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
+                ? new[] { "update-apps", "--clean", "--machine" }
+                : new[] { "update-apps", "--clean" }));
+        }
+
         private void buttonSync_Click(object sender, EventArgs e)
         {
             try

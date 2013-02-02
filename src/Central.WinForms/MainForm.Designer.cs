@@ -28,10 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControlApps = new System.Windows.Forms.TabControl();
             this.tabPageAppList = new System.Windows.Forms.TabPage();
-            this.buttonUpdateAll = new System.Windows.Forms.Button();
+            this.buttonUpdateAll = new Common.Controls.SplitButton();
+            this.contextMenuUpdateAll = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.buttonUpdateAllClean = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSync = new System.Windows.Forms.Button();
             this.appList = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
@@ -52,6 +55,7 @@
             this.rootTable = new System.Windows.Forms.TableLayoutPanel();
             this.tabControlApps.SuspendLayout();
             this.tabPageAppList.SuspendLayout();
+            this.contextMenuUpdateAll.SuspendLayout();
             this.tabPageCatalog.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.panelBottom.SuspendLayout();
@@ -78,9 +82,25 @@
             // buttonUpdateAll
             // 
             resources.ApplyResources(this.buttonUpdateAll, "buttonUpdateAll");
+            this.buttonUpdateAll.ContextMenuStrip = this.contextMenuUpdateAll;
             this.buttonUpdateAll.Name = "buttonUpdateAll";
+            this.buttonUpdateAll.ShowSplit = true;
+            this.buttonUpdateAll.SplitMenuStrip = this.contextMenuUpdateAll;
             this.buttonUpdateAll.UseVisualStyleBackColor = true;
             this.buttonUpdateAll.Click += new System.EventHandler(this.buttonUpdateAll_Click);
+            // 
+            // contextMenuUpdateAll
+            // 
+            resources.ApplyResources(this.contextMenuUpdateAll, "contextMenuUpdateAll");
+            this.contextMenuUpdateAll.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buttonUpdateAllClean});
+            this.contextMenuUpdateAll.Name = "contextMenuUpdateAll";
+            // 
+            // buttonUpdateAllClean
+            // 
+            resources.ApplyResources(this.buttonUpdateAllClean, "buttonUpdateAllClean");
+            this.buttonUpdateAllClean.Name = "buttonUpdateAllClean";
+            this.buttonUpdateAllClean.Click += new System.EventHandler(this.buttonUpdateAllClean_Click);
             // 
             // buttonSync
             // 
@@ -212,6 +232,8 @@
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainForm_DragEnter);
             this.tabControlApps.ResumeLayout(false);
             this.tabPageAppList.ResumeLayout(false);
+            this.tabPageAppList.PerformLayout();
+            this.contextMenuUpdateAll.ResumeLayout(false);
             this.tabPageCatalog.ResumeLayout(false);
             this.tabPageCatalog.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
@@ -243,7 +265,9 @@
         private System.Windows.Forms.TableLayoutPanel rootTable;
         private System.Windows.Forms.Label labelLastCatalogError;
         private System.Windows.Forms.Label labelLoadingCatalog;
-        private System.Windows.Forms.Button buttonUpdateAll;
+        private Common.Controls.SplitButton buttonUpdateAll;
+        private System.Windows.Forms.ContextMenuStrip contextMenuUpdateAll;
+        private System.Windows.Forms.ToolStripMenuItem buttonUpdateAllClean;
 
     }
 }

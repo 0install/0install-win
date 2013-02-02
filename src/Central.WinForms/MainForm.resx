@@ -164,8 +164,8 @@
   <data name="&gt;&gt;tabPageAppList.Name" xml:space="preserve">
     <value>tabPageAppList</value>
   </data>
-  <data name="labelVersion.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 18</value>
+  <data name="tabPageAppList.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
   </data>
   <data name="&gt;&gt;panelBottom.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -179,8 +179,8 @@
   <data name="buttonCacheManagement.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+  <data name="contextMenuUpdateAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>167, 26</value>
   </data>
   <data name="panelBottom.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 474</value>
@@ -278,6 +278,9 @@
   </data>
   <data name="&gt;&gt;buttonCacheManagement.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonUpdateAll.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="&gt;&gt;labelLastCatalogError.Name" xml:space="preserve">
     <value>labelLastCatalogError</value>
@@ -408,6 +411,12 @@
   <data name="buttonSync.Text" xml:space="preserve">
     <value>&amp;Sync</value>
   </data>
+  <data name="&gt;&gt;buttonUpdateAllClean.Name" xml:space="preserve">
+    <value>buttonUpdateAllClean</value>
+  </data>
+  <data name="&gt;&gt;contextMenuUpdateAll.Name" xml:space="preserve">
+    <value>contextMenuUpdateAll</value>
+  </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">
     <value>Loading catalog from server...</value>
   </data>
@@ -447,11 +456,17 @@
   <data name="&gt;&gt;labelVersion.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="tabPageAppList.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
   <data name="labelLastCatalogError.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9pt</value>
+  </data>
+  <data name="&gt;&gt;buttonUpdateAllClean.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonUpdateAllClean.Size" type="System.Drawing.Size, System.Drawing">
+    <value>166, 22</value>
+  </data>
+  <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
   </data>
   <data name="&gt;&gt;buttonOptions.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -466,7 +481,7 @@
     <value>2</value>
   </data>
   <data name="&gt;&gt;rootTable.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="pictureBoxLogo.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>Zoom</value>
@@ -475,7 +490,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonUpdateAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Common.Controls.SplitButton, Common, Version=1.14.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="appList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -522,6 +537,9 @@
   <data name="&gt;&gt;labelLastCatalogError.Parent" xml:space="preserve">
     <value>tabPageCatalog</value>
   </data>
+  <data name="&gt;&gt;contextMenuUpdateAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="labelVersion.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>TopRight</value>
   </data>
@@ -557,6 +575,9 @@
   </data>
   <data name="&gt;&gt;buttonUpdateAll.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="labelVersion.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 18</value>
   </data>
   <data name="&gt;&gt;buttonSync.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -973,6 +994,9 @@
   <data name="&gt;&gt;buttonRefreshCatalog.Name" xml:space="preserve">
     <value>buttonRefreshCatalog</value>
   </data>
+  <data name="buttonUpdateAllClean.Text" xml:space="preserve">
+    <value>Update and clean</value>
+  </data>
   <data name="buttonOptions.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 23</value>
   </data>
@@ -1080,5 +1104,8 @@
   </metadata>
   <metadata name="catalogWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
+  </metadata>
+  <metadata name="contextMenuUpdateAll.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>424, 19</value>
   </metadata>
 </root>

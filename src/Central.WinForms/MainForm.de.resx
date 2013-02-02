@@ -117,13 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonUpdateAllClean.Text" xml:space="preserve">
+    <value>Aktualisieren und aufräumen</value>
+  </data>
   <data name="buttonUpdateAll.Text" xml:space="preserve">
     <value>Alle &amp;aktualisieren</value>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">
     <value>Meine Anwendungen</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="labelLoadingCatalog.Size" type="System.Drawing.Size, System.Drawing">
     <value>169, 16</value>
   </data>
