@@ -27,6 +27,7 @@ using Common.Storage;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
+using ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -45,10 +46,11 @@ namespace ZeroInstall.DesktopIntegration
         public const string XmlNamespace = "http://0install.de/schema/desktop-integration/app-list";
 
         /// <summary>
-        /// The location of the XSD file containing the XML Schema for feed files.
+        /// The locations of the XSD files containing the XML Schema information for this class in serialized form.
         /// </summary>
         [XmlAttribute("schemaLocation", Namespace = XmlStorage.XsiNamespace)]
-        public string XsiSchemaLocation = XmlNamespace + " http://0install.de/schema/desktop-integration/app-list/app-list.xsd";
+        public string XsiSchemaLocation = XmlNamespace + " http://0install.de/schema/desktop-integration/app-list/app-list.xsd" + " " +
+            CapabilityList.XmlNamespace + " http://0install.de/schema/desktop-integration/capabilities/capabilities.xsd";
         #endregion
 
         #region Properties

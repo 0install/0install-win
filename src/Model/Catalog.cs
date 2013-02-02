@@ -44,7 +44,7 @@ namespace ZeroInstall.Model
         public const string XmlNamespace = "http://0install.de/schema/injector/catalog";
 
         /// <summary>
-        /// The location of the XSD file containing the XML Schema for feed files.
+        /// The locations of the XSD files containing the XML Schema information for this class in serialized form.
         /// </summary>
         [XmlAttribute("schemaLocation", Namespace = XmlStorage.XsiNamespace)]
         public string XsiSchemaLocation = XmlNamespace + " http://0install.de/schema/injector/catalog/catalog.xsd";

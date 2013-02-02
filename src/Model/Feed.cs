@@ -48,10 +48,11 @@ namespace ZeroInstall.Model
         public const string XmlNamespace = "http://zero-install.sourceforge.net/2004/injector/interface";
 
         /// <summary>
-        /// The location of the XSD file containing the XML Schema for feed files.
+        /// The locations of the XSD files containing the XML Schema information for this class in serialized form.
         /// </summary>
         [XmlAttribute("schemaLocation", Namespace = XmlStorage.XsiNamespace)]
-        public string XsiSchemaLocation = XmlNamespace + " http://0install.de/schema/injector/interface/interface.xsd";
+        public string XsiSchemaLocation = XmlNamespace + " http://0install.de/schema/injector/interface/interface.xsd" + " " +
+            CapabilityList.XmlNamespace + " http://0install.de/schema/desktop-integration/capabilities/capabilities.xsd";
         #endregion
 
         #region Properties
@@ -205,7 +206,7 @@ namespace ZeroInstall.Model
         [Description("A set of Capability lists for different architectures.")]
         [XmlElement("capabilities", Namespace = CapabilityList.XmlNamespace)]
         // Note: Can not use ICollection<T> interface with XML Serialization
-            public C5.ArrayList<CapabilityList> CapabilityLists
+        public C5.ArrayList<CapabilityList> CapabilityLists
         {
             get { return _capabilityLists; }
         }
