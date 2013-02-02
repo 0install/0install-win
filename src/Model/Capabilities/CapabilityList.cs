@@ -44,7 +44,7 @@ namespace ZeroInstall.Model.Capabilities
         /// The location of the XSD file containing the XML Schema for feed files.
         /// </summary>
         [XmlAttribute("schemaLocation", Namespace = XmlStorage.XsiNamespace)]
-        public string XsiSchemaLocation = "http://0install.de/schema/desktop-integration/capabilities/capabilities.xsd";
+        public string XsiSchemaLocation = XmlNamespace + " http://0install.de/schema/desktop-integration/capabilities/capabilities.xsd";
         #endregion
 
         #region Properties

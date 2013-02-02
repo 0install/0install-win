@@ -48,7 +48,7 @@ namespace ZeroInstall.DesktopIntegration
         /// The location of the XSD file containing the XML Schema for feed files.
         /// </summary>
         [XmlAttribute("schemaLocation", Namespace = XmlStorage.XsiNamespace)]
-        public string XsiSchemaLocation = "http://0install.de/schema/desktop-integration/app-list/app-list.xsd";
+        public string XsiSchemaLocation = XmlNamespace + " http://0install.de/schema/desktop-integration/app-list/app-list.xsd";
         #endregion
 
         #region Properties
