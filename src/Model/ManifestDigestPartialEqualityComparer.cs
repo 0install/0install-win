@@ -25,11 +25,13 @@ namespace ZeroInstall.Model
     /// </summary>
     public class ManifestDigestPartialEqualityComparer : IEqualityComparer<ManifestDigest>
     {
+        /// <inheritdoc/>
         public bool Equals(ManifestDigest x, ManifestDigest y)
         {
             return x.PartialEquals(y);
         }
 
+        /// <inheritdoc/>
         public int GetHashCode(ManifestDigest obj)
         {
             // Cannot hash with partial equality
@@ -42,6 +44,7 @@ namespace ZeroInstall.Model
     /// </summary>
     public class ManifestDigestPartialEqualityComparer<T> : IEqualityComparer<T> where T:ImplementationBase
     {
+        /// <inheritdoc/>
         public bool Equals(T x, T y)
         {
             #region Sanity checks
@@ -52,6 +55,7 @@ namespace ZeroInstall.Model
             return x.ManifestDigest.PartialEquals(y.ManifestDigest);
         }
 
+        /// <inheritdoc/>
         public int GetHashCode(T obj)
         {
             // Cannot hash with partial equality
