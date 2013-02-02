@@ -1,12 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://0install.de/schema/injector/catalog" elementFormDefault="qualified"
-           targetNamespace="http://0install.de/schema/injector/catalog"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
-  <xs:import namespace="http://zero-install.sourceforge.net/2004/injector/interface" schemaLocation="http://0install.de/schema/injector/interface/interface.xsd" />
-  <xs:complexType name="catalog">
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element minOccurs="0" maxOccurs="unbounded" xmlns:interface="http://zero-install.sourceforge.net/2004/injector/interface" ref="interface:interface" />
-    </xs:choice>
-  </xs:complexType>
-</xs:schema>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://0install.de/schema/injector/catalog"
+            targetNamespace="http://0install.de/schema/injector/catalog" elementFormDefault="qualified">
+  <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:import namespace="http://zero-install.sourceforge.net/2004/injector/interface" schemaLocation="http://0install.de/schema/injector/interface/interface.xsd" />
+
+  <xsd:element name="catalog" nillable="true" type="tns:catalog" />
+
+  <xsd:complexType name="catalog">
+    <xsd:choice minOccurs="0" maxOccurs="unbounded">
+      <xsd:element minOccurs="0" maxOccurs="unbounded" xmlns:interface="http://zero-install.sourceforge.net/2004/injector/interface" ref="interface:interface" />
+    </xsd:choice>
+  </xsd:complexType>
+</xsd:schema>
