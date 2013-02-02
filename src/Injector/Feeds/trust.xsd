@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://zero-install.sourceforge.net/2007/injector/trust" elementFormDefault="qualified" targetNamespace="http://zero-install.sourceforge.net/2007/injector/trust" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:tns="http://zero-install.sourceforge.net/2007/injector/trust" elementFormDefault="qualified"
+           targetNamespace="http://zero-install.sourceforge.net/2007/injector/trust"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="trusted-keys" nillable="true" type="tns:trusted-keys" />
   <xs:complexType name="trusted-keys">
     <xs:sequence>
