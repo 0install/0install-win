@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using C5;
+using Common.Storage;
 
 namespace ZeroInstall.Model.Capabilities
 {
@@ -29,6 +30,7 @@ namespace ZeroInstall.Model.Capabilities
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlType("capabilities", Namespace = XmlNamespace)]
+    [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
     public sealed class CapabilityList : XmlUnknown, ICloneable, IEquatable<CapabilityList>
     {
         #region Constants
@@ -36,6 +38,11 @@ namespace ZeroInstall.Model.Capabilities
         /// The XML namespace used for storing application capabilities.
         /// </summary>
         public const string XmlNamespace = "http://0install.de/schema/desktop-integration/capabilities";
+
+        /// <summary>
+        /// The URI to retrieve an XSD containing the XML Schema information for this class in serialized form.
+        /// </summary>
+        public const string XsdLocation = XmlNamespace + "/capabilities.xsd";
         #endregion
 
         #region Properties

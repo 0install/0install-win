@@ -42,10 +42,15 @@ namespace ZeroInstall.Injector.Feeds
         public const string XmlNamespace = "http://zero-install.sourceforge.net/2007/injector/trust";
 
         /// <summary>
-        /// The locations of the XSD files containing the XML Schema information for this class in serialized form.
+        /// The URI to retrieve an XSD containing the XML Schema information for this class in serialized form.
+        /// </summary>
+        public const string XsdLocation = "http://0install.de/schema/injector/trust/trust.xsd";
+
+        /// <summary>
+        /// Provides XML Editors with location hints for XSD files.
         /// </summary>
         [XmlAttribute("schemaLocation", Namespace = XmlStorage.XsiNamespace)]
-        public string XsiSchemaLocation = XmlNamespace + " http://0install.de/schema/injector/trust/trust.xsd";
+        public string XsiSchemaLocation = XmlNamespace + " " + XsdLocation;
         #endregion
 
         #region Properties

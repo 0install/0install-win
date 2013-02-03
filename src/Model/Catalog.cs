@@ -36,7 +36,7 @@ namespace ZeroInstall.Model
     [Serializable]
     [XmlRoot("catalog", Namespace = XmlNamespace), XmlType("catalog", Namespace = XmlNamespace)]
     [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
-    [XmlNamespace("feed", Feed.XmlNamespace)]
+    //[XmlNamespace("feed", Feed.XmlNamespace)]
     public class Catalog : XmlUnknown, ICloneable, IEquatable<Catalog>
     {
         #region Constants
@@ -46,10 +46,15 @@ namespace ZeroInstall.Model
         public const string XmlNamespace = "http://0install.de/schema/injector/catalog";
 
         /// <summary>
-        /// The locations of the XSD files containing the XML Schema information for this class in serialized form.
+        /// The URI to retrieve an XSD containing the XML Schema information for this class in serialized form.
+        /// </summary>
+        public const string XsdLocation = XmlNamespace + "/catalog.xsd";
+
+        /// <summary>
+        /// Provides XML Editors with location hints for XSD files.
         /// </summary>
         [XmlAttribute("schemaLocation", Namespace = XmlStorage.XsiNamespace)]
-        public string XsiSchemaLocation = XmlNamespace + " http://0install.de/schema/injector/catalog/catalog.xsd";
+        public string XsiSchemaLocation = XmlNamespace + " " + XsdLocation;
         #endregion
 
         #region Properties

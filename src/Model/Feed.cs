@@ -39,7 +39,7 @@ namespace ZeroInstall.Model
     [Serializable]
     [XmlRoot("interface", Namespace = XmlNamespace), XmlType("interface", Namespace = XmlNamespace)]
     [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
-    [XmlNamespace("caps", CapabilityList.XmlNamespace)]
+    //[XmlNamespace("caps", CapabilityList.XmlNamespace)]
     public sealed class Feed : XmlUnknown, IElementContainer, ICloneable, IEquatable<Feed>
     {
         #region Constants
@@ -49,12 +49,17 @@ namespace ZeroInstall.Model
         public const string XmlNamespace = "http://zero-install.sourceforge.net/2004/injector/interface";
 
         /// <summary>
-        /// The locations of the XSD files containing the XML Schema information for this class in serialized form.
+        /// The URI to retrieve an XSD containing the XML Schema information for this class in serialized form.
+        /// </summary>
+        public const string XsdLocation = "http://0install.de/schema/injector/interface/interface.xsd";
+
+        /// <summary>
+        /// Provides XML Editors with location hints for XSD files.
         /// </summary>
         [XmlAttribute("schemaLocation", Namespace = XmlStorage.XsiNamespace)]
-        public string XsiSchemaLocation = XmlNamespace + " http://0install.de/schema/injector/interface/interface.xsd" + " " +
-            // Automatically advertise the additional capabilities namespace
-            CapabilityList.XmlNamespace + " http://0install.de/schema/desktop-integration/capabilities/capabilities.xsd";
+        public string XsiSchemaLocation = XmlNamespace + " " + XsdLocation + " " +
+            // Advertise the complementary capabilities namespace
+            CapabilityList.XmlNamespace + " " + CapabilityList.XsdLocation;
         #endregion
 
         #region Properties
@@ -261,6 +266,7 @@ namespace ZeroInstall.Model
             // ToDo: Extract supported file types
             CapabilityLists.Clear();
 
+            XsiSchemaLocation = null;
             UnknownAttributes = new XmlAttribute[0];
             UnknownElements = new XmlElement[0];
         }

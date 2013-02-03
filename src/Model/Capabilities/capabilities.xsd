@@ -9,6 +9,7 @@
   <xsd:import namespace="http://zero-install.sourceforge.net/2004/injector/interface" schemaLocation="http://0install.de/schema/injector/interface/interface.xsd" />
 
   <!-- Root element -->
+  <!-- Note: This namespace is intended to be embedded within other and not for stand-alone use! -->
   <xsd:element name="capabilities" type="caps:capabilities" />
   <xsd:complexType name="capabilities">
     <xsd:annotation>

@@ -27,7 +27,6 @@ using Common.Storage;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
-using ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -37,8 +36,8 @@ namespace ZeroInstall.DesktopIntegration
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("app-list", Namespace = XmlNamespace), XmlType("app-list", Namespace = XmlNamespace)]
     [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
-    [XmlNamespace("caps", CapabilityList.XmlNamespace)]
-    [XmlNamespace("feed", Feed.XmlNamespace)]
+    //[XmlNamespace("caps", CapabilityList.XmlNamespace)]
+    //[XmlNamespace("feed", Feed.XmlNamespace)]
     public sealed class AppList : XmlUnknown, ICloneable, IEquatable<AppList>
     {
         #region Constants
@@ -48,10 +47,15 @@ namespace ZeroInstall.DesktopIntegration
         public const string XmlNamespace = "http://0install.de/schema/desktop-integration/app-list";
 
         /// <summary>
-        /// The locations of the XSD files containing the XML Schema information for this class in serialized form.
+        /// The URI to retrieve an XSD containing the XML Schema information for this class in serialized form.
+        /// </summary>
+        public const string XsdLocation = XmlNamespace + "/app-list.xsd";
+
+        /// <summary>
+        /// Provides XML Editors with location hints for XSD files.
         /// </summary>
         [XmlAttribute("schemaLocation", Namespace = XmlStorage.XsiNamespace)]
-        public string XsiSchemaLocation = XmlNamespace + " http://0install.de/schema/desktop-integration/app-list/app-list.xsd";
+        public string XsiSchemaLocation = XmlNamespace + " " + XsdLocation;
         #endregion
 
         #region Properties

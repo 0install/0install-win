@@ -81,7 +81,9 @@ namespace Common.Utils
         public static string ConvertToString<TType>(this TType value)
         {
             #region Sanity checks
+            // ReSharper disable CompareNonConstrainedGenericWithNull
             if (value == null) throw new ArgumentNullException("value");
+            // ReSharper restore CompareNonConstrainedGenericWithNull
             #endregion
 
             return TypeDescriptor.GetConverter(typeof(TType)).ConvertToInvariantString(value);
