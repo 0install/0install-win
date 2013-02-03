@@ -152,102 +152,6 @@
   <data name="tabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="&gt;&gt;tabPageStartMenu.Name" xml:space="preserve">
-    <value>tabPageStartMenu</value>
-  </data>
-  <data name="&gt;&gt;tabPageStartMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageStartMenu.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabPageStartMenu.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tabPageDesktop.Name" xml:space="preserve">
-    <value>tabPageDesktop</value>
-  </data>
-  <data name="&gt;&gt;tabPageDesktop.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageDesktop.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabPageDesktop.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;tabPageAliases.Name" xml:space="preserve">
-    <value>tabPageAliases</value>
-  </data>
-  <data name="&gt;&gt;tabPageAliases.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageAliases.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabPageAliases.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;tabPageFileTypes.Name" xml:space="preserve">
-    <value>tabPageFileTypes</value>
-  </data>
-  <data name="&gt;&gt;tabPageFileTypes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageFileTypes.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabPageFileTypes.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;tabPageUrlProtocols.Name" xml:space="preserve">
-    <value>tabPageUrlProtocols</value>
-  </data>
-  <data name="&gt;&gt;tabPageUrlProtocols.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageUrlProtocols.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabPageUrlProtocols.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;tabPageAutoPlay.Name" xml:space="preserve">
-    <value>tabPageAutoPlay</value>
-  </data>
-  <data name="&gt;&gt;tabPageAutoPlay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageAutoPlay.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabPageAutoPlay.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;tabPageContextMenu.Name" xml:space="preserve">
-    <value>tabPageContextMenu</value>
-  </data>
-  <data name="&gt;&gt;tabPageContextMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageContextMenu.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabPageContextMenu.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;tabPageDefaultPrograms.Name" xml:space="preserve">
-    <value>tabPageDefaultPrograms</value>
-  </data>
-  <data name="&gt;&gt;tabPageDefaultPrograms.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageDefaultPrograms.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabPageDefaultPrograms.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
   <data name="tabControl.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 35</value>
   </data>
@@ -272,30 +176,6 @@
   </data>
   <data name="&gt;&gt;tabControl.ZOrder" xml:space="preserve">
     <value>6</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpStartMenu.Name" xml:space="preserve">
-    <value>buttonHelpStartMenu</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpStartMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpStartMenu.Parent" xml:space="preserve">
-    <value>tabPageStartMenu</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpStartMenu.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;dataGridStartMenu.Name" xml:space="preserve">
-    <value>dataGridStartMenu</value>
-  </data>
-  <data name="&gt;&gt;dataGridStartMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridStartMenu.Parent" xml:space="preserve">
-    <value>tabPageStartMenu</value>
-  </data>
-  <data name="&gt;&gt;dataGridStartMenu.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="tabPageStartMenu.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -402,30 +282,6 @@
   <data name="dataGridStartMenuColumnCommand.HeaderText" xml:space="preserve">
     <value>Command</value>
   </data>
-  <data name="&gt;&gt;buttonHelpDesktop.Name" xml:space="preserve">
-    <value>buttonHelpDesktop</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpDesktop.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpDesktop.Parent" xml:space="preserve">
-    <value>tabPageDesktop</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpDesktop.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;dataGridDesktop.Name" xml:space="preserve">
-    <value>dataGridDesktop</value>
-  </data>
-  <data name="&gt;&gt;dataGridDesktop.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridDesktop.Parent" xml:space="preserve">
-    <value>tabPageDesktop</value>
-  </data>
-  <data name="&gt;&gt;dataGridDesktop.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="tabPageDesktop.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
@@ -522,30 +378,6 @@
   <data name="dataGridDesktopColumnCommand.HeaderText" xml:space="preserve">
     <value>Command</value>
   </data>
-  <data name="&gt;&gt;buttonHelpAliases.Name" xml:space="preserve">
-    <value>buttonHelpAliases</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpAliases.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpAliases.Parent" xml:space="preserve">
-    <value>tabPageAliases</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpAliases.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;dataGridAliases.Name" xml:space="preserve">
-    <value>dataGridAliases</value>
-  </data>
-  <data name="&gt;&gt;dataGridAliases.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridAliases.Parent" xml:space="preserve">
-    <value>tabPageAliases</value>
-  </data>
-  <data name="&gt;&gt;dataGridAliases.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="tabPageAliases.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
@@ -641,42 +473,6 @@
   </metadata>
   <data name="dataGridAliasesColumnCommand.HeaderText" xml:space="preserve">
     <value>Command</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpFileTypes.Name" xml:space="preserve">
-    <value>buttonHelpFileTypes</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpFileTypes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpFileTypes.Parent" xml:space="preserve">
-    <value>tabPageFileTypes</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpFileTypes.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFileTypesAll.Name" xml:space="preserve">
-    <value>checkBoxFileTypesAll</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFileTypesAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFileTypesAll.Parent" xml:space="preserve">
-    <value>tabPageFileTypes</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFileTypesAll.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;dataGridFileTypes.Name" xml:space="preserve">
-    <value>dataGridFileTypes</value>
-  </data>
-  <data name="&gt;&gt;dataGridFileTypes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridFileTypes.Parent" xml:space="preserve">
-    <value>tabPageFileTypes</value>
-  </data>
-  <data name="&gt;&gt;dataGridFileTypes.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="tabPageFileTypes.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -819,42 +615,6 @@
   <data name="dataGridFileTypesColumnExtensions.Width" type="System.Int32, mscorlib">
     <value>83</value>
   </data>
-  <data name="&gt;&gt;buttonHelpUrlProtocols.Name" xml:space="preserve">
-    <value>buttonHelpUrlProtocols</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpUrlProtocols.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpUrlProtocols.Parent" xml:space="preserve">
-    <value>tabPageUrlProtocols</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpUrlProtocols.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUrlProtocolsAll.Name" xml:space="preserve">
-    <value>checkBoxUrlProtocolsAll</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUrlProtocolsAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUrlProtocolsAll.Parent" xml:space="preserve">
-    <value>tabPageUrlProtocols</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUrlProtocolsAll.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;dataGridUrlProtocols.Name" xml:space="preserve">
-    <value>dataGridUrlProtocols</value>
-  </data>
-  <data name="&gt;&gt;dataGridUrlProtocols.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridUrlProtocols.Parent" xml:space="preserve">
-    <value>tabPageUrlProtocols</value>
-  </data>
-  <data name="&gt;&gt;dataGridUrlProtocols.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="tabPageUrlProtocols.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
@@ -995,42 +755,6 @@
   </data>
   <data name="dataGridUrlProtocolsColumnProtocols.Width" type="System.Int32, mscorlib">
     <value>76</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpAutoPlay.Name" xml:space="preserve">
-    <value>buttonHelpAutoPlay</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpAutoPlay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpAutoPlay.Parent" xml:space="preserve">
-    <value>tabPageAutoPlay</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpAutoPlay.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoPlayAll.Name" xml:space="preserve">
-    <value>checkBoxAutoPlayAll</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoPlayAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoPlayAll.Parent" xml:space="preserve">
-    <value>tabPageAutoPlay</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoPlayAll.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;dataGridAutoPlay.Name" xml:space="preserve">
-    <value>dataGridAutoPlay</value>
-  </data>
-  <data name="&gt;&gt;dataGridAutoPlay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridAutoPlay.Parent" xml:space="preserve">
-    <value>tabPageAutoPlay</value>
-  </data>
-  <data name="&gt;&gt;dataGridAutoPlay.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="tabPageAutoPlay.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -1173,42 +897,7 @@
   <data name="dataGridAutoPlayColumnEvents.Width" type="System.Int32, mscorlib">
     <value>65</value>
   </data>
-  <data name="&gt;&gt;buttonHelpContextMenu.Name" xml:space="preserve">
-    <value>buttonHelpContextMenu</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpContextMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpContextMenu.Parent" xml:space="preserve">
-    <value>tabPageContextMenu</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpContextMenu.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxContextMenuAll.Name" xml:space="preserve">
-    <value>checkBoxContextMenuAll</value>
-  </data>
-  <data name="&gt;&gt;checkBoxContextMenuAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxContextMenuAll.Parent" xml:space="preserve">
-    <value>tabPageContextMenu</value>
-  </data>
-  <data name="&gt;&gt;checkBoxContextMenuAll.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;dataGridContextMenu.Name" xml:space="preserve">
-    <value>dataGridContextMenu</value>
-  </data>
-  <data name="&gt;&gt;dataGridContextMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridContextMenu.Parent" xml:space="preserve">
-    <value>tabPageContextMenu</value>
-  </data>
-  <data name="&gt;&gt;dataGridContextMenu.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
+
   <data name="tabPageContextMenu.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
@@ -1337,42 +1026,6 @@
   </metadata>
   <data name="dataGridContextMenuColumnName.HeaderText" xml:space="preserve">
     <value>Entry name</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpDefaultPrograms.Name" xml:space="preserve">
-    <value>buttonHelpDefaultPrograms</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpDefaultPrograms.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpDefaultPrograms.Parent" xml:space="preserve">
-    <value>tabPageDefaultPrograms</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpDefaultPrograms.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDefaultProgramsAll.Name" xml:space="preserve">
-    <value>checkBoxDefaultProgramsAll</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDefaultProgramsAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDefaultProgramsAll.Parent" xml:space="preserve">
-    <value>tabPageDefaultPrograms</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDefaultProgramsAll.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;dataGridDefaultPrograms.Name" xml:space="preserve">
-    <value>dataGridDefaultPrograms</value>
-  </data>
-  <data name="&gt;&gt;dataGridDefaultPrograms.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridDefaultPrograms.Parent" xml:space="preserve">
-    <value>tabPageDefaultPrograms</value>
-  </data>
-  <data name="&gt;&gt;dataGridDefaultPrograms.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="tabPageDefaultPrograms.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
