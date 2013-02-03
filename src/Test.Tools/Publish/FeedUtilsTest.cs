@@ -51,7 +51,7 @@ namespace ZeroInstall.Publish
                 openPgpMock.Setup(x => x.DetachSign(tempFile, secretKey.Fingerprint, passphrase)).
                     Callback(() => File.WriteAllBytes(tempFile + ".sig", signature)).Verifiable();
                 openPgpMock.Setup(x => x.GetPublicKey(secretKey.Fingerprint)).Returns(publicKey).Verifiable();
-                feed.Save(tempFile);
+                feed.SaveXml(tempFile);
                 FeedUtils.SignFeed(tempFile, secretKey, passphrase, openPgpMock.Object);
                 openPgpMock.Verify();
 

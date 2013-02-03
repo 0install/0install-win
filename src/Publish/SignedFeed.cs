@@ -76,7 +76,7 @@ namespace ZeroInstall.Publish
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            return new SignedFeed(XmlStorage.Load<Feed>(path), FeedUtils.GetKey(path, OpenPgpProvider.CreateDefault()));
+            return new SignedFeed(XmlStorage.LoadXml<Feed>(path), FeedUtils.GetKey(path, OpenPgpProvider.CreateDefault()));
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace ZeroInstall.Publish
             using (var atomic = new AtomicWrite(path))
             {
                 // Write to temporary file first
-                Feed.Save(atomic.WritePath);
+                Feed.SaveXml(atomic.WritePath);
 
                 FeedUtils.AddStylesheet(atomic.WritePath);
                 if (SecretKey != null) FeedUtils.SignFeed(atomic.WritePath, SecretKey, passphrase, OpenPgpProvider.CreateDefault());

@@ -203,7 +203,7 @@ namespace ZeroInstall.Commands
                             AccessPoints = new AccessPointList {Entries = {new AppAlias {Name = "test"}}}
                         }
                     }
-                }.Save(AppList.GetDefaultPath(false));
+                }.SaveXml(AppList.GetDefaultPath(false));
 
                 Assert.AreEqual("http://0install.de/feeds/test/test1.xml", Command.GetCanonicalID("alias:test"));
                 Assert.Throws<InvalidInterfaceIDException>(() => Command.GetCanonicalID("alias:invalid"));

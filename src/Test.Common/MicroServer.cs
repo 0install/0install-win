@@ -153,7 +153,7 @@ namespace Common
                         if (Slow) Thread.Sleep(20000);
 
                         context.Response.ContentLength64 = _fileContent.Length;
-                        StreamUtils.Copy(_fileContent, context.Response.OutputStream);
+                        _fileContent.CopyTo(context.Response.OutputStream);
                     }
                     else context.Response.StatusCode = (int)HttpStatusCode.NotFound;
 

@@ -34,8 +34,7 @@ namespace ZeroInstall.Injector.Solver
     /// Represents a set of <see cref="ImplementationBase"/>s chosen by an <see cref="ISolver"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    [XmlRoot("selections", Namespace = Feed.XmlNamespace)]
-    [XmlType("selections", Namespace = Feed.XmlNamespace)]
+    [XmlRoot("selections", Namespace = Feed.XmlNamespace), XmlType("selections", Namespace = Feed.XmlNamespace)]
     public sealed class Selections
     {
         #region Properties

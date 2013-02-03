@@ -53,7 +53,7 @@ namespace ZeroInstall.Commands
             var selections = SelectionsTest.CreateTestSelections();
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-                selections.Save(tempFile.Path);
+                selections.SaveXml(tempFile.Path);
                 var args = new[] {"--xml", tempFile.Path};
                 AssertParseExecuteResult(args, selections, selections.ToXmlString(), 0);
             }

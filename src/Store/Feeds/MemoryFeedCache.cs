@@ -117,7 +117,7 @@ namespace ZeroInstall.Store.Feeds
             _backingCache.Add(feedID, data);
 
             // Add to memory cache (replacing existing old versions)
-            var feed = XmlStorage.Load<Feed>(new MemoryStream(data));
+            var feed = XmlStorage.LoadXml<Feed>(new MemoryStream(data));
             feed.Normalize(feedID);
             lock (_feedDictionary)
             {

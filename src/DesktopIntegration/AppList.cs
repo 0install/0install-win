@@ -27,6 +27,7 @@ using Common.Storage;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
+using ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -34,8 +35,10 @@ namespace ZeroInstall.DesktopIntegration
     /// Stores a list of applications and the kind of desktop integration the user chose for them.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    [XmlRoot("app-list", Namespace = XmlNamespace)]
-    [XmlType("app-list", Namespace = XmlNamespace)]
+    [XmlRoot("app-list", Namespace = XmlNamespace), XmlType("app-list", Namespace = XmlNamespace)]
+    [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
+    [XmlNamespace("caps", CapabilityList.XmlNamespace)]
+    [XmlNamespace("feed", Feed.XmlNamespace)]
     public sealed class AppList : XmlUnknown, ICloneable, IEquatable<AppList>
     {
         #region Constants

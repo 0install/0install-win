@@ -108,11 +108,11 @@ namespace ZeroInstall.DesktopIntegration
             _password = password;
             _cryptoKey = cryptoKey;
 
-            if (File.Exists(AppListPath + AppListLastSyncSuffix)) _appListLastSync = XmlStorage.Load<AppList>(AppListPath + AppListLastSyncSuffix);
+            if (File.Exists(AppListPath + AppListLastSyncSuffix)) _appListLastSync = XmlStorage.LoadXml<AppList>(AppListPath + AppListLastSyncSuffix);
             else
             {
                 _appListLastSync = new AppList();
-                _appListLastSync.Save(AppListPath + AppListLastSyncSuffix);
+                _appListLastSync.SaveXml(AppListPath + AppListLastSyncSuffix);
             }
         }
 
@@ -142,11 +142,11 @@ namespace ZeroInstall.DesktopIntegration
             _password = password;
             _cryptoKey = cryptoKey;
 
-            if (File.Exists(AppListPath + AppListLastSyncSuffix)) _appListLastSync = XmlStorage.Load<AppList>(AppListPath + AppListLastSyncSuffix);
+            if (File.Exists(AppListPath + AppListLastSyncSuffix)) _appListLastSync = XmlStorage.LoadXml<AppList>(AppListPath + AppListLastSyncSuffix);
             else
             {
                 _appListLastSync = new AppList();
-                _appListLastSync.Save(AppListPath + AppListLastSyncSuffix);
+                _appListLastSync.SaveXml(AppListPath + AppListLastSyncSuffix);
             }
         }
         #endregion
@@ -221,7 +221,7 @@ namespace ZeroInstall.DesktopIntegration
                     AppList serverList;
                     try
                     {
-                        serverList = XmlStorage.FromZip<AppList>(new MemoryStream(appListData), _cryptoKey, null);
+                        serverList = XmlStorage.LoadXmlZip<AppList>(new MemoryStream(appListData), _cryptoKey, null);
                     }
                         #region Error handling
                     catch (ZipException ex)
@@ -259,7 +259,7 @@ namespace ZeroInstall.DesktopIntegration
                 if (resetMode != SyncResetMode.Client)
                 {
                     var memoryStream = new MemoryStream();
-                    XmlStorage.ToZip(memoryStream, AppList, _cryptoKey, null);
+                    AppList.SaveXmlZip(memoryStream, _cryptoKey, null);
 
                     // Prevent race conditions by only allowing replacement of older data
                     if (resetMode == SyncResetMode.None && !string.IsNullOrEmpty(webClient.ResponseHeaders[HttpResponseHeader.ETag]))
@@ -291,7 +291,7 @@ namespace ZeroInstall.DesktopIntegration
             }
 
             // Save reference point for future syncs
-            AppList.Save(AppListPath + AppListLastSyncSuffix);
+            AppList.SaveXml(AppListPath + AppListLastSyncSuffix);
             Handler.CancellationToken.ThrowIfCancellationRequested();
         }
         #endregion

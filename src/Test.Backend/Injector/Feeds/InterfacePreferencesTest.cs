@@ -51,8 +51,8 @@ namespace ZeroInstall.Injector.Feeds
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
-                preferences1.Save(tempFile.Path);
-                preferences2 = XmlStorage.Load<InterfacePreferences>(tempFile.Path);
+                preferences1.SaveXml(tempFile.Path);
+                preferences2 = XmlStorage.LoadXml<InterfacePreferences>(tempFile.Path);
             }
 
             // Ensure data stayed the same

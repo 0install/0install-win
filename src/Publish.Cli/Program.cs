@@ -268,7 +268,7 @@ namespace ZeroInstall.Publish.Cli
 
                     foreach (var file in options.Feeds)
                     {
-                        var signedFeed = XmlStorage.Load<SignedFeed>(file.FullName);
+                        var signedFeed = SignedFeed.Load(file.FullName);
                         var originalFeed = signedFeed.Feed.Clone();
                         HandleModify(signedFeed.Feed, options);
                         SaveFeed(signedFeed, originalFeed, file.FullName, ref options);
@@ -281,7 +281,7 @@ namespace ZeroInstall.Publish.Cli
                         options.Feeds = ArgumentUtils.GetFiles(new[] {Environment.CurrentDirectory}, "*.xml");
 
                     var catalog = new Catalog();
-                    foreach (var feed in options.Feeds.Select(feedFile => XmlStorage.Load<Feed>(feedFile.FullName)))
+                    foreach (var feed in options.Feeds.Select(feedFile => XmlStorage.LoadXml<Feed>(feedFile.FullName)))
                     {
                         feed.Strip();
                         catalog.Feeds.Add(feed);
@@ -370,7 +370,7 @@ namespace ZeroInstall.Publish.Cli
 
                 signedCatalog.Save(options.CatalogFile, options.OpenPgpPassphrase);
             }
-            else catalog.Save(options.CatalogFile);
+            else catalog.SaveXml(options.CatalogFile);
         }
         #endregion
     }

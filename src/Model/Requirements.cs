@@ -30,8 +30,7 @@ namespace ZeroInstall.Model
     /// </summary>
     /// <remarks>This is used as input for the solver.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    [XmlRoot("requirements", Namespace = Feed.XmlNamespace)]
-    [XmlType("requirements", Namespace = Feed.XmlNamespace)]
+    [XmlRoot("requirements", Namespace = Feed.XmlNamespace), XmlType("requirements", Namespace = Feed.XmlNamespace)]
     public class Requirements : ICloneable, IEquatable<Requirements>
     {
         #region Properites

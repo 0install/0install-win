@@ -28,8 +28,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
-    [XmlRoot("access-points", Namespace = AppList.XmlNamespace)]
-    [XmlType("access-points", Namespace = AppList.XmlNamespace)]
+    [XmlRoot("access-points", Namespace = AppList.XmlNamespace), XmlType("access-points", Namespace = AppList.XmlNamespace)]
     public sealed class AccessPointList : XmlUnknown, ICloneable, IEquatable<AccessPointList>
     {
         #region Properties

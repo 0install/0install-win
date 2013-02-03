@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
@@ -56,7 +57,7 @@ namespace Common.Storage
         /// <returns>The loaded object.</returns>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
-        public static T Load<T>(Stream stream)
+        public static T LoadXml<T>(Stream stream)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -86,7 +87,7 @@ namespace Common.Storage
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
-        public static T Load<T>(string path)
+        public static T LoadXml<T>(string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -95,7 +96,7 @@ namespace Common.Storage
             try
             {
                 using (var fileStream = File.OpenRead(path))
-                    return Load<T>(fileStream);
+                    return LoadXml<T>(fileStream);
             }
                 #region Error handling
             catch (InvalidDataException ex)
@@ -122,7 +123,7 @@ namespace Common.Storage
 
             // Copy string to a stream and then parse
             using (var stream = data.ToStream())
-                return Load<T>(stream);
+                return LoadXml<T>(stream);
         }
         #endregion
 
@@ -133,7 +134,7 @@ namespace Common.Storage
         /// <typeparam name="T">The type of object to be saved in an XML stream.</typeparam>
         /// <param name="data">The object to be stored.</param>
         /// <param name="stream">The stream to write the encoded XML data to.</param>
-        public static void Save<T>(this T data, Stream stream)
+        public static void SaveXml<T>(this T data, Stream stream)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -142,22 +143,14 @@ namespace Common.Storage
             var xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings {Encoding = new UTF8Encoding(false), Indent = true, IndentChars = "\t", NewLineChars = "\n"});
             var serializer = new XmlSerializer(typeof(T));
 
-            // Detect XmlRoot attribute
-            var rootAttribute = AttributeUtils.GetAttribute<XmlRootAttribute, T>();
+            // Detect and handle namespace attributes
+            var rootAttribute = AttributeUtils.GetAttributes<XmlRootAttribute, T>().FirstOrDefault();
+            var namespaceAttributes = AttributeUtils.GetAttributes<XmlNamespaceAttribute, T>();
+            var qualifiedNames = namespaceAttributes.Select(attr => attr.QualifiedName);
+            if (rootAttribute != null) qualifiedNames = qualifiedNames.Concat(new[] {new XmlQualifiedName("", rootAttribute.Namespace)});
 
-            if (rootAttribute == null)
-            { // Use default serializer namespaces (XMLSchema)
-                serializer.Serialize(xmlWriter, data);
-            }
-            else
-            { // Set custom namespace
-                var ns = new XmlSerializerNamespaces(new[]
-                {
-                    new XmlQualifiedName("", rootAttribute.Namespace),
-                    new XmlQualifiedName("xsi", XsiNamespace)
-                });
-                serializer.Serialize(xmlWriter, data, ns);
-            }
+            if (qualifiedNames.Any()) serializer.Serialize(xmlWriter, data, new XmlSerializerNamespaces(qualifiedNames.ToArray()));
+            else serializer.Serialize(xmlWriter, data);
 
             // End file with line break
             if (xmlWriter.Settings != null)
@@ -176,7 +169,7 @@ namespace Common.Storage
         /// <param name="path">The path of the file to write.</param>
         /// <exception cref="IOException">Thrown if a problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        public static void Save<T>(this T data, string path)
+        public static void SaveXml<T>(this T data, string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -185,7 +178,7 @@ namespace Common.Storage
             using (var atomic = new AtomicWrite(path))
             using (var fileStream = File.Create(atomic.WritePath))
             {
-                Save(data, fileStream);
+                SaveXml(data, fileStream);
                 atomic.Commit();
             }
         }
@@ -201,7 +194,7 @@ namespace Common.Storage
             using (var stream = new MemoryStream())
             {
                 // Write to a memory stream
-                Save(data, stream);
+                SaveXml(data, stream);
 
                 // Copy the stream to a string
                 return stream.ReadToString();
@@ -258,7 +251,7 @@ namespace Common.Storage
         /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
-        public static T FromZip<T>(Stream stream, string password, IEnumerable<EmbeddedFile> additionalFiles)
+        public static T LoadXmlZip<T>(Stream stream, string password, IEnumerable<EmbeddedFile> additionalFiles)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -277,7 +270,7 @@ namespace Common.Storage
                     {
                         // Read the XML file from the ZIP archive
                         var inputStream = zipFile.GetInputStream(zipEntry);
-                        output = Load<T>(inputStream);
+                        output = LoadXml<T>(inputStream);
                         xmlFound = true;
                     }
                     else
@@ -315,14 +308,14 @@ namespace Common.Storage
         /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
-        public static T FromZip<T>(string path, string password, IEnumerable<EmbeddedFile> additionalFiles)
+        public static T LoadXmlZip<T>(string path, string password, IEnumerable<EmbeddedFile> additionalFiles)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
             using (var fileStream = File.OpenRead(path))
-                return FromZip<T>(fileStream, password, additionalFiles);
+                return LoadXmlZip<T>(fileStream, password, additionalFiles);
         }
         #endregion
 
@@ -331,11 +324,11 @@ namespace Common.Storage
         /// Saves an object in an XML file embedded in a ZIP archive.
         /// </summary>
         /// <typeparam name="T">The type of object to be saved in an XML stream.</typeparam>
-        /// <param name="stream">The ZIP archive to be written.</param>
         /// <param name="data">The object to be stored.</param>
+        /// <param name="stream">The ZIP archive to be written.</param>
         /// <param name="password">The password to use for encryption; <see langword="null"/> for no encryption.</param>
         /// <param name="additionalFiles">Additional files to be stored alongside the XML file in the ZIP archive; may be <see langword="null"/>.</param>
-        public static void ToZip<T>(Stream stream, T data, string password, IEnumerable<EmbeddedFile> additionalFiles)
+        public static void SaveXmlZip<T>(this T data, Stream stream, string password, IEnumerable<EmbeddedFile> additionalFiles)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -351,7 +344,7 @@ namespace Common.Storage
                     if (!string.IsNullOrEmpty(password)) entry.AESKeySize = 128;
                     zipStream.SetLevel(9);
                     zipStream.PutNextEntry(entry);
-                    Save(data, zipStream);
+                    SaveXml(data, zipStream);
                     zipStream.CloseEntry();
                 }
 
@@ -375,13 +368,13 @@ namespace Common.Storage
         /// Saves an object in an XML file embedded in a ZIP archive.
         /// </summary>
         /// <typeparam name="T">The type of object to be saved in an XML stream.</typeparam>
-        /// <param name="path">The ZIP archive to be written.</param>
         /// <param name="data">The object to be stored.</param>
+        /// <param name="path">The ZIP archive to be written.</param>
         /// <param name="password">The password to use for encryption; <see langword="null"/> for no encryption.</param>
         /// <param name="additionalFiles">Additional files to be stored alongside the XML file in the ZIP archive; may be <see langword="null"/>.</param>
         /// <exception cref="IOException">Thrown if a problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        public static void ToZip<T>(string path, T data, string password, IEnumerable<EmbeddedFile> additionalFiles)
+        public static void SaveXmlZip<T>(this T data, string path, string password, IEnumerable<EmbeddedFile> additionalFiles)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -390,7 +383,7 @@ namespace Common.Storage
             using (var atomic = new AtomicWrite(path))
             using (var fileStream = File.Create(atomic.WritePath))
             {
-                ToZip(fileStream, data, password, additionalFiles);
+                SaveXmlZip(data, fileStream, password, additionalFiles);
                 atomic.Commit();
             }
         }

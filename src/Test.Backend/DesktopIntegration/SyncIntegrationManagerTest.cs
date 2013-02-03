@@ -37,7 +37,7 @@ namespace ZeroInstall.DesktopIntegration
         public void SetUp()
         {
             _appListFile = new TemporaryFile("0install-unit-tests");
-            new AppList().Save(_appListFile.Path);
+            new AppList().SaveXml(_appListFile.Path);
             _syncServer = new MicroServer("app-list", new MemoryStream());
             _integrationManager = new SyncIntegrationManager(false, _appListFile.Path, _syncServer.ServerUri, null, null, null, new SilentHandler());
         }

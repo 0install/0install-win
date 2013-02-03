@@ -83,7 +83,7 @@ namespace ZeroInstall.Commands
 
             Policy.Handler.ShowProgressUI();
             Policy.FeedManager.ImportFeed(
-                XmlStorage.Load<Feed>(path).Uri, new Uri(path),
+                XmlStorage.LoadXml<Feed>(path).Uri, new Uri(path),
                 File.ReadAllBytes(path), Policy);
             return 0;
         }

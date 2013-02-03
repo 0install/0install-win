@@ -37,8 +37,9 @@ namespace ZeroInstall.Model
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
-    [XmlRoot("interface", Namespace = XmlNamespace)]
-    [XmlType("interface", Namespace = XmlNamespace)]
+    [XmlRoot("interface", Namespace = XmlNamespace), XmlType("interface", Namespace = XmlNamespace)]
+    [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
+    [XmlNamespace("caps", CapabilityList.XmlNamespace)]
     public sealed class Feed : XmlUnknown, IElementContainer, ICloneable, IEquatable<Feed>
     {
         #region Constants

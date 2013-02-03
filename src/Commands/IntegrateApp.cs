@@ -137,7 +137,7 @@ namespace ZeroInstall.Commands
                     integrationManager.AddAccessPointCategories(appEntry, feed, _addCategories);
 
                 foreach (string path in _importLists)
-                    integrationManager.AddAccessPoints(appEntry, feed, XmlStorage.Load<AccessPointList>(path).Entries);
+                    integrationManager.AddAccessPoints(appEntry, feed, XmlStorage.LoadXml<AccessPointList>(path).Entries);
             }
                 #region Error handling
             catch (InvalidOperationException ex)

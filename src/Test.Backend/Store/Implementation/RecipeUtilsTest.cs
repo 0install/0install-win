@@ -38,7 +38,7 @@ namespace ZeroInstall.Store.Implementation
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
             {
                 using (FileStream stream = File.Create(archiveFile.Path))
-                    StreamUtils.Copy(TestData.GetTestZipArchiveStream(), stream);
+                    TestData.GetTestZipArchiveStream().CopyTo(stream);
 
                 var recipe = new Recipe
                 {

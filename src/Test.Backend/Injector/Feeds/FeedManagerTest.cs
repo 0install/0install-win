@@ -349,7 +349,7 @@ namespace ZeroInstall.Injector.Feeds
         private byte[] SignFeed(Feed feed, bool missingFirst)
         {
             var stream = new MemoryStream();
-            feed.Save(stream);
+            feed.SaveXml(stream);
             var feedData = stream.ToArray(); // Only feed data without signature
             var signature = new byte[] {1, 2, 3};
 

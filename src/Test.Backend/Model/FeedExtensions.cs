@@ -32,7 +32,7 @@ namespace ZeroInstall.Model
         {
             using (var stream = new MemoryStream())
             {
-                feed.Save(stream);
+                feed.SaveXml(stream);
                 return stream.ToArray();
             }
         }

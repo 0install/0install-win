@@ -133,6 +133,7 @@
     <Compile Include="Storage\Locations.cs" />
     <Compile Include="Storage\BinaryStorage.cs" />
     <Compile Include="Storage\XmlStorage.cs" />
+    <Compile Include="Storage\XmlNamespaceAttribute.cs" />
     <Compile Include="Storage\EmbeddedFile.cs" />
     <Compile Include="Storage\TemporaryFile.cs" />
     <Compile Include="Storage\TemporaryDirectory.cs" />

@@ -370,7 +370,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         /// <remarks>Can be overwritten for archive formats that don't simply write a <see cref="Stream"/> to a file.</remarks>
         protected virtual void StreamToFile(Stream stream, FileStream fileStream)
         {
-            StreamUtils.Copy(stream, fileStream, 4096);
+            stream.CopyTo(fileStream, 4096);
         }
 
         /// <summary>

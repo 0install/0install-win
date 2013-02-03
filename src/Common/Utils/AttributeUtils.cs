@@ -21,7 +21,9 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
@@ -36,11 +38,11 @@ namespace Common.Utils
         /// Gets the first <typeparamref name="TAttribute"/> attribute set on the <typeparamref name="TTarget"/> type.
         /// </summary>
         /// <returns>Falls back to <see cref="object.ToString"/> if the attribute is missing.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
-        public static TAttribute GetAttribute<TAttribute, TTarget>() where TAttribute : Attribute
+        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
+        public static IEnumerable<TAttribute> GetAttributes<TAttribute, TTarget>() where TAttribute : Attribute
         {
             var attributes = typeof(TTarget).GetCustomAttributes(typeof(TAttribute), true);
-            return attributes.OfType<TAttribute>().FirstOrDefault();
+            return attributes.OfType<TAttribute>();
         }
 
         /// <summary>

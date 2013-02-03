@@ -32,8 +32,7 @@ namespace ZeroInstall.Injector.Feeds
     /// Stores user-specific preferences for an interface.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    [XmlRoot("interface-preferences", Namespace = Feed.XmlNamespace)]
-    [XmlType("interface-preferences", Namespace = Feed.XmlNamespace)]
+    [XmlRoot("interface-preferences", Namespace = Feed.XmlNamespace), XmlType("interface-preferences", Namespace = Feed.XmlNamespace)]
     public sealed class InterfacePreferences : XmlUnknown, ICloneable, IEquatable<InterfacePreferences>
     {
         #region Properties
@@ -94,7 +93,7 @@ namespace ZeroInstall.Injector.Feeds
             var path = Locations.GetLoadConfigPaths("0install.net", true, "injector", "interfaces", ModelUtils.PrettyEscape(interfaceID)).FirstOrDefault();
             if (string.IsNullOrEmpty(path)) return new InterfacePreferences();
 
-            return XmlStorage.Load<InterfacePreferences>(path);
+            return XmlStorage.LoadXml<InterfacePreferences>(path);
         }
 
         /// <summary>
@@ -147,7 +146,7 @@ namespace ZeroInstall.Injector.Feeds
         public void SaveFor(string interfaceID)
         {
             var path = Locations.GetSaveConfigPath("0install.net", true, "injector", "interfaces", ModelUtils.PrettyEscape(interfaceID));
-            this.Save(path);
+            this.SaveXml(path);
         }
         #endregion
 

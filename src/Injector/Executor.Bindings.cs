@@ -353,7 +353,7 @@ namespace ZeroInstall.Injector
             var assembly = Assembly.GetAssembly(typeof(Executor));
             using (var resourceStream = assembly.GetManifestResourceStream(typeof(Executor), resourceName))
             using (var fileStream = File.OpenWrite(filePath))
-                StreamUtils.Copy(resourceStream, fileStream);
+                resourceStream.CopyTo(fileStream);
         }
         #endregion
 

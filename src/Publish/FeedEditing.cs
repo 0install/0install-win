@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Common.Cli;
-using Common.Storage;
 using Common.Undo;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
@@ -126,7 +125,7 @@ namespace ZeroInstall.Publish
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static FeedEditing Load(string path)
         {
-            return new FeedEditing(XmlStorage.Load<SignedFeed>(path), path);
+            return new FeedEditing(SignedFeed.Load(path), path);
         }
 
         /// <summary>

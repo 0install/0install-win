@@ -34,8 +34,9 @@ namespace ZeroInstall.Model
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
-    [XmlRoot("catalog", Namespace = XmlNamespace)]
-    [XmlType("catalog", Namespace = XmlNamespace)]
+    [XmlRoot("catalog", Namespace = XmlNamespace), XmlType("catalog", Namespace = XmlNamespace)]
+    [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
+    [XmlNamespace("feed", Feed.XmlNamespace)]
     public class Catalog : XmlUnknown, ICloneable, IEquatable<Catalog>
     {
         #region Constants

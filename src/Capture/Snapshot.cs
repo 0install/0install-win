@@ -22,7 +22,6 @@ using System.Linq;
 using System.Security;
 using Common;
 using Common.Collections;
-using Common.Storage;
 using Common.Utils;
 using Microsoft.Win32;
 using ZeroInstall.Capture.Properties;
@@ -300,70 +299,6 @@ namespace ZeroInstall.Capture
                 Games = newSnapshot.Games.GetAddedElements(oldSnapshot.Games),
                 ProgramsDirs = newSnapshot.ProgramsDirs.GetAddedElements(oldSnapshot.ProgramsDirs, StringComparer.InvariantCultureIgnoreCase)
             };
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Storage
-        /// <summary>
-        /// Loads a <see cref="Snapshot"/> from a binary file.
-        /// </summary>
-        /// <param name="path">The file to load from.</param>
-        /// <returns>The loaded <see cref="Snapshot"/>.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the binary data.</exception>
-        public static Snapshot Load(string path)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            #endregion
-
-            return BinaryStorage.Load<Snapshot>(path);
-        }
-
-        /// <summary>
-        /// Loads a <see cref="Snapshot"/> from a stream containing a binary file.
-        /// </summary>
-        /// <param name="stream">The stream to load from.</param>
-        /// <returns>The loaded <see cref="Snapshot"/>.</returns>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the binary data.</exception>
-        public static Snapshot Load(Stream stream)
-        {
-            #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
-            #endregion
-
-            return BinaryStorage.Load<Snapshot>(stream);
-        }
-
-        /// <summary>
-        /// Saves this <see cref="Snapshot"/> to a binary file.
-        /// </summary>
-        /// <param name="path">The file to save in.</param>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        public void Save(string path)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            #endregion
-
-            BinaryStorage.Save(path, this);
-        }
-
-        /// <summary>
-        /// Saves this <see cref="Snapshot"/> to a stream as a binary file.
-        /// </summary>
-        /// <param name="stream">The stream to save in.</param>
-        public void Save(Stream stream)
-        {
-            #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
-            #endregion
-
-            BinaryStorage.Save(stream, this);
         }
         #endregion
     }

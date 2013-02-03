@@ -77,7 +77,7 @@ namespace ZeroInstall.Injector.Solver
                 testFeed.Normalize(feedFile.Path);
                 //_cacheMock.Setup(x => x.Contains(feedFile.Path)).Returns(true);
                 //_cacheMock.Setup(x => x.GetFeed(feedFile.Path)).Returns(testFeed);
-                testFeed.Save(feedFile.Path);
+                testFeed.SaveXml(feedFile.Path);
 
                 bool staleFeeds;
                 /*var selections =*/

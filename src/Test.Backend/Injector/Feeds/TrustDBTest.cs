@@ -61,7 +61,7 @@ namespace ZeroInstall.Injector.Feeds
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
-                trust1.Save(tempFile.Path);
+                trust1.SaveXml(tempFile.Path);
                 trust2 = TrustDB.Load(tempFile.Path);
             }
 

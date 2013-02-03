@@ -31,8 +31,8 @@ namespace ZeroInstall.Injector.Feeds
     /// A database of OpenPGP the users trusts to sign <see cref="Feed"/>s.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    [XmlRoot("trusted-keys", Namespace = XmlNamespace)]
-    [XmlType("trusted-keys", Namespace = XmlNamespace)]
+    [XmlRoot("trusted-keys", Namespace = XmlNamespace), XmlType("trusted-keys", Namespace = XmlNamespace)]
+    [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
     public sealed class TrustDB : ICloneable, IEquatable<TrustDB>
     {
         #region Constants
@@ -128,7 +128,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static TrustDB Load(string path)
         {
-            return XmlStorage.Load<TrustDB>(path);
+            return XmlStorage.LoadXml<TrustDB>(path);
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void Save()
         {
-            this.Save(Locations.GetSaveConfigPath("0install.net", true, "injector", "trustdb.xml"));
+            this.SaveXml(Locations.GetSaveConfigPath("0install.net", true, "injector", "trustdb.xml"));
         }
         #endregion
 

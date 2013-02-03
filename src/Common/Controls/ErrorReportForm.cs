@@ -194,7 +194,7 @@ namespace Common.Controls
 
             string reportPath = Path.Combine(Path.GetTempPath(), Application.ProductName + " Error Report.zip");
             if (File.Exists(reportPath)) File.Delete(reportPath);
-            XmlStorage.ToZip(reportPath, crashInfo, null, new EmbeddedFile[0]);
+            crashInfo.SaveXmlZip(reportPath, null, new EmbeddedFile[0]);
             return reportPath;
         }
         #endregion

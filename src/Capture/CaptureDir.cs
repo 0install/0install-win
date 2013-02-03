@@ -80,7 +80,7 @@ namespace ZeroInstall.Capture
         public void TakeSnapshotPre()
         {
             SnapshotPre = Snapshot.Take();
-            SnapshotPre.Save(Path.Combine(DirectoryPath, SnapshotPreFileName));
+            SnapshotPre.SaveBinary(Path.Combine(DirectoryPath, SnapshotPreFileName));
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace ZeroInstall.Capture
         public void TakeSnapshotPost()
         {
             SnapshotPost = Snapshot.Take();
-            SnapshotPost.Save(Path.Combine(DirectoryPath, SnapshotPostFileName));
+            SnapshotPost.SaveBinary(Path.Combine(DirectoryPath, SnapshotPostFileName));
         }
         #endregion
 
@@ -146,7 +146,7 @@ namespace ZeroInstall.Capture
             #endregion
 
             Implementation implementation = (getFiles && !string.IsNullOrEmpty(installationDir)) ? GetImplementation(installationDir) : null;
-            BuildFeed(appName, appDescription, capabilities, commands, implementation).Save(Path.Combine(DirectoryPath, "feed.xml"));
+            BuildFeed(appName, appDescription, capabilities, commands, implementation).SaveXml(Path.Combine(DirectoryPath, "feed.xml"));
         }
         #endregion
 
@@ -301,11 +301,11 @@ namespace ZeroInstall.Capture
             // Load existing snapshot data
             string snapshotPrePath = Path.Combine(path, SnapshotPreFileName);
             if (File.Exists(snapshotPrePath))
-                captureDir.SnapshotPre = Snapshot.Load(Path.Combine(path, SnapshotPreFileName));
+                captureDir.SnapshotPre = BinaryStorage.LoadBinary<Snapshot>(Path.Combine(path, SnapshotPreFileName));
 
             string snapshotPostPath = Path.Combine(path, SnapshotPostFileName);
             if (File.Exists(snapshotPostPath))
-                captureDir.SnapshotPost = Snapshot.Load(Path.Combine(path, SnapshotPostFileName));
+                captureDir.SnapshotPost = BinaryStorage.LoadBinary<Snapshot>(Path.Combine(path, SnapshotPostFileName));
 
             return captureDir;
         }

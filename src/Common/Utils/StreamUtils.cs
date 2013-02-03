@@ -38,7 +38,7 @@ namespace Common.Utils
         /// <param name="destination">The destination stream to copy to.</param>
         /// <param name="bufferSize">The size of the buffer to use for copying in bytes.</param>
         /// <remarks>Will try to <see cref="Stream.Seek"/> to the start of <paramref name="source"/>.</remarks>
-        public static void Copy(Stream source, Stream destination, long bufferSize)
+        public static void CopyTo(this Stream source, Stream destination, long bufferSize)
         {
             #region Sanity checks
             if (source == null) throw new ArgumentNullException("source");
@@ -64,14 +64,14 @@ namespace Common.Utils
         /// </summary>
         /// <param name="source">The source stream to copy from.</param>
         /// <param name="destination">The destination stream to copy to.</param>
-        public static void Copy(Stream source, Stream destination)
+        public static void CopyTo(this Stream source, Stream destination)
         {
             #region Sanity checks
             if (source == null) throw new ArgumentNullException("source");
             if (destination == null) throw new ArgumentNullException("destination");
             #endregion
 
-            Copy(source, destination, source.Length == 0 ? source.Position : source.Length);
+            CopyTo(source, destination, source.Length == 0 ? source.Position : source.Length);
         }
 
         /// <summary>

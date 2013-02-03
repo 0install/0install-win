@@ -33,8 +33,7 @@ namespace ZeroInstall.Injector.Feeds
     /// Stores user-specific preferences for a <see cref="Model.Feed"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    [XmlRoot("feed-preferences", Namespace = Feed.XmlNamespace)]
-    [XmlType("feed-preferences", Namespace = Feed.XmlNamespace)]
+    [XmlRoot("feed-preferences", Namespace = Feed.XmlNamespace), XmlType("feed-preferences", Namespace = Feed.XmlNamespace)]
     public sealed class FeedPreferences : XmlUnknown, ICloneable, IEquatable<FeedPreferences>
     {
         #region Properties
@@ -116,7 +115,7 @@ namespace ZeroInstall.Injector.Feeds
             var path = Locations.GetLoadConfigPaths("0install.net", true, "injector", "feeds", ModelUtils.PrettyEscape(feedID)).FirstOrDefault();
             if (string.IsNullOrEmpty(path)) return new FeedPreferences();
 
-            return XmlStorage.Load<FeedPreferences>(path);
+            return XmlStorage.LoadXml<FeedPreferences>(path);
         }
 
         /// <summary>
@@ -170,7 +169,7 @@ namespace ZeroInstall.Injector.Feeds
         {
             Normalize();
             var path = Locations.GetSaveConfigPath("0install.net", true, "injector", "feeds", ModelUtils.PrettyEscape(feedID));
-            this.Save(path);
+            this.SaveXml(path);
         }
         #endregion
 

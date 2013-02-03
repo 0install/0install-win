@@ -243,13 +243,13 @@ namespace ZeroInstall.DesktopIntegration
         {
             try
             {
-                AppList.Save(AppListPath);
+                AppList.SaveXml(AppListPath);
             }
             catch (IOException)
             {
                 // Bypass race conditions where another thread is reading an old version of the list while we are trying to write a new one
                 Thread.Sleep(1000);
-                AppList.Save(AppListPath);
+                AppList.SaveXml(AppListPath);
             }
 
             WindowsUtils.NotifyAssocChanged(); // Notify Windows Explorer of changes

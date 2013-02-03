@@ -82,11 +82,11 @@ namespace ZeroInstall.DesktopIntegration
             AppListPath = appListPath;
             Handler = handler;
 
-            if (File.Exists(AppListPath)) AppList = XmlStorage.Load<AppList>(AppListPath);
+            if (File.Exists(AppListPath)) AppList = XmlStorage.LoadXml<AppList>(AppListPath);
             else
             {
                 AppList = new AppList();
-                AppList.Save(AppListPath);
+                AppList.SaveXml(AppListPath);
             }
         }
 
@@ -112,11 +112,11 @@ namespace ZeroInstall.DesktopIntegration
             AppListPath = AppList.GetDefaultPath(machineWide);
             Handler = handler;
 
-            if (File.Exists(AppListPath)) AppList = XmlStorage.Load<AppList>(AppListPath);
+            if (File.Exists(AppListPath)) AppList = XmlStorage.LoadXml<AppList>(AppListPath);
             else
             {
                 AppList = new AppList();
-                AppList.Save(AppListPath);
+                AppList.SaveXml(AppListPath);
             }
         }
         #endregion

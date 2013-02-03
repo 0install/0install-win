@@ -51,7 +51,7 @@ namespace Common.Storage
         /// <returns>The loaded object.</returns>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the binary data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
-        public static T Load<T>(Stream stream)
+        public static T LoadBinary<T>(Stream stream)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -79,33 +79,14 @@ namespace Common.Storage
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the binary data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
-        public static T Load<T>(string path)
+        public static T LoadBinary<T>(string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
             using (var fileStream = File.OpenRead(path))
-                return Load<T>(fileStream);
-        }
-
-        /// <summary>
-        /// Loads an object from a binary string.
-        /// </summary>
-        /// <typeparam name="T">The type of object the binary stream shall be converted into.</typeparam>
-        /// <param name="data">The binary string to be parsed</param>
-        /// <returns>The loaded object.</returns>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the binary data.</exception>
-        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
-        public static T FromString<T>(string data)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(data)) throw new ArgumentNullException("data");
-            #endregion
-
-            // Copy string to a stream and then parse
-            using (var stream = data.ToStream())
-                return Load<T>(stream);
+                return LoadBinary<T>(fileStream);
         }
         #endregion
 
@@ -114,9 +95,9 @@ namespace Common.Storage
         /// Saves an object in a binary stream.
         /// </summary>
         /// <typeparam name="T">The type of object to be saved in a binary stream.</typeparam>
-        /// <param name="stream">The binary file to be written.</param>
         /// <param name="data">The object to be stored.</param>
-        public static void Save<T>(Stream stream, T data)
+        /// <param name="stream">The binary file to be written.</param>
+        public static void SaveBinary<T>(this T data, Stream stream)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -130,11 +111,11 @@ namespace Common.Storage
         /// </summary>
         /// <remarks>This method performs an atomic write operation when possible.</remarks>
         /// <typeparam name="T">The type of object to be saved in a binary stream.</typeparam>
-        /// <param name="path">The binary file to be written.</param>
         /// <param name="data">The object to be stored.</param>
+        /// <param name="path">The binary file to be written.</param>
         /// <exception cref="IOException">Thrown if a problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        public static void Save<T>(string path, T data)
+        public static void SaveBinary<T>(this T data, string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -143,7 +124,7 @@ namespace Common.Storage
             using (var atomic = new AtomicWrite(path))
             using (var fileStream = File.Create(atomic.WritePath))
             {
-                Save(fileStream, data);
+                SaveBinary(data, fileStream);
                 atomic.Commit();
             }
         }
@@ -163,7 +144,7 @@ namespace Common.Storage
         /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the binary data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
-        public static T FromZip<T>(Stream stream, string password, IEnumerable<EmbeddedFile> additionalFiles)
+        public static T LoadBinaryZip<T>(Stream stream, string password, IEnumerable<EmbeddedFile> additionalFiles)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -180,7 +161,7 @@ namespace Common.Storage
                     {
                         // Read the binary file from the ZIP archive
                         var inputStream = zipFile.GetInputStream(zipEntry);
-                        output = Load<T>(inputStream);
+                        output = LoadBinary<T>(inputStream);
                         binaryFound = true;
                     }
                     else
@@ -218,14 +199,14 @@ namespace Common.Storage
         /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the binary data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
-        public static T FromZip<T>(string path, string password, IEnumerable<EmbeddedFile> additionalFiles)
+        public static T LoadBinaryZip<T>(string path, string password, IEnumerable<EmbeddedFile> additionalFiles)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
             using (var fileStream = File.OpenRead(path))
-                return FromZip<T>(fileStream, password, additionalFiles);
+                return LoadBinaryZip<T>(fileStream, password, additionalFiles);
         }
         #endregion
 
@@ -234,11 +215,11 @@ namespace Common.Storage
         /// Saves an object in a binary file embedded in a ZIP archive.
         /// </summary>
         /// <typeparam name="T">The type of object to be saved in a binary stream.</typeparam>
-        /// <param name="stream">The ZIP archive to be written.</param>
         /// <param name="data">The object to be stored.</param>
+        /// <param name="stream">The ZIP archive to be written.</param>
         /// <param name="password">The password to use for encryption; <see langword="null"/> for no encryption.</param>
         /// <param name="additionalFiles">Additional files to be stored alongside the binary file in the ZIP archive; may be <see langword="null"/>.</param>
-        public static void ToZip<T>(Stream stream, T data, string password, IEnumerable<EmbeddedFile> additionalFiles)
+        public static void SaveBinaryZip<T>(this T data, Stream stream, string password, IEnumerable<EmbeddedFile> additionalFiles)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -251,7 +232,7 @@ namespace Common.Storage
                     var entry = new ZipEntry("Data") {DateTime = DateTime.Now, AESKeySize = 128};
                     zipStream.SetLevel(9);
                     zipStream.PutNextEntry(entry);
-                    Save(zipStream, data);
+                    SaveBinary(data, zipStream);
                     zipStream.CloseEntry();
                 }
 
@@ -274,20 +255,20 @@ namespace Common.Storage
         /// Saves an object in a binary file embedded in a ZIP archive.
         /// </summary>
         /// <typeparam name="T">The type of object to be saved in a binary stream.</typeparam>
-        /// <param name="path">The ZIP archive to be written.</param>
         /// <param name="data">The object to be stored.</param>
+        /// <param name="path">The ZIP archive to be written.</param>
         /// <param name="password">The password to use for encryption; <see langword="null"/> for no encryption.</param>
         /// <param name="additionalFiles">Additional files to be stored alongside the binary file in the ZIP archive; may be <see langword="null"/>.</param>
         /// <exception cref="IOException">Thrown if a problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        public static void ToZip<T>(string path, T data, string password, IEnumerable<EmbeddedFile> additionalFiles)
+        public static void SaveBinaryZip<T>(this T data, string path, string password, IEnumerable<EmbeddedFile> additionalFiles)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
             using (var fileStream = File.Create(path))
-                ToZip(fileStream, data, password, additionalFiles);
+                SaveBinaryZip(data, fileStream, password, additionalFiles);
         }
         #endregion
 

@@ -76,7 +76,7 @@ namespace ZeroInstall.Publish
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            return new SignedCatalog(XmlStorage.Load<Catalog>(path), FeedUtils.GetKey(path, OpenPgpProvider.CreateDefault()));
+            return new SignedCatalog(XmlStorage.LoadXml<Catalog>(path), FeedUtils.GetKey(path, OpenPgpProvider.CreateDefault()));
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace ZeroInstall.Publish
             using (var atomic = new AtomicWrite(path))
             {
                 // Write to temporary file first
-                Catalog.Save(atomic.WritePath);
+                Catalog.SaveXml(atomic.WritePath);
 
                 XmlStorage.AddStylesheet(atomic.WritePath, "catalog.xsl");
                 if (SecretKey != null) FeedUtils.SignFeed(atomic.WritePath, SecretKey, passphrase, OpenPgpProvider.CreateDefault());

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2006-2013 Bastian Eicher
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -20,47 +20,30 @@
  * THE SOFTWARE.
  */
 
-using System.ComponentModel;
-using System.Xml.Serialization;
-using Common.Info;
+using System;
+using System.Xml;
 
-namespace Common.Controls
+namespace Common.Storage
 {
     /// <summary>
-    /// Wraps information about an crash in a serializer-friendly format.
+    /// Allows you to specify a <see cref="XmlQualifiedName"/> (namespace short-name) for <see cref="XmlStorage"/> to use.
     /// </summary>
-    // Note: Must be public, not internal, so XML Serialization will work
-    [XmlRoot("error-report"), XmlType("error-report")]
-    public class ErrorReport
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+    public class XmlNamespaceAttribute : Attribute
     {
         /// <summary>
-        /// Information about the current application.
+        /// The <see cref="XmlQualifiedName"/>.
         /// </summary>
-        [XmlElement("application")]
-        public AppInfo Application { get; set; }
+        public XmlQualifiedName QualifiedName { get; set; }
 
         /// <summary>
-        /// Information about the current operating system.
+        /// Specified a <see cref="XmlQualifiedName"/> (namespace short-name) for <see cref="XmlStorage"/> to use.
         /// </summary>
-        [XmlElement("os")]
-        public OSInfo OS { get; set; }
-
-        /// <summary>
-        /// Information about the exception that occured.
-        /// </summary>
-        [XmlElement("exception")]
-        public ExceptionInfo Exception { get; set; }
-
-        /// <summary>
-        /// The contents of the <see cref="Log"/> file.
-        /// </summary>
-        [XmlElement("log"), DefaultValue("")]
-        public string Log { get; set; }
-
-        /// <summary>
-        /// Comments about the crash entered by the user.
-        /// </summary>
-        [XmlElement("comments"), DefaultValue("")]
-        public string Comments { get; set; }
+        /// <param name="name">The short-name.</param>
+        /// <param name="ns">The full namespace URI.</param>
+        public XmlNamespaceAttribute(string name, string ns)
+        {
+            QualifiedName = new XmlQualifiedName(name, ns);
+        }
     }
 }

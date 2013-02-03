@@ -118,7 +118,7 @@ namespace ZeroInstall.Commands
             {
                 try
                 { // Try to parse as selections document
-                    Selections = XmlStorage.Load<Selections>(Requirements.InterfaceID);
+                    Selections = XmlStorage.LoadXml<Selections>(Requirements.InterfaceID);
                     Requirements.InterfaceID = Selections.InterfaceID;
                     SelectionsDocument = true;
                 }
