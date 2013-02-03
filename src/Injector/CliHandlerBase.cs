@@ -117,7 +117,7 @@ namespace ZeroInstall.Injector
         /// <inheritdoc/>
         public virtual void AuditSelections(Func<Selections> solveCallback)
         {
-            throw new NotSupportedException(Resources.NoAuditInCli + (WindowsUtils.IsWindows ? "\n" + Resources.Try0installWin : ""));
+            throw new NeedGuiException(Resources.NoAuditInCli + (WindowsUtils.IsWindows ? "\n" + Resources.Try0installWin : ""));
         }
         #endregion
 

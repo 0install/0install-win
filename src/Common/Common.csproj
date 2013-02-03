@@ -72,6 +72,7 @@
     <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="AppMutex.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="NeedGuiException.cs" />
     <Compile Include="NotAdminException.cs" />
     <Compile Include="MutexLock.cs" />
     <Compile Include="PropertyPointer.cs" />

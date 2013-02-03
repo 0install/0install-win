@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using Common;
@@ -107,6 +108,24 @@ namespace ZeroInstall.Alias.Cli
             catch (OperationCanceledException)
             {
                 return 1;
+            }
+            catch (NotAdminException ex)
+            {
+                if (WindowsUtils.IsWindows) return ProcessUtils.RunAssemblyAsAdmin("0install-win", new[] {"add-alias"}.Concat(args).JoinEscapeArguments());
+                else
+                {
+                    Log.Error(ex);
+                    return 1;
+                }
+            }
+            catch (NeedGuiException ex)
+            {
+                if (WindowsUtils.IsWindows) return ProcessUtils.RunAssembly("0install-win", new[] {"add-alias"}.Concat(args).JoinEscapeArguments());
+                else
+                {
+                    Log.Error(ex);
+                    return 1;
+                }
             }
             catch (OptionException ex)
             {

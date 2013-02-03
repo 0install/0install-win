@@ -17,6 +17,7 @@
 
 using System;
 using System.Linq;
+using Common;
 using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
@@ -72,7 +73,7 @@ namespace ZeroInstall.Commands
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
             if (AdditionalArgs.Count < 1 || string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
 
-            if (MachineWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
+            if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException();
 
             using (var integrationManager = new IntegrationManager(MachineWide, Policy.Handler))
             {

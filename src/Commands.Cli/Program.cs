@@ -109,6 +109,24 @@ namespace ZeroInstall.Commands.Cli
             {
                 return 1;
             }
+            catch (NotAdminException ex)
+            {
+                if (WindowsUtils.IsWindows) return ProcessUtils.RunAssemblyAsAdmin("0install-win", args.JoinEscapeArguments());
+                else
+                {
+                    Log.Error(ex);
+                    return 1;
+                }
+            }
+            catch (NeedGuiException ex)
+            {
+                if (WindowsUtils.IsWindows) return ProcessUtils.RunAssembly("0install-win", args.JoinEscapeArguments());
+                else
+                {
+                    Log.Error(ex);
+                    return 1;
+                }
+            }
             catch (OptionException ex)
             {
                 Log.Error(ex.Message + "\n" + string.Format(Resources.TryHelp, "0install"));

@@ -16,6 +16,7 @@
  */
 
 using System;
+using Common;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -68,7 +69,7 @@ namespace ZeroInstall.Commands
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
             if (AdditionalArgs.Count > 0) throw new OptionException(Resources.TooManyArguments, "");
 
-            if (MachineWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
+            if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException();
 
             using (_syncManager = new SyncIntegrationManager(MachineWide, Policy.Config.SyncServer, Policy.Config.SyncServerUsername, Policy.Config.SyncServerPassword, Policy.Config.SyncCryptoKey, Policy.Handler))
             {

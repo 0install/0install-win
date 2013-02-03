@@ -16,6 +16,7 @@
  */
 
 using System;
+using Common;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -54,7 +55,7 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
             if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
 
-            if (MachineWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
+            if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException();
 
             Policy.Handler.ShowProgressUI();
             string interfaceID = GetCanonicalID(AdditionalArgs[0]);

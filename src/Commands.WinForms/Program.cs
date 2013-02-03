@@ -56,13 +56,13 @@ namespace ZeroInstall.Commands.WinForms
         /// The main entry point for the application.
         /// </summary>
         // Note: No [STAThread] here because the GUI is created on a different thread
-        public static void Main(string[] args)
+        public static int Main(string[] args)
         {
             WindowsUtils.SetCurrentProcessAppID(AppUserModelID);
 
             // Encode installation path into mutex name to allow instance detection during updates
             string mutexName = "mutex-" + Locations.InstallBase.Hash(MD5.Create());
-            if (AppMutex.Probe(mutexName + "-update")) return;
+            if (AppMutex.Probe(mutexName + "-update")) return 99;
             AppMutex.Create(mutexName);
 
             // Allow setup to detect Zero Install instances
@@ -91,7 +91,7 @@ namespace ZeroInstall.Commands.WinForms
                 catch (OperationCanceledException)
                 {
                     // This is reached if --help, --version or similar was used
-                    return;
+                    return 0;
                 }
                 catch (OptionException ex)
                 {
@@ -99,27 +99,27 @@ namespace ZeroInstall.Commands.WinForms
                     if (ex.InnerException != null) messsage.Append("\n" + ex.InnerException.Message);
                     messsage.Append("\n" + string.Format(Resources.TryHelp, ExeName));
                     Msg.Inform(null, messsage.ToString(), MsgSeverity.Warn);
-                    return;
+                    return 1;
                 }
                 catch (IOException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                    return;
+                    return 1;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                    return;
+                    return 1;
                 }
                 catch (InvalidDataException ex)
                 {
                     Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Warn);
-                    return;
+                    return 1;
                 }
                 catch (InvalidInterfaceIDException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                    return;
+                    return 1;
                 }
                 #endregion
 
@@ -147,67 +147,90 @@ namespace ZeroInstall.Commands.WinForms
 
                 try
                 {
-                    command.Execute();
+                    return command.Execute();
                 }
                     #region Error handling
                 catch (OperationCanceledException)
-                {}
+                {
+                    return 0;
+                }
+                catch (NotAdminException ex)
+                {
+                    handler.CloseProgressUI();
+
+                    if (WindowsUtils.IsWindows) return ProcessUtils.RunAssemblyAsAdmin("0install-win", args.JoinEscapeArguments());
+                    else
+                    {
+                        Log.Error(ex);
+                        return 1;
+                    }
+                }
                 catch (OptionException ex)
                 {
                     handler.CloseProgressUI();
                     Msg.Inform(null, ex.Message + "\n" + string.Format(Resources.TryHelp, ExeName), MsgSeverity.Error);
+                    return 1;
                 }
                 catch (Win32Exception ex)
                 {
                     handler.CloseProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    return 1;
                 }
                 catch (BadImageFormatException ex)
                 {
                     handler.CloseProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    return 1;
                 }
                 catch (WebException ex)
                 {
                     handler.CloseProgressUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
+                    return 1;
                 }
                 catch (NotSupportedException ex)
                 {
                     handler.CloseProgressUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
+                    return 1;
                 }
                 catch (IOException ex)
                 {
                     handler.CloseProgressUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
+                    return 1;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
                     handler.CloseProgressUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
+                    return 1;
                 }
                 catch (InvalidDataException ex)
                 {
                     handler.CloseProgressUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
+                    return 1;
                 }
                 catch (SignatureException ex)
                 {
                     handler.CloseProgressUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
+                    return 1;
                 }
                 catch (InvalidInterfaceIDException ex)
                 {
                     handler.CloseProgressUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
+                    return 1;
                 }
                 catch (DigestMismatchException ex)
                 {
@@ -215,24 +238,28 @@ namespace ZeroInstall.Commands.WinForms
                     Log.Error(ex);
                     Log.Info("Generated manifest:\n" + ex.ActualManifest);
                     ErrorBox.Show(Resources.DownloadDamaged, errorLog);
+                    return 1;
                 }
                 catch (SolverException ex)
                 {
                     handler.CloseProgressUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message.GetLeftPartAtFirstOccurrence(Environment.NewLine), errorLog);
+                    return 1;
                 }
                 catch (ImplementationNotFoundException ex)
                 {
                     handler.CloseProgressUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
+                    return 1;
                 }
                 catch (CommandException ex)
                 {
                     handler.CloseProgressUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
+                    return 1;
                 }
                     #endregion
 

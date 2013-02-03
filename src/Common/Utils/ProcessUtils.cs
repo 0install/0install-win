@@ -35,15 +35,84 @@ namespace Common.Utils
     /// </summary>
     public static class ProcessUtils
     {
+        #region Assemblys
         /// <summary>
-        /// Attempts to launch a .NET helper assembly in the application's base directory.
+        /// Launches a .NET assembly located in the application's base directory.
         /// </summary>
         /// <param name="assembly">The name of the assembly to launch (without the file extension).</param>
         /// <param name="arguments">The command-line arguments to pass to the assembly.</param>
         /// <returns>The newly created process.</returns>
         /// <exception cref="FileNotFoundException">Thrown if the assembly could not be located.</exception>
         /// <exception cref="Win32Exception">Thrown if there was a problem launching the assembly.</exception>
-        public static Process LaunchHelperAssembly(string assembly, string arguments)
+        public static Process LaunchAssembly(string assembly, string arguments)
+        {
+            return Process.Start(CreateAssemblyStartInfo(assembly, arguments, false));
+        }
+
+        /// <summary>
+        /// Launches a .NET assembly located in the application's base directory and waits for it to exit.
+        /// </summary>
+        /// <param name="assembly">The name of the assembly to launch (without the file extension).</param>
+        /// <param name="arguments">The command-line arguments to pass to the assembly.</param>
+        /// <returns>The exit code of the target process.</returns>
+        /// <exception cref="FileNotFoundException">Thrown if the assembly could not be located.</exception>
+        public static int RunAssembly(string assembly, string arguments)
+        {
+            try
+            {
+                var process = Process.Start(CreateAssemblyStartInfo(assembly, arguments, false));
+                process.WaitForExit();
+                return process.ExitCode;
+            }
+            catch (Win32Exception)
+            {
+                return 1;
+            }
+        }
+
+        /// <summary>
+        /// Launches a .NET assembly located in the application's base directory as an administrator (using UAC).
+        /// </summary>
+        /// <param name="assembly">The name of the assembly to launch (without the file extension).</param>
+        /// <param name="arguments">The command-line arguments to pass to the assembly.</param>
+        /// <returns>The newly created process.</returns>
+        /// <exception cref="FileNotFoundException">Thrown if the assembly could not be located.</exception>
+        /// <exception cref="Win32Exception">Thrown if there was a problem launching the assembly.</exception>
+        public static Process LaunchAssemblyAsAdmin(string assembly, string arguments)
+        {
+            return Process.Start(CreateAssemblyStartInfo(assembly, arguments, true));
+        }
+
+        /// <summary>
+        /// Launches a .NET assembly located in the application's base directory as an administrator (using UAC) and waits for it to exit.
+        /// </summary>
+        /// <param name="assembly">The name of the assembly to launch (without the file extension).</param>
+        /// <param name="arguments">The command-line arguments to pass to the assembly.</param>
+        /// <returns>The exit code of the target process.</returns>
+        /// <exception cref="FileNotFoundException">Thrown if the assembly could not be located.</exception>
+        public static int RunAssemblyAsAdmin(string assembly, string arguments)
+        {
+            try
+            {
+                var process = Process.Start(CreateAssemblyStartInfo(assembly, arguments, true));
+                process.WaitForExit();
+                return process.ExitCode;
+            }
+            catch (Win32Exception)
+            {
+                return 1;
+            }
+        }
+        #endregion
+
+        #region Helper methods
+        /// <summary>
+        /// Creates a <see cref="ProcessStartInfo"/> for launching a .NET assembly located in the application's base directory.
+        /// </summary>
+        /// <param name="assembly">The name of the assembly to launch (without the file extension).</param>
+        /// <param name="arguments">The command-line arguments to pass to the assembly.</param>
+        /// <param name="admin"><see langword="true"/> to use UAC to elevate to admin.</param>
+        private static ProcessStartInfo CreateAssemblyStartInfo(string assembly, string arguments, bool admin)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(assembly)) throw new ArgumentNullException("assembly");
@@ -53,20 +122,30 @@ namespace Common.Utils
             if (!File.Exists(appPath)) throw new FileNotFoundException(string.Format(Resources.UnableToLocateAssembly, assembly), appPath);
 
             // Only Windows can directly launch .NET executables, other platforms must run through Mono
-            return Process.Start(WindowsUtils.IsWindows
+            var startInfo = WindowsUtils.IsWindows
                 ? new ProcessStartInfo(appPath, arguments)
-                : new ProcessStartInfo("mono", "\"" + appPath + "\" " + arguments));
-        }
+                : new ProcessStartInfo("mono", appPath.EscapeArgument() + " " + arguments);
 
+            if (admin && WindowsUtils.IsWindowsNT) startInfo.Verb = "runas";
+            return startInfo;
+        }
+        #endregion
+
+        #region Thread
         /// <summary>
         /// Starts executing a delegate in a new thread suitable for <see cref="System.Windows.Forms"/>.
         /// </summary>
         /// <param name="execute">The delegate to execute.</param>
         public static void RunAsync(ThreadStart execute)
         {
+            #region Sanity checks
+            if (execute == null) throw new ArgumentNullException("execute");
+            #endregion
+
             var thread = new Thread(execute);
             thread.SetApartmentState(ApartmentState.STA); // Make COM work
             thread.Start();
         }
+        #endregion
     }
 }

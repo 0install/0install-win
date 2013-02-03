@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Common;
 using Common.Tasks;
 using Common.Utils;
 using NDesk.Options;
@@ -72,7 +73,7 @@ namespace ZeroInstall.Commands
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
             if (AdditionalArgs.Count > 0) throw new OptionException(Resources.TooManyArguments, "");
 
-            if (MachineWide && WindowsUtils.IsWindows && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
+            if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException();
 
             Policy.Handler.ShowProgressUI();
             var selectedImplementations = SolveAll(GetTargets()).ToList();

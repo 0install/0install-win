@@ -182,7 +182,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 try
                 {
-                    ProcessUtils.LaunchHelperAssembly("0install-win", "self-update");
+                    ProcessUtils.LaunchAssembly("0install-win", "self-update");
                     Application.Exit();
                 }
                     #region Error handling

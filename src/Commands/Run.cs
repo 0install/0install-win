@@ -110,7 +110,7 @@ namespace ZeroInstall.Commands
             if (StaleFeeds && Policy.Config.EffectiveNetworkUse == NetworkLevel.Full)
             {
                 // ToDo: Automatically switch to GTK# on Linux
-                ProcessUtils.LaunchHelperAssembly("0install-win", "update --batch " + Requirements.ToCommandLineArgs());
+                ProcessUtils.LaunchAssembly("0install-win", "update --batch " + Requirements.ToCommandLineArgs());
             }
 
             Policy.Handler.CancellationToken.ThrowIfCancellationRequested();

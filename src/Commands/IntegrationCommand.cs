@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
@@ -36,29 +33,6 @@ namespace ZeroInstall.Commands
         #endregion
 
         #region Helpers
-        /// <summary>
-        /// Reruns the current command as an administrator.
-        /// </summary>
-        /// <returns>The exit code of the rerun command.</returns>
-        /// <remarks>The command-line arguments are pulled from the current process.</remarks>
-        /// <exception cref="PlatformNotSupportedException">When called on a non-Windows platform.</exception>
-        protected static int RerunAsAdmin()
-        {
-            if (!WindowsUtils.IsWindowsNT) throw new PlatformNotSupportedException();
-
-            var commandLine = new LinkedList<string>(Environment.GetCommandLineArgs());
-            string executable = commandLine.First.Value;
-            commandLine.RemoveFirst();
-            if (executable.StartsWith("0alias")) commandLine.AddFirst(AddAlias.Name);
-
-            var startInfo = new ProcessStartInfo(Path.Combine(Locations.InstallBase, "0install-win.exe"), commandLine.JoinEscapeArguments()) {Verb = "runas"};
-            using (var process = Process.Start(startInfo))
-            {
-                process.WaitForExit();
-                return process.ExitCode;
-            }
-        }
-
         /// <summary>
         /// Finds an existing <see cref="AppEntry"/> or creates a new one for a specific interface ID.
         /// </summary>
@@ -126,7 +100,7 @@ namespace ZeroInstall.Commands
             if (Policy.Config.EffectiveNetworkUse == NetworkLevel.Full)
             {
                 // ToDo: Automatically switch to GTK# on Linux
-                ProcessUtils.LaunchHelperAssembly("0install-win", "download --batch " + interfaceID.EscapeArgument());
+                ProcessUtils.LaunchAssembly("0install-win", "download --batch " + interfaceID.EscapeArgument());
             }
 
             return appEntry;
