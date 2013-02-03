@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xml="http://www.w3.org/XML/1998/namespace"
             xmlns:caps="http://0install.de/schema/desktop-integration/capabilities"
             xmlns:feed="http://zero-install.sourceforge.net/2004/injector/interface"
-            xmlns:xml="http://www.w3.org/XML/1998/namespace"
             targetNamespace="http://0install.de/schema/desktop-integration/capabilities"
             id="capabilities" elementFormDefault="qualified">
   <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-  <xsd:import namespace="http://zero-install.sourceforge.net/2004/injector/interface" schemaLocation="http://0install.de/schema/injector/interface/icon.xsd" />
+  <xsd:import namespace="http://zero-install.sourceforge.net/2004/injector/interface" schemaLocation="http://0install.de/schema/injector/interface/interface.xsd" />
 
+  <!-- Root element -->
   <xsd:element name="capabilities" type="caps:capabilities" />
-
   <xsd:complexType name="capabilities">
     <xsd:annotation>
       <xsd:documentation>
@@ -34,6 +34,8 @@
       </xsd:annotation>
     </xsd:attribute>
   </xsd:complexType>
+
+  <!-- Capabilities -->
   <xsd:complexType name="capability" abstract="true">
     <xsd:annotation>
       <xsd:documentation>
@@ -56,7 +58,7 @@
         The actual integration information is pulled from the other capabilities.
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="caps:capability">
         <xsd:attribute name="capability-reg-path" type="xsd:string" use="required">
           <xsd:annotation>
@@ -81,7 +83,7 @@
         A capability that can be applied as a default handler for something at the user's request.
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="caps:capability">
         <xsd:attribute name="explicit-only" type="xsd:boolean">
           <xsd:annotation>
@@ -100,7 +102,7 @@
         A capability that that can have multiple icons and descriptions.
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="caps:default-capability">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
           <xsd:element name="description" type="caps:localizable-string">
@@ -110,7 +112,7 @@
               </xsd:documentation>
             </xsd:annotation>
           </xsd:element>
-          <xsd:element name="icon" type="feed:icon">
+          <xsd:element ref="feed:icon">
             <xsd:annotation>
               <xsd:documentation>
                 An icon to represent the capability. Used for things like file icons.
@@ -127,7 +129,7 @@
         A capability that that can have multiple verbs.
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="caps:icon-capability">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
           <xsd:element name="verb" type="caps:verb" />
@@ -185,7 +187,7 @@
         Represents an application's ability to handle a certain file type.
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="caps:verb-capability">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
           <xsd:element name="extension" type="caps:extension" />
@@ -227,7 +229,7 @@
         Represents an application's ability to handle a certain URL protocol (e.g. HTTP).
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="caps:verb-capability">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
           <xsd:element name="known-prefix" type="caps:known-prefix" />
@@ -255,7 +257,7 @@
         Represents an application's ability to provide some service (e.g. default web-browser, default e-mail client).
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="caps:verb-capability">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
           <xsd:element name="install-commands" type="caps:install-commands" maxOccurs="1" />
@@ -325,7 +327,7 @@
         Represents an application's ability to act as an AutoPlay handler for certain events.
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="caps:icon-capability">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
           <xsd:element name="verb" type="caps:verb" maxOccurs="1">
@@ -375,7 +377,7 @@
         Represents an application's entry in a file manager's context menu.
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="caps:default-capability">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
           <xsd:element name="verb" type="caps:verb" maxOccurs="1">
@@ -402,7 +404,7 @@
         Represents an application's listing in the Windows Games Explorer.
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="caps:capability" />
     </xsd:complexContent>
   </xsd:complexType>
@@ -412,10 +414,12 @@
         Represents an application's ability to act as a COM server.
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="caps:capability" />
     </xsd:complexContent>
   </xsd:complexType>
+
+  <!-- Localizable string -->
   <xsd:complexType name="localizable-string">
     <xsd:simpleContent>
       <xsd:extension base="xsd:string">

@@ -6,8 +6,8 @@
             id="catalog" elementFormDefault="qualified">
   <xsd:import namespace="http://zero-install.sourceforge.net/2004/injector/interface" schemaLocation="http://0install.de/schema/injector/interface/interface.xsd" />
 
+  <!-- Root element -->
   <xsd:element name="catalog" type="cat:catalog" />
-
   <xsd:complexType name="catalog">
     <xsd:annotation>
       <xsd:documentation>

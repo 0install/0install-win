@@ -53,6 +53,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [XmlAttribute("schemaLocation", Namespace = XmlStorage.XsiNamespace)]
         public string XsiSchemaLocation = XmlNamespace + " http://0install.de/schema/injector/interface/interface.xsd" + " " +
+            // Automatically advertise the additional capabilities namespace
             CapabilityList.XmlNamespace + " http://0install.de/schema/desktop-integration/capabilities/capabilities.xsd";
         #endregion
 

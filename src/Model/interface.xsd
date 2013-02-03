@@ -1,16 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:feed="http://zero-install.sourceforge.net/2004/injector/interface"
             xmlns:xml="http://www.w3.org/XML/1998/namespace"
-            xmlns:caps="http://0install.de/schema/desktop-integration/capabilities"
+            xmlns:feed="http://zero-install.sourceforge.net/2004/injector/interface"
             targetNamespace="http://zero-install.sourceforge.net/2004/injector/interface"
             id="feed" elementFormDefault="qualified">
-  <xsd:include schemaLocation="http://0install.de/schema/injector/interface/icon.xsd" />
   <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-  <xsd:import namespace="http://0install.de/schema/desktop-integration/capabilities" schemaLocation="http://0install.de/schema/desktop-integration/capabilities/capabilities.xsd" />
 
+  <!-- Common base type -->
+  <xsd:complexType name="base" abstract="true">
+    <xsd:attribute name="if-0install-version" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>
+          To make it possible to use newer features in a feed without breaking older versions of 0install, the if-0install-version attribute may be placed on any element to indicate that the element should only be processed by the specified versions of 0install.
+          0install versions before 1.13 ignore this attribute and process all elements.
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:anyAttribute namespace="##other" />
+  </xsd:complexType>
+
+  <!-- Root element -->
   <xsd:element name="interface" type="feed:feed" />
-
   <xsd:complexType name="feed">
     <xsd:annotation>
       <xsd:documentation>
@@ -19,129 +29,373 @@
         Feeds downloaded from remote locations are protected from tampering by a OpenPGP signature.
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element name="name" type="xsd:string" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>
-            A short name to identify the interface (e.g. "Foo"). Required!
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="summary" type="feed:localizable-string">
-        <xsd:annotation>
-          <xsd:documentation>
-            Short one-line description; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills"). Required!
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="description" type="feed:localizable-string">
-        <xsd:annotation>
-          <xsd:documentation>
-            Full description, which can be several paragraphs long.
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="homepage" type="xsd:string" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>
-            The URL of a web-page describing this interface in more detail.
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="icon" type="feed:icon">
-        <xsd:annotation>
-          <xsd:documentation>
-            An icon to use for the program.
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="category" type="xsd:string">
-        <xsd:annotation>
-          <xsd:documentation>
-            A category as defined by the freedesktop.org menu specification.
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="needs-terminal" type="xsd:string" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>
-            If present, this element indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="feed" type="feed:feed-reference">
-        <xsd:annotation>
-          <xsd:documentation>
-            An additional feed containing implementations of this interface.
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="feed-for" type="feed:interface-reference">
-        <xsd:annotation>
-          <xsd:documentation>
-            The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="replaced-by" type="feed:interface-reference" maxOccurs="1" >
-        <xsd:annotation>
-          <xsd:documentation>
-            This feed's interface has been replaced by the given interface. Any references to the old URI should be updated to use the new one.
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="implementation" type="feed:implementation" />
-      <xsd:element name="package-implementation" type="feed:package-implementation" />
-      <xsd:element name="group" type="feed:group" />
-      <xsd:element name="entry-point" type="feed:entry-point" />
-      <xsd:element ref="caps:capabilities" />
-    </xsd:choice>
-    <xsd:attribute name="min-injector-version" type="xsd:string">
-      <xsd:annotation>
-        <xsd:documentation>
-          This attribute gives the oldest version of the injector that can read this file. Older versions will tell the user to upgrade if they are asked to read the file. Versions prior to 0.20 do not perform this check, however. If the attribute is not present, the file can be read by all versions.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-    <xsd:attribute name="uri" type="xsd:string">
-      <xsd:annotation>
-        <xsd:documentation>
-          This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
+    <xsd:complexContent>
+      <xsd:extension base="feed:base">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+          <xsd:element name="name" type="xsd:string" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>
+                A short name to identify the interface (e.g. "Foo"). Required!
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="summary" type="feed:localizable-string">
+            <xsd:annotation>
+              <xsd:documentation>
+                Short one-line description; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills"). Required!
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="description" type="feed:localizable-string">
+            <xsd:annotation>
+              <xsd:documentation>
+                Full description, which can be several paragraphs long.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="homepage" type="xsd:string" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>
+                The URL of a web-page describing this interface in more detail.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element ref="feed:icon">
+            <xsd:annotation>
+              <xsd:documentation>
+                An icon to use for the program.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="category" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                A category as defined by the freedesktop.org menu specification.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="needs-terminal" type="xsd:string" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>
+                If present, this element indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="feed" type="feed:feed-reference">
+            <xsd:annotation>
+              <xsd:documentation>
+                An additional feed containing implementations of this interface.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="feed-for" type="feed:interface-reference">
+            <xsd:annotation>
+              <xsd:documentation>
+                The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="replaced-by" type="feed:interface-reference" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>
+                This feed's interface has been replaced by the given interface. Any references to the old URI should be updated to use the new one.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="implementation" type="feed:implementation" />
+          <xsd:element name="package-implementation" type="feed:package-implementation" />
+          <xsd:element name="group" type="feed:group" />
+          <xsd:element name="entry-point" type="feed:entry-point" />
+          <xsd:any namespace="##other" />
+        </xsd:choice>
+        <xsd:attribute name="min-injector-version" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              This attribute gives the oldest version of the injector that can read this file. Older versions will tell the user to upgrade if they are asked to read the file. Versions prior to 0.20 do not perform this check, however. If the attribute is not present, the file can be read by all versions.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="uri" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
   </xsd:complexType>
+
+  <!-- Shared data type -->
+  <xsd:element name="icon" type="feed:icon" />
+  <xsd:complexType name="icon">
+    <xsd:complexContent>
+      <xsd:extension base="feed:base">
+        <xsd:attribute name="href" type="xsd:anyURI" use="required">
+          <xsd:annotation>
+            <xsd:documentation>
+              The URL used to locate the icon.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="type" type="xsd:string" use="required">
+          <xsd:annotation>
+            <xsd:documentation>
+              The MIME type of the icon. This value is case-insensitive.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- Application meta data -->
   <xsd:complexType name="feed-reference">
-    <xsd:attribute name="src" type="xsd:string" use="required">
-      <xsd:annotation>
-        <xsd:documentation>
-          The URL or local path used to locate the feed.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-    <xsd:attribute name="langs" type="xsd:string">
-      <xsd:annotation>
-        <xsd:documentation>
-          The natural language(s) which the implementations in the feed support.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-    <xsd:attribute name="arch" type="xsd:string">
-      <xsd:annotation>
-        <xsd:documentation>
-          For platform-specific binaries, the platform for which the implementations in the feed were compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
+    <xsd:complexContent>
+      <xsd:extension base="feed:base">
+        <xsd:attribute name="src" type="xsd:string" use="required">
+          <xsd:annotation>
+            <xsd:documentation>
+              The URL or local path used to locate the feed.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="langs" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              The natural language(s) which the implementations in the feed support.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="arch" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              For platform-specific binaries, the platform for which the implementations in the feed were compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="interface-reference">
-    <xsd:attribute name="interface" type="xsd:string" use="required">
-      <xsd:annotation>
-        <xsd:documentation>
-          The URI used to locate the interface.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
+    <xsd:complexContent>
+      <xsd:extension base="feed:base">
+        <xsd:attribute name="interface" type="xsd:string" use="required">
+          <xsd:annotation>
+            <xsd:documentation>
+              The URI used to locate the interface.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="entry-point">
+    <xsd:annotation>
+      <xsd:documentation>
+        Associates a command with a user-friendly name and description.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="feed:base">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+          <xsd:element name="needs-terminal" type="xsd:string" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>
+                If present, this element indicates that the entry point requires a terminal in order to run. Graphical launchers should therefore execute this entry point in a suitable terminal emulator.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="name" type="feed:localizable-string">
+            <xsd:annotation>
+              <xsd:documentation>
+                Localized user-friendly name for the command. If not present, the command attribute is used instead.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="summary" type="feed:localizable-string">
+            <xsd:annotation>
+              <xsd:documentation>
+                Short one-line description; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills").
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="description" type="feed:localizable-string">
+            <xsd:annotation>
+              <xsd:documentation>
+                Full description, which can be several paragraphs long.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="icon" type="feed:icon">
+            <xsd:annotation>
+              <xsd:documentation>
+                An icon to represent the command.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:any namespace="##other" />
+        </xsd:choice>
+        <xsd:attribute name="command" type="xsd:string" use="required">
+          <xsd:annotation>
+            <xsd:documentation>
+              The name of the command this entry point represents.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="binary-name" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              The canonical name of the binary supplying the command (without file extensions). This is used to suggest suitable alias names.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <!-- Implementations -->
+  <xsd:complexType name="element" abstract="true">
+    <xsd:complexContent>
+      <xsd:extension base="feed:base">
+        <xsd:attribute name="langs" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              The natural language(s) which the implementation supports.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="arch" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              For platform-specific binaries, the platform for which the implementation was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="version" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              The version number of the implementation.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="version-modifier" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              A string to be appended to the version. The purpose of this is to allow complex version numbers (such as "1.0-rc2") in older versions of the injector.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="released" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              The date this implementation was made available. For development versions checked out from version control this attribute should not be present.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="stability" type="feed:stability">
+          <xsd:annotation>
+            <xsd:documentation>
+              The default stability rating for this implementation.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="license" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              License terms (typically a Trove category, as used on freshmeat.net).
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="main" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              The relative path of an executable inside the implementation that should be executed by default when the interface is run. If an implementation has no main setting, then it cannot be executed without specifying one manually. This typically means that the interface is for a library.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="self-test" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              The relative path of an executable inside the implementation that can be executed to test the program. The program must be non-interactive (e.g. it can't open any windows or prompt for input). It should return with an exit status of zero if the tests pass. Any other status indicates failure.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="doc-dir" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              The relative path of a directory inside the implementation that contains the package's documentation. This is the directory that would end up inside /usr/share/doc on a traditional Linux system.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="implementation">
+    <xsd:annotation>
+      <xsd:documentation>
+        An implementation is a specific version of an application, e.g. Firefox 3.6 for Windows.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="feed:element">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+          <xsd:element name="environment" type="feed:environment" />
+          <xsd:element name="overlay" type="feed:overlay" />
+          <xsd:element name="executable-in-var" type="feed:executable-in-var" />
+          <xsd:element name="executable-in-path" type="feed:executable-in-path" />
+          <xsd:element name="command" type="feed:command" />
+          <xsd:element name="requires" type="feed:dependency" />
+          <xsd:element name="restricts" type="feed:restriction" />
+          <xsd:element name="manifest-digest" type="feed:manifest-digest" maxOccurs="1" />
+          <xsd:element name="recipe" type="feed:recipe" />
+          <xsd:element name="archive" type="feed:archive" />
+          <xsd:any namespace="##other" />
+        </xsd:choice>
+        <xsd:attribute name="id" type="xsd:string" use="required">
+          <xsd:annotation>
+            <xsd:documentation>
+              A unique identifier for this implementation. Used when storing implementation-specific user preferences.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="local-path" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              If the feed file is a local file (the interface 'uri' starts with /) then the local-path attribute may contain the pathname of a local directory (either an absolute path or a path relative to the directory containing the feed file).
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="package-implementation">
+    <xsd:annotation>
+      <xsd:documentation>
+        An implementation provided by a distribution-specific package manager.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="feed:element">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+          <xsd:any namespace="##other" />
+        </xsd:choice>
+        <xsd:attribute name="package" type="xsd:string" use="required">
+          <xsd:annotation>
+            <xsd:documentation>
+              he name of the package in the distribution-specific package manager.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="distributions" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              A space-separated list of distribution names where the package name applies.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="group">
     <xsd:annotation>
@@ -149,96 +403,41 @@
         All attributes of the group are inherited by any child groups and implementations as defaults, but can be overridden there. All dependencies and bindings are inherited (sub-groups may add more dependencies and bidnings to the list, but cannot remove anything).
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="feed:element">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
+          <xsd:element name="environment" type="feed:environment" />
+          <xsd:element name="overlay" type="feed:overlay" />
+          <xsd:element name="executable-in-var" type="feed:executable-in-var" />
+          <xsd:element name="executable-in-path" type="feed:executable-in-path" />
+          <xsd:element name="command" type="feed:command" />
+          <xsd:element name="requires" type="feed:dependency" />
+          <xsd:element name="restricts" type="feed:restriction" />
           <xsd:element name="implementation" type="feed:implementation" />
           <xsd:element name="package-implementation" type="feed:package-implementation" />
           <xsd:element name="group" type="feed:group" />
+          <xsd:any namespace="##other" />
         </xsd:choice>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-  <xsd:complexType name="element" abstract="true">
-    <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element name="environment" type="feed:environment" />
-      <xsd:element name="overlay" type="feed:overlay" />
-      <xsd:element name="executable-in-var" type="feed:executable-in-var" />
-      <xsd:element name="executable-in-path" type="feed:executable-in-path" />
-      <xsd:element name="command" type="feed:command" />
-      <xsd:element name="requires" type="feed:dependency" />
-      <xsd:element name="restricts" type="feed:restriction" />
-    </xsd:choice>
-    <xsd:attribute name="langs" type="xsd:string">
-      <xsd:annotation>
-        <xsd:documentation>
-          The natural language(s) which the implementation supports.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-    <xsd:attribute name="arch" type="xsd:string">
-      <xsd:annotation>
-        <xsd:documentation>
-          For platform-specific binaries, the platform for which the implementation was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-    <xsd:attribute name="version" type="xsd:string">
-      <xsd:annotation>
-        <xsd:documentation>
-          The version number of the implementation.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-    <xsd:attribute name="version-modifier" type="xsd:string">
-      <xsd:annotation>
-        <xsd:documentation>
-          A string to be appended to the version. The purpose of this is to allow complex version numbers (such as "1.0-rc2") in older versions of the injector.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-    <xsd:attribute name="released" type="xsd:string">
-      <xsd:annotation>
-        <xsd:documentation>
-          The date this implementation was made available. For development versions checked out from version control this attribute should not be present.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-    <xsd:attribute name="stability" type="feed:stability">
-      <xsd:annotation>
-        <xsd:documentation>
-          The default stability rating for this implementation.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-    <xsd:attribute name="license" type="xsd:string">
-      <xsd:annotation>
-        <xsd:documentation>
-          License terms (typically a Trove category, as used on freshmeat.net).
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-    <xsd:attribute name="main" type="xsd:string">
-      <xsd:annotation>
-        <xsd:documentation>
-          The relative path of an executable inside the implementation that should be executed by default when the interface is run. If an implementation has no main setting, then it cannot be executed without specifying one manually. This typically means that the interface is for a library.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-    <xsd:attribute name="self-test" type="xsd:string">
-      <xsd:annotation>
-        <xsd:documentation>
-          The relative path of an executable inside the implementation that can be executed to test the program. The program must be non-interactive (e.g. it can't open any windows or prompt for input). It should return with an exit status of zero if the tests pass. Any other status indicates failure.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-    <xsd:attribute name="doc-dir" type="xsd:string">
-      <xsd:annotation>
-        <xsd:documentation>
-          The relative path of a directory inside the implementation that contains the package's documentation. This is the directory that would end up inside /usr/share/doc on a traditional Linux system.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
+
+  <!-- Implementation meta data -->
+  <xsd:complexType name="manifest-digest">
+    <xsd:annotation>
+      <xsd:documentation>
+        Stores digests of the .manifest file using various hashing algorithms.
+        A manifest digest is a means of uniquely identifying an implementation and verifying its contents.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="feed:base">
+        <xsd:attribute name="sha1" type="xsd:string" />
+        <xsd:attribute name="sha1new" type="xsd:string" />
+        <xsd:attribute name="sha256" type="xsd:string" />
+        <xsd:attribute name="sha256new" type="xsd:string" />
+      </xsd:extension>
+    </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="command">
     <xsd:annotation>
@@ -246,44 +445,208 @@
         A Command says how to run an implementation as a program.
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element name="arg" type="xsd:string">
-        <xsd:annotation>
-          <xsd:documentation>
-            A single command-line argument to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="environment" type="feed:environment" />
-      <xsd:element name="overlay" type="feed:overlay" />
-      <xsd:element name="executable-in-var" type="feed:executable-in-var" />
-      <xsd:element name="executable-in-path" type="feed:executable-in-path" />
-      <xsd:element name="requires" type="feed:dependency" />
-      <xsd:element name="restricts" type="feed:restriction" />
-      <xsd:element name="working-dir" type="feed:working-dir" maxOccurs="1" />
-      <xsd:element name="runner" type="feed:runner" maxOccurs="1" />
-    </xsd:choice>
-    <xsd:attribute name="name" type="xsd:string">
-      <xsd:annotation>
-        <xsd:documentation>
-          The name of the command.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-    <xsd:attribute name="path" type="xsd:string">
-      <xsd:annotation>
-        <xsd:documentation>
-          The relative path of an executable inside the implementation that should be executed to run this command.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
+    <xsd:complexContent>
+      <xsd:extension base="feed:base">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+          <xsd:element name="arg" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                A single command-line argument to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="environment" type="feed:environment" />
+          <xsd:element name="overlay" type="feed:overlay" />
+          <xsd:element name="executable-in-var" type="feed:executable-in-var" />
+          <xsd:element name="executable-in-path" type="feed:executable-in-path" />
+          <xsd:element name="requires" type="feed:dependency" />
+          <xsd:element name="restricts" type="feed:restriction" />
+          <xsd:element name="working-dir" type="feed:working-dir" maxOccurs="1" />
+          <xsd:element name="runner" type="feed:runner" maxOccurs="1" />
+          <xsd:any namespace="##other" />
+        </xsd:choice>
+        <xsd:attribute name="name" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              The name of the command.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="path" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              The relative path of an executable inside the implementation that should be executed to run this command.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
   </xsd:complexType>
+
+  <!-- Dependencies -->
+  <xsd:complexType name="restriction-base" abstract="true">
+    <xsd:annotation>
+      <xsd:documentation>
+        A reference to an interface that is restricted to specific versions when used.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="feed:base">
+        <xsd:attribute name="interface" type="xsd:string" use="required">
+          <xsd:annotation>
+            <xsd:documentation>
+              The URI or local path used to identify the interface.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="version" type="xsd:string" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>
+              A more flexible alternative to &lt;version&gt; tags. A list of ranges, separated by "|", any of which may match.
+              Each range is in the form "START..!END". The range matches versions where START &lt;= VERSION &lt; END. The start or end may be omitted. A single version number may be used instead of a range to match only that version, or !VERSION to match everything except that version.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="restriction">
+    <xsd:annotation>
+      <xsd:documentation>
+        A reference to an interface that is restricted to specific versions when used.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="feed:restriction-base">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+          <xsd:element name="version" type="feed:constraint">
+            <xsd:annotation>
+              <xsd:documentation>
+                Restricts the versions that are allowed.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:any namespace="##other" />
+        </xsd:choice>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="dependency">
+    <xsd:annotation>
+      <xsd:documentation>
+        A reference to an interface that is required as dependency.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="feed:restriction-base">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+          <xsd:element name="version" type="feed:constraint">
+            <xsd:annotation>
+              <xsd:documentation>
+                Restricts the versions that are allowed.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="environment" type="feed:environment" />
+          <xsd:element name="overlay" type="feed:overlay" />
+          <xsd:element name="executable-in-var" type="feed:executable-in-var" />
+          <xsd:element name="executable-in-path" type="feed:executable-in-path" />
+          <xsd:any namespace="##other" />
+        </xsd:choice>
+        <xsd:attribute name="importance" type="feed:importance" default="essential">
+          <xsd:annotation>
+            <xsd:documentation>
+              Controls how important this dependency is (i.e. whether ignoring it is an option).
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="use" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              This can be used to indicate that this dependency is only needed in some cases.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="os" type="feed:os" default="*">
+          <xsd:annotation>
+            <xsd:documentation>
+              Determines for which operating systems this dependency is required.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="runner">
+    <xsd:annotation>
+      <xsd:documentation>
+        A reference to an interface that is required by an command as a runner.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="feed:restriction-base">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+          <xsd:element name="version" type="feed:constraint">
+            <xsd:annotation>
+              <xsd:documentation>
+                Restricts the versions that are allowed.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="environment" type="feed:environment" />
+          <xsd:element name="overlay" type="feed:overlay" />
+          <xsd:element name="executable-in-var" type="feed:executable-in-var" />
+          <xsd:element name="executable-in-path" type="feed:executable-in-path" />
+          <xsd:element name="arg" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                A single command-line argument to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:any namespace="##other" />
+        </xsd:choice>
+        <xsd:attribute name="command" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              The name of the command in the interface to use.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="constraint">
+    <xsd:complexContent>
+      <xsd:extension base="feed:base">
+        <xsd:attribute name="not-before" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              This is the lowest-numbered version that can be chosen.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="before" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              This version and all later versions are unsuitable.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <!-- Bindings -->
   <xsd:complexType name="binding" abstract="true">
     <xsd:annotation>
       <xsd:documentation>
         Bindings specify how the chosen implementation is made known to the running program.
       </xsd:documentation>
     </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="feed:base" />
+    </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="environment">
     <xsd:annotation>
@@ -291,7 +654,7 @@
         Make a chosen implementation available by setting environment variables.
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="feed:binding">
         <xsd:attribute name="name" type="xsd:string" use="required">
           <xsd:annotation>
@@ -338,38 +701,13 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-  <xsd:simpleType name="environment-mode">
-    <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="prepend">
-        <xsd:annotation>
-          <xsd:documentation>
-            The absolute path of the item is prepended to the current value of the variable.
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="append">
-        <xsd:annotation>
-          <xsd:documentation>
-            The absolute path of the item is append to the end of the current value of the variable.
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="replace">
-        <xsd:annotation>
-          <xsd:documentation>
-            The old value is overwritten, and the 'default' attribute is ignored.
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-    </xsd:restriction>
-  </xsd:simpleType>
   <xsd:complexType name="overlay">
     <xsd:annotation>
       <xsd:documentation>
         Make a chosen implementation available by overlaying it onto another part of the file-system.
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="feed:binding">
         <xsd:attribute name="src" type="xsd:string">
           <xsd:annotation>
@@ -394,7 +732,7 @@
         Make a chosen implementation available by overlaying it onto another part of the file-system.
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="feed:binding">
         <xsd:attribute name="name" type="xsd:string" use="required">
           <xsd:annotation>
@@ -419,7 +757,7 @@
         Make a chosen implementation available as an executable in the search PATH.
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="feed:binding">
         <xsd:attribute name="name" type="xsd:string" use="required">
           <xsd:annotation>
@@ -453,37 +791,170 @@
       </xsd:annotation>
     </xsd:attribute>
   </xsd:complexType>
-  <xsd:complexType name="restriction">
+
+  <!-- Retrieval methods -->
+  <xsd:complexType name="retrieval-method" abstract="true">
     <xsd:annotation>
       <xsd:documentation>
-        A reference to an interface that is restricted to specific versions when used.
+        A retrieval method is a way of getting a copy of an implementation.
       </xsd:documentation>
     </xsd:annotation>
-    <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element name="version" type="feed:constraint">
-        <xsd:annotation>
-          <xsd:documentation>
-            Restricts the versions that are allowed.
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-    </xsd:choice>
-    <xsd:attribute name="interface" type="xsd:string" use="required">
-      <xsd:annotation>
-        <xsd:documentation>
-          The URI or local path used to identify the interface.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-    <xsd:attribute name="version" type="xsd:string" use="optional">
-      <xsd:annotation>
-        <xsd:documentation>
-          A more flexible alternative to &lt;version&gt; tags. A list of ranges, separated by "|", any of which may match.
-          Each range is in the form "START..!END". The range matches versions where START &lt;= VERSION &lt; END. The start or end may be omitted. A single version number may be used instead of a range to match only that version, or !VERSION to match everything except that version.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
+    <xsd:complexContent>
+      <xsd:extension base="feed:base" />
+    </xsd:complexContent>
   </xsd:complexType>
+  <xsd:complexType name="archive">
+    <xsd:annotation>
+      <xsd:documentation>
+        Represents an archive to be downloaded and extracted.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="feed:retrieval-method">
+        <xsd:attribute name="href" type="xsd:anyURI" use="required">
+          <xsd:annotation>
+            <xsd:documentation>
+              The URL used to locate the archive.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="type" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              The type of the archive as a MIME type. If missing, the type is guessed from the extension on the 'Location' attribute. This value is case-insensitive.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="size" type="xsd:long" use="required">
+          <xsd:annotation>
+            <xsd:documentation>
+              The size of the archive in bytes. The archive must have the given size or it will be rejected.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="start-offset" type="xsd:long">
+          <xsd:annotation>
+            <xsd:documentation>
+              The number of bytes at the beginning of the file which should be ignored. The value in the size attribute does not include the skipped bytes.
+              This is useful for some self-extracting archives which are made up of a shell script followed by a normal archive in a single file.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="extract" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              The name of the subdirectory in the archive to extract; empty or unset for entire archive.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="recipe">
+    <xsd:annotation>
+      <xsd:documentation>
+        A recipe is a list of recipe steps used to create an implementation directory.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="feed:retrieval-method">
+        <xsd:choice minOccurs="1" maxOccurs="unbounded">
+          <xsd:element name="archive" type="feed:archive" />
+          <xsd:element name="rename" type="feed:rename" />
+          <xsd:element name="remove" type="feed:remove" />
+          <xsd:element name="add-directory" type="feed:add-directory" />
+          <xsd:element name="add-toplevel" type="feed:add-toplevel" />
+        </xsd:choice>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="recipe-step" abstract="true">
+    <xsd:complexContent>
+      <xsd:extension base="feed:base" />
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="rename">
+    <xsd:annotation>
+      <xsd:documentation>
+        Renames or moves a file or directory. It is an error if the source or destination are outside the implementation.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="feed:recipe-step">
+        <xsd:attribute name="source" type="xsd:string" use="required">
+          <xsd:annotation>
+            <xsd:documentation>
+              The source file or directory relative to the implementation root as a Unix-style path.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="dest" type="xsd:string" use="required">
+          <xsd:annotation>
+            <xsd:documentation>
+              The destination file or directory relative to the implementation root as a Unix-style path.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="remove">
+    <xsd:annotation>
+      <xsd:documentation>
+        Removes or moves a file or directory. It is an error if the path is outside the implementation.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="feed:recipe-step">
+        <xsd:attribute name="source" type="xsd:string" use="required" />
+        <xsd:attribute name="path" type="xsd:string" use="required">
+          <xsd:annotation>
+            <xsd:documentation>
+              The file or directory to be removed relative to the implementation root as a Unix-style path.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="add-directory">
+    <xsd:annotation>
+      <xsd:documentation>
+        Adds a directory. It is an error if the path is outside the implementation.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="feed:recipe-step">
+        <xsd:attribute name="path" type="xsd:string" use="required">
+          <xsd:annotation>
+            <xsd:documentation>
+              The directory to be added relative to the implementation root as a Unix-style path.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="add-toplevel">
+    <xsd:annotation>
+      <xsd:documentation>
+        Moves everything into a new top-level directory. It is an error if the path is outside the implementation.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="feed:recipe-step">
+        <xsd:attribute name="dir" type="xsd:string" use="required">
+          <xsd:annotation>
+            <xsd:documentation>
+              The name of the directory to be added.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <!-- Enumerations-->
   <xsd:simpleType name="importance">
     <xsd:restriction base="xsd:string">
       <xsd:enumeration value="essential">
@@ -550,87 +1021,31 @@
       </xsd:enumeration>
     </xsd:restriction>
   </xsd:simpleType>
-  <xsd:complexType name="dependency">
-    <xsd:annotation>
-      <xsd:documentation>
-        A reference to an interface that is required as dependency.
-      </xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexContent mixed="false">
-      <xsd:extension base="feed:restriction">
-        <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element name="environment" type="feed:environment" />
-          <xsd:element name="overlay" type="feed:overlay" />
-          <xsd:element name="executable-in-var" type="feed:executable-in-var" />
-          <xsd:element name="executable-in-path" type="feed:executable-in-path" />
-        </xsd:choice>
-        <xsd:attribute name="importance" type="feed:importance" default="essential">
-          <xsd:annotation>
-            <xsd:documentation>
-              Controls how important this dependency is (i.e. whether ignoring it is an option).
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <xsd:attribute name="use" type="xsd:string">
-          <xsd:annotation>
-            <xsd:documentation>
-              This can be used to indicate that this dependency is only needed in some cases.
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <xsd:attribute name="os" type="feed:os" default="*">
-          <xsd:annotation>
-            <xsd:documentation>
-              Determines for which operating systems this dependency is required.
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:complexType name="constraint">
-    <xsd:attribute name="not-before" type="xsd:string">
-      <xsd:annotation>
-        <xsd:documentation>
-          This is the lowest-numbered version that can be chosen.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-    <xsd:attribute name="before" type="xsd:string">
-      <xsd:annotation>
-        <xsd:documentation>
-          This version and all later versions are unsuitable.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-  </xsd:complexType>
-  <xsd:complexType name="runner">
-    <xsd:annotation>
-      <xsd:documentation>
-        A reference to an interface that is required by an command as a runner.
-      </xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexContent mixed="false">
-      <xsd:extension base="feed:dependency">
-        <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element name="arg" type="xsd:string">
-            <xsd:annotation>
-              <xsd:documentation>
-                A single command-line argument to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.
-              </xsd:documentation>
-            </xsd:annotation>
-          </xsd:element>
-        </xsd:choice>
-        <xsd:attribute name="command" type="xsd:string">
-          <xsd:annotation>
-            <xsd:documentation>
-              The name of the command in the interface to use.
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
+  <xsd:simpleType name="environment-mode">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="prepend">
+        <xsd:annotation>
+          <xsd:documentation>
+            The absolute path of the item is prepended to the current value of the variable.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="append">
+        <xsd:annotation>
+          <xsd:documentation>
+            The absolute path of the item is append to the end of the current value of the variable.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="replace">
+        <xsd:annotation>
+          <xsd:documentation>
+            The old value is overwritten, and the 'default' attribute is ignored.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
   <xsd:simpleType name="stability">
     <xsd:restriction base="xsd:string">
       <xsd:enumeration value="preferred">
@@ -680,266 +1095,8 @@
       </xsd:enumeration>
     </xsd:restriction>
   </xsd:simpleType>
-  <xsd:complexType name="implementation">
-    <xsd:annotation>
-      <xsd:documentation>
-        An implementation is a specific version of an application, e.g. Firefox 3.6 for Windows.
-      </xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexContent mixed="false">
-      <xsd:extension base="feed:element">
-        <xsd:choice minOccurs="0" maxOccurs="unbounded">
-          <xsd:element name="manifest-digest" type="feed:manifest-digest" maxOccurs="1" />
-          <xsd:element name="recipe" type="feed:recipe" />
-          <xsd:element name="archive" type="feed:archive" />
-        </xsd:choice>
-        <xsd:attribute name="id" type="xsd:string" use="required">
-          <xsd:annotation>
-            <xsd:documentation>
-              A unique identifier for this implementation. Used when storing implementation-specific user preferences.
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <xsd:attribute name="local-path" type="xsd:string">
-          <xsd:annotation>
-            <xsd:documentation>
-              If the feed file is a local file (the interface 'uri' starts with /) then the local-path attribute may contain the pathname of a local directory (either an absolute path or a path relative to the directory containing the feed file).
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:complexType name="manifest-digest">
-    <xsd:annotation>
-      <xsd:documentation>
-        Stores digests of the .manifest file using various hashing algorithms.
-        A manifest digest is a means of uniquely identifying an implementation and verifying its contents.
-      </xsd:documentation>
-    </xsd:annotation>
-    <xsd:attribute name="sha1" type="xsd:string" />
-    <xsd:attribute name="sha1new" type="xsd:string" />
-    <xsd:attribute name="sha256" type="xsd:string" />
-    <xsd:attribute name="sha256new" type="xsd:string" />
-  </xsd:complexType>
-  <xsd:complexType name="retrieval-method" abstract="true">
-    <xsd:annotation>
-      <xsd:documentation>
-        A retrieval method is a way of getting a copy of an implementation.
-      </xsd:documentation>
-    </xsd:annotation>
-  </xsd:complexType>
-  <xsd:complexType name="archive">
-    <xsd:annotation>
-      <xsd:documentation>
-        Represents an archive to be downloaded and extracted.
-      </xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexContent mixed="false">
-      <xsd:extension base="feed:retrieval-method">
-        <xsd:attribute name="href" type="xsd:string" use="required">
-          <xsd:annotation>
-            <xsd:documentation>
-              The URL used to locate the archive.
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <xsd:attribute name="type" type="xsd:string">
-          <xsd:annotation>
-            <xsd:documentation>
-              The type of the archive as a MIME type. If missing, the type is guessed from the extension on the 'Location' attribute. This value is case-insensitive.
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <xsd:attribute name="size" type="xsd:long" use="required">
-          <xsd:annotation>
-            <xsd:documentation>
-              The size of the archive in bytes. The archive must have the given size or it will be rejected.
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <xsd:attribute name="start-offset" type="xsd:long">
-          <xsd:annotation>
-            <xsd:documentation>
-              The number of bytes at the beginning of the file which should be ignored. The value in the size attribute does not include the skipped bytes.
-              This is useful for some self-extracting archives which are made up of a shell script followed by a normal archive in a single file.
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <xsd:attribute name="extract" type="xsd:string">
-          <xsd:annotation>
-            <xsd:documentation>
-              The name of the subdirectory in the archive to extract; empty or unset for entire archive.
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:complexType name="recipe">
-    <xsd:annotation>
-      <xsd:documentation>
-        A recipe is a list of recipe steps used to create an implementation directory.
-      </xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexContent mixed="false">
-      <xsd:extension base="feed:retrieval-method">
-        <xsd:choice minOccurs="1" maxOccurs="unbounded">
-          <xsd:element name="archive" type="feed:archive" />
-          <xsd:element name="rename" type="feed:rename" />
-          <xsd:element name="remove" type="feed:remove" />
-          <xsd:element name="add-directory" type="feed:add-directory" />
-          <xsd:element name="add-toplevel" type="feed:add-toplevel" />
-        </xsd:choice>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:complexType name="rename">
-    <xsd:annotation>
-      <xsd:documentation>
-        Renames or moves a file or directory. It is an error if the source or destination are outside the implementation.
-      </xsd:documentation>
-    </xsd:annotation>
-    <xsd:attribute name="source" type="xsd:string" use="required">
-      <xsd:annotation>
-        <xsd:documentation>
-          The source file or directory relative to the implementation root as a Unix-style path.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-    <xsd:attribute name="dest" type="xsd:string" use="required">
-      <xsd:annotation>
-        <xsd:documentation>
-          The destination file or directory relative to the implementation root as a Unix-style path.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-  </xsd:complexType>
-  <xsd:complexType name="remove">
-    <xsd:annotation>
-      <xsd:documentation>
-        Removes or moves a file or directory. It is an error if the path is outside the implementation.
-      </xsd:documentation>
-    </xsd:annotation>
-    <xsd:attribute name="path" type="xsd:string" use="required">
-      <xsd:annotation>
-        <xsd:documentation>
-          The file or directory to be removed relative to the implementation root as a Unix-style path.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-  </xsd:complexType>
-  <xsd:complexType name="add-directory">
-    <xsd:annotation>
-      <xsd:documentation>
-        Adds a directory. It is an error if the path is outside the implementation.
-      </xsd:documentation>
-    </xsd:annotation>
-    <xsd:attribute name="path" type="xsd:string" use="required">
-      <xsd:annotation>
-        <xsd:documentation>
-          The directory to be added relative to the implementation root as a Unix-style path.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-  </xsd:complexType>
-  <xsd:complexType name="add-toplevel">
-    <xsd:annotation>
-      <xsd:documentation>
-        Moves everything into a new top-level directory. It is an error if the path is outside the implementation.
-      </xsd:documentation>
-    </xsd:annotation>
-    <xsd:attribute name="dir" type="xsd:string" use="required">
-      <xsd:annotation>
-        <xsd:documentation>
-          The name of the directory to be added.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-  </xsd:complexType>
-  <xsd:complexType name="package-implementation">
-    <xsd:annotation>
-      <xsd:documentation>
-        An implementation provided by a distribution-specific package manager.
-      </xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexContent mixed="false">
-      <xsd:extension base="feed:element">
-        <xsd:attribute name="package" type="xsd:string" use="required">
-          <xsd:annotation>
-            <xsd:documentation>
-              he name of the package in the distribution-specific package manager.
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <xsd:attribute name="distributions" type="xsd:string">
-          <xsd:annotation>
-            <xsd:documentation>
-              A space-separated list of distribution names where the package name applies.
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:complexType name="entry-point">
-    <xsd:annotation>
-      <xsd:documentation>
-        Associates a command with a user-friendly name and description.
-      </xsd:documentation>
-    </xsd:annotation>
-    <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element name="needs-terminal" type="xsd:string" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>
-            If present, this element indicates that the entry point requires a terminal in order to run. Graphical launchers should therefore execute this entry point in a suitable terminal emulator.
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="name" type="feed:localizable-string">
-        <xsd:annotation>
-          <xsd:documentation>
-            Localized user-friendly name for the command. If not present, the command attribute is used instead.
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="summary" type="feed:localizable-string">
-        <xsd:annotation>
-          <xsd:documentation>
-            Short one-line description; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills").
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="description" type="feed:localizable-string">
-        <xsd:annotation>
-          <xsd:documentation>
-            Full description, which can be several paragraphs long.
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="icon" type="feed:icon">
-        <xsd:annotation>
-          <xsd:documentation>
-            An icon to represent the command.
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-    </xsd:choice>
-    <xsd:attribute name="command" type="xsd:string" use="required">
-      <xsd:annotation>
-        <xsd:documentation>
-          The name of the command this entry point represents.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-    <xsd:attribute name="binary-name" type="xsd:string">
-      <xsd:annotation>
-        <xsd:documentation>
-          The canonical name of the binary supplying the command (without file extensions). This is used to suggest suitable alias names.
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-  </xsd:complexType>
+
+  <!-- Localizable string -->
   <xsd:complexType name="localizable-string">
     <xsd:simpleContent>
       <xsd:extension base="xsd:string">

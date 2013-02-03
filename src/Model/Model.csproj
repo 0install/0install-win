@@ -151,9 +151,6 @@
     <None Include="catalog.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="icon.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Dependency.cd" />
     <None Include="Element.cd" />
     <None Include="interface.xsd">

@@ -6,8 +6,8 @@
             id="app-list" elementFormDefault="qualified">
   <xsd:import namespace="http://0install.de/schema/desktop-integration/capabilities" schemaLocation="http://0install.de/schema/desktop-integration/capabilities/capabilities.xsd" />
 
+  <!-- Root element -->
   <xsd:element name="app-list" type="apps:app-list" />
-
   <xsd:complexType name="app-list">
     <xsd:annotation>
       <xsd:documentation>Stores a list of applications and the kind of desktop integration the user chose for them.</xsd:documentation>
@@ -16,6 +16,8 @@
       <xsd:element name="app" type="apps:app" />
     </xsd:choice>
   </xsd:complexType>
+
+  <!-- Applications -->
   <xsd:complexType name="app">
     <xsd:annotation>
       <xsd:documentation>Represents an application indentified by its interface URI.</xsd:documentation>
@@ -50,6 +52,8 @@
       </xsd:annotation>
     </xsd:attribute>
   </xsd:complexType>
+
+  <!-- Access points -->
   <xsd:complexType name="access-points">
     <xsd:annotation>
       <xsd:documentation>Contains a set of access-points that can be registered in a desktop environment.</xsd:documentation>
@@ -77,7 +81,7 @@
     <xsd:annotation>
       <xsd:documentation>Indicates that all compatible capabilities should be registered.</xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="apps:access-point" />
     </xsd:complexContent>
   </xsd:complexType>
@@ -85,7 +89,7 @@
     <xsd:annotation>
       <xsd:documentation>Makes an application the default handler for something.</xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="apps:access-point">
         <xsd:attribute name="capability" type="xsd:string" use="required">
           <xsd:annotation>
@@ -99,7 +103,7 @@
     <xsd:annotation>
       <xsd:documentation>Makes an application the default AutoPlay handler for a specific event.</xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="apps:default-access-point" />
     </xsd:complexContent>
   </xsd:complexType>
@@ -107,7 +111,7 @@
     <xsd:annotation>
       <xsd:documentation>Integrates an application into a file manager's context menu.</xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="apps:default-access-point" />
     </xsd:complexContent>
   </xsd:complexType>
@@ -115,7 +119,7 @@
     <xsd:annotation>
       <xsd:documentation>Makes an application a default program of some kind (e.g. default web-browser, default e-mail client, ...).</xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="apps:default-access-point" />
     </xsd:complexContent>
   </xsd:complexType>
@@ -123,7 +127,7 @@
     <xsd:annotation>
       <xsd:documentation>Makes an application the default handler for a specific file type.</xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="apps:default-access-point" />
     </xsd:complexContent>
   </xsd:complexType>
@@ -131,7 +135,7 @@
     <xsd:annotation>
       <xsd:documentation>Makes an application the default handler for a specific URL protocol.</xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="apps:default-access-point" />
     </xsd:complexContent>
   </xsd:complexType>
@@ -139,7 +143,7 @@
     <xsd:annotation>
       <xsd:documentation>Adds a way to explicitly launch the application to the desktop environment.</xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="apps:access-point">
         <xsd:attribute name="command" type="xsd:string">
           <xsd:annotation>
@@ -153,7 +157,7 @@
     <xsd:annotation>
       <xsd:documentation>Makes an application discoverable via the system's search PATH.</xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="apps:command-access-point">
         <xsd:attribute name="name" type="xsd:string" use="required">
           <xsd:annotation>
@@ -167,7 +171,7 @@
     <xsd:annotation>
       <xsd:documentation>Creates some form of icon in the dektop environment.</xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="apps:command-access-point">
         <xsd:attribute name="name" type="xsd:string">
           <xsd:annotation>
@@ -181,7 +185,7 @@
     <xsd:annotation>
       <xsd:documentation>Creates an entry for an application in the user's application menu (i.e. Windows start menu, GNOME application menu, etc.).</xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="apps:icon-access-point">
         <xsd:attribute name="category" type="xsd:string">
           <xsd:annotation>
@@ -195,7 +199,7 @@
     <xsd:annotation>
       <xsd:documentation>Creates an icon for an application on the user's desktop.</xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="apps:icon-access-point" />
     </xsd:complexContent>
   </xsd:complexType>
@@ -203,7 +207,7 @@
     <xsd:annotation>
       <xsd:documentation>Creates a shortcut for an application in the Quick Launch bar.</xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="apps:icon-access-point" />
     </xsd:complexContent>
   </xsd:complexType>
@@ -211,7 +215,7 @@
     <xsd:annotation>
       <xsd:documentation>Creates a shortcut for an application in the "Send to" menu.</xsd:documentation>
     </xsd:annotation>
-    <xsd:complexContent mixed="false">
+    <xsd:complexContent>
       <xsd:extension base="apps:icon-access-point" />
     </xsd:complexContent>
   </xsd:complexType>
