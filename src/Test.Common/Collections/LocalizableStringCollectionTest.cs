@@ -47,8 +47,8 @@ namespace Common.Collections
 
             // Serialize and deserialize data
             Assert.That(collection1, Is.XmlSerializable);
-            string data = XmlStorage.ToString(collection1);
-            var collection2 = XmlStorage.FromString<LocalizableStringCollection>(data);
+            string data = collection1.ToXmlString();
+            var collection2 = XmlStorage.FromXmlString<LocalizableStringCollection>(data);
 
             // Ensure data stayed the same
             Assert.AreEqual(collection1, collection2, "Serialized objects should be equal.");

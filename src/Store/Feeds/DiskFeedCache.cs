@@ -112,7 +112,7 @@ namespace ZeroInstall.Store.Feeds
             ModelUtils.ValidateInterfaceID(feedID);
             #endregion
 
-            var feed = Feed.Load(GetPath(feedID));
+            var feed = XmlStorage.Load<Feed>(GetPath(feedID));
             feed.Normalize(feedID);
             return feed;
         }

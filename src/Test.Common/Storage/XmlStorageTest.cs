@@ -45,7 +45,7 @@ namespace Common.Storage
         // ReSharper restore MemberCanBePrivate.Global
 
         /// <summary>
-        /// Ensures <see cref="XmlStorage.Save{T}(Stream,T)"/> and <see cref="XmlStorage.Load{T}(Stream)"/> work correctly.
+        /// Ensures <see cref="XmlStorage.Save{T}(T,System.IO.Stream)"/> and <see cref="XmlStorage.Load{T}(Stream)"/> work correctly.
         /// </summary>
         [Test]
         public void TestFile()
@@ -54,7 +54,7 @@ namespace Common.Storage
             using (var tempFile = new TemporaryFile("unit-tests"))
             {
                 // Write and read file
-                XmlStorage.Save(tempFile.Path, testData1);
+                testData1.Save(tempFile.Path);
                 testData2 = XmlStorage.Load<TestData>(tempFile.Path);
             }
 
@@ -63,7 +63,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Ensures <see cref="XmlStorage.Save{T}(Stream,T)"/> and <see cref="XmlStorage.Load{T}(Stream)"/> work correctly with relative paths.
+        /// Ensures <see cref="XmlStorage.Save{T}(T,System.IO.Stream)"/> and <see cref="XmlStorage.Load{T}(Stream)"/> work correctly with relative paths.
         /// </summary>
         [Test]
         public void TestFileRelative()
@@ -72,7 +72,7 @@ namespace Common.Storage
             using (new TemporaryDirectory("unit-tests", true))
             {
                 // Write and read file
-                XmlStorage.Save("file.xml", testData1);
+                testData1.Save("file.xml");
                 testData2 = XmlStorage.Load<TestData>("file.xml");
             }
 
@@ -128,7 +128,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Ensures <see cref="XmlStorage.ToString{T}"/> and <see cref="XmlStorage.FromString{T}"/> work correctly.
+        /// Ensures <see cref="XmlStorage.ToXmlString{T}"/> and <see cref="XmlStorage.FromXmlString{T}"/> work correctly.
         /// </summary>
         [Test]
         public void TestString()
@@ -136,8 +136,8 @@ namespace Common.Storage
             var testData1 = new TestData {Data = "Hello"};
 
             // Serialize and deserialize
-            string xml = XmlStorage.ToString(testData1);
-            var testData2 = XmlStorage.FromString<TestData>(xml);
+            string xml = testData1.ToXmlString();
+            var testData2 = XmlStorage.FromXmlString<TestData>(xml);
 
             Assert.AreEqual(testData1.Data, testData2.Data);
         }

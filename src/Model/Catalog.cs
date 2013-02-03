@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using Common.Collections;
@@ -132,54 +131,6 @@ namespace ZeroInstall.Model
                 var entryPoint = feed.GetEntryPoint(Command.NameRun);
                 return entryPoint != null && StringUtils.EqualsIgnoreCase(entryPoint.BinaryName, shortName);
             });
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Storage
-        /// <summary>
-        /// Loads an <see cref="Catalog"/> from an XML file (catalog).
-        /// </summary>
-        /// <param name="path">The file to load from.</param>
-        /// <returns>The loaded <see cref="Catalog"/>.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public static Catalog Load(string path)
-        {
-            return XmlStorage.Load<Catalog>(path);
-        }
-
-        /// <summary>
-        /// Loads an <see cref="Catalog"/> from a stream containing an XML file (catalog).
-        /// </summary>
-        /// <param name="stream">The stream to load from.</param>
-        /// <returns>The loaded <see cref="Catalog"/>.</returns>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public static Catalog Load(Stream stream)
-        {
-            return XmlStorage.Load<Catalog>(stream);
-        }
-
-        /// <summary>
-        /// Saves this <see cref="Catalog"/> to an XML file (catalog).
-        /// </summary>
-        /// <param name="path">The file to save in.</param>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        public void Save(string path)
-        {
-            XmlStorage.Save(path, this);
-        }
-
-        /// <summary>
-        /// Saves this <see cref="Catalog"/> to a stream as an XML file (catalog).
-        /// </summary>
-        /// <param name="stream">The stream to save in.</param>
-        public void Save(Stream stream)
-        {
-            XmlStorage.Save(stream, this);
         }
         #endregion
 

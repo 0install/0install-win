@@ -78,19 +78,6 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Storage
         /// <summary>
-        /// Loads <see cref="InterfacePreferences"/> from an XML file.
-        /// </summary>
-        /// <param name="path">The file to load from.</param>
-        /// <returns>The loaded <see cref="InterfacePreferences"/>.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public static InterfacePreferences Load(string path)
-        {
-            return XmlStorage.Load<InterfacePreferences>(path);
-        }
-
-        /// <summary>
         /// Loads <see cref="InterfacePreferences"/> for a specific interface.
         /// </summary>
         /// <param name="interfaceID">The interface to load the preferences for.</param>
@@ -152,17 +139,6 @@ namespace ZeroInstall.Injector.Feeds
         }
 
         /// <summary>
-        /// Saves these <see cref="InterfacePreferences"/> to an XML file.
-        /// </summary>
-        /// <param name="path">The file to save in.</param>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        public void Save(string path)
-        {
-            XmlStorage.Save(path, this);
-        }
-
-        /// <summary>
         /// Saves these <see cref="InterfacePreferences"/> for a specific interface.
         /// </summary>
         /// <param name="interfaceID">The interface to save the preferences for.</param>
@@ -171,7 +147,7 @@ namespace ZeroInstall.Injector.Feeds
         public void SaveFor(string interfaceID)
         {
             var path = Locations.GetSaveConfigPath("0install.net", true, "injector", "interfaces", ModelUtils.PrettyEscape(interfaceID));
-            XmlStorage.Save(path, this);
+            this.Save(path);
         }
         #endregion
 

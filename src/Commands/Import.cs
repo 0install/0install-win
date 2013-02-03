@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
@@ -82,7 +83,7 @@ namespace ZeroInstall.Commands
 
             Policy.Handler.ShowProgressUI();
             Policy.FeedManager.ImportFeed(
-                Feed.Load(path).Uri, new Uri(path),
+                XmlStorage.Load<Feed>(path).Uri, new Uri(path),
                 File.ReadAllBytes(path), Policy);
             return 0;
         }

@@ -27,7 +27,6 @@ using Common.Storage;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
-using ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -124,66 +123,6 @@ namespace ZeroInstall.DesktopIntegration
         #endregion
 
         #region Storage
-        /// <summary>
-        /// Loads a <see cref="AppList"/> from an XML file.
-        /// </summary>
-        /// <param name="path">The file to load from.</param>
-        /// <returns>The loaded <see cref="AppList"/>.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public static AppList Load(string path)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            #endregion
-
-            return XmlStorage.Load<AppList>(path);
-        }
-
-        /// <summary>
-        /// Loads a <see cref="AppList"/> from a stream containing an XML file.
-        /// </summary>
-        /// <param name="stream">The stream to load from.</param>
-        /// <returns>The loaded <see cref="AppList"/>.</returns>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public static AppList Load(Stream stream)
-        {
-            #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
-            #endregion
-
-            return XmlStorage.Load<AppList>(stream);
-        }
-
-        /// <summary>
-        /// Saves this <see cref="AppList"/> to an XML file.
-        /// </summary>
-        /// <param name="path">The file to save in.</param>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        public void Save(string path)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            #endregion
-
-            XmlStorage.Save(path, this);
-        }
-
-        /// <summary>
-        /// Saves this <see cref="AppList"/> to a stream as an XML file.
-        /// </summary>
-        /// <param name="stream">The stream to save in.</param>
-        public void Save(Stream stream)
-        {
-            #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
-            #endregion
-
-            XmlStorage.Save(stream, this);
-        }
-
         /// <summary>
         /// Returns the default file path used to store the main <see cref="AppList"/> on this system.
         /// </summary>

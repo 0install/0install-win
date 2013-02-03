@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using Common;
+using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
@@ -56,7 +57,7 @@ namespace ZeroInstall.Injector.Solver
             policy.Handler.CancellationToken.ThrowIfCancellationRequested();
             try
             {
-                var selections = Selections.LoadFromString(result);
+                var selections = XmlStorage.FromXmlString<Selections>(result);
                 selections.Normalize();
                 return selections;
             }

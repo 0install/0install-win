@@ -24,7 +24,6 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using Common.Collections;
-using Common.Storage;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
@@ -219,75 +218,6 @@ namespace ZeroInstall.Injector.Solver
                     !searchStore.Contains(implementation.ManifestDigest) &&
                     // Ignore implementations without an ID
                     !string.IsNullOrEmpty(implementation.ID));
-        }
-        #endregion
-
-        #region Storage
-        /// <summary>
-        /// Loads <see cref="Selections"/> from an XML file.
-        /// </summary>
-        /// <param name="path">The file to load from.</param>
-        /// <returns>The loaded <see cref="Selections"/>.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public static Selections Load(string path)
-        {
-            return XmlStorage.Load<Selections>(path);
-        }
-
-        /// <summary>
-        /// Loads <see cref="Selections"/> from a stream containing an XML file.
-        /// </summary>
-        /// <param name="stream">The stream to load from.</param>
-        /// <returns>The loaded <see cref="Selections"/>.</returns>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public static Selections Load(Stream stream)
-        {
-            return XmlStorage.Load<Selections>(stream);
-        }
-
-        /// <summary>
-        /// Loads <see cref="Selections"/> from an XML string.
-        /// </summary>
-        /// <param name="data">The XML string to be parsed.</param>
-        /// <returns>The loaded <see cref="Selections"/>.</returns>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public static Selections LoadFromString(string data)
-        {
-            #region Sanity checks
-            if (data == null) throw new ArgumentNullException("data");
-            #endregion
-
-            return XmlStorage.FromString<Selections>(data);
-        }
-
-        /// <summary>
-        /// Saves these <see cref="Selections"/> to an XML file.
-        /// </summary>
-        /// <param name="path">The file to save in.</param>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        public void Save(string path)
-        {
-            XmlStorage.Save(path, this);
-        }
-
-        /// <summary>
-        /// Saves these <see cref="Selections"/> to a stream as an XML file.
-        /// </summary>
-        /// <param name="stream">The stream to save in.</param>
-        public void Save(Stream stream)
-        {
-            XmlStorage.Save(stream, this);
-        }
-
-        /// <summary>
-        /// Returns the <see cref="Selections"/> serialized to an XML string.
-        /// </summary>
-        public string WriteToString()
-        {
-            return XmlStorage.ToString(this);
         }
         #endregion
     }

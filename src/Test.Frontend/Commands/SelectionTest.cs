@@ -44,7 +44,7 @@ namespace ZeroInstall.Commands
             bool stale;
             SolverMock.Setup(x => x.Solve(requirements, Policy, out stale)).Returns(selections).Verifiable();
             var args = new[] {"--xml", "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0"};
-            AssertParseExecuteResult(args, selections, selections.WriteToString(), 0);
+            AssertParseExecuteResult(args, selections, selections.ToXmlString(), 0);
         }
 
         [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
@@ -55,7 +55,7 @@ namespace ZeroInstall.Commands
             {
                 selections.Save(tempFile.Path);
                 var args = new[] {"--xml", tempFile.Path};
-                AssertParseExecuteResult(args, selections, selections.WriteToString(), 0);
+                AssertParseExecuteResult(args, selections, selections.ToXmlString(), 0);
             }
         }
 

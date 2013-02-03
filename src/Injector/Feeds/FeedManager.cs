@@ -224,6 +224,7 @@ namespace ZeroInstall.Injector.Feeds
             Cache.Add(uri.ToString(), data);
             var preferences = FeedPreferences.LoadForSafe(uri.ToString());
             preferences.LastChecked = DateTime.UtcNow;
+            preferences.Normalize();
             preferences.SaveFor(uri.ToString());
         }
 
@@ -239,7 +240,7 @@ namespace ZeroInstall.Injector.Feeds
         private void DetectAttacks(Uri uri, byte[] data, Policy policy, ValidSignature signature)
         {
             // Detect feed substitution 
-            var feed = Feed.Load(new MemoryStream(data));
+            var feed = XmlStorage.Load<Feed>(new MemoryStream(data));
             if (feed.Uri == null) throw new InvalidInterfaceIDException(string.Format(Resources.FeedUriMissing, uri));
             if (feed.Uri != uri) throw new InvalidInterfaceIDException(string.Format(Resources.FeedUriMismatch, feed.Uri, uri));
 

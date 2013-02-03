@@ -21,6 +21,7 @@ using System.IO;
 using Common;
 using Common.Cli;
 using Common.Controls;
+using Common.Storage;
 using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
@@ -116,7 +117,7 @@ namespace ZeroInstall.Publish.WinForms
                 SignedFeed signedFeed;
                 try
                 {
-                    signedFeed = SignedFeed.Load(file.FullName);
+                    signedFeed = XmlStorage.Load<SignedFeed>(file.FullName);
                 }
                     #region Error handling
                 catch (UnauthorizedAccessException ex)

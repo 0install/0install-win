@@ -170,7 +170,7 @@ namespace ZeroInstall.Model
             {
                 // Write and read file
                 feed1.Save(tempFile.Path);
-                feed2 = Feed.Load(tempFile.Path);
+                feed2 = XmlStorage.Load<Feed>(tempFile.Path);
             }
 
             // Ensure data stayed the same
@@ -248,7 +248,7 @@ namespace ZeroInstall.Model
 
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-                XmlStorage.Save(tempFile.Path, feed);
+                feed.Save(tempFile.Path);
                 var feedReload = XmlStorage.Load<Feed>(tempFile.Path);
 
                 feed.Normalize(tempFile.Path);

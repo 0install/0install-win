@@ -18,9 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Xml.Serialization;
-using Common.Storage;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
@@ -47,70 +45,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             public C5.LinkedList<AccessPoint> Entries
         {
             get { return _accessPoints; }
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Storage
-        /// <summary>
-        /// Loads a <see cref="AccessPointList"/> from an XML file.
-        /// </summary>
-        /// <param name="path">The file to load from.</param>
-        /// <returns>The loaded <see cref="AccessPointList"/>.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public static AccessPointList Load(string path)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            #endregion
-
-            return XmlStorage.Load<AccessPointList>(path);
-        }
-
-        /// <summary>
-        /// Loads a <see cref="AccessPointList"/> from a stream containing an XML file.
-        /// </summary>
-        /// <param name="stream">The stream to load from.</param>
-        /// <returns>The loaded <see cref="AccessPointList"/>.</returns>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public static AccessPointList Load(Stream stream)
-        {
-            #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
-            #endregion
-
-            return XmlStorage.Load<AccessPointList>(stream);
-        }
-
-        /// <summary>
-        /// Saves this <see cref="AccessPointList"/> to an XML file.
-        /// </summary>
-        /// <param name="path">The file to save in.</param>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        public void Save(string path)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            #endregion
-
-            XmlStorage.Save(path, this);
-        }
-
-        /// <summary>
-        /// Saves this <see cref="AccessPointList"/> to a stream as an XML file.
-        /// </summary>
-        /// <param name="stream">The stream to save in.</param>
-        public void Save(Stream stream)
-        {
-            #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
-            #endregion
-
-            XmlStorage.Save(stream, this);
         }
         #endregion
 

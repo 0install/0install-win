@@ -76,7 +76,7 @@ namespace ZeroInstall.Publish
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            return new SignedFeed(Feed.Load(path), FeedUtils.GetKey(path, OpenPgpProvider.CreateDefault()));
+            return new SignedFeed(XmlStorage.Load<Feed>(path), FeedUtils.GetKey(path, OpenPgpProvider.CreateDefault()));
         }
 
         /// <summary>

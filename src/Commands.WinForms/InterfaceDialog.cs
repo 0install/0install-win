@@ -415,7 +415,10 @@ namespace ZeroInstall.Commands.WinForms
 #else
             foreach (var feedEntry in _selection.Feeds)
 #endif
+            {
+                feedEntry.Value.Normalize();
                 feedEntry.Value.SaveFor(feedEntry.Key);
+            }
         }
         #endregion
 

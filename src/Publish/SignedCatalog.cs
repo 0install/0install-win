@@ -76,7 +76,7 @@ namespace ZeroInstall.Publish
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            return new SignedCatalog(Catalog.Load(path), FeedUtils.GetKey(path, OpenPgpProvider.CreateDefault()));
+            return new SignedCatalog(XmlStorage.Load<Catalog>(path), FeedUtils.GetKey(path, OpenPgpProvider.CreateDefault()));
         }
 
         /// <summary>

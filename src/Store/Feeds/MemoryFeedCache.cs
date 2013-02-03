@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Common.Storage;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Feeds
@@ -116,7 +117,7 @@ namespace ZeroInstall.Store.Feeds
             _backingCache.Add(feedID, data);
 
             // Add to memory cache (replacing existing old versions)
-            var feed = Feed.Load(new MemoryStream(data));
+            var feed = XmlStorage.Load<Feed>(new MemoryStream(data));
             feed.Normalize(feedID);
             lock (_feedDictionary)
             {

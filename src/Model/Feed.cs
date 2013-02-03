@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
@@ -381,70 +380,6 @@ namespace ZeroInstall.Model
             if (!suitableFeedIcons.IsEmpty) return suitableFeedIcons.First;
 
             return null;
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Storage
-        /// <summary>
-        /// Loads a <see cref="Feed"/> from an XML file.
-        /// </summary>
-        /// <param name="path">The file to load from.</param>
-        /// <returns>The loaded <see cref="Feed"/>.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public static Feed Load(string path)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            #endregion
-
-            return XmlStorage.Load<Feed>(path);
-        }
-
-        /// <summary>
-        /// Loads a <see cref="Feed"/> from a stream containing an XML file.
-        /// </summary>
-        /// <param name="stream">The stream to load from.</param>
-        /// <returns>The loaded <see cref="Feed"/>.</returns>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public static Feed Load(Stream stream)
-        {
-            #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
-            #endregion
-
-            return XmlStorage.Load<Feed>(stream);
-        }
-
-        /// <summary>
-        /// Saves this <see cref="Feed"/> to an XML file.
-        /// </summary>
-        /// <param name="path">The file to save in.</param>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        public void Save(string path)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            #endregion
-
-            XmlStorage.Save(path, this);
-        }
-
-        /// <summary>
-        /// Saves this <see cref="Feed"/> to a stream as an XML file.
-        /// </summary>
-        /// <param name="stream">The stream to save in.</param>
-        public void Save(Stream stream)
-        {
-            #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
-            #endregion
-
-            XmlStorage.Save(stream, this);
         }
         #endregion
 

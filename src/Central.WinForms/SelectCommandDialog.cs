@@ -32,7 +32,7 @@ namespace ZeroInstall.Central.WinForms
     {
         #region Inner classes
         /// <summary>
-        /// Wraps <see cref="EntryPoint"/>s so that their ToString methods return localized names.
+        /// Wraps <see cref="EntryPoint"/>s so that their ToXmlString methods return localized names.
         /// </summary>
         private class EntryPointWrapper : ToStringWrapper<EntryPoint>
         {
@@ -69,7 +69,7 @@ namespace ZeroInstall.Central.WinForms
                 ShowInTaskbar = (owner == null)
             })
             {
-                // Wrap entry points so that their ToString methods return localized names
+                // Wrap entry points so that their ToXmlString methods return localized names
                 foreach (var entryPoint in feed.EntryPoints)
                     dialog.comboBoxCommand.Items.Add(new EntryPointWrapper(entryPoint));
 

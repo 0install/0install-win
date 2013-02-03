@@ -114,7 +114,7 @@ namespace Common.Storage
         /// <returns>The loaded object.</returns>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
-        public static T FromString<T>(string data)
+        public static T FromXmlString<T>(string data)
         {
             #region Sanity checks
             if (data == null) throw new ArgumentNullException("data");
@@ -131,9 +131,9 @@ namespace Common.Storage
         /// Saves an object in an XML stream ending with a line break.
         /// </summary>
         /// <typeparam name="T">The type of object to be saved in an XML stream.</typeparam>
-        /// <param name="stream">The stream to write the encoded XML data to.</param>
         /// <param name="data">The object to be stored.</param>
-        public static void Save<T>(Stream stream, T data)
+        /// <param name="stream">The stream to write the encoded XML data to.</param>
+        public static void Save<T>(this T data, Stream stream)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -172,11 +172,11 @@ namespace Common.Storage
         /// </summary>
         /// <remarks>This method performs an atomic write operation when possible.</remarks>
         /// <typeparam name="T">The type of object to be saved in an XML stream.</typeparam>
-        /// <param name="path">The path of the file to write.</param>
         /// <param name="data">The object to be stored.</param>
+        /// <param name="path">The path of the file to write.</param>
         /// <exception cref="IOException">Thrown if a problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        public static void Save<T>(string path, T data)
+        public static void Save<T>(this T data, string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -185,7 +185,7 @@ namespace Common.Storage
             using (var atomic = new AtomicWrite(path))
             using (var fileStream = File.Create(atomic.WritePath))
             {
-                Save(fileStream, data);
+                Save(data, fileStream);
                 atomic.Commit();
             }
         }
@@ -196,12 +196,12 @@ namespace Common.Storage
         /// <typeparam name="T">The type of object to be saved in an XML stream.</typeparam>
         /// <param name="data">The object to be stored.</param>
         /// <returns>A string containing the XML code.</returns>
-        public static string ToString<T>(T data)
+        public static string ToXmlString<T>(this T data)
         {
             using (var stream = new MemoryStream())
             {
                 // Write to a memory stream
-                Save(stream, data);
+                Save(data, stream);
 
                 // Copy the stream to a string
                 return stream.ReadToString();
@@ -351,7 +351,7 @@ namespace Common.Storage
                     if (!string.IsNullOrEmpty(password)) entry.AESKeySize = 128;
                     zipStream.SetLevel(9);
                     zipStream.PutNextEntry(entry);
-                    Save(zipStream, data);
+                    Save(data, zipStream);
                     zipStream.CloseEntry();
                 }
 

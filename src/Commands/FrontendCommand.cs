@@ -24,6 +24,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using Common;
+using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -129,7 +130,7 @@ namespace ZeroInstall.Commands
                 {
                     try
                     {
-                        _appList = AppList.Load(AppList.GetDefaultPath(false));
+                        _appList = XmlStorage.Load<AppList>(AppList.GetDefaultPath(false));
                     }
                         #region Error handling
                     catch (FileNotFoundException)

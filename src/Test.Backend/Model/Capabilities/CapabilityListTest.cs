@@ -62,7 +62,7 @@ namespace ZeroInstall.Model.Capabilities
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
-                XmlStorage.Save(tempFile.Path, capabilityList1);
+                capabilityList1.Save(tempFile.Path);
                 capabilityList2 = XmlStorage.Load<CapabilityList>(tempFile.Path);
             }
 

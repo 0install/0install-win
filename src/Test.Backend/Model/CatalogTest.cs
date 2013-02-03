@@ -82,7 +82,7 @@ namespace ZeroInstall.Model
             {
                 // Write and read file
                 catalog1.Save(tempFile.Path);
-                catalog2 = Catalog.Load(tempFile.Path);
+                catalog2 = XmlStorage.Load<Catalog>(tempFile.Path);
             }
 
             // Ensure data stayed the same

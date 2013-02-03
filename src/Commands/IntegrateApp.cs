@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -136,7 +137,7 @@ namespace ZeroInstall.Commands
                     integrationManager.AddAccessPointCategories(appEntry, feed, _addCategories);
 
                 foreach (string path in _importLists)
-                    integrationManager.AddAccessPoints(appEntry, feed, AccessPointList.Load(path).Entries);
+                    integrationManager.AddAccessPoints(appEntry, feed, XmlStorage.Load<AccessPointList>(path).Entries);
             }
                 #region Error handling
             catch (InvalidOperationException ex)

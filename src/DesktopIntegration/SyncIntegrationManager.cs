@@ -108,7 +108,7 @@ namespace ZeroInstall.DesktopIntegration
             _password = password;
             _cryptoKey = cryptoKey;
 
-            if (File.Exists(AppListPath + AppListLastSyncSuffix)) _appListLastSync = AppList.Load(AppListPath + AppListLastSyncSuffix);
+            if (File.Exists(AppListPath + AppListLastSyncSuffix)) _appListLastSync = XmlStorage.Load<AppList>(AppListPath + AppListLastSyncSuffix);
             else
             {
                 _appListLastSync = new AppList();
@@ -142,7 +142,7 @@ namespace ZeroInstall.DesktopIntegration
             _password = password;
             _cryptoKey = cryptoKey;
 
-            if (File.Exists(AppListPath + AppListLastSyncSuffix)) _appListLastSync = AppList.Load(AppListPath + AppListLastSyncSuffix);
+            if (File.Exists(AppListPath + AppListLastSyncSuffix)) _appListLastSync = XmlStorage.Load<AppList>(AppListPath + AppListLastSyncSuffix);
             else
             {
                 _appListLastSync = new AppList();

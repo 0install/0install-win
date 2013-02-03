@@ -51,7 +51,7 @@ namespace ZeroInstall.Injector.Feeds
             try
             {
                 using (new MutexLock(CacheMutexName))
-                    return Catalog.Load(CacheFilePath);
+                    return XmlStorage.Load<Catalog>(CacheFilePath);
             }
                 #region Error handling
             catch (FileNotFoundException)
@@ -100,7 +100,7 @@ namespace ZeroInstall.Injector.Feeds
                 Uri catalogUrl;
                 return ModelUtils.TryParseUri(source, out catalogUrl)
                     ? DownloadCatalog(catalogUrl, policy)
-                    : Catalog.Load(source);
+                    : XmlStorage.Load<Catalog>(source);
             });
             var catalog = Catalog.Merge(catalogs);
 
@@ -139,7 +139,7 @@ namespace ZeroInstall.Injector.Feeds
         {
             var data = new WebClientTimeout().DownloadData(url);
             TrustUtils.CheckTrust(url, null, data, policy);
-            return Catalog.Load(new MemoryStream(data));
+            return XmlStorage.Load<Catalog>(new MemoryStream(data));
         }
         #endregion
 

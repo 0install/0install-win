@@ -117,7 +117,7 @@ namespace ZeroInstall.DesktopIntegration
             {
                 // Write and read file
                 appList.Save(tempFile.Path);
-                appList2 = AppList.Load(tempFile.Path);
+                appList2 = XmlStorage.Load<AppList>(tempFile.Path);
             }
 
             // Ensure data stayed the same

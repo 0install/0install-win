@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
@@ -81,7 +82,7 @@ namespace ZeroInstall.DesktopIntegration
             AppListPath = appListPath;
             Handler = handler;
 
-            if (File.Exists(AppListPath)) AppList = AppList.Load(AppListPath);
+            if (File.Exists(AppListPath)) AppList = XmlStorage.Load<AppList>(AppListPath);
             else
             {
                 AppList = new AppList();
@@ -111,7 +112,7 @@ namespace ZeroInstall.DesktopIntegration
             AppListPath = AppList.GetDefaultPath(machineWide);
             Handler = handler;
 
-            if (File.Exists(AppListPath)) AppList = AppList.Load(AppListPath);
+            if (File.Exists(AppListPath)) AppList = XmlStorage.Load<AppList>(AppListPath);
             else
             {
                 AppList = new AppList();

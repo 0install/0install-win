@@ -23,6 +23,7 @@ using System.Net;
 using Common;
 using Common.Cli;
 using Common.Info;
+using Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.Cli.Properties;
@@ -267,7 +268,7 @@ namespace ZeroInstall.Publish.Cli
 
                     foreach (var file in options.Feeds)
                     {
-                        var signedFeed = SignedFeed.Load(file.FullName);
+                        var signedFeed = XmlStorage.Load<SignedFeed>(file.FullName);
                         var originalFeed = signedFeed.Feed.Clone();
                         HandleModify(signedFeed.Feed, options);
                         SaveFeed(signedFeed, originalFeed, file.FullName, ref options);
@@ -280,7 +281,7 @@ namespace ZeroInstall.Publish.Cli
                         options.Feeds = ArgumentUtils.GetFiles(new[] {Environment.CurrentDirectory}, "*.xml");
 
                     var catalog = new Catalog();
-                    foreach (var feed in options.Feeds.Select(feedFile => Feed.Load(feedFile.FullName)))
+                    foreach (var feed in options.Feeds.Select(feedFile => XmlStorage.Load<Feed>(feedFile.FullName)))
                     {
                         feed.Strip();
                         catalog.Feeds.Add(feed);

@@ -181,24 +181,13 @@ namespace ZeroInstall.Injector.Feeds
         }
 
         /// <summary>
-        /// Saves the this <see cref="TrustDB"/> to its default location.
-        /// </summary>
-        /// <param name="path">The file to save in.</param>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        public void Save(string path)
-        {
-            XmlStorage.Save(path, this);
-        }
-
-        /// <summary>
         /// Saves the this <see cref="TrustDB"/> to an XML file.
         /// </summary>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void Save()
         {
-            Save(Locations.GetSaveConfigPath("0install.net", true, "injector", "trustdb.xml"));
+            this.Save(Locations.GetSaveConfigPath("0install.net", true, "injector", "trustdb.xml"));
         }
         #endregion
 

@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -117,7 +118,7 @@ namespace ZeroInstall.Commands
             {
                 try
                 { // Try to parse as selections document
-                    Selections = Selections.Load(Requirements.InterfaceID);
+                    Selections = XmlStorage.Load<Selections>(Requirements.InterfaceID);
                     Requirements.InterfaceID = Selections.InterfaceID;
                     SelectionsDocument = true;
                 }
@@ -202,7 +203,7 @@ namespace ZeroInstall.Commands
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
         protected string GetSelectionsOutput()
         {
-            return ShowXml ? Selections.WriteToString() : Selections.GetHumanReadable(Policy.Fetcher.Store);
+            return ShowXml ? Selections.ToXmlString() : Selections.GetHumanReadable(Policy.Fetcher.Store);
         }
         #endregion
     }

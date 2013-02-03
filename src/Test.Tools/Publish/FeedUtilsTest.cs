@@ -56,7 +56,7 @@ namespace ZeroInstall.Publish
                 openPgpMock.Verify();
 
                 string signedFeed = File.ReadAllText(tempFile);
-                string expectedFeed = XmlStorage.ToString(feed) + Store.Feeds.FeedUtils.SignatureBlockStart +
+                string expectedFeed = feed.ToXmlString() + Store.Feeds.FeedUtils.SignatureBlockStart +
                     Convert.ToBase64String(signature) + "\n" + Store.Feeds.FeedUtils.SignatureBlockEnd;
                 Assert.AreEqual(expectedFeed, signedFeed,
                     "Feed should remain unchanged except for appended XML signatre");

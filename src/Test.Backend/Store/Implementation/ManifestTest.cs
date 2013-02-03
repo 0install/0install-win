@@ -144,7 +144,7 @@ namespace ZeroInstall.Store.Implementation
             }
         }
 
-        [Test(Description = "Ensures that ToString() correctly outputs a serialized form of the manifest.")]
+        [Test(Description = "Ensures that ToXmlString() correctly outputs a serialized form of the manifest.")]
         public void TestToString()
         {
             string packageDir = DirectoryStoreTest.CreateArtificialPackage();

@@ -16,6 +16,7 @@
  */
 
 using System.IO;
+using Common.Storage;
 
 namespace ZeroInstall.Model
 {

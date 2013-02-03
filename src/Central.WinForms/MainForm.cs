@@ -214,7 +214,7 @@ namespace ZeroInstall.Central.WinForms
             AppList newAppList;
             try
             {
-                newAppList = AppList.Load(AppList.GetDefaultPath(_machineWide));
+                newAppList = XmlStorage.Load<AppList>(AppList.GetDefaultPath(_machineWide));
             }
                 #region Error handling
             catch (FileNotFoundException)

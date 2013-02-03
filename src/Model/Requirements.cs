@@ -160,7 +160,7 @@ namespace ZeroInstall.Model
                 if (Architecture.OS != OS.All) builder.Append("--os=" + Architecture.OS.ConvertToString().EscapeArgument() + " ");
                 if (Architecture.Cpu != Cpu.All) builder.Append("--cpu=" + Architecture.Cpu.ConvertToString().EscapeArgument() + " ");
             }
-            //builder.Append("--languages=" + _languages.ToString().EscapeArgument() + " ");
+            //builder.Append("--languages=" + _languages.ToXmlString().EscapeArgument() + " ");
             if (Versions != null) builder.Append("--version=" + Versions.ToString().EscapeArgument() + " ");
             foreach (var pair in VersionsFor)
                 builder.Append("--version-for=" + pair.InterfaceID.EscapeArgument() + " " + pair.Versions.ToString().EscapeArgument() + " ");

@@ -23,6 +23,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using Common;
 using Common.Collections;
+using Common.Storage;
 using Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
