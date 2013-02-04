@@ -35,6 +35,9 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
     {
         protected readonly bool MachineWide;
 
+        public HandlerPage()
+        {}
+
         public HandlerPage(bool machineWide)
         {
             MachineWide = machineWide;
