@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsDialog));
-            this.buttonAdvanced = new System.Windows.Forms.Button();
-            this.buttonSyncReset = new System.Windows.Forms.Button();
-            this.buttonSyncSetup = new System.Windows.Forms.Button();
             this.linkSyncAccount = new System.Windows.Forms.LinkLabel();
             this.buttonSyncCryptoKey = new System.Windows.Forms.Button();
             this.textBoxSyncCryptoKey = new System.Windows.Forms.TextBox();
@@ -91,27 +88,6 @@
             // 
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
             // 
-            // buttonAdvanced
-            // 
-            resources.ApplyResources(this.buttonAdvanced, "buttonAdvanced");
-            this.buttonAdvanced.Name = "buttonAdvanced";
-            this.buttonAdvanced.UseVisualStyleBackColor = true;
-            this.buttonAdvanced.Click += new System.EventHandler(this.buttonAdvanced_Click);
-            // 
-            // buttonSyncReset
-            // 
-            resources.ApplyResources(this.buttonSyncReset, "buttonSyncReset");
-            this.buttonSyncReset.Name = "buttonSyncReset";
-            this.buttonSyncReset.UseVisualStyleBackColor = true;
-            this.buttonSyncReset.Click += new System.EventHandler(this.buttonSyncReset_Click);
-            // 
-            // buttonSyncSetup
-            // 
-            resources.ApplyResources(this.buttonSyncSetup, "buttonSyncSetup");
-            this.buttonSyncSetup.Name = "buttonSyncSetup";
-            this.buttonSyncSetup.UseVisualStyleBackColor = true;
-            this.buttonSyncSetup.Click += new System.EventHandler(this.buttonSyncSetup_Click);
-            // 
             // linkSyncAccount
             // 
             resources.ApplyResources(this.linkSyncAccount, "linkSyncAccount");
@@ -142,7 +118,6 @@
             resources.ApplyResources(this.textBoxSyncPassword, "textBoxSyncPassword");
             this.textBoxSyncPassword.Name = "textBoxSyncPassword";
             this.textBoxSyncPassword.UseSystemPasswordChar = true;
-            this.textBoxSyncPassword.TextChanged += new System.EventHandler(this.textBoxSync_TextChanged);
             // 
             // labelSyncPassword
             // 
@@ -155,7 +130,6 @@
             resources.ApplyResources(this.textBoxSyncServer, "textBoxSyncServer");
             this.textBoxSyncServer.HttpOnly = true;
             this.textBoxSyncServer.Name = "textBoxSyncServer";
-            this.textBoxSyncServer.TextChanged += new System.EventHandler(this.textBoxSync_TextChanged);
             // 
             // labelServer
             // 
@@ -166,7 +140,6 @@
             // 
             resources.ApplyResources(this.textBoxSyncUsername, "textBoxSyncUsername");
             this.textBoxSyncUsername.Name = "textBoxSyncUsername";
-            this.textBoxSyncUsername.TextChanged += new System.EventHandler(this.textBoxSync_TextChanged);
             // 
             // labelSyncUsername
             // 
@@ -370,9 +343,7 @@
             // 
             // tabPageSync
             // 
-            this.tabPageSync.Controls.Add(this.buttonSyncReset);
             this.tabPageSync.Controls.Add(this.textBoxSyncServer);
-            this.tabPageSync.Controls.Add(this.buttonSyncSetup);
             this.tabPageSync.Controls.Add(this.labelSyncUsername);
             this.tabPageSync.Controls.Add(this.linkSyncAccount);
             this.tabPageSync.Controls.Add(this.textBoxSyncUsername);
@@ -403,13 +374,11 @@
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonApply);
-            this.Controls.Add(this.buttonAdvanced);
             this.Controls.Add(this.tabOptions);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Name = "OptionsDialog";
             this.Load += new System.EventHandler(this.OptionsDialog_Load);
             this.Controls.SetChildIndex(this.tabOptions, 0);
-            this.Controls.SetChildIndex(this.buttonAdvanced, 0);
             this.Controls.SetChildIndex(this.buttonOK, 0);
             this.Controls.SetChildIndex(this.buttonCancel, 0);
             this.Controls.SetChildIndex(this.buttonApply, 0);
@@ -433,7 +402,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonAdvanced;
         private System.Windows.Forms.Button buttonSyncCryptoKey;
         private System.Windows.Forms.TextBox textBoxSyncCryptoKey;
         private System.Windows.Forms.Label labelSyncCryptoKey;
@@ -442,8 +410,6 @@
         private System.Windows.Forms.TextBox textBoxSyncUsername;
         private System.Windows.Forms.Label labelSyncUsername;
         private System.Windows.Forms.LinkLabel linkSyncAccount;
-        private System.Windows.Forms.Button buttonSyncReset;
-        private System.Windows.Forms.Button buttonSyncSetup;
         private Common.Controls.UriTextBox textBoxSyncServer;
         private System.Windows.Forms.Label labelServer;
         private System.Windows.Forms.TabControl tabOptions;

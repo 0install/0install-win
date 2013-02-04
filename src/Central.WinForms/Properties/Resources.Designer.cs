@@ -333,16 +333,6 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No
-        ///Return to input.
-        /// </summary>
-        internal static string NoWizardReturn {
-            get {
-                return ResourceManager.GetString("NoWizardReturn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Portable mode.
         /// </summary>
         internal static string PortableMode {
@@ -538,6 +528,15 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You need to complete Sync Setup first..
+        /// </summary>
+        internal static string SyncCompleteSetupFirst {
+            get {
+                return ResourceManager.GetString("SyncCompleteSetupFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The username and/or password you entered are incorrect..
         /// </summary>
         internal static string SyncCredentialsInvalid {
@@ -572,6 +571,15 @@ namespace ZeroInstall.Central.WinForms.Properties {
         internal static string SyncServerDataDamaged {
             get {
                 return ResourceManager.GetString("SyncServerDataDamaged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will replace any existing Sync settings with new ones. Continue?.
+        /// </summary>
+        internal static string SyncWillReplaceConfig {
+            get {
+                return ResourceManager.GetString("SyncWillReplaceConfig", resourceCulture);
             }
         }
         
@@ -664,16 +672,6 @@ namespace ZeroInstall.Central.WinForms.Properties {
         internal static string YesRemoveApp {
             get {
                 return ResourceManager.GetString("YesRemoveApp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Yes
-        ///Continue wizard.
-        /// </summary>
-        internal static string YesWizardContinue {
-            get {
-                return ResourceManager.GetString("YesWizardContinue", resourceCulture);
             }
         }
     }

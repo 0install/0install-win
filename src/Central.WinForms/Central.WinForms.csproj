@@ -83,12 +83,6 @@
     <Compile Include="IntroDialog.Designer.cs">
       <DependentUpon>IntroDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="HelpDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="HelpDialog.Designer.cs">
-      <DependentUpon>HelpDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="SelectCommandDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -239,18 +233,11 @@
     <None Include="Resources\Logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="HelpDialog.de.resx">
-      <DependentUpon>HelpDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="IntroDialog.de.resx">
       <DependentUpon>IntroDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IntroDialog.resx">
       <DependentUpon>IntroDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="HelpDialog.resx">
-      <DependentUpon>HelpDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.de.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

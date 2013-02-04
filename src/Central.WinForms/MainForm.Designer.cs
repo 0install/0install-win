@@ -33,9 +33,12 @@
             this.tabControlApps = new System.Windows.Forms.TabControl();
             this.tabPageAppList = new System.Windows.Forms.TabPage();
             this.buttonUpdateAll = new Common.Controls.SplitButton();
-            this.contextMenuUpdateAll = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuUpdateAll = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonUpdateAllClean = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonSync = new System.Windows.Forms.Button();
+            this.buttonSync = new Common.Controls.SplitButton();
+            this.menuSync = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.butonSyncSetup = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonSyncReset = new System.Windows.Forms.ToolStripMenuItem();
             this.appList = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
             this.labelLoadingCatalog = new System.Windows.Forms.Label();
@@ -43,9 +46,13 @@
             this.buttonAddOtherApp = new System.Windows.Forms.Button();
             this.buttonRefreshCatalog = new System.Windows.Forms.Button();
             this.catalogList = new ZeroInstall.Central.WinForms.AppTileList();
-            this.buttonOptions = new System.Windows.Forms.Button();
+            this.buttonOptions = new Common.Controls.SplitButton();
+            this.menuOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.buttonOptionsAdvanced = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonCacheManagement = new System.Windows.Forms.Button();
-            this.buttonHelp = new System.Windows.Forms.Button();
+            this.buttonHelp = new Common.Controls.SplitButton();
+            this.menuHelp = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.buttonIntro = new System.Windows.Forms.ToolStripMenuItem();
             this.labelVersion = new System.Windows.Forms.Label();
             this.selfUpdateWorker = new System.ComponentModel.BackgroundWorker();
             this.catalogWorker = new System.ComponentModel.BackgroundWorker();
@@ -55,8 +62,11 @@
             this.rootTable = new System.Windows.Forms.TableLayoutPanel();
             this.tabControlApps.SuspendLayout();
             this.tabPageAppList.SuspendLayout();
-            this.contextMenuUpdateAll.SuspendLayout();
+            this.menuUpdateAll.SuspendLayout();
+            this.menuSync.SuspendLayout();
             this.tabPageCatalog.SuspendLayout();
+            this.menuOptions.SuspendLayout();
+            this.menuHelp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.panelBottom.SuspendLayout();
             this.rootTable.SuspendLayout();
@@ -82,19 +92,19 @@
             // buttonUpdateAll
             // 
             resources.ApplyResources(this.buttonUpdateAll, "buttonUpdateAll");
-            this.buttonUpdateAll.ContextMenuStrip = this.contextMenuUpdateAll;
+            this.buttonUpdateAll.ContextMenuStrip = this.menuUpdateAll;
             this.buttonUpdateAll.Name = "buttonUpdateAll";
             this.buttonUpdateAll.ShowSplit = true;
-            this.buttonUpdateAll.SplitMenuStrip = this.contextMenuUpdateAll;
+            this.buttonUpdateAll.SplitMenuStrip = this.menuUpdateAll;
             this.buttonUpdateAll.UseVisualStyleBackColor = true;
             this.buttonUpdateAll.Click += new System.EventHandler(this.buttonUpdateAll_Click);
             // 
-            // contextMenuUpdateAll
+            // menuUpdateAll
             // 
-            resources.ApplyResources(this.contextMenuUpdateAll, "contextMenuUpdateAll");
-            this.contextMenuUpdateAll.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            resources.ApplyResources(this.menuUpdateAll, "menuUpdateAll");
+            this.menuUpdateAll.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonUpdateAllClean});
-            this.contextMenuUpdateAll.Name = "contextMenuUpdateAll";
+            this.menuUpdateAll.Name = "contextMenuUpdateAll";
             // 
             // buttonUpdateAllClean
             // 
@@ -105,9 +115,32 @@
             // buttonSync
             // 
             resources.ApplyResources(this.buttonSync, "buttonSync");
+            this.buttonSync.ContextMenuStrip = this.menuSync;
             this.buttonSync.Name = "buttonSync";
+            this.buttonSync.ShowSplit = true;
+            this.buttonSync.SplitMenuStrip = this.menuSync;
             this.buttonSync.UseVisualStyleBackColor = true;
             this.buttonSync.Click += new System.EventHandler(this.buttonSync_Click);
+            // 
+            // menuSync
+            // 
+            resources.ApplyResources(this.menuSync, "menuSync");
+            this.menuSync.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.butonSyncSetup,
+            this.buttonSyncReset});
+            this.menuSync.Name = "menuSync";
+            // 
+            // butonSyncSetup
+            // 
+            resources.ApplyResources(this.butonSyncSetup, "butonSyncSetup");
+            this.butonSyncSetup.Name = "butonSyncSetup";
+            this.butonSyncSetup.Click += new System.EventHandler(this.butonSyncSetup_Click);
+            // 
+            // buttonSyncReset
+            // 
+            resources.ApplyResources(this.buttonSyncReset, "buttonSyncReset");
+            this.buttonSyncReset.Name = "buttonSyncReset";
+            this.buttonSyncReset.Click += new System.EventHandler(this.buttonSyncReset_Click);
             // 
             // appList
             // 
@@ -159,9 +192,25 @@
             // buttonOptions
             // 
             resources.ApplyResources(this.buttonOptions, "buttonOptions");
+            this.buttonOptions.ContextMenuStrip = this.menuOptions;
             this.buttonOptions.Name = "buttonOptions";
+            this.buttonOptions.ShowSplit = true;
+            this.buttonOptions.SplitMenuStrip = this.menuOptions;
             this.buttonOptions.UseVisualStyleBackColor = true;
             this.buttonOptions.Click += new System.EventHandler(this.buttonOptions_Click);
+            // 
+            // menuOptions
+            // 
+            resources.ApplyResources(this.menuOptions, "menuOptions");
+            this.menuOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buttonOptionsAdvanced});
+            this.menuOptions.Name = "menuOptions";
+            // 
+            // buttonOptionsAdvanced
+            // 
+            resources.ApplyResources(this.buttonOptionsAdvanced, "buttonOptionsAdvanced");
+            this.buttonOptionsAdvanced.Name = "buttonOptionsAdvanced";
+            this.buttonOptionsAdvanced.Click += new System.EventHandler(this.buttonOptionsAdvanced_Click);
             // 
             // buttonCacheManagement
             // 
@@ -173,9 +222,25 @@
             // buttonHelp
             // 
             resources.ApplyResources(this.buttonHelp, "buttonHelp");
+            this.buttonHelp.ContextMenuStrip = this.menuHelp;
             this.buttonHelp.Name = "buttonHelp";
+            this.buttonHelp.ShowSplit = true;
+            this.buttonHelp.SplitMenuStrip = this.menuHelp;
             this.buttonHelp.UseVisualStyleBackColor = true;
             this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
+            // 
+            // menuHelp
+            // 
+            resources.ApplyResources(this.menuHelp, "menuHelp");
+            this.menuHelp.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buttonIntro});
+            this.menuHelp.Name = "menuHelp";
+            // 
+            // buttonIntro
+            // 
+            resources.ApplyResources(this.buttonIntro, "buttonIntro");
+            this.buttonIntro.Name = "buttonIntro";
+            this.buttonIntro.Click += new System.EventHandler(this.buttonIntro_Click);
             // 
             // labelVersion
             // 
@@ -233,11 +298,15 @@
             this.tabControlApps.ResumeLayout(false);
             this.tabPageAppList.ResumeLayout(false);
             this.tabPageAppList.PerformLayout();
-            this.contextMenuUpdateAll.ResumeLayout(false);
+            this.menuUpdateAll.ResumeLayout(false);
+            this.menuSync.ResumeLayout(false);
             this.tabPageCatalog.ResumeLayout(false);
             this.tabPageCatalog.PerformLayout();
+            this.menuOptions.ResumeLayout(false);
+            this.menuHelp.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.panelBottom.ResumeLayout(false);
+            this.panelBottom.PerformLayout();
             this.rootTable.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -248,10 +317,10 @@
         private System.Windows.Forms.TabControl tabControlApps;
         private System.Windows.Forms.TabPage tabPageAppList;
         private System.Windows.Forms.TabPage tabPageCatalog;
-        private System.Windows.Forms.Button buttonHelp;
+        private Common.Controls.SplitButton buttonHelp;
         private System.Windows.Forms.Button buttonCacheManagement;
         private System.Windows.Forms.Label labelVersion;
-        private System.Windows.Forms.Button buttonOptions;
+        private Common.Controls.SplitButton buttonOptions;
         private System.ComponentModel.BackgroundWorker selfUpdateWorker;
         private AppTileList appList;
         private AppTileList catalogList;
@@ -260,14 +329,21 @@
         private System.Windows.Forms.Button buttonRefreshCatalog;
         private System.ComponentModel.BackgroundWorker appListWorker;
         private System.Windows.Forms.Button buttonAddOtherApp;
-        private System.Windows.Forms.Button buttonSync;
+        private Common.Controls.SplitButton buttonSync;
         private System.Windows.Forms.Panel panelBottom;
         private System.Windows.Forms.TableLayoutPanel rootTable;
         private System.Windows.Forms.Label labelLastCatalogError;
         private System.Windows.Forms.Label labelLoadingCatalog;
         private Common.Controls.SplitButton buttonUpdateAll;
-        private System.Windows.Forms.ContextMenuStrip contextMenuUpdateAll;
+        private System.Windows.Forms.ContextMenuStrip menuUpdateAll;
         private System.Windows.Forms.ToolStripMenuItem buttonUpdateAllClean;
+        private System.Windows.Forms.ContextMenuStrip menuOptions;
+        private System.Windows.Forms.ContextMenuStrip menuHelp;
+        private System.Windows.Forms.ToolStripMenuItem buttonOptionsAdvanced;
+        private System.Windows.Forms.ToolStripMenuItem buttonIntro;
+        private System.Windows.Forms.ContextMenuStrip menuSync;
+        private System.Windows.Forms.ToolStripMenuItem butonSyncSetup;
+        private System.Windows.Forms.ToolStripMenuItem buttonSyncReset;
 
     }
 }

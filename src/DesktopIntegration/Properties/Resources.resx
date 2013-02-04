@@ -143,11 +143,11 @@
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
     <value>The crypto key you entered for Sync is incorrect. Please check your Synchronization Options.
-You can change the crypto key used on the server by running the troubleshooting wizard from the 'Options' window or by executing '0install sync --reset=server'.</value>
+You can change the crypto key used on the server by running the troubleshooting wizard (right-click on the "Sync" Button to get there) or by executing '0install sync --reset=server'.</value>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>The data currently stored on the Sync server is damaged.
-You can replace the data stored on the server by running the troubleshooting wizard from the 'Options' window or by executing '0install sync --reset=server'.</value>
+You can replace the data stored on the server by running the troubleshooting wizard (right-click on the "Sync" Button to get there) or by executing '0install sync --reset=server'.</value>
   </data>
   <data name="UnableToFindTypeID" xml:space="preserve">
     <value>Unable to find {0} with the ID '{1}'.</value>

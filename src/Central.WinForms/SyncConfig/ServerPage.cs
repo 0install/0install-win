@@ -49,7 +49,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         {
             if (textBoxCustomServer.Uri.Scheme != "https")
             {
-                if (!Msg.YesNo(this, Resources.UnencryptedSyncServer, MsgSeverity.Warn, Resources.YesWizardContinue, Resources.NoWizardReturn))
+                if (!Msg.YesNo(this, Resources.UnencryptedSyncServer, MsgSeverity.Warn))
                     return;
             }
 

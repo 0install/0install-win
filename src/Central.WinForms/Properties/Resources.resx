@@ -215,10 +215,6 @@ in the start menu or on the desktop.</value>
     <value>No
 Keep the application</value>
   </data>
-  <data name="NoWizardReturn" xml:space="preserve">
-    <value>No
-Return to input</value>
-  </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Portable mode</value>
   </data>
@@ -280,6 +276,9 @@ Install update</value>
   <data name="SetupButtonTooltip" xml:space="preserve">
     <value>Setup integration</value>
   </data>
+  <data name="SyncCompleteSetupFirst" xml:space="preserve">
+    <value>You need to complete Sync Setup first.</value>
+  </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
     <value>The username and/or password you entered are incorrect.</value>
   </data>
@@ -293,6 +292,9 @@ Keep this key secret and use something different for your password. This way nob
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>The data currently stored on the Sync server is damaged.
 You can replace the data stored on the server by choosing that you don't remember the Crypto key.</value>
+  </data>
+  <data name="SyncWillReplaceConfig" xml:space="preserve">
+    <value>This will replace any existing Sync settings with new ones. Continue?</value>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
     <value>Unable to download application catalog.</value>
@@ -325,9 +327,5 @@ Encrypted connections use an https:// prefix.</value>
   <data name="YesRemoveApp" xml:space="preserve">
     <value>Yes
 Remove the application</value>
-  </data>
-  <data name="YesWizardContinue" xml:space="preserve">
-    <value>Yes
-Continue wizard</value>
   </data>
 </root>

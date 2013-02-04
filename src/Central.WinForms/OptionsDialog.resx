@@ -148,92 +148,7 @@
   <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonAdvanced.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonAdvanced.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 247</value>
-  </data>
-  <data name="buttonAdvanced.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 23</value>
-  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonAdvanced.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="buttonAdvanced.Text" xml:space="preserve">
-    <value>&amp;Advanced</value>
-  </data>
-  <data name="&gt;&gt;buttonAdvanced.Name" xml:space="preserve">
-    <value>buttonAdvanced</value>
-  </data>
-  <data name="&gt;&gt;buttonAdvanced.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAdvanced.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonAdvanced.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="buttonSyncReset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="buttonSyncReset.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonSyncReset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>184, 146</value>
-  </data>
-  <data name="buttonSyncReset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 23</value>
-  </data>
-  <data name="buttonSyncReset.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="buttonSyncReset.Text" xml:space="preserve">
-    <value>T&amp;roubleshooting</value>
-  </data>
-  <data name="&gt;&gt;buttonSyncReset.Name" xml:space="preserve">
-    <value>buttonSyncReset</value>
-  </data>
-  <data name="&gt;&gt;buttonSyncReset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonSyncReset.Parent" xml:space="preserve">
-    <value>tabPageSync</value>
-  </data>
-  <data name="&gt;&gt;buttonSyncReset.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="buttonSyncSetup.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="buttonSyncSetup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>73, 146</value>
-  </data>
-  <data name="buttonSyncSetup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 23</value>
-  </data>
-  <data name="buttonSyncSetup.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="buttonSyncSetup.Text" xml:space="preserve">
-    <value>Se&amp;tup</value>
-  </data>
-  <data name="&gt;&gt;buttonSyncSetup.Name" xml:space="preserve">
-    <value>buttonSyncSetup</value>
-  </data>
-  <data name="&gt;&gt;buttonSyncSetup.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonSyncSetup.Parent" xml:space="preserve">
-    <value>tabPageSync</value>
-  </data>
-  <data name="&gt;&gt;buttonSyncSetup.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="linkSyncAccount.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -259,8 +174,9 @@
     <value>tabPageSync</value>
   </data>
   <data name="&gt;&gt;linkSyncAccount.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>2</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="buttonSyncCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -286,7 +202,7 @@
     <value>tabPageSync</value>
   </data>
   <data name="&gt;&gt;buttonSyncCryptoKey.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>4</value>
   </data>
   <data name="textBoxSyncCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -310,7 +226,7 @@
     <value>tabPageSync</value>
   </data>
   <data name="&gt;&gt;textBoxSyncCryptoKey.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>6</value>
   </data>
   <data name="labelSyncCryptoKey.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -337,7 +253,7 @@
     <value>tabPageSync</value>
   </data>
   <data name="&gt;&gt;labelSyncCryptoKey.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>8</value>
   </data>
   <data name="textBoxSyncPassword.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -361,7 +277,7 @@
     <value>tabPageSync</value>
   </data>
   <data name="&gt;&gt;textBoxSyncPassword.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>9</value>
   </data>
   <data name="labelSyncPassword.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -388,7 +304,7 @@
     <value>tabPageSync</value>
   </data>
   <data name="&gt;&gt;labelSyncPassword.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>7</value>
   </data>
   <data name="textBoxSyncServer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -409,13 +325,13 @@
     <value>textBoxSyncServer</value>
   </data>
   <data name="&gt;&gt;textBoxSyncServer.Type" xml:space="preserve">
-    <value>Common.Controls.UriTextBox, Common, Version=1.14.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>Common.Controls.UriTextBox, Common, Version=1.14.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;textBoxSyncServer.Parent" xml:space="preserve">
     <value>tabPageSync</value>
   </data>
   <data name="&gt;&gt;textBoxSyncServer.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="labelServer.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -445,7 +361,7 @@
     <value>tabPageSync</value>
   </data>
   <data name="&gt;&gt;labelServer.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>5</value>
   </data>
   <data name="textBoxSyncUsername.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -469,7 +385,7 @@
     <value>tabPageSync</value>
   </data>
   <data name="&gt;&gt;textBoxSyncUsername.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>3</value>
   </data>
   <data name="labelSyncUsername.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -496,7 +412,7 @@
     <value>tabPageSync</value>
   </data>
   <data name="&gt;&gt;labelSyncUsername.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>1</value>
   </data>
   <data name="tabOptions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -1225,7 +1141,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tabOptions.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <metadata name="implDirBrowserDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -1273,7 +1189,7 @@
     <value>394, 282</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>380, 310</value>
+    <value>360, 170</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Options</value>
@@ -1288,6 +1204,6 @@
     <value>OptionsDialog</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>Common.Controls.OKCancelDialog, Common, Version=1.14.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>Common.Controls.OKCancelDialog, Common, Version=1.14.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
 </root>

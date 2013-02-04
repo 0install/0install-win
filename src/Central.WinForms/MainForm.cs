@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
@@ -445,52 +446,119 @@ namespace ZeroInstall.Central.WinForms
         private void buttonUpdateAll_Click(object sender, EventArgs e)
         {
             ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
-                ? new[] { "update-apps", "--machine" }
-                : new[] { "update-apps" }));
+                ? new[] {"update-apps", "--machine"}
+                : new[] {"update-apps"}));
         }
 
         private void buttonUpdateAllClean_Click(object sender, EventArgs e)
         {
             ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
-                ? new[] { "update-apps", "--clean", "--machine" }
-                : new[] { "update-apps", "--clean" }));
+                ? new[] {"update-apps", "--clean", "--machine"}
+                : new[] {"update-apps", "--clean"}));
         }
 
         private void buttonSync_Click(object sender, EventArgs e)
         {
+            Config config;
             try
             {
-                var config = Config.Load();
-                if (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey))
-                {
-                    using (var wizard = new SyncConfig.SetupWizard(_machineWide))
-                        wizard.ShowDialog(this);
-                }
-                else
-                {
-                    ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
-                        ? new[] {"sync", "--machine"}
-                        : new[] {"sync"}));
-                }
+                config = Config.Load();
             }
                 #region Error handling
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                Close();
+                return;
             }
             catch (UnauthorizedAccessException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                Close();
+                return;
             }
             catch (InvalidDataException ex)
             {
-                Msg.Inform(this, ex.Message +
-                    (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
-                Close();
+                Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
+                return;
             }
             #endregion
+
+            if (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey))
+            {
+                using (var wizard = new SyncConfig.SetupWizard(_machineWide))
+                    wizard.ShowDialog(this);
+            }
+            else
+            {
+                ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
+                    ? new[] {"sync", "--machine"}
+                    : new[] {"sync"}));
+            }
+        }
+
+        private void butonSyncSetup_Click(object sender, EventArgs e)
+        {
+            Config config;
+            try
+            {
+                config = Config.Load();
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
+                return;
+            }
+            #endregion
+
+            if (!string.IsNullOrEmpty(config.SyncServerUsername) || !string.IsNullOrEmpty(config.SyncServerPassword) || !string.IsNullOrEmpty(config.SyncCryptoKey))
+                if (!Msg.YesNo(this, Resources.SyncWillReplaceConfig, MsgSeverity.Warn)) return;
+
+            using (var wizard = new SyncConfig.SetupWizard(_machineWide))
+                wizard.ShowDialog(this);
+        }
+
+        private void buttonSyncReset_Click(object sender, EventArgs e)
+        {
+            Config config;
+            try
+            {
+                config = Config.Load();
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
+                return;
+            }
+            #endregion
+
+            if (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey))
+                Msg.Inform(this, Resources.SyncCompleteSetupFirst, MsgSeverity.Warn);
+            else
+            {
+                using (var wizard = new SyncConfig.ResetWizard(_machineWide))
+                    wizard.ShowDialog(this);
+            }
         }
 
         private void buttonRefreshCatalog_Click(object sender, EventArgs e)
@@ -508,9 +576,14 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonOptions_Click(object sender, EventArgs e)
         {
-            using (var dialog = new OptionsDialog(_machineWide))
+            using (var dialog = new OptionsDialog())
                 dialog.ShowDialog(this);
             LoadCatalogAsync();
+        }
+
+        private void buttonOptionsAdvanced_Click(object sender, EventArgs e)
+        {
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"config"}));
         }
 
         private void buttonCacheManagement_Click(object sender, EventArgs e)
@@ -520,7 +593,12 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            new HelpDialog().ShowDialog(this);
+            OpenInBrowser("http://0install.de/help/");
+        }
+
+        private void buttonIntro_Click(object sender, EventArgs e)
+        {
+            new IntroDialog().ShowDialog(this);
         }
         #endregion
 
@@ -545,6 +623,28 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region Helpers
+        /// <summary>
+        /// Opens a URL in the system's default browser.
+        /// </summary>
+        /// <param name="url">The URL to open.</param>
+        private void OpenInBrowser(string url)
+        {
+            try
+            {
+                Process.Start(url);
+            }
+                #region Error handling
+            catch (FileNotFoundException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (Win32Exception ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
+        }
+
         /// <summary>
         /// Adds a custom interface to <see cref="catalogList"/>.
         /// </summary>

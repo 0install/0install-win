@@ -27,7 +27,6 @@ using Common;
 using Common.Collections;
 using Common.Controls;
 using Common.Storage;
-using Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Feeds;
@@ -38,17 +37,13 @@ namespace ZeroInstall.Central.WinForms
     public partial class OptionsDialog : OKCancelDialog
     {
         #region Variables
-        private readonly bool _machineWide;
-
         // Don't use WinForms designer for this, since it doesn't understand generics
         private readonly FilteredTreeView<TrustNode> _treeViewTrustedKeys = new FilteredTreeView<TrustNode> {Separator = '#', CheckBoxes = true, Dock = DockStyle.Fill};
         #endregion
 
         #region Startup
-        public OptionsDialog(bool machineWide)
+        public OptionsDialog()
         {
-            _machineWide = machineWide;
-
             InitializeComponent();
 
             panelTrustedKeys.Controls.Add(_treeViewTrustedKeys);
@@ -324,12 +319,6 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region Sync buttons
-        private void textBoxSync_TextChanged(object sender, EventArgs e)
-        {
-            buttonSyncReset.Enabled = !string.IsNullOrEmpty(textBoxSyncServer.Text) && textBoxSyncServer.IsValid &&
-                !string.IsNullOrEmpty(textBoxSyncUsername.Text) && !string.IsNullOrEmpty(textBoxSyncPassword.Text);
-        }
-
         private void linkSyncAccount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
@@ -359,74 +348,9 @@ namespace ZeroInstall.Central.WinForms
         {
             Msg.Inform(this, Resources.SyncCryptoKeyDescription, MsgSeverity.Info);
         }
-
-        private void buttonSyncSetup_Click(object sender, EventArgs e)
-        {
-            switch (Msg.YesNoCancel(this, Resources.SaveChanges, MsgSeverity.Info, Resources.SaveChangesYes, Resources.SaveChangesNo))
-            {
-                case DialogResult.Yes:
-                    SaveConfig();
-                    break;
-                case DialogResult.Cancel:
-                    return;
-            }
-
-            using (var wizard = new SyncConfig.SetupWizard(_machineWide))
-                wizard.ShowDialog(this);
-            Close();
-        }
-
-        private void buttonSyncReset_Click(object sender, EventArgs e)
-        {
-            switch (Msg.YesNoCancel(this, Resources.SaveChanges, MsgSeverity.Info, Resources.SaveChangesYes, Resources.SaveChangesNo))
-            {
-                case DialogResult.Yes:
-                    SaveConfig();
-                    break;
-                case DialogResult.Cancel:
-                    return;
-            }
-
-            try
-            {
-                using (var wizard = new SyncConfig.ResetWizard(_machineWide))
-                    wizard.ShowDialog(this);
-                Close();
-            }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            catch (InvalidDataException ex)
-            {
-                Msg.Inform(this, ex.Message +
-                    (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
-            }
-            #endregion
-        }
         #endregion
 
         #region Global buttons
-        private void buttonAdvanced_Click(object sender, EventArgs e)
-        {
-            //switch (Msg.YesNoCancel(this, Resources.SaveChanges, MsgSeverity.Info, Resources.SaveChangesYes, Resources.SaveChangesNo))
-            //{
-            //    case DialogResult.Yes:
-            //        SaveConfig();
-            //        break;
-            //    case DialogResult.Cancel:
-            //        return;
-            //}
-
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"config"}));
-            Close();
-        }
-
         private void buttonApplyOK_Click(object sender, EventArgs e)
         {
             SaveConfig();
