@@ -152,6 +152,12 @@
     <value>Are you sure you want to remove '{0}' from your application list?
 This will also remove any desktop integration applied for this application.</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
   <data name="EnterCatalogUrl" xml:space="preserve">
     <value>Please enter the URL or local file path of the feed catalog to add:</value>
   </data>
@@ -317,6 +323,10 @@ You can replace the data stored on the server by choosing that you don't remembe
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Are you sure you want to use an unencrypted connection to a Sync server?
 Encrypted connections use an https:// prefix.</value>
+  </data>
+  <data name="UpdateAllCleanWillRemove" xml:space="preserve">
+    <value>This will automatically remove implementations from the cache that are no longer needed after the update. Continue?
+Important: Applications you have "Run" previously without adding them to "My applications" will also be removed from the cache.  You will need to be online if you decide to run them again.</value>
   </data>
   <data name="UpdateButton" xml:space="preserve">
     <value>&amp;Update</value>

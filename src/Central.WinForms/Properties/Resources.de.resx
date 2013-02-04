@@ -124,6 +124,12 @@
     <value>Sind Sie sicher, dass Sie '{0}' aus Ihrer Anwendungsliste entfernen möchten?
 Dabei werden auch alle Desktopintegrationen für die Anwendung entfernt.</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Fortsetzen</value>
+  </data>
   <data name="EnterCatalogUrl" xml:space="preserve">
     <value>Bitte geben Sie dir URL oder den lokalen Dateipfad des hinzuzufügenden Feedkatalogs ein:</value>
   </data>
@@ -288,6 +294,10 @@ Sie können die Daten die auf dem Server gespeichert sind ersetzen, indem Sie au
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Sind Sie sicher, dass Sie eine unverschlüsselte Verbindung zu einem Sync-Server verwenden möchten?
 Verschlüsselte Verbindungen nutzenen einen https:// Präfix.</value>
+  </data>
+  <data name="UpdateAllCleanWillRemove" xml:space="preserve">
+    <value>Dies entfernt automatisch Implementierungen, die nach dem Update nicht mehr benötigt werden, aus dem Cache. Fortsetzen?
+Wichtig: Anwendnungen die Sie in der Vergangenheit mit "Start" aufgerufen haben ohne sie "Meine Anwendungen" hinzuzufügen werden auch aus dem Cache entfernt.  Sie müssen online sein falls Sie sie erneut ausführen.</value>
   </data>
   <data name="UpdateButton" xml:space="preserve">
     <value>&amp;Aktualisieren</value>

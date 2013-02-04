@@ -443,20 +443,6 @@ namespace ZeroInstall.Central.WinForms
         //--------------------//
 
         #region Buttons
-        private void buttonUpdateAll_Click(object sender, EventArgs e)
-        {
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
-                ? new[] {"update-apps", "--machine"}
-                : new[] {"update-apps"}));
-        }
-
-        private void buttonUpdateAllClean_Click(object sender, EventArgs e)
-        {
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
-                ? new[] {"update-apps", "--clean", "--machine"}
-                : new[] {"update-apps", "--clean"}));
-        }
-
         private void buttonSync_Click(object sender, EventArgs e)
         {
             Config config;
@@ -521,7 +507,7 @@ namespace ZeroInstall.Central.WinForms
             #endregion
 
             if (!string.IsNullOrEmpty(config.SyncServerUsername) || !string.IsNullOrEmpty(config.SyncServerPassword) || !string.IsNullOrEmpty(config.SyncCryptoKey))
-                if (!Msg.YesNo(this, Resources.SyncWillReplaceConfig, MsgSeverity.Warn)) return;
+                if (!Msg.YesNo(this, Resources.SyncWillReplaceConfig, MsgSeverity.Warn, Resources.Continue, Resources.Cancel)) return;
 
             using (var wizard = new SyncConfig.SetupWizard(_machineWide))
                 wizard.ShowDialog(this);
@@ -559,6 +545,22 @@ namespace ZeroInstall.Central.WinForms
                 using (var wizard = new SyncConfig.ResetWizard(_machineWide))
                     wizard.ShowDialog(this);
             }
+        }
+
+        private void buttonUpdateAll_Click(object sender, EventArgs e)
+        {
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
+                ? new[] {"update-apps", "--machine"}
+                : new[] {"update-apps"}));
+        }
+
+        private void buttonUpdateAllClean_Click(object sender, EventArgs e)
+        {
+            if (!Msg.YesNo(this, Resources.UpdateAllCleanWillRemove, MsgSeverity.Warn, Resources.Continue, Resources.Cancel)) return;
+
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
+                ? new[] {"update-apps", "--clean", "--machine"}
+                : new[] {"update-apps", "--clean"}));
         }
 
         private void buttonRefreshCatalog_Click(object sender, EventArgs e)

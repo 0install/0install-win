@@ -253,7 +253,7 @@
     <value>MiddleCenter</value>
   </data>
   <data name="labelTitle.Text" xml:space="preserve">
-    <value>Zero Install Sync</value>
+    <value>Sync Setup</value>
   </data>
   <data name="labelInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>400, 82</value>

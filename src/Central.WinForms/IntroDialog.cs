@@ -177,11 +177,15 @@ namespace ZeroInstall.Central.WinForms
             textBox.SelectionLength = 0;
         }
 
-        private static void DrawRectangle(Control target, Rectangle rectangle)
+        private void DrawRectangle(Control target, Rectangle rectangle)
         {
             using (var graphics = target.CreateGraphics())
             using (var pen = new Pen(Color.Red, 2))
-                graphics.DrawRectangle(pen, new Rectangle(rectangle.X - 1, rectangle.Y - 1, rectangle.Width + 2, rectangle.Height + 2));
+                graphics.DrawRectangle(pen, new Rectangle(
+                    (int)(AutoScaleDimensions.Width / 6F * (rectangle.X - 1)),
+                    (int)(AutoScaleDimensions.Height / 13F * (rectangle.Y - 1)),
+                    (int)(AutoScaleDimensions.Width / 6F * (rectangle.Width + 2)),
+                    (int)(AutoScaleDimensions.Height / 13F * (rectangle.Height + 2))));
         }
 
         private void ScheduleNextAction()

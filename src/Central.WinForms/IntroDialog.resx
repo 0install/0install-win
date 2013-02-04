@@ -175,7 +175,7 @@
     <value>appList</value>
   </data>
   <data name="&gt;&gt;appList.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.14.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.14.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;appList.Parent" xml:space="preserve">
     <value>tabPageAppList</value>
@@ -226,7 +226,7 @@
     <value>catalogList</value>
   </data>
   <data name="&gt;&gt;catalogList.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.14.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.14.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;catalogList.Parent" xml:space="preserve">
     <value>tabPageCatalog</value>
@@ -399,6 +399,9 @@
   <data name="arrowMyApps.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
   </data>
+  <data name="arrowMyApps.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
   <data name="arrowMyApps.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
@@ -426,6 +429,9 @@
   <data name="arrowSearch.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
   </data>
+  <data name="arrowSearch.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
   <data name="arrowSearch.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
@@ -452,9 +458,6 @@
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>380, 275</value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>

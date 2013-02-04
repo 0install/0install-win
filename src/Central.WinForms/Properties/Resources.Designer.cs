@@ -130,6 +130,24 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue.
+        /// </summary>
+        internal static string Continue {
+            get {
+                return ResourceManager.GetString("Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter the URL or local file path of the feed catalog to add:.
         /// </summary>
         internal static string EnterCatalogUrl {
@@ -644,6 +662,16 @@ namespace ZeroInstall.Central.WinForms.Properties {
         internal static string UnencryptedSyncServer {
             get {
                 return ResourceManager.GetString("UnencryptedSyncServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will automatically remove implementations from the cache that are no longer needed after the update. Continue?
+        ///Important: Applications you have &quot;Run&quot; previously without adding them to &quot;My applications&quot; will also be removed from the cache.  You will need to be online if you decide to run them again..
+        /// </summary>
+        internal static string UpdateAllCleanWillRemove {
+            get {
+                return ResourceManager.GetString("UpdateAllCleanWillRemove", resourceCulture);
             }
         }
         

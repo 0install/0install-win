@@ -28,9 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // SetupWizard
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Zero Install Sync Setup";
+            this.ClientSize = new System.Drawing.Size(470, 348);
+            this.Name = "SetupWizard";
+            this.Text = "Zero Install Sync";
+            this.ResumeLayout(false);
+
         }
 
         #endregion

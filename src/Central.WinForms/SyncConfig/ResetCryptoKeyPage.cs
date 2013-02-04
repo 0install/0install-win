@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using Common;
+using Common.Utils;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
 
@@ -33,6 +34,8 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         public ResetCryptoKeyPage(bool machineWide) : base(machineWide)
         {
             InitializeComponent();
+
+            textBoxCryptoKey.Text = StringUtils.GeneratePassword(16);
         }
 
         private void textBoxCryptoKey_TextChanged(object sender, EventArgs e)
