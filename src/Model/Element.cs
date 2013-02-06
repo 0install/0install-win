@@ -139,17 +139,25 @@ namespace ZeroInstall.Model
         /// <summary>
         /// The relative path of an executable inside the implementation that should be executed by default when the interface is run. If an implementation has no main setting, then it cannot be executed without specifying one manually. This typically means that the interface is for a library.
         /// </summary>
-        /// <remarks>This will be deprecated in favor of <see cref="Commands"/>.</remarks>
+        /// <remarks>
+        /// This is deprecated in favor of <see cref="Commands"/>.
+        /// <see langword="null"/> corresponds to no <see cref="Command"/>s.
+        /// An empty string corresponds to a <see cref="Command"/> with no <see cref="Command.Path"/>.
+        /// </remarks>
         [Category("Execution"), Description("The relative path of an executable inside the implementation that should be executed by default when the interface is run. If an implementation has no main setting, then it cannot be executed without specifying one manually. This typically means that the interface is for a library.")]
-        [XmlAttribute("main"), DefaultValue("")]
+        [XmlAttribute("main")]
         public string Main { get; set; }
 
         /// <summary>
         /// The relative path of an executable inside the implementation that can be executed to test the program. The program must be non-interactive (e.g. it can't open any windows or prompt for input). It should return with an exit status of zero if the tests pass. Any other status indicates failure.
         /// </summary>
-        /// <remarks>This will be deprecated in favor of <see cref="Commands"/>.</remarks>
+        /// <remarks>
+        /// This is deprecated in favor of <see cref="Commands"/>.
+        /// <see langword="null"/> corresponds to no <see cref="Command"/>s.
+        /// An empty string corresponds to a <see cref="Command"/> with no <see cref="Command.Path"/>.
+        /// </remarks>
         [Category("Execution"), Description("The relative path of an executable inside the implementation that can be executed to test the program. The program must be non-interactive (e.g. it can't open any windows or prompt for input). It should return with an exit status of zero if the tests pass. Any other status indicates failure.")]
-        [XmlAttribute("self-test"), DefaultValue("")]
+        [XmlAttribute("self-test")]
         public string SelfTest { get; set; }
 
         /// <summary>
@@ -213,8 +221,8 @@ namespace ZeroInstall.Model
         public virtual void Normalize(string feedID)
         {
             // Convert legacy launch commands
-            if (!string.IsNullOrEmpty(Main)) Commands.Add(new Command {Name = Command.NameRun, Path = Main});
-            if (!string.IsNullOrEmpty(SelfTest)) Commands.Add(new Command {Name = Command.NameTest, Path = SelfTest});
+            if (Main != null) Commands.Add(new Command { Name = Command.NameRun, Path = Main });
+            if (SelfTest != null) Commands.Add(new Command {Name = Command.NameTest, Path = SelfTest});
         }
 
         /// <summary>

@@ -116,8 +116,8 @@ namespace ZeroInstall.Model
             if (Released != default(DateTime)) result += "Released, ";
             if (Stability != default(Stability)) result += "Stability, ";
             if (!string.IsNullOrEmpty(License)) result += "License, ";
-            if (!string.IsNullOrEmpty(Main)) result += "Main, ";
-            if (!string.IsNullOrEmpty(SelfTest)) result += "SelfTest, ";
+            if (Main != null) result += "Main, ";
+            if (SelfTest != null) result += "SelfTest, ";
             if (!string.IsNullOrEmpty(DocDir)) result += "DocDir, ";
 
             // Remove last two characters
