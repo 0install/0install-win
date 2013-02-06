@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.IO;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using ZeroInstall.Injector.Properties;
@@ -27,7 +28,7 @@ namespace ZeroInstall.Injector.Feeds
     /// Indicates a feed file that downloaded by the <see cref="FeedManager"/> is older than a version already located in the <see cref="IFeedCache"/>.
     /// </summary>
     [Serializable]
-    public sealed class ReplayAttackException : Exception
+    public sealed class ReplayAttackException : IOException
     {
         #region Properties
         /// <summary>
