@@ -320,8 +320,8 @@ namespace ZeroInstall.Injector
             if (WindowsUtils.IsWindows)
             {
                 templateName = (Directory.Exists(WindowsUtils.GetNetFxDirectory(WindowsUtils.NetFx40)))
-                    ? "runenv.netfx40.template"
-                    : "runenv.netfx20.template";
+                    ? "runenv.clr4.template"
+                    : "runenv.clr2.template";
             }
             else if (MonoUtils.IsUnix) templateName = "runenv.sh.template";
             else throw new NotSupportedException(string.Format(Resources.BindingNotSupportedOnCurrentOS, @"<executable-in-*>"));

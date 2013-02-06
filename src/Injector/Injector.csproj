@@ -144,8 +144,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="runenv.netfx20.template" />
-    <EmbeddedResource Include="runenv.netfx40.template" />
+    <EmbeddedResource Include="runenv.clr2.template" />
+    <EmbeddedResource Include="runenv.clr4.template" />
     <EmbeddedResource Include="runenv.sh.template" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
