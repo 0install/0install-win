@@ -62,6 +62,17 @@ namespace Common.Info
         [XmlAttribute("service-pack"), DefaultValue("")]
         public string ServicePack;
 
+        /// <summary>
+        /// The version of the operating system (e.g. 6.0 for Vista).
+        /// </summary>
+        [XmlIgnore]
+        public Version FrameworkVersion;
+
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="Version"/>
+        [XmlAttribute("framework-version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string FrameworkVersionString { get { return (FrameworkVersion == null ? null : FrameworkVersion.ToString()); } set { FrameworkVersion = string.IsNullOrEmpty(value) ? null : new Version(value); } }
+
         public override string ToString()
         {
             return Platform + " " + (Is64Bit ? "64-bit " : "") + Version + " " + ServicePack;
@@ -80,7 +91,8 @@ namespace Common.Info
                 Platform = Environment.OSVersion.Platform,
                 Is64Bit = WindowsUtils.Is64BitOperatingSystem,
                 Version = Environment.OSVersion.Version,
-                ServicePack = Environment.OSVersion.ServicePack
+                ServicePack = Environment.OSVersion.ServicePack,
+                FrameworkVersion = Environment.Version
             };
         }
         #endregion
