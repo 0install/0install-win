@@ -83,6 +83,15 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The resulting command-line is empty..
+        /// </summary>
+        internal static string CommandLineEmpty {
+            get {
+                return ResourceManager.GetString("CommandLineEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;environment&gt; bindings must contain either a &apos;value&apos; or an &apos;insert&apos; attribute..
         /// </summary>
         internal static string EnvironmentBindingValueInvalid {

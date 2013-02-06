@@ -127,6 +127,9 @@ Möchten Sie diesem Key zum Signieren von Feeds von '{3}' vertrauen?
   <data name="BindingNotSupportedOnCurrentOS" xml:space="preserve">
     <value>{0} Bindings werden auf diesem Betriebsystem derzeit nicht unterstützt.</value>
   </data>
+  <data name="CommandLineEmpty" xml:space="preserve">
+    <value>Die resultierende Befehlszeile ist leer.</value>
+  </data>
   <data name="EnvironmentBindingValueInvalid" xml:space="preserve">
     <value>&lt;environment&gt; Bindings müssen entweder ein 'value' oder ein 'insert' Attribut enthalten.</value>
   </data>

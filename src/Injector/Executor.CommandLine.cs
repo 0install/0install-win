@@ -22,6 +22,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using Common.Utils;
+using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Store.Implementation;
@@ -125,6 +126,8 @@ namespace ZeroInstall.Injector
         /// <param name="environmentVariables">A list of environment variables available for expansion.</param>
         private static CommandLineSplit SplitCommandLine(List<string> commandLine, StringDictionary environmentVariables)
         {
+            if (commandLine.Count == 0) throw new CommandException(Resources.CommandLineEmpty);
+
             // Split into file name...
             string fileName = StringUtils.ExpandUnixVariables(commandLine[0], environmentVariables);
 
