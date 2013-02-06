@@ -585,6 +585,8 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonOptionsAdvanced_Click(object sender, EventArgs e)
         {
+            if (!Msg.YesNo(this, Resources.OptionsAdvancedWarn, MsgSeverity.Warn, Resources.Continue, Resources.Cancel)) return;
+
             ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"config"}));
         }
 

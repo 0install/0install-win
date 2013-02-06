@@ -221,6 +221,9 @@ in the start menu or on the desktop.</value>
     <value>No
 Keep the application</value>
   </data>
+  <data name="OptionsAdvancedWarn" xml:space="preserve">
+    <value>Changing these options may prevent Zero Install from working correctly. Are you sure you want to continue?</value>
+  </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Portable mode</value>
   </data>

@@ -351,6 +351,15 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changing these options may prevent Zero Install from working correctly. Are you sure you want to continue?.
+        /// </summary>
+        internal static string OptionsAdvancedWarn {
+            get {
+                return ResourceManager.GetString("OptionsAdvancedWarn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Portable mode.
         /// </summary>
         internal static string PortableMode {

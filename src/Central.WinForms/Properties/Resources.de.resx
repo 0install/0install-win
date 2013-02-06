@@ -192,6 +192,9 @@ fügen Sie sie zu "Meine Anwendungen" hinzu.</value>
     <value>Nein
 Anwendung behalten</value>
   </data>
+  <data name="OptionsAdvancedWarn" xml:space="preserve">
+    <value>Wenn Sie diese Einstellungen ändern, könnte das Zero Install daran hindern korrekt zu funktionieren. Sind Sie sicher, dass Sie fortsetzen möchten?</value>
+  </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Portabler Modus</value>
   </data>
