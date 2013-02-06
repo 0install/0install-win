@@ -1097,11 +1097,7 @@
   </xsd:simpleType>
 
   <!-- Localizable string -->
-  <xsd:complexType name="localizable-string">
-    <xsd:simpleContent>
-      <xsd:extension base="xsd:string">
-        <xsd:attribute ref="xml:lang" />
-      </xsd:extension>
-    </xsd:simpleContent>
+  <xsd:complexType name="localizable-string" mixed="true">
+    <xsd:attribute ref="xml:lang" />
   </xsd:complexType>
 </xsd:schema>
