@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using Common.Cli;
 using Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -42,7 +43,7 @@ namespace ZeroInstall.Commands
         protected override string Description { get { return Resources.DescriptionImport; } }
 
         /// <inheritdoc/>
-        protected override string Usage { get { return "FEED-FILE"; } }
+        protected override string Usage { get { return "FEED-FILE [...]"; } }
         #endregion
 
         #region Constructor
@@ -61,30 +62,14 @@ namespace ZeroInstall.Commands
         {
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
             if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
-            if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
-
-            string path;
-            try
-            {
-                path = Path.GetFullPath(AdditionalArgs[0]);
-            }
-                #region Error handling
-            catch (ArgumentException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new IOException(ex.Message, ex);
-            }
-            catch (NotSupportedException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new IOException(ex.Message, ex);
-            }
-            #endregion
 
             Policy.Handler.ShowProgressUI();
-            Policy.FeedManager.ImportFeed(
-                XmlStorage.LoadXml<Feed>(path).Uri, new Uri(path),
-                File.ReadAllBytes(path), Policy);
+            foreach (var file in ArgumentUtils.GetFiles(AdditionalArgs, "*.xml"))
+            {
+                Policy.FeedManager.ImportFeed(
+                    XmlStorage.LoadXml<Feed>(file.FullName).Uri, new Uri(file.FullName),
+                    File.ReadAllBytes(file.FullName), Policy);
+            }
             return 0;
         }
         #endregion
