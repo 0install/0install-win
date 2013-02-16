@@ -71,22 +71,7 @@ namespace ZeroInstall.Store.Implementation
             // Merge the lists from all contained stores, eliminating duplicates
             var result = new C5.TreeSet<ManifestDigest>();
             foreach (var store in _stores)
-            {
-                try
-                {
-                    result.AddSorted(store.ListAll());
-                }
-                    #region Error handling
-                catch (UnauthorizedAccessException)
-                {
-                    // Ignore authorization errors since listing is not a critical task
-                }
-                catch (RemotingException)
-                {
-                    // Ignore remoting errors in case service is offline
-                }
-                #endregion
-            }
+                result.AddSorted(store.ListAllSafe());
 
             return result;
         }
@@ -97,22 +82,7 @@ namespace ZeroInstall.Store.Implementation
             // Merge the lists from all contained stores, eliminating duplicates
             var result = new C5.TreeSet<string>();
             foreach (var store in _stores)
-            {
-                try
-                {
-                    result.AddSorted(store.ListAllTemp());
-                }
-                    #region Error handling
-                catch (UnauthorizedAccessException)
-                {
-                    // Ignore authorization errors since listing is not a critical task
-                }
-                catch (RemotingException)
-                {
-                    // Ignore remoting errors in case service is offline
-                }
-                #endregion
-            }
+                result.AddSorted(store.ListAllTempSafe());
 
             return result;
         }
@@ -129,22 +99,10 @@ namespace ZeroInstall.Store.Implementation
             }
 
             // Check if any store contains the implementation
-            foreach (IStore store in _stores)
+            if (_stores.Any(store => store.ContainsSafe(manifestDigest)))
             {
-                try
-                {
-                    if (store.Contains(manifestDigest))
-                    {
-                        lock (_containsCache) _containsCache[manifestDigest] = true;
-                        return true;
-                    }
-                }
-                    #region Error handling
-                catch (RemotingException)
-                {
-                    // Ignore remoting errors in case service is offline
-                }
-                #endregion
+                lock (_containsCache) _containsCache[manifestDigest] = true;
+                return true;
             }
 
             // If we reach this, none of the stores contains the implementation
@@ -156,7 +114,7 @@ namespace ZeroInstall.Store.Implementation
         public bool Contains(string directory)
         {
             // Check if any store contains the implementation
-            return _stores.Any(store => store.Contains(directory));
+            return _stores.Any(store => store.ContainsSafe(directory));
         }
         #endregion
 
@@ -165,26 +123,7 @@ namespace ZeroInstall.Store.Implementation
         public string GetPath(ManifestDigest manifestDigest)
         {
             // Use the first store that contains the implementation
-            return _stores.Select(store => GetPathSafe(store, manifestDigest)).FirstOrDefault(path => path != null);
-        }
-
-        private static string GetPathSafe(IStore store, ManifestDigest manifestDigest)
-        {
-            try
-            {
-                return store.GetPath(manifestDigest);
-            }
-                #region Error handling
-            catch (UnauthorizedAccessException)
-            {
-                return null;
-            }
-            catch (RemotingException)
-            {
-                // Ignore remoting errors in case service is offline
-                return null;
-            }
-            #endregion
+            return _stores.Select(store => store.GetPathSafe(manifestDigest)).FirstOrDefault(path => path != null);
         }
         #endregion
 
@@ -285,22 +224,7 @@ namespace ZeroInstall.Store.Implementation
             // Remove from every store that contains the implementation
             bool removed = false;
             foreach (var store in _stores.Reverse())
-            {
-                try
-                {
-                    if (store.Contains(manifestDigest))
-                    {
-                        store.Remove(manifestDigest);
-                        removed = true;
-                    }
-                }
-                    #region Error handling
-                catch (RemotingException)
-                {
-                    // Ignore remoting errors in case service is offline
-                }
-                #endregion
-            }
+                removed |= store.RemoveSafe(manifestDigest);
             if (!removed) throw new ImplementationNotFoundException(manifestDigest);
         }
         #endregion
@@ -315,26 +239,7 @@ namespace ZeroInstall.Store.Implementation
 
             // Try to optimize all contained stores
             foreach (var store in _stores)
-            {
-                try
-                {
-                    store.Optimise(handler);
-                }
-                    #region Sanity checks
-                catch (IOException ex)
-                {
-                    Log.Error(ex);
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    Log.Error(ex);
-                }
-                catch (RemotingException)
-                {
-                    // Ignore remoting errors in case service is offline
-                }
-                #endregion
-            }
+                store.OptimiseSafe(handler);
         }
         #endregion
 
@@ -350,7 +255,7 @@ namespace ZeroInstall.Store.Implementation
             bool verified = false;
             foreach (var store in _stores.Where(store => store.Contains(manifestDigest)))
             {
-                store.Verify(manifestDigest, handler);
+                store.VerifySafe(manifestDigest, handler);
                 verified = true;
             }
             if (!verified) throw new ImplementationNotFoundException(manifestDigest);
@@ -366,7 +271,8 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Try to audit all contained stores
-            return _stores.Select(store => store.Audit(handler)).Where(problems => problems != null).SelectMany(problems => problems);
+            return _stores.Select(store => store.AuditSafe(handler)).
+                           Where(problems => problems != null).SelectMany(problems => problems);
         }
         #endregion
 

@@ -96,6 +96,7 @@
     <Compile Include="Implementation\ManifestGenerator.cs" />
     <Compile Include="Implementation\RecipeUtils.cs" />
     <Compile Include="Implementation\IpcStoreProvider.cs" />
+    <Compile Include="Implementation\RemoteStores.cs" />
     <Compile Include="Implementation\StoreProvider.cs" />
     <Compile Include="Implementation\CompositeStore.cs" />
     <Compile Include="Implementation\IStore.cs" />
