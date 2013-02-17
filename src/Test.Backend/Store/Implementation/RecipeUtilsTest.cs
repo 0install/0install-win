@@ -33,78 +33,115 @@ namespace ZeroInstall.Store.Implementation
     public class RecipeUtilsTest
     {
         [Test]
-        public void TestApplyRecipe()
+        public void TestApplyRecipeDiretory()
         {
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
             {
                 using (FileStream stream = File.Create(archiveFile.Path))
                     TestData.GetTestZipArchiveStream().CopyTo(stream);
+                var archives = new[] {new ArchiveFileInfo {Path = archiveFile.Path, MimeType = "application/zip"}};
 
                 var recipe = new Recipe
                 {
                     Steps =
                     {
                         new Model.Archive(),
-                        new AddDirectoryStep {Path = "toplevel/subdir3"},
-                        new Model.Archive(),
-                        new RemoveStep {Path = "toplevel/subdir2"},
-                        new RenameStep {Source = "subdir2/executable", Destination = "subdir2/executable2"}
+                        new AddDirectoryStep {Path = "subdir3"},
                     }
                 };
-                var archives = new[]
+                using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, archives, new SilentTaskHandler(), null))
                 {
-                    new ArchiveFileInfo {Path = archiveFile.Path, MimeType = "application/zip"},
-                    new ArchiveFileInfo {Path = archiveFile.Path, MimeType = "application/zip"}
+                    // /subdir3 [D]
+                    string path = Path.Combine(recipeDir.Path, "subdir3");
+                    Assert.IsTrue(Directory.Exists(path), "Missing directory: " + path);
+                }
+            }
+        }
+
+        [Test]
+        public void TestApplyRecipeRemove()
+        {
+            using (var archiveFile = new TemporaryFile("0install-unit-tests"))
+            {
+                using (FileStream stream = File.Create(archiveFile.Path))
+                    TestData.GetTestZipArchiveStream().CopyTo(stream);
+                var archives = new[] {new ArchiveFileInfo {Path = archiveFile.Path, MimeType = "application/zip"}};
+
+                var recipe = new Recipe
+                {
+                    Steps =
+                    {
+                        new Model.Archive(),
+                        new RemoveStep {Path = "symlink"},
+                        new RemoveStep {Path = "subdir2"}
+                    }
                 };
                 using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, archives, new SilentTaskHandler(), null))
                 {
                     if (!MonoUtils.IsUnix)
                     {
-                        CollectionAssert.AreEquivalent(new[]
-                        {
-                            new [] {recipeDir.Path, "subdir2", "executable2"}.Aggregate(Path.Combine)
-                        }, FlagUtils.GetExternalFlags(".xbit", recipeDir.Path));
-                        CollectionAssert.AreEquivalent(new[]
-                        {
-                            new [] {recipeDir.Path, "symlink"}.Aggregate(Path.Combine),
-                            new [] {recipeDir.Path, "toplevel", "symlink"}.Aggregate(Path.Combine)
-                        }, FlagUtils.GetExternalFlags(".symlink", recipeDir.Path));
+                        CollectionAssert.IsEmpty(FlagUtils.GetExternalFlags(".xbit", recipeDir.Path));
+                        CollectionAssert.IsEmpty(FlagUtils.GetExternalFlags(".symlink", recipeDir.Path));
                     }
 
-                    // /symlink [S]
+                    // /symlink [deleted]
                     string path = Path.Combine(recipeDir.Path, "symlink");
+                    Assert.IsFalse(File.Exists(path), "File should not exist: " + path);
+
+                    // /subdir2 [deleted]
+                    path = Path.Combine(recipeDir.Path, "subdir2");
+                    Assert.IsFalse(Directory.Exists(path), "Directory should not exist: " + path);
+                }
+            }
+        }
+
+        [Test]
+        public void TestApplyRecipeRename()
+        {
+            using (var archiveFile = new TemporaryFile("0install-unit-tests"))
+            {
+                using (FileStream stream = File.Create(archiveFile.Path))
+                    TestData.GetTestZipArchiveStream().CopyTo(stream);
+                var archives = new[] {new ArchiveFileInfo {Path = archiveFile.Path, MimeType = "application/zip"}};
+
+                var recipe = new Recipe
+                {
+                    Steps =
+                    {
+                        new Model.Archive(),
+                        new RenameStep {Source = "symlink", Destination = "symlink2"},
+                        new RenameStep {Source = "subdir2/executable", Destination = "subdir2/executable2"}
+                    }
+                };
+                using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, archives, new SilentTaskHandler(), null))
+                {
+                    if (!MonoUtils.IsUnix)
+                    {
+                        CollectionAssert.AreEquivalent(
+                            new[] {new[] {recipeDir.Path, "subdir2", "executable2"}.Aggregate(Path.Combine)},
+                            FlagUtils.GetExternalFlags(".xbit", recipeDir.Path));
+                        CollectionAssert.AreEquivalent(
+                            new[] {new[] {recipeDir.Path, "symlink2"}.Aggregate(Path.Combine)},
+                            FlagUtils.GetExternalFlags(".symlink", recipeDir.Path));
+                    }
+
+                    // /symlink [deleted]
+                    string path = Path.Combine(recipeDir.Path, "symlink");
+                    Assert.IsFalse(File.Exists(path), "File should not exist: " + path);
+
+                    // /symlink2 [S]
+                    path = Path.Combine(recipeDir.Path, "symlink2");
                     Assert.IsTrue(File.Exists(path), "Missing file: " + path);
                     if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsSymlink(path), "Not symlink: " + path);
 
-                    // /subdir1/regular
-                    path = new [] {recipeDir.Path, "subdir1", "regular"}.Aggregate(Path.Combine);
-                    Assert.IsTrue(File.Exists(path), "Missing file: " + path);
-
                     // /subdir2/executable [deleted]
-                    path = new [] {recipeDir.Path, "subdir2", "executable"}.Aggregate(Path.Combine);
+                    path = new[] {recipeDir.Path, "subdir2", "executable"}.Aggregate(Path.Combine);
                     Assert.IsFalse(File.Exists(path), "File should not exist: " + path);
 
                     // /subdir2/executable2 [X]
-                    path = new [] {recipeDir.Path, "subdir2", "executable2"}.Aggregate(Path.Combine);
+                    path = new[] {recipeDir.Path, "subdir2", "executable2"}.Aggregate(Path.Combine);
                     Assert.IsTrue(File.Exists(path), "Missing file: " + path);
                     if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsExecutable(path), "Not executable: " + path);
-
-                    // /toplevel/symlink [S]
-                    path = new [] {recipeDir.Path, "toplevel", "symlink"}.Aggregate(Path.Combine);
-                    Assert.IsTrue(File.Exists(path), "Missing file: " + path);
-                    if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsSymlink(path), "Not symlink: " + path);
-
-                    // /toplevel/subdir1/regular
-                    path = new [] {recipeDir.Path, "toplevel", "subdir1", "regular"}.Aggregate(Path.Combine);
-                    Assert.IsTrue(File.Exists(path), "Missing file: " + path);
-
-                    // /toplevel/subdir2 [deleted]
-                    path = new [] {recipeDir.Path, "toplevel", "subdir2"}.Aggregate(Path.Combine);
-                    Assert.IsFalse(Directory.Exists(path), "Directory should not exist: " + path);
-
-                    // /toplevel/subdir3 [D]
-                    path = new[] { recipeDir.Path, "toplevel", "subdir3" }.Aggregate(Path.Combine);
-                    Assert.IsTrue(Directory.Exists(path), "Missing directory: " + path);
                 }
             }
         }
