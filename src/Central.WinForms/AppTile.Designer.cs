@@ -93,7 +93,7 @@
             this.buttonRun.ShowSplit = true;
             this.buttonRun.Size = new System.Drawing.Size(61, 23);
             this.buttonRun.SplitMenuStrip = this.contextMenuRun;
-            this.buttonRun.TabIndex = 4;
+            this.buttonRun.TabIndex = 3;
             this.buttonRun.UseVisualStyleBackColor = true;
             this.buttonRun.Click += new System.EventHandler(this.buttonRun_Click);
             // 
@@ -105,29 +105,29 @@
             this.runMenuSeparator,
             this.buttonUpdate});
             this.contextMenuRun.Name = "contextMenuRun";
-            this.contextMenuRun.Size = new System.Drawing.Size(68, 76);
+            this.contextMenuRun.Size = new System.Drawing.Size(153, 98);
             // 
             // buttonSelectCommand
             // 
             this.buttonSelectCommand.Name = "buttonSelectCommand";
-            this.buttonSelectCommand.Size = new System.Drawing.Size(67, 22);
+            this.buttonSelectCommand.Size = new System.Drawing.Size(152, 22);
             this.buttonSelectCommand.Click += new System.EventHandler(this.buttonSelectCommmand_Click);
             // 
             // buttonSelectVersion
             // 
             this.buttonSelectVersion.Name = "buttonSelectVersion";
-            this.buttonSelectVersion.Size = new System.Drawing.Size(67, 22);
+            this.buttonSelectVersion.Size = new System.Drawing.Size(152, 22);
             this.buttonSelectVersion.Click += new System.EventHandler(this.buttonSelectVersion_Click);
             // 
             // runMenuSeparator
             // 
             this.runMenuSeparator.Name = "runMenuSeparator";
-            this.runMenuSeparator.Size = new System.Drawing.Size(64, 6);
+            this.runMenuSeparator.Size = new System.Drawing.Size(149, 6);
             // 
             // buttonUpdate
             // 
             this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(67, 22);
+            this.buttonUpdate.Size = new System.Drawing.Size(152, 22);
             this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
             // 
             // buttonAdd
@@ -138,7 +138,7 @@
             this.buttonAdd.Location = new System.Drawing.Point(364, 32);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(29, 23);
-            this.buttonAdd.TabIndex = 6;
+            this.buttonAdd.TabIndex = 5;
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
@@ -149,7 +149,7 @@
             this.linkLabelDetails.Location = new System.Drawing.Point(276, 37);
             this.linkLabelDetails.Name = "linkLabelDetails";
             this.linkLabelDetails.Size = new System.Drawing.Size(48, 13);
-            this.linkLabelDetails.TabIndex = 2;
+            this.linkLabelDetails.TabIndex = 7;
             this.linkLabelDetails.TabStop = true;
             this.linkLabelDetails.Text = "Details...";
             this.linkLabelDetails.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelDetails_LinkClicked);
@@ -161,7 +161,7 @@
             this.trackingProgressBar.Location = new System.Drawing.Point(63, 32);
             this.trackingProgressBar.Name = "trackingProgressBar";
             this.trackingProgressBar.Size = new System.Drawing.Size(261, 18);
-            this.trackingProgressBar.TabIndex = 3;
+            this.trackingProgressBar.TabIndex = 2;
             this.trackingProgressBar.Visible = false;
             // 
             // iconDownloadWorker
@@ -177,7 +177,7 @@
             this.buttonRemove.Location = new System.Drawing.Point(364, 32);
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Size = new System.Drawing.Size(29, 23);
-            this.buttonRemove.TabIndex = 7;
+            this.buttonRemove.TabIndex = 6;
             this.buttonRemove.UseVisualStyleBackColor = true;
             this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
             // 
@@ -189,7 +189,7 @@
             this.buttonIntegrate.Location = new System.Drawing.Point(332, 32);
             this.buttonIntegrate.Name = "buttonIntegrate";
             this.buttonIntegrate.Size = new System.Drawing.Size(29, 23);
-            this.buttonIntegrate.TabIndex = 5;
+            this.buttonIntegrate.TabIndex = 4;
             this.buttonIntegrate.UseVisualStyleBackColor = true;
             this.buttonIntegrate.Click += new System.EventHandler(this.buttonIntegrate_Click);
             // 
