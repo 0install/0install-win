@@ -79,6 +79,7 @@
             this.tabControlApps.Controls.Add(this.tabPageCatalog);
             this.tabControlApps.Name = "tabControlApps";
             this.tabControlApps.SelectedIndex = 0;
+            this.tabControlApps.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tabControlApps_KeyPress);
             // 
             // tabPageAppList
             // 

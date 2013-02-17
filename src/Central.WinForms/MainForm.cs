@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
@@ -603,6 +604,29 @@ namespace ZeroInstall.Central.WinForms
         private void buttonIntro_Click(object sender, EventArgs e)
         {
             new IntroDialog().ShowDialog(this);
+        }
+        #endregion
+
+        #region Focus handling
+        private void tabControlApps_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Redirect text input to appropriate search box
+            if (tabControlApps.SelectedTab == tabPageAppList)
+            {
+                if (!appList.TextSearch.Focused)
+                {
+                    appList.TextSearch.Focus();
+                    SendKeys.SendWait(e.KeyChar.ToString(CultureInfo.InvariantCulture));
+                }
+            }
+            else if (tabControlApps.SelectedTab == tabPageCatalog)
+            {
+                if (!catalogList.TextSearch.Focused)
+                {
+                    catalogList.TextSearch.Focus();
+                    SendKeys.SendWait(e.KeyChar.ToString(CultureInfo.InvariantCulture));
+                }
+            }
         }
         #endregion
 
