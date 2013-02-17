@@ -39,6 +39,14 @@ namespace ZeroInstall.Model
         [XmlAttribute("interface")]
         public string Interface { get; set; }
 
+        /// <summary>
+        /// Specifies that the selected implementation must be from the given distribution (e.g. Debian, RPM).
+        /// The special value '0install' may be used to require an implementation provided by Zero Install (i.e. one not provided by a <see cref="PackageImplementation"/>). 
+        /// </summary>
+        [Description("Specifies that the selected implementation must be from the given distribution (e.g. Debian, RPM).\nThe special value '0install' may be used to require an implementation provided by Zero Install (i.e. one not provided by a <package-implementation>).")]
+        [XmlAttribute("distribution")]
+        public string Distribution { get; set; }
+
         // Preserve order
         private readonly C5.ArrayList<Constraint> _constraints = new C5.ArrayList<Constraint>();
 

@@ -507,6 +507,14 @@
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <xsd:attribute name="distribution" type="xsd:string" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>
+              Specifies that the selected implementation must be from the given distribution (e.g. Debian, RPM).
+              The special value '0install' may be used to require an implementation provided by Zero Install (i.e. one not provided by a &lt;package-implementation&gt;).
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

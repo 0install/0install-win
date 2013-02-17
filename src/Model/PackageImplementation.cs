@@ -89,9 +89,9 @@ namespace ZeroInstall.Model
         private readonly List<string> _distributions = new List<string>();
 
         /// <summary>
-        /// A list of distribution names where <see cref="Package"/> applies.
+        /// A list of distribution names (e.g. Debian, RPM) where <see cref="Package"/> applies.
         /// </summary>
-        [Category("Identity"), Description("A list of distribution names where the package name applies.")]
+        [Category("Identity"), Description("A list of distribution names (e.g. Debian, RPM) where the package name applies.")]
         [XmlIgnore]
         public ICollection<string> Distributions { get { return _distributions; } }
 
