@@ -56,7 +56,6 @@
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="AddDirectoryStep.cs" />
-    <Compile Include="AddToplevelStep.cs" />
     <Compile Include="Architecture.cs" />
     <Compile Include="Capabilities\AppRegistration.cs" />
     <Compile Include="Capabilities\AutoPlayEvent.cs" />

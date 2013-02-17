@@ -863,7 +863,6 @@
           <xsd:element name="rename" type="feed:rename" />
           <xsd:element name="remove" type="feed:remove" />
           <xsd:element name="add-directory" type="feed:add-directory" />
-          <xsd:element name="add-toplevel" type="feed:add-toplevel" />
         </xsd:choice>
       </xsd:extension>
     </xsd:complexContent>
@@ -929,24 +928,6 @@
           <xsd:annotation>
             <xsd:documentation>
               The directory to be added relative to the implementation root as a Unix-style path.
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:complexType name="add-toplevel">
-    <xsd:annotation>
-      <xsd:documentation>
-        Moves everything into a new top-level directory. It is an error if the path is outside the implementation.
-      </xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexContent>
-      <xsd:extension base="feed:recipe-step">
-        <xsd:attribute name="dir" type="xsd:string" use="required">
-          <xsd:annotation>
-            <xsd:documentation>
-              The name of the directory to be added.
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>

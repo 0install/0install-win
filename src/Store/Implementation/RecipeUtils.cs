@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using Common.Collections;
 using Common.Storage;
@@ -64,7 +63,6 @@ namespace ZeroInstall.Store.Implementation
                         archivesEnum.MoveNext();
                         ApplyArchive(archivesEnum.Current, targetDir.Path, handler, tag);
                     },
-                    (AddToplevelStep step) => ApplyAddToplevel(step, targetDir.Path),
                     (AddDirectoryStep step) => ApplyAddDirectory(step, targetDir.Path),
                     (RemoveStep step) => ApplyRemove(step, targetDir.Path),
                     (RenameStep step) => ApplyRename(step, targetDir.Path)
@@ -88,27 +86,6 @@ namespace ZeroInstall.Store.Implementation
                 extractor.SubDir = archive.SubDir;
                 handler.RunTask(extractor, tag); // Defer task to handler
             }
-        }
-
-        private static void ApplyAddToplevel(AddToplevelStep step, string targetDir)
-        {
-            if (FileUtils.UnifySlashes(step.Directory).Contains(Path.DirectorySeparatorChar.ToString(CultureInfo.CurrentCulture))) throw new IOException(string.Format(Resources.RecipeInvalidPath, step.Directory));
-
-            // Move all files to temp dir and then move temp dir to destination
-            var tempDir = new TemporaryDirectory("0install-recipe");
-            foreach (string entry in Directory.GetFileSystemEntries(targetDir))
-            {
-                string entryName = Path.GetFileName(entry);
-                if (entryName == null || entryName == ".xbit" || entryName == ".symlink") continue;
-
-                if (File.Exists(entry)) File.Move(entry, Path.Combine(tempDir.Path, entryName));
-                else if (Directory.Exists(entry)) Directory.Move(entry, Path.Combine(tempDir.Path, entryName));
-            }
-            Directory.Move(tempDir.Path, Path.Combine(targetDir, step.Directory));
-
-            // Update flag files
-            FlagUtils.PrefixExternalFlags(Path.Combine(targetDir, ".xbit"), step.Directory);
-            FlagUtils.PrefixExternalFlags(Path.Combine(targetDir, ".symlink"), step.Directory);
         }
 
         private static void ApplyAddDirectory(AddDirectoryStep step, string targetDir)

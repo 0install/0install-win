@@ -45,7 +45,6 @@ namespace ZeroInstall.Store.Implementation
                     Steps =
                     {
                         new Model.Archive(),
-                        new AddToplevelStep {Directory = "toplevel"},
                         new AddDirectoryStep {Path = "toplevel/subdir3"},
                         new Model.Archive(),
                         new RemoveStep {Path = "toplevel/subdir2"},
@@ -113,9 +112,6 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestApplyRecipeExceptions()
         {
-            Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe
-            {Steps = {new AddToplevelStep {Directory = "top/level"}}}, new ArchiveFileInfo[0], new SilentTaskHandler(), null));
-
             Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe
             {Steps = {new AddDirectoryStep {Path = "../dir"}}}, new ArchiveFileInfo[0], new SilentTaskHandler(), null));
 

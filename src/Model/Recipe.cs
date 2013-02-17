@@ -46,7 +46,7 @@ namespace ZeroInstall.Model
         /// <seealso cref="Steps"/>
         [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Used for XML serialization.")]
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [XmlElement(typeof(Archive)), XmlElement(typeof(RenameStep)), XmlElement(typeof(RemoveStep)), XmlElement(typeof(AddDirectoryStep)), XmlElement(typeof(AddToplevelStep))]
+        [XmlElement(typeof(Archive)), XmlElement(typeof(RenameStep)), XmlElement(typeof(RemoveStep)), XmlElement(typeof(AddDirectoryStep))]
         public object[] StepsArray
         {
             get
