@@ -292,9 +292,9 @@ namespace ZeroInstall.Injector
             selections.Implementations[1].Commands[0].Arguments.Add(new ForEachArgs
             {
                 ItemFrom = "SPLIT_ARG",
-                Arguments = {"pre1 $ITEM post1", "pre2 $ITEM post2"}
+                Arguments = { "pre1 $item post1", "pre2 $item post2" }
             });
-            selections.Implementations[2].Bindings.Add(new EnvironmentBinding { Name = "SPLIT_ARG", Value = "split1" + Path.PathSeparator + "split2" });
+            selections.Implementations[2].Bindings.Add(new EnvironmentBinding {Name = "SPLIT_ARG", Value = "split1" + Path.PathSeparator + "split2"});
 
             var executor = new Executor(selections, GetMockStore(selections));
             var startInfo = executor.GetStartInfo();
