@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model
 {
@@ -102,9 +103,8 @@ namespace ZeroInstall.Model
         public Dependency CloneDependency()
         {
             var dependency = new Dependency {Interface = Interface, Importance = Importance, Use = Use};
-            foreach (var constraint in Constraints) dependency.Constraints.Add(constraint.Clone());
-            foreach (var binding in Bindings) dependency.Bindings.Add(binding.Clone());
-
+            dependency.Constraints.AddAll(Constraints.CloneElements());
+            dependency.Bindings.AddAll(Bindings.CloneElements());
             return dependency;
         }
 
