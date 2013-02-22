@@ -72,6 +72,7 @@ namespace ZeroInstall.Injector
         private static readonly TimeSpan _defaultFreshness = new TimeSpan(7, 0, 0, 0, 0); // 7 days
         private TimeSpan _freshness = _defaultFreshness;
 
+        // ReSharper disable LocalizableElement
         /// <summary>
         /// The maximum age a cached <see cref="Model.Feed"/> may have until it is considered stale (needs to be updated).
         /// </summary>
@@ -208,6 +209,8 @@ namespace ZeroInstall.Injector
         /// </summary>
         [DefaultValue(""), PasswordPropertyText(true), Category("Sync"), DisplayName("Crypto key"), Description("The local key used to encrypt data before sending it to the Sync server.")]
         public string SyncCryptoKey { get { return _syncCryptoKey; } set { _syncCryptoKey = value; } }
+
+        // ReSharper restore LocalizableElement
         #endregion
 
         #region Constructor
