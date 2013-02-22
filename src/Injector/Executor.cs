@@ -21,8 +21,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using Common.Storage;
-using Common.Utils;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Injector.Solver;
@@ -100,37 +98,12 @@ namespace ZeroInstall.Injector
             if (arguments == null) throw new ArgumentNullException("arguments");
             #endregion
 
-            // Apply implementation bindings
-            var startInfo = BuildStartInfo();
-
-            // Get the actual implementation to be started (and replace its binary if the user wanted that)
-            var mainImplementation = Selections.MainImplementation;
-            if (!string.IsNullOrEmpty(Main)) ApplyMain(ref mainImplementation);
-
-            // Recursivley build command-line (applying additional bindings)
-            var commandLine = GetCommandLine(mainImplementation, Selections.CommandName, startInfo);
-            if (!string.IsNullOrEmpty(Wrapper)) commandLine.InsertRange(0, WindowsUtils.SplitArgs(Wrapper)); // Add wrapper in front
-            commandLine.AddRange(arguments); // Append user arguments
-
-            // Split and apply command-lines for executable bindings (delayed until here because variable expanding may be necessary)
-            foreach (var runEnv in _runEnvPendings)
-            {
-                var split = SplitCommandLine(runEnv.CommandLine, startInfo.EnvironmentVariables);
-                startInfo.EnvironmentVariables["0install-runenv-file-" + runEnv.ExeName] = split.Path;
-                startInfo.EnvironmentVariables["0install-runenv-args-" + runEnv.ExeName] = split.Arguments;
-            }
-            _runEnvPendings.Clear();
-
-            // Make sure archives always get extracted by .NET code even if a Python-version of Zero Install is executed
-            if (WindowsUtils.IsWindows)
-                startInfo.EnvironmentVariables["ZEROINSTALL_EXTERNAL_STORE"] = Path.Combine(Locations.InstallBase, "0store.exe");
-
-            // Split and apply main command-line
-            {
-                var split = SplitCommandLine(commandLine, startInfo.EnvironmentVariables);
-                startInfo.FileName = split.Path;
-                startInfo.Arguments = split.Arguments;
-            }
+            var startInfo = BuildStartInfoWithBindings();
+            var commandLine = GetCommandLine(GetMainImplementation(), Selections.CommandName, startInfo);
+            PrependWrapper(commandLine);
+            AppendUserArgs(arguments, commandLine);
+            ProcessRunEnvBindings(startInfo);
+            ApplyCommandLine(commandLine, startInfo);
             return startInfo;
         }
 

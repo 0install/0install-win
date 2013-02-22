@@ -48,11 +48,11 @@ namespace ZeroInstall.Injector
             /// <summary>
             /// The command-line the executable should run.
             /// </summary>
-            public readonly List<string> CommandLine;
+            public readonly List<ArgBase> CommandLine;
 
             /// <param name="name">The executable's file name without any file ending.</param>
             /// <param name="commandLine">The command-line the executable should run.</param>
-            public RunEnvPending(string name, List<string> commandLine)
+            public RunEnvPending(string name, List<ArgBase> commandLine)
             {
                 ExeName = name;
                 CommandLine = commandLine;
@@ -79,7 +79,7 @@ namespace ZeroInstall.Injector
         /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
         /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
-        private ProcessStartInfo BuildStartInfo()
+        private ProcessStartInfo BuildStartInfoWithBindings()
         {
             var startInfo = new ProcessStartInfo {ErrorDialog = false, UseShellExecute = false};
             foreach (var implementation in Selections.Implementations)
@@ -355,6 +355,25 @@ namespace ZeroInstall.Injector
             using (var fileStream = File.OpenWrite(filePath))
                 resourceStream.CopyTo(fileStream);
         }
+
+        /// <summary>
+        /// Split and apply command-lines for executable bindings.
+        /// This is delayed until the end because environment variables that might be modified are expanded.
+        /// </summary>
+        private void ProcessRunEnvBindings(ProcessStartInfo startInfo)
+        {
+            foreach (var runEnv in _runEnvPendings)
+            {
+                var split = SplitCommandLine(ExpandCommandLine(runEnv.CommandLine, startInfo.EnvironmentVariables));
+                startInfo.EnvironmentVariables["0install-runenv-file-" + runEnv.ExeName] = split.Path;
+                startInfo.EnvironmentVariables["0install-runenv-args-" + runEnv.ExeName] = split.Arguments;
+            }
+            _runEnvPendings.Clear();
+
+            // Make sure archives always get extracted by .NET code even if a Python-version of Zero Install is executed
+            if (WindowsUtils.IsWindows)
+                startInfo.EnvironmentVariables["ZEROINSTALL_EXTERNAL_STORE"] = Path.Combine(Locations.InstallBase, "0store.exe");
+        }
         #endregion
 
         #region Working dir
@@ -366,7 +385,7 @@ namespace ZeroInstall.Injector
         /// <param name="startInfo">The process launch environment to apply the <see cref="WorkingDir"/> change to.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
         /// <exception cref="CommandException">Thrown if the <paramref name="workingDir"/> has an invalid path or another working directory has already been set.</exception>
-        /// <remarks>This method can only be called successfully once per <see cref="BuildStartInfo()"/>.</remarks>
+        /// <remarks>This method can only be called successfully once per <see cref="BuildStartInfoWithBindings()"/>.</remarks>
         private void ApplyWorkingDir(WorkingDir workingDir, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
             string source = FileUtils.UnifySlashes(workingDir.Source) ?? "";

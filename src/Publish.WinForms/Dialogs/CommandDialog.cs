@@ -15,6 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.Linq;
+using Common.Collections;
 using Common.Controls;
 using ZeroInstall.Model;
 
@@ -75,7 +78,7 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
 
             textBoxName.Text = _command.Name;
             textBoxPath.Text = _command.Path;
-            argumentsControl.Arguments.AddAll(_command.Arguments);
+            argumentsControl.Arguments.AddAll(_command.Arguments.Select(arg => arg.ToString()));
             if (_command.WorkingDir != null)
             {
                 checkBoxWorkingDir.Checked = true;
@@ -87,7 +90,7 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         #endregion
 
         #region WorkingDir Group
-        private void CheckBoxWorkingDirCheckedChanged(object sender, System.EventArgs e)
+        private void CheckBoxWorkingDirCheckedChanged(object sender, EventArgs e)
         {
             hintTextBoxSource.Enabled = checkBoxWorkingDir.Checked;
         }
@@ -99,12 +102,12 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ButtonOkClick(object sender, System.EventArgs e)
+        private void ButtonOkClick(object sender, EventArgs e)
         {
             _command.Name = textBoxName.Text;
             _command.Path = string.IsNullOrEmpty(textBoxPath.Text) ? null : textBoxPath.Text;
             _command.Arguments.Clear();
-            _command.Arguments.AddAll(argumentsControl.Arguments);
+            _command.Arguments.AddAll(argumentsControl.Arguments.ConvertFromString<ArgBase>());
             _command.WorkingDir = checkBoxWorkingDir.Checked ? new WorkingDir {Source = hintTextBoxSource.Text} : null;
         }
         #endregion

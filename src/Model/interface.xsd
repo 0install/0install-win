@@ -7,7 +7,7 @@
   <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
 
   <!-- Common base type -->
-  <xsd:complexType name="base" abstract="true">
+  <xsd:complexType name="feed-element" abstract="true">
     <xsd:attribute name="if-0install-version" type="xsd:string">
       <xsd:annotation>
         <xsd:documentation>
@@ -30,7 +30,7 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="feed:base">
+      <xsd:extension base="feed:feed-element">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
           <xsd:element name="name" type="xsd:string" maxOccurs="1">
             <xsd:annotation>
@@ -130,7 +130,7 @@
   <xsd:element name="icon" type="feed:icon" />
   <xsd:complexType name="icon">
     <xsd:complexContent>
-      <xsd:extension base="feed:base">
+      <xsd:extension base="feed:feed-element">
         <xsd:attribute name="href" type="xsd:anyURI" use="required">
           <xsd:annotation>
             <xsd:documentation>
@@ -152,7 +152,7 @@
   <!-- Application meta data -->
   <xsd:complexType name="feed-reference">
     <xsd:complexContent>
-      <xsd:extension base="feed:base">
+      <xsd:extension base="feed:feed-element">
         <xsd:attribute name="src" type="xsd:string" use="required">
           <xsd:annotation>
             <xsd:documentation>
@@ -179,7 +179,7 @@
   </xsd:complexType>
   <xsd:complexType name="interface-reference">
     <xsd:complexContent>
-      <xsd:extension base="feed:base">
+      <xsd:extension base="feed:feed-element">
         <xsd:attribute name="interface" type="xsd:string" use="required">
           <xsd:annotation>
             <xsd:documentation>
@@ -197,7 +197,7 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="feed:base">
+      <xsd:extension base="feed:feed-element">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
           <xsd:element name="needs-terminal" type="xsd:string" maxOccurs="1">
             <xsd:annotation>
@@ -257,7 +257,7 @@
   <!-- Implementations -->
   <xsd:complexType name="element" abstract="true">
     <xsd:complexContent>
-      <xsd:extension base="feed:base">
+      <xsd:extension base="feed:feed-element">
         <xsd:attribute name="langs" type="xsd:string">
           <xsd:annotation>
             <xsd:documentation>
@@ -431,7 +431,7 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="feed:base">
+      <xsd:extension base="feed:feed-element">
         <xsd:attribute name="sha1" type="xsd:string" />
         <xsd:attribute name="sha1new" type="xsd:string" />
         <xsd:attribute name="sha256" type="xsd:string" />
@@ -446,15 +446,17 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="feed:base">
+      <xsd:extension base="feed:feed-element">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
           <xsd:element name="arg" type="xsd:string">
             <xsd:annotation>
               <xsd:documentation>
-                A single command-line argument to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.
+                A single command-line argument to be passed to an implementation executable.
+                Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.
               </xsd:documentation>
             </xsd:annotation>
           </xsd:element>
+          <xsd:element name="for-each" type="feed:for-each-arg" />
           <xsd:element name="environment" type="feed:environment" />
           <xsd:element name="overlay" type="feed:overlay" />
           <xsd:element name="executable-in-var" type="feed:executable-in-var" />
@@ -482,6 +484,42 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:complexType name="for-each-arg">
+    <xsd:complexContent>
+      <xsd:annotation>
+        <xsd:documentation>
+          Expands an environment variable to multiple arguments.
+          The variable specified in the 'item-from' attribute is split using the separator character and the arguments inside the element are added once for each item.
+        </xsd:documentation>
+      </xsd:annotation>
+      <xsd:extension base="feed:feed-element">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+          <xsd:element name="arg" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                A single command-line argument to be passed to an executable. "${item}" will be substituted with each for-each value.
+                Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:choice>
+        <xsd:attribute name="item-from" type="xsd:string" use="required">
+          <xsd:annotation>
+            <xsd:documentation>
+              The name of the environment variable to be expanded.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="separator" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              Overrides the default separator character (":" on POSIX and ";" on Windows).
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
 
   <!-- Dependencies -->
   <xsd:complexType name="restriction-base" abstract="true">
@@ -491,7 +529,7 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="feed:base">
+      <xsd:extension base="feed:feed-element">
         <xsd:attribute name="interface" type="xsd:string" use="required">
           <xsd:annotation>
             <xsd:documentation>
@@ -608,10 +646,12 @@
           <xsd:element name="arg" type="xsd:string">
             <xsd:annotation>
               <xsd:documentation>
-                A single command-line argument to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.
+                A single command-line argument to be passed to the runner before the path of the implementation.
+                Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.
               </xsd:documentation>
             </xsd:annotation>
           </xsd:element>
+          <xsd:element name="for-each" type="feed:for-each-arg" />
           <xsd:any namespace="##other" />
         </xsd:choice>
         <xsd:attribute name="command" type="xsd:string">
@@ -626,7 +666,7 @@
   </xsd:complexType>
   <xsd:complexType name="constraint">
     <xsd:complexContent>
-      <xsd:extension base="feed:base">
+      <xsd:extension base="feed:feed-element">
         <xsd:attribute name="not-before" type="xsd:string">
           <xsd:annotation>
             <xsd:documentation>
@@ -653,7 +693,7 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="feed:base" />
+      <xsd:extension base="feed:feed-element" />
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="environment">
@@ -695,7 +735,7 @@
         <xsd:attribute name="separator" type="xsd:string">
           <xsd:annotation>
             <xsd:documentation>
-              Overrides the default separator character (colon character on POSIX systems, and semi-colon on Windows).
+              Overrides the default separator character (":" on POSIX and ";" on Windows).
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
@@ -808,7 +848,7 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="feed:base" />
+      <xsd:extension base="feed:feed-element" />
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="archive">
@@ -877,7 +917,7 @@
   </xsd:complexType>
   <xsd:complexType name="recipe-step" abstract="true">
     <xsd:complexContent>
-      <xsd:extension base="feed:base" />
+      <xsd:extension base="feed:feed-element" />
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="rename">

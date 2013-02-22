@@ -19,17 +19,18 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A Command says how to run an <see cref="Implementation"/> as a program.
+    /// A command says how to run an <see cref="Implementation"/> as a program.
     /// </summary>
     /// <seealso cref="Element.Commands"/>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlType("command", Namespace = Feed.XmlNamespace)]
-    public class Command : FeedElement, IArgsContainer, IBindingContainer, IDependencyContainer, ICloneable, IEquatable<Command>
+    public class Command : FeedElement, IArgBaseContainer, IBindingContainer, IDependencyContainer, ICloneable, IEquatable<Command>
     {
         #region Constants
         /// <summary>
@@ -64,14 +65,14 @@ namespace ZeroInstall.Model
         public string Path { get; set; }
 
         // Preserve order
-        private readonly C5.ArrayList<string> _arguments = new C5.ArrayList<string>();
+        private readonly C5.ArrayList<ArgBase> _arguments = new C5.ArrayList<ArgBase>();
 
         /// <summary>
-        /// A list of command-line arguments to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.
+        /// A list of command-line arguments to be passed to an implementation executable.
         /// </summary>
-        [Description("A list of command-line arguments to be passed to the executable. Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.")]
-        [XmlElement("arg")]
-        public C5.ArrayList<string> Arguments { get { return _arguments; } }
+        [Description("A list of command-line arguments to be passed to an implementation executable.")]
+        [XmlElement(typeof(Arg)), XmlElement(typeof(ForEachArgs))]
+        public C5.ArrayList<ArgBase> Arguments { get { return _arguments; } }
 
         // Preserve order
         private readonly C5.ArrayList<Binding> _bindings = new C5.ArrayList<Binding>();
@@ -139,11 +140,11 @@ namespace ZeroInstall.Model
         public Command Clone()
         {
             var newCommand = new Command {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name, Path = Path};
-            foreach (var argument in Arguments) newCommand.Arguments.Add(argument);
-            foreach (var binding in Bindings) newCommand.Bindings.Add(binding.Clone());
+            newCommand.Arguments.AddAll(Arguments.CloneElements());
+            newCommand.Bindings.AddAll(Bindings.CloneElements());
             if (WorkingDir != null) newCommand.WorkingDir = WorkingDir.Clone();
-            foreach (var dependency in Dependencies) newCommand.Dependencies.Add(dependency.CloneDependency());
-            foreach (var restriction in Restrictions) newCommand.Restrictions.Add(restriction.Clone());
+            newCommand.Dependencies.AddAll(Dependencies.CloneElements());
+            newCommand.Restrictions.AddAll(Restrictions.CloneElements());
             if (Runner != null) newCommand.Runner = Runner.CloneRunner();
 
             return newCommand;

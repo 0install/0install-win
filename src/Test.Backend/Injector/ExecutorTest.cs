@@ -121,10 +121,10 @@ namespace ZeroInstall.Injector
             string execFile = Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path));
             string execArgs = new[]
             {
-                selections.Implementations[2].Commands[0].Arguments[0],
-                selections.Implementations[1].Commands[1].Runner.Arguments[0],
+                selections.Implementations[2].Commands[0].Arguments[0].ToString(),
+                selections.Implementations[1].Commands[1].Runner.Arguments[0].ToString(),
                 Path.Combine(Test1Path, FileUtils.UnifySlashes(selections.Implementations[1].Commands[1].Path)),
-                selections.Implementations[1].Commands[1].Arguments[0]
+                selections.Implementations[1].Commands[1].Arguments[0].ToString()
             }.JoinEscapeArguments();
             Assert.AreEqual(execFile, startInfo.EnvironmentVariables["0install-runenv-file-exec-in-var"]);
             Assert.AreEqual(execArgs, startInfo.EnvironmentVariables["0install-runenv-args-exec-in-var"]);
@@ -151,10 +151,10 @@ namespace ZeroInstall.Injector
             Assert.AreEqual(
                 new[]
                 {
-                    selections.Implementations[2].Commands[0].Arguments[0],
-                    selections.Implementations[1].Commands[0].Runner.Arguments[0],
+                    selections.Implementations[2].Commands[0].Arguments[0].ToString(),
+                    selections.Implementations[1].Commands[0].Runner.Arguments[0].ToString(),
                     Path.Combine(Test1Path, FileUtils.UnifySlashes(selections.Implementations[1].Commands[0].Path)),
-                    selections.Implementations[1].Commands[0].Arguments[0],
+                    selections.Implementations[1].Commands[0].Arguments[0].ToString(),
                     "--custom"
                 }.JoinEscapeArguments(),
                 startInfo.Arguments,
@@ -182,10 +182,10 @@ namespace ZeroInstall.Injector
                 {
                     "--wrapper",
                     Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
-                    selections.Implementations[2].Commands[0].Arguments[0],
-                    selections.Implementations[1].Commands[0].Runner.Arguments[0],
+                    selections.Implementations[2].Commands[0].Arguments[0].ToString(),
+                    selections.Implementations[1].Commands[0].Runner.Arguments[0].ToString(),
                     Path.Combine(Test1Path, FileUtils.UnifySlashes(selections.Implementations[1].Commands[0].Path)),
-                    selections.Implementations[1].Commands[0].Arguments[0],
+                    selections.Implementations[1].Commands[0].Arguments[0].ToString(),
                     "--custom"
                 }.JoinEscapeArguments(),
                 startInfo.Arguments,
@@ -212,9 +212,9 @@ namespace ZeroInstall.Injector
             Assert.AreEqual(
                 new[]
                 {
-                    selections.Implementations[2].Commands[0].Arguments[0],
-                    selections.Implementations[1].Commands[0].Runner.Arguments[0],
-                    new [] {Test1Path, "dir 1", "main"}.Aggregate(Path.Combine),
+                    selections.Implementations[2].Commands[0].Arguments[0].ToString(),
+                    selections.Implementations[1].Commands[0].Runner.Arguments[0].ToString(),
+                    new[] {Test1Path, "dir 1", "main"}.Aggregate(Path.Combine),
                     "--custom"
                 }.JoinEscapeArguments(),
                 startInfo.Arguments,
@@ -241,8 +241,8 @@ namespace ZeroInstall.Injector
             Assert.AreEqual(
                 new[]
                 {
-                    selections.Implementations[2].Commands[0].Arguments[0],
-                    selections.Implementations[1].Commands[0].Runner.Arguments[0],
+                    selections.Implementations[2].Commands[0].Arguments[0].ToString(),
+                    selections.Implementations[1].Commands[0].Runner.Arguments[0].ToString(),
                     Path.Combine(Test1Path, "main"),
                     "--custom"
                 }.JoinEscapeArguments(),
@@ -270,12 +270,49 @@ namespace ZeroInstall.Injector
             Assert.AreEqual(
                 new[]
                 {
-                    selections.Implementations[2].Commands[0].Arguments[0],
-                    selections.Implementations[1].Commands[0].Runner.Arguments[0],
-                    selections.Implementations[1].Commands[0].Arguments[0],
+                    selections.Implementations[2].Commands[0].Arguments[0].ToString(),
+                    selections.Implementations[1].Commands[0].Runner.Arguments[0].ToString(),
+                    selections.Implementations[1].Commands[0].Arguments[0].ToString(),
                     "--custom"
                 }.JoinEscapeArguments(),
                 startInfo.Arguments);
+
+            VerifyEnvironment(startInfo, selections);
+        }
+
+        /// <summary>
+        /// Ensures <see cref="Executor.GetStartInfo"/> handles <see cref="Selections"/> with <see cref="ForEachArgs"/>.
+        /// </summary>
+        [Test]
+        public void TestGetStartInfoForEachArgs()
+        {
+            var selections = SelectionsTest.CreateTestSelections();
+            selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
+
+            selections.Implementations[1].Commands[0].Arguments.Add(new ForEachArgs
+            {
+                ItemFrom = "SPLIT_ARG",
+                Arguments = {"pre1 $ITEM post1", "pre2 $ITEM post2"}
+            });
+            selections.Implementations[2].Bindings.Add(new EnvironmentBinding { Name = "SPLIT_ARG", Value = "split1" + Path.PathSeparator + "split2" });
+
+            var executor = new Executor(selections, GetMockStore(selections));
+            var startInfo = executor.GetStartInfo();
+            Assert.AreEqual(
+                Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
+                startInfo.FileName,
+                "Should combine runner implementation directory with runner command path");
+            Assert.AreEqual(
+                new[]
+                {
+                    selections.Implementations[2].Commands[0].Arguments[0].ToString(),
+                    selections.Implementations[1].Commands[0].Runner.Arguments[0].ToString(),
+                    Path.Combine(Test1Path, FileUtils.UnifySlashes(selections.Implementations[1].Commands[0].Path)),
+                    selections.Implementations[1].Commands[0].Arguments[0].ToString(),
+                    "pre1 split1 post1", "pre2 split1 post2", "pre1 split2 post1", "pre2 split2 post2"
+                }.JoinEscapeArguments(),
+                startInfo.Arguments,
+                "Should combine core and additional runner arguments with application implementation directory and command path");
 
             VerifyEnvironment(startInfo, selections);
         }

@@ -57,6 +57,7 @@
     <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="AddDirectoryStep.cs" />
     <Compile Include="Architecture.cs" />
+    <Compile Include="ArgBase.cs" />
     <Compile Include="Capabilities\AppRegistration.cs" />
     <Compile Include="Capabilities\AutoPlayEvent.cs" />
     <Compile Include="Capabilities\Capability.cs" />
@@ -81,7 +82,10 @@
     <Compile Include="Binding.cs" />
     <Compile Include="Constraint.cs" />
     <Compile Include="Dependency.cs" />
+    <Compile Include="Design\ArgBaseConverter.cs" />
+    <Compile Include="ForEachArgs.cs" />
     <Compile Include="ManifestDigestPartialEqualityComparer.cs" />
+    <Compile Include="Arg.cs" />
     <Compile Include="Requirements.cs" />
     <Compile Include="VersionDottedList.cs" />
     <Compile Include="EntryPoint.cs" />
@@ -90,7 +94,7 @@
     <Compile Include="ExecutableInVar.cs" />
     <Compile Include="FeedReference.cs" />
     <Compile Include="Group.cs" />
-    <Compile Include="IArgsContainer.cs" />
+    <Compile Include="IArgBaseContainer.cs" />
     <Compile Include="IBindingContainer.cs" />
     <Compile Include="Design\IconConverter.cs" />
     <Compile Include="IDependencyContainer.cs" />

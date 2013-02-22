@@ -21,15 +21,15 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// An object that contains command-line arguments.
+    /// An object that contains <see cref="ArgBase"/>s.
     /// </summary>
-    public interface IArgsContainer
+    public interface IArgBaseContainer
     {
         /// <summary>
         /// A list of command-line arguments to be passed to an executable.
         /// </summary>
         [Description("A list of command-line arguments to be passed to an executable.")]
-        [XmlElement("arg")]
-        C5.ArrayList<string> Arguments { get; }
+        [XmlElement(typeof(Arg)), XmlElement(typeof(ForEachArgs))]
+        C5.ArrayList<ArgBase> Arguments { get; }
     }
 }

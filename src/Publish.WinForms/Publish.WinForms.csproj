@@ -62,6 +62,9 @@
     <Reference Include="NDesk.Options">
       <HintPath>..\..\lib\NDesk.Options.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.TextEditor">
+      <HintPath>..\..\lib\ICSharpCode.TextEditor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\App.config" />

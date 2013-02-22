@@ -16,6 +16,8 @@
  */
 
 using System;
+using System.Linq;
+using Common.Collections;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms.Dialogs
@@ -36,7 +38,7 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
                 textCommand.Text = value.Command;
 
                 argumentsControl.Arguments.Clear();
-                argumentsControl.Arguments.AddAll(value.Arguments);
+                argumentsControl.Arguments.AddAll(value.Arguments.Select(arg => arg.ToString()));
             }
         }
 
@@ -50,7 +52,7 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
             Runner.Command = string.IsNullOrEmpty(textCommand.Text) ? null : textCommand.Text;
 
             Runner.Arguments.Clear();
-            Runner.Arguments.AddAll(argumentsControl.Arguments);
+            Runner.Arguments.AddAll(argumentsControl.Arguments.ConvertFromString<ArgBase>());
         }
     }
 }
