@@ -568,7 +568,7 @@ namespace Common.Utils
             value = new Regex(@"\${(.+)}").Replace(value, match => variables[match.Groups[1].Value]);
 
             // Substitute $VAR for the value of VAR
-            value = new Regex(@"\$([^\$\s\\/]+)").Replace(value, match => variables[match.Groups[1].Value]);
+            value = new Regex(@"\$([^\$\s\\/-]+)").Replace(value, match => variables[match.Groups[1].Value]);
 
             return value;
         }

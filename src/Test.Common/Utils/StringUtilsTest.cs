@@ -192,7 +192,13 @@ namespace Common.Utils
                 {"long key", "long value"}
             };
 
-            Assert.AreEqual("value1value2/value1 value2 long value ", StringUtils.ExpandUnixVariables("$KEY1$KEY2/$KEY1 $KEY2 ${LONG KEY} $NOKEY", variables));
+            Assert.AreEqual(
+                "value1value2/value1 value2 long value ",
+                StringUtils.ExpandUnixVariables("$KEY1$KEY2/$KEY1 $KEY2 ${LONG KEY} $NOKEY", variables));
+
+            Assert.AreEqual(
+                "value1-bla",
+                StringUtils.ExpandUnixVariables("$KEY1-bla", variables));
 
             Assert.AreEqual("", StringUtils.ExpandUnixVariables("", variables));
         }
