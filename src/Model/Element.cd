@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Model.Implementation" BaseTypeListCollapsed="true">
-    <Position X="5.5" Y="10" Width="1.75" />
+    <Position X="5.5" Y="10.25" Width="1.75" />
     <Members>
       <Field Name="_retrievalMethods" Hidden="true" />
       <Method Name="Clone" Hidden="true" />
@@ -10,15 +10,16 @@
       <Method Name="GetHashCode" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAgAACAAAAAQAAAIAAAAABAAAAADA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAkAACAAAAAQAAAIAAAAABAAAAABA=</HashCode>
       <FileName>Implementation.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="RetrievalMethods" />
     </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Model.ImplementationBase" BaseTypeListCollapsed="true">
-    <Position X="5.5" Y="7.5" Width="1.75" />
+    <Position X="5.5" Y="7.75" Width="1.75" />
     <Members>
       <Field Name="_manifestDigest" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
@@ -26,7 +27,7 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAgAAEgABAAAAAACAAAIAAAAAAAAAAACE=</HashCode>
+      <HashCode>AAAAAAAAAIAAgAAEkABAAAAAACAAAIAAAAAAAAAAAAE=</HashCode>
       <FileName>ImplementationBase.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -57,7 +58,7 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AJAokIAQBDAgQHkMhABQgARAAIUAEICASAgAAAAIADI=</HashCode>
+      <HashCode>ANAoEIAQBDAgQHkMnABQgARAAIQBEMCASAgAAAAIABI=</HashCode>
       <FileName>Feed.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -66,7 +67,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Model.PackageImplementation">
-    <Position X="3" Y="7.5" Width="2" />
+    <Position X="3" Y="7.75" Width="2" />
     <Members>
       <Method Name="Clone" Hidden="true" />
       <Method Name="CloneImplementation" Hidden="true" />
@@ -86,7 +87,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Model.Group" Collapsed="true">
-    <Position X="1" Y="7.5" Width="1.5" />
+    <Position X="1" Y="7.75" Width="1.5" />
     <Members>
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
@@ -97,13 +98,13 @@
     </Compartments>
     <AssociationLine Name="Elements" Type="ZeroInstall.Model.Element" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="1.5" Y="7.5" />
+        <Point X="1.5" Y="7.75" />
         <Point X="1.5" Y="6.054" />
         <Point X="3.25" Y="6.054" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAEgAAQAAAAAAAAAIAAAAAAAAAAADA=</HashCode>
+      <HashCode>AAAAAAAABAAAAAAEkAAQAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
       <FileName>Group.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -129,7 +130,7 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>IAAAAgAAIIAACACIgABAIABQAADAEIEASEAABBBACDA=</HashCode>
+      <HashCode>IAAAggAAIIAACACImABAKABQAADAEIEASECABBAACBA=</HashCode>
       <FileName>Element.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -143,7 +144,7 @@
   <Class Name="ZeroInstall.Model.RetrievalMethod" Collapsed="true">
     <Position X="8.75" Y="10.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAADA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAIEAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>RetrievalMethod.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -151,7 +152,7 @@
   <Class Name="ZeroInstall.Model.Command" Collapsed="true">
     <Position X="6" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAIKMgAAAAARAAABAAIAAYEAEQACAABA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAIKMgAAACARAAABAAIAAYECEQACAABA=</HashCode>
       <FileName>Command.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -159,7 +160,7 @@
   <Struct Name="ZeroInstall.Model.Architecture" Collapsed="true">
     <Position X="6" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAAAYCAAAgAEAAEgAAAAAAAAEAAAIEAAgAAAACAAiE=</HashCode>
+      <HashCode>AAAAAQCAAAAAAAAGgAAAAAAAAEAAAIAAAAAAAAiAAiE=</HashCode>
       <FileName>Architecture.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -183,7 +184,7 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAQAggIAAAAABBBEgSAAAAAAAAAQAIAAMAAAAAAAQiE=</HashCode>
+      <HashCode>AAAAAgIAAAAABBAMgQEAACAAAAAAAIAAEAAAAAAAQiE=</HashCode>
       <FileName>ManifestDigest.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -215,7 +216,7 @@
   <Enum Name="ZeroInstall.Model.OS">
     <Position X="8.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAABAAAAAAAAAAAAAAABAAAAAAJIAABAAABA=</HashCode>
+      <HashCode>AQAAAAAAAABAAAAAAAAAAAAAAABAAAAAAJIAABAAQBA=</HashCode>
       <FileName>Architecture.cs</FileName>
     </TypeIdentifier>
   </Enum>
