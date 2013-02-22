@@ -150,8 +150,7 @@ namespace ZeroInstall.Model
         public Catalog Clone()
         {
             var catalog = new Catalog {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements};
-            foreach (var feed in Feeds) catalog.Feeds.Add(feed.Clone());
-
+            catalog.Feeds.AddAll(Feeds.CloneElements());
             return catalog;
         }
 

@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using C5;
+using Common.Collections;
 using Common.Storage;
 
 namespace ZeroInstall.Model.Capabilities
@@ -80,8 +81,7 @@ namespace ZeroInstall.Model.Capabilities
         public CapabilityList Clone()
         {
             var capabilityList = new CapabilityList {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Architecture = Architecture};
-            foreach (var entry in Entries) capabilityList.Entries.Add(entry.Clone());
-
+            capabilityList.Entries.AddAll(Entries.CloneElements());
             return capabilityList;
         }
 

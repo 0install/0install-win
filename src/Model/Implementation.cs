@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model
 {
@@ -80,9 +81,7 @@ namespace ZeroInstall.Model
         {
             var implementation = new Implementation();
             CloneFromTo(this, implementation);
-            foreach (var method in RetrievalMethods)
-                implementation.RetrievalMethods.Add(method.Clone());
-
+            implementation.RetrievalMethods.AddAll(RetrievalMethods.CloneElements());
             return implementation;
         }
 

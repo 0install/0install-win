@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model
 {
@@ -95,8 +96,7 @@ namespace ZeroInstall.Model
         public virtual Restriction Clone()
         {
             var restriction = new Restriction {Interface = Interface, Versions = Versions};
-            foreach (var constraint in Constraints) restriction.Constraints.Add(constraint.Clone());
-
+            restriction.Constraints.AddAll(Constraints.CloneElements());
             return restriction;
         }
 

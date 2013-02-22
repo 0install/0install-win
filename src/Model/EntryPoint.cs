@@ -118,11 +118,10 @@ namespace ZeroInstall.Model
         public EntryPoint Clone()
         {
             var newEntryPoint = new EntryPoint {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Command = Command, BinaryName = BinaryName, NeedsTerminal = NeedsTerminal};
-            foreach (var name in Names) newEntryPoint.Names.Add(name.Clone());
-            foreach (var summary in Summaries) newEntryPoint.Summaries.Add(summary.Clone());
-            foreach (var description in Descriptions) newEntryPoint.Descriptions.Add(description.Clone());
+            newEntryPoint.Names.AddAll(Names.CloneElements());
+            newEntryPoint.Summaries.AddAll(Summaries.CloneElements());
+            newEntryPoint.Descriptions.AddAll(Descriptions.CloneElements());
             newEntryPoint.Icons.AddAll(Icons);
-
             return newEntryPoint;
         }
 

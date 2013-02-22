@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Common.Properties;
+using Common.Utils;
 
 namespace Common.Collections
 {
@@ -68,6 +69,16 @@ namespace Common.Collections
             var result = source.FirstOrDefault(predicate);
             if (result == null) throw noneException();
             return result;
+        }
+        #endregion
+
+        #region Clone
+        /// <summary>
+        /// Calls <see cref="ICloneable.Clone"/> for every element in a collection and returns the results as a new collection.
+        /// </summary>
+        public static IEnumerable<T> CloneElements<T>(this IEnumerable<T> enumerable) where T: ICloneable
+        {
+            return enumerable.Select(entry => (T)entry.Clone());
         }
         #endregion
 
@@ -290,6 +301,24 @@ namespace Common.Collections
             where T : class, IMergeable<T>
         {
             return elements.FirstOrDefault(element => element != null && element.MergeID == id);
+        }
+        #endregion
+
+        #region Convert
+        /// <summary>
+        /// Calls <see cref="AttributeUtils.ConvertFromString{TType}"/> for each element of a collection.
+        /// </summary>
+        public static IEnumerable<TType> ConvertFromString<TType>(this IEnumerable<string> collection)
+        {
+            return collection.Select(element => element.ConvertFromString<TType>());
+        }
+
+        /// <summary>
+        /// Calls <see cref="AttributeUtils.ConvertToString{TType}"/> for each element of a collection.
+        /// </summary>
+        public static IEnumerable<string> ConvertToString<TType>(this IEnumerable<TType> value)
+        {
+            return value.Select(element => element.ConvertToString());
         }
         #endregion
     }

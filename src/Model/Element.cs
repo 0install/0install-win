@@ -306,10 +306,10 @@ namespace ZeroInstall.Model
             to.Main = from.Main;
             to.SelfTest = from.SelfTest;
             to.DocDir = from.DocDir;
-            foreach (var command in from.Commands) to.Commands.Add(command.Clone());
-            foreach (var dependency in from.Dependencies) to.Dependencies.Add(dependency.CloneDependency());
-            foreach (var restriction in from.Restrictions) to.Restrictions.Add(restriction.Clone());
-            foreach (var binding in from.Bindings) to.Bindings.Add(binding.Clone());
+            to.Commands.AddAll(from.Commands.CloneElements());
+            to.Dependencies.AddAll(from.Dependencies.CloneElements());
+            to.Restrictions.AddAll(from.Restrictions.CloneElements());
+            to.Bindings.AddAll(from.Bindings.CloneElements());
         }
         #endregion
 

@@ -127,8 +127,7 @@ namespace ZeroInstall.Model.Capabilities
         public Verb Clone()
         {
             var newVerb = new Verb {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name, Command = Command, Arguments = Arguments, Extended = Extended};
-            foreach (var description in Descriptions) newVerb.Descriptions.Add(description.Clone());
-
+            newVerb.Descriptions.AddAll(Descriptions.CloneElements());
             return newVerb;
         }
 

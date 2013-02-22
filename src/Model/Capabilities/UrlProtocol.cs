@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model.Capabilities
 {
@@ -68,8 +69,8 @@ namespace ZeroInstall.Model.Capabilities
         {
             var capability = new UrlProtocol {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, ExplicitOnly = ExplicitOnly};
             capability.Icons.AddAll(Icons);
-            foreach (var description in Descriptions) capability.Descriptions.Add(description.Clone());
-            foreach (var verb in Verbs) capability.Verbs.Add(verb.Clone());
+            capability.Descriptions.AddAll(Descriptions.CloneElements());
+            capability.Verbs.AddAll(Verbs.CloneElements());
             capability.KnownPrefixes.AddAll(KnownPrefixes);
             return capability;
         }

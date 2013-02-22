@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model
 {
@@ -29,7 +30,7 @@ namespace ZeroInstall.Model
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlType("runner", Namespace = Feed.XmlNamespace)]
-    public class Runner : Dependency, IArgsContainer, IEquatable<Runner>
+    public class Runner : Dependency, IArgBaseContainer, IEquatable<Runner>
     {
         #region Properties
         /// <summary>
@@ -40,14 +41,14 @@ namespace ZeroInstall.Model
         public string Command { get; set; }
 
         // Preserve order
-        private readonly C5.ArrayList<string> _arguments = new C5.ArrayList<string>();
+        private readonly C5.ArrayList<ArgBase> _arguments = new C5.ArrayList<ArgBase>();
 
         /// <summary>
-        /// A list of command-line arguments to be passed to the executable.
+        /// A list of command-line arguments to be passed to the runner before the path of the implementation.
         /// </summary>
-        [Description("A list of command-line arguments to be passed to the executable.")]
-        [XmlElement("arg")]
-        public C5.ArrayList<string> Arguments { get { return _arguments; } }
+        [Description("A list of command-line arguments to be passed to the runner before the path of the implementation.")]
+        [XmlElement(typeof(Arg)), XmlElement(typeof(ForEachArgs))]
+        public C5.ArrayList<ArgBase> Arguments { get { return _arguments; } }
         #endregion
 
         //--------------------//
@@ -72,10 +73,9 @@ namespace ZeroInstall.Model
         public Runner CloneRunner()
         {
             var runner = new Runner {Interface = Interface, Use = Use, Command = Command};
-            foreach (var binding in Bindings) runner.Bindings.Add(binding.Clone());
-            foreach (var constraint in Constraints) runner.Constraints.Add(constraint.Clone());
-            foreach (var argument in Arguments) runner.Arguments.Add(argument);
-
+            runner.Bindings.AddAll(Bindings.CloneElements());
+            runner.Constraints.AddAll(Constraints.CloneElements());
+            runner.Arguments.AddAll(Arguments.CloneElements());
             return runner;
         }
 

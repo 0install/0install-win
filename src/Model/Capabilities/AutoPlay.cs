@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model.Capabilities
 {
@@ -90,7 +91,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             var capability = new AutoPlay {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, ExplicitOnly = ExplicitOnly, Provider = Provider, ProgID = ProgID, Verb = Verb.Clone()};
             capability.Icons.AddAll(Icons);
-            foreach (var description in Descriptions) capability.Descriptions.Add(description.Clone());
+            capability.Descriptions.AddAll(Descriptions.CloneElements());
             capability.Events.AddAll(Events);
             return capability;
         }

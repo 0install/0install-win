@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model.Capabilities
 {
@@ -112,9 +113,9 @@ namespace ZeroInstall.Model.Capabilities
         public override Capability Clone()
         {
             var capability = new DefaultProgram {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, ExplicitOnly = ExplicitOnly, Service = Service};
-            foreach (var description in Descriptions) capability.Descriptions.Add(description.Clone());
+            capability.Descriptions.AddAll(Descriptions.CloneElements());
             capability.Icons.AddAll(Icons);
-            foreach (var verb in Verbs) capability.Verbs.Add(verb.Clone());
+            capability.Verbs.AddAll(Verbs.CloneElements());
             return capability;
         }
         #endregion

@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model.Capabilities
 {
@@ -67,9 +68,9 @@ namespace ZeroInstall.Model.Capabilities
         public override Capability Clone()
         {
             var capability = new FileType {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, ExplicitOnly = ExplicitOnly};
-            foreach (var description in Descriptions) capability.Descriptions.Add(description.Clone());
+            capability.Descriptions.AddAll(Descriptions.CloneElements());
             capability.Icons.AddAll(Icons);
-            foreach (var verb in Verbs) capability.Verbs.Add(verb.Clone());
+            capability.Verbs.AddAll(Verbs.CloneElements());
             capability.Extensions.AddAll(Extensions);
             return capability;
         }

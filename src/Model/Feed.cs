@@ -400,16 +400,15 @@ namespace ZeroInstall.Model
         public Feed Clone()
         {
             var feed = new Feed {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, MinInjectorVersion = MinInjectorVersion, Uri = Uri, Name = Name, Homepage = Homepage, NeedsTerminal = NeedsTerminal};
-            foreach (var feedReference in Feeds) feed.Feeds.Add(feedReference.Clone());
-            foreach (var interfaceReference in FeedFor) feed.FeedFor.Add(interfaceReference.Clone());
-            foreach (var summary in Summaries) feed.Summaries.Add(summary.Clone());
-            foreach (var description in Descriptions) feed.Descriptions.Add(description.Clone());
+            feed.Feeds.AddAll(Feeds.CloneElements());
+            feed.FeedFor.AddAll(FeedFor.CloneElements());
+            feed.Summaries.AddAll(Summaries.CloneElements());
+            feed.Descriptions.AddAll(Descriptions.CloneElements());
             feed.Categories.AddAll(Categories);
             feed.Icons.AddAll(Icons);
-            foreach (var element in Elements) feed.Elements.Add(element.Clone());
-            foreach (var entryPoint in EntryPoints) feed.EntryPoints.Add(entryPoint.Clone());
-            foreach (var capabilityList in CapabilityLists) feed.CapabilityLists.Add(capabilityList.Clone());
-
+            feed.Elements.AddAll(Elements.CloneElements());
+            feed.EntryPoints.AddAll(EntryPoints.CloneElements());
+            feed.CapabilityLists.AddAll(CapabilityLists.CloneElements());
             return feed;
         }
 
