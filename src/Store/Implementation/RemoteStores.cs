@@ -30,6 +30,9 @@ namespace ZeroInstall.Store.Implementation
     /// </summary>
     public static class RemoteStores
     {
+        /// <summary>
+        /// Wrapper for <see cref="IStore.ListAll"/>, handling remoting exceptions.
+        /// </summary>
         public static IEnumerable<ManifestDigest> ListAllSafe(this IStore store)
         {
             try
@@ -50,6 +53,9 @@ namespace ZeroInstall.Store.Implementation
             #endregion
         }
 
+        /// <summary>
+        /// Wrapper for <see cref="IStore.ListAllTemp"/>, handling remoting exceptions.
+        /// </summary>
         public static IEnumerable<string> ListAllTempSafe(this IStore store)
         {
             try
@@ -70,6 +76,9 @@ namespace ZeroInstall.Store.Implementation
             #endregion
         }
 
+        /// <summary>
+        /// Wrapper for <see cref="IStore.Contains(ManifestDigest)"/>, handling remoting exceptions.
+        /// </summary>
         public static bool ContainsSafe(this IStore store, ManifestDigest manifestDigest)
         {
             try
@@ -85,6 +94,9 @@ namespace ZeroInstall.Store.Implementation
             #endregion
         }
 
+        /// <summary>
+        /// Wrapper for <see cref="IStore.Contains(string)"/>, handling remoting exceptions.
+        /// </summary>
         public static bool ContainsSafe(this IStore store, string directory)
         {
             try
@@ -100,6 +112,9 @@ namespace ZeroInstall.Store.Implementation
             #endregion
         }
 
+        /// <summary>
+        /// Wrapper for <see cref="IStore.GetPath"/>, handling remoting exceptions.
+        /// </summary>
         public static string GetPathSafe(this IStore store, ManifestDigest manifestDigest)
         {
             try
@@ -119,6 +134,9 @@ namespace ZeroInstall.Store.Implementation
             #endregion
         }
 
+        /// <summary>
+        /// Wrapper for <see cref="IStore.Remove"/>, handling remoting exceptions.
+        /// </summary>
         public static bool RemoveSafe(this IStore store, ManifestDigest manifestDigest)
         {
             try
@@ -139,6 +157,9 @@ namespace ZeroInstall.Store.Implementation
             return false;
         }
 
+        /// <summary>
+        /// Wrapper for <see cref="IStore.Optimise"/>, handling remoting exceptions.
+        /// </summary>
         public static void OptimiseSafe(this IStore store, ITaskHandler handler)
         {
             try
@@ -161,6 +182,9 @@ namespace ZeroInstall.Store.Implementation
             #endregion
         }
 
+        /// <summary>
+        /// Wrapper for <see cref="IStore.Verify"/>, handling remoting exceptions.
+        /// </summary>
         public static void VerifySafe(this IStore store, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             try
@@ -175,6 +199,9 @@ namespace ZeroInstall.Store.Implementation
             #endregion
         }
 
+        /// <summary>
+        /// Wrapper for <see cref="IStore.Audit"/>, handling remoting exceptions.
+        /// </summary>
         public static IEnumerable<DigestMismatchException> AuditSafe(this IStore store, ITaskHandler handler)
         {
             try

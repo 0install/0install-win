@@ -81,9 +81,9 @@ namespace ZeroInstall.Model
         public EnvironmentMode Mode { get; set; }
 
         /// <summary>
-        /// Overrides the default separator character (colon character on POSIX systems, and semi-colon on Windows).
+        /// Overrides the default separator character (":" on POSIX and ";" on Windows).
         /// </summary>
-        [Description("Overrides the default separator character (colon character on POSIX systems, and semi-colon on Windows).")]
+        [Description("Overrides the default separator character (\":\" on POSIX and \";\" on Windows).")]
         [XmlAttribute("separator"), DefaultValue("")]
         public string Separator { get; set; }
 

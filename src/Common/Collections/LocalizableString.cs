@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Xml.Serialization;
@@ -36,6 +37,7 @@ namespace Common.Collections
         /// <summary>
         /// The actual string value to store.
         /// </summary>
+        [Description("The actual string value to store.")]
         [XmlText]
         public string Value { get; set; }
 
@@ -44,6 +46,7 @@ namespace Common.Collections
         /// <summary>
         /// The language of the <see cref="Value"/>; must not be <see langword="null"/>.
         /// </summary>
+        [Description("The language of the Value.")]
         [XmlIgnore]
         public CultureInfo Language
         {
@@ -60,6 +63,7 @@ namespace Common.Collections
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Language"/>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [XmlAttribute("lang", Namespace = "http://www.w3.org/XML/1998/namespace", DataType = "language") /* Will be serialized as xml:lang, must be done this way for Mono */]
         public string LanguageString
         {
