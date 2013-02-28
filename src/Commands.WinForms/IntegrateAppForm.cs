@@ -133,9 +133,9 @@ namespace ZeroInstall.Commands.WinForms
         /// <remarks>Users create <see cref="AccessPoints.CommandAccessPoint"/>s themselves based on <see cref="EntryPoint"/>s.</remarks>
         private void SetupCommandAccessPoints()
         {
-            SetupCommandAccessPoint(checkBoxStartMenuSimple, _menuEntries, () => Suggest.MenuEntries(_feed));
-            SetupCommandAccessPoint(checkBoxDesktopSimple, _desktopIcons, () => Suggest.DesktopIcons(_feed));
-            SetupCommandAccessPoint(checkBoxAliasesSimple, _aliases, () => Suggest.Aliases(_feed));
+            SetupCommandAccessPoint(checkBoxStartMenuSimple, labelStartMenuSimple, _menuEntries, () => Suggest.MenuEntries(_feed));
+            SetupCommandAccessPoint(checkBoxDesktopSimple, labelDesktopSimple, _desktopIcons, () => Suggest.DesktopIcons(_feed));
+            SetupCommandAccessPoint(checkBoxAliasesSimple, labelAliasesSimple, _aliases, () => Suggest.Aliases(_feed));
 
             SetupCommandComboBoxes();
             LoadCommandAccessPoints();
@@ -190,12 +190,13 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <typeparam name="T">The specific kind of <see cref="AccessPoints.CommandAccessPoint"/> to handle.</typeparam>
         /// <param name="checkBoxSimple">The simple mode checkbox for this type of <see cref="AccessPoints.CommandAccessPoint"/>.</param>
+        /// <param name="labelSimple">A simple mode description for this type of <see cref="AccessPoints.CommandAccessPoint"/>.</param>
         /// <param name="accessPoints">A list of applied <see cref="AccessPoints.CommandAccessPoint"/>.</param>
         /// <param name="getSuggestions">Retrieves a list of default <see cref="AccessPoints.CommandAccessPoint"/> suggested by the system.</param>
-        private void SetupCommandAccessPoint<T>(CheckBox checkBoxSimple, ICollection<T> accessPoints, Func<IEnumerable<T>> getSuggestions)
+        private void SetupCommandAccessPoint<T>(CheckBox checkBoxSimple, Label labelSimple, ICollection<T> accessPoints, Func<IEnumerable<T>> getSuggestions)
             where T : AccessPoints.CommandAccessPoint
         {
-            _switchToBasicMode += () => SetCommandAccessPointCheckBox(checkBoxSimple, accessPoints, getSuggestions);
+            _switchToBasicMode += () => SetCommandAccessPointCheckBox(checkBoxSimple, labelSimple, accessPoints, getSuggestions);
             _switchToAdvancedMode += () => ApplyCommandAccessPointCheckBox(checkBoxSimple, accessPoints, getSuggestions);
         }
         #endregion
@@ -207,14 +208,14 @@ namespace ZeroInstall.Commands.WinForms
         /// <remarks>Users enable or disable predefined <see cref="AccessPoints.DefaultAccessPoint"/>s based on <see cref="Capabilities.DefaultCapability"/>s.</remarks>
         private void SetupDefaultAccessPoints()
         {
-            SetupDefaultAccessPoint(checkBoxFileTypesSimple, checkBoxFileTypesAll, _fileTypesBinding);
-            SetupDefaultAccessPoint(checkBoxUrlProtocolsSimple, checkBoxUrlProtocolsAll, _urlProtocolsBinding);
-            SetupDefaultAccessPoint(checkBoxAutoPlaySimple, checkBoxAutoPlayAll, _autoPlayBinding);
-            SetupDefaultAccessPoint(checkBoxContextMenuSimple, checkBoxContextMenuAll, _contextMenuBinding);
-            SetupDefaultAccessPoint(checkBoxDefaultProgramsSimple, checkBoxDefaultProgramsAll, _defaultProgramBinding);
+            SetupDefaultAccessPoint(checkBoxFileTypesSimple, labelFileTypesSimple, checkBoxFileTypesAll, _fileTypesBinding);
+            SetupDefaultAccessPoint(checkBoxUrlProtocolsSimple, labelUrlProtocolsSimple, checkBoxUrlProtocolsAll, _urlProtocolsBinding);
+            SetupDefaultAccessPoint(checkBoxAutoPlaySimple, labelAutoPlaySimple, checkBoxAutoPlayAll, _autoPlayBinding);
+            SetupDefaultAccessPoint(checkBoxContextMenuSimple, labelContextMenuSimple, checkBoxContextMenuAll, _contextMenuBinding);
+            SetupDefaultAccessPoint(checkBoxDefaultProgramsSimple, labelDefaultProgramsSimple, checkBoxDefaultProgramsAll, _defaultProgramBinding);
 
             // File type associations cannot be set programmatically on Windows 8, so hide the option
-            _switchToBasicMode += () => { if (WindowsUtils.IsWindows8) checkBoxFileTypesSimple.Visible = false; };
+            _switchToBasicMode += () => { if (WindowsUtils.IsWindows8) labelFileTypesSimple.Visible = checkBoxFileTypesSimple.Visible = false; };
 
             LoadDefaultAccessPoints();
         }
@@ -224,15 +225,16 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <typeparam name="T">The specific kind of <see cref="AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
         /// <param name="checkBoxSimple">The simple mode checkbox for this type of <see cref="AccessPoints.CommandAccessPoint"/>.</param>
+        /// <param name="labelSimple">A simple mode description for this type of <see cref="AccessPoints.CommandAccessPoint"/>.</param>
         /// <param name="checkBoxSelectAll">The "select all" checkbox for this type of <see cref="AccessPoints.CommandAccessPoint"/>.</param>
         /// <param name="model">A model represeting the underlying <see cref="Capabilities.DefaultCapability"/>s and their selection states.</param>
-        private void SetupDefaultAccessPoint<T>(CheckBox checkBoxSimple, CheckBox checkBoxSelectAll, BindingList<T> model)
+        private void SetupDefaultAccessPoint<T>(CheckBox checkBoxSimple, Label labelSimple, CheckBox checkBoxSelectAll, BindingList<T> model)
             where T : CapabilityModel
         {
             bool suppressEvent = false;
             checkBoxSelectAll.CheckedChanged += delegate { if (!suppressEvent) CapabilityModelSetAll(model, checkBoxSelectAll.Checked); };
 
-            _switchToBasicMode += () => SetDefaultAccessPointCheckBox(checkBoxSimple, model);
+            _switchToBasicMode += () => SetDefaultAccessPointCheckBox(checkBoxSimple, labelSimple, model);
             _switchToAdvancedMode += () =>
             {
                 ApplyDefaultAccessPointCheckBox(checkBoxSimple, model);
@@ -347,7 +349,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             _switchToBasicMode();
 
-            buttonAdvancedMode.Visible = flowLayoutBasic.Visible = true;
+            buttonAdvancedMode.Visible = panelBasic.Visible = true;
             buttonBasicMode.Visible = checkBoxAutoUpdate.Visible = checkBoxCapabilities.Visible = tabControl.Visible = false;
         }
 
@@ -356,13 +358,14 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <typeparam name="T">The specific kind of <see cref="AccessPoints.CommandAccessPoint"/> to handle.</typeparam>
         /// <param name="checkBox">The <see cref="CheckBox"/> to configure.</param>
+        /// <param name="label">A description for the <paramref name="checkBox."/></param>
         /// <param name="accessPoints">The currently applied <see cref="AccessPoints.CommandAccessPoint"/>.</param>
         /// <param name="getSuggestions">Retrieves a list of default <see cref="AccessPoints.CommandAccessPoint"/> suggested by the system.</param>
-        private static void SetCommandAccessPointCheckBox<T>(CheckBox checkBox, IEnumerable<T> accessPoints, Func<IEnumerable<T>> getSuggestions)
+        private static void SetCommandAccessPointCheckBox<T>(CheckBox checkBox, Label label, IEnumerable<T> accessPoints, Func<IEnumerable<T>> getSuggestions)
             where T : AccessPoints.CommandAccessPoint
         {
             checkBox.Checked = accessPoints.Any();
-            checkBox.Visible = getSuggestions().Any();
+            label.Visible = checkBox.Visible = getSuggestions().Any();
         }
 
         /// <summary>
@@ -370,12 +373,13 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <typeparam name="T">The specific kind of <see cref="AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
         /// <param name="checkBox">The <see cref="CheckBox"/> to configure.</param>
+        /// <param name="label">A description for the <paramref name="checkBox."/></param>
         /// <param name="model">A model represeting the underlying <see cref="Capabilities.DefaultCapability"/>s and their selection states.</param>
-        private static void SetDefaultAccessPointCheckBox<T>(CheckBox checkBox, BindingList<T> model)
+        private static void SetDefaultAccessPointCheckBox<T>(CheckBox checkBox, Label label, BindingList<T> model)
             where T : CapabilityModel
         {
             checkBox.Checked = model.Any(element => element.Use);
-            checkBox.Visible = model.Any();
+            label.Visible = checkBox.Visible = model.Any();
         }
         #endregion
 
@@ -391,7 +395,7 @@ namespace ZeroInstall.Commands.WinForms
             _switchToAdvancedMode();
 
             buttonBasicMode.Visible = checkBoxAutoUpdate.Visible = checkBoxCapabilities.Visible = tabControl.Visible = true;
-            buttonAdvancedMode.Visible = flowLayoutBasic.Visible = false;
+            buttonAdvancedMode.Visible = panelBasic.Visible = false;
         }
 
         /// <summary>
