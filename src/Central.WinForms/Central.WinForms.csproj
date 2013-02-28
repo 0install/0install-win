@@ -386,6 +386,10 @@
       <Project>{47DF9A89-30C2-40B8-8DAC-363E4A4BD6B5}</Project>
       <Name>Central</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Commands\Commands.csproj">
+      <Project>{606c7fb6-2c58-11e0-8161-7159dfd72085}</Project>
+      <Name>Commands</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Commands.WinForms\Commands.WinForms.csproj">
       <Project>{7A7F9AC4-5C3A-42D7-B3C3-0577300CA797}</Project>
       <Name>Commands.WinForms</Name>

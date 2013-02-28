@@ -64,7 +64,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 Program.ConfigureTaskbar(this, Text, null, null);
 
-                var syncLink = new WindowsUtils.ShellLink(buttonSync.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), "sync");
+                var syncLink = new WindowsUtils.ShellLink(buttonSync.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), Commands.SyncApps.Name);
                 var cacheLink = new WindowsUtils.ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Store.Management.WinForms.Program.ExeName + ".exe"), null);
                 WindowsUtils.AddTaskLinks(Program.AppUserModelID, new[] {syncLink, cacheLink});
             };
@@ -477,8 +477,8 @@ namespace ZeroInstall.Central.WinForms
             else
             {
                 ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
-                    ? new[] {"sync", "--machine"}
-                    : new[] {"sync"}));
+                    ? new[] {Commands.SyncApps.Name, "--machine"}
+                    : new[] {Commands.SyncApps.Name}));
             }
         }
 
@@ -551,8 +551,8 @@ namespace ZeroInstall.Central.WinForms
         private void buttonUpdateAll_Click(object sender, EventArgs e)
         {
             ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
-                ? new[] {"update-apps", "--machine"}
-                : new[] {"update-apps"}));
+                ? new[] {Commands.UpdateApps.Name, "--machine"}
+                : new[] {Commands.UpdateApps.Name}));
         }
 
         private void buttonUpdateAllClean_Click(object sender, EventArgs e)
@@ -560,8 +560,8 @@ namespace ZeroInstall.Central.WinForms
             if (!Msg.YesNo(this, Resources.UpdateAllCleanWillRemove, MsgSeverity.Warn, Resources.Continue, Resources.Cancel)) return;
 
             ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
-                ? new[] {"update-apps", "--clean", "--machine"}
-                : new[] {"update-apps", "--clean"}));
+                ? new[] {Commands.UpdateApps.Name, "--clean", "--machine"}
+                : new[] {Commands.UpdateApps.Name, "--clean"}));
         }
 
         private void buttonRefreshCatalog_Click(object sender, EventArgs e)
@@ -588,7 +588,7 @@ namespace ZeroInstall.Central.WinForms
         {
             if (!Msg.YesNo(this, Resources.OptionsAdvancedWarn, MsgSeverity.Warn, Resources.Continue, Resources.Cancel)) return;
 
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {"config"}));
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {Commands.Configure.Name}));
         }
 
         private void buttonCacheManagement_Click(object sender, EventArgs e)
@@ -680,8 +680,8 @@ namespace ZeroInstall.Central.WinForms
         private void AddCustomInterface(string interfaceID)
         {
             ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
-                ? new[] {"add-app", "--machine", interfaceID}
-                : new[] {"add-app", interfaceID}));
+                ? new[] {Commands.AddApp.Name, "--machine", interfaceID}
+                : new[] {Commands.AddApp.Name, interfaceID}));
             tabControlApps.SelectTab(tabPageAppList);
         }
         #endregion
