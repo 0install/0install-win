@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Common;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
@@ -27,13 +28,10 @@ namespace ZeroInstall.Commands
     /// </summary>
     public class CliHandler : CliHandlerBase
     {
-        #region Dialogs
         /// <inheritdoc />
         public override void ShowIntegrateApp(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed)
         {
-            // ToDo: Implement text-based UI
-            Output(Resources.DesktopIntegration, Resources.IntegrateAppUseGui);
+            throw new NeedGuiException(Resources.IntegrateAppUseGui);
         }
-        #endregion
     }
 }
