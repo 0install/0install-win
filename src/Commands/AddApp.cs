@@ -45,9 +45,6 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         public override int GuiDelay { get { return Policy.FeedManager.Refresh ? 0 : 1000; } }
-
-        // Default to current system as architecture requirement
-        private readonly Requirements _requirements = new Requirements {Architecture = Architecture.CurrentSystem};
         #endregion
 
         #region Constructor
