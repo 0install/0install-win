@@ -69,7 +69,7 @@ namespace ZeroInstall.Commands
         }
 
         /// <summary>
-        /// Creates new one <see cref="AppEntry"/> for a specific interface ID.
+        /// Creates a new <see cref="AppEntry"/> for a specific interface ID.
         /// </summary>
         /// <param name="integrationManager">Manages desktop integration operations.</param>
         /// <param name="interfaceID">The interface ID to create an <see cref="AppEntry"/> for. Will be updated if <see cref="Feed.ReplacedBy"/> is set and accepted by the user.</param>

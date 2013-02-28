@@ -56,6 +56,9 @@ namespace ZeroInstall.Commands
         protected override string Description { get { return Resources.DescriptionRun; } }
 
         /// <inheritdoc/>
+        protected override string Usage { get { return base.Usage + " [ARGS]"; } }
+
+        /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionRun; } }
 
         /// <inheritdoc/>

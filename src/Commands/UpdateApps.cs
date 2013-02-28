@@ -38,7 +38,10 @@ namespace ZeroInstall.Commands
     {
         #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
-        public new const string Name = "update-apps";
+        public new const string Name = "update-all";
+
+        /// <summary>The alternative name of this command as used in command-line arguments in lower-case.</summary>
+        public const string AltName = "update-apps";
         #endregion
 
         #region Variables

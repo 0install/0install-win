@@ -39,7 +39,10 @@ namespace ZeroInstall.Commands
     {
         #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
-        public new const string Name = "integrate-app";
+        public new const string Name = "integrate";
+
+        /// <summary>The alternative name of this command as used in command-line arguments in lower-case.</summary>
+        public const string AltName = "integrate-app";
         #endregion
 
         #region Variables
@@ -56,6 +59,9 @@ namespace ZeroInstall.Commands
         #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionIntegrateApp; } }
+
+        /// <inheritdoc/>
+        protected override string Usage { get { return "[OPTIONS] (PET-NAME|INTERFACE)"; } }
 
         /// <inheritdoc/>
         public override int GuiDelay { get { return Policy.Handler.Batch ? 0 : 1000; } }

@@ -36,7 +36,10 @@ namespace ZeroInstall.Commands
     {
         #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
-        public new const string Name = "add-alias";
+        public new const string Name = "alias";
+
+        /// <summary>The alternative name of this command as used in command-line arguments in lower-case.</summary>
+        public const string AltName = "add-alias";
         #endregion
 
         #region Variables

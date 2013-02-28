@@ -34,9 +34,9 @@ namespace ZeroInstall.Commands
     {
         #region Valid commands
         /// <summary>
-        /// A list of command names as used in command-line arguments in lower-case.
+        /// A list of command names (without alternatives) as used in command-line arguments in lower-case.
         /// </summary>
-        internal static readonly string[] ValidCommandNames = new[] {Selection.Name, Download.Name, Update.Name, Run.Name, SelfUpdate.Name, Import.Name, List.Name, Configure.Name, AddFeed.Name, RemoveFeed.Name, ListFeeds.Name, Digest.Name, AddApp.Name, RemoveApp.Name, IntegrateApp.Name, AddAlias.Name, UpdateApps.Name, RepairApps.Name, SyncApps.Name};
+        internal static readonly string[] CommandNames = new[] {Selection.Name, Download.Name, Update.Name, Run.Name, SelfUpdate.Name, Import.Name, List.Name, Configure.Name, AddFeed.Name, RemoveFeed.Name, ListFeeds.Name, Digest.Name, AddApp.Name, RemoveApp.Name, IntegrateApp.Name, AddAlias.Name, UpdateApps.Name, RepairApps.Name, SyncApps.Name};
 
         /// <summary>
         /// Creates a nw <see cref="FrontendCommand"/> based on a name.
@@ -79,16 +79,23 @@ namespace ZeroInstall.Commands
                 case Digest.Name:
                     return new Digest(policy);
                 case AddApp.Name:
+                case AddApp.AltName:
                     return new AddApp(policy);
                 case RemoveApp.Name:
+                case RemoveApp.AltName:
+                case RemoveApp.AltName2:
                     return new RemoveApp(policy);
                 case IntegrateApp.Name:
+                case IntegrateApp.AltName:
                     return new IntegrateApp(policy);
                 case AddAlias.Name:
+                case AddAlias.AltName:
                     return new AddAlias(policy);
                 case UpdateApps.Name:
+                case UpdateApps.AltName:
                     return new UpdateApps(policy);
                 case RepairApps.Name:
+                case RepairApps.AltName:
                     return new RepairApps(policy);
                 case SyncApps.Name:
                     return new SyncApps(policy);

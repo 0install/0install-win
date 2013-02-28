@@ -39,7 +39,7 @@ namespace ZeroInstall.Commands
             get
             {
                 var builder = new StringBuilder(Resources.TryHelpWith + Environment.NewLine);
-                foreach (var possibleCommand in CommandFactory.ValidCommandNames)
+                foreach (var possibleCommand in CommandFactory.CommandNames)
                     builder.AppendLine("0install " + possibleCommand);
                 return builder.ToString();
             }

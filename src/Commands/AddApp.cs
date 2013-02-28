@@ -30,7 +30,10 @@ namespace ZeroInstall.Commands
     {
         #region Constants
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
-        public new const string Name = "add-app";
+        public new const string Name = "add";
+
+        /// <summary>The alternative name of this command as used in command-line arguments in lower-case.</summary>
+        public const string AltName = "add-app";
         #endregion
 
         #region Properties
@@ -38,7 +41,13 @@ namespace ZeroInstall.Commands
         protected override string Description { get { return Resources.DescriptionAddApp; } }
 
         /// <inheritdoc/>
+        protected override string Usage { get { return "[OPTIONS] INTERFACE"; } }
+
+        /// <inheritdoc/>
         public override int GuiDelay { get { return Policy.FeedManager.Refresh ? 0 : 1000; } }
+
+        // Default to current system as architecture requirement
+        private readonly Requirements _requirements = new Requirements {Architecture = Architecture.CurrentSystem};
         #endregion
 
         #region Constructor

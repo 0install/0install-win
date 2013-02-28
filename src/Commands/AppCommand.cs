@@ -33,9 +33,6 @@ namespace ZeroInstall.Commands
     {
         #region Properties
         /// <inheritdoc/>
-        protected override string Usage { get { return "INTERFACE [OPTIONS]"; } }
-
-        /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionAppCommand; } }
         #endregion
 
