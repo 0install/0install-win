@@ -109,7 +109,7 @@ namespace Common
 
             return new PropertyPointer<string>(
                 () => pointer.Value.ToString(CultureInfo.InvariantCulture),
-                value => pointer.Value = bool.Parse(value),
+                value => pointer.Value = (value == "1" || (value != "0" && bool.Parse(value))),
                 pointer.DefaultValue.ToString(CultureInfo.InvariantCulture));
         }
 

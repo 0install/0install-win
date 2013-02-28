@@ -29,6 +29,7 @@ using Common.Storage;
 using Common.Utils;
 using Common.Values.Design;
 using IniParser;
+using Microsoft.Win32;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 
@@ -59,6 +60,10 @@ namespace ZeroInstall.Injector
     [Serializable]
     public sealed class Config : ICloneable, IEquatable<Config>
     {
+        #region Constants
+        private const string RegistryPolicyPath = @"SOFTWARE\Policies\Zero Install";
+        #endregion
+
         #region Variables
         /// <summary>Provides meta-data for loading and saving settings properties.</summary>
         private readonly Dictionary<string, PropertyPointer<string>> _metaData;
@@ -346,6 +351,16 @@ namespace ZeroInstall.Injector
             var config = new Config();
             foreach (var path in paths.Reverse()) // Read least important first
                 config.ReadFromIniFile(path);
+
+            // Apply Windows registry policies (override existing config)
+            if (WindowsUtils.IsWindowsNT)
+            {
+                using (var registryKey = Registry.LocalMachine.OpenSubKey(RegistryPolicyPath, false))
+                    if (registryKey != null) config.ReadFromRegistryKey(registryKey);
+                using (var registryKey = Registry.CurrentUser.OpenSubKey(RegistryPolicyPath, false))
+                    if (registryKey != null) config.ReadFromRegistryKey(registryKey);
+            }
+
             return config;
         }
 
@@ -432,6 +447,33 @@ namespace ZeroInstall.Injector
             {
                 SyncCryptoKey = global["sync_crypto_key"];
                 global.RemoveKey("sync_crypto_key");
+            }
+        }
+
+        /// <summary>
+        /// Reads data from a Windows registry key and transfers it to properties using <see cref="_metaData"/>.
+        /// </summary>
+        private void ReadFromRegistryKey(RegistryKey registryKey)
+        {
+            foreach (var property in _metaData)
+            {
+                string key = property.Key;
+                object data = registryKey.GetValue(key);
+                if (data != null)
+                {
+                    string value = data.ToString();
+                    try
+                    {
+                        property.Value.Value = value;
+                    }
+                        #region Error handling
+                    catch (FormatException ex)
+                    {
+                        // Wrap exception to add context information
+                        throw new InvalidDataException(string.Format(Resources.ProblemLoadingConfigValue, property.Key, registryKey.Name), ex);
+                    }
+                    #endregion
+                }
             }
         }
 
