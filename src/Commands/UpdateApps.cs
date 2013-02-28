@@ -92,8 +92,11 @@ namespace ZeroInstall.Commands
         {
             // Target every application in the AppList...
             return from entry in AppList.Entries
-                // ... unless excluded by a hostname filter
+                // ... unless excluded from auto-update
+                where entry.AutoUpdate
+                // ... or excluded by a hostname filter
                 where entry.Hostname == null || Regex.IsMatch(Environment.MachineName, entry.Hostname)
+                // Use custom app restrictions if any
                 select entry.Requirements ?? new Requirements {InterfaceID = entry.InterfaceID};
         }
 
