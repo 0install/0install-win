@@ -18,8 +18,8 @@
 using System.IO;
 using Common;
 using Common.Storage;
+using Common.Tasks;
 using NUnit.Framework;
-using ZeroInstall.Injector;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -29,27 +29,62 @@ namespace ZeroInstall.DesktopIntegration
     [TestFixture]
     public sealed class SyncIntegrationManagerTest
     {
-        private TemporaryFile _appListFile;
-        private SyncIntegrationManager _integrationManager;
-        private MicroServer _syncServer;
+        private TemporaryDirectory _tempDir;
+        private string _appListPath;
 
         [SetUp]
         public void SetUp()
         {
-            _appListFile = new TemporaryFile("0install-unit-tests");
-            new AppList().SaveXml(_appListFile.Path);
-            _syncServer = new MicroServer("app-list", new MemoryStream());
-            _integrationManager = new SyncIntegrationManager(false, _appListFile.Path, _syncServer.ServerUri, null, null, null, new SilentHandler());
+            _tempDir = new TemporaryDirectory("0install-unit-tests");
+            _appListPath = Path.Combine(_tempDir.Path, "app-list.xml");
         }
 
         [TearDown]
         public void TearDown()
         {
-            _syncServer.Dispose();
-            _integrationManager.Dispose();
-            _appListFile.Dispose();
+            _tempDir.Dispose();
         }
 
-        // ToDo: Add tests
+        [Test]
+        public void TestNormal()
+        {
+            var appList = new AppList();
+            appList.SaveXml(_appListPath);
+
+            var appListLast = new AppList();
+            appListLast.SaveXml(_appListPath + SyncIntegrationManager.AppListLastSyncSuffix);
+
+            using (var syncServer = new MicroServer("app-list", new MemoryStream()))
+            using (var integrationManager = new SyncIntegrationManager(false, _appListPath, syncServer.ServerUri, null, null, null, new SilentTaskHandler()))
+                integrationManager.Sync(SyncResetMode.None, interfaceId => null);
+        }
+
+        [Test]
+        public void TestResetClient()
+        {
+            var appList = new AppList();
+            appList.SaveXml(_appListPath);
+
+            var appListLast = new AppList();
+            appListLast.SaveXml(_appListPath + SyncIntegrationManager.AppListLastSyncSuffix);
+
+            using (var syncServer = new MicroServer("app-list", new MemoryStream()))
+            using (var integrationManager = new SyncIntegrationManager(false, _appListPath, syncServer.ServerUri, null, null, null, new SilentTaskHandler()))
+                integrationManager.Sync(SyncResetMode.Client, interfaceId => null);
+        }
+
+        [Test]
+        public void TestResetServer()
+        {
+            var appList = new AppList();
+            appList.SaveXml(_appListPath);
+
+            var appListLast = new AppList();
+            appListLast.SaveXml(_appListPath + SyncIntegrationManager.AppListLastSyncSuffix);
+
+            using (var syncServer = new MicroServer("app-list", new MemoryStream()))
+            using (var integrationManager = new SyncIntegrationManager(false, _appListPath, syncServer.ServerUri, null, null, null, new SilentTaskHandler()))
+                integrationManager.Sync(SyncResetMode.Server, interfaceId => null);
+        }
     }
 }

@@ -49,7 +49,7 @@ namespace Common
         private HttpListener _listener;
         private readonly Thread _listenerThread;
         private readonly string _resourceName;
-        private readonly Stream _fileContent;
+        private Stream _fileContent;
         #endregion
 
         #region Properties
@@ -144,19 +144,8 @@ namespace Common
             {
                 try
                 {
-                    HttpListenerContext context = _listener.GetContext();
-
-                    // Only return one specific file
-                    if (context.Request.RawUrl == "/" + _resourceName)
-                    {
-                        // Delay finishing the file transfer if Slow-mode is active
-                        if (Slow) Thread.Sleep(20000);
-
-                        context.Response.ContentLength64 = _fileContent.Length;
-                        _fileContent.CopyTo(context.Response.OutputStream);
-                    }
-                    else context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-
+                    var context = _listener.GetContext();
+                    HandleRequest(context);
                     context.Response.OutputStream.Close();
                 }
                     #region Error handling
@@ -169,6 +158,36 @@ namespace Common
                     return;
                 }
                 #endregion
+            }
+        }
+
+        private void HandleRequest(HttpListenerContext context)
+        {
+            // Only return one specific file
+            if (context.Request.RawUrl != "/" + _resourceName)
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                return;
+            }
+
+            // Delay finishing the file transfer if Slow-mode is active
+            if (Slow) Thread.Sleep(20000);
+
+            switch (context.Request.HttpMethod)
+            {
+                case "GET":
+                    context.Response.ContentLength64 = _fileContent.Length;
+                    _fileContent.CopyTo(context.Response.OutputStream);
+                    break;
+
+                case "PUT":
+                    _fileContent = new MemoryStream();
+                    context.Request.InputStream.CopyTo(_fileContent);
+                    break;
+
+                default:
+                    context.Response.StatusCode = (int)HttpStatusCode.MethodNotAllowed;
+                    break;
             }
         }
         #endregion

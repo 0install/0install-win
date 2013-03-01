@@ -62,7 +62,10 @@ namespace ZeroInstall.DesktopIntegration
     public class SyncIntegrationManager : IntegrationManager
     {
         #region Constants
-        private const string AppListLastSyncSuffix = ".last-sync";
+        /// <summary>
+        /// The suffix added to the <see cref="AppList"/> path to store a copy of the state at the last sync point.
+        /// </summary>
+        public const string AppListLastSyncSuffix = ".last-sync";
         #endregion
 
         #region Variables

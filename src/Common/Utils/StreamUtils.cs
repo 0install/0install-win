@@ -71,7 +71,7 @@ namespace Common.Utils
             if (destination == null) throw new ArgumentNullException("destination");
             #endregion
 
-            CopyTo(source, destination, source.Length == 0 ? source.Position : source.Length);
+            CopyTo(source, destination, 4096);
         }
 
         /// <summary>
