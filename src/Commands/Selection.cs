@@ -163,6 +163,8 @@ namespace ZeroInstall.Commands
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
         protected virtual Selections Solve()
         {
+            // TODO: Handle named apps
+
             // Don't run the solver if the user provided an external selections document
             if (SelectionsDocument) return Selections;
 

@@ -86,7 +86,7 @@ namespace ZeroInstall.DesktopIntegration
         [Description("A set of Capability lists to be registered in the desktop environment. Only compatible architectures are handled.")]
         [XmlElement("capabilities", Namespace = CapabilityList.XmlNamespace)]
         // Note: Can not use ICollection<T> interface with XML Serialization
-            public C5.LinkedList<CapabilityList> CapabilityLists
+        public C5.LinkedList<CapabilityList> CapabilityLists
         {
             get { return _capabilityLists; }
         }
@@ -154,6 +154,20 @@ namespace ZeroInstall.DesktopIntegration
             var appList = new AppEntry {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name, InterfaceID = InterfaceID};
             if (Requirements != null) appList.Requirements = Requirements.Clone();
             if (AccessPoints != null) appList.AccessPoints = AccessPoints.Clone();
+            foreach (var list in CapabilityLists) appList.CapabilityLists.Add(list.Clone());
+
+            return appList;
+        }
+
+        /// <summary>
+        /// Creates a deep copy of this <see cref="AppEntry"/> instance without the <see cref="AccessPoints"/>.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="AppEntry"/>.</returns>
+        public AppEntry CloneWithoutAccessPoints()
+        {
+            var appList = new AppEntry {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name, InterfaceID = InterfaceID};
+            if (Requirements != null) appList.Requirements = Requirements.Clone();
+            if (AccessPoints != null) appList.AccessPoints = new AccessPointList {UnknownAttributes = AccessPoints.UnknownAttributes, UnknownElements = AccessPoints.UnknownElements};
             foreach (var list in CapabilityLists) appList.CapabilityLists.Add(list.Clone());
 
             return appList;

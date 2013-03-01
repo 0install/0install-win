@@ -40,15 +40,27 @@ namespace ZeroInstall.DesktopIntegration
         bool MachineWide { get; }
 
         /// <summary>
-        /// Creates a new <see cref="AppEntry"/> and adds it to the <see cref="AppList"/>.
+        /// Creates a new unnamed <see cref="AppEntry"/> and adds it to the <see cref="AppList"/>.
         /// </summary>
-        /// <param name="interfaceID">The interface ID of the application to remove.</param>
+        /// <param name="interfaceID">The interface ID of the application to add.</param>
         /// <param name="feed">The feed providing additional metadata, capabilities, etc. for the application.</param>
         /// <returns>The newly created application entry (already added to <see cref="AppList"/>).</returns>
         /// <exception cref="InvalidOperationException">Thrown if the application is already in the list.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         AppEntry AddApp(string interfaceID, Feed feed);
+
+        /// <summary>
+        /// Creates a new  named <see cref="AppEntry"/> and adds it to the <see cref="AppList"/>.
+        /// </summary>
+        /// <param name="petName">The user-defined pet-name of the application.</param>
+        /// <param name="requirements">The requirements describing the application to add.</param>
+        /// <param name="feed">The feed providing additional metadata, capabilities, etc. for the application.</param>
+        /// <returns>The newly created application entry (already added to <see cref="AppList"/>).</returns>
+        /// <exception cref="InvalidOperationException">Thrown if the application is already in the list.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        AppEntry AddApp(string petName, Requirements requirements, Feed feed);
 
         /// <summary>
         /// Removes an <see cref="AppEntry"/> from the <see cref="AppList"/> while unapplying any remaining <see cref="AccessPoint"/>s.
@@ -62,10 +74,17 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Updates an <see cref="AppEntry"/> with new metadata and capabilities from a <see cref="Feed"/>. This may unapply and remove some existing <see cref="AccessPoint"/>s.
         /// </summary>
-        /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="ZeroInstall.Model.Capabilities.Capability"/>s is invalid.</exception>
         /// <param name="appEntry">The application entry to update.</param>
         /// <param name="feed">The feed providing additional metadata, capabilities, etc. for the application.</param>
+        /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="ZeroInstall.Model.Capabilities.Capability"/>s is invalid.</exception>
         void UpdateApp(AppEntry appEntry, Feed feed);
+
+        /// <summary>
+        /// Updates a named <see cref="AppEntry"/> with new <see cref="Requirements"/>.
+        /// </summary>
+        /// <param name="appEntry">The application entry to update.</param>
+        /// <param name="requirements">The new requirements to apply to the app.</param>
+        void UpdateApp(AppEntry appEntry, Requirements requirements);
 
         /// <summary>
         /// Applies <see cref="AccessPoint"/>s for an application.

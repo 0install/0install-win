@@ -37,9 +37,9 @@ namespace ZeroInstall.DesktopIntegration
     {
         #region Apps
         /// <summary>
-        /// Creates a new <see cref="AppEntry"/> and adds it to the <see cref="AppList"/>.
+        /// Creates a new unnamed <see cref="AppEntry"/> and adds it to the <see cref="AppList"/>.
         /// </summary>
-        /// <param name="interfaceID">The interface ID of the application to remove.</param>
+        /// <param name="interfaceID">The interface ID of the application to add.</param>
         /// <param name="feed">The feed providing additional metadata, capabilities, etc. for the application.</param>
         /// <returns>The newly created application entry (already added to <see cref="AppList"/>).</returns>
         /// <exception cref="InvalidOperationException">Thrown if the application is already in the list.</exception>
@@ -61,6 +61,50 @@ namespace ZeroInstall.DesktopIntegration
 
             AppList.Entries.Add(appEntry);
             return appEntry;
+        }
+
+        /// <summary>
+        /// Creates a new named <see cref="AppEntry"/> and adds it to the <see cref="AppList"/>.
+        /// </summary>
+        /// <param name="petName">The user-defined pet-name of the application.</param>
+        /// <param name="requirements">The requirements describing the application to add.</param>
+        /// <param name="feed">The feed providing additional metadata, capabilities, etc. for the application.</param>
+        /// <returns>The newly created application entry (already added to <see cref="AppList"/>).</returns>
+        /// <exception cref="InvalidOperationException">Thrown if the application is already in the list.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        protected AppEntry AddAppHelper(string petName, Requirements requirements, Feed feed)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(petName)) throw new ArgumentNullException("petName");
+            if (requirements == null) throw new ArgumentNullException("requirements");
+            if (feed == null) throw new ArgumentNullException("feed");
+            #endregion
+
+            // Prevent double entries
+            if (AppList.Contains(petName)) throw new InvalidOperationException(string.Format(Resources.AppAlreadyInList, feed.Name));
+
+            // Get basic metadata and copy of capabilities from feed
+            var appEntry = new AppEntry {InterfaceID = petName, Requirements = requirements, Name = feed.Name, Timestamp = DateTime.UtcNow};
+            appEntry.CapabilityLists.AddAll(feed.CapabilityLists.Map(list => list.Clone()));
+
+            AppList.Entries.Add(appEntry);
+            // TODO: Handle named apps
+            return appEntry;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="AppEntry"/> based on an existing prototype (stripping any <see cref="AccessPoint"/>s) and adds it to the <see cref="AppList"/>.
+        /// </summary>
+        /// <param name="prototype">An existing <see cref="AppEntry"/> to use as a prototype.</param>
+        /// <returns></returns>
+        protected AppEntry AddAppHelper(AppEntry prototype)
+        {
+            var newAppEntry = prototype.CloneWithoutAccessPoints();
+
+            AppList.Entries.Add(newAppEntry);
+            // TODO: Handle named apps
+            return newAppEntry;
         }
 
         /// <summary>

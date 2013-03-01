@@ -138,6 +138,21 @@ namespace ZeroInstall.DesktopIntegration
         }
 
         /// <inheritdoc/>
+        public AppEntry AddApp(string petName, Requirements requirements, Feed feed)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(petName)) throw new ArgumentNullException("petName");
+            if (requirements == null) throw new ArgumentNullException("requirements");
+            if (feed == null) throw new ArgumentNullException("feed");
+            #endregion
+
+            var appEntry = AddAppHelper(petName, requirements, feed);
+            // TODO: Handle named apps
+            Complete();
+            return appEntry;
+        }
+
+        /// <inheritdoc/>
         public void RemoveApp(AppEntry appEntry)
         {
             #region Sanity checks
@@ -147,6 +162,7 @@ namespace ZeroInstall.DesktopIntegration
             try
             {
                 RemoveAppHelper(appEntry);
+                // TODO: Handle named apps
             }
             catch (KeyNotFoundException ex)
             {
@@ -180,6 +196,18 @@ namespace ZeroInstall.DesktopIntegration
             {
                 Complete();
             }
+        }
+
+        /// <inheritdoc/>
+        public void UpdateApp(AppEntry appEntry, Requirements requirements)
+        {
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            #endregion
+
+            appEntry.Requirements = requirements;
+            // TODO: Handle named apps
+            Complete();
         }
         #endregion
 

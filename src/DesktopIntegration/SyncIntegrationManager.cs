@@ -331,14 +331,9 @@ namespace ZeroInstall.DesktopIntegration
                 RemoveAppHelper(appEntry);
             foreach (var appEntry in toAdd)
             {
-                var newAppEntry = appEntry.Clone();
-                if (newAppEntry.AccessPoints != null)
-                {
-                    // Remove access points from clone and then reapply
-                    var accessPoints = newAppEntry.AccessPoints.Entries;
-                    newAppEntry.AccessPoints = new AccessPointList {UnknownAttributes = newAppEntry.AccessPoints.UnknownAttributes, UnknownElements = newAppEntry.AccessPoints.UnknownElements};
-                    AddAccessPointsHelper(newAppEntry, feedRetriever(appEntry.InterfaceID), accessPoints);
-                }
+                var newAppEntry = AddAppHelper(appEntry);
+                if (appEntry.AccessPoints != null)
+                    AddAccessPointsHelper(newAppEntry, feedRetriever(appEntry.InterfaceID), newAppEntry.AccessPoints.Entries);
                 AppList.Entries.Add(newAppEntry);
             }
         }
