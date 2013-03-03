@@ -28,6 +28,7 @@
             <File Source="..\..\build\Frontend\Release\0store-win.exe.config" />
             <File Source="..\..\build\Frontend\Release\C5.dll" />
             <File Source="..\..\build\Frontend\Release\Common.dll" />
+            <File Source="..\..\build\Frontend\Release\CookComputing.XmlRpcV2.dll" />
             <File Source="..\..\build\Frontend\Release\EasyHook.dll" />
             <File Source="..\..\build\Frontend\Release\EasyHook32.dll" />
             <File Source="..\..\build\Frontend\Release\EasyHook32Svc.exe" />
