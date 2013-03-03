@@ -252,42 +252,39 @@
   <metadata name="resetWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="labelInfo2.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="labelInfo.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
   </data>
-  <data name="labelInfo2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="labelInfo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="labelInfo2.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="labelInfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>35, 144</value>
   </data>
-  <data name="labelInfo2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>400, 60</value>
+  <data name="labelInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>400, 117</value>
   </data>
-  <data name="labelInfo2.TabIndex" type="System.Int32, mscorlib">
+  <data name="labelInfo.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
-  <data name="labelInfo2.Text" xml:space="preserve">
+  <data name="labelInfo.Text" xml:space="preserve">
     <value>Any changes you have made on other computers but not synchronized with this one yet will be lost!</value>
   </data>
-  <data name="&gt;&gt;labelInfo2.Name" xml:space="preserve">
-    <value>labelInfo2</value>
+  <data name="&gt;&gt;labelInfo.Name" xml:space="preserve">
+    <value>labelInfo</value>
   </data>
-  <data name="&gt;&gt;labelInfo2.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelInfo.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;labelInfo2.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelInfo.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;labelInfo2.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelInfo.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
     <value>470, 300</value>
   </data>
@@ -301,6 +298,6 @@
     <value>ResetCryptoKeyPage</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.SyncConfig.HandlerPage, ZeroInstall, Version=1.6.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>ZeroInstall.Central.WinForms.SyncConfig.HandlerPage, ZeroInstall, Version=1.14.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
 </root>
