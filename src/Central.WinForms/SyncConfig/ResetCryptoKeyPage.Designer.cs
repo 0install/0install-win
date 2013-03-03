@@ -72,13 +72,13 @@
             // 
             // ResetCryptoKeyPage
             // 
+            resources.ApplyResources(this, "$this");
             this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.textBoxCryptoKey);
             this.Controls.Add(this.labelCryptoKey);
             this.Controls.Add(this.labelTitle);
             this.Name = "ResetCryptoKeyPage";
-            resources.ApplyResources(this, "$this");
             this.ResumeLayout(false);
             this.PerformLayout();
 
