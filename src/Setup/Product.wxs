@@ -37,6 +37,8 @@
             <File Source="..\..\build\Frontend\Release\INIFileParser.dll" />
             <File Source="..\..\build\Frontend\Release\Interop.IWshRuntimeLibrary.dll" />
             <File Source="..\..\build\Frontend\Release\LinqBridge.dll" />
+            <File Source="..\..\build\Frontend\Release\Microsoft.Win32.TaskScheduler.dll" />
+            <File Source="..\..\build\Frontend\Release\Newtonsoft.Json.dll" />
             <File Source="..\..\build\Frontend\Release\NDesk.Options.dll" />
             <File Source="..\..\build\Frontend\Release\SevenZip.dll" />
             <File Source="..\..\build\Frontend\Release\TaskDialog.dll" />

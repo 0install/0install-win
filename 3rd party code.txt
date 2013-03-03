@@ -70,7 +70,7 @@ MIT license: http://www.opensource.org/licenses/mit-license
 Source unmodified
 Pre-compiled managed DLL: CookComputing.XmlRpcV2.dll
 
-Task Scheduler Managed Wrapper 1.7.1
+Task Scheduler Managed Wrapper 1.9.3
 http://taskscheduler.codeplex.com/
 MIT license: http://www.opensource.org/licenses/mit-license
 Source unmodified
