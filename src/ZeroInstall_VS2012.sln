@@ -67,6 +67,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater.WinForms", "Updater
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Updater\Updater.csproj", "{011FA5F1-696C-483F-8045-6AD4AB9535E9}"
 EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Setup", "Setup\Setup.wixproj", "{E5D0948F-8DAE-4F2D-B041-AA220B7B2DFD}"
+EndProject
 Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "Modeling", "Modeling\Modeling.modelproj", "{DF2B2769-128D-4754-8D81-AD8653C43B5C}"
 EndProject
 Global
@@ -187,6 +189,8 @@ Global
 		{011FA5F1-696C-483F-8045-6AD4AB9535E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{011FA5F1-696C-483F-8045-6AD4AB9535E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{011FA5F1-696C-483F-8045-6AD4AB9535E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5D0948F-8DAE-4F2D-B041-AA220B7B2DFD}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{E5D0948F-8DAE-4F2D-B041-AA220B7B2DFD}.Release|Any CPU.ActiveCfg = Release|x86
 		{DF2B2769-128D-4754-8D81-AD8653C43B5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DF2B2769-128D-4754-8D81-AD8653C43B5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
