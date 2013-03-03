@@ -83,8 +83,9 @@ namespace ZeroInstall.DesktopIntegration
         /// Updates a named <see cref="AppEntry"/> with new <see cref="Requirements"/>.
         /// </summary>
         /// <param name="appEntry">The application entry to update.</param>
+        /// <param name="feed">The feed providing additional metadata, capabilities, etc. for the application.</param>
         /// <param name="requirements">The new requirements to apply to the app.</param>
-        void UpdateApp(AppEntry appEntry, Requirements requirements);
+        void UpdateApp(AppEntry appEntry, Feed feed, Requirements requirements);
 
         /// <summary>
         /// Applies <see cref="AccessPoint"/>s for an application.

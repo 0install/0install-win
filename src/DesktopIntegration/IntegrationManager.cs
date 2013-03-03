@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using Common.Storage;
 using Common.Tasks;
@@ -199,15 +200,33 @@ namespace ZeroInstall.DesktopIntegration
         }
 
         /// <inheritdoc/>
-        public void UpdateApp(AppEntry appEntry, Requirements requirements)
+        public void UpdateApp(AppEntry appEntry, Feed feed, Requirements requirements)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (feed == null) throw new ArgumentNullException("feed");
+            if (requirements == null) throw new ArgumentNullException("requirements");
             #endregion
 
-            appEntry.Requirements = requirements;
-            // TODO: Handle named apps
-            Complete();
+            try
+            {
+                UpdateAppHelper(appEntry, feed);
+
+                // Apply new requirements and make sure they are written out as JSON
+                appEntry.Requirements = requirements;
+                if (appEntry.AccessPoints == null)
+                    appEntry.AccessPoints = new AccessPointList { Entries = {/*new RequirementsJson()*/} };
+                AddAccessPointsHelper(appEntry, feed, appEntry.AccessPoints.Entries);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new InvalidDataException(ex.Message, ex);
+            }
+            finally
+            {
+                Complete();
+            }
         }
         #endregion
 
