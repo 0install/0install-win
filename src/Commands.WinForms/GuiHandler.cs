@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Runtime.Remoting;
 using System.Threading;
 using System.Windows.Forms;
 using Common;
@@ -177,10 +178,17 @@ namespace ZeroInstall.Commands.WinForms
                     form.Dispose();
                 }));
             }
+                #region Error handling
             catch (InvalidOperationException)
             {
                 // Don't worry if the form was disposed in the meantime
             }
+            catch (RemotingException ex)
+            {
+                // Remoting exceptions on clean-up are not critical
+                Log.Warn(ex);
+            }
+            #endregion
         }
         #endregion
 
