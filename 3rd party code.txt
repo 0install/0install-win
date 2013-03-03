@@ -61,8 +61,8 @@ Pre-compiled managed DLL: INIFileParser.dll
 Json.NET 4.5 Release 11
 https://json.codeplex.com/releases/view/97986
 MIT license: http://www.opensource.org/licenses/mit-license
-Source unmodified
-Pre-compiled managed DLL: Newtonsoft.Json.dll
+Replaced embedded LinqBridge with external library
+Self-compiled managed DLL: Newtonsoft.Json.dll
 
 XML-RPC.NET 2.5.0
 http://www.xml-rpc.net/
