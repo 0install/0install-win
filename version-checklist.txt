@@ -1,2 +1,4 @@
-/version*
-/src/AssemblyInfo.*.cs
+/version
+/version-tools
+/src/AssemblyInfo.Global.cs
+/src/AssemblyInfo.Tools.cs
