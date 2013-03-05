@@ -112,9 +112,15 @@ namespace ZeroInstall.DesktopIntegration
         void RemoveAccessPoints(AppEntry appEntry, IEnumerable<AccessPoint> accessPoints);
 
         /// <summary>
-        /// Reapplies all already listed <see cref="AccessPoint"/>s.
+        /// Reapplies all <see cref="AccessPoint"/>s for all <see cref="AppEntry"/>s.
         /// </summary>
         /// <param name="feedRetriever">Callback method used to retrieve additional <see cref="Feed"/>s on demand.</param>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if the <see cref="IntegrationManager.AppList"/> has inner conflicts.</exception>
+        /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="ZeroInstall.Model.Capabilities.Capability"/>s is invalid.</exception>
+        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         void Repair(Converter<string, Feed> feedRetriever);
     }
 }

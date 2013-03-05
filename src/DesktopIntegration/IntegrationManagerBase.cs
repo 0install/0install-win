@@ -20,11 +20,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
-using System.Threading;
 using Common;
 using Common.Collections;
-using Common.Storage;
-using Common.Utils;
+using Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
@@ -32,9 +30,30 @@ using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration
 {
-    // Contains backend helper methods usable by sub-classes
-    public partial class IntegrationManager
+    /// <summary>
+    /// Contains backend helper code for <see cref="IIntegrationManager"/> implementations.
+    /// </summary>
+    public abstract class IntegrationManagerBase
     {
+        #region Variables
+        /// <summary>A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</summary>
+        protected ITaskHandler Handler;
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Stores a list of applications and their desktop integrations. Only use for read-access externally! Use this class' methods for any modifications.
+        /// </summary>
+        public AppList AppList { get; protected set; }
+
+        /// <summary>
+        /// Apply operations machine-wide instead of just for the current user.
+        /// </summary>
+        public bool MachineWide { get; protected set; }
+        #endregion
+
+        //--------------------//
+
         #region Apps
         /// <summary>
         /// Creates a new unnamed <see cref="AppEntry"/> and adds it to the <see cref="AppList"/>.
@@ -60,6 +79,7 @@ namespace ZeroInstall.DesktopIntegration
             appEntry.CapabilityLists.AddAll(feed.CapabilityLists.Map(list => list.Clone()));
 
             AppList.Entries.Add(appEntry);
+            WriteAppDir(appEntry);
             return appEntry;
         }
 
@@ -89,7 +109,7 @@ namespace ZeroInstall.DesktopIntegration
             appEntry.CapabilityLists.AddAll(feed.CapabilityLists.Map(list => list.Clone()));
 
             AppList.Entries.Add(appEntry);
-            // TODO: Handle named apps
+            WriteAppDir(appEntry);
             return appEntry;
         }
 
@@ -100,11 +120,10 @@ namespace ZeroInstall.DesktopIntegration
         /// <returns></returns>
         protected AppEntry AddAppHelper(AppEntry prototype)
         {
-            var newAppEntry = prototype.CloneWithoutAccessPoints();
-
-            AppList.Entries.Add(newAppEntry);
-            // TODO: Handle named apps
-            return newAppEntry;
+            var appEntry = prototype.CloneWithoutAccessPoints();
+            AppList.Entries.Add(appEntry);
+            WriteAppDir(appEntry);
+            return appEntry;
         }
 
         /// <summary>
@@ -120,6 +139,8 @@ namespace ZeroInstall.DesktopIntegration
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
+
+            DeleteAppDir(appEntry);
 
             if (appEntry.AccessPoints != null)
             {
@@ -138,7 +159,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="ZeroInstall.Model.Capabilities.Capability"/>s is invalid.</exception>
         /// <param name="appEntry">The application entry to update.</param>
         /// <param name="feed">The feed providing additional metadata, capabilities, etc. for the application.</param>
-        private void UpdateAppHelper(AppEntry appEntry, Feed feed)
+        protected void UpdateAppHelper(AppEntry appEntry, Feed feed)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
@@ -169,7 +190,18 @@ namespace ZeroInstall.DesktopIntegration
                 }
             }
 
+            WriteAppDir(appEntry);
             appEntry.Timestamp = DateTime.UtcNow;
+        }
+
+        private void WriteAppDir(AppEntry appEntry)
+        {
+            // TODO: Implement
+        }
+
+        private void DeleteAppDir(AppEntry appEntry)
+        {
+            // TODO: Implement
         }
         #endregion
 
@@ -279,25 +311,31 @@ namespace ZeroInstall.DesktopIntegration
         }
         #endregion
 
-        #region Complete
+        #region Repair
         /// <summary>
-        /// To be called after integration operations have been completed to inform the desktop environment and save the <see cref="AppList"/>.
+        /// Reapplies all <see cref="AccessPoint"/>s for a specific <see cref="AppEntry"/>.
         /// </summary>
-        protected void Complete()
+        /// <param name="appEntry">The application entry to repair.</param>
+        /// <param name="feed">The feed providing additional metadata, capabilities, etc. for the application.</param>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if <paramref name="appEntry"/> conflicts with the rest of the <see cref="AppList"/>.</exception>
+        /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="ZeroInstall.Model.Capabilities.Capability"/>s is invalid.</exception>
+        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
+        protected void RepairAppHelper(AppEntry appEntry, Feed feed)
         {
-            try
-            {
-                AppList.SaveXml(AppListPath);
-            }
-            catch (IOException)
-            {
-                // Bypass race conditions where another thread is reading an old version of the list while we are trying to write a new one
-                Thread.Sleep(1000);
-                AppList.SaveXml(AppListPath);
-            }
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (feed == null) throw new ArgumentNullException("feed");
+            #endregion
 
-            WindowsUtils.NotifyAssocChanged(); // Notify Windows Explorer of changes
-            WindowsUtils.BroadcastMessage(ChangedWindowMessageID); // Notify Zero Install GUIs of changes
+            var toReAdd = (appEntry.AccessPoints == null)
+                ? new AccessPoint[0]
+                : appEntry.AccessPoints.Entries.ToArray();
+            AddAccessPointsHelper(appEntry, feed, toReAdd);
+
+            WriteAppDir(appEntry);
         }
         #endregion
     }

@@ -69,7 +69,7 @@
     <Compile Include="ConflictData.cs" />
     <Compile Include="ICategoryIntegrationManager.cs" />
     <Compile Include="IIntegrationManager.cs" />
-    <Compile Include="IntegrationManager.Helpers.cs" />
+    <Compile Include="IntegrationManagerBase.cs" />
     <Compile Include="IntegrationManager.cs" />
     <Compile Include="AccessPoints\AccessPoint.cs" />
     <Compile Include="AccessPoints\AccessPointList.cs" />

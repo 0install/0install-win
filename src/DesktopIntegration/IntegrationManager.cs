@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using Common.Storage;
 using Common.Tasks;
@@ -36,7 +35,7 @@ namespace ZeroInstall.DesktopIntegration
     /// To prevent raceconditions there may only be one desktop integration class instance active at any given time.
     /// This class aquires a mutex upon calling its constructor and releases it upon calling <see cref="Dispose()"/>.
     /// </remarks>
-    public partial class IntegrationManager : IIntegrationManager, IDisposable
+    public class IntegrationManager : IntegrationManagerBase, IIntegrationManager, IDisposable
     {
         #region Constants
         /// <summary>
@@ -49,22 +48,11 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>The storage location of the <see cref="AppList"/> file.</summary>
         protected readonly string AppListPath;
 
-        /// <summary>A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</summary>
-        protected readonly ITaskHandler Handler;
-
         /// <summary>Prevents multiple processes from performing desktop integration operations simultaneously.</summary>
         private readonly Mutex _mutex;
 
         /// <summary>The window message ID (for use with <see cref="WindowsUtils.BroadcastMessage"/>) that signals integration changes to interested observers.</summary>
         public static readonly int ChangedWindowMessageID = WindowsUtils.RegisterWindowMessage(MutexName);
-        #endregion
-
-        #region Properties
-        /// <inheritdoc/>
-        public AppList AppList { get; private set; }
-
-        /// <inheritdoc/>
-        public bool MachineWide { get; private set; }
         #endregion
 
         #region Constructor
@@ -148,7 +136,6 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             var appEntry = AddAppHelper(petName, requirements, feed);
-            // TODO: Handle named apps
             Complete();
             return appEntry;
         }
@@ -163,7 +150,6 @@ namespace ZeroInstall.DesktopIntegration
             try
             {
                 RemoveAppHelper(appEntry);
-                // TODO: Handle named apps
             }
             catch (KeyNotFoundException ex)
             {
@@ -210,13 +196,8 @@ namespace ZeroInstall.DesktopIntegration
 
             try
             {
-                UpdateAppHelper(appEntry, feed);
-
-                // Apply new requirements and make sure they are written out as JSON
                 appEntry.Requirements = requirements;
-                if (appEntry.AccessPoints == null)
-                    appEntry.AccessPoints = new AccessPointList { Entries = {/*new RequirementsJson()*/} };
-                AddAccessPointsHelper(appEntry, feed, appEntry.AccessPoints.Entries);
+                UpdateAppHelper(appEntry, feed);
             }
             catch (KeyNotFoundException ex)
             {
@@ -288,12 +269,7 @@ namespace ZeroInstall.DesktopIntegration
             try
             {
                 foreach (var appEntry in AppList.Entries)
-                {
-                    var toReAdd = (appEntry.AccessPoints == null)
-                        ? new AccessPoint[0]
-                        : appEntry.AccessPoints.Entries.ToArray();
-                    AddAccessPointsHelper(appEntry, feedRetriever(appEntry.InterfaceID), toReAdd);
-                }
+                    RepairAppHelper(appEntry, feedRetriever(appEntry.InterfaceID));
             }
             catch (KeyNotFoundException ex)
             {
@@ -304,6 +280,28 @@ namespace ZeroInstall.DesktopIntegration
             {
                 Complete();
             }
+        }
+        #endregion
+
+        #region Complete
+        /// <summary>
+        /// To be called after integration operations have been completed to inform the desktop environment and save the <see cref="AppList"/>.
+        /// </summary>
+        protected void Complete()
+        {
+            try
+            {
+                AppList.SaveXml(AppListPath);
+            }
+            catch (IOException)
+            {
+                // Bypass race conditions where another thread is reading an old version of the list while we are trying to write a new one
+                Thread.Sleep(1000);
+                AppList.SaveXml(AppListPath);
+            }
+
+            WindowsUtils.NotifyAssocChanged(); // Notify Windows Explorer of changes
+            WindowsUtils.BroadcastMessage(ChangedWindowMessageID); // Notify Zero Install GUIs of changes
         }
         #endregion
 
