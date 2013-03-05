@@ -219,12 +219,13 @@ namespace ZeroInstall.DesktopIntegration
                 }
                 #endregion
 
+                // TODO: Evaluate using appList = new AppList()
                 if (appListData.Length > 0)
                 {
                     AppList serverList;
                     try
                     {
-                        serverList = XmlStorage.LoadXmlZip<AppList>(new MemoryStream(appListData), _cryptoKey, null);
+                        serverList = XmlStorage.LoadXmlZip<AppList>(new MemoryStream(appListData), _cryptoKey);
                     }
                         #region Error handling
                     catch (ZipException ex)
