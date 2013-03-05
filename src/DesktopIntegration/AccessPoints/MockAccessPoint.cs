@@ -30,6 +30,10 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("mock", Namespace = AppList.XmlNamespace)]
     public class MockAccessPoint : DefaultAccessPoint, IEquatable<MockAccessPoint>
     {
+        #region Variables
+        private readonly Action _applyCallback, _unapplyCallback;
+        #endregion
+
         #region Properties
         /// <summary>
         /// An indentifier that controls the result of <see cref="GetConflictIDs"/>.
@@ -38,11 +42,32 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         public string ID { get; set; }
         #endregion
 
+        #region Constructor
+        /// <summary>
+        /// Creates a new mock access point.
+        /// </summary>
+        public MockAccessPoint()
+        {}
+
+        /// <summary>
+        /// Creates a new mock access point.
+        /// </summary>
+        /// <param name="applyCallback">A callback to be invoked when <see cref="Apply"/> is called.</param>
+        /// <param name="unapplyCallback">A callback to be invoked when <see cref="Unapply"/> is called.</param>
+        public MockAccessPoint(Action applyCallback, Action unapplyCallback)
+        {
+            _applyCallback = applyCallback;
+            _unapplyCallback = unapplyCallback;
+        }
+        #endregion
+
+        //--------------------//
+
         #region Conflict ID
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {
-            return new[] {"mock:" + ID};
+            return string.IsNullOrEmpty(ID) ? new string[0] : new[] {"mock:" + ID};
         }
         #endregion
 
@@ -54,8 +79,13 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            // Trigger exceptions in case invalid capabilities are references
-            appEntry.GetCapability<Capabilities.FileType>(Capability);
+            if (!string.IsNullOrEmpty(ID))
+            {
+                // Trigger exceptions in case invalid capabilities are referenced
+                appEntry.GetCapability<Capabilities.FileType>(Capability);
+            }
+
+            if (_applyCallback != null) _applyCallback();
         }
 
         /// <inheritdoc/>
@@ -65,8 +95,13 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            // Trigger exceptions in case invalid capabilities are references
-            appEntry.GetCapability<Capabilities.FileType>(Capability);
+            if (!string.IsNullOrEmpty(ID))
+            {
+                // Trigger exceptions in case invalid capabilities are referenced
+                appEntry.GetCapability<Capabilities.FileType>(Capability);
+            }
+
+            if (_unapplyCallback != null) _unapplyCallback();
         }
         #endregion
 
@@ -86,7 +121,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override AccessPoint Clone()
         {
-            return new MockAccessPoint {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID};
+            return new MockAccessPoint(_applyCallback, _unapplyCallback) {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID};
         }
         #endregion
 

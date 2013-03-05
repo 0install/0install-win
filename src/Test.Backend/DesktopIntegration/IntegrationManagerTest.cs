@@ -68,8 +68,14 @@ namespace ZeroInstall.DesktopIntegration
         {
             var appEntry = _integrationManager.AddApp("http://0install.de/feeds/test/test1.xml", new Feed {Name = "Test"});
 
+            // Inject access point into AppEntry (without running integration)
+            bool apUnapplied = false;
+            appEntry.AccessPoints = new AccessPointList {Entries = {new MockAccessPoint(null, () => apUnapplied = true)}};
+
             _integrationManager.RemoveApp(appEntry);
             CollectionAssert.IsEmpty(_integrationManager.AppList.Entries);
+
+            Assert.IsTrue(apUnapplied, "Access points should be unapplied when their AppEntry is removed");
 
             Assert.DoesNotThrow(() => _integrationManager.RemoveApp(appEntry), "Allow multiple removals of applications.");
         }
@@ -80,19 +86,32 @@ namespace ZeroInstall.DesktopIntegration
             var capabilityList = CapabilityListTest.CreateTestCapabilityList();
             var feed1 = new Feed {Name = "Test", CapabilityLists = {capabilityList}};
             var feed2 = new Feed {Name = "Test", CapabilityLists = {capabilityList}};
-            var accessPoints1 = new AccessPoint[] {new MockAccessPoint {ID = "id1", Capability = "my_ext1"}};
-            var accessPoints2 = new AccessPoint[] {new MockAccessPoint {ID = "id2", Capability = "my_ext2"}};
+            bool ap1Applied = false, ap2Applied = false;
+            var accessPoints1 = new AccessPoint[] {new MockAccessPoint(() => ap1Applied = true, null) {ID = "id1", Capability = "my_ext1"}};
+            var accessPoints2 = new AccessPoint[] {new MockAccessPoint(() => ap2Applied = true, null) {ID = "id2", Capability = "my_ext2"}};
 
             Assert.AreEqual(0, _integrationManager.AppList.Entries.Count);
             var appEntry1 = _integrationManager.AddApp("http://0install.de/feeds/test/test1.xml", feed1);
             _integrationManager.AddAccessPoints(appEntry1, feed1, accessPoints1);
-            Assert.AreEqual(1, _integrationManager.AppList.Entries.Count, "Should implicitly create missing AppEntries.");
+            Assert.AreEqual(1, _integrationManager.AppList.Entries.Count, "Should implicitly create missing AppEntries");
+            Assert.IsTrue(ap1Applied, "Should apply AccessPoint");
+            ap1Applied = false;
 
-            Assert.DoesNotThrow(() => _integrationManager.AddAccessPoints(appEntry1, feed1, accessPoints1), "Duplicate access points should be silently reapplied.");
+            Assert.DoesNotThrow(() => _integrationManager.AddAccessPoints(appEntry1, feed1, accessPoints1), "Duplicate access points should be silently reapplied");
+            Assert.IsTrue(ap1Applied, "Duplicate access points should be silently reapplied");
+
             _integrationManager.AddAccessPoints(appEntry1, feed1, accessPoints2);
+            ap2Applied = false;
 
             var appEntry2 = _integrationManager.AddApp("http://0install.de/feeds/test/test2.xml", feed2);
-            Assert.Throws<InvalidOperationException>(() => _integrationManager.AddAccessPoints(appEntry2, feed2, accessPoints2), "Should prevent access point conflicts.");
+            Assert.Throws<InvalidOperationException>(() => _integrationManager.AddAccessPoints(appEntry2, feed2, accessPoints2), "Should prevent access point conflicts");
+            Assert.IsFalse(ap2Applied, "Should prevent access point conflicts");
+        }
+
+        //[Test]
+        public void TestAddAccessPointsRollback()
+        {
+            // TODO
         }
 
         [Test]
@@ -101,15 +120,18 @@ namespace ZeroInstall.DesktopIntegration
             var capabilityList = CapabilityListTest.CreateTestCapabilityList();
             var testApp = new Feed {Name = "Test", CapabilityLists = {capabilityList}};
 
-            var accessPoints = new AccessPoint[] {new MockAccessPoint {ID = "id1", Capability = "my_ext1"}};
+            bool apUnapplied = false;
+            var accessPoint = new MockAccessPoint(null, () => apUnapplied = true) {ID = "id1", Capability = "my_ext1"};
 
+            // Inject access point into AppEntry (without running integration)
             var appEntry = _integrationManager.AddApp("http://0install.de/feeds/test/test1.xml", testApp);
-            _integrationManager.AddAccessPoints(appEntry, testApp, accessPoints);
+            appEntry.AccessPoints = new AccessPointList {Entries = {accessPoint}};
 
-            _integrationManager.RemoveAccessPoints(appEntry, accessPoints);
+            _integrationManager.RemoveAccessPoints(appEntry, new[] {accessPoint});
             CollectionAssert.IsEmpty(_integrationManager.AppList.Entries.First.AccessPoints.Entries);
+            Assert.IsTrue(apUnapplied, "Unapply() should be called");
 
-            Assert.DoesNotThrow(() => _integrationManager.RemoveAccessPoints(appEntry, accessPoints), "Allow multiple removals of access points.");
+            Assert.DoesNotThrow(() => _integrationManager.RemoveAccessPoints(appEntry, new[] {accessPoint}), "Allow multiple removals of access points.");
         }
 
         [Test]
@@ -134,6 +156,19 @@ namespace ZeroInstall.DesktopIntegration
             _integrationManager.UpdateApp(appEntry, feed);
             Assert.AreEqual("Test 2", appEntry.Name);
             CollectionAssert.AreEquivalent(new[] {accessPoints[0]}, _integrationManager.AppList.Entries.First.AccessPoints.Entries, "Only the first access point should be left.");
+        }
+
+        [Test]
+        public void TestRepair()
+        {
+            var appEntry = _integrationManager.AddApp("http://0install.de/feeds/test/test1.xml", new Feed { Name = "Test" });
+
+            // Inject access point into AppEntry (without running integration)
+            bool apApplied = false;
+            appEntry.AccessPoints = new AccessPointList { Entries = { new MockAccessPoint(() => apApplied = true, null) } };
+
+            _integrationManager.Repair(uri => new Feed());
+            Assert.IsTrue(apApplied, "Access points should be reapplied");
         }
     }
 }

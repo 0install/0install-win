@@ -49,7 +49,6 @@ namespace Common
         private HttpListener _listener;
         private readonly Thread _listenerThread;
         private readonly string _resourceName;
-        private Stream _fileContent;
         #endregion
 
         #region Properties
@@ -64,6 +63,11 @@ namespace Common
         public Uri FileUri { get; private set; }
 
         /// <summary>
+        /// The content of the file to be served under <see cref="FileUri"/>.
+        /// </summary>
+        public Stream FileContent { get; private set; }
+
+        /// <summary>
         /// Wait for twenty seconds every time before finishing a response.
         /// </summary>
         public bool Slow { get; set; }
@@ -76,11 +80,11 @@ namespace Common
         /// Starts a HTTP webserver that listens on a random port.
         /// </summary>
         /// <param name="resourceName">The HTTP resource name under which to provide the content.</param>
-        /// <param name="fileContent">The content of the file to serve. This stream will be closed when <see cref="Dispose"/> is called.</param>
+        /// <param name="fileContent">The content of the file to serve.</param>
         public MicroServer(string resourceName, Stream fileContent)
         {
             _resourceName = resourceName;
-            _fileContent = fileContent;
+            FileContent = fileContent;
 
             ServerUri = new Uri(StartListening());
             FileUri = new Uri(ServerUri, resourceName);
@@ -130,7 +134,6 @@ namespace Common
         public void Dispose()
         {
             _listener.Close();
-            _fileContent.Dispose();
         }
         #endregion
 
@@ -176,13 +179,13 @@ namespace Common
             switch (context.Request.HttpMethod)
             {
                 case "GET":
-                    context.Response.ContentLength64 = _fileContent.Length;
-                    _fileContent.CopyTo(context.Response.OutputStream);
+                    context.Response.ContentLength64 = FileContent.Length;
+                    FileContent.CopyTo(context.Response.OutputStream);
                     break;
 
                 case "PUT":
-                    _fileContent = new MemoryStream();
-                    context.Request.InputStream.CopyTo(_fileContent);
+                    FileContent = new MemoryStream();
+                    context.Request.InputStream.CopyTo(FileContent);
                     break;
 
                 default:

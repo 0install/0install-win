@@ -20,6 +20,7 @@ using Common;
 using Common.Storage;
 using Common.Tasks;
 using NUnit.Framework;
+using ZeroInstall.DesktopIntegration.AccessPoints;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -46,17 +47,83 @@ namespace ZeroInstall.DesktopIntegration
         }
 
         [Test]
-        public void TestNormal()
+        public void TestAddedLocal()
         {
-            var appList = new AppList();
+            // Current: 1 entry
+            bool apApplied = false;
+            bool apUnapplied = false;
+            var appEntry = new AppEntry
+            {
+                InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                AccessPoints = new AccessPointList { Entries = { new MockAccessPoint(() => apApplied = true, () => apUnapplied = true) } }
+            };
+            var appList = new AppList { Entries = { appEntry } };
             appList.SaveXml(_appListPath);
 
+            // Last: 0 entries
             var appListLast = new AppList();
             appListLast.SaveXml(_appListPath + SyncIntegrationManager.AppListLastSyncSuffix);
 
-            using (var syncServer = new MicroServer("app-list", new MemoryStream()))
-            using (var integrationManager = new SyncIntegrationManager(false, _appListPath, syncServer.ServerUri, null, null, null, new SilentTaskHandler()))
-                integrationManager.Sync(SyncResetMode.None, interfaceId => null);
+            // Server: Same as last
+            appListLast.SaveXmlZip(_appListPath + ".zip", null);
+
+            AppList sentToServer;
+            using (var serverFile = File.OpenRead(_appListPath + ".zip"))
+            using (var syncServer = new MicroServer("app-list", serverFile))
+            {
+                using (var integrationManager = new SyncIntegrationManager(false, _appListPath, syncServer.ServerUri, null, null, null, new SilentTaskHandler()))
+                    integrationManager.Sync(SyncResetMode.None, interfaceId => null);
+
+                sentToServer = XmlStorage.LoadXmlZip<AppList>(syncServer.FileContent, null);
+            }
+            var savedToDisk = XmlStorage.LoadXml<AppList>(_appListPath);
+            var savedToDiskLast = XmlStorage.LoadXml<AppList>(_appListPath + SyncIntegrationManager.AppListLastSyncSuffix);
+
+            Assert.IsFalse(apApplied);
+            Assert.IsFalse(apUnapplied);
+            Assert.AreEqual(appList, sentToServer);
+            Assert.AreEqual(appList, savedToDisk);
+            Assert.AreEqual(appList, savedToDiskLast);
+        }
+
+        [Test]
+        public void TestRemovedLocal()
+        {
+            // Current: 0 entries
+            var appList = new AppList();
+            appList.SaveXml(_appListPath);
+
+            // Last: 1 entry
+            bool apApplied = false;
+            bool apUnapplied = false;
+            var appEntry = new AppEntry
+            {
+                InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                AccessPoints = new AccessPointList {Entries = {new MockAccessPoint(() => apApplied = true, () => apUnapplied = true)}}
+            };
+            var appListLast = new AppList {Entries = {appEntry}};
+            appListLast.SaveXml(_appListPath + SyncIntegrationManager.AppListLastSyncSuffix);
+
+            // Server: Same as last
+            appListLast.SaveXmlZip(_appListPath + ".zip", null);
+
+            AppList sentToServer;
+            using (var serverFile = File.OpenRead(_appListPath + ".zip"))
+            using (var syncServer = new MicroServer("app-list", serverFile))
+            {
+                using (var integrationManager = new SyncIntegrationManager(false, _appListPath, syncServer.ServerUri, null, null, null, new SilentTaskHandler()))
+                    integrationManager.Sync(SyncResetMode.None, interfaceId => null);
+
+                sentToServer = XmlStorage.LoadXmlZip<AppList>(syncServer.FileContent, null);
+            }
+            var savedToDisk = XmlStorage.LoadXml<AppList>(_appListPath);
+            var savedToDiskLast = XmlStorage.LoadXml<AppList>(_appListPath + SyncIntegrationManager.AppListLastSyncSuffix);
+
+            Assert.IsFalse(apApplied);
+            Assert.IsFalse(apUnapplied);
+            Assert.AreEqual(appList, sentToServer);
+            Assert.AreEqual(appList, savedToDisk);
+            Assert.AreEqual(appList, savedToDiskLast);
         }
 
         [Test]
