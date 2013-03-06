@@ -89,7 +89,6 @@
   <ItemGroup>
     <Compile Include="DesktopIntegration\IntegrationManagerTest.cs" />
     <Compile Include="DesktopIntegration\SyncIntegrationManagerTest.cs" />
-    <Compile Include="Fetchers\FetcherStoreInteraction.cs" />
     <Compile Include="Fetchers\FetcherTests.cs" />
     <Compile Include="Fetchers\PackageBuilderManifestExtension.cs" />
     <Compile Include="Fetchers\TestData.cs" />

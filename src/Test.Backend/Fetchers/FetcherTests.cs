@@ -62,15 +62,15 @@ namespace ZeroInstall.Fetchers
         }
     }
 
-    internal static class FetcherTesting
+    internal static class FetcherTestUtils
     {
         internal static PackageBuilder PreparePackageBuilder()
         {
             var builder = new PackageBuilder();
 
             builder.AddFile("file1", @"AAAA").
-                AddFolder("folder1").AddFile("file2", @"dskf\nsdf\n").
-                AddFolder("folder2").AddFile("file3", new byte[] {55, 55, 55});
+                    AddFolder("folder1").AddFile("file2", @"dskf\nsdf\n").
+                    AddFolder("folder2").AddFile("file3", new byte[] {55, 55, 55});
             return builder;
         }
 
@@ -108,7 +108,8 @@ namespace ZeroInstall.Fetchers
 
         internal static Archive HostArchiveOnMicroServer(Archive archive, out MicroServer server)
         {
-            server = new MicroServer("archive.zip", File.OpenRead(archive.Location.ToString()));
+            var stream = File.OpenRead(archive.Location.ToString());
+            server = new MicroServer("archive.zip", stream);
             var hostedArchive = (Archive)archive.Clone();
             hostedArchive.Location = server.FileUri;
             return hostedArchive;
@@ -156,20 +157,21 @@ namespace ZeroInstall.Fetchers
         [Test]
         public void ShouldDownloadIntoStore()
         {
-            var package = FetcherTesting.PreparePackageBuilder();
-            var localArchive = FetcherTesting.PrepareArchiveForPackage(package);
+            var package = FetcherTestUtils.PreparePackageBuilder();
+            var localArchive = FetcherTestUtils.PrepareArchiveForPackage(package);
             MicroServer server;
-            var hostedArchive = FetcherTesting.HostArchiveOnMicroServer(localArchive, out server);
-            var implementation = FetcherTesting.PrepareImplementation(package, hostedArchive);
+            var hostedArchive = FetcherTestUtils.HostArchiveOnMicroServer(localArchive, out server);
+            var implementation = FetcherTestUtils.PrepareImplementation(package, hostedArchive);
 
             try
             {
-                _fetcher.FetchImplementations(new List<Implementation> {implementation}, new SilentHandler());
+                _fetcher.FetchImplementations(new[] {implementation}, new SilentHandler());
             }
             finally
             {
                 // Clean up temp file
                 server.Dispose();
+                server.FileContent.Close();
                 File.Delete(localArchive.Location.ToString());
             }
 
@@ -180,18 +182,19 @@ namespace ZeroInstall.Fetchers
         public void ShouldCorrectlyExtractSelfExtractingArchives()
         {
             const int archiveOffset = 0x1000;
-            var package = FetcherTesting.PreparePackageBuilder();
+            var package = FetcherTestUtils.PreparePackageBuilder();
             WritePackageToArchiveWithOffset(package, "archive.zip", archiveOffset);
 
             MicroServer server;
-            Implementation implementation = SynthesizeImplementation("archive.zip", archiveOffset, PackageBuilderManifestExtension.ComputePackageDigest(package), out server);
+            var implementation = SynthesizeImplementation("archive.zip", archiveOffset, PackageBuilderManifestExtension.ComputePackageDigest(package), out server);
             try
             {
-                _fetcher.FetchImplementations(new List<Implementation> {implementation}, new SilentHandler());
+                _fetcher.FetchImplementations(new[] {implementation}, new SilentHandler());
             }
             finally
             {
                 server.Dispose();
+                server.FileContent.Close();
             }
 
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
@@ -241,11 +244,12 @@ namespace ZeroInstall.Fetchers
             var implementation = SynthesizeImplementation("archive.zip", 0, PackageBuilderManifestExtension.ComputePackageDigest(builder), out server);
             try
             {
-                _fetcher.FetchImplementations(new List<Implementation> {implementation}, new SilentHandler());
+                _fetcher.FetchImplementations(new[] {implementation}, new SilentHandler());
             }
             finally
             {
                 server.Dispose();
+                server.FileContent.Close();
             }
 
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
@@ -265,8 +269,10 @@ namespace ZeroInstall.Fetchers
             part1.GeneratePackageArchive("part1.zip");
             part2.GeneratePackageArchive("part2.zip");
 
-            using (var server1 = new MicroServer("part1.zip", File.OpenRead("part1.zip")))
-            using (var server2 = new MicroServer("part2.zip", File.OpenRead("part2.zip")))
+            using (var stream1 = File.OpenRead("part1.zip"))
+            using (var server1 = new MicroServer("part1.zip", stream1))
+            using (var stream2 = File.OpenRead("part2.zip"))
+            using (var server2 = new MicroServer("part2.zip", stream2))
             {
                 var archive1 = new Archive
                 {
@@ -292,7 +298,7 @@ namespace ZeroInstall.Fetchers
                     ManifestDigest = PackageBuilderManifestExtension.ComputePackageDigest(merged),
                     RetrievalMethods = {recipe}
                 };
-                Assert.DoesNotThrow(() => _fetcher.FetchImplementations(new List<Implementation> {implementation}, new SilentHandler()));
+                Assert.DoesNotThrow(() => _fetcher.FetchImplementations(new[] {implementation}, new SilentHandler()));
                 Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
             }
         }
@@ -300,10 +306,11 @@ namespace ZeroInstall.Fetchers
         [Test]
         public void ShouldTryNextRetrievalMethodOnFailure()
         {
-            var package = FetcherTesting.PreparePackageBuilder();
+            var package = FetcherTestUtils.PreparePackageBuilder();
             package.GeneratePackageArchive("archive.zip");
 
-            using (var server = new MicroServer("archive.zip", File.OpenRead("archive.zip")))
+            using (var stream = File.OpenRead("archive.zip"))
+            using (var server = new MicroServer("archive.zip", stream))
             {
                 var archive = new Archive
                 {
@@ -324,7 +331,7 @@ namespace ZeroInstall.Fetchers
                     RetrievalMethods = {fakeArchive, archive}
                 };
 
-                _fetcher.FetchImplementations(new List<Implementation> {implementation}, new SilentHandler());
+                _fetcher.FetchImplementations(new[] {implementation}, new SilentHandler());
                 Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
             }
         }
@@ -386,10 +393,10 @@ namespace ZeroInstall.Fetchers
                 .AddFile("FILE1", "This file was in part1")
                 .AddFile("FILE2", "This file was in part2");
 
-            var theRecipe = FetcherTesting.PrepareRecipeForPackages(new List<PackageBuilder> {part1, part2});
-            var theCompleteArchive = FetcherTesting.PrepareArchiveForPackage(merged);
+            var theRecipe = FetcherTestUtils.PrepareRecipeForPackages(new List<PackageBuilder> {part1, part2});
+            var theCompleteArchive = FetcherTestUtils.PrepareArchiveForPackage(merged);
 
-            var implementation = FetcherTesting.PrepareImplementation(merged, theRecipe, theCompleteArchive);
+            var implementation = FetcherTestUtils.PrepareImplementation(merged, theRecipe, theCompleteArchive);
 
             Uri downloaded = null;
 
@@ -404,7 +411,7 @@ namespace ZeroInstall.Fetchers
             };
             try
             {
-                fetcher.FetchImplementations(new List<Implementation> {implementation}, new SilentHandler());
+                fetcher.FetchImplementations(new[] {implementation}, new SilentHandler());
             }
             catch (MockException)
             {}
@@ -421,8 +428,6 @@ namespace ZeroInstall.Fetchers
         [Test]
         public void ShouldPreferZip()
         {
-            // ToDo: One left-over temp file
-
             var implementation = new Implementation
             {
                 ManifestDigest = new ManifestDigest(sha256New: "ABC"),
@@ -446,7 +451,7 @@ namespace ZeroInstall.Fetchers
             };
             try
             {
-                fetcher.FetchImplementations(new List<Implementation> {implementation}, new SilentHandler());
+                fetcher.FetchImplementations(new[] {implementation}, new SilentHandler());
             }
             catch (MockException)
             {}

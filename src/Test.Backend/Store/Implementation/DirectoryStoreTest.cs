@@ -113,6 +113,12 @@ namespace ZeroInstall.Store.Implementation
             CollectionAssert.AreEqual(new[] {digest}, _store.ListAll(), "After adding, Store must show the added package in the complete list");
         }
 
+        //[Test]
+        public void ShouldAllowToAddArchive()
+        {
+            // TODO
+        }
+
         [Test]
         public void ShouldRecreateMissingStoreDir()
         {

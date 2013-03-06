@@ -40,7 +40,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void TestDownloadArchive()
         {
-            var originalStream = TestData.GetTestZipArchiveStream();
+            using (var originalStream = TestData.GetTestZipArchiveStream())
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var archive = new Archive {Location = microServer.FileUri};
@@ -59,7 +59,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void TestDownloadAndExtractArchive()
         {
-            var originalStream = TestData.GetTestZipArchiveStream();
+            using (var originalStream = TestData.GetTestZipArchiveStream())
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var archive = new Archive {Location = microServer.FileUri};
@@ -76,7 +76,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void TestApplyRecipe()
         {
-            var originalStream = TestData.GetTestZipArchiveStream();
+            using (var originalStream = TestData.GetTestZipArchiveStream())
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var archive = new Archive {Location = microServer.FileUri};
@@ -94,7 +94,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void TestBuildArchive()
         {
-            var originalStream = TestData.GetTestZipArchiveStream();
+            using (var originalStream = TestData.GetTestZipArchiveStream())
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var implementation = ImplementationUtils.Build(new Archive {Location = microServer.FileUri}, false, new SilentTaskHandler());
@@ -112,7 +112,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void TestBuildRecipe()
         {
-            var originalStream = TestData.GetTestZipArchiveStream();
+            using (var originalStream = TestData.GetTestZipArchiveStream())
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var implementation = ImplementationUtils.Build(new Recipe {Steps = {new Archive {Location = microServer.FileUri}}}, false, new SilentTaskHandler());
@@ -130,7 +130,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void TestAddMissingArchive()
         {
-            var originalStream = TestData.GetTestZipArchiveStream();
+            using (var originalStream = TestData.GetTestZipArchiveStream())
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var implementation = new Implementation {RetrievalMethods = {new Archive {Location = microServer.FileUri}}};
@@ -149,7 +149,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void TestAddMissingRecipe()
         {
-            var originalStream = TestData.GetTestZipArchiveStream();
+            using (var originalStream = TestData.GetTestZipArchiveStream())
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var implementation = new Implementation {RetrievalMethods = {new Recipe {Steps = {new Archive {Location = microServer.FileUri}}}}};
@@ -168,7 +168,8 @@ namespace ZeroInstall.Publish
         [Test]
         public void TestAddMissingExceptions()
         {
-            using (var microServer = new MicroServer("archive.zip", TestData.GetTestZipArchiveStream()))
+            using (var originalStream = TestData.GetTestZipArchiveStream())
+            using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var implementation = new Implementation {ManifestDigest = new ManifestDigest(sha1New: "invalid"), RetrievalMethods = {new Archive {Location = microServer.FileUri}}};
                 Assert.Throws<DigestMismatchException>(() => ImplementationUtils.AddMissing(implementation, false, new SilentTaskHandler()));
