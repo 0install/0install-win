@@ -302,10 +302,10 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Merge data
         /// <summary>
-        /// Merges a new <see cref="AppList"/> with the existing data.
+        /// Merges a new <see cref="IntegrationManagerBase.AppList"/> with the existing data.
         /// </summary>
         /// <param name="remoteAppList">The remote <see cref="AppList"/> to merge in.</param>
-        /// <param name="resetClient">Set to <see langword="true"/> to completly replace the contents of <see cref="IntegrationManager.AppList"/> with <paramref name="remoteAppList"/> instead of merging the two.</param>
+        /// <param name="resetClient">Set to <see langword="true"/> to completly replace the contents of <see cref="IIntegrationManager.AppList"/> with <paramref name="remoteAppList"/> instead of merging the two.</param>
         /// <param name="feedRetriever">Callback method used to retrieve additional <see cref="Feed"/>s on demand.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
