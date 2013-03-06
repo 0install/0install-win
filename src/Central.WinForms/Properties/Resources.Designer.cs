@@ -248,7 +248,7 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Just search for an app in the &quot;Catalog&quot;....
+        ///   Looks up a localized string similar to Search for an app in the &quot;Catalog&quot;....
         /// </summary>
         internal static string IntroSubtitlesCatalogSearch {
             get {

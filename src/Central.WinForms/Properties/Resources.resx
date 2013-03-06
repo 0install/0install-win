@@ -193,7 +193,7 @@ This will also remove any desktop integration applied for this application.</val
 add it to "My applications".</value>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
-    <value>Just search for an app in the "Catalog"...</value>
+    <value>Search for an app in the "Catalog"...</value>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
     <value>"Integrate" an app to put it
