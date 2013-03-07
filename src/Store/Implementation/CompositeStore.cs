@@ -253,7 +253,7 @@ namespace ZeroInstall.Store.Implementation
 
             // Verify in every store that contains the implementation
             bool verified = false;
-            foreach (var store in _stores.Where(store => store.Contains(manifestDigest)))
+            foreach (var store in _stores.Where(store => store.ContainsSafe(manifestDigest)))
             {
                 store.VerifySafe(manifestDigest, handler);
                 verified = true;
