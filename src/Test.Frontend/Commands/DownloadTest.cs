@@ -92,8 +92,8 @@ namespace ZeroInstall.Commands
             var selections = SelectionsTest.CreateTestSelections();
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-                selections.SaveXml(tempFile.Path);
-                var args = new[] {tempFile.Path};
+                selections.SaveXml(tempFile);
+                var args = new string[] {tempFile};
 
                 Command.Parse(args);
                 Assert.AreEqual(0, Command.Execute());

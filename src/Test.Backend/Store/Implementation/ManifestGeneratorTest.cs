@@ -34,7 +34,6 @@ namespace ZeroInstall.Store.Implementation
     {
         private ManifestGenerator _someGenerator;
         private TemporaryDirectory _sandbox;
-        private string PackageFolder { get { return _sandbox.Path; } }
 
         [SetUp]
         public void SetUp()
@@ -46,9 +45,9 @@ namespace ZeroInstall.Store.Implementation
                 .AddFile("nestedFile2", "123");
 
             _sandbox = new TemporaryDirectory("0install-unit-tests");
-            packageBuilder.WritePackageInto(PackageFolder);
+            packageBuilder.WritePackageInto(_sandbox);
 
-            _someGenerator = new ManifestGenerator(PackageFolder, ManifestFormat.Sha256);
+            _someGenerator = new ManifestGenerator(_sandbox, ManifestFormat.Sha256);
         }
 
         [TearDown]
@@ -70,15 +69,20 @@ namespace ZeroInstall.Store.Implementation
         {
             // Change the working directory
             string oldWorkingDir = Environment.CurrentDirectory;
-            Environment.CurrentDirectory = PackageFolder;
+            Environment.CurrentDirectory = _sandbox;
 
-            // Replace default generator with one using a relative path
-            _someGenerator = new ManifestGenerator(".", ManifestFormat.Sha256);
+            try
+            {
+                // Replace default generator with one using a relative path
+                _someGenerator = new ManifestGenerator(".", ManifestFormat.Sha256);
 
-            ShouldGenerateManifestWithAllFilesListed();
-
-            // Restore the original working directory
-            Environment.CurrentDirectory = oldWorkingDir;
+                ShouldGenerateManifestWithAllFilesListed();
+            }
+            finally
+            {
+                // Restore the original working directory
+                Environment.CurrentDirectory = oldWorkingDir;
+            }
         }
 
         private void ValidatePackage()
@@ -91,7 +95,7 @@ namespace ZeroInstall.Store.Implementation
                 var manifestDirectory = node as ManifestDirectory;
                 if (manifestDirectory != null)
                 {
-                    DirectoryMustExistInDirectory(manifestDirectory, PackageFolder);
+                    DirectoryMustExistInDirectory(manifestDirectory, _sandbox);
                     currentSubdir = manifestDirectory.FullPath.Replace('/', Path.DirectorySeparatorChar).Substring(1);
                 }
                 else
@@ -99,7 +103,7 @@ namespace ZeroInstall.Store.Implementation
                     var manifestFile = node as ManifestFileBase;
                     if (manifestFile != null)
                     {
-                        string directory = Path.Combine(PackageFolder, currentSubdir);
+                        string directory = Path.Combine(_sandbox, currentSubdir);
                         FileMustExistInDirectory(manifestFile, directory);
                     }
                     else Debug.Fail("Unknown manifest node found: " + node);

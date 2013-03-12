@@ -135,12 +135,12 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
                     string extractedArchiveDir = archiveControl.ExtractedArchivePath;
                     string subfolder = archiveControl.Archive.Extract;
                     var completeSourceDir = Path.Combine(extractedArchiveDir, FileUtils.UnifySlashes(subfolder ?? ""));
-                    FileUtils.CopyDirectory(completeSourceDir, tempDir.Path, true, true);
+                    FileUtils.CopyDirectory(completeSourceDir, tempDir, true, true);
                     _recipe.Steps.Add(archiveControl.Archive);
                 }
                 try
                 {
-                    ManifestDigest = ManifestUtils.CreateDigest(this, tempDir.Path);
+                    ManifestDigest = ManifestUtils.CreateDigest(this, tempDir);
                 }
                     #region Error handling
                 catch (OperationCanceledException)

@@ -80,11 +80,11 @@ namespace ZeroInstall.Injector.Feeds
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // ReSharper disable AccessToDisposedClosure
-                _cacheMock.Setup(x => x.GetFeed(tempFile.Path)).Returns(feed).Verifiable();
+                _cacheMock.Setup(x => x.GetFeed(tempFile)).Returns(feed).Verifiable();
                 // ReSharper restore AccessToDisposedClosure
 
                 bool stale = false;
-                Assert.AreSame(feed, _policy.FeedManager.GetFeed(tempFile.Path, _policy, ref stale));
+                Assert.AreSame(feed, _policy.FeedManager.GetFeed(tempFile, _policy, ref stale));
                 Assert.IsFalse(stale);
             }
         }

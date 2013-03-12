@@ -63,8 +63,8 @@ namespace ZeroInstall.Injector
             {
                 // Write and read file
                 config1 = CreateTestConfig();
-                config1.Save(tempFile.Path);
-                config2 = Config.Load(tempFile.Path);
+                config1.Save(tempFile);
+                config2 = Config.Load(tempFile);
             }
 
             // Ensure data stayed the same
@@ -104,9 +104,9 @@ namespace ZeroInstall.Injector
 
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-                File.WriteAllText(tempFile.Path, testIniData);
-                Config.Load(tempFile.Path).Save(tempFile.Path);
-                Assert.AreEqual(testIniData, File.ReadAllText(tempFile.Path));
+                File.WriteAllText(tempFile, testIniData);
+                Config.Load(tempFile).Save(tempFile);
+                Assert.AreEqual(testIniData, File.ReadAllText(tempFile));
             }
         }
 

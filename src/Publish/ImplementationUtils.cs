@@ -63,7 +63,7 @@ namespace ZeroInstall.Publish
 
             try
             {
-                var digest = GenerateDigest(implementationDir.Path, store, handler);
+                var digest = GenerateDigest(implementationDir, store, handler);
                 return new Implementation {ID = "sha1new=" + digest.Sha1New, ManifestDigest = digest, RetrievalMethods = {retrievalMethod}};
             }
             finally
@@ -104,7 +104,7 @@ namespace ZeroInstall.Publish
                     {
                         ManifestDigest digest;
                         using (var tempDir = DownloadAndExtractArchive(archive, handler))
-                            digest = GenerateDigest(tempDir.Path, store, handler);
+                            digest = GenerateDigest(tempDir, store, handler);
 
                         if (implementation.ManifestDigest == default(ManifestDigest))
                         { // No existing digest, set from archive
@@ -122,7 +122,7 @@ namespace ZeroInstall.Publish
                     if (implementation.ManifestDigest == default(ManifestDigest))
                     {
                         using (var tempDir = ApplyRecipe(recipe, handler))
-                            implementation.ManifestDigest = GenerateDigest(tempDir.Path, store, handler);
+                            implementation.ManifestDigest = GenerateDigest(tempDir, store, handler);
                     }
                 }
             }.Dispatch(implementation.RetrievalMethods);
@@ -148,7 +148,7 @@ namespace ZeroInstall.Publish
                 var extractionDir = new TemporaryDirectory("0publish");
                 try
                 {
-                    using (var extractor = Extractor.CreateExtractor(archive.MimeType, tempFile.Path, 0, extractionDir.Path))
+                    using (var extractor = Extractor.CreateExtractor(archive.MimeType, tempFile, 0, extractionDir))
                     {
                         extractor.SubDir = archive.Extract;
                         handler.RunTask(extractor, null); // Defer task to handler
@@ -183,10 +183,10 @@ namespace ZeroInstall.Publish
 
             // Download the arhive
             var archiveFile = new TemporaryFile("0publish");
-            handler.RunTask(new DownloadFile(archive.Location, archiveFile.Path), null); // Defer task to handler
+            handler.RunTask(new DownloadFile(archive.Location, archiveFile), null); // Defer task to handler
 
             // Set downloaded file size
-            archive.Size = new FileInfo(archiveFile.Path).Length;
+            archive.Size = new FileInfo(archiveFile).Length;
 
             return archiveFile;
         }
@@ -210,7 +210,7 @@ namespace ZeroInstall.Publish
                 // Download all archives required by the recipe
                 // ReSharper disable LoopCanBeConvertedToQuery
                 foreach (var archive in recipe.Steps.OfType<Archive>())
-                    downloadedArchives.Add(new ArchiveFileInfo {Path = DownloadArchive(archive, handler).Path, SubDir = archive.Extract, MimeType = archive.MimeType});
+                    downloadedArchives.Add(new ArchiveFileInfo {Path = DownloadArchive(archive, handler), SubDir = archive.Extract, MimeType = archive.MimeType});
                 // ReSharper restore LoopCanBeConvertedToQuery
 
                 // Apply the recipe

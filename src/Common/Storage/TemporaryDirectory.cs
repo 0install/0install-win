@@ -31,15 +31,16 @@ namespace Common.Storage
     /// </summary>
     public class TemporaryDirectory : IDisposable
     {
-        #region Variables
-        private readonly string _oldWorkingDir;
-        #endregion
-
         #region Properties
         /// <summary>
         /// The fully qualified path of the temporary directory.
         /// </summary>
-        public string Path { get; private set; }
+        public virtual string Path { get; private set; }
+
+        public static implicit operator string(TemporaryDirectory dir)
+        {
+            return dir.Path;
+        }
         #endregion
 
         #region Constructor
@@ -49,30 +50,9 @@ namespace Common.Storage
         /// <param name="prefix">A short string the directory name should start with.</param>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory in <see cref="System.IO.Path.GetTempPath"/>.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory in <see cref="System.IO.Path.GetTempPath"/> is not permitted.</exception>
-        public TemporaryDirectory(string prefix) : this(prefix, false)
-        {}
-
-        /// <summary>
-        /// Creates a uniquely named, empty temporary directory on disk.
-        /// </summary>
-        /// <param name="prefix">A short string the directory name should start with.</param>
-        /// <param name="makeWorkingDir">Set to <see langword="true"/> to make the new directory the <see cref="Environment.CurrentDirectory"/> until <see cref="Dispose()"/> is called.</param>
-        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory in <see cref="System.IO.Path.GetTempPath"/>.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory in <see cref="System.IO.Path.GetTempPath"/> is not permitted.</exception>
-        public TemporaryDirectory(string prefix, bool makeWorkingDir)
+        public TemporaryDirectory(string prefix)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(prefix)) throw new ArgumentNullException("prefix");
-            #endregion
-
             Path = FileUtils.GetTempDirectory(prefix);
-
-            if (makeWorkingDir)
-            {
-                // Remember the current working directory for later restoration and then change it
-                _oldWorkingDir = Environment.CurrentDirectory;
-                Environment.CurrentDirectory = Path;
-            }
         }
         #endregion
 
@@ -90,9 +70,6 @@ namespace Common.Storage
         {
             // Do not trigger via GC
             if (!disposing) return;
-
-            // Restore the original working directory if it was changed
-            if (_oldWorkingDir != null) Environment.CurrentDirectory = _oldWorkingDir;
 
             if (Directory.Exists(Path))
             {

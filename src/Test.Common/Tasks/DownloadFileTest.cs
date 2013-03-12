@@ -60,11 +60,11 @@ namespace Common.Tasks
         public void TestRunSync()
         {
             // Download the file
-            var download = new DownloadFile(_server.FileUri, _tempFile.Path);
+            var download = new DownloadFile(_server.FileUri, _tempFile);
             download.RunSync(null);
 
             // Read the file
-            string fileContent = File.ReadAllText(_tempFile.Path);
+            string fileContent = File.ReadAllText(_tempFile);
 
             // Ensure the download was successful and the file is identical
             Assert.AreEqual(TaskState.Complete, download.State, download.ErrorMessage);
@@ -75,12 +75,12 @@ namespace Common.Tasks
         public void TestThread()
         {
             // Start a background download of the file and then wait
-            var download = new DownloadFile(_server.FileUri, _tempFile.Path);
+            var download = new DownloadFile(_server.FileUri, _tempFile);
             download.Start();
             download.Join();
 
             // Read the file
-            string fileContent = File.ReadAllText(_tempFile.Path);
+            string fileContent = File.ReadAllText(_tempFile);
 
             // Ensure the download was successful and the file is identical
             Assert.AreEqual(TaskState.Complete, download.State, download.ErrorMessage);
@@ -92,7 +92,7 @@ namespace Common.Tasks
         {
             // Start a very slow download of the file and then cancel it right away again
             _server.Slow = true;
-            var download = new DownloadFile(_server.FileUri, _tempFile.Path);
+            var download = new DownloadFile(_server.FileUri, _tempFile);
             download.Start();
             download.Cancel();
 
@@ -104,7 +104,7 @@ namespace Common.Tasks
         {
             // Prepare a very slow download of the file and monitor for a cancellation exception
             _server.Slow = true;
-            var download = new DownloadFile(_server.FileUri, _tempFile.Path);
+            var download = new DownloadFile(_server.FileUri, _tempFile);
             bool exceptionThrown = false;
             var downloadThread = new Thread(() =>
             {
@@ -132,7 +132,7 @@ namespace Common.Tasks
         {
             // Start a very slow download of the file and then cancel it right away again
             _server.Slow = true;
-            var download = new DownloadFile(_server.FileUri, _tempFile.Path);
+            var download = new DownloadFile(_server.FileUri, _tempFile);
             download.Start();
             download.Cancel();
 
@@ -142,7 +142,7 @@ namespace Common.Tasks
             download.Join();
 
             // Read the file
-            string fileContent = File.ReadAllText(_tempFile.Path);
+            string fileContent = File.ReadAllText(_tempFile);
 
             // Ensure the download was successful and the file is identical
             Assert.AreEqual(TaskState.Complete, download.State, download.ErrorMessage);
@@ -152,7 +152,7 @@ namespace Common.Tasks
         [Test(Description = "Ensure files with an incorrect size are rejected.")]
         public void TestIncorrectSize()
         {
-            var download = new DownloadFile(_server.FileUri, _tempFile.Path, 1024);
+            var download = new DownloadFile(_server.FileUri, _tempFile, 1024);
             Assert.Throws<WebException>(() => download.RunSync(null));
         }
     }

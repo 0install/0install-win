@@ -35,27 +35,27 @@ namespace Common.Cli
         [Test]
         public void TestGetFilesAbsolute()
         {
-            using (var tempDirectory = new TemporaryDirectory("unit-tests"))
+            using (var tempDir = new TemporaryDirectory("unit-tests"))
             {
-                File.WriteAllText(Path.Combine(tempDirectory.Path, "a.txt"), @"a");
-                File.WriteAllText(Path.Combine(tempDirectory.Path, "b.txt"), @"b");
-                File.WriteAllText(Path.Combine(tempDirectory.Path, "c.inf"), @"c");
-                File.WriteAllText(Path.Combine(tempDirectory.Path, "d.nfo"), @"d");
+                File.WriteAllText(Path.Combine(tempDir, "a.txt"), @"a");
+                File.WriteAllText(Path.Combine(tempDir, "b.txt"), @"b");
+                File.WriteAllText(Path.Combine(tempDir, "c.inf"), @"c");
+                File.WriteAllText(Path.Combine(tempDir, "d.nfo"), @"d");
 
-                string subdirPath = Path.Combine(tempDirectory.Path, "dir");
+                string subdirPath = Path.Combine(tempDir, "dir");
                 Directory.CreateDirectory(subdirPath);
                 File.WriteAllText(Path.Combine(subdirPath, "1.txt"), @"1");
                 File.WriteAllText(Path.Combine(subdirPath, "2.inf"), @"a");
 
                 var result = ArgumentUtils.GetFiles(new[]
                 {
-                    Path.Combine(tempDirectory.Path, "*.txt"), // Wildcard
-                    Path.Combine(tempDirectory.Path, "d.nfo"), // Specifc file
+                    Path.Combine(tempDir, "*.txt"), // Wildcard
+                    Path.Combine(tempDir, "d.nfo"), // Specifc file
                     subdirPath // Directory with implict default wildcard
                 }, "*.txt");
-                Assert.AreEqual(result[0].FullName, Path.Combine(tempDirectory.Path, "a.txt"));
-                Assert.AreEqual(result[1].FullName, Path.Combine(tempDirectory.Path, "b.txt"));
-                Assert.AreEqual(result[2].FullName, Path.Combine(tempDirectory.Path, "d.nfo"));
+                Assert.AreEqual(result[0].FullName, Path.Combine(tempDir, "a.txt"));
+                Assert.AreEqual(result[1].FullName, Path.Combine(tempDir, "b.txt"));
+                Assert.AreEqual(result[2].FullName, Path.Combine(tempDir, "d.nfo"));
                 Assert.AreEqual(result[3].FullName, Path.Combine(subdirPath, "1.txt"));
             }
         }
@@ -63,7 +63,7 @@ namespace Common.Cli
         [Test]
         public void TestGetFilesRelative()
         {
-            using (var tempDirectory = new TemporaryDirectory("unit-tests", true))
+            using (var tempDir = new TemporaryWorkingDirectory("unit-tests"))
             {
                 File.WriteAllText("a.txt", @"a");
                 File.WriteAllText("b.txt", @"b");
@@ -81,10 +81,10 @@ namespace Common.Cli
                     "d.nfo", // Specifc file
                     subdirPath // Directory with implict default wildcard
                 }, "*.txt");
-                Assert.AreEqual(result[0].FullName, Path.Combine(tempDirectory.Path, "a.txt"));
-                Assert.AreEqual(result[1].FullName, Path.Combine(tempDirectory.Path, "b.txt"));
-                Assert.AreEqual(result[2].FullName, Path.Combine(tempDirectory.Path, "d.nfo"));
-                Assert.AreEqual(result[3].FullName, Path.Combine(Path.Combine(tempDirectory.Path, subdirPath), "1.txt"));
+                Assert.AreEqual(result[0].FullName, Path.Combine(tempDir, "a.txt"));
+                Assert.AreEqual(result[1].FullName, Path.Combine(tempDir, "b.txt"));
+                Assert.AreEqual(result[2].FullName, Path.Combine(tempDir, "d.nfo"));
+                Assert.AreEqual(result[3].FullName, Path.Combine(Path.Combine(tempDir, subdirPath), "1.txt"));
             }
         }
     }

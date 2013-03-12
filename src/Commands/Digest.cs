@@ -121,13 +121,13 @@ namespace ZeroInstall.Commands
             { // Manifest for archive
                 using (var tempDir = new TemporaryDirectory("0install"))
                 {
-                    using (var extractor = Extractor.CreateExtractor(null, path, 0, tempDir.Path))
+                    using (var extractor = Extractor.CreateExtractor(null, path, 0, tempDir))
                     {
                         extractor.SubDir = subdir;
                         Policy.Handler.RunTask(extractor, null);
                     }
 
-                    manifest = Manifest.Generate(tempDir.Path, _algorithm, Policy.Handler, null);
+                    manifest = Manifest.Generate(tempDir, _algorithm, Policy.Handler, null);
                 }
             }
             else throw new FileNotFoundException(string.Format(Resources.FileOrDirNotFound, path));

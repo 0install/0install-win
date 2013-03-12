@@ -37,9 +37,9 @@ namespace ZeroInstall.Store.Implementation
         {
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
             {
-                using (FileStream stream = File.Create(archiveFile.Path))
+                using (FileStream stream = File.Create(archiveFile))
                     TestData.GetTestZipArchiveStream().CopyTo(stream);
-                var archives = new[] {new ArchiveFileInfo {Path = archiveFile.Path, MimeType = "application/zip"}};
+                var archives = new[] {new ArchiveFileInfo {Path = archiveFile, MimeType = "application/zip"}};
 
                 var recipe = new Recipe
                 {
@@ -52,7 +52,7 @@ namespace ZeroInstall.Store.Implementation
                 using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, archives, new SilentTaskHandler(), null))
                 {
                     // /subdir3 [D]
-                    string path = Path.Combine(recipeDir.Path, "subdir3");
+                    string path = Path.Combine(recipeDir, "subdir3");
                     Assert.IsTrue(Directory.Exists(path), "Missing directory: " + path);
                 }
             }
@@ -63,9 +63,9 @@ namespace ZeroInstall.Store.Implementation
         {
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
             {
-                using (FileStream stream = File.Create(archiveFile.Path))
+                using (FileStream stream = File.Create(archiveFile))
                     TestData.GetTestZipArchiveStream().CopyTo(stream);
-                var archives = new[] {new ArchiveFileInfo {Path = archiveFile.Path, MimeType = "application/zip"}};
+                var archives = new[] {new ArchiveFileInfo {Path = archiveFile, MimeType = "application/zip"}};
 
                 var recipe = new Recipe
                 {
@@ -80,16 +80,16 @@ namespace ZeroInstall.Store.Implementation
                 {
                     if (!MonoUtils.IsUnix)
                     {
-                        CollectionAssert.IsEmpty(FlagUtils.GetExternalFlags(".xbit", recipeDir.Path));
-                        CollectionAssert.IsEmpty(FlagUtils.GetExternalFlags(".symlink", recipeDir.Path));
+                        CollectionAssert.IsEmpty(FlagUtils.GetExternalFlags(".xbit", recipeDir));
+                        CollectionAssert.IsEmpty(FlagUtils.GetExternalFlags(".symlink", recipeDir));
                     }
 
                     // /symlink [deleted]
-                    string path = Path.Combine(recipeDir.Path, "symlink");
+                    string path = Path.Combine(recipeDir, "symlink");
                     Assert.IsFalse(File.Exists(path), "File should not exist: " + path);
 
                     // /subdir2 [deleted]
-                    path = Path.Combine(recipeDir.Path, "subdir2");
+                    path = Path.Combine(recipeDir, "subdir2");
                     Assert.IsFalse(Directory.Exists(path), "Directory should not exist: " + path);
                 }
             }
@@ -100,9 +100,9 @@ namespace ZeroInstall.Store.Implementation
         {
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
             {
-                using (FileStream stream = File.Create(archiveFile.Path))
+                using (FileStream stream = File.Create(archiveFile))
                     TestData.GetTestZipArchiveStream().CopyTo(stream);
-                var archives = new[] {new ArchiveFileInfo {Path = archiveFile.Path, MimeType = "application/zip"}};
+                var archives = new[] {new ArchiveFileInfo {Path = archiveFile, MimeType = "application/zip"}};
 
                 var recipe = new Recipe
                 {
@@ -118,28 +118,28 @@ namespace ZeroInstall.Store.Implementation
                     if (!MonoUtils.IsUnix)
                     {
                         CollectionAssert.AreEquivalent(
-                            new[] {new[] {recipeDir.Path, "subdir2", "executable2"}.Aggregate(Path.Combine)},
-                            FlagUtils.GetExternalFlags(".xbit", recipeDir.Path));
+                            new[] {new[] {recipeDir, "subdir2", "executable2"}.Aggregate(Path.Combine)},
+                            FlagUtils.GetExternalFlags(".xbit", recipeDir));
                         CollectionAssert.AreEquivalent(
-                            new[] {new[] {recipeDir.Path, "symlink2"}.Aggregate(Path.Combine)},
-                            FlagUtils.GetExternalFlags(".symlink", recipeDir.Path));
+                            new[] {new[] {recipeDir, "symlink2"}.Aggregate(Path.Combine)},
+                            FlagUtils.GetExternalFlags(".symlink", recipeDir));
                     }
 
                     // /symlink [deleted]
-                    string path = Path.Combine(recipeDir.Path, "symlink");
+                    string path = Path.Combine(recipeDir, "symlink");
                     Assert.IsFalse(File.Exists(path), "File should not exist: " + path);
 
                     // /symlink2 [S]
-                    path = Path.Combine(recipeDir.Path, "symlink2");
+                    path = Path.Combine(recipeDir, "symlink2");
                     Assert.IsTrue(File.Exists(path), "Missing file: " + path);
                     if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsSymlink(path), "Not symlink: " + path);
 
                     // /subdir2/executable [deleted]
-                    path = new[] {recipeDir.Path, "subdir2", "executable"}.Aggregate(Path.Combine);
+                    path = new[] {recipeDir, "subdir2", "executable"}.Aggregate(Path.Combine);
                     Assert.IsFalse(File.Exists(path), "File should not exist: " + path);
 
                     // /subdir2/executable2 [X]
-                    path = new[] {recipeDir.Path, "subdir2", "executable2"}.Aggregate(Path.Combine);
+                    path = new[] {recipeDir, "subdir2", "executable2"}.Aggregate(Path.Combine);
                     Assert.IsTrue(File.Exists(path), "Missing file: " + path);
                     if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsExecutable(path), "Not executable: " + path);
                 }

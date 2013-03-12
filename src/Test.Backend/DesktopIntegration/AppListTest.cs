@@ -116,8 +116,8 @@ namespace ZeroInstall.DesktopIntegration
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
-                appList.SaveXml(tempFile.Path);
-                appList2 = XmlStorage.LoadXml<AppList>(tempFile.Path);
+                appList.SaveXml(tempFile);
+                appList2 = XmlStorage.LoadXml<AppList>(tempFile);
             }
 
             // Ensure data stayed the same

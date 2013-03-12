@@ -61,11 +61,11 @@ namespace ZeroInstall.Store.Implementation
                     (Model.Archive step) =>
                     {
                         archivesEnum.MoveNext();
-                        ApplyArchive(archivesEnum.Current, targetDir.Path, handler, tag);
+                        ApplyArchive(archivesEnum.Current, targetDir, handler, tag);
                     },
-                    (AddDirectoryStep step) => ApplyAddDirectory(step, targetDir.Path),
-                    (RemoveStep step) => ApplyRemove(step, targetDir.Path),
-                    (RenameStep step) => ApplyRename(step, targetDir.Path)
+                    (AddDirectoryStep step) => ApplyAddDirectory(step, targetDir),
+                    (RemoveStep step) => ApplyRemove(step, targetDir),
+                    (RenameStep step) => ApplyRename(step, targetDir)
                 }.Dispatch(recipe.Steps);
                 // ReSharper restore AccessToDisposedClosure
                 return targetDir;

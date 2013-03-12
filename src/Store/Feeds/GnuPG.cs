@@ -163,7 +163,7 @@ namespace ZeroInstall.Store.Feeds
             string result;
             using (var signatureFile = new TemporaryFile("0install-sig"))
             {
-                File.WriteAllBytes(signatureFile.Path, signature);
+                File.WriteAllBytes(signatureFile, signature);
                 string arguments = "--batch --no-secmem-warning --status-fd 1 --verify " + signatureFile.Path.EscapeArgument() + " -";
                 result = Execute(arguments, writer =>
                 {

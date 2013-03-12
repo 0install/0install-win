@@ -74,14 +74,14 @@ namespace ZeroInstall.Injector.Solver
             using (var feedFile = new TemporaryFile("0install-unit-tests"))
             {
                 var testFeed = CreateTestFeed();
-                testFeed.Normalize(feedFile.Path);
-                //_cacheMock.Setup(x => x.Contains(feedFile.Path)).Returns(true);
-                //_cacheMock.Setup(x => x.GetFeed(feedFile.Path)).Returns(testFeed);
-                testFeed.SaveXml(feedFile.Path);
+                testFeed.Normalize(feedFile);
+                //_cacheMock.Setup(x => x.Contains(feedFile)).Returns(true);
+                //_cacheMock.Setup(x => x.GetFeed(feedFile)).Returns(testFeed);
+                testFeed.SaveXml(feedFile);
 
                 bool staleFeeds;
                 /*var selections =*/
-                _solver.Solve(new Requirements {InterfaceID = feedFile.Path}, _policy, out staleFeeds);
+                _solver.Solve(new Requirements {InterfaceID = feedFile}, _policy, out staleFeeds);
             }
         }
     }

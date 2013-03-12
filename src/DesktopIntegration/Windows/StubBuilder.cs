@@ -93,10 +93,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             using (var manifestFile = new TemporaryFile("0install"))
             {
-                File.WriteAllText(manifestFile.Path, GetEmbeddedResource("Stub.manifest"));
+                File.WriteAllText(manifestFile, GetEmbeddedResource("Stub.manifest"));
 
                 // Run the compilation process and check for errors
-                var compiler = GetCSharpCompiler(compilerParameters, manifestFile.Path);
+                var compiler = GetCSharpCompiler(compilerParameters, manifestFile);
                 var compilerResults = compiler.CompileAssemblyFromSource(compilerParameters, code);
                 if (compilerResults.Errors.HasErrors)
                 {

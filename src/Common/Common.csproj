@@ -139,6 +139,8 @@
     <Compile Include="Storage\EmbeddedFile.cs" />
     <Compile Include="Storage\TemporaryFile.cs" />
     <Compile Include="Storage\TemporaryDirectory.cs" />
+    <Compile Include="Storage\TemporaryFlagFile.cs" />
+    <Compile Include="Storage\TemporaryWorkingDirectory.cs" />
     <Compile Include="Storage\AtomicWrite.cs" />
     <Compile Include="Undo\IUndoCommand.cs" />
     <Compile Include="Undo\PreExecutedCommand.cs" />

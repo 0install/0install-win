@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         {
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
             {
-                string path = Path.Combine(tempDir.Path, "a.zip");
+                string path = Path.Combine(tempDir, "a.zip");
 
                 using (var file = File.Create(path))
                 using (var zipStream = new ZipOutputStream(file) {IsStreamOwner = false})
@@ -43,7 +43,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                     zipStream.CloseEntry();
                 }
 
-                using (var extractor = Extractor.CreateExtractor(null, path, 0, tempDir.Path))
+                using (var extractor = Extractor.CreateExtractor(null, path, 0, tempDir))
                     Assert.IsInstanceOf(typeof(ZipExtractor), extractor);
             }
         }

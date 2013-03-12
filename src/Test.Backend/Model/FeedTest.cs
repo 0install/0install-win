@@ -168,8 +168,8 @@ namespace ZeroInstall.Model
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
-                feed1.SaveXml(tempFile.Path);
-                feed2 = XmlStorage.LoadXml<Feed>(tempFile.Path);
+                feed1.SaveXml(tempFile);
+                feed2 = XmlStorage.LoadXml<Feed>(tempFile);
             }
 
             // Ensure data stayed the same
@@ -247,11 +247,11 @@ namespace ZeroInstall.Model
 
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-                feed.SaveXml(tempFile.Path);
-                var feedReload = XmlStorage.LoadXml<Feed>(tempFile.Path);
+                feed.SaveXml(tempFile);
+                var feedReload = XmlStorage.LoadXml<Feed>(tempFile);
 
-                feed.Normalize(tempFile.Path);
-                feedReload.Normalize(tempFile.Path);
+                feed.Normalize(tempFile);
+                feedReload.Normalize(tempFile);
                 Assert.AreEqual(feed.GetHashCode(), feedReload.GetHashCode());
             }
         }

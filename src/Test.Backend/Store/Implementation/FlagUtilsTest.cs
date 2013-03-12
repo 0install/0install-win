@@ -34,20 +34,20 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestGetExternalFlags()
         {
-            using (var flagDir = new TemporaryDirectory("0isntall-unit-tests"))
+            using (var flagDir = new TemporaryDirectory("0install-unit-tests"))
             {
                 // ReSharper disable LocalizableElement
-                File.WriteAllText(Path.Combine(flagDir.Path, ".xbit"), "/dir1/file1\n/dir2/file2\n");
+                File.WriteAllText(Path.Combine(flagDir, ".xbit"), "/dir1/file1\n/dir2/file2\n");
                 // ReSharper restore LocalizableElement
 
                 var expectedResult = new[]
                 {
-                    new[] {flagDir.Path, "dir1", "file1"}.Aggregate(Path.Combine),
-                    new[] {flagDir.Path, "dir2", "file2"}.Aggregate(Path.Combine)
+                    new[] {flagDir, "dir1", "file1"}.Aggregate(Path.Combine),
+                    new[] {flagDir, "dir2", "file2"}.Aggregate(Path.Combine)
                 };
 
-                CollectionAssert.AreEquivalent(expectedResult, FlagUtils.GetExternalFlags(".xbit", flagDir.Path), "Should find .xbit file in same directory");
-                CollectionAssert.AreEquivalent(expectedResult, FlagUtils.GetExternalFlags(".xbit", Path.Combine(flagDir.Path, "subdir")), "Should find .xbit file in parent directory");
+                CollectionAssert.AreEquivalent(expectedResult, FlagUtils.GetExternalFlags(".xbit", flagDir), "Should find .xbit file in same directory");
+                CollectionAssert.AreEquivalent(expectedResult, FlagUtils.GetExternalFlags(".xbit", Path.Combine(flagDir, "subdir")), "Should find .xbit file in parent directory");
             }
         }
 
@@ -57,13 +57,13 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestSetExternalFlag()
         {
-            using (var flagFile = new TemporaryFile("0isntall-unit-tests"))
+            using (var flagFile = new TemporaryFile("0install-unit-tests"))
             {
-                FlagUtils.SetExternalFlag(flagFile.Path, Path.Combine("dir1", "file1"));
-                Assert.AreEqual("/dir1/file1\n", File.ReadAllText(flagFile.Path));
+                FlagUtils.SetExternalFlag(flagFile, Path.Combine("dir1", "file1"));
+                Assert.AreEqual("/dir1/file1\n", File.ReadAllText(flagFile));
 
-                FlagUtils.SetExternalFlag(flagFile.Path, Path.Combine("dir2", "file2"));
-                Assert.AreEqual("/dir1/file1\n/dir2/file2\n", File.ReadAllText(flagFile.Path));
+                FlagUtils.SetExternalFlag(flagFile, Path.Combine("dir2", "file2"));
+                Assert.AreEqual("/dir1/file1\n/dir2/file2\n", File.ReadAllText(flagFile));
             }
         }
 
@@ -73,20 +73,20 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestRemoveExternalFlag()
         {
-            using (var flagFile = new TemporaryFile("0isntall-unit-tests"))
+            using (var flagFile = new TemporaryFile("0install-unit-tests"))
             {
                 // ReSharper disable LocalizableElement
-                File.WriteAllText(flagFile.Path, "/dir1/file1\n/dir2/file2\n");
+                File.WriteAllText(flagFile, "/dir1/file1\n/dir2/file2\n");
                 // ReSharper restore LocalizableElement
 
-                FlagUtils.RemoveExternalFlag(flagFile.Path, "dir");
-                Assert.AreEqual("/dir1/file1\n/dir2/file2\n", File.ReadAllText(flagFile.Path), "Partial match should not change anything");
+                FlagUtils.RemoveExternalFlag(flagFile, "dir");
+                Assert.AreEqual("/dir1/file1\n/dir2/file2\n", File.ReadAllText(flagFile), "Partial match should not change anything");
 
-                FlagUtils.RemoveExternalFlag(flagFile.Path, Path.Combine("dir1", "file1"));
-                Assert.AreEqual("/dir2/file2\n", File.ReadAllText(flagFile.Path));
+                FlagUtils.RemoveExternalFlag(flagFile, Path.Combine("dir1", "file1"));
+                Assert.AreEqual("/dir2/file2\n", File.ReadAllText(flagFile));
 
-                FlagUtils.RemoveExternalFlag(flagFile.Path, "dir2");
-                Assert.AreEqual("", File.ReadAllText(flagFile.Path));
+                FlagUtils.RemoveExternalFlag(flagFile, "dir2");
+                Assert.AreEqual("", File.ReadAllText(flagFile));
             }
         }
 
@@ -96,14 +96,14 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestPrefixExternalFlags()
         {
-            using (var flagFile = new TemporaryFile("0isntall-unit-tests"))
+            using (var flagFile = new TemporaryFile("0install-unit-tests"))
             {
                 // ReSharper disable LocalizableElement
-                File.WriteAllText(flagFile.Path, "/dir1/file1\n/dir2/file2\n");
+                File.WriteAllText(flagFile, "/dir1/file1\n/dir2/file2\n");
                 // ReSharper restore LocalizableElement
 
-                FlagUtils.PrefixExternalFlags(flagFile.Path, Path.Combine("pre", "fix"));
-                Assert.AreEqual("/pre/fix/dir1/file1\n/pre/fix/dir2/file2\n", File.ReadAllText(flagFile.Path));
+                FlagUtils.PrefixExternalFlags(flagFile, Path.Combine("pre", "fix"));
+                Assert.AreEqual("/pre/fix/dir1/file1\n/pre/fix/dir2/file2\n", File.ReadAllText(flagFile));
             }
         }
     }

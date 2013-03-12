@@ -58,7 +58,7 @@ namespace ZeroInstall.Store.Implementation
         public void SetUp()
         {
             _tempDir = new TemporaryDirectory("0install-unit-tests");
-            _store = new DirectoryStore(_tempDir.Path);
+            _store = new DirectoryStore(_tempDir);
             _packageDir = CreateArtificialPackage();
         }
 
@@ -72,11 +72,11 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestListAll()
         {
-            Directory.CreateDirectory(Path.Combine(_tempDir.Path, "sha1=test1"));
-            Directory.CreateDirectory(Path.Combine(_tempDir.Path, "sha1new=test2"));
-            Directory.CreateDirectory(Path.Combine(_tempDir.Path, "sha256=test3"));
-            Directory.CreateDirectory(Path.Combine(_tempDir.Path, "sha256new_test4"));
-            Directory.CreateDirectory(Path.Combine(_tempDir.Path, "temp=stuff"));
+            Directory.CreateDirectory(Path.Combine(_tempDir, "sha1=test1"));
+            Directory.CreateDirectory(Path.Combine(_tempDir, "sha1new=test2"));
+            Directory.CreateDirectory(Path.Combine(_tempDir, "sha256=test3"));
+            Directory.CreateDirectory(Path.Combine(_tempDir, "sha256new_test4"));
+            Directory.CreateDirectory(Path.Combine(_tempDir, "temp=stuff"));
             CollectionAssert.AreEqual(new[]
             {
                 new ManifestDigest(sha1: "test1"),
@@ -89,9 +89,9 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestListAllTemp()
         {
-            Directory.CreateDirectory(Path.Combine(_tempDir.Path, "sha1=test"));
-            Directory.CreateDirectory(Path.Combine(_tempDir.Path, "temp=stuff"));
-            CollectionAssert.AreEqual(new[] {Path.Combine(_tempDir.Path, "temp=stuff")}, _store.ListAllTemp());
+            Directory.CreateDirectory(Path.Combine(_tempDir, "sha1=test"));
+            Directory.CreateDirectory(Path.Combine(_tempDir, "temp=stuff"));
+            CollectionAssert.AreEqual(new[] {Path.Combine(_tempDir, "temp=stuff")}, _store.ListAllTemp());
         }
 
         [Test]
@@ -122,7 +122,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldRecreateMissingStoreDir()
         {
-            Directory.Delete(_tempDir.Path, true);
+            Directory.Delete(_tempDir, true);
 
             var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new SilentHandler()));
             _store.AddDirectory(_packageDir, digest, new SilentHandler());
@@ -130,7 +130,7 @@ namespace ZeroInstall.Store.Implementation
             Assert.IsTrue(_store.Contains(digest), "After adding, Store must contain the added package");
             CollectionAssert.AreEqual(new[] {digest}, _store.ListAll(), "After adding, Store must show the added package in the complete list");
 
-            Assert.IsTrue(Directory.Exists(_tempDir.Path), "Store directory should have been recreated");
+            Assert.IsTrue(Directory.Exists(_tempDir), "Store directory should have been recreated");
         }
 
         [Test]
@@ -138,13 +138,18 @@ namespace ZeroInstall.Store.Implementation
         {
             // Change the working directory
             string oldWorkingDir = Environment.CurrentDirectory;
-            Environment.CurrentDirectory = _tempDir.Path;
-            _store = new DirectoryStore(".");
+            Environment.CurrentDirectory = _tempDir;
 
-            ShouldAllowToAddFolder();
-
-            // Restore the original working directory
-            Environment.CurrentDirectory = oldWorkingDir;
+            try
+            {
+                _store = new DirectoryStore(".");
+                ShouldAllowToAddFolder();
+            }
+            finally
+            {
+                // Restore the original working directory
+                Environment.CurrentDirectory = oldWorkingDir;
+            }
         }
 
         [Test]
@@ -189,7 +194,7 @@ namespace ZeroInstall.Store.Implementation
             CollectionAssert.IsEmpty(_store.Audit(new SilentHandler()));
 
             // A contaminated store should be detected
-            Directory.CreateDirectory(Path.Combine(_tempDir.Path, "sha1new=abc"));
+            Directory.CreateDirectory(Path.Combine(_tempDir, "sha1new=abc"));
             DigestMismatchException problem = _store.Audit(new SilentHandler()).First();
             Assert.AreEqual("sha1new=abc", problem.ExpectedHash);
             Assert.AreEqual("sha1new=da39a3ee5e6b4b0d3255bfef95601890afd80709", problem.ActualHash);

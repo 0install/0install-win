@@ -81,8 +81,8 @@ namespace ZeroInstall.Model
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
-                catalog1.SaveXml(tempFile.Path);
-                catalog2 = XmlStorage.LoadXml<Catalog>(tempFile.Path);
+                catalog1.SaveXml(tempFile);
+                catalog2 = XmlStorage.LoadXml<Catalog>(tempFile);
             }
 
             // Ensure data stayed the same

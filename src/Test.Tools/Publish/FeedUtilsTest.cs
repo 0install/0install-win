@@ -39,7 +39,7 @@ namespace ZeroInstall.Publish
         {
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
             {
-                string tempFile = tempDir.Path + Path.DirectorySeparatorChar + "feed.xml";
+                string tempFile = tempDir + Path.DirectorySeparatorChar + "feed.xml";
 
                 var feed = FeedTest.CreateTestFeed();
                 var secretKey = new OpenPgpSecretKey("fingerprint", "key", null, new DateTime(2000, 1, 1), OpenPgpAlgorithm.Rsa, 128);
@@ -61,7 +61,7 @@ namespace ZeroInstall.Publish
                 Assert.AreEqual(expectedFeed, signedFeed,
                     "Feed should remain unchanged except for appended XML signatre");
 
-                Assert.AreEqual(publicKey, File.ReadAllText(tempDir.Path + Path.DirectorySeparatorChar + secretKey.KeyID + ".gpg"),
+                Assert.AreEqual(publicKey, File.ReadAllText(tempDir + Path.DirectorySeparatorChar + secretKey.KeyID + ".gpg"),
                     "Public key should be written to parallel file in directory");
             }
         }

@@ -36,6 +36,11 @@ namespace Common.Storage
         /// The fully qualified path of the temporary file.
         /// </summary>
         public string Path { get; private set; }
+
+        public static implicit operator string(TemporaryFile file)
+        {
+            return file.Path;
+        }
         #endregion
 
         #region Constructor

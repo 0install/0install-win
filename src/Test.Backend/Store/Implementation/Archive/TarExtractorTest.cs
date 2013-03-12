@@ -27,21 +27,17 @@ namespace ZeroInstall.Store.Implementation.Archive
     public class TarExtractorTestBasicFunctionality
     {
         private TemporaryDirectory _sandbox;
-        private string _oldWorkingDirectory;
         private static readonly byte[] _garbageData = new byte[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
 
         [SetUp]
         public void SetUp()
         {
-            _sandbox = new TemporaryDirectory("0install-unit-tests");
-            _oldWorkingDirectory = Environment.CurrentDirectory;
-            Environment.CurrentDirectory = _sandbox.Path;
+            _sandbox = new TemporaryWorkingDirectory("0install-unit-tests");
         }
 
         [TearDown]
         public void TearDown()
         {
-            Environment.CurrentDirectory = _oldWorkingDirectory;
             _sandbox.Dispose();
         }
 
@@ -106,7 +102,7 @@ namespace ZeroInstall.Store.Implementation.Archive
 
         private void TestExtract(string mimeType, Stream archive)
         {
-            using (var extractor = Extractor.CreateExtractor(mimeType, archive, _sandbox.Path))
+            using (var extractor = Extractor.CreateExtractor(mimeType, archive, _sandbox))
                 extractor.RunSync(null);
 
             Assert.IsTrue(File.Exists("subdir1/regular"), "Should extract file 'regular'");
@@ -120,7 +116,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         public void TestHardlink()
         {
             using (var archive = TestData.GetTestTarArchiveHardlinkStream())
-            using (var extractor = Extractor.CreateExtractor("application/x-tar", archive, _sandbox.Path))
+            using (var extractor = Extractor.CreateExtractor("application/x-tar", archive, _sandbox))
                 extractor.RunSync(null);
 
             Assert.AreEqual("data", File.ReadAllText("file1"));
@@ -152,14 +148,14 @@ namespace ZeroInstall.Store.Implementation.Archive
         public void TestExtractUnixArchiveWithExecutable()
         {
             using (var archive = TestData.GetTestTarArchiveStream())
-            using (var extractor = new TarExtractor(archive, _sandbox.Path))
+            using (var extractor = new TarExtractor(archive, _sandbox))
                 extractor.RunSync(null);
 
             if (MonoUtils.IsUnix)
-                Assert.IsTrue(FileUtils.IsExecutable(Path.Combine(_sandbox.Path, "subdir2/executable")), "File 'executable' should be marked as executable");
+                Assert.IsTrue(FileUtils.IsExecutable(Path.Combine(_sandbox, "subdir2/executable")), "File 'executable' should be marked as executable");
             else
             {
-                string xbitFileContent = File.ReadAllText(Path.Combine(_sandbox.Path, ".xbit")).Trim();
+                string xbitFileContent = File.ReadAllText(Path.Combine(_sandbox, ".xbit")).Trim();
                 Assert.AreEqual("/subdir2/executable", xbitFileContent);
             }
         }
@@ -171,17 +167,17 @@ namespace ZeroInstall.Store.Implementation.Archive
         public void TestExtractUnixArchiveWithSymlink()
         {
             using (var archive = TestData.GetTestTarArchiveStream())
-            using (var extractor = new TarExtractor(archive, _sandbox.Path))
+            using (var extractor = new TarExtractor(archive, _sandbox))
                 extractor.RunSync(null);
 
             string target;
             if (MonoUtils.IsUnix)
-                Assert.IsTrue(FileUtils.IsSymlink(Path.Combine(_sandbox.Path, "symlink"), out target));
+                Assert.IsTrue(FileUtils.IsSymlink(Path.Combine(_sandbox, "symlink"), out target));
             else
             {
-                string symlinkFileContent = File.ReadAllText(Path.Combine(_sandbox.Path, ".symlink")).Trim();
+                string symlinkFileContent = File.ReadAllText(Path.Combine(_sandbox, ".symlink")).Trim();
                 Assert.AreEqual("/symlink", symlinkFileContent);
-                target = File.ReadAllText(Path.Combine(_sandbox.Path, "symlink"));
+                target = File.ReadAllText(Path.Combine(_sandbox, "symlink"));
             }
             Assert.AreEqual("subdir1/regular", target, "Symlink should point to 'regular'");
         }

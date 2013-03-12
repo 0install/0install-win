@@ -40,12 +40,12 @@ namespace ZeroInstall.Store.Feeds
         {
             // Create a temporary cache
             _tempDir = new TemporaryDirectory("0install-unit-tests");
-            _cache = new DiskIconCache(_tempDir.Path);
+            _cache = new DiskIconCache(_tempDir);
 
             // Add some dummy icons to the cache
-            File.WriteAllText(Path.Combine(_tempDir.Path, ModelUtils.Escape("http://0install.de/feeds/images/test1.png")), "");
-            File.WriteAllText(Path.Combine(_tempDir.Path, ModelUtils.Escape("http://0install.de/feeds/images/test2.png")), "");
-            File.WriteAllText(Path.Combine(_tempDir.Path, "http_invalid"), "");
+            File.WriteAllText(Path.Combine(_tempDir, ModelUtils.Escape("http://0install.de/feeds/images/test1.png")), "");
+            File.WriteAllText(Path.Combine(_tempDir, ModelUtils.Escape("http://0install.de/feeds/images/test2.png")), "");
+            File.WriteAllText(Path.Combine(_tempDir, "http_invalid"), "");
         }
 
         [TearDown]
@@ -78,7 +78,7 @@ namespace ZeroInstall.Store.Feeds
         public void TestGetIconCached()
         {
             const string icon1 = "http://0install.de/feeds/images/test1.png";
-            Assert.AreEqual(Path.Combine(_tempDir.Path, ModelUtils.Escape(icon1)), _cache.GetIcon(new Uri(icon1), new SilentTaskHandler()));
+            Assert.AreEqual(Path.Combine(_tempDir, ModelUtils.Escape(icon1)), _cache.GetIcon(new Uri(icon1), new SilentTaskHandler()));
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace ZeroInstall.Store.Feeds
             using (var server = new MicroServer("empty", new MemoryStream()))
             {
                 // Write a file to the cache directory, mark it as outdated, use an unreachable/invalid URI
-                string prePath = Path.Combine(_tempDir.Path, ModelUtils.Escape(server.FileUri + "-invalid"));
+                string prePath = Path.Combine(_tempDir, ModelUtils.Escape(server.FileUri + "-invalid"));
                 File.WriteAllText(prePath, iconData);
                 File.SetLastWriteTimeUtc(prePath, new DateTime(1980, 1, 1));
 

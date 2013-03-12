@@ -133,23 +133,19 @@ namespace ZeroInstall.Fetchers
         private TemporaryDirectory _storeDir;
         private DirectoryStore _store;
         private Fetcher _fetcher;
-        private string _oldWorkingDirectory;
 
         [SetUp]
         public void SetUp()
         {
-            _testFolder = new TemporaryDirectory("0install-unit-tests");
+            _testFolder = new TemporaryWorkingDirectory("0install-unit-tests");
             _storeDir = new TemporaryDirectory("0install-unit-tests");
-            _store = new DirectoryStore(_storeDir.Path);
+            _store = new DirectoryStore(_storeDir);
             _fetcher = new Fetcher(_store);
-            _oldWorkingDirectory = Environment.CurrentDirectory;
-            Environment.CurrentDirectory = _testFolder.Path;
         }
 
         [TearDown]
         public void TearDown()
         {
-            Environment.CurrentDirectory = _oldWorkingDirectory;
             _storeDir.Dispose();
             _testFolder.Dispose();
         }
@@ -362,22 +358,18 @@ namespace ZeroInstall.Fetchers
         private TemporaryDirectory _testFolder;
         private TemporaryDirectory _storeDir;
         private DirectoryStore _store;
-        private string _oldWorkingDirectory;
 
         [SetUp]
         public void SetUp()
         {
-            _testFolder = new TemporaryDirectory("0install-unit-tests");
+            _testFolder = new TemporaryWorkingDirectory("0install-unit-tests");
             _storeDir = new TemporaryDirectory("0install-unit-tests");
-            _store = new DirectoryStore(_storeDir.Path);
-            _oldWorkingDirectory = Environment.CurrentDirectory;
-            Environment.CurrentDirectory = _testFolder.Path;
+            _store = new DirectoryStore(_storeDir);
         }
 
         [TearDown]
         public void TearDown()
         {
-            Environment.CurrentDirectory = _oldWorkingDirectory;
             _storeDir.Dispose();
             _testFolder.Dispose();
         }

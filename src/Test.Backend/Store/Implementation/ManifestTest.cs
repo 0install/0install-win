@@ -62,8 +62,8 @@ namespace ZeroInstall.Store.Implementation
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Generate manifest, write it to a file and read the file again
-                manifest1.Save(tempFile.Path);
-                manifest2 = Manifest.Load(tempFile.Path, ManifestFormat.Sha1New);
+                manifest1.Save(tempFile);
+                manifest2 = Manifest.Load(tempFile, ManifestFormat.Sha1New);
             }
 
             // Ensure data stayed the same
@@ -165,11 +165,11 @@ namespace ZeroInstall.Store.Implementation
         {
             using (var package = new TemporaryDirectory("0install-unit-tests"))
             {
-                string exePath = Path.Combine(package.Path, "test.exe");
-                string manifestPath = Path.Combine(package.Path, ".manifest");
+                string exePath = Path.Combine(package, "test.exe");
+                string manifestPath = Path.Combine(package, ".manifest");
 
                 File.WriteAllText(exePath, "");
-                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256, new SilentHandler());
+                Manifest.CreateDotFile(package, ManifestFormat.Sha256, new SilentHandler());
 
                 using (var manifest = File.OpenText(manifestPath))
                 {
@@ -184,13 +184,13 @@ namespace ZeroInstall.Store.Implementation
         {
             using (var package = new TemporaryDirectory("0install-unit-tests"))
             {
-                string exePath = Path.Combine(package.Path, "test.exe");
-                string xbitPath = Path.Combine(package.Path, ".xbit");
-                string manifestPath = Path.Combine(package.Path, ".manifest");
+                string exePath = Path.Combine(package, "test.exe");
+                string xbitPath = Path.Combine(package, ".xbit");
+                string manifestPath = Path.Combine(package, ".manifest");
 
                 File.WriteAllText(exePath, "");
                 File.WriteAllText(xbitPath, @"/test.exe");
-                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256, new SilentHandler());
+                Manifest.CreateDotFile(package, ManifestFormat.Sha256, new SilentHandler());
 
                 using (var manifest = File.OpenText(manifestPath))
                 {
@@ -205,13 +205,13 @@ namespace ZeroInstall.Store.Implementation
         {
             using (var package = new TemporaryDirectory("0install-unit-tests"))
             {
-                string exePath = Path.Combine(package.Path, "test");
-                string xbitPath = Path.Combine(package.Path, ".symlink");
-                string manifestPath = Path.Combine(package.Path, ".manifest");
+                string exePath = Path.Combine(package, "test");
+                string xbitPath = Path.Combine(package, ".symlink");
+                string manifestPath = Path.Combine(package, ".manifest");
 
                 File.WriteAllText(exePath, "");
                 File.WriteAllText(xbitPath, @"/test");
-                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256, new SilentHandler());
+                Manifest.CreateDotFile(package, ManifestFormat.Sha256, new SilentHandler());
 
                 using (var manifest = File.OpenText(manifestPath))
                 {
@@ -226,8 +226,8 @@ namespace ZeroInstall.Store.Implementation
         {
             using (var package = new TemporaryDirectory("0install-unit-tests"))
             {
-                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256, new SilentHandler());
-                using (var manifestFile = File.OpenRead(Path.Combine(package.Path, ".manifest")))
+                Manifest.CreateDotFile(package, ManifestFormat.Sha256, new SilentHandler());
+                using (var manifestFile = File.OpenRead(Path.Combine(package, ".manifest")))
                     Assert.AreEqual(0, manifestFile.Length, "Empty package directory should make an empty manifest");
             }
         }
@@ -237,15 +237,15 @@ namespace ZeroInstall.Store.Implementation
         {
             using (var package = new TemporaryDirectory("0install-unit-tests"))
             {
-                string innerPath = Path.Combine(package.Path, "inner");
+                string innerPath = Path.Combine(package, "inner");
                 Directory.CreateDirectory(innerPath);
 
                 string innerExePath = Path.Combine(innerPath, "inner.exe");
-                string xbitPath = Path.Combine(package.Path, ".xbit");
-                string manifestPath = Path.Combine(package.Path, ".manifest");
+                string xbitPath = Path.Combine(package, ".xbit");
+                string manifestPath = Path.Combine(package, ".manifest");
                 File.WriteAllText(innerExePath, @"xxxxxxx");
                 File.WriteAllText(xbitPath, @"/inner/inner.exe");
-                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256, new SilentHandler());
+                Manifest.CreateDotFile(package, ManifestFormat.Sha256, new SilentHandler());
                 using (var manifestFile = File.OpenText(manifestPath))
                 {
                     string currentLine = manifestFile.ReadLine();
@@ -261,15 +261,15 @@ namespace ZeroInstall.Store.Implementation
         {
             using (var package = new TemporaryDirectory("0install-unit-tests"))
             {
-                string innerPath = Path.Combine(package.Path, "inner");
+                string innerPath = Path.Combine(package, "inner");
                 Directory.CreateDirectory(innerPath);
 
                 string innerExePath = Path.Combine(innerPath, "inner.exe");
-                string xbitPath = Path.Combine(package.Path, ".xbit");
-                string manifestPath = Path.Combine(package.Path, ".manifest");
+                string xbitPath = Path.Combine(package, ".xbit");
+                string manifestPath = Path.Combine(package, ".manifest");
                 File.WriteAllText(innerExePath, @"xxxxxxx");
                 File.WriteAllText(xbitPath, @"/inner/inner.exe");
-                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha1, new SilentHandler());
+                Manifest.CreateDotFile(package, ManifestFormat.Sha1, new SilentHandler());
                 using (var manifestFile = File.OpenText(manifestPath))
                 {
                     string currentLine = manifestFile.ReadLine();
@@ -306,9 +306,9 @@ namespace ZeroInstall.Store.Implementation
 
             using (var package = new TemporaryDirectory("0install-unit-tests"))
             {
-                Directory.CreateDirectory(Path.Combine(package.Path, "target"));
-                FileUtils.CreateSymlink(Path.Combine(package.Path, "source"), "target");
-                var manifest = Manifest.Generate(package.Path, ManifestFormat.Sha256New, new SilentHandler(), null);
+                Directory.CreateDirectory(Path.Combine(package, "target"));
+                FileUtils.CreateSymlink(Path.Combine(package, "source"), "target");
+                var manifest = Manifest.Generate(package, ManifestFormat.Sha256New, new SilentHandler(), null);
 
                 Assert.IsTrue(manifest[0] is ManifestSymlink, "Unexpected manifest:\n" + manifest);
                 Assert.AreEqual("source", ((ManifestSymlink)manifest[0]).SymlinkName, "Unexpected manifest:\n" + manifest);

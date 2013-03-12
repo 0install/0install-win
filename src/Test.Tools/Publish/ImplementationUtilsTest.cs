@@ -45,7 +45,7 @@ namespace ZeroInstall.Publish
             {
                 var archive = new Archive {Location = microServer.FileUri};
                 using (var tempFile = ImplementationUtils.DownloadArchive(archive, new SilentTaskHandler()))
-                using (var downloadedStream = File.OpenRead(tempFile.Path))
+                using (var downloadedStream = File.OpenRead(tempFile))
                     Assert.IsTrue(StreamUtils.Equals(originalStream, downloadedStream), "Original and downloaded stream should be equal");
 
                 Assert.AreEqual("application/zip", archive.MimeType);
