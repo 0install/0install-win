@@ -81,6 +81,9 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>The local key used to encrypt data before sending it to the <see cref="_syncServer"/>.</summary>
         private readonly string _cryptoKey;
 
+        /// <summary>Callback method used to retrieve additional <see cref="Feed"/>s on demand.</summary>
+        private readonly Converter<string, Feed> _feedRetriever;
+
         /// <summary>The storage location of the <see cref="AppList"/> file.</summary>
         private readonly AppList _appListLastSync;
         #endregion
@@ -94,11 +97,12 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="username">The username to authenticate with against the <paramref name="syncServer"/>.</param>
         /// <param name="password">The password to authenticate with against the <paramref name="syncServer"/>.</param>
         /// <param name="cryptoKey">The local key used to encrypt data before sending it to the <paramref name="syncServer"/>.</param>
+        /// <param name="feedRetriever">Callback method used to retrieve additional <see cref="Feed"/>s on demand.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public SyncIntegrationManager(bool machineWide, Uri syncServer, string username, string password, string cryptoKey, ITaskHandler handler)
+        public SyncIntegrationManager(bool machineWide, Uri syncServer, string username, string password, string cryptoKey, Converter<string, Feed> feedRetriever, ITaskHandler handler)
             : base(machineWide, handler)
         {
             #region Sanity checks
@@ -110,6 +114,7 @@ namespace ZeroInstall.DesktopIntegration
             _username = username;
             _password = password;
             _cryptoKey = cryptoKey;
+            _feedRetriever = feedRetriever;
 
             if (File.Exists(AppListPath + AppListLastSyncSuffix)) _appListLastSync = XmlStorage.LoadXml<AppList>(AppListPath + AppListLastSyncSuffix);
             else
@@ -125,25 +130,23 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <param name="appListPath">The storage location of the <see cref="AppList"/> file.</param>
         /// <param name="syncServer">The base URL of the sync server.</param>
-        /// <param name="username">The username to authenticate with against the <paramref name="syncServer"/>.</param>
-        /// <param name="password">The password to authenticate with against the <paramref name="syncServer"/>.</param>
-        /// <param name="cryptoKey">The local key used to encrypt data before sending it to the <paramref name="syncServer"/>.</param>
+        /// <param name="feedRetriever">Callback method used to retrieve additional <see cref="Feed"/>s on demand.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public SyncIntegrationManager(bool machineWide, string appListPath, Uri syncServer, string username, string password, string cryptoKey, ITaskHandler handler)
+        public SyncIntegrationManager(bool machineWide, string appListPath, Uri syncServer, Converter<string, Feed> feedRetriever, ITaskHandler handler)
             : base(machineWide, appListPath, handler)
         {
             #region Sanity checks
             if (syncServer == null) throw new ArgumentNullException("syncServer");
+            if (feedRetriever == null) throw new ArgumentNullException("feedRetriever");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             if (!syncServer.ToString().EndsWith("/")) syncServer = new Uri(syncServer + "/"); // Ensure the server URI references a directory
             _syncServer = syncServer;
-            _username = username;
-            _password = password;
-            _cryptoKey = cryptoKey;
+            _feedRetriever = feedRetriever;
 
             if (File.Exists(AppListPath + AppListLastSyncSuffix)) _appListLastSync = XmlStorage.LoadXml<AppList>(AppListPath + AppListLastSyncSuffix);
             else
@@ -163,18 +166,13 @@ namespace ZeroInstall.DesktopIntegration
         /// Synchronize the <see cref="AppList"/> with the sync server and (un)apply <see cref="AccessPoint"/>s accordingly.
         /// </summary>
         /// <param name="resetMode">Controls how synchronization data is reset.</param>
-        /// <param name="feedRetriever">Callback method used to retrieve additional <see cref="Feed"/>s on demand.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data or if the specified crypto key was wrong.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        public void Sync(SyncResetMode resetMode, Converter<string, Feed> feedRetriever)
+        public void Sync(SyncResetMode resetMode)
         {
-            #region Sanity checks
-            if (feedRetriever == null) throw new ArgumentNullException("feedRetriever");
-            #endregion
-
             var appListUri = new Uri(_syncServer, new Uri(MachineWide ? "app-list-machine" : "app-list", UriKind.Relative));
             using (var webClient = new WebClientTimeout
             {
@@ -244,7 +242,7 @@ namespace ZeroInstall.DesktopIntegration
                     Handler.CancellationToken.ThrowIfCancellationRequested();
                     try
                     {
-                        MergeData(serverList, (resetMode == SyncResetMode.Client), feedRetriever, Handler);
+                        MergeData(serverList, (resetMode == SyncResetMode.Client), Handler);
                     }
                     catch (KeyNotFoundException ex)
                     {
@@ -306,7 +304,6 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="remoteAppList">The remote <see cref="AppList"/> to merge in.</param>
         /// <param name="resetClient">Set to <see langword="true"/> to completly replace the contents of <see cref="IIntegrationManager.AppList"/> with <paramref name="remoteAppList"/> instead of merging the two.</param>
-        /// <param name="feedRetriever">Callback method used to retrieve additional <see cref="Feed"/>s on demand.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to a <see cref="Capabilities.Capability"/> is invalid.</exception>
@@ -316,11 +313,10 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <remarks>Performs a three-way merge using <see cref="_appListLastSync"/> as base.</remarks>
-        private void MergeData(AppList remoteAppList, bool resetClient, Converter<string, Feed> feedRetriever, ITaskHandler handler)
+        private void MergeData(AppList remoteAppList, bool resetClient, ITaskHandler handler)
         {
             #region Sanity checks
             if (remoteAppList == null) throw new ArgumentNullException("remoteAppList");
-            if (feedRetriever == null) throw new ArgumentNullException("feedRetriever");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
@@ -331,8 +327,18 @@ namespace ZeroInstall.DesktopIntegration
             if (resetClient) EnumerableUtils.Merge(remoteAppList.Entries, AppList.Entries, toAdd.Add, toRemove.Add);
             else EnumerableUtils.Merge(_appListLastSync.Entries, remoteAppList.Entries, AppList.Entries, toAdd.Add, toRemove.Add);
 
-            toRemove.ApplyWithRollback(RemoveAppHelper, entry => AddAppHelper(entry, feedRetriever));
-            toAdd.ApplyWithRollback(entry => AddAppHelper(entry, feedRetriever), RemoveAppHelper);
+            // Apply changes with rollback protection
+            toRemove.ApplyWithRollback(RemoveAppHelper, AddAppHelper);
+            toAdd.ApplyWithRollback(AddAppHelper, RemoveAppHelper);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="AppEntry"/> based on an existing prototype (applying any <see cref="AccessPoint"/>s) and adds it to the <see cref="AppList"/>.
+        /// </summary>
+        /// <param name="prototype">An existing <see cref="AppEntry"/> to use as a prototype.</param>
+        private void AddAppHelper(AppEntry prototype)
+        {
+            AddAppHelper(prototype, _feedRetriever);
         }
         #endregion
     }

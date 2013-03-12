@@ -71,7 +71,7 @@ namespace ZeroInstall.Commands
 
             if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException();
 
-            using (_syncManager = new SyncIntegrationManager(MachineWide, Policy.Config.SyncServer, Policy.Config.SyncServerUsername, Policy.Config.SyncServerPassword, Policy.Config.SyncCryptoKey, Policy.Handler))
+            using (_syncManager = SyncFactory.Create(MachineWide, Policy))
             {
                 Policy.Handler.ShowProgressUI();
                 Sync();
@@ -96,7 +96,7 @@ namespace ZeroInstall.Commands
         {
             try
             {
-                _syncManager.Sync(_syncResetMode, feedID => Policy.FeedManager.GetFeed(feedID, Policy));
+                _syncManager.Sync(_syncResetMode);
             }
                 #region Error handling
             catch

@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using Common;
+using ZeroInstall.Commands;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
 
@@ -43,8 +44,8 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         private void resetWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             var policy = Policy.CreateDefault(this);
-            using (var sync = new SyncIntegrationManager(MachineWide, policy.Config.SyncServer, policy.Config.SyncServerUsername, policy.Config.SyncServerPassword, policy.Config.SyncCryptoKey, policy.Handler))
-                sync.Sync(SyncResetMode.Client, feedID => policy.FeedManager.GetFeed(feedID, policy));
+            using (var sync = SyncFactory.Create(MachineWide, policy))
+                sync.Sync(SyncResetMode.Client);
         }
 
         private void resetWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

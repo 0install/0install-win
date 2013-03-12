@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using Common;
 using Common.Utils;
+using ZeroInstall.Commands;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
 
@@ -54,10 +55,10 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         {
             var newKey = (string)e.Argument;
             var policy = Policy.CreateDefault(this);
-            using (var sync = new SyncIntegrationManager(MachineWide, policy.Config.SyncServer, policy.Config.SyncServerUsername, policy.Config.SyncServerPassword, OldKey, policy.Handler))
-                sync.Sync(SyncResetMode.None, feedID => policy.FeedManager.GetFeed(feedID, policy));
-            using (var sync = new SyncIntegrationManager(MachineWide, policy.Config.SyncServer, policy.Config.SyncServerUsername, policy.Config.SyncServerPassword, newKey, policy.Handler))
-                sync.Sync(SyncResetMode.Server, feedID => policy.FeedManager.GetFeed(feedID, policy));
+            using (var sync = SyncFactory.Create(MachineWide, policy, OldKey))
+                sync.Sync(SyncResetMode.None);
+            using (var sync = SyncFactory.Create(MachineWide, policy, newKey))
+                sync.Sync(SyncResetMode.Server);
         }
 
         private void resetWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
