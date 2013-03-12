@@ -224,104 +224,47 @@
   <data name="buttonAdvancedMode.Text" xml:space="preserve">
     <value>&amp;Erweiterte Einstellungen</value>
   </data>
-  <data name="checkBoxStartMenuSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 23</value>
-  </data>
   <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
     <value>Startmenü</value>
-  </data>
-  <data name="labelStartMenuSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 13</value>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
     <value>Ein oder mehrere Einträge im Startmenü</value>
   </data>
-  <data name="labelDesktopSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 13</value>
-  </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
     <value>Ein Symbol auf dem Desktop</value>
-  </data>
-  <data name="checkBoxAliasesSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 23</value>
   </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
     <value>Befehlszeilenaliase</value>
   </data>
-  <data name="labelAliasesSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 13</value>
-  </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
     <value>Zugriff vom Befehlszeileninterface aus</value>
-  </data>
-  <data name="checkBoxFileTypesSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 23</value>
   </data>
   <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
     <value>Dateitypen</value>
   </data>
-  <data name="labelFileTypesSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>399, 13</value>
-  </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Standardprogramm für unterstützte Dateitypen ("Öffnen mit" funktioniert auch ohne)</value>
-  </data>
-  <data name="checkBoxUrlProtocolsSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 23</value>
+    <value>Standardprogramm für unterstützte Dateitypen ("Öffnen mit" funktioniert immer)</value>
   </data>
   <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
     <value>URL Protokolle</value>
   </data>
-  <data name="labelUrlProtocolsSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>420, 13</value>
-  </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Standardprogramm für unterstützte URL Protokolle ("Öffnen mit" funktioniert auch ohne)</value>
-  </data>
-  <data name="labelAutoPlaySimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>414, 26</value>
+    <value>Standardprogramm für unterstützte URL Protokolle ("Öffnen mit" funktioniert immer)</value>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
     <value>Anwendung automatisch starten wenn geeignete Medien (DVD, USB Laufwerk, usw.) eingelegt wird</value>
   </data>
-  <data name="checkBoxContextMenuSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 268</value>
-  </data>
-  <data name="checkBoxContextMenuSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>117, 23</value>
-  </data>
   <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
     <value>Kontextmenü</value>
-  </data>
-  <data name="labelContextMenuSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 294</value>
-  </data>
-  <data name="labelContextMenuSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>208, 13</value>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
     <value>Kontextmenüeintrage im Windows Explorer</value>
   </data>
-  <data name="checkBoxDefaultProgramsSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 310</value>
-  </data>
-  <data name="checkBoxDefaultProgramsSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 23</value>
-  </data>
   <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
     <value>Standardprogramm</value>
   </data>
-  <data name="labelDefaultProgramsSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 336</value>
-  </data>
-  <data name="labelDefaultProgramsSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>323, 13</value>
-  </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
     <value>Standardprogram für Aufgaben wie Web Browser oder E-Mail Klient</value>
-  </data>
-  <data name="flowLayoutBasic.Size" type="System.Drawing.Size, System.Drawing">
-    <value>426, 349</value>
   </data>
   <data name="buttonBasicMode.Text" xml:space="preserve">
     <value>&amp;Basiseinstellungen</value>
