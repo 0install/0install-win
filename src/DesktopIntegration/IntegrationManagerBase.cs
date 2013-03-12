@@ -114,16 +114,18 @@ namespace ZeroInstall.DesktopIntegration
         }
 
         /// <summary>
-        /// Creates a new <see cref="AppEntry"/> based on an existing prototype (stripping any <see cref="AccessPoint"/>s) and adds it to the <see cref="AppList"/>.
+        /// Creates a new <see cref="AppEntry"/> based on an existing prototype (applying any <see cref="AccessPoint"/>s) and adds it to the <see cref="AppList"/>.
         /// </summary>
         /// <param name="prototype">An existing <see cref="AppEntry"/> to use as a prototype.</param>
-        /// <returns></returns>
-        protected AppEntry AddAppHelper(AppEntry prototype)
+        /// <param name="feedRetriever">Callback method used to retrieve additional <see cref="Feed"/>s on demand.</param>
+        protected void AddAppHelper(AppEntry prototype, Converter<string, Feed> feedRetriever)
         {
-            var appEntry = prototype.CloneWithoutAccessPoints();
+            var appEntry = prototype.Clone();
             AppList.Entries.Add(appEntry);
             WriteAppDir(appEntry);
-            return appEntry;
+
+            if (appEntry.AccessPoints != null)
+                AddAccessPointsHelper(appEntry, feedRetriever(appEntry.InterfaceID), appEntry.AccessPoints.Entries);
         }
 
         /// <summary>

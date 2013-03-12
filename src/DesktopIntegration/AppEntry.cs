@@ -159,20 +159,6 @@ namespace ZeroInstall.DesktopIntegration
             return appList;
         }
 
-        /// <summary>
-        /// Creates a deep copy of this <see cref="AppEntry"/> instance without the <see cref="AccessPoints"/>.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="AppEntry"/>.</returns>
-        public AppEntry CloneWithoutAccessPoints()
-        {
-            var appList = new AppEntry {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name, InterfaceID = InterfaceID};
-            if (Requirements != null) appList.Requirements = Requirements.Clone();
-            if (AccessPoints != null) appList.AccessPoints = new AccessPointList {UnknownAttributes = AccessPoints.UnknownAttributes, UnknownElements = AccessPoints.UnknownElements};
-            foreach (var list in CapabilityLists) appList.CapabilityLists.Add(list.Clone());
-
-            return appList;
-        }
-
         object ICloneable.Clone()
         {
             return Clone();

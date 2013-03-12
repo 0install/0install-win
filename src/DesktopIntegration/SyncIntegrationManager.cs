@@ -331,15 +331,8 @@ namespace ZeroInstall.DesktopIntegration
             if (resetClient) EnumerableUtils.Merge(remoteAppList.Entries, AppList.Entries, toAdd.Add, toRemove.Add);
             else EnumerableUtils.Merge(_appListLastSync.Entries, remoteAppList.Entries, AppList.Entries, toAdd.Add, toRemove.Add);
 
-            foreach (var appEntry in toRemove)
-                RemoveAppHelper(appEntry);
-            foreach (var appEntry in toAdd)
-            {
-                var newAppEntry = AddAppHelper(appEntry);
-                if (appEntry.AccessPoints != null)
-                    AddAccessPointsHelper(newAppEntry, feedRetriever(appEntry.InterfaceID), appEntry.AccessPoints.Entries);
-                AppList.Entries.Add(newAppEntry);
-            }
+            toRemove.ApplyWithRollback(RemoveAppHelper, entry => AddAppHelper(entry, feedRetriever));
+            toAdd.ApplyWithRollback(entry => AddAppHelper(entry, feedRetriever), RemoveAppHelper);
         }
         #endregion
     }
