@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml.Serialization;
 using Common.Tasks;
 using ZeroInstall.Model;
@@ -30,35 +31,24 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("mock", Namespace = AppList.XmlNamespace)]
     public class MockAccessPoint : DefaultAccessPoint, IEquatable<MockAccessPoint>
     {
-        #region Variables
-        private readonly Action _applyCallback, _unapplyCallback;
-        #endregion
-
         #region Properties
         /// <summary>
         /// An indentifier that controls the result of <see cref="GetConflictIDs"/>.
         /// </summary>
         [XmlAttribute("id")]
         public string ID { get; set; }
-        #endregion
-
-        #region Constructor
-        /// <summary>
-        /// Creates a new mock access point.
-        /// </summary>
-        public MockAccessPoint()
-        {}
 
         /// <summary>
-        /// Creates a new mock access point.
+        /// The path to a file to create when <see cref="Apply"/> is called.
         /// </summary>
-        /// <param name="applyCallback">A callback to be invoked when <see cref="Apply"/> is called.</param>
-        /// <param name="unapplyCallback">A callback to be invoked when <see cref="Unapply"/> is called.</param>
-        public MockAccessPoint(Action applyCallback, Action unapplyCallback)
-        {
-            _applyCallback = applyCallback;
-            _unapplyCallback = unapplyCallback;
-        }
+        [XmlAttribute("apply-flag-path")]
+        public string ApplyFlagPath { get; set; }
+
+        /// <summary>
+        /// The path to a file to create when <see cref="Unapply"/> is called.
+        /// </summary>
+        [XmlAttribute("unapply-flag-path")]
+        public string UnapplyFlagPath { get; set; }
         #endregion
 
         //--------------------//
@@ -85,7 +75,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                 appEntry.GetCapability<Capabilities.FileType>(Capability);
             }
 
-            if (_applyCallback != null) _applyCallback();
+            if (!string.IsNullOrEmpty(ApplyFlagPath)) File.WriteAllText(ApplyFlagPath, "");
         }
 
         /// <inheritdoc/>
@@ -101,7 +91,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                 appEntry.GetCapability<Capabilities.FileType>(Capability);
             }
 
-            if (_unapplyCallback != null) _unapplyCallback();
+            if (!string.IsNullOrEmpty(UnapplyFlagPath)) File.WriteAllText(UnapplyFlagPath, "");
         }
         #endregion
 
@@ -113,7 +103,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// </summary>
         public override string ToString()
         {
-            return string.Format("MockAccessPoint: {0}", ID);
+            return string.Format("MockAccessPoint: {0} (ApplyFlagPath: {1}, UnapplyFlagPath: {2})", ID, ApplyFlagPath, UnapplyFlagPath);
         }
         #endregion
 
@@ -121,7 +111,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override AccessPoint Clone()
         {
-            return new MockAccessPoint(_applyCallback, _unapplyCallback) {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID};
+            return new MockAccessPoint
+            {
+                ID = ID, Capability = Capability,
+                ApplyFlagPath = ApplyFlagPath, UnapplyFlagPath = UnapplyFlagPath,
+                UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements
+            };
         }
         #endregion
 

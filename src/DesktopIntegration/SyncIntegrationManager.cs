@@ -337,7 +337,7 @@ namespace ZeroInstall.DesktopIntegration
             {
                 var newAppEntry = AddAppHelper(appEntry);
                 if (appEntry.AccessPoints != null)
-                    AddAccessPointsHelper(newAppEntry, feedRetriever(appEntry.InterfaceID), newAppEntry.AccessPoints.Entries);
+                    AddAccessPointsHelper(newAppEntry, feedRetriever(appEntry.InterfaceID), appEntry.AccessPoints.Entries);
                 AppList.Entries.Add(newAppEntry);
             }
         }

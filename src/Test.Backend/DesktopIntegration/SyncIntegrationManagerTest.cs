@@ -15,12 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.IO;
 using Common;
 using Common.Storage;
 using Common.Tasks;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -37,7 +39,7 @@ namespace ZeroInstall.DesktopIntegration
         public void SetUp()
         {
             _tempDir = new TemporaryDirectory("0install-unit-tests");
-            _appListPath = Path.Combine(_tempDir.Path, "app-list.xml");
+            _appListPath = Path.Combine(_tempDir, "app-list.xml");
         }
 
         [TearDown]
@@ -49,81 +51,154 @@ namespace ZeroInstall.DesktopIntegration
         [Test]
         public void TestAddedLocal()
         {
-            // Current: 1 entry
-            bool apApplied = false;
-            bool apUnapplied = false;
-            var appEntry = new AppEntry
+            using (var apApplied = new TemporaryFlagFile("ap-applied"))
+            using (var apUnapplied = new TemporaryFlagFile("ap-unapplied"))
             {
-                InterfaceID = "http://0install.de/feeds/test/test1.xml",
-                AccessPoints = new AccessPointList { Entries = { new MockAccessPoint(() => apApplied = true, () => apUnapplied = true) } }
-            };
-            var appList = new AppList { Entries = { appEntry } };
-            appList.SaveXml(_appListPath);
+                var appListLocal = new AppList
+                {
+                    Entries =
+                    {
+                        new AppEntry
+                        {
+                            InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                            AccessPoints = new AccessPointList {Entries = {new MockAccessPoint{ApplyFlagPath = apApplied, UnapplyFlagPath = apUnapplied}}}
+                        }
+                    }
+                };
 
-            // Last: 0 entries
-            var appListLast = new AppList();
-            appListLast.SaveXml(_appListPath + SyncIntegrationManager.AppListLastSyncSuffix);
+                TestSync(appListLocal, new AppList(), new AppList());
 
-            // Server: Same as last
-            appListLast.SaveXmlZip(_appListPath + ".zip", null);
-
-            AppList sentToServer;
-            using (var serverFile = File.OpenRead(_appListPath + ".zip"))
-            using (var syncServer = new MicroServer("app-list", serverFile))
-            {
-                using (var integrationManager = new SyncIntegrationManager(false, _appListPath, syncServer.ServerUri, null, null, null, new SilentTaskHandler()))
-                    integrationManager.Sync(SyncResetMode.None, interfaceId => null);
-
-                sentToServer = XmlStorage.LoadXmlZip<AppList>(syncServer.FileContent, null);
+                Assert.IsFalse(apApplied.Set, "Locally existing access point should not be reapplied"); 
+                Assert.IsFalse(apUnapplied.Set, "Locally existing access point should not be removed");
             }
-            var savedToDisk = XmlStorage.LoadXml<AppList>(_appListPath);
-            var savedToDiskLast = XmlStorage.LoadXml<AppList>(_appListPath + SyncIntegrationManager.AppListLastSyncSuffix);
-
-            Assert.IsFalse(apApplied);
-            Assert.IsFalse(apUnapplied);
-            Assert.AreEqual(appList, sentToServer);
-            Assert.AreEqual(appList, savedToDisk);
-            Assert.AreEqual(appList, savedToDiskLast);
         }
 
         [Test]
         public void TestRemovedLocal()
         {
-            // Current: 0 entries
-            var appList = new AppList();
-            appList.SaveXml(_appListPath);
-
-            // Last: 1 entry
-            bool apApplied = false;
-            bool apUnapplied = false;
-            var appEntry = new AppEntry
+            using (var apApplied = new TemporaryFlagFile("ap-applied"))
+            using (var apUnapplied = new TemporaryFlagFile("ap-unapplied"))
             {
-                InterfaceID = "http://0install.de/feeds/test/test1.xml",
-                AccessPoints = new AccessPointList {Entries = {new MockAccessPoint(() => apApplied = true, () => apUnapplied = true)}}
-            };
-            var appListLast = new AppList {Entries = {appEntry}};
-            appListLast.SaveXml(_appListPath + SyncIntegrationManager.AppListLastSyncSuffix);
+                var appListLast = new AppList
+                {
+                    Entries =
+                    {
+                        new AppEntry
+                        {
+                            InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                            AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = apApplied, UnapplyFlagPath = apUnapplied}}}
+                        }
+                    }
+                };
 
-            // Server: Same as last
-            appListLast.SaveXmlZip(_appListPath + ".zip", null);
+                TestSync(new AppList(), appListLast, appListLast.Clone());
 
-            AppList sentToServer;
-            using (var serverFile = File.OpenRead(_appListPath + ".zip"))
-            using (var syncServer = new MicroServer("app-list", serverFile))
+                Assert.IsFalse(apApplied.Set, "Locally removed access point should not be reapplied");
+                Assert.IsFalse(apUnapplied.Set, "Locally removed access point should not be unapplied again");
+            }
+        }
+
+        [Test]
+        public void TestModifiedLocal()
+        {
+            using (var apLocalApplied = new TemporaryFlagFile("ap-local-applied"))
+            using (var apLocalUnapplied = new TemporaryFlagFile("ap-local-unapplied"))
+            using (var apRemoteApplied = new TemporaryFlagFile("ap-remote-applied"))
+            using (var apRemoteUnapplied = new TemporaryFlagFile("ap-remote-unapplied"))
+            {
+                var appListLocal = new AppList
+                {
+                    Entries =
+                    {
+                        new AppEntry
+                        {
+                            InterfaceID = "http://0install.de/feeds/test/test1.xml", AutoUpdate = true, Timestamp = new DateTime(2001, 1, 1),
+                            AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = apLocalApplied, UnapplyFlagPath = apLocalUnapplied}}}
+                        }
+                    }
+                };
+
+                var appListServer = new AppList
+                {
+                    Entries =
+                    {
+                        new AppEntry
+                        {
+                            InterfaceID = "http://0install.de/feeds/test/test1.xml", AutoUpdate = false, Timestamp = new DateTime(2000, 1, 1),
+                            AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = apRemoteApplied, UnapplyFlagPath = apRemoteUnapplied}}}
+                        }
+                    }
+                };
+
+                TestSync(appListLocal, null, appListServer);
+
+                Assert.IsFalse(apLocalApplied.Set, "Up-to-date access point should not be reapplied");
+                Assert.IsFalse(apLocalUnapplied.Set, "Up-to-date access point should not be removed");
+                Assert.IsFalse(apRemoteApplied.Set, "Outdated access point should not be reapplied");
+                Assert.IsFalse(apRemoteUnapplied.Set, "Outdated access point should not be removed");
+            }
+        }
+
+        [Test]
+        public void TestModifiedRemote()
+        {
+            using (var apLocalApplied = new TemporaryFlagFile("ap-local-applied"))
+            using (var apLocalUnapplied = new TemporaryFlagFile("ap-local-unapplied"))
+            using (var apRemoteApplied = new TemporaryFlagFile("ap-remote-applied"))
+            using (var apRemoteUnapplied = new TemporaryFlagFile("ap-remote-unapplied"))
+            {
+                var appListLocal = new AppList
+                {
+                    Entries =
+                    {
+                        new AppEntry
+                        {
+                            InterfaceID = "http://0install.de/feeds/test/test1.xml", AutoUpdate = true, Timestamp = new DateTime(2000, 1, 1),
+                            AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = apLocalApplied, UnapplyFlagPath = apLocalUnapplied}}}
+                        }
+                    }
+                };
+
+                var appListServer = new AppList
+                {
+                    Entries =
+                    {
+                        new AppEntry
+                        {
+                            InterfaceID = "http://0install.de/feeds/test/test1.xml", AutoUpdate = false, Timestamp = new DateTime(2001, 1, 1),
+                            AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = apRemoteApplied, UnapplyFlagPath = apRemoteUnapplied}}}
+                        }
+                    }
+                };
+
+                TestSync(appListLocal, null, appListServer);
+
+                Assert.IsFalse(apLocalApplied.Set, "Outdated access point should not be reapplied");
+                Assert.IsTrue(apLocalUnapplied.Set, "Outdated access point should be removed");
+                Assert.IsTrue(apRemoteApplied.Set, "New access point should be applied");
+                Assert.IsFalse(apRemoteUnapplied.Set, "New access point should not be unapplied");
+            }
+        }
+
+        private void TestSync(AppList appListLocal, AppList appListLast, AppList appListServer)
+        {
+            appListLocal.SaveXml(_appListPath);
+            if (appListLast != null) appListLast.SaveXml(_appListPath + SyncIntegrationManager.AppListLastSyncSuffix);
+
+            appListServer.SaveXmlZip(_appListPath + ".zip", null);
+            using (var appListServerFile = File.OpenRead(_appListPath + ".zip"))
+            using (var syncServer = new MicroServer("app-list", appListServerFile))
             {
                 using (var integrationManager = new SyncIntegrationManager(false, _appListPath, syncServer.ServerUri, null, null, null, new SilentTaskHandler()))
-                    integrationManager.Sync(SyncResetMode.None, interfaceId => null);
+                    integrationManager.Sync(SyncResetMode.None, interfaceId => new Feed());
 
-                sentToServer = XmlStorage.LoadXmlZip<AppList>(syncServer.FileContent, null);
+                appListServer = XmlStorage.LoadXmlZip<AppList>(syncServer.FileContent, null);
             }
-            var savedToDisk = XmlStorage.LoadXml<AppList>(_appListPath);
-            var savedToDiskLast = XmlStorage.LoadXml<AppList>(_appListPath + SyncIntegrationManager.AppListLastSyncSuffix);
 
-            Assert.IsFalse(apApplied);
-            Assert.IsFalse(apUnapplied);
-            Assert.AreEqual(appList, sentToServer);
-            Assert.AreEqual(appList, savedToDisk);
-            Assert.AreEqual(appList, savedToDiskLast);
+            appListLocal = XmlStorage.LoadXml<AppList>(_appListPath);
+            appListLast = XmlStorage.LoadXml<AppList>(_appListPath + SyncIntegrationManager.AppListLastSyncSuffix);
+            Assert.AreEqual(appListLocal, appListServer, "Server and local data should be equal after sync");
+            Assert.AreEqual(appListLocal, appListLast, "Last sync snapshot and local data should be equal after sync");
         }
 
         [Test]
