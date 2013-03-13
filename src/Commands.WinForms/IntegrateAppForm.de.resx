@@ -252,7 +252,7 @@
     <value>Standardprogramm für unterstützte URL Protokolle ("Öffnen mit" funktioniert immer)</value>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Anwendung automatisch starten wenn geeignete Medien (DVD, USB Laufwerk, usw.) eingelegt wird</value>
+    <value>Automatisch starten wenn geeignete Medien (DVD, USB Laufwerk, usw.) eingelegt wird</value>
   </data>
   <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
     <value>Kontextmenü</value>

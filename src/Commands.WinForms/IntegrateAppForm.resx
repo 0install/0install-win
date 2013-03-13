@@ -1540,7 +1540,7 @@
     <value>11</value>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Automatically launch application when suitable media (DVD, USB drive, etc.) is inserted</value>
+    <value>Automatically launch when suitable media (DVD, USB drive, etc.) is inserted</value>
   </data>
   <data name="&gt;&gt;labelAutoPlaySimple.Name" xml:space="preserve">
     <value>labelAutoPlaySimple</value>
