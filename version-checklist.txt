@@ -1,4 +1,8 @@
-/version
-/version-tools
+/VERSION
+/VERSION_TOOLS
 /src/AssemblyInfo.Global.cs
 /src/AssemblyInfo.Tools.cs
+
+Optional:
+/VERSION_Updater
+/src/AssemblyInfo.Updater.cs

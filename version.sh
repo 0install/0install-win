@@ -2,9 +2,9 @@
 #Sets the current version number as an environment variable
 cd `dirname $0`
 
-export VERSION=`cat version`
-export VERSION_TOOLS=`cat version-tools`
-export VERSION_UPDATER=`cat version-updater`
+export VERSION=`cat VERSION`
+export VERSION_TOOLS=`cat VERSION_TOOLS`
+export VERSION_UPDATER=`cat VERSION_UPDATER`
 
 echo \#\#teamcity[buildNumber \'$VERSION\_{build.number}\']
 echo \#\#teamcity[setParameter name=\'build.version\' value=\'$VERSION\']
