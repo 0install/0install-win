@@ -107,8 +107,11 @@ namespace ZeroInstall.Updater.WinForms
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Warn(ex);
+                // Do not try to elevate endlessly
                 if (_rerun || WindowsUtils.IsAdministrator) throw;
+
+                Log.Info("Elevation request triggered by:");
+                Log.Warn(ex);
 
                 SetStatus(Resources.RerunElevated);
                 _updateProcess.MutexRelease(); // Must release blocking mutexes in case the child process needs them

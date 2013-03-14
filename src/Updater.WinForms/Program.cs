@@ -47,25 +47,28 @@ namespace ZeroInstall.Updater.WinForms
                 return;
             }
 
-            UpdateProcess updateProcess;
             try
             {
-                updateProcess = new UpdateProcess(args[0], args[1], args[2]);
+                var updateProcess = new UpdateProcess(args[0], args[1], args[2]);
+                Application.Run(new MainForm(updateProcess, args.Contains("--rerun")));
             }
                 #region Error handling
             catch (IOException ex)
             {
+                Log.Error(ex);
                 Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                return;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Error(ex);
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
             }
             catch (NotSupportedException ex)
             {
+                Log.Error(ex);
                 Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                return;
             }
             #endregion
-
-            Application.Run(new MainForm(updateProcess, args.Contains("--rerun")));
         }
     }
 }
