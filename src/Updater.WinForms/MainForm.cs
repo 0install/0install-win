@@ -105,8 +105,9 @@ namespace ZeroInstall.Updater.WinForms
 
                 SetStatus(Resources.Done);
             }
-            catch (UnauthorizedAccessException)
+            catch (UnauthorizedAccessException ex)
             {
+                Log.Warn(ex);
                 if (_rerun || WindowsUtils.IsAdministrator) throw;
 
                 SetStatus(Resources.RerunElevated);

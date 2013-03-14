@@ -215,13 +215,10 @@ namespace ZeroInstall.Updater
                     var installationDirectory = Registry.GetValue(InnoSetupRegKey, "Inno Setup: App Path", "") as string;
                     return (installationDirectory == Target);
                 }
-                    #region Error handling
-                catch (SecurityException ex)
+                catch (SecurityException)
                 {
-                    // Wrap exception since only certain exception types are allowed in tasks
-                    throw new UnauthorizedAccessException(ex.Message, ex);
+                    return false;
                 }
-                #endregion
             }
         }
         #endregion
