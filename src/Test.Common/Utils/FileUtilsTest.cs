@@ -109,7 +109,9 @@ namespace Common.Utils
             }
             finally
             {
+                File.SetAttributes(Path.Combine(temp1, Path.Combine("subdir", "file")), FileAttributes.Normal);
                 Directory.Delete(temp1, true);
+                File.SetAttributes(Path.Combine(temp2, Path.Combine("subdir", "file")), FileAttributes.Normal);
                 Directory.Delete(temp2, true);
             }
         }
@@ -135,7 +137,9 @@ namespace Common.Utils
             }
             finally
             {
+                File.SetAttributes(Path.Combine(temp1, Path.Combine("subdir", "file")), FileAttributes.Normal);
                 Directory.Delete(temp1, true);
+                File.SetAttributes(Path.Combine(temp2, Path.Combine("subdir", "file")), FileAttributes.Normal);
                 Directory.Delete(temp2, true);
             }
         }
@@ -164,7 +168,9 @@ namespace Common.Utils
             }
             finally
             {
+                File.SetAttributes(Path.Combine(temp1, Path.Combine("subdir", "file")), FileAttributes.Normal);
                 Directory.Delete(temp1, true);
+                File.SetAttributes(Path.Combine(temp2, Path.Combine("subdir", "file")), FileAttributes.Normal);
                 Directory.Delete(temp2, true);
             }
         }
@@ -176,6 +182,7 @@ namespace Common.Utils
             Directory.CreateDirectory(subdir1);
             File.WriteAllText(Path.Combine(subdir1, "file"), @"A");
             File.SetLastWriteTimeUtc(Path.Combine(subdir1, "file"), new DateTime(2000, 1, 1));
+            File.SetAttributes(Path.Combine(subdir1, "file"), FileAttributes.ReadOnly);
             Directory.SetLastWriteTimeUtc(subdir1, new DateTime(2000, 1, 1));
             return tempPath;
         }

@@ -153,7 +153,7 @@ namespace Common.Utils
         /// <param name="sourcePath">The path of source directory. Must exist!</param>
         /// <param name="destinationPath">The path of the target directory. May exist. Must be empty if <paramref name="overwrite"/> is <see langword="false"/>.</param>
         /// <param name="preserveDirectoryModificationTime"><see langword="true"/> to preserve the modification times for directories as well; <see langword="false"/> to preserve only the file modification times.</param>
-        /// <param name="overwrite">Overwrite exisiting files and directories at the <paramref name="destinationPath"/>.</param>
+        /// <param name="overwrite">Overwrite exisiting files and directories at the <paramref name="destinationPath"/>. This will even replace read-only files!</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="sourcePath"/> and <paramref name="destinationPath"/> are equal.</exception>
         /// <exception cref="DirectoryNotFoundException">Thrown if <paramref name="sourcePath"/> does not exist.</exception>
         /// <exception cref="IOException">Thrown if <paramref name="destinationPath"/> already exists and <paramref name="overwrite"/> is <see langword="false"/>.</exception>
@@ -176,9 +176,18 @@ namespace Common.Utils
             // Copy individual files
             foreach (string sourceSubPath in Directory.GetFiles(sourcePath))
             {
-                string destinationSubPath = Path.Combine(destinationPath, Path.GetFileName(sourceSubPath) ?? "");
-                File.Copy(sourceSubPath, destinationSubPath, overwrite);
-                File.SetLastWriteTimeUtc(destinationSubPath, File.GetLastWriteTimeUtc(sourceSubPath));
+                var sourceFile = new FileInfo(sourceSubPath);
+                var destinationFile = new FileInfo(Path.Combine(destinationPath, Path.GetFileName(sourceSubPath) ?? ""));
+
+                if (destinationFile.Exists)
+                {
+                    if (!overwrite) continue;
+                    if (destinationFile.IsReadOnly) destinationFile.IsReadOnly = false;
+                }
+
+                File.Copy(sourceFile.FullName, destinationFile.FullName, overwrite);
+                destinationFile.IsReadOnly = false;
+                destinationFile.LastWriteTimeUtc = sourceFile.LastWriteTimeUtc;
             }
 
             // Recurse into sub-direcories
