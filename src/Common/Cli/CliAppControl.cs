@@ -84,7 +84,7 @@ namespace Common.Cli
             }
             #endregion
 
-            // Asynchronously buffer all StandardOutput data
+            // Asynchronously buffer all stdout data
             var outputBuffer = new StringBuilder();
             var outputReadThread = new Thread(() =>
             {
@@ -96,7 +96,7 @@ namespace Common.Cli
             }) {IsBackground = true};
             outputReadThread.Start();
 
-            // Asynchronously buffer all StandardError messages
+            // Asynchronously buffer all stderr messages
             var errorList = new Queue<string>();
             var errorReadThread = new Thread(() =>
             {
@@ -113,7 +113,7 @@ namespace Common.Cli
             // Use callback to send data into external process
             if (inputCallback != null) inputCallback(process.StandardInput);
 
-            // Start handling messages to StandardError
+            // Start handling messages to stderr
             if (errorHandler != null)
             {
                 do
@@ -136,7 +136,7 @@ namespace Common.Cli
             errorReadThread.Join();
             process.Close();
 
-            // Handle any left over StandardError messages
+            // Handle any left over stderr messages
             if (errorHandler != null)
             {
                 while (errorList.Count > 0)

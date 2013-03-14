@@ -197,13 +197,18 @@ namespace ZeroInstall.Store.Feeds
 
         #region Error handler
         /// <summary>
-        /// Provides error handling for GnuPG stderr with exceptions.
+        /// Handles GnuPG stderr output.
         /// </summary>
         /// <param name="line">The error line written to stderr.</param>
         /// <returns>Always <see langword="null"/>.</returns>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         private static string ErrorHandlerException(string line)
         {
+            if (line.StartsWith("gpg: waiting for lock"))
+            {
+                Log.Info(line);
+                return null;
+            }
             if (new Regex("gpg: skipped \"[\\w\\W]*\": bad passphrase").IsMatch(line)) throw new WrongPassphraseException();
             if (line.StartsWith("gpg: signing failed: bad passphrase")) throw new WrongPassphraseException();
             if (line.StartsWith("gpg: signing failed: file exists")) throw new IOException(Resources.SignatureAldreadyExists);
