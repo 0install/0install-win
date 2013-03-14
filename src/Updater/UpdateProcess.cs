@@ -274,7 +274,7 @@ namespace ZeroInstall.Updater
         }
         #endregion
 
-        #region Fix Permissions
+        #region Fix permissions
         /// <summary>
         /// Fixes NTFS ACLs (permissions) for shared directories.
         /// </summary>
@@ -284,7 +284,7 @@ namespace ZeroInstall.Updater
             // Do not touch ACLs in portable mode
             if (File.Exists(Path.Combine(Target, "_portable"))) return;
 
-            var directory = new DirectoryInfo(Locations.GetCacheDirPath("0install.net", true));
+            var directory = new DirectoryInfo(Path.Combine(Locations.SystemCacheDir, "0install.net"));
             if (directory.Exists)
             {
                 // Only reset ACLs if directory is not already under admin control
