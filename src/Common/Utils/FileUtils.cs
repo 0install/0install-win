@@ -182,13 +182,13 @@ namespace Common.Utils
                 if (destinationFile.Exists)
                 {
                     if (!overwrite) continue;
-                    if (WindowsUtils.IsWindows && destinationFile.IsReadOnly) destinationFile.IsReadOnly = false;
+                    if (destinationFile.IsReadOnly) destinationFile.IsReadOnly = false;
                 }
 
                 File.Copy(sourceFile.FullName, destinationFile.FullName, overwrite);
 
                 destinationFile.Refresh();
-                if (WindowsUtils.IsWindows && destinationFile.IsReadOnly) destinationFile.IsReadOnly = false;
+                if (destinationFile.IsReadOnly) destinationFile.IsReadOnly = false;
                 destinationFile.LastWriteTimeUtc = sourceFile.LastWriteTimeUtc;
             }
 
@@ -397,7 +397,7 @@ namespace Common.Utils
 
                 case PlatformID.Win32NT:
                     // Find NTFS ACL inheritance starting at any level
-                    WalkDirectory(directory, dir => ToggleWriteProtectionWinNT(dir, false), file => { });
+                    WalkDirectory(directory, dir => ToggleWriteProtectionWinNT(dir, false), file => {});
 
                     // Remove any classic read-only attributes
                     try
