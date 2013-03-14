@@ -17,9 +17,9 @@ del /q "%TargetDir%\*.tar.bz2" > NUL 2>&1
 del /q "%TargetDir%\*.exe" > NUL 2>&1
 
 rem Copy version files
-copy "%~dp0..\version" "%TargetDir%\version" > NUL
-copy "%~dp0..\version-tools" "%TargetDir%\version-tools" > NUL
-if "%BUILD_UPDATER%"=="TRUE" copy "%~dp0..\version_updater" "%TargetDir%\version_updater" > NUL
+copy "%~dp0..\VERSION" "%TargetDir%\VERSION" > NUL
+copy "%~dp0..\VERSION_TOOLS" "%TargetDir%\VERSION_TOOLS" > NUL
+if "%BUILD_UPDATER%"=="TRUE" copy "%~dp0..\VERSION_UPDATER" "%TargetDir%\VERSION_UPDATER" > NUL
 
 rem Use bundled utility EXEs
 path %~dp0utils;%path%
