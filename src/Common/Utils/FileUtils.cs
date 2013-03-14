@@ -182,11 +182,13 @@ namespace Common.Utils
                 if (destinationFile.Exists)
                 {
                     if (!overwrite) continue;
-                    if (destinationFile.IsReadOnly) destinationFile.IsReadOnly = false;
+                    if (WindowsUtils.IsWindows && destinationFile.IsReadOnly) destinationFile.IsReadOnly = false;
                 }
 
                 File.Copy(sourceFile.FullName, destinationFile.FullName, overwrite);
-                destinationFile.IsReadOnly = false;
+
+                destinationFile.Refresh();
+                if (WindowsUtils.IsWindows && destinationFile.IsReadOnly) destinationFile.IsReadOnly = false;
                 destinationFile.LastWriteTimeUtc = sourceFile.LastWriteTimeUtc;
             }
 
