@@ -188,21 +188,29 @@ namespace Common.Tasks
             }
         }
 
-        private readonly byte[] _buffer = new byte[8 * 1024];
-
         /// <summary>
         /// Writes the content of <paramref name="webStream"/> to <paramref name="fileStream"/>.
         /// </summary>
         private void WriteStreamToTarget(Stream webStream, Stream fileStream)
         {
-            int length;
+            var buffer = new byte[8 * 1024];
+            long bytesDownloaded = 0;
+            var lastProgressReport = new DateTime();
 
             // Write the response data to the file, allowing for cancellation
-            while ((length = webStream.Read(_buffer, 0, _buffer.Length)) > 0)
+            int length;
+            while ((length = webStream.Read(buffer, 0, buffer.Length)) > 0)
             {
-                fileStream.Write(_buffer, 0, length);
+                fileStream.Write(buffer, 0, length);
+                bytesDownloaded += length;
                 if (CancelRequest.WaitOne(0, false)) throw new OperationCanceledException();
-                lock (StateLock) UnitsProcessed += length;
+
+                // Only report progress once every 250ms
+                if (DateTime.UtcNow - lastProgressReport >= new TimeSpan(0, 0, 0, 0, 250))
+                {
+                    lastProgressReport = DateTime.UtcNow;
+                    lock (StateLock) UnitsProcessed = bytesDownloaded;
+                }
             }
         }
         #endregion
