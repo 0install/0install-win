@@ -165,6 +165,7 @@ namespace ZeroInstall.Updater
 
             // Stop the service
             controller.Stop();
+            Thread.Sleep(2000);
             return true;
         }
         #endregion
