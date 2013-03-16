@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Roland Leopold Walkling
+ * Copyright 2010 Roland Leopold Walkling, 2012-2013 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -132,6 +132,19 @@ namespace ZeroInstall.Store.Implementation.Archive
             Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "nestedFile")));
             Assert.IsFalse(File.Exists(Path.Combine(_sandbox, "file1")));
             Assert.IsFalse(File.Exists(Path.Combine(_sandbox, "file2")));
+        }
+
+        [Test]
+        public void EnsureSubDirDoesNotTouchFileNames()
+        {
+            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), _sandbox))
+            {
+                extractor.SubDir = "/sub/folder/nested";
+                extractor.RunSync(null);
+            }
+
+            Assert.IsFalse(Directory.Exists(Path.Combine(_sandbox, "Folder")), "Should not apply subdir matching to part of filename");
+            Assert.IsFalse(File.Exists(Path.Combine(_sandbox, "File")), "Should not apply subdir matching to part of filename");
         }
 
         [Test]

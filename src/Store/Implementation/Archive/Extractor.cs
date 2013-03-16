@@ -230,7 +230,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             if (!string.IsNullOrEmpty(SubDir))
             {
                 // Remove leading and trailing slashes
-                string subDir = FileUtils.UnifySlashes(SubDir).Trim(Path.DirectorySeparatorChar);
+                string subDir = FileUtils.UnifySlashes(SubDir).Trim(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
 
                 // Only extract objects within the selected sub-directory
                 entryName = entryName.StartsWith(subDir) ? entryName.Substring(subDir.Length) : null;
