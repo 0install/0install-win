@@ -41,13 +41,13 @@ namespace ZeroInstall.Model
         [XmlEnum("Linux")]
         Linux,
 
-        /// <summary>Supports only Solaris / OpenSolaris.</summary>
-        [XmlEnum("Solaris")]
-        Solaris,
+        /// <summary>Supports only FreeBSD.</summary>
+        [XmlEnum("FreeBSD")]
+        FreeBSD,
 
         /// <summary>Supports only MacOS X.</summary>
         [XmlEnum("MacOSX")]
-        MacOsX,
+        MacOSX,
 
         /// <summary>MacOSX, without the proprietary bits.</summary>
         [XmlEnum("Darwin")]
@@ -102,11 +102,11 @@ namespace ZeroInstall.Model
 
         /// <summary>Supports CPUs with the PowerPC-architecture (used in older Macs).</summary>
         [XmlEnum("ppc")]
-        Ppc,
+        PPC,
 
         /// <summary>Requires a 64-bit capable PowerPC CPU.</summary>
         [XmlEnum("ppc64")]
-        Ppc64,
+        PPC64,
 
         /// <summary>This is a source release and therefore architecture-independent.</summary>
         [XmlEnum("src")]
@@ -127,10 +127,10 @@ namespace ZeroInstall.Model
     {
         #region Constants
         /// <summary>A list of all known <see cref="OS"/> values.</summary>
-        public static readonly OS[] KnownOS = {OS.All, OS.Linux, OS.Solaris, OS.MacOsX, OS.Darwin, OS.Windows, OS.Cygwin};
+        public static readonly OS[] KnownOS = {OS.All, OS.Linux, OS.FreeBSD, OS.MacOSX, OS.Darwin, OS.Windows, OS.Cygwin};
 
         /// <summary>A list of all known <see cref="Cpu"/> values, except for <see cref="Model.Cpu.Source"/>.</summary>
-        public static readonly Cpu[] KnownCpu = {Cpu.All, Cpu.I386, Cpu.I486, Cpu.I586, Cpu.I686, Cpu.X64, Cpu.Ppc, Cpu.Ppc64};
+        public static readonly Cpu[] KnownCpu = {Cpu.All, Cpu.I386, Cpu.I486, Cpu.I586, Cpu.I686, Cpu.X64, Cpu.PPC, Cpu.PPC64};
         #endregion
 
         #region Properties
@@ -161,7 +161,7 @@ namespace ZeroInstall.Model
                     case PlatformID.Unix:
                         return new Architecture(OS.Linux, WindowsUtils.Is64BitProcess ? Cpu.X64 : Cpu.I586);
                     case PlatformID.MacOSX:
-                        return new Architecture(OS.MacOsX, WindowsUtils.Is64BitProcess ? Cpu.X64 : Cpu.I686);
+                        return new Architecture(OS.MacOSX, WindowsUtils.Is64BitProcess ? Cpu.X64 : Cpu.I686);
                     default:
                         return new Architecture(OS.Unknown, Cpu.Unknown);
                 }
@@ -240,7 +240,7 @@ namespace ZeroInstall.Model
 
             // Compatible supersets
             if (implementation == OS.Windows && system == OS.Cygwin) return true;
-            if (implementation == OS.Darwin && system == OS.MacOsX) return true;
+            if (implementation == OS.Darwin && system == OS.MacOSX) return true;
             if (implementation == OS.Posix && system <= OS.Posix) return true;
 
             // No match
@@ -258,7 +258,7 @@ namespace ZeroInstall.Model
             if (implementation == system || implementation == Cpu.All || system == Cpu.All) return true;
 
             // Compatible supersets
-            if (implementation == Cpu.Ppc && system == Cpu.Ppc64) return true;
+            if (implementation == Cpu.PPC && system == Cpu.PPC64) return true;
             if (implementation >= Cpu.I386 && implementation <= Cpu.X64 && system >= implementation && system <= Cpu.X64) return true;
 
             // No match

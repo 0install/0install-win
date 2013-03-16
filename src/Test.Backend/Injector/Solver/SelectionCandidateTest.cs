@@ -42,7 +42,7 @@ namespace ZeroInstall.Injector.Solver
             Assert.IsTrue(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", implementation,
                 new ImplementationPreferences(), new Requirements {Architecture = implementation.Architecture}).IsSuitable);
             Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", implementation,
-                new ImplementationPreferences(), new Requirements {Architecture = new Architecture(OS.Solaris, Cpu.Ppc)}).IsSuitable);
+                new ImplementationPreferences(), new Requirements {Architecture = new Architecture(OS.FreeBSD, Cpu.PPC)}).IsSuitable);
         }
 
         [Test]
