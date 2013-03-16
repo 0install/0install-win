@@ -6,7 +6,7 @@
     <MajorUpgrade DowngradeErrorMessage="Newer version already installed" />
 
     <Directory Id="TARGETDIR" Name="SourceDir">
-      <Directory Id="ProgramFilesFolder">
+      <Directory Id="INSTALLDIR">
         <Directory Id="APPLICATIONFOLDER" Name="Zero Install">
           <Component Id="Core" Guid="5C568C59-0D32-40E9-9666-51D8568FE02B">
             <File Source="_no_self_update_check" />
@@ -28,7 +28,7 @@
             <File Source="..\..\build\Frontend\Release\0store-win.exe.config" />
             <File Source="..\..\build\Frontend\Release\C5.dll" />
             <File Source="..\..\build\Frontend\Release\Common.dll" />
-            <File Source="..\..\build\Frontend\Release\CookComputing.XmlRpcV2.dll" />
+            <!--<File Source="..\..\build\Frontend\Release\CookComputing.XmlRpcV2.dll" />-->
             <File Source="..\..\build\Frontend\Release\EasyHook.dll" />
             <File Source="..\..\build\Frontend\Release\EasyHook32.dll" />
             <File Source="..\..\build\Frontend\Release\EasyHook32Svc.exe" />
@@ -39,7 +39,7 @@
             <File Source="..\..\build\Frontend\Release\Interop.IWshRuntimeLibrary.dll" />
             <File Source="..\..\build\Frontend\Release\LinqBridge.dll" />
             <File Source="..\..\build\Frontend\Release\Microsoft.Win32.TaskScheduler.dll" />
-            <File Source="..\..\build\Frontend\Release\Newtonsoft.Json.dll" />
+            <!--<File Source="..\..\build\Frontend\Release\Newtonsoft.Json.dll" />-->
             <File Source="..\..\build\Frontend\Release\NDesk.Options.dll" />
             <File Source="..\..\build\Frontend\Release\SevenZip.dll" />
             <File Source="..\..\build\Frontend\Release\TaskDialog.dll" />
@@ -120,17 +120,28 @@
       <Directory Id="DesktopFolder" />
       <Directory Id="ProgramMenuFolder" />
     </Directory>
+    <!--<Icon Id="StartMenuIcon" SourceFile="..\..\build\Frontend\Release\ZeroInstall.exe" />
+    <Icon Id="DesktopIcon" SourceFile="..\..\build\Frontend\Release\ZeroInstall.exe" />-->
+
+    <CustomAction Id="SetX64Folder" Directory="INSTALLDIR" Value="[ProgramFiles64Folder]" />
+    <CustomAction Id="SetX86Folder" Directory="INSTALLDIR" Value="[ProgramFilesFolder]" />
+    <!--<Custom Action="SetX64Folder" After="CostFinalize">VersionNT64</Custom>
+    <Custom Action="SetX86Folder" After="CostFinalize">NOT VersionNT64</Custom>-->
+    <PropertyRef Id="NETFRAMEWORK20" />
+    <Condition Message="This application requires .NET Framework 2.0.">Installed OR NETFRAMEWORK20</Condition>
 
     <Feature Id="DefaultFeature" Title="Zero Install" Level="1">
       <ComponentRef Id="Core" />
       <ComponentRef Id="Core_de" />
       <ComponentRef Id="GnuPG" />
       <ComponentRef Id="Solver" />
+      <!--<Feature Id="StartMenuIcon" Title="Start menu icon" Level="2">
+        <ComponentRef Id="StartMenuIcon" />
+      </Feature>
+      <Feature Id="DesktopIcon" Title="Desktop icon" Level="2">
+        <ComponentRef Id="DesktopIcon" />
+      </Feature>-->
     </Feature>
-    <PropertyRef Id="NETFRAMEWORK20" />
-    <Condition Message="This application requires .NET Framework 2.0.">Installed OR NETFRAMEWORK20</Condition>
-    <Icon Id="DesktopIcon.exe" SourceFile="..\..\build\Frontend\Release\ZeroInstall.exe" />
-    <Icon Id="StartMenuIcon.exe" SourceFile="..\..\build\Frontend\Release\ZeroInstall.exe" />
 
     <Property Id="ApplicationFolderName" Value="Zero Install" />
     <Property Id="WixAppFolder" Value="WixPerMachineFolder" />
