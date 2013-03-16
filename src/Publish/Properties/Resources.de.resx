@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="EmptyImplementation" xml:space="preserve">
+    <value>Leere Implementierung: {0}</value>
+  </data>
   <data name="FileNotFound" xml:space="preserve">
     <value>Die Datei '{0}' konnte nicht gefunden werden.</value>
   </data>

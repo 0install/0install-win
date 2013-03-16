@@ -20,11 +20,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using Common;
 using Common.Collections;
 using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Model;
+using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Implementation.Archive;
 
@@ -35,6 +37,10 @@ namespace ZeroInstall.Publish
     /// </summary>
     public static class ImplementationUtils
     {
+        #region Constants
+        private const string Sha1Empty = "da39a3ee5e6b4b0d3255bfef95601890afd80709";
+        #endregion
+
         /// <summary>
         /// Creates a new <see cref="Implementation"/> by completing a <see cref="RetrievalMethod"/> and calculating the resulting <see cref="ManifestDigest"/>.
         /// </summary>
@@ -242,6 +248,8 @@ namespace ZeroInstall.Publish
                 catch (ImplementationAlreadyInStoreException)
                 {}
             }
+
+            if (digest.Sha1New == Sha1Empty) Log.Warn(string.Format(Resources.EmptyImplementation, path));
             return digest;
         }
     }
