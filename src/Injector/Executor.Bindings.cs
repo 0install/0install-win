@@ -285,6 +285,7 @@ namespace ZeroInstall.Injector
 
             try
             {
+                if (File.Exists(deployedPath)) File.Delete(deployedPath);
                 FileUtils.CreateHardlink(deployedPath, templatePath);
             }
                 #region Error handling
@@ -293,12 +294,12 @@ namespace ZeroInstall.Injector
                 // File is probably currently in use
                 if (!File.Exists(deployedPath)) throw;
             }
-            catch (PlatformNotSupportedException)
-            {
-                // Unable to hardlink, fallback to simple copy
-                File.Copy(templatePath, deployedPath);
-            }
             catch (UnauthorizedAccessException)
+            {
+                // File is probably currently in use
+                if (!File.Exists(deployedPath)) throw;
+            }
+            catch (PlatformNotSupportedException)
             {
                 // Unable to hardlink, fallback to simple copy
                 File.Copy(templatePath, deployedPath);
