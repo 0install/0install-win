@@ -147,7 +147,7 @@ Actual value: {1}</value>
     <value>The file to be signed could not be found.</value>
   </data>
   <data name="GeneratingManifest" xml:space="preserve">
-    <value>Generating {0} manifest ({1})</value>
+    <value>Generating {0} manifest</value>
   </data>
   <data name="IllegalFileType" xml:space="preserve">
     <value>The file '{0}' is neither a symbolic link nor a regular file.</value>

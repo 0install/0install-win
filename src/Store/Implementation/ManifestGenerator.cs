@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Implementation
     {
         #region Properties
         /// <inheritdoc />
-        public override string Name { get { return string.Format(Resources.GeneratingManifest, Format, Path.GetFileName(TargetDir)); } }
+        public override string Name { get { return string.Format(Resources.GeneratingManifest, Format); } }
 
         /// <inheritdoc />
         public override bool UnitsByte { get { return true; } }

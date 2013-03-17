@@ -147,7 +147,7 @@ Tatsächlicher Wert: {1}</value>
     <value>Die Datei die signiert werden soll kann nicht gefunden werden.</value>
   </data>
   <data name="GeneratingManifest" xml:space="preserve">
-    <value>Generiere {0} Manifest ({1})</value>
+    <value>Generiere {0} Manifest</value>
   </data>
   <data name="IllegalFileType" xml:space="preserve">
     <value>Die Datei '{0}' ist weder ein symbolischer Link noch eine reguläre Datei.</value>
