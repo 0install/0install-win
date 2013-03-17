@@ -365,8 +365,8 @@ namespace ZeroInstall.Injector
             foreach (var runEnv in _runEnvPendings)
             {
                 var split = SplitCommandLine(ExpandCommandLine(runEnv.CommandLine, startInfo.EnvironmentVariables));
-                startInfo.EnvironmentVariables["0install-runenv-file-" + runEnv.ExeName] = split.Path;
-                startInfo.EnvironmentVariables["0install-runenv-args-" + runEnv.ExeName] = split.Arguments;
+                startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_FILE_" + runEnv.ExeName] = split.Path;
+                startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_ARGS_" + runEnv.ExeName] = split.Arguments;
             }
             _runEnvPendings.Clear();
 
