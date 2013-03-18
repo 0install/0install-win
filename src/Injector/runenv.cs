@@ -39,8 +39,8 @@ public class RunEnv
         if (envName.EndsWith(".exe", true, CultureInfo.InvariantCulture)) envName = envName.Substring(0, envName.Length - 4);
 
         // Read environment variables
-        string envFile = Environment.GetEnvironmentVariable("ZEROINSTALL_RUNENV_FILE_" + envName);
-        string envArgs = Environment.GetEnvironmentVariable("ZEROINSTALL_RUNENV_ARGS_" + envName);
+        string envFile = Environment.GetEnvironmentVariable("ZEROINSTALL_RUNENV_FILE_" + envName) ?? Environment.GetEnvironmentVariable("0install-runenv-file-" + envName);
+        string envArgs = Environment.GetEnvironmentVariable("ZEROINSTALL_RUNENV_ARGS_" + envName) ?? Environment.GetEnvironmentVariable("0install-runenv-args-" + envName);
         string userArgs = ConcatenateEscapeArgument(args);
 
         // Detect missing environment variables
