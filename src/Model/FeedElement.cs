@@ -29,7 +29,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Only process this element if the current Zero Install version matches the range.
         /// </summary>
-        [Description("Only process this element if the current Zero Install version matches the range.")]
+        [Browsable(false)]
         [XmlIgnore]
         public VersionRange IfZeroInstallVersion { get; set; }
 
