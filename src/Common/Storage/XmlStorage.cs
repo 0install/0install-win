@@ -335,7 +335,7 @@ namespace Common.Storage
             #endregion
 
             if (stream.CanSeek) stream.Position = 0;
-            using (var zipStream = new ZipOutputStream(stream) { IsStreamOwner = false })
+            using (var zipStream = new ZipOutputStream(stream) {IsStreamOwner = false})
             {
                 if (!string.IsNullOrEmpty(password)) zipStream.Password = password;
 

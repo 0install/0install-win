@@ -154,7 +154,7 @@ namespace Common.Storage
             T output = default(T);
 
             if (stream.CanSeek) stream.Position = 0;
-            using (var zipFile = new ZipFile(stream) { Password = password })
+            using (var zipFile = new ZipFile(stream) {Password = password})
             {
                 foreach (ZipEntry zipEntry in zipFile)
                 {
