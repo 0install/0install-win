@@ -79,7 +79,23 @@ namespace ZeroInstall.Updater.WinForms
                 bool serviceWasRunning = _updateProcess.StopService();
 
                 SetStatus(Resources.CopyFiles);
-                _updateProcess.CopyFiles();
+Retry:
+                try
+                {
+                    _updateProcess.CopyFiles();
+                }
+                    #region Error handling
+                catch (IOException ex)
+                {
+                    if (Msg.YesNo(this, ex.Message + Resources.TryAgain, MsgSeverity.Error)) goto Retry;
+                    else throw;
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    if (Msg.YesNo(this, ex.Message + Resources.TryAgain, MsgSeverity.Error)) goto Retry;
+                    else throw;
+                }
+                #endregion
 
                 SetStatus(Resources.DeleteFiles);
                 _updateProcess.DeleteFiles();

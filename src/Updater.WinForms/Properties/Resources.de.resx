@@ -144,6 +144,9 @@
   <data name="StopService" xml:space="preserve">
     <value>Beende Zero Install Store Dienst...</value>
   </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Erneut versuchen?</value>
+  </data>
   <data name="UpdateRegistry" xml:space="preserve">
     <value>Aktualisiere Registrierung...</value>
   </data>

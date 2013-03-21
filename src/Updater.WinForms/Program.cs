@@ -55,17 +55,14 @@ namespace ZeroInstall.Updater.WinForms
                 #region Error handling
             catch (IOException ex)
             {
-                Log.Error(ex);
                 Msg.Inform(null, ex.Message, MsgSeverity.Error);
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Error(ex);
                 Msg.Inform(null, ex.Message, MsgSeverity.Error);
             }
             catch (NotSupportedException ex)
             {
-                Log.Error(ex);
                 Msg.Inform(null, ex.Message, MsgSeverity.Error);
             }
             #endregion
