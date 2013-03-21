@@ -41,6 +41,10 @@ namespace ZeroInstall.Model
         [XmlEnum("Linux")]
         Linux,
 
+        /// <summary>Supports only Solaris.</summary>
+        [XmlEnum("Solaris")]
+        Solaris,
+
         /// <summary>Supports only FreeBSD.</summary>
         [XmlEnum("FreeBSD")]
         FreeBSD,
@@ -127,7 +131,7 @@ namespace ZeroInstall.Model
     {
         #region Constants
         /// <summary>A list of all known <see cref="OS"/> values.</summary>
-        public static readonly OS[] KnownOS = {OS.All, OS.Linux, OS.FreeBSD, OS.MacOSX, OS.Darwin, OS.Windows, OS.Cygwin};
+        public static readonly OS[] KnownOS = {OS.All, OS.Linux, OS.Solaris, OS.FreeBSD, OS.MacOSX, OS.Darwin, OS.Windows, OS.Cygwin};
 
         /// <summary>A list of all known <see cref="Cpu"/> values, except for <see cref="Model.Cpu.Source"/>.</summary>
         public static readonly Cpu[] KnownCpu = {Cpu.All, Cpu.I386, Cpu.I486, Cpu.I586, Cpu.I686, Cpu.X64, Cpu.PPC, Cpu.PPC64};

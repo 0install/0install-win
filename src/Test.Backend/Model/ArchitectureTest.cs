@@ -66,6 +66,7 @@ namespace ZeroInstall.Model
             Assert.IsTrue(new Architecture(OS.Darwin, Cpu.I686).IsCompatible(new Architecture(OS.MacOSX, Cpu.I686)));
             Assert.IsFalse(new Architecture(OS.MacOSX, Cpu.I686).IsCompatible(new Architecture(OS.Darwin, Cpu.I686)));
             Assert.IsTrue(new Architecture(OS.Posix, Cpu.I686).IsCompatible(new Architecture(OS.Linux, Cpu.I686)));
+            Assert.IsTrue(new Architecture(OS.Posix, Cpu.I686).IsCompatible(new Architecture(OS.Solaris, Cpu.I686)));
             Assert.IsTrue(new Architecture(OS.Posix, Cpu.I686).IsCompatible(new Architecture(OS.FreeBSD, Cpu.I686)));
             Assert.IsTrue(new Architecture(OS.Posix, Cpu.I686).IsCompatible(new Architecture(OS.Darwin, Cpu.I686)));
             Assert.IsTrue(new Architecture(OS.Posix, Cpu.I686).IsCompatible(new Architecture(OS.MacOSX, Cpu.I686)));
