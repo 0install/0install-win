@@ -631,8 +631,15 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region Drag and drop handling
+        /// <summary>
+        /// Deactivates drag and drop support. Used to prevent accidental copying within the same window.
+        /// </summary>
+        internal static bool DisableDragAndDrop { get; set; }
+
         private void MainForm_DragDrop(object sender, DragEventArgs e)
         {
+            if (DisableDragAndDrop) return;
+
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 foreach (string path in (string[])e.Data.GetData(DataFormats.FileDrop))
@@ -644,7 +651,8 @@ namespace ZeroInstall.Central.WinForms
 
         private void MainForm_DragEnter(object sender, DragEventArgs e)
         {
-            e.Effect = (e.Data.GetDataPresent(DataFormats.Text) || e.Data.GetDataPresent(DataFormats.FileDrop))
+            // Allow dropping of strings and files
+            e.Effect = (!DisableDragAndDrop && (e.Data.GetDataPresent(DataFormats.Text) || e.Data.GetDataPresent(DataFormats.FileDrop)))
                 ? DragDropEffects.Copy
                 : DragDropEffects.None;
         }

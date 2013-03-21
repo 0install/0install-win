@@ -381,6 +381,16 @@ namespace ZeroInstall.Central.WinForms
         }
         #endregion
 
+        #region Drag and drop handling
+        private void MouseDownHandler(object sender, MouseEventArgs e)
+        {
+            // Copy the interface ID and make sure it goes into another window
+            MainForm.DisableDragAndDrop = true;
+            DoDragDrop(InterfaceID, DragDropEffects.Copy);
+            MainForm.DisableDragAndDrop = true;
+        }
+        #endregion
+
         #region Helpers
         /// <summary>
         /// Opens a URL in the system's default browser.

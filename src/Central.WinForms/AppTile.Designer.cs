@@ -59,6 +59,7 @@
             this.pictureBoxIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxIcon.TabIndex = 0;
             this.pictureBoxIcon.TabStop = false;
+            this.pictureBoxIcon.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownHandler);
             // 
             // labelName
             // 
@@ -70,6 +71,7 @@
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(266, 18);
             this.labelName.TabIndex = 0;
+            this.labelName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownHandler);
             // 
             // labelSummary
             // 
