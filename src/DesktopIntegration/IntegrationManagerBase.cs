@@ -125,7 +125,7 @@ namespace ZeroInstall.DesktopIntegration
             WriteAppDir(appEntry);
 
             if (appEntry.AccessPoints != null)
-                AddAccessPointsHelper(appEntry, feedRetriever(appEntry.InterfaceID), appEntry.AccessPoints.Entries);
+                AddAccessPointsHelper(appEntry, feedRetriever(appEntry.InterfaceID), appEntry.AccessPoints.Clone().Entries);
         }
 
         /// <summary>

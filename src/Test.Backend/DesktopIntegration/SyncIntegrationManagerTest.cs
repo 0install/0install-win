@@ -155,7 +155,7 @@ namespace ZeroInstall.DesktopIntegration
                         new AppEntry
                         {
                             InterfaceID = "http://0install.de/feeds/test/test1.xml",
-                            AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = apApplied, UnapplyFlagPath = apUnapplied}}}
+                            AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = apApplied, UnapplyFlagPath = apUnapplied}, new MockAccessPoint()}}
                         }
                     }
                 };
