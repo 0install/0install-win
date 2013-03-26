@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Common;
 using Common.Collections;
 using Common.Controls;
+using Common.Info;
 using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
@@ -73,7 +74,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
                 if (machineWide) Text += @" - " + Resources.MachineWideMode;
-                labelVersion.Text = @"v" + Application.ProductVersion;
+                labelVersion.Text = @"v" + AppInfo.Current.Version;
 
                 try
                 {
