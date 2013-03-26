@@ -35,7 +35,7 @@ namespace Common.Storage
         /// <summary>
         /// The fully qualified path of the temporary directory.
         /// </summary>
-        public virtual string Path { get; private set; }
+        public string Path { get; private set; }
 
         public static implicit operator string(TemporaryDirectory dir)
         {

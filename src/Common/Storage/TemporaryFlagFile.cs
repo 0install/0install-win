@@ -37,7 +37,12 @@ namespace Common.Storage
         /// <summary>
         /// The fully qualified path of the flag file.
         /// </summary>
-        public override string Path { get { return System.IO.Path.Combine(base.Path, "flag"); }}
+        public new string Path { get { return System.IO.Path.Combine(base.Path, "flag"); } }
+
+        public static implicit operator string(TemporaryFlagFile dir)
+        {
+            return dir.Path;
+        }
 
         /// <summary>
         /// Indicates or controls whether the file exists.
