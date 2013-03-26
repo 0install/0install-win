@@ -141,7 +141,7 @@ namespace ZeroInstall.Store.Implementation
             string destinationPath = Path.Combine(workingDir, destination);
             string parentDir = Path.GetDirectoryName(destinationPath);
             if (!string.IsNullOrEmpty(parentDir) && !Directory.Exists(parentDir)) Directory.CreateDirectory(parentDir);
-            File.Copy(downloadedFile, destinationPath, true);
+            FileUtils.Replace(downloadedFile, destinationPath);
             File.SetLastWriteTimeUtc(destinationPath, FileUtils.FromUnixTime(0));
 
             // Update in flag files aswell
