@@ -84,7 +84,7 @@ namespace ZeroInstall.Store.Implementation.Archive
 
             try
             {
-                if (!Directory.Exists(TargetDir)) Directory.CreateDirectory(TargetDir);
+                if (!Directory.Exists(EffectiveTargetDir)) Directory.CreateDirectory(EffectiveTargetDir);
 
                 // Read ZIP file sequentially and reference central directory in parallel
                 int i = 0;

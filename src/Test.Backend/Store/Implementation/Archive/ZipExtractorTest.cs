@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Linq;
 using NUnit.Framework;
 using System.IO;
 using Common.Storage;
@@ -34,8 +35,8 @@ namespace ZeroInstall.Store.Implementation.Archive
                 .AddFile("file2", new byte[] {0});
             packageBuilder.AddFolder("emptyFolder");
             packageBuilder.AddFolder("sub").AddFolder("folder")
-                .AddFile("nestedFile", "File 3\n")
-                .AddFolder("nestedFolder").AddFile("doublyNestedFile", "File 4");
+                          .AddFile("nestedFile", "File 3\n")
+                          .AddFolder("nestedFolder").AddFile("doublyNestedFile", "File 4");
             _package = packageBuilder.Hierarchy;
             return packageBuilder;
         }
@@ -247,6 +248,25 @@ namespace ZeroInstall.Store.Implementation.Archive
                 Assert.DoesNotThrow(() => extractor.RunSync(null));
                 Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "emptyFile")), message);
                 Assert.AreEqual(new byte[] {}, File.ReadAllBytes(Path.Combine(_sandbox, "emptyFile")), message);
+            }
+        }
+
+        [Test]
+        public void TestExtractToCustomDestination()
+        {
+            var builder = new PackageBuilder()
+                .AddFile("emptyFile", new byte[] {});
+
+            using (var archiveStream = File.Create(Path.Combine(_sandbox, "ar.zip")))
+            {
+                builder.GeneratePackageArchive(archiveStream);
+                archiveStream.Seek(0, SeekOrigin.Begin);
+                var extractor = new ZipExtractor(archiveStream, _sandbox) {Destination = "custom"};
+
+                const string message = "ZipExtractor should correctly extract empty files in an archive to custom destination";
+                Assert.DoesNotThrow(() => extractor.RunSync(null));
+                Assert.IsTrue(File.Exists(new[] {_sandbox, "custom", "emptyFile"}.Aggregate(Path.Combine)), message);
+                Assert.AreEqual(new byte[] {}, File.ReadAllBytes(new[] {_sandbox, "custom", "emptyFile"}.Aggregate(Path.Combine)), message);
             }
         }
     }
