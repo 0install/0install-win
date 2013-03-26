@@ -4,6 +4,7 @@ using Common.Utils;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
+using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
@@ -74,6 +75,7 @@ namespace ZeroInstall.Commands
         /// <param name="integrationManager">Manages desktop integration operations.</param>
         /// <param name="interfaceID">The interface ID to create an <see cref="AppEntry"/> for. Will be updated if <see cref="Feed.ReplacedBy"/> is set and accepted by the user.</param>
         /// <exception cref="InvalidOperationException">Thrown if the application is already in the list.</exception>
+        /// <exception cref="SolverException">Thrown if the <see cref="Policy.Solver"/> could not ensure <paramref name="interfaceID"/> specifies a runnable application.</exception>
         protected AppEntry CreateAppEntry(IIntegrationManager integrationManager, ref string interfaceID)
         {
             #region Sanity checks
@@ -81,18 +83,9 @@ namespace ZeroInstall.Commands
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
             #endregion
 
-            // Detect replaced feeds
             var feed = Policy.FeedManager.GetFeed(interfaceID, Policy);
-            if (feed.ReplacedBy != null)
-            {
-                if (Policy.Handler.AskQuestion(
-                    string.Format(Resources.FeedReplacedAsk, feed.Name, interfaceID, feed.ReplacedBy.Target),
-                    string.Format(Resources.FeedReplaced, interfaceID, feed.ReplacedBy.Target)))
-                {
-                    interfaceID = feed.ReplacedBy.Target.ToString();
-                    feed = Policy.FeedManager.GetFeed(interfaceID, Policy);
-                }
-            }
+            DetectReplacement(ref interfaceID, ref feed);
+            //TryToSolve(interfaceID);
 
             var appEntry = integrationManager.AddApp(interfaceID, feed);
 
@@ -104,6 +97,33 @@ namespace ZeroInstall.Commands
             }
 
             return appEntry;
+        }
+
+        /// <summary>
+        /// Detects and handles <see cref="Feed.ReplacedBy"/>.
+        /// </summary>
+        private void DetectReplacement(ref string interfaceID, ref Feed feed)
+        {
+            if (feed.ReplacedBy != null)
+            {
+                if (Policy.Handler.AskQuestion(
+                    string.Format(Resources.FeedReplacedAsk, feed.Name, interfaceID, feed.ReplacedBy.Target),
+                    string.Format(Resources.FeedReplaced, interfaceID, feed.ReplacedBy.Target)))
+                {
+                    interfaceID = feed.ReplacedBy.Target.ToString();
+                    feed = Policy.FeedManager.GetFeed(interfaceID, Policy);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Runs the <see cref="Policy.Solver"/> and discards the result. Used to ensure <paramref name="interfaceID"/> specifies a runnable application.
+        /// </summary>
+        /// <exception cref="SolverException">Thrown if the <see cref="Policy.Solver"/> could not ensure <paramref name="interfaceID"/> specifies a runnable application.</exception>
+        private void TryToSolve(string interfaceID)
+        {
+            bool temp;
+            Policy.Solver.Solve(new Requirements {InterfaceID = interfaceID}, Policy, out temp);
         }
         #endregion
     }
