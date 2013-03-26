@@ -115,7 +115,7 @@ namespace ZeroInstall.Store.Implementation
                     if (CancelRequest.WaitOne(0, false)) throw new OperationCanceledException();
                 }
 
-                Result = new Manifest(nodes, Format);
+                Result = new Manifest(Format, nodes);
             }
                 #region Error handling
             catch (UnauthorizedAccessException ex)

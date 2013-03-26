@@ -68,9 +68,9 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Creates a new manifest.
         /// </summary>
-        /// <param name="nodes">A list of all elements in the tree this manifest represents.</param>
         /// <param name="format">The format used for <see cref="Save(Stream)"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Digest"/>.</param>
-        public Manifest(IEnumerable<ManifestNode> nodes, ManifestFormat format)
+        /// <param name="nodes">A list of all elements in the tree this manifest represents.</param>
+        public Manifest(ManifestFormat format, IEnumerable<ManifestNode> nodes)
         {
             #region Sanity checks
             if (nodes == null) throw new ArgumentNullException("nodes");
@@ -78,9 +78,23 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             Format = format;
+            _nodes = nodes.ToArray(); // Make the collection immutable
+        }
 
-            // Make the collection immutable
-            _nodes = nodes.ToArray();
+        /// <summary>
+        /// Creates a new manifest.
+        /// </summary>
+        /// <param name="format">The format used for <see cref="Save(Stream)"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Digest"/>.</param>
+        /// <param name="nodes">A list of all elements in the tree this manifest represents.</param>
+        public Manifest(ManifestFormat format, params ManifestNode[] nodes)
+        {
+            #region Sanity checks
+            if (nodes == null) throw new ArgumentNullException("nodes");
+            if (format == null) throw new ArgumentNullException("format");
+            #endregion
+
+            Format = format;
+            _nodes = nodes;
         }
         #endregion
 
@@ -166,7 +180,7 @@ namespace ZeroInstall.Store.Implementation
                 else throw new FormatException(Resources.InvalidLinesInManifest);
             }
 
-            return new Manifest(nodes, format);
+            return new Manifest(format, nodes);
         }
 
         /// <summary>
