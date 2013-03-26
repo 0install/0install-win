@@ -102,9 +102,9 @@ namespace ZeroInstall.Model
                         Steps =
                         {
                             new Archive {Location = new Uri("http://0install.de/files/test/test.zip"), Size = 1024},
+                            new SingleFile {Location = new Uri("http://0install.de/files/test/test.dat"), Size = 1024, Destination = "test.dat"},
                             new RenameStep {Source = "a", Destination = "b"},
-                            new RemoveStep {Path = "c"},
-                            new AddDirectoryStep {Path = "x/y"}
+                            new RemoveStep {Path = "c"}
                         }
                     }
                 }

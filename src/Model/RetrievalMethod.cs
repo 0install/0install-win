@@ -31,7 +31,8 @@ namespace ZeroInstall.Model
         /// </summary>
         /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing.
         /// It should not be called if you plan on serializing the feed again since it will may loose some of its structure.</remarks>
-        public abstract void Normalize();
+        public virtual void Normalize()
+        {}
 
         /// <summary>
         /// Creates a deep copy of this <see cref="RetrievalMethod"/> instance.

@@ -33,27 +33,47 @@ namespace ZeroInstall.Store.Implementation
     public class RecipeUtilsTest
     {
         [Test]
-        public void TestApplyRecipeDiretory()
+        public void TestApplyRecipeArchiv()
         {
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
             {
                 using (FileStream stream = File.Create(archiveFile))
                     TestData.GetTestZipArchiveStream().CopyTo(stream);
-                var archives = new[] {new ArchiveFileInfo {Path = archiveFile, MimeType = "application/zip"}};
+                var downloadedFiles = new[] {archiveFile};
 
-                var recipe = new Recipe
+                var recipe = new Recipe {Steps = {new Model.Archive {MimeType = "application/zip", Destination = "subDir"}}};
+                using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, new SilentTaskHandler(), null))
                 {
-                    Steps =
-                    {
-                        new Model.Archive(),
-                        new AddDirectoryStep {Path = "subdir3"},
-                    }
-                };
-                using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, archives, new SilentTaskHandler(), null))
+                    // /dest/symlink [S]
+                    string path = new[] {recipeDir, "subDir", "symlink"}.Aggregate(Path.Combine);
+                    Assert.IsTrue(File.Exists(path), "File should exist: " + path);
+                    if (!MonoUtils.IsUnix) CollectionAssert.AreEquivalent(new[] {path}, FlagUtils.GetExternalFlags(".symlink", recipeDir));
+
+                    // /dest/subdir2/executable [deleted]
+                    path = new[] {recipeDir, "subDir", "subdir2", "executable"}.Aggregate(Path.Combine);
+                    Assert.IsTrue(File.Exists(path), "File should exist: " + path);
+                    if (!MonoUtils.IsUnix) CollectionAssert.AreEquivalent(new[] {path}, FlagUtils.GetExternalFlags(".xbit", recipeDir));
+                }
+            }
+        }
+
+        [Test]
+        public void TestApplyRecipeSingleFile()
+        {
+            using (var singleFile = new TemporaryFile("0install-unit-tests"))
+            {
+                File.WriteAllText(singleFile, "data");
+                var downloadedFiles = new[] {singleFile};
+
+                var recipe = new Recipe { Steps = { new SingleFile { Destination = "subdir2/executable" } } };
+                using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, new SilentTaskHandler(), null))
                 {
-                    // /subdir3 [D]
-                    string path = Path.Combine(recipeDir, "subdir3");
-                    Assert.IsTrue(Directory.Exists(path), "Missing directory: " + path);
+                    // /subdir2/executable [!X]
+                    string path = new[] { recipeDir, "subdir2", "executable" }.Aggregate(Path.Combine);
+                    Assert.IsTrue(File.Exists(path), "File should exist: " + path);
+                    Assert.AreEqual("data", File.ReadAllText(path));
+                    Assert.AreEqual(0, File.GetLastWriteTimeUtc(path).ToUnixTime(), "Single files should be set to Unix epoch");
+                    if (!MonoUtils.IsUnix) CollectionAssert.IsEmpty(FlagUtils.GetExternalFlags(".xbit", recipeDir));
                 }
             }
         }
@@ -65,18 +85,18 @@ namespace ZeroInstall.Store.Implementation
             {
                 using (FileStream stream = File.Create(archiveFile))
                     TestData.GetTestZipArchiveStream().CopyTo(stream);
-                var archives = new[] {new ArchiveFileInfo {Path = archiveFile, MimeType = "application/zip"}};
+                var downloadedFiles = new[] {archiveFile};
 
                 var recipe = new Recipe
                 {
                     Steps =
                     {
-                        new Model.Archive(),
+                        new Model.Archive {MimeType = "application/zip"},
                         new RemoveStep {Path = "symlink"},
                         new RemoveStep {Path = "subdir2"}
                     }
                 };
-                using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, archives, new SilentTaskHandler(), null))
+                using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, new SilentTaskHandler(), null))
                 {
                     if (!MonoUtils.IsUnix)
                     {
@@ -102,18 +122,18 @@ namespace ZeroInstall.Store.Implementation
             {
                 using (FileStream stream = File.Create(archiveFile))
                     TestData.GetTestZipArchiveStream().CopyTo(stream);
-                var archives = new[] {new ArchiveFileInfo {Path = archiveFile, MimeType = "application/zip"}};
+                var downloadedFiles = new[] {archiveFile};
 
                 var recipe = new Recipe
                 {
                     Steps =
                     {
-                        new Model.Archive(),
-                        new RenameStep {Source = "symlink", Destination = "symlink2"},
+                        new Model.Archive {MimeType = "application/zip"},
+                        new RenameStep {Source = "symlink", Destination = "subdir3/symlink2"},
                         new RenameStep {Source = "subdir2/executable", Destination = "subdir2/executable2"}
                     }
                 };
-                using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, archives, new SilentTaskHandler(), null))
+                using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, new SilentTaskHandler(), null))
                 {
                     if (!MonoUtils.IsUnix)
                     {
@@ -121,7 +141,7 @@ namespace ZeroInstall.Store.Implementation
                             new[] {new[] {recipeDir, "subdir2", "executable2"}.Aggregate(Path.Combine)},
                             FlagUtils.GetExternalFlags(".xbit", recipeDir));
                         CollectionAssert.AreEquivalent(
-                            new[] {new[] {recipeDir, "symlink2"}.Aggregate(Path.Combine)},
+                            new[] {new[] {recipeDir, "subdir3", "symlink2"}.Aggregate(Path.Combine)},
                             FlagUtils.GetExternalFlags(".symlink", recipeDir));
                     }
 
@@ -129,8 +149,8 @@ namespace ZeroInstall.Store.Implementation
                     string path = Path.Combine(recipeDir, "symlink");
                     Assert.IsFalse(File.Exists(path), "File should not exist: " + path);
 
-                    // /symlink2 [S]
-                    path = Path.Combine(recipeDir, "symlink2");
+                    // /subdir3/symlink2 [S]
+                    path = new[] {recipeDir, "subdir3", "symlink2"}.Aggregate(Path.Combine);
                     Assert.IsTrue(File.Exists(path), "Missing file: " + path);
                     if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsSymlink(path), "Not symlink: " + path);
 
@@ -149,14 +169,25 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestApplyRecipeExceptions()
         {
-            Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe
-            {Steps = {new AddDirectoryStep {Path = "../dir"}}}, new ArchiveFileInfo[0], new SilentTaskHandler(), null));
+            using (var tempArchive = new TemporaryFile("0install-unit-tests"))
+            {
+                Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe {Steps = {new Model.Archive {Destination = "../destination"}}}, new[] {tempArchive}, new SilentTaskHandler(), null),
+                    "Should reject breakout path in Archive.Destination");
+            }
 
-            Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe
-            {Steps = {new RemoveStep {Path = "../file"}}}, new ArchiveFileInfo[0], new SilentTaskHandler(), null));
+            using (var tempFile = new TemporaryFile("0install-unit-tests"))
+            {
+                Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe {Steps = {new SingleFile {Destination = "../file"}}}, new[] {tempFile}, new SilentTaskHandler(), null),
+                    "Should reject breakout path in SingleFile.Destination");
+            }
 
-            Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe
-            {Steps = {new RenameStep {Source = "source", Destination = "../destination"}}}, new ArchiveFileInfo[0], new SilentTaskHandler(), null));
+            Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe {Steps = {new RemoveStep {Path = "../file"}}}, new TemporaryFile[0], new SilentTaskHandler(), null),
+                "Should reject breakout path in RemoveStep.Path");
+
+            Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe {Steps = {new RenameStep {Source = "../source", Destination = "destination"}}}, new TemporaryFile[0], new SilentTaskHandler(), null),
+                "Should reject breakout path in RenameStep.Source");
+            Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe {Steps = {new RenameStep {Source = "source", Destination = "../destination"}}}, new TemporaryFile[0], new SilentTaskHandler(), null),
+                "Should reject breakout path in RenameStep.Destination");
         }
     }
 }

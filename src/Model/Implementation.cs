@@ -40,7 +40,7 @@ namespace ZeroInstall.Model
         /// A list of <see cref="Archive"/>s as <see cref="RetrievalMethod"/>s.
         /// </summary>
         [Category("Retrieval"), Description("A list of archives as retrieval methods.")]
-        [XmlElement(typeof(Archive)), XmlElement(typeof(Recipe))]
+        [XmlElement(typeof(Archive)), XmlElement(typeof(SingleFile)), XmlElement(typeof(Recipe))]
         public C5.ArrayList<RetrievalMethod> RetrievalMethods { get { return _retrievalMethods; } }
         #endregion
 

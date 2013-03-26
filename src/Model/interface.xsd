@@ -350,6 +350,7 @@
           <xsd:element name="manifest-digest" type="feed:manifest-digest" maxOccurs="1" />
           <xsd:element name="recipe" type="feed:recipe" />
           <xsd:element name="archive" type="feed:archive" />
+          <xsd:element name="file" type="feed:file" />
           <xsd:any namespace="##other" />
         </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required">
@@ -851,10 +852,10 @@
       <xsd:extension base="feed:feed-element" />
     </xsd:complexContent>
   </xsd:complexType>
-  <xsd:complexType name="archive">
+  <xsd:complexType name="download-retrieval-method" abstract="true">
     <xsd:annotation>
       <xsd:documentation>
-        Represents an archive to be downloaded and extracted.
+        Represents a retrieval method that downloads data from the net.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
@@ -866,17 +867,28 @@
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <xsd:attribute name="size" type="xsd:long" use="required">
+          <xsd:annotation>
+            <xsd:documentation>
+              The size of the file in bytes. The file must have the given size or it will be rejected.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="archive">
+    <xsd:annotation>
+      <xsd:documentation>
+        Represents an archive to be downloaded and extracted.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="feed:download-retrieval-method">
         <xsd:attribute name="type" type="xsd:string">
           <xsd:annotation>
             <xsd:documentation>
               The type of the archive as a MIME type. If missing, the type is guessed from the extension on the 'Location' attribute. This value is case-insensitive.
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <xsd:attribute name="size" type="xsd:long" use="required">
-          <xsd:annotation>
-            <xsd:documentation>
-              The size of the archive in bytes. The archive must have the given size or it will be rejected.
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
@@ -895,6 +907,31 @@
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <xsd:attribute name="dest" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              The subdirectory within the implementation directory to extract this archive to; empty unset for top-level.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="file">
+    <xsd:annotation>
+      <xsd:documentation>
+        Represents an single file to be downloaded.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="feed:download-retrieval-method">
+        <xsd:attribute name="dest" type="xsd:string" use="required">
+          <xsd:annotation>
+            <xsd:documentation>
+              The file's target path relative to the implementation root as a Unix-style path.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -908,9 +945,9 @@
       <xsd:extension base="feed:retrieval-method">
         <xsd:choice minOccurs="1" maxOccurs="unbounded">
           <xsd:element name="archive" type="feed:archive" />
+          <xsd:element name="file" type="feed:file" />
           <xsd:element name="rename" type="feed:rename" />
           <xsd:element name="remove" type="feed:remove" />
-          <xsd:element name="add-directory" type="feed:add-directory" />
         </xsd:choice>
       </xsd:extension>
     </xsd:complexContent>
@@ -958,24 +995,6 @@
           <xsd:annotation>
             <xsd:documentation>
               The file or directory to be removed relative to the implementation root as a Unix-style path.
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:complexType name="add-directory">
-    <xsd:annotation>
-      <xsd:documentation>
-        Adds a directory. It is an error if the path is outside the implementation.
-      </xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexContent>
-      <xsd:extension base="feed:recipe-step">
-        <xsd:attribute name="path" type="xsd:string" use="required">
-          <xsd:annotation>
-            <xsd:documentation>
-              The directory to be added relative to the implementation root as a Unix-style path.
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>

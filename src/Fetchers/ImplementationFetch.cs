@@ -185,8 +185,8 @@ namespace ZeroInstall.Fetchers
             {
                 if (complexRecipe)
                 { // Complex recipes require a temporary directory to build the final implementation before adding it to the store
-                    using (var recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedArchives, handler, _digest))
-                        _fetcherInstance.Store.AddDirectory(recipeDir, _digest, handler);
+                    //using (var recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedArchives, handler, _digest))
+                    //    _fetcherInstance.Store.AddDirectory(recipeDir, _digest, handler);
                 }
                 else _fetcherInstance.Store.AddArchives(downloadedArchives, _digest, handler);
             }

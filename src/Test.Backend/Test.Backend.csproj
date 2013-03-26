@@ -123,6 +123,7 @@
     <Compile Include="Model\PackageImplementationTest.cs" />
     <Compile Include="Model\RestrictionTest.cs" />
     <Compile Include="Model\RunnerTest.cs" />
+    <Compile Include="Model\SingleFileTest.cs" />
     <Compile Include="Model\VersionRangeTest.cs" />
     <Compile Include="Model\XmlUnknownTest.cs" />
     <Compile Include="DesktopIntegration\AppListTest.cs" />

@@ -8,11 +8,10 @@
       <Method Name="CloneRecipeStep" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
-      <Property Name="LocationString" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAwAQEkAIAAAAAUAAAAIAAAAAABAAAARA=</HashCode>
+      <HashCode>AAAAAAAAAAAAQAQEkAAAAAAAEAAAAIAEAAAABAAAARA=</HashCode>
       <FileName>Archive.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -91,33 +90,19 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="ZeroInstall.Model.AddToplevelStep" BaseTypeListCollapsed="true">
-    <Position X="7.75" Y="6.5" Width="1.5" />
-    <Members>
-      <Method Name="CloneRecipeStep" Hidden="true" />
-      <Method Name="Equals" Hidden="true" />
-      <Method Name="GetHashCode" Hidden="true" />
-      <Method Name="Normalize" Hidden="true" />
-      <Method Name="ToString" Hidden="true" />
-    </Members>
+  <Class Name="ZeroInstall.Model.SingleFile">
+    <Position X="6" Y="6.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAABAAAAAAAAAEkAAAAAAAEAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>AddToplevelStep.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAEgAAAAAIAEAAAAIAEAAAAAAAAABA=</HashCode>
+      <FileName>SingleFile.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="ZeroInstall.Model.AddDirectoryStep" BaseTypeListCollapsed="true">
-    <Position X="6" Y="6.5" Width="1.5" />
-    <Members>
-      <Method Name="CloneRecipeStep" Hidden="true" />
-      <Method Name="Equals" Hidden="true" />
-      <Method Name="GetHashCode" Hidden="true" />
-      <Method Name="Normalize" Hidden="true" />
-      <Method Name="ToString" Hidden="true" />
-    </Members>
+  <Class Name="ZeroInstall.Model.DownloadRetrievalMethod" Collapsed="true">
+    <Position X="5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIEkAAAAAAAEAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>AddDirectoryStep.cs</FileName>
+      <HashCode>AAAAAAAAAAAAgAAAgAIAAAAAUAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>DownloadRetrievalMethod.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>

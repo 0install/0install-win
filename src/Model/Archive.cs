@@ -17,7 +17,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Utils;
 
@@ -28,38 +27,18 @@ namespace ZeroInstall.Model
     /// </summary>
     [Serializable]
     [XmlType("archive", Namespace = Feed.XmlNamespace)]
-    public sealed class Archive : RetrievalMethod, IRecipeStep, IEquatable<Archive>
+    public sealed class Archive : DownloadRetrievalMethod, IEquatable<Archive>
     {
         #region Properties
         /// <summary>
-        /// The URL used to locate the archive.
-        /// </summary>
-        [Description("The URL used to locate the archive.")]
-        [XmlIgnore]
-        public Uri Location { get; set; }
-
-        /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="Location"/>
-        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
-        [XmlAttribute("href"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string LocationString { get { return (Location == null ? null : Location.ToString()); } set { Location = (value == null ? null : new Uri(value)); } }
-
-        /// <summary>
-        /// The type of the archive as a MIME type. If missing, the type is guessed from the extension on the <see cref="Location"/> attribute. This value is case-insensitive.
+        /// The type of the archive as a MIME type. If missing, the type is guessed from the extension on the <see cref="DownloadRetrievalMethod.Location"/> attribute. This value is case-insensitive.
         /// </summary>
         [Description("The type of the archive as a MIME type. If missing, the type is guessed from the extension on the location attribute. This value is case-insensitive.")]
         [XmlAttribute("type"), DefaultValue("")]
         public string MimeType { get; set; }
 
         /// <summary>
-        /// The size of the archive in bytes. The archive must have the given size or it will be rejected.
-        /// </summary>
-        [Description("The size of the archive in bytes. The archive must have the given size or it will be rejected.")]
-        [XmlAttribute("size"), DefaultValue(0L)]
-        public long Size { get; set; }
-
-        /// <summary>
-        /// The number of bytes at the beginning of the file which should be ignored. The value in <see cref="Size"/> does not include the skipped bytes. 
+        /// The number of bytes at the beginning of the file which should be ignored. The value in <see cref="DownloadRetrievalMethod.Size"/> does not include the skipped bytes. 
         /// </summary>
         /// <remarks>This is useful for some self-extracting archives which are made up of a shell script followed by a normal archive in a single file.</remarks>
         [Description("The number of bytes at the beginning of the file which should be ignored. The value in the size attribute does not include the skipped bytes.")]
@@ -72,6 +51,13 @@ namespace ZeroInstall.Model
         [Description("The name of the subdirectory in the archive to extract; null for entire archive.")]
         [XmlAttribute("extract"), DefaultValue("")]
         public string Extract { get; set; }
+
+        /// <summary>
+        /// The subdirectory within the implementation directory to extract this archive to; may be <see langword="null"/>.
+        /// </summary>
+        [Description("The subdirectory within the implementation directory to extract this archive to; may be null.")]
+        [XmlAttribute("dest")]
+        public string Destination { get; set; }
         #endregion
 
         //--------------------//
@@ -92,12 +78,12 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the archive in the form "Archive: Location (MimeType, Size + StartOffset) => Extract". Not safe for parsing!
+        /// Returns the archive in the form "Archive: Location (MimeType, Size + StartOffset, Extract) => Destination". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            string result = string.Format("Archive: {0} ({1}, {2} + {3})", Location, MimeType, Size, StartOffset);
-            if (!string.IsNullOrEmpty(Extract)) result += " => " + Extract;
+            string result = string.Format("Archive: {0} ({1}, {2} + {3}, {4})", Location, MimeType, Size, StartOffset, Extract);
+            if (!string.IsNullOrEmpty(Destination)) result += " => " + Destination;
             return result;
         }
         #endregion
@@ -109,14 +95,14 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="Archive"/>.</returns>
         private Archive CloneArchive()
         {
-            return new Archive {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Location = Location, MimeType = MimeType, Size = Size, StartOffset = StartOffset, Extract = Extract};
+            return new Archive {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Location = Location, Size = Size, MimeType = MimeType, StartOffset = StartOffset, Extract = Extract, Destination = Destination};
         }
 
         /// <summary>
         /// Creates a deep copy of this <see cref="Archive"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Archive"/>.</returns>
-        public IRecipeStep CloneRecipeStep()
+        public override IRecipeStep CloneRecipeStep()
         {
             return CloneArchive();
         }
@@ -136,7 +122,7 @@ namespace ZeroInstall.Model
         public bool Equals(Archive other)
         {
             if (other == null) return false;
-            return base.Equals(other) && other.Location == Location && other.Size == Size && other.Extract == Extract && StringUtils.EqualsIgnoreCase(other.MimeType, MimeType) && other.StartOffset == StartOffset;
+            return base.Equals(other) && StringUtils.EqualsIgnoreCase(other.MimeType, MimeType) && other.StartOffset == StartOffset && other.Extract == Extract && other.Destination == Destination;
         }
 
         /// <inheritdoc/>
@@ -153,11 +139,10 @@ namespace ZeroInstall.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                if (Location != null) result = (result * 397) ^ Location.GetHashCode();
-                result = (result * 397) ^ Size.GetHashCode();
-                if (Extract != null) result = (result * 397) ^ Extract.GetHashCode();
                 if (MimeType != null) result = (result * 397) ^ StringComparer.OrdinalIgnoreCase.GetHashCode(MimeType);
                 result = (result * 397) ^ StartOffset.GetHashCode();
+                if (Extract != null) result = (result * 397) ^ Extract.GetHashCode();
+                if (Destination != null) result = (result * 397) ^ Destination.GetHashCode();
                 return result;
             }
         }

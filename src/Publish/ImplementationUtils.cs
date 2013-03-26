@@ -28,7 +28,6 @@ using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Implementation;
-using ZeroInstall.Store.Implementation.Archive;
 
 namespace ZeroInstall.Publish
 {
@@ -41,6 +40,7 @@ namespace ZeroInstall.Publish
         private const string Sha1Empty = "da39a3ee5e6b4b0d3255bfef95601890afd80709";
         #endregion
 
+        #region Build
         /// <summary>
         /// Creates a new <see cref="Implementation"/> by completing a <see cref="RetrievalMethod"/> and calculating the resulting <see cref="ManifestDigest"/>.
         /// </summary>
@@ -63,8 +63,9 @@ namespace ZeroInstall.Publish
             TemporaryDirectory implementationDir = null;
             new PerTypeDispatcher<RetrievalMethod>(false)
             {
-                (Archive archive) => implementationDir = DownloadAndExtractArchive(archive, handler),
-                (Recipe recipe) => implementationDir = ApplyRecipe(recipe, handler)
+                (Archive archive) => implementationDir = DownloadArchive(archive, handler),
+                (SingleFile file) => implementationDir = DownloadSingleFile(file, handler),
+                (Recipe recipe) => implementationDir = DownloadRecipe(recipe, handler)
             }.Dispatch(retrievalMethod);
 
             try
@@ -104,30 +105,26 @@ namespace ZeroInstall.Publish
             new PerTypeDispatcher<RetrievalMethod>(true)
             {
                 (Archive archive) =>
-                {
-                    // Download archives if digest or archive information is missing
+                { // Download archive if digest or archive information is missing
                     if (implementation.ManifestDigest == default(ManifestDigest) || archive.Size == 0)
                     {
-                        ManifestDigest digest;
-                        using (var tempDir = DownloadAndExtractArchive(archive, handler))
-                            digest = GenerateDigest(tempDir, store, handler);
-
-                        if (implementation.ManifestDigest == default(ManifestDigest))
-                        { // No existing digest, set from archive
-                            implementation.ManifestDigest = digest;
-                        }
-                        else if (digest != implementation.ManifestDigest)
-                        { // Archive does not match existing digest
-                            throw new DigestMismatchException(implementation.ManifestDigest.ToString(), null, digest.ToString(), null);
-                        }
+                        using (var tempDir = DownloadArchive(archive, handler))
+                            UpdateDigest(implementation, tempDir, store, handler);
+                    }
+                },
+                (SingleFile file) =>
+                { // Download single file if digest or file information is missing
+                    if (implementation.ManifestDigest == default(ManifestDigest) || file.Size == 0)
+                    {
+                        using (var tempDir = DownloadSingleFile(file, handler))
+                            UpdateDigest(implementation, tempDir, store, handler);
                     }
                 },
                 (Recipe recipe) =>
-                {
-                    // Download recipes if digest is missing
+                { // Download recipe if digest is missing
                     if (implementation.ManifestDigest == default(ManifestDigest))
                     {
-                        using (var tempDir = ApplyRecipe(recipe, handler))
+                        using (var tempDir = DownloadRecipe(recipe, handler))
                             implementation.ManifestDigest = GenerateDigest(tempDir, store, handler);
                     }
                 }
@@ -135,30 +132,28 @@ namespace ZeroInstall.Publish
 
             if (string.IsNullOrEmpty(implementation.ID)) implementation.ID = "sha1new=" + implementation.ManifestDigest.Sha1New;
         }
+        #endregion
 
+        #region Download
         /// <summary>
         /// Downloads and extracts an <see cref="Archive"/> and adds missing properties.
         /// </summary>
         /// <param name="archive">The <see cref="Archive"/> to be downloaded.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <returns>A temporary directory containing the contents of the archive.</returns>
-        public static TemporaryDirectory DownloadAndExtractArchive(Archive archive, ITaskHandler handler)
+        public static TemporaryDirectory DownloadArchive(Archive archive, ITaskHandler handler)
         {
             #region Sanity checks
             if (archive == null) throw new ArgumentNullException("archive");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            using (var tempFile = DownloadArchive(archive, handler))
+            using (var downloadedFile = Download(archive, handler))
             {
                 var extractionDir = new TemporaryDirectory("0publish");
                 try
                 {
-                    using (var extractor = Extractor.CreateExtractor(archive.MimeType, tempFile, 0, extractionDir))
-                    {
-                        extractor.SubDir = archive.Extract;
-                        handler.RunTask(extractor, null); // Defer task to handler
-                    }
+                    RecipeUtils.ApplyArchive(archive, downloadedFile, extractionDir, handler, null);
                     return extractionDir;
                 }
                     #region Error handling
@@ -172,60 +167,114 @@ namespace ZeroInstall.Publish
         }
 
         /// <summary>
-        /// Downloads an <see cref="Archive"/> and adds missing properties.
+        /// Downloads a <see cref="SingleFile"/> and adds missing properties.
         /// </summary>
-        /// <param name="archive">The <see cref="Archive"/> to be downloaded.</param>
+        /// <param name="file">The <see cref="SingleFile"/> to be downloaded.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <returns>A temporary file containing the archive.</returns>
-        public static TemporaryFile DownloadArchive(Archive archive, ITaskHandler handler)
+        /// <returns>A temporary directory containing the file.</returns>
+        public static TemporaryDirectory DownloadSingleFile(SingleFile file, ITaskHandler handler)
         {
             #region Sanity checks
-            if (archive == null) throw new ArgumentNullException("archive");
+            if (file == null) throw new ArgumentNullException("file");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // Guess missing MIME type
-            if (String.IsNullOrEmpty(archive.MimeType)) archive.MimeType = ArchiveUtils.GuessMimeType(archive.Location.ToString());
-
-            // Download the arhive
-            var archiveFile = new TemporaryFile("0publish");
-            handler.RunTask(new DownloadFile(archive.Location, archiveFile), null); // Defer task to handler
-
-            // Set downloaded file size
-            archive.Size = new FileInfo(archiveFile).Length;
-
-            return archiveFile;
+            using (var downloadedFile = Download(file, handler))
+            {
+                var extractionDir = new TemporaryDirectory("0publish");
+                try
+                {
+                    RecipeUtils.ApplySingleFile(file, downloadedFile, extractionDir);
+                    return extractionDir;
+                }
+                    #region Error handling
+                catch
+                {
+                    extractionDir.Dispose();
+                    throw;
+                }
+                #endregion
+            }
         }
 
         /// <summary>
-        /// Applies a <see cref="Recipe"/> and adds missing properties.
+        /// Downloads a <see cref="DownloadRetrievalMethod"/> and adds missing properties.
+        /// </summary>
+        /// <param name="retrievalMethod">The <see cref="DownloadRetrievalMethod"/> to be downloaded.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
+        /// <returns>A downloaded file.</returns>
+        private static TemporaryFile Download(DownloadRetrievalMethod retrievalMethod, ITaskHandler handler)
+        {
+            #region Sanity checks
+            if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
+            // Ensure things like MIME types are not lost
+            retrievalMethod.Normalize();
+
+            // Download the file
+            var downloadedFile = new TemporaryFile("0publish");
+            handler.RunTask(new DownloadFile(retrievalMethod.Location, downloadedFile), null); // Defer task to handler
+
+            // Set downloaded file size
+            retrievalMethod.Size = new FileInfo(downloadedFile).Length;
+
+            return downloadedFile;
+        }
+
+        /// <summary>
+        /// Downloads and applies a <see cref="Recipe"/> and adds missing properties.
         /// </summary>
         /// <param name="recipe">The <see cref="Recipe"/> to be applied.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <returns>A temporary directory containing the result of the recipe.</returns>
-        public static TemporaryDirectory ApplyRecipe(Recipe recipe, ITaskHandler handler)
+        public static TemporaryDirectory DownloadRecipe(Recipe recipe, ITaskHandler handler)
         {
             #region Sanity checks
             if (recipe == null) throw new ArgumentNullException("recipe");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var downloadedArchives = new List<ArchiveFileInfo>();
+            var downloadedFiles = new List<TemporaryFile>();
             try
             {
-                // Download all archives required by the recipe
                 // ReSharper disable LoopCanBeConvertedToQuery
-                foreach (var archive in recipe.Steps.OfType<Archive>())
-                    downloadedArchives.Add(new ArchiveFileInfo {Path = DownloadArchive(archive, handler), SubDir = archive.Extract, MimeType = archive.MimeType});
+                foreach (var step in recipe.Steps.OfType<DownloadRetrievalMethod>())
+                    downloadedFiles.Add(Download(step, handler));
                 // ReSharper restore LoopCanBeConvertedToQuery
 
                 // Apply the recipe
-                return RecipeUtils.ApplyRecipe(recipe, downloadedArchives, handler, null);
+                return RecipeUtils.ApplyRecipe(recipe, downloadedFiles, handler, null);
             }
             finally
             {
                 // Clean up temporary archive files
-                foreach (var archive in downloadedArchives) File.Delete(archive.Path);
+                foreach (var downloadedFile in downloadedFiles) downloadedFile.Dispose();
+            }
+        }
+        #endregion
+
+        #region Digest helpers
+        /// <summary>
+        /// Updates the <see cref="ManifestDigest"/> in an <see cref="Implementation"/>.
+        /// </summary>
+        /// <param name="implementation">The <see cref="Implementation"/> to update.</param>
+        /// <param name="path">The path of the directory to generate the digest for.</param>
+        /// <param name="store"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
+        /// <returns>The newly generated digest.</returns>
+        private static void UpdateDigest(Implementation implementation, string path, bool store, ITaskHandler handler)
+        {
+            var digest = GenerateDigest(path, store, handler);
+
+            if (implementation.ManifestDigest == default(ManifestDigest))
+            { // No existing digest, set from file
+                implementation.ManifestDigest = digest;
+            }
+            else if (digest != implementation.ManifestDigest)
+            { // File does not match existing digest
+                throw new DigestMismatchException(implementation.ManifestDigest.ToString(), null, digest.ToString(), null);
             }
         }
 
@@ -252,5 +301,6 @@ namespace ZeroInstall.Publish
             if (digest.Sha1New == Sha1Empty) Log.Warn(string.Format(Resources.EmptyImplementation, path));
             return digest;
         }
+        #endregion
     }
 }

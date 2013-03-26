@@ -21,18 +21,18 @@ using NUnit.Framework;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// Contains test methods for <see cref="Archive"/>.
+    /// Contains test methods for <see cref="SingleFile"/>.
     /// </summary>
     [TestFixture]
-    public class ArchiveTest
+    public class SingleFileTest
     {
         #region Helpers
         /// <summary>
-        /// Creates a fictive test <see cref="Archive"/>.
+        /// Creates a fictive test <see cref="SingleFile"/>.
         /// </summary>
-        internal static Archive CreateTestArchive()
+        internal static SingleFile CreateTestSingleFile()
         {
-            return new Archive {Location = new Uri("http://0install.de/files/test/test.exe"), MimeType = "application/zip", Size = 128, StartOffset = 16, Extract = "extract", Destination = "dest"};
+            return new SingleFile {Location = new Uri("http://0install.de/files/test/test.exe"), Size = 128, Destination = "dest"};
         }
         #endregion
 
@@ -42,13 +42,13 @@ namespace ZeroInstall.Model
         [Test]
         public void TestClone()
         {
-            var archive1 = CreateTestArchive();
-            var archive2 = archive1.CloneRecipeStep();
+            var singleFile1 = CreateTestSingleFile();
+            var singleFile2 = singleFile1.CloneRecipeStep();
 
             // Ensure data stayed the same
-            Assert.AreEqual(archive1, archive2, "Cloned objects should be equal.");
-            Assert.AreEqual(archive1.GetHashCode(), archive2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(archive1, archive2), "Cloning should not return the same reference.");
+            Assert.AreEqual(singleFile1, singleFile2, "Cloned objects should be equal.");
+            Assert.AreEqual(singleFile1.GetHashCode(), singleFile2.GetHashCode(), "Cloned objects' hashes should be equal.");
+            Assert.IsFalse(ReferenceEquals(singleFile1, singleFile2), "Cloning should not return the same reference.");
         }
     }
 }

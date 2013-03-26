@@ -55,7 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
-    <Compile Include="AddDirectoryStep.cs" />
     <Compile Include="Architecture.cs" />
     <Compile Include="ArgBase.cs" />
     <Compile Include="Capabilities\AppRegistration.cs" />
@@ -83,6 +82,8 @@
     <Compile Include="Constraint.cs" />
     <Compile Include="Dependency.cs" />
     <Compile Include="Design\ArgBaseConverter.cs" />
+    <Compile Include="DownloadRetrievalMethod.cs" />
+    <Compile Include="SingleFile.cs" />
     <Compile Include="ForEachArgs.cs" />
     <Compile Include="ManifestDigestPartialEqualityComparer.cs" />
     <Compile Include="Arg.cs" />

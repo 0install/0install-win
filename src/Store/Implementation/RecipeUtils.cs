@@ -37,102 +37,186 @@ namespace ZeroInstall.Store.Implementation
         /// Applies a <see cref="Recipe"/> to a <see cref="TemporaryDirectory"/>.
         /// </summary>
         /// <param name="recipe">The <see cref="Recipe"/> to apply.</param>
-        /// <param name="archiveInfos">Archives downloaded for the the <paramref name="recipe"/>. Must be in same order as <see cref="Archive"/> elements in <paramref name="recipe"/>.</param>
+        /// <param name="downloadedFiles">Files downloaded for the the <paramref name="recipe"/>. Must be in same order as <see cref="DownloadRetrievalMethod"/> elements in <paramref name="recipe"/>.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
         /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>.</param>
         /// <returns>A <see cref="TemporaryDirectory"/> with the resulting directory content.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if <paramref name="recipe"/> contains unknown <see cref="IRecipeStep"/>s.</exception>
-        public static TemporaryDirectory ApplyRecipe(Recipe recipe, IEnumerable<ArchiveFileInfo> archiveInfos, ITaskHandler handler, object tag)
+        public static TemporaryDirectory ApplyRecipe(Recipe recipe, IEnumerable<TemporaryFile> downloadedFiles, ITaskHandler handler, object tag)
         {
             #region Sanity checks
             if (recipe == null) throw new ArgumentNullException("recipe");
-            if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
+            if (downloadedFiles == null) throw new ArgumentNullException("downloadedFiles");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var targetDir = new TemporaryDirectory("0install-recipe");
+            var workingDir = new TemporaryDirectory("0install-recipe");
 
             try
             {
-                IEnumerator<ArchiveFileInfo> archivesEnum = archiveInfos.GetEnumerator();
+                IEnumerator<TemporaryFile> downloadedEnum = downloadedFiles.GetEnumerator();
                 // ReSharper disable AccessToDisposedClosure
                 new PerTypeDispatcher<IRecipeStep>(false)
                 {
                     (Model.Archive step) =>
                     {
-                        archivesEnum.MoveNext();
-                        ApplyArchive(archivesEnum.Current, targetDir, handler, tag);
+                        downloadedEnum.MoveNext();
+                        ApplyArchive(step, downloadedEnum.Current, workingDir, handler, tag);
                     },
-                    (AddDirectoryStep step) => ApplyAddDirectory(step, targetDir),
-                    (RemoveStep step) => ApplyRemove(step, targetDir),
-                    (RenameStep step) => ApplyRename(step, targetDir)
+                    (SingleFile step) =>
+                    {
+                        downloadedEnum.MoveNext();
+                        ApplySingleFile(step, downloadedEnum.Current, workingDir);
+                    },
+                    (RemoveStep step) => ApplyRemove(step, workingDir),
+                    (RenameStep step) => ApplyRename(step, workingDir)
                 }.Dispatch(recipe.Steps);
                 // ReSharper restore AccessToDisposedClosure
-                return targetDir;
+                return workingDir;
             }
                 #region Error handling
             catch (Exception)
             {
-                targetDir.Dispose();
+                workingDir.Dispose();
                 throw;
             }
             #endregion
         }
 
-        private static void ApplyArchive(ArchiveFileInfo archive, string targetDir, ITaskHandler handler, object tag)
+        /// <summary>
+        /// Applies a <see cref="Model.Archive"/> to a <see cref="TemporaryDirectory"/>.
+        /// </summary>
+        /// <param name="step">The <see cref="Model.Archive"/> to apply.</param>
+        /// <param name="downloadedFile">The file downloaded from <see cref="DownloadRetrievalMethod.Location"/>.</param>
+        /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
+        /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
+        /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>.</param>
+        /// <exception cref="IOException">Thrown if a path specified in <paramref name="step"/> is illegal.</exception>
+        public static void ApplyArchive(Model.Archive step, TemporaryFile downloadedFile, TemporaryDirectory workingDir, ITaskHandler handler, object tag)
         {
-            using (Extractor extractor = Extractor.CreateExtractor(archive.MimeType, archive.Path, archive.StartOffset, targetDir))
+            #region Sanity checks
+            if (step == null) throw new ArgumentNullException("step");
+            if (downloadedFile == null) throw new ArgumentNullException("downloadedFile");
+            if (workingDir == null) throw new ArgumentNullException("workingDir");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
+            #region Path validation
+            if (!string.IsNullOrEmpty(step.Destination))
             {
-                extractor.SubDir = archive.SubDir;
+                string destination = FileUtils.UnifySlashes(step.Destination);
+                if (FileUtils.IsBreakoutPath(destination)) throw new IOException(string.Format(Resources.RecipeInvalidPath, destination));
+            }
+            #endregion
+
+            using (Extractor extractor = Extractor.CreateExtractor(step.MimeType, downloadedFile, step.StartOffset, workingDir))
+            {
+                extractor.SubDir = step.Extract;
+                extractor.Destination = FileUtils.UnifySlashes(step.Destination);
                 handler.RunTask(extractor, tag); // Defer task to handler
             }
         }
 
-        private static void ApplyAddDirectory(AddDirectoryStep step, string targetDir)
+        /// <summary>
+        /// Applies a <see cref="SingleFile"/> to a <see cref="TemporaryDirectory"/>.
+        /// </summary>
+        /// <param name="step">The <see cref="Model.Archive"/> to apply.</param>
+        /// <param name="downloadedFile">The file downloaded from <see cref="DownloadRetrievalMethod.Location"/>.</param>
+        /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
+        /// <exception cref="IOException">Thrown if a path specified in <paramref name="step"/> is illegal.</exception>
+        public static void ApplySingleFile(SingleFile step, TemporaryFile downloadedFile, TemporaryDirectory workingDir)
         {
-            string path = FileUtils.UnifySlashes(step.Path);
-            if (FileUtils.IsBreakoutPath(path)) throw new IOException(string.Format(Resources.RecipeInvalidPath, path));
+            #region Sanity checks
+            if (step == null) throw new ArgumentNullException("step");
+            if (downloadedFile == null) throw new ArgumentNullException("downloadedFile");
+            if (workingDir == null) throw new ArgumentNullException("workingDir");
+            #endregion
 
-            // Create the directory
-            Directory.CreateDirectory(Path.Combine(targetDir, path));
+            #region Path validation
+            if (string.IsNullOrEmpty(step.Destination)) throw new IOException(string.Format(Resources.RecipeInvalidPath, "(empty)"));
+            string destination = FileUtils.UnifySlashes(step.Destination);
+            if (FileUtils.IsBreakoutPath(destination)) throw new IOException(string.Format(Resources.RecipeInvalidPath, destination));
+            #endregion
+
+            string destinationPath = Path.Combine(workingDir, destination);
+            string parentDir = Path.GetDirectoryName(destinationPath);
+            if (!string.IsNullOrEmpty(parentDir) && !Directory.Exists(parentDir)) Directory.CreateDirectory(parentDir);
+            File.Copy(downloadedFile, destinationPath, true);
+            File.SetLastWriteTimeUtc(destinationPath, FileUtils.FromUnixTime(0));
+
+            // Update in flag files aswell
+            string xbitFile = Path.Combine(workingDir, ".xbit");
+            if (FlagUtils.GetExternalFlags(".xbit", workingDir).Contains(destinationPath))
+                FlagUtils.RemoveExternalFlag(xbitFile, destinationPath);
         }
 
-        private static void ApplyRemove(RemoveStep step, string targetDir)
+        /// <summary>
+        /// Applies a <see cref="RemoveStep"/> to a <see cref="TemporaryDirectory"/>.
+        /// </summary>
+        /// <param name="step">The <see cref="Model.Archive"/> to apply.</param>
+        /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
+        /// <exception cref="IOException">Thrown if a path specified in <paramref name="step"/> is illegal.</exception>
+        public static void ApplyRemove(RemoveStep step, TemporaryDirectory workingDir)
         {
+            #region Sanity checks
+            if (step == null) throw new ArgumentNullException("step");
+            if (workingDir == null) throw new ArgumentNullException("workingDir");
+            #endregion
+
+            #region Path validation
+            if (string.IsNullOrEmpty(step.Path)) throw new IOException(string.Format(Resources.RecipeInvalidPath, "(empty)"));
             string path = FileUtils.UnifySlashes(step.Path);
             if (FileUtils.IsBreakoutPath(path)) throw new IOException(string.Format(Resources.RecipeInvalidPath, path));
+            #endregion
 
             // Delete the element
-            string absolutePath = Path.Combine(targetDir, path);
+            string absolutePath = Path.Combine(workingDir, path);
             if (File.Exists(absolutePath)) File.Delete(absolutePath);
             else if (Directory.Exists(absolutePath)) Directory.Delete(absolutePath, true);
 
             // Remove from flag files aswell
-            FlagUtils.RemoveExternalFlag(Path.Combine(targetDir, ".xbit"), path);
-            FlagUtils.RemoveExternalFlag(Path.Combine(targetDir, ".symlink"), path);
+            FlagUtils.RemoveExternalFlag(Path.Combine(workingDir, ".xbit"), path);
+            FlagUtils.RemoveExternalFlag(Path.Combine(workingDir, ".symlink"), path);
         }
 
-        private static void ApplyRename(RenameStep step, string targetDir)
+        /// <summary>
+        /// Applies a <see cref="RenameStep"/> to a <see cref="TemporaryDirectory"/>.
+        /// </summary>
+        /// <param name="step">The <see cref="Model.Archive"/> to apply.</param>
+        /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
+        /// <exception cref="IOException">Thrown if a path specified in <paramref name="step"/> is illegal.</exception>
+        public static void ApplyRename(RenameStep step, TemporaryDirectory workingDir)
         {
+            #region Sanity checks
+            if (step == null) throw new ArgumentNullException("step");
+            if (workingDir == null) throw new ArgumentNullException("workingDir");
+            #endregion
+
+            #region Path validation
+            if (string.IsNullOrEmpty(step.Source)) throw new IOException(string.Format(Resources.RecipeInvalidPath, "(empty)"));
+            if (string.IsNullOrEmpty(step.Destination)) throw new IOException(string.Format(Resources.RecipeInvalidPath, "(empty)"));
             string source = FileUtils.UnifySlashes(step.Source);
             string destination = FileUtils.UnifySlashes(step.Destination);
             if (FileUtils.IsBreakoutPath(source)) throw new IOException(string.Format(Resources.RecipeInvalidPath, source));
             if (FileUtils.IsBreakoutPath(destination)) throw new IOException(string.Format(Resources.RecipeInvalidPath, destination));
+            #endregion
 
             // Rename the element
-            string sourcePath = Path.Combine(targetDir, source);
-            string destinationPath = Path.Combine(targetDir, destination);
+            string sourcePath = Path.Combine(workingDir, source);
+            string destinationPath = Path.Combine(workingDir, destination);
+            string parentDir = Path.GetDirectoryName(destinationPath);
+            if (!string.IsNullOrEmpty(parentDir) && !Directory.Exists(parentDir)) Directory.CreateDirectory(parentDir);
             File.Move(sourcePath, destinationPath);
 
             // Update in flag files aswell
-            string xbitFile = Path.Combine(targetDir, ".xbit");
-            if (FlagUtils.GetExternalFlags(".xbit", targetDir).Contains(sourcePath))
+            string xbitFile = Path.Combine(workingDir, ".xbit");
+            if (FlagUtils.GetExternalFlags(".xbit", workingDir).Contains(sourcePath))
             {
                 FlagUtils.RemoveExternalFlag(xbitFile, source);
                 FlagUtils.SetExternalFlag(xbitFile, destination);
             }
-            string symlinkFile = Path.Combine(targetDir, ".symlink");
-            if (FlagUtils.GetExternalFlags(".symlink", targetDir).Contains(sourcePath))
+            string symlinkFile = Path.Combine(workingDir, ".symlink");
+            if (FlagUtils.GetExternalFlags(".symlink", workingDir).Contains(sourcePath))
             {
                 FlagUtils.RemoveExternalFlag(symlinkFile, source);
                 FlagUtils.SetExternalFlag(symlinkFile, destination);
