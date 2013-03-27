@@ -79,11 +79,11 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copying file.
+        ///   Looks up a localized string similar to Copying files.
         /// </summary>
-        internal static string CopyingFiles {
+        internal static string CopyFiles {
             get {
-                return ResourceManager.GetString("CopyingFiles", resourceCulture);
+                return ResourceManager.GetString("CopyFiles", resourceCulture);
             }
         }
         
