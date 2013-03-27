@@ -123,6 +123,9 @@
   <data name="ArchiveInvalidPath" xml:space="preserve">
     <value>Das Archiv enthält einen ungültigen Pfad (möglicherweise ein Sicherheitsrisiko): {0}</value>
   </data>
+  <data name="CopyingFiles" xml:space="preserve">
+    <value>Kopiere Datei</value>
+  </data>
   <data name="DeletingDirectory" xml:space="preserve">
     <value>Lösche Verzeichnis {0}</value>
   </data>

@@ -284,7 +284,8 @@ namespace ZeroInstall.Store.Implementation
                 // Copy the source directory inside the cache so it can be validated safely (no manipulation of directory while validating)
                 try
                 {
-                    FileUtils.CopyDirectory(path, tempDir, true, false);
+                    handler.RunTask(new SimpleTask(Resources.CopyingFiles,
+                        () => FileUtils.CopyDirectory(path, tempDir, true, false)), manifestDigest);
                 }
                     #region Error handling
                 catch (IOException ex)

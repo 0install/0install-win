@@ -123,6 +123,9 @@
   <data name="ArchiveInvalidPath" xml:space="preserve">
     <value>The archive contains an invalid path (potentially a security risk): {0}</value>
   </data>
+  <data name="CopyingFiles" xml:space="preserve">
+    <value>Copying file</value>
+  </data>
   <data name="DeletingDirectory" xml:space="preserve">
     <value>Deleting directory {0}</value>
   </data>

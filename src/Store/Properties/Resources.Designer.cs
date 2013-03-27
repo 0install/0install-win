@@ -79,6 +79,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copying file.
+        /// </summary>
+        internal static string CopyingFiles {
+            get {
+                return ResourceManager.GetString("CopyingFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deleting directory {0}.
         /// </summary>
         internal static string DeletingDirectory {
