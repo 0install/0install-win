@@ -56,7 +56,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         {
             var newKey = (string)e.Argument;
             var policy = Policy.CreateDefault(this);
-            using (var sync = SyncFactory.Create(MachineWide, policy, newKey))
+            using (var sync = SyncFactory.Create(MachineWide, policy, SyncServer, SyncCredentials.Username, SyncCredentials.Password, newKey))
                 sync.Sync(SyncResetMode.Server);
         }
 

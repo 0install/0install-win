@@ -68,5 +68,30 @@ namespace ZeroInstall.Commands
                 feedID => policy.FeedManager.GetFeed(feedID, policy),
                 policy.Handler);
         }
+
+        /// <summary>
+        /// Creates a new <see cref="SyncIntegrationManager"/> using a custom server and credentials.
+        /// </summary>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
+        /// <param name="policy">The source for configuration information and feed retrieval.</param>
+        /// <param name="syncServer">The base URL of the sync server; overrides <see cref="Config.SyncServer"/>.</param>
+        /// <param name="username">The username to authenticate with against the <paramref name="syncServer"/>; overrides <see cref="Config.SyncServerUsername"/>.</param>
+        /// <param name="password">The password to authenticate with against the <paramref name="syncServer"/>; overrides <see cref="Config.SyncServerPassword"/>.</param>
+        /// <param name="cryptoKey">The crypto key to use; overrides <see cref="Config.SyncCryptoKey"/>; overrides <see cref="Config.SyncCryptoKey"/>.</param>
+        /// <returns>A new <see cref="SyncIntegrationManager"/> instance.</returns>
+        public static SyncIntegrationManager Create(bool machineWide, Policy policy, Uri syncServer, string username, string password, string cryptoKey)
+        {
+            #region Sanity checks
+            if (policy == null) throw new ArgumentNullException("policy");
+            #endregion
+
+            return new SyncIntegrationManager(machineWide,
+                syncServer,
+                username,
+                password,
+                cryptoKey,
+                feedID => policy.FeedManager.GetFeed(feedID, policy),
+                policy.Handler);
+        }
     }
 }
