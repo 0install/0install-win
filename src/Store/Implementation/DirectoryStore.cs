@@ -328,6 +328,7 @@ namespace ZeroInstall.Store.Implementation
                     using (var extractor = Extractor.CreateExtractor(archiveInfo.MimeType, archiveInfo.Path, archiveInfo.StartOffset, tempDir))
                     {
                         extractor.SubDir = archiveInfo.SubDir;
+                        extractor.Destination = archiveInfo.Destination;
                         handler.RunTask(extractor, manifestDigest); // Defer task to handler
                     }
                 }

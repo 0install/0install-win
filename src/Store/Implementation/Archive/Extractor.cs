@@ -66,7 +66,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         public string TargetDir { get; protected set; }
 
         /// <summary>
-        /// Sub-path to be appended to <see cref="TargetDir"/> without affecting location of flag files.
+        /// Sub-path to be appended to <see cref="TargetDir"/> without affecting location of flag files; <see langword="null"/> for none.
         /// </summary>
         [Description("Sub-path to be appended to TargetDir without affecting location of flag files.")]
         public string Destination { get; set; }

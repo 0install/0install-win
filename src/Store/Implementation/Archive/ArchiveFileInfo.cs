@@ -37,6 +37,11 @@ namespace ZeroInstall.Store.Implementation.Archive
         public string SubDir { get; set; }
 
         /// <summary>
+        /// Sub-path to be appended to the target directory without affecting location of flag files; <see langword="null"/> for none.
+        /// </summary>
+        public string Destination { get; set; }
+
+        /// <summary>
         /// The MIME type of archive format of the file; <see langword="null"/> to guess.
         /// </summary>
         public string MimeType { get; set; }
