@@ -358,7 +358,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <typeparam name="T">The specific kind of <see cref="AccessPoints.CommandAccessPoint"/> to handle.</typeparam>
         /// <param name="checkBox">The <see cref="CheckBox"/> to configure.</param>
-        /// <param name="label">A description for the <paramref name="checkBox."/></param>
+        /// <param name="label">A description for the <paramref name="checkBox"/>.</param>
         /// <param name="accessPoints">The currently applied <see cref="AccessPoints.CommandAccessPoint"/>.</param>
         /// <param name="getSuggestions">Retrieves a list of default <see cref="AccessPoints.CommandAccessPoint"/> suggested by the system.</param>
         private static void SetCommandAccessPointCheckBox<T>(CheckBox checkBox, Label label, IEnumerable<T> accessPoints, Func<IEnumerable<T>> getSuggestions)
@@ -373,7 +373,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <typeparam name="T">The specific kind of <see cref="AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
         /// <param name="checkBox">The <see cref="CheckBox"/> to configure.</param>
-        /// <param name="label">A description for the <paramref name="checkBox."/></param>
+        /// <param name="label">A description for the <paramref name="checkBox"/>.</param>
         /// <param name="model">A model represeting the underlying <see cref="Capabilities.DefaultCapability"/>s and their selection states.</param>
         private static void SetDefaultAccessPointCheckBox<T>(CheckBox checkBox, Label label, BindingList<T> model)
             where T : CapabilityModel
