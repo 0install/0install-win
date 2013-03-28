@@ -69,7 +69,7 @@ namespace Common.Values.Design
         {
             var enumValue = value as Enum;
             if (enumValue != null && destinationType == typeof(string))
-                return ((Enum)value).GetEnumAttributeValue((XmlEnumAttribute attribute) => attribute.Name);
+                return enumValue.GetEnumAttributeValue((XmlEnumAttribute attribute) => attribute.Name);
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }

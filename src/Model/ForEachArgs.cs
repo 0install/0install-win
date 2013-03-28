@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Collections;
 
@@ -26,7 +27,7 @@ namespace ZeroInstall.Model
     /// Expands an environment variable to multiple arguments.
     /// The variable specified in <see cref="ItemFrom"/> is split using <see cref="Separator"/> and the <see cref="Arguments"/> are added once for each item.
     /// </summary>
-    [Serializable]
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [XmlType("for-each", Namespace = Feed.XmlNamespace)]
     public class ForEachArgs : ArgBase, IEquatable<ForEachArgs>
     {

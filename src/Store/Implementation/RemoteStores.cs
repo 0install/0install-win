@@ -35,6 +35,10 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         public static IEnumerable<ManifestDigest> ListAllSafe(this IStore store)
         {
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException("store");
+            #endregion
+
             try
             {
                 return store.ListAll();
@@ -58,6 +62,10 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         public static IEnumerable<string> ListAllTempSafe(this IStore store)
         {
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException("store");
+            #endregion
+
             try
             {
                 return store.ListAllTemp();
@@ -81,6 +89,10 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         public static bool ContainsSafe(this IStore store, ManifestDigest manifestDigest)
         {
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException("store");
+            #endregion
+
             try
             {
                 return store.Contains(manifestDigest);
@@ -99,6 +111,10 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         public static bool ContainsSafe(this IStore store, string directory)
         {
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException("store");
+            #endregion
+
             try
             {
                 return store.Contains(directory);
@@ -117,6 +133,10 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         public static string GetPathSafe(this IStore store, ManifestDigest manifestDigest)
         {
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException("store");
+            #endregion
+
             try
             {
                 return store.GetPath(manifestDigest);
@@ -139,6 +159,10 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         public static bool RemoveSafe(this IStore store, ManifestDigest manifestDigest)
         {
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException("store");
+            #endregion
+
             try
             {
                 if (store.Contains(manifestDigest))
@@ -162,6 +186,10 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         public static void OptimiseSafe(this IStore store, ITaskHandler handler)
         {
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException("store");
+            #endregion
+
             try
             {
                 store.Optimise(handler);
@@ -187,6 +215,10 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         public static void VerifySafe(this IStore store, ManifestDigest manifestDigest, ITaskHandler handler)
         {
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException("store");
+            #endregion
+
             try
             {
                 store.Verify(manifestDigest, handler);
@@ -204,6 +236,10 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         public static IEnumerable<DigestMismatchException> AuditSafe(this IStore store, ITaskHandler handler)
         {
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException("store");
+            #endregion
+
             try
             {
                 return store.Audit(handler);

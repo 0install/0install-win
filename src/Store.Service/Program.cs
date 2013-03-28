@@ -45,7 +45,7 @@ namespace ZeroInstall.Store.Service
             string mutexName = "mutex-" + Locations.InstallBase.Hash(MD5.Create());
             if (AppMutex.Probe(mutexName + "-update")) return 1;
 
-            if (args.Length == 0)
+            if (args == null || args.Length == 0)
             {
                 // NOTE: Do not block updater from starting because it will automatically stop service
 
@@ -62,7 +62,7 @@ namespace ZeroInstall.Store.Service
                 }
 
                 string command = args[0].ToLowerInvariant();
-                bool silent = args.Contains("--silent", StringComparer.InvariantCultureIgnoreCase);
+                bool silent = args.Contains("--silent", StringComparer.OrdinalIgnoreCase);
                 try
                 {
                     return HandleCommand(command, silent);

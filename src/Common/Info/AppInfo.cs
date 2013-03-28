@@ -70,6 +70,7 @@ namespace Common.Info
         /// </summary>
         public static AppInfo Current { get; private set;  }
 
+        [SuppressMessage("Microsoft.Usage", "CA2207:InitializeValueTypeStaticFieldsInline")]
         static AppInfo()
         {
             var assembly = Assembly.GetEntryAssembly();

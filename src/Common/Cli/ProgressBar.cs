@@ -196,6 +196,8 @@ namespace Common.Cli
         void IDisposable.Dispose()
         {
             Done();
+
+            GC.SuppressFinalize(this);
         }
         #endregion
     }

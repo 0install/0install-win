@@ -87,13 +87,6 @@ namespace ZeroInstall.Fetchers
         #region Recipe Ranking
         private class RecipeRanking : Ranking
         {
-            public readonly Recipe Subject;
-
-            public RecipeRanking(Recipe subject)
-            {
-                Subject = subject;
-            }
-
             protected override int Value
             {
                 get
@@ -121,7 +114,7 @@ namespace ZeroInstall.Fetchers
             else
             {
                 var recipe = subject as Recipe;
-                if (recipe != null) result = new RecipeRanking(recipe);
+                if (recipe != null) result = new RecipeRanking();
                 else Debug.Fail("subject (RetrievalMethod) has unknown type");
             }
             return result;

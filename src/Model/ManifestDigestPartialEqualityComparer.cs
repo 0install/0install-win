@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Collections.Generic;
 
 namespace ZeroInstall.Model
@@ -42,16 +41,12 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Uses <see cref="ManifestDigest.PartialEquals"/> to compare <see cref="ImplementationBase"/>s.
     /// </summary>
-    public class ManifestDigestPartialEqualityComparer<T> : IEqualityComparer<T> where T:ImplementationBase
+    public class ManifestDigestPartialEqualityComparer<T> : IEqualityComparer<T> where T : ImplementationBase
     {
         /// <inheritdoc/>
         public bool Equals(T x, T y)
         {
-            #region Sanity checks
-            if (x == null) throw new ArgumentNullException("x");
-            if (y == null) throw new ArgumentNullException("y");
-            #endregion
-
+            if (x == null || y == null) return false;
             return x.ManifestDigest.PartialEquals(y.ManifestDigest);
         }
 

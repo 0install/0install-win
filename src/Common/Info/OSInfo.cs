@@ -22,6 +22,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Utils;
 
@@ -84,6 +85,7 @@ namespace Common.Info
         /// </summary>
         public static OSInfo Current { get; private set;  }
 
+        [SuppressMessage("Microsoft.Usage", "CA2207:InitializeValueTypeStaticFieldsInline")]
         static OSInfo()
         {
             Current = new OSInfo

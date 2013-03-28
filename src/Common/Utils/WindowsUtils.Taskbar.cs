@@ -336,7 +336,7 @@ namespace Common.Utils
 
         private static readonly ITaskbarList4 _taskbarList;
 
-        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
+        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = "Must perform COM call during init")]
         static WindowsUtils()
         {
             if (WindowsUtils.IsWindows7)

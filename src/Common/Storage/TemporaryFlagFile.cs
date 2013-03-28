@@ -20,6 +20,8 @@
  * THE SOFTWARE.
  */
 
+using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace Common.Storage
@@ -27,6 +29,7 @@ namespace Common.Storage
     /// <summary>
     /// A temporary directory with a file that may or may not exist to indicate whether a certain condition is true or false.
     /// </summary>
+    [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
     public class TemporaryFlagFile : TemporaryDirectory
     {
         /// <inheritdoc/>
@@ -41,7 +44,7 @@ namespace Common.Storage
 
         public static implicit operator string(TemporaryFlagFile dir)
         {
-            return dir.Path;
+            return (dir == null) ? null : dir.Path;
         }
 
         /// <summary>

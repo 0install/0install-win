@@ -19,6 +19,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -134,6 +135,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="version">The full .NET version number including the leading "v". Use predefined constants when possible.</param>
         /// <remarks>Extracted to a separate method in case this is older than C# 2.0 SP2 and the required constructor is therefore missing.</remarks>
+        [SuppressMessage("Microsoft.Portability", "CA1903:UseOnlyApiFromTargetedFramework", MessageId = "Microsoft.CSharp.CSharpCodeProvider.#.ctor(System.Collections.Generic.IDictionary`2<System.String,System.String>)", Justification = "Will only be called on post-2.0 .NET versions")]
         private static CodeDomProvider NewCSharpCodeProviderEx(string version)
         {
             return new CSharpCodeProvider(new Dictionary<string, string> {{"CompilerVersion", version}});

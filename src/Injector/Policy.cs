@@ -140,6 +140,10 @@ namespace ZeroInstall.Injector
         /// <returns>Clones of the original <see cref="Implementation"/>s.</returns>
         public IEnumerable<Implementation> GetUncachedImplementations(Selections selections)
         {
+            #region Sanity checks
+            if (selections == null) throw new ArgumentNullException("selections");
+            #endregion
+
             return selections.GetUncachedImplementations(Fetcher.Store).
                 Select(impl => impl.GetOriginalImplementation(FeedManager.Cache).CloneImplementation());
         }

@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
@@ -48,6 +49,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         public static readonly CommonSecurityDescriptor IpcAcl;
 
+        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = "Must build ACL during init")]
         static IpcStoreProvider()
         {
             var dacl = new DiscretionaryAcl(false, false, 1);

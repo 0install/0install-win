@@ -174,6 +174,10 @@ namespace ZeroInstall.Injector.Solver
         /// <param name="feedCache">Used to load <see cref="Feed"/>s containing the original <see cref="Implementation"/>s.</param>
         public Implementation GetOriginalImplementation(IFeedCache feedCache)
         {
+            #region Sanity checks
+            if (feedCache == null) throw new ArgumentNullException("feedCache");
+            #endregion
+
             return feedCache.GetFeed(FromFeed ?? InterfaceID)[ID];
         }
         #endregion

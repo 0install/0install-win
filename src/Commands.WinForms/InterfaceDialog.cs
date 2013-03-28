@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -47,6 +48,7 @@ namespace ZeroInstall.Commands.WinForms
         private readonly string _interfaceID;
 
         /// <summary>Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</summary>
+        [SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         private readonly Func<Selections> _solveCallback;
 
         /// <summary>The feed cache used to retrieve <see cref="Feed"/>s for additional information about implementations.</summary>

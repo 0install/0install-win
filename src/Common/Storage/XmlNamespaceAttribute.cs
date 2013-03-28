@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml;
 
 namespace Common.Storage
@@ -29,7 +30,8 @@ namespace Common.Storage
     /// Allows you to specify a <see cref="XmlQualifiedName"/> (namespace short-name) for <see cref="XmlStorage"/> to use.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public class XmlNamespaceAttribute : Attribute
+    [SuppressMessage("Microsoft.Design", "CA1019:DefineAccessorsForAttributeArguments", Justification = "Values set in constructor are available via QualifiedName")]
+    public sealed class XmlNamespaceAttribute : Attribute
     {
         /// <summary>
         /// The <see cref="XmlQualifiedName"/>.

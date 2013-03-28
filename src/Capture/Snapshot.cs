@@ -287,8 +287,8 @@ namespace ZeroInstall.Capture
                 AutoPlayAssocsMachine = newSnapshot.AutoPlayAssocsMachine.GetAddedElements(oldSnapshot.AutoPlayAssocsMachine),
                 FileAssocs = newSnapshot.FileAssocs.GetAddedElements(oldSnapshot.FileAssocs),
                 ProtocolAssocs = newSnapshot.ProtocolAssocs.GetAddedElements(oldSnapshot.ProtocolAssocs),
-                ProgIDs = newSnapshot.ProgIDs.GetAddedElements(oldSnapshot.ProgIDs, StringComparer.InvariantCultureIgnoreCase),
-                ClassIDs = newSnapshot.ClassIDs.GetAddedElements(oldSnapshot.ClassIDs, StringComparer.InvariantCultureIgnoreCase),
+                ProgIDs = newSnapshot.ProgIDs.GetAddedElements(oldSnapshot.ProgIDs, StringComparer.OrdinalIgnoreCase),
+                ClassIDs = newSnapshot.ClassIDs.GetAddedElements(oldSnapshot.ClassIDs, StringComparer.OrdinalIgnoreCase),
                 RegisteredApplications = newSnapshot.RegisteredApplications.GetAddedElements(oldSnapshot.RegisteredApplications),
                 FilesContextMenuSimple = newSnapshot.FilesContextMenuSimple.GetAddedElements(oldSnapshot.FilesContextMenuSimple),
                 FilesContextMenuExtended = newSnapshot.FilesContextMenuExtended.GetAddedElements(oldSnapshot.FilesContextMenuExtended),
@@ -297,7 +297,7 @@ namespace ZeroInstall.Capture
                 AllContextMenuExtended = newSnapshot.AllContextMenuExtended.GetAddedElements(oldSnapshot.AllContextMenuExtended),
                 AllPropertySheets = newSnapshot.AllPropertySheets.GetAddedElements(oldSnapshot.AllPropertySheets),
                 Games = newSnapshot.Games.GetAddedElements(oldSnapshot.Games),
-                ProgramsDirs = newSnapshot.ProgramsDirs.GetAddedElements(oldSnapshot.ProgramsDirs, StringComparer.InvariantCultureIgnoreCase)
+                ProgramsDirs = newSnapshot.ProgramsDirs.GetAddedElements(oldSnapshot.ProgramsDirs, StringComparer.OrdinalIgnoreCase)
             };
         }
         #endregion

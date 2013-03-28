@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -35,6 +36,10 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         public static IEnumerable<MenuEntry> MenuEntries(Feed feed)
         {
+            #region Sanity checks
+            if (feed == null) throw new ArgumentNullException("feed");
+            #endregion
+
             string category = feed.Categories.FirstOrDefault();
             if (feed.EntryPoints.Count < 2)
             { // Only a single entry point
@@ -66,6 +71,10 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         public static IEnumerable<DesktopIcon> DesktopIcons(Feed feed)
         {
+            #region Sanity checks
+            if (feed == null) throw new ArgumentNullException("feed");
+            #endregion
+
             return new[] {new DesktopIcon {Name = feed.Name.RemoveAll(Path.GetInvalidFileNameChars()), Command = Command.NameRun}};
         }
 
@@ -74,6 +83,10 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         public static IEnumerable<AppAlias> Aliases(Feed feed)
         {
+            #region Sanity checks
+            if (feed == null) throw new ArgumentNullException("feed");
+            #endregion
+
             if (feed.EntryPoints.IsEmpty)
             { // Only one entry point
                 if (feed.NeedsTerminal)

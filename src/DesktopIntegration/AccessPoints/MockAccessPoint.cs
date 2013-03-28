@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
 using Common.Tasks;
@@ -41,13 +42,13 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <summary>
         /// The path to a file to create when <see cref="Apply"/> is called.
         /// </summary>
-        [XmlAttribute("apply-flag-path")]
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag"), XmlAttribute("apply-flag-path")]
         public string ApplyFlagPath { get; set; }
 
         /// <summary>
         /// The path to a file to create when <see cref="Unapply"/> is called.
         /// </summary>
-        [XmlAttribute("unapply-flag-path")]
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag"), XmlAttribute("unapply-flag-path")]
         public string UnapplyFlagPath { get; set; }
         #endregion
 

@@ -39,7 +39,7 @@ namespace Common.Storage
 
         public static implicit operator string(TemporaryDirectory dir)
         {
-            return dir.Path;
+            return (dir == null) ? null : dir.Path;
         }
         #endregion
 

@@ -120,6 +120,11 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="feedRetriever">Callback method used to retrieve additional <see cref="Feed"/>s on demand.</param>
         protected void AddAppHelper(AppEntry prototype, Converter<string, Feed> feedRetriever)
         {
+            #region Sanity checks
+            if (prototype == null) throw new ArgumentNullException("prototype");
+            if (feedRetriever == null) throw new ArgumentNullException("feedRetriever");
+            #endregion
+
             var appEntry = prototype.Clone();
             AppList.Entries.Add(appEntry);
             WriteAppDir(appEntry);
