@@ -25,6 +25,7 @@ using Common.Collections;
 using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
+using ZeroInstall.Fetchers;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Implementation;

@@ -94,7 +94,6 @@
     <Compile Include="Implementation\ImplementationNotFoundException.cs" />
     <Compile Include="Implementation\ManifestFormat.cs" />
     <Compile Include="Implementation\ManifestGenerator.cs" />
-    <Compile Include="Implementation\RecipeUtils.cs" />
     <Compile Include="Implementation\IpcStoreProvider.cs" />
     <Compile Include="Implementation\RemoteStores.cs" />
     <Compile Include="Implementation\StoreProvider.cs" />

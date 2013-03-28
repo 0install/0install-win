@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="ImplementationFetch.cs" />
+    <Compile Include="RecipeUtils.cs" />
     <Compile Include="RetrievalMethodRanker.cs" />
     <Compile Include="FetcherProvider.cs" />
     <Compile Include="Fetcher.cs" />

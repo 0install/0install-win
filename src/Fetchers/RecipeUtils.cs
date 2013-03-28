@@ -22,11 +22,12 @@ using Common.Collections;
 using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
+using ZeroInstall.Fetchers.Properties;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Implementation.Archive;
-using ZeroInstall.Store.Properties;
 
-namespace ZeroInstall.Store.Implementation
+namespace ZeroInstall.Fetchers
 {
     /// <summary>
     /// Provides helper methods for dealing with <see cref="Recipe"/>s.
@@ -58,7 +59,7 @@ namespace ZeroInstall.Store.Implementation
                 // ReSharper disable AccessToDisposedClosure
                 new PerTypeDispatcher<IRecipeStep>(false)
                 {
-                    (Model.Archive step) =>
+                    (Archive step) =>
                     {
                         downloadedEnum.MoveNext();
                         ApplyArchive(step, downloadedEnum.Current, workingDir, handler, tag);
@@ -92,7 +93,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
         /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>.</param>
         /// <exception cref="IOException">Thrown if a path specified in <paramref name="step"/> is illegal.</exception>
-        public static void ApplyArchive(Model.Archive step, TemporaryFile downloadedFile, TemporaryDirectory workingDir, ITaskHandler handler, object tag)
+        public static void ApplyArchive(Archive step, TemporaryFile downloadedFile, TemporaryDirectory workingDir, ITaskHandler handler, object tag)
         {
             #region Sanity checks
             if (step == null) throw new ArgumentNullException("step");
