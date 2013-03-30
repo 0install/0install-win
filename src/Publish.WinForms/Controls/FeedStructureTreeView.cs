@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2011 Simon E. Silva Lauinger
+ * Copyright 2011-2013 Bastian Eicher, Simon E. Silva Lauinger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -22,6 +22,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Common;
 using Common.Undo;
+using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.WinForms.Dialogs;
 using Binding = ZeroInstall.Model.Binding;
@@ -30,11 +31,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
 {
     public partial class FeedStructureTreeView : TreeView
     {
-        #region Variables
-        private FeedEditing _feedEditing;
-        #endregion
-
         #region Properties
+        private FeedEditing _feedEditing;
+
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public FeedEditing FeedEditing
         {
@@ -42,8 +41,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             set
             {
                 _feedEditing = value;
-                if (_feedEditing == null) return;
-                StartBuildingTreeNodes();
+                if (_feedEditing != null) RebuildTreeNodes();
             }
         }
         #endregion
@@ -58,55 +56,16 @@ namespace ZeroInstall.Publish.WinForms.Controls
             container.Add(this);
 
             InitializeComponent();
-            Initialize();
-        }
-        #endregion
-
-        #region Initialization
-        private void Initialize()
-        {
-            SetupNodeDoubleClickHooks();
-            WireControlEvents();
-        }
-
-        private void SetupNodeDoubleClickHooks()
-        {
-            SetNodeDoubleClickHook<IElementContainer, Element, Implementation>(implementation => new ImplementationDialog {Implementation = implementation}, container => container.Elements);
-            SetNodeDoubleClickHook<IElementContainer, Element, PackageImplementation>(implementation => new PackageImplementationDialog {PackageImplementation = implementation}, container => container.Elements);
-            SetNodeDoubleClickHook<IElementContainer, Element, Group>(group => new GroupDialog {Group = group}, container => container.Elements);
-
-            //SetNodeDoubleClickHook<IBindingContainer, Binding, EnvironmentBinding>(binding => new EnvironmentBindingDialog {EnvironmentBinding = binding}, container => container.Bindings);
-            //SetNodeDoubleClickHook<IBindingContainer, Binding, OverlayBinding>(binding => new OverlayBindingDialog {OverlayBinding = binding}, container => container.Bindings);
-            //SetNodeDoubleClickHook<IBindingContainer, Binding, ExecutableInVar>(binding => new ExecutableInVarDialog {ExecutableInVar = binding}, container => container.Bindings);
-            //SetNodeDoubleClickHook<IBindingContainer, Binding, ExecutableInPath>(binding => new ExecutableInPathDialog {ExecutableInPath = binding}, container => container.Bindings);
-
-            SetNodeDoubleClickHook<IDependencyContainer, Dependency, Dependency>(dependency => new DependencyDialog {Dependency = dependency}, container => container.Dependencies);
-
-            SetNodeDoubleClickHook<Element, Command, Command>(command => new CommandDialog {Command = command}, element => element.Commands);
-            SetNodeDoubleClickHook<Command, Runner, Runner>(runner => new RunnerDialog {Runner = runner}, command => new PropertyPointer<Runner>(() => command.Runner, newValue => command.Runner = newValue));
-
-            SetNodeDoubleClickHook<Implementation, RetrievalMethod, Archive>(archive => new ArchiveDialog {Archive = archive}, implementation => implementation.RetrievalMethods);
-            //SetNodeDoubleClickHook<Implementation, RetrievalMethod, Recipe>(recipe => new RecipeDialog {Recipe = recipe}, implementation => implementation.RetrievalMethods);
-        }
-
-        private void WireControlEvents()
-        {
-            NodeMouseClick += (sender, eventArgs) =>
-            {
-                if (eventArgs.Button != MouseButtons.Right) return;
-                var selectedNode = eventArgs.Node;
-                if (selectedNode.ContextMenuStrip == null)
-                    selectedNode.ContextMenuStrip = BuildContextMenuFor(selectedNode.Tag);
-            };
+            SetupNodeBindings();
         }
         #endregion
 
         #region Tree node building
-        private void StartBuildingTreeNodes()
+        private void RebuildTreeNodes()
         {
             BeginUpdate();
             Nodes.Clear();
-            Nodes.Add(BuildTreeNodes(_feedEditing.Feed));
+            Nodes.Add(GetTreeNodes(_feedEditing.Feed));
             EndUpdate();
 
             ExpandAll();
@@ -116,7 +75,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// Generates a <see cref="TreeNode"/> with child elements representing an object from <see cref="ZeroInstall.Model"/>.
         /// </summary>
         /// <param name="data">The <see cref="ZeroInstall.Model"/> to represent.</param>
-        private TreeNode BuildTreeNodes(object data)
+        private TreeNode GetTreeNodes(object data)
         {
             #region Sanity checks
             if (data == null) throw new ArgumentNullException("data");
@@ -133,15 +92,15 @@ namespace ZeroInstall.Publish.WinForms.Controls
             var command = data as Command;
             if (command != null)
             {
-                if (command.WorkingDir != null) node.Nodes.Add(BuildTreeNodes(command.WorkingDir));
-                if (command.Runner != null) node.Nodes.Add(BuildTreeNodes(command.Runner));
+                if (command.WorkingDir != null) node.Nodes.Add(GetTreeNodes(command.WorkingDir));
+                if (command.Runner != null) node.Nodes.Add(GetTreeNodes(command.Runner));
             }
 
             return node;
         }
 
         /// <summary>
-        /// Helper method for <see cref="BuildTreeNodes"/> that takes objects of unkown type, checking whether they are containers for specific <see cref="ZeroInstall.Model"/> objects.
+        /// Helper method for <see cref="GetTreeNodes"/> that takes objects of unkown type, checking whether they are containers for specific <see cref="ZeroInstall.Model"/> objects.
         /// </summary>
         /// <typeparam name="TContainer">A type that contains <typeparamref name="TEntry"/> child elements.</typeparam>
         /// <typeparam name="TEntry">The type of elements contained within <typeparamref name="TContainer"/>s.</typeparam>
@@ -155,107 +114,80 @@ namespace ZeroInstall.Publish.WinForms.Controls
             var elementContainer = data as TContainer;
             if (elementContainer == null) return new TreeNode[0];
 
-            return getChildren(elementContainer).Select(BuildTreeNodes).ToArray();
+            return getChildren(elementContainer).Select(GetTreeNodes).ToArray();
         }
         #endregion
 
-        #region Context menu generation
-        private ContextMenuStrip BuildContextMenuFor(object data)
+        #region Node bindings
+        //_feedEditing.ExecuteCommand(new SetValueCommand<TAbstractEntry>(getPointer(container), new TSpecialEntry()));
+        //_feedEditing.ExecuteCommand(new AddToCollection<TAbstractEntry>(getList(container), new TSpecialEntry()));
+        //RebuildTreeNodes();
+        
+
+        private void SetupNodeBindings()
         {
-            #region Sanity checks
-            if (data == null) throw new ArgumentNullException("data");
-            #endregion
+            //SetupListNodeBinding<IElementContainer, Element, Implementation, ImplementationDialog>(container => container.Elements);
+            SetupListNodeBinding<IElementContainer, Element, PackageImplementation>(container => container.Elements);
+            //SetupListNodeBinding<IElementContainer, Element, Group, GroupDialog>(container => container.Elements);
 
-            var contextMenuStrip = new ContextMenuStrip();
+            SetupListNodeBinding<IBindingContainer, Binding, EnvironmentBinding>(container => container.Bindings);
+            SetupListNodeBinding<IBindingContainer, Binding, OverlayBinding>(container => container.Bindings);
+            SetupListNodeBinding<IBindingContainer, Binding, ExecutableInVar>(container => container.Bindings);
+            SetupListNodeBinding<IBindingContainer, Binding, ExecutableInPath>(container => container.Bindings);
 
-            var menuItem = BuildContextMenuEntryFor<IElementContainer, Element, Group>(data, "Group", container => container.Elements);
-            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
-            menuItem = BuildContextMenuEntryFor<IElementContainer, Element, Implementation>(data, "Implementation", container => container.Elements);
-            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
-            menuItem = BuildContextMenuEntryFor<IElementContainer, Element, PackageImplementation>(data, "PackageImplementation", container => container.Elements);
-            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
-            menuItem = BuildContextMenuEntryFor<IBindingContainer, Binding, EnvironmentBinding>(data, "EnvironmentBinding", container => container.Bindings);
-            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
-            menuItem = BuildContextMenuEntryFor<IBindingContainer, Binding, OverlayBinding>(data, "OverlayBinding", container => container.Bindings);
-            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
+            SetupListNodeBinding<IDependencyContainer, Dependency, Dependency>(container => container.Dependencies);
 
-            menuItem = BuildContextMenuEntryFor<IDependencyContainer, Dependency, Dependency>(data, "Dependency", container => container.Dependencies);
-            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
+            SetupListNodeBinding<Element, Command, Command>(element => element.Commands);
+            SetupPropertyNodeBinding<Command, Runner>(command => new PropertyPointer<Runner>(() => command.Runner, newValue => command.Runner = newValue));
 
-            menuItem = BuildContextMenuEntryFor<Element, Command, Command>(data, "Command", element => element.Commands);
-            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
-            menuItem = BuildContextMenuEntryFor<Command, Runner, Runner>(data, "Runner", command => new PropertyPointer<Runner>(() => command.Runner, newValue => command.Runner = newValue));
-            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
-
-            menuItem = BuildContextMenuEntryFor<Implementation, RetrievalMethod, Archive>(data, "Archive", implementation => implementation.RetrievalMethods);
-            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
-            menuItem = BuildContextMenuEntryFor<Implementation, RetrievalMethod, Recipe>(data, "Recipe", implementation => implementation.RetrievalMethods);
-            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
-
-            contextMenuStrip.Items.Add(new ToolStripSeparator());
-
-            return contextMenuStrip;
+            //SetupListNodeBinding<Implementation, RetrievalMethod, Archive, ArchiveDialog>(implementation => implementation.RetrievalMethods);
+            //SetupListNodeBinding<Implementation, RetrievalMethod, Recipe, RecipeDialog>(implementation => implementation.RetrievalMethods);
         }
 
-        private ToolStripItem BuildContextMenuEntryFor<TContainer, TAbstractEntry, TSpecialEntry>(object data, String text, MapAction<TContainer, PropertyPointer<TAbstractEntry>> getPointer)
+        private void SetupPropertyNodeBinding<TContainer, TEntry, TEditor>(MapAction<TContainer, PropertyPointer<TEntry>> getPointer)
             where TContainer : class
-            where TAbstractEntry : class, ICloneable
-            where TSpecialEntry : class, TAbstractEntry, new()
+            where TEntry : class, ICloneable, new()
+            where TEditor : class, IEntryEditor<TEntry>, new()
         {
-            #region Sanity checks
-            if (data == null) throw new ArgumentNullException("data");
-            if (text == null) throw new ArgumentNullException("text");
-            if (getPointer == null) throw new ArgumentNullException("getPointer");
-            #endregion
-
-            if (!(data is TContainer)) return null;
-            var container = (TContainer)data;
-
-            var toolStripItem = new ToolStripMenuItem(text, null, delegate
+            NodeMouseDoubleClick += delegate(object sender, TreeNodeMouseClickEventArgs nodeArgs)
             {
-                _feedEditing.ExecuteCommand(new SetValueCommand<TAbstractEntry>(getPointer(container), new TSpecialEntry()));
-                StartBuildingTreeNodes();
-            });
+                // Type must match exactly
+                if (nodeArgs.Node.Tag.GetType() != typeof(TEntry)) return;
 
-            return toolStripItem;
+                nodeArgs.Node.Toggle();
+                var entry = (TEntry)nodeArgs.Node.Tag;
+                var parent = nodeArgs.Node.Parent.Tag as TContainer;
+                if (parent != null)
+                {
+                    // Clone entry for undoable modification
+                    var clonedEntry = (TEntry)entry.Clone();
+
+                    //using (var editor = new TEditor())
+                    //{
+                    //    if (editor.ShowDialog(this, clonedEntry) == DialogResult.OK)
+                    //    {
+                    //        _feedEditing.ExecuteCommand(new SetValueCommand<TEntry>(getPointer(parent), clonedEntry));
+                    //        RebuildTreeNodes();
+                    //    }
+                    //}
+                }
+            };
         }
 
-        private ToolStripItem BuildContextMenuEntryFor<TContainer, TAbstractEntry, TSpecialEntry>(object data, String text, MapAction<TContainer, IList<TAbstractEntry>> getList)
+        private void SetupPropertyNodeBinding<TContainer, TEntry>(MapAction<TContainer, PropertyPointer<TEntry>> getPointer)
+            where TContainer : class
+            where TEntry : class, ICloneable, new()
+        {
+            SetupPropertyNodeBinding<TContainer, TEntry, GenericEditor<TEntry>>(getPointer);
+        }
+
+        private void SetupListNodeBinding<TContainer, TAbstractEntry, TSpecialEntry, TEditor>(MapAction<TContainer, IList<TAbstractEntry>> getList)
             where TContainer : class
             where TAbstractEntry : class, ICloneable
             where TSpecialEntry : class, TAbstractEntry, new()
+            where TEditor : class, IEntryEditor<TSpecialEntry>, new()
         {
-            #region Sanity checks
-            if (data == null) throw new ArgumentNullException("data");
-            if (text == null) throw new ArgumentNullException("text");
-            if (getList == null) throw new ArgumentNullException("getList");
-            #endregion
-
-            if (!(data is TContainer)) return null;
-            var container = (TContainer)data;
-
-            var toolStripItem = new ToolStripMenuItem(text, null, delegate
-            {
-                _feedEditing.ExecuteCommand(new AddToCollection<TAbstractEntry>(getList(container), new TSpecialEntry()));
-                StartBuildingTreeNodes();
-            });
-
-            return toolStripItem;
-        }
-        #endregion
-
-        #region Node double click hooks
-        private void SetNodeDoubleClickHook<TContainer, TAbstractEntry, TSpecialEntry>(MapAction<TSpecialEntry, Form> getEditDialog, MapAction<TContainer, PropertyPointer<TAbstractEntry>> getPointer)
-            where TContainer : class
-            where TAbstractEntry : class, ICloneable
-            where TSpecialEntry : class, TAbstractEntry, new()
-        {
-            #region Sanity checks
-            if (getEditDialog == null) throw new ArgumentNullException("getEditDialog");
-            if (getPointer == null) throw new ArgumentNullException("getPointer");
-            #endregion
-
-            NodeMouseDoubleClick += (sender, nodeArgs) =>
+            NodeMouseDoubleClick += delegate(object sender, TreeNodeMouseClickEventArgs nodeArgs)
             {
                 // Type must match exactly
                 if (nodeArgs.Node.Tag.GetType() != typeof(TSpecialEntry)) return;
@@ -268,88 +200,55 @@ namespace ZeroInstall.Publish.WinForms.Controls
                     // Clone entry for undoable modification
                     var clonedEntry = (TSpecialEntry)entry.Clone();
 
-                    using (var dialog = getEditDialog(clonedEntry))
-                    {
-                        if (dialog.ShowDialog() == DialogResult.OK)
-                        {
-                            _feedEditing.ExecuteCommand(new SetValueCommand<TAbstractEntry>(getPointer(parent), clonedEntry));
+                    //using (var editor = new TEditor())
+                    //{
+                    //    if (editor.ShowDialog(this, clonedEntry) == DialogResult.OK)
+                    //    {
+                    //        // Prepare a list of 1 to 3 commands to be executed as a single transaction
+                    //        var commandList = new List<IUndoCommand>(3)
+                    //        {
+                    //            // Replace original entry with cloned and modified one
+                    //            new SetInList<TAbstractEntry>(getList(parent), entry, clonedEntry)
+                    //        };
 
-                            StartBuildingTreeNodes();
-                        }
-                    }
+                    //        #region Update manifest digest
+                    //        var digestProvider = editor as IDigestProvider;
+                    //        var implementation = parent as ImplementationBase;
+                    //        if (digestProvider != null && implementation != null)
+                    //        {
+                    //            // ToDo: Warn when changing an existing digest
+
+                    //            // Set the ManifestDigest entry
+                    //            commandList.Add(new SetValueCommand<ManifestDigest>(
+                    //                new PropertyPointer<ManifestDigest>(() => implementation.ManifestDigest, newValue => implementation.ManifestDigest = newValue),
+                    //                digestProvider.ManifestDigest));
+
+                    //            // Set the implementation ID unless its already something custom
+                    //            if (string.IsNullOrEmpty(implementation.ID) || implementation.ID.StartsWith("sha1=new"))
+                    //            {
+                    //                commandList.Add(new SetValueCommand<string>(
+                    //                    new PropertyPointer<string>(() => implementation.ID, newValue => implementation.ID = newValue),
+                    //                    "sha1new=" + digestProvider.ManifestDigest.Sha1New));
+                    //            }
+                    //        }
+                    //        #endregion
+
+                    //        // Execute the transaction
+                    //        _feedEditing.ExecuteCommand(new CompositeCommand(commandList));
+                    //        RebuildTreeNodes();
+                    //    }
+                    //}
                 }
             };
         }
 
-        private void SetNodeDoubleClickHook<TContainer, TAbstractEntry, TSpecialEntry>(MapAction<TSpecialEntry, Form> getEditDialog, MapAction<TContainer, IList<TAbstractEntry>> getList)
+        private void SetupListNodeBinding<TContainer, TAbstractEntry, TSpecialEntry>(MapAction<TContainer, IList<TAbstractEntry>> getList)
             where TContainer : class
             where TAbstractEntry : class, ICloneable
             where TSpecialEntry : class, TAbstractEntry, new()
         {
-            #region Sanity checks
-            if (getEditDialog == null) throw new ArgumentNullException("getEditDialog");
-            if (getList == null) throw new ArgumentNullException("getList");
-            #endregion
-
-            NodeMouseDoubleClick += (sender, nodeArgs) =>
-            {
-                // Type must match exactly
-                if (nodeArgs.Node.Tag.GetType() != typeof(TSpecialEntry)) return;
-
-                nodeArgs.Node.Toggle();
-                var entry = (TSpecialEntry)nodeArgs.Node.Tag;
-                var parent = nodeArgs.Node.Parent.Tag as TContainer;
-                if (parent != null)
-                {
-                    // Clone entry for undoable modification
-                    var clonedEntry = (TSpecialEntry)entry.Clone();
-
-                    using (var dialog = getEditDialog(clonedEntry))
-                    {
-                        if (dialog.ShowDialog() == DialogResult.OK)
-                        {
-                            // Prepare a list of 1 to 3 commands to be executed as a single transaction
-                            var commandList = new List<IUndoCommand>(3)
-                            {
-                                // Replace original entry with cloned and modified one
-                                new SetInList<TAbstractEntry>(getList(parent), entry, clonedEntry)
-                            };
-
-                            #region Update manifest digest
-                            var digestProvider = dialog as IDigestProvider;
-                            var implementation = parent as ImplementationBase;
-                            if (digestProvider != null && implementation != null)
-                            {
-                                // ToDo: Warn when changing an existing digest
-
-                                // Set the ManifestDigest entry
-                                commandList.Add(new SetValueCommand<ManifestDigest>(
-                                    new PropertyPointer<ManifestDigest>(() => implementation.ManifestDigest, newValue => implementation.ManifestDigest = newValue),
-                                    digestProvider.ManifestDigest));
-
-                                // Set the implementation ID unless its already something custom
-                                if (string.IsNullOrEmpty(implementation.ID) || implementation.ID.StartsWith("sha1=new"))
-                                {
-                                    commandList.Add(new SetValueCommand<string>(
-                                        new PropertyPointer<string>(() => implementation.ID, newValue => implementation.ID = newValue),
-                                        "sha1new=" + digestProvider.ManifestDigest.Sha1New));
-                                }
-                            }
-                            #endregion
-
-                            // Execute the transaction
-                            _feedEditing.ExecuteCommand(new CompositeCommand(commandList));
-
-                            StartBuildingTreeNodes();
-                        }
-                    }
-                }
-            };
+            SetupListNodeBinding<TContainer, TAbstractEntry, TSpecialEntry, GenericEditor<TSpecialEntry>>(getList);
         }
-        #endregion
-
-        #region Drag & Drop
-        //TODO Add drag and drop code here
         #endregion
     }
 }
