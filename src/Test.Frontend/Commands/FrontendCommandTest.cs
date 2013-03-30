@@ -119,7 +119,7 @@ namespace ZeroInstall.Commands
             FetcherMock = _mockRepository.Create<IFetcher>(MockBehavior.Loose);
             FetcherMock.Setup(x => x.Store).Returns(new Mock<IStore>().Object);
             Policy = new Policy(
-                new Config(), new FeedManagerMock(CacheMock.Object),
+                new Config(), new MockFeedManager(CacheMock.Object),
                 FetcherMock.Object, OpenPgpMock.Object, SolverMock.Object, _handler);
 
             Command = GetCommand();

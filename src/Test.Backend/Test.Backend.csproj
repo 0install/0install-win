@@ -94,7 +94,7 @@
     <Compile Include="Fetchers\TestData.cs" />
     <Compile Include="Injector\ExecutorTest.cs" />
     <Compile Include="Injector\ConfigTest.cs" />
-    <Compile Include="Injector\Feeds\FeedManagerMock.cs" />
+    <Compile Include="Injector\Feeds\MockFeedManager.cs" />
     <Compile Include="Injector\Feeds\FeedManagerTest.cs" />
     <Compile Include="Injector\Solver\ImplementationSelectionTest.cs" />
     <Compile Include="Injector\Solver\ExternalSolverTest.cs" />

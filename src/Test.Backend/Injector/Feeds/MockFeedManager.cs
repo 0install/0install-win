@@ -24,14 +24,14 @@ namespace ZeroInstall.Injector.Feeds
     /// <summary>
     /// A mock implementation of <see cref="IFeedManager"/>.
     /// </summary>
-    public class FeedManagerMock : FeedManagerBase, IEquatable<FeedManagerMock>
+    public class MockFeedManager : FeedManagerBase, IEquatable<MockFeedManager>
     {
         #region Constructor
         /// <summary>
         /// Creates a new cache based on the given path to a cache directory.
         /// </summary>
         /// <param name="cache">The disk-based cache to store downloaded <see cref="Feed"/>s.</param>
-        public FeedManagerMock(IFeedCache cache) : base(cache)
+        public MockFeedManager(IFeedCache cache) : base(cache)
         {}
         #endregion
 
@@ -61,7 +61,7 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(FeedManagerMock other)
+        public bool Equals(MockFeedManager other)
         {
             return base.Equals(other);
         }
@@ -71,7 +71,7 @@ namespace ZeroInstall.Injector.Feeds
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(FeedManagerMock) && Equals((FeedManagerMock)obj);
+            return obj.GetType() == typeof(MockFeedManager) && Equals((MockFeedManager)obj);
         }
 
         /// <inheritdoc/>
