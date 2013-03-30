@@ -23,6 +23,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using Common;
+using Common.Controls;
 using Common.Storage;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;

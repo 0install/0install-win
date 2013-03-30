@@ -22,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using Common;
+using Common.Controls;
 using Common.Storage;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;

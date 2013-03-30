@@ -22,6 +22,7 @@ using System.Net;
 using System.Net.Cache;
 using System.Windows.Forms;
 using Common;
+using Common.Controls;
 using Common.Storage;
 using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.Central.WinForms.Properties;

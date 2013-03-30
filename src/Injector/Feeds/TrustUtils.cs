@@ -22,6 +22,7 @@ using System.Linq;
 using System.Net;
 using System.Xml;
 using Common;
+using Common.Controls;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Store.Feeds;
 

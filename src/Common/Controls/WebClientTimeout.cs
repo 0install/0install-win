@@ -23,7 +23,7 @@
 using System;
 using System.Net;
 
-namespace Common
+namespace Common.Controls
 {
     /// <summary>
     /// Adds a customizable timout to <see cref="WebClient"/>.

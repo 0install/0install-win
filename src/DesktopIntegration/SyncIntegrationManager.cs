@@ -23,6 +23,7 @@ using System.Net.Cache;
 using System.Threading;
 using Common;
 using Common.Collections;
+using Common.Controls;
 using Common.Storage;
 using Common.Tasks;
 using ICSharpCode.SharpZipLib.Zip;

@@ -271,7 +271,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="WebClientTimeout.cs">
+    <Compile Include="Controls\WebClientTimeout.cs">
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
