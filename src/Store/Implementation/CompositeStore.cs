@@ -223,8 +223,10 @@ namespace ZeroInstall.Store.Implementation
 
             // Remove from every store that contains the implementation
             bool removed = false;
+            // ReSharper disable LoopCanBeConvertedToQuery
             foreach (var store in _stores.Reverse())
                 removed |= store.RemoveSafe(manifestDigest);
+            // ReSharper restore LoopCanBeConvertedToQuery
             if (!removed) throw new ImplementationNotFoundException(manifestDigest);
         }
         #endregion

@@ -26,6 +26,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Common.Properties;
 using Common.Tasks;
+using Common.Utils;
 
 namespace Common.Cli
 {
@@ -54,7 +55,7 @@ namespace Common.Cli
 
                 try
                 {
-                    UpdateHelper.Do(ref _state, value, Draw);
+                    value.To(ref _state, Draw);
                 }
                 catch (IOException)
                 {}
@@ -79,7 +80,7 @@ namespace Common.Cli
 
                 try
                 {
-                    UpdateHelper.Do(ref _maximum, value, Draw);
+                    value.To(ref _maximum, Draw);
                 }
                 catch (IOException)
                 {}
@@ -106,7 +107,7 @@ namespace Common.Cli
 
                 try
                 {
-                    UpdateHelper.Do(ref _value, value, Draw);
+                    value.To(ref _value, Draw);
                 }
                 catch (IOException)
                 {}

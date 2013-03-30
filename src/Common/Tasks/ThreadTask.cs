@@ -60,7 +60,7 @@ namespace Common.Tasks
         private TaskState _state;
 
         /// <inheritdoc />
-        public TaskState State { get { return _state; } protected set { UpdateHelper.Do(ref _state, value, OnStateChanged); } }
+        public TaskState State { get { return _state; } protected set { value.To(ref _state, OnStateChanged); } }
 
         /// <inheritdoc />
         public string ErrorMessage { get; protected set; }
@@ -68,12 +68,12 @@ namespace Common.Tasks
         private long _unitsProcessed;
 
         /// <inheritdoc />
-        public long UnitsProcessed { get { return _unitsProcessed; } protected set { UpdateHelper.Do(ref _unitsProcessed, value, OnProgressChanged); } }
+        public long UnitsProcessed { get { return _unitsProcessed; } protected set { value.To(ref _unitsProcessed, OnProgressChanged); } }
 
         private long _unitsTotal = -1;
 
         /// <inheritdoc />
-        public long UnitsTotal { get { return _unitsTotal; } protected set { UpdateHelper.Do(ref _unitsTotal, value, OnProgressChanged); } }
+        public long UnitsTotal { get { return _unitsTotal; } protected set { value.To(ref _unitsTotal, OnProgressChanged); } }
 
         /// <inheritdoc />
         public abstract bool UnitsByte { get; }

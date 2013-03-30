@@ -22,7 +22,7 @@
 
 using System;
 
-namespace Common
+namespace Common.Utils
 {
 
     #region Delegates
@@ -38,7 +38,7 @@ namespace Common
     /// <summary>
     /// Provides neat little code-shortcuts for updating properties.
     /// </summary>
-    public static class UpdateHelper
+    public static class UpdateUtils
     {
         #region Ref bool
 
@@ -47,10 +47,10 @@ namespace Common
         /// Updates a value and sets a boolean flag to <see langword="true"/> if the original value actually changed
         /// </summary>
         /// <typeparam name="T">The type of data to update</typeparam>
-        /// <param name="original">The original value to update</param>
         /// <param name="value">The new value</param>
+        /// <param name="original">The original value to update</param>
         /// <param name="updated">Gets set to <see langword="true"/> if value is different from original</param>
-        public static void Do<T>(ref T original, T value, ref bool updated) where T : struct
+        public static void To<T>(this T value, ref T original, ref bool updated) where T : struct
         {
             // If the values already match, nothing needs to be done
             if (original.Equals(value)) return;
@@ -64,11 +64,11 @@ namespace Common
         /// Updates a value and sets two boolean flags to <see langword="true"/> if the original value actually changed
         /// </summary>
         /// <typeparam name="T">The type of data to update</typeparam>
-        /// <param name="original">The original value to update</param>
         /// <param name="value">The new value</param>
+        /// <param name="original">The original value to update</param>
         /// <param name="updated1">Gets set to <see langword="true"/> if value is different from original</param>
         /// <param name="updated2">Gets set to <see langword="true"/> if value is different from original</param>
-        public static void Do<T>(ref T original, T value, ref bool updated1, ref bool updated2) where T : struct
+        public static void To<T>(this T value, ref T original, ref bool updated1, ref bool updated2) where T : struct
         {
             // If the values already match, nothing needs to be done
             if (original.Equals(value)) return;
@@ -83,10 +83,10 @@ namespace Common
         /// <summary>
         /// Updates a value and sets a boolean flag to <see langword="true"/> if the original value actually changed
         /// </summary>
-        /// <param name="original">The original value to update</param>
         /// <param name="value">The new value</param>
+        /// <param name="original">The original value to update</param>
         /// <param name="updated">Gets set to <see langword="true"/> if value is different from original</param>
-        public static void Do(ref string original, string value, ref bool updated)
+        public static void To(this string value, ref string original, ref bool updated)
         {
             // If the values already match, nothing needs to be done
             if (original == value) return;
@@ -99,11 +99,11 @@ namespace Common
         /// <summary>
         /// Updates a value and sets two boolean flags to <see langword="true"/> if the original value actually changed
         /// </summary>
-        /// <param name="original">The original value to update</param>
         /// <param name="value">The new value</param>
+        /// <param name="original">The original value to update</param>
         /// <param name="updated1">Gets set to <see langword="true"/> if value is different from original</param>
         /// <param name="updated2">Gets set to <see langword="true"/> if value is different from original</param>
-        public static void Do(ref string original, string value, ref bool updated1, ref bool updated2)
+        public static void To(this string value, ref string original, ref bool updated1, ref bool updated2)
         {
             if (original == value) return;
 
@@ -122,10 +122,10 @@ namespace Common
         /// Updates a value and calls back a delegate if the original value actually changed
         /// </summary>
         /// <typeparam name="T">The type of data to update</typeparam>
-        /// <param name="original">The original value to update</param>
         /// <param name="value">The new value</param>
+        /// <param name="original">The original value to update</param>
         /// <param name="updated">Gets called if value is different from original</param>
-        public static void Do<T>(ref T original, T value, Action updated) where T : struct
+        public static void To<T>(this T value, ref T original, Action updated) where T : struct
         {
             // If the values already match, nothing needs to be done
             if (original.Equals(value)) return;
@@ -157,10 +157,10 @@ namespace Common
         /// <summary>
         /// Updates a value and calls back a delegate if the original value actually changed
         /// </summary>
-        /// <param name="original">The original value to update</param>
         /// <param name="value">The new value</param>
+        /// <param name="original">The original value to update</param>
         /// <param name="updated">Gets called if value is different from original</param>
-        public static void Do(ref string original, string value, Action updated)
+        public static void To(this string value, ref string original, Action updated)
         {
             // If the values already match, nothing needs to be done
             if (original == value) return;
