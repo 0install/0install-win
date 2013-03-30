@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Windows.Forms;
 using Common.Controls;
 using ZeroInstall.Model;
 
@@ -25,8 +26,14 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
     /// The OK button is only enabled if the user set all controls of this form with right
     /// values.
     /// </summary>
-    public partial class ArchiveDialog : OKCancelDialog, IDigestProvider
+    public partial class ArchiveDialog : OKCancelDialog, IEntryEditor<Archive>, IDigestProvider
     {
+        public DialogResult ShowDialog(IWin32Window owner, Archive element)
+        {
+            Archive = element;
+            return ShowDialog(owner);
+        }
+
         #region Properties
         /// <summary>
         /// The <see cref="Archive" /> to be displayed and modified by this form.

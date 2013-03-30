@@ -29,8 +29,14 @@ using ZeroInstall.Publish.WinForms.Controls;
 
 namespace ZeroInstall.Publish.WinForms.Dialogs
 {
-    public partial class RecipeDialog : OKCancelDialog, IDigestProvider
+    public partial class RecipeDialog : OKCancelDialog, IEntryEditor<Recipe>, IDigestProvider
     {
+        public DialogResult ShowDialog(IWin32Window owner, Recipe element)
+        {
+            Recipe = element;
+            return ShowDialog(owner);
+        }
+
         #region Variables
         /// <summary>
         /// <see cref="Recipe"/> to be edited by this form.

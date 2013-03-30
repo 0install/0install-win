@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Windows.Forms;
 
 namespace ZeroInstall.Publish.WinForms.Dialogs
@@ -23,7 +24,7 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
     /// Provides an interface to a dialog that edits a single element in a feed.
     /// </summary>
     /// <typeparam name="T">The type of element to edit.</typeparam>
-    public interface IEntryEditor<T> where T : class
+    public interface IEntryEditor<T> : IDisposable where T : class
     {
         /// <summary>
         /// Displays a modal dialog for editing an element.

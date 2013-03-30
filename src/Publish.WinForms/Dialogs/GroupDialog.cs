@@ -17,14 +17,21 @@
 
 using System;
 using System.Drawing;
+using System.Windows.Forms;
 using Common.Controls;
 using ZeroInstall.Model;
 using System.IO;
 
 namespace ZeroInstall.Publish.WinForms.Dialogs
 {
-    public partial class GroupDialog : OKCancelDialog
+    public partial class GroupDialog : OKCancelDialog, IEntryEditor<Group>
     {
+        public DialogResult ShowDialog(IWin32Window owner, Group element)
+        {
+            Group = element;
+            return ShowDialog(owner);
+        }
+
         #region Properties
         /// <summary>
         /// The <see cref="Group" /> to be displayed and modified by this form.

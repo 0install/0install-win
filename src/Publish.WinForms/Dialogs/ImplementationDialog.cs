@@ -17,13 +17,20 @@
 
 using System;
 using System.Drawing;
+using System.Windows.Forms;
 using Common.Controls;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms.Dialogs
 {
-    public partial class ImplementationDialog : OKCancelDialog
+    public partial class ImplementationDialog : OKCancelDialog, IEntryEditor<Implementation>
     {
+        public DialogResult ShowDialog(IWin32Window owner, Implementation element)
+        {
+            Implementation = element;
+            return ShowDialog(owner);
+        }
+
         #region Properties
         /// <summary>
         /// The <see cref="Implementation" /> to be displayed and modified by this form.
