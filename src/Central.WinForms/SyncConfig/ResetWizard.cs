@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using Common;
 using Common.Controls;
+using ZeroInstall.Commands;
 using ZeroInstall.Injector;
 
 namespace ZeroInstall.Central.WinForms.SyncConfig
@@ -42,17 +43,9 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             // Wizard pages
             var welcomePage = new ResetWelcomePage();
             var config = Config.Load();
-            var existingCryptoKeyPage = new ExistingCryptoKeyPage
-            {
-                SyncServer = config.SyncServer,
-                SyncCredentials = new SyncCredentials(config.SyncServerUsername, config.SyncServerPassword)
-            };
+            var existingCryptoKeyPage = new ExistingCryptoKeyPage {Server = config.ToSyncServer()};
             var changeCryptoKeyPage = new ChangeCryptoKeyPage(machineWide);
-            var resetCryptoKeyPage = new ResetCryptoKeyPage(machineWide)
-            {
-                SyncServer = config.SyncServer,
-                SyncCredentials = new SyncCredentials(config.SyncServerUsername, config.SyncServerPassword)
-            };
+            var resetCryptoKeyPage = new ResetCryptoKeyPage(machineWide) {Server = config.ToSyncServer()};
             var cryptoKeyChangedPaged = new CryptoKeyChangedPage();
             var resetServerPage = new ResetServerPage(machineWide);
             var resetServerFinishedPage = new ResetServerFinishedPage();

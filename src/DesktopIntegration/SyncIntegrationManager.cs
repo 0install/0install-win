@@ -21,7 +21,6 @@ using System.IO;
 using System.Net;
 using System.Net.Cache;
 using System.Threading;
-using Common;
 using Common.Collections;
 using Common.Controls;
 using Common.Storage;
@@ -70,16 +69,10 @@ namespace ZeroInstall.DesktopIntegration
         #endregion
 
         #region Variables
-        /// <summary>The base URL of the sync server.</summary>
-        private readonly Uri _syncServer;
+        /// <summary>Access information for the sync server..</summary>
+        private readonly SyncServer _server;
 
-        /// <summary>The username to authenticate with against the <see cref="_syncServer"/>.</summary>
-        private readonly string _username;
-
-        /// <summary>The password to authenticate with against the <see cref="_syncServer"/>.</summary>
-        private readonly string _password;
-
-        /// <summary>The local key used to encrypt data before sending it to the <see cref="_syncServer"/>.</summary>
+        /// <summary>The local key used to encrypt data before sending it to the <see cref="_server"/>.</summary>
         private readonly string _cryptoKey;
 
         /// <summary>Callback method used to retrieve additional <see cref="Feed"/>s on demand.</summary>
@@ -94,26 +87,21 @@ namespace ZeroInstall.DesktopIntegration
         /// Creates a new sync manager.
         /// </summary>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        /// <param name="syncServer">The base URL of the sync server.</param>
-        /// <param name="username">The username to authenticate with against the <paramref name="syncServer"/>.</param>
-        /// <param name="password">The password to authenticate with against the <paramref name="syncServer"/>.</param>
-        /// <param name="cryptoKey">The local key used to encrypt data before sending it to the <paramref name="syncServer"/>.</param>
+        /// <param name="server">Access information for the sync server.</param>
+        /// <param name="cryptoKey">The local key used to encrypt data before sending it to the <paramref name="server"/>.</param>
         /// <param name="feedRetriever">Callback method used to retrieve additional <see cref="Feed"/>s on demand.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public SyncIntegrationManager(bool machineWide, Uri syncServer, string username, string password, string cryptoKey, Converter<string, Feed> feedRetriever, ITaskHandler handler)
+        public SyncIntegrationManager(bool machineWide, SyncServer server, string cryptoKey, Converter<string, Feed> feedRetriever, ITaskHandler handler)
             : base(machineWide, handler)
         {
             #region Sanity checks
-            if (syncServer == null) throw new ArgumentNullException("syncServer");
+            if (server.Uri == null) throw new ArgumentNullException("server");
             #endregion
 
-            if (!syncServer.ToString().EndsWith("/")) syncServer = new Uri(syncServer + "/"); // Ensure the server URI references a directory
-            _syncServer = syncServer;
-            _username = username;
-            _password = password;
+            _server = server;
             _cryptoKey = cryptoKey;
             _feedRetriever = feedRetriever;
 
@@ -130,23 +118,20 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <param name="appListPath">The storage location of the <see cref="AppList"/> file.</param>
-        /// <param name="syncServer">The base URL of the sync server.</param>
+        /// <param name="server">Access information for the sync server.</param>
         /// <param name="feedRetriever">Callback method used to retrieve additional <see cref="Feed"/>s on demand.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public SyncIntegrationManager(bool machineWide, string appListPath, Uri syncServer, Converter<string, Feed> feedRetriever, ITaskHandler handler)
+        public SyncIntegrationManager(bool machineWide, string appListPath, SyncServer server, Converter<string, Feed> feedRetriever, ITaskHandler handler)
             : base(machineWide, appListPath, handler)
         {
             #region Sanity checks
-            if (syncServer == null) throw new ArgumentNullException("syncServer");
-            if (feedRetriever == null) throw new ArgumentNullException("feedRetriever");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (server.Uri == null) throw new ArgumentNullException("server");
             #endregion
 
-            if (!syncServer.ToString().EndsWith("/")) syncServer = new Uri(syncServer + "/"); // Ensure the server URI references a directory
-            _syncServer = syncServer;
+            _server = server;
             _feedRetriever = feedRetriever;
 
             if (File.Exists(AppListPath + AppListLastSyncSuffix)) _appListLastSync = XmlStorage.LoadXml<AppList>(AppListPath + AppListLastSyncSuffix);
@@ -174,10 +159,10 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         public void Sync(SyncResetMode resetMode)
         {
-            var appListUri = new Uri(_syncServer, new Uri(MachineWide ? "app-list-machine" : "app-list", UriKind.Relative));
+            var appListUri = new Uri(_server.Uri, new Uri(MachineWide ? "app-list-machine" : "app-list", UriKind.Relative));
             using (var webClient = new WebClientTimeout
             {
-                Credentials = new NetworkCredential(_username, _password),
+                Credentials = _server.Credentials,
                 CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)
             })
             {

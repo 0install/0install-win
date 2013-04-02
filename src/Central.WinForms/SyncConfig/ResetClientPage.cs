@@ -44,7 +44,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         private void resetWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             var policy = Policy.CreateDefault(this);
-            using (var sync = SyncFactory.Create(MachineWide, policy))
+            using (var sync = policy.CreateSync(MachineWide))
                 sync.Sync(SyncResetMode.Client);
         }
 

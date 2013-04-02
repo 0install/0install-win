@@ -27,8 +27,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
 {
     internal partial class ResetCryptoKeyPage : HandlerPage
     {
-        public Uri SyncServer;
-        public SyncCredentials SyncCredentials;
+        public SyncServer Server;
 
         public event Action<string> Continue;
 
@@ -56,7 +55,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         {
             var newKey = (string)e.Argument;
             var policy = Policy.CreateDefault(this);
-            using (var sync = SyncFactory.Create(MachineWide, policy, SyncServer, SyncCredentials.Username, SyncCredentials.Password, newKey))
+            using (var sync = policy.CreateSync(MachineWide, Server, newKey))
                 sync.Sync(SyncResetMode.Server);
         }
 

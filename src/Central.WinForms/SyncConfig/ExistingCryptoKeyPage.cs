@@ -33,8 +33,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
 {
     internal partial class ExistingCryptoKeyPage : UserControl
     {
-        public Uri SyncServer;
-        public SyncCredentials SyncCredentials;
+        public SyncServer Server;
 
         public event Action<string> Continue;
         public event Action ResetKey;
@@ -80,7 +79,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
 
         private void keyCheckWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            CheckCryptoKey(SyncServer, SyncCredentials, (string)e.Argument);
+            CheckCryptoKey(Server, (string)e.Argument);
         }
 
         private void keyCheckWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -90,14 +89,13 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             else Msg.Inform(this, e.Error.Message, MsgSeverity.Warn);
         }
 
-        private static void CheckCryptoKey(Uri syncServer, SyncCredentials syncCredentials, string key)
+        private static void CheckCryptoKey(SyncServer server, string key)
         {
-            if (!syncServer.ToString().EndsWith("/")) syncServer = new Uri(syncServer + "/"); // Ensure the server URI references a directory
-            var appListUri = new Uri(syncServer, new Uri("app-list", UriKind.Relative));
+            var appListUri = new Uri(server.Uri, new Uri("app-list", UriKind.Relative));
 
             using (var webClient = new WebClientTimeout
             {
-                Credentials = new NetworkCredential(syncCredentials.Username, syncCredentials.Password),
+                Credentials = server.Credentials,
                 CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)
             })
             {

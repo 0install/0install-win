@@ -24,25 +24,21 @@ namespace ZeroInstall.Commands
     /// <summary>
     /// Helper methods for creating instances of <see cref="SyncIntegrationManager"/>.
     /// </summary>
-    public static class SyncFactory
+    public static class SyncUtils
     {
         /// <summary>
         /// Creates a new <see cref="SyncIntegrationManager"/> using the default configuration.
         /// </summary>
-        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <param name="policy">The source for configuration information and feed retrieval.</param>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <returns>A new <see cref="SyncIntegrationManager"/> instance.</returns>
-        public static SyncIntegrationManager Create(bool machineWide, Policy policy)
+        public static SyncIntegrationManager CreateSync(this Policy policy, bool machineWide)
         {
             #region Sanity checks
             if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
-            return new SyncIntegrationManager(machineWide,
-                policy.Config.SyncServer,
-                policy.Config.SyncServerUsername,
-                policy.Config.SyncServerPassword,
-                policy.Config.SyncCryptoKey,
+            return new SyncIntegrationManager(machineWide, policy.Config.ToSyncServer(), policy.Config.SyncCryptoKey,
                 feedID => policy.FeedManager.GetFeed(feedID, policy),
                 policy.Handler);
         }
@@ -50,21 +46,17 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Creates a new <see cref="SyncIntegrationManager"/> using a custom crypto key.
         /// </summary>
-        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <param name="policy">The source for configuration information and feed retrieval.</param>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <param name="cryptoKey">The crypto key to use; overrides <see cref="Config.SyncCryptoKey"/>.</param>
         /// <returns>A new <see cref="SyncIntegrationManager"/> instance.</returns>
-        public static SyncIntegrationManager Create(bool machineWide, Policy policy, string cryptoKey)
+        public static SyncIntegrationManager CreateSync(this Policy policy, bool machineWide, string cryptoKey)
         {
             #region Sanity checks
             if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
-            return new SyncIntegrationManager(machineWide,
-                policy.Config.SyncServer,
-                policy.Config.SyncServerUsername,
-                policy.Config.SyncServerPassword,
-                cryptoKey,
+            return new SyncIntegrationManager(machineWide, policy.Config.ToSyncServer(), cryptoKey,
                 feedID => policy.FeedManager.GetFeed(feedID, policy),
                 policy.Handler);
         }
@@ -72,26 +64,38 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Creates a new <see cref="SyncIntegrationManager"/> using a custom server and credentials.
         /// </summary>
-        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <param name="policy">The source for configuration information and feed retrieval.</param>
-        /// <param name="syncServer">The base URL of the sync server; overrides <see cref="Config.SyncServer"/>.</param>
-        /// <param name="username">The username to authenticate with against the <paramref name="syncServer"/>; overrides <see cref="Config.SyncServerUsername"/>.</param>
-        /// <param name="password">The password to authenticate with against the <paramref name="syncServer"/>; overrides <see cref="Config.SyncServerPassword"/>.</param>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
+        /// <param name="server">Access information for the sync server; overrides <see cref="Config"/>.</param>
         /// <param name="cryptoKey">The crypto key to use; overrides <see cref="Config.SyncCryptoKey"/>; overrides <see cref="Config.SyncCryptoKey"/>.</param>
         /// <returns>A new <see cref="SyncIntegrationManager"/> instance.</returns>
-        public static SyncIntegrationManager Create(bool machineWide, Policy policy, Uri syncServer, string username, string password, string cryptoKey)
+        public static SyncIntegrationManager CreateSync(this Policy policy, bool machineWide, SyncServer server, string cryptoKey)
         {
             #region Sanity checks
             if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
-            return new SyncIntegrationManager(machineWide,
-                syncServer,
-                username,
-                password,
-                cryptoKey,
+            return new SyncIntegrationManager(machineWide, server, cryptoKey,
                 feedID => policy.FeedManager.GetFeed(feedID, policy),
                 policy.Handler);
+        }
+
+        /// <summary>
+        /// Reads the relevant information from a <see cref="Config"/> in order to construct a <see cref="SyncServer"/> struct.
+        /// </summary>
+        public static SyncServer ToSyncServer(this Config config)
+        {
+            return new SyncServer { Uri = config.SyncServer, Username = config.SyncServerUsername, Password = config.SyncServerPassword };
+        }
+
+        /// <summary>
+        /// Writes the data of a <see cref="SyncServer"/> struct back to a <see cref="Config"/>.
+        /// </summary>
+        public static void ToConfig(this SyncServer syncServer, Config config)
+        {
+            config.SyncServer = syncServer.Uri;
+            config.SyncServerUsername = syncServer.Username;
+            config.SyncServerPassword = syncServer.Password;
         }
     }
 }

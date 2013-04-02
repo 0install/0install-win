@@ -20,6 +20,8 @@ using System.IO;
 using Common;
 using Common.Controls;
 using Common.Utils;
+using ZeroInstall.Commands;
+using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
 
 namespace ZeroInstall.Central.WinForms.SyncConfig
@@ -36,8 +38,7 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
 
             // State variables
             bool usedBefore = false;
-            Uri syncServer = null;
-            var syncCredentials = new SyncCredentials();
+            var server = new SyncServer();
             string cryptoKey = null;
 
             // Wizard pages
@@ -59,19 +60,19 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             };
             serverPage.OfficialServer += delegate
             {
-                resetCryptoKeyPage.SyncServer = credentialsPage.SyncServer = existingCryptoKeyPage.SyncServer = syncServer = new Uri(Config.DefaultSyncServer);
+                credentialsPage.ServerUri = resetCryptoKeyPage.Server.Uri = existingCryptoKeyPage.Server.Uri = server.Uri = new Uri(Config.DefaultSyncServer);
                 if (usedBefore) PushPage(credentialsPage);
                 else PushPage(registerPage);
             };
-            serverPage.CustomServer += delegate(Uri server)
+            serverPage.CustomServer += delegate(Uri uri)
             {
-                resetCryptoKeyPage.SyncServer = credentialsPage.SyncServer = syncServer = server;
+                credentialsPage.ServerUri = resetCryptoKeyPage.Server.Uri = existingCryptoKeyPage.Server.Uri = server.Uri = uri;
                 PushPage(credentialsPage);
             };
             registerPage.Continue += () => PushPage(credentialsPage);
-            credentialsPage.Continue += delegate(SyncCredentials credentials)
+            credentialsPage.Continue += delegate(SyncServer newServer)
             {
-                resetCryptoKeyPage.SyncCredentials = existingCryptoKeyPage.SyncCredentials = syncCredentials = credentials;
+                resetCryptoKeyPage.Server = existingCryptoKeyPage.Server = server = newServer;
                 if (usedBefore) PushPage(existingCryptoKeyPage);
                 else PushPage(newCryptoKeyPage);
             };
@@ -97,14 +98,12 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
                 try
                 {
                     var config = Config.Load();
-                    config.SyncServer = syncServer;
-                    config.SyncServerUsername = syncCredentials.Username;
-                    config.SyncServerPassword = syncCredentials.Password;
+                    server.ToConfig(config);
                     config.SyncCryptoKey = cryptoKey;
                     config.Save();
                     Close();
 
-                    ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {Commands.SyncApps.Name}));
+                    ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {SyncApps.Name}));
                 }
                     #region Error handling
                 catch (IOException ex)

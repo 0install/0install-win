@@ -23,14 +23,15 @@ using System.Windows.Forms;
 using Common;
 using Common.Controls;
 using ZeroInstall.Central.WinForms.Properties;
+using ZeroInstall.DesktopIntegration;
 
 namespace ZeroInstall.Central.WinForms.SyncConfig
 {
     internal partial class CredentialsPage : UserControl
     {
-        public Uri SyncServer;
+        public Uri ServerUri;
 
-        public event Action<SyncCredentials> Continue;
+        public event Action<SyncServer> Continue;
 
         public CredentialsPage()
         {
@@ -45,29 +46,41 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         private void buttonContinue_Click(object sender, EventArgs e)
         {
             Parent.Parent.Enabled = false;
-            credentialsCheckWorker.RunWorkerAsync(new SyncCredentials(textBoxUsername.Text, textBoxPassword.Text));
+            credentialsCheckWorker.RunWorkerAsync(new SyncServer
+            {
+                Uri = ServerUri,
+                Username = textBoxUsername.Text,
+                Password = textBoxPassword.Text
+            });
         }
 
         private void credentialsCheckWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            CheckCredentials(SyncServer, (SyncCredentials)e.Argument);
+            CheckCredentials((SyncServer)e.Argument);
         }
 
         private void credentialsCheckWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             Parent.Parent.Enabled = true;
-            if (e.Error == null) Continue(new SyncCredentials(textBoxUsername.Text, textBoxPassword.Text));
+            if (e.Error == null)
+            {
+                Continue(new SyncServer
+                {
+                    Uri = ServerUri,
+                    Username = textBoxUsername.Text,
+                    Password = textBoxPassword.Text
+                });
+            }
             else if (!(e.Error is OperationCanceledException)) Msg.Inform(this, e.Error.Message, MsgSeverity.Error);
         }
 
-        private static void CheckCredentials(Uri syncServer, SyncCredentials credentials)
+        private static void CheckCredentials(SyncServer server)
         {
-            if (!syncServer.ToString().EndsWith("/")) syncServer = new Uri(syncServer + "/"); // Ensure the server URI references a directory
-            var appListUri = new Uri(syncServer, new Uri("app-list", UriKind.Relative));
+            var appListUri = new Uri(server.Uri, new Uri("app-list", UriKind.Relative));
 
             var request = WebRequest.Create(appListUri);
             request.Method = "HEAD";
-            request.Credentials = new NetworkCredential(credentials.Username, credentials.Password);
+            request.Credentials = server.Credentials;
             request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
             request.Timeout = WebClientTimeout.DefaultTimeout;
 

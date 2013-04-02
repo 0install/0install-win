@@ -71,7 +71,7 @@ namespace ZeroInstall.Commands
 
             if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException();
 
-            using (_syncManager = SyncFactory.Create(MachineWide, Policy))
+            using (_syncManager = Policy.CreateSync(MachineWide))
             {
                 Policy.Handler.ShowProgressUI();
                 Sync();

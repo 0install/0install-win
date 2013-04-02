@@ -219,7 +219,6 @@
     <Compile Include="SyncConfig\SetupWizard.Designer.cs">
       <DependentUpon>SetupWizard.cs</DependentUpon>
     </Compile>
-    <Compile Include="SyncConfig\SyncCredentials.cs" />
     <Compile Include="TrustNode.cs" />
   </ItemGroup>
   <ItemGroup>
