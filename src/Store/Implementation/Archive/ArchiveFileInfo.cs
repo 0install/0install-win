@@ -20,11 +20,11 @@ using System;
 namespace ZeroInstall.Store.Implementation.Archive
 {
     /// <summary>
-    /// A parameter structure containing information about a requested archive extraction.
+    /// A parameter structure (data transfer object) containing information about a requested archive extraction.
     /// </summary>
     /// <see cref="IStore.AddArchives"/>
     [Serializable]
-    public struct ArchiveFileInfo
+    public struct ArchiveFileInfo : IEquatable<ArchiveFileInfo>
     {
         /// <summary>
         /// The file to be extracted.
@@ -51,10 +51,41 @@ namespace ZeroInstall.Store.Implementation.Archive
         /// </summary>
         public long StartOffset { get; set; }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Returns the archive in the form "ArchiveFileInfo: Path (MimeType, + StartOffset, SubDir) => Destination". Not safe for parsing!
+        /// </summary>
         public override string ToString()
         {
-            return (SubDir == null) ? Path : Path + " (" + SubDir + ")";
+            string result = string.Format("ArchiveFileInfo: {0} ({1}, + {2}, {3})", Path, MimeType, StartOffset, SubDir);
+            if (!string.IsNullOrEmpty(Destination)) result += " => " + Destination;
+            return result;
         }
+
+        #region Equality
+        public bool Equals(ArchiveFileInfo other)
+        {
+            // NOTE: Exclude Path from comparison to allow easy testing with randomized TemporaryFiles
+            return string.Equals(SubDir, other.SubDir) && string.Equals(Destination, other.Destination) && string.Equals(MimeType, other.MimeType) && StartOffset == other.StartOffset;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj is ArchiveFileInfo && Equals((ArchiveFileInfo)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                // NOTE: Exclude Path from comparison to allow easy testing with randomized TemporaryFiles
+                int hashCode = (SubDir != null ? SubDir.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Destination != null ? Destination.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (MimeType != null ? MimeType.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ StartOffset.GetHashCode();
+                return hashCode;
+            }
+        }
+        #endregion
     }
 }
