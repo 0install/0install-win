@@ -89,7 +89,7 @@ namespace Common.Info
             Current = new AppInfo
             {
                 Name = name,
-                Version = assemblyInfo.Version,
+                Version = new Version(assemblyInfo.Version.Major, assemblyInfo.Version.Minor, assemblyInfo.Version.Build),
                 Copyright = copyright,
                 Arguments = Environment.GetCommandLineArgs()
             };
