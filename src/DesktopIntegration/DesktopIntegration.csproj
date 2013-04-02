@@ -98,6 +98,7 @@
     </Compile>
     <Compile Include="Suggest.cs" />
     <Compile Include="SyncIntegrationManager.cs" />
+    <Compile Include="SyncServer.cs" />
     <Compile Include="Windows\AppRegistration.cs" />
     <EmbeddedResource Include="Windows\stub.template.cs" />
     <Compile Include="Windows\FileType.cs" />
