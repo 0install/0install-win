@@ -44,7 +44,7 @@ namespace ZeroInstall.Commands
         /// <summary>Indicates the user wants the implementation locations on the disk.</summary>
         private bool _show;
 
-        /// <summary><see cref="Implementation"/>s referenced in <see cref="Selection.Selections"/> that are not available in the <see cref="Fetcher.Store"/>.</summary>
+        /// <summary><see cref="Implementation"/>s referenced in <see cref="Selection.Selections"/> that are not available in the <see cref="IFetcher.Store"/>.</summary>
         protected ICollection<Implementation> UncachedImplementations;
         #endregion
 
@@ -108,7 +108,7 @@ namespace ZeroInstall.Commands
 
             try
             {
-                UncachedImplementations = Policy.GetUncachedImplementations(Selections).ToList();
+                UncachedImplementations = GetUncachedImplementations(Selections).ToList();
             }
                 #region Error handling
             catch (InvalidDataException ex)
@@ -122,7 +122,19 @@ namespace ZeroInstall.Commands
         }
 
         /// <summary>
-        /// Downloads any <see cref="Model.Implementation"/>s in <see cref="Selection"/> that are missing from <see cref="Fetcher.Store"/>.
+        /// Helper utilitiy that combines <see cref="Selections.GetUncachedImplementations"/> and <see cref="ImplementationSelection.GetOriginalImplementation"/>.
+        /// Provides suitable input for <see cref="IFetcher.FetchImplementations"/>.
+        /// </summary>
+        /// <param name="selections">The <see cref="Selections"/> to scan for uncached implementations.</param>
+        /// <returns>Clones of the original <see cref="Implementation"/>s.</returns>
+        private IEnumerable<Implementation> GetUncachedImplementations(Selections selections)
+        {
+            return selections.GetUncachedImplementations(Policy.Fetcher.Store).
+                Select(impl => impl.GetOriginalImplementation(Policy.FeedManager.Cache).CloneImplementation());
+        }
+
+        /// <summary>
+        /// Downloads any <see cref="Model.Implementation"/>s in <see cref="Selection"/> that are missing from <see cref="IFetcher.Store"/>.
         /// </summary>
         /// <remarks>Makes sure <see cref="ISolver"/> ran with up-to-date feeds before downloading any implementations.</remarks>
         protected void DownloadUncachedImplementations()
