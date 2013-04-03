@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -72,6 +73,10 @@ namespace ZeroInstall.Central.WinForms
 
             Load += delegate
             {
+                string brandingPath = Path.Combine(Locations.InstallBase, "_branding");
+                if (File.Exists(brandingPath + ".txt")) Text = File.ReadAllText(brandingPath + ".txt");
+                if (File.Exists(brandingPath + ".png")) pictureBoxLogo.Image = Image.FromFile(brandingPath + ".png");
+
                 if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
                 if (machineWide) Text += @" - " + Resources.MachineWideMode;
                 labelVersion.Text = @"v" + AppInfo.Current.Version;
