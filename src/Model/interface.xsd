@@ -720,7 +720,7 @@
         <xsd:attribute name="command" type="xsd:string">
           <xsd:annotation>
             <xsd:documentation>
-              If set then Zero Install will select the given command within the implementation (which may cause additional dependencies and bindings to be selected). Otherwise, no command is selected.
+              If set Zero Install will select the given command within the implementation (which may cause additional dependencies and bindings to be selected). Otherwise, no command is selected.
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>

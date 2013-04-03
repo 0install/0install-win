@@ -37,9 +37,9 @@ namespace ZeroInstall.Model
         public string Path { get; set; }
 
         /// <summary>
-        /// If set then Zero Install will select the given command within the implementation (which may cause additional dependencies and bindings to be selected). Otherwise, no command is selected.
+        /// If set Install will select the given command within the implementation (which may cause additional dependencies and bindings to be selected). Otherwise, no command is selected.
         /// </summary>
-        [Description("If set then Zero Install will select the given command within the implementation (which may cause additional dependencies and bindings to be selected). Otherwise, no command is selected.")]
+        [Description("If set Zero Install will select the given command within the implementation (which may cause additional dependencies and bindings to be selected). Otherwise, no command is selected.")]
         [XmlAttribute("command")]
         public string Command { get; set; }
         #endregion
