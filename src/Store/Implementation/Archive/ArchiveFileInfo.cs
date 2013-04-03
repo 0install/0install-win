@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ZeroInstall.Store.Implementation.Archive
 {
@@ -62,18 +63,22 @@ namespace ZeroInstall.Store.Implementation.Archive
         }
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(ArchiveFileInfo other)
         {
             // NOTE: Exclude Path from comparison to allow easy testing with randomized TemporaryFiles
             return string.Equals(SubDir, other.SubDir) && string.Equals(Destination, other.Destination) && string.Equals(MimeType, other.MimeType) && StartOffset == other.StartOffset;
         }
 
+        /// <inheritdoc/>
+        [SuppressMessage("Microsoft.Usage", "CA2231:OverloadOperatorEqualsOnOverridingValueTypeEquals", Justification = "Equals() method is only used for easier unit testing")]
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             return obj is ArchiveFileInfo && Equals((ArchiveFileInfo)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

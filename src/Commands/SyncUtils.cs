@@ -85,6 +85,10 @@ namespace ZeroInstall.Commands
         /// </summary>
         public static SyncServer ToSyncServer(this Config config)
         {
+            #region Sanity checks
+            if (config == null) throw new ArgumentNullException("config");
+            #endregion
+
             return new SyncServer { Uri = config.SyncServer, Username = config.SyncServerUsername, Password = config.SyncServerPassword };
         }
 
@@ -93,6 +97,10 @@ namespace ZeroInstall.Commands
         /// </summary>
         public static void ToConfig(this SyncServer syncServer, Config config)
         {
+            #region Sanity checks
+            if (config == null) throw new ArgumentNullException("config");
+            #endregion
+
             config.SyncServer = syncServer.Uri;
             config.SyncServerUsername = syncServer.Username;
             config.SyncServerPassword = syncServer.Password;
