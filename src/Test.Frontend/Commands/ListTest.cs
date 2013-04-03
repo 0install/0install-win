@@ -37,14 +37,15 @@ namespace ZeroInstall.Commands
         public void TestNoArgs()
         {
             CacheMock.Setup(x => x.ListAll()).Returns(new[] {"http://0install.de/feeds/test/test1.xml", "http://0install.de/feeds/test/test2.xml"});
-            AssertParseExecuteResult(new string[0], null, "http://0install.de/feeds/test/test1.xml" + Environment.NewLine + "http://0install.de/feeds/test/test2.xml", 0);
+            AssertParseExecuteResult(null, "http://0install.de/feeds/test/test1.xml" + Environment.NewLine + "http://0install.de/feeds/test/test2.xml", 0);
         }
 
         [Test(Description = "Ensures calling with a single argument returns a filtered list of feeds in the cache.")]
         public void TestPattern()
         {
             CacheMock.Setup(x => x.ListAll()).Returns(new[] {"http://0install.de/feeds/test/test1.xml", "http://0install.de/feeds/test/test2.xml"});
-            AssertParseExecuteResult(new[] {"test2"}, null, "http://0install.de/feeds/test/test2.xml", 0);
+            AssertParseExecuteResult(null, "http://0install.de/feeds/test/test2.xml", 0,
+                "test2");
         }
 
         [Test(Description = "Ensures calling with too many arguments raises an exception.")]
