@@ -44,7 +44,7 @@ namespace ZeroInstall.Fetchers
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="NotSupportedException">Thrown if a file format, protocal, etc. is unknown or not supported.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="Fetcher.Store"/> is not permitted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="IFetcher.Store"/> is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown an <see cref="Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
         void FetchImplementations(IEnumerable<Implementation> implementations, ITaskHandler handler);
     }
