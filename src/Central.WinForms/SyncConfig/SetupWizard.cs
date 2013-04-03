@@ -60,13 +60,15 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
             };
             serverPage.OfficialServer += delegate
             {
-                credentialsPage.ServerUri = resetCryptoKeyPage.Server.Uri = existingCryptoKeyPage.Server.Uri = server.Uri = new Uri(Config.DefaultSyncServer);
+                server.Uri = credentialsPage.ServerUri = new Uri(Config.DefaultSyncServer);
+                resetCryptoKeyPage.Server = existingCryptoKeyPage.Server = server;
                 if (usedBefore) PushPage(credentialsPage);
                 else PushPage(registerPage);
             };
-            serverPage.CustomServer += delegate(Uri uri)
+            serverPage.CustomServer += delegate
             {
-                credentialsPage.ServerUri = resetCryptoKeyPage.Server.Uri = existingCryptoKeyPage.Server.Uri = server.Uri = uri;
+                server.Uri = credentialsPage.ServerUri = new Uri(Config.DefaultSyncServer);
+                resetCryptoKeyPage.Server = existingCryptoKeyPage.Server = server;
                 PushPage(credentialsPage);
             };
             registerPage.Continue += () => PushPage(credentialsPage);
