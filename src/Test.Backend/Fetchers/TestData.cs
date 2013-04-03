@@ -15,8 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Reflection;
 using System.IO;
+using System.Security.Cryptography;
 using Common.Utils;
 
 namespace ZeroInstall.Fetchers
@@ -26,24 +28,24 @@ namespace ZeroInstall.Fetchers
     /// </summary>
     public static class TestData
     {
+        public const string RegularString = "regular\n";
+        public static readonly string RegularHash = RegularString.Hash(SHA256.Create());
+        public static readonly long RegularTimestamp = new DateTime(2000, 1, 1, 12, 0, 0).ToUnixTime();
+
+        public const string ExecutableString = "executable\n";
+        public static readonly string ExecutableHash = ExecutableString.Hash(SHA256.Create());
+        public static readonly long ExecutableTimestamp = new DateTime(2000, 1, 1, 12, 0, 0).ToUnixTime();
+
         private static readonly Assembly _testDataAssembly = Assembly.GetAssembly(typeof(TestData));
 
-        public static Stream GetTestZipArchiveStream()
+        public static Stream GetZipArchiveStream()
         {
-            return GetTestDataResourceStreamByName("testArchive.zip");
+            return GetResourceStreamByName("testArchive.zip");
         }
 
-        public static Stream GetTestRegularStream()
-        {
-            return "regular\n".ToStream();
-        }
+        public static readonly long ZipArchiveSize = GetZipArchiveStream().Length;
 
-        public static Stream GetTestExecutableStream()
-        {
-            return "executable\n".ToStream();
-        }
-
-        private static Stream GetTestDataResourceStreamByName(string name)
+        private static Stream GetResourceStreamByName(string name)
         {
             return _testDataAssembly.GetManifestResourceStream(typeof(TestData), name);
         }

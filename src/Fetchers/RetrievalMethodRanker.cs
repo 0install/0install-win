@@ -15,117 +15,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Collections.Generic;
 using ZeroInstall.Model;
-using System.Diagnostics;
 
 namespace ZeroInstall.Fetchers
 {
-    internal class RetrievalMethodRanker : IComparer<RetrievalMethod>
+    /// <summary>
+    /// Compares <see cref="RetrievalMethod"/>s and sortes them from most to least preferred by <see cref="IFetcher"/>s.
+    /// </summary>
+    public sealed class RetrievalMethodRanker : IComparer<RetrievalMethod>
     {
-        #region Declaration of Priorities
-        private enum Category
-        {
-            Null,
-            Format,
-            Simplicity
-        }
+        #region Singleton
+        public static readonly RetrievalMethodRanker Instance = new RetrievalMethodRanker();
 
-        private enum Valuation
-        {
-            Recipe = 1 * Category.Simplicity,
-            Archive = 0 * Category.Simplicity,
-            ZipFormat = 0 * Category.Format,
-            GzFormat = 1 * Category.Format,
-            UnknownFormat = 2 * Category.Format
-        }
-        #endregion
-
-        private abstract class Ranking : IComparable<Ranking>
-        {
-            protected abstract int Value { get; }
-
-            public int CompareTo(Ranking other)
-            {
-                #region Sanity checks
-                if (other == null) throw new ArgumentNullException("other");
-                #endregion
-
-                return Value - other.Value;
-            }
-        }
-
-        #region Archive Ranking
-        private class ArchiveRanking : Ranking
-        {
-            private readonly Archive _subject;
-
-            public ArchiveRanking(Archive subject)
-            {
-                _subject = subject;
-            }
-
-            protected override int Value
-            {
-                get
-                {
-                    int result = 0;
-                    result += (int)Valuation.Archive;
-
-                    if (_subject.MimeType == "application/zip")
-                        result += (int)Valuation.ZipFormat;
-                    else
-                        result += (int)Valuation.UnknownFormat;
-
-                    return result;
-                }
-            }
-        }
-        #endregion
-
-        #region Recipe Ranking
-        private class RecipeRanking : Ranking
-        {
-            protected override int Value
-            {
-                get
-                {
-                    int result = 0;
-                    result += (int)Valuation.Archive;
-
-                    return result;
-                }
-            }
-        }
-        #endregion
-
-        #region Dispatching Creation of Ranking objects
-        private static Ranking Rank(RetrievalMethod subject)
-        {
-            #region Sanity checks
-            if (subject == null) throw new ArgumentNullException("subject");
-            #endregion
-
-            Ranking result = null;
-
-            var archive = subject as Archive;
-            if (archive != null) result = new ArchiveRanking(archive);
-            else
-            {
-                var recipe = subject as Recipe;
-                if (recipe != null) result = new RecipeRanking();
-                else Debug.Fail("subject (RetrievalMethod) has unknown type");
-            }
-            return result;
-        }
+        private RetrievalMethodRanker() {}
         #endregion
 
         public int Compare(RetrievalMethod x, RetrievalMethod y)
         {
-            var rankingX = Rank(x);
-            var rankingY = Rank(y);
-            return rankingX.CompareTo(rankingY);
+            if (x is DownloadRetrievalMethod && y is Recipe) return -1;
+            if (x is Recipe && y is DownloadRetrievalMethod) return 1;
+
+            var downloadX = x as DownloadRetrievalMethod;
+            var downloadY = y as DownloadRetrievalMethod;
+            if (downloadX != null && downloadY != null) return downloadX.Size.CompareTo(downloadY.Size);
+
+            var recipeX = x as Recipe;
+            var recipeY = y as Recipe;
+            if (recipeX != null && recipeY != null) return recipeX.Steps.Count.CompareTo(recipeY.Steps.Count);
+
+            return 0;
         }
     }
 }

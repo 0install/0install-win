@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010-2013 Bastian Eicher, Roland Leopold Walkling
+ * Copyright 2010-2013 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -15,25 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-using System.IO;
+using NUnit.Framework;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Fetchers
 {
     /// <summary>
-    /// Creates <see cref="IFetcher"/> instances.
+    /// Runs test methods for <see cref="SequentialFetcher"/>
     /// </summary>
-    public static class FetcherProvider
+    [TestFixture]
+    public class SequentialFetcherTest : FetcherTest
     {
-        /// <summary>
-        /// Creates an <see cref="IFetcher"/> instance that uses <see cref="StoreProvider.CreateDefault"/>.
-        /// </summary>
-        /// <exception cref="IOException">Thrown if there was a problem accessing a configuration file or one of the stores.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if access to a configuration file or one of the stores was not permitted.</exception>
-        public static IFetcher CreateDefault()
+        protected override IFetcher CreateFetcher(IStore store)
         {
-            return new SequentialFetcher(StoreProvider.CreateDefault());
+            return new SequentialFetcher(store);
         }
     }
 }
