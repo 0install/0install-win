@@ -86,57 +86,66 @@ namespace ZeroInstall.Fetchers
 
         private void ApplyRetrievalMethod(RetrievalMethod retrievalMethod, ManifestDigest manifestDigest, ITaskHandler handler)
         {
-            new PerTypeDispatcher<RetrievalMethod>(false)
+            try
             {
-                (Archive archive) =>
+                new PerTypeDispatcher<RetrievalMethod>(false)
                 {
-                    // Fail fast on unsupported archive type
-                    Extractor.VerifySupport(archive.MimeType);
+                    (Archive archive) => ApplyArchive(archive, manifestDigest, handler),
+                    (SingleFile singleFile) => ApplySingleFile(singleFile, manifestDigest, handler),
+                    (Recipe recipe) => ApplyRecipe(recipe, manifestDigest, handler)
+                }.Dispatch(retrievalMethod);
+            }
+            catch (ImplementationAlreadyInStoreException)
+            {}
+        }
 
-                    using (var downloadedFile = DownloadFile(archive, manifestDigest, handler))
-                        AddArchives(new[] {downloadedFile}, new[] {archive}, manifestDigest, handler);
-                },
-                (SingleFile singleFile) =>
-                {
-                    using (var tempDir = new TemporaryDirectory("0install-fetcher"))
-                    {
-                        using (var downloadedFile = DownloadFile(singleFile, manifestDigest, handler))
-                            RecipeUtils.ApplySingleFile(singleFile, downloadedFile, tempDir);
+        private void ApplyArchive(Archive archive, ManifestDigest manifestDigest, ITaskHandler handler)
+        {
+            // Fail fast on unsupported archive type
+            Extractor.VerifySupport(archive.MimeType);
 
-                        Store.AddDirectory(tempDir, manifestDigest, handler);
-                    }
-                },
-                (Recipe recipe) =>
-                {
-                    // Fail fast on unsupported archive type
-                    foreach (var archive in recipe.Steps.OfType<Archive>()) Extractor.VerifySupport(archive.MimeType);
+            using (var downloadedFile = DownloadFile(archive, manifestDigest, handler))
+                AddArchives(new[] {downloadedFile}, new[] {archive}, manifestDigest, handler);
+        }
 
-                    var downloadedFiles = new List<TemporaryFile>();
-                    try
-                    {
-                        // ReSharper disable LoopCanBeConvertedToQuery
-                        foreach (var downloadStep in recipe.Steps.OfType<DownloadRetrievalMethod>())
-                            downloadedFiles.Add(DownloadFile(downloadStep, manifestDigest, handler));
-                        // ReSharper restore LoopCanBeConvertedToQuery
+        private void ApplySingleFile(SingleFile singleFile, ManifestDigest manifestDigest, ITaskHandler handler)
+        {
+            using (var tempDir = new TemporaryDirectory("0install-fetcher"))
+            {
+                using (var downloadedFile = DownloadFile(singleFile, manifestDigest, handler))
+                    RecipeUtils.ApplySingleFile(singleFile, downloadedFile, tempDir);
 
-                        if (recipe.Steps.All(step => step is Archive))
-                        { // Optimized special case for archive-only recipes
-                            AddArchives(downloadedFiles, recipe.Steps.Cast<Archive>(), manifestDigest, handler);
-                        }
-                        else
-                        {
-                            using (var recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, handler, manifestDigest))
-                                Store.AddDirectory(recipeDir, manifestDigest, handler);
-                        }
-                    }
-                    catch (ImplementationAlreadyInStoreException)
-                    {}
-                    finally
-                    {
-                        foreach (var downloadedFile in downloadedFiles) downloadedFile.Dispose();
-                    }
+                Store.AddDirectory(tempDir, manifestDigest, handler);
+            }
+        }
+
+        private void ApplyRecipe(Recipe recipe, ManifestDigest manifestDigest, ITaskHandler handler)
+        {
+            // Fail fast on unsupported archive type
+            foreach (var archive in recipe.Steps.OfType<Archive>()) Extractor.VerifySupport(archive.MimeType);
+
+            var downloadedFiles = new List<TemporaryFile>();
+            try
+            {
+                // ReSharper disable LoopCanBeConvertedToQuery
+                foreach (var downloadStep in recipe.Steps.OfType<DownloadRetrievalMethod>())
+                    downloadedFiles.Add(DownloadFile(downloadStep, manifestDigest, handler));
+                // ReSharper restore LoopCanBeConvertedToQuery
+
+                if (recipe.Steps.All(step => step is Archive))
+                { // Optimized special case for archive-only recipes
+                    AddArchives(downloadedFiles, recipe.Steps.Cast<Archive>(), manifestDigest, handler);
                 }
-            }.Dispatch(retrievalMethod);
+                else
+                {
+                    using (var recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, handler, manifestDigest))
+                        Store.AddDirectory(recipeDir, manifestDigest, handler);
+                }
+            }
+            finally
+            {
+                foreach (var downloadedFile in downloadedFiles) downloadedFile.Dispose();
+            }
         }
 
         private static TemporaryFile DownloadFile(DownloadRetrievalMethod retrievalMethod, ManifestDigest manifestDigest, ITaskHandler handler)
