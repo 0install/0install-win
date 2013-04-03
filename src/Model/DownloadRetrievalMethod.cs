@@ -48,6 +48,12 @@ namespace ZeroInstall.Model
         [Description("The size of the file in bytes. The file must have the given size or it will be rejected.")]
         [XmlAttribute("size"), DefaultValue(0L)]
         public long Size { get; set; }
+
+        /// <summary>
+        /// The effective size of the file on the server.
+        /// </summary>
+        [XmlIgnore, Browsable(false)]
+        public virtual long DownloadSize { get { return Size; } }
         #endregion
 
         //--------------------//

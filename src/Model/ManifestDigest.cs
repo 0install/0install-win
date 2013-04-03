@@ -142,17 +142,6 @@ namespace ZeroInstall.Model
             if (string.IsNullOrEmpty(target.Sha256New)) target.Sha256New = GetIfPrefixed(id, "sha256new_");
         }
 
-        /// <summary>
-        /// Parses an ID string, checking for digest values.
-        /// </summary>
-        /// <param name="id">The ID string to parse. Digest values start with their format name followed by an equals sign and the actual hash.</param>
-        public static ManifestDigest ParseID(string id)
-        {
-            var digest = new ManifestDigest();
-            ParseID(id, ref digest);
-            return digest;
-        }
-
         private static string GetIfPrefixed(string value, string prefix)
         {
             return value.StartsWith(prefix) ? value.Substring(prefix.Length) : null;

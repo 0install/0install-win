@@ -45,6 +45,9 @@ namespace ZeroInstall.Model
         [XmlAttribute("start-offset"), DefaultValue(0L)]
         public long StartOffset { get; set; }
 
+        /// <inheritdoc/>
+        public override long DownloadSize { get { return Size + StartOffset; } }
+
         /// <summary>
         /// The name of the subdirectory in the archive to extract; <see langword="null"/> or <see cref="string.Empty"/> for entire archive.
         /// </summary>
