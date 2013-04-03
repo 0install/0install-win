@@ -99,6 +99,7 @@
     <Compile Include="Injector\Feeds\FeedManagerTest.cs" />
     <Compile Include="Injector\Solver\ImplementationSelectionTest.cs" />
     <Compile Include="Injector\Solver\ExternalSolverTest.cs" />
+    <Compile Include="Model\GenericBindingTest.cs" />
     <Compile Include="Model\RequirementsTest.cs" />
     <Compile Include="Injector\Solver\SelectionCandidateTest.cs" />
     <Compile Include="Injector\Solver\SelectionsTest.cs" />

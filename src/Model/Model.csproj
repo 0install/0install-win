@@ -83,6 +83,7 @@
     <Compile Include="Dependency.cs" />
     <Compile Include="Design\ArgBaseConverter.cs" />
     <Compile Include="DownloadRetrievalMethod.cs" />
+    <Compile Include="GenericBinding.cs" />
     <Compile Include="SingleFile.cs" />
     <Compile Include="ForEachArgs.cs" />
     <Compile Include="ManifestDigestPartialEqualityComparer.cs" />
