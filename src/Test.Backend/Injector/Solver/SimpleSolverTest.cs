@@ -20,7 +20,7 @@ using NUnit.Framework;
 namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
-    /// Contains test methods for <see cref="SimpleSolver"/>.
+    /// Runs test methods for <see cref="SimpleSolver"/>.
     /// </summary>
     [TestFixture]
     public class SimpleSolverTest : SolverTest

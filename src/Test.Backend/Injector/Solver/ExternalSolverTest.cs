@@ -20,7 +20,7 @@ using NUnit.Framework;
 namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
-    /// Contains test methods for <see cref="ExternalSolver"/>.
+    /// Runs test methods for <see cref="ExternalSolver"/>.
     /// </summary>
     [TestFixture(Ignore = true, IgnoreReason = "External solver is not reliably testable yet")]
     public class ExternalSolverTest : SolverTest

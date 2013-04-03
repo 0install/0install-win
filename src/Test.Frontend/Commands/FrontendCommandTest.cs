@@ -97,7 +97,7 @@ namespace ZeroInstall.Commands
 
         /// <summary>Creates an instance of the command type to be tested using <see cref="_handler"/> and <see cref="Policy"/>.</summary>
         protected abstract FrontendCommand GetCommand();
-        
+
         private LocationsRedirect _redirect;
 
         [SetUp]
@@ -192,21 +192,21 @@ namespace ZeroInstall.Commands
         [Test]
         public void TestGetCanonicalIDAliases()
         {
-                // Fake an alias
-                new AppList
+            // Fake an alias
+            new AppList
+            {
+                Entries =
                 {
-                    Entries =
+                    new AppEntry
                     {
-                        new AppEntry
-                        {
-                            InterfaceID = "http://0install.de/feeds/test/test1.xml",
-                            AccessPoints = new AccessPointList {Entries = {new AppAlias {Name = "test"}}}
-                        }
+                        InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                        AccessPoints = new AccessPointList {Entries = {new AppAlias {Name = "test"}}}
                     }
-                }.SaveXml(AppList.GetDefaultPath(false));
+                }
+            }.SaveXml(AppList.GetDefaultPath(false));
 
-                Assert.AreEqual("http://0install.de/feeds/test/test1.xml", Command.GetCanonicalID("alias:test"));
-                Assert.Throws<InvalidInterfaceIDException>(() => Command.GetCanonicalID("alias:invalid"));
+            Assert.AreEqual("http://0install.de/feeds/test/test1.xml", Command.GetCanonicalID("alias:test"));
+            Assert.Throws<InvalidInterfaceIDException>(() => Command.GetCanonicalID("alias:invalid"));
         }
     }
 }
