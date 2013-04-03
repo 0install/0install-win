@@ -51,7 +51,7 @@ namespace ZeroInstall.Fetchers
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            if (recipe.UnknownElements.Length != 0)
+            if (recipe.UnknownElements != null && recipe.UnknownElements.Length != 0)
                 throw new NotSupportedException(string.Format(Resources.UnknownRecipeStepType, recipe.UnknownElements[0].Name));
 
             var workingDir = new TemporaryDirectory("0install-recipe");

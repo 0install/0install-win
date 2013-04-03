@@ -133,6 +133,6 @@
     <value>A recipe step contains an invalid path (potentially a security risk): {0}</value>
   </data>
   <data name="UnknownRecipeStepType" xml:space="preserve">
-    <value>The recipe step was of an unknown type.</value>
+    <value>The recipe step type '{0}' is unknown.</value>
   </data>
 </root>

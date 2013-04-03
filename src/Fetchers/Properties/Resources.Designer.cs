@@ -106,7 +106,7 @@ namespace ZeroInstall.Fetchers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The recipe step was of an unknown type..
+        ///   Looks up a localized string similar to The recipe step type &apos;{0}&apos; is unknown..
         /// </summary>
         internal static string UnknownRecipeStepType {
             get {

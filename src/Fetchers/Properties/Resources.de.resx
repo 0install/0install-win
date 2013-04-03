@@ -133,6 +133,6 @@
     <value>Das Recipe enthält einen ungültigen Pfad (möglicherweise ein Sicherheitsrisiko): {0}</value>
   </data>
   <data name="UnknownRecipeStepType" xml:space="preserve">
-    <value>Der Recipe Schritt hat einen unbekannten Typ.</value>
+    <value>Der Recipe Schritt Typ '{0}' ist unbekannten.</value>
   </data>
 </root>
