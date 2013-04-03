@@ -216,7 +216,11 @@ namespace ZeroInstall.Store.Implementation.Archive
         /// <inheritdoc/>
         public override void RunSync(CancellationToken cancellationToken)
         {
-            if (cancellationToken != null) cancellationToken.CancellationRequested += Cancel;
+            if (cancellationToken != null)
+            {
+                cancellationToken.CancellationRequested += Cancel;
+                cancellationToken.ThrowIfCancellationRequested();
+            }
             Start();
             Join();
             if (cancellationToken != null) cancellationToken.CancellationRequested -= Cancel;

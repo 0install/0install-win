@@ -49,14 +49,18 @@ namespace ZeroInstall.Fetchers
 
             foreach (var implementation in implementations)
             {
+                handler.CancellationToken.ThrowIfCancellationRequested();
+
                 // Use mutex to detect concurrent download of same implementation in other processes
                 using (var mutex = new Mutex(false, "0install-fetcher-" + implementation.ManifestDigest.AvailableDigests.First()))
                 {
-                    // Wait for the mutex and allow cancellation every 100 ms
                     try
                     {
-                        while (!mutex.WaitOne(100, false))
+                        while (!mutex.WaitOne(100, false)) // NOTE: Might be blocked more than once
+                        {
+                            // Wait for mutex to be released
                             handler.RunTask(new WaitTask(Resources.DownloadInAnotherWindow, mutex), implementation.ManifestDigest);
+                        }
                     }
                         #region Error handling
                     catch (AbandonedMutexException ex)

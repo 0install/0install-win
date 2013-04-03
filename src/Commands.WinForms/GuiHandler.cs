@@ -114,8 +114,7 @@ namespace ZeroInstall.Commands.WinForms
                 }
             }
 
-            if (!_cancellationToken.IsCancellationRequested)
-                task.RunSync(_cancellationToken);
+            task.RunSync(_cancellationToken);
         }
         #endregion
 

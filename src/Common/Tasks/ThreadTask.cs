@@ -183,7 +183,11 @@ namespace Common.Tasks
         /// <inheritdoc/>
         public virtual void RunSync(CancellationToken cancellationToken)
         {
-            if (cancellationToken != null) cancellationToken.CancellationRequested += Cancel;
+            if (cancellationToken != null)
+            {
+                cancellationToken.CancellationRequested += Cancel;
+                cancellationToken.ThrowIfCancellationRequested();
+            }
             try
             {
                 lock (StateLock) State = TaskState.Started;

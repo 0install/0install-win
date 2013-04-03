@@ -86,6 +86,8 @@ namespace ZeroInstall.Fetchers
 
         private void ApplyRetrievalMethod(RetrievalMethod retrievalMethod, ManifestDigest manifestDigest, ITaskHandler handler)
         {
+            handler.CancellationToken.ThrowIfCancellationRequested();
+
             try
             {
                 new PerTypeDispatcher<RetrievalMethod>(false)
