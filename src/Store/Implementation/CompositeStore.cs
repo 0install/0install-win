@@ -80,7 +80,7 @@ namespace ZeroInstall.Store.Implementation
         public IEnumerable<string> ListAllTemp()
         {
             // Merge the lists from all contained stores, eliminating duplicates
-            var result = new C5.TreeSet<string>();
+            var result = new C5.TreeSet<string>(StringComparer.Ordinal);
             foreach (var store in _stores)
                 result.AddSorted(store.ListAllTempSafe());
 
